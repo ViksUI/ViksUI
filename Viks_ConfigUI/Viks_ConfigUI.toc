@@ -1,16 +1,17 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: |cff105c92ViksUI Config|r
 ## Notes: In-game configuration for ViksUI
 ## Credits to: Tukz, Dawn, Shestak, Haste, Roth, P3lim, Monolit, AlleyKat.
 ## Author: Viks, Tryllemann
-## Version: 7.16
+## Version: 7.17
 ## RequiredDeps: ViksUI
 ## SavedVariables: GUIConfigAll, GUIConfigSettings
 ## SavedVariablesPerCharacter: GUIConfig
-## X-Curse-Packaged-Version: 7.16
+## X-Curse-Packaged-Version: 7.17
 ## X-Curse-Project-Name: ViksUI
 ## X-Curse-Project-ID: viksui
 ## X-WoWI-ID: 21462
+## X-Website: http://www.wowinterface.com/downloads/info21462-ViksUI.html
 
 local\english.lua
 local\russian.lua

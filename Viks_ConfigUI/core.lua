@@ -14,24 +14,24 @@ local ALLOWED_GROUPS = {
 	["pulsecooldown"] = 11,
 	["tooltip"] = 12,
 	["chat"] = 13,
-	["bag"] = 13,
-	["minimapp"] = 14,
-	["map"] = 15,
-	["loot"] = 16,
-	["nameplate"] = 17,
-	["aura"] = 18,
-	["unitframe"] = 19,
-	["unitframe_class_bar"] = 20,
-	["raidframes"] = 21,
-	["toppanel"] = 22,	
-	["cooldown"] = 23,
-	["datatext"] = 24,
-	["error"] = 25,
-	["media"] = 26,
-	["panels"] = 27,
-	["stats"] = 28,
-	["XPBar"] = 29,
-	["Filger"] = 30,
+	["bag"] = 14,
+	["minimapp"] = 15,
+	["map"] = 16,
+	["loot"] = 17,
+	["nameplate"] = 18,
+	["aura"] = 19,
+	["unitframe"] = 20,
+	["unitframe_class_bar"] = 21,
+	["raidframes"] = 22,
+	["toppanel"] = 23,	
+	["cooldown"] = 24,
+	["datatext"] = 25,
+	["error"] = 26,
+	["media"] = 27,
+	["panels"] = 28,
+	["stats"] = 29,
+	["XPBar"] = 30,
+	["Filger"] = 31,
 }
 local function Local(o)
 	local T, Viks, L = unpack(ViksUI)
@@ -290,6 +290,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigbagbank_columns" then o = L_GUI_BAGS_BANK end
 	if o == "UIConfigbagbag_columns" then o = L_GUI_BAGS_BAG end
 	if o == "UIConfigbagilvl" then o = L_GUI_BAGS_ILVL end
+	if o == "UIConfigbagbag_buttons" then o = L_GUI_BAGS_BUTTONS end
 	-- Minimap
 	if o == "UIConfigminimapp" then o = MINIMAP_LABEL end
 	if o == "UIConfigminimappenable" then o = L_GUI_MINIMAP_ENABLE end
@@ -593,6 +594,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigmiscshift_marking" then o = L_GUI_MISC_MARKING end
 	if o == "UIConfigmiscinvite_keyword" then o = L_GUI_MISC_INVKEYWORD end
 	if o == "UIConfigmiscafk_spin_camera" then o = L_GUI_MISC_SPIN_CAMERA end
+	if o == "UIConfigmiscafk_spin_camera_anim" then o = L_GUI_MISC_SPIN_CAMERA_ANIM end
 	if o == "UIConfigmiscvehicle_mouseover" then o = L_GUI_MISC_VEHICLE_MOUSEOVER end
 	if o == "UIConfigmiscquest_auto_button" then o = L_GUI_MISC_QUEST_AUTOBUTTON end
 	if o == "UIConfigmiscraid_tools" then o = L_GUI_MISC_RAID_TOOLS end
@@ -934,7 +936,7 @@ function CreateUIConfig()
 	local function sortMyTable(a, b)
 		return ALLOWED_GROUPS[a] < ALLOWED_GROUPS[b]
 	end
-	local function pairsByKey(t, f)
+	local function pairsByKey(t)
 		local a = {}
 		for n in pairs(t) do table.insert(a, n) end
 		table.sort(a, sortMyTable)
@@ -1137,8 +1139,6 @@ function CreateUIConfig()
 				colortext:SetJustifyH("CENTER")
 				colorbutton:SetWidth(colortext:GetWidth() + 5)
 
-				local oldvalue = value
-
 				local function round(number, decimal)
 					return (("%%.%df"):format(decimal)):format(number)
 				end
@@ -1203,7 +1203,7 @@ function CreateUIConfig()
 
 	local close = NormalButton(CLOSE, UIConfigMain)
 	close:SetPoint("TOPRIGHT", UIConfig, "BOTTOMRIGHT", 10, -25)
-	close:SetScript("OnClick", function(self) PlaySound("igMainMenuOption") UIConfigMain:Hide() end)
+	close:SetScript("OnClick", function(self) PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION) UIConfigMain:Hide() end)
 
 	local load = NormalButton(APPLY, UIConfigMain)
 	load:SetPoint("RIGHT", close, "LEFT", -4, 0)
@@ -1259,15 +1259,15 @@ function CreateUIConfig()
 end
 
 do
-	function SlashCmdList.CONFIG(msg, editbox)
+	function SlashCmdList.CONFIG()
 		if not UIConfigMain or not UIConfigMain:IsShown() then
 
-			PlaySound("igMainMenuOption")
+			PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
 			CreateUIConfig()
 			HideUIPanel(GameMenuFrame)
 		else
 
-			PlaySound("igMainMenuOption")
+			PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
 			UIConfigMain:Hide()
 		end
 	end
@@ -1362,7 +1362,7 @@ end)
 
 button:SetScript("OnClick", function()
 
-	PlaySound("igMainMenuOption")
+	PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
 	HideUIPanel(GameMenuFrame)
 	if not UIConfigMain or not UIConfigMain:IsShown() then
 		CreateUIConfig()

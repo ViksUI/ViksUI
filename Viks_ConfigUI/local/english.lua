@@ -287,6 +287,7 @@ L_GUI_GENERAL_LAG_TOLERANCE = "Automatically update the Blizzard Custom Lag Tole
 L_GUI_MISC_MARKING = "Marks target when you push Shift"
 L_GUI_MISC_INVKEYWORD = "Short keyword for invite (/ainv)"
 L_GUI_MISC_SPIN_CAMERA = "Spin camera while afk"
+L_GUI_MISC_SPIN_CAMERA_ANIM = "Animation nr for modell"
 L_GUI_MISC_VEHICLE_MOUSEOVER = "Vehicle frame on mouseover"
 L_GUI_MISC_QUEST_AUTOBUTTON = "Quest/item auto button (from the list)"
 L_GUI_MISC_RAID_TOOLS = "Raid tools"
@@ -513,6 +514,7 @@ L_GUI_BAGS_BUTTON_SIZE = "Buttons size"
 L_GUI_BAGS_BUTTON_SPACE = "Buttons space"
 L_GUI_BAGS_BANK = "Number of columns in bank"
 L_GUI_BAGS_BAG = "Number of columns in main bag"
+L_GUI_BAGS_BUTTONS = "Show sort/deposit/Artifact buttons"
 
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Enable minimap"

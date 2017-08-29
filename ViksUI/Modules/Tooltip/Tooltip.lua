@@ -65,7 +65,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					ExtraTip:CreateBackdrop("Transparent")
 					ExtraTip.backdrop:SetPoint("TOPLEFT", 0, -3)
 					ExtraTip.backdrop:SetPoint("BOTTOMRIGHT", 0, 2)
-					ExtraTip:HookScript("OnShow", function(tt)
+					ExtraTip:HookScript("OnShow", function()
 						ExtraTip.backdrop:SetFrameLevel(0)
 					end)
 					ExtraTip.IsDone = true
@@ -289,7 +289,6 @@ local OnTooltipSetUnit = function(self)
 	local creatureType = UnitCreatureType(unit)
 	local _, faction = UnitFactionGroup(unit)
 	local _, playerFaction = UnitFactionGroup("player")
-	local relationship = UnitRealmRelationship(unit)
 	local UnitPVPName = UnitPVPName
 
 	if level and level == -1 then
@@ -581,6 +580,19 @@ local function SkinWorldMapTooltip()
 	end
 end
 hooksecurefunc("TaskPOI_OnEnter", SkinWorldMapTooltip)
+
+--World Quest Reward Icon
+WorldMapTooltip.ItemTooltip.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+hooksecurefunc(WorldMapTooltip.ItemTooltip.IconBorder, "SetVertexColor", function(self, r, g, b)
+	self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+	self:SetTexture("")
+end)
+
+WorldMapTooltip.ItemTooltip:CreateBackdrop()
+WorldMapTooltip.ItemTooltip.backdrop:SetPoint("TOPLEFT", WorldMapTooltip.ItemTooltip.Icon, "TOPLEFT", -2, 2)
+WorldMapTooltip.ItemTooltip.backdrop:SetPoint("BOTTOMRIGHT", WorldMapTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 2, -2)
+WorldMapTooltip.ItemTooltip.Count:ClearAllPoints()
+WorldMapTooltip.ItemTooltip.Count:SetPoint("BOTTOMRIGHT", WorldMapTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 1, 0)
 
 local function SkinReputationTooltip()
 	local bar = ReputationParagonTooltipStatusBar.Bar

@@ -1,5 +1,27 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
+--[[
+local FollowerSkin = CreateFrame("Frame")
+FollowerSkin:RegisterEvent("ADDON_LOADED")
+FollowerSkin:SetScript("OnEvent", function(self, event, addon)
+	if addon == "Blizzard_OrderHallUI" then
+		local index = 1
+		C_Timer.After(0.1, function()
+			for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
+				if child.Icon and child.Count and child.TroopPortraitCover then
+					child.TroopPortraitCover:Hide()
+					child.Icon:SetSize(40,20)		
+					child.Count:SetFont(C["media"].normal_font, 16)
+					child.Count:SetTextColor(1, 1, 1)
+					child.Count:SetShadowOffset(0, 0)
+					
+					index = index + 1
+				end
+			end
+		end)
+	end
+end)
+]]--
 
 ----------------------------------------------------------------------------------------
 --	OrderHallUI skin
@@ -9,7 +31,7 @@ local function LoadSkin()
 	OrderHallCommandBar:SetTemplate("Transparent")
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOP", CPTopp, "BOTTOM", 0, -2)
-	OrderHallCommandBar:SetWidth(500)
+	OrderHallCommandBar:SetWidth(550)
 	OrderHallCommandBar.ClassIcon:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
 	OrderHallCommandBar.ClassIcon:SetSize(46, 20)
 	OrderHallCommandBar.CurrencyIcon:SetAtlas("legionmission-icon-currency", false)
@@ -17,7 +39,7 @@ local function LoadSkin()
 	OrderHallCommandBar.AreaName:SetPoint("LEFT", OrderHallCommandBar.CurrencyIcon, "RIGHT", 10, 0)
 	OrderHallCommandBar.AreaName:SetVertexColor(T.color.r, T.color.g, T.color.b)
 	OrderHallCommandBar.WorldMapButton:Kill()
-
+	
 	OrderHallMissionFrame.ClassHallIcon:Kill()
 	OrderHallMissionFrame:StripTextures()
 	OrderHallMissionFrame:CreateBackdrop("Transparent")

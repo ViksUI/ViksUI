@@ -52,6 +52,7 @@ C["misc"] = {
 	["shift_marking"] = true,					-- Marks target when you push "shift"
 	["invite_keyword"] = "invite",				-- Short keyword for invite(for enable - in game type /ainv)
 	["afk_spin_camera"] = true,					-- Spin camera while afk
+	["afk_spin_camera_anim"] = 69,				-- Spin camera modell animation
 	["vehicle_mouseover"] = false,				-- Vehicle frame on mouseover
 	["quest_auto_button"] = true,				-- Quest auto button
 	["raid_tools"] = true,						-- Raid tools
@@ -385,6 +386,7 @@ C["bag"] = {
 	["button_space"] = 3,						-- Buttons space
 	["bank_columns"] = 17,						-- Horizontal number of columns in bank
 	["bag_columns"] = 10,						-- Horizontal number of columns in main bag
+	["bag_buttons"] = true,						-- Show sort/deposit/Artifact buttons
 }
 
 ----------------------------------------------------------------------------------------

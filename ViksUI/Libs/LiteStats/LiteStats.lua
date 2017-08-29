@@ -50,8 +50,6 @@ local talents = modules.Talents
 local stats = modules.Stats
 local experience = modules.Experience
 local loot = modules.Loot
-local cloak = modules.Cloak
-local helm = modules.Helm
 local nameplates = modules.Nameplates
 
 -- Events Reg
@@ -87,6 +85,12 @@ if modules and ((coords and coords.enabled) or (location and location.enabled)) 
 		self.elapsed = (self.elapsed or 0) + elapsed
 		if self.elapsed >= 0.2 then
 			coordX, coordY = GetPlayerMapPosition(P)
+
+			if not GetPlayerMapPosition(P) then
+				coordX = 0
+				coordY = 0
+			end
+
 			self.elapsed = 0
 		end
 	end)
@@ -121,6 +125,10 @@ local function formatgold(style, amount)
 	elseif style == 4 then
 		return (gold > 0 and format(GOLD_AMOUNT_TEXTURE, gold, 12, 12) or "") .. (silver > 0 and format(SILVER_AMOUNT_TEXTURE, silver, 12, 12) or "")
 			.. ((copper > 0 or (gold == 0 and silver == 0)) and format(COPPER_AMOUNT_TEXTURE, copper, 12, 12) or "") .. " "
+	elseif style == 5 then
+		return (gold > 0 and format("%s|cffffd700%s|r ", comma_value(gold), GOLD_AMOUNT_SYMBOL) or "")
+			.. (format("%.2d|cffc7c7cf%s|r ", silver, SILVER_AMOUNT_SYMBOL))
+			.. (format("%.2d|cffeda55f%s|r", copper, COPPER_AMOUNT_SYMBOL))
 	end
 end
 
@@ -182,14 +190,6 @@ local function AltUpdate(self)
 	elseif not IsAltKeyDown() and self.altdown then self.altdown = false self:GetScript("OnEnter")(self) end
 end
 
-local function GetTableIndex(table, fieldIndex, value)
-	for k, v in ipairs(table) do
-		if (v[fieldIndex] == value) then
-			return k
-		end
-	end
-	return -1
-end
 
 local menuFrame = CreateFrame("Frame", "ContactDropDownMenu", UIParent, "UIDropDownMenuTemplate")
 local menuList = {
@@ -361,7 +361,7 @@ if memory.enabled then
 				if AddonList:IsShown() then
 					AddonList_OnCancel()
 				else
-					PlaySound("igMainMenuOption")
+					PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
 					ShowUIPanel(AddonList)
 				end
 			end
@@ -796,8 +796,8 @@ if clock.enabled then
 		OnEvent = function(self) if self.hovered then self:GetScript("OnEnter")(self) end end,
 		OnEnter = function(self)
 			if not self.hovered then RequestRaidInfo() self.hovered = true end
-			local weekday = select(date"%w"+1,CalendarGetWeekdayNames())
-			local month = select(date"%m",CalendarGetMonthNames())
+			local weekday = select(date"%w"+1, CalendarGetWeekdayNames())
+			local month = select(date"%m", CalendarGetMonthNames())
 			GameTooltip:SetOwner(self, "ANCHOR_NONE")
 			GameTooltip:ClearAllPoints()
 			GameTooltip:SetPoint(clock.tip_anchor, clock.tip_frame, clock.tip_x, clock.tip_y)
@@ -1110,8 +1110,6 @@ if guild.enabled then
 				local name, rank, level, zone, note, officernote, connected, status, class, isMobile, zone_r, zone_g, zone_b, classc, levelc, grouped
 				local total, _, online = GetNumGuildMembers()
 				local gmotd = GetGuildRosterMOTD()
-				local _, _, standingID, barMin, barMax, barValue = GetGuildFactionInfo()
-				local col = T.RGBToHex(ttsubh.r, ttsubh.g, ttsubh.b)
 
 				GameTooltip:SetOwner(self, "ANCHOR_NONE")
 				GameTooltip:ClearAllPoints()
@@ -1345,7 +1343,7 @@ if friends.enabled then
 			local name, level, class, zone, connected, status, note, classc, levelc, zone_r, zone_g, zone_b, grouped
 			for i = 0, total do if select(5, GetFriendInfo(i)) then online = online + 1 end end
 			local BNonline, BNtotal = 0, BNGetNumFriends()
-			local presenceID, presenceName, toonName, toonID, client, isOnline
+			local presenceName, toonName, toonID, client, isOnline
 			if BNtotal > 0 then
 				for i = 1, BNtotal do if select(8, BNGetFriendInfo(i)) then BNonline = BNonline + 1 end end
 			end
@@ -1626,7 +1624,7 @@ end
 ----------------------------------------------------------------------------------------
 if experience.enabled then
 	local logintime, playedtotal, playedlevel, playedmsg, gained, lastkill, lastquest = GetTime(), 0, 0, 0, 0
-	local repname, repcolor, standingname, currep, minrep, maxrep, reppercent
+	local repname, repcolor, standingname, currep, minrep, maxrep
 	local mobxp = gsub(COMBATLOG_XPGAIN_FIRSTPERSON, "%%[sd]", "(.*)")
 	local questxp = gsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED, "%%[sd]", "(.*)")
 	local artifactXP, xpForNextPoint, numPointsAvailableToSpend, artifactTotalXP, artifactName, artifactPointsSpent, artifactTier = 0, 0, 0, 0

@@ -695,7 +695,7 @@ function skin:HandlePanelTab(tab)
 	end
 end
 
-C_Timer.After(15,function()
+C_Timer.After(20,function()
 	for panel,func in pairs(skin.panels) do
 		func(Rematch[panel])
 	end

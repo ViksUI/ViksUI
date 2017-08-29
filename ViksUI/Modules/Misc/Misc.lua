@@ -5,7 +5,7 @@
 ----------------------------------------------------------------------------------------
 local ShowReadyCheckHook = function(self, initiator)
 	if initiator ~= "player" then
-		PlaySound("ReadyCheck", "Master")
+		PlaySound(PlaySoundKitID and "ReadyCheck" or SOUNDKIT.READY_CHECK, "Master")
 	end
 end
 hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
@@ -24,17 +24,17 @@ ForceWarning:SetScript("OnEvent", function(self, event)
 		for i = 1, GetMaxBattlefieldID() do
 			local status = GetBattlefieldStatus(i)
 			if status == "confirm" then
-				PlaySound("PVPTHROUGHQUEUE", "Master")
+				PlaySound(PlaySoundKitID and "PVPTHROUGHQUEUE" or SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
 				break
 			end
 			i = i + 1
 		end
 	elseif event == "BATTLEFIELD_MGR_ENTRY_INVITE" then
-		PlaySound("PVPTHROUGHQUEUE", "Master")
+		PlaySound(PlaySoundKitID and "PVPTHROUGHQUEUE" or SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
 	elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
-		PlaySound("PVPTHROUGHQUEUE", "Master")
+		PlaySound(PlaySoundKitID and "PVPTHROUGHQUEUE" or SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
 	elseif event == "LFG_PROPOSAL_SHOW" then
-		PlaySound("ReadyCheck", "Master")
+		PlaySound(PlaySoundKitID and "ReadyCheck" or SOUNDKIT.READY_CHECK, "Master")
 	elseif event == "RESURRECT_REQUEST" then
 		PlaySoundFile("Sound\\Spells\\Resurrection.wav", "Master")
 	end
@@ -63,11 +63,8 @@ local PLevel = UnitLevel("player")
 local PClass = UnitClass("player")
 local PRace = UnitRace("player")
 local PFaction = UnitFactionGroup("player")
-local color = RAID_CLASS_COLORS[T.Class]
+local color = T.RGBToHex(unpack(C["media"].pxcolor1))
 local Version = tonumber(GetAddOnMetadata("ViksUI", "Version"))
-
-local PGuild
-if(IsInGuild()) then PGuild = select(1, GetGuildInfo("player")) else PGuild = " " end
 
 T.AFK_LIST = {
 	"Mouseover minimap shows coords and locations.",
@@ -77,136 +74,169 @@ T.AFK_LIST = {
 	"By right-clicking on a quest or achievment at the objective tracker, you can retrieve the wowhead link.",
 	"You can type /ui to move the frames from the Interface.",
 	"You can type /uihelp to show some supported commands.",
-	"/testuf shows UF unitframes",
-	"Right click on X button on bags to access soring/stacking. Works with bank to (use same button)",
-	"You can see the source of raid buffs, by clicking on raidbuffreminder. Click again to hide",
 	"You can find much information about something on screen with /fstack command",
-	"You can toggle few things on/off (Helm, Cloak, Auto Loot, Overlapping) on top panel fram. (Under location text)",	
+	"Anim nr: 0 = idle, 1 = death, 3 = stop, 4 = fast walk, 5 = run, 8 = take a light hit, 9 = take a medium hit, 10 = take a heavy hit, 11-12 = turning, 13 = backing up",
+	"Anim nr: 14 = stunned, 26 = attack stance, 43 = swimming, 60 = chat, 61 = eat, 62 = mine ore, 63 = combine tradeskill, 66 = bow, 67 = wave, 68 = cheer, 69 = dance",
+	"Anim nr: 70 = laugh, 73 = rude, 74 = roar, 75 = kneel, 76 = kiss, 77 = cry, 78 = chicken, 80 = applaud, 81 = shout, 82 = flex, ,83 = flirt, 84 = point, 97 = sit",
+	"Anim nr: 101 = get up, 113 = salute, 119 = crouching run, 120 = crouch, 124 = channel spell, 125 = channel spell, 126 = spin, 137 = stunned",
 }
 
+--[[Guild]]--
+local function GuildText()
+	if IsInGuild() then
+		local guildName = GetGuildInfo("player")
+		ViksUIAFKPanel.GuildText:SetText(color .. guildName .. "|r")
+	else
+		ViksUIAFKPanel.GuildText:SetText(" ")
+	end
+end
+
+--[[AFK-Timer]]--
+local function UpdateTimer()
+	local time = GetTime() - startTime
+	ViksUIAFKPanel.AFKTimer:SetText(format("%02d" .. color ..":|r%02d", floor(time/60), time % 60))
+end
+
+--[[Playermodel]]--
+local function Model()
+	ViksUIAFKPanel.modelHolder = CreateFrame("Frame", "AFKPlayerModelHolder", ViksUIAFKPanel)
+	ViksUIAFKPanel.modelHolder:SetSize(150, 150)
+	ViksUIAFKPanel.modelHolder:SetPoint("BOTTOMRIGHT", ViksUIAFKPanel, "TOPRIGHT", -150, 120)
+
+	ViksUIAFKPanel.model = CreateFrame("PlayerModel", "AFKPlayerModel", ViksUIAFKPanel.modelHolder)
+	ViksUIAFKPanel.model:SetPoint("CENTER", ViksUIAFKPanel.modelHolder, "CENTER")
+	ViksUIAFKPanel.model:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
+	ViksUIAFKPanel.model:SetCamDistanceScale(6)
+	ViksUIAFKPanel.model:SetFacing(6)
+	ViksUIAFKPanel.model:SetUnit("player")
+	ViksUIAFKPanel.model:SetAnimation(C.misc.afk_spin_camera_anim)
+	ViksUIAFKPanel.model:SetRotation(math.rad(-15))
+end
+
+--[[Spin function]]--
+function SpinStart()
+	spinning = true
+	MoveViewRightStart(.1)
+end
+
+function SpinStop()
+	if(not spinning) then return end
+	spinning = nil
+	MoveViewRightStop()
+end
+
+--[[Frames]]--
 local ViksUIAFKPanel = CreateFrame("Frame", "ViksUIAFKPanel", nil)
-ViksUIAFKPanel:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -2, -2)
-ViksUIAFKPanel:SetPoint("TOPRIGHT", UIParent, "BOTTOMRIGHT", 2, 150)
+ViksUIAFKPanel:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 100)
+ViksUIAFKPanel:SetSize((T.ScreenWidth - 550), 80)
 ViksUIAFKPanel:SetTemplate("Transparent")
+ViksUIAFKPanel:SetFrameStrata("FULLSCREEN")
 ViksUIAFKPanel:Hide()
 
-local ViksUIAFKPanelTop = CreateFrame("Frame", "ViksUIAFKPanelTop", nil)
-ViksUIAFKPanelTop:SetPoint("TOPLEFT", UIParent, "TOPLEFT",-2, 2)
-ViksUIAFKPanelTop:SetPoint("BOTTOMRIGHT", UIParent, "TOPRIGHT", 2, -80)
-ViksUIAFKPanelTop:SetTemplate("Transparent")
-ViksUIAFKPanelTop:SetFrameStrata("FULLSCREEN")
-ViksUIAFKPanelTop:Hide()
+local ViksUIAFKPanelIcon = CreateFrame("Frame", "ViksUIAFKPanelIcon", ViksUIAFKPanel)
+ViksUIAFKPanelIcon:SetWidth(48)
+ViksUIAFKPanelIcon:SetHeight(48)
+ViksUIAFKPanelIcon:SetPoint("CENTER", ViksUIAFKPanel, "TOP", 0, 0)
+ViksUIAFKPanelIcon:SetTemplate("Default")
 
-local ViksUIAFKPanelTopIcon = CreateFrame("Frame", "ViksUIAFKPanelTopIcon", ViksUIAFKPanelTop)
-ViksUIAFKPanelTopIcon:SetWidth(128)
-ViksUIAFKPanelTopIcon:SetHeight(64)
-ViksUIAFKPanelTopIcon:SetPoint("CENTER", ViksUIAFKPanelTop, "BOTTOM", 0, -20)
---ViksUIAFKPanelTopIcon:SetTemplate("Default")
+ViksUIAFKPanelIcon.Texture = ViksUIAFKPanelIcon:CreateTexture(nil, "ARTWORK")
+ViksUIAFKPanelIcon.Texture:SetPoint("TOPLEFT", 2, -2)
+ViksUIAFKPanelIcon.Texture:SetPoint("BOTTOMRIGHT", -2, 2)
+ViksUIAFKPanelIcon.Texture:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\viksicon.blp")
 
-local t = ViksUIAFKPanelTopIcon:CreateTexture(nil,"ARTWORK")
-t:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\viksui.blp")
-t:SetPoint("TOPLEFT", 2, -2)
-t:SetPoint("BOTTOMRIGHT", -2, 2)
-ViksUIAFKPanelTopIcon.texture = t
-ViksUIAFKPanelTopIcon:SetPoint("CENTER", ViksUIAFKPanelTop, "BOTTOM", 0, -20)
-ViksUIAFKPanelTopIcon:Show()
+ViksUIAFKPanel.ViksUIText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.ViksUIText:SetPoint("CENTER", ViksUIAFKPanel, "CENTER", 0, -10)
+ViksUIAFKPanel.ViksUIText:SetFont(C["media"].pxfontHeader, 40, "OUTLINE")
+ViksUIAFKPanel.ViksUIText:SetText("|cffc41f3bViksUI " .. Version)
 
-ViksUIAFKPanelTop.ViksUIText = ViksUIAFKPanelTop:CreateFontString(nil, "OVERLAY")
-ViksUIAFKPanelTop.ViksUIText:SetPoint("CENTER", ViksUIAFKPanelTop, "CENTER", 0, 0)
-ViksUIAFKPanelTop.ViksUIText:SetFont(C["media"].pxfontHeader, 40, "OUTLINE")
-ViksUIAFKPanelTop.ViksUIText:SetText("|cffc41f3bViksUI Version" .. Version)
+ViksUIAFKPanel.DateText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.DateText:SetPoint("BOTTOMLEFT", ViksUIAFKPanel, "BOTTOMRIGHT", -100, 54)
+ViksUIAFKPanel.DateText:SetFont(C["media"].normal_font, 15, "OUTLINE")
 
-ViksUIAFKPanelTop.DateText = ViksUIAFKPanelTop:CreateFontString(nil, "OVERLAY")
-ViksUIAFKPanelTop.DateText:SetPoint("BOTTOMLEFT", ViksUIAFKPanelTop, "BOTTOMRIGHT", -100, 44)
-ViksUIAFKPanelTop.DateText:SetFont(C["media"].normal_font, 15, "OUTLINE")
+ViksUIAFKPanel.ClockText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.ClockText:SetPoint("BOTTOMLEFT", ViksUIAFKPanel, "BOTTOMRIGHT", -100, 30)
+ViksUIAFKPanel.ClockText:SetFont(C["media"].normal_font, 20, "OUTLINE")
 
-ViksUIAFKPanelTop.ClockText = ViksUIAFKPanelTop:CreateFontString(nil, "OVERLAY")
-ViksUIAFKPanelTop.ClockText:SetPoint("BOTTOMLEFT", ViksUIAFKPanelTop, "BOTTOMRIGHT", -100, 20)
-ViksUIAFKPanelTop.ClockText:SetFont(C["media"].normal_font, 20, "OUTLINE")
+ViksUIAFKPanel.AFKTimer = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.AFKTimer:SetPoint("BOTTOMLEFT", ViksUIAFKPanel, "BOTTOMRIGHT", -100, 6)
+ViksUIAFKPanel.AFKTimer:SetFont(C["media"].normal_font, 20, "OUTLINE")
 
-ViksUIAFKPanelTop.PlayerNameText = ViksUIAFKPanelTop:CreateFontString(nil, "OVERLAY")
-ViksUIAFKPanelTop.PlayerNameText:SetPoint("LEFT", ViksUIAFKPanelTop, "LEFT", 25, 15)
-ViksUIAFKPanelTop.PlayerNameText:SetFont(C["media"].normal_font, 28, "OUTLINE")
-ViksUIAFKPanelTop.PlayerNameText:SetText(PName)
-ViksUIAFKPanelTop.PlayerNameText:SetTextColor(T.color.r, T.color.g, T.color.b)
+ViksUIAFKPanel.PlayerNameText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.PlayerNameText:SetPoint("LEFT", ViksUIAFKPanel, "LEFT", 25, 15)
+ViksUIAFKPanel.PlayerNameText:SetFont(C["media"].normal_font, 28, "OUTLINE")
+ViksUIAFKPanel.PlayerNameText:SetText(color .. PName .. "|r")
 
-ViksUIAFKPanelTop.GuildText = ViksUIAFKPanelTop:CreateFontString(nil, "OVERLAY")
-ViksUIAFKPanelTop.GuildText:SetPoint("LEFT", ViksUIAFKPanelTop, "LEFT", 25, -3)
-ViksUIAFKPanelTop.GuildText:SetFont(C["media"].normal_font, 15, "OUTLINE")
-ViksUIAFKPanelTop.GuildText:SetText("|cffc41f3b" .. PGuild .. "|r")
+ViksUIAFKPanel.GuildText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.GuildText:SetPoint("LEFT", ViksUIAFKPanel, "LEFT", 25, -3)
+ViksUIAFKPanel.GuildText:SetFont(C["media"].normal_font, 15, "OUTLINE")
 
-ViksUIAFKPanelTop.PlayerInfoText = ViksUIAFKPanelTop:CreateFontString(nil, "OVERLAY")
-ViksUIAFKPanelTop.PlayerInfoText:SetPoint("LEFT", ViksUIAFKPanelTop, "LEFT", 25, -20)
-ViksUIAFKPanelTop.PlayerInfoText:SetFont(C["media"].normal_font, 15, "OUTLINE")
-ViksUIAFKPanelTop.PlayerInfoText:SetText(LEVEL .. " " .. PLevel .. " " .. PFaction .. " " .. PClass)
+ViksUIAFKPanel.PlayerInfoText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
+ViksUIAFKPanel.PlayerInfoText:SetPoint("LEFT", ViksUIAFKPanel, "LEFT", 25, -20)
+ViksUIAFKPanel.PlayerInfoText:SetFont(C["media"].normal_font, 15, "OUTLINE")
+ViksUIAFKPanel.PlayerInfoText:SetText(LEVEL .. " " .. PLevel .. " " .. PFaction .. " " .. color .. PClass .. "|r")
 
---[[
-model = CreateFrame("PlayerModel", "AFKPlayerModel", nil)
-model:SetPoint("CENTER", UIParent, "CENTER")
-model:SetUnit("player")
---model.isIdle = nil
-model:SetAnimation(67)
---model.idleDuration = 40
-model:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models. Position is controlled with the helper frame.
-model:SetCamDistanceScale(4.5) --Since the model frame is huge, we need to zoom out quite a bit.
-model:SetFacing(6)
---]]
-	
+--[[Dynamic time & date]]--
 local interval = 0
-ViksUIAFKPanelTop:SetScript("OnUpdate", function(self, elapsed)
+ViksUIAFKPanel:SetScript("OnUpdate", function(self, elapsed)
 	interval = interval - elapsed
 	if interval <= 0 then
-		ViksUIAFKPanelTop.ClockText:SetText(format("%s", date("%H|cffc41f3b:|r%M|cffc41f3b:|r%S")))
-		ViksUIAFKPanelTop.DateText:SetText(format("%s", date("|cffc41f3b%a|r %b/%d")))
+		ViksUIAFKPanel.ClockText:SetText(format("%s", date("%H" .. color .. ":|r%M" .. color .. ":|r%S")))
+		ViksUIAFKPanel.DateText:SetText(format("%s", date(color .. "%a|r %b" .. color .. "/|r%d")))
+		UpdateTimer()
 		interval = 0.5
 	end
 end)
 
+--[[Register events, script to start]]--
 ViksUIAFKPanel:RegisterEvent("PLAYER_FLAGS_CHANGED")
 ViksUIAFKPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
 ViksUIAFKPanel:RegisterEvent("PLAYER_DEAD")
-ViksUIAFKPanel:SetScript("OnEvent", OnEvent)
+ViksUIAFKPanel:RegisterEvent("MODIFIER_STATE_CHANGED")
+ViksUIAFKPanel:SetScript("OnEvent", function(self, event, unit)
+	if InCombatLockdown() then return end
 
-local OnEvent = function(self, event, unit)
 	if event == "PLAYER_FLAGS_CHANGED" then
+		startTime = GetTime()
 		if unit == "player" then
 			if UnitIsAFK(unit) and not UnitIsDead(unit) then
 				SpinStart()
 				ViksUIAFKPanel:Show()
-				ViksUIAFKPanelTop:Show()
+				GuildText()
+				if not AFKPlayerModel then Model() end
 				Minimap:Hide()
 			else
 				SpinStop()
 				ViksUIAFKPanel:Hide()
-				ViksUIAFKPanelTop:Hide()
 				Minimap:Show()
 			end
 		end
-	elseif event == "PLAYER_LEAVING_WORLD" then
-		SpinStop()
 	elseif event == "PLAYER_DEAD" then
 		if UnitIsAFK("player") then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
-			ViksUIAFKPanelTop:Hide()
 			Minimap:Show()
-		end	
+		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		if UnitIsAFK("player") then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
-			ViksUIAFKPanelTop:Hide()
+			Minimap:Show()
+		end
+	elseif event == "MODIFIER_STATE_CHANGED" then
+		if UnitIsAFK("player") then
+			SpinStop()
+			ViksUIAFKPanel:Hide()
 			Minimap:Show()
 		end
 	end
-end
+end)
 
 local texts = T.AFK_LIST
 local interval = #texts
 
 local ViksUIAFKScrollFrame = CreateFrame("ScrollingMessageFrame", "ViksUIAFKScrollFrame", ViksUIAFKPanel)
 ViksUIAFKScrollFrame:SetSize(ViksUIAFKPanel:GetWidth(), ViksUIAFKPanel:GetHeight())
-ViksUIAFKScrollFrame:SetPoint("CENTER", ViksUIAFKPanel, "CENTER", 0, 60)
+ViksUIAFKScrollFrame:SetPoint("CENTER", ViksUIAFKPanel, "CENTER", 0, -20)
 ViksUIAFKScrollFrame:SetFont(C["media"].normal_font, 20, "OUTLINE")
 ViksUIAFKScrollFrame:SetShadowColor(0, 0, 0, 0)
 ViksUIAFKScrollFrame:SetFading(false)
@@ -226,22 +256,10 @@ ViksUIAFKScrollFrame:SetScript("OnUpdate", function(self, time)
 	if interval < 0 then self:SetScript("OnUpdate", nil) end
 end)
 
+--[[Fade in & out]]--
 ViksUIAFKPanel:SetScript("OnShow", function(self) UIFrameFadeIn(UIParent, .5, 1, 0) end)
 ViksUIAFKPanel:SetScript("OnHide", function(self) UIFrameFadeOut(UIParent, .5, 0, 1) end)
-
-function SpinStart()
-	spinning = true
-	MoveViewRightStart(.1)
 end
-
-function SpinStop()
-	if(not spinning) then return end
-	spinning = nil
-	MoveViewRightStop()
-	UIParent:Show()
-end
-end
-
 ----------------------------------------------------------------------------------------
 --	Custom Lag Tolerance(by Elv22)
 ----------------------------------------------------------------------------------------
@@ -316,7 +334,7 @@ strip:SetScript("OnClick", function(self, button)
 	else
 		self.model:Undress()
 	end
-	PlaySound("gsTitleOptionOK")
+	PlaySound(PlaySoundKitID and "gsTitleOptionOK" or SOUNDKIT.GS_TITLE_OPTION_OK)
 end)
 strip.model = DressUpModel
 

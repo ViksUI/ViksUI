@@ -260,3 +260,59 @@ frame1:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame1:SetScript("OnEvent", function(self, event)
 		ObjectiveTracker_Collapse()
 end)
+
+----------------------------------------------------------------------------------------
+--	Skin default quest objective progress bar
+----------------------------------------------------------------------------------------
+hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
+	local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
+	local bar = progressBar.Bar
+	local label = bar.Label
+
+	if not progressBar.styled then
+		bar:SetSize(200, 20)
+		bar:SetStatusBarTexture(C.media.texture)
+		bar:SetTemplate("Transparent")
+		bar:SetBackdropColor(0, 0, 0, 0)
+		bar:DisableDrawLayer("ARTWORK")
+
+		label:ClearAllPoints()
+		label:SetPoint("CENTER", 0, -1)
+		label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+		label:SetDrawLayer("OVERLAY")
+
+		progressBar.styled = true
+	end
+end)
+
+----------------------------------------------------------------------------------------
+--	Set tooltip depending on position
+----------------------------------------------------------------------------------------
+local function IsFramePositionedLeft(frame)
+	local x = frame:GetCenter()
+	local screenWidth = GetScreenWidth()
+	local positionedLeft = false
+
+	if x and x < (screenWidth / 2) then
+		positionedLeft = true
+	end
+
+	return positionedLeft
+end
+
+hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
+	if IsFramePositionedLeft(ObjectiveTrackerFrame) then
+		GameTooltip:ClearAllPoints()
+		GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+	end
+end)
+
+----------------------------------------------------------------------------------------
+--	Kill reward animation when finished dungeon or bonus objectives
+----------------------------------------------------------------------------------------
+ObjectiveTrackerScenarioRewardsFrame.Show = T.dummy
+
+hooksecurefunc("BonusObjectiveTracker_AnimateReward", function()
+	ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
+	ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
+end)

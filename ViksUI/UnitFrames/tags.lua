@@ -868,8 +868,8 @@ oUF.Tags.Events['freebgrid:ws'] = "UNIT_AURA"
 --oUF.Tags.Methods['freebgrid:fw'] = function(u) if UnitAura(u, GetSpellInfo(6346)) then return "|cff8B4513"..x.."|r" end end
 --oUF.Tags.Events['freebgrid:fw'] = "UNIT_AURA"
 
-oUF.Tags.Methods['freebgrid:fort'] = function(u) if not(UnitAura(u, GetSpellInfo(21562)) or UnitAura(u, GetSpellInfo(469)) or UnitAura(u, GetSpellInfo(109773))) then return "|cff00A1DE"..x.."|r" end end
-oUF.Tags.Events['freebgrid:fort'] = "UNIT_AURA"
+--oUF.Tags.Methods['freebgrid:fort'] = function(u) if not(UnitAura(u, GetSpellInfo(21562)) or UnitAura(u, GetSpellInfo(469)) or UnitAura(u, GetSpellInfo(109773))) then return "|cff00A1DE"..x.."|r" end end
+--oUF.Tags.Events['freebgrid:fort'] = "UNIT_AURA"
 
 oUF.Tags.Methods['freebgrid:pwb'] = function(u) if UnitAura(u, GetSpellInfo(81782)) then return "|cffEEEE00"..x.."|r" end end
 oUF.Tags.Events['freebgrid:pwb'] = "UNIT_AURA"
@@ -881,13 +881,7 @@ oUF.Tags.Events["freebgrid:lb"] = 'UNIT_AURA'
 oUF.Tags.Methods["freebgrid:lb"] = function(unit)
 	local _, _, _, stacks, _, _, expirationTime, source = UnitAura(unit, LIFEBLOOM)
 	if source and source == "player" then
-		if stacks == 1 then
 			return format("|cffcc0000%.0f|r ", expirationTime - GetTime())
-		elseif stacks == 2 then
-			return format("|cffff6314%.0f|r ", expirationTime - GetTime())
-		elseif stacks == 3 then
-			return format("|cffffcc00%.0f|r ", expirationTime - GetTime())
-		end
 	end
 end
 
@@ -1001,14 +995,14 @@ oUF.Tags.Events['freebgrid:horn'] = "UNIT_AURA"
 ns.classIndicators={
 	["DRUID"] = {
 		["TL"] = "",
-		["TR"] = "[freebgrid:motw]",
+		["TR"] = "",
 		["BL"] = "[freebgrid:regrow][freebgrid:wg]",
 		["BR"] = "[freebgrid:lb]",
 		["Cen"] = "[freebgrid:rejuvTime]",
 	},
 	["PRIEST"] = {
 		["TL"] = "[freebgrid:pws][freebgrid:ws]",
-		["TR"] = "[freebgrid:fw][freebgrid:fort]",
+		["TR"] = "[freebgrid:fw]",
 		["BL"] = "[freebgrid:rnw][freebgrid:pwb]",
 		["BR"] = "[freebgrid:pom]",
 		["Cen"] = "[freebgrid:rnwTime]",
@@ -1029,7 +1023,7 @@ ns.classIndicators={
 	},
 	["WARRIOR"] = {
 		["TL"] = "[freebgrid:vigil]",
-		["TR"] = "[freebgrid:stragi][freebgrid:fort]",
+		["TR"] = "[freebgrid:stragi]",
 		["BL"] = "",
 		["BR"] = "",
 		["Cen"] = "",

@@ -11,13 +11,8 @@ T.RaidBuffs = {
 		{774, "TOPRIGHT", {0.8, 0.4, 0.8}},					-- Rejuvenation
 		{8936, "BOTTOMLEFT", {0.2, 0.8, 0.2}},				-- Regrowth
 		{33763, "TOPLEFT", {0.4, 0.8, 0.2}},				-- Lifebloom
-		{188550, "TOPLEFT", {0.4, 0.8, 0.2}},				-- Lifebloom T18 4pc
 		{48438, "BOTTOMRIGHT", {0.8, 0.4, 0}},				-- Wild Growth
-		{207386, "TOP", {0.4, 0.2, 0.8}},					-- Spring Blossoms
 		{102342, "LEFT", {0.45, 0.3, 0.2}, true},			-- Ironbark
-		{102351, "LEFT", {0.2, 0.8, 0.8}},    				-- Cenarion Ward (Initial Buff)
-		{102352, "LEFT", {0.2, 0.8, 0.8}},    				-- Cenarion Ward (HoT)
-		{200389, "BOTTOM", {1, 1, 0.4}},      				-- Cultivation
 		{155777, "RIGHT", {0.4, 0.9, 0.4}},					-- Rejuvenation (Germination)
 	},
 	MONK = {
@@ -47,13 +42,16 @@ T.RaidBuffs = {
 	},
 	SHAMAN = {
 		{61295, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Riptide
-		{204288, "BOTTOMRIGHT", {0.2, 0.7, 0.2}, true},		-- Earth Shield
+		--BETA {974, "BOTTOMRIGHT", {0.2, 0.7, 0.2}, true},		-- Earth Shield
 	},
 	HUNTER = {
 		{35079, "TOPRIGHT", {0.2, 0.2, 1}},					-- Misdirection
 	},
+	MAGE = {
+		--BETA {111264, "TOPRIGHT", {0.2, 0.2, 1}},				-- Ice Ward
+	},
 	ROGUE = {
-		{57934, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Tricks of the Trade
+		--BETA {57933, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Tricks of the Trade
 	},
 	WARLOCK = {
 		{20707, "TOPRIGHT", {0.7, 0.32, 0.75}},				-- Soulstone
@@ -625,5 +623,8 @@ T.RaidDebuffsReverse = {
 }
 
 T.RaidDebuffsIgnore = {
-	--[spellID] = true,			-- Spell name
+	[142862] = true,			-- Ancient Barrier
+	[138309] = true,			-- Slimed
+	[166057] = true,			-- Biting Cold
+	[137619] = true,			-- Marked for Death
 }

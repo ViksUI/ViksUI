@@ -163,6 +163,10 @@ L_BAG_NOTHING_SORT = "Nothing to sort."
 L_BAG_BAGS_BIDS = "Using bags: "
 L_BAG_STACK_END = "Restacking finished."
 L_BAG_RIGHT_CLICK_SEARCH = "Right-click to search"
+L_BAG_BUTTONS_DEPOSIT = "Deposit Reagents"
+L_BAG_BUTTONS_SORT = "LM:Cleanup / RM:Blizzard"
+L_BAG_BUTTONS_ARTIFACT = "Right click to use Artifact Power item in bag"
+
 
 -- Grab mail
 L_MAIL_STOPPED = "Stopped, inventory is full."
