@@ -1,0 +1,16 @@
+------------------------------------------------------------------------
+r19 | mikk | 2014-10-16 02:58:34 +0000 (Thu, 16 Oct 2014) | 2 lines
+Changed paths:
+   A /tags/1.0.6.60000 (from /trunk:18)
+
+Tagging as 1.0.6.60000
+Yes I know kaelten earlier tagged an "1.0.7" when he toc bumped last, but that was a misnomer. The library version is 6 and nothing else.
+------------------------------------------------------------------------
+r18 | mikk | 2014-10-16 02:52:20 +0000 (Thu, 16 Oct 2014) | 2 lines
+Changed paths:
+   M /trunk/CallbackHandler-1.0/CallbackHandler-1.0.lua
+   M /trunk/CallbackHandler-1.0.toc
+
+TOC 60000
+Tear out some beta-times checks that could have been removed many years ago
+------------------------------------------------------------------------
