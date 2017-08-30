@@ -201,8 +201,10 @@ local function updateStatus()
 		repBar:SetMinMaxValues(minRep, maxRep)
 		repBar:SetValue(value)
 		repBar:SetStatusBarColor(unpack(FactionInfo[rank][1]))
-			
+		if rank == 8 then
+		else
 		Text:SetText(format("%d / %d (%d%%)", value-minRep, maxRep-minRep, (value-minRep)/(maxRep-minRep)*100))
+		end
 	end
 	
 	--Setup Exp Tooltip
@@ -238,6 +240,7 @@ local function updateStatus()
 		end
 		if GetWatchedFactionInfo() then
 			local name, rank, min, max, value = GetWatchedFactionInfo()
+			if rank == 8 then return end
 			if not IsMaxLevel() then GameTooltip:AddLine(" ") end
 			GameTooltip:AddLine(string.format('Reputation: %s', name))
 			GameTooltip:AddLine(string.format('Standing: |c'..colorize(rank)..'%s|r', FactionInfo[rank][2]))
