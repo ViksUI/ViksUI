@@ -137,7 +137,7 @@
 	<Script file="Misc\CooldownFlash.lua"/>
 	<Script file="Datatext\Positions.lua"/>
 	<Script file="Datatext\Durability.lua"/>
-	<Script file="Datatext\Artifact.lua"/>
+	<Script file="Datatext\RunSpeed.lua"/>
 	<Script file="Datatext\System.lua"/>
 	<Script file="Datatext\Friend.lua"/>
 	<Script file="Datatext\Gold.lua"/>

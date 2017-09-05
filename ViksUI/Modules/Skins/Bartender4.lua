@@ -1,6 +1,6 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true or C.skins.bartender ~= true then return end
-
+--[[ --// UNDER CONSTRUCTION
 ----------------------------------------------------------------------------------------
 --	Bartender skin
 ----------------------------------------------------------------------------------------
@@ -129,3 +129,4 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	end	
 hooksecurefunc("ActionButton_Update", StyleNormalButton)
 end)
+]]--

@@ -20,6 +20,12 @@ local units = {
 -- General
 f:StripTextures()
 
+f.TopArtLeft:ClearAllPoints()
+f.TopArtLeft:SetPoint("TOPRIGHT", f, "TOP", 0, -40)
+f.TopArtRight:ClearAllPoints()
+f.TopArtRight:SetPoint("TOPLEFT", f, "TOP", 0, -40)
+f.TopVersusText:ClearAllPoints()
+f.TopVersusText:SetPoint("TOP", f, "TOP", 0, -46)
 -- Pets unitframes
 for i, unit in pairs(units) do
 	unit.Border:SetAlpha(0)
