@@ -209,6 +209,7 @@ Stat:SetScript("OnEnter", function(self)
 		Currency(1226)					-- Nethershard
 		Currency(1342, false, true)		-- Legionfall War Supplies
 		Currency(1508, false, true) 	-- Veiled Argunite
+		Currency(1506, false, true) 	-- Argus Waystone
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
