@@ -219,7 +219,7 @@ local function LoadSkin()
 
 	-- Reputation
 	local function UpdateFactionSkins()
-		--ReputationListScrollFrameScroll:StripTextures()
+		ReputationListScrollFrame:StripTextures()
 		ReputationFrame:StripTextures(true)
 		for i = 1, GetNumFactions() do
 			local statusbar = _G["ReputationBar"..i.."ReputationBar"]
