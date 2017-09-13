@@ -36,6 +36,7 @@ OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
 					last = child.Count
 
 					index = index + 1
+					OrderHallCommandBar:SetWidth(240 + (index * 94))
 				end
 			end
 		end)
@@ -50,7 +51,6 @@ local function LoadSkin()
 	OrderHallCommandBar:SetTemplate("Transparent")
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOP", CPTopp, "BOTTOM", 0, -2)
-	OrderHallCommandBar:SetWidth(OrderHallMissionFrame:GetWidth()*.8)
 	OrderHallCommandBar.ClassIcon:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
 	OrderHallCommandBar.ClassIcon:SetSize(46, 20)
 	OrderHallCommandBar.CurrencyIcon:SetAtlas("legionmission-icon-currency", false)
