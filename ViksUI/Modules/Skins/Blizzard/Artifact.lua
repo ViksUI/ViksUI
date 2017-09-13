@@ -17,6 +17,13 @@ local function LoadSkin()
 	end
 	ArtifactFrameTab1:ClearAllPoints()
 	ArtifactFrameTab1:SetPoint("TOPLEFT", ArtifactFrame, "BOTTOMLEFT", 0, -2)
+	
+	-- Netherlight Crucible
+	ArtifactRelicForgeFrame:StripTextures()
+	ArtifactRelicForgeFrame:CreateBackdrop("Transparent")
+	ArtifactRelicForgeFrame.PreviewRelicFrame:StripTextures()
+	ArtifactRelicForgeFrame.PreviewRelicCover:StripTextures()
+
 end
 
 T.SkinFuncs["Blizzard_ArtifactUI"] = LoadSkin
