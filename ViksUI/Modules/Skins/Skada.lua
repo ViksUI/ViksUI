@@ -47,7 +47,11 @@ barmod.ApplySettings = function(self, win)
 
 	if win.db.enabletitle then
 		skada.button:SetBackdrop(titleBG)
-		skada.button:SetBackdropColor(.05,.05,.05, .9)
+		if C.panels.NoPanels == true then
+			skada.button:SetBackdropColor(.05,.05,.05, .4)
+			else
+			skada.button:SetBackdropColor(.05,.05,.05, .9)
+		end
 	end
 
 	--skada:SetTexture("Interface\\Addons\\ViksUI\\Media\\textures\\normTex")
@@ -59,6 +63,9 @@ barmod.ApplySettings = function(self, win)
 	if not skada.backdrop then
 		CreateBackdrop(skada)
 		skada.backdrop:ClearAllPoints()
+		if C.panels.NoPanels == true then
+		skada.backdrop:SetAlpha(0.6)
+		end
 		skada.backdrop:SetPoint('TOPLEFT', win.bargroup.button or win.bargroup, 'TOPLEFT', 0, 0)
 		skada.backdrop:SetPoint('BOTTOMRIGHT', win.bargroup, 'BOTTOMRIGHT', 0, 0)
 	end

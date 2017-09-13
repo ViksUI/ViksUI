@@ -188,19 +188,24 @@ if C.panels.NoPanels == true then
 --	Bottom line
 ----------------------------------------------------------------------------------------
 local bottompanel = CreateFrame("Frame", "BottomPanel", UIParent)
-bottompanel:CreatePanel("ClassColor", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 20)
+bottompanel:CreatePanel("ClassColor", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 5)
 bottompanel:SetPoint("LEFT", UIParent, "LEFT", 3, 0)
 bottompanel:SetPoint("RIGHT", UIParent, "RIGHT", -3, 0)
 
-
+CPMinim:SetAlpha(1)
+CPMinim:SetTemplate("ClassColor")
+CPMinimb1:SetAlpha(.5)
+CPMinimb1:SetTemplate("ClassColor")
+CPMinimb2:SetAlpha(.5)
+CPMinimb2:SetTemplate("ClassColor")
 ----------------------------------------------------------------------------------------
 --	Chat Lines
 ----------------------------------------------------------------------------------------
 local leftpanel = CreateFrame("Frame", "LeftPanel", UIParent)
-leftpanel:CreatePanel("ClassColor", 1, C.chat.height - 2, "BOTTOMLEFT", bottompanel, "LEFT", 0, 0)
+leftpanel:CreatePanel("ClassColor", 1, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1) - 2, "BOTTOMLEFT", bottompanel, "LEFT", 0, 0)
 
 local rightpanel = CreateFrame("Frame", "RightPanel", UIParent)
-rightpanel:CreatePanel("ClassColor", 1, C.chat.height - 2, "BOTTOMRIGHT", bottompanel, "RIGHT", 0, 0)
+rightpanel:CreatePanel("ClassColor", 1, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1), "BOTTOMRIGHT", bottompanel, "RIGHT", 0, 0)
 
 local CPCool = CreateFrame("Frame", "CPCool",UIParent)
 CPCool:CreatePanel("ClassColor", Pscale*CPMABwidth, Pscale*CPCooldheight, "BOTTOM", UIParent, "BOTTOM", 0, 5)
