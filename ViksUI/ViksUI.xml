@@ -94,7 +94,6 @@
 	<Script file="Modules\Announcements\FeastsAndPortals.lua"/>
 	<Script file="Modules\Announcements\FlaskAndFood.lua"/>
 	<Script file="Modules\Announcements\Interrupts.lua"/>
-	<Script file="Modules\Announcements\Lightwell.lua"/>
 	<Script file="Modules\Announcements\PullCountdown.lua"/>
 	<Script file="Modules\Announcements\SafariHat.lua"/>
 	<Script file="Modules\Announcements\SayThanks.lua"/>
@@ -115,7 +114,7 @@
 	<Script file="Modules\Automation\SolveArtifact.lua"/>
 	<Script file="Modules\Automation\TabBinder.lua"/>
 	
-	<Script file="Modules\Loot\AutoDisenchant.lua"/>
+	<Script file="Modules\Loot\AutoConfirm.lua"/>
 	<Script file="Modules\Loot\AutoGreed.lua"/>
 	<Script file="Modules\Loot\GroupLoot.lua"/>
 	<Script file="Modules\Loot\Loot.lua"/>
@@ -156,29 +155,6 @@
 	<Script file="Datatext\Arena.lua"/>
 	<Script file="Datatext\Temp.lua"/>
 	<Script file="Datatext\location.lua"/>
-		
-	<Script file="Modules\Announcements\BadGear.lua"/>
-	<Script file="Modules\Announcements\Drinking.lua"/>
-	<Script file="Modules\Announcements\FeastsAndPortals.lua"/>
-	<Script file="Modules\Announcements\FlaskAndFood.lua"/>
-	<Script file="Modules\Announcements\Interrupts.lua"/>
-	<Script file="Modules\Announcements\Lightwell.lua"/>
-	<Script file="Modules\Announcements\PullCountdown.lua"/>
-	<Script file="Modules\Announcements\SayThanks.lua"/>
-	<Script file="Modules\Announcements\Spells.lua"/>
-	
-	<Script file="Modules\Automation\AchScreens.lua"/>
-	<Script file="Modules\Automation\AutoChefsHat.lua"/>
-	<Script file="Modules\Automation\AutoRelease.lua"/>
-	<Script file="Modules\Automation\BuffOnScroll.lua"/>
-	<Script file="Modules\Automation\CancelBadBuffs.lua"/>
-	<Script file="Modules\Automation\CurrencyCap.lua"/>
-	<Script file="Modules\Automation\DeclineDuel.lua"/>
-	<Script file="Modules\Automation\LoggingCombat.lua"/>
-	<Script file="Modules\Automation\SetRole.lua"/>
-	<Script file="Modules\Automation\SkipCinematic.lua"/>
-	<Script file="Modules\Automation\SolveArtifact.lua"/>
-	<Script file="Modules\Automation\TabBinder.lua"/>
 	
 	<Script file="Modules\Blizzard\AlertFrames.lua"/>
 	<Script file="Modules\Blizzard\AltPowerBar.lua"/>
@@ -222,10 +198,9 @@
 	<Script file="Modules\Chat\Sounds.lua"/>
 	<Script file="Modules\Chat\TellTarget.lua"/>
 	<Script file="Modules\Chat\RealLinks.lua"/>
-	<Script file="Modules\Chat\ArmoryLink.lua"/>
 	<Script file="Modules\Chat\SpamageMeters.lua"/>
 	<Script file="Modules\Chat\ChatBind.lua"/>
-		
+	
 	<Script file="Modules\Maps\BattlefieldMap.lua"/>
 	<Script file="Modules\Maps\ButtonCollect.lua"/>
 	<Script file="Modules\Maps\ExploreMap.lua"/>
