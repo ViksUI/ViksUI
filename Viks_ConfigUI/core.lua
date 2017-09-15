@@ -534,7 +534,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigdatatext" then o = "DATA TEXT" end
 	if o == "UIConfigdatatextArena" then o = "Arena position (0 for disabled)" end
 	if o == "UIConfigdatatextArmor" then o = "Armor position (0 for disabled)" end
-	if o == "UIConfigdatatextArtifact" then o = ARTIFACT_POWER.." position (0 for disabled)" end
+	if o == "UIConfigdatatextRunSpeed" then o = "Run Speed position (0 for disabled)" end
 	if o == "UIConfigdatatextAvd" then o = "Avoidance position (0 for disabled)" end
 	if o == "UIConfigdatatextBags" then o = "Bags position (0 for disabled)" end
 	if o == "UIConfigdatatextBattleground" then o = "Battleground Stats" end
