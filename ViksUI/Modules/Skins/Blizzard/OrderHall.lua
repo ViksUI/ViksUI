@@ -1,48 +1,6 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
 
-local OrderHallFollower = CreateFrame("Frame")
-OrderHallFollower:RegisterEvent("ADDON_LOADED")
-OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
-	if (event == "ADDON_LOADED" and addon == "Blizzard_OrderHallUI") then
-		OrderHallFollower:RegisterEvent("DISPLAY_SIZE_CHANGED")
-		OrderHallFollower:RegisterEvent("UI_SCALE_CHANGED")
-		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_CATEGORIES_UPDATED")
-		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_ADDED")
-		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_REMOVED")
-
-	elseif event ~= "ADDON_LOADED" then
-		local bar = OrderHallCommandBar
-
-		local index = 1
-		C_Timer.After(0.8, function() -- Give it a bit more time to collect.
-			local last
-			for i, child in ipairs({bar:GetChildren()}) do
-				if child.Icon and child.Count and child.TroopPortraitCover then
-					child:ClearAllPoints()
-					child:SetPoint("LEFT", bar.AreaName, "RIGHT", 50 + (index - 1) * 120, 0)
-					child:SetWidth(60)
-
-					child.TroopPortraitCover:Hide()
-					child.Icon:ClearAllPoints()
-					child.Icon:SetPoint("LEFT", child, "LEFT", 0, 0)
-					child.Icon:SetSize(32, 16)
-
-					child.Count:ClearAllPoints()
-					child.Count:SetPoint("LEFT", child.Icon, "RIGHT", 5, 0)
-					child.Count:SetTextColor(.9, .9, .9)
-					child.Count:SetShadowOffset(.75, -.75)
-
-					last = child.Count
-
-					index = index + 1
-					OrderHallCommandBar:SetWidth(240 + (index * 94))
-				end
-			end
-		end)
-	end
-end)
-
 ----------------------------------------------------------------------------------------
 --	OrderHallUI skin
 ----------------------------------------------------------------------------------------
@@ -138,6 +96,31 @@ local function LoadSkin()
 	OrderHallTalentFrame.Currency:SetFont(C["media"].normal_font, 16)
 	OrderHallTalentFrame.CurrencyIcon:SetAtlas("legionmission-icon-currency", false)
 	
+	hooksecurefunc(OrderHallCommandBar, "RefreshCategories", function(self)
+		local index = 1
+		C_Timer.After(0.1, function() -- Give it a bit more time to collect.
+			for i, child in ipairs({self:GetChildren()}) do
+				if child.Icon and child.Count and child.TroopPortraitCover then
+					child:ClearAllPoints()
+					child:SetPoint("LEFT", self.AreaName, "RIGHT", 50 + (index - 1) * 120, 0)
+					child:SetWidth(60)
+
+					child.TroopPortraitCover:Hide()
+					child.Icon:ClearAllPoints()
+					child.Icon:SetPoint("LEFT", child, "LEFT", 0, 0)
+					child.Icon:SetSize(32, 16)
+
+					child.Count:ClearAllPoints()
+					child.Count:SetPoint("LEFT", child.Icon, "RIGHT", 5, 0)
+					child.Count:SetTextColor(.9, .9, .9)
+					child.Count:SetShadowOffset(.75, -.75)
+
+					index = index + 1
+					OrderHallCommandBar:SetWidth(240 + (index * 96))
+				end
+			end
+		end)
+	end)
 end
 
 T.SkinFuncs["Blizzard_OrderHallUI"] = LoadSkin
