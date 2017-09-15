@@ -253,13 +253,13 @@ function Stuffing:SlotUpdate(b)
 		b.frame:SetBackdropBorderColor(unpack(C.media.border_color))
 	end
 
-	if C.bag.ilvl == true then
-		b.frame.text:SetText("")
-	end
-
 	if b.cooldown and StuffingFrameBags and StuffingFrameBags:IsShown() then
 		local start, duration, enable = GetContainerItemCooldown(b.bag, b.slot)
 		CooldownFrame_Set(b.cooldown, start, duration, enable)
+	end
+	
+	if C.bag.ilvl == true then
+		b.frame.text:SetText("")
 	end
 
 	if clink then
@@ -326,6 +326,13 @@ function Stuffing:BagSlotUpdate(bag)
 		if v.bag == bag then
 			self:SlotUpdate(v)
 		end
+	end
+end
+
+function Stuffing:UpdateCooldowns(b)
+	if b.cooldown and StuffingFrameBags and StuffingFrameBags:IsShown() then
+		local start, duration, enable = GetContainerItemCooldown(b.bag, b.slot)
+		CooldownFrame_Set(b.cooldown, start, duration, enable)
 	end
 end
 
@@ -936,6 +943,24 @@ function Stuffing:InitBags()
 					end
 				end
 			end)
+			f.ArtifactButton:SetScript("OnEnter", function()
+				local count = 0
+				for bag = 0, 4 do
+					for slot = 1, GetContainerNumSlots(bag) do
+						if IsArtifactPowerItem(GetContainerItemID(bag, slot)) then
+							count = count + 1
+						end
+					end
+				end
+
+				f.ArtifactButton:FadeIn()
+				GameTooltip:SetOwner(f.ArtifactButton, "ANCHOR_LEFT")
+				GameTooltip:AddLine(ARTIFACT_POWER)
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(L_TOOLTIP_ITEM_COUNT.." "..count)
+				GameTooltip:AddLine("Right click to use")
+				GameTooltip:Show()
+			end)
 		end
 	end
 	f.editbox = editbox
@@ -1382,7 +1407,7 @@ end
 
 function Stuffing:BAG_UPDATE_COOLDOWN()
 	for i, v in pairs(self.buttons) do
-		self:SlotUpdate(v)
+		self:UpdateCooldowns(v)
 	end
 end
 
