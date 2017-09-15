@@ -172,14 +172,8 @@ Stat:SetScript("OnEnter", function(self)
 	if C.datatext.CurrRaid then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine("Raid")
-		--Currency(1191, false, true) --Valor
 		Currency(1166, false, false) --Timewarped Badge
-		--Currency(1129, false, true) --Seal of Inevitable Fate
-		--Currency(994, false, true) --Seal of Tempered Fate
 		Currency(1273, false, true) --Elder Charm of Good Fortune
-		--Currency(738) --Lesser Charm of Good Fortune
-		--Currency(615) --Essence of Corrupted Deathwing
-		--Currency(614) --Mote of Darkness
 	end
 
 	if C.datatext.CurrPvP then
@@ -187,29 +181,17 @@ Stat:SetScript("OnEnter", function(self)
 		GameTooltip:AddLine(PVP_FLAG)
 		Currency(390, true) --Conquest Points
 		Currency(392, false, true) --Honor Points
-		--Currency(391) --Tol Barad Commendation
 	end
 
 	if C.datatext.CurrMiscellaneous then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(MISCELLANEOUS)
-		--Currency(241) -- Champion's Seal
-		--Currency(416) -- Mark of the World Tree
 		Currency(515) -- Darkmoon Prize Ticket
-		--Currency(777) -- Timeless Coin
-		--Currency(944, false, true) -- Artifact Fragment
-		--Currency(980, false, true) -- Dingy Iron Coins (Rogue)
-		--Currency(824, false, true) -- Garrison Resources
-		--Currency(823) -- Apexis Crystal
-		--Currency(1101) --Oil
-		--Currency(1226, false, true) -- Nethershard
 		Currency(1220) -- Order Resources
-		--Currency(1149, false, true) -- Sightless Eye
 		Currency(1155, false, true) -- Ancient Mana
 		Currency(1226)					-- Nethershard
 		Currency(1342, false, true)		-- Legionfall War Supplies
 		Currency(1508, false, true) 	-- Veiled Argunite
-		Currency(1506, false, true) 	-- Argus Waystone
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
