@@ -1,6 +1,6 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 if C.bag.enable ~= true then return end
-local LibItemUpgrade = LibStub('LibItemUpgradeInfo-1.0')
+
 ----------------------------------------------------------------------------------------
 --	Based on Stuffing(by Hungtar, editor Tukz)
 ----------------------------------------------------------------------------------------
@@ -196,51 +196,39 @@ local function StopMoving(self)
 	StuffingDB[n .. "PosX"] = x
 	StuffingDB[n .. "PosY"] = y
 end
+
 -- Bag slot stuff
 local trashButton = {}
 local trashBag = {}
 
-local upgrades = {
-	["1"] = 8, ["373"] = 4, ["374"] = 8, ["375"] = 4, ["376"] = 4, ["377"] = 4,
-	["379"] = 4, ["380"] = 4, ["446"] = 4, ["447"] = 8, ["452"] = 8, ["454"] = 4,
-	["455"] = 8, ["457"] = 8, ["459"] = 4, ["460"] = 8, ["461"] = 12, ["462"] = 16,
-	["466"] = 4, ["467"] = 8, ["469"] = 4, ["470"] = 8, ["471"] = 12, ["472"] = 16,
-	["477"] = 4, ["478"] = 8, ["480"] = 8, ["492"] = 4, ["493"] = 8, ["495"] = 4,
-	["496"] = 8, ["497"] = 12, ["498"] = 16, ["504"] = 12, ["505"] = 16, ["506"] = 20,
-	["507"] = 24, ["530"] = 5, ["531"] = 10, ["535"] = 15, ["536"] = 30, ["537"] = 45
-}
+local ItemDB = {}
 
-local function BOALevel(level, id)
-	if level > 97 then
-		if id == 133585 or id == 133595 or id == 133596 or id == 133597 or id == 133598 then
-			level = 815 - (110 - level) * 10
-		else
-			level = 605 - (100 - level) * 5
+-- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
+local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+
+local scantip = CreateFrame("GameTooltip", "iLvlScanningTooltip", nil, "GameTooltipTemplate")
+scantip:SetOwner(UIParent, "ANCHOR_NONE")
+
+local function _getRealItemLevel(link)
+	if ItemDB[link] then return ItemDB[link] end
+
+	local realItemLevel
+	scantip:SetHyperlink(link)
+
+	for i = 2, scantip:NumLines() do -- Line 1 is always the name so you can skip it.
+		local text = _G["iLvlScanningTooltipTextLeft"..i]:GetText()
+		if text and text ~= "" then
+			realItemLevel = realItemLevel or strmatch(text, S_ITEM_LEVEL)
+
+			if realItemLevel then
+				ItemDB[link] = tonumber(realItemLevel)
+				return tonumber(realItemLevel)
+			end
 		end
-	elseif level > 90 then
-		level = 590 - (97 - level) * 10
-	elseif level > 85 then
-		level = 463 - (90 - level) * 19.75
-	elseif level > 80 then
-		level = 333 - (85 - level) * 13.5
-	elseif level > 67 then
-		level = 187 - (80 - level) * 4
-	elseif level > 57 then
-		level = 105 - (67 - level) * 2.88
-	elseif level > 5 then
-		level = level + 5
-	else
-		level = 10
 	end
 
-	return floor(level + 0.5)
+	return realItemLevel
 end
-
-local timewarped = {
-	["615"] = 660, -- Dungeon drops
-	["692"] = 675, -- Timewarped badge vendors
-	["656"] = 675, -- Warforged Dungeon drops
-}
 
 function Stuffing:SlotUpdate(b)
 	local texture, count, locked, quality = GetContainerItemInfo(b.bag, b.slot)
@@ -263,33 +251,11 @@ function Stuffing:SlotUpdate(b)
 	end
 
 	if clink then
-		b.name, _, _, b.itemlevel, b.level, _, _, _, _, _, _, b.itemClassID = GetItemInfo(clink)
+		b.name, _, _, b.itemlevel, b.level, _, _, _, _, _, _, b.itemClassID, b.itemSubClassID = GetItemInfo(clink)
 
-		if C.bag.ilvl == true and b.itemlevel and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4) then
-			if quality == 7 and b.itemlevel == 1 then
-				local id = tonumber(strmatch(clink, "item:(%d+)"))
-				b.frame.text:SetText(BOALevel(T.level, id))
-			elseif b.itemlevel > 1 then
-				local tid = strmatch(clink, ".+:512:22.+:(%d+):100")
-				if timewarped[tid] then
-					b.itemlevel = timewarped[tid]
-				end
-
-				local upgradeTypeID = select(12, strsplit(":", clink))
-				if upgradeTypeID and upgradeTypeID ~= "" then
-					local uid = clink:match("[-:%d]+:([-%d]+)")
-					if upgrades[uid] then
-						b.itemlevel = b.itemlevel + upgrades[uid]
-					end
-				end
-
-				local numBonusIDs = tonumber(strmatch(clink, ".+:%d+:512:%d*:(%d+).+"))
-				if numBonusIDs or quality == 6 then
-					b.itemlevel = GetDetailedItemLevelInfo(clink) or b.itemlevel
-				end
-
-				b.frame.text:SetText(b.itemlevel)
-			end
+		if C.bag.ilvl == true and b.itemlevel and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4 or (b.itemClassID == 3 and b.itemSubClassID == 11)) then
+			b.itemlevel = _getRealItemLevel(clink) or b.itemlevel
+			b.frame.text:SetText(b.itemlevel)
 		end
 
 		if (IsItemUnusable(clink) or b.level and b.level > T.level) and not locked then
@@ -489,7 +455,19 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		end
 	else
 		ret.frame = CreateFrame("CheckButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
-		ret.frame:StripTextures()
+
+
+		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
+			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
+				self:GetParent():SetBackdropBorderColor(r, g, b)
+			end
+			self:SetTexture("")
+		end)
+
+		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
+			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
+		end)
+
 		ret.slot = slot
 		table.insert(self.bagframe_buttons, ret)
 	end
@@ -760,6 +738,8 @@ function Stuffing:CreateBagFrame(w)
 		self:GetParent():Hide()
 	end)
 	f.b_close:RegisterForClicks("AnyUp")
+
+
 
 	-- Create the bags frame
 	local fb = CreateFrame("Frame", n.."BagsFrame", f)
@@ -1423,6 +1403,7 @@ function Stuffing:SortOnUpdate(e)
 
 	self.elapsed = self.elapsed + e
 
+
 	if self.elapsed < 0.1 then
 		return
 	end
@@ -1812,3 +1793,8 @@ function Stuffing.Menu(self, level)
 	info.tooltipTitle = CLOSE
 	UIDropDownMenu_AddButton(info, level)
 end
+
+-- Kill Blizzard functions
+LootWonAlertFrame_OnClick = T.dummy
+LootUpgradeFrame_OnClick = T.dummy
+StorePurchaseAlertFrame_OnClick = T.dummy

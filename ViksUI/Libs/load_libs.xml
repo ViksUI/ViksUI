@@ -3,7 +3,6 @@
 	<Include file="LibSharedMedia-3.0\lib.xml"/>
 	<Include file="oUF\oUF.xml"/>
 	<Include file="oGlow\oGlow.xml"/>
-	<Include file="LibItemUpgradeInfo-1.0\LibItemUpgradeInfo-1.0.xml"/>
 	<Script file="LitePanels\LitePanels.lua"/>
 	<Script file="LitePanels\Layout.lua"/>
 </Ui>
