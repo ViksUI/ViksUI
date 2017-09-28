@@ -249,10 +249,10 @@ lib.spawnMenu = function(self)
 end
 ]]
 
-UpdateReputationColor = function(self, event, unit, bar)
-	local name, id = GetWatchedFactionInfo()
-	bar:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
-end
+--UpdateReputationColor = function(self, event, unit, bar)
+	--local name, id = GetWatchedFactionInfo()
+	--bar:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
+--end
 --Fast focus/clearfocus function
 lib.focus = function(f)
     f:RegisterForClicks("AnyDown")
@@ -1920,8 +1920,11 @@ lib.Experience = function(self)
 	Experience:SetHeight(31)
 	Experience:SetWidth(3)
 	Experience:SetFrameLevel(2)
-	Experience.Tooltip = true
+	--Experience.Tooltip = true
 	Experience:SetOrientation("VERTICAL")
+	Experience:EnableMouse(true)
+	Experience.inAlpha = 1
+	Experience.outAlpha = 0.75
 	
 	local h = CreateFrame("Frame", nil, Experience)
 	h:SetFrameLevel(1)
@@ -1961,8 +1964,12 @@ lib.Reputation = function(self)
 	frame1px2_2(h)
 	CreateShadow(h)
 	
-	Reputation.PostUpdate = UpdateReputationColor
-	Reputation.Tooltip = true
+	--Reputation.PostUpdate = UpdateReputationColor
+	Reputation:EnableMouse(true)
+	Reputation.inAlpha = 1
+	Reputation.outAlpha = 0.75
+	Reputation.colorStanding = true
+	--Reputation.Tooltip = true
 	self.Reputation = Reputation
 	end
 end
