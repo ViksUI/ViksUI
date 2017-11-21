@@ -433,6 +433,7 @@ C["nameplate"] = {
 	["bad_color"] = {1, 0, 0},					-- Bad threat color
 	["offtank_color"] = {0, 0.5, 1},			-- Offtank threat color
 	["track_auras"] = false,					-- Show debuffs
+	["track_buffs"] = false,					-- Show buffs above player nameplate (from the list)
 	["auras_size"] = 25,						-- Debuffs size
 	["healer_icon"] = false,					-- Show icon above enemy healers nameplate in battlegrounds
 	["totem_icons"] = false,					-- Show icon above enemy totems nameplate

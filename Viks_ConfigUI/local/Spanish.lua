@@ -6,8 +6,8 @@ if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
 ----------------------------------------------------------------------------------------
 L_GUI_BUTTON_RESET = "Reinicio total de la UI"
 L_GUI_SET_SAVED_SETTTINGS = "Cambios aplicables sólo a este PJ"
-L_GUI_RESET_CHAR = "¿Estás seguro de que quieres reiniciar tus preferencias de VikskUI para este PJ?"
-L_GUI_RESET_ALL = "¿Estás seguro de que quieres reiniciar tus preferencias de VikskUI para todos los PJs?"
+L_GUI_RESET_CHAR = "¿Estás seguro de que quieres reiniciar tus preferencias de ShestakUI para este PJ?"
+L_GUI_RESET_ALL = "¿Estás seguro de que quieres reiniciar tus preferencias de ShestakUI para todos los PJs?"
 L_GUI_PER_CHAR = "¿Estás segudo de que quieres cambiar a o desde 'Cambios sólo a este PJ'?"
 L_GUI_MAKE_SELECTION = "Debes hacer una selección antes de continuar la configuración."
 
@@ -246,7 +246,6 @@ L_GUI_BAGS_BUTTON_SIZE = "Tamaño de los huecos"
 L_GUI_BAGS_BUTTON_SPACE = "Espacio entre huecos"
 L_GUI_BAGS_BANK = "Número de columnas en el banco"
 L_GUI_BAGS_BAG = "Número de columnas en la bolsa principal"
-L_GUI_BAGS_BUTTONS = "Show sort/deposit/Artifact buttons" -- Need review
 
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Activar minimapa"
@@ -290,6 +289,7 @@ L_GUI_NAMEPLATE_NEAR_COLOR = "Color de perdiendo/ganando amenaza"
 L_GUI_NAMEPLATE_BAD_COLOR = "Color de baja amenaza, varía dependiendo si eres tanque o dps/sanador"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Mostrar perjuicios (Nombres abreviados debe ser desactivado)"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Tamaño de los perjuicios"
 L_GUI_NAMEPLATE_HEALER_ICON = "Show icon above enemy healers nameplate in battlegrounds" -- Needs review
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
@@ -377,7 +377,6 @@ L_GUI_UF_PLUGINS_GCD = "Brillo de tiempo de reutilización global"
 L_GUI_UF_PLUGINS_SWING = "Activar barra de oscilación"
 L_GUI_UF_PLUGINS_REPUTATION_BAR = "Activar barra de reputación"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "Activar barra de experiencia"
-L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "Friendship bar" -- Needs review
 L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Artifact Power bar" -- Need review
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Activar barra de suavizado"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "Mostrar configuración de los talentos del enemigo"

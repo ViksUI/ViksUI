@@ -3057,7 +3057,15 @@ C["filger_spells"] = {
 			-- Seed of Corruption
 			{spellID = 27243, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Unstable Affliction
-			{spellID = 30108, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			{spellID = 233490, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Unstable Affliction 2nd
+			{spellID = 233496, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Unstable Affliction 3rd
+			{spellID = 233497, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Unstable Affliction 4th
+			{spellID = 233498, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Unstable Affliction 5th
+			{spellID = 233499, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 			-- Haunt
 			{spellID = 48181, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Siphon Life
@@ -3191,6 +3199,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Ignore Pain
+			{spellID = 190456, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shield Wall
 			{spellID = 871, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Last Stand
@@ -3225,6 +3235,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.proc_size,
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
+			-- Vengeance: Ignore Pain
+			{spellID = 202574, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Sudden Death
 			{spellID = 52437, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Raging Blow!
@@ -3516,6 +3528,8 @@ C["filger_spells"] = {
 			{spellID = 207283, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Magtheridon's Banished Bracers [Wrists]
 			{spellID = 214404, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Shattered Fragments of Sindragosa [Head]
+			{spellID = 248176, unitID = "player", caster = "all", filter = "BUFF"},
 
 			-- Professions
 			-- Goblin Glider [Goblin Glider Kit]

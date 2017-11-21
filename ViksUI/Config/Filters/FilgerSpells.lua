@@ -3199,6 +3199,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Ignore Pain
+			{spellID = 190456, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shield Wall
 			{spellID = 871, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Last Stand
@@ -3233,6 +3235,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.proc_size,
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
+			-- Vengeance: Ignore Pain
+			{spellID = 202574, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Sudden Death
 			{spellID = 52437, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Raging Blow!

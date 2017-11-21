@@ -6,8 +6,8 @@ if GetLocale() ~= "deDE" then return end
 ----------------------------------------------------------------------------------------
 L_GUI_BUTTON_RESET = "Standards wiederherstellen"
 L_GUI_SET_SAVED_SETTTINGS = "Einstellungen für jeden Charakter einzeln vornehmen"
-L_GUI_RESET_CHAR = "Bist du sicher, dass du die Charaktereinstellungen für VikskUI zurücksetzen willst?"
-L_GUI_RESET_ALL = "Bist du sicher, dass du alle Einstellungen von VikskUI zurücksetzen willst?"
+L_GUI_RESET_CHAR = "Bist du sicher, dass du die Charaktereinstellungen für ShestakUI zurücksetzen willst?"
+L_GUI_RESET_ALL = "Bist du sicher, dass du alle Einstellungen von ShestakUI zurücksetzen willst?"
 L_GUI_PER_CHAR = "Bist du sicher, dass du 'Einzelne Einstellungen für jeden Charakter' ein oder ausschalten möchtest?"
 L_GUI_MAKE_SELECTION = "Du musst eine Auswahl treffen bevor du weitere Einstellungen vornehmen kannst."
 
@@ -246,7 +246,6 @@ L_GUI_BAGS_BUTTON_SIZE = "Buttongröße"
 L_GUI_BAGS_BUTTON_SPACE = "Buttonabstand"
 L_GUI_BAGS_BANK = "Anzahl der Spalten in der Bank"
 L_GUI_BAGS_BAG = "Anzahl der Spalten in der Tasche"
-L_GUI_BAGS_BUTTONS = "Show sort/deposit/Artifact buttons" -- Need review
 
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Minimap aktivieren"
@@ -290,6 +289,7 @@ L_GUI_NAMEPLATE_NEAR_COLOR = "Verlust oder Zuwachs der Bedrohung farbig kennzeic
 L_GUI_NAMEPLATE_BAD_COLOR = "Negative Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Zeige Schwächungszauber (Abgekürzte Namen müssen deaktiviert sein)"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Größe der Debuffs"
 L_GUI_NAMEPLATE_HEALER_ICON = "Zeige Heilersymbol auf allen gegnerischen Heiler-Nameplates im BG"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
@@ -377,7 +377,6 @@ L_GUI_UF_PLUGINS_GCD = "Blitz für globalen Cooldown"
 L_GUI_UF_PLUGINS_SWING = "Swingleiste"
 L_GUI_UF_PLUGINS_REPUTATION_BAR = "Rufleiste"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "Erfahrungsleiste"
-L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "Freundschaftsleiste"
 L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Artifact Power bar" -- Need review
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Weichgezeichnete Leisten"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "Zeige gegnerische Talente"

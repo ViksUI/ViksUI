@@ -6,8 +6,8 @@ if GetLocale() ~= "frFR" then return end
 ----------------------------------------------------------------------------------------
 L_GUI_BUTTON_RESET = "Réinitialisation totale de l'UI"
 L_GUI_SET_SAVED_SETTTINGS = "Sauvegarder la configuration par personnage"
-L_GUI_RESET_CHAR = "Réinitialiser les paramètres de votre personnage sur VikskUI ?"
-L_GUI_RESET_ALL = "Réinitialiser tous les paramètres de VikskUI ?"
+L_GUI_RESET_CHAR = "Réinitialiser les paramètres de votre personnage sur ShestakUI ?"
+L_GUI_RESET_ALL = "Réinitialiser tous les paramètres de ShestakUI ?"
 L_GUI_PER_CHAR = "Modifier la configuration du personnage ?"
 L_GUI_MAKE_SELECTION = "Choisir une configuration avant de continuer."
 
@@ -246,7 +246,6 @@ L_GUI_BAGS_BUTTON_SIZE = "Taille des boutons"
 L_GUI_BAGS_BUTTON_SPACE = "Espacement des boutons"
 L_GUI_BAGS_BANK = "Nombre de colonne pour la banque"
 L_GUI_BAGS_BAG = "Nombre de colonne pour les sacs"
-L_GUI_BAGS_BUTTONS = "Show sort/deposit/Artifact buttons" -- Need review
 
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Activer la minicarte"
@@ -290,6 +289,7 @@ L_GUI_NAMEPLATE_NEAR_COLOR = "Perte/Gain de couleur de menace"
 L_GUI_NAMEPLATE_BAD_COLOR = "Mauvaise couleur de menace, dépend de si vous êtes un tank ou dps/heal"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Affiche les affaiblissements (Les noms abrégés doivent être désactivés)"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Taille des affaiblissements"
 L_GUI_NAMEPLATE_HEALER_ICON = "Affiche une icône de soigneur sur toutes les barres de vie des soigneurs ennemis dans les champs de bataille"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
@@ -377,7 +377,6 @@ L_GUI_UF_PLUGINS_GCD = "Scintillement du GCD"
 L_GUI_UF_PLUGINS_SWING = "Barre d'attaque automatique / tir automatique"
 L_GUI_UF_PLUGINS_REPUTATION_BAR = "Barre de réputation"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "Barre d'expérience"
-L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "Barre de réputation/amitié"
 L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Artifact Power bar" -- Need review
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Lissage des barres"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "Afficher les talent de l'ennemi"

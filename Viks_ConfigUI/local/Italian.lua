@@ -6,8 +6,8 @@ if GetLocale() ~= "itIT" then return end
 ----------------------------------------------------------------------------------------
 L_GUI_BUTTON_RESET = "Ripristino totale IU"
 L_GUI_SET_SAVED_SETTTINGS = "Imposta le impostazioni 'Per-Personaggio'"
-L_GUI_RESET_CHAR = "Vuoi davvero ripristinare le impostazioni iniziali della VikskUI per questo personaggio?"
-L_GUI_RESET_ALL = "Vuoi davvero ripristinate tutte le impostazioni iniziali della VikskUI?"
+L_GUI_RESET_CHAR = "Vuoi davvero ripristinare le impostazioni iniziali della ShestakUI per questo personaggio?"
+L_GUI_RESET_ALL = "Vuoi davvero ripristinate tutte le impostazioni iniziali della ShestakUI?"
 L_GUI_PER_CHAR = "Vuoi davvero modificare questa impostazione (attivazione/disattivazione salvataggio impostazioni 'Per-Personaggio')?"
 L_GUI_MAKE_SELECTION = "Devi selezionare un'opzione prima di poter continuare con la configurazione."
 
@@ -246,7 +246,6 @@ L_GUI_BAGS_BUTTON_SIZE = "Dimensioni degli scomparti"
 L_GUI_BAGS_BUTTON_SPACE = "Spazio tra gli scomparti"
 L_GUI_BAGS_BANK = "Numero di colonne in banca"
 L_GUI_BAGS_BAG = "Numero di colonne nella sacca principale"
-L_GUI_BAGS_BUTTONS = "Show sort/deposit/Artifact buttons" -- Need review
 
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Attiva la minimappa"
@@ -290,6 +289,7 @@ L_GUI_NAMEPLATE_NEAR_COLOR = "Colore per perdita/guadagno minaccia"
 L_GUI_NAMEPLATE_BAD_COLOR = "Colore se il PG non è minacciato (se difensore o assaltatore/guaritore)"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Mostra le penalità sulle barre delle unità (l'ozpione 'Mostra nomi abbreviati' deve essere disabilitata)"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Dimensioni delle penalità sulle barre delle unità"
 L_GUI_NAMEPLATE_HEALER_ICON = "Nei Campi di Battaglia, mostra un'icona 'guaritore' accanto alle barre delle unità di tutti i guaritori nemici"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
@@ -377,7 +377,6 @@ L_GUI_UF_PLUGINS_GCD = "Scintilla del recupero globale"
 L_GUI_UF_PLUGINS_SWING = "Attiva la barra dei fendenti"
 L_GUI_UF_PLUGINS_REPUTATION_BAR = "Attiva la barra reputazioni"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "Attiva la barra esperienza"
-L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "Attiva la barra amicizia sul bersaglio"
 L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Artifact Power bar" -- Need review
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Barra a cambiamento graduale"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "Mostra la specializzazione dei talenti del nemico"

@@ -25,6 +25,7 @@ T.RaidBuffs = {
 	PALADIN = {
 		{53563, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Light
 		{156910, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Faith
+		{200025, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Virtue
 		{114163, "BOTTOMLEFT", {0.9, 0.6, 0.4}},			-- Eternal Flame
 		{1022, "BOTTOMRIGHT", {0.2, 0.2, 1}, true},			-- Blessing of Protection
 		{1044, "BOTTOMRIGHT", {0.89, 0.45, 0}, true},		-- Blessing of Freedom
@@ -42,7 +43,7 @@ T.RaidBuffs = {
 	},
 	SHAMAN = {
 		{61295, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Riptide
-		--BETA {974, "BOTTOMRIGHT", {0.2, 0.7, 0.2}, true},		-- Earth Shield
+		{204288, "BOTTOMRIGHT", {0.2, 0.7, 0.2}, true},		-- Earth Shield
 	},
 	HUNTER = {
 		{35079, "TOPRIGHT", {0.2, 0.2, 1}},					-- Misdirection
@@ -51,7 +52,7 @@ T.RaidBuffs = {
 		--BETA {111264, "TOPRIGHT", {0.2, 0.2, 1}},				-- Ice Ward
 	},
 	ROGUE = {
-		--BETA {57933, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Tricks of the Trade
+		{57934, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Tricks of the Trade
 	},
 	WARLOCK = {
 		{20707, "TOPRIGHT", {0.7, 0.32, 0.75}},				-- Soulstone
@@ -87,89 +88,97 @@ T.RaidDebuffs = {
 -----------------------------------------------------------------
 -- Legion
 -- Tomb of Sargeras
--- Goroth
-	[SpellName(233279)] = 3, -- Shattering Star
-	[SpellName(230345)] = 3, -- Crashing Comet
-	[SpellName(231363)] = 3, -- Burning Armor
-	[SpellName(234264)] = 3, -- Melted Armor
-	[SpellName(233062)] = 3, -- Infernal Burning
-
--- Demonic Inquisition
-	[SpellName(233430)] = 3, -- Ubearable Torment
-	[SpellName(233983)] = 3, -- Echoing Anguish
-
--- Harjatan
-	[SpellName(231770)] = 3, -- Drenched
-	[SpellName(231998)] = 3, -- Jagged Abrasion
-	[SpellName(231729)] = 3, -- Aqueous Burst
-	[SpellName(234128)] = 3, -- Driven Assault
-
--- Sisters of the Moon
-	[SpellName(236603)] = 3, -- Rapid Shot
-	[SpellName(236598)] = 5, -- Rapid Shot 1
-	[SpellName(234995)] = 5, -- Rapid Shot 2
-	[SpellName(236519)] = 4, -- Moon Burn
-	[SpellName(236697)] = 3, -- Deathly Screech
-	[SpellName(239264)] = 3, -- Lunar Flare (Tank)
-	[SpellName(236712)] = 5, -- Lunar Beacon
-	[SpellName(236304)] = 3, -- Incorporeal Shot
-	[SpellName(236550)] = 3, -- Discorporate (Tank)
-	[SpellName(236330)] = 3, -- Astral Vulnerability
-	[SpellName(236541)] = 3, -- Twilight Glaive
-	[SpellName(233263)] = 3, -- Embrace of the Eclipse
-
--- Mistress Sassz'ine
+	-- Goroth
+	[SpellName(231363)] = 3,	-- Burning Armor
+	[SpellName(233279)] = 3,	-- Shattering Star
+	[SpellName(230345)] = 3,	-- Crashing Comet
+	[SpellName(234346)] = 4,	-- Fel Eruption
+	[SpellName(234264)] = 3, 	-- Melted Armor
+	[SpellName(233062)] = 3, 	-- Infernal Burning
+	-- Demonic Inquisition
+	[SpellName(233983)] = 3,	-- Echoing Anguish
+	[SpellName(233895)] = 3,	-- Suffocating Dark
+	[SpellName(233430)] = 3,	-- Unbearable Torment
+	-- Harjatan
+	[SpellName(231998)] = 3,	-- Jagged Abrasion
+	[SpellName(231770)] = 4,	-- Drenched
+	[SpellName(231729)] = 3,	-- Aqueous Burst
+	[SpellName(231768)] = 3,	-- Drenching Waters
+	[SpellName(234128)] = 3, 	-- Driven Assault
+	-- Sisters of the Moon
+	[SpellName(236516)] = 3,	-- Twilight Volley
+	[SpellName(236519)] = 3,	-- Moon Burn
+	[SpellName(239264)] = 3,	-- Lunar Fire
+	[SpellName(236712)] = 3,	-- Lunar Beacon
+	[SpellName(236550)] = 3,	-- Discorporate
+	[SpellName(237561)] = 4,	-- Twilight Glaive
+	[SpellName(233263)] = 4,	-- Embrace of the Eclipse
+	[SpellName(236596)] = 5,	-- Rapid Shot
+	[SpellName(236603)] = 3, 	-- Rapid Shot
+	[SpellName(236598)] = 5, 	-- Rapid Shot 1
+	[SpellName(234995)] = 5, 	-- Rapid Shot 2
+	[SpellName(236697)] = 3, 	-- Deathly Screech
+	[SpellName(236304)] = 3, 	-- Incorporeal Shot
+	[SpellName(236330)] = 3, 	-- Astral Vulnerability
+	[SpellName(236541)] = 3, 	-- Twilight Glaive
+	-- Mistress Sassz'ine
+	[SpellName(230201)] = 3,	-- Burden of Pain
+	[SpellName(230139)] = 3,	-- Hydra Shot
+	[SpellName(230358)] = 3,	-- Thundering Shock
+	[SpellName(232913)] = 3,	-- Befouling Ink
+	[SpellName(230920)] = 3,	-- Consuming Hunger
+	[SpellName(232732)] = 3,	-- Slicing Tornado
 	[SpellName(230959)] = 3, -- Concealing Murk
 	[SpellName(232722)] = 3, -- Slicing Tornado
-	[SpellName(232913)] = 3, -- Befouling Ink
-	[SpellName(234621)] = 3, -- Devouring Maw
-	[SpellName(230201)] = 3, -- Burden of Pain (Tank)
-	[SpellName(230139)] = 3, -- Hydra Shot
-	[SpellName(232754)] = 3, -- Hydra Acid 
-	[SpellName(230384)] = 3, -- Consuming Hunger
-	[SpellName(230358)] = 3, -- Thundering Shock 
-
--- The Desolate Host
-	[SpellName(236072)] = 3, -- Wailing Souls
-	[SpellName(236449)] = 3, -- Soulbind
-	[SpellName(236515)] = 3, -- Shattering Scream
-	[SpellName(235989)] = 3, -- Tormented Cries
-	[SpellName(236241)] = 3, -- Soul Rot
-	[SpellName(236361)] = 3, -- Spirit Chains
-	[SpellName(235968)] = 3, -- Grasping Darkness
-
--- Maiden of Vigilance
-	[SpellName(235117)] = 3, -- Unstable Soul !needs review
-	[SpellName(240209)] = 3, -- Unstable Soul !needs review
-	[SpellName(235534)] = 3, -- Creator's Grace
-	[SpellName(235538)] = 3, -- Demon's Vigor
-	[SpellName(234891)] = 3, -- Wrath of the Creators
-	[SpellName(235569)] = 3, -- Hammer of Creation
-	[SpellName(235573)] = 3, -- Hammer of Obliteration
-	[SpellName(235213)] = 3, -- Light Infusion
-	[SpellName(235240)] = 3, -- Fel Infusion
-
--- Fallen Avatar
-	[SpellName(239058)] = 3, -- Touch of Sargeras
-	[SpellName(239739)] = 3, -- Dark Mark
-	[SpellName(234059)] = 3, -- Unbound Chaos
-	[SpellName(240213)] = 3, -- Chaos Flames
-	[SpellName(236604)] = 3, -- Shadowy Blades
-	[SpellName(236494)] = 3, -- Desolate (Tank)
-
--- Kil'jaeden
-	[SpellName(238999)] = 3, -- Darkness of a Thousand Souls
-	[SpellName(239216)] = 3, -- Darkness of a Thousand Souls (Dot)
-	[SpellName(239155)] = 3, -- Gravity Squeeze
-	[SpellName(234295)] = 3, -- Armageddon Rain
-	[SpellName(240908)] = 3, -- Armageddon Blast
-	[SpellName(239932)] = 3, -- Felclaws (Tank)
-	[SpellName(240911)] = 3, -- Armageddon Hail
-	[SpellName(238505)] = 3, -- Focused Dreadflame
-	[SpellName(238429)] = 3, -- Bursting Dreadflame
-	[SpellName(236710)] = 3, -- Shadow Reflection: Erupting
-	[SpellName(241822)] = 3, -- Choking Shadow
-	[SpellName(236555)] = 3, -- Deceiver's Veil 
+	[SpellName(234621)] = 3, 	-- Devouring Maw
+	[SpellName(232754)] = 3, 	-- Hydra Acid 
+	[SpellName(230384)] = 3, 	-- Consuming Hunger
+	-- The Desolate Host
+	[SpellName(235907)] = 3,	-- Collapsing Fissure
+	[SpellName(235989)] = 3,	-- Tormented Cries
+	[SpellName(235933)] = 3,	-- Spear of Anguish
+	[SpellName(235968)] = 3,	-- Grasping Darkness
+	[SpellName(236340)] = 3,	-- Crush Mind
+	[SpellName(236449)] = 3,	-- Soulbind
+	[SpellName(236515)] = 3,	-- Shattering Scream
+	[SpellName(236241)] = 3,	-- Soul Rot
+	[SpellName(236072)] = 3, 	-- Wailing Souls
+	[SpellName(236361)] = 3, 	-- Spirit Chains
+	-- Maiden of Vigilance
+	[SpellName(235117)] = 3, 	-- Unstable Soul !needs review
+	[SpellName(240209)] = 3, 	-- Unstable Soul !needs review
+	[SpellName(235534)] = 3, 	-- Creator's Grace
+	[SpellName(235538)] = 3, 	-- Demon's Vigor
+	[SpellName(234891)] = 3, 	-- Wrath of the Creators
+	[SpellName(235569)] = 3, 	-- Hammer of Creation
+	[SpellName(235573)] = 3, 	-- Hammer of Obliteration
+	[SpellName(235213)] = 3, 	-- Light Infusion
+	[SpellName(235240)] = 3, 	-- Fel Infusion
+	-- Fallen Avatar
+	[SpellName(236494)] = 3,	-- Desolate
+	[SpellName(236604)] = 3,	-- Shadowy Blades
+	[SpellName(234059)] = 3,	-- Unbound Chaos
+	[SpellName(239058)] = 3,	-- Touch of Sargeras
+	[SpellName(239739)] = 3,	-- Dark Mark
+	[SpellName(242017)] = 3,	-- Black Winds
+	[SpellName(240728)] = 3,	-- Tainted Essence
+	[SpellName(240213)] = 3, 	-- Chaos Flames
+	-- Kil'Jaeden
+	[SpellName(236710)] = 3,	-- Shadow Reflection: Erupting
+	[SpellName(236378)] = 3,	-- Shadow Reflection: Wailing
+	[SpellName(238429)] = 3,	-- Bursting Dreadflame
+	[SpellName(238505)] = 3,	-- Focused Dreadflame
+	[SpellName(239155)] = 3,	-- Gravity Squeeze
+	[SpellName(239253)] = 3,	-- Flaming Orb
+	[SpellName(239130)] = 3,	-- Tear Rift
+	[SpellName(238999)] = 3, 	-- Darkness of a Thousand Souls
+	[SpellName(239216)] = 3, 	-- Darkness of a Thousand Souls (Dot)
+	[SpellName(234295)] = 3, 	-- Armageddon Rain
+	[SpellName(240908)] = 3, 	-- Armageddon Blast
+	[SpellName(239932)] = 3, 	-- Felclaws (Tank)
+	[SpellName(240911)] = 3, 	-- Armageddon Hail
+	[SpellName(241822)] = 3, 	-- Choking Shadow
+	[SpellName(236555)] = 3, 	-- Deceiver's Veil 
 
 -- The Nighthold
 -- Skorpyron

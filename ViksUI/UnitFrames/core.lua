@@ -788,7 +788,7 @@ oUF:Factory(function(self)
 		self:SetWidth(%d)
 		self:SetHeight(%d)
 		]]):format(cfg.unit_size.Raid25.w,cfg.unit_size.Raid25.h))
-		raid25:SetPoint("BOTTOM", Anchorviksraid, 0, -30)
+		raid25:SetPoint("BOTTOM", Anchorviksraid, 0, -55)
 		
 		self:SetActiveStyle('raid25')		
 		local raid40 = oUF:SpawnHeader("oUF_Raid40", nil, "custom [@raid26,exists] show; hide", -- Raid frames for 26-40 players.

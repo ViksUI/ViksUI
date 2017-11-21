@@ -130,7 +130,7 @@ cfg.showarena = false
                 Pet = { x=	  0, y=   289},  
                Boss = { x= -100, y=   -90},  
                Tank = { x=	  0, y=     0},  
-               Raid = { x=	  0, y=   180},   
+               Raid = { x=	  0, y=   150},   
 	          Party = { x=	  0, y=     0},
               Arena = { x= 	  0, y=     0},
            PCastbar = { x= 	  0, y=     0},

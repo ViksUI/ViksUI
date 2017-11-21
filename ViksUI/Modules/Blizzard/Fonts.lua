@@ -22,7 +22,6 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	CHAT_FONT_HEIGHTS = {11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
 
 	UNIT_NAME_FONT = NORMAL
-	NAMEPLATE_FONT = NORMAL
 	STANDARD_TEXT_FONT = NORMAL
 
 	-- Base fonts
@@ -55,6 +54,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	SetFont(SystemFont_Shadow_Huge1, NORMAL, 20)
 	SetFont(SystemFont_Shadow_Huge3, NORMAL, 25)
 	SetFont(SystemFont_Shadow_Large, NORMAL, 17)
+	SetFont(SystemFont_Shadow_Large2, NORMAL, 17)
 	SetFont(SystemFont_Shadow_Med1, NORMAL, 13)
 	SetFont(SystemFont_Shadow_Med2, NORMAL, 13)
 	SetFont(SystemFont_Shadow_Med3, NORMAL, 15)

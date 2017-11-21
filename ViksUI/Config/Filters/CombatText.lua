@@ -38,6 +38,7 @@ if C.combattext.merge_aoe_spam then
 	T.aoespam[235999] = 1			-- Kil'jaeden's Burning Wish (Trinket)
 	T.aoespam[207694] = 3			-- Symbiote Strike
 	T.aoespam[210380] = 4			-- Aura of Sacrifice
+	T.aoespam[252907] = 5			-- Torment the Weak
 end
 
 -- Class config
@@ -453,7 +454,10 @@ elseif T.class == "SHAMAN" then
 	end
 elseif T.class == "WARLOCK" then
 	if C.combattext.merge_aoe_spam then
-		T.aoespam[243050] = 1		-- Searing Bolt
+		T.aoespam[234153] = 5		-- Drain Life
+		T.aoespam[196657] = 5		-- Shadow Bolt (Dimensional Rift)
+		T.aoespam[187394] = 5		-- Chaos Barrage (Dimensional Rift)
+		T.aoespam[243050] = 5		-- Searing Bolt (Dimensional Rift)
 		T.aoespam[196100] = 1		-- Demonic Power
 		T.aoespam[196448] = 3		-- Channel Demonfire
 		T.aoespam[199581] = 1		-- Soul Flame
@@ -498,13 +502,22 @@ elseif T.class == "WARLOCK" then
 	end
 elseif T.class == "WARRIOR" then
 	if C.combattext.merge_aoe_spam then
+		T.aoespam[209577] = 1		-- Warbreaker (Arms Artifact)
+		T.aoespam[215537] = 4		-- Trauma (Arms Talent)
+		T.aoespam[209933] = 1		-- Touch of Zakajz (Arms Artifact)
+		T.merge[224253] = 163201	-- Execute (for Arms Talent Sweeping Strikes)
+		T.aoespam[163201] = 0.5		-- Execute (for Arms Talent Sweeping Strikes)
+		T.aoespam[12294] = 0.5		-- Mortal Strike (for Arms Talent Sweeping Strikes)
+		T.merge[199658] = 199850	-- Whirlwind Arms ?
+		T.aoespam[199850] = 1.5		-- Whirlwind Arms
+		T.aoespam[203526] = 3		-- Neltharion's Fury
 		T.aoespam[218617] = 2		-- Rampage
 		T.merge[184707] = 218617	-- Rampage 2nd
 		T.merge[184709] = 218617	-- Rampage 3rd
 		T.merge[201364] = 218617	-- Rampage 4th
 		T.merge[201363] = 218617	-- Rampage 5th
-		T.aoespam[199667] = 1		-- Whirlwind
-		T.merge[44949] = 199667		-- Whirlwind Off-Hand
+		T.aoespam[199667] = 1.5		-- Whirlwind Fury
+		T.merge[44949] = 199667		-- Whirlwind Fury Off-Hand
 		T.aoespam[46968] = 0		-- Shockwave
 		T.aoespam[6343] = 0			-- Thunder Clap
 		T.aoespam[1680] = 0			-- Whirlwind

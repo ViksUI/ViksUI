@@ -20,7 +20,8 @@ LoadTootlipSkin:SetScript("OnEvent", function(self, event, addon)
 			GarrisonFollowerTooltip,
 			GarrisonFollowerAbilityTooltip,
 			GarrisonShipyardFollowerTooltip,
-			GarrisonShipyardMapMissionTooltip
+			GarrisonFollowerMissionAbilityWithoutCountersTooltip,
+			GarrisonFollowerAbilityWithoutCountersTooltip
 		}
 
 		for _, tt in pairs(Tooltips) do
@@ -44,6 +45,14 @@ LoadTootlipSkin:SetScript("OnEvent", function(self, event, addon)
 	if addon == "Blizzard_GarrisonUI" then
 		GarrisonBuildingFrame.BuildingLevelTooltip:StripTextures()
 		GarrisonBuildingFrame.BuildingLevelTooltip:SetTemplate("Transparent")
+
+		GarrisonShipyardMapMissionTooltip:StripTextures()
+		GarrisonShipyardMapMissionTooltip:SetTemplate("Transparent")
+		GarrisonShipyardMapMissionTooltip.ItemTooltip.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		GarrisonShipyardMapMissionTooltip.ItemTooltip.IconBorder:SetAlpha(0)
+		GarrisonShipyardMapMissionTooltip.ItemTooltip:CreateBackdrop("Default")
+		GarrisonShipyardMapMissionTooltip.ItemTooltip.backdrop:SetPoint("TOPLEFT", GarrisonShipyardMapMissionTooltip.ItemTooltip.Icon, "TOPLEFT", -2, 2)
+		GarrisonShipyardMapMissionTooltip.ItemTooltip.backdrop:SetPoint("BOTTOMRIGHT", GarrisonShipyardMapMissionTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 2, -2)
 
 		GarrisonMissionMechanicFollowerCounterTooltip:HookScript("OnShow", function(self)
 			self:SetTemplate("Transparent")
@@ -101,6 +110,39 @@ local function LoadSkin()
 	GarrisonMissionFrame.MissionComplete.NextMissionButton:SkinButton()
 	GarrisonMissionFrameHelpBoxButton:SkinButton()
 
+	for i = 1, 2 do
+		_G["GarrisonMissionFrameMissionsTab" .. i]:StripTextures()
+		_G["GarrisonMissionFrameMissionsTab" .. i]:StyleButton()
+		_G["GarrisonMissionFrameMissionsTab" .. i]:SetHeight(_G["GarrisonMissionFrameMissionsTab" .. i]:GetHeight() - 10)
+	end
+
+	GarrisonMissionFrameMissionsTab1:SetPoint("BOTTOMLEFT", GarrisonMissionFrameMissions, "TOPLEFT", 18, 0)
+
+	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
+		if not tab.backdrop then
+			tab:CreateBackdrop("Overlay")
+			tab.backdrop:SetAllPoints()
+		end
+		if isSelected then
+			tab.backdrop:SetBackdropBorderColor(1, 0.82, 0, 1)
+			tab.backdrop.overlay:SetVertexColor(1, 0.82, 0, 0.3)
+		else
+			tab.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+			tab.backdrop.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+		end
+	end)
+
+	for i = 1, #GarrisonMissionFrame.MissionTab.MissionList.listScroll.buttons do
+		local button = GarrisonMissionFrame.MissionTab.MissionList.listScroll.buttons[i]
+		if not button.backdrop then
+			button:StripTextures()
+			button:CreateBackdrop("Overlay")
+			button.backdrop:SetPoint("TOPLEFT", 0, 0)
+			button.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
+			button:StyleButton(nil, 2)
+		end
+	end
+
 	GarrisonMissionFrameFollowers:StripTextures()
 	GarrisonMissionFrameFollowers:SetTemplate("Transparent")
 	T.SkinEditBox(GarrisonMissionFrameFollowers.SearchBox)
@@ -135,18 +177,33 @@ local function LoadSkin()
 			reward:GetRegions():Hide()
 			if not reward.backdrop then
 				reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				reward.IconBorder:SetAlpha(0)
 				reward:CreateBackdrop("Default")
 				reward.backdrop:SetPoint("TOPLEFT", reward.Icon, "TOPLEFT", -2, 2)
 				reward.backdrop:SetPoint("BOTTOMRIGHT", reward.Icon, "BOTTOMRIGHT", 2, -2)
 				reward.backdrop:SetFrameLevel(reward:GetFrameLevel())
 			end
 		end
+
+		for _, reward in pairs(self.Rewards) do
+			if reward.backdrop then
+				local r, g, b = unpack(C.media.border_color)
+				if reward.IconBorder:IsShown() then
+					local _, _, itemRarity = GetItemInfo(reward.itemID)
+					if itemRarity > 1 then
+						r, g, b = reward.IconBorder:GetVertexColor()
+					end
+				end
+				reward.backdrop:SetBackdropBorderColor(r, g, b)
+			end
+		end
 	end)
 
-	hooksecurefunc("GarrisonMissionPage_SetReward", function(frame, reward)
+	hooksecurefunc("GarrisonMissionPage_SetReward", function(frame)
 		frame.BG:Hide()
 		if not frame.backdrop then
 			frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			frame.IconBorder:SetTexture("")
 			frame:CreateBackdrop("Default")
 			frame.backdrop:SetPoint("TOPLEFT", frame.Icon, "TOPLEFT", -2, 2)
 			frame.backdrop:SetPoint("BOTTOMRIGHT", frame.Icon, "BOTTOMRIGHT", 2, -2)
@@ -188,6 +245,7 @@ local function LoadSkin()
 
 		tab.Text:ClearAllPoints()
 		tab.Text:SetPoint("CENTER")
+		tab.Text:SetFont(C.media.normal_font, 15)
 	end
 
 	hooksecurefunc("GarrisonLandingPageReport_SetTab", function(self)
@@ -218,6 +276,9 @@ local function LoadSkin()
 
 				reward.Quantity:SetParent(reward.backdrop)
 				reward.IconBorder:SetAlpha(0)
+				hooksecurefunc(reward.IconBorder, "SetVertexColor", function(self, r, g, b)
+					self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+				end)
 			end
 		end
 	end
@@ -229,31 +290,46 @@ local function LoadSkin()
 		xpBar:SetStatusBarTexture(C.media.texture)
 	end
 
-	local function onShowFollower(self, followerId)
-		local followerList = self
-		local self = self.followerTab
+	local function onShowFollower(frame)
+		local ft = frame:GetParent().FollowerTab
 
-		local abilities = self.AbilitiesFrame.Abilities
-
-		if self.numAbilitiesStyled == nil then
-			self.numAbilitiesStyled = 1
+		-- Ability buttons
+		local btn
+		for i = 1, #ft.AbilitiesFrame.Abilities do
+			btn = ft.AbilitiesFrame.Abilities[i]
+			if not btn.IconButton.backdrop then
+				btn.IconButton.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn.IconButton.Icon:SetDrawLayer("BACKGROUND", 1)
+				btn.IconButton:CreateBackdrop("Default")
+				btn.IconButton.Border:SetTexture(nil)
+			end
 		end
 
-		local numAbilitiesStyled = self.numAbilitiesStyled
-
-		local ability = abilities[numAbilitiesStyled]
-		while ability do
-			local icon = ability.IconButton.Icon
-
-			icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			icon:SetDrawLayer("BACKGROUND", 1)
-			ability.IconButton:CreateBackdrop("Default")
-
-			numAbilitiesStyled = numAbilitiesStyled + 1
-			ability = abilities[numAbilitiesStyled]
+		-- CombatAllySpell buttons
+		for i = 1, #ft.AbilitiesFrame.CombatAllySpell do
+			btn = ft.AbilitiesFrame.CombatAllySpell[i]
+			if not btn.backdrop then
+				btn.iconTexture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn:CreateBackdrop("Default")
+			end
 		end
 
-		self.numAbilitiesStyled = numAbilitiesStyled
+		-- Equipment
+		if ft.AbilitiesFrame.Equipment then
+			for i = 1, #ft.AbilitiesFrame.Equipment do
+				btn = ft.AbilitiesFrame.Equipment[i]
+				btn.Border:SetTexture(nil)
+				btn.BG:SetTexture(nil)
+				btn.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn:SetScale(1)
+				if not btn.backdrop then
+					btn:CreateBackdrop("Default")
+					btn.backdrop:SetPoint("TOPLEFT", btn.Icon, "TOPLEFT", -2, 2)
+					btn.backdrop:SetPoint("BOTTOMRIGHT", btn.Icon, "BOTTOMRIGHT", 2, -2)
+				end
+			end
+		end
+		ft, btn = nil
 	end
 
 	hooksecurefunc(GarrisonMissionFrame.FollowerList, "ShowFollower", onShowFollower)
@@ -261,9 +337,9 @@ local function LoadSkin()
 
 	-- ShipYard
 	GarrisonShipyardFrame:StripTextures(true)
+	GarrisonShipyardFrame:SetTemplate("Transparent")
 	GarrisonShipyardFrame.BorderFrame.GarrCorners:StripTextures()
 	GarrisonShipyardFrame.BorderFrame:StripTextures(true)
-	GarrisonShipyardFrame:CreateBackdrop("Transparent")
 	GarrisonShipyardFrame.BorderFrame.TitleText:SetPoint("TOP", -6, -1)
 	T.SkinCloseButton(GarrisonShipyardFrame.BorderFrame.CloseButton2)
 	T.SkinTab(GarrisonShipyardFrameTab1)
@@ -272,7 +348,6 @@ local function LoadSkin()
 	-- ShipYard: Naval Map
 	local MissionTab = GarrisonShipyardFrame.MissionTab
 	local MissionList = MissionTab.MissionList
-	MissionList:CreateBackdrop("Transparent")
 
 	-- ShipYard: Mission
 	local MissionPage = MissionTab.MissionPage
@@ -295,6 +370,42 @@ local function LoadSkin()
 	GarrisonShipyardFrame.FollowerTab:StripTextures()
 	GarrisonShipyardFrame.FollowerTab:SetTemplate("Overlay")
 	T.SkinScrollBar(GarrisonShipyardFrameFollowersListScrollFrameScrollBar)
+
+	local function skinFollowerTraitsAndEquipment(obj)
+		local btn
+		for i = 1, #obj.Traits do
+			btn = obj.Traits[i]
+			if not btn.backdrop then
+				btn.Border:SetTexture(nil)
+				btn.Portrait:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn:CreateBackdrop("Default")
+				btn.backdrop:SetPoint("TOPLEFT", btn.Portrait, "TOPLEFT", -2, 2)
+				btn.backdrop:SetPoint("BOTTOMRIGHT", btn.Portrait, "BOTTOMRIGHT", 2, -2)
+				btn.backdrop:SetFrameLevel(2)
+			end
+		end
+		for i = 1, #obj.EquipmentFrame.Equipment do
+			btn = obj.EquipmentFrame.Equipment[i]
+			if not btn.backdrop then
+				btn:DisableDrawLayer("BACKGROUND")
+				btn.Border:SetTexture(nil)
+				btn.Counter.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn:CreateBackdrop("Default")
+				btn.backdrop:SetPoint("TOPLEFT", btn.Icon, "TOPLEFT", -2, 2)
+				btn.backdrop:SetPoint("BOTTOMRIGHT", btn.Icon, "BOTTOMRIGHT", 2, -2)
+
+				btn.Counter.Border:SetAlpha(0)
+				btn.Counter.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				btn.Counter:CreateBackdrop("Default")
+				btn.Counter.backdrop:SetPoint("TOPLEFT", btn.Counter.Icon, "TOPLEFT", -2, 2)
+				btn.Counter.backdrop:SetPoint("BOTTOMRIGHT", btn.Counter.Icon, "BOTTOMRIGHT", 2, -2)
+			end
+		end
+		btn = nil
+	end
+	skinFollowerTraitsAndEquipment(GarrisonLandingPage.ShipFollowerTab)
+	skinFollowerTraitsAndEquipment(GarrisonShipyardFrame.FollowerTab)
 
 	-- Recruiter frame
 	GarrisonRecruiterFrame:StripTextures(true)
@@ -348,12 +459,12 @@ local function LoadSkin()
 	CapacitiveDisplay.ShipmentIconFrame:SetTemplate("Default")
 	CapacitiveDisplay.ShipmentIconFrame.Icon:SetPoint("TOPLEFT", -2, 2)
 	CapacitiveDisplay.ShipmentIconFrame.Icon:SetPoint("BOTTOMRIGHT", 2, -2)
-	
+
 	hooksecurefunc(CapacitiveDisplay.ShipmentIconFrame.Follower.PortraitRingQuality, "SetVertexColor", function(self, r, g, b)
 		CapacitiveDisplay.ShipmentIconFrame.Follower.Portrait.IconBackdrop:SetBackdropBorderColor(r, g, b)
 		self:SetTexture("")
 	end)
-	
+
 	CapacitiveDisplay.ShipmentIconFrame.Follower.Portrait:SetAllPoints()
 	CapacitiveDisplay.ShipmentIconFrame.Follower.Portrait:SetTexCoord(0.2, 0.85, 0.2, 0.85)
 	CapacitiveDisplay.ShipmentIconFrame.Follower.PortraitRing:Kill()

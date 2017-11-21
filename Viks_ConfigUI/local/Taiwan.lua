@@ -6,8 +6,8 @@ if GetLocale() ~= "zhTW" then return end
 ----------------------------------------------------------------------------------------
 L_GUI_BUTTON_RESET = "重載UI"
 L_GUI_SET_SAVED_SETTTINGS = "為每個角色分別保存設定"
-L_GUI_RESET_CHAR = "確定要重置你所有角色的'VikskUI'設定?"
-L_GUI_RESET_ALL = "確定要重置全部'VikskUI'設定?"
+L_GUI_RESET_CHAR = "確定要重置你所有角色的'ShestakUI'設定?"
+L_GUI_RESET_ALL = "確定要重置全部'ShestakUI'設定?"
 L_GUI_PER_CHAR = "確定要設定/取消'每個角色單獨設定'模式?"
 L_GUI_MAKE_SELECTION = "繼續調整設定前必須選擇一個選項"
 
@@ -246,7 +246,6 @@ L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子間隔"
 L_GUI_BAGS_BANK = "銀行每行格數"
 L_GUI_BAGS_BAG = "背包每行格數"
-L_GUI_BAGS_BUTTONS = "Show sort/deposit/Artifact buttons" -- Need review
 
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "開啟迷你地圖增強"
@@ -290,6 +289,7 @@ L_GUI_NAMEPLATE_NEAR_COLOR = "臨界仇恨顏色"
 L_GUI_NAMEPLATE_BAD_COLOR = "危險仇恨顏色"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "DeBuff圖示(需要關閉'名字縮寫')"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "DeBuff大小"
 L_GUI_NAMEPLATE_HEALER_ICON = "戰場中顯示治療職業圖示"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
@@ -377,7 +377,6 @@ L_GUI_UF_PLUGINS_GCD = "公共CD計時條"
 L_GUI_UF_PLUGINS_SWING = "普通攻擊計時條"
 L_GUI_UF_PLUGINS_REPUTATION_BAR = "聲望條"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "經驗條"
-L_GUI_UF_PLUGINS_FRIENDSHIP_BAR = "友誼條"
 L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Artifact Power bar" -- Need review
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "平滑條"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "敵對玩家天賦"

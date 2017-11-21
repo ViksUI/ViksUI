@@ -8,7 +8,7 @@ local anchor = CreateFrame("Frame", nil, UIParent)
 anchor:SetPoint(unpack(C.position.extra_button))
 anchor:SetSize(ExtraActionBarFrame:GetSize())
 
-ExtraActionBarFrame:SetParent(UIParent)
+ExtraActionBarFrame:SetParent(ExtraButtonAnchor)
 ExtraActionBarFrame:ClearAllPoints()
 ExtraActionBarFrame:SetPoint("CENTER", anchor, "CENTER")
 ExtraActionBarFrame:SetSize(53, 53)
@@ -16,7 +16,7 @@ ExtraActionBarFrame.ignoreFramePositionManager = true
 
 RegisterStateDriver(anchor, "visibility", "[petbattle] hide; show")
 
-ZoneAbilityFrame:SetParent(UIParent)
+ZoneAbilityFrame:SetParent(ExtraButtonAnchor)
 ZoneAbilityFrame:ClearAllPoints()
 ZoneAbilityFrame:SetPoint("CENTER", anchor, "CENTER")
 ZoneAbilityFrame:SetSize(53, 53)
