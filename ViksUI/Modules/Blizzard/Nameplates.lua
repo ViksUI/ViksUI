@@ -713,4 +713,5 @@ local function style(self, unit)
 end
 
 oUF:RegisterStyle("ViksUINameplate", style)
-oUF:SpawnNamePlates("ViksUINameplate", "ViksUI", callback)
+oUF:SetActiveStyle("ViksUINameplate")
+oUF:SpawnNamePlates("ViksUINameplate", callback)
