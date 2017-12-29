@@ -3,26 +3,8 @@ local addon, ns = ...
 local cfg = ns.cfg
 local cast = CreateFrame("Frame")  
 
-local channelingTicks = {
-	--Warlock
-	--[GetSpellInfo(689)] = 6, -- "Drain Life"
-	--[GetSpellInfo(108371)] = 6, -- "Harvest Life"
-	[GetSpellInfo(5740)] = 4, -- "Rain of Fire"
-	[GetSpellInfo(755)] = 6, -- Health Funnel
-	--[GetSpellInfo(103103)] = 4, --Malefic Grasp
-	--Druid
-	--[GetSpellInfo(16914)] = 10, -- "Hurricane"
-	--Priest
-	--[GetSpellInfo(48045)] = 5, -- "Mind Sear"
-	--[GetSpellInfo(179338)] = 5, -- "Searing insanity"
-	[GetSpellInfo(64843)] = 4, -- Divine Hymn
-	--Mage
-	[GetSpellInfo(5143)] = 5, -- "Arcane Missiles"
-	--[GetSpellInfo(10)] = 8, -- "Blizzard"
-	[GetSpellInfo(12051)] = 3, -- "Evocation"
-	--Monk
-	[GetSpellInfo(115175)] = 9, -- "Smoothing Mist"
-}
+local channelingTicks = T.CastBarTicks
+
 local ticks = {}
 cast.setBarTicks = function(castBar, ticknum)
 	if ticknum and ticknum > 0 then
@@ -60,7 +42,9 @@ cast.OnCastbarUpdate = function(self, elapsed)
 				self.Time:SetFormattedText('%.1f | |cffff0000%.1f|r', duration, self.casting and self.max + self.delay or self.max - self.delay)
 			else
 				self.Time:SetFormattedText('%.1f | %.1f', duration, self.max)
-				self.Lag:SetFormattedText("%d ms", self.SafeZone.timeDiff * 1000)
+				if self.SafeZone and self.SafeZone.timeDiff then
+					self.Lag:SetFormattedText("%d ms", self.SafeZone.timeDiff * 1000)
+				end
 			end
 		else
 			self.Time:SetFormattedText('%.1f | %.1f', duration, self.casting and self.max + self.delay or self.max - self.delay)
@@ -89,12 +73,15 @@ cast.PostCastStart = function(self, unit, name, rank, text)
 	self:SetAlpha(1.0)
 	self.Spark:Show()
 	self:SetStatusBarColor(unpack(self.casting and self.CastingColor or self.ChannelingColor))
-	if unit == "party"then
+	if unit == "player" then
 		local sf = self.SafeZone
-		sf.timeDiff = GetTime() - sf.sendTime
-		sf.timeDiff = sf.timeDiff > self.max and self.max or sf.timeDiff
-		sf:SetWidth(self:GetWidth() * sf.timeDiff / self.max)
-		sf:Show()
+		if sf and sf.sendTime ~= nil then
+			sf.timeDiff = GetTime() - sf.sendTime
+			sf.timeDiff = sf.timeDiff > self.max and self.max or sf.timeDiff
+			sf:SetWidth(self:GetWidth() * sf.timeDiff / self.max)
+			sf:Show()
+		end
+
 		if self.casting then
 			cast.setBarTicks(self, 0)
 		else

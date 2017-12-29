@@ -512,7 +512,8 @@ C["unitframe"] = {
 	["showIndicators"] = true,															-- Show Indicators on frames
 	["debuffsOnlyShowPlayer"] = false,													-- only show your debuffs on target
 	["buffsOnlyShowPlayer"] = false,													-- only show your buffs
-	["uf_color"] = {0.4, 0.4, 0.4},				-- Color for UF if ["own_color"] = true
+	["uf_color"] = {0.4, 0.4, 0.4},														-- Color for UF if ["own_color"] = true
+	["castbar_ticks"] = true,															-- Castbar ticks
 	}
 
 ----------------------------------------------------------------------------------------
