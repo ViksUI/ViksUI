@@ -250,6 +250,17 @@ function Stuffing:SlotUpdate(b)
 		b.frame.text:SetText("")
 	end
 
+	if b.frame.UpgradeIcon then
+		b.frame.UpgradeIcon:SetPoint("TOPLEFT", C.bag.button_size/2.7, -C.bag.button_size/2.7)
+		b.frame.UpgradeIcon:SetSize(C.bag.button_size/1.7, C.bag.button_size/1.7)
+		local itemIsUpgrade = IsContainerItemAnUpgrade(b.frame:GetParent():GetID(), b.frame:GetID())
+		if itemIsUpgrade and itemIsUpgrade == true then
+			b.frame.UpgradeIcon:SetShown(true)
+		else
+			b.frame.UpgradeIcon:SetShown(false)
+		end
+	end
+
 	if clink then
 		b.name, _, _, b.itemlevel, b.level, _, _, _, _, _, _, b.itemClassID, b.itemSubClassID = GetItemInfo(clink)
 
@@ -738,6 +749,9 @@ function Stuffing:CreateBagFrame(w)
 		self:GetParent():Hide()
 	end)
 	f.b_close:RegisterForClicks("AnyUp")
+
+
+
 
 
 
