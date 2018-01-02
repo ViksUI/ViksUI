@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.skins.skada ~= true then return end
 if not IsAddOnLoaded("Skada") then return end
 local Skada = Skada
@@ -54,9 +54,7 @@ barmod.ApplySettings = function(self, win)
 		end
 	end
 
-	--skada:SetTexture("Interface\\Addons\\ViksUI\\Media\\textures\\normTex")
 	skada:SetSpacing(barSpacing)
-	--skada:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
 	skada:SetFrameLevel(5)
 	
 	skada:SetBackdrop(nil)
@@ -72,8 +70,8 @@ barmod.ApplySettings = function(self, win)
 		
 	hooksecurefunc(Skada, "OpenReportWindow", function(self)
 		if not self.ReportWindow.frame.reskinned then
-			StripTextures(self.ReportWindow.frame)
-			CreateStyle(self.ReportWindow.frame, 2)
+			self.ReportWindow.frame:StripTextures()
+			self.ReportWindow.frame:SetTemplate("Transparent")
 			self.ReportWindow.frame.reskinned = true
 		end
 	end)
