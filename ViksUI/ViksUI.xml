@@ -50,6 +50,7 @@
 	<Script file="Core\Temp.lua"/>
 	<Script file="Core\CheckVersion.lua"/>
 	<Script file="Core\Panels.lua"/>
+	<Script file="Core\ChangeLog.lua"/>
 	<Script file="Config\theme.lua"/>
 	<Script file="Config\Positions.lua"/>
 	<Script file="Config\Spells.lua"/>

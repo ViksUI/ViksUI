@@ -1674,3 +1674,25 @@ T.CreateAuraWatch = function(self, unit)
 
 	self.AuraWatch = auras
 end
+
+T["CreateBtn"] = function(name, parent, w, h, tt_txt, txt)
+	local f, fs, ff = C.media.normal_font, 11, "THINOUTLINE"
+	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
+	b:SetWidth(w)
+	b:SetHeight(h)
+	b:SetTemplate("Default")
+	b:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
+		GameTooltip:Show()
+	end)
+
+	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+
+	b.text = b:CreateFontString(nil, "OVERLAY")
+	b.text:SetFont(f, fs, ff)
+	b.text:SetText(T.RGBToHex(unpack(C["media"].pxcolor1))..txt)
+	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
+	b.text:SetJustifyH("CENTER")
+	b:SetAttribute("type1", "macro")
+end
