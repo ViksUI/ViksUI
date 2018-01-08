@@ -131,24 +131,24 @@ Stat:SetScript("OnEnter", function(self)
 	if archaeology and C.datatext.CurrArchaeology then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(PROFESSIONS_ARCHAEOLOGY .. ": ")
-		Currency(384)	-- Dwarf Archaeology Fragment
-		Currency(385)	-- Troll Archaeology Fragment
-		Currency(393)	-- Fossil Archaeology Fragment
-		Currency(394)	-- Night Elf Archaeology Fragment
-		Currency(397)	-- Orc Archaeology Fragment
-		Currency(398)	-- Draenei Archaeology Fragment
-		Currency(399)	-- Vrykul Archaeology Fragment
-		Currency(400)	-- Nerubian Archaeology Fragment
-		Currency(401)	-- Tol'vir Archaeology Fragment
-		Currency(676)	-- Pandaren Archaeology Fragment
-		Currency(677)	-- Mogu Archaeology Fragment
-		Currency(754)	-- Mantid Archaeology Fragment
-		Currency(821)	-- Draenor Clans Archaeology Fragment
-		Currency(828)	-- Ogre Archaeology Fragment
-		Currency(829)	-- Arakkoa Archaeology Fragment
-		Currency(1172)	-- Highborne Archaeology Fragment
-		Currency(1173)	-- Highmountain Tauren Archaeology Fragment
-		Currency(1174)	-- Demonic Archaeology Fragment
+		Currency(384)					-- Dwarf Archaeology Fragment
+		Currency(385)					-- Troll Archaeology Fragment
+		Currency(393)					-- Fossil Archaeology Fragment
+		Currency(394)					-- Night Elf Archaeology Fragment
+		Currency(397)					-- Orc Archaeology Fragment
+		Currency(398)					-- Draenei Archaeology Fragment
+		Currency(399)					-- Vrykul Archaeology Fragment
+		Currency(400)					-- Nerubian Archaeology Fragment
+		Currency(401)					-- Tol'vir Archaeology Fragment
+		Currency(676)					-- Pandaren Archaeology Fragment
+		Currency(677)					-- Mogu Archaeology Fragment
+		Currency(754)					-- Mantid Archaeology Fragment
+		Currency(821)					-- Draenor Clans Archaeology Fragment
+		Currency(828)					-- Ogre Archaeology Fragment
+		Currency(829)					-- Arakkoa Archaeology Fragment
+		Currency(1172)					-- Highborne Archaeology Fragment
+		Currency(1173)					-- Highmountain Tauren Archaeology Fragment
+		Currency(1174)					-- Demonic Archaeology Fragment
 	end
 
 	if cooking and C.datatext.CurrCooking then
@@ -161,34 +161,35 @@ Stat:SetScript("OnEnter", function(self)
 	if C.datatext.CurrProfessions then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine("Profession Token")
-		Currency(910) --Secret of Draenor Alchemy
-		Currency(1020) --Secret of Draenor Blacksmithing
-		Currency(1008) --Secret of Draenor Jewelcrafting
-		Currency(1017) --Secret of Draenor Leatherworking
-		Currency(999) --Secret of Draenor Tailoring
+		Currency(910) 					--Secret of Draenor Alchemy
+		Currency(1020) 					--Secret of Draenor Blacksmithing
+		Currency(1008) 					--Secret of Draenor Jewelcrafting
+		Currency(1017) 					--Secret of Draenor Leatherworking
+		Currency(999) 					--Secret of Draenor Tailoring
 
 	end
 
 	if C.datatext.CurrRaid then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine("Raid")
-		Currency(1166, false, false) --Timewarped Badge
-		Currency(1273, false, true) --Elder Charm of Good Fortune
+		Currency(1166, false, false) 	--Timewarped Badge
+		Currency(1273, false, true) 	--Elder Charm of Good Fortune
 	end
 
 	if C.datatext.CurrPvP then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(PVP_FLAG)
-		Currency(390, true) --Conquest Points
-		Currency(392, false, true) --Honor Points
+		Currency(390, true) 			--Conquest Points
+		Currency(392, false, true) 		--Honor Points
 	end
 
 	if C.datatext.CurrMiscellaneous then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(MISCELLANEOUS)
-		Currency(515) -- Darkmoon Prize Ticket
-		Currency(1220) -- Order Resources
-		Currency(1155, false, true) -- Ancient Mana
+		Currency(1533) 					-- Wakening Essence
+		Currency(515) 					-- Darkmoon Prize Ticket
+		Currency(1220) 					-- Order Resources
+		Currency(1155, false, true) 	-- Ancient Mana
 		Currency(1226)					-- Nethershard
 		Currency(1342, false, true)		-- Legionfall War Supplies
 		Currency(1508, false, true) 	-- Veiled Argunite
@@ -199,7 +200,6 @@ Stat:SetScript("OnEnter", function(self)
 	GameTooltip:AddLine("Currency is controlled under config-Datatext")
 
 	GameTooltip:Show()
-	--GameTooltip:SetTemplate("Transparent")
 end)
 
 Stat:SetScript("OnLeave", function()
