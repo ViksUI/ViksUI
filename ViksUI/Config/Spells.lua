@@ -637,8 +637,8 @@ C["filger_spells"] = {
 			{spellID = 213680, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Item Sets
-			-- Natural Defenses (T19)
-			{spellID = 211160, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Apex Predator (T21)
+			{spellID = 252752, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Trinkets
 			-- Alchemy Stones
@@ -790,6 +790,8 @@ C["filger_spells"] = {
 			{spellID = 33763, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Rejuvenation
 			{spellID = 774, unitID = "target", caster = "player", filter = "BUFF"},
+			-- Rejuvenation (Germination)
+			{spellID = 155777, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Regrowth
 			{spellID = 8936, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Wild Growth
