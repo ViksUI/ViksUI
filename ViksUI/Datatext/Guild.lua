@@ -182,6 +182,7 @@ Stat:SetScript("OnMouseUp", function(self, btn)
 		if info[7] and info[1] ~= myname then
 			local classc, levelc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[info[9]], GetQuestDifficultyColor(info[3])
 
+
 			if UnitInParty(info[1]) or UnitInRaid(info[1]) then
 				grouped = "|cffaaaaaa*|r"
 			else
