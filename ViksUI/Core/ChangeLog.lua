@@ -3,16 +3,20 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed options for AddOnSkins",
+		"• Fixed CastBar Ticks",
+		"• Pawn upgrade icon now shows in bags",
+		"• Archaeology shows 18 races",
+		"• Improved framelist command. (/fl)",
+		"• Added Wakening Essence to currency",
+		"• Added this/changelog",
+		"• Fixed Error in Skada report cased by skin",
 		--"• ",
-	" ",
+	--" ",
 	"Notes:",
-		"The settings for AddOnSkins can now be changed via the interface menu, in the",
-		"tab AddOns.",
-		"The AddOn Enhanced_Config must be removed.",
+		"I have made Discord channel for quick questions regarding ui.",
 		" ",
-		"Updates to the interface will be rarer in the near future, as I currently can not afford",
-		"the time to provide timely updates.",
+		"I have also started streaming on Twitch.",
+		"If all could join/follow there it would be awesome.",
 }
 
 local function ModifiedString(string)
@@ -90,6 +94,8 @@ function ChangeLog:CreateChangelog()
 	frame:SetPoint("CENTER")
 	frame:SetSize(445, 245)
 	frame:SetTemplate("Transparent")
+	frame:SetFrameLevel(4)
+	--frame:SetFrameStrata(DIALOG)
 	
 	local icon = CreateFrame("Frame", nil, frame)
 	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
