@@ -228,9 +228,9 @@ DBMSkin:SetScript("OnEvent", function(self, event, addon)
 		
 		if DBM ~= nil then
 		hooksecurefunc(DBT, "CreateBar", SkinBars)
-		hooksecurefunc(DBM.BossHealth, "Show", SkinBossTitle)
-		hooksecurefunc(DBM.BossHealth, "AddBoss", SkinBoss)
-		hooksecurefunc(DBM.BossHealth, "UpdateSettings", SkinBoss)
+		--hooksecurefunc(DBM.BossHealth, "Show", SkinBossTitle)
+		--hooksecurefunc(DBM.BossHealth, "AddBoss", SkinBoss)
+		--hooksecurefunc(DBM.BossHealth, "UpdateSettings", SkinBoss)
 
 		hooksecurefunc(DBM.RangeCheck, "Show", function()
 			if DBMRangeCheck then
