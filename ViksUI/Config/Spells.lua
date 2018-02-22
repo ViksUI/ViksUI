@@ -158,7 +158,8 @@ C["filger_spells"] = {
 			{spellID = 55078, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Frost Fever
 			{spellID = 55095, unitID = "target", caster = "player", filter = "DEBUFF"},
-
+			-- Razorice
+			{spellID = 51714, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Trinket Effects
 			-- Fel Burn [Empty Drinking Horn]
 			{spellID = 184256, unitID = "target", caster = "player", filter = "DEBUFF"},
