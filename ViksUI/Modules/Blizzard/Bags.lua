@@ -131,8 +131,7 @@ local function Stuffing_OnShow()
 
 	Stuffing:Layout()
 	Stuffing:SearchReset()
-
-	PlaySound(PlaySoundKitID and "igBackPackOpen" or SOUNDKIT.IG_BACKPACK_OPEN)
+	PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
 	collectgarbage("collect")
 end
 
@@ -141,16 +140,14 @@ local function StuffingBank_OnHide()
 	if Stuffing.frame:IsShown() then
 		Stuffing.frame:Hide()
 	end
-
-	PlaySound(PlaySoundKitID and "igBackPackClose" or SOUNDKIT.IG_BACKPACK_CLOSE)
+	PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE)
 end
 
 local function Stuffing_OnHide()
 	if Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
 		Stuffing.bankFrame:Hide()
 	end
-
-	PlaySound(PlaySoundKitID and "igBackPackClose" or SOUNDKIT.IG_BACKPACK_CLOSE)
+	PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE)
 end
 
 local function Stuffing_Open()
@@ -217,16 +214,20 @@ local function _getRealItemLevel(link)
 
 	for i = 2, scantip:NumLines() do -- Line 1 is always the name so you can skip it.
 		local text = _G["iLvlScanningTooltipTextLeft"..i]:GetText()
+
+
+
 		if text and text ~= "" then
 			realItemLevel = realItemLevel or strmatch(text, S_ITEM_LEVEL)
 
 			if realItemLevel then
 				ItemDB[link] = tonumber(realItemLevel)
 				return tonumber(realItemLevel)
+
+
 			end
 		end
 	end
-
 	return realItemLevel
 end
 
@@ -245,7 +246,7 @@ function Stuffing:SlotUpdate(b)
 		local start, duration, enable = GetContainerItemCooldown(b.bag, b.slot)
 		CooldownFrame_Set(b.cooldown, start, duration, enable)
 	end
-	
+
 	if C.bag.ilvl == true then
 		b.frame.text:SetText("")
 	end
@@ -349,8 +350,7 @@ function CreateReagentContainer()
 		_G["StuffingFrameBank"]:Show()
 		_G["StuffingFrameBank"]:SetAlpha(1)
 		BankFrame_ShowPanel(BANK_PANELS[1].name)
-
-		PlaySound(PlaySoundKitID and "igBackPackOpen" or SOUNDKIT.IG_BACKPACK_OPEN)
+		PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
 	end)
 
 	Deposit:SetParent(Reagent)
@@ -381,6 +381,19 @@ function CreateReagentContainer()
 			StuffingBank_OnHide()
 		end
 	end)
+
+	local tooltip_hide = function()
+		GameTooltip:Hide()
+	end
+
+	local tooltip_show = function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT", 19, 7)
+		GameTooltip:ClearLines()
+		GameTooltip:SetText(L_BAG_RIGHT_CLICK_CLOSE)
+	end
+
+	Close:HookScript("OnEnter", tooltip_show)
+	Close:HookScript("OnLeave", tooltip_hide)
 
 	for i = 1, 98 do
 		local button = _G["ReagentBankFrameItem" .. i]
@@ -455,8 +468,18 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		slot = slot - 4
 		ret.frame = CreateFrame("CheckButton", "StuffingBBag"..slot.."Slot", p, "BankItemButtonBagTemplate")
 		ret.frame:StripTextures()
-		ret.frame:SetID(slot)
-		table.insert(self.bagframe_buttons, ret)
+ 		ret.frame:SetID(slot)
+		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
+			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
+				self:GetParent():SetBackdropBorderColor(r, g, b)
+			end
+			self:SetTexture("")
+		end)
+
+		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
+			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
+		end)
+  		table.insert(self.bagframe_buttons, ret)
 
 		BankFrameItemButton_Update(ret.frame)
 		BankFrameItemButton_UpdateLocked(ret.frame)
@@ -466,7 +489,6 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		end
 	else
 		ret.frame = CreateFrame("CheckButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
-
 
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
@@ -700,8 +722,7 @@ function Stuffing:CreateBagFrame(w)
 		f.b_reagent:SkinButton()
 		f.b_reagent:SetScript("OnClick", function()
 			BankFrame_ShowPanel(BANK_PANELS[2].name)
-
-			PlaySound(PlaySoundKitID and "igBackPackOpen" or SOUNDKIT.IG_BACKPACK_OPEN)
+			PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
 			if not ReagentBankFrame.isMade then
 				CreateReagentContainer()
 				ReagentBankFrame.isMade = true
@@ -749,11 +770,6 @@ function Stuffing:CreateBagFrame(w)
 		self:GetParent():Hide()
 	end)
 	f.b_close:RegisterForClicks("AnyUp")
-
-
-
-
-
 
 	-- Create the bags frame
 	local fb = CreateFrame("Frame", n.."BagsFrame", f)
@@ -878,10 +894,11 @@ function Stuffing:InitBags()
 		f.depositButton.ttText = L_BAG_BUTTONS_DEPOSIT
 		f.depositButton:SetScript("OnEnter", tooltip_show)
 		f.depositButton:SetScript("OnLeave", tooltip_hide)
-		f.depositButton:SetScript("OnClick", function(self, btn)
-			PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
+		f.depositButton:SetScript('OnClick', function()
+			PlaySound(852) --IG_MAINMENU_OPTION
 			DepositReagentBank()
 		end)
+
 
 		-- Sort Button
 		f.sortButton = CreateFrame("Button", nil, f)
@@ -1194,7 +1211,6 @@ function Stuffing:SetBagsForSorting(c)
 	Print(bids)
 end
 
-
 -- Slash command handler
 local function StuffingSlashCmd(Cmd)
 	local cmd, args = strsplit(" ", Cmd:lower(), 2)
@@ -1234,7 +1250,6 @@ local function StuffingSlashCmd(Cmd)
 			Print(L_BAG_OPEN_BANK)
 		end
 	else
-
 		Print("/bags sort - "..L_BAG_SORT)
 		Print("/bags stack - "..L_BAG_STACK)
 		Print("/bags purchase - "..L_BAG_BUY_BANKS_SLOT)
@@ -1245,8 +1260,6 @@ end
 function Stuffing:ADDON_LOADED(addon)
 
 	if addon ~= "ViksUI" then return nil end
-
-
 	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("ITEM_LOCK_CHANGED")
 
@@ -1259,7 +1272,6 @@ function Stuffing:ADDON_LOADED(addon)
 	self:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED")
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
-	--self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
 	SlashCmdList.STUFFING = StuffingSlashCmd
 	SLASH_STUFFING1 = "/bags"
@@ -1277,7 +1289,7 @@ function Stuffing:ADDON_LOADED(addon)
 	CloseAllBags = Stuffing_Close
 	CloseBackpack = Stuffing_Close
 
-	--BankFrame:UnregisterAllEvents()
+	BankFrame:UnregisterAllEvents()
 	BankFrame:SetScale(0.00001)
 	BankFrame:SetAlpha(0)
 	BankFrame:SetPoint("TOPLEFT")
@@ -1414,10 +1426,7 @@ function Stuffing:SortOnUpdate(e)
 		self.itmax = 0
 	end
 
-
 	self.elapsed = self.elapsed + e
-
-
 	if self.elapsed < 0.1 then
 		return
 	end
@@ -1426,8 +1435,6 @@ function Stuffing:SortOnUpdate(e)
 	self.itmax = self.itmax + 1
 
 	local changed, blocked = false, false
-
-
 	if self.sortList == nil or next(self.sortList, nil) == nil then
 		-- Wait for all item locks to be released
 		local locks = false
