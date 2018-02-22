@@ -112,9 +112,9 @@ local updateIcon = function(unit, icons, index, offset, filter, isDebuff, visibl
 			end
 
 			if((isDebuff and icons.showDebuffType) or (not isDebuff and icons.showBuffType) or icons.showType) then
-				local color = DebuffTypeColor[dispelType] or DebuffTypeColor.none
+				local color = element.__owner.colors.debuff[debuffType] or element.__owner.colors.debuff.none
 
-				icon.overlay:SetVertexColor(color.r, color.g, color.b)
+				icon.overlay:SetVertexColor(color[1], color[2], color[3])
 				icon.overlay:Show()
 			else
 				icon.overlay:Hide()
