@@ -309,7 +309,6 @@ C["tooltip"] = {
 	["item_count"] = true,						-- Item count in tooltip
 	["unit_role"] = true,						-- Unit role in tooltip
 	["instance_lock"] = true,					-- Your instance lock status in tooltip
-	["item_transmogrify"] = false,				-- Displays items can not be transmogrified
 	["bottomleft"] = false, 				-- Anchor to BottomLeft
 	["bottomright"] = false, 				-- Anchor to Bottomright
 	["topright"] = false, 					-- Anchor to Top Right
