@@ -254,6 +254,7 @@ end
 	--bar:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
 --end
 --Fast focus/clearfocus function
+
 lib.focus = function(f)
     f:RegisterForClicks("AnyDown")
 	local ModKey = 'alt-ctrl-shift'
@@ -1540,7 +1541,7 @@ end
 --WARLOCK
 lib.genShards = function(self)
     if playerClass ~= "WARLOCK" then return end
-    local ShardsFrame = CreateFrame("Frame", self:GetName().."_WarlockSpecBar", self)
+    local ShardsFrame = CreateFrame("Frame", self:GetName().."SoulShards", self)
 	ShardsFrame:CreateBackdrop("Default")
     ShardsFrame:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1,7)
     ShardsFrame:SetHeight(7)
@@ -1549,7 +1550,7 @@ lib.genShards = function(self)
 
     local totalShards = 5 
         for i= 1, totalShards do
-            local Shards = CreateFrame("StatusBar", self:GetName().."WarlockSpecBar"..i, ShardsFrame)
+            local Shards = CreateFrame("StatusBar", self:GetName().."SoulShards"..i, ShardsFrame)
             Shards:SetSize(((ShardsFrame:GetWidth())/totalShards)-0.5, 7)
             Shards:SetStatusBarTexture(cfg.statusbar_texture)
             Shards:SetFrameLevel(4)
@@ -1567,7 +1568,7 @@ lib.genShards = function(self)
             
             ShardsFrame[i] = Shards
     end  
-    self.WarlockSpecBars = ShardsFrame
+    self.SoulShards = ShardsFrame
 end
 
 -- Arcane Charges (Arcane Mage)

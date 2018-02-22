@@ -182,7 +182,7 @@ local UnitSpecific = {
 	
 		self.mystyle = "focus"
 		--self:SetParent(PetBattleHider)
-		lib.cfocus(self)
+		lib.focus(self)
 		--lib.init(self)
 		self.scale = cfg.scale
 		self:SetSize(cfg.unit_size.Focus.w,cfg.unit_size.Focus.h)
