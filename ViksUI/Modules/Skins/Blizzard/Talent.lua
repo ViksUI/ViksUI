@@ -52,9 +52,15 @@ local function LoadSkin()
 			select(i, PlayerTalentFramePetSpecialization:GetRegions()):Hide()
 		end
 
-		select(7, PlayerTalentFramePetSpecialization:GetChildren()):DisableDrawLayer("OVERLAY")
+		for i=1, PlayerTalentFramePetSpecialization:GetNumChildren() do
+			local child = select(i, PlayerTalentFramePetSpecialization:GetChildren())
+			if child and not child:GetName() then
+				child:DisableDrawLayer("OVERLAY")
+			end
+		end
 
 		for i = 1, 5 do
+
 			select(i, PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild:GetRegions()):Hide()
 		end
 
@@ -71,6 +77,7 @@ local function LoadSkin()
 			bu.specIcon:SetSize(50, 50)
 			bu.specIcon:SetPoint("LEFT", bu, "LEFT", 15, 0)
 		end
+		PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild.Seperator:SetColorTexture(1, 1, 1, 0.2)
 	end
 
 	for i = 1, NUM_TALENT_FRAME_TABS do
@@ -113,17 +120,19 @@ local function LoadSkin()
 			for i = 1, #bonuses, 2 do
 				local frame = scrollChild["abilityButton"..index]
 				local _, icon = GetSpellTexture(bonuses[i])
-				frame.icon:SetTexture(icon)
-				if not frame.reskinned then
-					frame.reskinned = true
-					frame.ring:Hide()
-					frame:CreateBackdrop("Default")
-					frame.backdrop:SetPoint("TOPLEFT", 2, -2)
-					frame.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
-					frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-					frame.icon:SetParent(frame.backdrop)
-					frame.icon:SetPoint("TOPLEFT", 2, -2)
-					frame.icon:SetPoint("BOTTOMRIGHT", -2, 2)
+				if frame then
+					frame.icon:SetTexture(icon)
+					if not frame.reskinned then
+						frame.reskinned = true
+						frame.ring:Hide()
+						frame:CreateBackdrop("Default")
+						frame.backdrop:SetPoint("TOPLEFT", 2, -2)
+						frame.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
+						frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+						frame.icon:SetParent(frame.backdrop)
+						frame.icon:SetPoint("TOPLEFT", 2, -2)
+						frame.icon:SetPoint("BOTTOMRIGHT", -2, 2)
+					end
 				end
 				index = index + 1
 			end
@@ -279,6 +288,7 @@ local function LoadSkin()
 	PlayerTalentFramePVPTalents.TutorialBox.Arrow:Hide()
 	PlayerTalentFramePVPTalents.TutorialBox:StripTextures()
 	PlayerTalentFramePVPTalents.TutorialBox:CreateBackdrop("Transparent")
+
 
 	for i = 1, MAX_PVP_TALENT_TIERS do
 		local row = PlayerTalentFramePVPTalents.Talents["Tier"..i]
