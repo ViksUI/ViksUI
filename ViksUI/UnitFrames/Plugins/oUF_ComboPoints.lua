@@ -5,6 +5,7 @@ local class = select(2, UnitClass('player'))
 if not (class == "ROGUE" or class == "DRUID") then return end
 
 local GetComboPoints = GetComboPoints
+local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
 local Colors = {
     [1] = {.69, .31, .31, 1},
@@ -17,115 +18,68 @@ local Colors = {
     [8] = {.33, .63, .33, 1},
 }
 
-local Update = function(self, event, unit, powerType)
-    if(self.unit ~= unit and (powerType and (powerType ~= 'COMBO_POINTS'))) then return end
+local Update = function(self, event, unit)
+	if powerType and powerType ~= 'COMBO_POINTS' then return end
+	if(unit == 'pet') then return end
 
-    local cpb = self.CPoints
-    local points
-
-    if UnitHasVehicleUI("player") then
-        points = GetComboPoints("vehicle", "target")
-    else
-        points = GetComboPoints("player", "target")
-    end
-
-    if points then
-        -- update combos display
-        for i = 1, 8 do
-            if i <= points then
-                cpb[i]:SetAlpha(1)
-            else
-                cpb[i]:SetAlpha(.2)
-            end
-        end
-    end
-	
-	if class == "ROGUE" then
-		cpb:Show()
-	elseif class == "DRUID" then
-		if points > 0 then cpb:Show() else cpb:Hide() end
+	local cpoints = self.CPoints
+	if(cpoints.PreUpdate) then
+		cpoints:PreUpdate()
 	end
 
-    if cpb.PostUpdate then
-        cpb:PostUpdate(self, points)
-    end
-end
+	local cp
+	if(UnitHasVehicleUI'player') then
+		cp = GetComboPoints('vehicle', 'target')
+	else
+		cp = GetComboPoints('player', 'target')
+	end
 
-local SetMaxCombo = function(self)
-	local Anticipation = select(4, GetTalentInfo(3, 2, 1))
-	local Deeper = select(4, GetTalentInfo(3, 1, 1))
-    local cpb = self.CPoints
-
-    if Anticipation then
-        for i = 1, 8 do
-            cpb[i]:SetWidth(cpb[i].Anticipation)
-            cpb[i]:Show()
-        end
-    elseif Deeper then
-        for i = 1, 8 do
-            cpb[i]:SetWidth(cpb[i].Deeper)
-            
-            if i > 6 then
-                cpb[i]:Hide()
-            else
-                cpb[i]:Show()
-            end
-        end
-    else
-        for i = 1, 8 do
-            cpb[i]:SetWidth(cpb[i].None)
-            
-            if i > 5 then
-                cpb[i]:Hide()
-            else
-                cpb[i]:Show()
-            end
-        end
-    end
+	for i = 1, MAX_COMBO_POINTS do
+		if(i <= cp) then
+			cpoints[i]:Show()
+		else
+			cpoints[i]:Hide()
+		end
+	end
 end
 
 local Path = function(self, ...)
-    return (self.CPoints.Override or Update) (self, ...)
+	return (self.CPoints.Override or Update) (self, ...)
 end
 
 local ForceUpdate = function(element)
-    return Path(element.__owner, 'ForceUpdate', element.__owner.unit, "COMBO_POINTS")
+	return Path(element.__owner, 'ForceUpdate', element.__owner.unit)
 end
 
-local Enable = function(self, unit)
-    local cpb = self.CPoints
-    if (cpb) then
-        cpb.__owner = self
-        cpb.ForceUpdate = ForceUpdate
+local Enable = function(self)
+	local cpoints = self.CPoints
+	if(cpoints) then
+		cpoints.__owner = self
+		cpoints.ForceUpdate = ForceUpdate
 
-        self:RegisterEvent('UNIT_POWER', Path, true)
-        self:RegisterEvent('PLAYER_TARGET_CHANGED', Path, true)
-        self:RegisterEvent('PLAYER_TALENT_UPDATE', SetMaxCombo, true)
+		self:RegisterEvent('UNIT_POWER', Path, true)
+		self:RegisterEvent('UNIT_MAXPOWER', Path, true)
+		self:RegisterEvent('PLAYER_TARGET_CHANGED', Path)
 
-        for i = 1, 8 do
-            local Point = cpb[i]
-            if not Point:GetStatusBarTexture() then
-                Point:SetStatusBarTexture([=[Interface\TargetingFrame\UI-StatusBar]=])
-            end
+		for index = 1, MAX_COMBO_POINTS do
+			local cpoint = cpoints[index]
+			if(cpoint:IsObjectType'Texture' and not cpoint:GetTexture()) then
+				cpoint:SetTexture[[Interface\ComboFrame\ComboPoint]]
+				cpoint:SetTexCoord(0, 0.375, 0, 1)
+			end
+		end
 
-            Point:SetStatusBarColor(unpack(Colors[i]))
-            Point:SetFrameLevel(cpb:GetFrameLevel() + 1)
-            Point:GetStatusBarTexture():SetHorizTile(false)
-            Point.Width = Point:GetWidth()
-        end
-        
-        SetMaxCombo(self)
-        return true
-    end
+		return true
+	end
 end
 
 local Disable = function(self)
-    local cpb = self.CPoints
-    if (cpb) then
-        self:UnregisterEvent('UNIT_POWER', Path)
-        self:UnregisterEvent('PLAYER_TARGET_CHANGED', Path)
-        self:UnregisterEvent('PLAYER_TALENT_UPDATE', SetMaxCombo)
-    end
+	local cpoints = self.CPoints
+	if(cpoints) then
+		self:UnregisterEvent('UNIT_POWER', Path)
+		self:UnregisterEvent('UNIT_MAXPOWER', Path)
+		self:UnregisterEvent('PLAYER_TARGET_CHANGED', Path)
+	end
 end
 
 oUF:AddElement('CPoints', Path, Enable, Disable)
