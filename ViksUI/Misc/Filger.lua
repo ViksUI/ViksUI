@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.Filger.enable and C.unitframe.enable ~= true then return end
+if C.Filger.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Filger(by Nils Ruesch, editors Affli/SinaC/Ildyria)
