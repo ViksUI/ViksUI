@@ -113,7 +113,9 @@ end
 
 --Top of Screen Panel
 local CPTopp = CreateFrame("Frame", "CPTopp",UIParent)
-CPTopp:CreatePanel("Transparent", (Tw/uiscale)-5, CPbarsheight, "TOP", UIParent, "TOP", 0, -1)
+CPTopp:CreatePanel("Transparent", 1, CPbarsheight, "TOP", UIParent, "TOP", 0, -1)
+CPTopp:SetPoint("LEFT", UIParent, "LEFT", 3, 0)
+CPTopp:SetPoint("RIGHT", UIParent, "RIGHT", -3, 0)
 CPTopp:SetFrameLevel(2)
 CPTopp:SetAlpha(pAlpha)
 
