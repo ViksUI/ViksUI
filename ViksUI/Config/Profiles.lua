@@ -44,9 +44,17 @@ if T.level ~= MAX_PLAYER_LEVEL then
 end
 
 ----------------------------------------------------------------------------------------
---	Bauge@Quel'Thalas Config
+--	Tank chars @Quel'Thalas Config
 ----------------------------------------------------------------------------------------
-if T.name == "Bauge" and T.realm == "Quel'Thalas" then
+if T.name == "Bauge" or "Vikingdruid" and T.realm == "Quel'Thalas" then
+	C["nameplate"].enhance_threat = true
+end
+
+----------------------------------------------------------------------------------------
+--	Viks Config all chars
+----------------------------------------------------------------------------------------
+if T.name == "Bauge" or "Ulva" or "Vikingpower" or "Villdyret" or "Búre" or "Bor" or "Vikingdruid" and T.realm == "Quel'Thalas" then
 	C["general"].welcome_message = false
 	C["nameplate"].enhance_threat = true
+	C["skins"].rematch = true
 end
