@@ -735,6 +735,12 @@ T.RaidDebuffs = {
 	[SpellName(94794)] = 4,		-- Rocket Fuel Leak
 	[SpellName(116888)] = 4,	-- Shroud of Purgatory
 	[SpellName(121175)] = 2,	-- Orb of Power
+-- M+ Affixes
+	[SpellName(226489)] = 5,	-- Sanguine Ichor
+	[SpellName(209858)] = 5,	-- Necrotic Rot
+	[SpellName(240559)] = 5,	-- Grievous Wound
+	[SpellName(240443)] = 5,	-- Burst
+	
 }
 -----------------------------------------------------------------
 -- PvP
