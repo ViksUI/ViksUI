@@ -23,13 +23,13 @@ switch:EnableMouse(true)
 switch:RegisterForClicks("AnyUp")
 switch:SetScript("OnClick", function(self, button)
 	if button == "LeftButton" then
-		GUIConfig.unitframes.HealFrames = true
-		GUIConfigSettings.unitframes.HealFrames = true
+		GUIConfig.unitframe.HealFrames = true
+		GUIConfigSettings.unitframe.HealFrames = true
 		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -210
 		ReloadUI()
 	elseif button == "RightButton" then
-		GUIConfig.unitframes.HealFrames = false
-		GUIConfigSettings.unitframes.HealFrames = false
+		GUIConfig.unitframe.HealFrames = false
+		GUIConfigSettings.unitframe.HealFrames = false
 		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -240
 		ReloadUI()
 	end
@@ -53,9 +53,9 @@ end)
 
 switch:RegisterEvent("PLAYER_LOGIN")
 switch:SetScript("OnEvent", function(self)
-	if SavedOptions and (GUIConfig.unitframes.HealFrames ~= true or GUIConfigSettings.unitframes.HealFrames ~= true) then
+	if SavedOptions and (GUIConfig.unitframe.HealFrames ~= true or GUIConfigSettings.unitframe.HealFrames ~= true) then
 		switch.t:SetTexCoord(0.25, 0.5, 0, 1)
-	elseif SavedOptions and (GUIConfig.unitframes.HealFrames == true or GUIConfigSettings.unitframes.HealFrames == true) then
+	elseif SavedOptions and (GUIConfig.unitframe.HealFrames == true or GUIConfigSettings.unitframe.HealFrames == true) then
 		switch.t:SetTexCoord(0.75, 1, 0, 1)
 	end
 end)

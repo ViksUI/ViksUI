@@ -552,8 +552,8 @@ StaticPopupDialogs.SWITCH_RAID = {
 	button1 = DAMAGER,
 	button2 = HEALER,
 	--button3 = "Blizzard",
-	OnAccept = function() GUIConfig.unitframes.HealFrames = false GUIConfigSettings.unitframes.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
-	OnCancel = function() GUIConfig.unitframes.HealFrames = true GUIConfigSettings.unitframes.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
+	OnAccept = function() GUIConfig.unitframe.HealFrames = false GUIConfigSettings.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
+	OnCancel = function() GUIConfig.unitframe.HealFrames = true GUIConfigSettings.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
 	--OnAlt = function() SavedOptionsPerChar.RaidLayout = "NONE" ReloadUI() end,
 	timeout = 0,
 	whileDead = 1,
@@ -588,12 +588,12 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	if SavedOptionsPerChar.RaidLayout == nil then SavedOptionsPerChar.RaidLayout = "UNKNOWN" end
 	if GUIConfig == nil then GUIConfig = {} end
 	if GUIConfigSettings == nil then GUIConfigSettings = {} end
-	if GUIConfig.unitframes == nil then GUIConfig.unitframes = {} end
-	if GUIConfigSettings.unitframes == nil then GUIConfigSettings.unitframes = {} end
-	if GUIConfig.unitframes.HealFrames == nil then GUIConfig.unitframes.HealFrames = {} end
-	if GUIConfigSettings.unitframes.HealFrames == nil then GUIConfigSettings.unitframes.HealFrames = {} end
-	if GUIConfig.unitframes.HealFrames == nil then GUIConfig.unitframes.HealFrames = "UNKNOWN" end
-	if GUIConfigSettings.unitframes.HealFrames == nil then GUIConfigSettings.unitframes.HealFrames = "UNKNOWN" end
+	if GUIConfig.unitframe == nil then GUIConfig.unitframe = {} end
+	if GUIConfigSettings.unitframe == nil then GUIConfigSettings.unitframe = {} end
+	if GUIConfig.unitframe.HealFrames == nil then GUIConfig.unitframe.HealFrames = {} end
+	if GUIConfigSettings.unitframe.HealFrames == nil then GUIConfigSettings.unitframe.HealFrames = {} end
+	if GUIConfig.unitframe.HealFrames == nil then GUIConfig.unitframe.HealFrames = "UNKNOWN" end
+	if GUIConfigSettings.unitframe.HealFrames == nil then GUIConfigSettings.unitframe.HealFrames = "UNKNOWN" end
 	if SavedOptionsPerChar.FogOfWar == nil then SavedOptionsPerChar.FogOfWar = false end
 	if SavedOptionsPerChar.AutoInvite == nil then SavedOptionsPerChar.AutoInvite = false end
 	if SavedOptionsPerChar.Archaeology == nil then SavedOptionsPerChar.Archaeology = false end
