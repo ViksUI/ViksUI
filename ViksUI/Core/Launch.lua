@@ -590,10 +590,6 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	if GUIConfigSettings == nil then GUIConfigSettings = {} end
 	if GUIConfig.unitframe == nil then GUIConfig.unitframe = {} end
 	if GUIConfigSettings.unitframe == nil then GUIConfigSettings.unitframe = {} end
-	if GUIConfig.unitframe.HealFrames == nil then GUIConfig.unitframe.HealFrames = {} end
-	if GUIConfigSettings.unitframe.HealFrames == nil then GUIConfigSettings.unitframe.HealFrames = {} end
-	if GUIConfig.unitframe.HealFrames == nil then GUIConfig.unitframe.HealFrames = "UNKNOWN" end
-	if GUIConfigSettings.unitframe.HealFrames == nil then GUIConfigSettings.unitframe.HealFrames = "UNKNOWN" end
 	if SavedOptionsPerChar.FogOfWar == nil then SavedOptionsPerChar.FogOfWar = false end
 	if SavedOptionsPerChar.AutoInvite == nil then SavedOptionsPerChar.AutoInvite = false end
 	if SavedOptionsPerChar.Archaeology == nil then SavedOptionsPerChar.Archaeology = false end

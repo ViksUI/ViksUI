@@ -25,11 +25,13 @@ switch:SetScript("OnClick", function(self, button)
 	if button == "LeftButton" then
 		GUIConfig.unitframe.HealFrames = true
 		GUIConfigSettings.unitframe.HealFrames = true
+		SavedOptionsPerChar.RaidLayout = "HEAL"
 		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -210
 		ReloadUI()
 	elseif button == "RightButton" then
 		GUIConfig.unitframe.HealFrames = false
 		GUIConfigSettings.unitframe.HealFrames = false
+		SavedOptionsPerChar.RaidLayout = "DPS"
 		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -240
 		ReloadUI()
 	end
