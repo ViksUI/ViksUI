@@ -663,30 +663,6 @@ oUF:Factory(function(self)
 		end 
 	--end
 	
-		-- Tank Frame
-	if cfg.showTankFrames then
-			oUF:SetActiveStyle("oUF_MT")
-			local tank = oUF:SpawnHeader('oUF_MT', nil, 'raid',
-				'oUF-initialConfigFunction', ([[
-					self:SetWidth(%d)
-					self:SetHeight(%d)
-				]]):format(),
-				'showRaid', true,
-				'groupFilter', 'MAINTANK',
-				'yOffset', 3,
-				'point' , 'BOTTOM',
-				'template', 'oUF_MainTank'
-				)
-				
-		if cfg.HealFrames then
-		tank:SetPoint("TOP", Anchorvikstank)
-		else
-		tank:SetPoint("TOP", AnchorvikstankDps)
-		end	
-
-		local maxGroups = 5
-		if cfg.RaidShowAllGroups then maxGroups = 8 end
-
 	-- Raid Frames
 	if cfg.ShowRaid then
 		-- Hide the Blizzard raid frames
@@ -816,6 +792,29 @@ oUF:Factory(function(self)
 	
 	
 	end
+	-- Tank Frame
+	if cfg.showTankFrames then
+			oUF:SetActiveStyle("oUF_MT")
+			local tank = oUF:SpawnHeader('oUF_MT', nil, 'raid',
+				'oUF-initialConfigFunction', ([[
+					self:SetWidth(%d)
+					self:SetHeight(%d)
+				]]):format(),
+				'showRaid', true,
+				'groupFilter', 'MAINTANK',
+				'yOffset', 3,
+				'point' , 'BOTTOM',
+				'template', 'oUF_MainTank'
+				)
+				
+		if cfg.HealFrames then
+		tank:SetPoint("TOP", Anchorvikstank)
+		else
+		tank:SetPoint("TOP", AnchorvikstankDps)
+		end	
+
+		local maxGroups = 5
+		if cfg.RaidShowAllGroups then maxGroups = 8 end
 end
 end)
 
