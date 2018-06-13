@@ -914,11 +914,11 @@ oUF.Tags.Events['freebgrid:wg'] = "UNIT_AURA"
 
 
 -- Warrior
-oUF.Tags.Methods['freebgrid:stragi'] = function(u) if not(UnitAura(u, GetSpellInfo(6673)) or UnitAura(u, GetSpellInfo(57330)) or UnitAura(u, GetSpellInfo(8076))) then return "|cffFF0000"..x.."|r" end end
+oUF.Tags.Methods['freebgrid:stragi'] = function(u) if not(UnitAura(u, GetSpellInfo(6673)) or UnitAura(u, GetSpellInfo(57330)) then return "|cffFF0000"..x.."|r" end end
 oUF.Tags.Events['freebgrid:stragi'] = "UNIT_AURA"
 
-oUF.Tags.Methods['freebgrid:vigil'] = function(u) if UnitAura(u, GetSpellInfo(50720)) then return "|cff8B4513"..x.."|r" end end
-oUF.Tags.Events['freebgrid:vigil'] = "UNIT_AURA"
+-- oUF.Tags.Methods['freebgrid:vigil'] = function(u) if UnitAura(u, GetSpellInfo(50720)) then return "|cff8B4513"..x.."|r" end end
+-- oUF.Tags.Events['freebgrid:vigil'] = "UNIT_AURA"
 
 -- Shaman
 oUF.Tags.Methods['freebgrid:rip'] = function(u) 
@@ -960,18 +960,18 @@ end
 oUF.Tags.Events['freebgrid:eternalTime'] = "UNIT_AURA"
 
 -- Warlock
-oUF.Tags.Methods['freebgrid:di'] = function(u) 
-	local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(109773))
-	if fromwho == "player" then
-		return "|cff6600FF"..x.."|r"
-	elseif name then
-		return "|cffCC00FF"..x.."|r"
-	end
-end
-oUF.Tags.Events['freebgrid:di'] = "UNIT_AURA"
+--oUF.Tags.Methods['freebgrid:di'] = function(u) 
+	--local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(109773))
+	--if fromwho == "player" then
+		--return "|cff6600FF"..x.."|r"
+	--elseif name then
+		--return "|cffCC00FF"..x.."|r"
+	--end
+--end
+--oUF.Tags.Events['freebgrid:di'] = "UNIT_AURA"
 
 oUF.Tags.Methods['freebgrid:ss'] = function(u) 
-	local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(20707)) 
+	local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(6203)) 
 	if fromwho == "player" then
 		return "|cff6600FFY|r"
 	elseif name then
@@ -981,15 +981,15 @@ end
 oUF.Tags.Events['freebgrid:ss'] = "UNIT_AURA"
 
 -- Mage
-oUF.Tags.Methods['freebgrid:int'] = function(u) if not(UnitAura(u, GetSpellInfo(1459)) or UnitAura(u, GetSpellInfo(61316))) then return "|cff00A1DE"..x.."|r" end end
-oUF.Tags.Events['freebgrid:int'] = "UNIT_AURA"
+--oUF.Tags.Methods['freebgrid:int'] = function(u) if not(UnitAura(u, GetSpellInfo(1459)) or UnitAura(u, GetSpellInfo(61316))) then return "|cff00A1DE"..x.."|r" end end
+--oUF.Tags.Events['freebgrid:int'] = "UNIT_AURA"
 
-oUF.Tags.Methods['freebgrid:fmagic'] = function(u) if UnitAura(u, GetSpellInfo(54648)) then return "|cffCC00FF"..x.."|r" end end
-oUF.Tags.Events['freebgrid:fmagic'] = "UNIT_AURA"
+--oUF.Tags.Methods['freebgrid:fmagic'] = function(u) if UnitAura(u, GetSpellInfo(54648)) then return "|cffCC00FF"..x.."|r" end end
+--oUF.Tags.Events['freebgrid:fmagic'] = "UNIT_AURA"
 
 -- DEATHKNIGHT
 
-oUF.Tags.Methods['freebgrid:horn'] = function(u) if not(UnitAura(u, GetSpellInfo(57330)) or UnitAura(u, GetSpellInfo(19506))) then return "|cff00A1DE"..x.."|r" end end
+oUF.Tags.Methods['freebgrid:horn'] = function(u) if not(UnitAura(u, GetSpellInfo(57330)) then return "|cff00A1DE"..x.."|r" end end
 oUF.Tags.Events['freebgrid:horn'] = "UNIT_AURA"
 
 ns.classIndicators={
@@ -1016,13 +1016,13 @@ ns.classIndicators={
 	},
 	["WARLOCK"] = {
 		["TL"] = "",
-		["TR"] = "[freebgrid:di]",
+		["TR"] = "",
 		["BL"] = "",
 		["BR"] = "[freebgrid:ss]",
 		["Cen"] = "",
 	},
 	["WARRIOR"] = {
-		["TL"] = "[freebgrid:vigil]",
+		["TL"] = "",
 		["TR"] = "[freebgrid:stragi]",
 		["BL"] = "",
 		["BR"] = "",
@@ -1030,7 +1030,7 @@ ns.classIndicators={
 	},
 	["DEATHKNIGHT"] = {
 		["TL"] = "",
-		["TR"] = "[freebgrid:horn]",
+		["TR"] = "",
 		["BL"] = "",
 		["BR"] = "",
 		["Cen"] = "",
@@ -1058,7 +1058,7 @@ ns.classIndicators={
 	},
 	["MAGE"] = {
 		["TL"] = "",
-		["TR"] = "[freebgrid:int]",
+		["TR"] = "",
 		["BL"] = "",
 		["BR"] = "",
 		["Cen"] = "",
