@@ -914,7 +914,7 @@ oUF.Tags.Events['freebgrid:wg'] = "UNIT_AURA"
 
 
 -- Warrior
-oUF.Tags.Methods['freebgrid:stragi'] = function(u) if not(UnitAura(u, GetSpellInfo(6673)) or UnitAura(u, GetSpellInfo(57330)) then return "|cffFF0000"..x.."|r" end end
+oUF.Tags.Methods['freebgrid:stragi'] = function(u) if not(UnitAura(u, GetSpellInfo(6673)) or UnitAura(u, GetSpellInfo(57330))) then return "|cffFF0000"..x.."|r" end end
 oUF.Tags.Events['freebgrid:stragi'] = "UNIT_AURA"
 
 -- oUF.Tags.Methods['freebgrid:vigil'] = function(u) if UnitAura(u, GetSpellInfo(50720)) then return "|cff8B4513"..x.."|r" end end
@@ -989,7 +989,7 @@ oUF.Tags.Events['freebgrid:ss'] = "UNIT_AURA"
 
 -- DEATHKNIGHT
 
-oUF.Tags.Methods['freebgrid:horn'] = function(u) if not(UnitAura(u, GetSpellInfo(57330)) then return "|cff00A1DE"..x.."|r" end end
+oUF.Tags.Methods['freebgrid:horn'] = function(u) if not UnitAura(u, GetSpellInfo(57330)) then return "|cff00A1DE"..x.."|r" end end
 oUF.Tags.Events['freebgrid:horn'] = "UNIT_AURA"
 
 ns.classIndicators={
