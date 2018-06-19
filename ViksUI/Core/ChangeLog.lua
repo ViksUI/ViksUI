@@ -3,20 +3,18 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed CastBar Ticks",
-		"• Pawn upgrade icon now shows in bags",
-		"• Archaeology shows 18 races",
-		"• Improved framelist command. (/fl)",
-		"• Added Wakening Essence to currency",
-		"• Added this/changelog",
-		"• Fixed Error in Skada report cased by skin",
+		"• Updated Combopoints",
+		"• Filger updated",
+		"• Changed how top panel is sized",
+		"• Added M+ affixes to Raid Aura watch",
+		"• Fixed raidlayout switch minimap button",
+		"• Temporary buffs placement fix",
+		"• Fixed indicator 2 tag errors",
 		--"• ",
 	--" ",
 	"Notes:",
-		"I have made Discord channel for quick questions regarding ui.",
-		" ",
-		"I have also started streaming on Twitch.",
-		"If all could join/follow there it would be awesome.",
+		"Join Discord channel for quick questions regarding ui.",
+		"https://discord.gg/pDEnZSV",
 }
 
 local function ModifiedString(string)
