@@ -78,6 +78,7 @@ T.DebuffWhiteList = {
 	[SpellName(48181)] = true,	-- Haunt
 	[SpellName(348)] = true,	-- Immolate
 	[SpellName(30108)] = true,	-- Unstable Affliction
+	[SpellName(63106)] = true,	-- Siphon Life
 	-- Warrior
 	[SpellName(5246)] = true,	-- Intimidating Shout
 	[SpellName(132168)] = true,	-- Shockwave
