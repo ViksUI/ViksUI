@@ -1023,7 +1023,7 @@ do
 			local isDebuff = auraType == "HARMFUL";
 		
 			for index = 1, 40 do
-				local name, _, texture, stacks, _, duration, expirationTime, caster, _, _, spellId = UnitAura( unit, index, auraType );		
+				local name, texture, stacks, _, duration, expirationTime, caster, _, _, spellId = UnitAura( unit, index, auraType );		
 				if ( name == nil ) then
 					break;
 				end							
