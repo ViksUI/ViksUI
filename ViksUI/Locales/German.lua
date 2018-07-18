@@ -5,13 +5,6 @@ if T.client ~= "deDE" then return end
 --	Localization for deDE client
 --	Translation: Alwa, Baine, Chubidu, F5Hellbound, Sinaris, Vienchen
 ----------------------------------------------------------------------------------------
--- Announce your Lightwell
-L_ANNOUNCE_LA_USE = " benutzte meinen Lichtbrunnen. "
-L_ANNOUNCE_LA_CHARGE = " aufladung(en)"
-L_ANNOUNCE_LA_USELESS = " benutzte meinen Lichtbrunnen, nutzlos. "
-L_ANNOUNCE_LA_PLACED = "Lichtbrunnen gesetzt. "
-L_ANNOUNCE_LA_CHARGES = " aufladungen."
-
 -- Announce flasks and food
 L_ANNOUNCE_FF_NOFOOD = "Kein Essen: "
 L_ANNOUNCE_FF_NOFLASK = "Kein Fläschchen: "
@@ -57,12 +50,13 @@ L_MISC_BUY_STACK = "Alt-Klick um einen Stapel zu kaufen"
 L_MISC_ONECLICK_BUYOUT = "Shift-Right-Click um den ausgewählten Gegenstand ohne Bestätigung zu kaufen"
 L_MISC_ONECLICK_BID = "Shift-Right-Click um auf den ausgewählten Gegenstand ohne Bestätigung zu bieten"
 L_MISC_ONECLICK_CANCEL = "Shift-Right-Click um den ausgewählten Gegenstand ohne Bestätigung abzubrechen"
-L_MISC_UI_OUTDATED = "Deine Version von ViksUI ist veraltet. Du kannst die aktuelle Version von http://www.wowinterface.com/downloads/info21462-ViksUI.html#info laden"
+L_MISC_UI_OUTDATED = "Deine Version von ViksUI ist veraltet. Du kannst die aktuelle Version von www.shestak.org laden"
 L_MISC_HEADER_MARK = "Mausdrüber Raid Icon"
 L_MISC_BINDER_OPEN = "Maus gebunden"
 L_MISC_GROCERY_BUY = "Kaufen"
 L_MISC_GROCERY_DESC = "Kaufe Lebensmittelaschen automatisch"
 L_MISC_SCROLL = "Rolle"
+L_MISC_COLLAPSE = "The Collapse" -- Need review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Gruppe auflösen"
@@ -103,6 +97,7 @@ L_MINIMAP_CALENDAR = "Kalender"
 L_MINIMAP_HEAL_LAYOUT = "Links-Klick - Heiler Layout"
 L_MINIMAP_DPS_LAYOUT = "Rechts-Klick - DPS Layout"
 L_MINIMAP_BLIZZ_LAYOUT = "Mittel-Klick - Blizzard Layout"
+L_MINIMAP_ARTIFACT = "Right click to use" -- Needs review
 
 -- Chat
 L_CHAT_WHISPER = "Von"
@@ -156,8 +151,8 @@ L_PANELS_AFK_LCLICK = "Links-Klick um zurück zu gehen."
 
 -- Cooldowns
 L_COOLDOWNS = "Abklingzeit: "
-L_COOLDOWNS_COMBATRESS = "BattelRes"
-L_COOLDOWNS_COMBATRESS_REMAINDER = "BattelRes übrig: "
+L_COOLDOWNS_COMBATRESS = "Battlerezz"
+L_COOLDOWNS_COMBATRESS_REMAINDER = "Battlerezz übrig: "
 L_COOLDOWNS_NEXTTIME = "Nächste möglichkeit: "
 
 -- Autoinvite
@@ -172,12 +167,6 @@ L_BIND_CLEARED = "Alle Tastaturbelegungen gelöscht für"
 L_BIND_BINDING = "Belegung"
 L_BIND_KEY = "Taste"
 L_BIND_NO_SET = "Keine Tastaturbelegung festgelegt"
-
--- Talent spec
-L_PLANNER_DRUID_4 = "Wiederherstellung"
-L_PLANNER_MONK_2 = "Nebelwirker"
-L_PLANNER_PALADIN_1 = "Heilig"
-L_PLANNER_PRIEST_1 = "Disziplin"
 
 -- BG stats
 L_DATATEXT_BASESASSAULTED = "Basen angegriffen:"
@@ -225,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "Maximalwert erreicht"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "Willkommen bei ViksUI "
-L_WELCOME_LINE_2_1 = "Gebe /cfg ein um das Interface zu konfigurieren, oder besuche http://www.wowinterface.com/downloads/info21462-ViksUI.html#info"
+L_WELCOME_LINE_2_1 = "Gebe /cfg ein um das Interface zu konfigurieren, oder besuche http://shestak.org"
 L_WELCOME_LINE_2_2 = "für weitere Informationen."
 
 -- Combat text
@@ -237,6 +226,7 @@ L_COMBATTEXT_TEST_ENABLED = "Kampftext Testmodus aktiviert."
 L_COMBATTEXT_TEST_USE_UNLOCK = "Gib '/xct' ein um die Kampftext Fenster freizugeben um sie verschieben und verändern zu können."
 L_COMBATTEXT_TEST_USE_LOCK = "Gib '/xct' ein um den Kampftext Testmodus zu sperren."
 L_COMBATTEXT_TEST_USE_TEST = "Gib '/xct' ein um den Kampftext Testmodus zu aktivieren."
+L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset to restore default positions." -- Need review
 L_COMBATTEXT_POPUP = "Um die Kampftext Fensterpositionen zu sichern muss das Interface neu geladen werden."
 L_COMBATTEXT_UNSAVED = "Kampftext Fensterpositionen nicht gespeichert, vergiss nicht das Interface neu zu laden."
 L_COMBATTEXT_UNLOCKED = "Kampftext freigegeben."

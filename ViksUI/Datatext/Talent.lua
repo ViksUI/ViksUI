@@ -1,7 +1,14 @@
 local T, C, L, _ = unpack(select(2, ...))
 if not C.datatext.Talents or C.datatext.Talents == 0 then return end
 
-local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+local Stat = CreateFrame("Frame", "ViksUIStatTalent", UIParent)
+Stat:EnableMouse(true)
+Stat:SetFrameStrata("BACKGROUND")
+Stat:SetFrameLevel(3)
+Stat.Option = C.datatext.Talents
+
+local Text  = Stat:CreateFontString(nil, "OVERLAY")
+
 if C.datatext.Talents >= 9 then
 Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
@@ -35,13 +42,6 @@ ViksUISpecSwap:SetScript("OnEvent", function(...)
 		}
 	end
 end)
-
-
-local Stat = CreateFrame("Frame", "ViksUIStatTalent")
-Stat:EnableMouse(true)
-Stat:SetFrameStrata("BACKGROUND")
-Stat:SetFrameLevel(3)
-Stat.Option = C.datatext.Talents
 
 local function Update(self) --The pretty part of the data text, displays the name of the spec.
 	if not GetSpecialization() then

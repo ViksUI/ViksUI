@@ -44,14 +44,14 @@ local officerNoteString = join("", "|cff999999   ", GUILD_RANK1_DESC, ":|r %s")
 local friendOnline, friendOffline = gsub(ERR_FRIEND_ONLINE_SS,"\124Hplayer:%%s\124h%[%%s%]\124h",""), gsub(ERR_FRIEND_OFFLINE_S,"%%s","")
 local guildTable, guildMotD = {}, {}, ""
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "DataTextGuild", UIParent)
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("MEDIUM")
 Stat:SetFrameLevel(3)
 
 
 
-local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+local Text  = Stat:CreateFontString(nil, "OVERLAY")
 if C.datatext.Guild>= 9 then
 Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
@@ -61,7 +61,7 @@ Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_sty
 end
 PP(C.datatext.Guild, Text)
 Stat:SetAllPoints(Text)
-Stat:SetParent(Text:GetParent())
+--Stat:SetParent(Text:GetParent())
 
 
 local function SortGuildTable(shift)
@@ -262,10 +262,10 @@ end)
 
 Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
-Stat:RegisterEvent("GUILD_ROSTER_SHOW")
+--Stat:RegisterEvent("GUILD_ROSTER_SHOW")
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
 Stat:RegisterEvent("GUILD_ROSTER_UPDATE")
-Stat:RegisterEvent("GUILD_XP_UPDATE")
+--Stat:RegisterEvent("GUILD_XP_UPDATE")
 Stat:RegisterEvent("PLAYER_GUILD_UPDATE")
 Stat:RegisterEvent("GUILD_MOTD")
 Stat:RegisterEvent("CHAT_MSG_SYSTEM")

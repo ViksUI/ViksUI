@@ -2,13 +2,24 @@ local T, C, L, _ = unpack(select(2, ...))
 --------------------------------------------------------------------
 -- Location and Coords
 --------------------------------------------------------------------
+local Unknown = UNKNOWN
+
+local ZoneColors = {
+	["friendly"] = {0.1, 1.0, 0.1},
+	["sanctuary"] = {0.41, 0.8, 0.94},
+	["arena"] = {1.0, 0.1, 0.1},
+	["hostile"] = {1.0, 0.1, 0.1},
+	["contested"] = {1.0, 0.7, 0},
+	["combat"] = {1.0, 0.1, 0.1},
+	["else"] = {1.0, 0.9294, 0.7607}
+}
 
 if C.datatext.location and C.datatext.location > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextLocation", UIParent)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 if C.datatext.location >= 9 then
 Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
@@ -18,9 +29,6 @@ Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_sty
 end
 	PP(C.datatext.location, Text)
 
-	local int = 1
-	
-	-- Location Colors for MoP
 function LocMopColoring()
 	local pvpType = GetZonePVPInfo()
 	if pvpType == "arena" then
@@ -40,23 +48,32 @@ function LocMopColoring()
 	end
 end
 
-	local ela = 0
+local ela = 0
 local function Update(self, t)
 	ela = ela - t
 	if ela > 0 then return end
+
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = _G.GetRealZoneText() or _G.UNKNOWN;
-	local x,y = GetPlayerMapPosition("player")
+	local unitMap = C_Map.GetBestMapForUnit("player")
+
+	if unitMap then
+		local GetPlayerMapPosition = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
+
+		if GetPlayerMapPosition then
+			x, y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
+		end
+	end
 	
-	if not GetPlayerMapPosition("player") then
+	if (not x) and (not y) then
 		x = 0
 		y = 0
 	end
 	
-	x = math.floor(100 * x)
-	y = math.floor(100 * y)
-	local displayLine
+	x = math.floor(100 * x) or 0
+	y = math.floor(100 * y) or 0
 
+	local displayLine
 	-- zone and subzone
 	if C.datatext.location and C.datatext.location > 0 then
 		if (subZoneText ~= "") and (subZoneText ~= zoneText) then

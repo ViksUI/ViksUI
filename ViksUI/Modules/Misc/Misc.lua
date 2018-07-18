@@ -1,11 +1,11 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-
+SetCVar("scriptErrors", 1)
 ----------------------------------------------------------------------------------------
 --	Force readycheck warning
 ----------------------------------------------------------------------------------------
 local ShowReadyCheckHook = function(self, initiator)
 	if initiator ~= "player" then
-		PlaySound(PlaySoundKitID and "ReadyCheck" or SOUNDKIT.READY_CHECK, "Master")
+		PlaySound(SOUNDKIT.READY_CHECK, "Master")
 	end
 end
 hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
@@ -15,7 +15,7 @@ hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
 ----------------------------------------------------------------------------------------
 local ForceWarning = CreateFrame("Frame")
 ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
-ForceWarning:RegisterEvent("BATTLEFIELD_MGR_ENTRY_INVITE")
+--BETA ForceWarning:RegisterEvent("BATTLEFIELD_MGR_ENTRY_INVITE")
 ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
 ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
 ForceWarning:RegisterEvent("RESURRECT_REQUEST")
@@ -24,17 +24,17 @@ ForceWarning:SetScript("OnEvent", function(self, event)
 		for i = 1, GetMaxBattlefieldID() do
 			local status = GetBattlefieldStatus(i)
 			if status == "confirm" then
-				PlaySound(PlaySoundKitID and "PVPTHROUGHQUEUE" or SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
+				PlaySound(SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
 				break
 			end
 			i = i + 1
 		end
 	elseif event == "BATTLEFIELD_MGR_ENTRY_INVITE" then
-		PlaySound(PlaySoundKitID and "PVPTHROUGHQUEUE" or SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
+		PlaySound(SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
 	elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
-		PlaySound(PlaySoundKitID and "PVPTHROUGHQUEUE" or SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
+		PlaySound(SOUNDKIT.PVP_THROUGH_QUEUE, "Master")
 	elseif event == "LFG_PROPOSAL_SHOW" then
-		PlaySound(PlaySoundKitID and "ReadyCheck" or SOUNDKIT.READY_CHECK, "Master")
+		PlaySound(SOUNDKIT.READY_CHECK, "Master")
 	elseif event == "RESURRECT_REQUEST" then
 		PlaySoundFile("Sound\\Spells\\Resurrection.wav", "Master")
 	end
@@ -58,66 +58,7 @@ PVPReadyDialog.enterButton:SetPoint("BOTTOM", PVPReadyDialog, "BOTTOM", 0, 25)
 --	Spin camera while afk(by Telroth and Eclipse)
 ----------------------------------------------------------------------------------------
 if C.misc.afk_spin_camera == true then
-local PName = UnitName("player")
-local PLevel = UnitLevel("player")
-local PClass = UnitClass("player")
-local PRace = UnitRace("player")
-local PFaction = UnitFactionGroup("player")
-local color = T.RGBToHex(unpack(C["media"].pxcolor1))
-local Version = tonumber(GetAddOnMetadata("ViksUI", "Version"))
-
-T.AFK_LIST = {
-	"Mouseover minimap shows coords and locations.",
-	"Small yellow square on minimap shows micromenu.",
-	"Right click the minimap for trackingmenu.",
-	"Farm Mode: Toggle with mapbutton (lower left on minimap, hidden) or with /fm or /farmmode",
-	"By right-clicking on a quest or achievment at the objective tracker, you can retrieve the wowhead link.",
-	"You can type /ui to move the frames from the Interface.",
-	"You can type /uihelp to show some supported commands.",
-	"You can find much information about something on screen with /fstack command",
-	"Anim nr: 0 = idle, 1 = death, 3 = stop, 4 = fast walk, 5 = run, 8 = take a light hit, 9 = take a medium hit, 10 = take a heavy hit, 11-12 = turning, 13 = backing up",
-	"Anim nr: 14 = stunned, 26 = attack stance, 43 = swimming, 60 = chat, 61 = eat, 62 = mine ore, 63 = combine tradeskill, 66 = bow, 67 = wave, 68 = cheer, 69 = dance",
-	"Anim nr: 70 = laugh, 73 = rude, 74 = roar, 75 = kneel, 76 = kiss, 77 = cry, 78 = chicken, 80 = applaud, 81 = shout, 82 = flex, ,83 = flirt, 84 = point, 97 = sit",
-	"Anim nr: 101 = get up, 113 = salute, 119 = crouching run, 120 = crouch, 124 = channel spell, 125 = channel spell, 126 = spin, 137 = stunned",
-}
-
---[[Guild]]--
-local function GuildText()
-	if IsInGuild() then
-		local guildName = GetGuildInfo("player")
-		ViksUIAFKPanel.GuildText:SetText(color .. guildName .. "|r")
-	else
-		ViksUIAFKPanel.GuildText:SetText(" ")
-	end
-end
-
---[[AFK-Timer]]--
-local function UpdateTimer()
-	local time = GetTime() - startTime
-	ViksUIAFKPanel.AFKTimer:SetText(format("%02d" .. color ..":|r%02d", floor(time/60), time % 60))
-end
-
---[[Playermodel]]--
-local function Model()
-	ViksUIAFKPanel.modelHolder = CreateFrame("Frame", "AFKPlayerModelHolder", ViksUIAFKPanel)
-	ViksUIAFKPanel.modelHolder:SetSize(150, 150)
-	ViksUIAFKPanel.modelHolder:SetPoint("BOTTOMRIGHT", ViksUIAFKPanel, "TOPRIGHT", -150, 120)
-
-	ViksUIAFKPanel.model = CreateFrame("PlayerModel", "AFKPlayerModel", ViksUIAFKPanel.modelHolder)
-	ViksUIAFKPanel.model:SetPoint("CENTER", ViksUIAFKPanel.modelHolder, "CENTER")
-	ViksUIAFKPanel.model:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
-	ViksUIAFKPanel.model:SetCamDistanceScale(6)
-	ViksUIAFKPanel.model:SetFacing(6)
-	ViksUIAFKPanel.model:SetUnit("player")
-	ViksUIAFKPanel.model:SetAnimation(C.misc.afk_spin_camera_anim)
-	ViksUIAFKPanel.model:SetRotation(math.rad(-15))
-end
-
---[[Spin function]]--
-function SpinStart()
-	spinning = true
-	MoveViewRightStart(.1)
-end
+	local SpinCam = CreateFrame("Frame")
 
 function SpinStop()
 	if(not spinning) then return end
@@ -147,7 +88,7 @@ ViksUIAFKPanelIcon.Texture:SetTexture("Interface\\AddOns\\ViksUI\\Media\\texture
 ViksUIAFKPanel.ViksUIText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.ViksUIText:SetPoint("CENTER", ViksUIAFKPanel, "CENTER", 0, -10)
 ViksUIAFKPanel.ViksUIText:SetFont(C["media"].pxfontHeader, 40, "OUTLINE")
-ViksUIAFKPanel.ViksUIText:SetText("|cffc41f3bViksUI " .. Version)
+ViksUIAFKPanel.ViksUIText:SetText("|cffc41f3bViksUI ")
 
 ViksUIAFKPanel.DateText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.DateText:SetPoint("BOTTOMLEFT", ViksUIAFKPanel, "BOTTOMRIGHT", -100, 54)
@@ -164,7 +105,7 @@ ViksUIAFKPanel.AFKTimer:SetFont(C["media"].normal_font, 20, "OUTLINE")
 ViksUIAFKPanel.PlayerNameText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.PlayerNameText:SetPoint("LEFT", ViksUIAFKPanel, "LEFT", 25, 15)
 ViksUIAFKPanel.PlayerNameText:SetFont(C["media"].normal_font, 28, "OUTLINE")
-ViksUIAFKPanel.PlayerNameText:SetText(color .. PName .. "|r")
+--ViksUIAFKPanel.PlayerNameText:SetText(color .. PName .. "|r")
 
 ViksUIAFKPanel.GuildText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.GuildText:SetPoint("LEFT", ViksUIAFKPanel, "LEFT", 25, -3)
@@ -173,9 +114,10 @@ ViksUIAFKPanel.GuildText:SetFont(C["media"].normal_font, 15, "OUTLINE")
 ViksUIAFKPanel.PlayerInfoText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.PlayerInfoText:SetPoint("LEFT", ViksUIAFKPanel, "LEFT", 25, -20)
 ViksUIAFKPanel.PlayerInfoText:SetFont(C["media"].normal_font, 15, "OUTLINE")
-ViksUIAFKPanel.PlayerInfoText:SetText(LEVEL .. " " .. PLevel .. " " .. PFaction .. " " .. color .. PClass .. "|r")
+--ViksUIAFKPanel.PlayerInfoText:SetText(LEVEL .. " " .. PLevel .. " " .. PFaction .. " " .. color .. PClass .. "|r")
 
---[[Dynamic time & date]]--
+--Dynamic time & date--
+--[[
 local interval = 0
 ViksUIAFKPanel:SetScript("OnUpdate", function(self, elapsed)
 	interval = interval - elapsed
@@ -186,7 +128,7 @@ ViksUIAFKPanel:SetScript("OnUpdate", function(self, elapsed)
 		interval = 0.5
 	end
 end)
-
+]]
 --[[Register events, script to start]]--
 ViksUIAFKPanel:RegisterEvent("PLAYER_FLAGS_CHANGED")
 ViksUIAFKPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -199,40 +141,40 @@ ViksUIAFKPanel:SetScript("OnEvent", function(self, event, unit)
 		startTime = GetTime()
 		if unit == "player" then
 			if UnitIsAFK(unit) and not UnitIsDead(unit) then
-				SpinStart()
+				--SpinStart()
 				ViksUIAFKPanel:Show()
-				GuildText()
-				if not AFKPlayerModel then Model() end
+				--GuildText()
+				--if not AFKPlayerModel then Model() end
 				Minimap:Hide()
 			else
-				SpinStop()
+				--SpinStop()
 				ViksUIAFKPanel:Hide()
 				Minimap:Show()
 			end
 		end
 	elseif event == "PLAYER_DEAD" then
 		if UnitIsAFK("player") then
-			SpinStop()
+			--SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		if UnitIsAFK("player") then
-			SpinStop()
+			--SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
 		end
 	elseif event == "MODIFIER_STATE_CHANGED" then
 		if UnitIsAFK("player") then
-			SpinStop()
+			--SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
 		end
 	end
 end)
-
+--[[
 local texts = T.AFK_LIST
-local interval = #texts
+local interval = 0.5
 
 local ViksUIAFKScrollFrame = CreateFrame("ScrollingMessageFrame", "ViksUIAFKScrollFrame", ViksUIAFKPanel)
 ViksUIAFKScrollFrame:SetSize(ViksUIAFKPanel:GetWidth(), ViksUIAFKPanel:GetHeight())
@@ -255,7 +197,7 @@ ViksUIAFKScrollFrame:SetScript("OnUpdate", function(self, time)
 
 	if interval < 0 then self:SetScript("OnUpdate", nil) end
 end)
-
+]]
 --[[Fade in & out]]--
 ViksUIAFKPanel:SetScript("OnShow", function(self) UIFrameFadeIn(UIParent, .5, 1, 0) end)
 ViksUIAFKPanel:SetScript("OnHide", function(self) UIFrameFadeOut(UIParent, .5, 0, 1) end)
@@ -334,7 +276,7 @@ strip:SetScript("OnClick", function(self, button)
 	else
 		self.model:Undress()
 	end
-	PlaySound(PlaySoundKitID and "gsTitleOptionOK" or SOUNDKIT.GS_TITLE_OPTION_OK)
+	PlaySound(SOUNDKIT.GS_TITLE_OPTION_OK)
 end)
 strip.model = DressUpModel
 
@@ -481,3 +423,19 @@ hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.edi
 --	Change UIErrorsFrame strata
 ----------------------------------------------------------------------------------------
 UIErrorsFrame:SetFrameLevel(0)
+
+------------------------------------------------------------------------------------------
+-- Remove Class Hall Resource Bar
+------------------------------------------------------------------------------------------
+
+local f = CreateFrame("Frame")
+f:SetScript("OnEvent", function(self, event, addon)
+	if addon == "Blizzard_OrderHallUI" and C["misc"]["OrderHallBar"] == false then
+		OrderHallCommandBar:UnregisterAllEvents()
+		OrderHallCommandBar:HookScript("OnShow", OrderHallCommandBar.Hide)
+		OrderHallCommandBar:Kill()
+		OrderHall_CheckCommandBar = function () end
+		self:UnregisterEvent(event)
+	end
+end)
+f:RegisterEvent("ADDON_LOADED")

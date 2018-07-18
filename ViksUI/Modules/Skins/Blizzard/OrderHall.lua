@@ -32,12 +32,12 @@ local function LoadSkin()
 	end)
 
 	-- MissionFrame
-	OrderHallMissionFrame:StripTextures()
-	OrderHallMissionFrame:SetTemplate("Transparent")
-	OrderHallMissionFrame.GarrCorners:StripTextures()
-	OrderHallMissionFrame.ClassHallIcon:Kill()
-	T.SkinCloseButton(OrderHallMissionFrame.CloseButton)
-	T.SkinCloseButton(OrderHallMissionTutorialFrame.GlowBox.CloseButton)
+	--OrderHallMissionFrame:StripTextures()
+	--OrderHallMissionFrame:SetTemplate("Transparent")
+	--OrderHallMissionFrame.GarrCorners:StripTextures()
+	--OrderHallMissionFrame.ClassHallIcon:Kill()
+	--T.SkinCloseButton(OrderHallMissionFrame.CloseButton)
+	--T.SkinCloseButton(OrderHallMissionTutorialFrame.GlowBox.CloseButton)
 
 	for i = 1, 3 do
 		T.SkinTab(_G["OrderHallMissionFrameTab" .. i])

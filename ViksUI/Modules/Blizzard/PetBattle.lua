@@ -4,7 +4,7 @@ local T, C, L, _ = unpack(select(2, ...))
 --	Pet Battles UI
 ----------------------------------------------------------------------------------------
 local bar = CreateFrame("Frame", "PetBattleBarHolder", UIParent, "SecureHandlerStateTemplate")
-bar:SetSize(((C.actionbar.button_size * 1.5) * 6) + (C.actionbar.petbuttonspacing * 5), C.actionbar.button_size * 1.5)
+bar:SetSize(((C.actionbar.button_size * 1.5) * 6) + (C.actionbar.button_space * 5), C.actionbar.button_size * 1.5)
 bar:EnableMouse(true)
 bar:SetFrameStrata("LOW")
 bar:SetPoint(unpack(C.position.bottom_bars))

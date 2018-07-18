@@ -24,7 +24,7 @@ end)
 
 if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
-	for i = 1, 4 do
+	for i = 1, 3 do
 		local button = _G["PVPQueueFrameCategoryButton"..i]
 		button.Ring:Kill()
 		button:CreateBackdrop("Overlay")
@@ -57,68 +57,39 @@ local function LoadSkin()
 		end
 	end)
 
-	-- HonorFrame
-	HonorFrame.Inset:StripTextures()
-	HonorFrame.RoleInset:StripTextures()
-	T.SkinDropDownBox(HonorFrameTypeDropDown, 165)
-	T.SkinScrollBar(HonorFrameSpecificFrameScrollBar)
-	HonorFrameSpecificFrameScrollBar:SetPoint("TOPLEFT", HonorFrameSpecificFrame, "TOPRIGHT", 0, -15)
-	HonorFrameSpecificFrameScrollBar:SetPoint("BOTTOMLEFT", HonorFrameSpecificFrame, "BOTTOMRIGHT", 0, 15)
-	HonorFrameQueueButton:SkinButton(true)
-	HonorFrame.BonusFrame:StripTextures()
-	HonorFrame.BonusFrame.DiceButton:SkinButton()
-	HonorFrame.BonusFrame.ShadowOverlay:StripTextures()
+	-- Honor Frame StatusBar
+	HonorFrame.ConquestBar:StripTextures()
+	HonorFrame.ConquestBar:SetStatusBarTexture(C["media"].texture)
+	--E:RegisterStatusBar(HonorFrame.ConquestBar)
+	HonorFrame.ConquestBar:SetFrameLevel(HonorFrame.ConquestBar:GetFrameLevel() + 2)
+	HonorFrame.ConquestBar:CreateBackdrop("Default")
 
-	HonorFrame.XPBar:StripTextures()
-	HonorFrame.XPBar.Bar:CreateBackdrop("Default")
+	-- Icon
+	HonorFrame.ConquestBar.Reward.Ring:Hide()
+	HonorFrame.ConquestBar.Reward.CircleMask:Hide()
+	HonorFrame.ConquestBar.Reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
-	HonorFrame.XPBar.Bar.Spark:SetAlpha(0)
+	-- Conquest Frame StatusBar
+	ConquestFrame.ConquestBar:StripTextures()
+	ConquestFrame.ConquestBar:SetStatusBarTexture(C["media"].texture)
+	--E:RegisterStatusBar(ConquestFrame.ConquestBar)
+	ConquestFrame.ConquestBar:SetFrameLevel(ConquestFrame.ConquestBar:GetFrameLevel() + 2)
+	ConquestFrame.ConquestBar:CreateBackdrop("Default")
 
-	HonorFrame.XPBar.NextAvailable:ClearAllPoints()
-	HonorFrame.XPBar.NextAvailable:SetPoint("LEFT", HonorFrame.XPBar.Bar, "RIGHT", -2, -2)
+	-- Icon
+	ConquestFrame.ConquestBar.Reward.Ring:Hide()
+	ConquestFrame.ConquestBar.Reward.CircleMask:Hide()
+	ConquestFrame.ConquestBar.Reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
-	HonorFrame.XPBar.NextAvailable:StripTextures()
-	HonorFrame.XPBar.NextAvailable:CreateBackdrop("Default")
-	HonorFrame.XPBar.NextAvailable.backdrop:SetPoint("TOPLEFT", HonorFrame.XPBar.NextAvailable.Icon, -2, 2)
-	HonorFrame.XPBar.NextAvailable.backdrop:SetPoint("BOTTOMRIGHT", HonorFrame.XPBar.NextAvailable.Icon, 2, -2)
-
-	HonorFrame.XPBar.NextAvailable.Icon:SetDrawLayer("ARTWORK")
-	HonorFrame.XPBar.NextAvailable.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	HonorFrame.XPBar.NextAvailable.Icon.SetTexCoord = T.dummy
-	HonorFrame.XPBar.NextAvailable.Icon:SetSize(18, 18)
-
-	HonorFrame.BonusFrame.RandomBGButton.Reward:StripTextures()
-	HonorFrame.BonusFrame.RandomBGButton.Reward:SetTemplate("Default")
-	HonorFrame.BonusFrame.RandomBGButton.Reward:SetSize(40, 40)
-	HonorFrame.BonusFrame.RandomBGButton.Reward.Icon:SetAllPoints()
-	HonorFrame.BonusFrame.RandomBGButton.Reward.Icon:SetPoint("TOPLEFT", 2, -2)
-	HonorFrame.BonusFrame.RandomBGButton.Reward.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-	HonorFrame.BonusFrame.RandomBGButton.Reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-	HonorFrame.BonusFrame.Arena1Button.Reward:StripTextures()
-	HonorFrame.BonusFrame.Arena1Button.Reward:SetTemplate("Default")
-	HonorFrame.BonusFrame.Arena1Button.Reward:SetSize(40, 40)
-	HonorFrame.BonusFrame.Arena1Button.Reward.Icon:SetAllPoints()
-	HonorFrame.BonusFrame.Arena1Button.Reward.Icon:SetPoint("TOPLEFT", 2, -2)
-	HonorFrame.BonusFrame.Arena1Button.Reward.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-	HonorFrame.BonusFrame.Arena1Button.Reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-	HonorFrame.BonusFrame.BrawlButton.Reward:StripTextures()
-	HonorFrame.BonusFrame.BrawlButton.Reward:SetTemplate("Default")
-	HonorFrame.BonusFrame.BrawlButton.Reward:SetSize(40, 40)
-	HonorFrame.BonusFrame.BrawlButton.Reward.Icon:SetAllPoints()
-	HonorFrame.BonusFrame.BrawlButton.Reward.Icon:SetPoint("TOPLEFT", 2, -2)
-	HonorFrame.BonusFrame.BrawlButton.Reward.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-	HonorFrame.BonusFrame.BrawlButton.Reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	
 	T.SkinCloseButton(PremadeGroupsPvPTutorialAlert.CloseButton)
 	PremadeGroupsPvPTutorialAlert.Arrow:Hide()
 	PremadeGroupsPvPTutorialAlert:StripTextures()
 	PremadeGroupsPvPTutorialAlert:CreateBackdrop("Transparent")
 	
-	T.SkinCloseButton(HonorFrame.BonusFrame.BrawlHelpBox.CloseButton)
-	HonorFrame.BonusFrame.BrawlHelpBox:StripTextures()
-	HonorFrame.BonusFrame.BrawlHelpBox:CreateBackdrop("Transparent")
+	--T.SkinCloseButton(HonorFrame.BonusFrame.BrawlHelpBox.CloseButton)
+	--HonorFrame.BonusFrame.BrawlHelpBox:StripTextures()
+	--HonorFrame.BonusFrame.BrawlHelpBox:CreateBackdrop("Transparent")
 
 	for _, i in pairs({"RandomBGButton", "Arena1Button", "AshranButton", "BrawlButton"}) do
 		local button = HonorFrame.BonusFrame[i]

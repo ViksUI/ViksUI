@@ -68,7 +68,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		SetCVar("ShowClassColorInNameplate", 1)
 	end
 
-	if C.minimapp.enable then
+	if C.minimap.enable then
 		InterfaceOptionsDisplayPanelRotateMinimap:Kill()
 	end
 

@@ -5,9 +5,9 @@ local T, C, L, _ = unpack(select(2, ...))
 
 -- Versatility Rating
 if not C.datatext.Versatility == nil or C.datatext.Versatility > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextVersatility", UIParent)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 if C.datatext.Versatility >= 9 then
 Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)

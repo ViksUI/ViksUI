@@ -4,12 +4,12 @@ local T, C, L, _ = unpack(select(2, ...))
 --------------------------------------------------------------------
 
 if C.datatext.Avd and C.datatext.Avd > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextAvoidance", UIParent)
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	if C.datatext.Avd >= 6 then
 		Text:SetTextColor(unpack(C.media.pxcolor1))
 		Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)

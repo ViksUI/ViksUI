@@ -237,11 +237,6 @@ local function SetChatStyle(frame)
 	_G[format("ChatFrame%sTabSelectedMiddle", id)]:Kill()
 	_G[format("ChatFrame%sTabSelectedRight", id)]:Kill()
 
-	-- Kills off the new method of handling the Chat Frame scroll buttons as well as the resize button
-	-- Note: This also needs to include the actual frame textures for the ButtonFrame onHover
-	_G[format("ChatFrame%sButtonFrameUpButton", id)]:Kill()
-	_G[format("ChatFrame%sButtonFrameDownButton", id)]:Kill()
-	_G[format("ChatFrame%sButtonFrameBottomButton", id)]:Kill()
 	_G[format("ChatFrame%sButtonFrameMinimizeButton", id)]:Kill()
 	_G[format("ChatFrame%sButtonFrame", id)]:Kill()
 
@@ -252,6 +247,15 @@ local function SetChatStyle(frame)
 
 	_G[format("ChatFrame%sTabGlow", id)]:Kill()
 
+	-- Kill scroll bar
+	frame.ScrollBar:Kill()
+	frame.ScrollToBottomButton:Kill()
+
+	-- Kill channel and voice buttons
+	ChatFrameChannelButton:Kill()
+	ChatFrameToggleVoiceDeafenButton:Kill()
+	ChatFrameToggleVoiceMuteButton:Kill()
+	
 	-- Kill off editbox artwork
 	local a, b, c = select(6, _G[chat.."EditBox"]:GetRegions()) a:Kill() b:Kill() c:Kill()
 
@@ -385,11 +389,34 @@ local function SetupChatPosAndFont(self)
 		-- Force chat position
 		if i == 1 then
 			chat:ClearAllPoints()
-			chat:SetSize(C.chat.width, C.chat.height)
+			chat:SetSize(C.chat.width-20, C.chat.height)
 			if C.chat.background == true then
 				chat:SetPoint(C.position.chat[1], C.position.chat[2], C.position.chat[3], C.position.chat[4], C.position.chat[5] + 4)
 			else
 				chat:SetPoint(C.position.chat[1], C.position.chat[2], C.position.chat[3], C.position.chat[4], C.position.chat[5])
+			end
+			if C.panels.NoPanels == true then
+				chat:SetSize(C.chat.width-20, C.chat.height-8)
+				chat:SetPoint(C.position.chat[1], C.position.chat[2], C.position.chat[3], C.position.chat[4]+10, C.position.chat[5] + 4)
+			end
+			FCF_SavePositionAndDimensions(chat)
+		elseif i == 4 then
+			chat:ClearAllPoints()
+			chat:SetSize(C.chat.width-20, C.chat.height)
+			if C.chat.background == true then
+				chat:SetPoint(C.position.chatr[1], C.position.chatr[2], C.position.chatr[3], C.position.chatr[4], C.position.chatr[5] + 4)
+			else
+				chat:SetPoint(C.position.chatr[1], C.position.chatr[2], C.position.chatr[3], C.position.chatr[4], C.position.chatr[5])
+			end
+			if C.panels.NoPanels == true then
+				chat:SetSize(C.chat.width-20, C.chat.height-8)
+				chat:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
+				chat:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-25)
+			else
+				chat:SetWidth(RChat:GetWidth()-8)
+				chat:SetHeight(RChat:GetHeight()-8)
+				chat:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
+				chat:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-2)
 			end
 			FCF_SavePositionAndDimensions(chat)
 		elseif i == 2 then

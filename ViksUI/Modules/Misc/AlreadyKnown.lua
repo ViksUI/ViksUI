@@ -81,7 +81,7 @@ local function LootFrame_UpdateButton(index)
 	if button and button:IsShown() then
 		local slot = (numLootToShow * (LootFrame.page - 1)) + index
 		if slot <= numLootItems and LootSlotHasItem(slot) and index <= numLootToShow then
-			local texture, _, _, _, locked = GetLootSlotInfo(slot)
+			local texture, _, _, _, _, locked = GetLootSlotInfo(slot)
 			if texture and not locked and IsKnown(GetLootSlotLink(slot)) then
 				SetItemButtonTextureVertexColor(button, color.r, color.g, color.b)
 			end
@@ -320,7 +320,6 @@ local function BlackMarketScrollFrame_Update()
 	for i = 1, #buttons do
 		local index = offset + i
 		if type(numItems) == "number" and index <= numItems then
-
 			local texture = buttons[i].Item.IconTexture
 			if texture and texture:IsShown() then
 				local name, _, _, _, usable, _, _, _, _, _, _, _, _, _, link = C_BlackMarket.GetItemInfoByIndex(index)

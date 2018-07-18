@@ -65,7 +65,6 @@ end
 ----------------------------------------------------------------------------------------
 --	Player's role check
 ----------------------------------------------------------------------------------------
-
 local isCaster = {
 	DEATHKNIGHT = {nil, nil, nil},
 	DEMONHUNTER = {nil, nil},
@@ -167,7 +166,7 @@ function T.SkinScrollBar(frame, parent)
 	if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
 	if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
 	if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
-	
+
 	local UpButton = frame.ScrollUpButton or frame.UpButton or _G[(frame:GetName() or parent).."ScrollUpButton"]
 	local DownButton = frame.ScrollDownButton or frame.DownButton or _G[(frame:GetName() or parent).."ScrollDownButton"]
 	local ThumbTexture = frame.ThumbTexture or frame.thumbTexture or _G[frame:GetName().."ThumbTexture"]
@@ -499,7 +498,7 @@ function T.HandleIcon(icon, parent)
 	parent:CreateBackdrop("Default")
 	parent.backdrop:SetPoint("TOPLEFT", icon, -2, 2)
 	parent.backdrop:SetPoint("BOTTOMRIGHT", icon, 2, -2)
-	
+
 	icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	icon:SetParent(parent)
 end
@@ -518,9 +517,8 @@ function T.SkinSlider(f)
 	end
 	bd:SetFrameLevel(f:GetFrameLevel() - 1)
 
-	local slider = select(4, f:GetRegions())
-	slider:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
-	slider:SetBlendMode("ADD")
+	f:SetThumbTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
+	f:GetThumbTexture():SetBlendMode("ADD")
 end
 
 function T.SkinIconSelectionFrame(frame, numIcons, buttonNameTemplate, frameNameOverride)
@@ -953,7 +951,7 @@ T.UpdateManaLevel = function(self, elapsed)
 	self.elapsed = 0
 
 	if UnitPowerType("player") == 0 then
-		local percMana = UnitMana("player") / UnitManaMax("player") * 100
+		local percMana = UnitPower("player", Enum.PowerType.Mana) / UnitPowerMax("player", Enum.PowerType.Mana) * 100
 		if percMana <= 20 and not UnitIsDeadOrGhost("player") then
 			self.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
 			Flash(self)
@@ -1033,45 +1031,6 @@ T.UpdatePvPStatus = function(self, elapsed)
 	end
 end
 
-T.UpdateHoly = function(self, event, unit, powerType)
-	if self.unit ~= unit or (powerType and powerType ~= "HOLY_POWER") then return end
-	local num = UnitPower(unit, SPELL_POWER_HOLY_POWER)
-	local numMax = UnitPowerMax("player", SPELL_POWER_HOLY_POWER)
-	local barWidth = self.HolyPower:GetWidth()
-	local spacing = select(4, self.HolyPower[4]:GetPoint())
-	local lastBar = 0
-
-	if numMax ~= self.HolyPower.maxPower then
-		if numMax == 3 then
-			self.HolyPower[4]:Hide()
-			self.HolyPower[5]:Hide()
-			for i = 1, 3 do
-				if i ~= 3 then
-					self.HolyPower[i]:SetWidth(barWidth / 3)
-					lastBar = lastBar + (barWidth / 3 + spacing)
-				else
-					self.HolyPower[i]:SetWidth(barWidth - lastBar)
-				end
-			end
-		else
-			self.HolyPower[4]:Show()
-			self.HolyPower[5]:Show()
-			for i = 1, 5 do
-				self.HolyPower[i]:SetWidth(self.HolyPower[i].width)
-			end
-		end
-		self.HolyPower.maxPower = numMax
-	end
-
-	for i = 1, 5 do
-		if i <= num then
-			self.HolyPower[i]:SetAlpha(1)
-		else
-			self.HolyPower[i]:SetAlpha(0.2)
-		end
-	end
-end
-
 T.UpdateComboPoint = function(self, event, unit)
 	if powerType and powerType ~= 'COMBO_POINTS' then return end
 	if unit == "pet" then return end
@@ -1085,7 +1044,7 @@ T.UpdateComboPoint = function(self, event, unit)
 	if (UnitHasVehicleUI("player") or UnitHasVehicleUI("vehicle")) then
 		numMax = MAX_COMBO_POINTS
 	else
-		numMax = UnitPowerMax("player", SPELL_POWER_COMBO_POINTS)
+		numMax = UnitPowerMax("player", Enum.PowerType.ComboPoints)
 		if numMax == 0 then
 			numMax = MAX_COMBO_POINTS
 		end
@@ -1096,24 +1055,10 @@ T.UpdateComboPoint = function(self, event, unit)
 	local s = 0
 
 	if cpoints.numMax ~= numMax then
-		if numMax == 10 then
+		if numMax == 6 then
 			cpoints[6]:Show()
-			cpoints[7]:Show()
-			cpoints[8]:Show()
-			cpoints[9]:Show()
-			cpoints[10]:Show()
-		elseif numMax == 6 then
-			cpoints[6]:Show()
-			cpoints[7]:Hide()
-			cpoints[8]:Hide()
-			cpoints[9]:Hide()
-			cpoints[10]:Hide()
 		else
 			cpoints[6]:Hide()
-			cpoints[7]:Hide()
-			cpoints[8]:Hide()
-			cpoints[9]:Hide()
-			cpoints[10]:Hide()
 		end
 
 		for i = 1, numMax do
@@ -1162,7 +1107,7 @@ T.UpdateComboPointOld = function(self, event, unit)
 		numMax = MAX_COMBO_POINTS
 	else
 		cp = GetComboPoints("player", "target")
-		numMax = UnitPowerMax("player", SPELL_POWER_COMBO_POINTS)
+		numMax = UnitPowerMax("player", Enum.PowerType.ComboPoints)
 		if numMax == 0 then
 			numMax = MAX_COMBO_POINTS
 		end
@@ -1173,24 +1118,10 @@ T.UpdateComboPointOld = function(self, event, unit)
 	local s = 0
 
 	if cpoints.numMax ~= numMax then
-		if numMax == 10 then
+		if numMax == 6 then
 			cpoints[6]:Show()
-			cpoints[7]:Show()
-			cpoints[8]:Show()
-			cpoints[9]:Show()
-			cpoints[10]:Show()
-		elseif numMax == 6 then
-			cpoints[6]:Show()
-			cpoints[7]:Hide()
-			cpoints[8]:Hide()
-			cpoints[9]:Hide()
-			cpoints[10]:Hide()
 		else
 			cpoints[6]:Hide()
-			cpoints[7]:Hide()
-			cpoints[8]:Hide()
-			cpoints[9]:Hide()
-			cpoints[10]:Hide()
 		end
 
 		for i = 1, numMax do
@@ -1246,12 +1177,6 @@ T.UpdateComboPointOld = function(self, event, unit)
 	end
 end
 
-T.UpdateReputationColor = function(self, event, unit, bar)
-	local name, id = GetWatchedFactionInfo()
-	bar:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
-	bar.bg:SetVertexColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b, 0.2)
-end
-
 local ticks = {}
 local channelingTicks = T.CastBarTicks
 
@@ -1282,16 +1207,10 @@ T.PostCastStart = function(Castbar, unit, name, castid)
 	if unit == "vehicle" then unit = "player" end
 
 	if unit == "player" and C.unitframe.castbar_latency == true and Castbar.Latency then
-		local _, _, _, lag = GetNetStats()
-		local latency = GetTime() - (Castbar.castSent or 0)
-		lag = lag / 1e3 > Castbar.max and Castbar.max or lag / 1e3
-		latency = latency > Castbar.max and lag or latency
-		Castbar.Latency:SetText(("%dms"):format(latency * 1e3))
-		Castbar.SafeZone:SetWidth(Castbar:GetWidth() * latency / Castbar.max)
-		Castbar.SafeZone:ClearAllPoints()
-		Castbar.SafeZone:SetPoint("TOPRIGHT")
-		Castbar.SafeZone:SetPoint("BOTTOMRIGHT")
-		Castbar.castSent = nil
+		local _, _, _, ms = GetNetStats()
+		Castbar.Latency:SetText(("%dms"):format(ms))
+		Castbar.SafeZone:SetDrawLayer("BORDER")
+		Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
 	end
 
 	if unit == "player" and C.unitframe.castbar_ticks == true then
@@ -1356,16 +1275,10 @@ T.PostChannelStart = function(Castbar, unit, name)
 	if unit == "vehicle" then unit = "player" end
 
 	if unit == "player" and C.unitframe.castbar_latency == true and Castbar.Latency then
-		local _, _, _, lag = GetNetStats()
-		local latency = GetTime() - (Castbar.castSent or 0)
-		lag = lag / 1e3 > Castbar.max and Castbar.max or lag / 1e3
-		latency = latency > Castbar.max and lag or latency
-		Castbar.Latency:SetText(("%dms"):format(latency * 1e3))
-		Castbar.SafeZone:SetWidth(Castbar:GetWidth() * latency / Castbar.max)
-		Castbar.SafeZone:ClearAllPoints()
-		Castbar.SafeZone:SetPoint("TOPLEFT")
-		Castbar.SafeZone:SetPoint("BOTTOMLEFT")
-		Castbar.castSent = nil
+		local _, _, _, ms = GetNetStats()
+		Castbar.Latency:SetText(("%dms"):format(ms))
+		Castbar.SafeZone:SetDrawLayer("ARTWORK")
+		Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
 	end
 
 	if unit == "player" and C.unitframe.castbar_ticks == true then
@@ -1539,7 +1452,7 @@ T.PostCreateAura = function(element, button)
 end
 
 T.PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff, duration, timeLeft)
-	local _, _, _, _, dtype, duration, expirationTime, _, isStealable = UnitAura(unit, index, icon.filter)
+	local _, _, _, dtype, duration, expirationTime, _, isStealable = UnitAura(unit, index, icon.filter)
 
 	local playerUnits = {
 		player = true,
@@ -1674,25 +1587,64 @@ T.CreateAuraWatch = function(self, unit)
 
 	self.AuraWatch = auras
 end
+------------------------------------------------------------------------------------------
+-- Overlay Function (Buttons)
+------------------------------------------------------------------------------------------
+local function CreateOverlayButton(f)
+	if f.overlaybutton then return end
 
-T["CreateBtn"] = function(name, parent, w, h, tt_txt, txt)
-	local f, fs, ff = C.media.normal_font, 11, "THINOUTLINE"
-	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
-	b:SetWidth(w)
-	b:SetHeight(h)
-	b:SetTemplate("Default")
-	b:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
+	local overlaybutton = f:CreateTexture(f:GetName() and f:GetName().."overlaybutton" or nil, "BORDER", f)
+	overlaybutton:ClearAllPoints()
+	overlaybutton:SetPoint("TOPLEFT", 2, -2)
+	overlaybutton:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlaybutton:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\Minimalist.tga")
+	overlaybutton:SetAlpha(1)
+	overlaybutton:SetVertexColor(0.22, 0.22, 0.22)
+	f.overlaybutton = overlaybutton
+end
+T.CreateBtn = function(buttonname, buttonparent, buttonwidth, buttonheight, tooltiptext, buttontext, tooltipanchor)
+	local class = RAID_CLASS_COLORS[select(2, UnitClass("player"))]	
+	-- basic button
+	local button = CreateFrame("Button", buttonname, buttonparent, "SecureActionButtonTemplate")
+	button:SetWidth(buttonwidth)
+	button:SetHeight(buttonheight)
+	button:SetTemplate()
+	button:EnableMouse(true)
+
+	-- button text
+	button.text = button:CreateFontString(nil, "OVERLAY")
+	--button.text:SetFont("Interface\\AddOns\\ViksUI\\media\\Fonts\\Movavi.ttf", 12, "OUTLINE")
+	button.text:SetFontObject(CombatLogFont)
+	button.text:SetText(buttontext)
+	button.text:SetTextColor(1, 1, 1)
+	button.text:SetPoint("CENTER", button, 'CENTER', 0, 0)
+	button.text:SetJustifyH("CENTER")	
+
+	-- button icon
+	button.icon = button:CreateTexture(nil, "OVERLAY")
+	button.icon:SetSize(17, 17)
+	button.icon:SetPoint("CENTER", button, "CENTER", 0, 0)
+	
+	--button mouseaction (mousover or click)
+	button:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(tooltipanchor, "ANCHOR_TOP", 0, 10)
+		GameTooltip:AddLine(tooltiptext, 1, 1, 1, 1, 1, 1)
 		GameTooltip:Show()
+		button.text:SetTextColor(class.r, class.g, class.b)
+		button:SetBackdropBorderColor(class.r, class.g, class.b)
+		button.icon:SetVertexColor(class.r, class.g, class.b)
+	end)
+	
+	button:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+		button.text:SetTextColor(1, 1, 1)
+		button:SetBackdropBorderColor(unpack(C["media"]["border_color"]))
+		button.icon:SetVertexColor(1, 1, 1)
 	end)
 
-	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+	-- set attributes
+	button:SetAttribute("type1", "macro")
 
-	b.text = b:CreateFontString(nil, "OVERLAY")
-	b.text:SetFont(f, fs, ff)
-	b.text:SetText(T.RGBToHex(unpack(C["media"].pxcolor1))..txt)
-	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
-	b.text:SetJustifyH("CENTER")
-	b:SetAttribute("type1", "macro")
+	-- Overlay texture
+	button:CreateOverlay()
 end

@@ -16,7 +16,7 @@ C["media"] = {
 	["pixel_font_style"] = "OUTLINEMONOCHROME", 										-- Normal Text Flags like: "OVERLAY", "OUTLINE", "THINOUTLINE", "THICKOUTLINE" and "MONOCHROME"
 	["pxfontHFlag"] = "NONE", 															-- Normal Text Flags like: "OVERLAY", "OUTLINE", "THINOUTLINE", "THICKOUTLINE" and "MONOCHROME"
 	["pixel_font_size"] = 14, 															-- Size of font Datatext
-	["pxfontHsize"] = 14, 																-- Size of font Datatext
+	["pxfontHsize"] = 13, 																-- Size of font Datatext
 	["fontsize"] = 12, 														    		-- Size of font 
 	["border_color"] = { 0, .38, .651, 1}, 												-- border color of Viks UI panels
 	["backdrop_color"] = {.06,.06,.06, 1}, 												-- background color of Viks UI panels
@@ -83,6 +83,7 @@ C["misc"] = {
 	["combatanimation"] = true,					-- Text animation when entering/exiting combat
 	["hide_banner"] = true,						-- Hide Boss Banner Loot Frame
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
+	["OrderHallBar"] = false,					-- Show OrderHallBar Frame
 }
 
 ----------------------------------------------------------------------------------------
@@ -134,7 +135,7 @@ C["automation"] = {
 ----------------------------------------------------------------------------------------
 C["skins"] = {
 	["blizzard_frames"] = true,					-- Blizzard frames skin
-	["minimap_buttons"] = false,				-- Skin addons icons on minimap
+	["minimap_buttons"] = true,				-- Skin addons icons on minimap
 	["clcprot"] = false,						-- CLCProt skin
 	["clcret"] = false,							-- CLCRet skin
 	["combustion_helper"] = false,				-- CombustionHelper skin
@@ -318,7 +319,7 @@ C["tooltip"] = {
 ----------------------------------------------------------------------------------------
 --	Minimap options
 ----------------------------------------------------------------------------------------
-C["minimapp"] = {
+C["minimap"] = {
 	["enable"] = true,
 	["minimb1"] = true,						--Background for Minimap bottom right
 	["minimb2"] = true,						--Background for Minimap bottom left
@@ -331,8 +332,9 @@ C["minimapp"] = {
 --	Panels options
 ----------------------------------------------------------------------------------------
 C["panels"] = {
-	["CPwidth"] = 300 ,								-- Width for Left and RIght side panels that holds text. 
-	["CPTextheight"] = 140, 						-- Hight for panel where chat window is inside
+	["CPwidth"] = 300,								-- Width for Left and RIght side panels that holds text. 
+	["CPLwidth"] = 390,								-- Width for Left and RIght Chat lines. 
+	["CPTextheight"] = 142, 						-- Hight for panel where chat window is inside
 	["CPbarsheight"] = 16, 							-- Hight for Panels under/above Chat window
 	["CPABarSide"] = 30, 							-- Width for Action Bars next to chat windows
 	["CPXPBa_r"] = 20, 								-- Hight for the XP bar above Left Chat
@@ -344,8 +346,8 @@ C["panels"] = {
 	["CPMAByoffset"] = 68, 							-- Hight for Main Actionbar
 	["CPCooldheight"] = 18, 						-- Hight for Cooldown Bar
 	["CPTop"] = 1912, 								-- Width for Top Panels
-	["CPMinimap"] = C["minimapp"].size, 			-- Width/Hight for Minimap Panel
-	["Pscale"] = C["misc"].Pscale,				-- Can be used to resize all panels. It does not change X Y Values
+	["CPMinimap"] = C["minimap"].size, 				-- Width/Hight for Minimap Panel
+	["Pscale"] = C["misc"].Pscale,					-- Can be used to resize all panels. It does not change X Y Values
 	["NoPanels"] = false,							-- Will Set all panels to hidden and show lines instead. On test stage still!
 }
 ----------------------------------------------------------------------------------------
@@ -354,7 +356,7 @@ C["panels"] = {
 C["chat"] = {
 	["enable"] = true,							-- Enable chat
 	["background"] = true,						-- Enable background for chat
-	["background_alpha"] = 0.7,					-- Background alpha
+	["background_alpha"] = 0.4,					-- Background alpha
 	["filter"] = true,							-- Removing some systems spam("Player1" won duel "Player2")
 	["spam"] = false,							-- Removing some players spam(gold/portals/etc)
 	["width"] = C.panels.CPwidth - 4,							-- Chat width
@@ -492,7 +494,7 @@ C["unitframe"] = {
 	["VuhDo"] = false, 																	-- Always Hide Raidframes if VuhDo is loaded.
 	["showRaidDebuffs"] = true,															-- Shows debuff as icon on your raid frames
 	["showAuraWatch"] = true,															-- Watch specific auras
-	["enableDebuffHighlight"] = true,													-- Highlight Unit Frame if having a Debuffs
+	--["enableDebuffHighlight"] = true,													-- Highlight Unit Frame if having a Debuffs
 	["ShowIncHeals"] = true,															-- Show incoming heals in player and raid frames
 	["RCheckIcon"] = true,																-- Show Ready Check Icons On Health Frames
 	["IndicatorIcons2"] = false,														-- Toggles different Indicator types.	
@@ -513,6 +515,17 @@ C["unitframe"] = {
 	["buffsOnlyShowPlayer"] = false,													-- only show your buffs
 	["uf_color"] = {0.4, 0.4, 0.4},														-- Color for UF if ["own_color"] = true
 	["castbar_ticks"] = true,															-- Castbar ticks
+	-- Plugins
+	["plugins_gcd"] = false,					-- Global cooldown spark on player frame
+	["plugins_swing"] = false,					-- Swing bar
+	["plugins_reputation_bar"] = false,			-- Reputation bar
+	["plugins_experience_bar"] = false,			-- Experience bar
+	["plugins_artifact_bar"] = false,			-- Artifact Power bar
+	["plugins_smooth_bar"] = false,				-- Smooth bar
+	--["plugins_enemy_spec"] = false,				-- Enemy specialization
+	["plugins_combat_feedback"] = false,		-- Combat text on player/target frame
+	["plugins_fader"] = false,					-- Fade unit frames
+	--["plugins_diminishing"] = false,			-- Diminishing Returns icons on arena frames
 	}
 
 ----------------------------------------------------------------------------------------
@@ -669,7 +682,7 @@ C["datatext"] = {
 	["System"] = 7,                			-- show fps and ms on panels, and total addon memory in tooltip
 	["Talents"] = 12,                       -- Show Your Talent's. Shift Click to change spec. 
 	["togglemenu"] = 0,  			  		-- minimenu
-	["Wowtime"] = true,              		-- THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!
+	["Wowtime"] = 14,              		-- THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!
 	["Time24"] = true,            			-- set time to 24h format.
 	["Localtime"] = true,  					-- Show Local time instead of server time
 	["classcolor"] = true,
@@ -680,6 +693,7 @@ C["datatext"] = {
 	["CurrMiscellaneous"] = true, 
 	["CurrPvP"] = true,
 	["CurrRaid"] = true,
+	["Quests"] = 15,
 }
 
 ----------------------------------------------------------------------------------------
@@ -709,21 +723,36 @@ C["XPBar"] = {
 }
 
 ----------------------------------------------------------------------------------------
---	Action Bars // Removed from addon pack. Note: Actionbars are removed, but to much code build around these to remove at this stage!
+--	ActionBar options
 ----------------------------------------------------------------------------------------
-C["actionbar"] = {		
-	["enable"] = false,                                  -- enable tukui action bars
-	["hotkey"] = true,                                  -- enable hotkey display because it was a lot requested
-	["hideSTANCE"] = false,                         -- hide STANCE or totembar because it was a lot requested.
-	["showgrid"] = true,                                -- show grid on empty button
-	["button_size"] = 35,                                -- normal buttons size
-	["petbuttonsize"] = 36,                              -- pet & stance buttons size
-	["button_space"] = 1,                             	 -- buttons spacing
-	["petbuttonspacing"] = 3,
-	["mainbarWidth"] = 12,		
-	["ownshdbar"] = false,                              -- use a complete new stance bar for shadow dance (rogue only)
-	["lowversion"] = false,
-	["sidebarWidth"] = 6,								-- amount of buttons per row on side bars (set between 1-6 only), option work if lowversion - false
+C["actionbar"] = {
+	-- Main
+	["enable"] = true,							-- Enable actionbars
+	["hotkey"] = true,							-- Show hotkey on buttons
+	["macro"] = false,							-- Show macro name on buttons
+	["show_grid"] = true,						-- Show empty action bar buttons
+	["button_size"] = 25,						-- Buttons size
+	["button_space"] = 3,						-- Buttons space
+	["split_bars"] = false,						-- Split the fifth bar on two bars on 6 buttons
+	["classcolor_border"] = false,				-- Enable classcolor border
+	["toggle_mode"] = true,						-- Enable toggle mode
+	["hide_highlight"] = false,					-- Hide proc highlight
+	-- Bottom bars
+	["bottombars"] = 2,							-- Number of action bars on the bottom (1, 2 or 3)
+	-- Right bars
+	["rightbars"] = 3,							-- Number of action bars on right (0, 1, 2 or 3)
+	["rightbars_mouseover"] = true,				-- Right bars on mouseover
+	-- Pet bar
+	["petbar_hide"] = false,					-- Hide pet bar
+	["petbar_horizontal"] = false,				-- Enable horizontal pet bar
+	["petbar_mouseover"] = false,				-- Pet bar on mouseover(only for horizontal pet bar)
+	-- Stance bar
+	["stancebar_hide"] = false,					-- Hide stance bar
+	["stancebar_horizontal"] = true,			-- Enable horizontal stance bar
+	["stancebar_mouseover"] = true,				-- Stance bar on mouseover(only for horizontal stance bar)
+	-- MicroMenu
+	["micromenu"] = false,						-- Enable micro menu
+	["micromenu_mouseover"] = false,			-- Micro menu on mouseover
 }
 
 ----------------------------------------------------------------------------------------
@@ -751,10 +780,12 @@ C["Filger"] = {
 ----------------------------------------------------------------------------------------
 C["position"] = {
 	-- Miscellaneous positions
-	["minimap_buttons"] = {"TOPRIGHT", Minimap, "TOPLEFT", -3, -30},				-- Minimap buttons
-	["minimap"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -21, 24},				-- Minimap
+	["minimap_buttons"] = {"TOPLEFT", Minimap, "BOTTOMLEFT", -2, -4},				-- Minimap buttons
+	["minimap"] = {"TOPRIGHT", UIParent, "TOPRIGHT", -3, -(C.panels.yoffset+C.panels.CPbarsheight+2)},				-- Minimap
+	["minimapline"] = {"TOPRIGHT", UIParent, "TOPRIGHT", -14, -(C.panels.yoffset+C.panels.CPbarsheight+2)},				-- Minimap Line
 	["map"] = {"BOTTOM", UIParent, "BOTTOM", -120, 320},							-- Map
 	["chat"] = {"BOTTOMLEFT", LChat, "BOTTOMLEFT", 5, 21},							-- Chat
+	["chatr"] = {"BOTTOMLEFT", RChat, "BOTTOMLEFT", 5, 21},							-- Chat
 	["bag"] = {"BOTTOMRIGHT", Minimap, "TOPRIGHT", 2, 5},							-- Bag
 	["bank"] = {"LEFT", UIParent, "LEFT", 23, 150},									-- Bank
 	["bn_popup"] = {"BOTTOMLEFT", LChatTab, "BOTTOMLEFT", 10, 20},					-- Battle.net popup
@@ -770,10 +801,10 @@ C["position"] = {
 	["group_loot"] = {"BOTTOM", UIParent, "BOTTOM", -238, 500},						-- Group roll loot
 	["threat_meter"] = {"CENTER", UIParent, "CENTER", 0, 0},						-- Threat meter
 	["raid_cooldown"] = {"TOPLEFT", UIParent, "TOPLEFT", 21, -21},					-- Raid cooldowns
-	["enemy_cooldown"] = {"BOTTOMLEFT", "oUF_Player", "TOPRIGHT", 33, 62},			-- Enemy cooldowns
+	["enemy_cooldown"] = {"BOTTOMLEFT", "oUF_Player", "TOPRIGHT", 33, 350},			-- Enemy cooldowns
 	["pulse_cooldown"] = {"CENTER", UIParent, "CENTER", 0, 0},						-- Pulse cooldowns
 	["bg_score"] = {"CENTER", UIParent, "BOTTOM", 0, 28},							-- BG stats
-	["player_buffs"] = {"TOPRIGHT", UIParent, "TOPRIGHT", -21, -21},				-- Player buffs
+	["player_buffs"] = {"TOPRIGHT", Minimap, "TOPLEFT", -6, 2},				-- Player buffs
 	["self_buffs"] = {"CENTER", UIParent, "CENTER", 0, 0},							-- Self buff reminder
 	["raid_buffs"] = {"CENTER", UIParent, "CENTER", 0, 0},							-- Raid buff reminder
 	["top_panel"] = {"TOP", UIParent, "TOP", 0, -20},								-- Top panel

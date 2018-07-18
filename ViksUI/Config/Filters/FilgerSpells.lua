@@ -26,6 +26,10 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Remorseless Winter
+			{spellID = 196770, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Hungering Rune Weapon
+			{spellID = 207127, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Bone Shield
 			{spellID = 195181, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Vampiric Blood
@@ -37,7 +41,7 @@ C["filger_spells"] = {
 			-- Dancing Rune Weapon
 			{spellID = 81256, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Lichborne
-			{spellID = 49039, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 49039, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Rune Tap
 			{spellID = 194679, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Pillar of Frost
@@ -193,6 +197,20 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].cooldown)},
 
 			-- Self
+			-- Apocalypse
+			{spellID = 220143, filter = "CD"},
+			-- Sindragosa's Fury
+			{spellID = 190778, filter = "CD"},
+			-- Consumption
+			{spellID = 205223, filter = "CD"},
+			-- Bonestorm
+			{spellID = 194844, filter = "CD"},
+			-- Asphyxiate
+			{spellID = 221562, filter = "CD"},
+			-- Blinding Sleet
+			{spellID = 207167, filter = "CD"},
+			-- Hungering Rune Weapon
+			{spellID = 207127, filter = "CD"},
 			-- Mind Freeze
 			{spellID = 47528, filter = "CD"},
 			-- Strangulate
@@ -234,7 +252,7 @@ C["filger_spells"] = {
 			-- Breath of Sindragosa
 			{spellID = 152279, filter = "CD"},
 			-- Lichborne
-			{spellID = 49039, filter = "CD"},
+			--BETA {spellID = 49039, filter = "CD"},
 			-- Desecrated Ground
 			{spellID = 108201, filter = "CD"},
 			-- Death Pact
@@ -308,7 +326,7 @@ C["filger_spells"] = {
 			-- Metamorphosis
 			{spellID = 187827, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Empower Wards
-			{spellID = 218256, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 218256, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Darkness
 			{spellID = 196718, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Immolation Aura
@@ -320,7 +338,7 @@ C["filger_spells"] = {
 			-- Blur
 			{spellID = 212800, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Chaos Blades
-			{spellID = 211048, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 211048, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Netherwalk
 			{spellID = 196555, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Nether Bond
@@ -505,7 +523,7 @@ C["filger_spells"] = {
 			-- Sigil of Misery
 			{spellID = 207684, filter = "CD"},
 			-- Empower Wards
-			{spellID = 218256, filter = "CD"},
+			--BETA {spellID = 218256, filter = "CD"},
 			-- Spectral Sight
 			{spellID = 188501, filter = "CD"},
 			-- Fiery Brand
@@ -531,7 +549,7 @@ C["filger_spells"] = {
 			-- Netherwalk
 			{spellID = 196555, filter = "CD"},
 			-- Chaos Blades
-			{spellID = 211048, filter = "CD"},
+			--BETA {spellID = 211048, filter = "CD"},
 			-- Nemesis
 			{spellID = 206491, filter = "CD"},
 			-- Metamorphosis
@@ -637,8 +655,8 @@ C["filger_spells"] = {
 			{spellID = 213680, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Item Sets
-			-- Natural Defenses (T19)
-			{spellID = 211160, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Apex Predator (T21)
+			{spellID = 252752, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Trinkets
 			-- Alchemy Stones
@@ -715,8 +733,6 @@ C["filger_spells"] = {
 			-- Down Draft (Haste, Proc) [Nightmare Egg Shell]
 			{spellID = 214342, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Damage [Intellect]
-			-- Accelerando (Haste, Proc) [Erratic Metronome]
-			{spellID = 225719, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Nefarious Pact (Cast speed, Proc) [Whispers in the Dark]
 			{spellID = 225774, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Valarjar's Path (Primary stat, Use) [Horn of Valor]
@@ -740,6 +756,8 @@ C["filger_spells"] = {
 			{spellID = 215198, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Solemnity (Haste, Proc) [Flask of the Solemn Night]
 			{spellID = 224347, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Ocean's Embrace (Healing, Proc) [Sea Star of the Depthmother]
+			{spellID = 242467, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Enchants
 			-- Mark of the Claw (Crit and Haste)
@@ -762,6 +780,8 @@ C["filger_spells"] = {
 			{spellID = 164815, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Stellar Flare
 			{spellID = 202347, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Ashmane's Frenzy
+			{spellID = 210722, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Rake
 			{spellID = 155722, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 			-- Rip
@@ -790,6 +810,8 @@ C["filger_spells"] = {
 			{spellID = 33763, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Rejuvenation
 			{spellID = 774, unitID = "target", caster = "player", filter = "BUFF"},
+			-- Rejuvenation (Germination)
+			{spellID = 155777, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Regrowth
 			{spellID = 8936, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Wild Growth
@@ -869,6 +891,8 @@ C["filger_spells"] = {
 			{spellID = 124974, filter = "CD"},
 			-- Berserk
 			{spellID = 106951, filter = "CD", absID = true},
+			-- Ashmane's Frenzy
+			{spellID = 210722, filter = "CD"},
 			-- Incarnation: Chosen of Elune
 			{spellID = 102560, filter = "CD"},
 			-- Incarnation: King of the Jungle
@@ -973,7 +997,7 @@ C["filger_spells"] = {
 			-- Beast Cleave
 			{spellID = 118455, unitID = "pet", caster = "player", filter = "BUFF"},
 			-- Marking Targets
-			{spellID = 223138, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 223138, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Frenzy
 			{spellID = 19615, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 			-- Mend Pet
@@ -1053,9 +1077,9 @@ C["filger_spells"] = {
 			-- A Murder of Crows
 			{spellID = 131894, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Vulnerable
-			{spellID = 187131, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 187131, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hunter's Mark
-			{spellID = 185365, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 185365, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Narrow Escape
 			{spellID = 136634, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Entrapment
@@ -1270,7 +1294,7 @@ C["filger_spells"] = {
 			-- Glacial Spike!
 			{spellID = 199844, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Arcane Missiles!
-			{spellID = 79683, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 79683, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Hot Streak!
 			{spellID = 48108, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Kael'thas's Ultimate Ability
@@ -1328,13 +1352,13 @@ C["filger_spells"] = {
 			-- Nether Tempest
 			{spellID = 114923, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Frost Bomb
-			{spellID = 112948, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 112948, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Pyroblast
 			{spellID = 11366, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Freeze (Pet)
 			{spellID = 33395, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Water Jet (Pet)
-			{spellID = 135029, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 135029, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Frostbite
 			{spellID = 198121, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Frost Nova
@@ -1401,7 +1425,7 @@ C["filger_spells"] = {
 			-- Cone of Cold
 			{spellID = 120, filter = "CD"},
 			-- Water Jet (Pet)
-			{spellID = 135029, filter = "CD"},
+			--BETA {spellID = 135029, filter = "CD"},
 			-- Comet Storm
 			{spellID = 153595, filter = "CD"},
 			-- Ice Floes
@@ -1647,6 +1671,8 @@ C["filger_spells"] = {
 			{spellID = 215198, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Solemnity (Haste, Proc) [Flask of the Solemn Night]
 			{spellID = 224347, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Ocean's Embrace (Healing, Proc) [Sea Star of the Depthmother]
+			{spellID = 242467, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Enchants
 			-- Mark of the Claw (Crit and Haste)
@@ -1669,6 +1695,8 @@ C["filger_spells"] = {
 			{spellID = 121253, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Breath of Fire
 			{spellID = 123725, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Exploding Keg
+			{spellID = 214326, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "COOLDOWN",
@@ -1792,6 +1820,12 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Shield of Vengeance
+			{spellID = 184662, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Eye for an Eye
+			{spellID = 205191, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Crusade
+			{spellID = 231895, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Divine Shield
 			{spellID = 642, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Guardian of Ancient Kings
@@ -1813,11 +1847,7 @@ C["filger_spells"] = {
 			-- Speed of Light
 			{spellID = 85499, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Eternal Flame
-			{spellID = 114163, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Consecration
-			{spellID = 188370, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Shield of the righteous
-			{spellID = 132403, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 114163, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -1923,6 +1953,8 @@ C["filger_spells"] = {
 			{spellID = 215198, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Solemnity (Haste, Proc) [Flask of the Solemn Night]
 			{spellID = 224347, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Ocean's Embrace (Healing, Proc) [Sea Star of the Depthmother]
+			{spellID = 242467, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Enchants
 			-- Mark of the Claw (Crit and Haste)
@@ -1939,6 +1971,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.debuff_size,
 			Position = {unpack(C["filger_position"].target_debuff_icon)},
 
+			-- Eye of Tyr
+			{spellID = 209202, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Forbearance
 			{spellID = 25771, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Judgment
@@ -1960,6 +1994,8 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].cooldown)},
 
 			-- Self
+			-- Eye of Tyr
+			{spellID = 209202, filter = "CD"},
 			-- Cleanse
 			{spellID = 4987, filter = "CD"},
 			-- Rebuke
@@ -1991,7 +2027,7 @@ C["filger_spells"] = {
 			-- Divine Protection
 			{spellID = 498, filter = "CD", absID = true},
 			-- Execution Sentence
-			{spellID = 213757, filter = "CD"},
+			--BETA {spellID = 213757, filter = "CD"},
 			-- Light's Hammer
 			{spellID = 114158, filter = "CD"},
 			-- Blinding Light
@@ -2056,6 +2092,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Voidform
+			{spellID = 194249, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Dispersion
 			{spellID = 47585, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Power Infusion
@@ -2068,6 +2106,8 @@ C["filger_spells"] = {
 			{spellID = 20711, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Divinity
 			{spellID = 197030, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Power of the Naaru
+			{spellID = 196490, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Archangel
 			{spellID = 197862, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Vampiric Embrace
@@ -2097,6 +2137,8 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
 			-- Buffs
+			-- Lingering Insanity
+			{spellID = 197937, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shadowy Insight
 			{spellID = 124430, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Surge of Light
@@ -2123,8 +2165,6 @@ C["filger_spells"] = {
 			-- Rapid Adaptation (Versatility, Use)
 			{spellID = 170397, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Damage [Intellect]
-			-- Accelerando (Haste, Proc) [Erratic Metronome]
-			{spellID = 225719, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Nefarious Pact (Cast speed, Proc) [Whispers in the Dark]
 			{spellID = 225774, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Valarjar's Path (Primary stat, Use) [Horn of Valor]
@@ -2148,6 +2188,8 @@ C["filger_spells"] = {
 			{spellID = 215198, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Solemnity (Haste, Proc) [Flask of the Solemn Night]
 			{spellID = 224347, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Ocean's Embrace (Healing, Proc) [Sea Star of the Depthmother]
+			{spellID = 242467, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Enchants
 			-- Mark of the Claw (Crit and Haste)
@@ -2167,7 +2209,7 @@ C["filger_spells"] = {
 			-- Pain Suppression
 			{spellID = 33206, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Void Entropy
-			{spellID = 155361, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 155361, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Vampiric Touch
 			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Shadow Word: Pain
@@ -2197,7 +2239,7 @@ C["filger_spells"] = {
 			-- Pain Suppression
 			{spellID = 33206, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Void Entropy
-			{spellID = 155361, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 155361, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Vampiric Touch
 			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Shadow Word: Pain
@@ -2576,7 +2618,7 @@ C["filger_spells"] = {
 			-- Crimson Vial
 			{spellID = 185311, filter = "CD"},
 			-- Cannonball Barrage
-			{spellID = 185767, filter = "CD"},
+			--BETA {spellID = 185767, filter = "CD"},
 			-- Garrote
 			{spellID = 703, filter = "CD"},
 			-- Exsanguinate
@@ -2695,6 +2737,12 @@ C["filger_spells"] = {
 			-- Flametongue
 			{spellID = 194084, unitID = "player", caster = "player", filter = "BUFF"},
 
+			-- Item Sets
+			-- Tidal Force (T20 2p Proc)
+			{spellID = 246729, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Spirit Rain (T20 4p Proc)
+			{spellID = 246771, unitID = "player", caster = "player", filter = "BUFF"},
+
 			-- Trinkets
 			-- Alchemy Stones
 			-- Agility
@@ -2741,8 +2789,6 @@ C["filger_spells"] = {
 			-- Down Draft (Haste, Proc) [Nightmare Egg Shell]
 			{spellID = 214342, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Damage [Intellect]
-			-- Accelerando (Haste, Proc) [Erratic Metronome]
-			{spellID = 225719, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Nefarious Pact (Cast speed, Proc) [Whispers in the Dark]
 			{spellID = 225774, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Valarjar's Path (Primary stat, Use) [Horn of Valor]
@@ -2766,6 +2812,8 @@ C["filger_spells"] = {
 			{spellID = 215198, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Solemnity (Haste, Proc) [Flask of the Solemn Night]
 			{spellID = 224347, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Ocean's Embrace (Healing, Proc) [Sea Star of the Depthmother]
+			{spellID = 242467, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Enchants
 			-- Mark of the Claw (Crit and Haste)
@@ -2930,9 +2978,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
-			-- Global
-			-- Eye of Kilrogg
-			{spellID = 126, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Deadwind Harvester
+			{spellID = 216708, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Unending Resolve
 			{spellID = 104773, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Soul Harvest
@@ -2989,8 +3036,6 @@ C["filger_spells"] = {
 			{spellID = 117828, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Grimore of Synergy
 			{spellID = 171982, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Backdraft rank 1/2/3
-			{spellID = 117828, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Trinkets
 			-- Alchemy Stones
@@ -3007,8 +3052,6 @@ C["filger_spells"] = {
 			-- Rapid Adaptation (Versatility, Use)
 			{spellID = 170397, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Damage [Intellect]
-			-- Accelerando (Haste, Proc) [Erratic Metronome]
-			{spellID = 225719, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Nefarious Pact (Cast speed, Proc) [Whispers in the Dark]
 			{spellID = 225774, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Valarjar's Path (Primary stat, Use) [Horn of Valor]
@@ -3051,7 +3094,7 @@ C["filger_spells"] = {
 			-- Agony
 			{spellID = 980, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Corruption
-			{spellID = 172, unitID = "target", caster = "player", filter = "DEBUFF"},
+			{spellID = 146739, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Howl of Terror
 			{spellID = 5484, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Seed of Corruption
@@ -3242,11 +3285,11 @@ C["filger_spells"] = {
 			-- Raging Blow!
 			{spellID = 131116, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Ultimatum
-			{spellID = 122510, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 122510, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Meat Cleaver
 			{spellID = 85739, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Unyielding Strikes
-			{spellID = 169686, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 169686, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Enrage
 			{spellID = 184362, unitID = "player", caster = "player", filter = "BUFF"},
 
@@ -3374,7 +3417,7 @@ C["filger_spells"] = {
 			-- Spell Reflection
 			{spellID = 23920, filter = "CD"},
 			-- Intervene
-			{spellID = 3411, filter = "CD"},
+			--BETA {spellID = 3411, filter = "CD"},
 			-- Berserker Rage
 			{spellID = 18499, filter = "CD"},
 			-- Heroic Leap
@@ -3393,6 +3436,12 @@ C["filger_spells"] = {
 			{spellID = 97462, filter = "CD"},
 			-- Shield Wall
 			{spellID = 871, filter = "CD"},
+			-- Odyn's Fury
+			{spellID = 205545, filter = "CD"},
+			-- Battle Cry
+			{spellID = 1719, filter = "CD"},
+			-- Avatar
+			{spellID = 107574, filter = "CD"},
 
 			-- PvP
 			-- Honorable Medallion
@@ -3597,7 +3646,7 @@ C["filger_spells"] = {
 			-- Grounding Totem
 			{spellID = 8178, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Mass Spell Reflection
-			{spellID = 114028, unitID = "player", caster = "all", filter = "BUFF"},
+			--BETA {spellID = 114028, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Tiger's Lust
 			{spellID = 116841, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Body and Soul
@@ -3789,7 +3838,7 @@ C["filger_spells"] = {
 			-- Debilitate (Terrorguard)
 			{spellID = 170996, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Staggering Shout
-			{spellID = 107566, unitID = "player", caster = "all", filter = "DEBUFF"},
+			--BETA {spellID = 107566, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Slows
 			-- Infected Wounds
@@ -3822,8 +3871,6 @@ C["filger_spells"] = {
 			{spellID = 116, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Frostfire Bolt
 			{spellID = 44614, unitID = "player", caster = "all", filter = "DEBUFF"},
-			-- Chilled
-			--{spellID = 7321, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Mind Flay
 			{spellID = 15407, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Hand of Hindrance
@@ -3927,8 +3974,6 @@ C["filger_spells"] = {
 			{spellID = 236449, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Shattering Scream
 			{spellID = 236515, unitID = "player", caster = "all", filter = "DEBUFF"},
-			-- Tormented Cries
-			{spellID = 235989, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Maiden of Vigilance
 			-- Unstable Soul
 			{spellID = 240209, unitID = "player", caster = "all", filter = "DEBUFF"},
@@ -4115,7 +4160,7 @@ C["filger_spells"] = {
 			-- Desecrated Ground
 			{spellID = 115018, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Lichborne
-			{spellID = 49039, unitID = "target", caster = "all", filter = "BUFF"},
+			--BETA {spellID = 49039, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Icebound Fortitude
 			{spellID = 48792, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Pillar of Frost
@@ -4357,7 +4402,7 @@ C["filger_spells"] = {
 			-- Spell Reflection
 			{spellID = 23920, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Mass Spell Reflection
-			{spellID = 114028, unitID = "target", caster = "all", filter = "BUFF"},
+			--BETA {spellID = 114028, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Shield Wall
 			{spellID = 871, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Die by the Sword
@@ -4415,7 +4460,7 @@ C["filger_spells"] = {
 			{spellID = 167152, unitID = "target", caster = "all", filter = "BUFF"},
 
 			-- Mythic
-			--Sanguine Ichor
+			-- Sanguine Ichor
 			{spellID = 226510, unitID = "target", caster = "all", filter = "BUFF"},
 		},
 	},

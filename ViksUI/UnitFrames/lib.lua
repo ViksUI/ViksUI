@@ -1117,7 +1117,7 @@ lib.gen_castbar = function(f)
 		l:SetJustifyH("RIGHT")
 		l:Hide()
 		s.Lag = l
-		f:RegisterEvent("UNIT_SPELLCAST_SENT", cast.OnCastSent)
+		f:RegisterEvent("UNIT_SPELLCAST_STOP", cast.OnCastSent)
 	end
 	s.OnUpdate = cast.OnCastbarUpdate
 	s.PostCastStart = cast.PostCastStart
@@ -1222,29 +1222,33 @@ local formatTime = function(s)
 end
 
 -- Create Buff/Debuff Timer Function 
-local setTimer = function (self, elapsed)
-	if self.timeLeft then
-		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed >= 0.1 then
-			if not self.first then
-				self.timeLeft = self.timeLeft - self.elapsed
+local setTimer = function(self, elapsed)
+	if (self.TimeLeft) then
+		self.Elapsed = (self.Elapsed or 0) + elapsed
+
+		if self.Elapsed >= 0.1 then
+			if not self.First then
+				self.TimeLeft = self.TimeLeft - self.Elapsed
 			else
-				self.timeLeft = self.timeLeft - GetTime()
-				self.first = false
+				self.TimeLeft = self.TimeLeft - GetTime()
+				self.First = false
 			end
-			if self.timeLeft > 0 then
-				local time = formatTime(self.timeLeft)
-					self.time:SetText(time)
-				if self.timeLeft < 5 then
-					self.time:SetTextColor(1, 0.5, 0.5)
+
+			if self.TimeLeft > 0 then
+				local Time = T.FormatTime(self.TimeLeft)
+				self.Remaining:SetText(Time)
+
+				if self.TimeLeft <= 5 then
+					self.Remaining:SetTextColor(0.99, 0.31, 0.31)
 				else
-					self.time:SetTextColor(.7, .7, .7)
+					self.Remaining:SetTextColor(1, 1, 1)
 				end
 			else
-				self.time:Hide()
+				self.Remaining:Hide()
 				self:SetScript("OnUpdate", nil)
 			end
-			self.elapsed = 0
+
+			self.Elapsed = 0
 		end
 	end
 end
@@ -1663,83 +1667,40 @@ end
 
 -- Combo Points
 lib.genCPoints = function(self)
-if C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old ~= true and T.class == "ROGUE" or T.class == "DRUID" then
-	self.CPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self)
-	self.CPoints:CreateBackdrop("Default")
-	self.CPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
-	self.CPoints:SetBackdropBorderColor(unpack(cfg.bordercolor))
-	self.CPoints:SetHeight(7)
-	self.CPoints:SetWidth(self:GetWidth()-3)
+	if C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old ~= true and (T.class == "ROGUE" or T.class == "DRUID") then
+		self.CPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self)
+		self.CPoints:CreateBackdrop("Default")
+		self.CPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 7)
+		self.CPoints:SetBackdropBorderColor(unpack(cfg.bordercolor))
+		self.CPoints:SetHeight(7)
+		self.CPoints:SetWidth(self:GetWidth()-3)
 
-	for i = 1, 10 do
-		self.CPoints[i] = CreateFrame("StatusBar", self:GetName().."ComboBar"..i, self.CPoints)
-		self.CPoints[i]:SetHeight(7)
-		self.CPoints[i]:SetStatusBarTexture(C.media.texture)
-		if i == 1 then
-			self.CPoints[i]:SetPoint("LEFT", self.CPoints, "LEFT", 0.5, 0)
-			self.CPoints[i]:SetWidth((self:GetWidth()-3) / 8)
-			
-			self.CPoints[i].Anticipation = self.CPoints[i]:GetWidth()
-			self.CPoints[i].Deeper = (self:GetWidth()-3) / 6
-			self.CPoints[i].None = (self:GetWidth()-3) / 5
-		else
-			self.CPoints[i]:SetPoint("LEFT", self.CPoints[i - 1], "RIGHT", 1, 0)
-			self.CPoints[i]:SetWidth((self:GetWidth()-3) / 8 - 1)
-			
-			self.CPoints[i].Anticipation = self.CPoints[i]:GetWidth()
-			self.CPoints[i].Deeper = (self:GetWidth()-3) / 6 - 1
-			self.CPoints[i].None = (self:GetWidth()-3) / 5 - 1
+		for i = 1, 6 do
+			self.CPoints[i] = CreateFrame("StatusBar", self:GetName().."_ComboBar", self.CPoints)
+			self.CPoints[i]:SetSize(213 / 10, 7)
+			if i == 1 then
+				self.CPoints[i]:SetPoint("LEFT", self.CPoints)
+			else
+				self.CPoints[i]:SetPoint("LEFT", self.CPoints[i-1], "RIGHT", 1, 0)
+			end
+			self.CPoints[i]:SetStatusBarTexture(C.media.texture)
 		end
-		self.CPoints[i].bg = self.CPoints[i]:CreateTexture(nil, "ARTWORK")
+
+		self.CPoints[1]:SetStatusBarColor(0.9, 0.1, 0.1)
+		self.CPoints[2]:SetStatusBarColor(0.9, 0.1, 0.1)
+		self.CPoints[3]:SetStatusBarColor(0.9, 0.9, 0.1)
+		self.CPoints[4]:SetStatusBarColor(0.9, 0.9, 0.1)
+		self.CPoints[5]:SetStatusBarColor(0.1, 0.9, 0.1)
+		self.CPoints[6]:SetStatusBarColor(0.1, 0.9, 0.1)
+
+		if T.class == "DRUID" and C.unitframe_class_bar.combo_always ~= true then
+			self:RegisterEvent("UPDATE_SHAPESHIFT_FORM", T.UpdateComboPoint)
+		end
+
+		self.CPoints.Override = T.UpdateComboPoint
 	end
-	self.CPoints[1]:SetStatusBarColor(0.9, 0.1, 0.1)
-	self.CPoints[2]:SetStatusBarColor(0.9, 0.1, 0.1)
-	self.CPoints[3]:SetStatusBarColor(0.9, 0.9, 0.1)
-	self.CPoints[4]:SetStatusBarColor(0.9, 0.9, 0.1)
-	self.CPoints[5]:SetStatusBarColor(0.1, 0.9, 0.1)
-	self.CPoints[6]:SetStatusBarColor(0.1, 0.9, 0.1)
-	self.CPoints[7]:SetStatusBarColor(0.1, 0.9, 0.1)
-	self.CPoints[8]:SetStatusBarColor(0.1, 0.9, 0.1)
-	self.CPoints[9]:SetStatusBarColor(0.1, 0.9, 0.1)
-	self.CPoints[10]:SetStatusBarColor(0.1, 0.9, 0.1)
-	self.CPoints.Override = T.UpdateComboPoint
 
 end
-
-end
---[[
-lib.addAdditionalPower = function(self)
-	if playerClass ~= "PRIEST" then return end
-	local AdditionalPower = CreateFrame("StatusBar", "AdditionalPowerBar", self.Health)
-	AdditionalPower:SetHeight(3)
-	AdditionalPower:SetWidth(self.Health:GetWidth())
-	AdditionalPower:SetPoint("TOP", self.Health, "BOTTOM", 0, 2)
-	AdditionalPower:SetFrameLevel(10)
-	AdditionalPower:SetStatusBarTexture(cfg.statusbar_texture)
-	AdditionalPower:SetStatusBarColor(.117, .55, 1)
-	
-	AdditionalPower.bg = AdditionalPower:CreateTexture(nil, "BORDER")
-	AdditionalPower.bg:SetTexture(cfg.statusbar_texture)
-	AdditionalPower.bg:SetVertexColor(.05, .15, .4)
-	AdditionalPower.bg:SetPoint("TOPLEFT", AdditionalPower, "TOPLEFT", 0, 0)
-	AdditionalPower.bg:SetPoint("BOTTOMRIGHT", AdditionalPower, "BOTTOMRIGHT", 0, 0)
-
-	local h = CreateFrame("Frame", nil, AdditionalPower)
-	--h:SetFrameLevel(0)
-	--h:SetPoint("TOPLEFT", -4, 4)
-	--h:SetPoint("BOTTOMRIGHT", 4, -4)	
-	--frame11px_1(h)
-	h:SetBackdropBorderColor(unpack(cfg.bordercolor))
-	h:SetPoint("TOPLEFT", -2, 2)
-	h:SetPoint("BOTTOMRIGHT", 2, -2)
-	h:SetFrameLevel(AdditionalPower:GetFrameLevel() - 1)
-	
-	--lib.createBackdrop(h, 0)
-
-	self.DruidMana = AdditionalPower
-	self.DruidMana.bg = AdditionalPower.bg
-end
---]]
 
 lib.genHarmony = function(self)
 	if playerClass ~= "MONK" then return end

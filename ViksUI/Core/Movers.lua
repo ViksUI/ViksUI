@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
---[[
+
 ----------------------------------------------------------------------------------------
 --	Movement function(by Allez)
 ----------------------------------------------------------------------------------------
@@ -18,6 +18,7 @@ T.MoverFrames = {
 	BuffsAnchor,
 	RaidCDAnchor,
 	EnemyCDAnchor,
+	ObjectiveTrackerAnchor,
 	ThreatMeterAnchor,
 	LootRollAnchor,
 	RaidBuffsAnchor,
@@ -29,6 +30,27 @@ T.MoverFrames = {
 	oUF_Target_Castbar,
 	oUF_Player_Portrait,
 	oUF_Target_Portrait,
+	P_BUFF_ICON_Anchor,
+	P_PROC_ICON_Anchor,
+	SPECIAL_P_BUFF_ICON_Anchor,
+	T_DEBUFF_ICON_Anchor,
+	T_BUFF_Anchor,
+	PVE_PVP_DEBUFF_Anchor,
+	PVE_PVP_CC_Anchor,
+	COOLDOWN_Anchor,
+	T_DE_BUFF_BAR_Anchor,
+	DataTextP1,
+	DataTextP2,
+	DataTextP3,
+	DataTextP4,
+	DataTextP5,
+	DataTextP6,
+	DataTextP7,
+	DataTextP8,
+	DataTextP9,
+	DataTextP10,
+	DataTextP11,
+	CPCool
 }
 
 local moving = false
@@ -152,5 +174,3 @@ SLASH_MOVING1 = "/moveui"
 SLASH_MOVING2 = "/ьщмугш"
 SLASH_MOVING3 = "/ui"
 SLASH_MOVING4 = "/гш"
-
---]]

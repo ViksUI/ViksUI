@@ -1,4 +1,3 @@
---[[
 local T, C, L, _ = unpack(select(2, ...))
 if C.minimap.enable ~= true then return end
 
@@ -6,8 +5,14 @@ if C.minimap.enable ~= true then return end
 --	Minimap border
 ----------------------------------------------------------------------------------------
 local MinimapAnchor = CreateFrame("Frame", "MinimapAnchor", UIParent)
-MinimapAnchor:CreatePanel("ClassColor", C.minimap.size, C.minimap.size, unpack(C.position.minimap))
 
+if C.panels.NoPanels == true then
+MinimapAnchor:CreatePanel("Transparent", C.minimap.size, C.minimap.size, unpack(C.position.minimapline))
+else
+MinimapAnchor:CreatePanel("Transparent", C.minimap.size, C.minimap.size, unpack(C.position.minimap))
+end
+
+--Note: Use "Invisible" to hide
 ----------------------------------------------------------------------------------------
 --	Shape, location and scale
 ----------------------------------------------------------------------------------------
@@ -34,10 +39,14 @@ MinimapBorderTop:Hide()
 MinimapZoomIn:Hide()
 MinimapZoomOut:Hide()
 
+-- Hide Blob Ring
+Minimap:SetArchBlobRingScalar(0)
+Minimap:SetQuestBlobRingScalar(0)
+
 -- Hide Voice Chat Frame
-MiniMapVoiceChatFrame:Kill()
-VoiceChatTalkers:Kill()
-ChannelFrameAutoJoin:Kill()
+--BETA MiniMapVoiceChatFrame:Kill()
+-- VoiceChatTalkers:Kill()
+-- ChannelFrameAutoJoin:Kill()
 
 -- Hide North texture at top
 MinimapNorthTag:SetTexture(nil)
@@ -65,6 +74,16 @@ QueueStatusMinimapButtonBorder:Hide()
 
 -- Hide world map button
 MiniMapWorldMapButton:Hide()
+
+-- Garrison icon
+if C.minimap.garrison_icon == true then
+	GarrisonLandingPageMinimapButton:ClearAllPoints()
+	GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
+	GarrisonLandingPageMinimapButton:SetSize(32, 32)
+else
+	GarrisonLandingPageMinimapButton:SetScale(0.0001)
+	GarrisonLandingPageMinimapButton:SetAlpha(0)
+end
 
 -- Instance Difficulty icon
 MiniMapInstanceDifficulty:SetParent(Minimap)
@@ -105,11 +124,12 @@ if StreamingIcon then
 	StreamingIcon:ClearAllPoints()
 	StreamingIcon:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -10)
 	StreamingIcon:SetScale(0.8)
+	StreamingIcon:SetFrameStrata("BACKGROUND")
 end
 
 -- Ticket icon
 HelpOpenTicketButton:SetParent(Minimap)
-HelpOpenTicketButton:CreateBackdrop("ClassColor")
+HelpOpenTicketButton:CreateBackdrop("Transparent")
 HelpOpenTicketButton:SetFrameLevel(4)
 HelpOpenTicketButton:ClearAllPoints()
 HelpOpenTicketButton:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 2)
@@ -144,7 +164,7 @@ Minimap:SetScript("OnMouseWheel", function(self, d)
 end)
 
 -- Hide Game Time
-MinimapAnchor:RegisterEvent("PLAYER_ENTERING_WORLD")
+MinimapAnchor:RegisterEvent("PLAYER_LOGIN")
 MinimapAnchor:RegisterEvent("ADDON_LOADED")
 MinimapAnchor:SetScript("OnEvent", function(self, event, addon)
 	if addon == "Blizzard_TimeManager" then
@@ -163,7 +183,7 @@ local micromenu = {
 	end},
 	{text = SPELLBOOK_ABILITIES_BUTTON, notCheckable = 1, func = function()
 		if InCombatLockdown() then
-			print("|cffffff00"..ERR_NOT_IN_COMBAT..".|r") return
+			print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
 		end
 		ToggleFrame(SpellBookFrame)
 	end},
@@ -174,43 +194,31 @@ local micromenu = {
 		if T.level >= SHOW_TALENT_LEVEL then
 			ShowUIPanel(PlayerTalentFrame)
 		else
-			print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL).."|r")
+			if C.error.white == false then
+				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL), 1, 0.1, 0.1)
+			else
+				print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_TALENT_LEVEL).."|r")
+			end
 		end
 	end},
 	{text = ACHIEVEMENT_BUTTON, notCheckable = 1, func = function()
 		ToggleAchievementFrame()
 	end},
 	{text = QUESTLOG_BUTTON, notCheckable = 1, func = function()
-		ToggleFrame(QuestLogFrame)
+		ToggleQuestLog()
 	end},
 	{text = guildText, notCheckable = 1, func = function()
-		if IsTrialAccount() then
-			UIErrorsFrame:AddMessage(ERR_RESTRICTED_ACCOUNT, 1, 0.1, 0.1)
-			return
-		end
+		ToggleGuildFrame()
 		if IsInGuild() then
-			if not GuildFrame then
-				LoadAddOn("Blizzard_GuildUI")
-			end
-			ToggleGuildFrame()
 			GuildFrame_TabClicked(GuildFrameTab2)
-		else
-			if not LookingForGuildFrame then
-				LoadAddOn("Blizzard_LookingForGuildUI")
-			end
-			if not LookingForGuildFrame then return end
-			LookingForGuildFrame_Toggle()
 		end
 	end},
 	{text = SOCIAL_BUTTON, notCheckable = 1, func = function()
-		ToggleFriendsFrame(1)
+		ToggleFriendsFrame()
 	end},
 	{text = PLAYER_V_PLAYER, notCheckable = 1, func = function()
 		if T.level >= SHOW_PVP_LEVEL then
-			if not PVPUIFrame then
-				PVP_LoadUI()
-			end
-			PVPUIFrame_ShowFrame()
+			TogglePVPUI()
 		else
 			if C.error.white == false then
 				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_PVP_LEVEL), 1, 0.1, 0.1)
@@ -221,7 +229,7 @@ local micromenu = {
 	end},
 	{text = DUNGEONS_BUTTON, notCheckable = 1, func = function()
 		if T.level >= SHOW_LFD_LEVEL then
-			PVEFrame_ToggleFrame()
+			PVEFrame_ToggleFrame("GroupFinderFrame", nil)
 		else
 			if C.error.white == false then
 				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_LFD_LEVEL), 1, 0.1, 0.1)
@@ -230,37 +238,46 @@ local micromenu = {
 			end
 		end
 	end},
-	{text = LOOKING_FOR_RAID, notCheckable = 1, func = function()
-		ToggleRaidFrame(3)
+	{text = ADVENTURE_JOURNAL, notCheckable = 1, func = function()
+		if C_AdventureJournal.CanBeShown() then
+			ToggleEncounterJournal()
+		else
+			if C.error.white == false then
+				UIErrorsFrame:AddMessage(FEATURE_NOT_YET_AVAILABLE, 1, 0.1, 0.1)
+			else
+				print("|cffffff00"..FEATURE_NOT_YET_AVAILABLE.."|r")
+			end
+		end
 	end},
-	{text = MOUNTS_AND_PETS, notCheckable = 1, func = function()
+	{text = COLLECTIONS, notCheckable = 1, func = function()
 		if InCombatLockdown() then
-			print("|cffffff00"..ERR_NOT_IN_COMBAT..".|r") return
+			print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
 		end
-		TogglePetJournal()
-	end},
-	{text = ENCOUNTER_JOURNAL, notCheckable = 1, func = function()
-		if not IsAddOnLoaded("Blizzard_EncounterJournal") then
-			LoadAddOn("Blizzard_EncounterJournal")
-		end
-		ToggleEncounterJournal()
+		ToggleCollectionsJournal()
 	end},
 	{text = HELP_BUTTON, notCheckable = 1, func = function()
 		ToggleHelpFrame()
 	end},
 	{text = L_MINIMAP_CALENDAR, notCheckable = 1, func = function()
-		if not CalendarFrame then
-			LoadAddOn("Blizzard_Calendar")
-		end
-		Calendar_Toggle()
+		ToggleCalendar()
 	end},
-	{text = BATTLEFIELD_MINIMAP, notCheckable = true, func = function()
-		ToggleBattlefieldMinimap()
+	{text = BATTLEFIELD_MINIMAP, notCheckable = 1, func = function()
+		ToggleBattlefieldMap()
 	end},
-	{text = LOOT_ROLLS, notCheckable = true, func = function()
+	{text = LOOT_ROLLS, notCheckable = 1, func = function()
 		ToggleFrame(LootHistoryFrame)
 	end},
 }
+
+if not IsTrialAccount() and not C_StorePublic.IsDisabledByParentalControls() then
+	tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
+end
+
+if T.level > 99 then
+	tinsert(micromenu, {text = ORDER_HALL_LANDING_PAGE_TITLE, notCheckable = 1, func = function() GarrisonLandingPage_Toggle() end})
+elseif T.level > 89 then
+	tinsert(micromenu, {text = GARRISON_LANDING_PAGE_TITLE, notCheckable = 1, func = function() GarrisonLandingPage_Toggle() end})
+end
 
 Minimap:SetScript("OnMouseUp", function(self, button)
 	local position = MinimapAnchor:GetPoint()
@@ -308,23 +325,18 @@ end
 --	Tracking icon
 ----------------------------------------------------------------------------------------
 if C.minimap.tracking_icon then
-	local trackborder = CreateFrame("Frame", nil, UIParent)
-	trackborder:SetFrameLevel(4)
-	trackborder:SetFrameStrata("BACKGROUND")
-	trackborder:SetHeight(20)
-	trackborder:SetWidth(20)
-	trackborder:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 2, 2)
-	trackborder:SetTemplate("ClassColor")
-
 	MiniMapTrackingBackground:Hide()
 	MiniMapTracking:ClearAllPoints()
-	MiniMapTracking:SetPoint("CENTER", trackborder, 2, -2)
+	MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 0, -5)
 	MiniMapTrackingButton:SetHighlightTexture(nil)
 	MiniMapTrackingButtonBorder:Hide()
 	MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	MiniMapTrackingIcon:SetWidth(16)
-	MiniMapTrackingIcon:SetHeight(16)
+	MiniMapTrackingIcon:SetSize(16, 16)
+	MiniMapTrackingIcon.SetPoint = T.dummy
+
+	MiniMapTracking:CreateBackdrop("Transparent")
+	MiniMapTracking.backdrop:SetPoint("TOPLEFT", MiniMapTrackingIcon, -2, 2)
+	MiniMapTracking.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
 else
 	MiniMapTracking:Hide()
 end
---]]

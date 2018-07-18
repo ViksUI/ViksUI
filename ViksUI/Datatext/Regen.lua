@@ -3,11 +3,11 @@ if not C.datatext.Regen and not C.datatext.Regen > 0 then return end
 
 local regen
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "DataTextRegen", UIParent)
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
-local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	if C.datatext.Regen >= 6 then
 		Text:SetTextColor(unpack(C.media.pxcolor1))
 		Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)

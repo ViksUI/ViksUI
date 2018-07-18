@@ -15,7 +15,7 @@ local ALLOWED_GROUPS = {
 	["tooltip"] = 12,
 	["chat"] = 13,
 	["bag"] = 14,
-	["minimapp"] = 15,
+	["minimap"] = 15,
 	["map"] = 16,
 	["loot"] = 17,
 	["nameplate"] = 18,
@@ -32,6 +32,7 @@ local ALLOWED_GROUPS = {
 	["stats"] = 29,
 	["XPBar"] = 30,
 	["Filger"] = 31,
+	["actionbar"] = 32,
 }
 local function Local(o)
 	local T, Viks, L = unpack(ViksUI)
@@ -292,14 +293,14 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigbagilvl" then o = L_GUI_BAGS_ILVL end
 	if o == "UIConfigbagbag_buttons" then o = L_GUI_BAGS_BUTTONS end
 	-- Minimap
-	if o == "UIConfigminimapp" then o = MINIMAP_LABEL end
-	if o == "UIConfigminimappenable" then o = L_GUI_MINIMAP_ENABLE end
-	if o == "UIConfigminimappminimb1" then o = "Enable Buttonframe 1" end
-	if o == "UIConfigminimappminimb2" then o = "Enable Buttonframe 2" end
-	if o == "UIConfigminimappPicomenu" then o = "Enable Picomenu" end
-	if o == "UIConfigminimappcompass" then o = "Enable Compass" end
-	if o == "UIConfigminimappsize" then o = L_GUI_MINIMAP_SIZE end
-	if o == "UIConfigminimapptoggle_menu" then o = L_GUI_MINIMAP_TOGGLE_MENU end
+	if o == "UIConfigminimap" then o = MINIMAP_LABEL end
+	if o == "UIConfigminimapenable" then o = L_GUI_MINIMAP_ENABLE end
+	if o == "UIConfigminimapminimb1" then o = "Enable Buttonframe 1" end
+	if o == "UIConfigminimapminimb2" then o = "Enable Buttonframe 2" end
+	if o == "UIConfigminimapPicomenu" then o = "Enable Picomenu" end
+	if o == "UIConfigminimapcompass" then o = "Enable Compass" end
+	if o == "UIConfigminimapsize" then o = L_GUI_MINIMAP_SIZE end
+	if o == "UIConfigminimaptoggle_menu" then o = L_GUI_MINIMAP_TOGGLE_MENU end
 
 	if o == "UIConfigmap" then o = ViksL.option_Map end
 	if o == "UIConfigmapenable" then o = ViksL.option_mapenable end	
@@ -647,6 +648,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigpanelsCPMAByoffset" then o = "Hight for Main Actionbar" end
 	if o == "UIConfigpanelsCPCooldheight" then o = "Hight for Cooldown Bar" end
 	if o == "UIConfigpanelsCPTop" then o = "Width for Top Panels" end
+	if o == "UIConfigpanelsNoPanels" then o = "NoPanels - Use Lines" end
 
 	-- Raid cooldowns options
 	if o == "UIConfigraidcooldown" then o = L_GUI_COOLDOWN_RAID end

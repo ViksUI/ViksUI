@@ -539,377 +539,13 @@ SkadaDB = {
 end
 
 local UploadBartender = function()
+
 Bartender4DB = {
 	["namespaces"] = {
+		["StatusTrackingBar"] = {
+		},
 		["ActionBars"] = {
 			["profiles"] = {
-				["ViksUI"] = {
-					["actionbars"] = {
-						{
-							["showgrid"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 125,
-								["x"] = -265.5,
-								["point"] = "BOTTOM",
-							},
-							["padding"] = 8,
-							["states"] = {
-								["stance"] = {
-									["ROGUE"] = {
-										["stealth"] = 3,
-									},
-								},
-							},
-						}, -- [1]
-						{
-							["showgrid"] = true,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["fadeoutalpha"] = 0.3,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 82,
-								["x"] = -265.5,
-								["point"] = "BOTTOM",
-							},
-							["padding"] = 8,
-							["states"] = {
-								["enabled"] = true,
-								["default"] = 2,
-							},
-						}, -- [2]
-						{
-							["showgrid"] = true,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["alpha"] = 0.5,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 116.5,
-								["x"] = 0.4,
-								["point"] = "LEFT",
-								["scale"] = 0.8,
-							},
-							["padding"] = 9,
-						}, -- [3]
-						{
-							["showgrid"] = true,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["alpha"] = 0.5,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 82,
-								["x"] = 0.4,
-								["point"] = "LEFT",
-								["scale"] = 0.8,
-							},
-							["padding"] = 9,
-						}, -- [4]
-						{
-							["showgrid"] = true,
-							["rows"] = 2,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 113,
-								["x"] = 279,
-								["point"] = "BOTTOM",
-								["scale"] = 0.75,
-							},
-							["padding"] = 3,
-						}, -- [5]
-						{
-							["showgrid"] = true,
-							["rows"] = 12,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["version"] = 3,
-							["position"] = {
-								["y"] = 201.4,
-								["x"] = -35,
-								["point"] = "RIGHT",
-								["scale"] = 0.76,
-							},
-							["padding"] = 8,
-						}, -- [6]
-						{
-							["showgrid"] = true,
-							["rows"] = 6,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 144.5,
-								["x"] = 351.5,
-								["point"] = "CENTER",
-							},
-							["padding"] = 11,
-							["visibility"] = {
-								["custom"] = false,
-								["customdata"] = "[mod:ctrl]show;hide",
-							},
-						}, -- [7]
-						{
-							["showgrid"] = true,
-							["rows"] = 2,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 112.5,
-								["x"] = -372,
-								["point"] = "BOTTOM",
-								["scale"] = 0.75,
-							},
-							["padding"] = 3,
-						}, -- [8]
-						{
-							["showgrid"] = true,
-							["rows"] = 6,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 180,
-								["x"] = 624,
-								["point"] = "BOTTOM",
-								["scale"] = 0.7,
-							},
-							["padding"] = 6,
-						}, -- [9]
-						{
-							["showgrid"] = true,
-							["rows"] = 7,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 180,
-								["x"] = -654.5,
-								["point"] = "BOTTOM",
-								["scale"] = 0.7,
-							},
-							["padding"] = 6,
-						}, -- [10]
-					},
-				},
-				["ViksUIRogue"] = {
-					["actionbars"] = {
-						{
-							["showgrid"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 125,
-								["x"] = -265.5,
-								["point"] = "BOTTOM",
-							},
-							["padding"] = 8,
-							["states"] = {
-								["stance"] = {
-									["ROGUE"] = {
-										["stealth"] = 3,
-									},
-								},
-							},
-						}, -- [1]
-						{
-							["showgrid"] = true,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["fadeoutalpha"] = 0.3,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 82,
-								["x"] = -265.5,
-								["point"] = "BOTTOM",
-							},
-							["padding"] = 8,
-							["states"] = {
-								["enabled"] = true,
-								["default"] = 2,
-							},
-						}, -- [2]
-						{
-							["showgrid"] = true,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = false,
-							["alpha"] = 0.5,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 116.5,
-								["x"] = 0.4,
-								["point"] = "LEFT",
-								["scale"] = 0.8,
-							},
-							["padding"] = 9,
-						}, -- [3]
-						{
-							["showgrid"] = true,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["alpha"] = 0.5,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 82,
-								["x"] = 0.4,
-								["point"] = "LEFT",
-								["scale"] = 0.8,
-							},
-							["padding"] = 9,
-						}, -- [4]
-						{
-							["showgrid"] = true,
-							["rows"] = 2,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 113,
-								["x"] = 279,
-								["point"] = "BOTTOM",
-								["scale"] = 0.75,
-							},
-							["padding"] = 3,
-						}, -- [5]
-						{
-							["showgrid"] = true,
-							["rows"] = 12,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["version"] = 3,
-							["position"] = {
-								["y"] = 201.4,
-								["x"] = -35,
-								["point"] = "RIGHT",
-								["scale"] = 0.76,
-							},
-							["padding"] = 8,
-						}, -- [6]
-						{
-							["showgrid"] = true,
-							["rows"] = 6,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 144.5,
-								["x"] = 351.5,
-								["point"] = "CENTER",
-							},
-							["padding"] = 11,
-							["visibility"] = {
-								["custom"] = false,
-								["customdata"] = "[mod:ctrl]show;hide",
-							},
-						}, -- [7]
-						{
-							["showgrid"] = true,
-							["rows"] = 2,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 112.5,
-								["x"] = -372,
-								["point"] = "BOTTOM",
-								["scale"] = 0.75,
-							},
-							["padding"] = 3,
-						}, -- [8]
-						{
-							["showgrid"] = true,
-							["rows"] = 6,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 180,
-								["x"] = 624,
-								["point"] = "BOTTOM",
-								["scale"] = 0.7,
-							},
-							["padding"] = 6,
-						}, -- [9]
-						{
-							["showgrid"] = true,
-							["rows"] = 7,
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
-							["enabled"] = true,
-							["buttons"] = 6,
-							["hidemacrotext"] = true,
-							["version"] = 3,
-							["position"] = {
-								["y"] = 180,
-								["x"] = -654.5,
-								["point"] = "BOTTOM",
-								["scale"] = 0.7,
-							},
-							["padding"] = 6,
-						}, -- [10]
-					},
-				},
 				["ViksUIDruid"] = {
 					["actionbars"] = {
 						{
@@ -924,12 +560,12 @@ Bartender4DB = {
 						}, -- [1]
 						{
 							["showgrid"] = true,
-							["fadeoutalpha"] = 0.3,
+							["version"] = 3,
 							["skin"] = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["version"] = 3,
+							["fadeoutalpha"] = 0.3,
 							["padding"] = 8,
 							["position"] = {
 								["y"] = 82,
@@ -942,58 +578,58 @@ Bartender4DB = {
 							},
 						}, -- [2]
 						{
+							["showgrid"] = true,
 							["skin"] = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["buttons"] = 6,
 							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 6,
+							["hidemacrotext"] = true,
+							["padding"] = 6,
 							["position"] = {
 								["y"] = 180,
 								["x"] = 624,
 								["point"] = "BOTTOM",
 								["scale"] = 0.7,
 							},
-							["rows"] = 6,
-							["padding"] = 6,
-							["hidemacrotext"] = true,
-							["showgrid"] = true,
 						}, -- [3]
 						{
+							["showgrid"] = true,
 							["skin"] = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["buttons"] = 6,
 							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 2,
+							["hidemacrotext"] = true,
+							["padding"] = 3,
 							["position"] = {
 								["y"] = 112.5,
 								["x"] = -372,
 								["point"] = "BOTTOM",
 								["scale"] = 0.75,
 							},
-							["rows"] = 2,
-							["padding"] = 3,
-							["hidemacrotext"] = true,
-							["showgrid"] = true,
 						}, -- [4]
 						{
+							["showgrid"] = true,
 							["skin"] = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["buttons"] = 6,
 							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 2,
+							["hidemacrotext"] = true,
+							["padding"] = 3,
 							["position"] = {
 								["y"] = 113,
 								["x"] = 279,
 								["point"] = "BOTTOM",
 								["scale"] = 0.75,
 							},
-							["rows"] = 2,
-							["padding"] = 3,
-							["hidemacrotext"] = true,
-							["showgrid"] = true,
 						}, -- [5]
 						{
 							["version"] = 3,
@@ -1002,68 +638,68 @@ Bartender4DB = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["padding"] = 11,
+							["rows"] = 6,
 							["position"] = {
 								["y"] = 144.5,
 								["x"] = 351.5,
 								["point"] = "CENTER",
 							},
-							["rows"] = 6,
+							["padding"] = 11,
 						}, -- [6]
 						{
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
 							["position"] = {
 								["y"] = 144.5,
 								["x"] = 351.5,
 								["point"] = "CENTER",
 							},
-							["version"] = 3,
-							["showgrid"] = true,
 							["rows"] = 6,
 							["padding"] = 11,
 							["visibility"] = {
 								["custom"] = false,
 								["customdata"] = "[mod:ctrl]show;hide",
 							},
-							["skin"] = {
-								["ID"] = "ViksUI: Buttons",
-								["Backdrop"] = false,
-							},
+							["showgrid"] = true,
 						}, -- [7]
 						{
+							["showgrid"] = true,
 							["skin"] = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["buttons"] = 6,
 							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 2,
+							["hidemacrotext"] = true,
+							["padding"] = 3,
 							["position"] = {
 								["y"] = 112.5,
 								["x"] = -372,
 								["point"] = "BOTTOM",
 								["scale"] = 0.75,
 							},
-							["rows"] = 2,
-							["padding"] = 3,
-							["hidemacrotext"] = true,
-							["showgrid"] = true,
 						}, -- [8]
 						{
+							["showgrid"] = true,
 							["skin"] = {
 								["ID"] = "ViksUI: Buttons",
 								["Backdrop"] = false,
 							},
-							["buttons"] = 6,
 							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 6,
+							["hidemacrotext"] = true,
+							["padding"] = 6,
 							["position"] = {
 								["y"] = 180,
 								["x"] = 624,
 								["point"] = "BOTTOM",
 								["scale"] = 0.7,
 							},
-							["rows"] = 6,
-							["padding"] = 6,
-							["hidemacrotext"] = true,
-							["showgrid"] = true,
 						}, -- [9]
 						{
 							["enabled"] = true,
@@ -1083,6 +719,931 @@ Bartender4DB = {
 								["scale"] = 0.7,
 							},
 							["padding"] = 6,
+						}, -- [10]
+					},
+				},
+				["ViksUIRogue"] = {
+					["actionbars"] = {
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 125,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["states"] = {
+								["stance"] = {
+									["ROGUE"] = {
+										["stealth"] = 3,
+									},
+								},
+							},
+						}, -- [1]
+						{
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["showgrid"] = true,
+							["position"] = {
+								["y"] = 82,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["padding"] = 8,
+							["fadeoutalpha"] = 0.3,
+							["states"] = {
+								["enabled"] = true,
+								["default"] = 2,
+							},
+						}, -- [2]
+						{
+							["enabled"] = false,
+							["version"] = 3,
+							["showgrid"] = true,
+							["position"] = {
+								["y"] = 116.5,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["scale"] = 0.8,
+							},
+							["padding"] = 9,
+							["alpha"] = 0.5,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+						}, -- [3]
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["position"] = {
+								["y"] = 82,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["scale"] = 0.8,
+							},
+							["padding"] = 9,
+							["alpha"] = 0.5,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+						}, -- [4]
+						{
+							["showgrid"] = true,
+							["padding"] = 3,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["hidemacrotext"] = true,
+							["rows"] = 2,
+							["position"] = {
+								["y"] = 113,
+								["x"] = 279,
+								["point"] = "BOTTOM",
+								["scale"] = 0.75,
+							},
+							["buttons"] = 6,
+						}, -- [5]
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["rows"] = 12,
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 201.4,
+								["x"] = -35,
+								["point"] = "RIGHT",
+								["scale"] = 0.76,
+							},
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+						}, -- [6]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 11,
+							["rows"] = 6,
+							["visibility"] = {
+								["custom"] = false,
+								["customdata"] = "[mod:ctrl]show;hide",
+							},
+							["position"] = {
+								["y"] = 144.5,
+								["x"] = 351.5,
+								["point"] = "CENTER",
+							},
+						}, -- [7]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 2,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["hidemacrotext"] = true,
+							["padding"] = 3,
+							["position"] = {
+								["y"] = 112.5,
+								["x"] = -372,
+								["point"] = "BOTTOM",
+								["scale"] = 0.75,
+							},
+							["buttons"] = 6,
+						}, -- [8]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 6,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["hidemacrotext"] = true,
+							["padding"] = 6,
+							["position"] = {
+								["y"] = 180,
+								["x"] = 624,
+								["point"] = "BOTTOM",
+								["scale"] = 0.7,
+							},
+							["buttons"] = 6,
+						}, -- [9]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 7,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["hidemacrotext"] = true,
+							["padding"] = 6,
+							["position"] = {
+								["y"] = 180,
+								["x"] = -654.5,
+								["point"] = "BOTTOM",
+								["scale"] = 0.7,
+							},
+							["buttons"] = 6,
+						}, -- [10]
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["actionbars"] = {
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 125,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["states"] = {
+								["stance"] = {
+									["ROGUE"] = {
+										["stealth"] = 3,
+									},
+								},
+							},
+						}, -- [1]
+						{
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["showgrid"] = true,
+							["position"] = {
+								["y"] = 82,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["padding"] = 8,
+							["fadeoutalpha"] = 0.3,
+							["states"] = {
+								["enabled"] = true,
+								["default"] = 2,
+							},
+						}, -- [2]
+						{
+							["enabled"] = false,
+							["version"] = 3,
+							["showgrid"] = true,
+							["position"] = {
+								["scale"] = 0.8,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["y"] = 116.5,
+							},
+							["padding"] = 9,
+							["alpha"] = 0.5,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+						}, -- [3]
+						{
+							["version"] = 3,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["position"] = {
+								["scale"] = 0.8,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["y"] = 82,
+							},
+							["padding"] = 9,
+							["alpha"] = 0.5,
+							["showgrid"] = true,
+						}, -- [4]
+						{
+							["padding"] = 3,
+							["position"] = {
+								["scale"] = 0.75,
+								["x"] = 279,
+								["point"] = "BOTTOM",
+								["y"] = 113,
+							},
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["hidemacrotext"] = true,
+							["rows"] = 2,
+							["showgrid"] = true,
+							["buttons"] = 6,
+						}, -- [5]
+						{
+							["position"] = {
+								["scale"] = 0.76,
+								["x"] = -35,
+								["point"] = "RIGHT",
+								["y"] = 201.4,
+							},
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["rows"] = 12,
+							["padding"] = 8,
+							["fadeout"] = true,
+							["showgrid"] = true,
+						}, -- [6]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 6,
+							["version"] = 3,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["position"] = {
+								["y"] = 144.5,
+								["x"] = 351.5,
+								["point"] = "CENTER",
+							},
+							["padding"] = 11,
+							["visibility"] = {
+								["custom"] = false,
+								["customdata"] = "[mod:ctrl]show;hide",
+							},
+							["fadeoutalpha"] = 0.3,
+						}, -- [7]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 2,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 3,
+							["hidemacrotext"] = true,
+							["position"] = {
+								["scale"] = 0.75,
+								["x"] = -372,
+								["point"] = "BOTTOM",
+								["y"] = 112.5,
+							},
+							["buttons"] = 6,
+						}, -- [8]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 6,
+							["position"] = {
+								["scale"] = 0.7,
+								["x"] = 524,
+								["point"] = "BOTTOM",
+								["y"] = 188,
+							},
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 6,
+							["hidemacrotext"] = true,
+							["fadeout"] = true,
+							["buttons"] = 6,
+						}, -- [9]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 7,
+							["position"] = {
+								["scale"] = 0.7,
+								["x"] = -557,
+								["point"] = "BOTTOM",
+								["y"] = 188,
+							},
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 6,
+							["hidemacrotext"] = true,
+							["fadeout"] = true,
+							["buttons"] = 6,
+						}, -- [10]
+					},
+				},
+				["ViksUI"] = {
+					["actionbars"] = {
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 125,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["states"] = {
+								["stance"] = {
+									["ROGUE"] = {
+										["stealth"] = 3,
+									},
+								},
+							},
+						}, -- [1]
+						{
+							["showgrid"] = true,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["fadeoutalpha"] = 0.3,
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 82,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["states"] = {
+								["enabled"] = true,
+								["default"] = 2,
+							},
+						}, -- [2]
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 9,
+							["alpha"] = 0.5,
+							["position"] = {
+								["y"] = 116.5,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["scale"] = 0.8,
+							},
+						}, -- [3]
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 9,
+							["alpha"] = 0.5,
+							["position"] = {
+								["y"] = 82,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["scale"] = 0.8,
+							},
+						}, -- [4]
+						{
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["buttons"] = 6,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 113,
+								["x"] = 279,
+								["point"] = "BOTTOM",
+								["scale"] = 0.75,
+							},
+							["rows"] = 2,
+							["hidemacrotext"] = true,
+							["padding"] = 3,
+							["showgrid"] = true,
+						}, -- [5]
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 201.4,
+								["x"] = -35,
+								["point"] = "RIGHT",
+								["scale"] = 0.76,
+							},
+							["rows"] = 12,
+						}, -- [6]
+						{
+							["enabled"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["position"] = {
+								["y"] = 144.5,
+								["x"] = 351.5,
+								["point"] = "CENTER",
+							},
+							["rows"] = 6,
+							["padding"] = 11,
+							["visibility"] = {
+								["custom"] = false,
+								["customdata"] = "[mod:ctrl]show;hide",
+							},
+							["showgrid"] = true,
+						}, -- [7]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 2,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["buttons"] = 6,
+							["hidemacrotext"] = true,
+							["position"] = {
+								["y"] = 112.5,
+								["x"] = -372,
+								["point"] = "BOTTOM",
+								["scale"] = 0.75,
+							},
+							["padding"] = 3,
+						}, -- [8]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 6,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["buttons"] = 6,
+							["hidemacrotext"] = true,
+							["position"] = {
+								["y"] = 180,
+								["x"] = 624,
+								["point"] = "BOTTOM",
+								["scale"] = 0.7,
+							},
+							["padding"] = 6,
+						}, -- [9]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 7,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["buttons"] = 6,
+							["hidemacrotext"] = true,
+							["position"] = {
+								["y"] = 180,
+								["x"] = -654.5,
+								["point"] = "BOTTOM",
+								["scale"] = 0.7,
+							},
+							["padding"] = 6,
+						}, -- [10]
+					},
+				},
+				["ViksUILine"] = {
+					["actionbars"] = {
+						{
+							["showgrid"] = true,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 125,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["padding"] = 8,
+							["states"] = {
+								["stance"] = {
+									["ROGUE"] = {
+										["stealth"] = 3,
+									},
+								},
+							},
+						}, -- [1]
+						{
+							["showgrid"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["fadeoutalpha"] = 0.3,
+							["position"] = {
+								["y"] = 82,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["padding"] = 8,
+							["states"] = {
+								["enabled"] = true,
+								["default"] = 2,
+							},
+						}, -- [2]
+						{
+							["showgrid"] = true,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["alpha"] = 0.5,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 116.5,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["scale"] = 0.8,
+							},
+							["padding"] = 9,
+						}, -- [3]
+						{
+							["showgrid"] = true,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["alpha"] = 0.5,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 82,
+								["x"] = 0.4,
+								["point"] = "LEFT",
+								["scale"] = 0.8,
+							},
+							["padding"] = 9,
+						}, -- [4]
+						{
+							["showgrid"] = true,
+							["rows"] = 2,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["buttons"] = 6,
+							["padding"] = 3,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 113,
+								["x"] = 279,
+								["point"] = "BOTTOM",
+								["scale"] = 0.75,
+							},
+							["hidemacrotext"] = true,
+						}, -- [5]
+						{
+							["showgrid"] = true,
+							["rows"] = 12,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["position"] = {
+								["y"] = 201.4,
+								["x"] = -35,
+								["point"] = "RIGHT",
+								["scale"] = 0.76,
+							},
+							["padding"] = 8,
+						}, -- [6]
+						{
+							["showgrid"] = true,
+							["rows"] = 6,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["enabled"] = true,
+							["version"] = 3,
+							["fadeoutalpha"] = 0.3,
+							["position"] = {
+								["y"] = 144.5,
+								["x"] = 351.5,
+								["point"] = "CENTER",
+							},
+							["padding"] = 11,
+							["visibility"] = {
+								["custom"] = false,
+								["customdata"] = "[mod:ctrl]show;hide",
+							},
+						}, -- [7]
+						{
+							["showgrid"] = true,
+							["rows"] = 2,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["enabled"] = true,
+							["buttons"] = 6,
+							["padding"] = 3,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 112.5,
+								["x"] = -372,
+								["point"] = "BOTTOM",
+								["scale"] = 0.75,
+							},
+							["hidemacrotext"] = true,
+						}, -- [8]
+						{
+							["showgrid"] = true,
+							["rows"] = 6,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["enabled"] = true,
+							["buttons"] = 6,
+							["hidemacrotext"] = true,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 187,
+								["x"] = 524,
+								["point"] = "BOTTOM",
+								["scale"] = 0.7,
+							},
+							["padding"] = 6,
+						}, -- [9]
+						{
+							["showgrid"] = true,
+							["rows"] = 7,
+							["fadeout"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["enabled"] = true,
+							["buttons"] = 6,
+							["hidemacrotext"] = true,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 188,
+								["x"] = -557,
+								["point"] = "BOTTOM",
+								["scale"] = 0.7,
+							},
+							["padding"] = 6,
+						}, -- [10]
+					},
+				},
+				["ViksUIDruidLine"] = {
+					["actionbars"] = {
+						{
+							["showgrid"] = true,
+							["padding"] = 8,
+							["version"] = 3,
+							["position"] = {
+								["y"] = 125,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+						}, -- [1]
+						{
+							["showgrid"] = true,
+							["version"] = 3,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["fadeoutalpha"] = 0.3,
+							["padding"] = 8,
+							["position"] = {
+								["y"] = 82,
+								["x"] = -265.5,
+								["point"] = "BOTTOM",
+							},
+							["states"] = {
+								["enabled"] = true,
+								["default"] = 2,
+							},
+						}, -- [2]
+						{
+							["showgrid"] = true,
+							["rows"] = 6,
+							["buttons"] = 6,
+							["fadeout"] = true,
+							["position"] = {
+								["scale"] = 0.7,
+								["x"] = 524,
+								["point"] = "BOTTOM",
+								["y"] = 188,
+							},
+							["version"] = 3,
+							["padding"] = 6,
+							["hidemacrotext"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+						}, -- [3]
+						{
+							["position"] = {
+								["scale"] = 0.75,
+								["x"] = -372,
+								["point"] = "BOTTOM",
+								["y"] = 112.5,
+							},
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 2,
+							["padding"] = 3,
+							["hidemacrotext"] = true,
+							["showgrid"] = true,
+						}, -- [4]
+						{
+							["position"] = {
+								["scale"] = 0.75,
+								["x"] = 279,
+								["point"] = "BOTTOM",
+								["y"] = 113,
+							},
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 2,
+							["padding"] = 3,
+							["hidemacrotext"] = true,
+							["showgrid"] = true,
+						}, -- [5]
+						{
+							["version"] = 3,
+							["showgrid"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["rows"] = 6,
+							["position"] = {
+								["y"] = 144.5,
+								["x"] = 351.5,
+								["point"] = "CENTER",
+							},
+							["padding"] = 11,
+						}, -- [6]
+						{
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["position"] = {
+								["y"] = 144.5,
+								["x"] = 351.5,
+								["point"] = "CENTER",
+							},
+							["rows"] = 6,
+							["padding"] = 11,
+							["visibility"] = {
+								["custom"] = false,
+								["customdata"] = "[mod:ctrl]show;hide",
+							},
+							["showgrid"] = true,
+						}, -- [7]
+						{
+							["position"] = {
+								["scale"] = 0.75,
+								["x"] = -372,
+								["point"] = "BOTTOM",
+								["y"] = 112.5,
+							},
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 2,
+							["padding"] = 3,
+							["hidemacrotext"] = true,
+							["showgrid"] = true,
+						}, -- [8]
+						{
+							["position"] = {
+								["scale"] = 0.7,
+								["x"] = 624,
+								["point"] = "BOTTOM",
+								["y"] = 180,
+							},
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
+							["version"] = 3,
+							["buttons"] = 6,
+							["rows"] = 6,
+							["padding"] = 6,
+							["hidemacrotext"] = true,
+							["showgrid"] = true,
+						}, -- [9]
+						{
+							["enabled"] = true,
+							["showgrid"] = true,
+							["rows"] = 7,
+							["buttons"] = 6,
+							["fadeout"] = true,
+							["position"] = {
+								["scale"] = 0.7,
+								["x"] = -557,
+								["point"] = "BOTTOM",
+								["y"] = 188,
+							},
+							["version"] = 3,
+							["padding"] = 6,
+							["hidemacrotext"] = true,
+							["skin"] = {
+								["ID"] = "ViksUI: Buttons",
+								["Backdrop"] = false,
+							},
 						}, -- [10]
 					},
 				},
@@ -1094,32 +1655,6 @@ Bartender4DB = {
 		},
 		["ExtraActionBar"] = {
 			["profiles"] = {
-				["ViksUI"] = {
-					["version"] = 3,
-					["position"] = {
-						["y"] = 47,
-						["x"] = 150,
-						["point"] = "CENTER",
-						["scale"] = 1.5,
-					},
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-				},
-				["ViksUIRogue"] = {
-					["version"] = 3,
-					["position"] = {
-						["y"] = 47,
-						["x"] = 150,
-						["point"] = "CENTER",
-						["scale"] = 1.5,
-					},
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-				},
 				["ViksUIDruid"] = {
 					["position"] = {
 						["y"] = 47,
@@ -1133,11 +1668,108 @@ Bartender4DB = {
 						["Backdrop"] = false,
 					},
 				},
+				["ViksUIRogue"] = {
+					["position"] = {
+						["y"] = 47,
+						["x"] = 150,
+						["point"] = "CENTER",
+						["scale"] = 1.5,
+					},
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["position"] = {
+						["scale"] = 1.5,
+						["x"] = 150,
+						["point"] = "CENTER",
+						["y"] = 47,
+					},
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUI"] = {
+					["position"] = {
+						["y"] = 47,
+						["x"] = 150,
+						["point"] = "CENTER",
+						["scale"] = 1.5,
+					},
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUILine"] = {
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["position"] = {
+						["y"] = 47,
+						["x"] = 150,
+						["point"] = "CENTER",
+						["scale"] = 1.5,
+					},
+				},
+				["ViksUIDruidLine"] = {
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["version"] = 3,
+					["position"] = {
+						["scale"] = 1.5,
+						["x"] = 150,
+						["point"] = "CENTER",
+						["y"] = 47,
+					},
+				},
 			},
 		},
 		["ZoneAbilityBar"] = {
 			["profiles"] = {
+				["ViksUIDruid"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = -40.7500305175781,
+						["x"] = 181.750122070313,
+						["point"] = "CENTER",
+					},
+				},
+				["ViksUIRogue"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = -40.7500305175781,
+						["x"] = 181.750122070313,
+						["point"] = "CENTER",
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = -40.7500305175781,
+						["x"] = 181.750122070313,
+						["point"] = "CENTER",
+					},
+				},
 				["ViksUI"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = -40.7499389648438,
+						["x"] = 181.750122070313,
+						["point"] = "CENTER",
+					},
+				},
+				["ViksUILine"] = {
 					["position"] = {
 						["y"] = -40.7499389648438,
 						["x"] = 181.750122070313,
@@ -1145,15 +1777,7 @@ Bartender4DB = {
 					},
 					["version"] = 3,
 				},
-				["ViksUIRogue"] = {
-					["position"] = {
-						["y"] = -40.7500305175781,
-						["x"] = 181.750122070313,
-						["point"] = "CENTER",
-					},
-					["version"] = 3,
-				},
-				["ViksUIDruid"] = {
+				["ViksUIDruidLine"] = {
 					["version"] = 3,
 					["position"] = {
 						["y"] = -40.7500305175781,
@@ -1165,81 +1789,139 @@ Bartender4DB = {
 		},
 		["MicroMenu"] = {
 			["profiles"] = {
-				["ViksUI"] = {
+				["ViksUIDruid"] = {
+					["fadeoutalpha"] = 0,
+					["fadeout"] = true,
 					["position"] = {
 						["y"] = 222,
 						["x"] = -306,
 						["point"] = "BOTTOMRIGHT",
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["fadeoutdelay"] = 0.69,
+					["visibility"] = {
+						["custom"] = false,
+						["customdata"] = "[mod:ctrl-Shift]show;hide",
+					},
+					["version"] = 3,
+				},
+				["ViksUIRogue"] = {
+					["version"] = 3,
+					["fadeoutalpha"] = 0,
+					["position"] = {
+						["y"] = 222,
+						["x"] = -306,
+						["point"] = "BOTTOMRIGHT",
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["fadeoutdelay"] = 0,
+					["visibility"] = {
+						["custom"] = false,
+						["customdata"] = "[mod:ctrl-Shift]show;hide",
+					},
+					["fadeout"] = true,
+				},
+				["ViksUIRogueLine"] = {
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["fadeoutdelay"] = 0,
+					["position"] = {
+						["y"] = 150,
+						["x"] = -65,
+						["point"] = "RIGHT",
+					},
+					["fadeoutalpha"] = 0,
+					["rows"] = 11,
+					["visibility"] = {
+						["custom"] = false,
+						["customdata"] = "[mod:ctrl-Shift]show;hide",
+					},
+					["fadeout"] = true,
+				},
+				["ViksUI"] = {
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
 					},
 					["version"] = 3,
 					["visibility"] = {
 						["custom"] = true,
 						["customdata"] = "[mod:ctrl-Shift]show;hide",
 					},
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-				},
-				["ViksUIRogue"] = {
-					["fadeoutalpha"] = 0,
-					["fadeoutdelay"] = 0,
-					["version"] = 3,
 					["position"] = {
 						["y"] = 222,
 						["x"] = -306,
 						["point"] = "BOTTOMRIGHT",
 					},
-					["fadeout"] = true,
-					["visibility"] = {
-						["custom"] = false,
-						["customdata"] = "[mod:ctrl-Shift]show;hide",
-					},
+				},
+				["ViksUILine"] = {
+					["rows"] = 11,
+					["version"] = 3,
 					["skin"] = {
 						["ID"] = "ViksUI: Buttons",
 						["Backdrop"] = false,
+					},
+					["visibility"] = {
+						["custom"] = true,
+						["customdata"] = "[mod:ctrl-Shift]show;hide",
+					},
+					["position"] = {
+						["y"] = 150,
+						["x"] = -65,
+						["point"] = "RIGHT",
+						["scale"] = 0.800000011920929,
 					},
 				},
-				["ViksUIDruid"] = {
-					["version"] = 3,
+				["ViksUIDruidLine"] = {
 					["fadeout"] = true,
 					["position"] = {
-						["y"] = 222,
-						["x"] = -306,
-						["point"] = "BOTTOMRIGHT",
+						["y"] = 150,
+						["x"] = -65,
+						["point"] = "RIGHT",
 					},
+					["fadeoutalpha"] = 0,
 					["skin"] = {
 						["ID"] = "ViksUI: Buttons",
 						["Backdrop"] = false,
-					},
-					["fadeoutalpha"] = 0,
-					["visibility"] = {
-						["custom"] = false,
-						["customdata"] = "[mod:ctrl-Shift]show;hide",
 					},
 					["fadeoutdelay"] = 0.69,
+					["rows"] = 11,
+					["visibility"] = {
+						["custom"] = false,
+						["customdata"] = "[mod:ctrl-Shift]show;hide",
+					},
+					["version"] = 3,
 				},
 			},
 		},
 		["XPBar"] = {
 			["profiles"] = {
 				["ViksUI"] = {
+					["version"] = 3,
 					["position"] = {
 						["y"] = 57,
 						["x"] = -516,
 						["point"] = "BOTTOM",
 					},
-					["version"] = 3,
-				},
-				["ViksUIRogue"] = {
-					["position"] = {
-						["y"] = 57,
-						["x"] = -516,
-						["point"] = "BOTTOM",
-					},
-					["version"] = 3,
 				},
 				["ViksUIDruid"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = 57,
+						["x"] = -516,
+						["point"] = "BOTTOM",
+					},
+				},
+				["ViksUIRogue"] = {
 					["version"] = 3,
 					["position"] = {
 						["y"] = 57,
@@ -1268,13 +1950,13 @@ Bartender4DB = {
 		},
 		["BlizzardArt"] = {
 			["profiles"] = {
-				["ViksUI"] = {
+				["ViksUIDruid"] = {
+					["version"] = 3,
 					["position"] = {
 						["y"] = 47,
 						["x"] = -512,
 						["point"] = "BOTTOM",
 					},
-					["version"] = 3,
 				},
 				["ViksUIRogue"] = {
 					["version"] = 3,
@@ -1284,7 +1966,31 @@ Bartender4DB = {
 						["point"] = "BOTTOM",
 					},
 				},
-				["ViksUIDruid"] = {
+				["ViksUIRogueLine"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = 47,
+						["x"] = -512,
+						["point"] = "BOTTOM",
+					},
+				},
+				["ViksUI"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = 47,
+						["x"] = -512,
+						["point"] = "BOTTOM",
+					},
+				},
+				["ViksUILine"] = {
+					["position"] = {
+						["y"] = 47,
+						["x"] = -512,
+						["point"] = "BOTTOM",
+					},
+					["version"] = 3,
+				},
+				["ViksUIDruidLine"] = {
 					["version"] = 3,
 					["position"] = {
 						["y"] = 47,
@@ -1296,19 +2002,55 @@ Bartender4DB = {
 		},
 		["Vehicle"] = {
 			["profiles"] = {
-				["ViksUI"] = {
-					["version"] = 3,
+				["ViksUIDruid"] = {
 					["position"] = {
-						["y"] = 83.2500610351563,
-						["x"] = 203.750122070313,
+						["y"] = 144.500122070313,
+						["x"] = 315.5,
 						["point"] = "CENTER",
 					},
+					["version"] = 3,
 					["skin"] = {
 						["ID"] = "ViksUI: Buttons",
 						["Backdrop"] = false,
 					},
 				},
 				["ViksUIRogue"] = {
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["version"] = 3,
+					["position"] = {
+						["y"] = 83.2500610351563,
+						["x"] = 203.750122070313,
+						["point"] = "CENTER",
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["position"] = {
+						["y"] = 83.2500610351563,
+						["x"] = 203.750122070313,
+						["point"] = "CENTER",
+					},
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUI"] = {
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["version"] = 3,
+					["position"] = {
+						["y"] = 83.2500610351563,
+						["x"] = 203.750122070313,
+						["point"] = "CENTER",
+					},
+				},
+				["ViksUILine"] = {
 					["version"] = 3,
 					["skin"] = {
 						["ID"] = "ViksUI: Buttons",
@@ -1320,7 +2062,7 @@ Bartender4DB = {
 						["point"] = "CENTER",
 					},
 				},
-				["ViksUIDruid"] = {
+				["ViksUIDruidLine"] = {
 					["position"] = {
 						["y"] = 144.500122070313,
 						["x"] = 315.5,
@@ -1336,34 +2078,6 @@ Bartender4DB = {
 		},
 		["BagBar"] = {
 			["profiles"] = {
-				["ViksUI"] = {
-					["enabled"] = false,
-					["position"] = {
-						["y"] = 41.75,
-						["x"] = 463.5,
-						["point"] = "BOTTOM",
-					},
-					["onebag"] = true,
-					["version"] = 3,
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-				},
-				["ViksUIRogue"] = {
-					["enabled"] = false,
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-					["onebag"] = true,
-					["version"] = 3,
-					["position"] = {
-						["y"] = 41.75,
-						["x"] = 463.5,
-						["point"] = "BOTTOM",
-					},
-				},
 				["ViksUIDruid"] = {
 					["enabled"] = false,
 					["version"] = 3,
@@ -1376,125 +2090,224 @@ Bartender4DB = {
 					["skin"] = {
 						["ID"] = "ViksUI: Buttons",
 						["Backdrop"] = false,
+					},
+				},
+				["ViksUIRogue"] = {
+					["enabled"] = false,
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["onebag"] = true,
+					["position"] = {
+						["y"] = 41.75,
+						["x"] = 463.5,
+						["point"] = "BOTTOM",
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["enabled"] = false,
+					["version"] = 3,
+					["position"] = {
+						["y"] = 41.75,
+						["x"] = 463.5,
+						["point"] = "BOTTOM",
+					},
+					["onebag"] = true,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUI"] = {
+					["enabled"] = false,
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["onebag"] = true,
+					["position"] = {
+						["y"] = 41.75,
+						["x"] = 463.5,
+						["point"] = "BOTTOM",
+					},
+				},
+				["ViksUILine"] = {
+					["enabled"] = false,
+					["position"] = {
+						["y"] = 41.75,
+						["x"] = 463.5,
+						["point"] = "BOTTOM",
+					},
+					["onebag"] = true,
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIDruidLine"] = {
+					["enabled"] = false,
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["onebag"] = true,
+					["position"] = {
+						["y"] = 41.75,
+						["x"] = 463.5,
+						["point"] = "BOTTOM",
 					},
 				},
 			},
 		},
 		["StanceBar"] = {
 			["profiles"] = {
-				["ViksUI"] = {
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-					["version"] = 3,
-					["padding"] = 7,
-					["visibility"] = {
-						["custom"] = false,
-						["always"] = false,
-						["possess"] = false,
-						["customdata"] = "[mod:ctrl]show;hide",
-						["stance"] = {
-							false, -- [1]
-						},
-					},
-					["position"] = {
-						["y"] = 238.249992370606,
-						["x"] = 334.999969482422,
-						["point"] = "BOTTOMLEFT",
-						["scale"] = 0.75,
-					},
-				},
-				["ViksUIRogue"] = {
-					["version"] = 3,
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-					["padding"] = 7,
-					["visibility"] = {
-						["custom"] = false,
-						["always"] = false,
-						["customdata"] = "[mod:ctrl]show;hide",
-						["possess"] = false,
-						["stance"] = {
-							false, -- [1]
-						},
-					},
-					["position"] = {
-						["y"] = 238.249992370606,
-						["x"] = 334.999969482422,
-						["point"] = "BOTTOMLEFT",
-						["scale"] = 0.75,
-					},
-				},
 				["ViksUIDruid"] = {
 					["version"] = 3,
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-					["padding"] = 7,
-					["visibility"] = {
-						["custom"] = false,
-						["customdata"] = "[mod:ctrl]show;hide",
-						["always"] = false,
-						["possess"] = false,
-						["stance"] = {
-							false, -- [1]
-						},
-					},
 					["position"] = {
 						["y"] = 209,
 						["x"] = 335,
 						["point"] = "BOTTOMLEFT",
 						["scale"] = 0.75,
 					},
+					["padding"] = 7,
+					["visibility"] = {
+						["custom"] = false,
+						["always"] = false,
+						["customdata"] = "[mod:ctrl]show;hide",
+						["possess"] = false,
+						["stance"] = {
+							false, -- [1]
+						},
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIRogue"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = 238.249992370606,
+						["x"] = 334.999969482422,
+						["point"] = "BOTTOMLEFT",
+						["scale"] = 0.75,
+					},
+					["padding"] = 7,
+					["visibility"] = {
+						["custom"] = false,
+						["customdata"] = "[mod:ctrl]show;hide",
+						["always"] = false,
+						["possess"] = false,
+						["stance"] = {
+							false, -- [1]
+						},
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["padding"] = 7,
+					["visibility"] = {
+						["custom"] = false,
+						["possess"] = false,
+						["always"] = false,
+						["customdata"] = "[mod:ctrl]show;hide",
+						["stance"] = {
+							false, -- [1]
+						},
+					},
+					["position"] = {
+						["scale"] = 0.75,
+						["x"] = 334.999969482422,
+						["point"] = "BOTTOMLEFT",
+						["y"] = 238.249992370606,
+					},
+				},
+				["ViksUI"] = {
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["padding"] = 7,
+					["visibility"] = {
+						["custom"] = false,
+						["possess"] = false,
+						["always"] = false,
+						["customdata"] = "[mod:ctrl]show;hide",
+						["stance"] = {
+							false, -- [1]
+						},
+					},
+					["position"] = {
+						["y"] = 238.249992370606,
+						["x"] = 334.999969482422,
+						["point"] = "BOTTOMLEFT",
+						["scale"] = 0.75,
+					},
+				},
+				["ViksUILine"] = {
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["version"] = 3,
+					["padding"] = 7,
+					["visibility"] = {
+						["custom"] = false,
+						["customdata"] = "[mod:ctrl]show;hide",
+						["always"] = false,
+						["possess"] = false,
+						["stance"] = {
+							false, -- [1]
+						},
+					},
+					["position"] = {
+						["y"] = 238.249992370606,
+						["x"] = 334.999969482422,
+						["point"] = "BOTTOMLEFT",
+						["scale"] = 0.75,
+					},
+				},
+				["ViksUIDruidLine"] = {
+					["version"] = 3,
+					["position"] = {
+						["scale"] = 0.75,
+						["x"] = 335,
+						["point"] = "BOTTOMLEFT",
+						["y"] = 209,
+					},
+					["padding"] = 7,
+					["visibility"] = {
+						["custom"] = false,
+						["possess"] = false,
+						["customdata"] = "[mod:ctrl]show;hide",
+						["always"] = false,
+						["stance"] = {
+							false, -- [1]
+						},
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
 				},
 			},
 		},
 		["PetBar"] = {
 			["profiles"] = {
-				["ViksUI"] = {
-					["position"] = {
-						["y"] = 43.4560381037409,
-						["x"] = -133.200113630301,
-						["point"] = "BOTTOM",
-						["scale"] = 0.600000023841858,
-					},
-					["fadeoutdelay"] = 0.1,
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-					["fadeoutalpha"] = 1,
-					["padding"] = 15,
-					["visibility"] = {
-						["possess"] = false,
-						["always"] = false,
-					},
-					["version"] = 3,
-				},
-				["ViksUIRogue"] = {
-					["fadeoutdelay"] = 0.1,
-					["version"] = 3,
-					["skin"] = {
-						["ID"] = "ViksUI: Buttons",
-						["Backdrop"] = false,
-					},
-					["fadeoutalpha"] = 1,
-					["padding"] = 15,
-					["visibility"] = {
-						["possess"] = false,
-						["always"] = false,
-					},
-					["position"] = {
-						["y"] = 43.4560381037409,
-						["x"] = -133.200113630301,
-						["point"] = "BOTTOM",
-						["scale"] = 0.600000023841858,
-					},
-				},
 				["ViksUIDruid"] = {
 					["fadeoutalpha"] = 1,
 					["version"] = 3,
@@ -1505,6 +2318,106 @@ Bartender4DB = {
 						["scale"] = 0.600000023841858,
 					},
 					["fadeoutdelay"] = 0.1,
+					["padding"] = 15,
+					["visibility"] = {
+						["always"] = false,
+						["possess"] = false,
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIRogue"] = {
+					["fadeoutdelay"] = 0.1,
+					["fadeoutalpha"] = 1,
+					["position"] = {
+						["y"] = 43.4560381037409,
+						["x"] = -133.200113630301,
+						["point"] = "BOTTOM",
+						["scale"] = 0.600000023841858,
+					},
+					["version"] = 3,
+					["padding"] = 15,
+					["visibility"] = {
+						["possess"] = false,
+						["always"] = false,
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIRogueLine"] = {
+					["version"] = 3,
+					["fadeoutalpha"] = 1,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["position"] = {
+						["scale"] = 0.600000023841858,
+						["x"] = -133.200113630301,
+						["point"] = "BOTTOM",
+						["y"] = 43.4560381037409,
+					},
+					["padding"] = 15,
+					["visibility"] = {
+						["always"] = false,
+						["possess"] = false,
+					},
+					["fadeoutdelay"] = 0.1,
+				},
+				["ViksUI"] = {
+					["position"] = {
+						["y"] = 43.4560381037409,
+						["x"] = -133.200113630301,
+						["point"] = "BOTTOM",
+						["scale"] = 0.600000023841858,
+					},
+					["version"] = 3,
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+					["fadeoutdelay"] = 0.1,
+					["padding"] = 15,
+					["visibility"] = {
+						["always"] = false,
+						["possess"] = false,
+					},
+					["fadeoutalpha"] = 1,
+				},
+				["ViksUILine"] = {
+					["version"] = 3,
+					["fadeoutdelay"] = 0.1,
+					["position"] = {
+						["y"] = 43.4560381037409,
+						["x"] = -133.200113630301,
+						["point"] = "BOTTOM",
+						["scale"] = 0.600000023841858,
+					},
+					["fadeoutalpha"] = 1,
+					["padding"] = 15,
+					["visibility"] = {
+						["always"] = false,
+						["possess"] = false,
+					},
+					["skin"] = {
+						["ID"] = "ViksUI: Buttons",
+						["Backdrop"] = false,
+					},
+				},
+				["ViksUIDruidLine"] = {
+					["version"] = 3,
+					["fadeoutdelay"] = 0.1,
+					["position"] = {
+						["scale"] = 0.600000023841858,
+						["x"] = -133.200113630301,
+						["point"] = "BOTTOM",
+						["y"] = 43.4560381037409,
+					},
+					["fadeoutalpha"] = 1,
 					["padding"] = 15,
 					["visibility"] = {
 						["always"] = false,
@@ -1520,22 +2433,22 @@ Bartender4DB = {
 		["RepBar"] = {
 			["profiles"] = {
 				["ViksUI"] = {
+					["version"] = 3,
 					["position"] = {
 						["y"] = 65,
 						["x"] = -516,
 						["point"] = "BOTTOM",
 					},
-					["version"] = 3,
-				},
-				["ViksUIRogue"] = {
-					["position"] = {
-						["y"] = 65,
-						["x"] = -516,
-						["point"] = "BOTTOM",
-					},
-					["version"] = 3,
 				},
 				["ViksUIDruid"] = {
+					["version"] = 3,
+					["position"] = {
+						["y"] = 65,
+						["x"] = -516,
+						["point"] = "BOTTOM",
+					},
+				},
+				["ViksUIRogue"] = {
 					["version"] = 3,
 					["position"] = {
 						["y"] = 65,
@@ -1547,23 +2460,47 @@ Bartender4DB = {
 		},
 	},
 	["profiles"] = {
-		["ViksUI"] = {
-			["selfcastmodifier"] = false,
-			["buttonlock"] = true,
-			["onkeydown"] = true,
+		["ViksUIDruid"] = {
+			["onkeydown"] = false,
 			["minimapIcon"] = {
 				["hide"] = true,
 			},
+			["selfcastmodifier"] = false,
+			["buttonlock"] = true,
 		},
 		["ViksUIRogue"] = {
+			["onkeydown"] = true,
+			["minimapIcon"] = {
+				["hide"] = true,
+			},
+			["selfcastmodifier"] = false,
+			["buttonlock"] = true,
+		},
+		["ViksUIRogueLine"] = {
+			["onkeydown"] = true,
+			["minimapIcon"] = {
+				["hide"] = true,
+			},
+			["selfcastmodifier"] = false,
+			["buttonlock"] = true,
+		},
+		["ViksUI"] = {
+			["onkeydown"] = false,
+			["selfcastmodifier"] = false,
 			["minimapIcon"] = {
 				["hide"] = true,
 			},
 			["buttonlock"] = true,
-			["onkeydown"] = true,
+		},
+		["ViksUILine"] = {
+			["minimapIcon"] = {
+				["hide"] = true,
+			},
+			["buttonlock"] = true,
+			["onkeydown"] = false,
 			["selfcastmodifier"] = false,
 		},
-		["ViksUIDruid"] = {
+		["ViksUIDruidLine"] = {
 			["onkeydown"] = false,
 			["minimapIcon"] = {
 				["hide"] = true,
@@ -1844,7 +2781,7 @@ MBFDB = {
 end
 
 local UploadChat = function()
-	FCF_ResetChatWindows()
+	--FCF_ResetChatWindows()
 	FCF_SetLocked(ChatFrame1, 1)
 	FCF_DockFrame(ChatFrame2)
 	FCF_SetLocked(ChatFrame2, 1)
@@ -1869,7 +2806,7 @@ local UploadChat = function()
 			frame:SetHeight(LChat:GetHeight()-8)
 			frame:SetPoint("BOTTOMLEFT",LChat,"BOTTOMLEFT",4,6)
 			frame:SetPoint("TOPRIGHT",LChat,"TOPRIGHT",-4,-2)		
-		elseif i == 4 then
+		elseif i == 5 then
 			frame:ClearAllPoints()
 			frame:SetWidth(RChat:GetWidth()-8)
 			frame:SetHeight(RChat:GetHeight()-8)
@@ -2027,7 +2964,7 @@ StaticPopupDialogs.SETTINGS_ALL = {
 		if IsAddOnLoaded("DBM-Core") and C.skins.dbm then T.UploadDBM() end
 		if IsAddOnLoaded("DXE") and C.skins.dxe then T.UploadDXE() end
 		if IsAddOnLoaded("MikScrollingBattleText") then UploadMSBT() end
-		if IsAddOnLoaded("Skada") then UploadSkada() end
+		--if IsAddOnLoaded("Skada") then UploadSkada() end
 		if IsAddOnLoaded("Bartender4") then UploadBartender() end
 		UploadChat()
 		UploadCvar()

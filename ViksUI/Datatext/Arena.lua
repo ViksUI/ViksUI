@@ -2,12 +2,12 @@ local T, C, L, _ = unpack(select(2, ...))
 if C.datatext.Arena and C.datatext.Arena > 0 then
 
 
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextArena", UIParent)
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	--Set font based on where.
 	if C.datatext.Arena >= 6 then
 		Text:SetTextColor(unpack(C.media.pxcolor1))

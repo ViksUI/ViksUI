@@ -54,7 +54,7 @@ oUF.Tags.Events["DiffColor"] = "UNIT_LEVEL"
 oUF.Tags.Methods["PetNameColor"] = function(unit)
 	return string.format("|cff%02x%02x%02x", T.color.r * 255, T.color.g * 255, T.color.b * 255)
 end
-oUF.Tags.Events["PetNameColor"] = "UNIT_POWER"
+oUF.Tags.Events["PetNameColor"] = "UNIT_POWER_UPDATE"
 
 oUF.Tags.Methods["GetNameColor"] = function(unit)
 	local reaction = UnitReaction(unit, "player")
@@ -68,7 +68,7 @@ oUF.Tags.Methods["GetNameColor"] = function(unit)
 		return string.format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 	end
 end
-oUF.Tags.Events["GetNameColor"] = "UNIT_POWER UNIT_FLAGS"
+oUF.Tags.Events["GetNameColor"] = "UNIT_POWER_UPDATE UNIT_FLAGS"
 
 oUF.Tags.Methods["NameArena"] = function(unit)
 	local name = UnitName(unit)
@@ -120,7 +120,7 @@ oUF.Tags.Methods["AltPower"] = function(unit)
 		return ("%s%%"):format(math.floor(min / max * 100 + 0.5))
 	end
 end
-oUF.Tags.Events["AltPower"] = "UNIT_POWER"
+oUF.Tags.Events["AltPower"] = "UNIT_POWER_UPDATE"
 
 oUF.Tags.Methods["IncHeal"] = function(unit)
 	local incheal = UnitGetIncomingHeals(unit) or 0
@@ -163,7 +163,7 @@ oUF.Tags.Methods["NameplateNameColor"] = function(unit)
 		return string.format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 	end
 end
-oUF.Tags.Events["NameplateNameColor"] = "UNIT_POWER UNIT_FLAGS"
+oUF.Tags.Events["NameplateNameColor"] = "UNIT_POWER_UPDATE UNIT_FLAGS"
 
 oUF.Tags.Methods["NameplateHealth"] = function(unit)
 	local hp = UnitHealth(unit)
@@ -253,7 +253,7 @@ oUF.Tags.Methods['cur|max'] = function(u)
 end
 oUF.Tags.Events['cur|max'] = 'UNIT_HEALTH'
 
-oUF.Tags.Events['drk:power2'] = 'UNIT_MAXPOWER UNIT_POWER'
+oUF.Tags.Events['drk:power2'] = 'UNIT_MAXPOWER UNIT_POWER_UPDATE'
 oUF.Tags.Methods['drk:power2'] = function(unit)
 	local curpp, maxpp = UnitPower(unit), UnitPowerMax(unit);
 	local playerClass, englishClass = UnitClass(unit);
@@ -286,7 +286,7 @@ oUF.Tags.Methods['rollico:LFD'] = function(u)
 		return "|cffFF6161D|r"
 	end
 end
-oUF.Tags.Events['rollico:LFD'] = 'PLAYER_ROLES_ASSIGNED PARTY_MEMBERS_CHANGED'
+oUF.Tags.Events['rollico:LFD'] = 'PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDATE'
 
 oUF.Tags.Methods["rolltext:LFD"] = function(unit)
 	local role = UnitGroupRolesAssigned(unit)
@@ -300,7 +300,7 @@ oUF.Tags.Methods["rolltext:LFD"] = function(unit)
 end
 oUF.Tags.Events["rolltext:LFD"] = "GROUP_ROSTER_UPDATE PLAYER_ROLES_ASSIGNED"
 
-oUF.Tags.Events['drk:power2'] = 'UNIT_MAXPOWER UNIT_POWER'
+oUF.Tags.Events['drk:power2'] = 'UNIT_MAXPOWER UNIT_POWER_UPDATE'
 oUF.Tags.Methods['drk:power2'] = function(unit)
 	local curpp, maxpp = UnitPower(unit), UnitPowerMax(unit);
 	local playerClass, englishClass = UnitClass(unit);
@@ -346,7 +346,7 @@ oUF.Tags.Methods['power']  = function(u)
 		return SVal(max)
 	end
 end
-oUF.Tags.Events['power'] = 'UNIT_POWER UNIT_MAXPOWER'
+oUF.Tags.Events['power'] = 'UNIT_POWER_UPDATE UNIT_MAXPOWER'
 oUF.Tags.Methods['color'] = function(u, r)
 	local _, class = UnitClass(u)
 	local reaction = UnitReaction(u, "player")
@@ -363,7 +363,7 @@ oUF.Tags.Methods['color'] = function(u, r)
 		return hex(1, 1, 1)
 	end
 end
-oUF.Tags.Events['color'] = 'UNIT_REACTION UNIT_HEALTH UNIT_HAPPINESS'
+oUF.Tags.Events['color'] = 'UNIT_HEALTH'
 
 oUF.Tags.Methods["afk"] = function(unit) 
 	
@@ -392,7 +392,7 @@ oUF.Tags.Methods['LFD'] = function(u)
 		return "|cffFF6161D|r"
 	end
 end
-oUF.Tags.Events['LFD'] = 'PLAYER_ROLES_ASSIGNED PARTY_MEMBERS_CHANGED'
+oUF.Tags.Events['LFD'] = 'PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDATE'
 -- Level
 oUF.Tags.Methods["level"] = function(unit)
 	
@@ -438,7 +438,7 @@ oUF.Tags.Methods['altpower'] = function(unit)
 		return ("%s%%"):format(math.floor(cur/max*100+.5))
 	end
 end
-oUF.Tags.Events['altpower'] = 'UNIT_POWER'
+oUF.Tags.Events['altpower'] = 'UNIT_POWER_UPDATE'
 oUF.Tags.Methods['drk:hp']  = function(u) 
   if UnitIsDead(u) or UnitIsGhost(u) or not UnitIsConnected(u) then
     return oUF.Tags.Methods['drk:DDG'](u)
@@ -467,7 +467,7 @@ oUF.Tags.Methods['drk:power']  = function(u)
 		return SVal(max)
 	end
 end
-oUF.Tags.Events['drk:power'] = 'UNIT_POWER UNIT_MAXPOWER'
+oUF.Tags.Events['drk:power'] = 'UNIT_POWER_UPDATE UNIT_MAXPOWER'
 
 
 oUF.Tags.Methods['drk:raidhp']  = function(u) 
@@ -496,7 +496,7 @@ oUF.Tags.Methods['drk:color'] = function(u, r)
 		return hex(1, 1, 1)
 	end
 end
-oUF.Tags.Events['drk:color'] = 'UNIT_REACTION UNIT_HEALTH UNIT_HAPPINESS'
+oUF.Tags.Events['drk:color'] = 'UNIT_HEALTH'
 
 oUF.Tags.Methods['drk:color2'] = function(u, r)
 	local _, class = UnitClass(u)
@@ -514,7 +514,7 @@ oUF.Tags.Methods['drk:color2'] = function(u, r)
 		return hex(1, 1, 1)
 	end
 end
-oUF.Tags.Events['drk:color2'] = 'UNIT_REACTION UNIT_HEALTH UNIT_HAPPINESS'
+oUF.Tags.Events['drk:color2'] = 'UNIT_HEALTH'
 
 oUF.Tags.Methods["drk:afkdnd"] = function(unit) 
 	
@@ -914,11 +914,11 @@ oUF.Tags.Events['freebgrid:wg'] = "UNIT_AURA"
 
 
 -- Warrior
-oUF.Tags.Methods['freebgrid:stragi'] = function(u) if not(UnitAura(u, GetSpellInfo(6673)) or UnitAura(u, GetSpellInfo(57330))) then return "|cffFF0000"..x.."|r" end end
+oUF.Tags.Methods['freebgrid:stragi'] = function(u) if not(UnitAura(u, GetSpellInfo(6673)) or UnitAura(u, GetSpellInfo(57330)) or UnitAura(u, GetSpellInfo(8076))) then return "|cffFF0000"..x.."|r" end end
 oUF.Tags.Events['freebgrid:stragi'] = "UNIT_AURA"
 
--- oUF.Tags.Methods['freebgrid:vigil'] = function(u) if UnitAura(u, GetSpellInfo(50720)) then return "|cff8B4513"..x.."|r" end end
--- oUF.Tags.Events['freebgrid:vigil'] = "UNIT_AURA"
+oUF.Tags.Methods['freebgrid:vigil'] = function(u) if UnitAura(u, GetSpellInfo(50720)) then return "|cff8B4513"..x.."|r" end end
+oUF.Tags.Events['freebgrid:vigil'] = "UNIT_AURA"
 
 -- Shaman
 oUF.Tags.Methods['freebgrid:rip'] = function(u) 
@@ -960,18 +960,18 @@ end
 oUF.Tags.Events['freebgrid:eternalTime'] = "UNIT_AURA"
 
 -- Warlock
---oUF.Tags.Methods['freebgrid:di'] = function(u) 
-	--local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(109773))
-	--if fromwho == "player" then
-		--return "|cff6600FF"..x.."|r"
-	--elseif name then
-		--return "|cffCC00FF"..x.."|r"
-	--end
---end
---oUF.Tags.Events['freebgrid:di'] = "UNIT_AURA"
+oUF.Tags.Methods['freebgrid:di'] = function(u) 
+	local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(109773))
+	if fromwho == "player" then
+		return "|cff6600FF"..x.."|r"
+	elseif name then
+		return "|cffCC00FF"..x.."|r"
+	end
+end
+oUF.Tags.Events['freebgrid:di'] = "UNIT_AURA"
 
 oUF.Tags.Methods['freebgrid:ss'] = function(u) 
-	local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(6203)) 
+	local name, _,_,_,_,_,_, fromwho = UnitAura(u, GetSpellInfo(20707)) 
 	if fromwho == "player" then
 		return "|cff6600FFY|r"
 	elseif name then
@@ -981,15 +981,15 @@ end
 oUF.Tags.Events['freebgrid:ss'] = "UNIT_AURA"
 
 -- Mage
---oUF.Tags.Methods['freebgrid:int'] = function(u) if not(UnitAura(u, GetSpellInfo(1459)) or UnitAura(u, GetSpellInfo(61316))) then return "|cff00A1DE"..x.."|r" end end
---oUF.Tags.Events['freebgrid:int'] = "UNIT_AURA"
+oUF.Tags.Methods['freebgrid:int'] = function(u) if not(UnitAura(u, GetSpellInfo(1459)) or UnitAura(u, GetSpellInfo(61316))) then return "|cff00A1DE"..x.."|r" end end
+oUF.Tags.Events['freebgrid:int'] = "UNIT_AURA"
 
---oUF.Tags.Methods['freebgrid:fmagic'] = function(u) if UnitAura(u, GetSpellInfo(54648)) then return "|cffCC00FF"..x.."|r" end end
---oUF.Tags.Events['freebgrid:fmagic'] = "UNIT_AURA"
+oUF.Tags.Methods['freebgrid:fmagic'] = function(u) if UnitAura(u, GetSpellInfo(54648)) then return "|cffCC00FF"..x.."|r" end end
+oUF.Tags.Events['freebgrid:fmagic'] = "UNIT_AURA"
 
 -- DEATHKNIGHT
 
-oUF.Tags.Methods['freebgrid:horn'] = function(u) if not UnitAura(u, GetSpellInfo(57330)) then return "|cff00A1DE"..x.."|r" end end
+oUF.Tags.Methods['freebgrid:horn'] = function(u) if not(UnitAura(u, GetSpellInfo(57330)) or UnitAura(u, GetSpellInfo(19506))) then return "|cff00A1DE"..x.."|r" end end
 oUF.Tags.Events['freebgrid:horn'] = "UNIT_AURA"
 
 ns.classIndicators={
@@ -1016,13 +1016,13 @@ ns.classIndicators={
 	},
 	["WARLOCK"] = {
 		["TL"] = "",
-		["TR"] = "",
+		["TR"] = "[freebgrid:di]",
 		["BL"] = "",
 		["BR"] = "[freebgrid:ss]",
 		["Cen"] = "",
 	},
 	["WARRIOR"] = {
-		["TL"] = "",
+		["TL"] = "[freebgrid:vigil]",
 		["TR"] = "[freebgrid:stragi]",
 		["BL"] = "",
 		["BR"] = "",
@@ -1030,7 +1030,7 @@ ns.classIndicators={
 	},
 	["DEATHKNIGHT"] = {
 		["TL"] = "",
-		["TR"] = "",
+		["TR"] = "[freebgrid:horn]",
 		["BL"] = "",
 		["BR"] = "",
 		["Cen"] = "",
@@ -1058,19 +1058,12 @@ ns.classIndicators={
 	},
 	["MAGE"] = {
 		["TL"] = "",
-		["TR"] = "",
+		["TR"] = "[freebgrid:int]",
 		["BL"] = "",
 		["BR"] = "",
 		["Cen"] = "",
 	},
 	["MONK"] = {
-		["TL"] = "",
-		["TR"] = "",
-		["BL"] = "",
-		["BR"] = "",
-		["Cen"] = "",
-	},
-	["DEMONHUNTER"] = {
 		["TL"] = "",
 		["TR"] = "",
 		["BL"] = "",
@@ -1090,14 +1083,14 @@ local UnitAura, GetTime = UnitAura, GetTime
 --DEATHKNIGHT
 --DRUID
 
-local INNERVATE = GetSpellInfo(29166)
-oUF.Tags.Events["Druid:Innervate"] = 'UNIT_AURA'
-oUF.Tags.Methods["Druid:Innervate"] = function(unit)
-	local _, _, _, _, _, _, expirationTime, source = UnitAura(unit, INNERVATE)
-	if expirationTime then
-		return format("|cff268ccc%.0f|r ", expirationTime - GetTime())
-	end
-end
+--local INNERVATE = GetSpellInfo(29166)
+--oUF.Tags.Events["Druid:Innervate"] = 'UNIT_AURA'
+--oUF.Tags.Methods["Druid:Innervate"] = function(unit)
+--	local _, _, _, _, _, _, expirationTime, source = UnitAura(unit, INNERVATE)
+--	if expirationTime then
+--		return format("|cff268ccc%.0f|r ", expirationTime - GetTime())
+--	end
+--end
 
 local IRONBARK = GetSpellInfo(102342)
 oUF.Tags.Events["Druid:Ironbark"] = 'UNIT_AURA'
@@ -1153,13 +1146,13 @@ oUF.Tags.Methods["Druid:WildGrowth"] = function(unit)
 end
 
 --HUNTER
-local MISDIRECTION = GetSpellInfo(35079)
-oUF.Tags.Events["Hunter:Misdirection"] = 'UNIT_AURA'
-oUF.Tags.Methods["Hunter:Misdirection"] = function(unit)
-	if UnitDebuff(unit, MISDIRECTION) then 
-		return "|cffaa0000M|r "
-	end
-end
+--local MISDIRECTION = GetSpellInfo(35079)
+--oUF.Tags.Events["Hunter:Misdirection"] = 'UNIT_AURA'
+--oUF.Tags.Methods["Hunter:Misdirection"] = function(unit)
+	--if UnitDebuff(unit, MISDIRECTION) then 
+		--return "|cffaa0000M|r "
+	--end
+--end
 
 --MAGE
 
@@ -1296,6 +1289,7 @@ end
 --ROGUE
 
 --SHAMAN
+--[[
 local RIPTIDE = GetSpellInfo(61295)
 oUF.Tags.Events["Shaman:Riptide"] = 'UNIT_AURA'
 oUF.Tags.Methods["Shaman:Riptide"] = function(unit)
@@ -1304,7 +1298,7 @@ oUF.Tags.Methods["Shaman:Riptide"] = function(unit)
 		return format("|cff0099cc%.0f|r ", expirationTime - GetTime())
 	end
 end
-
+]]--
 --WARLOCK
 
 --WARRIOR

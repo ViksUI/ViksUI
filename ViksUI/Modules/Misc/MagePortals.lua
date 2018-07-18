@@ -35,7 +35,7 @@ local spells = (UnitFactionGroup("player") == "Horde") and {
 }
 
 local frame = CreateFrame("Frame", "TeleportMenu", UIParent)
-frame:CreatePanel("Invisible", C.minimapp.size, (#spells) * 20 + 4, "BOTTOMLEFT", RChatTab, "TOPLEFT", -2, 3)
+frame:CreatePanel("Invisible", C.minimap.size, (#spells) * 20 + 4, "BOTTOMLEFT", RChatTab, "TOPLEFT", -2, 3)
 frame:RegisterEvent("UNIT_SPELLCAST_START")
 frame:SetScript("OnEvent", function(self)
 	if self:IsShown() then
@@ -49,7 +49,7 @@ for i, spell in pairs(spells) do
 	local teleport = GetSpellInfo(spell[1])
 
 	local b = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
-	b:CreatePanel("Transparent", C.minimapp.size, 20, "BOTTOMLEFT", frame, "BOTTOMLEFT", 0, ((i - 1) * 21))
+	b:CreatePanel("Transparent", C.minimap.size, 20, "BOTTOMLEFT", frame, "BOTTOMLEFT", 0, ((i - 1) * 21))
 	b:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
 	b:SetFrameStrata("HIGH")
 
@@ -88,7 +88,7 @@ learnSpell:SetScript("OnEvent", function()
 end)
 
 local button = CreateFrame("Button", nil, UIParent)
-button:SetTemplate("ClassColor")
+button:SetTemplate("Transparent")
 button:SetPoint("TOPLEFT", RChatTab, "TOPLEFT")
 button:SetSize(20, 20)
 button:SetAlpha(0)
@@ -106,10 +106,10 @@ button:SetScript("OnClick", function(self)
 		else
 			_G["TeleportMenu"]:Show()
 		end
-		if C.minimapp.toggle_menu and _G["TTMenuAddOnBackground"]:IsShown() then
+		if C.minimap.toggle_menu and _G["TTMenuAddOnBackground"]:IsShown() then
 			_G["TTMenuAddOnBackground"]:Hide()
 		end
-		if C.minimapp.toggle_menu and _G["TTMenuBackground"]:IsShown() then
+		if C.minimap.toggle_menu and _G["TTMenuBackground"]:IsShown() then
 			_G["TTMenuBackground"]:Hide()
 		end
 	end

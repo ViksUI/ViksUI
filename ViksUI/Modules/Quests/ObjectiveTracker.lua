@@ -5,7 +5,7 @@ if C.misc.WatchFrame then
 --	Move ObjectiveTrackerFrame
 ----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame", "WatchFrameAnchor", oUF_PetBattleFrameHider)
-frame:SetPoint("TOPRIGHT", CPMinimb1, "BOTTOMLEFT", 0, 10)
+frame:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, 10)
 frame:SetHeight(150)
 frame:SetWidth(224)
 
@@ -42,6 +42,7 @@ end)
 --ScenarioObjectiveTracker_AnimateReward = T.dummy
 --BonusObjectiveTracker_AnimateReward = T.dummy
 
+--[[
 function watchFButton()
 	for i = 1, NUM_CHAT_WINDOWS do
 		local cf = _G[format("ChatFrame%d",  i)]
@@ -82,7 +83,7 @@ function watchFButton()
 
 end
 watchFButton()
-
+]]--
 ----------------------------------------------------------------------------------------
 --	Skin ObjectiveTrackerFrame item buttons
 ----------------------------------------------------------------------------------------

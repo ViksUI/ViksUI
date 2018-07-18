@@ -2,32 +2,26 @@ if select(2, UnitClass("player")) ~= "DEATHKNIGHT" then return end
 
 local parent, ns = ...
 local oUF = ns.oUF
-local floor = math.floor
-
-oUF.colors.Runes = {0, 1, 1}
-
---local runemap = { 1, 2, 3, 4, 5, 6 }
 
 local OnUpdate = function(self, elapsed)
 	local duration = self.duration + elapsed
-	if(duration >= self.max) then
-		return self:SetScript('OnUpdate', nil)
-	else
-		self.duration = duration
-		return self:SetValue(duration)
-	end
+	self.duration = duration
+	self:SetValue(duration)
 end
 
-local Update = function(self, event, rid)
+local Update = function(self, event, rid, energized)
 	local runes = self.Runes
 	local rune = runes[rid]
 	if(not rune) then return end
 
+	local start, duration, runeReady
 	if(UnitHasVehicleUI'player') then
 		rune:Hide()
 	else
-		local start, duration, runeReady = GetRuneCooldown(rid)
-		if(runeReady) then
+		start, duration, runeReady = GetRuneCooldown(rid)
+		if(not start) then return end
+
+		if(energized or runeReady) then
 			rune:SetMinMaxValues(0, 1)
 			rune:SetValue(1)
 			rune:SetScript("OnUpdate", nil)
@@ -47,11 +41,12 @@ local Update = function(self, event, rid)
 end
 
 local Path = function(self, event, ...)
-	local UpdateMethod = self.Runes.Override or Update
+	local runes = self.Runes
+	local UpdateMethod = runes.Override or Update
 	if(event == 'RUNE_POWER_UPDATE') then
 		return UpdateMethod(self, event, ...)
 	else
-		for index = 1, 6 do
+		for index = 1, #runes do
 			UpdateMethod(self, event, index)
 		end
 	end

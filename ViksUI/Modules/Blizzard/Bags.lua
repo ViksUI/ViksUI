@@ -198,36 +198,48 @@ end
 local trashButton = {}
 local trashBag = {}
 
-local ItemDB = {}
+-- Tooltip used for scanning
+local scanner = CreateFrame("GameTooltip", "iLvlScanningTooltip", nil, "GameTooltipTemplate")
+local scannerName = scanner:GetName()
 
 -- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
-local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+local S_ITEM_LEVEL = "^" .. gsub(_G.ITEM_LEVEL, "%%d", "(%%d+)")
 
-local scantip = CreateFrame("GameTooltip", "iLvlScanningTooltip", nil, "GameTooltipTemplate")
-scantip:SetOwner(UIParent, "ANCHOR_NONE")
+local ItemDB = {}
 
-local function _getRealItemLevel(link)
+local function _getRealItemLevel(link, owner, bag, slot)
 	if ItemDB[link] then return ItemDB[link] end
 
 	local realItemLevel
-	scantip:SetHyperlink(link)
 
-	for i = 2, scantip:NumLines() do -- Line 1 is always the name so you can skip it.
-		local text = _G["iLvlScanningTooltipTextLeft"..i]:GetText()
+	scanner.owner = owner
+	scanner:SetOwner(owner, "ANCHOR_NONE")
+	scanner:SetBagItem(bag, slot)
 
-
-
-		if text and text ~= "" then
-			realItemLevel = realItemLevel or strmatch(text, S_ITEM_LEVEL)
-
-			if realItemLevel then
-				ItemDB[link] = tonumber(realItemLevel)
-				return tonumber(realItemLevel)
-
-
+	local line = _G[scannerName.."TextLeft2"]
+	if line then
+		local msg = line:GetText()
+		if msg and string.find(msg, S_ITEM_LEVEL) then
+			local itemLevel = string.match(msg, S_ITEM_LEVEL)
+			if itemLevel and (tonumber(itemLevel) > 0) then
+				realItemLevel = itemLevel
+			end
+		else
+			-- Check line 3, some artifacts have the ilevel there
+			line = _G[scannerName.."TextLeft3"]
+			if line then
+				local msg = line:GetText()
+				if msg and string.find(msg, S_ITEM_LEVEL) then
+					local itemLevel = string.match(msg, S_ITEM_LEVEL)
+					if itemLevel and (tonumber(itemLevel) > 0) then
+						realItemLevel = itemLevel
+					end
+				end
 			end
 		end
 	end
+
+	ItemDB[link] = tonumber(realItemLevel)
 	return realItemLevel
 end
 
@@ -266,7 +278,7 @@ function Stuffing:SlotUpdate(b)
 		b.name, _, _, b.itemlevel, b.level, _, _, _, _, _, _, b.itemClassID, b.itemSubClassID = GetItemInfo(clink)
 
 		if C.bag.ilvl == true and b.itemlevel and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4 or (b.itemClassID == 3 and b.itemSubClassID == 11)) then
-			b.itemlevel = _getRealItemLevel(clink) or b.itemlevel
+			b.itemlevel = _getRealItemLevel(clink, self, b.bag, b.slot) or b.itemlevel
 			b.frame.text:SetText(b.itemlevel)
 		end
 
@@ -468,7 +480,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		slot = slot - 4
 		ret.frame = CreateFrame("CheckButton", "StuffingBBag"..slot.."Slot", p, "BankItemButtonBagTemplate")
 		ret.frame:StripTextures()
- 		ret.frame:SetID(slot)
+		ret.frame:SetID(slot)
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
 				self:GetParent():SetBackdropBorderColor(r, g, b)
@@ -479,7 +491,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
 			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
 		end)
-  		table.insert(self.bagframe_buttons, ret)
+		table.insert(self.bagframe_buttons, ret)
 
 		BankFrameItemButton_Update(ret.frame)
 		BankFrameItemButton_UpdateLocked(ret.frame)
@@ -758,6 +770,7 @@ function Stuffing:CreateBagFrame(w)
 	f.b_close = CreateFrame("Button", "StuffingCloseButton"..w, f, "UIPanelCloseButton")
 	T.SkinCloseButton(f.b_close, nil, nil, true)
 	f.b_close:SetSize(15, 15)
+	f.b_close:RegisterForClicks("AnyUp")
 	f.b_close:SetScript("OnClick", function(self, btn)
 		if btn == "RightButton" then
 			if Stuffing_DDMenu.initialize ~= Stuffing.Menu then
@@ -769,8 +782,7 @@ function Stuffing:CreateBagFrame(w)
 		end
 		self:GetParent():Hide()
 	end)
-	f.b_close:RegisterForClicks("AnyUp")
-
+	
 	-- Create the bags frame
 	local fb = CreateFrame("Frame", n.."BagsFrame", f)
 	fb:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
@@ -1417,106 +1429,6 @@ function Stuffing:BAG_UPDATE_COOLDOWN()
 	end
 end
 
-function Stuffing:SortOnUpdate(e)
-	if not self.elapsed then
-		self.elapsed = 0
-	end
-
-	if not self.itmax then
-		self.itmax = 0
-	end
-
-	self.elapsed = self.elapsed + e
-	if self.elapsed < 0.1 then
-		return
-	end
-
-	self.elapsed = 0
-	self.itmax = self.itmax + 1
-
-	local changed, blocked = false, false
-	if self.sortList == nil or next(self.sortList, nil) == nil then
-		-- Wait for all item locks to be released
-		local locks = false
-
-		for i, v in pairs(self.buttons) do
-			local _, _, l = GetContainerItemInfo(v.bag, v.slot)
-			if l then
-				locks = true
-			else
-				v.block = false
-			end
-		end
-
-		if locks then
-			-- Something still locked
-			return
-		else
-			-- All unlocked. get a new table
-			self:SetScript("OnUpdate", nil)
-			self:SortBags()
-
-			if self.sortList == nil then
-				return
-			end
-		end
-	end
-
-	-- Go through the list and move stuff if we can
-	for i, v in ipairs(self.sortList) do
-		repeat
-			if v.ignore then
-				blocked = true
-				break
-			end
-
-			if v.srcSlot.block then
-				changed = true
-				break
-			end
-
-			if v.dstSlot.block then
-				changed = true
-				break
-			end
-
-			local _, _, l1 = GetContainerItemInfo(v.dstSlot.bag, v.dstSlot.slot)
-			local _, _, l2 = GetContainerItemInfo(v.srcSlot.bag, v.srcSlot.slot)
-
-			if l1 then
-				v.dstSlot.block = true
-			end
-
-			if l2 then
-				v.srcSlot.block = true
-			end
-
-			if l1 or l2 then
-				break
-			end
-
-			if v.sbag ~= v.dbag or v.sslot ~= v.dslot then
-				if v.srcSlot.name ~= v.dstSlot.name then
-					v.srcSlot.block = true
-					v.dstSlot.block = true
-					PickupContainerItem(v.sbag, v.sslot)
-					PickupContainerItem(v.dbag, v.dslot)
-					changed = true
-					break
-				end
-			end
-		until true
-	end
-
-	self.sortList = nil
-
-	if (not changed and not blocked) or self.itmax > 250 then
-		self:SetScript("OnUpdate", nil)
-		self.sortList = nil
-		Print(L_BAG_SORTING_BAGS)
-	end
-end
-
 local function InBags(x)
 	if not Stuffing.bags[x] then
 		return false
@@ -1530,148 +1442,139 @@ local function InBags(x)
 	return false
 end
 
+local BS_bagGroups
+local BS_itemSwapGrid
+
+local function BS_clearData()
+	BS_itemSwapGrid = {}
+	BS_bagGroups = {}
+end
+
+function Stuffing:SortOnUpdate(elapsed)
+	self.elapsed = (self.elapsed or 0) + elapsed
+
+	if self.elapsed < 0.05 then
+		return
+	end
+
+	self.elapsed = 0
+
+	local changed = false
+	local blocked = false
+
+	for bagIndex in pairs(BS_itemSwapGrid) do
+		for slotIndex in pairs(BS_itemSwapGrid[bagIndex]) do
+			local destinationBag  = BS_itemSwapGrid[bagIndex][slotIndex].destinationBag
+			local destinationSlot = BS_itemSwapGrid[bagIndex][slotIndex].destinationSlot
+
+			local _, _, locked1 = GetContainerItemInfo(bagIndex, slotIndex)
+			local _, _, locked2 = GetContainerItemInfo(destinationBag, destinationSlot)
+
+			if locked1 or locked2 then
+				blocked = true
+			elseif bagIndex ~= destinationBag or slotIndex ~= destinationSlot then
+				PickupContainerItem(bagIndex, slotIndex)
+				PickupContainerItem(destinationBag, destinationSlot)
+
+				local tempItem = BS_itemSwapGrid[destinationBag][destinationSlot]
+				BS_itemSwapGrid[destinationBag][destinationSlot] = BS_itemSwapGrid[bagIndex][slotIndex]
+				BS_itemSwapGrid[bagIndex][slotIndex] = tempItem
+
+				changed = true
+				return
+			end
+		end
+	end
+
+	if not changed and not blocked then
+		self:SetScript("OnUpdate", nil)
+		BS_clearData()
+	end
+end
 
 function Stuffing:SortBags()
-	local free
-	local total = 0
-	local bagtypeforfree
+	BS_clearData()
 
-	if StuffingFrameBank and StuffingFrameBank:IsShown() then
-		for i = 5, 11 do
-			free, bagtypeforfree = GetContainerNumFreeSlots(i)
-			if bagtypeforfree == 0 then
-				total = free + total
-			end
-		end
-		total = GetContainerNumFreeSlots(-1) + total
+	local bagList
+	if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
+		bagList = {-3}
+	elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
+		bagList = {11, 10, 9, 8, 7, 6, 5, -1}
 	else
-		for i = 0, 4 do
-			free, bagtypeforfree = GetContainerNumFreeSlots(i)
-			if bagtypeforfree == 0 then
-				total = free + total
-			end
-		end
+		bagList = {4, 3, 2, 1, 0}
 	end
 
-	if total == 0 then
-		print("|cffff0000"..ERROR_CAPS.." - "..ERR_INV_FULL.."|r")
-		return
-	end
-
-	local bs = self.sortBags
-	if #bs < 1 then
-		Print(L_BAG_NOTHING_SORT)
-		return
-	end
-
-	local st = {}
-	local bank = false
-
-	Stuffing_Open()
-
-	for i, v in pairs(self.buttons) do
-		if InBags(v.bag) then
-			self:SlotUpdate(v)
-
-			if v.name then
-				local _, cnt, _, _, _, _, clink = GetContainerItemInfo(v.bag, v.slot)
-				local n, _, q, iL, rL, c1, c2, _, Sl = GetItemInfo(clink)
-				if n == GetItemInfo(6948) then c1 = "1" end	-- Hearthstone
-				if n == GetItemInfo(110560) then c1 = "12" end	-- Garrison Hearthstone
-				if n == GetItemInfo(64488) then c1 = "1" end	-- The Innkeeper's Daughter
-				table.insert(st, {srcSlot = v, sslot = v.slot, sbag = v.bag, sort = q..c1..c2..rL..n..iL..Sl..(#self.buttons - i)})
-			end
-		end
-	end
-
-	-- Sort them
-	table.sort(st, function(a, b)
-		return a.sort > b.sort
-	end)
-
-	-- For each button we want to sort, get a destination button
-	if C.bag.SortTop == true then
-		--Use this part for sorting from top and down:
-		local st_idx = 1
-		local dbag = bs[st_idx]
-		local dslot = 1
-		local max_dslot = GetContainerNumSlots(dbag)
-
-		for i, v in ipairs(st) do
-			v.dbag = dbag
-			v.dslot = dslot
-			v.dstSlot = self:SlotNew(dbag, dslot)
-
-			dslot = dslot + 1
-			if dslot > max_dslot then
-				dslot = 1
-				while true do
-					st_idx = st_idx + 1
-					if st_idx > #bs then
-						break
-					end
-					dbag = bs[st_idx]
-					if Stuffing:BagType(dbag) == ST_NORMAL or dbag > 4 then
-						break
-					end
+	for _, slotNum in pairs(bagList) do
+		if GetContainerNumSlots(slotNum) > 0 then
+			BS_itemSwapGrid[slotNum] = {}
+			local family = select(2, GetContainerNumFreeSlots(slotNum))
+			if family then
+				if family == 0 then family = "Default" end
+				if not BS_bagGroups[family] then
+					BS_bagGroups[family] = {}
+					BS_bagGroups[family].bagSlotNumbers = {}
 				end
-				max_dslot = GetContainerNumSlots(dbag)
+				table.insert(BS_bagGroups[family].bagSlotNumbers, slotNum)
 			end
 		end
-	else
-		-- Next code will sort from bottom up if whanted
-		local st_idx = #bs
-		local dbag = bs[st_idx]
-		local dslot = GetContainerNumSlots(dbag)
+	end
 
-		for i, v in ipairs(st) do
-			v.dbag = dbag
-			v.dslot = dslot
-			v.dstSlot = self:SlotNew(dbag, dslot)
+	for _, group in pairs(BS_bagGroups) do
+		group.itemList = {}
+		for _, bagSlot in pairs(group.bagSlotNumbers) do
+			for itemSlot = 1, GetContainerNumSlots(bagSlot) do
 
-			dslot = dslot - 1
+				local itemLink = GetContainerItemLink(bagSlot, itemSlot)
+				if itemLink ~= nil then
 
-			if dslot == 0 then
-				while true do
-					st_idx = st_idx - 1
+					local newItem = {}
 
-					if st_idx < 0 then
-						break
+					local n, _, q, iL, rL, c1, c2, _, Sl = GetItemInfo(itemLink)
+					-- Hearthstone
+					if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) or n == GetItemInfo(141605) then
+						q = 9
+					end
+					-- Fix for battle pets
+					if not n then
+						n = itemLink
+						q = select(4, GetContainerItemInfo(bagSlot, itemSlot))
+						iL = 1
+						rL = 1
+						c1 = "Pet"
+						c2 = "Pet"
+						Sl = ""
 					end
 
-					dbag = bs[st_idx]
+					newItem.sort = q..c1..c2..rL..n..iL..Sl
 
-					if Stuffing:BagType(dbag) == ST_NORMAL or Stuffing:BagType(dbag) == ST_SPECIAL or dbag < 1 then
-						break
-					end
+					tinsert(group.itemList, newItem)
+
+					BS_itemSwapGrid[bagSlot][itemSlot] = newItem
+					newItem.startBag = bagSlot
+					newItem.startSlot = itemSlot
 				end
-
-				dslot = GetContainerNumSlots(dbag)
 			end
 		end
-	end	
-	-- Throw various stuff out of the search list
-	local changed = true
-	while changed do
-		changed = false
-		-- XXX why doesn't this remove all x->x moves in one pass?
 
-		for i, v in ipairs(st) do
-			-- Source is same as destination
-			if (v.sslot == v.dslot) and (v.sbag == v.dbag) then
-				table.remove(st, i)
-				changed = true
+		table.sort(group.itemList, function(a, b)
+			return a.sort > b.sort
+		end)
+
+		for index, item in pairs(group.itemList) do
+			local gridSlot = index
+			for _, bagSlotNumber in pairs(group.bagSlotNumbers) do
+				if gridSlot <= GetContainerNumSlots(bagSlotNumber) then
+					BS_itemSwapGrid[item.startBag][item.startSlot].destinationBag = bagSlotNumber
+					BS_itemSwapGrid[item.startBag][item.startSlot].destinationSlot = GetContainerNumSlots(bagSlotNumber) - gridSlot + 1
+					break
+				else
+					gridSlot = gridSlot - GetContainerNumSlots(bagSlotNumber)
+				end
 			end
 		end
 	end
 
-	-- Kick off moving of stuff, if needed
-	if st == nil or next(st, nil) == nil then
-		self:SetScript("OnUpdate", nil)
-	else
-		self.sortList = st
-		self:SetScript("OnUpdate", Stuffing.SortOnUpdate)
-	end
+	self:SetScript("OnUpdate", Stuffing.SortOnUpdate)
 end
 
 function Stuffing:RestackOnUpdate(e)
@@ -1819,3 +1722,4 @@ end
 LootWonAlertFrame_OnClick = T.dummy
 LootUpgradeFrame_OnClick = T.dummy
 StorePurchaseAlertFrame_OnClick = T.dummy
+LegendaryItemAlertFrame_OnClick = T.dummy

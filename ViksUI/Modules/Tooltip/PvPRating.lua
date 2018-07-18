@@ -1,5 +1,4 @@
-﻿--[[
-local T, C, L, _ = unpack(select(2, ...))
+﻿local T, C, L, _ = unpack(select(2, ...))
 if C.tooltip.enable ~= true or C.tooltip.arena_experience ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -79,4 +78,3 @@ frame:SetScript("OnEvent", function(self, event, ...)
 		ClearAchievementComparisonUnit()
 	end
 end)
-]]

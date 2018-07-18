@@ -88,21 +88,7 @@ hooksecurefunc("BonusObjectiveTracker_OnOpenDropDown", function(self)
 		inputBox.editBox:SetText(linkQuest:format(questID))
 		inputBox.editBox:HighlightText()
 	end
-	info.arg1 = questIDg
-	info.notCheckable = true
-	UIDropDownMenu_AddButton(info, UIDROPDOWN_MENU_LEVEL)
-end)
-
-hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self)
-	local questID = self.questID
-	info = UIDropDownMenu_CreateInfo()
-	info.text = L_WATCH_WOWHEAD_LINK
-	info.func = function()
-		local inputBox = StaticPopup_Show("WATCHFRAME_URL")
-		inputBox.editBox:SetText(linkQuest:format(questID))
-		inputBox.editBox:HighlightText()
-	end
-	info.arg1 = questIDg
+	info.arg1 = questID
 	info.notCheckable = true
 	UIDropDownMenu_AddButton(info, UIDROPDOWN_MENU_LEVEL)
 end)

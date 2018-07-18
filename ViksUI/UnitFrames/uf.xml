@@ -2,25 +2,8 @@
 	<Script file="cfg.lua"/>
 	<Script file="castbar.lua"/>
 	<Script file="tags.lua"/>
-	<Script file="Elements\AuraWatch.lua"/>
-	<Script file="Elements\DebuffHighlight.lua"/>
-	<Script file="Elements\raidDebuffs.lua"/>
 	<Script file="Elements\Indicators.lua"/>
 	<Script file="Elements\Indicators2.lua"/>
-	<Script file="Elements\range.lua"/>
-	<Script file="Plugins\Experience.lua"/>
-	<Script file="Plugins\Reputation.lua"/>
-	<Script file="Plugins\oUF_Smooth.lua"/>
-	<Script file="Plugins\oUF_Trinkets.lua"/>
-	<Script file="Plugins\TotemBar.lua"/>
-	<Script file="Plugins\oUF_MonkHarmonyBar.lua"/>
-	<Script file="Plugins\oUF_ComboPoints.lua"/>
-	<Script file="Plugins\oUF_HolyPower.lua"/>
-	<Script file="Plugins\oUF_ArcaneCharges.lua"/>
-	<Script file="Plugins\oUF_WarlockSpecBars.lua"/>
-	<Script file="Plugins\oUF_RaidDebuffs.lua"/>
-	<Script file="Plugins\oUF_Stagger.lua"/>
-	<Script file="Plugins\oUF_ArtifactPower.lua"/>
 	<Script file="lib.lua"/>
 	<Script file="core.lua"/>
 </Ui>

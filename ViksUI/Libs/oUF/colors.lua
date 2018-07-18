@@ -13,7 +13,6 @@ local colors = {
 	disconnected = {.6, .6, .6},
 	tapped = {.6,.6,.6},
 	class = {},
-	debuff = {},
 	reaction = {},
 }
 
@@ -56,10 +55,6 @@ for eclass, color in next, FACTION_BAR_COLORS do
 	colors.reaction[eclass] = {color.r, color.g, color.b}
 end
 
-for debuffType, color in next, DebuffTypeColor do
-	colors.debuff[debuffType] = {color.r, color.g, color.b}
-end
- 
 local function ColorsAndPercent(a, b, ...)
 	if a <= 0 or b == 0 then
 		return nil, ...

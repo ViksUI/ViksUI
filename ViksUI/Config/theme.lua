@@ -6,7 +6,7 @@
 local theme = CreateFrame("Button", "SwitchTheme", UIParent)
 theme:SetTemplate("Transparent")
 theme:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -3, 0)
-theme:SetSize(19, 19)
+theme:SetSize(18, 18)
 theme:SetAlpha(0)
 
 theme.t = theme:CreateTexture(nil, "OVERLAY")

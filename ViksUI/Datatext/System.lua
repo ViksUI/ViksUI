@@ -3,12 +3,12 @@ local T, C, L, _ = unpack(select(2, ...))
 -- System Stats
 --------------------------------------------------------------------
 if C.datatext.System and C.datatext.System > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextSystem", UIParent)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 	Stat:EnableMouse(true)
 	
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 if C.datatext.Talents >= 9 then
 Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)

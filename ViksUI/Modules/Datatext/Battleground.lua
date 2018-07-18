@@ -27,8 +27,7 @@ bgframe:SetScript("OnEnter", function(self)
 	for i = 1, numScores do
 		local name, _, honorableKills, deaths, _, _, _, _, _, damageDone, healingDone = GetBattlefieldScore(i)
 		if name and name == T.name then
-
-			local curmapid = GetCurrentMapAreaID()
+			local curmapid = C_Map.GetBestMapForUnit("player")
 			SetMapToCurrentZone()
 			GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, T.Scale(4))
 			GameTooltip:ClearLines()
@@ -36,10 +35,8 @@ bgframe:SetScript("OnEnter", function(self)
 			GameTooltip:ClearLines()
 			GameTooltip:AddDoubleLine(STATISTICS, classcolor..name.."|r")
 			GameTooltip:AddLine(" ")
-
 			GameTooltip:AddDoubleLine(HONORABLE_KILLS..":", honorableKills, 1, 1, 1)
 			GameTooltip:AddDoubleLine(DEATHS..":", deaths, 1, 1, 1)
-
 			GameTooltip:AddDoubleLine(DAMAGE..":", damageDone, 1, 1, 1)
 			GameTooltip:AddDoubleLine(SHOW_COMBAT_HEALING..":", healingDone, 1, 1, 1)
 			-- Add extra statistics depending on what BG you are
@@ -64,7 +61,6 @@ bgframe:SetScript("OnEnter", function(self)
 				GameTooltip:AddDoubleLine(L_DATATEXT_VICTORY_POINTS, GetBattlefieldStatData(i, 2), 1, 1, 1)
 			elseif curmapid == SSM then
 				GameTooltip:AddDoubleLine(L_DATATEXT_CARTS_CONTROLLED, GetBattlefieldStatData(i, 1), 1, 1, 1)
-
 			elseif curmapid == DG then
 				GameTooltip:AddDoubleLine(L_DATATEXT_CARTS_CONTROLLED, GetBattlefieldStatData(i, 1), 1, 1, 1)
 				GameTooltip:AddDoubleLine(L_DATATEXT_BASESASSAULTED, GetBattlefieldStatData(i, 3), 1, 1, 1)
@@ -121,12 +117,9 @@ local function Update(self, t)
 				dmgtxt = (classcolor..DAMAGE.." :|r "..T.ShortValue(damageDone))
 			end
 			if name and name == T.name then
-
 				Text1:SetText(dmgtxt)
 				Text2:SetText(classcolor..COMBAT_HONOR_GAIN.." :|r "..format("%d", honorGained))
-
 				Text3:SetText(classcolor..KILLING_BLOWS.." :|r "..killingBlows)
-
 			end
 		end
 		int = 2
@@ -135,17 +128,17 @@ end
 
 -- Hide text when not in an bg
 local function OnEvent(self, event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		local _, instanceType = IsInInstance()
-		if instanceType == "pvp" then
+	--if event == "PLAYER_ENTERING_WORLD" then
+		--local _, instanceType = IsInInstance()
+		--if instanceType == "pvp" then
 			bgframe:Show()
-		else
-			Text1:SetText("")
-			Text2:SetText("")
-			Text3:SetText("")
-			bgframe:Hide()
-		end
-	end
+		--else
+			--Text1:SetText("")
+			--Text2:SetText("")
+			--Text3:SetText("")
+			--bgframe:Hide()
+		--end
+	--end
 end
 
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")

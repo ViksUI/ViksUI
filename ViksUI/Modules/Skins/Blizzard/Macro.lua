@@ -90,7 +90,7 @@ local function LoadSkin()
 	end
 
 	-- Icon selection frame
-	T.SkinIconSelectionFrame(MacroPopupFrame, NUM_MACRO_ICONS_SHOWN, nil, "MacroPopup")
+	--T.SkinIconSelectionFrame(MacroPopupFrame, NUM_MACRO_ICONS_SHOWN, nil, "MacroPopup")
 end
 
 T.SkinFuncs["Blizzard_MacroUI"] = LoadSkin

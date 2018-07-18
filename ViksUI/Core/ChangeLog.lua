@@ -3,16 +3,15 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"• Updated Combopoints",
-		"• Filger updated",
-		"• Changed how top panel is sized",
-		"• Added M+ affixes to Raid Aura watch",
-		"• Fixed raidlayout switch minimap button",
-		"• Temporary buffs placement fix",
-		"• Fixed indicator 2 tag errors",
+		"• Updated to PrePatch BFA",
+		"• Minimap Buttons addon removed",
+		"• New Line/No panels Layout",
+		"• Many more changes in BFA version",
 		--"• ",
 	--" ",
 	"Notes:",
+		"REMOVE MinimapButtonFrame AddOn, Not Needed anymore",
+		"NEW LINE LAYOUT - Under /config -> UI Panels, Enable NoPanels - Use Lines",
 		"Join Discord channel for quick questions regarding ui.",
 		"https://discord.gg/pDEnZSV",
 }
@@ -113,19 +112,19 @@ function ChangeLog:CreateChangelog()
 	title.text:SetFont(C["media"].normal_font, 15)
 	title.text:SetText("|cffC41F3BViksUI|r - ChangeLog " .. T.version)
 	
-	T["CreateBtn"]("close", frame, 65, 19, "Close Changelog", "Close")
+	T["CreateBtn"]("close", frame, 65, 19, "Close Changelog", "Close", frame)
 	close:SetPoint("BOTTOMRIGHT", frame, -5, 5)
 	close:SetScript("OnClick", function(self) frame:Hide() end)
 	
-	T["CreateBtn"]("bReport", frame, 65, 19, "Bugreport", "Bugreport")
+	T["CreateBtn"]("bReport", frame, 65, 19, "Bugreport", "Bugreport", frame)
 	bReport:SetPoint("BOTTOMLEFT", frame, 5, 5)
 	bReport:SetScript("OnClick", function(self) StaticPopup_Show("BUGREPORT") end)
 	
-	T["CreateBtn"]("bTwitch", frame, 65, 19, "Twitch", "Twitch")
+	T["CreateBtn"]("bTwitch", frame, 65, 19, "Twitch", "Twitch", frame)
 	bTwitch:SetPoint("BOTTOMLEFT", bReport, "BOTTOMRIGHT", 5, 0)
 	bTwitch:SetScript("OnClick", function(self) StaticPopup_Show("TWITCH") end)
 	
-	T["CreateBtn"]("bDiscord", frame, 65, 19, "Discord", "Discord")
+	T["CreateBtn"]("bDiscord", frame, 65, 19, "Discord", "Discord", frame)
 	bDiscord:SetPoint("BOTTOMLEFT", bTwitch, "BOTTOMRIGHT", 5, 0)
 	bDiscord:SetScript("OnClick", function(self) StaticPopup_Show("DISCORD") end)
 	

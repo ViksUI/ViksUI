@@ -71,30 +71,34 @@ ls:SetScript("OnEvent", function(_, event, addon)
 		if conf.AutoRepair == nil then conf.AutoRepair = true end
 		if conf.AutoGuildRepair == nil then conf.AutoGuildRepair = true end
 	end
-	if event == "ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
-		SetMapToCurrentZone()
-	end
+	-- if event == "ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
+		-- SetMapToCurrentZone()
+	-- end
 end)
 
 -- Config missing?
 if not modules then return end
 
 if modules and ((coords and coords.enabled) or (location and location.enabled)) then
-	ls:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	--BETA ls:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	ls:SetScript("OnUpdate", function(self, elapsed)
 		self.elapsed = (self.elapsed or 0) + elapsed
 		if self.elapsed >= 0.2 then
-			coordX, coordY = GetPlayerMapPosition(P)
+			local unitMap = C_Map.GetBestMapForUnit("player")
 
-			if not GetPlayerMapPosition(P) then
-				coordX = 0
-				coordY = 0
+			if unitMap then
+				local GetPlayerMapPosition = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
+
+				if GetPlayerMapPosition then
+					coordX, coordY = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
+				end
 			end
 
 			self.elapsed = 0
 		end
 	end)
-	WorldMapDetailFrame:HookScript("OnHide", SetMapToCurrentZone)
+	-- WorldMapFrame:HookScript("OnHide", SetMapToCurrentZone)
+
 	function Coords() return format(coords and coords.fmt or "%d, %d", coordX * 100, coordY * 100) end
 end
 
@@ -189,7 +193,6 @@ local function AltUpdate(self)
 	if IsAltKeyDown() and not self.altdown then self.altdown = true self:GetScript("OnEnter")(self)
 	elseif not IsAltKeyDown() and self.altdown then self.altdown = false self:GetScript("OnEnter")(self) end
 end
-
 
 local menuFrame = CreateFrame("Frame", "ContactDropDownMenu", UIParent, "UIDropDownMenuTemplate")
 local menuList = {
@@ -361,7 +364,7 @@ if memory.enabled then
 				if AddonList:IsShown() then
 					AddonList_OnCancel()
 				else
-					PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
+					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
 					ShowUIPanel(AddonList)
 				end
 			end
@@ -456,14 +459,14 @@ if durability.enabled then
 			elseif button == "MiddleButton" then
 				conf.AutoGuildRepair = not conf.AutoGuildRepair
 				self:GetScript("OnEnter")(self)
-			elseif GetNumEquipmentSets() > 0 and button == "LeftButton" and (IsAltKeyDown() or IsShiftKeyDown()) then
+			elseif C_EquipmentSet.GetNumEquipmentSets() > 0 and button == "LeftButton" and (IsAltKeyDown() or IsShiftKeyDown()) then
 				local menulist = {{isTitle = true, notCheckable = 1, text = format(gsub(EQUIPMENT_SETS, ":", ""), "")}}
-				if GetNumEquipmentSets() == 0 then
+				if C_EquipmentSet.GetNumEquipmentSets() == 0 then
 					tinsert(menulist, {text = NONE, notCheckable = 1, disabled = true})
 				else
-					for i = 1, GetNumEquipmentSets() do
-						local name, icon = GetEquipmentSetInfo(i)
-						tinsert(menulist, {text = format("|T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t %s", icon, t_icon, name), notCheckable = 1, func = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end UseEquipmentSet(name) end})
+					for i = 1, C_EquipmentSet.GetNumEquipmentSets() do
+						local name, icon, setID = C_EquipmentSet.GetEquipmentSetInfo(i-1)
+						tinsert(menulist, {text = format("|T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t %s", icon, t_icon, name), notCheckable = 1, func = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end EquipmentManager_EquipSet(setID) end})
 					end
 				end
 				EasyMenu(menulist, LSMenus, "cursor", 0, 0, "MENU")
@@ -786,6 +789,20 @@ end
 --	Clock
 ----------------------------------------------------------------------------------------
 if clock.enabled then
+	local CALENDAR_MONTH_NAMES = {
+		MONTH_JANUARY,
+		MONTH_FEBRUARY,
+		MONTH_MARCH,
+		MONTH_APRIL,
+		MONTH_MAY,
+		MONTH_JUNE,
+		MONTH_JULY,
+		MONTH_AUGUST,
+		MONTH_SEPTEMBER,
+		MONTH_OCTOBER,
+		MONTH_NOVEMBER,
+		MONTH_DECEMBER,
+	}
 	Inject("Clock", {
 		text = {
 			string = function()
@@ -796,8 +813,9 @@ if clock.enabled then
 		OnEvent = function(self) if self.hovered then self:GetScript("OnEnter")(self) end end,
 		OnEnter = function(self)
 			if not self.hovered then RequestRaidInfo() self.hovered = true end
-			local weekday = select(date"%w"+1, CalendarGetWeekdayNames())
-			local month = select(date"%m", CalendarGetMonthNames())
+			local monthInfo = C_Calendar.GetMonthInfo()
+			local weekday = CALENDAR_WEEKDAY_NAMES[monthInfo.firstWeekday]
+			local month = CALENDAR_MONTH_NAMES[monthInfo.month]
 			GameTooltip:SetOwner(self, "ANCHOR_NONE")
 			GameTooltip:ClearAllPoints()
 			GameTooltip:SetPoint(clock.tip_anchor, clock.tip_frame, clock.tip_x, clock.tip_y)
@@ -806,59 +824,28 @@ if clock.enabled then
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddDoubleLine(gsub(TIMEMANAGER_TOOLTIP_LOCALTIME, ":", ""), zsub(GameTime_GetLocalTime(true), "%s*AM", "am", "%s*PM", "pm"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
 			GameTooltip:AddDoubleLine(gsub(TIMEMANAGER_TOOLTIP_REALMTIME, ":", ""), zsub(GameTime_GetGameTime(true), "%s*AM", "am", "%s*PM", "pm"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
-			GameTooltip:AddLine(" ")
-			for i = 1, 2 do
-				local _, localizedName, isActive, _, startTime = GetWorldPVPAreaInfo(i)
-				local r, g, b = 1, 1, 1
-				if i == 1 then
-					SetMapByID(485)
-					for i = 1, GetNumMapLandmarks() do
-						local index = select(3, GetMapLandmarkInfo(i))
-						if index == 46 then
-							r, g, b = 0.4, 0.8, 0.94
-						elseif index == 48 then
-							r, g, b = 1, 0.2, 0.2
-						end
-					end
-					GameTooltip:AddDoubleLine(localizedName, isActive and WINTERGRASP_IN_PROGRESS or fmttime(startTime), ttsubh.r, ttsubh.g, ttsubh.b, r, g, b)
-				elseif i == 2 then
-					SetMapByID(708)
-					for i = 1, GetNumMapLandmarks() do
-						local index = select(3, GetMapLandmarkInfo(i))
-						if index == 46 then
-							r, g, b = 0.4, 0.8, 0.94
-						elseif index == 48 then
-							r, g, b = 1, 0.2, 0.2
-						end
-					end
-					GameTooltip:AddDoubleLine(localizedName, isActive and WINTERGRASP_IN_PROGRESS or fmttime(startTime), ttsubh.r, ttsubh.g, ttsubh.b, r, g, b)
-				end
-			end
 
-			local oneraid
-			local heroicDifficulty = {DUNGEON_DIFFICULTY2, DUNGEON_DIFFICULTY_5PLAYER_HEROIC, RAID_DIFFICULTY3, RAID_DIFFICULTY4, RAID_DIFFICULTY_10PLAYER_HEROIC, RAID_DIFFICULTY_25PLAYER_HEROIC}
+			local titleName
 			for i = 1, GetNumSavedInstances() do
 				local name, _, reset, difficulty, locked, extended, _, isRaid, maxPlayers, _, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 				if isRaid and (locked or extended) or maxPlayers == 5 and difficulty == 23 and (locked or extended) then
 					local tr, tg, tb, diff
-					if not oneraid then
+					if not titleName then
 						GameTooltip:AddLine(" ")
 						GameTooltip:AddLine(CALENDAR_FILTER_RAID_LOCKOUTS.." / "..DUNGEONS, ttsubh.r, ttsubh.g, ttsubh.b)
-						oneraid = true
+						titleName = true
 					end
 					if extended then tr, tg, tb = 0.3, 1, 0.3 else tr, tg, tb = 1, 1, 1 end
-					for _, value in pairs(heroicDifficulty) do
-						if value == difficulty then
-							diff = "H"
-							break
-						end
+
+					local _, _, isHeroic, _, displayHeroic, displayMythic = GetDifficultyInfo(difficulty)
+					if displayMythic then
+						diff = "M"
+					elseif isHeroic or displayHeroic then
+						diff = "H"
 					end
+
 					if (numEncounters and numEncounters > 0) and (encounterProgress and encounterProgress > 0) then
-						if maxPlayers == 5 and difficulty == 23 then
-							GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", "M: "..name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
-						else
-							GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
-						end
+						GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
 					else
 						GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s]", name, maxPlayers, diff or ""), fmttime(reset), 1, 1, 1, tr, tg, tb)
 					end
@@ -876,13 +863,16 @@ if clock.enabled then
 					GameTooltip:AddDoubleLine(name, fmttime(reset), 1, 1, 1, 1, 1, 1)
 				end
 			end
-			if T.level >= 100 then
+			if T.level >= 110 then
 				local c = 0
-				for _, q in ipairs({36054, 36055, 36056, 36057, 36058, 36060, 37453, 37452, 37454, 37455, 37456, 37457, 37458, 37459}) do if IsQuestFlaggedCompleted(q) then c = c + 1 end end
+				for _, q in ipairs({43892, 43893, 43894, 43895, 43896, 43897}) do
+					if IsQuestFlaggedCompleted(q) then
+						c = c + 1
+					end
+				end
 				GameTooltip:AddLine(" ")
-
-				GameTooltip:AddLine("Misc", ttsubh.r, ttsubh.g, ttsubh.b)
-				GameTooltip:AddDoubleLine( "Seals this week" .. ": ", c, 1, 1, 1, 1, 1, 1)
+				GameTooltip:AddLine(MISCELLANEOUS, ttsubh.r, ttsubh.g, ttsubh.b)
+				GameTooltip:AddDoubleLine(L_STATS_SEALS..": ", c, 1, 1, 1, 1, 1, 1)
 			end
 			GameTooltip:Show()
 		end,
@@ -1692,8 +1682,8 @@ if experience.enabled then
 					return gsub(experience.played_fmt, "%[([%w%%]-)%]", tags)
 				elseif conf.ExpMode == "xp" then
 					return gsub(experience[format("xp_%s_fmt", (GetXPExhaustion() or 0) > 0 and "rested" or "normal")], "%[([%w%%]-)%]", tags) or " "
-				elseif conf.ExpMode == "art" then
-					return self:GetText()
+				--elseif conf.ExpMode == "art" then
+					--return self:GetText()
 				end
 			end
 		},
@@ -1746,21 +1736,15 @@ if experience.enabled then
 			if event == "PLAYER_LOGOUT" or event == "TIME_PLAYED_MSG" then
 				conf.Played = floor(playedtotal + GetTime() - playedmsg)
 			end
-			if (event == "ARTIFACT_XP_UPDATE" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
+			if (event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
 				if event == "PLAYER_EQUIPMENT_CHANGED" then
 					local slot = ...
 					if slot ~= INVSLOT_MAINHAND then
 						return
 					end
 				end
-				if HasArtifactEquipped() then
-					_, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
-					numPointsAvailableToSpend, artifactXP, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
-					self.text:SetText(gsub(experience.artifact_fmt, "%[([%w%%]-)%]", tags))
-				else
-					if event == "PLAYER_EQUIPMENT_CHANGED" then
-						conf.ExpMode = "played"
-					end
+				if event == "PLAYER_EQUIPMENT_CHANGED" then
+					conf.ExpMode = "played"
 				end
 			end
 		end,

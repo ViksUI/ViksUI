@@ -2,10 +2,42 @@
 
 local backdropr, backdropg, backdropb, backdropa = unpack(C.media.backdrop_color)
 local borderr, borderg, borderb, bordera = unpack(C.media.border_color)
+local floor = math.floor
+local class = select(2, UnitClass("player"))
+local Noop = function() return end
 
+T.Mult = T.mult
+T.Scale = T.Scale
 ----------------------------------------------------------------------------------------
 --	Template functions
 ----------------------------------------------------------------------------------------
+local shadows = {
+	edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", 
+	edgeSize = 4,
+	insets = { left = 3, right = 3, top = 3, bottom = 3 }
+	}
+	
+local shadows2 = {
+	bgFile =  [=[Interface\ChatFrame\ChatFrameBackground]=],
+	edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1, 
+	insets = {left = -1, right = -1, top = -1, bottom = -1} 
+	}
+function CreateShadow(f)
+	if f.shadow then return end
+	local shadow = CreateFrame("Frame", nil, f)
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata(f:GetFrameStrata())
+	shadow:SetPoint("TOPLEFT", -4, 4)
+	shadow:SetPoint("BOTTOMRIGHT", 4, -4)
+	shadow:SetBackdrop( {
+		edgeFile = C.Medias.Glow, edgeSize = T.Scale(4),
+	})
+	shadow:SetBackdropColor(0, 0, 0, 0)
+	shadow:SetBackdropBorderColor(0,0,0, 0.8)
+	f.shadow = shadow
+	return shadow
+end
+
 local function CreateOverlay(f)
 	if f.overlay then return end
 
@@ -15,6 +47,34 @@ local function CreateOverlay(f)
 	overlay:SetTexture(C.media.blank_border)
 	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
 	f.overlay = overlay
+end
+
+-- [[ API FUNCTIONS ]] --
+
+local function SetFadeInTemplate(self, FadeTime, Alpha)
+	UIFrameFadeIn(self, FadeTime, self:GetAlpha(), Alpha)
+end
+
+local function SetFadeOutTemplate(self, FadeTime, Alpha)
+	UIFrameFadeOut(self, FadeTime, self:GetAlpha(), Alpha)
+end
+
+local function SetFontTemplate(self, Font, FontSize, ShadowOffsetX, ShadowOffsetY)
+	self:SetFont(Font, T.Scale(FontSize), "THINOUTLINE")
+	self:SetShadowColor(0, 0, 0, 1)
+	self:SetShadowOffset(T.Scale(ShadowOffsetX or 1), -T.Scale(ShadowOffsetY or 1))
+end
+
+local function Size(frame, width, height)
+	frame:SetSize(T.Scale(width), T.Scale(height or width))
+end
+
+local function Width(frame, width)
+	frame:SetWidth(T.Scale(width))
+end
+
+local function Height(frame, height)
+	frame:SetHeight(T.Scale(height))
 end
 
 local function CreateBorder(f, i, o)
@@ -64,7 +124,14 @@ local function SetTemplate(f, t)
 		bgFile = C.media.blank_border, edgeFile = C.media.blank_border, edgeSize = T.mult,
 		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
 	})
+	local borderr, borderg, borderb = unpack(C.media.border_color)
+	local backdropr, backdropg, backdropb = unpack(C.media.backdrop_color)
+	local backdropa = 0.8
+	local texture = C.Medias.Blank
 
+	if tex then
+		texture = C.Medias.Normal
+	end
 	if t == "Transparent" then
 		backdropa = C.media.overlay_color[4]
 		f:CreateBorder(true, true)
@@ -332,3 +399,19 @@ end
 -- Hacky fix for issue on 7.1 PTR where scroll frames no longer seem to inherit the methods from the "Frame" widget
 local scrollFrame = CreateFrame("ScrollFrame")
 addapi(scrollFrame)
+
+------------------------------------------------------------------------------------------
+-- Overlay Function (Buttons)
+------------------------------------------------------------------------------------------
+local function CreateOverlayButton(f)
+	if f.overlaybutton then return end
+
+	local overlaybutton = f:CreateTexture(f:GetName() and f:GetName().."overlaybutton" or nil, "BORDER", f)
+	overlaybutton:ClearAllPoints()
+	overlaybutton:SetPoint("TOPLEFT", 2, -2)
+	overlaybutton:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlaybutton:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\Minimalist.tga")
+	overlaybutton:SetAlpha(1)
+	overlaybutton:SetVertexColor(0.22, 0.22, 0.22)
+	f.overlaybutton = overlaybutton
+end

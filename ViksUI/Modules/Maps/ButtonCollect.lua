@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.minimapp.enable ~= true or C.skins.minimap_buttons ~= true then return end
+if C.minimap.enable ~= true or C.skins.minimap_buttons ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Collect minimap buttons in one line
@@ -14,19 +14,23 @@ local BlackList = {
 
 local buttons = {}
 local button = CreateFrame("Frame", "ButtonCollectFrame", UIParent)
-local line = math.ceil(C.minimapp.size / 20)
+local line = math.ceil(C.minimap.size / 16)
 
 local function PositionAndStyle()
-	button:SetSize(20, 20)
+	button:SetSize(16, 16)
 	button:SetPoint(unpack(C.position.minimap_buttons))
 	for i = 1, #buttons do
 		buttons[i]:ClearAllPoints()
 		if i == 1 then
-			buttons[i]:SetPoint("TOP", button, "TOP", 0, 0)
+			if C.panels.NoPanels == true then 
+				buttons[i]:SetPoint("TOP", button, "TOP", 0, 0)
+			else
+				buttons[i]:SetPoint("TOP", button, "TOP", 0, -18)
+			end
 		elseif i == line then
-			buttons[i]:SetPoint("TOPRIGHT", buttons[1], "TOPLEFT", -1, 0)
+			buttons[i]:SetPoint("TOP", buttons[1], "BOTTOM", 0, -1)
 		else
-			buttons[i]:SetPoint("TOP", buttons[i-1], "BOTTOM", 0, -1)
+			buttons[i]:SetPoint("TOPLEFT", buttons[i-1], "TOPRIGHT", 1, 0)
 		end
 		buttons[i].ClearAllPoints = T.dummy
 		buttons[i].SetPoint = T.dummy

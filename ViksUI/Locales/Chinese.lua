@@ -5,13 +5,6 @@ if T.client ~= "zhCN" then return end
 --	Localization for zhCN client
 --	Translation: Ianchan, Mania, Nanjiqq, Tat2dawn
 ----------------------------------------------------------------------------------------
--- Announce your Lightwell
-L_ANNOUNCE_LA_USE = " 使用了光束泉!"
-L_ANNOUNCE_LA_CHARGE = " 次剩余)"
-L_ANNOUNCE_LA_USELESS = " 使用了光束泉,无效!"
-L_ANNOUNCE_LA_PLACED = "光束泉已放置!"
-L_ANNOUNCE_LA_CHARGES = " 次剩余."
-
 -- Announce flasks and food
 L_ANNOUNCE_FF_NOFOOD = "缺少食物Buff: "
 L_ANNOUNCE_FF_NOFLASK = "缺少合剂: "
@@ -24,7 +17,7 @@ L_ANNOUNCE_SS_RECEIVED = " 收到来自于 "
 
 -- Pull countdown announce
 L_ANNOUNCE_PC_GO = "开始!"
-L_ANNOUNCE_PC_MSG = "正在拉: %s,倒数 %s.."
+L_ANNOUNCE_PC_MSG = "准备接怪: %s,倒数 %s.."
 L_ANNOUNCE_PC_ABORTED = "取消拉怪!"
 
 -- Announce feasts and portals
@@ -57,12 +50,13 @@ L_MISC_BUY_STACK = "Alt+右键点击购买一叠"
 L_MISC_ONECLICK_BUYOUT = "Shift+右键,不弹出确认框体直接购买"
 L_MISC_ONECLICK_BID = "Shift+右鍵,不弹出确认框体直接竞标"
 L_MISC_ONECLICK_CANCEL = "Shift+右键,不弹出确认框体直接取消选择的物品"
-L_MISC_UI_OUTDATED = "ViksUI 版本已过期，请至 http://www.wowinterface.com/downloads/info21462-ViksUI.html#info 下载最新版"
+L_MISC_UI_OUTDATED = "ViksUI 版本已过期，请至 www.shestak.org 下载最新版"
 L_MISC_HEADER_MARK = "鼠标悬停显示团队图标"
 L_MISC_BINDER_OPEN = "鼠标绑定"
 L_MISC_GROCERY_BUY = "购买"
 L_MISC_GROCERY_DESC = "杂货商自动购买"
 L_MISC_SCROLL = "附魔卷轴"
+L_MISC_COLLAPSE = "The Collapse" -- Need review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "解散团队"
@@ -103,6 +97,7 @@ L_MINIMAP_CALENDAR = "日历"
 L_MINIMAP_HEAL_LAYOUT = "左鍵 - 治疗 布局"
 L_MINIMAP_DPS_LAYOUT = "右键 - 攻击 布局"
 L_MINIMAP_BLIZZ_LAYOUT = "中键 - 默认布局"
+L_MINIMAP_ARTIFACT = "Right click to use" -- Needs review
 
 -- Chat
 L_CHAT_WHISPER = "From"
@@ -130,7 +125,7 @@ L_ERRORFRAME_L = "点击查看错误"
 L_BAG_SHOW_BAGS = "显示背包"
 L_BAG_RIGHT_CLICK_SEARCH = "右键点击搜寻物品"
 L_BAG_STACK_MENU = "堆叠"
-L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu" -- Need review
+L_BAG_RIGHT_CLICK_CLOSE = "右键点击打开菜单"
 
 -- Grab mail
 L_MAIL_STOPPED = "无法拾取,背包已满."
@@ -172,12 +167,6 @@ L_BIND_CLEARED = "已清除所有快捷键设置."
 L_BIND_BINDING = "绑定"
 L_BIND_KEY = "按键"
 L_BIND_NO_SET = "没有绑定快捷键"
-
--- Talent spec
-L_PLANNER_DRUID_4 = "恢复"
-L_PLANNER_MONK_2 = "织雾"
-L_PLANNER_PALADIN_1 = "神圣"
-L_PLANNER_PRIEST_1 = "戒律"
 
 -- BG stats
 L_DATATEXT_BASESASSAULTED = "基地突袭:"
@@ -225,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "你拥有的最高级货币为"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "欢迎使用ViksUI "
-L_WELCOME_LINE_2_1 = "输入/cfg进行插件设置,或者访问http://www.wowinterface.com/downloads/info21462-ViksUI.html#info"
+L_WELCOME_LINE_2_1 = "输入/cfg进行插件设置,或者访问http://shestak.org"
 L_WELCOME_LINE_2_2 = "获取更多信息."
 
 -- Combat text
@@ -237,6 +226,7 @@ L_COMBATTEXT_TEST_ENABLED = "战斗信息测试模式已启用."
 L_COMBATTEXT_TEST_USE_UNLOCK = "输入 /xct unlock 移动/调整战斗信息框架大小."
 L_COMBATTEXT_TEST_USE_LOCK = "输入 /xct lock 锁定战斗信息框架."
 L_COMBATTEXT_TEST_USE_TEST = "输入 /xct test 启用/禁用战斗信息测试模式."
+L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset 恢复默认位置."
 L_COMBATTEXT_POPUP = "保存战斗信息窗口的位置须重载插件."
 L_COMBATTEXT_UNSAVED = "战斗信息窗口位置尚未保存,不要忘记重新载入插件."
 L_COMBATTEXT_UNLOCKED = "战斗信息已解锁."

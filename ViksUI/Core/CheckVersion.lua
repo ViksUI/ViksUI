@@ -11,14 +11,14 @@ local check = function(self, event, prefix, message, channel, sender)
 			self:UnregisterEvent("CHAT_MSG_ADDON")
 		end
 	else
-	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-			SendAddonMessage("ViksUIVersion", tonumber(T.version), "INSTANCE_CHAT")
+		if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "INSTANCE_CHAT")
 		elseif IsInRaid(LE_PARTY_CATEGORY_HOME) then
-			SendAddonMessage("ViksUIVersion", tonumber(T.version), "RAID")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "RAID")
 		elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
-			SendAddonMessage("ViksUIVersion", tonumber(T.version), "PARTY")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "PARTY")
 		elseif IsInGuild() then
-			SendAddonMessage("ViksUIVersion", tonumber(T.version), "GUILD")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "GUILD")
 		end
 	end
 end
@@ -28,7 +28,7 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 frame:RegisterEvent("CHAT_MSG_ADDON")
 frame:SetScript("OnEvent", check)
-RegisterAddonMessagePrefix("ViksUIVersion")
+C_ChatInfo.RegisterAddonMessagePrefix("ViksUIVersion")
 
 ----------------------------------------------------------------------------------------
 --	Whisp UI version

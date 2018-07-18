@@ -99,7 +99,7 @@ local function LoadSkin()
 	specspell2.backdrop:SetPoint("BOTTOMRIGHT", specspell2.specIcon, 2, -2)
 	specspell2.specIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	specspell2.specIcon:SetParent(specspell2.backdrop)
-
+--[[BETA
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
 		local playerTalentSpec = GetSpecialization(nil, self.isPet, PlayerSpecTab2:GetChecked() and 2 or 1)
 		local shownSpec = spec or playerTalentSpec or 1
@@ -163,7 +163,7 @@ local function LoadSkin()
 		bu.specIcon:SetSize(50, 50)
 		bu.specIcon:SetPoint("LEFT", bu, "LEFT", 15, 0)
 	end
-
+]]
 	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
 
 	for _, name in pairs(buttons) do
@@ -264,106 +264,6 @@ local function LoadSkin()
 		PlayerSpecTab2:SetPoint("TOP", PlayerSpecTab1, "BOTTOM")
 	end)
 
-	-- PvP Talents
-	PlayerTalentFramePVPTalents.XPBar:StripTextures()
-	PlayerTalentFramePVPTalents.XPBar.Bar:CreateBackdrop("Default")
-	PlayerTalentFramePVPTalents.XPBar.PrestigeReward.Accept:SkinButton()
-
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable:ClearAllPoints()
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable:SetPoint("LEFT", PlayerTalentFramePVPTalents.XPBar.Bar, "RIGHT", 3, -2)
-
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable:StripTextures()
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable:CreateBackdrop("Default")
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable.backdrop:SetPoint("TOPLEFT", PlayerTalentFramePVPTalents.XPBar.NextAvailable.Icon, -2, 2)
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable.backdrop:SetPoint("BOTTOMRIGHT", PlayerTalentFramePVPTalents.XPBar.NextAvailable.Icon, 2, -2)
-
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable.Icon:SetDrawLayer("ARTWORK")
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	PlayerTalentFramePVPTalents.XPBar.NextAvailable.Icon.SetTexCoord = T.dummy
-
-	PlayerTalentFramePVPTalentsBg:Hide()
-	PlayerTalentFramePVPTalents.Talents:DisableDrawLayer("BORDER")
-	
-	T.SkinCloseButton(PlayerTalentFramePVPTalents.TutorialBox.CloseButton)
-	PlayerTalentFramePVPTalents.TutorialBox.Arrow:Hide()
-	PlayerTalentFramePVPTalents.TutorialBox:StripTextures()
-	PlayerTalentFramePVPTalents.TutorialBox:CreateBackdrop("Transparent")
-
-
-	for i = 1, MAX_PVP_TALENT_TIERS do
-		local row = PlayerTalentFramePVPTalents.Talents["Tier"..i]
-		row.Bg:Hide()
-		row:DisableDrawLayer("BORDER")
-
-		row.TopLine:SetAlpha(0)
-		row.BottomLine:SetAlpha(0)
-		row.GlowFrame:SetAlpha(0)
-
-		for j = 1, MAX_PVP_TALENT_COLUMNS do
-			local bu = row["Talent"..j]
-			local ic = bu.Icon
-
-			bu:StripTextures()
-			bu:SetFrameLevel(bu:GetFrameLevel() + 2)
-			bu:CreateBackdrop("Default")
-			bu.backdrop:SetPoint("TOPLEFT", ic, -2, 2)
-			bu.backdrop:SetPoint("BOTTOMRIGHT", ic, 2, -2)
-
-			ic:SetDrawLayer("ARTWORK")
-			ic:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-			bu.bg = CreateFrame("Frame", nil, bu)
-			bu.bg:CreateBackdrop("Overlay")
-			bu.bg:SetFrameLevel(bu:GetFrameLevel() - 1)
-			bu.bg:SetPoint("TOPLEFT", 15, -1)
-			bu.bg:SetPoint("BOTTOMRIGHT", -10, 1)
-		end
-	end
-
-	hooksecurefunc("PVPTalentFrame_Update", function(self)
-		for i = 1, MAX_PVP_TALENT_TIERS do
-			for j = 1, MAX_PVP_TALENT_COLUMNS do
-				local bu = self.Talents["Tier"..i]["Talent"..j]
-				if bu.knownSelection then
-					if bu.knownSelection:IsShown() then
-						bu.backdrop:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b, 1)
-						bu.bg.backdrop:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b, 1)
-						bu.bg.backdrop.overlay:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.3)
-					else
-						bu.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
-						bu.bg.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
-						bu.bg.backdrop.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
-					end
-				end
-			end
-		end
-	end)
-
-	-- Presige texture
-	local portrait = PlayerTalentFramePVPTalents:CreateTexture(nil, "OVERLAY")
-	portrait:SetSize(55, 55)
-	portrait:SetPoint("CENTER", PlayerTalentFramePVPTalents.PortraitBackground, "CENTER", 0, 0)
-	PlayerTalentFramePVPTalents.PortraitBackground:Kill()
-	PlayerTalentFramePVPTalents.PortraitBackground:ClearAllPoints()
-	PlayerTalentFramePVPTalents.PortraitBackground:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", 10, -5)
-	PlayerTalentFramePVPTalents.SmallWreath:ClearAllPoints()
-	PlayerTalentFramePVPTalents.SmallWreath:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", 3, -25)
-	hooksecurefunc("PlayerTalentFramePVPTalents_SetUp", function()
-		local prestigeLevel = UnitPrestige("player")
-		if prestigeLevel > 0 then
-			portrait:SetTexture(GetPrestigeInfo(prestigeLevel))
-		end
-	end)
-
-	-- Prestige Level Dialog
-	PVPTalentPrestigeLevelDialog:StripTextures()
-	PVPTalentPrestigeLevelDialog:CreateBackdrop("Transparent")
-	PVPTalentPrestigeLevelDialog.Laurel:SetAtlas("honorsystem-prestige-laurel", true)
-	PVPTalentPrestigeLevelDialog.TopDivider:SetAtlas("honorsystem-prestige-rewardline", true)
-	PVPTalentPrestigeLevelDialog.BottomDivider:SetAtlas("honorsystem-prestige-rewardline", true)
-	PVPTalentPrestigeLevelDialog.Accept:SkinButton()
-	PVPTalentPrestigeLevelDialog.Cancel:SkinButton()
-	T.SkinCloseButton(PVPTalentPrestigeLevelDialog.CloseButton)
 end
 
 T.SkinFuncs["Blizzard_TalentUI"] = LoadSkin

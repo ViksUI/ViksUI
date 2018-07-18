@@ -37,7 +37,7 @@ local find			= string.find
 local format		= string.format
 local sort			= table.sort
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "DataTextFriends", UIParent)
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("MEDIUM")
 Stat:SetFrameLevel(3)
@@ -61,7 +61,7 @@ local dataValid = false
 local totalOnline, BNTotalOnline = 0, 0
 
 
-local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+local Text  = Stat:CreateFontString(nil, "OVERLAY")
 if C.datatext.Friends >= 9 then
 Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
@@ -611,12 +611,12 @@ end)
 Stat:RegisterEvent("BN_FRIEND_ACCOUNT_ONLINE")
 Stat:RegisterEvent("BN_FRIEND_ACCOUNT_OFFLINE")
 Stat:RegisterEvent("BN_FRIEND_INFO_CHANGED")
-Stat:RegisterEvent("BN_FRIEND_TOON_ONLINE")
-Stat:RegisterEvent("BN_FRIEND_TOON_OFFLINE")
-Stat:RegisterEvent("BN_TOON_NAME_UPDATED")
+--Stat:RegisterEvent("BN_FRIEND_TOON_ONLINE")
+--Stat:RegisterEvent("BN_FRIEND_TOON_OFFLINE")
+--Stat:RegisterEvent("BN_TOON_NAME_UPDATED")
 Stat:RegisterEvent("FRIENDLIST_UPDATE")
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
-Stat:RegisterEvent("FRIENDLIST_SHOW")
+--Stat:RegisterEvent("FRIENDLIST_SHOW")
 Stat:RegisterEvent("IGNORELIST_UPDATE")
 Stat:RegisterEvent("MUTELIST_UPDATE")
 Stat:RegisterEvent("PLAYER_FLAGS_CHANGED")
@@ -624,13 +624,13 @@ Stat:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
 Stat:RegisterEvent("BN_FRIEND_INVITE_LIST_INITIALIZED")
 Stat:RegisterEvent("BN_FRIEND_INVITE_ADDED")
 Stat:RegisterEvent("BN_FRIEND_INVITE_REMOVED")
-Stat:RegisterEvent("BN_SELF_ONLINE")
+--Stat:RegisterEvent("BN_SELF_ONLINE")
 Stat:RegisterEvent("BN_BLOCK_LIST_UPDATED")
 Stat:RegisterEvent("BN_CONNECTED")
 Stat:RegisterEvent("BN_DISCONNECTED")
 Stat:RegisterEvent("BATTLETAG_INVITE_SHOW")
 Stat:RegisterEvent("PARTY_REFER_A_FRIEND_UPDATED")
-	
+
 Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
 Stat:SetScript("OnEvent", Update)
 end

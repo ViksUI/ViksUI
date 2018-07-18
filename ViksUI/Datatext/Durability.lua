@@ -17,12 +17,12 @@ localSlots = {
 }
 	
 if C.datatext.Durability and C.datatext.Durability > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextDurability", UIParent)
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	Text:SetTextColor(unpack(C.media.pxcolor1))
 	Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 	PP(C.datatext.Durability, Text)

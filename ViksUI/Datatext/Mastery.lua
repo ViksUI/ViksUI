@@ -4,9 +4,9 @@ local T, C, L, _ = unpack(select(2, ...))
 ----------------------------------------------------------------
 
 if not C.datatext.Mastery == nil or C.datatext.Mastery > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextMastery", UIParent)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	--Set font based on where.
 	if C.datatext.Mastery >= 6 then
 		Text:SetTextColor(unpack(C.media.pxcolor1))

@@ -106,8 +106,8 @@ LPSTAT_CONFIG = {
 			["Гидраксианские Повелители Вод"] = "Повелители Вод",
 		},
 		artifact_fmt = "[curart]([curart%]%)"..class"AP", -- Artifact power format
-		anchor_frame = "RChatTab", anchor_to = "right", anchor_from = "right",
-		x_off = 0, y_off = 0, tip_frame = "RChatTab", tip_anchor = "BOTTOMRIGHT", tip_x = -30, tip_y = 20
+		anchor_frame = "LEFTChatline", anchor_to = "right", anchor_from = "right",
+		x_off = 0, y_off = 0, tip_frame = "LEFTChatline", tip_anchor = "BOTTOMRIGHT", tip_x = -30, tip_y = 20
 	},
 -- Bottomright block
 	Coords = {

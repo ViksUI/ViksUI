@@ -4,11 +4,11 @@ local T, C, L, _ = unpack(select(2, ...))
 --------------------------------------------------------------------
 
 if C.datatext.Crit and C.datatext.Crit > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "DataTextCrit", UIParent)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = LBottom:CreateFontString(nil, "OVERLAY")
+	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	Text:SetTextColor(unpack(C.media.pxcolor1))
 	Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 	PP(C.datatext.Crit, Text)

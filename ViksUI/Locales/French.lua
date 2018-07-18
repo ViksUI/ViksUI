@@ -5,13 +5,6 @@ if T.client ~= "frFR" then return end
 --	Localization for frFR client
 --	Translation: Cranan, Puree
 ----------------------------------------------------------------------------------------
--- Announce your Lightwell
-L_ANNOUNCE_LA_USE = " a utilisé mon Puits de lumière."
-L_ANNOUNCE_LA_CHARGE = " charge(s))"
-L_ANNOUNCE_LA_USELESS = " a utilisé mon Puits de lumière, pour rien."
-L_ANNOUNCE_LA_PLACED = "Puits de lumière placé."
-L_ANNOUNCE_LA_CHARGES = " charges."
-
 -- Announce flasks and food
 L_ANNOUNCE_FF_NOFOOD = "Sans nourriture: "
 L_ANNOUNCE_FF_NOFLASK = "Sans flacon: "
@@ -57,12 +50,13 @@ L_MISC_BUY_STACK = "Alt-Clic pour acheter une pile d'objet"
 L_MISC_ONECLICK_BUYOUT = "Maj-Clic-Droit pour acheter l'objet sélectionné sans confirmation"
 L_MISC_ONECLICK_BID = "Maj-Clic-Droit pour enchérir sur l'objet sélectionné sans confirmation"
 L_MISC_ONECLICK_CANCEL = "Maj-Clic-Droit pour annuler l'objet sélectionné sans confirmation"
-L_MISC_UI_OUTDATED = "Une version plus récente de ViksUI est disponible. Vous pouvez la télécharger sur http://www.wowinterface.com/downloads/info21462-ViksUI.html#info"
+L_MISC_UI_OUTDATED = "Une version plus récente de ViksUI est disponible. Vous pouvez la télécharger sur www.shestak.org"
 L_MISC_HEADER_MARK = "Icône de raid au survol de la souris"
 L_MISC_BINDER_OPEN = "Assignations des boutons de la souris"
 L_MISC_GROCERY_BUY = "Achat"
 L_MISC_GROCERY_DESC = "Achat automatique de sacs d'épicerie"
 L_MISC_SCROLL = "Parchemin"
+L_MISC_COLLAPSE = "The Collapse" -- Need review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Dissoudre le raid"
@@ -103,6 +97,7 @@ L_MINIMAP_CALENDAR = "Calendrier"
 L_MINIMAP_HEAL_LAYOUT = "Clic-Gauche - Interface Heal"
 L_MINIMAP_DPS_LAYOUT = "Clic-Droit - Interface DPS"
 L_MINIMAP_BLIZZ_LAYOUT = "Clic-Centre - Interface Blizzard"
+L_MINIMAP_ARTIFACT = "Right click to use" -- Needs review
 
 -- Chat
 L_CHAT_WHISPER = "De"
@@ -173,12 +168,6 @@ L_BIND_BINDING = "Raccourcis"
 L_BIND_KEY = "Touche"
 L_BIND_NO_SET = "Pas encore de raccourcis"
 
--- Talent spec
-L_PLANNER_DRUID_4 = "Restauration"
-L_PLANNER_MONK_2 = "Tisse-brume"
-L_PLANNER_PALADIN_1 = "Sacré"
-L_PLANNER_PRIEST_1 = "Discipline"
-
 -- BG stats
 L_DATATEXT_BASESASSAULTED = "Bases Attaquées :"
 L_DATATEXT_BASESDEFENDED = "Bases Défendues :"
@@ -225,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "Vous avez atteint un maximum de "
 
 -- Welcome message
 L_WELCOME_LINE_1 = "Bienvenue sur ViksUI "
-L_WELCOME_LINE_2_1 = "Tapez /cfg pour configurer l'interface, ou visitez http://www.wowinterface.com/downloads/info21462-ViksUI.html#info"
+L_WELCOME_LINE_2_1 = "Tapez /cfg pour configurer l'interface, ou visitez http://shestak.org"
 L_WELCOME_LINE_2_2 = "pour plus d'informations"
 
 -- Combat text
@@ -237,6 +226,7 @@ L_COMBATTEXT_TEST_ENABLED = "Mode test de la fenêtre des textes de combat activ
 L_COMBATTEXT_TEST_USE_UNLOCK = "Tapez /xct unlock pour bouger et redimensionner la fenêtre des textes de combat."
 L_COMBATTEXT_TEST_USE_LOCK = "Tapez /xct lock pour verrouiller la fenêtre des textes de combat."
 L_COMBATTEXT_TEST_USE_TEST = "Tapez /xct test pour activer le mode test de la fenêtre des textes de combat."
+L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset to restore default positions." -- Need review
 L_COMBATTEXT_POPUP = "Pour sauvegardez vos modifications vous devez recharger l'interface."
 L_COMBATTEXT_UNSAVED = "Position de la fenêtre des textes de combat non saugardez, n'oubliez pas de recharger l'interface."
 L_COMBATTEXT_UNLOCKED = "Fenêtre des textes de combat déverrouillée."

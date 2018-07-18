@@ -22,7 +22,6 @@ T.CastBarTicks = {
 	-- Mage
 	[SpellName(5143)] = 5,		-- Arcane Missiles
 	[SpellName(12051)] = 4,		-- Evocation
-	[SpellName(205021)] = 10, 	-- "Ray of Frost"
 	-- Monk
 	[SpellName(115175)] = 9,	-- Soothing Mist
 	[SpellName(117952)] = 6,	-- Crackling Jade Lightning

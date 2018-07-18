@@ -472,7 +472,7 @@ stArchFrame:RegisterEvent("SKILL_LINES_CHANGED")
 stArchFrame:RegisterEvent("BAG_UPDATE")
 stArchFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
-stArchFrame:SetWidth(C.minimapp.size)
+stArchFrame:SetWidth(C.minimap.size)
 stArchFrame:SetHeight(15)
 stArchFrame:SetPoint(unpack(C.position.archaeology))
 stArchFrame:SetTemplate("Transparent")
@@ -519,7 +519,7 @@ stArchFrame:HookScript("OnEvent", function(self)
 end)
 
 local b = CreateFrame("Button", "SwitchArch", UIParent)
-b:SetTemplate("ClassColor")
+b:SetTemplate("Transparent")
 b:SetPoint("TOPRIGHT", CPMinimb2, "TOPLEFT", -4, 0)
 
 b:SetSize(19, 19)
@@ -533,10 +533,10 @@ b:SetScript("OnClick", function(self)
 		_G["stArchaeologyFrame"]:Show()
 		SavedOptionsPerChar.Archaeology = true
 	end
-	if C.minimapp.toggle_menu and _G["TTMenuAddOnBackground"]:IsShown() then
+	if C.minimap.toggle_menu and _G["TTMenuAddOnBackground"]:IsShown() then
 		_G["TTMenuAddOnBackground"]:Hide()
 	end
-	if C.minimapp.toggle_menu and _G["TTMenuBackground"]:IsShown() then
+	if C.minimap.toggle_menu and _G["TTMenuBackground"]:IsShown() then
 		_G["TTMenuBackground"]:Hide()
 	end
 end)
@@ -571,7 +571,7 @@ local time = 3
 
 f:RegisterEvent("UNIT_SPELLCAST_STOP")
 f:SetScript("OnEvent", function(self, event, unit, _, _, _, spellid)
-	if not unit == "player" or T.race == "Dwarf" then return end
+	if not unit == "player" or select(2, UnitRace("player")) == "Dwarf" then return end
 	if spellid == 80451 then
 		text:SetText("3")
 		f:SetScript("OnUpdate", function(self, elapsed)

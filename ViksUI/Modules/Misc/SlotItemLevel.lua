@@ -86,7 +86,6 @@ local function _createStrings()
 		return s
 	end
 
-
 	f:SetFrameLevel(_G.CharacterHeadSlot:GetFrameLevel())
 
 	f[1] = _stringFactory(_G.CharacterHeadSlot)
@@ -118,7 +117,6 @@ local function _createGStrings()
 
 		return s
 	end
-
 
 	g:SetFrameLevel(_G.InspectHeadSlot:GetFrameLevel())
 

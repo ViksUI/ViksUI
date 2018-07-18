@@ -6,6 +6,7 @@
 SlashCmdList.RELOADUI = function() ReloadUI() end
 SLASH_RELOADUI1 = "/rl"
 SLASH_RELOADUI2 = "/кд"
+SLASH_RELOADUI3 = "//"
 
 SlashCmdList.RCSLASH = function() DoReadyCheck() end
 SLASH_RCSLASH1 = "/rc"
@@ -27,6 +28,9 @@ SLASH_ROLECHECK2 = "/кщду"
 SlashCmdList.CLEARCOMBAT = function() CombatLogClearEntries() end
 SLASH_CLEARCOMBAT1 = "/clc"
 SLASH_CLEARCOMBAT2 = "/сдс"
+
+SlashCmdList.CHANGELOG = function() ViksUI_ToggleChangeLog() end
+SLASH_CHANGELOG1 = "/VLog"
 
 ----------------------------------------------------------------------------------------
 --	Description of the slash commands
@@ -255,7 +259,7 @@ SlashCmdList["FRAMELIST"] = function(msg)
 		if msg == tostring(true) then
 			FrameStackTooltip_Toggle(true, true, true)
 		else
-			FrameStackTooltip_Toggle(true, true, true)
+			FrameStackTooltip_Toggle(false, true, true)
 		end
 	end
 
@@ -301,7 +305,7 @@ SLASH_CLEAR_CHAT2 = "/сдуфк"
 --	Test Blizzard Alerts
 ----------------------------------------------------------------------------------------
 SlashCmdList.TEST_ACHIEVEMENT = function()
-	PlaySound(PlaySoundKitID and "LFG_Rewards" or SOUNDKIT.LFG_REWARDS)
+	PlaySound(SOUNDKIT.LFG_REWARDS)
 	if not AchievementFrame then
 		AchievementFrame_LoadUI()
 	end
@@ -309,10 +313,12 @@ SlashCmdList.TEST_ACHIEVEMENT = function()
 	CriteriaAlertSystem:AddAlert(9023, "Doing great!")
 	GuildChallengeAlertSystem:AddAlert(3, 2, 5)
 	InvasionAlertSystem:AddAlert(678, "Legion", true, 1, 1)
-	-- WorldQuestCompleteAlertSystem:AddAlert(112)
-	-- GarrisonFollowerAlertSystem:AddAlert(204, "Ben Stone", 90, 3, false)
+	-- WorldQuestCompleteAlertSystem:AddAlert(42114)
+	local follower = _G.C_Garrison.GetFollowers(LE_FOLLOWER_TYPE_GARRISON_7_0)[1]
+	GarrisonFollowerAlertSystem:AddAlert(follower.followerID, follower.name, follower.level, follower.quality, isUpgraded, follower)
 	GarrisonShipFollowerAlertSystem:AddAlert(592, "Ship", "Transport", "GarrBuilding_Barracks_1_H", 3, 2, 1)
 	GarrisonBuildingAlertSystem:AddAlert("Barracks")
+	GarrisonTalentAlertSystem:AddAlert(3, _G.C_Garrison.GetTalent(370))
 	LegendaryItemAlertSystem:AddAlert("\124cffa335ee\124Hitem:18832:0:0:0:0:0:0:0:0:0:0\124h[Brutality Blade]\124h\124r")
 	LootAlertSystem:AddAlert("\124cffa335ee\124Hitem:18832::::::::::\124h[Brutality Blade]\124h\124r", 1, 1, 100, 2, false, false, 0, false, false)
 	LootUpgradeAlertSystem:AddAlert("\124cffa335ee\124Hitem:18832::::::::::\124h[Brutality Blade]\124h\124r", 1, 1, 1, nil, nil, false)
@@ -324,8 +330,107 @@ end
 SLASH_TEST_ACHIEVEMENT1 = "/tach"
 SLASH_TEST_ACHIEVEMENT2 = "/ефср"
 
+
 ----------------------------------------------------------------------------------------
---	Test and move Blizzard Extra Action Button
+--	CHAT SWITCH
+----------------------------------------------------------------------------------------
+SlashCmdList.CHAT_SWITCH = function()
+	FCF_UnDockFrame(ChatFrame4)
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "SAY")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "EMOTE")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "YELL")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_SAY")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_EMOTE")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_YELL")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_WHISPER")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_BOSS_EMOTE")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_BOSS_WHISPER")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "PARTY")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "PARTY_LEADER")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "RAID")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "RAID_LEADER")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "RAID_WARNING")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "INSTANCE_CHAT")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "INSTANCE_CHAT_LEADER")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "BATTLEGROUND")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "BATTLEGROUND_LEADER")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "BG_HORDE")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "BG_ALLIANCE")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "BG_NEUTRAL")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "SYSTEM")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "ERRORS")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "AFK")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "DND")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "IGNORED")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "ACHIEVEMENT")
+	ChatFrame_RemoveMessageGroup(ChatFrame4, "LOOT")
+	for i = 1, NUM_CHAT_WINDOWS do
+		local frame = _G[format("ChatFrame%s", i)]
+		local chatFrameId = frame:GetID()
+		local chatName = FCF_GetChatWindowInfo(chatFrameId)
+		
+		-- move general bottom left	
+		if i == 1 then
+			frame:ClearAllPoints()
+			frame:SetWidth(LChat:GetWidth())
+			frame:SetHeight(LChat:GetHeight())
+			frame:SetPoint("BOTTOMLEFT",LChat,"BOTTOMLEFT",12,6)
+			frame:SetPoint("TOPRIGHT",LChat,"TOPRIGHT",-4,-25)		
+		elseif i == 4 then
+			frame:ClearAllPoints()
+			frame:SetWidth(RChat:GetWidth())
+			frame:SetHeight(RChat:GetHeight())
+			frame:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
+			frame:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-25)
+		end
+		
+		--FCF_SavePositionAndDimensions(frame)
+		FCF_StopDragging(frame)
+				
+	end
+	FCF_SelectDockFrame(ChatFrame1)
+	local visibleSkada = false
+end
+SLASH_CHAT_SWITCH1 = "/chatS"
+
+
+SlashCmdList.CHAT_USWITCH = function()
+	FCF_DockFrame(ChatFrame4)
+	ChatFrame_AddMessageGroup(ChatFrame4, "SAY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "EMOTE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "YELL")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_SAY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_EMOTE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_YELL")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_WHISPER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_BOSS_EMOTE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_BOSS_WHISPER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "PARTY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "PARTY_LEADER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "RAID")
+	ChatFrame_AddMessageGroup(ChatFrame4, "RAID_LEADER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "RAID_WARNING")
+	ChatFrame_AddMessageGroup(ChatFrame4, "INSTANCE_CHAT")
+	ChatFrame_AddMessageGroup(ChatFrame4, "INSTANCE_CHAT_LEADER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BATTLEGROUND")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BATTLEGROUND_LEADER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BG_HORDE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BG_ALLIANCE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BG_NEUTRAL")
+	ChatFrame_AddMessageGroup(ChatFrame4, "SYSTEM")
+	ChatFrame_AddMessageGroup(ChatFrame4, "ERRORS")
+	ChatFrame_AddMessageGroup(ChatFrame4, "AFK")
+	ChatFrame_AddMessageGroup(ChatFrame4, "DND")
+	ChatFrame_AddMessageGroup(ChatFrame4, "IGNORED")
+	ChatFrame_AddMessageGroup(ChatFrame4, "ACHIEVEMENT")
+	ChatFrame_AddMessageGroup(ChatFrame4, "LOOT")
+	FCF_SelectDockFrame(ChatFrame4)
+	local visibleSkada = true
+end
+SLASH_CHAT_USWITCH1 = "/chatU"
+
+----------------------------------------------------------------------------------------
+--	Test Blizzard Extra Action Button
 ----------------------------------------------------------------------------------------
 SlashCmdList.TEST_EXTRABUTTON = function()
 	if ExtraActionBarFrame:IsShown() then
@@ -335,7 +440,7 @@ SlashCmdList.TEST_EXTRABUTTON = function()
 		ExtraActionBarFrame:SetAlpha(1)
 		ExtraActionButton1:Show()
 		ExtraActionButton1:SetAlpha(1)
-		ExtraActionButton1.icon:SetTexture("Interface\\Icons\\INV_Pet_DiseasedSquirrel")
+		ExtraActionButton1.icon:SetTexture("Interface\\Icons\\spell_deathknight_breathofsindragosa")
 		ExtraActionButton1.icon:Show()
 		ExtraActionButton1.icon:SetAlpha(1)
 	end
@@ -380,3 +485,13 @@ SlashCmdList.GRIDONSCREEN = function()
 end
 SLASH_GRIDONSCREEN1 = "/align"
 SLASH_GRIDONSCREEN2 = "/фдшпт"
+
+T.SlashHandler = function()
+		local DataText = T["DataTexts"]
+		DataText:ToggleDataPositions()
+end
+
+SLASH_TUKUISLASHHANDLER1 = "/dt"
+SlashCmdList["TUKUISLASHHANDLER"] = T.SlashHandler
+
+T.AddOnCommands = AddOnCommands

@@ -16,78 +16,15 @@ if C.reminder.raid_buffs_enable == true then
 		},
 		--BETA - Not any viable Battle/Guardian Elixir to replace Flask
 		BattleElixir = {
-			--105686,	-- Elixir of Perfection
-			--105688,	-- Monk's Elixir
-			--105685,	-- Elixir of Peace
-			--105682,	-- Mad Hozen Elixir
-			--105683,	-- Elixir of Weaponry
-			--105684,	-- Elixir of the Rapids
-
+			--spellID,	-- Spell name
 
 		},
 		GuardianElixir = {
-			--105687,	-- Elixir of Mirrors
-			--105681,	-- Mantid Elixir
-
+			--spellID,	-- Spell name
 		},
 		Food = {
 			104280,	-- Well Fed
 		},
-		Stat = {
-			--BETA 1126,	-- Mark of the Wild
-			--BETA 160206,	-- Lone Wolf: Power of the Primates
-			--BETA 159988,	-- Bark of the Wild (Dog)
-			--BETA 160017,	-- Blessing of Kongs (Gorilla)
-			--BETA 90363,	-- Embrace of the Shale Spider
-			--BETA 160077,	-- Strength of the Earth (Worm)
-			--BETA 115921,	-- Legacy of the Emperor
-			--BETA 116781,	-- Legacy of the White Tiger
-			--BETA 20217,	-- Blessing of Kings
-		},
-		Stamina = {
-			--BETA 21562,	-- Power Word: Fortitude
-			--BETA 160199,	-- Lone Wolf: Fortitude of the Bear
-			--BETA 50256,	-- Invigorating Roar (Bear)
-			--BETA 90364,	-- Qiraji Fortitude (Silithid)
-			--BETA 160003,	-- Savage Vigor (Rylak)
-			--BETA 160014,	-- Sturdiness (Goat)
-			--BETA 166928,	-- Blood Pact
-			--BETA 469,	-- Commanding Shout
-			--BETA 111922,	-- Runescroll of Fortitude III
-		}
-	}
-
-	-- Caster buffs
-	function T.ReminderCasterBuffs()
-		Spell5Buff = {	-- Spell Power
-			--BETA 1459,	-- Arcane Brilliance
-			--BETA 61316,	-- Dalaran Brilliance
-			--BETA 160205,	-- Lone Wolf: Wisdom of the Serpent
-			--BETA 126309,	-- Still Water (Water Strider)
-			--BETA 128433,	-- Serpent's Cunning (Serpent)
-			--BETA 90364,	-- Qiraji Fortitude (Silithid)
-			--BETA 109773,	-- Dark Intent
-		}
-	end
-
-	-- Physical buffs
-	function T.ReminderPhysicalBuffs()
-		Spell5Buff = {	-- Attack Power
-			--BETA 57330,	-- Horn of Winter
-			--BETA 19506,	-- Trueshot Aura
-			--BETA 6673,	-- Battle Shout
-		}
-	end
-
-	Spell6Buff = {	-- Haste
-		--BETA 116956,	-- Grace of Air
-		--BETA 55610,	-- Unholy Aura
-		--BETA 160203,	-- Lone Wolf: Haste of the Hyena
-		--BETA 128432,	-- Cackling Howl (Hyena)
-		--BETA 135678,	-- Energizing Spores (Sporebat)
-		--BETA 160003,	-- Savage Vigor (Rylak)
-		--BETA 49868,	-- Mind Quickening
-		--BETA 113742,	-- Swiftblade's Cunning
 	}
 end
 
@@ -118,41 +55,12 @@ end
 ]]--------------------------------------------------------------------------------------
 if C.reminder.solo_buffs_enable == true then
 	T.ReminderSelfBuffs = {
-		--[[PALADIN = {
-			[1] = {	-- Greater Blessing of Kings
-				["spells"] = {
-					203538,	-- Greater Blessing of Kings
-				},
-				["spec"] = 3,		-- Only Ret paladin can buff
-				["combat"] = true,
-				["instance"] = true,
-				["pvp"] = true,
-			},
-			[2] = {	-- Greater Blessing of Might
-				["spells"] = {
-					203528,	-- Greater Blessing of Might
-				},
-				["spec"] = 3,		-- Only Ret paladin can buff
-				["combat"] = true,
-				["instance"] = true,
-				["pvp"] = true,
-			},
-			[3] = {	-- Greater Blessing of Wisdom
-				["spells"] = {
-					203539,	-- Greater Blessing of Wisdom
-				},
-				["spec"] = 3,		-- Only Ret paladin can buff
-				["combat"] = true,
-				["instance"] = true,
-				["pvp"] = true,
-			},
-		},]]--
 		ROGUE = {
 			[1] = {	-- Lethal Poisons group
 				["spells"] = {
-					2823,	-- Deadly Poison
-					8679,	-- Wound Poison
-					200802,	-- Agonizing Poison
+					--2823,	-- Deadly Poison
+					--8679,	-- Wound Poison
+					--200802,	-- Agonizing Poison
 				},
 				["spec"] = 1,		-- Only Assassination have poisen now
 				["combat"] = true,
@@ -161,8 +69,8 @@ if C.reminder.solo_buffs_enable == true then
 			},
 			[2] = {	-- Non-Lethal Poisons group
 				["spells"] = {
-					3408,	-- Crippling Poison
-					108211,	-- Leeching Poison
+					--3408,	-- Crippling Poison
+					--108211,	-- Leeching Poison
 				},
 				["spec"] = 1,		-- Only Assassination have poisen now
 				["combat"] = true,

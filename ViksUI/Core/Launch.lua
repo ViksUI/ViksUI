@@ -570,8 +570,8 @@ SlashCmdList.CONFIGURE = function() StaticPopup_Show("INSTALL_UI") end
 SLASH_RESETSTATS1 = "/resetstats"
 SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end
 
-SLASH_SKADA1 = "/skadasetup_ui"
-SlashCmdList.SKADA = function() StaticPopup_Show("SKADAINST_UI") end
+--SLASH_SKADA1 = "/skadasetup_ui"
+--SlashCmdList.SKADA = function() StaticPopup_Show("SKADAINST_UI") end
 ----------------------------------------------------------------------------------------
 --	On logon function
 ----------------------------------------------------------------------------------------

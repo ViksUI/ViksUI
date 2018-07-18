@@ -1,15 +1,15 @@
 local T, C, L, _ = unpack(select(2, ...))
 
-
 ----------------------------------------------------------------------------------------
 -- Default Size Values
 ----------------------------------------------------------------------------------------
 --//Using uiscale and Tw to calculate width on some panels
 local uiscale = min(2, max(.64, 768 / string.match(T.resolution, "%d+x(%d+)")))
 local Tw = WorldFrame:GetWidth()
-
+local classcolor = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
 
 CPwidth = C.panels.CPwidth 					-- Width for Left and RIght side panels that holds text. 
+CPLwidth = C.panels.CPLwidth 					-- Width for Left and RIght side panels that holds text. 
 CPTextheight = C.panels.CPTextheight 			-- Hight for panel where chat window is inside
 CPbarsheight = C.panels.CPbarsheight 			-- Hight for Panels under/above Chat window
 CPABarSide = C.panels.CPABarSide 				-- Width for Action Bars next to chat windows
@@ -22,8 +22,15 @@ CPMABheight = C.panels.CPMABheight 			-- Hight for Main Actionbar
 CPMAByoffset = C.panels.CPMAByoffset 			-- Hight for Main Actionbar
 CPCooldheight = C.panels.CPCooldheight 		-- Hight for Cooldown Bar
 CPTop = C.panels.CPTop 						-- Width for Top Panels
-CPMinimap = C.minimapp.size 					-- Width/Hight for Minimap Panel
+CPMinimap = C.minimap.size 					-- Width/Hight for Minimap Panel
 Pscale = C.misc.Pscale						-- Can be used to resize all panels. It does not change X Y Values
+thickness = 1
+
+if C.panels.NoPanels == true then
+C.media.pxfontHFlag = "OUTLINE"
+C.media.pixel_font_style = "OUTLINEMONOCHROME"
+end
+
 
 if C.panels.NoPanels == true then
 pAlpha = 0
@@ -35,16 +42,23 @@ end
 ----------------------------------------------------------------------------------------
 
 --Left Bottom Panel
-local LBottom = CreateFrame("Frame", "LBottom", UIParent) 			
+local LBottom = CreateFrame("Frame", "LBottom", UIParent)
 LBottom:CreatePanel("Transparent", CPwidth*Pscale, CPbarsheight*Pscale, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", xoffset, yoffset)
 LBottom:SetFrameLevel(2)
 LBottom:SetAlpha(pAlpha)
 
 --Left Chat Panel
-local LChat = CreateFrame("Frame", "LChat", UIParent) 			
+local LChat = CreateFrame("Frame", "LChat", UIParent)	
+if C.panels.NoPanels == true then
+LChat:CreatePanel("Invisible", (CPLwidth*Pscale)-2, (CPTextheight+16)*Pscale, "BOTTOMLEFT", LBottom, "TOPLEFT", 10, yoffset)
+LChat:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b,0)
+LChat:SetBackdropColor(0, 0, 0, C.chat.background_alpha)
+CreateShadow(LChat)
+else
 LChat:CreatePanel("Transparent", CPwidth*Pscale, CPTextheight*Pscale, "BOTTOMLEFT", LBottom, "TOPLEFT", 0, yoffset)
 LChat:SetFrameLevel(2)
-LChat:SetAlpha(pAlpha)
+--LChat:SetAlpha(pAlpha)
+end
 
 --Left Chat Tab Panel
 local LChatTab = CreateFrame("Frame", "LChatTab", UIParent) 			
@@ -80,9 +94,17 @@ RBottom:SetAlpha(pAlpha)
 
 --Right Chat Panel
 local RChat = CreateFrame("Frame", "RChat", UIParent)
+if C.panels.NoPanels == true then
+RChat:CreatePanel("Invisible", (CPLwidth*Pscale)-2, (CPTextheight+16)*Pscale, "BOTTOMLEFT", RBottom, "TOPLEFT", -100, yoffset)
+RChat:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b,0)
+RChat:SetBackdropColor(0, 0, 0, C.chat.background_alpha)
+CreateShadow(RChat)
+--chatbd:SetTemplate("Transparent", "Shadow")
+else
 RChat:CreatePanel("Transparent", Pscale*CPwidth, Pscale*CPTextheight, "BOTTOMLEFT", RBottom, "TOPLEFT", 0, yoffset)
 RChat:SetFrameLevel(2)
 RChat:SetAlpha(pAlpha)
+end
 
 --Right Chat Tab Panel
 local RChatTab = CreateFrame("Frame", "RChatTab", UIParent)
@@ -119,35 +141,37 @@ CPTopp:SetPoint("RIGHT", UIParent, "RIGHT", -3, 0)
 CPTopp:SetFrameLevel(2)
 CPTopp:SetAlpha(pAlpha)
 
---Background for Minimap
-local CPMinim = CreateFrame("Frame", "CPMinim",oUF_PetBattleFrameHider)
-CPMinim:CreatePanel("Transparent", Pscale*CPMinimap, Pscale*CPMinimap, "TOPRIGHT", CPTopp, "BOTTOMRIGHT", 0, -(yoffset+1))
-CPMinim:SetFrameLevel(2)
---If minimap is turned off hide the panel. We are anchoring stuff to this frame so it's needed!
-if C.minimapp.enable == true then
-CPMinim:SetAlpha(pAlpha)
-else
-CPMinim:SetAlpha(pAlpha)
-end
+if C.panels.NoPanels ~= true then
+	--Background for Minimap
+	local CPMinim = CreateFrame("Frame", "CPMinim",oUF_PetBattleFrameHider)
+	CPMinim:CreatePanel("Transparent", Pscale*CPMinimap, Pscale*CPMinimap, "TOPRIGHT", CPTopp, "BOTTOMRIGHT", 0, -(yoffset+1))
+	CPMinim:SetFrameLevel(2)
+	--If minimap is turned off hide the panel. We are anchoring stuff to this frame so it's needed!
+	if C.minimap.enable == true then
+	CPMinim:SetAlpha(pAlpha)
+	else
+	CPMinim:SetAlpha(0)
+	end
 
---Background for Minimap Button 1, Right
-local CPMinimb1 = CreateFrame("Frame", "CPMinimb1",oUF_PetBattleFrameHider)
-CPMinimb1:CreatePanel("Transparent", (.5*(Pscale*CPMinimap))-(xoffset/2), Pscale*CPbarsheight, "TOPRIGHT", CPMinim, "BOTTOMRIGHT", 0, -yoffset)
-CPMinimb1:SetFrameLevel(2)
-if C.minimapp.minimb1 == true then
-CPMinimb1:SetAlpha(pAlpha)
-else
-CPMinimb1:SetAlpha(pAlpha)
-end
+	--Background for Minimap Button 1, Right
+	local CPMinimb1 = CreateFrame("Frame", "CPMinimb1",oUF_PetBattleFrameHider)
+	CPMinimb1:CreatePanel("Transparent", (.5*(Pscale*CPMinimap))-(xoffset/2), Pscale*CPbarsheight, "TOPRIGHT", UIParent, "TOPRIGHT", -3, -(((CPbarsheight+CPMinimap)*Pscale)+((2*yoffset)+2)))
+	CPMinimb1:SetFrameLevel(2)
+	if C.minimap.minimb1 == true then
+	CPMinimb1:SetAlpha(pAlpha)
+	else
+	CPMinimb1:SetAlpha(0)
+	end
 
---Background for Minimap Button 1, LEFT
-local CPMinimb2 = CreateFrame("Frame", "CPMinimb2",oUF_PetBattleFrameHider)
-CPMinimb2:CreatePanel("Transparent", (.5*(Pscale*CPMinimap))-(xoffset/2), Pscale*CPbarsheight, "TOPLEFT", CPMinim, "BOTTOMLEFT", 0, -yoffset)
-CPMinimb2:SetFrameLevel(2)
-if C.minimapp.minimb2 == true then
-CPMinimb2:SetAlpha(pAlpha)
-else
-CPMinimb2:SetAlpha(pAlpha)
+	--Background for Minimap Button 1, LEFT
+	local CPMinimb2 = CreateFrame("Frame", "CPMinimb2",oUF_PetBattleFrameHider)
+	CPMinimb2:CreatePanel("Transparent", (.5*(Pscale*CPMinimap))-(xoffset/2), Pscale*CPbarsheight, "TOPRIGHT", CPMinimb1, "TOPLEFT", -xoffset, 0)
+	CPMinimb2:SetFrameLevel(2)
+	if C.minimap.minimb2 == true then
+	CPMinimb2:SetAlpha(pAlpha)
+	else
+	CPMinimb2:SetAlpha(0)
+	end
 end
 
 --Background for Cooldownbar
@@ -155,7 +179,6 @@ local CPCool = CreateFrame("Frame", "CPCool",UIParent)
 CPCool:CreatePanel("Transparent", Pscale*CPMABwidth, Pscale*CPCooldheight, "BOTTOM", UIParent, "BOTTOM", 0, 5)
 CPCool:SetFrameLevel(2)
 CPCool:SetAlpha(pAlpha)
-
 
 --Backgrounds for Extra Actionbar Buttons
 if C.misc.BT4Bars == true then
@@ -186,135 +209,332 @@ end
 
 if C.panels.NoPanels == true then
 
+	local Topline = CreateFrame("StatusBar", "Topline", UIParent)
+	local TopVerticalRightline = CreateFrame("StatusBar", "TopVerticalRightline", Topline)
+	local TopHorizontalRightline = CreateFrame("StatusBar", "TopHorizontalRightline", Topline)
+	
+	--if C["DataTexts"]["Topline"] == true then	
+		Topline:SetTemplate()
+		Topline:SetSize(200, thickness)
+		Topline:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 6, -10)
+		Topline:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -6, -10)
+		Topline:SetFrameLevel(2)
+		Topline:SetFrameStrata("BACKGROUND")
+		Topline:SetAlpha(1)
+		--Topline:CreateLineShadow()
+		Topline:SetStatusBarTexture(C.media.blank)
+		
+		--if C["Minimap"]["ViksUIMinimap"] == true and C["Minimap"]["ViksUICenterMap"] == false then
+			TopVerticalRightline:SetTemplate()
+			TopVerticalRightline:SetPoint("TOPLEFT", Topline, "TOPRIGHT", 0, 0)
+			TopVerticalRightline:SetFrameLevel(2)
+			TopVerticalRightline:SetFrameStrata("BACKGROUND")
+			TopVerticalRightline:SetAlpha(1)
+			--TopVerticalRightline:CreateLineShadow()
+			TopVerticalRightline:SetParent(Topline)
+			TopVerticalRightline:SetSize(thickness, C["minimap"]["size"]+34)
+			TopVerticalRightline:SetStatusBarTexture(C.media.blank)
+
+			TopHorizontalRightline:SetTemplate()
+			TopHorizontalRightline:SetPoint("TOPRIGHT", TopVerticalRightline, "BOTTOMRIGHT", 0, 0)
+			TopHorizontalRightline:SetFrameLevel(2)
+			TopHorizontalRightline:SetFrameStrata("BACKGROUND")
+			TopHorizontalRightline:SetAlpha(1)
+			--TopHorizontalRightline:CreateLineShadow()
+			TopHorizontalRightline:SetParent(Topline)
+			TopHorizontalRightline:SetSize(C["minimap"]["size"]+10, thickness)
+			TopHorizontalRightline:SetStatusBarTexture(C.media.blank)
+		--end
+		
+		---if C["General"]["ClassColorLines"] == true then
+			--Topline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+			--TopVerticalRightline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+			--TopHorizontalRightline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+		--else
+			Topline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+			TopVerticalRightline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+			TopHorizontalRightline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+		--end
+		
+		--if C["CombatFade"]["Topline"] == true then
+			--RegisterStateDriver(Topline, "visibility", "[combat] hide; show")
+		--end
+	--end
+	
+	--if C["Minimap"]["MapChatRight"] == true then	
+		--TopVerticalRightline:Hide()
+		--TopHorizontalRightline:Hide()
+	--end
+end	
+------------------------------------------------------------------------------------------	
+-- BOTTOM PANELS/FRAMES LINES
+------------------------------------------------------------------------------------------	
+
+	local BottomLine = CreateFrame("StatusBar", "BottomLine", UIParent)
+	--local LeftVerticalLine = Panels.LeftVerticalLine
+	--local RightVerticalLine = Panels.RightVerticalLine
+	--local CubeLeft = Panels.CubeLeft
+	--local CubeRight = Panels.CubeRight
+	
+	--if C["DataTexts"]["Bottomline"] == true then
+		--LeftVerticalLine:Hide()
+		--RightVerticalLine:Hide()
+	
+		--if CubeLeft and CubeRight then
+			--CubeLeft:Hide()
+			--CubeRight:Hide()
+		--end
+
+		-- BOTTOMLINE ADJUSTMENTS
+		BottomLine:ClearAllPoints()
+		BottomLine:SetTemplate()
+		BottomLine:SetHeight(thickness)
+		BottomLine:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 6, 10)
+		BottomLine:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -6, 10)
+		BottomLine:SetFrameLevel(2)
+		BottomLine:SetFrameStrata("BACKGROUND")
+		if C.panels.NoPanels == true then
+		BottomLine:SetAlpha(1)
+		else
+		BottomLine:SetAlpha(0)
+		end
+		BottomLine:Hide()
+		
+		local BottomLineStatusBar = CreateFrame("StatusBar", "BottomLineStatusBar", BottomLine)
+		BottomLineStatusBar:SetTemplate()
+		BottomLineStatusBar:SetHeight(thickness)
+		BottomLineStatusBar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 6, 10)
+		BottomLineStatusBar:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -6, 10)
+		BottomLineStatusBar:SetFrameLevel(2)
+		BottomLineStatusBar:SetFrameStrata("BACKGROUND")
+		BottomLineStatusBar:SetAlpha(1)
+		--BottomLineStatusBar:CreateLineShadow()
+		BottomLineStatusBar:SetStatusBarTexture(C.media.blank)
+	
+		--if C["General"]["ClassColorLines"] == true then
+			--BottomLineStatusBar:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+		--else
+			BottomLineStatusBar:SetStatusBarColor(unpack(C["media"]["border_color"]))
+		--end
+	--end
+	
+	--if C["DataTexts"]["Bottomline"] == true then
+		BottomLine:Show()
+	--end
+
+	--if C["CombatFade"]["BottomLine"] == true then
+		--RegisterStateDriver(BottomLine, "visibility", "[combat] hide; show")
+	--end	
+
+------------------------------------------------------------------------------------------	
+-- LEFT CHAT LINES
+------------------------------------------------------------------------------------------
+if C.panels.NoPanels == true then	
+	local LEFTChatline = CreateFrame("StatusBar", "LEFTChatline", UIParent)
+	local LEFTVerticalline = CreateFrame("StatusBar", "LEFTVerticalline", UIParent)
+	local RIGHTChatline = CreateFrame("StatusBar", "RIGHTChatline", UIParent)
+	local RIGHTVerticalline = CreateFrame("StatusBar", "RIGHTVerticalline", UIParent)
+else
+	local LEFTChatline = CreateFrame("StatusBar", "LEFTChatline", UIParent)
+	local RIGHTChatline = CreateFrame("StatusBar", "RIGHTChatline", UIParent)
+end
+
+
+--if C["Tools"]["chattools"] == true and C["DataTexts"]["Bottomline"] == true then
+	-- Left Chat Toolline
+	LEFTChatline:SetTemplate()
+	LEFTChatline:SetParent(BottomLine)
+	LEFTChatline:SetSize(CPLwidth+10, thickness)
+	LEFTChatline:SetPoint("BOTTOMLEFT", BottomLine, "TOPLEFT", 0, C["chat"]["height"]+40)
+	LEFTChatline:SetFrameLevel(2)
+	LEFTChatline:SetFrameStrata("BACKGROUND")
+	if C.panels.NoPanels == true then
+		LEFTChatline:SetAlpha(1)
+	else
+		LEFTChatline:SetAlpha(0)
+	end
+	--LEFTChatline:CreateLineShadow()
+	LEFTChatline:SetStatusBarTexture(C.media.blank)
+if C.panels.NoPanels == true then	
+	-- LEFT VERTICAL Line
+	LEFTVerticalline:SetTemplate()
+	LEFTVerticalline:SetParent(BottomLine)
+	LEFTVerticalline:SetSize(thickness, thickness)
+	LEFTVerticalline:SetPoint("BOTTOMLEFT", BottomLine, "BOTTOMLEFT", 0, 0)
+	LEFTVerticalline:SetPoint("TOPLEFT", LEFTChatline, "TOPLEFT", 0, 0)
+	LEFTVerticalline:SetFrameLevel(2)
+	LEFTVerticalline:SetFrameStrata("BACKGROUND")
+	LEFTVerticalline:SetAlpha(1)
+	--LEFTVerticalline:CreateLineShadow()
+	LEFTVerticalline:SetStatusBarTexture(C.media.blank)
+
+	-- show hide button CHAT
+	local ChatOptions = CreateFrame("Frame", "ChatOptions", LEFTChatline)
+	ChatOptions:SetTemplate()
+	ChatOptions:SetSize(((CPLwidth+10)/3), 30)
+	ChatOptions:SetPoint("LEFT", LEFTChatline, "LEFT", 0, 5)
+	ChatOptions:SetFrameLevel(2)
+	ChatOptions:SetFrameStrata("BACKGROUND")
+	ChatOptions:SetAlpha(0.0)
+
+	LEFTChatline.icon = LEFTChatline:CreateTexture(nil, "OVERLAY")
+	LEFTChatline.icon:SetSize(17, 17)
+	LEFTChatline.icon:SetPoint("LEFT", LEFTChatline, "LEFT", 60, 0)
+	LEFTChatline.icon:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\chat.tga]])
+
+	local LEFTChatlinetext = LEFTChatline:CreateFontString(nil, "OVERLAY")
+	LEFTChatlinetext:SetFont(C["media"].pixel_font, C["media"].pixel_font_size, C["media"].pixel_font_style)
+	LEFTChatlinetext:SetPoint("LEFT", LEFTChatline, "LEFT", 20, 0)
+	LEFTChatlinetext:SetText("Chat")		
+	
+	ChatOptions:SetScript("OnMouseDown", function(self, Button)
+		if (Button == "LeftButton") then
+			ToggleFrame(ChatMenu)
+		end
+	end)
+	
+	ChatOptions:SetScript("OnEnter", function(self)
+		LEFTChatlinetext:SetTextColor(classcolor.r, classcolor.g, classcolor.b)
+		LEFTChatline.icon:SetVertexColor(classcolor.r, classcolor.g, classcolor.b)
+	end)
+	
+	ChatOptions:SetScript("OnLeave", function(self)
+		LEFTChatlinetext:SetTextColor(1, 1, 1)
+		LEFTChatline.icon:SetVertexColor(1, 1, 1)
+	end)
+end		
+------------------------------------------------------------------------------------------	
+-- RIGHT CHAT LINES
+------------------------------------------------------------------------------------------	
+-- RIGHT Chat Toolline		
+RIGHTChatline:SetTemplate()
+--RIGHTChatline:SetParent(BottomLine)
+RIGHTChatline:SetSize(CPLwidth+10, thickness)
+RIGHTChatline:SetPoint("BOTTOMRIGHT", BottomLine, "TOPRIGHT", 0, C["chat"]["height"]+40)
+RIGHTChatline:SetFrameLevel(2)
+RIGHTChatline:SetFrameStrata("BACKGROUND")
+if C.panels.NoPanels == true then
+	RIGHTChatline:SetAlpha(1)
+else
+	RIGHTChatline:SetAlpha(0)
+end
+--RIGHTChatline:CreateLineShadow()
+RIGHTChatline:SetStatusBarTexture(C.media.blank)
+
+if C.panels.NoPanels == true then	
+	-- RIGHT VERTICAL Line
+	RIGHTVerticalline:SetTemplate()
+	RIGHTVerticalline:SetParent(BottomLine)
+	RIGHTVerticalline:SetSize(thickness, thickness)
+	RIGHTVerticalline:SetPoint("BOTTOMRIGHT", BottomLine, "BOTTOMRIGHT", 0, 0)
+	RIGHTVerticalline:SetPoint("TOPRIGHT", RIGHTChatline, "TOPRIGHT", 0, 0)
+	RIGHTVerticalline:SetFrameLevel(2)
+	RIGHTVerticalline:SetFrameStrata("BACKGROUND")
+	RIGHTVerticalline:SetAlpha(1)
+	--RIGHTVerticalline:CreateLineShadow()
+	RIGHTVerticalline:SetStatusBarTexture(C.media.blank)
+	
+	--if C["General"]["ClassColorLines"] == true then
+		--LEFTChatline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+		--LEFTVerticalline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+		--RIGHTChatline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+		--RIGHTVerticalline:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1)
+	--else
+		LEFTChatline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+		LEFTVerticalline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+		RIGHTChatline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+		RIGHTVerticalline:SetStatusBarColor(unpack(C["media"]["border_color"]))
+	--end
+--end	
+end	
+----------------------------------------------------------------------------------------
+--	Chat background
+----------------------------------------------------------------------------------------
+--[[
+if C.chat.background == true then
+	local chatbd = CreateFrame("Frame", "ChatBackground", UIParent)
+	chatbd:CreatePanel("Invisible", C.chat.width+20, C.chat.height+20, "TOPLEFT", ChatFrame1, "TOPLEFT", -3, 25)
+	chatbd:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b,0)
+	chatbd:SetBackdropColor(0, 0, 0, C.chat.background_alpha)
+	CreateShadow(chatbd)
+	--chatbd:SetTemplate("Transparent", "Shadow")
+
+	if C.chat.tabs_mouseover ~= true then
+		local chattabs = CreateFrame("Frame", "ChatTabsPanel", UIParent)
+		chattabs:CreatePanel("Invisible", chatbd:GetWidth(), 14, "BOTTOM", chatbd, "TOP", 0, 3)
+		chattabs:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b,0)
+		chattabs:SetBackdropColor(0, 0, 0, C.chat.background_alpha)
+		chattabs:Hide()
+	end
+else
+	local leftpanel = CreateFrame("Frame", "LeftPanel", UIParent)
+	leftpanel:CreatePanel("ClassColor", 1, C.chat.height - 2, "BOTTOMLEFT", bottompanel, "LEFT", 0, 0)
+end
+	]]--
+	--[[
+	
+	-- CHAT LEFT
+local LeftChatBG = CreateFrame("Frame", "ChatBackground", UIParent)
+	LeftChatBG:SetFrameLevel(1)
+	LeftChatBG:SetFrameStrata("BACKGROUND")
+	LeftChatBG:CreateBackdrop("Transparent")
+	LeftChatBG:SetBackdropBorderColor(0,0,0,0)
+	--LeftChatBG.Backdrop:CreateShadow()
+LeftChatBG:SetParent(UIParent)
+LeftChatBG:SetHeight(C.chat.height + 4)
+LeftChatBG:SetWidth(C.chat.width + 7)
+LeftChatBG:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", -3, 1)
+LeftChatBG:SetFrameLevel(1)
+LeftChatBG:SetFrameStrata("BACKGROUND")
+LeftChatBG:SetAlpha(0.5)
+--LeftChatBG:CreateShadow()
+	
+	]]--
+	
 ----------------------------------------------------------------------------------------
 --	Bottom line
 ----------------------------------------------------------------------------------------
-local bottompanel = CreateFrame("Frame", "BottomPanel", UIParent)
-bottompanel:CreatePanel("ClassColor", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 5)
-bottompanel:SetPoint("LEFT", UIParent, "LEFT", 3, 0)
-bottompanel:SetPoint("RIGHT", UIParent, "RIGHT", -3, 0)
+--local bottompanel = CreateFrame("Frame", "BottomPanel", UIParent)
+--bottompanel:CreatePanel("Transparent", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 5)
+--bottompanel:SetPoint("LEFT", UIParent, "LEFT", 3, 0)
+--bottompanel:SetPoint("RIGHT", UIParent, "RIGHT", -3, 0)
 
-CPMinim:SetAlpha(1)
-CPMinim:SetTemplate("ClassColor")
-CPMinimb1:SetAlpha(.5)
-CPMinimb1:SetTemplate("ClassColor")
-CPMinimb2:SetAlpha(.5)
-CPMinimb2:SetTemplate("ClassColor")
+--CPMinim:SetAlpha(0)
+--CPMinim:SetTemplate("ClassColor")
+--CPMinimb1:SetAlpha(0)
+--CPMinimb1:SetTemplate("ClassColor")
+--CPMinimb2:SetAlpha(0)
+--CPMinimb2:SetTemplate("ClassColor")
 ----------------------------------------------------------------------------------------
 --	Chat Lines
 ----------------------------------------------------------------------------------------
-local leftpanel = CreateFrame("Frame", "LeftPanel", UIParent)
-leftpanel:CreatePanel("ClassColor", 1, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1) - 2, "BOTTOMLEFT", bottompanel, "LEFT", 0, 0)
+--local leftpanel = CreateFrame("Frame", "LeftPanel", UIParent)
+--leftpanel:CreatePanel("Transparent", 1, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1) - 2, "BOTTOMLEFT", bottompanel, "LEFT", 0, 0)
 
-local rightpanel = CreateFrame("Frame", "RightPanel", UIParent)
-rightpanel:CreatePanel("ClassColor", 1, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1), "BOTTOMRIGHT", bottompanel, "RIGHT", 0, 0)
+--local rightpanel = CreateFrame("Frame", "RightPanel", UIParent)
+--rightpanel:CreatePanel("Transparent", 1, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1), "BOTTOMRIGHT", bottompanel, "RIGHT", 0, 0)
 
-local CPCool = CreateFrame("Frame", "CPCool",UIParent)
-CPCool:CreatePanel("ClassColor", Pscale*CPMABwidth, Pscale*CPCooldheight, "BOTTOM", UIParent, "BOTTOM", 0, 5)
+--local CPCool = CreateFrame("Frame", "CPCool",UIParent)
+--CPCool:CreatePanel("Transparent", Pscale*CPMABwidth, Pscale*CPCooldheight, "BOTTOM", UIParent, "BOTTOM", 0, 5)
 
 --Background for Main Action Bar
-local CPMAB = CreateFrame("Frame", "CPMAB",UIParent)
-CPMAB:CreatePanel("ClassColor", Pscale*CPMABwidth, Pscale*CPMABheight, "BOTTOM", UIParent, "BOTTOM", 0, CPMAByoffset)
-CPMAB:SetFrameLevel(2)
-CPMAB:SetBackdropColor(0, 0, 0, 0)
-else
+--local CPMAB = CreateFrame("Frame", "CPMAB",UIParent)
+--CPMAB:CreatePanel("Transparent", Pscale*CPMABwidth, Pscale*CPMABheight, "BOTTOM", UIParent, "BOTTOM", 0, CPMAByoffset)
+--CPMAB:SetFrameLevel(2)
+--CPMAB:SetBackdropColor(0, 0, 0, 0)
 --Background for Main Action Bar
+
 local CPMAB = CreateFrame("Frame", "CPMAB",UIParent)
 CPMAB:CreatePanel("Transparent", Pscale*CPMABwidth, Pscale*CPMABheight, "BOTTOM", UIParent, "BOTTOM", 0, CPMAByoffset)
 CPMAB:SetFrameLevel(2)
+if C.panels.NoPanels == true then
+CPMAB:SetBackdropColor(0,0,0,0)
 end
+
 RegisterStateDriver(CPCool, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(CPMAB, "visibility", "[petbattle] hide; show")
 
 --[[
-----------------------------------------------------------------------------------------
---	Bottom bars anchor
-----------------------------------------------------------------------------------------
-local bottombaranchor = CreateFrame("Frame", "ActionBarAnchor", oUF_PetBattleFrameHider)
-bottombaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.bottom_bars))
-bottombaranchor:SetWidth((C.actionbar.button_size * 12) + (C.actionbar.button_space * 11))
-if C.actionbar.bottombars == 2 then
-	bottombaranchor:SetHeight((C.actionbar.button_size * 2) + C.actionbar.button_space)
-elseif C.actionbar.bottombars == 3 then
-	if C.actionbar.split_bars == true then
-		bottombaranchor:SetHeight((C.actionbar.button_size * 2) + C.actionbar.button_space)
-	else
-		bottombaranchor:SetHeight((C.actionbar.button_size * 3) + (C.actionbar.button_space * 2))
-	end
-else
-	bottombaranchor:SetHeight(C.actionbar.button_size)
-end
-bottombaranchor:SetFrameStrata("LOW")
-
-----------------------------------------------------------------------------------------
---	Right bars anchor
-----------------------------------------------------------------------------------------
-local rightbaranchor = CreateFrame("Frame", "RightActionBarAnchor", oUF_PetBattleFrameHider)
-rightbaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.right_bars))
-rightbaranchor:SetHeight((C.actionbar.button_size * 12) + (C.actionbar.button_space * 11))
-if C.actionbar.rightbars == 1 then
-	rightbaranchor:SetWidth(C.actionbar.button_size)
-elseif C.actionbar.rightbars == 2 then
-	rightbaranchor:SetWidth((C.actionbar.button_size * 2) + C.actionbar.button_space)
-elseif C.actionbar.rightbars == 3 then
-	rightbaranchor:SetWidth((C.actionbar.button_size * 3) + (C.actionbar.button_space * 2))
-else
-	rightbaranchor:Hide()
-end
-rightbaranchor:SetFrameStrata("LOW")
-
-----------------------------------------------------------------------------------------
---	Split bar anchor
-----------------------------------------------------------------------------------------
-if C.actionbar.split_bars == true then
-	local SplitBarLeft = CreateFrame("Frame", "SplitBarLeft", oUF_PetBattleFrameHider)
-	SplitBarLeft:CreatePanel("Invisible", (C.actionbar.button_size * 3) + (C.actionbar.button_space * 2), (C.actionbar.button_size * 2) + C.actionbar.button_space, "BOTTOMRIGHT", ActionBarAnchor, "BOTTOMLEFT", -C.actionbar.button_space, 0)
-	SplitBarLeft:SetFrameStrata("LOW")
-
-	local SplitBarRight = CreateFrame("Frame", "SplitBarRight", oUF_PetBattleFrameHider)
-	SplitBarRight:CreatePanel("Invisible", (C.actionbar.button_size * 3) + (C.actionbar.button_space * 2), (C.actionbar.button_size * 2) + C.actionbar.button_space, "BOTTOMLEFT", ActionBarAnchor, "BOTTOMRIGHT", C.actionbar.button_space, 0)
-	SplitBarRight:SetFrameStrata("LOW")
-end
-
-----------------------------------------------------------------------------------------
---	Pet bar anchor
-----------------------------------------------------------------------------------------
-local petbaranchor = CreateFrame("Frame", "PetActionBarAnchor", oUF_PetBattleFrameHider)
-petbaranchor:SetFrameStrata("LOW")
-if C.actionbar.rightbars > 0 then
-	if C.actionbar.petbar_horizontal == true then
-		petbaranchor:CreatePanel("Invisible", (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), (C.actionbar.button_size + C.actionbar.button_space), unpack(C.position.pet_horizontal))
-	else
-		petbaranchor:CreatePanel("Invisible", C.actionbar.button_size + 3, (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), "RIGHT", rightbaranchor, "LEFT", 0, 0)
-	end
-else
-	petbaranchor:CreatePanel("Invisible", (C.actionbar.button_size + C.actionbar.button_space), (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), unpack(C.position.right_bars))
-end
-
-----------------------------------------------------------------------------------------
---	Stance bar anchor
-----------------------------------------------------------------------------------------
-if C.actionbar.stancebar_hide ~= true then
-	local shiftanchor = CreateFrame("Frame", "ShapeShiftBarAnchor", oUF_PetBattleFrameHider)
-	shiftanchor:RegisterEvent("PLAYER_ENTERING_WORLD")
-	shiftanchor:RegisterEvent("PLAYER_ENTERING_WORLD")
-	shiftanchor:RegisterEvent("UPDATE_SHAPESHIFT_FORMS")
-	shiftanchor:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
-	shiftanchor:SetScript("OnEvent", function(self, event, ...)
-		local forms = GetNumShapeshiftForms()
-		if forms > 0 then
-			if C.actionbar.stancebar_horizontal ~= true then
-				shiftanchor:SetWidth(C.actionbar.button_size + 3)
-				shiftanchor:SetHeight((C.actionbar.button_size * forms) + ((C.actionbar.button_space * forms) - 3))
-				shiftanchor:SetPoint("TOPLEFT", _G["StanceButton1"], "TOPLEFT")
-			else
-				shiftanchor:SetWidth((C.actionbar.button_size * forms) + ((C.actionbar.button_space * forms) - 3))
-				shiftanchor:SetHeight(C.actionbar.button_size)
-				shiftanchor:SetPoint("TOPLEFT", _G["StanceButton1"], "TOPLEFT")
-			end
-		end
-	end)
-end
 
 ----------------------------------------------------------------------------------------
 --	Bottom line
@@ -427,3 +647,236 @@ toppanel.bcr:SetPoint("LEFT", toppanel, "BOTTOM", 0, 0)
 toppanel.bcr:SetSize(C.toppanel.width / 2, 1)
 toppanel.bcr:SetTexture(C.media.blank_border)
 toppanel.bcr:SetGradientAlpha("HORIZONTAL", T.color.r, T.color.g, T.color.b, 1, T.color.r, T.color.g, T.color.b, 0)
+
+----------------------------------------------------
+-- DATA TEXT Panels
+----------------------------------------------------
+
+-- Panel 1
+local DataTextP1 = CreateFrame("Frame", "DataTextP1", UIParent) 			
+DataTextP1:CreatePanel("Transparent", (CPwidth*Pscale/3), CPbarsheight*Pscale, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", xoffset, yoffset)
+DataTextP1:SetFrameLevel(2)
+DataTextP1:SetAlpha(0)
+
+-- Panel 2
+local DataTextP2 = CreateFrame("Frame", "DataTextP2", UIParent) 			
+DataTextP2:CreatePanel("Transparent", (CPwidth*Pscale/3), CPbarsheight*Pscale, "CENTER", DataTextP1, "CENTER", ((CPwidth*Pscale/3)), 0)
+DataTextP2:SetFrameLevel(2)
+DataTextP2:SetAlpha(0)
+
+-- Panel 3
+local DataTextP3 = CreateFrame("Frame", "DataTextP3", UIParent) 			
+DataTextP3:CreatePanel("Transparent", (CPwidth*Pscale/3), CPbarsheight*Pscale, "CENTER", DataTextP2, "CENTER", ((CPwidth*Pscale/3)), 0)
+DataTextP3:SetFrameLevel(2)
+DataTextP3:SetAlpha(0)
+
+-- Panel 6
+local DataTextP6 = CreateFrame("Frame", "DataTextP6", UIParent) 			
+DataTextP6:CreatePanel("Transparent", (CPwidth*Pscale/3), CPbarsheight*Pscale, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -xoffset, yoffset)
+DataTextP6:SetFrameLevel(2)
+DataTextP6:SetAlpha(0)
+
+-- Panel 5
+local DataTextP5 = CreateFrame("Frame", "DataTextP5", UIParent) 			
+DataTextP5:CreatePanel("Transparent", (CPwidth*Pscale/3), CPbarsheight*Pscale, "CENTER", DataTextP6, "CENTER", -((CPwidth*Pscale/3)), 0)
+DataTextP5:SetFrameLevel(2)
+DataTextP5:SetAlpha(0)
+
+-- Panel 4
+local DataTextP4 = CreateFrame("Frame", "DataTextP4", UIParent) 			
+DataTextP4:CreatePanel("Transparent", (CPwidth*Pscale/3), CPbarsheight*Pscale, "CENTER", DataTextP5, "CENTER", -((CPwidth*Pscale/3)), 0)
+DataTextP4:SetFrameLevel(2)
+DataTextP4:SetAlpha(0)
+
+-- Panel 7
+local DataTextP7 = CreateFrame("Frame", "DataTextP7", UIParent) 			
+DataTextP7:CreatePanel("Transparent", ((Tw/uiscale)/5), CPbarsheight*Pscale, "TOP", UIParent, "TOP", 0, 0)
+DataTextP7:SetFrameLevel(2)
+DataTextP7:SetAlpha(0)
+
+-- Panel 8
+local DataTextP8 = CreateFrame("Frame", "DataTextP8", UIParent) 			
+DataTextP8:CreatePanel("Transparent", ((Tw/uiscale)/5)*2, CPbarsheight*Pscale, "TOPLEFT", UIParent, "TOPLEFT", 0, 0)
+DataTextP8:SetFrameLevel(2)
+DataTextP8:SetAlpha(0)
+
+-- Panel 9
+local DataTextP9 = CreateFrame("Frame", "DataTextP9", UIParent) 			
+DataTextP9:CreatePanel("Transparent", ((Tw/uiscale)/5)*2, CPbarsheight*Pscale, "TOPRIGHT", UIParent, "TOPRIGHT", 0, 0)
+DataTextP9:SetFrameLevel(2)
+DataTextP9:SetAlpha(0)
+
+-- Panel 10
+local DataTextP10 = CreateFrame("Frame", "DataTextP10", UIParent)
+if C.panels.NoPanels == true then 			
+DataTextP10:CreatePanel("Transparent", (Pscale*CPMinimap)/2, CPbarsheight*Pscale, "RIGHT", TopHorizontalRightline, "RIGHT", -3, -2)
+else
+DataTextP10:CreatePanel("Transparent", (Pscale*CPMinimap)/2, CPbarsheight*Pscale, "RIGHT", CPMinimb1, "RIGHT", 0, -2)
+end
+DataTextP10:SetFrameLevel(2)
+DataTextP10:SetAlpha(0)
+
+-- Panel 11
+local DataTextP11 = CreateFrame("Frame", "DataTextP11", UIParent) 			
+DataTextP11:CreatePanel("Transparent", (Pscale*CPMinimap)/2, CPbarsheight*Pscale, "TOPRIGHT", DataTextP10, "TOPLEFT",  0, 0)
+DataTextP11:SetFrameLevel(2)
+DataTextP11:SetAlpha(0)
+
+
+----------------------------------------------------------------------------------------
+--	Bottom bars anchor
+----------------------------------------------------------------------------------------
+local bottombaranchor = CreateFrame("Frame", "ActionBarAnchor", oUF_PetBattleFrameHider)
+bottombaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.bottom_bars))
+bottombaranchor:SetWidth((C.actionbar.button_size * 12) + (C.actionbar.button_space * 11))
+if C.actionbar.bottombars == 2 then
+	bottombaranchor:SetHeight((C.actionbar.button_size * 2) + C.actionbar.button_space)
+elseif C.actionbar.bottombars == 3 then
+	if C.actionbar.split_bars == true then
+		bottombaranchor:SetHeight((C.actionbar.button_size * 2) + C.actionbar.button_space)
+	else
+		bottombaranchor:SetHeight((C.actionbar.button_size * 3) + (C.actionbar.button_space * 2))
+	end
+else
+	bottombaranchor:SetHeight(C.actionbar.button_size)
+end
+bottombaranchor:SetFrameStrata("LOW")
+
+----------------------------------------------------------------------------------------
+--	Right bars anchor
+----------------------------------------------------------------------------------------
+local rightbaranchor = CreateFrame("Frame", "RightActionBarAnchor", oUF_PetBattleFrameHider)
+rightbaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.right_bars))
+rightbaranchor:SetHeight((C.actionbar.button_size * 12) + (C.actionbar.button_space * 11))
+if C.actionbar.rightbars == 1 then
+	rightbaranchor:SetWidth(C.actionbar.button_size)
+elseif C.actionbar.rightbars == 2 then
+	rightbaranchor:SetWidth((C.actionbar.button_size * 2) + C.actionbar.button_space)
+elseif C.actionbar.rightbars == 3 then
+	rightbaranchor:SetWidth((C.actionbar.button_size * 3) + (C.actionbar.button_space * 2))
+else
+	rightbaranchor:Hide()
+end
+rightbaranchor:SetFrameStrata("LOW")
+
+----------------------------------------------------------------------------------------
+--	Split bar anchor
+----------------------------------------------------------------------------------------
+if C.actionbar.split_bars == true then
+	local SplitBarLeft = CreateFrame("Frame", "SplitBarLeft", oUF_PetBattleFrameHider)
+	SplitBarLeft:CreatePanel("Invisible", (C.actionbar.button_size * 3) + (C.actionbar.button_space * 2), (C.actionbar.button_size * 2) + C.actionbar.button_space, "BOTTOMRIGHT", ActionBarAnchor, "BOTTOMLEFT", -C.actionbar.button_space, 0)
+	SplitBarLeft:SetFrameStrata("LOW")
+
+	local SplitBarRight = CreateFrame("Frame", "SplitBarRight", oUF_PetBattleFrameHider)
+	SplitBarRight:CreatePanel("Invisible", (C.actionbar.button_size * 3) + (C.actionbar.button_space * 2), (C.actionbar.button_size * 2) + C.actionbar.button_space, "BOTTOMLEFT", ActionBarAnchor, "BOTTOMRIGHT", C.actionbar.button_space, 0)
+	SplitBarRight:SetFrameStrata("LOW")
+end
+
+----------------------------------------------------------------------------------------
+--	Pet bar anchor
+----------------------------------------------------------------------------------------
+local petbaranchor = CreateFrame("Frame", "PetActionBarAnchor", oUF_PetBattleFrameHider)
+petbaranchor:SetFrameStrata("LOW")
+if C.actionbar.rightbars > 0 then
+	if C.actionbar.petbar_horizontal == true then
+		petbaranchor:CreatePanel("Invisible", (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), (C.actionbar.button_size + C.actionbar.button_space), unpack(C.position.pet_horizontal))
+	else
+		petbaranchor:CreatePanel("Invisible", C.actionbar.button_size + 3, (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), "RIGHT", rightbaranchor, "LEFT", 0, 0)
+	end
+else
+	petbaranchor:CreatePanel("Invisible", (C.actionbar.button_size + C.actionbar.button_space), (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), unpack(C.position.right_bars))
+end
+
+----------------------------------------------------------------------------------------
+--	Stance bar anchor
+----------------------------------------------------------------------------------------
+if C.actionbar.stancebar_hide ~= true then
+	local shiftanchor = CreateFrame("Frame", "ShapeShiftBarAnchor", oUF_PetBattleFrameHider)
+	shiftanchor:RegisterEvent("PLAYER_ENTERING_WORLD")
+	shiftanchor:RegisterEvent("PLAYER_ENTERING_WORLD")
+	shiftanchor:RegisterEvent("UPDATE_SHAPESHIFT_FORMS")
+	shiftanchor:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+	shiftanchor:SetScript("OnEvent", function(self, event, ...)
+		local forms = GetNumShapeshiftForms()
+		if forms > 0 then
+			if C.actionbar.stancebar_horizontal ~= true then
+				shiftanchor:SetWidth(C.actionbar.button_size + 3)
+				shiftanchor:SetHeight((C.actionbar.button_size * forms) + ((C.actionbar.button_space * forms) - 3))
+				shiftanchor:SetPoint("TOPLEFT", _G["StanceButton1"], "TOPLEFT")
+			else
+				shiftanchor:SetWidth((C.actionbar.button_size * forms) + ((C.actionbar.button_space * forms) - 3))
+				shiftanchor:SetHeight(C.actionbar.button_size)
+				shiftanchor:SetPoint("TOPLEFT", _G["StanceButton1"], "TOPLEFT")
+			end
+		end
+	end)
+end
+
+
+--[[
+	local DataTextLeft = CreateFrame("Frame", "TukuiLeftDataTextBox", UIParent)
+	DataTextLeft:Size(370, 23)
+	DataTextLeft:SetPoint("LEFT", BottomLine, 4, -1)
+	DataTextLeft:SetTemplate()
+	DataTextLeft:SetFrameStrata("BACKGROUND")
+	DataTextLeft:SetFrameLevel(1)
+
+	local DataTextRight = CreateFrame("Frame", "TukuiRightDataTextBox", UIParent)
+	DataTextRight:Size(370, 23)
+	DataTextRight:SetPoint("RIGHT", BottomLine, -4, -1)
+	DataTextRight:SetTemplate()
+	DataTextRight:SetFrameStrata("BACKGROUND")
+	DataTextRight:SetFrameLevel(1)
+
+	local Hider = CreateFrame("Frame", nil, UIParent)
+	Hider:Hide()
+
+	BottomLine:SetAlpha(0)
+
+	local LeftChatBG = CreateFrame("Frame", nil, DataTextLeft)
+	LeftChatBG:Size(370 + 12, 177)
+	LeftChatBG:Point("BOTTOM", DataTextLeft, "BOTTOM", 0, -6)
+	LeftChatBG:SetFrameLevel(1)
+	LeftChatBG:SetFrameStrata("BACKGROUND")
+	LeftChatBG:CreateBackdrop("Transparent")
+	LeftChatBG.Backdrop:CreateShadow()
+
+	local RightChatBG = CreateFrame("Frame", nil, DataTextRight)
+	RightChatBG:Size(370 + 12, 177)
+	RightChatBG:CreateBackdrop("Transparent")
+	RightChatBG:Point("BOTTOM", DataTextRight, "BOTTOM", 0, -6)
+	RightChatBG:SetFrameLevel(1)
+	RightChatBG:SetFrameStrata("BACKGROUND")
+	RightChatBG:CreateShadow()
+	RightChatBG.Backdrop:CreateShadow()
+
+	local TabsBGLeft = CreateFrame("Frame", nil, LeftChatBG)
+	TabsBGLeft:SetTemplate()
+	TabsBGLeft:Size(370, 23)
+	TabsBGLeft:Point("TOP", LeftChatBG, "TOP", 0, -6)
+	TabsBGLeft:SetFrameLevel(2)
+
+	local TabsBGRight = CreateFrame("Frame", nil, RightChatBG)
+	TabsBGRight:SetTemplate()
+	TabsBGRight:Size(370, 23)
+	TabsBGRight:Point("TOP", RightChatBG, "TOP", 0, -6)
+	TabsBGRight:SetFrameLevel(2)
+
+	self.LeftChatBG = LeftChatBG
+	self.RightChatBG = RightChatBG
+	self.TabsBGLeft = TabsBGLeft
+	self.TabsBGRight = TabsBGRight
+
+	local PetBattleHider = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
+	PetBattleHider:SetAllPoints()
+	PetBattleHider:SetFrameStrata("LOW")
+	RegisterStateDriver(PetBattleHider, "visibility", "[petbattle] hide; show")
+
+	self.BottomLine = BottomLine
+	self.LeftVerticalLine = LeftVerticalLine
+	self.RightVerticalLine = RightVerticalLine
+	self.DataTextLeft = DataTextLeft
+	self.DataTextRight = DataTextRight
+	self.Hider = Hider
+	self.PetBattleHider = PetBattleHider
+	]]--

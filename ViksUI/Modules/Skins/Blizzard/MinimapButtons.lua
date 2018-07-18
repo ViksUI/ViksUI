@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.skins.minimap_buttons ~= true or C.minimapp.enable ~= true then return end
+if C.skins.minimap_buttons ~= true or C.minimap.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Skin addons icons on minimap
@@ -25,7 +25,7 @@ local function SkinButton(f)
 	f:SetPushedTexture(nil)
 	f:SetHighlightTexture(nil)
 	f:SetDisabledTexture(nil)
-	f:SetSize(20, 20)
+	f:SetSize(16, 16)
 
 	for i = 1, f:GetNumRegions() do
 		local region = select(i, f:GetRegions())
@@ -47,7 +47,7 @@ local function SkinButton(f)
 		end
 	end
 
-	f:SetTemplate("ClassColor")
+	f:SetTemplate("Transparent")
 end
 
 local frame = CreateFrame("Frame")

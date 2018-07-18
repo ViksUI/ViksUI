@@ -2,7 +2,7 @@
 if C.chat.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	Armory link on right click player name in chat
+--	Add Armory link in UnitPopupMenus (It breaks set focus)
 ----------------------------------------------------------------------------------------
 -- Find the Realm and Local
 local realmName = string.lower(GetRealmName())

@@ -5,13 +5,6 @@ if T.client ~= "zhTW" then return end
 --	Localization for zhTW client
 --	Translation: Aelb, Ianchan, Leg883, Mania, Nanjiqq, Spacedragon, Tat2dawn, Tibles
 ----------------------------------------------------------------------------------------
--- Announce your Lightwell
-L_ANNOUNCE_LA_USE = " 使用了光束泉！"
-L_ANNOUNCE_LA_CHARGE = "次剩餘)"
-L_ANNOUNCE_LA_USELESS = " 使用了光束泉，無效！"
-L_ANNOUNCE_LA_PLACED = "光束泉已放置！"
-L_ANNOUNCE_LA_CHARGES = "次剩餘."
-
 -- Announce flasks and food
 L_ANNOUNCE_FF_NOFOOD = "缺少食物Buff: "
 L_ANNOUNCE_FF_NOFLASK = "缺少精煉藥劑: "
@@ -57,12 +50,13 @@ L_MISC_BUY_STACK = "Alt+右鍵點擊購買一疊"
 L_MISC_ONECLICK_BUYOUT = "Shift+右鍵,不彈出確認窗口直接購買"
 L_MISC_ONECLICK_BID = "Shift+右鍵,不彈出確認窗口直接競標"
 L_MISC_ONECLICK_CANCEL = "Shift+右鍵,不彈出確認窗口直接取消選擇的物品"
-L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 http://www.wowinterface.com/downloads/info21462-ViksUI.html#info 下載最新版"
+L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 www.shestak.org 下載最新版"
 L_MISC_HEADER_MARK = "鼠標懸停顯示團隊圖標"
 L_MISC_BINDER_OPEN = "鼠標綁定"
 L_MISC_GROCERY_BUY = "購買"
 L_MISC_GROCERY_DESC = "雜貨商自動購買"
 L_MISC_SCROLL = "附魔卷軸"
+L_MISC_COLLAPSE = "The Collapse" -- Need review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "解散團隊"
@@ -103,6 +97,7 @@ L_MINIMAP_CALENDAR = "日曆"
 L_MINIMAP_HEAL_LAYOUT = "左鍵 - HPS 佈局"
 L_MINIMAP_DPS_LAYOUT = "右鍵 - DPS 佈局"
 L_MINIMAP_BLIZZ_LAYOUT = "中鍵 - 默認 佈局"
+L_MINIMAP_ARTIFACT = "Right click to use" -- Needs review
 
 -- Chat
 L_CHAT_WHISPER = "From"
@@ -130,7 +125,7 @@ L_ERRORFRAME_L = "點擊查看錯誤"
 L_BAG_SHOW_BAGS = "顯示背包"
 L_BAG_RIGHT_CLICK_SEARCH = "點擊右鍵以搜尋物品"
 L_BAG_STACK_MENU = "堆疊"
-L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu" -- Need review
+L_BAG_RIGHT_CLICK_CLOSE = "右鍵點擊打開菜單"
 
 -- Grab mail
 L_MAIL_STOPPED = "無法拾取, 背囊已滿."
@@ -172,12 +167,6 @@ L_BIND_CLEARED = "已經清除所有的快捷鍵設置"
 L_BIND_BINDING = "綁定"
 L_BIND_KEY = "按鍵"
 L_BIND_NO_SET = "沒有綁定快捷鍵"
-
--- Talent spec
-L_PLANNER_DRUID_4 = "恢復"
-L_PLANNER_MONK_2 = "織霧"
-L_PLANNER_PALADIN_1 = "神聖"
-L_PLANNER_PRIEST_1 = "戒律"
 
 -- BG stats
 L_DATATEXT_BASESASSAULTED = "基地突襲:"
@@ -225,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "您擁有的最高級貨幣為"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "歡迎使用ViksUI "
-L_WELCOME_LINE_2_1 = "輸入/cfg進行UI設置,或者訪問http://www.wowinterface.com/downloads/info21462-ViksUI.html#info"
+L_WELCOME_LINE_2_1 = "輸入/cfg進行UI設置,或者訪問http://shestak.org"
 L_WELCOME_LINE_2_2 = "獲取更多信息"
 
 -- Combat text
@@ -237,6 +226,7 @@ L_COMBATTEXT_TEST_ENABLED = "戰鬥信息測試模式已啟用."
 L_COMBATTEXT_TEST_USE_UNLOCK = "輸入 /xct unlock 來移動或調整戰鬥信息框架大小."
 L_COMBATTEXT_TEST_USE_LOCK = "輸入 /xct lock 來鎖定戰鬥信息框架."
 L_COMBATTEXT_TEST_USE_TEST = "輸入 /xct test 來啟用或禁用戰鬥信息測試模式."
+L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset to restore default positions." -- Need review
 L_COMBATTEXT_POPUP = "要保存戰鬥信息窗口的位置你需要重新載入插件."
 L_COMBATTEXT_UNSAVED = "戰鬥信息窗口位置尚未保存,不要忘記重新載入插件."
 L_COMBATTEXT_UNLOCKED = "戰鬥信息已解鎖."

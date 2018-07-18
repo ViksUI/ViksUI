@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.minimapp.enable ~= true or C.minimapp.toggle_menu ~= true then return end
+if C.minimap.enable ~= true or C.minimap.toggle_menu ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Toggle menu(by Hydra, Foof, Gorlasch and HyPeRnIcS)
@@ -39,7 +39,7 @@ C["togglemainmenu"] = {
 		end
 	},
 	{
-		["text"] = L_ALOAD_RL,
+		["text"] = RELOADUI,
 		["function"] = function()
 			ReloadUI()
 		end
@@ -109,9 +109,6 @@ C["toggleaddons"] = {
 	["DBM-Core"] = function()
 		DBM:LoadGUI()
 	end,
-	["DXE"] = function()
-		_G.DXE:ToggleConfig()
-	end,
 	["PhoenixStyle"] = function()
 		PS_MinimapButton:Click()
 	end,
@@ -122,15 +119,6 @@ C["toggleaddons"] = {
 	["Archy"] = function()
 		ToggleFrame(ArchyDigSiteFrame)
 		ToggleFrame(ArchyArtifactFrame)
-	end,
-	["stArchaeologist"] = function()
-		SlashCmdList.STARCHAEOLOGIST()
-		if _G["TTMenuAddOnBackground"]:IsShown() then
-			_G["TTMenuAddOnBackground"]:Hide()
-		end
-		if _G["TTMenuBackground"]:IsShown() then
-			_G["TTMenuBackground"]:Hide()
-		end
 	end,
 	["AtlasLoot"] = function()
 		ToggleFrame(AtlasLootDefaultFrame)
@@ -143,17 +131,8 @@ C["toggleaddons"] = {
 	["ViksUI_Config"] = function()
 		SlashCmdList.CONFIG()
 	end,
-	["Panda"] = function()
-		ToggleFrame(PandaPanel)
-	end,
-	["PallyPower"] = function()
-		ToggleFrame(PallyPowerFrame)
-	end,
 	["ACP"] = function()
 		ToggleFrame(ACP_AddonList)
-	end,
-	["ScrollMaster"] = function()
-		LibStub("AceAddon-3.0"):GetAddon("ScrollMaster").GUI:OpenFrame(1)
 	end,
 	["epgp"] = function()
 		EPGP:ToggleUI()
@@ -164,17 +143,11 @@ C["toggleaddons"] = {
 	["!BaudErrorFrame"] = function()
 		SlashCmdList.BaudErrorFrame()
 	end,
-	["CoolLine"] = function()
-		SlashCmdList.COOLLINE()
-	end,
-	["PreformAVEnabler"] = function()
-		SlashCmdList.PREFORMAV()
-	end,
 }
 
 -- Button size
 local function buttonwidth(num)
-	return num * (C.minimapp.size - 6)
+	return num * (C.minimap.size - 6)
 end
 local function buttonheight(num)
 	return num * 20

@@ -16,7 +16,7 @@ CPMABheight = C.panels.CPMABheight 			-- Hight for Main Actionbar
 CPMAByoffset = C.panels.CPMAByoffset 			-- Hight for Main Actionbar
 CPCooldheight = C.panels.CPCooldheight 		-- Hight for Cooldown Bar
 CPTop = C.panels.CPTop 						-- Width for Top Panels
-CPMinimap = C.minimapp.size 					-- Width/Hight for Minimap Panel
+CPMinimap = C.minimap.size 					-- Width/Hight for Minimap Panel
 Pscale = C.misc.Pscale						-- Can be used to resize all panels. It does not change X Y Values
 
 
@@ -32,7 +32,7 @@ qColor2 = ("|cff%.2x%.2x%.2x"):format(0 * 255, .38 * 255, .651 * 255)
 mult = T.mult
 
 
-function CreateShadow0(f)--
+function CreateShadow(f)--
 	if f.shadow then return end
 	local shadow = CreateFrame("Frame", nil, f)
 	shadow:SetFrameLevel(0)

@@ -10,6 +10,6 @@ frame:SetScript("OnEvent", function(self, event)
 	if IsInInstance() then
 		ObjectiveTracker_Collapse()
 	elseif ObjectiveTrackerFrame.collapsed and not InCombatLockdown() then
-		ObjectiveTracker_Expand()
+		--ObjectiveTracker_Expand()
 	end
 end)
