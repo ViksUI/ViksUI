@@ -1736,17 +1736,23 @@ if experience.enabled then
 			if event == "PLAYER_LOGOUT" or event == "TIME_PLAYED_MSG" then
 				conf.Played = floor(playedtotal + GetTime() - playedmsg)
 			end
-			if (event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
-				if event == "PLAYER_EQUIPMENT_CHANGED" then
-					local slot = ...
-					if slot ~= INVSLOT_MAINHAND then
-						return
-					end
-				end
-				if event == "PLAYER_EQUIPMENT_CHANGED" then
-					conf.ExpMode = "played"
-				end
-			end
+			--BETA if (event == "ARTIFACT_XP_UPDATE" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
+				-- if event == "PLAYER_EQUIPMENT_CHANGED" then
+					-- local slot = ...
+					-- if slot ~= INVSLOT_MAINHAND then
+						-- return
+					-- end
+				-- end
+				-- if HasArtifactEquipped() then
+					-- _, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
+					-- numPointsAvailableToSpend, artifactXP, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
+					-- self.text:SetText(gsub(experience.artifact_fmt, "%[([%w%%]-)%]", tags))
+				-- else
+					-- if event == "PLAYER_EQUIPMENT_CHANGED" then
+						-- conf.ExpMode = "played"
+					-- end
+				-- end
+			-- end
 		end,
 		OnEnter = function(self)
 			self.hovered = true
@@ -1805,43 +1811,43 @@ if experience.enabled then
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddDoubleLine(format("%s%s", tags"repcolor", tags"standing"), war and format("|cffff5555%s", AT_WAR))
 				GameTooltip:AddDoubleLine(format("%s%% | %s/%s", tags"rep%", tags"currep", tags"maxrep"), -tags"repleft", ttsubh.r, ttsubh.g, ttsubh.b, 1, 0.33, 0.33)
-			elseif conf.ExpMode == "art" then
-				_, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
-				numPointsAvailableToSpend, artifactXP, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
-				GameTooltip:AddLine(ARTIFACT_POWER..": "..artifactName, tthead.r, tthead.g, tthead.b)
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddDoubleLine(L_STATS_CURRENT_XP, format("%s/%s (%s%%)", tags"curart", tags"totalart", tags"curart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
-				GameTooltip:AddDoubleLine(L_STATS_REMAINING_XP, format("%s (%s%%)", tags"remainingart", tags"remainingart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
-				if numPointsAvailableToSpend and numPointsAvailableToSpend > 0 then
-					GameTooltip:AddLine(ARTIFACT_POWER_TOOLTIP_BODY:format(numPointsAvailableToSpend), ttsubh.r, ttsubh.g, ttsubh.b, 1)
-				end
+			--BETA elseif conf.ExpMode == "art" then
+				-- _, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
+				-- numPointsAvailableToSpend, artifactXP, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
+				-- GameTooltip:AddLine(ARTIFACT_POWER..": "..artifactName, tthead.r, tthead.g, tthead.b)
+				-- GameTooltip:AddLine(" ")
+				-- GameTooltip:AddDoubleLine(L_STATS_CURRENT_XP, format("%s/%s (%s%%)", tags"curart", tags"totalart", tags"curart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				-- GameTooltip:AddDoubleLine(L_STATS_REMAINING_XP, format("%s (%s%%)", tags"remainingart", tags"remainingart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				-- if numPointsAvailableToSpend and numPointsAvailableToSpend > 0 then
+					-- GameTooltip:AddLine(ARTIFACT_POWER_TOOLTIP_BODY:format(numPointsAvailableToSpend), ttsubh.r, ttsubh.g, ttsubh.b, 1)
+				-- end
 			end
 			GameTooltip:Show()
 		end,
 		OnClick = function(self, button)
 			if button == "RightButton" then
 				conf.ExpMode = conf.ExpMode == "xp" and "played"
-					or (conf.ExpMode == "played" and HasArtifactEquipped()) and "art"
+					--BETA or (conf.ExpMode == "played" and HasArtifactEquipped()) and "art"
 					or conf.ExpMode == "played" and "rep"
-					or conf.ExpMode == "art" and "rep"
+					--BETA or conf.ExpMode == "art" and "rep"
 					or (conf.ExpMode == "rep" and UnitLevel(P) ~= MAX_PLAYER_LEVEL) and "xp"
 					or conf.ExpMode == "rep" and "played"
 				if conf.ExpMode == "rep" then
 					self:GetScript("OnEvent")(self,"UPDATE_FACTION")
-				elseif conf.ExpMode == "art" then
-					self:GetScript("OnEvent")(self,"ARTIFACT_XP_UPDATE")
+				--BETA elseif conf.ExpMode == "art" then
+					-- self:GetScript("OnEvent")(self,"ARTIFACT_XP_UPDATE")
 				else
 					self:GetScript("OnUpdate")(self, 5)
 				end
 				self:GetScript("OnEnter")(self)
 			elseif button == "LeftButton" and conf.ExpMode == "rep" then
 				ToggleCharacter("ReputationFrame")
-			elseif button == "LeftButton" and conf.ExpMode == "art" then
-				if not ArtifactFrame or not ArtifactFrame:IsShown() then
-					ShowUIPanel(SocketInventoryItem(16))
-				elseif ArtifactFrame and ArtifactFrame:IsShown() then
-					HideUIPanel(ArtifactFrame)
-				end
+			--BETA elseif button == "LeftButton" and conf.ExpMode == "art" then
+				-- if not ArtifactFrame or not ArtifactFrame:IsShown() then
+					-- ShowUIPanel(SocketInventoryItem(16))
+				-- elseif ArtifactFrame and ArtifactFrame:IsShown() then
+					-- HideUIPanel(ArtifactFrame)
+				-- end
 			end
 		end
 	})
