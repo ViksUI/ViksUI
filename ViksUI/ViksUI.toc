@@ -3,13 +3,13 @@
 ## Notes: ViksUI
 ## Credits to: Tukz, Dawn, Shestak, Haste, Roth, P3lim, Monolit, AlleyKat, Maximvs, C.
 ## Author: Viks, Tryllemann
-## Version: 8.00
+## Version: 8.1
 ## X-oUF: oUF
 ## SavedVariables: SavedOptions, SavedStats, SavedAddonProfiles, SavedBindings, SavedCurrency
 ## SavedVariablesPerCharacter: SavedOptionsPerChar, StuffingDB, SavedPositions
 ## OptionalDeps: Blizzard_DebugTools, Blizzard_PetJournal, SharedMedia, Viks_ConfigUI, Masque, Bartender4, Skada, KLE, DBM, TinyDPS, DXE, Blizzard_CombatText, alEnemyCD, alRaidCD, AtlasLoot, caelNamePlates, cargBags, Clique, dNameplates, eCastingBar, epgp, Grid, Grid2, Mapster, Omen, oUF_Freebgrid, PitBull4, Postal, Prat-3.0, Quartz, Recount, ShadowedUnitFrames, sThreatMeter2, Stuf, TidyPlates, TipTac, TipTacTalents, TradeSkillMaster_Mailing, OPie, tullaCC, VuhDo, _NPCScan.Overlay, Rematch, ls_Toasts
 ## X-oUF: oUF_Viks
-## X-Curse-Packaged-Version: 8.00
+## X-Curse-Packaged-Version: 8.1
 ## X-Curse-Project-Name: ViksUI
 ## X-Curse-Project-ID: viksui
 ## X-WoWI-ID: 21462

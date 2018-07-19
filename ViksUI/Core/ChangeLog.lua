@@ -3,15 +3,23 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
+		"Update 8.1",
+		"• Fixed Debuffs above Nameplate",
+		"• Updated ClassTimer",
+		"• Div Skins updated",
+		"• Misc code changes",
+		" VERSION 8.0",
 		"• Updated to PrePatch BFA",
 		"• Minimap Buttons addon removed",
 		"• New Line/No panels Layout",
 		"• Many more changes in BFA version",
+		"",
 		--"• ",
 	--" ",
 	"Notes:",
 		"REMOVE MinimapButtonFrame AddOn, Not Needed anymore",
 		"NEW LINE LAYOUT - Under /config -> UI Panels, Enable NoPanels - Use Lines",
+		"/settings bartender now adds 6 different bartender profiles. NOTE! removes current settings",
 		"Join Discord channel for quick questions regarding ui.",
 		"https://discord.gg/pDEnZSV",
 }
@@ -89,7 +97,7 @@ _G.StaticPopupDialogs["DISCORD"] = {
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 245)
+	frame:SetSize(445, 320)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	--frame:SetFrameStrata(DIALOG)
