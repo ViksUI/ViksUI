@@ -64,8 +64,8 @@ cast.OnCastbarUpdate = function(self, elapsed)
 	end
 end
 cast.OnCastSent = function(self, event, unit, spell, rank)
-	if self.unit ~= unit or not self.Castbar.SafeZone then return end
-	self.Castbar.SafeZone.sendTime = GetTime()
+	--if self.unit ~= unit or not self.Castbar.SafeZone then return end
+	--self.Castbar.SafeZone.sendTime = GetTime()
 end
 cast.PostCastStart = function(self, unit, name, rank, text)
 	local pcolor = {255/255, 128/255, 128/255}
