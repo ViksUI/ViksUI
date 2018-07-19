@@ -44,3 +44,17 @@ C.font.combat_text_font_size = C.font.combat_text_font_size * mult
 C.font.stats_font_size = C.font.stats_font_size * mult
 C.font.stylization_font_size = C.font.stylization_font_size * mult
 C.font.cooldown_timers_font_size = C.font.cooldown_timers_font_size * mult
+
+local function Point(obj, arg1, arg2, arg3, arg4, arg5)
+	if arg2 == nil then
+		arg2 = obj:GetParent()
+	end
+
+	if type(arg1)=="number" then arg1 = T:Scale(arg1) end
+	if type(arg2)=="number" then arg2 = T:Scale(arg2) end
+	if type(arg3)=="number" then arg3 = T:Scale(arg3) end
+	if type(arg4)=="number" then arg4 = T:Scale(arg4) end
+	if type(arg5)=="number" then arg5 = T:Scale(arg5) end
+
+	obj:SetPoint(arg1, arg2, arg3, arg4, arg5)
+end
