@@ -1067,7 +1067,7 @@ if guild.enabled then
 							if not guildTable[i][10] then
 								menuCountInvites = menuCountInvites + 1
 								menuList[2].menuList[menuCountInvites] = {
-									text = string.format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r %s", levelc.r * 255, levelc.g * 255, levelc.b * 255, guildTable[i][3], classc.r * 255, classc.g * 255, classc.b * 255, guildTable[i][1], ""),
+									text = string.format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r %s", levelc.r * 255, levelc.g * 255, levelc.b * 255, guildTable[i][3], classc.r * 255, classc.g * 255, classc.b * 255, Ambiguate(guildTable[i][1], "all"), ""),
 									arg1 = guildTable[i][1],
 									notCheckable = true,
 									func = function(self, arg1)
@@ -1079,7 +1079,7 @@ if guild.enabled then
 						end
 						menuCountWhispers = menuCountWhispers + 1
 						menuList[3].menuList[menuCountWhispers] = {
-							text = string.format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r %s", levelc.r * 255, levelc.g * 255, levelc.b * 255, guildTable[i][3], classc.r * 255, classc.g * 255, classc.b * 255, guildTable[i][1], grouped),
+							text = string.format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r %s", levelc.r * 255, levelc.g * 255, levelc.b * 255, guildTable[i][3], classc.r * 255, classc.g * 255, classc.b * 255, Ambiguate(guildTable[i][1], "all"), grouped),
 							arg1 = guildTable[i][1],
 							notCheckable = true,
 							func = function(self, arg1)
@@ -1116,7 +1116,7 @@ if guild.enabled then
 						end
 						name, rank, _, level, _, zone, note, officernote, connected, status, class, _, _, isMobile = GetGuildRosterInfo(i)
 						if (connected or isMobile) and level >= guild.threshold then
-							name = Ambiguate(name, "none")
+							name = Ambiguate(name, "all")
 							if GetRealZoneText() == zone then zone_r, zone_g, zone_b = 0.3, 1, 0.3 else zone_r, zone_g, zone_b = 1, 1, 1 end
 							if isMobile then zone = "|cffa5a5a5"..REMOTE_CHAT.."|r" end
 							classc, levelc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class], GetQuestDifficultyColor(level)
@@ -1367,7 +1367,6 @@ if friends.enabled then
 					GameTooltip:AddLine(BATTLENET_FRIEND)
 					for i = 1, BNtotal do
 						_, presenceName, battleTag, _, toonName, toonID, client, isOnline, _, isAFK, isDND = BNGetFriendInfo(i)
-
 						toonName = BNet_GetValidatedCharacterName(toonName, battleTag, client) or ""
 						if not isOnline then break end
 						if isAFK then
@@ -1451,6 +1450,13 @@ end
 --	Talents
 ----------------------------------------------------------------------------------------
 if talents.enabled then
+	local specList = {
+		{text = SPECIALIZATION, isTitle = true, notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true}
+	}
 	Inject("Talents", {
 		OnLoad = function(self)
 			RegEvents(self, "PLAYER_LOGIN PLAYER_TALENT_UPDATE PLAYER_ENTERING_WORLD PLAYER_LEAVING_WORLD")
@@ -1460,27 +1466,18 @@ if talents.enabled then
 				self:RegisterEvent("PLAYER_TALENT_UPDATE")
 			elseif event == "PLAYER_LEAVING_WORLD" then
 				self:UnregisterEvent("PLAYER_TALENT_UPDATE")
-			elseif event == "UNIT_SPELLCAST_START" then
-				local unit, spell = ...
-				if unit == P and (spell == GetSpellInfo(63645) or spell == GetSpellInfo(63644)) then timer = GetTime() end
 			else
 				if UnitLevel(P) < 10 then
 					self.text:SetText(format("%s %s", NO, SPECIALIZATION))
 				else
-					local active = GetActiveSpecGroup()
-					if GetSpecialization(false, false, active) then
-						self.text:SetText(select(2, GetSpecializationInfo(GetSpecialization(false, false, active))))
+					local active = GetSpecialization()
+					if active then
+						self.text:SetText(select(2, GetSpecializationInfo(active)))
 					else
 						self.text:SetText(format("%s %s", NO, SPECIALIZATION))
 					end
 					if self.hovered then self:GetScript("OnEnter")(self) end
 				end
-			end
-		end,
-		OnUpdate = function(self)
-			if GetNumSpecGroups() > 1 then
-				self:SetScript("OnUpdate", nil)
-				self:GetScript("OnEvent")(self)
 			end
 		end,
 		OnEnter = function(self)
@@ -1490,11 +1487,7 @@ if talents.enabled then
 				GameTooltip:ClearLines()
 				GameTooltip:AddLine(SPECIALIZATION, tthead.r, tthead.g, tthead.b)
 				GameTooltip:AddLine(" ")
-				for i = 1, GetNumSpecGroups() do
-					if GetSpecialization(false, false, i) then
-						GameTooltip:AddLine(string.join(" ", string.format("", select(2, GetSpecializationInfo(GetSpecialization(false, false, i)))), (i == GetActiveSpecGroup() and string.join("", "|cff00FF00" , TALENT_ACTIVE_SPEC_STATUS, "|r") or string.join("", "|cffFF0000", FACTION_INACTIVE, "|r"))), 1, 1, 1)
-					end
-				end
+				GameTooltip:AddLine(CHOOSE_SPECIALIZATION_NOW, 1, 1, 1, 1)
 				GameTooltip:Show()
 			end
 			if C.toppanel.enable == true and C.toppanel.mouseover == true then
@@ -1508,14 +1501,20 @@ if talents.enabled then
 			end
 		end,
 		OnClick = function(_, b)
-			if b == "RightButton" and GetNumSpecGroups() > 1 then
-				SetActiveSpecGroup(3 - GetActiveSpecGroup())
+			if b == "RightButton" and GetSpecialization() then
+				for index = 1, 4 do
+					local id, name, _, texture = GetSpecializationInfo(index)
+					if id then
+						specList[index + 1].text = format('|T%s:14:14:0:0:64:64:4:60:4:60|t  %s', texture, name)
+						specList[index + 1].func = function() SetSpecialization(index) end
+					else
+						specList[index + 1] = nil
+					end
+				end
+				EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 			elseif b == "LeftButton" then
 				if not PlayerTalentFrame then
 					LoadAddOn("Blizzard_TalentUI")
-				end
-				if not GlyphFrame then
-					LoadAddOn("Blizzard_GlyphUI")
 				end
 				if T.level >= SHOW_TALENT_LEVEL then
 					PlayerTalentFrame_Toggle()
@@ -1530,7 +1529,6 @@ end
 ----------------------------------------------------------------------------------------
 --	Character Stats
 ----------------------------------------------------------------------------------------
-
 if stats.enabled then
 	local function tags(sub)
 		local percent, string = true
@@ -1621,7 +1619,13 @@ if experience.enabled then
 	local function short(num, tt)
 		if short or tt then
 			num = tonumber(num)
-			if num >= 1e8 then
+			if num >= 1e11 then
+				return ("%.0f%s"):format(num / 1e9, experience.billion or "b")
+			elseif num >= 1e10 then
+				return ("%.1f%s"):format(num / 1e9, experience.billion or "b"):gsub("%.?0+([km])$", "%1")
+			elseif num >= 1e9 then
+				return ("%.2f%s"):format(num / 1e9, experience.billion or "b"):gsub("%.?0+([km])$", "%1")
+			elseif num >= 1e8 then
 				return ("%.0f%s"):format(num / 1e6, experience.million or "m")
 			elseif num >= 1e7 then
 				return ("%.1f%s"):format(num / 1e6, experience.million or "m"):gsub("%.?0+([km])$", "%1")
@@ -1682,8 +1686,8 @@ if experience.enabled then
 					return gsub(experience.played_fmt, "%[([%w%%]-)%]", tags)
 				elseif conf.ExpMode == "xp" then
 					return gsub(experience[format("xp_%s_fmt", (GetXPExhaustion() or 0) > 0 and "rested" or "normal")], "%[([%w%%]-)%]", tags) or " "
-				--elseif conf.ExpMode == "art" then
-					--return self:GetText()
+				elseif conf.ExpMode == "art" then
+					return self:GetText()
 				end
 			end
 		},
@@ -1693,7 +1697,7 @@ if experience.enabled then
 			local ofunc = ChatFrame_DisplayTimePlayed
 			function ChatFrame_DisplayTimePlayed() ChatFrame_DisplayTimePlayed = ofunc end
 			RequestTimePlayed()
-			if not conf.ExpMode or conf.ExpMode == "xp" then
+			if not conf.ExpMode or conf.ExpMode == "xp" or conf.ExpMode == "art" then -- BETA Remove art after release.
 				conf.ExpMode = UnitLevel(P) ~= MAX_PLAYER_LEVEL and "xp" or "played"
 			end
 		end,
@@ -1736,23 +1740,23 @@ if experience.enabled then
 			if event == "PLAYER_LOGOUT" or event == "TIME_PLAYED_MSG" then
 				conf.Played = floor(playedtotal + GetTime() - playedmsg)
 			end
-			--BETA if (event == "ARTIFACT_XP_UPDATE" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
-				-- if event == "PLAYER_EQUIPMENT_CHANGED" then
-					-- local slot = ...
-					-- if slot ~= INVSLOT_MAINHAND then
-						-- return
-					-- end
-				-- end
-				-- if HasArtifactEquipped() then
-					-- _, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
-					-- numPointsAvailableToSpend, artifactXP, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
-					-- self.text:SetText(gsub(experience.artifact_fmt, "%[([%w%%]-)%]", tags))
-				-- else
-					-- if event == "PLAYER_EQUIPMENT_CHANGED" then
-						-- conf.ExpMode = "played"
-					-- end
-				-- end
-			-- end
+			if (event == "ARTIFACT_XP_UPDATE" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
+				if event == "PLAYER_EQUIPMENT_CHANGED" then
+					local slot = ...
+					if slot ~= INVSLOT_MAINHAND then
+						return
+					end
+				end
+				if HasArtifactEquipped() then
+					_, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
+					numPointsAvailableToSpend, artifactXP, xpForNextPoint = ArtifactBarGetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
+					self.text:SetText(gsub(experience.artifact_fmt, "%[([%w%%]-)%]", tags))
+				else
+					if event == "PLAYER_EQUIPMENT_CHANGED" then
+						conf.ExpMode = "played"
+					end
+				end
+			end
 		end,
 		OnEnter = function(self)
 			self.hovered = true
@@ -1811,43 +1815,44 @@ if experience.enabled then
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddDoubleLine(format("%s%s", tags"repcolor", tags"standing"), war and format("|cffff5555%s", AT_WAR))
 				GameTooltip:AddDoubleLine(format("%s%% | %s/%s", tags"rep%", tags"currep", tags"maxrep"), -tags"repleft", ttsubh.r, ttsubh.g, ttsubh.b, 1, 0.33, 0.33)
-			--BETA elseif conf.ExpMode == "art" then
-				-- _, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
-				-- numPointsAvailableToSpend, artifactXP, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
-				-- GameTooltip:AddLine(ARTIFACT_POWER..": "..artifactName, tthead.r, tthead.g, tthead.b)
-				-- GameTooltip:AddLine(" ")
-				-- GameTooltip:AddDoubleLine(L_STATS_CURRENT_XP, format("%s/%s (%s%%)", tags"curart", tags"totalart", tags"curart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
-				-- GameTooltip:AddDoubleLine(L_STATS_REMAINING_XP, format("%s (%s%%)", tags"remainingart", tags"remainingart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
-				-- if numPointsAvailableToSpend and numPointsAvailableToSpend > 0 then
-					-- GameTooltip:AddLine(ARTIFACT_POWER_TOOLTIP_BODY:format(numPointsAvailableToSpend), ttsubh.r, ttsubh.g, ttsubh.b, 1)
-				-- end
+			elseif conf.ExpMode == "art" then
+				_, _, artifactName, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, _, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
+				numPointsAvailableToSpend, artifactXP, xpForNextPoint = ArtifactBarGetNumArtifactTraitsPurchasableFromXP(artifactPointsSpent, artifactTotalXP, artifactTier)
+				GameTooltip:AddLine(ARTIFACT_POWER..": "..artifactName, tthead.r, tthead.g, tthead.b)
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddDoubleLine(L_STATS_CURRENT_XP, format("%s/%s (%s%%)", tags"curart", tags"totalart", tags"curart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				GameTooltip:AddDoubleLine(L_STATS_REMAINING_XP, format("%s (%s%%)", tags"remainingart", tags"remainingart%"), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				if numPointsAvailableToSpend and numPointsAvailableToSpend > 0 then
+					GameTooltip:AddLine(ARTIFACT_POWER_TOOLTIP_BODY:format(numPointsAvailableToSpend), ttsubh.r, ttsubh.g, ttsubh.b, 1)
+				end
 			end
 			GameTooltip:Show()
 		end,
 		OnClick = function(self, button)
 			if button == "RightButton" then
 				conf.ExpMode = conf.ExpMode == "xp" and "played"
-					--BETA or (conf.ExpMode == "played" and HasArtifactEquipped()) and "art"
+					or (conf.ExpMode == "played" and HasArtifactEquipped()) and "art"
 					or conf.ExpMode == "played" and "rep"
-					--BETA or conf.ExpMode == "art" and "rep"
+					or conf.ExpMode == "art" and "rep"
 					or (conf.ExpMode == "rep" and UnitLevel(P) ~= MAX_PLAYER_LEVEL) and "xp"
 					or conf.ExpMode == "rep" and "played"
 				if conf.ExpMode == "rep" then
 					self:GetScript("OnEvent")(self,"UPDATE_FACTION")
-				--BETA elseif conf.ExpMode == "art" then
-					-- self:GetScript("OnEvent")(self,"ARTIFACT_XP_UPDATE")
+				elseif conf.ExpMode == "art" then
+					self:GetScript("OnEvent")(self,"ARTIFACT_XP_UPDATE")
 				else
 					self:GetScript("OnUpdate")(self, 5)
 				end
 				self:GetScript("OnEnter")(self)
 			elseif button == "LeftButton" and conf.ExpMode == "rep" then
 				ToggleCharacter("ReputationFrame")
-			--BETA elseif button == "LeftButton" and conf.ExpMode == "art" then
-				-- if not ArtifactFrame or not ArtifactFrame:IsShown() then
-					-- ShowUIPanel(SocketInventoryItem(16))
-				-- elseif ArtifactFrame and ArtifactFrame:IsShown() then
-					-- HideUIPanel(ArtifactFrame)
-				-- end
+			elseif button == "LeftButton" and conf.ExpMode == "art" then
+				if not ArtifactFrame or not ArtifactFrame:IsShown() then
+					ShowUIPanel(SocketInventoryItem(16))
+				elseif ArtifactFrame and ArtifactFrame:IsShown() then
+					HideUIPanel(ArtifactFrame)
+
+				end
 			end
 		end
 	})
