@@ -291,18 +291,21 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 			SplashFrame.BottomCloseButton:SkinButton()
 			T.SkinCloseButton(SplashFrame.TopCloseButton)
 
-			-- NavBar Buttons (Used in EncounterJournal and HelpFrame)
+			--NavBar Buttons (Used in WorldMapFrame, EncounterJournal and HelpFrame)
 			local function SkinNavBarButtons(self)
-				if self:GetParent():GetName() == "WorldMapFrame" then return end
+				--if (self:GetParent():GetName() == "EncounterJournal") or (self:GetParent():GetName() == "WorldMapFrame") or (self:GetParent():GetName() == "HelpFrameKnowledgebase") then
+					--return
+				--end
 				local navButton = self.navList[#self.navList]
 				if navButton and not navButton.isSkinned then
-					navButton:SkinButton(true)
+					T:HandleButton(navButton, true)
+					navButton:SetHeight(25)
 					if navButton.MenuArrowButton then
-						navButton.MenuArrowButton:SetNormalTexture(nil)
-						navButton.MenuArrowButton:SetPushedTexture(nil)
-						navButton.MenuArrowButton:SetHighlightTexture(nil)
+						T:HandleNextPrevButton(navButton.MenuArrowButton, true)
+						navButton.MenuArrowButton:SetHeight(20)
+						navButton.MenuArrowButton:SetPoint("RIGHT", navButton, "RIGHT", -2, 0)
 					end
-					navButton.xoffset = 1
+
 					navButton.isSkinned = true
 				end
 			end
