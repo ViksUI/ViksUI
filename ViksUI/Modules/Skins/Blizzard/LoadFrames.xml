@@ -48,7 +48,7 @@
 	<Script file="MinimapButtons.lua"/>
 	<Script file="Obliterum.lua"/>
 	<Script file="Options.lua"/>
-	<!--Script file="OrderHall.lua"/-->
+	<Script file="OrderHall.lua"/>
 	<Script file="Petition.lua"/>
 	<Script file="PetStable.lua"/>
 	<Script file="ProductChoice.lua"/>
