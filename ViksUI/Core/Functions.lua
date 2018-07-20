@@ -1895,6 +1895,69 @@ function T:HandleMaxMinFrame(frame)
 	end
 end
 
+function T:HandleEditBox(frame)
+	frame:CreateBackdrop("Default")
+
+	if frame.TopLeftTex then frame.TopLeftTex:Kill() end
+	if frame.TopRightTex then frame.TopRightTex:Kill() end
+	if frame.TopTex then frame.TopTex:Kill() end
+	if frame.BottomLeftTex then frame.BottomLeftTex:Kill() end
+	if frame.BottomRightTex then frame.BottomRightTex:Kill() end
+	if frame.BottomTex then frame.BottomTex:Kill() end
+	if frame.LeftTex then frame.LeftTex:Kill() end
+	if frame.RightTex then frame.RightTex:Kill() end
+	if frame.MiddleTex then frame.MiddleTex:Kill() end
+	if frame.Left then frame.Left:Kill() end
+	if frame.Right then frame.Right:Kill() end
+	if frame.Middle then frame.Middle:Kill() end
+	if frame.Mid then frame.Mid:Kill() end
+
+	local frameName = frame.GetName and frame:GetName()
+	if frameName then
+		if _G[frameName.."Left"] then _G[frameName.."Left"]:Kill() end
+		if _G[frameName.."Middle"] then _G[frameName.."Middle"]:Kill() end
+		if _G[frameName.."Right"] then _G[frameName.."Right"]:Kill() end
+		if _G[frameName.."Mid"] then _G[frameName.."Mid"]:Kill() end
+
+		if frameName:find("Silver") or frameName:find("Copper") then
+			frame.backdrop:SetPoint("BOTTOMRIGHT", -12, -2)
+		end
+	end
+end
+
+function T:HandleDropDownBox(frame, width)
+	local button = _G[frame:GetName().."Button"]
+	if not button then return end
+
+	if not width then width = 155 end
+
+	frame:StripTextures()
+	frame:SetWidth(width)
+
+	local frameText = _G[frame:GetName().."Text"]
+	if frameText then
+		_G[frame:GetName().."Text"]:ClearAllPoints()
+		_G[frame:GetName().."Text"]:SetPoint("RIGHT", button, "LEFT", -2, 0)
+	end
+
+	if button then
+		button:ClearAllPoints()
+		button:SetPoint("RIGHT", frame, "RIGHT", -10, 3)
+		hooksecurefunc(button, "SetPoint", function(btn, _, _, _, _, _, noReset)
+			if not noReset then
+				btn:ClearAllPoints()
+				btn:SetPoint("RIGHT", frame, "RIGHT", T:Scale(-10), T:Scale(3), true)
+			end
+		end)
+
+		self:HandleNextPrevButton(button, true)
+	end
+
+	frame:CreateBackdrop("Default")
+	frame.backdrop:SetPoint("TOPLEFT", 20, -2)
+	frame.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+end
+
 -- World Map related Skinning functions used for WoW 8.0
 function T:WorldMapMixin_AddOverlayFrame(self, templateName, templateType, anchorPoint, relativeTo, relativePoint, offsetX, offsetY)
 	T[templateName](self.overlayFrames[#self.overlayFrames])
@@ -1971,4 +2034,92 @@ function T:HandleIcon(icon, parent)
 	icon:SetParent(parent.backdrop)
 	parent.backdrop:SetPoint("TOPLEFT", -4, 4)
 	parent.backdrop:SetPoint("BOTTOMRIGHT", 4, -3)
+end
+
+function T:CropIcon(texture, parent)
+	texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	if parent then
+		local layer, subLevel = texture:GetDrawLayer()
+		local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
+		iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
+		iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
+		iconBorder:SetColorTexture(0, 0, 0)
+		return iconBorder
+	end
+end
+
+function T:HandleInsetFrameTemplate(frame)
+	if frame.InsetBorderTop then frame.InsetBorderTop:Hide() end
+	if frame.InsetBorderTopLeft then frame.InsetBorderTopLeft:Hide() end
+	if frame.InsetBorderTopRight then frame.InsetBorderTopRight:Hide() end
+
+	if frame.InsetBorderBottom then frame.InsetBorderBottom:Hide() end
+	if frame.InsetBorderBottomLeft then frame.InsetBorderBottomLeft:Hide() end
+	if frame.InsetBorderBottomRight then frame.InsetBorderBottomRight:Hide() end
+
+	if frame.InsetBorderLeft then frame.InsetBorderLeft:Hide() end
+	if frame.InsetBorderRight then frame.InsetBorderRight:Hide() end
+
+	if frame.Bg then frame.Bg:Hide() end
+end
+
+-- HybridScrollFrame (Taken from Aurora)
+function T:HandleScrollSlider(Slider, thumbTrim)
+	local parent = Slider:GetParent()
+	Slider:SetPoint("TOPLEFT", parent, "TOPRIGHT", 0, -17)
+	Slider:SetPoint("BOTTOMLEFT", parent, "BOTTOMRIGHT", 0, 17)
+
+	if Slider.trackBG then Slider.trackBG:Hide() end
+	if Slider.ScrollBarTop then Slider.ScrollBarTop:Hide() end
+	if Slider.ScrollBarMiddle then Slider.ScrollBarMiddle:Hide() end
+	if Slider.ScrollBarBottom then Slider.ScrollBarBottom:Hide() end
+
+	if not Slider.trackbg then
+		Slider.trackbg = CreateFrame("Frame", nil, Slider)
+		Slider.trackbg:SetPoint("TOPLEFT", Slider.ScrollUp, "BOTTOMLEFT", 0, -1)
+		Slider.trackbg:SetPoint("BOTTOMRIGHT", Slider.ScrollDown, "TOPRIGHT", 0, 1)
+		--Slider.trackbg:SetTemplate("Overlay")
+		Slider.trackBG:Hide()
+		Slider.trackbg:SetAlpha(0)
+	end
+
+	if Slider.ScrollUp and Slider.ScrollDown then
+		if not Slider.ScrollUp.icon then
+			T:HandleNextPrevButton(Slider.ScrollUp, true, true)
+			Slider.ScrollUp:SetSize(Slider.ScrollUp:GetWidth() + 7, Slider.ScrollUp:GetHeight() + 7)
+		end
+
+		if not Slider.ScrollDown.icon then
+			T:HandleNextPrevButton(Slider.ScrollDown, true)
+			Slider.ScrollDown:SetSize(Slider.ScrollDown:GetWidth() + 7, Slider.ScrollDown:GetHeight() + 7)
+		end
+	end
+
+	if parent.scrollUp and parent.scrollDown then
+		if not parent.scrollUp.icon then
+			T:HandleNextPrevButton(parent.scrollUp, true, true)
+			parent.scrollUp:SetSize(parent.scrollUp:GetWidth() + 9, parent.scrollUp:GetHeight() + 7) -- Not perfect
+		end
+
+		if not parent.scrollDown.icon then
+			T:HandleNextPrevButton(parent.scrollDown, true)
+			parent.scrollDown:SetSize(parent.scrollDown:GetWidth() + 9, parent.scrollDown:GetHeight() + 7) -- Not perfect
+		end
+	end
+
+	if Slider.thumbTexture then
+		if not thumbTrim then thumbTrim = 3 end
+		Slider.thumbTexture:SetTexture(nil)
+		if not Slider.thumbbg then
+			Slider.thumbbg = CreateFrame("Frame", nil, Slider)
+			Slider.thumbbg:SetPoint("TOPLEFT", Slider.thumbTexture, "TOPLEFT", 2, -thumbTrim)
+			Slider.thumbbg:SetPoint("BOTTOMRIGHT", Slider.thumbTexture, "BOTTOMRIGHT", -2, thumbTrim)
+			Slider.thumbbg:SetTemplate("Overlay", true, true)
+			--Slider.thumbbg.backdropTexture:SetVertexColor(0.6, 0.6, 0.6)
+			if Slider.trackbg then
+				Slider.thumbbg:SetFrameLevel(Slider.trackbg:GetFrameLevel()+1)
+				
+			end
+		end
+	end
 end
