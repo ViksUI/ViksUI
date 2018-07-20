@@ -2063,6 +2063,40 @@ function T:HandleInsetFrameTemplate(frame)
 	if frame.Bg then frame.Bg:Hide() end
 end
 
+function T:SkinTalentListButtons(frame)
+	local name = frame and frame.GetName and frame:GetName()
+	if name then
+		local bcl = _G[name.."BtnCornerLeft"]
+		local bcr = _G[name.."BtnCornerRight"]
+		local bbb = _G[name.."ButtonBottomBorder"]
+		if bcl then bcl:SetTexture("") end
+		if bcr then bcr:SetTexture("") end
+		if bbb then bbb:SetTexture("") end
+	end
+
+	if frame.Inset then
+		T:HandleInsetFrameTemplate(frame.Inset)
+
+		frame.Inset:SetPoint("TOPLEFT", 4, -60)
+		frame.Inset:SetPoint("BOTTOMRIGHT", -6, 26)
+	end
+end
+
+function T:HandleInsetFrameTemplate(frame)
+	if frame.InsetBorderTop then frame.InsetBorderTop:Hide() end
+	if frame.InsetBorderTopLeft then frame.InsetBorderTopLeft:Hide() end
+	if frame.InsetBorderTopRight then frame.InsetBorderTopRight:Hide() end
+
+	if frame.InsetBorderBottom then frame.InsetBorderBottom:Hide() end
+	if frame.InsetBorderBottomLeft then frame.InsetBorderBottomLeft:Hide() end
+	if frame.InsetBorderBottomRight then frame.InsetBorderBottomRight:Hide() end
+
+	if frame.InsetBorderLeft then frame.InsetBorderLeft:Hide() end
+	if frame.InsetBorderRight then frame.InsetBorderRight:Hide() end
+
+	if frame.Bg then frame.Bg:Hide() end
+end
+
 -- HybridScrollFrame (Taken from Aurora)
 function T:HandleScrollSlider(Slider, thumbTrim)
 	local parent = Slider:GetParent()
