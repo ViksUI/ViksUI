@@ -291,17 +291,19 @@ local function SetChatStyle(frame)
 
 		-- Update border color according where we talk
 		hooksecurefunc("ChatEdit_UpdateHeader", function()
-			local type = _G[chat.."EditBox"]:GetAttribute("chatType")
-			if not type then return end
-			if type == "CHANNEL" then
-				local id = GetChannelName(_G[chat.."EditBox"]:GetAttribute("channelTarget"))
-				if id == 0 then
+			local chatType = _G[chat.."EditBox"]:GetAttribute("chatType")
+			if not chatType then return end
+			
+			local chanTarget = _G[chat.."EditBox"]:GetAttribute("channelTarget")
+			local chanName = chanTarget and GetChannelName(chanTarget)
+			if chanName and chatType == "CHANNEL" then
+				if chanName == 0 then
 					colorize(unpack(C.media.border_color))
 				else
-					colorize(ChatTypeInfo[type..id].r, ChatTypeInfo[type..id].g, ChatTypeInfo[type..id].b)
+					colorize(ChatTypeInfo[chatType..chanName].r, ChatTypeInfo[chatType..chanName].g, ChatTypeInfo[chatType..chanName].b)
 				end
 			else
-				colorize(ChatTypeInfo[type].r, ChatTypeInfo[type].g, ChatTypeInfo[type].b)
+				colorize(ChatTypeInfo[chatType].r, ChatTypeInfo[chatType].g, ChatTypeInfo[chatType].b)
 			end
 		end)
 	end
@@ -424,8 +426,7 @@ local function SetupChatPosAndFont(self)
 			if C.chat.combatlog ~= true then
 				FCF_DockFrame(chat)
 				ChatFrame2Tab:EnableMouse(false)
-				ChatFrame2Tab:SetText("")
-				ChatFrame2Tab.SetText = T.dummy
+				ChatFrame2TabText:Hide()
 				ChatFrame2Tab:SetWidth(0.001)
 				ChatFrame2Tab.SetWidth = T.dummy
 			end
