@@ -1958,6 +1958,60 @@ function T:HandleDropDownBox(frame, width)
 	frame.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
 end
 
+function T:HandleCheckBox(frame, noBackdrop, noReplaceTextures)
+	assert(frame, 'does not exist.')
+
+	frame:StripTextures()
+
+	if noBackdrop then
+		frame:SetTemplate("Default")
+		frame:Size(16)
+	else
+		frame:CreateBackdrop('Default')
+		--x frame.backdrop:SetInside(nil, 4, 4)
+		frame.backdrop:SetPoint("TOPLEFT", nil, 6, -6)
+		frame.backdrop:SetPoint("BOTTOMRIGHT", nil, -6, 6)
+	end
+
+	if not noReplaceTextures then
+		if frame.SetCheckedTexture then
+			frame:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
+			if noBackdrop then
+				--x frame:GetCheckedTexture():SetInside(nil, -4, -4)
+				frame:GetCheckedTexture():SetPoint("TOPLEFT", nil, 6, -6)
+				frame:GetCheckedTexture():SetPoint("BOTTOMRIGHT", nil, -6, 6)
+			end
+		end
+
+		if frame.SetDisabledTexture then
+			frame:SetDisabledTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
+			if noBackdrop then
+				--x frame:GetDisabledTexture():SetInside(nil, -4, -4)
+				frame:GetDisabledTexture():SetPoint("TOPLEFT", nil, 6, -6)
+				frame:GetDisabledTexture():SetPoint("BOTTOMRIGHT", nil, -6, 6)
+			end
+		end
+
+		frame:HookScript('OnDisable', function(checkbox)
+			if not checkbox.SetDisabledTexture then return; end
+			if checkbox:GetChecked() then
+				checkbox:SetDisabledTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
+			else
+				checkbox:SetDisabledTexture("")
+			end
+		end)
+
+		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetNormalTexture("") end
+		end)
+		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetPushedTexture("") end
+		end)
+		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetHighlightTexture("") end
+		end)
+	end
+end
 -- World Map related Skinning functions used for WoW 8.0
 function T:WorldMapMixin_AddOverlayFrame(self, templateName, templateType, anchorPoint, relativeTo, relativePoint, offsetX, offsetY)
 	T[templateName](self.overlayFrames[#self.overlayFrames])
