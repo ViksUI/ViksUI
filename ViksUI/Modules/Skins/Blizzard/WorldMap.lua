@@ -9,7 +9,9 @@ local function LoadSkin()
 	WorldMapFrame.BorderFrame:SetFrameStrata(WorldMapFrame:GetFrameStrata())
 	WorldMapFrame.NavBar:StripTextures()
 	WorldMapFrame.NavBar.overlay:StripTextures()
+	WorldMapFrame.NavBar:SetPoint("TOPLEFT", 1, -40)
 
+	WorldMapFrame.ScrollContainer:CreateBackdrop()
 	WorldMapFrame:CreateBackdrop("Transparent")
 
 	WorldMapFrameHomeButton:StripTextures()
@@ -27,8 +29,19 @@ local function LoadSkin()
 	QuestScrollFrame.DetailFrame:StripTextures()
 	QuestScrollFrame.Background:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator.Divider:Hide()
+	QuestScrollFrame.Contents.StoryHeader:StripTextures()
+	
+	QuestScrollFrame.Contents.StoryHeader:CreateBackdrop("Invisible")
+	QuestScrollFrame.Contents.StoryHeader.backdrop:SetBackdropBorderColor(1, 1, 1, 0)
+	QuestScrollFrame.Contents.StoryHeader.backdrop:SetBackdropColor(.1,.1,.1, 1)
+	QuestScrollFrame.Contents.StoryHeader.backdrop:SetPoint("TOPLEFT", QuestScrollFrame.Contents.StoryHeader, "TOPLEFT", 6, -16)
+	QuestScrollFrame.Contents.StoryHeader.backdrop:SetPoint("BOTTOMRIGHT", QuestScrollFrame.Contents.StoryHeader, "BOTTOMRIGHT", -6, 6)
+	
+	QuestMapFrame.DetailsFrame:StripTextures()
+	QuestMapFrame.DetailsFrame.RewardsFrame:StripTextures()
 
 	QuestScrollFrame.DetailFrame:CreateBackdrop("Default")
+
 	QuestScrollFrame.DetailFrame.backdrop:SetPoint("TOPLEFT", QuestScrollFrame.DetailFrame, "TOPLEFT", 1, -3)
 	QuestScrollFrame.DetailFrame.backdrop:SetPoint("BOTTOMRIGHT", QuestScrollFrame.DetailFrame, "BOTTOMRIGHT", -1, 1)
 
@@ -82,9 +95,9 @@ local function LoadSkin()
 	hooksecurefunc(WorldMapFrame, "AddOverlayFrame", T.WorldMapMixin_AddOverlayFrame)
 
 	-- Elements
-	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1]) -- NavBar handled in ElvUI/modules/skins/misc
-	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2]) -- Buttons
-	WorldMapBountyBoard(WorldMapFrame.overlayFrames[3]) -- BountyBoard
+	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1])
+	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2])
+	WorldMapBountyBoard(WorldMapFrame.overlayFrames[3])
 
 end
 
