@@ -3,16 +3,10 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.1",
-		"• Fixed Debuffs above Nameplate",
-		"• Updated ClassTimer",
+		"Update 8.2",
 		"• Div Skins updated",
 		"• Misc code changes",
-		" VERSION 8.0",
-		"• Updated to PrePatch BFA",
-		"• Minimap Buttons addon removed",
-		"• New Line/No panels Layout",
-		"• Many more changes in BFA version",
+		"• Misc bug fixes",
 		"",
 		--"• ",
 	--" ",
