@@ -1587,6 +1587,17 @@ T.CreateAuraWatch = function(self, unit)
 
 	self.AuraWatch = auras
 end
+
+T.CheckPlayerBuff = function(spell)
+	for i = 1, 40 do
+		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
+		if not name then break end
+		if name == spell then
+			return i, unitCaster
+		end
+	end
+	return nil
+end 
 ------------------------------------------------------------------------------------------
 -- Overlay Function (Buttons)
 ------------------------------------------------------------------------------------------
