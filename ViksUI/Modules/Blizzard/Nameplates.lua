@@ -662,11 +662,11 @@ local function style(self, unit)
 		local mu = self.bg.multiplier
 		local unitReaction = UnitReaction(unit, "player")
 		if not UnitIsUnit("player", unit) and UnitIsPlayer(unit) and (unitReaction and unitReaction >= 5) then
-			r, g, b = unpack(T.oUF_colors.power["MANA"])
+			r, g, b = unpack(T.Colors.power["MANA"])
 			self:SetStatusBarColor(r, g, b)
 			self.bg:SetVertexColor(r * mu, g * mu, b * mu)
 		elseif not UnitIsTapDenied(unit) and not UnitIsPlayer(unit) then
-			local reaction = T.oUF_colors.reaction[unitReaction]
+			local reaction = T.Colors.reaction[unitReaction]
 			if reaction then
 				r, g, b = reaction[1], reaction[2], reaction[3]
 			else

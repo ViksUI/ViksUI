@@ -7,6 +7,8 @@ if C.tooltip.enable ~= true then return end
 local StoryTooltip = QuestScrollFrame.StoryTooltip
 StoryTooltip:SetFrameLevel(4)
 
+local WarCampaignTooltip = QuestScrollFrame.WarCampaignTooltip
+
 local tooltips = {
 	GameTooltip,
 	ItemRefTooltip,
@@ -23,6 +25,7 @@ local tooltips = {
 	QuestGuru_QuestWatchTooltip,
 	StoryTooltip,
 	ReputationParagonTooltip,
+	WarCampaignTooltip,
 	EmbeddedItemTooltip
 }
 
@@ -170,7 +173,7 @@ function GameTooltip_UnitColor(unit)
 	elseif UnitIsTapDenied(unit) or UnitIsDead(unit) then
 		r, g, b = 0.6, 0.6, 0.6
 	else
-		local reaction = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+		local reaction = T.Colors.reaction[UnitReaction(unit, "player")]
 		if reaction then
 			r, g, b = reaction[1], reaction[2], reaction[3]
 		else
@@ -373,9 +376,9 @@ local OnTooltipSetUnit = function(self)
 		local text = ""
 
 		if UnitIsEnemy("player", unit.."target") then
-			r, g, b = unpack(T.oUF_colors.reaction[1])
+			r, g, b = unpack(T.Colors.reaction[1])
 		elseif not UnitIsFriend("player", unit.."target") then
-			r, g, b = unpack(T.oUF_colors.reaction[4])
+			r, g, b = unpack(T.Colors.reaction[4])
 		end
 
 		if UnitName(unit.."target") == UnitName("player") then

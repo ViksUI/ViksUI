@@ -25,7 +25,7 @@ local function addAuraSource(self, func, unit, index, filter)
 				src = format("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, src)
 			end
 		else
-			local color = T.oUF_colors.reaction[UnitReaction(srcUnit, "player")]
+			local color = T.Colors.reaction[UnitReaction(srcUnit, "player")]
 			if color then
 				src = format("|cff%02x%02x%02x%s|r", color[1] * 255, color[2] * 255, color[3] * 255, src)
 			end

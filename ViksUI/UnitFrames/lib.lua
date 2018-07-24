@@ -11,6 +11,7 @@ local T, C, L, _ = unpack(select(2, ...))
 	local oUF = ns.oUF or oUF
 	--local r25w = cfg.RH25width
 	--local r10w = cfg.RH10width
+--[[ Temp disabled before deletion check
 	oUF.colors.power['MANA'] = {0.0, 0.56, 1.0}
 	oUF.colors.power['RAGE'] = {1.0,0,0}
 	oUF.colors.power['FOCUS'] = {1.0,0.75,0.25}
@@ -59,6 +60,7 @@ T.oUF_colors = setmetatable({
 		[8] = {0.33, 0.59, 0.33}, -- Exalted
 	}, {__index = oUF.colors.reaction}),
 }, {__index = oUF.colors})	
+]]--
 -----------------------------
 --MISC STYLING 
 -----------------------------

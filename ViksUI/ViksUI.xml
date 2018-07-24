@@ -23,7 +23,7 @@
 	<Script file="Core\PixelPerfect.lua"/>
 	<Script file="Config\DataText.lua"/>
 	<Script file="Libs\LiteStats\LiteStats.lua"/>
-	<Script file="UnitFrames\Colors.lua"/>
+	<!--Script file="UnitFrames\Colors.lua"/-->
 		
 	<Script file="Config\Filters\Announcements.lua"/>
 	<Script file="Config\Filters\ArenaControl.lua"/>
@@ -57,6 +57,7 @@
 	<Script file="Config\theme.lua"/>
 	<Script file="Config\Positions.lua"/>
 	<Script file="Config\Filters\FilgerSpells.lua"/>
+	<Script file="Core\Colors.lua"/>
 	
 	<Include file="UnitFrames\uf.xml"/>
 	<Include file="UnitFrames\template.xml"/>
@@ -277,7 +278,7 @@
 	<Script file="Modules\Tooltip\ItemIcons.lua"/>
 	<Script file="Modules\Tooltip\ItemLevel.lua"/>
 	<Script file="Modules\Tooltip\MultiItemRef.lua"/>
-	<Script file="Modules\Tooltip\PvPRating.lua"/>
+	<!--Script file="Modules\Tooltip\PvPRating.lua"/-->
 	<Script file="Modules\Tooltip\RuFix.lua"/>
 	<Script file="Modules\Tooltip\SpellID.lua"/>
 	<Script file="Modules\Tooltip\ItemCount.lua"/>

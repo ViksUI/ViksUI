@@ -651,7 +651,7 @@ T.PostUpdateHealth = function(health, unit, min, max)
 	else
 		local r, g, b
 		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
-			local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+			local c = T.Colors.reaction[UnitReaction(unit, "player")]
 			if c then
 				r, g, b = c[1], c[2], c[3]
 				health:SetStatusBarColor(r, g, b)
@@ -662,7 +662,7 @@ T.PostUpdateHealth = function(health, unit, min, max)
 		end
 		if unit == "pet" or unit == "vehicle" then
 			local _, class = UnitClass("player")
-			local r, g, b = unpack(T.oUF_colors.class[class])
+			local r, g, b = unpack(T.Colors.class[class])
 			if C.unitframe.own_color == true then
 				health:SetStatusBarColor(unpack(C.unitframe.uf_color))
 				health.bg:SetVertexColor(0.1, 0.1, 0.1)
@@ -767,7 +767,7 @@ T.PostUpdateRaidHealth = function(health, unit, min, max)
 	else
 		local r, g, b
 		if not UnitIsPlayer(unit) and UnitIsFriend(unit, "player") and C.unitframe.own_color ~= true then
-			local c = T.oUF_colors.reaction[5]
+			local c = T.Colors.reaction[5]
 			local r, g, b = c[1], c[2], c[3]
 			health:SetStatusBarColor(r, g, b)
 			if health.bg and health.bg.multiplier then
@@ -836,7 +836,7 @@ end
 T.PreUpdatePower = function(power, unit)
 	local _, pToken = UnitPowerType(unit)
 
-	local color = T.oUF_colors.power[pToken]
+	local color = T.Colors.power[pToken]
 	if color then
 		power:SetStatusBarColor(color[1], color[2], color[3])
 	end
@@ -846,7 +846,7 @@ T.PostUpdatePower = function(power, unit, min, max)
 	if unit and unit:find("arena%dtarget") then return end
 	local self = power:GetParent()
 	local pType, pToken = UnitPowerType(unit)
-	local color = T.oUF_colors.power[pToken]
+	local color = T.Colors.power[pToken]
 
 	if color then
 		power.value:SetTextColor(color[1], color[2], color[3])
@@ -1202,7 +1202,7 @@ local setBarTicks = function(Castbar, ticknum)
 	end
 end
 
-T.PostCastStart = function(Castbar, unit, name, castid)
+T.PostCastStart = function(Castbar, unit, name)
 	Castbar.channeling = false
 	if unit == "vehicle" then unit = "player" end
 
@@ -1220,9 +1220,9 @@ T.PostCastStart = function(Castbar, unit, name, castid)
 	local r, g, b, color
 	if UnitIsPlayer(unit) then
 		local _, class = UnitClass(unit)
-		color = T.oUF_colors.class[class]
+		color = T.Colors.class[class]
 	else
-		local reaction = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+		local reaction = T.Colors.reaction[UnitReaction(unit, "player")]
 		if reaction then
 			r, g, b = reaction[1], reaction[2], reaction[3]
 		else
@@ -1244,7 +1244,7 @@ T.PostCastStart = function(Castbar, unit, name, castid)
 	else
 		if unit == "pet" or unit == "vehicle" then
 			local _, class = UnitClass("player")
-			local r, g, b = unpack(T.oUF_colors.class[class])
+			local r, g, b = unpack(T.Colors.class[class])
 			if C.unitframe.own_color == true then
 				Castbar:SetStatusBarColor(unpack(C.unitframe.uf_color))
 				Castbar.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
@@ -1290,9 +1290,9 @@ T.PostChannelStart = function(Castbar, unit, name)
 	local r, g, b, color
 	if UnitIsPlayer(unit) then
 		local _, class = UnitClass(unit)
-		color = T.oUF_colors.class[class]
+		color = T.Colors.class[class]
 	else
-		local reaction = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+		local reaction = T.Colors.reaction[UnitReaction(unit, "player")]
 		if reaction then
 			r, g, b = reaction[1], reaction[2], reaction[3]
 		else
@@ -1314,7 +1314,7 @@ T.PostChannelStart = function(Castbar, unit, name)
 	else
 		if unit == "pet" or unit == "vehicle" then
 			local _, class = UnitClass("player")
-			local r, g, b = unpack(T.oUF_colors.class[class])
+			local r, g, b = unpack(T.Colors.class[class])
 			if C.unitframe.own_color == true then
 				Castbar:SetStatusBarColor(unpack(C.unitframe.uf_color))
 				Castbar.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
@@ -1647,16 +1647,6 @@ T.CreateBtn = function(buttonname, buttonparent, buttonwidth, buttonheight, tool
 
 	-- Overlay texture
 	button:CreateOverlay()
-end
-
-function T:SetModifiedBackdrop()
-	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(C["media"]["border_color"]))
-end
-
-function T:SetOriginalBackdrop()
-	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(C["media"]["border_color"]))
 end
 
 function T:HandleButton(f, strip, isDeclineButton)
@@ -2209,5 +2199,97 @@ function T:HandleScrollSlider(Slider, thumbTrim)
 				
 			end
 		end
+	end
+end
+-- Color Gradient
+T.ColorGradient = function(a, b, ...)
+	local Percent
+
+	if(b == 0) then
+		Percent = 0
+	else
+		Percent = a / b
+	end
+
+	if (Percent >= 1) then
+		local R, G, B = select(select("#", ...) - 2, ...)
+
+		return R, G, B
+	elseif (Percent <= 0) then
+		local R, G, B = ...
+
+		return R, G, B
+	end
+
+	local Num = (select("#", ...) / 3)
+	local Segment, RelPercent = math.modf(Percent * (Num - 1))
+	local R1, G1, B1, R2, G2, B2 = select((Segment * 3) + 1, ...)
+
+	return R1 + (R2 - R1) * RelPercent, G1 + (G2 - G1) * RelPercent, B1 + (B2 - B1) * RelPercent
+end
+
+-- New BFA DropDown Template (Original Function Credits: Aurora) ~ was modified.
+function T:HandleDropDownFrame(frame, width)
+	if not width then width = 155 end
+
+	local left = frame.Left
+	local middle = frame.Middle
+	local right = frame.Right
+	if left then
+		left:SetAlpha(0)
+		left:SetSize(25, 64)
+		left:SetPoint("TOPLEFT", 0, 17)
+	end
+	if middle then
+		middle:SetAlpha(0)
+		middle:SetHeight(64)
+	end
+	if right then
+		right:SetAlpha(0)
+		right:SetSize(25, 64)
+	end
+
+	local button = frame.Button
+	if button then
+		button:SetSize(24, 24)
+		button:ClearAllPoints()
+		button:Point("RIGHT", right, "RIGHT", -20, 0)
+
+		button.NormalTexture:SetTexture("")
+		button.PushedTexture:SetTexture("")
+		button.HighlightTexture:SetTexture("")
+
+		hooksecurefunc(button, "SetPoint", function(btn, _, _, _, _, _, noReset)
+			if not noReset then
+				btn:ClearAllPoints()
+				btn:SetPoint("RIGHT", frame, "RIGHT", T:Scale(-20), T:Scale(0), true)
+			end
+		end)
+
+		self:HandleNextPrevButton(button, true)
+	end
+
+	local disabled = button and button.DisabledTexture
+	if disabled then
+		disabled:SetAllPoints(button)
+		disabled:SetColorTexture(0, 0, 0, .3)
+		disabled:SetDrawLayer("OVERLAY")
+	end
+
+	local bg = CreateFrame("Frame", nil, frame)
+	if left then bg:SetPoint("TOPLEFT", left, 20, -21) end
+	if right then bg:SetPoint("BOTTOMRIGHT", right, -19, 23) end
+	bg:SetFrameLevel(frame:GetFrameLevel())
+	bg:CreateBackdrop("Default")
+
+	frame:SetHeight(32)
+	if middle and (not frame.noResize) then
+		frame:SetWidth(40)
+		middle:SetWidth(width)
+	end
+
+	if right and frame.Text then
+		frame.Text:SetSize(0, 10)
+		frame.Text:SetPoint("RIGHT", right, -43, 2)
 	end
 end
