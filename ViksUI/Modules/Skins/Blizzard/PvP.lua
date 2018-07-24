@@ -6,6 +6,7 @@ local T, C, L, _ = unpack(select(2, ...))
 
 if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
+
 	_G["PVPUIFrame"]:StripTextures()
 
 	for i = 1, 2 do
@@ -13,20 +14,24 @@ local function LoadSkin()
 	end
 
 	for i = 1, 3 do
-		local button = _G["PVPQueueFrameCategoryButton"..i]
-		button.Ring:Kill()
-		button:CreateBackdrop("Overlay")
-		button.backdrop:SetAllPoints()
-		button:StyleButton()
-		button.Background:Kill()
-		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		button.Icon:SetPoint("LEFT", button, "LEFT", 10, 0)
-		button.Icon:SetDrawLayer("OVERLAY")
-		button.Icon:SetSize(40, 40)
-		button.border = CreateFrame("Frame", nil, button)
-		button.border:CreateBackdrop("Default")
-		button.border.backdrop:SetPoint("TOPLEFT", button.Icon, -2, 2)
-		button.border.backdrop:SetPoint("BOTTOMRIGHT", button.Icon, 2, -2)
+		local bu = _G["PVPQueueFrameCategoryButton"..i]
+
+		bu.Ring:Kill()
+		bu.Background:Kill()
+
+		bu:SetTemplate()
+		bu:StyleButton()
+
+		bu.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		bu.Icon:Point("LEFT", bu, "LEFT")
+		bu.Icon:SetDrawLayer("OVERLAY")
+		bu.Icon:Size(45)
+		bu.Icon:ClearAllPoints()
+		bu.Icon:Point("LEFT", 10, 0)
+		bu.border = CreateFrame("Frame", nil, bu)
+		bu.border:SetTemplate("Default")
+		bu.border:SetOutside(bu.Icon)
+		bu.Icon:SetParent(bu.border)
 	end
 
 	local PVPQueueFrame = _G["PVPQueueFrame"]
@@ -48,8 +53,7 @@ local function LoadSkin()
 	SeasonReward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	local RewardFrameBorder = CreateFrame("Frame", nil, SeasonReward)
 	RewardFrameBorder:SetTemplate("Default")
-	RewardFrameBorder:SetPoint("TOPLEFT", 2, -2)
-	RewardFrameBorder:SetPoint("BOTTOMRIGHT", -2, 2)
+	RewardFrameBorder:SetOutside(SeasonReward.Icon)
 	SeasonReward.Icon:SetParent(RewardFrameBorder)
 	SeasonReward.Icon:SetDrawLayer("OVERLAY")
 
@@ -75,14 +79,13 @@ local function LoadSkin()
 		local reward = bu.Reward
 
 		bu:StripTextures()
-		bu:CreateBackdrop("Default")
+		bu:CreateBackdrop("Overlay")
 		bu:StyleButton()
-		bu.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
-		bu.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
-		bu.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+		bu.SelectedTexture:SetInside()
+		bu.SelectedTexture:SetColorTexture(1, 1, 0, 0.1)
 
 		reward:StripTextures()
-		reward:SetTemplate("Overlay")
+		reward:SetTemplate("Default")
 		reward:SetSize(40, 40)
 		reward:SetPoint("RIGHT", bu, "RIGHT", -8, 0)
 
@@ -92,7 +95,7 @@ local function LoadSkin()
 		reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
 		reward.EnlistmentBonus:StripTextures()
-		reward.EnlistmentBonus:SetTemplate("Overlay")
+		reward.EnlistmentBonus:SetTemplate("Default")
 		reward.EnlistmentBonus:SetSize(20, 20)
 		reward.EnlistmentBonus:SetPoint("TOPRIGHT", 2, 2)
 
@@ -109,12 +112,12 @@ local function LoadSkin()
 		bu.Border:Hide()
 
 		bu:StripTextures()
-		bu:CreateBackdrop("Default")
+		bu:CreateBackdrop("Overlay")
 		bu:StyleButton()
-		bu.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
-		bu.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
-		bu.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+		bu.SelectedTexture:SetInside()
 
+		bu.SelectedTexture:SetColorTexture(1, 1, 0, 0.1)
+		bu.Icon:SetDrawLayer("OVERLAY")
 		bu:SetNormalTexture("")
 		bu:SetHighlightTexture("")
 
@@ -215,33 +218,28 @@ local function LoadSkin()
 	ConquestFrame.DPSIcon.bg:SetAlpha(0.6)
 	T.SkinCheckBox(ConquestFrame.DPSIcon.checkButton)
 
-	local function handleButton(button)
-		button:StripTextures()
-		button:SetTemplate("Overlay")
-		button:StyleButton()
-		button.SelectedTexture:SetDrawLayer("ARTWORK")
-		button.SelectedTexture:ClearAllPoints()
-		button.SelectedTexture:SetAllPoints()
-		button.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
-		button.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
-		button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+		local reward = bu.Reward
 
-		button.Reward:StripTextures()
-		button.Reward:SetTemplate("Default")
-		button.Reward:SetSize(35, 35)
-		button.Reward:SetPoint("RIGHT", button, "RIGHT", -7, -1)
+		bu:StripTextures()
+		bu:CreateBackdrop("Overlay")
+		bu:StyleButton()
+		bu.SelectedTexture:SetInside()
+		bu.SelectedTexture:SetColorTexture(1, 1, 0, 0.1)
 
-		button.Reward.Icon:SetAllPoints()
-		button.Reward.Icon:SetPoint("TOPLEFT", 2, -2)
-		button.Reward.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-		button.Reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		reward:StripTextures()
+		reward:SetTemplate("Default")
+		reward:SetSize(40, 40)
+		reward:SetPoint("RIGHT", bu, "RIGHT", -8, 0)
+
+		reward.Icon:SetAllPoints()
+		reward.Icon:SetPoint("TOPLEFT", 2, -2)
+		reward.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+		reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	end
 
-	handleButton(ConquestFrame.RatedBG)
-	handleButton(ConquestFrame.Arena2v2)
-	handleButton(ConquestFrame.Arena3v3)
-
-	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -2)
+	ConquestFrame.Arena3v3:Point("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -2)
+	ConquestTooltip:SetTemplate("Transparent")
 	
 	-- Honor Frame StatusBar
 	HonorFrame.ConquestBar:StripTextures()
@@ -268,20 +266,35 @@ local function LoadSkin()
 	--Tutorials
 	T.SkinCloseButton(PremadeGroupsPvPTutorialAlert.CloseButton)
 	T.SkinCloseButton(HonorFrame.BonusFrame.BrawlHelpBox.CloseButton)
-
-
 end
 
 T.SkinFuncs["Blizzard_PVPUI"] = LoadSkin
 
 local function LoadSecondarySkin()
-	-- PvP Ready Dialog
+	--PVP QUEUE FRAME
 	PVPReadyDialog:StripTextures()
 	PVPReadyDialog:SetTemplate("Transparent")
-	PVPReadyDialogBackground:SetAlpha(0)
-	PVPReadyDialogEnterBattleButton:SkinButton()
-	PVPReadyDialogLeaveQueueButton:SkinButton()
-	T.SkinCloseButton(PVPReadyDialogCloseButton, PVPReadyDialog, "-")
+	T:HandleButton(PVPReadyDialogEnterBattleButton)
+	T:HandleButton(PVPReadyDialogLeaveQueueButton)
+	T.SkinCloseButton(PVPReadyDialogCloseButton)
+	PVPReadyDialogRoleIcon.texture:SetTexture("Interface\\LFGFrame\\UI-LFG-ICONS-ROLEBACKGROUNDS")
+	PVPReadyDialogRoleIcon.texture:SetAlpha(0.5)
+		hooksecurefunc("PVPReadyDialog_Display", function(self, _, _, _, queueType, _, role)
+		if role == "DAMAGER" then
+			PVPReadyDialogRoleIcon.texture:SetTexCoord(LFDQueueFrameRoleButtonDPS.background:GetTexCoord())
+		elseif role == "TANK" then
+			PVPReadyDialogRoleIcon.texture:SetTexCoord(LFDQueueFrameRoleButtonTank.background:GetTexCoord())
+		elseif role == "HEALER" then
+			PVPReadyDialogRoleIcon.texture:SetTexCoord(LFDQueueFrameRoleButtonHealer.background:GetTexCoord())
+		end
+
+		if queueType == "ARENA" then
+			self:Height(100)
+		end
+
+		self.background:Hide()
+	end)
+	
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSecondarySkin)
