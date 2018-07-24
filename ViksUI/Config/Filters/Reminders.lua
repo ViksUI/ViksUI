@@ -5,7 +5,7 @@ local T, C, L, _ = unpack(select(2, ...))
 --	Example: Flask of the Earth -> http://www.wowhead.com/spell=105694
 --	Take the number ID at the end of the URL, and add it to the list
 ----------------------------------------------------------------------------------------
-if C.reminder.raid_buffs_enable == true then
+if C.reminder.raid_buffs_enable == true or C.announcements.flask_food == true then
 	-- General buffs
 	T.ReminderBuffs = {
 		Flask = {

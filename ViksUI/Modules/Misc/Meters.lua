@@ -35,7 +35,7 @@ local thickness = 1
 		DamageMeterText:SetPoint("LEFT", RIGHTChatline, "LEFT", 20, 0)
 		DamageMeterText:SetText("Meters")
 			if C.panels.CPwidth <= 300 then
-			DamageMeterText:SetText("")
+			DamageMeterText:SetText("DPS")
 			end
 
 		RIGHTChatline.iconleft = RIGHTChatline:CreateTexture(nil, "OVERLAY")

@@ -62,6 +62,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		InterfaceOptionsActionBarsPanelRight:Kill()
 		InterfaceOptionsActionBarsPanelRightTwo:Kill()
 		InterfaceOptionsActionBarsPanelAlwaysShowActionBars:Kill()
+		InterfaceOptionsActionBarsPanelStackRightBars:Kill()
 	end
 
 	if C.nameplate.enable then

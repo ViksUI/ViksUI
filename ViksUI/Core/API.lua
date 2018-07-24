@@ -30,7 +30,7 @@ function CreateShadow(f)
 	shadow:SetPoint("TOPLEFT", -4, 4)
 	shadow:SetPoint("BOTTOMRIGHT", 4, -4)
 	shadow:SetBackdrop( {
-		edgeFile = C.Medias.Glow, edgeSize = T.Scale(4),
+		edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", edgeSize = T.Scale(4),
 	})
 	shadow:SetBackdropColor(0, 0, 0, 0)
 	shadow:SetBackdropBorderColor(0,0,0, 0.8)
@@ -77,6 +77,39 @@ local function Height(frame, height)
 	frame:SetHeight(T.Scale(height))
 end
 
+local function Point(obj, arg1, arg2, arg3, arg4, arg5)
+	-- anyone has a more elegant way for this?
+	if type(arg1) == "number" then arg1 = T.Scale(arg1) end
+	if type(arg2) == "number" then arg2 = T.Scale(arg2) end
+	if type(arg3) == "number" then arg3 = T.Scale(arg3) end
+	if type(arg4) == "number" then arg4 = T.Scale(arg4) end
+	if type(arg5) == "number" then arg5 = T.Scale(arg5) end
+
+	obj:SetPoint(arg1, arg2, arg3, arg4, arg5)
+end
+
+local function SetOutside(obj, anchor, xOffset, yOffset)
+	xOffset = xOffset or (MakeInset and 2) or 1
+	yOffset = yOffset or (MakeInset and 2) or 1
+	anchor = anchor or obj:GetParent()
+
+	if obj:GetPoint() then obj:ClearAllPoints() end
+
+	obj:Point("TOPLEFT", anchor, "TOPLEFT", -xOffset, yOffset)
+	obj:Point("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", xOffset, -yOffset)
+end
+
+local function SetInside(obj, anchor, xOffset, yOffset)
+	xOffset = xOffset or (MakeInset and 2) or 1
+	yOffset = yOffset or (MakeInset and 2) or 1
+	anchor = anchor or obj:GetParent()
+
+	if obj:GetPoint() then obj:ClearAllPoints() end
+
+	obj:Point("TOPLEFT", anchor, "TOPLEFT", xOffset, -yOffset)
+	obj:Point("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -xOffset, yOffset)
+end
+
 local function CreateBorder(f, i, o)
 	if i then
 		if f.iborder then return end
@@ -108,7 +141,7 @@ end
 
 local function GetTemplate(t)
 	if t == "ClassColor" then
-		local c = T.oUF_colors.class[T.class]
+		local c = T.Colors.class[T.class]
 		borderr, borderg, borderb, bordera = c[1], c[2], c[3], c[4]
 		backdropr, backdropg, backdropb, backdropa = unpack(C.media.backdrop_color)
 	else
@@ -366,12 +399,15 @@ local function addapi(object)
 	if not object.Width then mt.Width = Width end
 	if not object.Height then mt.Height = Height end
 	if not object.Point then mt.Point = Point end
+	if not object.SetOutside then mt.SetOutside = SetOutside end
+	if not object.SetInside then mt.SetInside = SetInside end
 	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
 	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
 	if not object.SetTemplate then mt.SetTemplate = SetTemplate end
 	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
 	if not object.CreateBackdrop then mt.CreateBackdrop = CreateBackdrop end
 	if not object.StripTextures then mt.StripTextures = StripTextures end
+	if not object.CreateShadow then mt.CreateShadow = CreateShadow end
 	if not object.Kill then mt.Kill = Kill end
 	if not object.StyleButton then mt.StyleButton = StyleButton end
 	if not object.SkinButton then mt.SkinButton = SkinButton end
