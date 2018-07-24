@@ -1,14 +1,10 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
---WoW API / Variables
 local C_Timer_After = C_Timer.After
---Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS:
+
 
 local function LoadSkin()
 
@@ -52,7 +48,7 @@ local function LoadSkin()
 	CommunitiesFrameInsetBotRightCorner:Hide()
 	CommunitiesFrameInsetBotLeftCorner:Hide()
 
-	hooksecurefunc(CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
+	hooksecurefunc(CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo)
 		if clubInfo then
 			self:SetSize(166, 67)
 
@@ -66,35 +62,28 @@ local function LoadSkin()
 			self.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 			self.IconRing:Hide()
 
-			self.bg = CreateFrame("Frame", nil, self)
-			self.bg:CreateBackdrop("Overlay")
-			self.bg:SetFrameLevel(self:GetFrameLevel() -2)
-			self.bg:SetPoint("TOPLEFT", 4, -3)
-			self.bg:SetPoint("BOTTOMRIGHT", -1, 3)
+			if not self.bg then
+				self.bg = CreateFrame("Frame", nil, self)
+				self.bg:CreateBackdrop("Overlay")
+				self.bg:SetFrameLevel(self:GetFrameLevel() -2)
+				self.bg:Point("TOPLEFT", 4, -3)
+				self.bg:Point("BOTTOMRIGHT", -1, 3)
+			end
 
 			local isGuild = clubInfo.clubType == Enum.ClubType.Guild
 			if isGuild then
-				--x self.Selection:SetInside(self.bg)
-				self.Selection:SetPoint("TOPLEFT", self.bg, 1, -1)
-				self.Selection:SetPoint("BOTTOMRIGHT", self.bg, -1, 1)
+				self.Selection:SetInside(self.bg)
 				self.Selection:SetColorTexture(0, 1, 0, 0.2)
 			else
-				--x self.Selection:SetInside(self.bg)
-				self.Selection:SetPoint("TOPLEFT", self.bg, 1, -1)
-				self.Selection:SetPoint("BOTTOMRIGHT", self.bg, -1, 1)
+				self.Selection:SetInside(self.bg)
 				self.Selection:SetColorTexture(FRIENDS_BNET_BACKGROUND_COLOR.r, FRIENDS_BNET_BACKGROUND_COLOR.g, FRIENDS_BNET_BACKGROUND_COLOR.b, 0.2)
 			end
 
 			local highlight = self:GetHighlightTexture()
 			highlight:SetColorTexture(1, 1, 1, 0.3)
-			--x highlight:SetInside(self.bg)
-			highlight:SetPoint("TOPLEFT", self.bg, 1, -1)
-			highlight:SetPoint("BOTTOMRIGHT", self.bg, -1, 1)
+			highlight:SetInside(self.bg)
 		end
 	end)
-
-
-
 
 	hooksecurefunc(CommunitiesListEntryMixin, "SetAddCommunity", function(self)
 		self:SetSize(166, 67)
@@ -108,28 +97,25 @@ local function LoadSkin()
 		self.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		self.IconRing:Hide()
 
-		self.bg = CreateFrame("Frame", nil, self)
-		self.bg:CreateBackdrop("Overlay")
-		self.bg:SetFrameLevel(self:GetFrameLevel() -2)
-		self.bg:SetPoint("TOPLEFT", 4, -3)
-		self.bg:SetPoint("BOTTOMRIGHT", -1, 3)
+		if not self.bg then
+			self.bg = CreateFrame("Frame", nil, self)
+			self.bg:CreateBackdrop("Overlay")
+			self.bg:SetFrameLevel(self:GetFrameLevel() -2)
+			self.bg:Point("TOPLEFT", 4, -3)
+			self.bg:Point("BOTTOMRIGHT", -1, 3)
+		end
 
 		local highlight = self:GetHighlightTexture()
 		highlight:SetColorTexture(1, 1, 1, 0.3)
-		--x highlight:SetInside(self.bg)
-		highlight:SetPoint("TOPLEFT", self.bg, 1, -1)
-		highlight:SetPoint("BOTTOMRIGHT", self.bg, -1, 1)
+		highlight:SetInside(self.bg)
 	end)
 
 	local function SkinTab(tab)
 		local normTex = tab:GetNormalTexture()
 		if normTex then
 			normTex:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			--normTex:SetInside()
-			--normTex:SetPoint("TOPLEFT", self, 1, -1)
-			--normTex:SetPoint("BOTTOMRIGHT", self, -1, 1)
+			normTex:SetInside()
 		end
-
 
 		if not tab.isSkinned then
 			for i = 1, tab:GetNumRegions() do
@@ -141,13 +127,10 @@ local function LoadSkin()
 				end
 			end
 
-
-
-
 			tab.pushed = true;
 			tab:CreateBackdrop("Default")
-			tab.backdrop:SetPoint("TOPLEFT", -2, 2)
-			tab.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
+			tab.backdrop:Point("TOPLEFT", -2, 2)
+			tab.backdrop:Point("BOTTOMRIGHT", 2, -2)
 			tab:StyleButton(true)
 			tab.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
@@ -167,9 +150,6 @@ local function LoadSkin()
 			--tab:SetPoint(point, relatedTo, point2, 1, y)
 		end
 
-
-
-
 		tab.isSkinned = true
 	end
 	SkinTab(CommunitiesFrame.ChatTab)
@@ -187,12 +167,12 @@ local function LoadSkin()
 	T:HandleButton(CommunitiesFrame.GuildFinderFrame.FindAGuildButton)
 
 	T:HandleScrollSlider(CommunitiesFrame.MemberList.ListScrollFrame.scrollBar)
-	
+
 	T:HandleScrollSlider(CommunitiesFrame.Chat.MessageFrame.ScrollBar)
 	T:HandleScrollSlider(CommunitiesFrameCommunitiesListListScrollFrame.ScrollBar)
 
-	--T:HandleDropDownFrame(CommunitiesFrame.StreamDropDownMenu)
-	--x T.SkinDropDownBox(CommunitiesFrame.CommunitiesListDropDownMenu)
+	T:HandleDropDownFrame(CommunitiesFrame.StreamDropDownMenu)
+	T:HandleDropDownFrame(CommunitiesFrame.CommunitiesListDropDownMenu)
 
 	-- [[ CHAT TAB ]]
 	CommunitiesFrame.MemberList:StripTextures()
@@ -211,10 +191,12 @@ local function LoadSkin()
 	CommunitiesFrame.GuildMemberDetailFrame:StripTextures()
 	CommunitiesFrame.GuildMemberDetailFrame:CreateBackdrop("Transparent")
 
+	CommunitiesFrame.GuildMemberDetailFrame.NoteBackground:SetTemplate("Transparent")
+	CommunitiesFrame.GuildMemberDetailFrame.OfficerNoteBackground:SetTemplate("Transparent")
 	T.SkinCloseButton(CommunitiesFrame.GuildMemberDetailFrame.CloseButton)
 	T:HandleButton(CommunitiesFrame.GuildMemberDetailFrame.RemoveButton)
 	T:HandleButton(CommunitiesFrame.GuildMemberDetailFrame.GroupInviteButton)
-	--T.SkinEditBox(CommunitiesFrame.GuildMemberDetailFrame.Note)
+	T:HandleDropDownFrame(CommunitiesFrame.GuildMemberDetailFrame.RankDropdown)
 
 	-- [[ ROSTER TAB ]]
 	local MemberList = CommunitiesFrame.MemberList
@@ -226,7 +208,7 @@ local function LoadSkin()
 	ColumnDisplay.InsetBorderTop:Hide()
 
 	T:HandleInsetFrameTemplate(CommunitiesFrame.MemberList.InsetFrame)
-	--x T.SkinDropDownBox(CommunitiesFrame.GuildMemberListDropDownMenu)
+	T:HandleDropDownFrame(CommunitiesFrame.GuildMemberListDropDownMenu)
 	T:HandleButton(CommunitiesFrame.CommunitiesControlFrame.GuildControlButton)
 	T:HandleButton(CommunitiesFrame.CommunitiesControlFrame.GuildRecruitmentButton)
 	T:HandleButton(CommunitiesFrame.CommunitiesControlFrame.CommunitiesSettingsButton)
@@ -256,9 +238,6 @@ local function LoadSkin()
 		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	end
 
-
-
-
 	--x GuildBenefitsFrame.Rewards.TitleText:FontTemplate(nil, 14)
 
 	GuildBenefitsFrame.Rewards.Bg:Hide()
@@ -271,7 +250,6 @@ local function LoadSkin()
 		local buttons = scrollFrame.buttons
 		local button, index
 		local numButtons = #buttons
-		local numRewards = GetNumGuildRewards()
 
 		for i = 1, numButtons do
 			button = buttons[i]
@@ -283,9 +261,7 @@ local function LoadSkin()
 
 			local hover = button:CreateTexture()
 			hover:SetColorTexture(1, 1, 1, 0.3)
-			--x hover:SetInside()
-			hover:SetPoint("TOPLEFT", self, 1, -1)
-			hover:SetPoint("BOTTOMRIGHT", self, -1, 1)
+			hover:SetInside()
 
 			button.hover = hover
 			button:SetHighlightTexture(hover)
@@ -296,9 +272,6 @@ local function LoadSkin()
 		end
 	end)
 
-
-
-
 	-- Guild Reputation Bar TO DO: Adjust me!
 	local StatusBar = CommunitiesFrame.GuildBenefitsFrame.FactionFrame.Bar
 	StatusBar.Middle:Hide()
@@ -306,7 +279,6 @@ local function LoadSkin()
 	StatusBar.Left:Hide()
 	StatusBar.BG:Hide()
 	StatusBar.Shadow:Hide()
-	--x E:RegisterStatusBar(StatusBar)
 
 	local bg = CreateFrame("Frame", nil, StatusBar)
 	bg:SetPoint("TOPLEFT", 0, -3)
@@ -337,22 +309,9 @@ local function LoadSkin()
 	end
 
 
-
-
-	--x CommunitiesFrameGuildDetailsFrameInfo.TitleText:FontTemplate(nil, 14)
-	--x CommunitiesFrameGuildDetailsFrameNews.TitleText:FontTemplate(nil, 14)
-
-
-
-
-
 	T:HandleScrollBar(CommunitiesFrameGuildDetailsFrameInfoScrollBar)
 	T:HandleScrollSlider(CommunitiesFrameGuildDetailsFrameNewsContainer.ScrollBar)
 	T:HandleButton(CommunitiesFrame.GuildLogButton)
-
-
-
-
 
 	-- Filters Frame
 	local FiltersFrame = _G["CommunitiesGuildNewsFiltersFrame"]
@@ -364,8 +323,16 @@ local function LoadSkin()
 	T.SkinCheckBox(FiltersFrame.EpicItemCrafted)
 	T.SkinCheckBox(FiltersFrame.EpicItemPurchased)
 	T.SkinCheckBox(FiltersFrame.LegendaryItemLooted)
-
 	T.SkinCloseButton(FiltersFrame.CloseButton)
+	
+	-- Guild Message EditBox
+	CommunitiesGuildTextEditFrame:StripTextures()
+	CommunitiesGuildTextEditFrame:SetTemplate("Transparent")
+	CommunitiesGuildTextEditFrame.Container:SetTemplate("Transparent")
+	--T:HandleScrollSlider(GuildTextEditFrameScrollBar) -- FUCKING SCROLLBARS >.>
+	T:HandleButton(CommunitiesGuildTextEditFrameAcceptButton)
+	T:HandleButton(CommunitiesGuildTextEditFrameCloseButton) -- Same Name as the other Close Button, WTF?!
+	--T:SkinCloseButton(CommunitiesGuildTextEditFrameCloseButton)
 
 	-- Guild Log
 	CommunitiesGuildLogFrame:StripTextures()
@@ -427,7 +394,7 @@ local function LoadSkin()
 	NotificationSettings:CreateBackdrop("Transparent")
 	NotificationSettings.backdrop:SetAllPoints()
 
-	--x T.SkinDropDownBox(CommunitiesFrame.NotificationSettingsDialog.CommunitiesListDropDownMenu)
+	T:HandleDropDownFrame(CommunitiesFrame.NotificationSettingsDialog.CommunitiesListDropDownMenu)
 	T.SkinCheckBox(CommunitiesFrame.NotificationSettingsDialog.ScrollFrame.Child.QuickJoinButton)
 	T:HandleButton(CommunitiesFrame.NotificationSettingsDialog.ScrollFrame.Child.AllButton)
 	T:HandleButton(CommunitiesFrame.NotificationSettingsDialog.ScrollFrame.Child.NoneButton)
@@ -498,8 +465,8 @@ local function LoadSkin()
 	T:HandleButton(TicketManager.Close)
 	T:HandleButton(TicketManager.GenerateLinkButton)
 
-	--x T.SkinDropDownBox(TicketManager.ExpiresDropDownMenu)
-	--x T.SkinDropDownBox(TicketManager.UsesDropDownMenu)
+	T:HandleDropDownFrame(TicketManager.ExpiresDropDownMenu)
+	T:HandleDropDownFrame(TicketManager.UsesDropDownMenu)
 
 	T:HandleScrollSlider(TicketManager.InviteManager.ListScrollFrame.scrollBar)
 	T:HandleButton(TicketManager.MaximizeButton)
