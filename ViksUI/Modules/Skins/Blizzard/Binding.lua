@@ -31,10 +31,7 @@ local function LoadSkin()
 	KeyBindingFrameCategoryList:SetTemplate("Overlay")
 
 	T.SkinCheckBox(KeyBindingFrame.characterSpecificButton)
-	KeyBindingFrame.scrollFrame.scrollBorderTop:SetTexture("")
-	KeyBindingFrame.scrollFrame.scrollBorderBottom:SetTexture("")
-	KeyBindingFrame.scrollFrame.scrollBorderMiddle:SetTexture("")
-	KeyBindingFrame.scrollFrame.scrollFrameScrollBarBackground:SetTexture("")
+	KeyBindingFrameScrollFrame:StripTextures()
 
 	T.SkinScrollBar(KeyBindingFrameScrollFrameScrollBar)
 
