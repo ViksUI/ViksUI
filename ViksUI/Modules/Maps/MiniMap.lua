@@ -59,7 +59,7 @@ GameTimeFrame:Hide()
 
 -- Hide Mail Button
 MiniMapMailFrame:ClearAllPoints()
-MiniMapMailFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 8, -10)
+MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
 MiniMapMailBorder:Hide()
 MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\Mail.tga")
 MiniMapMailIcon:SetSize(16, 16)
@@ -68,7 +68,8 @@ MiniMapMailIcon:SetSize(16, 16)
 QueueStatusFrame:SetClampedToScreen(true)
 QueueStatusFrame:SetFrameStrata("TOOLTIP")
 QueueStatusMinimapButton:ClearAllPoints()
-QueueStatusMinimapButton:SetPoint("TOP", Minimap, "TOP", 1, 6)
+QueueStatusMinimapButton:SetParent(Minimap)
+QueueStatusMinimapButton:SetPoint("BOTTOMRIGHT", 0, 0)
 QueueStatusMinimapButton:SetHighlightTexture(nil)
 QueueStatusMinimapButtonBorder:Hide()
 
@@ -342,4 +343,39 @@ if C.minimap.tracking_icon then
 	MiniMapTracking.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
 else
 	MiniMapTracking:Hide()
+end
+
+------------------------------------------------------------------------------------------	
+-- COMPASS
+------------------------------------------------------------------------------------------
+if C.minimap.compass then
+function compass()
+
+		frameC = CreateFrame("Frame", "Compass", Minimap)
+		frameC:SetAllPoints()
+		local north = frameC:CreateFontString(frameC:GetName())
+		north:SetPoint("TOP", Minimap, "TOP", 0, -2)
+		north:SetFont("Interface\\Addons\\ViksUI\\Media\\Font\\HandelGothicBT.ttf",12,"OUTLINE")
+		north:SetTextColor(1,1,0,1) 
+		north:SetText("N")
+
+		local east = frameC:CreateFontString(frameC:GetName())
+		east:SetPoint("RIGHT", Minimap, "RIGHT", -2, 0)
+		east:SetFont("Interface\\Addons\\ViksUI\\Media\\Font\\HandelGothicBT.ttf",10,"OUTLINE")
+		east:SetTextColor(1,1,.251,1) 
+		east:SetText("E")
+
+		local south = frameC:CreateFontString(frameC:GetName())
+		south:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 2)
+		south:SetFont("Interface\\Addons\\ViksUI\\Media\\Font\\HandelGothicBT.ttf",10,"OUTLINE")
+		south:SetTextColor(1,1,.251,1) 
+		south:SetText("S")
+
+		local west = frameC:CreateFontString(frameC:GetName())
+		west:SetPoint("LEFT", Minimap, "LEFT", 4, 0)
+		west:SetFont("Interface\\Addons\\ViksUI\\Media\\Font\\HandelGothicBT.ttf",10,"OUTLINE")
+		west:SetTextColor(1,1,.251,1) 
+		west:SetText("W")
+end
+compass()
 end
