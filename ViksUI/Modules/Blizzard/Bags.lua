@@ -922,17 +922,10 @@ function Stuffing:InitBags()
 		f.sortButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		f.sortButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
 		f.sortButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-		f.sortButton.ttText = L_BAG_BUTTONS_SORT
+		f.sortButton.ttText = "Sort"
 		f.sortButton:SetScript("OnEnter", tooltip_show)
 		f.sortButton:SetScript("OnLeave", tooltip_hide)
 		f.sortButton:SetScript("OnMouseUp", function(self, btn)
-			if btn == "RightButton" then
-				SetSortBagsRightToLeft(true)
-				SortBags()
-			else
-				Stuffing:SetBagsForSorting("d")
-				Stuffing:SortBags()
-			end
 		end)
 	
 		if T.level >= 100 then
