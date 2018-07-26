@@ -926,6 +926,8 @@ function Stuffing:InitBags()
 		f.sortButton:SetScript("OnEnter", tooltip_show)
 		f.sortButton:SetScript("OnLeave", tooltip_hide)
 		f.sortButton:SetScript("OnMouseUp", function(self, btn)
+			SetSortBagsRightToLeft(true)
+			SortBags()
 		end)
 	
 		if T.level >= 100 then
