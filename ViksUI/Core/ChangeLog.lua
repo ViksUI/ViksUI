@@ -3,17 +3,17 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.2",
+		"Update 8.3",
 		"• Div Skins updated",
 		"• Misc code changes",
 		"• Misc bug fixes",
+		"• Volume DataText added",
+		"• New MapInfo added",
 		"",
 		--"• ",
 	--" ",
 	"Notes:",
-		"REMOVE MinimapButtonFrame AddOn, Not Needed anymore",
-		"NEW LINE LAYOUT - Under /config -> UI Panels, Enable NoPanels - Use Lines",
-		"/settings bartender now adds 6 different bartender profiles. NOTE! removes current settings",
+		"Filger is turned off by default, as it might cause lag in raid.",
 		"Join Discord channel for quick questions regarding ui.",
 		"https://discord.gg/pDEnZSV",
 }
