@@ -2287,13 +2287,6 @@ function T:HandleDropDownFrame(frame, width)
 		disabled:SetDrawLayer("OVERLAY")
 	end
 
-	local bg = CreateFrame("Frame", nil, frame)
-	if left then bg:SetPoint("TOPLEFT", left, 20, -21) end
-	if right then bg:SetPoint("BOTTOMRIGHT", right, -19, 23) end
-	bg:SetFrameLevel(frame:GetFrameLevel())
-	bg:CreateBackdrop("Default")
-
-	frame:SetHeight(32)
 	if middle and (not frame.noResize) then
 		frame:SetWidth(40)
 		middle:SetWidth(width)
@@ -2303,4 +2296,8 @@ function T:HandleDropDownFrame(frame, width)
 		frame.Text:SetSize(0, 10)
 		frame.Text:SetPoint("RIGHT", right, -43, 2)
 	end
+	
+	frame:CreateBackdrop("Default")
+	frame.backdrop:Point("TOPLEFT", 20, -2)
+	frame.backdrop:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
 end
