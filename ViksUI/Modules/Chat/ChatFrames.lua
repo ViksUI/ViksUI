@@ -432,11 +432,25 @@ local function SetupChatPosAndFont(self)
 			end
 		end
 	end
+	
+	local bnet = CreateFrame('Frame', 'ViksUIBnetMover', UIParent)
+	bnet:Size(BNToastFrame:GetWidth(), BNToastFrame:GetHeight())
+	bnet:Point(unpack(C.position.bn_popup))
+	--move:RegisterFrame(bnet)
 
+	for i = 1, BNToastFrame:GetNumRegions() do
+		if i ~= 10 then
+			local region = select(i, BNToastFrame:GetRegions())
+			if region:GetObjectType() == "Texture" then region:SetTexture(nil) end
+		end
+	end	
+	BNToastFrame:SetTemplate("Transparent")
+	T.SkinCloseButton(BNToastFrame.CloseButton)
+	
 	-- Reposition battle.net popup over chat #1
 	BNToastFrame:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
-		self:SetPoint(unpack(C.position.bn_popup))
+		self:SetPoint("TOPLEFT", bnet, "TOPLEFT", 3, -3)
 	end)
 end
 
