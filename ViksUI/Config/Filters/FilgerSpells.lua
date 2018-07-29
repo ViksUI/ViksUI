@@ -51,7 +51,7 @@ C["filger_spells"] = {
 			-- Unholy Blight
 			{spellID = 115989, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Summon Gargoyle
-			{spellID = 49206, filter = "ICD", trigger = "NONE", duration = 40},
+			{spellID = 49206, filter = "ICD", trigger = "NONE", duration = 30},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -178,6 +178,10 @@ C["filger_spells"] = {
 			BarWidth = C.Filger.bar_width,
 			Position = {unpack(C["filger_position"].target_bar)},
 
+			-- Festering Wound
+			{spellID = 194310, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Virulent Plague
+			{spellID = 191587, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Blood Plague
 			{spellID = 55078, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Frost Fever
@@ -943,6 +947,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Coordinated Assault
+			{spellID = 266779, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Aspect of the Turtle
 			{spellID = 186265, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Bestial Wrath
@@ -986,6 +992,16 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
 			-- Buffs
+			-- Viper's Venom
+			{spellID = 268552, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Trick Shots
+			{spellID = 257622, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Lethal Shots
+			{spellID = 260395, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Precise Shots
+			{spellID = 260242, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Frenzy
+			{spellID = 272790, unitID = "pet", caster = "player", filter = "BUFF"},			
 			-- Steady Focus
 			{spellID = 193533, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Lock and Load
@@ -1076,6 +1092,8 @@ C["filger_spells"] = {
 			{spellID = 185855, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- A Murder of Crows
 			{spellID = 131894, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Hunter's Mark
+			{spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"},			
 			-- Vulnerable
 			--BETA {spellID = 187131, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hunter's Mark
@@ -1256,8 +1274,6 @@ C["filger_spells"] = {
 			{spellID = 12042, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Combustion
 			{spellID = 190319, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Rune of Power
-			{spellID = 116014, filter = "ICD", trigger = "NONE", duration = 10},
 			-- Pyretic Incantation
 			{spellID = 194329, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Blazing Barrier
@@ -1693,6 +1709,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.debuff_size,
 			Position = {unpack(C["filger_position"].target_debuff_icon)},
 
+			-- Touch of Death
+			{spellID = 115080, unitID = "target", caster = "player", filter = "DEBUFF"},			
 			-- Heavy Stagger
 			{spellID = 124273, unitID = "player", caster = "player", filter = "DEBUFF"},
 			-- Keg Smash
@@ -1863,6 +1881,8 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
 			-- Buffs
+			-- Righteous Verdict
+			{spellID = 267611, unitID = "player", caster = "player", filter = "BUFF"},			
 			-- Infusion of Light
 			{spellID = 54149, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Selfless Healer
@@ -2212,8 +2232,8 @@ C["filger_spells"] = {
 			{spellID = 114404, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Pain Suppression
 			{spellID = 33206, unitID = "target", caster = "player", filter = "BUFF"},
-			-- Void Entropy
-			--BETA {spellID = 155361, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Schism
+			{spellID = 214621, unitID = "target", caster = "player", filter = "DEBUFF"},	
 			-- Vampiric Touch
 			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Shadow Word: Pain
@@ -2697,8 +2717,6 @@ C["filger_spells"] = {
 			{spellID = 79206, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Unleash Life
 			{spellID = 73685, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Healing Stream Totem
-			{spellID = 5394, filter = "ICD", trigger = "NONE", duration = 15},
 			-- Doom Winds
 			{spellID = 204945, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Landslide
