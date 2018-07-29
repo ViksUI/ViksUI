@@ -632,4 +632,10 @@ OnLogon:SetScript("OnEvent", function(self, event)
 		print("|cffffff00".."Welcome to ViksUI "..T.version.." "..T.client..", "..T.name)
 		print("|cffffff00".."Type /config to config interface".." |cffffff00".."for more informations.")
 	end
+	
+	-- Force load some cvars
+	C_Timer.After(1, function() -- Making sure other addons don't turn this off
+		SetCVar("cameraDistanceMaxZoomFactor", 2.6) -- Set Max camera distance
+		SetCVar("scriptErrors", 1) -- Making sure to show lua errors.
+	end)
 end)
