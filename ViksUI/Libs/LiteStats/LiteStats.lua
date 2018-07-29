@@ -67,9 +67,12 @@ ls:SetScript("OnEvent", function(_, event, addon)
 		conf = SavedStats[realm][char]
 
 		-- true/false defaults for autosell and autorepair
-		if conf.AutoSell == nil then conf.AutoSell = true end
-		if conf.AutoRepair == nil then conf.AutoRepair = true end
-		if conf.AutoGuildRepair == nil then conf.AutoGuildRepair = true end
+		if conf.AutoSell == nil then conf.AutoSell = false end
+		if conf.AutoRepair == nil then conf.AutoRepair = false end
+		if conf.AutoGuildRepair == nil then conf.AutoGuildRepair = false end
+		if conf.AutoSell == true then conf.AutoSell = false end
+		if conf.AutoRepair == true then conf.AutoRepair = false end
+		if conf.AutoGuildRepair == true then conf.AutoGuildRepair = false end
 	end
 	-- if event == "ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
 		-- SetMapToCurrentZone()
