@@ -55,3 +55,9 @@ local function LoadSkin()
 end
 
 T.SkinFuncs["Blizzard_DebugTools"] = LoadSkin
+
+local function LoadSecondarySkin()
+LoadSkin()	
+end
+
+tinsert(T.SkinFuncs["ViksUI"], LoadSecondarySkin)
