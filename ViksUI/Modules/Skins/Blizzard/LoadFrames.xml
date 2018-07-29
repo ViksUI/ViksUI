@@ -7,6 +7,8 @@
 	<Script file="Archeology.lua"/>
 	<Script file="Artifact.lua"/>
 	<Script file="Auction.lua"/>
+	<Script file="Azerite.lua"/>
+	<Script file="AzeriteRespec.lua"/>
 	<Script file="BarberShop.lua"/>
 	<Script file="Binding.lua"/>
 	<Script file="BlackMarket.lua"/>
