@@ -2781,7 +2781,7 @@ MBFDB = {
 end
 
 local UploadChat = function()
-	--FCF_ResetChatWindows()
+	FCF_ResetChatWindows()
 	FCF_SetLocked(ChatFrame1, 1)
 	FCF_DockFrame(ChatFrame2)
 	FCF_SetLocked(ChatFrame2, 1)
@@ -2806,7 +2806,7 @@ local UploadChat = function()
 			frame:SetHeight(LChat:GetHeight()-8)
 			frame:SetPoint("BOTTOMLEFT",LChat,"BOTTOMLEFT",4,6)
 			frame:SetPoint("TOPRIGHT",LChat,"TOPRIGHT",-4,-2)		
-		elseif i == 5 then
+		elseif i == 4 then
 			frame:ClearAllPoints()
 			frame:SetWidth(RChat:GetWidth()-8)
 			frame:SetHeight(RChat:GetHeight()-8)
@@ -2833,6 +2833,11 @@ local UploadChat = function()
 	end
 	---Chat Channels Setup
 	ChatFrame_RemoveAllMessageGroups(ChatFrame1)
+	ChatFrame_RemoveChannel(ChatFrame1, TRADE)
+	ChatFrame_RemoveChannel(ChatFrame1, GENERAL)
+	ChatFrame_RemoveChannel(ChatFrame1, "LocalDefense")
+	ChatFrame_RemoveChannel(ChatFrame1, "GuildRecruitment")
+	ChatFrame_RemoveChannel(ChatFrame1, "LookingForGroup")
 	ChatFrame_AddMessageGroup(ChatFrame1, "SAY")
 	ChatFrame_AddMessageGroup(ChatFrame1, "EMOTE")
 	ChatFrame_AddMessageGroup(ChatFrame1, "YELL")
@@ -2861,17 +2866,20 @@ local UploadChat = function()
 	ChatFrame_AddMessageGroup(ChatFrame1, "IGNORED")
 	ChatFrame_AddMessageGroup(ChatFrame1, "ACHIEVEMENT")
 	ChatFrame_AddMessageGroup(ChatFrame1, "LOOT")
+	ChatFrame_AddMessageGroup(ChatFrame1, "PET_BATTLE_INFO")
 	-- Setup the Trade / Locale spam chat frame	
 	ChatFrame_RemoveAllMessageGroups(ChatFrame3)
-	ChatFrame_AddChannel(ChatFrame3, "Trade")
-	ChatFrame_AddChannel(ChatFrame3, "General")
+	ChatFrame_AddChannel(ChatFrame3, TRADE)
+	ChatFrame_AddChannel(ChatFrame3, GENERAL)
 	ChatFrame_AddChannel(ChatFrame3, "LocalDefense")
 	ChatFrame_AddChannel(ChatFrame3, "GuildRecruitment")
 	ChatFrame_AddChannel(ChatFrame3, "LookingForGroup")
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_MISC_INFO")
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
 	ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
+	ChatFrame_AddMessageGroup(ChatFrame3, "CHANNEL")
 	ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
 	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
 	ChatFrame_AddMessageGroup(ChatFrame3, "CURRENCY")
@@ -2925,11 +2933,9 @@ local UploadChat = function()
 end
 
 local UploadCvar = function()
-	--SetCVar("alternateResourceText", 1)
 	SetCVar("statusTextDisplay", "BOTH")
-	SetCVar("screenshotQuality", 10)
+	SetCVar("screenshotQuality", 8)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
-	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("showTutorials", 0)
 	SetCVar("gameTip", "0")
 	SetCVar("UberTooltips", 1)
@@ -2937,23 +2943,24 @@ local UploadCvar = function()
 	SetCVar("removeChatDelay", 1)
 	SetCVar("chatStyle", "im")
 	SetCVar("WholeChatWindowClickable", 0)
-	--SetCVar("ConversationMode", 1)
 	SetCVar("WhisperMode", "inline")
-	--SetCVar("BnWhisperMode", "inline")
 	SetCVar("colorblindMode", 0)
 	SetCVar("lootUnderMouse", 0)
 	SetCVar("autoLootDefault", 1)
 	SetCVar("RotateMinimap", 0)
-	--SetCVar("ConsolidateBuffs", 0)
+	SetCVar("autoQuestWatch", 1)
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("scriptErrors", 1)
 	SetCVar("taintLog", 0)
 	SetCVar("buffDurations", 1)
-	--SetCVar("enableCombatText", 1)
 	SetCVar("autoOpenLootHistory", 0)
+	SetCVar("violenceLevel", 5)
 	SetCVar("lossOfControl", 0)
 	SetCVar("threatWarning", 3)
 	SetCVar('SpamFilter', 0)
+	SetCVar("ShowClassColorInNameplate", 1)
+	SetCVar("autoSelfCast", 1)
+	SetCVar("nameplateShowSelf", 0)
 end
 
 StaticPopupDialogs.SETTINGS_ALL = {
@@ -2964,7 +2971,7 @@ StaticPopupDialogs.SETTINGS_ALL = {
 		if IsAddOnLoaded("DBM-Core") and C.skins.dbm then T.UploadDBM() end
 		if IsAddOnLoaded("DXE") and C.skins.dxe then T.UploadDXE() end
 		if IsAddOnLoaded("MikScrollingBattleText") then UploadMSBT() end
-		--if IsAddOnLoaded("Skada") then UploadSkada() end
+		if IsAddOnLoaded("Skada") then UploadSkada() end
 		if IsAddOnLoaded("Bartender4") then UploadBartender() end
 		UploadChat()
 		UploadCvar()
@@ -3007,13 +3014,11 @@ SlashCmdList.SETTINGS = function(msg)
 	elseif msg == "skada" then
 		if IsAddOnLoaded("Skada") then
 			UploadSkada()
-			ReloadUI()
 		else
 			print("|cffffff00Skada"..L_INFO_NOT_INSTALLED.."|r")
 		end
 	elseif msg == "chat" then
 			UploadChat()
-			ReloadUI()
 	elseif msg == "cvar" then
 			UploadCvar()
 	elseif msg == "bartender" then

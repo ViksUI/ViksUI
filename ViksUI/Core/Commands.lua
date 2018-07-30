@@ -168,23 +168,6 @@ SLASH_DBMTEST1 = "/dbmtest"
 SLASH_DBMTEST2 = "/виьеуые"
 
 ----------------------------------------------------------------------------------------
---	Sett Bartender Profile
-----------------------------------------------------------------------------------------
-SlashCmdList.VBT = function()
-	Bartender4.db:SetProfile("ViksUI")
-end
-SLASH_VBT1 = "/vbt"
-
-SlashCmdList.VBTR = function()
-	Bartender4.db:SetProfile("ViksUIRogue")
-end
-SLASH_VBTR1 = "/vbtrogue"
-
-SlashCmdList.VBTD = function()
-	Bartender4.db:SetProfile("ViksUIDruid")
-end
-SLASH_VBTD1 = "/vbtdruid"
-----------------------------------------------------------------------------------------
 --	Switch to heal layout
 ----------------------------------------------------------------------------------------
 SlashCmdList.HEAL = function()
