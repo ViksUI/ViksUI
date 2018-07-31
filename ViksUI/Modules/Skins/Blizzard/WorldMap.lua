@@ -1,6 +1,7 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
 
+
 local _G = _G
 local function LoadSkin()
 	local WorldMapFrame = _G["WorldMapFrame"]
@@ -31,8 +32,12 @@ local function LoadSkin()
 	QuestScrollFrame.Contents.Separator.Divider:Hide()
 	QuestScrollFrame.Contents.StoryHeader:StripTextures()
 	
+	QuestScrollFrame.DetailFrame:CreateBackdrop("Default")
+	QuestScrollFrame.DetailFrame.backdrop:SetFrameLevel(1)
+	QuestScrollFrame.DetailFrame.backdrop:Point("TOPLEFT", QuestScrollFrame.DetailFrame, "TOPLEFT", 3, 1)
+	QuestScrollFrame.DetailFrame.backdrop:Point("BOTTOMRIGHT", QuestScrollFrame.DetailFrame, "BOTTOMRIGHT", -2, -7)
+	QuestScrollFrame.Background:SetInside(QuestScrollFrame.DetailFrame.backdrop)
 	QuestScrollFrame.Contents.StoryHeader:CreateBackdrop("Invisible")
-	QuestScrollFrame.Contents.StoryHeader.backdrop:SetBackdropBorderColor(1, 1, 1, 0)
 	QuestScrollFrame.Contents.StoryHeader.backdrop:SetBackdropColor(.1,.1,.1, 1)
 	QuestScrollFrame.Contents.StoryHeader.backdrop:SetPoint("TOPLEFT", QuestScrollFrame.Contents.StoryHeader, "TOPLEFT", 6, -16)
 	QuestScrollFrame.Contents.StoryHeader.backdrop:SetPoint("BOTTOMRIGHT", QuestScrollFrame.Contents.StoryHeader, "BOTTOMRIGHT", -6, 6)
@@ -40,12 +45,7 @@ local function LoadSkin()
 	QuestMapFrame.DetailsFrame:StripTextures()
 	QuestMapFrame.DetailsFrame.RewardsFrame:StripTextures()
 
-	QuestScrollFrame.DetailFrame:CreateBackdrop("Default")
-
-	QuestScrollFrame.DetailFrame.backdrop:SetPoint("TOPLEFT", QuestScrollFrame.DetailFrame, "TOPLEFT", 1, -3)
-	QuestScrollFrame.DetailFrame.backdrop:SetPoint("BOTTOMRIGHT", QuestScrollFrame.DetailFrame, "BOTTOMRIGHT", -1, 1)
-
-	T:HandleScrollBar(QuestScrollFrameScrollBar)
+	T.SkinScrollBar(QuestScrollFrameScrollBar)
 
 	local QuestMapFrame = _G["QuestMapFrame"]
 	T:HandleButton(QuestMapFrame.DetailsFrame.BackButton)
@@ -69,6 +69,7 @@ local function LoadSkin()
 
 	-- Floor Dropdown
 	local function WorldMapFloorNavigationDropDown(Frame)
+		Frame:SetFrameLevel(WorldMapFrame:GetFrameLevel()+3)
 		T:HandleWorldMapDropDownMenu(Frame)
 	end
 
@@ -81,6 +82,8 @@ local function LoadSkin()
 		Button.IconOverlay:SetAlpha(0)
 		Button.Border:Hide()
 
+		Button:SetFrameLevel(WorldMapFrame:GetFrameLevel()+2)
+
 		local tex = Button:GetHighlightTexture()
 		tex:SetTexture([[Interface\Minimap\Tracking\None]], "ADD")
 		tex:SetAllPoints(Button.Icon)
@@ -88,6 +91,7 @@ local function LoadSkin()
 
 	-- Bounty Board
 	local function WorldMapBountyBoard(Frame)
+		Frame:SetFrameLevel(WorldMapFrame:GetFrameLevel()+2)
 		T.SkinCloseButton(Frame.TutorialBox.CloseButton)
 	end
 

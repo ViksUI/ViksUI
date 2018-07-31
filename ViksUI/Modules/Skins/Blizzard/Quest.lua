@@ -239,10 +239,10 @@ local function LoadSkin()
 	--QuestLogDetailScrollFrame:StripTextures()
 	--T:HandleCloseButton(QuestLogDetailFrameCloseButton)
 
-	--hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, x, y)
-		--QuestNPCModel:ClearAllPoints();
-		--QuestNPCModel:Point("TOPLEFT", parentFrame, "TOPRIGHT", x + 18, y);
-	--end)
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(QuestFrame, parentFrame, portrait, text, name, x, y)
+		QuestNPCModel:ClearAllPoints();
+		QuestNPCModel:SetPoint("TOPLEFT", QuestFrame, "TOPRIGHT", x + 10, y)
+	end)
 
 	QuestLogPopupDetailFrame:StripTextures()
 	QuestLogPopupDetailFrameInset:StripTextures()
