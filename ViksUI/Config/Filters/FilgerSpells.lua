@@ -2878,7 +2878,7 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].target_bar)},
 
 			-- Earth Shield
-			{spellID = 204288, unitID = "target", caster = "player", filter = "BUFF"},
+			{spellID = 974, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Riptide
 			{spellID = 61295, unitID = "target", caster = "player", filter = "BUFF"},
 		},
