@@ -929,57 +929,6 @@ function Stuffing:InitBags()
 			SetSortBagsRightToLeft(true)
 			SortBags()
 		end)
-	
-		if T.level >= 100 then
-			-- Artifact Button
-			f.ArtifactButton = CreateFrame("Button", nil, f, "BankItemButtonGenericTemplate")
-			f.ArtifactButton:SetSize(18, 18)
-			f.ArtifactButton:SetTemplate()
-			f.ArtifactButton:StyleButton(true)
-			f.ArtifactButton:SetPoint("TOPRIGHT", f.sortButton, -25, 0)
-			f.ArtifactButton:SetNormalTexture("Interface\\Icons\\Achievement_doublejeopardy")
-			f.ArtifactButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			f.ArtifactButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
-			f.ArtifactButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-			f.ArtifactButton:SetPushedTexture("Interface\\Icons\\Achievement_doublejeopardy")
-			f.ArtifactButton:GetPushedTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			f.ArtifactButton:GetPushedTexture():SetPoint("TOPLEFT", 2, -2)
-			f.ArtifactButton:GetPushedTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-			f.ArtifactButton:RegisterForClicks("RightButtonUp")
-			f.ArtifactButton.ttText = L_BAG_BUTTONS_ARTIFACT
-			f.ArtifactButton.UpdateTooltip = nil
-			f.ArtifactButton:SetScript("OnEnter", tooltip_show)
-			f.ArtifactButton:SetScript("OnLeave", tooltip_hide)
-			f.ArtifactButton:SetScript("PreClick", function(self)
-				for bag = 0, 4 do
-					for slot = 1, GetContainerNumSlots(bag) do
-						if IsArtifactPowerItem(GetContainerItemID(bag, slot)) then
-							self:GetParent():SetID(bag)
-							self:SetID(slot)
-							return
-						end
-					end
-				end
-			end)
-			f.ArtifactButton:SetScript("OnEnter", function()
-				local count = 0
-				for bag = 0, 4 do
-					for slot = 1, GetContainerNumSlots(bag) do
-						if IsArtifactPowerItem(GetContainerItemID(bag, slot)) then
-							count = count + 1
-						end
-					end
-				end
-
-				f.ArtifactButton:FadeIn()
-				GameTooltip:SetOwner(f.ArtifactButton, "ANCHOR_LEFT")
-				GameTooltip:AddLine(ARTIFACT_POWER)
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(L_TOOLTIP_ITEM_COUNT.." "..count)
-				GameTooltip:AddLine("Right click to use")
-				GameTooltip:Show()
-			end)
-		end
 	end
 	f.editbox = editbox
 	f.detail = detail
