@@ -68,7 +68,6 @@ function ObjectiveTracker:OnClick()
 	end
 end
 
-
 function ObjectiveTracker:Skin()
 	local Frame = ObjectiveTrackerFrame.MODULES
 
@@ -185,7 +184,11 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 
 			Bar:Height(20)
 			Bar:SetStatusBarTexture(Texture)
-			Bar:CreateBackdrop("Transparent")
+			Bar:CreateBackdropn()
+			Bar.Backdrop:CreateShadow()
+			Bar.Backdrop:SetFrameStrata("BACKGROUND")
+			Bar.Backdrop:SetFrameLevel(1)
+			Bar.Backdrop:SetOutside(Bar)
 
 			if (Label) then
 				Label:ClearAllPoints()
@@ -236,7 +239,7 @@ function ObjectiveTracker:UpdatePopup()
 				local Frame = Block.ScrollChild
 
 				if not Frame.Backdrop then
-					Frame:CreateBackdrop()
+					Frame:CreateBackdropn()
 
 					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
 					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
@@ -420,6 +423,33 @@ function ObjectiveTracker:ShowObjectiveTrackerLevel()
 	end
 end
 
+function ObjectiveTracker:SkinRewards()
+	local rewardsFrame = self.module.rewardsFrame
+	
+	rewardsFrame:StripTextures()
+	
+	if rewardsFrame.id then
+		for i = 1, 6 do
+			local rewardItem = rewardsFrame.Rewards[i]
+			
+			if rewardItem then
+				local Icon = rewardItem.ItemIcon
+				local Border = rewardItem.ItemBorder
+				local Label = rewardItem.Label
+				local ItemOverlay = rewardItem.ItemOverlay
+				
+				if Icon then
+					Icon:Size(18)
+					Icon:SetTexCoord(.08, .92, .08, .92)
+				end
+				
+				if Border then
+					Border:SetTexture("")
+				end
+			end
+		end
+	end
+end
 
 function ObjectiveTracker:AddHooks()
 	hooksecurefunc("ObjectiveTracker_Update", self.Skin)

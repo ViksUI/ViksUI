@@ -226,6 +226,23 @@ local function CreateBackdrop(f, t)
 	f.backdrop = b
 end
 
+local function CreateBackdropn(f, t, tex)
+	if f.Backdrop then return end
+	if not t then t = "Default" end
+
+	local b = CreateFrame("Frame", nil, f)
+	b:SetOutside()
+	b:SetTemplate(t, tex)
+
+	if f:GetFrameLevel() - 1 >= 0 then
+		b:SetFrameLevel(f:GetFrameLevel() - 1)
+	else
+		b:SetFrameLevel(0)
+	end
+
+	f.Backdrop = b
+end
+
 local function StripTextures(object, kill)
 	for i = 1, object:GetNumRegions() do
 		local region = select(i, object:GetRegions())
@@ -406,6 +423,7 @@ local function addapi(object)
 	if not object.SetTemplate then mt.SetTemplate = SetTemplate end
 	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
 	if not object.CreateBackdrop then mt.CreateBackdrop = CreateBackdrop end
+	if not object.CreateBackdropn then mt.CreateBackdropn = CreateBackdropn end -- Temp for New function
 	if not object.StripTextures then mt.StripTextures = StripTextures end
 	if not object.CreateShadow then mt.CreateShadow = CreateShadow end
 	if not object.Kill then mt.Kill = Kill end
