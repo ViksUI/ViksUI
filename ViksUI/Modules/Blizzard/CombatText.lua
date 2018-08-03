@@ -401,19 +401,19 @@ for i = 1, numf do
 		if C.unitframe.enable == true and _G.oUF_Player then
 			f:SetPoint("BOTTOMLEFT", "oUF_Player", "TOPLEFT", -3, 60)
 		else
-			f:SetPoint("CENTER", -192, -32)
+			f:SetPoint("CENTER", -600, 180)
 		end
 	elseif i == 2 then
 		f:SetJustifyH(ct.justify_2)
 		if C.unitframe.enable == true and _G.oUF_Player then
 			f:SetPoint("BOTTOMRIGHT", "oUF_Player", "TOPRIGHT", 5, 60)
 		else
-			f:SetPoint("CENTER", 192, -32)
+			f:SetPoint("CENTER", -460, 180)
 		end
 	elseif i == 3 then
 		f:SetJustifyH(ct.justify_3)
 		f:SetWidth(256)
-		f:SetPoint("CENTER", 0, 205)
+		f:SetPoint("CENTER", 0, 400)
 	else
 		f:SetJustifyH(ct.justify_4)
 		f:SetWidth(200)
@@ -421,9 +421,9 @@ for i = 1, numf do
 			f:SetHeight(150)
 		end
 		if C.unitframe.enable == true and _G.oUF_Target then
-			f:SetPoint("BOTTOMRIGHT", "oUF_Target", "TOPRIGHT", 2, 278)
+			f:SetPoint("BOTTOMRIGHT", "oUF_Target", "TOPRIGHT", -150, 150)
 		else
-			f:SetPoint("CENTER", 330, 205)
+			f:SetPoint("CENTER", 250, 90)
 		end
 		local a, _, c = f:GetFont()
 		if C.font.combat_text_font_size == "auto" then
