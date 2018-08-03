@@ -2626,85 +2626,6 @@ local function DisableUI()
 	DisableAddOn("ViksUI")
 	ReloadUI()
 end
-----------------------------------------------------------------------------------------
---	Popups
-----------------------------------------------------------------------------------------
-
-StaticPopupDialogs.SKADAINST_UI = {
-	text = "Install settings for Skada",
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = Skadasetup,
-	showAlert = true,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = true,
-	preferredIndex = 5,
-}
-
-StaticPopupDialogs.DISABLE_UI = {
-	text = L_POPUP_DISABLEUI,
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = DisableUI,
-	showAlert = true,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = true,
-	preferredIndex = 5,
-}
-
-StaticPopupDialogs.RESET_UI = {
-	text = L_POPUP_RESETUI,
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = InstallUI,
-	OnCancel = function() SavedOptionsPerChar.Install = true end,
-	showAlert = true,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = true,
-	preferredIndex = 5,
-}
-
-StaticPopupDialogs.RESET_STATS = {
-	text = L_POPUP_RESETSTATS,
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = function() SavedStats = {} ReloadUI() end,
-	showAlert = true,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = true,
-	preferredIndex = 5,
-}
-
-StaticPopupDialogs.SWITCH_RAID = {
-	text = L_POPUP_SWITCH_RAID,
-	button1 = DAMAGER,
-	button2 = HEALER,
-	--button3 = "Blizzard",
-	OnAccept = function() GUIConfig.unitframes.HealFrames = false GUIConfigSettings.unitframes.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
-	OnCancel = function() GUIConfig.unitframes.HealFrames = true GUIConfigSettings.unitframes.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
-	--OnAlt = function() SavedOptionsPerChar.RaidLayout = "NONE" ReloadUI() end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-	preferredIndex = 5,
-}
-StaticPopupDialogs.SET_BT = {
-	text = "Select Bartender Profile",
-	button1 = "Rogue",
-	button2 = "Druid",
-	button3 = "Other",
-	OnAccept = function() Bartender4.db:SetProfile("ViksUIRogue") end,
-	OnCancel = function() Bartender4.db:SetProfile("ViksUIDruid") end,
-	OnAlt = function() Bartender4.db:SetProfile("ViksUI") end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-	preferredIndex = 5,
-}
 
 local OnLogon = CreateFrame("Frame")
 OnLogon:RegisterEvent("PLAYER_LOGIN")
@@ -2776,6 +2697,85 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	end)
 end)
 
+----------------------------------------------------------------------------------------
+--	Popups
+----------------------------------------------------------------------------------------
+
+StaticPopupDialogs.SKADAINST_UI = {
+	text = "Install settings for Skada",
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = Skadasetup,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.DISABLE_UI = {
+	text = L_POPUP_DISABLEUI,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = DisableUI,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.RESET_UI = {
+	text = L_POPUP_RESETUI,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = InstallUI,
+	OnCancel = function() SavedOptionsPerChar.Install = true end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.RESET_STATS = {
+	text = L_POPUP_RESETSTATS,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function() SavedStats = {} ReloadUI() end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.SWITCH_RAID = {
+	text = L_POPUP_SWITCH_RAID,
+	button1 = DAMAGER,
+	button2 = HEALER,
+	--button3 = "Blizzard",
+	OnAccept = function() GUIConfig.unitframe.HealFrames = false GUIConfigSettings.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
+	OnCancel = function() GUIConfig.unitframe.HealFrames = true GUIConfigSettings.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
+	--OnAlt = function() SavedOptionsPerChar.RaidLayout = "NONE" ReloadUI() end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+	preferredIndex = 5,
+}
+StaticPopupDialogs.SET_BT = {
+	text = "Select Bartender Profile",
+	button1 = "Rogue",
+	button2 = "Druid",
+	button3 = "Other",
+	OnAccept = function() Bartender4.db:SetProfile("ViksUIRogue") end,
+	OnCancel = function() Bartender4.db:SetProfile("ViksUIDruid") end,
+	OnAlt = function() Bartender4.db:SetProfile("ViksUI") end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+	preferredIndex = 5,
+}
 ----------------------------------------------------------------------------------------
 --	Slash Commands
 ----------------------------------------------------------------------------------------
