@@ -17,7 +17,7 @@ ObjectiveTrackerFrame:SetWidth(180)
 hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
 	if parent ~= frame then
 		ObjectiveTrackerFrame:ClearAllPoints()
-		ObjectiveTrackerFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 20, 0)
+		ObjectiveTrackerFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 20, -20)
 	end
 end)
 
