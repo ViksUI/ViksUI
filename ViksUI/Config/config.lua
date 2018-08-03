@@ -8,7 +8,7 @@ local rv, gv, bv = 0, .38, .651
 --	Media
 ----------------------------------------------------------------------------------------
 C["media"] = {
-	["normal_font"] = [=[Interface\Addons\ViksUI\Media\Font\normal_font.ttf]=], 			    -- main font in Viks UI
+	["normal_font"] = [=[Interface\Addons\ViksUI\Media\Font\normal_font.ttf]=], 		-- main font in Viks UI
 	["blank_font"] = [[Interface\AddOns\ViksUI\Media\Font\Blank.ttf]],					-- Blank font
 	["fontcombat"] = [=[Interface\Addons\ViksUI\Media\Font\LinkinPark.ttf]=], 			-- Combat Text Font (Require Game Restart)
 	["pixel_font"] = [=[Interface\Addons\ViksUI\Media\Font\pixel.ttf]=], 				-- DataText Font Normal
@@ -84,6 +84,7 @@ C["misc"] = {
 	["hide_banner"] = true,						-- Hide Boss Banner Loot Frame
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
 	["OrderHallBar"] = false,					-- Show OrderHallBar Frame
+	["GameMenuBar"] = true,						-- Show Game Menu Bar
 }
 
 ----------------------------------------------------------------------------------------
@@ -115,7 +116,7 @@ C["automation"] = {
 	["solve_artifact"] = true,					-- Auto popup for solve artifact
 	["accept_invite"] = false,					-- Auto accept invite
 	["decline_duel"] = true,					-- Auto decline duel
-	["accept_quest"] = true,					-- Auto accept quests(if hold shift or alt, auto accept is disable)
+	["accept_quest"] = false,					-- Auto accept quests(if hold shift or alt, auto accept is disable)
 	["auto_collapse"] = true,					-- Auto collapse WatchFrame in instance
 	["skip_cinematic"] = false,					-- Auto skip cinematics/movies
 	["auto_role"] = true,						-- Auto set your role
@@ -136,7 +137,7 @@ C["automation"] = {
 ----------------------------------------------------------------------------------------
 C["skins"] = {
 	["blizzard_frames"] = true,					-- Blizzard frames skin
-	["minimap_buttons"] = true,				-- Skin addons icons on minimap
+	["minimap_buttons"] = true,					-- Skin addons icons on minimap
 	["clcprot"] = false,						-- CLCProt skin
 	["clcret"] = false,							-- CLCRet skin
 	["combustion_helper"] = false,				-- CombustionHelper skin
@@ -483,10 +484,8 @@ C["unitframe"] = {
 	["showBossFrames"] = true, 															-- show boss frame
 	["TotemBars"] = true, 																-- show totem bars
 	["MTFrames"] = true, 																-- show main tank frames
-	["ArenaFrames"]  = true, 															-- show arena frame
 	["Reputationbar"] = true, 															-- show reputation bar
 	["Experiencebar"] = true, 															-- show experience bar
-	["Artifact_bar"] = true,															-- Artefact Power bar
 	["showPlayerAuras"] = false, 														-- use a custom player buffs/debuffs frame instead of blizzard's default.
 	["ThreatBar"] = true,																-- show threat bar
 	["showPortrait"] = true,															-- show portraits Icon
@@ -521,7 +520,6 @@ C["unitframe"] = {
 	["plugins_swing"] = false,					-- Swing bar
 	["plugins_reputation_bar"] = false,			-- Reputation bar
 	["plugins_experience_bar"] = false,			-- Experience bar
-	["plugins_artifact_bar"] = false,			-- Artifact Power bar
 	["plugins_smooth_bar"] = false,				-- Smooth bar
 	--["plugins_enemy_spec"] = false,				-- Enemy specialization
 	["plugins_combat_feedback"] = false,		-- Combat text on player/target frame
@@ -716,12 +714,6 @@ C["togglemenu"] = {
 
 C["XPBar"] = {
 	["enable"] = true,								--Enables XPBar, Based on SaftExperience
-	["pos1"] = true,								--Set position to Cooldown Bar (Get sizes from that)
-	["pos2"] = false,								--Set position to anchor that is movable with /ui
-	["height"] = 10,  								--Set Height for it when using pos2
-	["width"] = 300,								--Set Width for it when using pos2
-	["text"] = true,  								--Show text at all
-	["mouse"] = true,  								--Show text only when mouseover
 }
 
 ----------------------------------------------------------------------------------------
