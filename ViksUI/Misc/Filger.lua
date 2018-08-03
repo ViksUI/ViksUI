@@ -67,34 +67,22 @@ end
 function Filger:TooltipOnLeave()
 	GameTooltip:Hide()
 end
-function Filger:UnitBuff(unitID, inSpellID, spn, absID)
-	if absID then
-		for i = 1, 40, 1 do
-			local name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellID = UnitBuff(unitID, i)
-			if not name then break end
-			if inSpellID == spellID then
-				return name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellID
-			end
-		end
-	else
-		return UnitBuff(unitID, spn)
-	end
-	return nil
-end
 
-function Filger:UnitDebuff(unitID, inSpellID, spn, absID)
+function Filger:UnitAura(unitID, inSpellID, spell, filter, absID)
 	if absID then
-		for i = 1, 40, 1 do
-			local name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellID = UnitDebuff(unitID, i)
+		for i = 1, 40 do
+			local name, icon, count, _, duration, expirationTime, unitCaster, _, _, spellID = UnitAura(unitID, i, filter)
 			if not name then break end
-			if inSpellID == spellID then
-				return name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellID
+			if spellID == inSpellID then
+				return name, spellID, icon, count, duration, expirationTime, unitCaster
 			end
 		end
 	else
-		return UnitDebuff(unitID, spn)
+		local name, icon, count, _, duration, expirationTime, unitCaster, _, _, spellID = AuraUtil.FindAuraByName(spell, unitID, filter)
+		if name then
+			return name, spellID, icon, count, duration, expirationTime, unitCaster
+		end
 	end
-	return nil
 end
 
 function Filger:UpdateCD()
@@ -341,10 +329,10 @@ function Filger:OnEvent(event, unit, _, spellID)
 			spid = 0
 
 			if data.filter == "BUFF" and (not data.spec or data.spec == ptt) then
-				local caster, spn, expirationTime
-				spn, _, _ = GetSpellInfo(data.spellID)
-				if spn then
-					name, icon, count, _, duration, expirationTime, caster, _, _, spid = Filger:UnitBuff(data.unitID, data.spellID, data.spellID, true) -- BETA
+				local caster, spell, expirationTime
+				spell = GetSpellInfo(data.spellID)
+				if spell then
+					name, spid, icon, count, duration, expirationTime, caster = Filger:UnitAura(data.unitID, data.spellID, spell, "HELPFUL", data.absID)
 					if name and (data.caster ~= 1 and (caster == data.caster or data.caster == "all") or MyUnits[caster]) then
 						if not data.count or count >= data.count then
 							start = expirationTime - duration
@@ -353,10 +341,10 @@ function Filger:OnEvent(event, unit, _, spellID)
 					end
 				end
 			elseif data.filter == "DEBUFF" and (not data.spec or data.spec == ptt) then
-				local caster, spn, expirationTime
-				spn, _, _ = GetSpellInfo(data.spellID)
-				if spn then
-					name, icon, count, _, duration, expirationTime, caster, _, _, spid = Filger:UnitDebuff(data.unitID, data.spellID, data.spellID, true) -- BETA
+				local caster, spell, expirationTime
+				spell = GetSpellInfo(data.spellID)
+				if spell then
+					name, spid, icon, count, duration, expirationTime, caster = Filger:UnitAura(data.unitID, data.spellID, spell, "HARMFUL", data.absID)
 					if name and (data.caster ~= 1 and (caster == data.caster or data.caster == "all") or MyUnits[caster]) then
 						start = expirationTime - duration
 						found = true
@@ -386,16 +374,16 @@ function Filger:OnEvent(event, unit, _, spellID)
 				end
 			elseif data.filter == "ICD" and (not data.spec or data.spec == ptt) then
 				if data.trigger == "BUFF" then
-					local spn
-					spn, _, icon = GetSpellInfo(data.spellID)
-					if spn then
-						name, _, _, _, _, _, _, _, _, spid = Filger:UnitBuff("player", data.spellID, data.spellID, true) -- BETA
+					local spell
+					spell, _, icon = GetSpellInfo(data.spellID)
+					if spell then
+						name, spid = Filger:UnitAura(data.unitID, data.spellID, spell, "HELPFUL", data.absID)
 					end
 				elseif data.trigger == "DEBUFF" then
-					local spn
-					spn, _, icon = GetSpellInfo(data.spellID)
-					if spn then
-						name, _, _, _, _, _, _, _, _, spid = Filger:UnitDebuff("player", data.spellID, data.spellID, true) -- BETA
+					local spell
+					spell, _, icon = GetSpellInfo(data.spellID)
+					if spell then
+						name, spid = Filger:UnitAura("player", data.spellID, spell, "HARMFUL", data.absID)
 					end
 				elseif data.trigger == "NONE" and event == "UNIT_SPELLCAST_SUCCEEDED" then
 					if spellID == data.spellID then
@@ -500,17 +488,17 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 		local data = C["filger_spells"][T.class][i]
 
 		for j = 1, #data, 1 do
-			local spn
+			local spell
 			if data[j].spellID then
-				spn = GetSpellInfo(data[j].spellID)
+				spell = GetSpellInfo(data[j].spellID)
 			else
 				local slotLink = GetInventoryItemLink("player", data[j].slotID)
 				if slotLink then
-					spn = GetItemInfo(slotLink)
+					spell = GetItemInfo(slotLink)
 				end
 			end
-			if not spn and not data[j].slotID then
-				print("|cffff0000WARNING: spell/slot ID ["..(data[j].spellID or data[j].slotID or "UNKNOWN").."] in Filger no longer exists! Report this to ViksUI.|r")
+			if not spell and not data[j].slotID then
+				print("|cffff0000WARNING: spell/slot ID ["..(data[j].spellID or data[j].slotID or "UNKNOWN").."] no longer exists! Report this to Shestak.|r")
 				table.insert(jdx, j)
 			end
 		end
