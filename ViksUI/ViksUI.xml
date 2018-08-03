@@ -160,6 +160,7 @@
 	<Script file="Datatext\Bags.lua"/>
 	<Script file="Datatext\Time.lua"/>
 	<Script file="Datatext\Armor.lua"/>
+	<Script file="Datatext\GameMenu.lua"/>
 	<Script file="Datatext\Avoidance.lua"/>
 	<Script file="Datatext\Crit.lua"/>
 	<Script file="Datatext\Haste.lua"/>
