@@ -1,4 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
+--if C.unitframe.enable ~= true then return end
 -----------------------------
 -- INIT
 -----------------------------
@@ -1884,7 +1885,7 @@ lib.Experience = function(self)
 	Experience:SetHeight(31)
 	Experience:SetWidth(3)
 	Experience:SetFrameLevel(2)
-	--Experience.Tooltip = true
+	Experience.Tooltip = true
 	Experience:SetOrientation("VERTICAL")
 	Experience:EnableMouse(true)
 	Experience.inAlpha = 1
@@ -1904,9 +1905,9 @@ lib.Experience = function(self)
 	Rested:SetOrientation("VERTICAL")
 	Rested:SetAllPoints(Experience)
 				
+	-- Register it with oUF
 	self.Experience = Experience
 	self.Experience.Rested = Rested
-	self.Experience.PostUpdate = ExperiencePostUpdate
 	end
 end
 

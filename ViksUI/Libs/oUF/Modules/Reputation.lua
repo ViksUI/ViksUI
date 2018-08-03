@@ -1,11 +1,9 @@
 local T, C, L = unpack(select(2, ...))
 if C.unitframe.enable ~= true or C.unitframe.plugins_reputation_bar ~= true then return end
 
-----------------------------------------------------------------------------------------
---	Based on oUF_Reputation(by p3lim)
-----------------------------------------------------------------------------------------
 local _, ns = ...
-local oUF = ns.oUF
+local oUF = ns.oUF or oUF
+assert(oUF, 'oUF Reputation was unable to locate oUF install')
 
 local function GetReputation()
 	local pendingReward
@@ -107,7 +105,6 @@ local function Update(self, event, unit)
 		if(element.colorStanding) then
 			local _, id = GetWatchedFactionInfo()
 			element:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
-			element.bg:SetVertexColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b, 0.2)
 		end
 
 		if(element.Reward) then
