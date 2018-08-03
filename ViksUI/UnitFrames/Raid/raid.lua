@@ -28,6 +28,19 @@ local fs = function(parent, layer, font, fontsiz, outline, r, g, b, justify)
     end
     return string
 end
+function CreateShadow0(f)--
+	if f.shadow then return end
+	local shadow = CreateFrame("Frame", nil, f)
+	shadow:SetFrameLevel(0)
+	shadow:SetFrameStrata(f:GetFrameStrata())
+	shadow:SetPoint("TOPLEFT", 1, -1)
+	shadow:SetPoint("BOTTOMRIGHT", -1, 1)
+	shadow:SetBackdrop(shadows)
+	shadow:SetBackdropColor( .05,.05,.05, .9)
+	shadow:SetBackdropBorderColor(0, 0, 0, 1)
+	f.shadow = shadow
+	return shadow
+end
 
 local PetBattleHider = CreateFrame("Frame", "ViksPetBattleHider", UIParent, "SecureHandlerStateTemplate");
 PetBattleHider:SetAllPoints(UIParent)

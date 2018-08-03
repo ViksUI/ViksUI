@@ -43,9 +43,8 @@ cfg.showLFDIcons = C.unitframe.showLFDIcons						-- Show LFD Icons, must be true
 cfg.customLFDIcons = C.unitframe.customLFDIcons					-- Use Custom Icons; cfg.customLFDText must be false
 cfg.customLFDText = C.unitframe.customLFDText					-- Use Text instead of Icon; Tank/Dps/Heal. cfg.customLFDIcons must be false
 cfg.RCheckIcon = C.unitframe.RCheckIcon							-- Show Ready Check Icons On Health Frames
-cfg.Experiencebar = C.unitframe.Experiencebar					-- show experience bar
-cfg.Reputationbar = C.unitframe.Reputationbar					-- show reputation bar
-cfg.Artifact_bar = C.unitframe.Artifact_bar						-- show artifact power bar
+cfg.Experiencebar = C.unitframe.plugins_experience_bar			-- show experience bar
+cfg.Reputationbar = C.unitframe.plugins_reputation_bar			-- show reputation bar
 cfg.enableDebuffHighlight = C.unitframe.enableDebuffHighlight	-- Highlight Unit Frame if having a Debuffs
 cfg.showAuraWatch = C.unitframe.showAuraWatch					-- watch specific auras
 cfg.showIndicators = C.unitframe.showIndicators					-- Show Indicators on frames
@@ -60,10 +59,10 @@ cfg.Powercolor = C.unitframe.Powercolor							-- power color = class color
 
 cfg.showEclipsebar = C.unitframe_class_bar.eclipse				-- Eclipse bar
 cfg.showShardbar = C.unitframe_class_bar.shard					-- Shard/Burning bar
-cfg.showHolybar = C.unitframe_class_bar.holy						-- Holy Power bar
-cfg.showRunebar = C.unitframe_class_bar.rune						-- Rune bar
+cfg.showHolybar = C.unitframe_class_bar.holy					-- Holy Power bar
+cfg.showRunebar = C.unitframe_class_bar.rune					-- Rune bar
 cfg.showHarmony = C.unitframe_class_bar.chi						-- Chi bar
-cfg.showShadowOrbsBar = C.unitframe_class_bar.shadow				-- Shadow Orbs bar
+cfg.showShadowOrbsBar = C.unitframe_class_bar.shadow			-- Shadow Orbs bar
 cfg.TotemBars = C.unitframe_class_bar.totem						-- Totem bar
 cfg.showArcaneChargesbar = C.unitframe_class_bar.arcane			-- show Mage Arcane Charges bar
 cfg.showVengeance = C.unitframe_class_bar.vengeance				-- Vengeance bar

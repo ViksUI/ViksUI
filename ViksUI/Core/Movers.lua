@@ -4,12 +4,6 @@
 --	Movement function(by Allez)
 ----------------------------------------------------------------------------------------
 T.MoverFrames = {
-	ActionBarAnchor,
-	RightActionBarAnchor,
-	PetActionBarAnchor,
-	ShiftHolder,
-	VehicleButtonAnchor,
-	MicroAnchor,
 	VehicleAnchor,
 	WatchFrameAnchor,
 	AchievementAnchor,
@@ -54,6 +48,7 @@ T.MoverFrames = {
 	DataTextP9,
 	DataTextP10,
 	DataTextP11,
+	DataTextP12,
 	CPCool,
 	AnchorDeBuff,
 	Move_playercastbar,
@@ -65,8 +60,7 @@ T.MoverFrames = {
 	Move_tank,
 	Move_threatbar,
 	Move_raid,
-	Move_raid40dps,
-	
+	Move_raid40dps,	
 }
 
 local moving = false

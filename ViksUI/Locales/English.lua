@@ -476,6 +476,7 @@ L_SLASHCMD_HELP = {
 	"/frame - Description is not ready.",
 	"/farmmode - Increase the size of the minimap.",
 	"/moveui - Allows the movement of interface elements.",
+	"/moveui reset - Resets the movment done by /moveui.",
 	"/resetui - Resets general settings to default.",
 	"/resetuf - Resets the unit frames to their default position.",
 	"/resetconfig - Resets ViksUI_Config settings.",

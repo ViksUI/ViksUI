@@ -46,5 +46,8 @@ function PP(p, obj)
 	elseif p == 15 then
 		obj:SetHeight(LBottom:GetHeight())
 		obj:SetPoint("CENTER", DataTextP10, "CENTER", 0, 0)
+	elseif p == 16 then
+		obj:SetHeight(LBottom:GetHeight())
+		obj:SetPoint("CENTER", DataTextP12, "CENTER", 0, 0)
 	end
 end
