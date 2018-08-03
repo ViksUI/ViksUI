@@ -742,8 +742,6 @@ if gold.enabled then
 				Currency(1020)	-- Secret of Draenor Blacksmithing
 				Currency(1008)	-- Secret of Draenor Jewelcrafting
 				Currency(1017)	-- Secret of Draenor Leatherworking
-
-
 				Currency(999)	-- Secret of Draenor Tailoring
 			end
 
@@ -752,14 +750,14 @@ if gold.enabled then
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(L_STATS_CURRENCY_RAID_T, ttsubh.r, ttsubh.g, ttsubh.b)
 				Currency(1273, false, true)	-- Seal of Broken Fate
+				Currency(1580, false, true)	-- Seal of Wartorn Fate
 			end
 
 			if C.stats.CurrPvP then
 
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(PVP_FLAG, ttsubh.r, ttsubh.g, ttsubh.b)
-				Currency(390, true)			-- Conquest Points
-				Currency(392, false, true)	-- Honor Points
+				Currency(1587)				-- War Supplies
 			end
 
 			if C.stats.CurrMiscellaneous then
@@ -767,10 +765,11 @@ if gold.enabled then
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(MISCELLANEOUS, ttsubh.r, ttsubh.g, ttsubh.b)
 				Currency(515)					-- Darkmoon Prize Ticket
-				Currency(1155, false, true)		-- Ancient Mana
+				Currency(1710)					-- Seafarer's Dubloon
+				Currency(1565)					-- Rich Azerite Fragment
+				GameTooltip:AddLine(" ")
 				Currency(1220)					-- Order Resources
-				Currency(1226)					-- Nethershard
-				Currency(1342, false, true)		-- Legionfall War Supplies
+				Currency(1560)					-- War Resources
 			end
 
 			GameTooltip:AddLine(" ")
