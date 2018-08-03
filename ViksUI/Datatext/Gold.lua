@@ -172,27 +172,25 @@ Stat:SetScript("OnEnter", function(self)
 	if C.datatext.CurrRaid then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine("Raid")
-		Currency(1166, false, false) 	--Timewarped Badge
-		Currency(1273, false, true) 	--Elder Charm of Good Fortune
+		Currency(1273, false, true)	-- Seal of Broken Fate
+		Currency(1580, false, true)	-- Seal of Wartorn Fate
 	end
 
 	if C.datatext.CurrPvP then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(PVP_FLAG)
-		Currency(390, true) 			--Conquest Points
-		Currency(392, false, true) 		--Honor Points
+		Currency(1587)				-- War Supplies
 	end
 
 	if C.datatext.CurrMiscellaneous then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(MISCELLANEOUS)
-		Currency(1533) 					-- Wakening Essence
-		Currency(515) 					-- Darkmoon Prize Ticket
-		Currency(1220) 					-- Order Resources
-		Currency(1155, false, true) 	-- Ancient Mana
-		Currency(1226)					-- Nethershard
-		Currency(1342, false, true)		-- Legionfall War Supplies
-		Currency(1508, false, true) 	-- Veiled Argunite
+		Currency(515)					-- Darkmoon Prize Ticket
+		Currency(1710)					-- Seafarer's Dubloon
+		Currency(1565)					-- Rich Azerite Fragment
+		GameTooltip:AddLine(" ")
+		Currency(1220)					-- Order Resources
+		Currency(1560)					-- War Resources
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
