@@ -22,7 +22,6 @@ local ALLOWED_GROUPS = {
 	["aura"] = 19,
 	["unitframe"] = 20,
 	["unitframe_class_bar"] = 21,
-	["raidframes"] = 22,
 	["toppanel"] = 23,	
 	["cooldown"] = 24,
 	["datatext"] = 25,
@@ -32,7 +31,6 @@ local ALLOWED_GROUPS = {
 	["stats"] = 29,
 	["XPBar"] = 30,
 	["Filger"] = 31,
-	["actionbar"] = 32,
 }
 local function Local(o)
 	local T, Viks, L = unpack(ViksUI)
@@ -63,6 +61,8 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigmediapxcolor2" then o = "DataText, Color on Values" end
 	if o == "UIConfigmediaoUFfont" then o = "Font on UnitFrames" end
 	if o == "UIConfigmediaoUFfontsize" then o = "Font Size on UnitFrames" end
+	if o == "UIConfigmediaoUFfontcolor" then o = "Font Color on UnitFrames" end
+	if o == "UIConfigmedianormal_font" then o = "Main font in Viks UI" end
 	if o == "UIConfigmediawhisp_sound" then o = "Sound for wispers" end
 	if o == "UIConfigmediawarning_sound" then o = "Sound for warning" end
 	if o == "UIConfigmediaproc_sound" then o = "Sound for procs" end
@@ -94,7 +94,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 
 	--	Automation options
 	if o == "UIConfigautomation" then o = L_GUI_AUTOMATION end
-	if o == "UIConfigautomationresurrection" then o = L_GUI_AUTOMATION_RESURRECTION end
+	if o == "UIConfigautomationrelease" then o = L_GUI_AUTOMATION_RELEASE end
 	if o == "UIConfigautomationscreenshot" then o = L_GUI_AUTOMATION_SCREENSHOT end
 	if o == "UIConfigautomationsolve_artifact" then o = L_GUI_AUTOMATION_SOLVE_ARTIFACT end
 	if o == "UIConfigautomationaccept_invite" then o = L_GUI_AUTOMATION_ACCEPT_INVITE end
@@ -112,9 +112,12 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigautomationAutoRepair" then o = "Automaticly repair" end
 	if o == "UIConfigautomationAutoRepairG" then o = "Repair with guild funds" end
 	if o == "UIConfigautomationopen_items" then o = L_GUI_AUTOMATION_OPEN_ITEMS end
+	if o == "UIConfigautomationvendor_misc" then o = "Sell some defined (craps not grey) items automatically" end
 
 	-- Skins options
 	if o == "UIConfigskins" then o = L_GUI_SKINS end
+	if o == "UIConfigskinsbartender" then o = "Skinn under Construction for Bartender" end
+	if o == "UIConfigskinsExtraActionBarFrame" then o = "Skinn ExtraActionBarFrame with Masque" end
 	if o == "UIConfigskinsblizzard_frames" then o = L_GUI_SKINS_BLIZZARD end
 	if o == "UIConfigskinsminimap_buttons" then o = L_GUI_SKINS_MINIMAP_BUTTONS end
 	if o == "UIConfigskinsclcret" then o = L_GUI_SKINS_CLCR end
@@ -368,6 +371,8 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigunitframe" then o = "UNIT FRAMES" end
 	if o == "UIConfigunitframeenable" then o = ViksL.option_unitframes_enable end
 	if o == "UIConfigunitframeShowIncHeals" then o = "Show Incomming heals" end
+	if o == "UIConfigunitframeHealthBarBackGround" then o = "Background Color for HealthBar" end
+	if o == "UIConfigunitframecastbar_ticks" then o = L_GUI_UF_CASTBAR_TICKS end
 	if o == "UIConfigunitframeHealFrames" then o = ViksL.option_unitframes_HealFrames end
 	if o == "UIConfigunitframeshowIndicators" then o = ViksL.option_unitframes_showIndicators end
 	if o == "UIConfigunitframeshowAuraWatch" then o = ViksL.option_unitframes_showAuraWatch end
@@ -419,6 +424,17 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigunitframecustomLFDText" then o = "Use Text instead of Icon; Tank/Dps/Heal. Custom Roll Icons must be off" end
 	if o == "UIConfigunitframedebuffsOnlyShowPlayer" then o = "Only show your debuffs on target" end
 	if o == "UIConfigunitframeUFfont" then o = "Font on unitframes tags (Hp/power++)" end
+	if o == "UIConfigunitframeuf_color" then o = "Color for UF if own_color = true" end
+	if o == "UIConfigunitframeplugins_gcd" then o = L_GUI_UF_PLUGINS_GCD end
+	if o == "UIConfigunitframeplugins_swing" then o = L_GUI_UF_PLUGINS_SWING end
+	if o == "UIConfigunitframeplugins_reputation_bar" then o = L_GUI_UF_PLUGINS_REPUTATION_BAR end
+	if o == "UIConfigunitframeplugins_experience_bar" then o = L_GUI_UF_PLUGINS_EXPERIENCE_BAR end
+	if o == "UIConfigunitframeplugins_artifact_bar" then o = L_GUI_UF_PLUGINS_ARTIFACT_BAR end
+	if o == "UIConfigunitframeplugins_smooth_bar" then o = L_GUI_UF_PLUGINS_SMOOTH_BAR end
+	if o == "UIConfigunitframeplugins_enemy_spec" then o = L_GUI_UF_PLUGINS_ENEMY_SPEC end
+	if o == "UIConfigunitframeplugins_combat_feedback" then o = L_GUI_UF_PLUGINS_COMBAT_FEEDBACK end
+	if o == "UIConfigunitframeplugins_fader" then o = L_GUI_UF_PLUGINS_FADER end
+	if o == "UIConfigunitframeplugins_diminishing" then o = L_GUI_UF_PLUGINS_DIMINISHING end
 
 	-- Unit Frames Class bar options
 	if o == "UIConfigunitframe_class_bar" then o = L_GUI_UF_PLUGINS_CLASS_BAR end
@@ -433,6 +449,9 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigunitframe_class_barrune" then o = L_GUI_UF_PLUGINS_RUNE_BAR end
 	if o == "UIConfigunitframe_class_bartotem" then o = L_GUI_UF_PLUGINS_TOTEM_BAR end
 	if o == "UIConfigunitframe_class_barrange" then o = L_GUI_UF_PLUGINS_RANGE_BAR end
+	if o == "UIConfigunitframe_class_barcombo_old" then o = L_GUI_UF_PLUGINS_COMBO_BAR_OLD end
+	if o == "UIConfigunitframe_class_bararcane" then o = L_GUI_UF_PLUGINS_ARCANE_BAR end
+	if o == "UIConfigunitframe_class_barstagger" then o = L_GUI_UF_PLUGINS_STAGGER_BAR end
 		
 	--raidframes
 	if o == "UIConfigraidframes" then o = "RAID FRAMES" end
@@ -518,7 +537,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigstatsexperience" then o = L_GUI_STATS_EXPERIENCE end
 	if o == "UIConfigstatscoords" then o = L_GUI_STATS_COORDS end
 	if o == "UIConfigstatslocation" then o = L_GUI_STATS_LOCATION end
-	if o == "UIConfigstatscurrency" then o = L_GUI_STATS_CURRENCY end
+	if o == "UIConfigstatscurrency" then o = "Currency" end
 	if o == "UIConfigstatsCurrArchaeology" then o = L_GUI_STATS_CURRENCY_ARCHAEOLOGY end
 	if o == "UIConfigstatsCurrCooking" then o = L_GUI_STATS_CURRENCY_COOKING end
 	if o == "UIConfigstatsCurrProfessions" then o = L_GUI_STATS_CURRENCY_PROFESSIONS end
@@ -559,6 +578,8 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigdatatextLocaltime" then o = "Use Local Time instead of Server Time" end
 	if o == "UIConfigdatatextclasscolor" then o = "Class color data text" end
 	if o == "UIConfigdatatextcolor" then o = "If Class color data text false then choose color: " end
+	if o == "UIConfigdatatextQuests" then o = "Objectiveframe Datatext Button" end
+	if o == "UIConfigdatatextVolume" then o = "Volume Bar - Scroll to change volume, click to change sub cat" end
 	if o == "UIConfigdatatextCurrArchaeology" then o = L_GUI_STATS_CURRENCY_ARCHAEOLOGY end
 	if o == "UIConfigdatatextCurrCooking" then o = L_GUI_STATS_CURRENCY_COOKING end
 	if o == "UIConfigdatatextCurrProfessions" then o = L_GUI_STATS_CURRENCY_PROFESSIONS end
@@ -584,12 +605,6 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	--XPBar
 	if o == "UIConfigXPBar" then o = "XP BAR" end
 	if o == "UIConfigXPBarenable" then o = "Enable XP BAR" end
-	if o == "UIConfigXPBarpos1" then o = "Place into the Cooldown frame" end
-	if o == "UIConfigXPBarpos2" then o = "Anchor to /ui" end
-	if o == "UIConfigXPBarheight" then o = "Height of XP Bar" end
-	if o == "UIConfigXPBarwidth" then o = "Width of XP Bar" end
-	if o == "UIConfigXPBartext" then o = "Enable text on XP BAR" end
-	if o == "UIConfigXPBarmouse" then o = "Only display text on mouseover" end
 
 	--	Miscellaneous options
 	if o == "UIConfigmisc" then o = "Miscellaneous" end
@@ -636,9 +651,12 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	--Panels
 	if o == "UIConfigpanels" then o = "UI Panels" end
 	if o == "UIConfigpanelsCPwidth" then o = "Width for Left and Right side panels that holds text." end
+	if o == "UIConfigpanelsCPLwidth" then o = "Width for Left and Right side Lines." end
 	if o == "UIConfigpanelsCPTextheight" then o = "Hight for panel where chat window is inside" end
 	if o == "UIConfigpanelsCPbarsheight" then o = "Hight for Panels under/above Chat window" end
 	if o == "UIConfigpanelsCPABarSide" then o = "Width for Action Bars next to chat windows" end
+	if o == "UIConfigpanelsCPMinimap" then o = "Width/Hight for Minimap" end
+	if o == "UIConfigpanelsPscale" then o = "Can be used to resize all panels. It does not change X Y Values" end
 	if o == "UIConfigpanelsCPXPBa_r" then o = "Hight for the XP bar above Left Chat" end
 	if o == "UIConfigpanelsxoffset" then o = "Horisontal spacing between panels" end
 	if o == "UIConfigpanelsyoffset" then o = "Vertical spacing between panels" end
@@ -664,7 +682,15 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	-- Filger	
 	if o == "UIConfigFilger" then o = L_GUI_FILGER end
 	if o == "UIConfigFilgerenable" then o = L_GUI_FILGER_ENABLE end
-	if o == "UIConfigFilgerfilgerCD" then o = L_GUI_FILGERCD end	
+	if o == "UIConfigFilgerdisable_cd" then o = "Disable cooldowns" end	
+	if o == "UIConfigFilgerfilgertbar" then o = "Filger, shows special bars for target" end	
+	if o == "UIConfigFilgerproc_size" then o = "Icon size for procs" end
+	if o == "UIConfigFilgerbuffs_size" then o = "Icon size for buffs" end
+	if o == "UIConfigFilgerdebuff_size" then o = "Icon size for debuffs" end
+	if o == "UIConfigFilgerbar_iconsize" then o = "Icon size for bars" end
+	if o == "UIConfigFilgerbar_width" then o = "Width for bars" end
+	if o == "UIConfigFilgercooldown_size" then o = "Icon size for cooldowns" end
+	if o == "UIConfigFilgerfilgerCD" then o = "Filger, shows Cooldowns on a bar list" end	
 	if o == "UIConfigFilgertest_mode" then o = L_GUI_FILGER_TEST_MODE end
 	if o == "UIConfigFilgermax_test_icon" then o = L_GUI_FILGER_MAX_TEST_ICON end
 	if o == "UIConfigFilgershow_tooltip" then o = L_GUI_FILGER_SHOW_TOOLTIP end
