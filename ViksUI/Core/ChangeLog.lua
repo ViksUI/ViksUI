@@ -3,20 +3,30 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.3",
+		"Update 8.4",
+		"• NEW Menu bar added",
+		"• NEW XP/REP and Azerite Bars",
+		"• NEW Improved /installui",
+		"• Updated currency for BFA",
+		"• Filger Improved",
 		"• Div Skins updated",
 		"• Misc code changes",
-		"• Misc bug fixes",
-		"• Volume DataText added",
-		"• New MapInfo added",
+		"• Misc bug fixes & Missing Descriptions",
+		"• Fixed /moveui and /moveui reset",
+		"• Fixed Mouseover Keybinding, now shows under Keybindings",
 		"",
 		--"• ",
 	--" ",
-	"Notes:",
-		"Filger is turned off by default, as it might cause lag in raid.",
-		"Join Discord channel for quick questions regarding ui.",
-		"https://discord.gg/pDEnZSV",
+	"NOTE:",
+		"NEW Donate button added",
+		"NEW Patreon button added",
+		"6 years with hundreds of hours on coding, ",
+		"and countless hours with support for free! Not a cent donated so far..",
+		"BE THE FIRST :)",
 }
+
+--// TODO LIST
+-- Make a global function for Cords
 
 local function ModifiedString(string)
 	local count = string.find(string, ":")
@@ -88,13 +98,44 @@ _G.StaticPopupDialogs["DISCORD"] = {
 	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
 }
 
+_G.StaticPopupDialogs["DONATE"] = {
+	text = "Support my work by donating on Paypal",
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = true,
+	hasEditBox = true,
+	editBoxWidth = 325,
+	OnShow = function(self, ...) 
+		self.editBox:SetFocus()
+		self.editBox:SetText("https://www.paypal.me/Tryllemann")
+		self.editBox:HighlightText()
+	end,
+	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
+	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+}
+
+_G.StaticPopupDialogs["PATRON"] = {
+	text = "Support my work on Patreon",
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = true,
+	hasEditBox = true,
+	editBoxWidth = 325,
+	OnShow = function(self, ...) 
+		self.editBox:SetFocus()
+		self.editBox:SetText("https://www.patreon.com/user?u=9534738")
+		self.editBox:HighlightText()
+	end,
+	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
+	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+}
+
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 320)
+	frame:SetSize(445, 420)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
-	--frame:SetFrameStrata(DIALOG)
 	
 	local icon = CreateFrame("Frame", nil, frame)
 	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
@@ -129,6 +170,14 @@ function ChangeLog:CreateChangelog()
 	T["CreateBtn"]("bDiscord", frame, 65, 19, "Discord", "Discord", frame)
 	bDiscord:SetPoint("BOTTOMLEFT", bTwitch, "BOTTOMRIGHT", 5, 0)
 	bDiscord:SetScript("OnClick", function(self) StaticPopup_Show("DISCORD") end)
+	
+	T["CreateBtn"]("bDonate", frame, 65, 19, "Donate", "Donate", frame)
+	bDonate:SetPoint("BOTTOMLEFT", bDiscord, "BOTTOMRIGHT", 5, 0)
+	bDonate:SetScript("OnClick", function(self) StaticPopup_Show("DONATE") end)
+	
+	T["CreateBtn"]("bPatreon", frame, 65, 19, "Patreon", "Patreon", frame)
+	bPatreon:SetPoint("BOTTOMLEFT", bDonate, "BOTTOMRIGHT", 5, 0)
+	bPatreon:SetScript("OnClick", function(self) StaticPopup_Show("PATRON") end)
 	
 	local offset = 4
 	for i = 1, #ChangeLogData do
@@ -165,3 +214,6 @@ ChangeLog:SetScript("OnEvent", function(self, event, ...)
 	if SavedOptions == nil then SavedOptions = {} end
 	ChangeLog:OnCheckVersion()
 end)
+
+SLASH_CHANGELOG1 = "/changelog"
+SlashCmdList.CHANGELOG = function() ViksUI_ToggleChangeLog() end
