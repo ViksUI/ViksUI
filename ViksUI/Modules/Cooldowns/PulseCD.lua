@@ -9,13 +9,9 @@ local fadeInTime, fadeOutTime, maxAlpha, elapsed, runtimer = 0.5, 0.7, 1, 0, 0
 local animScale, iconSize, holdTime, threshold = C.pulsecooldown.anim_scale, C.pulsecooldown.size, C.pulsecooldown.hold_time, C.pulsecooldown.threshold
 local cooldowns, animating, watching = {}, {}, {}
 
---local anchor = CreateFrame("Frame", "PulseCDAnchor", UIParent)
---anchor:SetSize(C.pulsecooldown.size, C.pulsecooldown.size)
---anchor:SetPoint(unpack(C.position.pulse_cooldown))
-
-AnchorPulseCD = CreateFrame("Frame","Move_PulseCD",UIParent)
-AnchorPulseCD:SetPoint(unpack(C.position.pulse_cooldown))
-CreateAnchor(AnchorPulseCD, "Move PulseCD", C.pulsecooldown.size, C.pulsecooldown.size)
+local anchor = CreateFrame("Frame", "PulseCDAnchor", UIParent)
+anchor:SetSize(C.pulsecooldown.size, C.pulsecooldown.size)
+anchor:SetPoint(unpack(C.position.pulse_cooldown))
 
 local PulseCDAnchor = CreateFrame("Frame", "PulseCDAnchor", UIParent)
 PulseCDAnchor:SetSize(C.pulsecooldown.size, C.pulsecooldown.size)

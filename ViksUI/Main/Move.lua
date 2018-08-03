@@ -108,7 +108,7 @@ function AnchorsReset()
 	ReloadUI()
 end
 local grid
-local boxSize = 64
+local boxSize = 128
 
 function Grid_Show()
 	if not grid then
@@ -131,7 +131,7 @@ function Grid_Create()
 	grid.boxSize = boxSize 
 	grid:SetAllPoints(UIParent) 
 
-	local size = 2 
+	local size = 1 
 	local width = GetScreenWidth()
 	local ratio = width / GetScreenHeight()
 	local height = GetScreenHeight() * ratio
@@ -224,15 +224,15 @@ frame:SetScript("OnEvent", function(self, event)
 	
 end)
 
-SlashCmdList["ui"] = SlashCmd;
-SLASH_ui1 = "/ui";
+SlashCmdList["uiold"] = SlashCmd;
+SLASH_uiold1 = "/uiold";
 
 AnchorBuff = CreateFrame("Frame","Move_Buff",UIParent)
 AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+2))
 CreateAnchor(AnchorBuff, "Move Buff", 300, 70)
 
 AnchorDeBuff = CreateFrame("Frame","Move_DeBuff",UIParent)
-AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size))
+AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size-(C.aura.player_buff_size*1.5)))
 CreateAnchor(AnchorDeBuff, "Move DeBuff", 300, 70)
 
 --AnchorTRBottom = CreateFrame("Frame","Move_Minimap",UIParent)
