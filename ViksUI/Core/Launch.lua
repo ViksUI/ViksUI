@@ -2366,11 +2366,6 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	if CD == "1" then SetCVar("countdownForCooldowns", "0") end
 end)
 
---local function positionsetup()
-	--D.SetPerCharVariable("DuffedUIDataPerChar", {})
-	--if DuffedUIDataPerChar.Move then DuffedUIDataPerChar.Move = {} end
---end
-
 local v = CreateFrame("Button", "ViksUIVersionFrame", UIParent)
 v:SetSize(300, 66)
 v:SetPoint("CENTER")
@@ -2627,6 +2622,76 @@ local function install()
 	option2:SetScript("OnClick", step1)
 end
 
+local function DisableUI()
+	DisableAddOn("ViksUI")
+	ReloadUI()
+end
+----------------------------------------------------------------------------------------
+--	Popups
+----------------------------------------------------------------------------------------
+
+StaticPopupDialogs.SKADAINST_UI = {
+	text = "Install settings for Skada",
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = Skadasetup,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.DISABLE_UI = {
+	text = L_POPUP_DISABLEUI,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = DisableUI,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.RESET_UI = {
+	text = L_POPUP_RESETUI,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = InstallUI,
+	OnCancel = function() SavedOptionsPerChar.Install = true end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.RESET_STATS = {
+	text = L_POPUP_RESETSTATS,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function() SavedStats = {} ReloadUI() end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+StaticPopupDialogs.SWITCH_RAID = {
+	text = L_POPUP_SWITCH_RAID,
+	button1 = DAMAGER,
+	button2 = HEALER,
+	--button3 = "Blizzard",
+	OnAccept = function() GUIConfig.unitframes.HealFrames = false GUIConfigSettings.unitframes.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
+	OnCancel = function() GUIConfig.unitframes.HealFrames = true GUIConfigSettings.unitframes.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
+	--OnAlt = function() SavedOptionsPerChar.RaidLayout = "NONE" ReloadUI() end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+	preferredIndex = 5,
+}
 StaticPopupDialogs.SET_BT = {
 	text = "Select Bartender Profile",
 	button1 = "Rogue",
@@ -2640,8 +2705,6 @@ StaticPopupDialogs.SET_BT = {
 	hideOnEscape = false,
 	preferredIndex = 5,
 }
-SLASH_SET_BT1 = "/vbt"
-SlashCmdList.SET_BT = function() StaticPopup_Show("SET_BT") end
 
 local OnLogon = CreateFrame("Frame")
 OnLogon:RegisterEvent("PLAYER_LOGIN")
@@ -2713,11 +2776,27 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	end)
 end)
 
+----------------------------------------------------------------------------------------
+--	Slash Commands
+----------------------------------------------------------------------------------------
+
+-- Bartender Select Profile
+SLASH_SET_BT1 = "/vbt"
+SlashCmdList.SET_BT = function() StaticPopup_Show("SET_BT") end
+
+-- Setup Skada Windows
+SLASH_SKADA1 = "/skadasetup_ui"
+SlashCmdList.SKADA = function() StaticPopup_Show("SKADAINST_UI") end
+
 SLASH_CONFIGURE1 = "/resetui"
 SlashCmdList.CONFIGURE = function() StaticPopup_Show("RESET_UI") end
 
-SLASH_CONFIGURE1 = "/installui"
-SlashCmdList['CONFIGURE'] = install
+SLASH_INSTALLUI1 = "/installui"
+SlashCmdList['INSTALLUI'] = install
 
 SLASH_RESETSTATS1 = "/resetstats"
 SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end
+
+SLASH_RESETSTATS1 = "/resetstats"
+SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end
+
