@@ -24,21 +24,25 @@ T.MoverFrames = {
 	RaidBuffsAnchor,
 	DCPAnchor,
 	AutoButtonAnchor,
+	AnchorMarkBar,
 	TooltipAnchor,
 	ChatBar,
+	PulseCDAnchor,
 	oUF_Player_Castbar,
 	oUF_Target_Castbar,
 	oUF_Player_Portrait,
 	oUF_Target_Portrait,
-	P_BUFF_ICON_Anchor,
-	P_PROC_ICON_Anchor,
-	SPECIAL_P_BUFF_ICON_Anchor,
-	T_DEBUFF_ICON_Anchor,
-	T_BUFF_Anchor,
-	PVE_PVP_DEBUFF_Anchor,
-	PVE_PVP_CC_Anchor,
-	COOLDOWN_Anchor,
-	T_DE_BUFF_BAR_Anchor,
+	Move_BUFF_ICON,
+	Move_T_BUFF_ICON,
+	Move_P_PROC_ICON,
+	Move_T_DEBUFF_ICON,
+	Move_FDEBUFF_BAR,
+	Move_SPECIAL_P_BUFF_ICON,
+	Move_T_BAR,
+	Move_CD,
+	Move_PVEPVPCD,
+	Move_PVEDEBUFF,
+	Anchorflash,
 	DataTextP1,
 	DataTextP2,
 	DataTextP3,
@@ -50,7 +54,19 @@ T.MoverFrames = {
 	DataTextP9,
 	DataTextP10,
 	DataTextP11,
-	CPCool
+	CPCool,
+	AnchorDeBuff,
+	Move_playercastbar,
+	Move_targetcastbar,
+	Move_focuscastbar,
+	Move_playercastbar_Dps,
+	Move_targetcastbar_Dps,
+	Move_focuscastbar_Dps,
+	Move_tank,
+	Move_threatbar,
+	Move_raid,
+	Move_raid40dps,
+	
 }
 
 local moving = false
@@ -62,7 +78,6 @@ local placed = {
 	"stArchaeologyFrame",
 	"StuffingFrameBags",
 	"StuffingFrameBank",
-	"ExtraActionBarFrame",
 	"alDamageMeterFrame"
 }
 
@@ -134,11 +149,13 @@ local InitMove = function(msg)
 			if mover then mover:Show() end
 		end
 		moving = true
+		Grid_Show()
 	else
 		for i, v in pairs(movers) do
 			v:Hide()
 		end
 		moving = false
+		Grid_Hide()
 	end
 	if T.MoveUnitFrames then T.MoveUnitFrames() end
 end

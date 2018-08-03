@@ -462,7 +462,7 @@ L_STATS_TOOLTIP_EXPERIENCE = "When below max level, a tooltip will be displayed 
 -- Slash commands
 L_SLASHCMD_HELP = {
 	"Available slash commands:",
-	"/rl - Reload interface.",
+	"/rl or // - Reload interface.",
 	"/rc - Activates a ready check.",
 	"/gm - Opens GM frame.",
 	"/dis ADDON_NAME - Disable Addon.",
@@ -492,6 +492,8 @@ L_SLASHCMD_HELP = {
 	"/ainv - Enables automatic invitation.",
 	"/testuf - Unit frame test.",
 	"/cfg - Opens interface settings.",
+	"/installui - Opens installer.",
+	"/vbt - Opens Bartender Select Profile.",
 }
 
 -- ExploreMap
