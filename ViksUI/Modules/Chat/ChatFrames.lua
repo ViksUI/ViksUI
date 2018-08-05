@@ -27,24 +27,17 @@ local len = string.len
 
 
 local smileyPack = {
-	['exclamation'] = [[Interface\AddOns\ViksUI\Media\smileys\!.blp]], -- ["%:!"] = "exclamation",
 	['Angry'] = [[Interface\AddOns\ViksUI\Media\smileys\angry.blp]],
 	['BrokenHeart'] = [[Interface\AddOns\ViksUI\Media\smileys\brokenheart.blp]],
-	['Cool'] = [[Interface\AddOns\ViksUI\Media\smileys\cool.blp]], --- ["%B|"] = "Cool",
-	['EEK'] = [[Interface\AddOns\ViksUI\Media\smileys\eek.blp]], --- ["%:eek"] = "EEK",
-	['Embarrassment'] = [[Interface\AddOns\ViksUI\Media\smileys\embarrassment.blp]], --- ["%:$"] = "Embarrassment",
-	['Gasp'] = [[Interface\AddOns\ViksUI\Media\smileys\gasp.blp]], --- ["%:o"] = "Gasp",
-	['Glasses'] = [[Interface\AddOns\ViksUI\Media\smileys\glasses.blp]], --- ["%B)"] = "Glasses",
-	['Grin'] = [[Interface\AddOns\ViksUI\Media\smileys\grin.blp]],
-	['Grumpy'] = [[Interface\AddOns\ViksUI\Media\smileys\grumpy.blp]], --- ["%>:("] = "Grumpy",
-	--['Kiss'] = [[Interface\AddOns\ViksUI\Media\smileys\kiss.blp]], --- ["%:*"] = "Kiss",
-	['Like'] = [[Interface\AddOns\ViksUI\Media\smileys\like.blp]], --- ["%(y)"] = "Like",
-	--['LOL'] = [[Interface\AddOns\ViksUI\Media\smileys\lol.blp]], --- ["%lol"] = "LOL",
-	--['ROFL'] = [[Interface\AddOns\ViksUI\Media\smileys\rofl.blp]], --- ["%rofl"] = "ROFL",
+	['Cool'] = [[Interface\AddOns\ViksUI\Media\smileys\cool.blp]],
+	['Gasp'] = [[Interface\AddOns\ViksUI\Media\smileys\gasp.blp]],
+	['Grin'] = [[Interface\AddOns\ViksUI\Media\smileys\grin2.blp]],
+	['Kiss'] = [[Interface\AddOns\ViksUI\Media\smileys\kiss.blp]],
+	['Like'] = [[Interface\AddOns\ViksUI\Media\smileys\like.blp]],
 	['Hmm'] = [[Interface\AddOns\ViksUI\Media\smileys\unsure.blp]],
 	['MiddleFinger'] = [[Interface\AddOns\ViksUI\Media\smileys\MiddleFinger.blp]],
 	['Sad'] = [[Interface\AddOns\ViksUI\Media\smileys\sad.blp]],
-	['Surprise'] = [[Interface\AddOns\ViksUI\Media\smileys\Surprise.blp]],
+	['Surprise'] = [[Interface\AddOns\ViksUI\Media\smileys\surprise.blp]],
 	['Tongue'] = [[Interface\AddOns\ViksUI\Media\smileys\tongue.blp]],
 	['Cry'] = [[Interface\AddOns\ViksUI\Media\smileys\cry.blp]],
 	['Wink'] = [[Interface\AddOns\ViksUI\Media\smileys\wink.blp]],
@@ -53,15 +46,9 @@ local smileyPack = {
 }
 
 local smileyKeys = {
-	--["%:!"] = "exclamation",
-	--["%:%eek"] = "EEK",
-	--["%:%$"] = "Embarrassment",
-	--["%B)"] = "Glasses",
-	--["%>%:%("] = "Grumpy",
-	--["%:%*"] = "Kiss",
-	--["%:y"] = "Like",
-	--["%:lol"] = "LOL",
-	--["%:rofl"] = "ROFL",
+	["%:%*"] = "Kiss",
+	["%:%B"] = "Cool",
+	["%(%y%)"] = "Like",
 	["%:%-%@"] = "Angry",
 	["%:%@"] = "Angry",
 	["%:%-%)"] = "Happy",
@@ -75,7 +62,7 @@ local smileyKeys = {
 	["XD"] = "Grin",
 	["%:%-%("] = "Sad",
 	["%:%("] = "Sad",
-	["%:o"] = "Gasp",
+	["%:%o"] = "Gasp",
 	["%:%-o"] = "Surprise",
 	["%:%-O"] = "Surprise",
 	["%:O"] = "Gasp",
@@ -90,11 +77,10 @@ local smileyKeys = {
 	["%;p"] = "Tongue",
 	["%;P"] = "Tongue",
 	["%;%-P"] = "Tongue",
-	--["%;%-%)"] = "Wink",
 	["%;%)"] = "Wink",
 	["%:S"] = "Hmm",
 	["%:%-S"] = "Hmm",
-	["%:%,%("] = "Cry",
+	["%;%("] = "Cry",
 	["%:%,%-%("] = "Cry",
 	["%:%'%("] = "Cry",
 	["%:%'%-%("] = "Cry",
@@ -105,7 +91,7 @@ local smileyKeys = {
 
 local function InsertEmotions( msg )
 	for k,v in pairs(smileyKeys) do
-		msg = gsub(msg,k,"|T"..smileyPack[v]..":16|t");
+		msg = gsub(msg,k,"|T"..smileyPack[v]..":20|t");
 	end
 
 	return msg;
