@@ -3,17 +3,10 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.4",
-		"• NEW Menu bar added",
-		"• NEW XP/REP and Azerite Bars",
-		"• NEW Improved /installui",
-		"• Updated currency for BFA",
-		"• Filger Improved",
-		"• Div Skins updated",
-		"• Misc code changes",
-		"• Misc bug fixes & Missing Descriptions",
-		"• Fixed /moveui and /moveui reset",
-		"• Fixed Mouseover Keybinding, now shows under Keybindings",
+		"Update 8.5",
+		"• NEW Emoji Icons",
+		"• Updated XP/Rep/Honor Bars",
+		"• Spell Filters Updated",
 		"",
 		--"• ",
 	--" ",
@@ -133,7 +126,7 @@ _G.StaticPopupDialogs["PATRON"] = {
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 420)
+	frame:SetSize(445, 300)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	
