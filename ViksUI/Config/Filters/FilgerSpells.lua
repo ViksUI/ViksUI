@@ -26,6 +26,10 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Empower Rune Weapon
+			{spellID = 47568, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Death's Advance
+			{spellID = 48265, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Remorseless Winter
 			{spellID = 196770, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Hungering Rune Weapon
@@ -63,6 +67,8 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
 			-- Buffs
+			-- Icy Talons
+			{spellID = 194879, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Crimson Scourge
 			{spellID = 81141, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Freezing Fog
@@ -441,6 +447,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.debuff_size,
 			Position = {unpack(C["filger_position"].target_debuff_icon)},
 
+			-- Dark Slash
+			{spellID = 258860, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Nemesis
 			{spellID = 206491, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Sigil of Flame
@@ -647,6 +655,10 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
 			-- Buffs
+			-- Warrior of Elune
+			{spellID = 202425, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Starlord
+			{spellID = 279709, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Bloodtalons
 			{spellID = 145152, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Clearcasting
@@ -1719,6 +1731,8 @@ C["filger_spells"] = {
 			{spellID = 123725, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Exploding Keg
 			{spellID = 214326, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Paralysis
+			{spellID = 115078, unitID = "focus", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "COOLDOWN",
@@ -1842,6 +1856,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Inquisition
+			{spellID = 84963, unitID = "player", caster = "player", filter = "BUFF"},			
 			-- Shield of Vengeance
 			{spellID = 184662, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Eye for an Eye
@@ -1995,6 +2011,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.debuff_size,
 			Position = {unpack(C["filger_position"].target_debuff_icon)},
 
+			-- Execution Sentence
+			{spellID = 267799, unitID = "target", caster = "player", filter = "DEBUFF"},			
 			-- Eye of Tyr
 			{spellID = 209202, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Forbearance
@@ -2116,6 +2134,10 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Rapture
+			{spellID = 47536, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Desperate Prayer
+			{spellID = 19236, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Voidform
 			{spellID = 194249, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Dispersion
@@ -3000,6 +3022,10 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Dark Soul: Misery
+			{spellID = 113860, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Dark Soul: Instability
+			{spellID = 113858, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Deadwind Harvester
 			{spellID = 216708, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Unending Resolve
@@ -3264,6 +3290,12 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- In For The Kill
+			{spellID = 248622, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Deadly Calm
+			{spellID = 262228, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Sweeping Strikes
+			{spellID = 260708, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Ignore Pain
 			{spellID = 190456, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shield Wall
@@ -3397,6 +3429,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.debuff_size,
 			Position = {unpack(C["filger_position"].target_debuff_icon)},
 
+			-- Siegebreaker
+			{spellID = 280773, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Rend
 			{spellID = 772, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Colossus Smash
