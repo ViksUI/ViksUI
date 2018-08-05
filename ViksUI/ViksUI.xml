@@ -92,6 +92,8 @@
 	<Script file="Modules\Misc\Stats.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
 	<Script file="Modules\Misc\TrainAll.lua"/>
+	<Script file="Modules\Misc\ExperienceBar.lua"/>
+	<Script file="Modules\Misc\ReputationBar.lua"/>
 	<!--Script file="Modules\Misc\Tools.lua"/-->
 	<Script file="Modules\Misc\RaidTools.lua"/>
 	
@@ -146,9 +148,6 @@
 	<Script file="Misc\Threatbar.lua"/>
 	<Script file="Misc\ClassTimer.lua"/>
 	<Script file="Misc\Filger.lua"/>
-	<!--Script file="Misc\MarkBar.lua"/-->
-	<!--Script file="Misc\MBFToggle.lua"/-->
-	<Script file="Misc\XPBar.lua"/>
 	<Script file="Misc\CooldownFlash.lua"/>
 	<Script file="Datatext\Positions.lua"/>
 	<Script file="Datatext\Durability.lua"/>

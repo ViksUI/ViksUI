@@ -1687,7 +1687,7 @@ if experience.enabled then
 				elseif conf.ExpMode == "played" then
 					return gsub(experience.played_fmt, "%[([%w%%]-)%]", tags)
 				elseif conf.ExpMode == "xp" then
-					return gsub(experience[format("xp_%s_fmt", (GetXPExhaustion() or 0) > 0 and "rested" or "normal")], "%[([%w%%]-)%]", tags) or " "
+					return gsub(experience.played_fmt, "%[([%w%%]-)%]", tags)
 				elseif conf.ExpMode == "art" then
 					return self:GetText()
 				end

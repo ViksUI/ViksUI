@@ -1,11 +1,12 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.XPBar.enable ~= true then return end
 
-local Panels = CreateFrame("Frame")
+local ExperienceEnable = true
 local Experience = CreateFrame("Frame", nil, UIParent)
 local HideTooltip = GameTooltip_Hide
-
+local Panels = CreateFrame("Frame")
 local Bars = 20
+local barTex = C.media.texture
 
 Experience.NumBars = 2
 Experience.RestedColor = {75 / 255, 175 / 255, 76 / 255}
@@ -153,16 +154,16 @@ function Experience:Create()
 		local XPBar = CreateFrame("StatusBar", nil, UIParent)
 		local RestedBar = CreateFrame("StatusBar", nil, XPBar)
 
-		XPBar:SetStatusBarTexture(C.Medias.Normal)
+		XPBar:SetStatusBarTexture(barTex)
 		XPBar:EnableMouse()
-		XPBar:SetFrameStrata("HIGH")
+		XPBar:SetFrameStrata("MEDIUM")
 		XPBar:SetFrameLevel(2)
 		XPBar:CreateBackdrop()
 		XPBar:SetScript("OnEnter", Experience.SetTooltip)
 		XPBar:SetScript("OnLeave", HideTooltip)
 
-		RestedBar:SetStatusBarTexture(C.Medias.Normal)
-		RestedBar:SetFrameStrata("HIGH")
+		RestedBar:SetStatusBarTexture(barTex)
+		RestedBar:SetFrameStrata("MEDIUM")
 		RestedBar:SetStatusBarColor(unpack(self.RestedColor))
 		RestedBar:SetAllPoints(XPBar)
 		RestedBar:SetOrientation("HORIZONTAL")
@@ -174,6 +175,8 @@ function Experience:Create()
 		XPBar:Point("BOTTOMLEFT", i == 1 and LChatTab or RChatTab, "TOPLEFT", 2, 4)
 		XPBar:SetReverseFill(i == 2 and true)
 		
+		--XPBar.Backdrop:CreateShadow()
+
 		self["XPBar"..i] = XPBar
 		self["RestedBar"..i] = RestedBar
 	end
@@ -194,6 +197,9 @@ function Experience:Create()
 end
 
 function Experience:Enable()
+	if not ExperienceEnable then
+		return
+	end
 	
 	if not self.IsCreated then
 		self:Create()
@@ -223,5 +229,5 @@ function Experience:Disable()
 		end
 	end
 end
-
 Experience:Enable()
+C.Experience = Experience
