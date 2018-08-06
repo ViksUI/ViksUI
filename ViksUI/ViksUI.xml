@@ -63,7 +63,7 @@
 	<Include file="UnitFrames\template.xml"/>
 	<Include file="UnitFrames\Raid\load.xml"/>
 	<!--Script file="Main\Cooldown.lua"/-->
-	<Script file="Main\Fonts.lua"/>
+	<!--Script file="Main\Fonts.lua"/-->
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\AlreadyKnown.lua"/>
 	<Script file="Modules\Misc\Archaeology.lua"/>

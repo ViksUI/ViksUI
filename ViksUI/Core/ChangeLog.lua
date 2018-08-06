@@ -137,7 +137,7 @@ function ChangeLog:CreateChangelog()
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
 	icon.bg:SetPoint("TOPLEFT", 2, -2)
 	icon.bg:SetPoint("BOTTOMRIGHT", -2, 2)
-	icon.bg:SetTexture(C["media"].duffed)
+	icon.bg:SetTexture([[Interface\AddOns\ViksUI\Media\textures\viksicon.blp]])
 	
 	local title = CreateFrame("Frame", nil, frame)
 	title:SetPoint("LEFT", icon, "RIGHT", 3, 0)
