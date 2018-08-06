@@ -72,16 +72,6 @@ LABar:CreatePanel("Transparent", CPABarSide*Pscale, Pscale*(CPbarsheight+yoffset
 LABar:SetFrameLevel(2)
 LABar:SetAlpha(pAlpha)
 
---Background Panel For Recount if used
-if IsAddOnLoaded("Recount") then
-local L_Recount = CreateFrame("Frame", "L_Recount", Recount_MainWindow)
-L_Recount:CreatePanel("Transparent", Pscale*CPSidesWidth, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset), "BOTTOMLEFT", LABar, "BOTTOMRIGHT", xoffset, 0)
-L_Recount:SetFrameLevel(2)
-L_Recount:SetAlpha(pAlpha)
- else
-
-end
-
 ----------------------------------------------------------------------------------------
 -- RIGHT SIDE PANELS
 ----------------------------------------------------------------------------------------
@@ -127,6 +117,24 @@ R_Omen:SetFrameLevel(2)
 R_Omen:SetAlpha(pAlpha)
  else
 
+end
+
+--Background Panel For Details if used
+if IsAddOnLoaded("Details") then 
+local L_Details = CreateFrame("Frame", "L_Details", Details_WindowFrame3)
+L_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-10, LABar:GetHeight(), "BOTTOMLEFT", LABar, "BOTTOMRIGHT", xoffset, 0)
+L_Details:SetFrameLevel(2)
+L_Details:SetAlpha(pAlpha)
+
+local R1_Details = CreateFrame("Frame", "R1_Details", Details_WindowFrame1)
+R1_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))*0.5, "BOTTOMRIGHT", RABar, "BOTTOMLEFT", -xoffset, 0)
+R1_Details:SetFrameLevel(2)
+R1_Details:SetAlpha(pAlpha)
+
+local R2_Details = CreateFrame("Frame", "R2_Details", Details_WindowFrame2)
+R2_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))*0.49, "TOPRIGHT", RABar, "TOPLEFT", -xoffset, 0)
+R2_Details:SetFrameLevel(2)
+R2_Details:SetAlpha(pAlpha)
 end
 
 ----------------------------------------------------------------------------------------
