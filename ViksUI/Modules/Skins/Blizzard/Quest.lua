@@ -33,15 +33,9 @@ local function LoadSkin()
 	T.SkinScrollBar(QuestGreetingScrollFrameScrollBar)
 	T.SkinScrollBar(QuestNPCModelTextScrollFrameScrollBar)
 
-	--T:HandleScrollBar(QuestProgressScrollFrameScrollBar)
-	--T:HandleScrollBar(QuestRewardScrollFrameScrollBar)
 
-	--T:HandleScrollBar(QuestDetailScrollFrameScrollBar)
 	QuestProgressScrollFrame:StripTextures()
-
 	QuestGreetingScrollFrame:StripTextures()
-	--T:HandleScrollBar(QuestGreetingScrollFrameScrollBar)
-
 	QuestInfoSkillPointFrame:StripTextures()
 	QuestInfoSkillPointFrame:StyleButton()
 	QuestInfoSkillPointFrame:Width(QuestInfoSkillPointFrame:GetWidth() - 4)
@@ -50,14 +44,12 @@ local function LoadSkin()
 	QuestInfoSkillPointFrameIconTexture:SetDrawLayer("OVERLAY")
 	QuestInfoSkillPointFrameIconTexture:Point("TOPLEFT", 2, -2)
 	QuestInfoSkillPointFrameIconTexture:Size(QuestInfoSkillPointFrameIconTexture:GetWidth() - 2, QuestInfoSkillPointFrameIconTexture:GetHeight() - 2)
-	--QuestInfoSkillPointFrame:CreateBackdrop("Default")
 	QuestInfoSkillPointFrameCount:SetDrawLayer("OVERLAY")
 
 	QuestInfoItemHighlight:StripTextures()
 	QuestInfoItemHighlight:SetTemplate("Default", nil, true)
 	QuestInfoItemHighlight:SetBackdropBorderColor(1, 1, 0)
 	QuestInfoItemHighlight:SetBackdropColor(0, 0, 0, 0)
-	--QuestInfoItemHighlight.backdropTexture:SetAlpha(0)
 	QuestInfoItemHighlight:Size(142, 40)
 
 	hooksecurefunc("QuestInfoItem_OnClick", function(self)
@@ -78,32 +70,58 @@ local function LoadSkin()
 	QuestRewardScrollFrame:HookScript('OnShow', function(self)
 		if not self.backdrop then
 			self:CreateBackdrop("Default")
-			--StyleScrollFrame(self, 509, 630, false)
 			self:Height(self:GetHeight() - 2)
 		end
-		--self.spellTex:Height(self:GetHeight() + 217)
 	end)
 
 	hooksecurefunc("QuestInfo_Display", function()
-		for i = 1, #QuestInfoRewardsFrame.RewardButtons do
-			local questItem = QuestInfoRewardsFrame.RewardButtons[i]
-			if not questItem:IsShown() then break end
+			QuestInfoTitleHeader:SetTextColor(1, 1, 0)
+			QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
+			QuestInfoObjectivesHeader:SetTextColor(1, 1, 0)
+			QuestInfoRewardsFrame.Header:SetTextColor(1, 1, 0)
+			QuestInfoDescriptionText:SetTextColor(1, 1, 1)
+			QuestInfoObjectivesText:SetTextColor(1, 1, 1)
+			QuestInfoGroupSize:SetTextColor(1, 1, 1)
+			QuestInfoRewardText:SetTextColor(1, 1, 1)
+			QuestInfoRewardsFrame.ItemChooseText:SetTextColor(1, 1, 1)
+			QuestInfoRewardsFrame.ItemReceiveText:SetTextColor(1, 1, 1)
 
-			local point, relativeTo, relativePoint, _, y = questItem:GetPoint()
-			if point and relativeTo and relativePoint then
-				if i == 1 then
-					questItem:Point(point, relativeTo, relativePoint, 0, y)
-				elseif relativePoint == "BOTTOMLEFT" then
-					questItem:Point(point, relativeTo, relativePoint, 0, -4)
-				else
-					questItem:Point(point, relativeTo, relativePoint, 4, 0)
+			QuestInfoQuestType:SetTextColor(1, 1, 1)
+
+			if QuestInfoRewardsFrame.SpellLearnText then
+				QuestInfoRewardsFrame.SpellLearnText:SetTextColor(1, 1, 1)
+			end
+
+			QuestInfoRewardsFrame.spellHeaderPool.textR, QuestInfoRewardsFrame.spellHeaderPool.textG, QuestInfoRewardsFrame.spellHeaderPool.textB = 1, 1, 1
+
+			QuestInfoRewardsFrame.PlayerTitleText:SetTextColor(1, 1, 1)
+			QuestInfoRewardsFrame.XPFrame.ReceiveText:SetTextColor(1, 1, 1)
+			local numObjectives = GetNumQuestLeaderBoards()
+			local numVisibleObjectives = 0
+			for i = 1, numObjectives do
+				local _, type, finished = GetQuestLogLeaderBoard(i)
+				if type ~= 'spell' then
+					numVisibleObjectives = numVisibleObjectives + 1
+					local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+					if objective then
+						if finished then
+							objective:SetTextColor(1, 1, 0)
+						else
+							objective:SetTextColor(0.6, 0.6, 0.6)
+						end
+					end
 				end
 			end
 
-			questItem.Name:SetTextColor(1, 1, 1)
-		end
 	end)
-
+	
+	hooksecurefunc('QuestFrameProgressItems_Update', function()
+		QuestProgressTitleText:SetTextColor(1, 1, 0)
+		QuestProgressText:SetTextColor(1, 1, 1)
+		QuestProgressRequiredItemsText:SetTextColor(1, 1, 0)
+		QuestProgressRequiredMoneyText:SetTextColor(1, 1, 0)
+	end)
+	
 	local rewardFrames = {
 		["MoneyFrame"] = true,
 		["XPFrame"] = true,
@@ -119,7 +137,6 @@ local function LoadSkin()
 		frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		frame:CreateBackdrop()
 		frame.backdrop:SetOutside(frame.Icon)
-		--frame.Name:FontTemplate()
 		frame.Count:ClearAllPoints()
 		frame.Count:Point("BOTTOMRIGHT", frame.Icon, "BOTTOMRIGHT", 2, 0)
 
@@ -178,13 +195,8 @@ local function LoadSkin()
 	QuestFrameDetailPanel:StripTextures(true)
 	QuestDetailScrollFrame:StripTextures(true)
 	QuestDetailScrollFrame:SetTemplate()
-	--StyleScrollFrame(QuestDetailScrollFrame, 506, 615, true)
-
 	QuestProgressScrollFrame:SetTemplate()
-	--StyleScrollFrame(QuestProgressScrollFrame, 506, 615, true)
-
 	QuestGreetingScrollFrame:SetTemplate()
-	--StyleScrollFrame(QuestGreetingScrollFrame, 506, 615, true)
 
 	QuestFrameGreetingPanel:StripTextures(true)
 	T:HandleButton(QuestFrameGreetingGoodbyeButton, true)
@@ -234,10 +246,6 @@ local function LoadSkin()
 	QuestNPCModelTextFrame:StripTextures()
 	QuestNPCModelTextFrame:CreateBackdrop("Default")
 	QuestNPCModelTextFrame.backdrop:Point("TOPLEFT", QuestNPCModel.backdrop, "BOTTOMLEFT", 0, -2)
-	--QuestLogDetailFrame:StripTextures()
-	--QuestLogDetailFrame:SetTemplate("Transparent")
-	--QuestLogDetailScrollFrame:StripTextures()
-	--T:HandleCloseButton(QuestLogDetailFrameCloseButton)
 
 	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(QuestFrame, parentFrame, portrait, text, name, x, y)
 		QuestNPCModel:ClearAllPoints();
@@ -250,20 +258,9 @@ local function LoadSkin()
 	T:HandleButton(QuestLogPopupDetailFrameShareButton)
 	T:HandleButton(QuestLogPopupDetailFrameTrackButton)
 	QuestLogPopupDetailFrameScrollFrame:StripTextures()
-	--T:HandleScrollBar(QuestLogPopupDetailFrameScrollFrameScrollBar)
 	QuestLogPopupDetailFrame:SetTemplate("Transparent")
 
-	--QuestLogPopupDetailFrameScrollFrame:HookScript('OnShow', function(self)
-		--if not QuestLogPopupDetailFrameScrollFrame.backdrop then
-			--QuestLogPopupDetailFrameScrollFrame:CreateBackdrop("Default")
-			--StyleScrollFrame(QuestLogPopupDetailFrameScrollFrame, 509, 630, false)
-			--QuestLogPopupDetailFrameScrollFrame:Height(self:GetHeight() - 2)
-		--end
-		--QuestLogPopupDetailFrameScrollFrame.spellTex:Height(self:GetHeight() + 217)
-	--end)
-
 	T.SkinCloseButton(QuestLogPopupDetailFrameCloseButton)
-	--T:HandleScrollBar(QuestMapDetailsScrollFrameScrollBar)
 
 	QuestLogPopupDetailFrame.ShowMapButton:StripTextures()
 	T:HandleButton(QuestLogPopupDetailFrame.ShowMapButton)
