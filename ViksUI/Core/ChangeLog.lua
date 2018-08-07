@@ -194,19 +194,22 @@ function ViksUI_ToggleChangeLog()
 	ChangeLog:CreateChangelog()
 end
 
-function ChangeLog:OnCheckVersion(self)
-	if not SavedOptions["version"] or (SavedOptions["version"] and SavedOptions["version"] ~= T.version) then
-		SavedOptions["version"] = T.version
-		ChangeLog:CreateChangelog()
+if SavedOptionsPerChar == nil then SavedOptionsPerChar = {} end
+if SavedOptionsPerChar.Install == nil then -- Check to not show if we are running installui
+else
+	function ChangeLog:OnCheckVersion(self)
+		if not SavedOptions["version"] or (SavedOptions["version"] and SavedOptions["version"] ~= T.version) then
+			SavedOptions["version"] = T.version
+			ChangeLog:CreateChangelog()
+		end
 	end
+
+	ChangeLog:RegisterEvent("ADDON_LOADED")
+	ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
+	ChangeLog:SetScript("OnEvent", function(self, event, ...)
+		if SavedOptions == nil then SavedOptions = {} end
+		ChangeLog:OnCheckVersion()
+	end)
 end
-
-ChangeLog:RegisterEvent("ADDON_LOADED")
-ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
-ChangeLog:SetScript("OnEvent", function(self, event, ...)
-	if SavedOptions == nil then SavedOptions = {} end
-	ChangeLog:OnCheckVersion()
-end)
-
 SLASH_CHANGELOG1 = "/changelog"
 SlashCmdList.CHANGELOG = function() ViksUI_ToggleChangeLog() end

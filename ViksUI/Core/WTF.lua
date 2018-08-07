@@ -357,19 +357,53 @@ SkadaDB = {
 			},
 			["windows"] = {
 				{
+					["titleset"] = false,
+					["barheight"] = 12,
+					["classicons"] = false,
 					["barslocked"] = true,
-					["modeincombat"] = "Threat",
-					["y"] = 80.5010528564453,
-					["x"] = -340.9990234375,
+					["wipemode"] = "Overhealing",
+					["y"] = 92,
+					["x"] = -341,
 					["name"] = "Threath",
+					["barfontsize"] = 12,
 					["point"] = "BOTTOMRIGHT",
-					["barwidth"] = 167.000061035156,
+					["spellschoolcolors"] = false,
+					["modeincombat"] = "Threat",
+					["roleicons"] = true,
 					["mode"] = "Threat",
-					["enablebackground"] = true,
-					["background"] = {
-						["borderthickness"] = 2,
-						["height"] = 79.0000610351563,
+					["bartexture"] = "Armory",
+					["buttons"] = {
+						["report"] = false,
+						["menu"] = false,
+						["stop"] = false,
+						["mode"] = false,
+						["segment"] = false,
+						["reset"] = false,
 					},
+					["enablebackground"] = true,
+					["title"] = {
+						["color"] = {
+							["a"] = 0.8,
+							["r"] = 0.1,
+							["g"] = 0.1,
+							["b"] = 0.3,
+						},
+						["fontsize"] = 11,
+						["height"] = 10,
+						["texture"] = "Aluminium",
+					},
+					["background"] = {
+						["color"] = {
+							["a"] = 0.2,
+							["r"] = -0,
+							["g"] = -0,
+							["b"] = 0.5,
+						},
+						["bordertexture"] = "None",
+						["borderthickness"] = 0,
+						["height"] = 80,
+					},
+					["barwidth"] = 167,
 				}, -- [1]
 				{
 					["point"] = "BOTTOMRIGHT",
@@ -388,7 +422,7 @@ SkadaDB = {
 					["modeincombat"] = "",
 					["name"] = "Heal",
 					["barslocked"] = true,
-					["x"] = -340.9996006869089,
+					["x"] = -341,
 					["barorientation"] = 1,
 					["enabletitle"] = true,
 					["wipemode"] = "",
@@ -408,7 +442,7 @@ SkadaDB = {
 						["report"] = true,
 						["reset"] = true,
 					},
-					["barwidth"] = 166.9996692109227,
+					["barwidth"] = 167,
 					["barspacing"] = -0,
 					["hidden"] = false,
 					["background"] = {
@@ -419,12 +453,12 @@ SkadaDB = {
 							["g"] = -0,
 							["b"] = 0.5,
 						},
-						["height"] = 53.99990795077569,
+						["height"] = 66,
 						["bordertexture"] = "None",
 						["margin"] = -0,
 						["texture"] = "Solid",
 					},
-					["y"] = 5.000074473703773,
+					["y"] = 5,
 					["barfont"] = "Accidental Presidency",
 					["title"] = {
 						["fontsize"] = 11,
@@ -484,7 +518,7 @@ SkadaDB = {
 					},
 					["bartexture"] = "BantoBar",
 					["set"] = "current",
-					["barwidth"] = 163.0001646080854,
+					["barwidth"] = 163,
 					["barspacing"] = -0,
 					["hidden"] = false,
 					["background"] = {
@@ -495,12 +529,12 @@ SkadaDB = {
 							["g"] = -0,
 							["b"] = 0.5,
 						},
-						["height"] = 160.0000021883917,
+						["height"] = 162,
 						["bordertexture"] = "None",
 						["margin"] = -0,
 						["texture"] = "Solid",
 					},
-					["y"] = 5.000234226295153,
+					["y"] = 5,
 					["barfont"] = "Accidental Presidency",
 					["title"] = {
 						["fontsize"] = 11,
@@ -532,6 +566,11 @@ SkadaDB = {
 			},
 			["columns"] = {
 				["Absorbs and healing_HPS"] = true,
+			},
+			["versions"] = {
+				["1.6.3"] = true,
+				["1.6.4"] = true,
+				["1.6.7"] = true,
 			},
 		},
 	},
@@ -5988,6 +6027,7 @@ SlashCmdList.SETTINGS = function(msg)
 	elseif msg == "skada" then
 		if IsAddOnLoaded("Skada") then
 			UploadSkada()
+			ReloadUI()
 		else
 			print("|cffffff00Skada"..L_INFO_NOT_INSTALLED.."|r")
 		end
