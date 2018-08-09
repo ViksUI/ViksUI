@@ -435,6 +435,12 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigunitframeplugins_combat_feedback" then o = L_GUI_UF_PLUGINS_COMBAT_FEEDBACK end
 	if o == "UIConfigunitframeplugins_fader" then o = L_GUI_UF_PLUGINS_FADER end
 	if o == "UIConfigunitframeplugins_diminishing" then o = L_GUI_UF_PLUGINS_DIMINISHING end
+	if o == "UIConfigunitframeplugins_debuffhighlight_icon" then o = L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON end
+	if o == "UIConfigunitframeplugins_aura_watch" then o = L_GUI_UF_PLUGINS_AURA_WATCH end
+	if o == "UIConfigunitframeplugins_aura_watch_timer" then o = L_GUI_UF_PLUGINS_AURA_WATCH_TIMER end
+	if o == "UIConfigunitframeplugins_pvp_debuffs" then o = L_GUI_UF_PLUGINS_PVP_DEBUFFS end
+	if o == "UIConfigunitframeplugins_healcomm" then o = L_GUI_UF_PLUGINS_HEALCOMM end
+	if o == "UIConfigunitframeplugins_auto_resurrection" then o = L_GUI_UF_PLUGINS_AUTO_RESURRECTION end
 
 	-- Unit Frames Class bar options
 	if o == "UIConfigunitframe_class_bar" then o = L_GUI_UF_PLUGINS_CLASS_BAR end
@@ -642,6 +648,8 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigmiscPscale" then o = "Scale ViksUI Panels" end
 	if o == "UIConfigmiscpanelsh" then o = "Set Panels to hidden" end
 	if o == "UIConfigmiscThreatbar" then o = "Shows threathbar over XP bar location" end
+	if o == "UIConfigmiscGameMenuBar" then o = "Shows Game menu at bottom of screen" end
+	if o == "UIConfigmiscOrderHallBar" then o = "Show OrderHallBar Frame" end
 	if o == "UIConfigmiscmerchant_itemlevel" then o = L_GUI_MISC_MERCHANT_ITEMLEVEL end
 	if o == "UIConfigmiscminimize_mouseover" then o = L_GUI_MISC_MINIMIZE_MOUSEOVER end
 	if o == "UIConfigmischide_banner" then o = L_GUI_MISC_HIDE_BANNER end
@@ -667,6 +675,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigpanelsCPCooldheight" then o = "Hight for Cooldown Bar" end
 	if o == "UIConfigpanelsCPTop" then o = "Width for Top Panels" end
 	if o == "UIConfigpanelsNoPanels" then o = "NoPanels - Use Lines" end
+	if o == "UIConfigpanelsHideABPanels" then o = "Hide Panels behind Actionbars" end
 
 	-- Raid cooldowns options
 	if o == "UIConfigraidcooldown" then o = L_GUI_COOLDOWN_RAID end
@@ -965,7 +974,7 @@ function CreateUIConfig()
 	local function sortMyTable(a, b)
 		return ALLOWED_GROUPS[a] < ALLOWED_GROUPS[b]
 	end
-	local function pairsByKey(t)
+	local function pairsByKey(t, f)
 		local a = {}
 		for n in pairs(t) do table.insert(a, n) end
 		table.sort(a, sortMyTable)
@@ -1167,6 +1176,8 @@ function CreateUIConfig()
 				colortext:SetPoint("CENTER")
 				colortext:SetJustifyH("CENTER")
 				colorbutton:SetWidth(colortext:GetWidth() + 5)
+
+				local oldvalue = value
 
 				local function round(number, decimal)
 					return (("%%.%df"):format(decimal)):format(number)
