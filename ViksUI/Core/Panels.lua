@@ -190,29 +190,6 @@ CPCool:SetFrameLevel(2)
 CPCool:SetAlpha(pAlpha)
 ]]--
 
---Backgrounds for Extra Actionbar Buttons
-if C.misc.BT4Bars == true then
- -- Right side Actionbar (Close to right edge)
-local SideBar = CreateFrame("Frame", "SideBar", UIParent)
-SideBar:CreatePanel("Transparent", 1+(CPABarSide*Pscale), Pscale*(400), "RIGHT", UIParent, "RIGHT", -xoffset, 1)
-SideBar:SetFrameLevel(2)
-SideBar:SetAlpha(pAlpha)
-if T.class == "DRUID" then SideBar:SetAlpha(0) end
-
- -- Left Side Action Bar Next to chat
-local EBarL = CreateFrame("Frame", "EBarL", UIParent)
-EBarL:CreatePanel("Transparent", ((Pscale*((CPMABwidth/13)*3))*0.75), 0.75*(Pscale*CPMABheight), "RIGHT", CPMAB, "LEFT", -10, 0)
-EBarL:SetFrameLevel(2)
-EBarL:SetAlpha(pAlpha)
-
- -- Left Side Action Bar Next to chat
-local EBarR = CreateFrame("Frame", "EBarR", UIParent) -- Left Side Action Bar Next to chat
-EBarR:CreatePanel("Transparent", ((Pscale*((CPMABwidth/13)*3))*0.75), 0.75*(Pscale*CPMABheight), "LEFT", CPMAB, "RIGHT", 10, 0)
-EBarR:SetFrameLevel(2)
-EBarR:SetAlpha(pAlpha)
-end
-
-
 ----------------------------------------------------------------------------------------
 --	Lines when panels are hidden
 ----------------------------------------------------------------------------------------
@@ -407,6 +384,27 @@ end
 --RegisterStateDriver(CPCool, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(CPMAB, "visibility", "[petbattle] hide; show")
 
+--Backgrounds for Extra Actionbar Buttons
+if C.misc.BT4Bars == true then
+ -- Right side Actionbar (Close to right edge)
+local SideBar = CreateFrame("Frame", "SideBar", UIParent)
+SideBar:CreatePanel("Transparent", 1+(CPABarSide*Pscale), Pscale*(400), "RIGHT", UIParent, "RIGHT", -xoffset, 1)
+SideBar:SetFrameLevel(2)
+SideBar:SetAlpha(pAlpha)
+if T.class == "DRUID" then SideBar:SetAlpha(0) end
+
+ -- Left Side Action Bar Next to chat
+local EBarL = CreateFrame("Frame", "EBarL", UIParent)
+EBarL:CreatePanel("Transparent", ((Pscale*((CPMABwidth/13)*3))*0.75), 0.75*(Pscale*CPMABheight), "RIGHT", CPMAB, "LEFT", -10, 0)
+EBarL:SetFrameLevel(2)
+EBarL:SetAlpha(pAlpha)
+
+ -- Left Side Action Bar Next to chat
+local EBarR = CreateFrame("Frame", "EBarR", UIParent) -- Left Side Action Bar Next to chat
+EBarR:CreatePanel("Transparent", ((Pscale*((CPMABwidth/13)*3))*0.75), 0.75*(Pscale*CPMABheight), "LEFT", CPMAB, "RIGHT", 10, 0)
+EBarR:SetFrameLevel(2)
+EBarR:SetAlpha(pAlpha)
+end
 ----------------------------------------------------------------------------------------
 --	Top panel
 ----------------------------------------------------------------------------------------
@@ -658,4 +656,16 @@ if C.actionbar.stancebar_hide ~= true then
 			end
 		end
 	end)
+end
+
+----------------------------------------------------------------------------------------
+--	Hide Panels behind actionbars
+----------------------------------------------------------------------------------------
+if C.panels.HideABPanels == true then
+EBarL:SetAlpha(0)
+EBarR:SetAlpha(0)
+CPMAB:SetAlpha(0)
+SideBar:SetAlpha(0)
+RABar:SetAlpha(0)
+LABar:SetAlpha(0)
 end
