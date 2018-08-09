@@ -1772,7 +1772,11 @@ lib.Experience = function(self)
 	local Experience = CreateFrame('StatusBar', nil, self)
 	Experience:SetStatusBarTexture(cfg.statusbar_texture)
 	Experience:SetStatusBarColor(0, 0.7, 1)
+	if cfg.Reputationbar and T.level ~= MAX_PLAYER_LEVEL then 
+	Experience:SetPoint('RIGHT', oUF_Player,'RIGHT', 14, -6)
+	else
 	Experience:SetPoint('RIGHT', oUF_Player,'RIGHT', 10, -6)
+	end
 	Experience:SetHeight(31)
 	Experience:SetWidth(3)
 	Experience:SetFrameLevel(2)
@@ -1808,8 +1812,11 @@ lib.Reputation = function(self)
 	Reputation:SetStatusBarTexture(cfg.statusbar_texture)
 	Reputation:SetWidth(3)
 	Reputation:SetHeight(31)
-	
+	if cfg.Experiencebar and T.level ~= MAX_PLAYER_LEVEL then 
+	Reputation:SetPoint('RIGHT', oUF_Player,'RIGHT', 8, -6)
+	else
 	Reputation:SetPoint('RIGHT', oUF_Player,'RIGHT', 10, -6)
+	end
 	Reputation:SetFrameLevel(2)
 	Reputation:SetOrientation("VERTICAL")
 	

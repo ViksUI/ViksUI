@@ -80,7 +80,7 @@ end
 local function UpdateTooltip(element)
 	local cur, max, perc, rested, restedPerc, _, isHonor = GetValues()
 
-	GameTooltip:SetOwner(element, "ANCHOR_BOTTOM", 0, -5)
+	GameTooltip:SetOwner(element, "ANCHOR_TOP", 0, 20)
 	GameTooltip:SetText(isHonor and HONOR or COMBAT_XP_GAIN.." "..format(LEVEL_GAINED, T.level), 0.40, 0.78, 1)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine(format(L_STATS_CURRENT_XP..": %s / %s (%d%%)", BreakUpLargeNumbers(cur), BreakUpLargeNumbers(max), perc), 0.75, 0.9, 1)
