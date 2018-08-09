@@ -123,7 +123,6 @@ local UnitSpecific = {
 		table.insert(self.__elements, MyPvPUpdate)
 	if cfg.CPoints and C.unitframe_class_bar.combo_old ~= true then lib.genCPoints(self) end
 	if cfg.showHarmony then lib.genHarmony(self) end
-	if cfg.showShadowOrbsBar then lib.genShadowOrbsBar(self) end
 	if cfg.showPortrait or cfg.portraitHPbar then lib.gen_portrait(self) end
 	if cfg.showRunebar then lib.genRunes(self) end
 	if cfg.showHolybar then lib.genHolyPower(self) end

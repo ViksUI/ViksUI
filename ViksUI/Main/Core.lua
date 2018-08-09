@@ -390,7 +390,7 @@ function CreateShadowNameplates(f)
 end
 
 if C.datatext.classcolor == true then
-	local classcolor = RAID_CLASS_COLORS[myclass]
+	local classcolor = RAID_CLASS_COLORS[T.class]
 	C.datatext.color = {classcolor.r,classcolor.g,classcolor.b,1}
 end
 local r, g, b = unpack(C.datatext.color)

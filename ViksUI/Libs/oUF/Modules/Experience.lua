@@ -1,6 +1,9 @@
 local T, C, L = unpack(select(2, ...))
 if C.unitframe.enable ~= true or C.unitframe.plugins_experience_bar ~= true then return end
 
+----------------------------------------------------------------------------------------
+--	Based on oUF_Experience(by p3lim)
+----------------------------------------------------------------------------------------
 local _, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, 'oUF Experience was unable to locate oUF install')
@@ -73,14 +76,18 @@ local function GetValues()
 	return cur, max, perc, rested, restedPerc, level, isHonor
 end
 
+
 local function UpdateTooltip(element)
 	local cur, max, perc, rested, restedPerc, _, isHonor = GetValues()
 
-	GameTooltip:SetText(isHonor and HONOR or EXPERIENCE)
-	GameTooltip:AddLine(format('%s / %s (%d%%)', BreakUpLargeNumbers(cur), BreakUpLargeNumbers(max), perc), 1, 1, 1)
+	GameTooltip:SetOwner(element, "ANCHOR_BOTTOM", 0, -5)
+	GameTooltip:SetText(isHonor and HONOR or COMBAT_XP_GAIN.." "..format(LEVEL_GAINED, T.level), 0.40, 0.78, 1)
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(format(L_STATS_CURRENT_XP..": %s / %s (%d%%)", BreakUpLargeNumbers(cur), BreakUpLargeNumbers(max), perc), 0.75, 0.9, 1)
+	GameTooltip:AddLine(string.format(L_STATS_REMAINING_XP..": %s (%d%%)", BreakUpLargeNumbers(max - cur), (max - cur) / max * 100 + 0.5), 0.75, 0.9, 1)
 
 	if(rested > 0) then
-		GameTooltip:AddLine(format('%s: %s (%d%%)', RESTED, BreakUpLargeNumbers(rested), restedPerc), 1, 1, 1)
+		GameTooltip:AddLine(format('%s: %s (%d%%)', L_STATS_RESTED_XP, BreakUpLargeNumbers(rested), restedPerc), 0.75, 0.9, 1)
 	end
 
 	GameTooltip:Show()

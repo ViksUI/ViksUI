@@ -7,20 +7,18 @@
 	<Include file="locales\load_locales.xml"/>
 	
 	<!-- core -->
-	<Script file="Config\variables.lua"/>
 	<Script file="Config\config.lua"/>
-	<Script file="Config\configui.lua"/>
 	<Script file="Config\Settings.lua"/>
 	<Script file="Config\Fonts.lua"/>
 	<Script file="Config\Profiles.lua"/>
 	<Script file="Media\Media.lua"/>
-
+	<Script file="Core\GUI.lua"/>
+	<Script file="Core\PixelPerfect.lua"/>
+	
 	<Include file="Libs\load_libs.xml" />
 	<Script file="Config\LibSharedMedia.lua"/>
 	<Script file="Modules\Automation\AutoInvite.lua"/>
 	
-	<Script file="Core\GUI.lua"/>
-	<Script file="Core\PixelPerfect.lua"/>
 	<Script file="Config\DataText.lua"/>
 	<Script file="Libs\LiteStats\LiteStats.lua"/>
 	<!--Script file="UnitFrames\Colors.lua"/-->

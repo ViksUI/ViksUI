@@ -8,60 +8,7 @@ local T, C, L, _ = unpack(select(2, ...))
 	local cast = ns.cast
 	local lib = CreateFrame("Frame")  
 	local _, playerClass = UnitClass("player")
-	--local cast = CreateFrame("Frame")  
 	local oUF = ns.oUF or oUF
-	--local r25w = cfg.RH25width
-	--local r10w = cfg.RH10width
---[[ Temp disabled before deletion check
-	oUF.colors.power['MANA'] = {0.0, 0.56, 1.0}
-	oUF.colors.power['RAGE'] = {1.0,0,0}
-	oUF.colors.power['FOCUS'] = {1.0,0.75,0.25}
-	oUF.colors.power['ENERGY'] = {0.65,0.65,0.35}
-	oUF.colors.power['ENERGY'] = {0.65,0.65,0.35}
-	oUF.colors.power['RUNIC_POWER'] = {0.44,0.44,0.44}
-	oUF.colors.power['AMMOSLOT'] = {0.8,0.6,0}
-	oUF.colors.power['FUEL'] = {0,0.55,0.5}
-	oUF.colors.power['POWER_TYPE_STEAM'] = {0.55,0.57,0.61}
-	oUF.colors.power['POWER_TYPE_PYRITE'] = {0.6,0.09,0.17}
-	oUF.colors.power['POWER_TYPE_HEAT'] = {0.9,0.45,0.1}
-	oUF.colors.power['POWER_TYPE_OOZE'] = {0.1,0.1,0.9}
-	oUF.colors.power['POWER_TYPE_BLOOD_POWER'] = {0.9,0.1,0.1}
-	local _, pType = UnitPowerType("player")
-	local pcolor = oUF.colors.power[pType] or {.3,.45,.65} 
-	oUF.colors.runes = {{196/255, 30/255, 58/255};{173/255, 217/255, 25/255};{35/255, 127/255, 255/255};{178/255, 53/255, 240/255};}
-
-T.oUF_colors = setmetatable({
-	tapped = {0.6, 0.6, 0.6},
-	disconnected = {0.84, 0.75, 0.65},
-	power = setmetatable({
-		["MANA"] = {0.31, 0.45, 0.63},
-		["RAGE"] = {0.69, 0.31, 0.31},
-		["FOCUS"] = {0.71, 0.43, 0.27},
-		["ENERGY"] = {0.65, 0.63, 0.35},
-		["RUNES"] = {0.55, 0.57, 0.61},
-		["FURY"] = {1, 0, 1},
-		["RUNIC_POWER"] = {0, 0.82, 1},
-		["AMMOSLOT"] = {0.8, 0.6, 0},
-		["FUEL"] = {0, 0.55, 0.5},
-	}, {__index = oUF.colors.power}),
-	runes = setmetatable({
-		[1] = {0.69, 0.31, 0.31},
-		[2] = {0.33, 0.59, 0.33},
-		[3] = {0.31, 0.45, 0.63},
-		[4] = {0.84, 0.75, 0.65},
-	}, {__index = oUF.colors.runes}),
-	reaction = setmetatable({
-		[1] = {0.85, 0.27, 0.27}, -- Hated
-		[2] = {0.85, 0.27, 0.27}, -- Hostile
-		[3] = {0.85, 0.27, 0.27}, -- Unfriendly
-		[4] = {0.85, 0.77, 0.36}, -- Neutral
-		[5] = {0.33, 0.59, 0.33}, -- Friendly
-		[6] = {0.33, 0.59, 0.33}, -- Honored
-		[7] = {0.33, 0.59, 0.33}, -- Revered
-		[8] = {0.33, 0.59, 0.33}, -- Exalted
-	}, {__index = oUF.colors.reaction}),
-}, {__index = oUF.colors})	
-]]--
 -----------------------------
 --MISC STYLING 
 -----------------------------
@@ -862,18 +809,18 @@ lib.gen_InfoIcons = function(f)
     h:SetAllPoints(f)
     h:SetFrameLevel(10)
 	if f.mystyle == 'player' then
-		f.Combat = h:CreateTexture(nil, 'OVERLAY')
-		f.Combat:SetSize(24,24)
-		f.Combat:SetPoint('LEFT', -14, -8)
-		f.Combat:SetTexture(cfg.combatico)
+		f.CombatIndicator = h:CreateTexture(nil, 'OVERLAY')
+		f.CombatIndicator:SetSize(24,24)
+		f.CombatIndicator:SetPoint('LEFT', -14, -8)
+		f.CombatIndicator:SetTexture(cfg.combatico)
     end
 	-- rest icon
     if f.mystyle == 'player' then
-		f.Resting = h:CreateTexture(nil, 'OVERLAY')
-		f.Resting:SetSize(24,24)
-		f.Resting:SetPoint('TOPLEFT', -8, 16)
-		f.Resting:SetTexture(cfg.restico)
-		f.Resting:SetAlpha(0.75)
+		f.RestingIndicator = h:CreateTexture(nil, 'OVERLAY')
+		f.RestingIndicator:SetSize(24,24)
+		f.RestingIndicator:SetPoint('TOPLEFT', -8, 16)
+		f.RestingIndicator:SetTexture(cfg.restico)
+		f.RestingIndicator:SetAlpha(0.75)
 	end
     if f.mystyle =='raid' or f.mystyle =='raid25' or f.mystyle =='party' and cfg.showLFDIcons then 
 		if cfg.customLFDIcons then
@@ -886,23 +833,19 @@ lib.gen_InfoIcons = function(f)
 		lfd:SetPoint('BOTTOMLEFT', f.Health, 'BOTTOMLEFT', 2, 2)
 		f:Tag(lfd, "[rolltext:LFD]")
 		else
-		f.LFDRole = f.Health:CreateTexture(nil, 'OVERLAY')
-		f.LFDRole:SetSize(12, 12)
-		f.LFDRole:SetPoint('CENTER', f, 'TOPRIGHT', 0, 0)
+		f.GroupRoleIndicator = f.Health:CreateTexture(nil, 'OVERLAY')
+		f.GroupRoleIndicator:SetSize(12, 12)
+		f.GroupRoleIndicator:SetPoint('CENTER', f, 'TOPRIGHT', 0, 0)
 		end
     end
     li = h:CreateTexture(nil, "OVERLAY")
     li:SetPoint("TOPLEFT", f, 0, 8)
     li:SetSize(10,10)
-    f.Leader = li
+    f.LeaderIndicator = li
     ai = h:CreateTexture(nil, "OVERLAY")
     ai:SetPoint("TOPLEFT", f, 0, 8)
     ai:SetSize(10,10)
-    f.Assistant = ai
-    local ml = h:CreateTexture(nil, 'OVERLAY')
-    ml:SetSize(8,8)
-    ml:SetPoint('LEFT', f.Leader, 'RIGHT')
-    f.MasterLooter = ml
+    f.AssistantIndicator = ai
 end
 
 lib.addPhaseIcon = function(self)
@@ -916,7 +859,7 @@ lib.addQuestIcon = function(self)
 	local qicon = self.Health:CreateTexture(nil, 'OVERLAY')
 	qicon:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 8)
 	qicon:SetSize(12, 12)
-	self.QuestIcon = qicon
+	self.QuestIndicator = qicon
 end
 
 lib.gen_RaidMark = function(f)
@@ -929,7 +872,7 @@ lib.gen_RaidMark = function(f)
 	local size = retVal(f, 12, 11, 9)
 	ri:SetTexture(cfg.raidmarkicon)
 	ri:SetSize(size, size)
-	f.RaidIcon = ri
+	f.RaidTargetIndicator = ri
 end
 
 --gen hilight texture
@@ -1666,6 +1609,7 @@ lib.genRunes = function(self)
 	runes.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
 	runes.backdrop:SetFrameLevel(runes:GetFrameLevel() - 1)
 	self.Runes = runes
+	self.Runes.UpdateColor = T.dummy
 end
 
 -- Combo Points
@@ -1760,86 +1704,33 @@ lib.genHarmony = function(self)
 		self.Stagger:SetSize((self:GetWidth()-2), 7)
 		self.Stagger:SetStatusBarTexture(C.media.texture)
 
-		self.Stagger.bg = self.Stagger:CreateTexture(nil, "BORDER")
-		self.Stagger.bg:SetAllPoints()
-		self.Stagger.bg:SetTexture(C.media.texture)
-		self.Stagger.bg.multiplier = 0.2
-
 		self.Stagger.Text = T.SetFontString(self.Stagger, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 		self.Stagger.Text:SetPoint("CENTER", self.Stagger, "CENTER", 0, 0)
+		self.Stagger = self.Stagger
 	end
-end
-
-lib.genShadowOrbsBar = function(self)
-	if playerClass ~= "PRIEST" then return end
-			self.ShadowOrbsBar = CreateFrame("Frame", self:GetName().."_ShadowOrbsBar", self)
-			self.ShadowOrbsBar:CreateBackdrop("Default")
-			self.ShadowOrbsBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
-			self.ShadowOrbsBar:SetHeight(7)
-			self.ShadowOrbsBar:SetWidth(self:GetWidth()-2)
-			
-			for i = 1, 5 do
-				self.ShadowOrbsBar[i] = CreateFrame("StatusBar", self:GetName().."ShadowOrbsBar"..i, self.ShadowOrbsBar)
-				self.ShadowOrbsBar[i]:SetSize((self.Health:GetWidth()-6) / 5, 7)
-				if i == 1 then
-					self.ShadowOrbsBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
-				else
-					self.ShadowOrbsBar[i]:SetPoint("TOPLEFT", self.ShadowOrbsBar[i-1], "TOPRIGHT", 1, 0)
-				end
-				self.ShadowOrbsBar[i]:SetStatusBarTexture(C.media.texture)
-				self.ShadowOrbsBar[i]:SetStatusBarColor(0.70, 0.32, 0.75)
-
-				self.ShadowOrbsBar[i].bg = self.ShadowOrbsBar[i]:CreateTexture(nil, "BORDER")
-				self.ShadowOrbsBar[i].bg:SetAllPoints()
-				self.ShadowOrbsBar[i].bg:SetTexture(C.media.texture)
-				self.ShadowOrbsBar[i].bg:SetVertexColor(0.70, 0.32, 0.75, 0.2)
-				
-				self.ShadowOrbsBar[i].width = self.ShadowOrbsBar[i]:GetWidth()
-			end
-
-			self.ShadowOrbsBar.Override = T.UpdateShadowOrb
 end
 
 lib.AltPowerBar = function(self)
-	local AltPowerBar = CreateFrame("StatusBar", nil, self.Health)
-	AltPowerBar:SetFrameLevel(self.Health:GetFrameLevel() + 1)
-	
-	AltPowerBar:SetStatusBarTexture(cfg.statusbar_texture)
-	AltPowerBar:GetStatusBarTexture():SetHorizTile(false)
-	AltPowerBar:EnableMouse(true)
-	AltPowerBar:SetFrameStrata("HIGH")
-	AltPowerBar:SetFrameLevel(5)
-	
-	if self.unit == "boss" then
-		AltPowerBar:SetPoint("BOTTOM", self, "BOTTOM", 0, -2)
-		AltPowerBar:SetWidth(self:GetWidth()-30)
-		AltPowerBar:SetHeight(5)
-	elseif self.unit == "pet" then
-		AltPowerBar:SetPoint("BOTTOM", self, "BOTTOM", 0, -2)
-		AltPowerBar:SetWidth(self:GetWidth())
-		AltPowerBar:SetHeight(6)
-	else
-	AltPowerBar:SetPoint('BOTTOM', self,'BOTTOM', 0, -21)
-	AltPowerBar:SetWidth(self:GetWidth())
-	AltPowerBar:SetHeight(5)
-	end
-			
-	local h = CreateFrame("Frame", nil, AltPowerBar)
-	h:SetFrameLevel(4)
-	h:SetPoint("TOPLEFT",-5,5)
-	h:SetPoint("BOTTOMRIGHT",5,-5)
-	frame1px2_2(h)
-	CreateShadow(h)
-				
-	AltPowerBar.text = SetFontString(AltPowerBar, cfg.oUFfont, 9, "OUTLINE")
-	AltPowerBar.text:SetPoint("CENTER")
-	AltPowerBar.text:SetJustifyH("CENTER")
-	self:Tag(AltPowerBar.text, '[altpower]')
-		
-	AltPowerBar:HookScript("OnShow", AltPowerBarOnToggle)
-	AltPowerBar:HookScript("OnHide", AltPowerBarOnToggle)
-	self.AltPowerBar = AltPowerBar		
-	self.AltPowerBar.PostUpdate = AltPowerBarPostUpdate
+	self.AlternativePower = CreateFrame("StatusBar", nil, self.Health)
+	self.AlternativePower:SetFrameLevel(self.Health:GetFrameLevel() + 1)
+	self.AlternativePower:SetHeight(4)
+	self.AlternativePower:SetStatusBarTexture(C.media.texture)
+	self.AlternativePower:SetStatusBarColor(1, 0, 0)
+	self.AlternativePower:SetPoint("LEFT")
+	self.AlternativePower:SetPoint("RIGHT")
+	self.AlternativePower:SetPoint("TOP", self.Health, "TOP")
+	self.AlternativePower:SetBackdrop({
+		bgFile = C.media.blank,
+		edgeFile = C.media.blank,
+		tile = false, tileSize = 0, edgeSize = T.Scale(1),
+		insets = {left = 0, right = 0, top = 0, bottom = T.Scale(-1)}
+	})
+	self.AlternativePower:SetBackdropColor(0, 0, 0)
+	self.AlternativePower:SetBackdropBorderColor(0, 0, 0)
+
+	self.AlternativePower.text = T.SetFontString(self.AlternativePower, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+	self.AlternativePower.text:SetPoint("CENTER", self.AlternativePower, "CENTER", 0, 0)
+	self:Tag(self.AlternativePower.text, "[AltPower]")
 end
 
 lib.TotemBars = function(self)
@@ -1934,7 +1825,7 @@ lib.Reputation = function(self)
 	Reputation.inAlpha = 1
 	Reputation.outAlpha = 0.75
 	Reputation.colorStanding = true
-	--Reputation.Tooltip = true
+	Reputation.Tooltip = true
 	self.Reputation = Reputation
 	end
 end
@@ -1969,7 +1860,7 @@ lib.raidDebuffs = function(self)
 		self.RaidDebuffs.icon:SetPoint("TOPLEFT", 2, -2)
 		self.RaidDebuffs.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 
-		if C.raidframes.plugins_aura_watch_timer == true then
+		if C.unitframe.plugins_aura_watch_timer == true then
 			self.RaidDebuffs.time = T.SetFontString(self.RaidDebuffs, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 			self.RaidDebuffs.time:SetPoint("CENTER", 1, 1)
 			self.RaidDebuffs.time:SetTextColor(1, 1, 1)
@@ -1988,13 +1879,13 @@ lib.raidDebuffs = function(self)
 			self.RaidDebuffs.cd.noOCC = true
 			self.RaidDebuffs.parent = CreateFrame("Frame", nil, self.RaidDebuffs)
 			self.RaidDebuffs.parent:SetFrameLevel(self.RaidDebuffs.cd:GetFrameLevel() + 1)
-			if C.raidframes.plugins_aura_watch_timer == true then
+			if C.unitframe.plugins_aura_watch_timer == true then
 				self.RaidDebuffs.time:SetParent(self.RaidDebuffs.parent)
 			end
 			self.RaidDebuffs.count:SetParent(self.RaidDebuffs.parent)
 		end
 
-		self.RaidDebuffs.ShowDispellableDebuff = C.raidframes.plugins_debuffhighlight_icon
+		self.RaidDebuffs.ShowDispellableDebuff = C.unitframe.plugins_debuffhighlight_icon
 		self.RaidDebuffs.FilterDispellableDebuff = true
 		self.RaidDebuffs.MatchBySpellName = true
 		self.RaidDebuffs.Debuffs = T.RaidDebuffs
@@ -2104,6 +1995,10 @@ if cfg.ShowIncHeals then
 			frequentUpdates = true
 		}
 	end
+		-- Resurrect icon
+	self.ResurrectIndicator = self.Health:CreateTexture(nil, "OVERLAY")
+	self.ResurrectIndicator:SetSize(20, 20)
+	self.ResurrectIndicator:SetPoint("TOP", self.Health, 2, -7)
 end
   
 --hand the lib to the namespace for further usage

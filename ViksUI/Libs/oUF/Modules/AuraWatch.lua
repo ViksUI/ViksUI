@@ -1,5 +1,5 @@
 local T, C, L = unpack(select(2, ...))
-if C.unitframe.enable ~= true or C.raidframes.plugins_aura_watch ~= true then return end
+if C.unitframe.enable ~= true or C.unitframe.plugins_aura_watch ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Based on oUF_AuraWatch(by Astromech)
@@ -178,7 +178,7 @@ local function setupIcons(self)
 
 			if watch.PostCreateIcon then watch:PostCreateIcon(icon, icon.spellID, name, self) end
 		else
-			print("|cffff0000WARNING: spell ID ["..tostring(icon.spellID).."] no longer exists! Report this to Viks.|r")
+			print("|cffff0000WARNING: spell ID ["..tostring(icon.spellID).."] no longer exists! Report this to Shestak.|r")
 		end
 	end
 end

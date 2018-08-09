@@ -1,5 +1,5 @@
 local T, C, L = unpack(select(2, ...))
-if C.unitframe.enable ~= true or C.raidframes.plugins_aura_watch ~= true then return end
+if C.unitframe.enable ~= true or C.unitframe.plugins_aura_watch ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Based on oUF_RaidDebuffs(by Yleaf)
@@ -230,7 +230,7 @@ local Update = function(self, event, unit)
 
 			local prio = rd.Debuffs and rd.Debuffs[rd.MatchBySpellName and name or spellId]
 			local prioPvP
-			if C.raidframes.plugins_pvp_debuffs == true then
+			if C.unitframe.plugins_pvp_debuffs == true then
 				prioPvP = rd.Debuffs and T.PvPDebuffs[rd.MatchBySpellName and name or spellId]
 			end
 			if not T.RaidDebuffsIgnore[spellId] and (prio and (prio > rd.priority) or prioPvP and (prioPvP > rd.priority)) then

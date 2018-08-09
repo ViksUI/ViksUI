@@ -1,9 +1,11 @@
 local T, C, L = unpack(select(2, ...))
 if C.unitframe.enable ~= true or C.unitframe.plugins_reputation_bar ~= true then return end
 
+----------------------------------------------------------------------------------------
+--	Based on oUF_Reputation(by p3lim)
+----------------------------------------------------------------------------------------
 local _, ns = ...
-local oUF = ns.oUF or oUF
-assert(oUF, 'oUF Reputation was unable to locate oUF install')
+local oUF = ns.oUF
 
 local function GetReputation()
 	local pendingReward

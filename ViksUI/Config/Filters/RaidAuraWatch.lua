@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.raidframes.plugins_aura_watch ~= true then return end
+if C.unitframe.plugins_aura_watch ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	The best way to add or delete spell is to go at www.wowhead.com, search for a spell.
@@ -87,6 +87,7 @@ T.RaidDebuffs = {
 -- Antorus, the Burning Throne
 	-- Garothi Worldbreaker
 	[SpellName(244590)] = 3, -- Molten Hot Fel
+	[SpellName(80354)] = 3, -- Molten Hot Fel
 	[SpellName(244761)] = 3, -- Annihilation
 	[SpellName(246920)] = 3, -- Haywire Decimation
 	[SpellName(246369)] = 3, -- Searing Barrage
@@ -616,7 +617,7 @@ T.RaidDebuffs = {
 -----------------------------------------------------------------
 -- PvP
 -----------------------------------------------------------------
-if C.raidframes.plugins_pvp_debuffs == true then
+if C.unitframe.plugins_pvp_debuffs == true then
 	T.PvPDebuffs = {
 		-- Death Knight
 		[SpellName(108194)] = 3,	-- Asphyxiate

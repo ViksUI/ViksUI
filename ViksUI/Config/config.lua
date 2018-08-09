@@ -1,6 +1,4 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-
-
 local _, class = UnitClass("player")
 local rv, gv, bv = 0, .38, .651
 
@@ -525,6 +523,14 @@ C["unitframe"] = {
 	["plugins_combat_feedback"] = false,		-- Combat text on player/target frame
 	["plugins_fader"] = false,					-- Fade unit frames
 	--["plugins_diminishing"] = false,			-- Diminishing Returns icons on arena frames
+	
+		-- Plugins
+	["plugins_debuffhighlight_icon"] = false,	-- Debuff highlight texture + icon
+	["plugins_aura_watch"] = true,				-- Raid debuff icons (from the list)
+	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
+	["plugins_pvp_debuffs"] = false,			-- Show also PvP debuff icons (from the list)
+	["plugins_healcomm"] = true,				-- Incoming heal bar on raid frame
+	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click(doesn't work with Clique)
 	}
 
 ----------------------------------------------------------------------------------------
