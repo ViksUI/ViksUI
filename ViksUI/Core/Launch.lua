@@ -2970,16 +2970,16 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	if SavedOptionsPerChar.RaidLayout == "UNKNOWN" and SavedOptionsPerChar.Install then
 		StaticPopup_Show("SWITCH_RAID")
 	end
-	
-	if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and GUIConfigSettings.panels.NoPanels then
-		StaticPopup_Show("SET_BTLine")
-		SavedOptionsPerChar.BartenderSet = true
+	if IsAddOnLoaded("Bartender4") then
+		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and GUIConfigSettings.panels.NoPanels then
+			StaticPopup_Show("SET_BTLine")
+			SavedOptionsPerChar.BartenderSet = true
+		end
+		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and GUIConfigSettings.panels.NoPanels ~= true then
+			StaticPopup_Show("SET_BT")
+			SavedOptionsPerChar.BartenderSet = true
+		end
 	end
-	if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and GUIConfigSettings.panels.NoPanels ~= true then
-		StaticPopup_Show("SET_BT")
-		SavedOptionsPerChar.BartenderSet = true
-	end
-
 	-- Welcome message
 	if C.general.welcome_message == true then
 		print("|cffffff00".."Welcome to ViksUI "..T.version.." "..T.client..", "..T.name)
