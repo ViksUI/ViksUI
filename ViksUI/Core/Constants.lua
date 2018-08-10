@@ -17,4 +17,5 @@ T.getscreenwidth, T.getscreenheight = DecodeResolution(T.resolution)
 T.ScreenHeight = tonumber(string.match(T.resolution, "%d+x(%d+)"))
 T.ScreenWidth = tonumber(string.match(T.resolution, "(%d+)x+%d"))
 T.wowbuild = select(2, GetBuildInfo()); T.wowbuild = tonumber(T.wowbuild)
+T.TexCoords = {.1, .9, .1, .9}
 C_NamePlate.SetNamePlateFriendlyClickThrough(true)
