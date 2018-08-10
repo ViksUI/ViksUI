@@ -89,8 +89,28 @@ local function LoadSkin()
 		end
 	end
 
-	-- Icon selection frame
-	--T.SkinIconSelectionFrame(MacroPopupFrame, NUM_MACRO_ICONS_SHOWN, nil, "MacroPopup")
+	--Icon selection frame
+	ShowUIPanel(MacroFrame); --Toggle frame to create necessary variables needed for popup frame
+	HideUIPanel(MacroFrame);
+	MacroPopupFrame:Show() --Toggle the frame in order to create the necessary button elements
+	MacroPopupFrame:Hide()
+
+	-- Popout Frame
+	T:HandleButton(MacroPopupFrame.BorderBox.OkayButton)
+	T:HandleButton(MacroPopupFrame.BorderBox.CancelButton)
+	T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
+	T.SkinEditBox(MacroPopupEditBox)
+	MacroPopupNameLeft:SetTexture(nil)
+	MacroPopupNameMiddle:SetTexture(nil)
+	MacroPopupNameRight:SetTexture(nil)
+
+	T.SkinIconSelectionFrame(MacroPopupFrame, NUM_MACRO_ICONS_SHOWN, "MacroPopupButton", "MacroPopup")
+
+	MacroPopupFrame:HookScript("OnShow", function(self)
+		self:ClearAllPoints()
+		self:Point("TOPLEFT", MacroFrame, "TOPRIGHT", 2, 0)
+	end)
+
 end
 
 T.SkinFuncs["Blizzard_MacroUI"] = LoadSkin
