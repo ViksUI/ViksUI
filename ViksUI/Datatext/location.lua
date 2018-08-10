@@ -3,6 +3,7 @@ local T, C, L, _ = unpack(select(2, ...))
 -- Location and Coords
 --------------------------------------------------------------------
 local Unknown = UNKNOWN
+local cordson = C.datatext.showcoords
 
 local ZoneColors = {
 	["friendly"] = {0.1, 1.0, 0.1},
@@ -55,24 +56,26 @@ local function Update(self, t)
 
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = _G.GetRealZoneText() or _G.UNKNOWN;
-	local unitMap = C_Map.GetBestMapForUnit("player")
+	
+	if cordson == true then
+		local unitMap = C_Map.GetBestMapForUnit("player")
 
-	if unitMap then
-		local GetPlayerMapPosition = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
+		if unitMap then
+			local GetPlayerMapPosition = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
 
-		if GetPlayerMapPosition then
-			x, y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
+			if GetPlayerMapPosition then
+				x, y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
+			end
 		end
+		
+		if (not x) and (not y) then
+			x = 0
+			y = 0
+		end
+		
+		x = math.floor(100 * x) or 0
+		y = math.floor(100 * y) or 0
 	end
-	
-	if (not x) and (not y) then
-		x = 0
-		y = 0
-	end
-	
-	x = math.floor(100 * x) or 0
-	y = math.floor(100 * y) or 0
-
 	local displayLine
 	-- zone and subzone
 	if C.datatext.location and C.datatext.location > 0 then
@@ -85,7 +88,11 @@ local function Update(self, t)
 			displayLine = subZoneText
 		end
 		local r, g, b = LocMopColoring()
+		if cordson == true then
 			Text:SetText(qColor..x.." ".. string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine)..qColor.." "..y)
+		else
+			Text:SetText(string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine))
+		end
 	end
 	ela = .2
 	Stat:SetScript("OnUpdate", Update)

@@ -680,6 +680,7 @@ C["datatext"] = {
 	["Haste"] = 2,                          -- show your haste rating on panels.
 	["Versatility"] = 0,                    -- show versatility
 	["location"] = 10,                      -- show location
+	["showcoords"] = true,                  -- show coordinates on location
 	["Mastery"] = 0,                        -- show mastery rating
 	["Power"] = 1,                          -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
 	["Regen"] = 0,  						-- show mana regeneration
