@@ -228,22 +228,18 @@ SlashCmdList["uiold"] = SlashCmd;
 SLASH_uiold1 = "/uiold";
 
 AnchorBuff = CreateFrame("Frame","Move_Buff",UIParent)
-AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+2))
-CreateAnchor(AnchorBuff, "Move Buff", 300, 70)
-
 AnchorDeBuff = CreateFrame("Frame","Move_DeBuff",UIParent)
+
+
+if C.panels.NoPanels == true then
+AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+18), -(C.panels.yoffset+C.panels.CPbarsheight+2))
+AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+18), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size-(C.aura.player_buff_size*1.5)))
+else
+AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+2))
 AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size-(C.aura.player_buff_size*1.5)))
+end
+CreateAnchor(AnchorBuff, "Move Buff", 300, 70)
 CreateAnchor(AnchorDeBuff, "Move DeBuff", 300, 70)
-
---AnchorTRBottom = CreateFrame("Frame","Move_Minimap",UIParent)
---AnchorTRBottom:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", 0, -(C.panels.yoffset+C.panels.CPbarsheight+2))
---CreateAnchor(AnchorTRBottom, "Move Right Text Fields", C.minimap.size, C.minimap.size)
-
---AnchorMinimap = CreateFrame("Frame","Move_Minimap",UIParent)
---AnchorMinimap:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", 0, -(C.panels.yoffset+C.panels.CPbarsheight+2))
---CreateAnchor(AnchorMinimap, "Move Minimap", C.minimap.size, C.minimap.size)
-
-
 
 if C.unitframe.HealFrames then
 ---Frames

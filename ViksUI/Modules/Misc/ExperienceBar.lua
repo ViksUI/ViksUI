@@ -170,13 +170,15 @@ function Experience:Create()
 		RestedBar:SetFrameLevel(XPBar:GetFrameLevel() - 1)
 		RestedBar:SetAlpha(.5)
 		RestedBar:SetReverseFill(i == 2 and true)
-
-		XPBar:SetSize(i == 1 and (LChat:GetWidth()-4) or (RChat:GetWidth()-4), 6)
-		XPBar:Point("BOTTOMLEFT", i == 1 and LChatTab or RChatTab, "TOPLEFT", 2, 4)
+		if C.panels.NoPanels == true then
+			XPBar:SetSize(i == 1 and (LEFTChatline:GetWidth()-4) or (RIGHTChatline:GetWidth()-4), 6)
+			XPBar:Point("BOTTOMLEFT", i == 1 and LEFTChatline or RIGHTChatline, "TOPLEFT", 2, 6)
+		else
+			XPBar:SetSize(i == 1 and (LChat:GetWidth()-4) or (RChat:GetWidth()-4), 6)
+			XPBar:Point("BOTTOMLEFT", i == 1 and LChatTab or RChatTab, "TOPLEFT", 2, 4)
+		end
 		XPBar:SetReverseFill(i == 2 and true)
 		
-		--XPBar.Backdrop:CreateShadow()
-
 		self["XPBar"..i] = XPBar
 		self["RestedBar"..i] = RestedBar
 	end

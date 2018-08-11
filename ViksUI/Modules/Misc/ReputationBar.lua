@@ -120,4 +120,3 @@ function Reputation:Disable()
 end
 
 Reputation:Enable()
---Miscellaneous.Reputation = Reputation
