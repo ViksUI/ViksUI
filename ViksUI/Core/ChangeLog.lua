@@ -3,19 +3,28 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.5",
-		"• NEW Emoji Icons",
-		"• Updated XP/Rep/Honor Bars",
-		"• Spell Filters Updated",
+		"Update 8.6",
+		"• Filger Improvments",
+		"• Improved /installui",
+		"• Quest Frame Improved",
+		"• Big UnitFrame Updated and oUF",
+		"• Option to hide panels behind actionbars",
+		"• Option to toggle Coordinates (memory leak)",
+		"• Added Skin for Scrapping Machine in BFA",
+		"• Many positions/descriptions/skin improvments",
 		"",
 		--"• ",
 	--" ",
+	"FIRST PATREON: joelsoul - Huge Thanks for the support",
+		"",
 	"NOTE:",
 		"NEW Donate button added",
 		"NEW Patreon button added",
 		"6 years with hundreds of hours on coding, ",
 		"and countless hours with support for free! Not a cent donated so far..",
-		"BE THE FIRST :)",
+		"BE NR 2 :)",
+		"",
+	"PATREON's: joelsoul",
 }
 
 --// TODO LIST
@@ -126,7 +135,7 @@ _G.StaticPopupDialogs["PATRON"] = {
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 300)
+	frame:SetSize(445, 380)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	

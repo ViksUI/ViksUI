@@ -3,11 +3,11 @@
 ## Notes: In-game configuration for ViksUI
 ## Credits to: Tukz, Dawn, Shestak, Haste, Roth, P3lim, Monolit, AlleyKat.
 ## Author: Viks, Tryllemann
-## Version: 8.5
+## Version: 8.6
 ## RequiredDeps: ViksUI
 ## SavedVariables: GUIConfigAll, GUIConfigSettings
 ## SavedVariablesPerCharacter: GUIConfig
-## X-Curse-Packaged-Version: 8.5
+## X-Curse-Packaged-Version: 8.6
 ## X-Curse-Project-Name: ViksUI
 ## X-Curse-Project-ID: viksui
 ## X-WoWI-ID: 21462
