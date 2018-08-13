@@ -21,8 +21,8 @@ local ChangeLogData = {
 		"NEW Donate button added",
 		"NEW Patreon button added",
 		"6 years with hundreds of hours on coding, ",
-		"and countless hours with support for free! Not a cent donated so far..",
-		"BE NR 2 :)",
+		"and countless hours with support for free!",
+		"BE NR 2 TO DONATE :)",
 		"",
 	"PATREON's: joelsoul",
 }
