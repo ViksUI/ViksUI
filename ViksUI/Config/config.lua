@@ -83,6 +83,7 @@ C["misc"] = {
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
 	["OrderHallBar"] = false,					-- Show OrderHallBar Frame
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
+	["InfoPanel_Stats"] = true,					-- Show Game Menu Bar
 }
 
 ----------------------------------------------------------------------------------------

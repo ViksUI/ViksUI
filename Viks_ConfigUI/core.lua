@@ -655,6 +655,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigmischide_banner" then o = L_GUI_MISC_HIDE_BANNER end
 	if o == "UIConfigmischide_talking_head" then o = L_GUI_MISC_HIDE_TALKING_HEAD end
 	if o == "UIConfigmisccombatanimation" then o = L_GUI_MISC_COMBAT_ANIM end
+	if o == "UIConfigmiscInfoPanel_Stats" then o = "Show Icy-Vein stats over character frame" end
 
 	--Panels
 	if o == "UIConfigpanels" then o = "UI Panels" end

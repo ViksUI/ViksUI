@@ -94,6 +94,7 @@
 	<Script file="Modules\Misc\ReputationBar.lua"/>
 	<!--Script file="Modules\Misc\Tools.lua"/-->
 	<Script file="Modules\Misc\RaidTools.lua"/>
+	<Script file="Modules\Misc\InfoPanels.lua"/>
 	
 	<Script file="Modules\ActionBars\Core.lua"/>
 	<Script file="Modules\ActionBars\Bindings.lua"/>
