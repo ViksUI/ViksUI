@@ -404,6 +404,10 @@ local EBarR = CreateFrame("Frame", "EBarR", UIParent) -- Left Side Action Bar Ne
 EBarR:CreatePanel("Transparent", ((Pscale*((CPMABwidth/13)*3))*0.75), 0.75*(Pscale*CPMABheight), "LEFT", CPMAB, "RIGHT", 10, 0)
 EBarR:SetFrameLevel(2)
 EBarR:SetAlpha(pAlpha)
+
+RegisterStateDriver(SideBar, "visibility", "[petbattle] hide; show")
+RegisterStateDriver(EBarL, "visibility", "[petbattle] hide; show")
+RegisterStateDriver(EBarR, "visibility", "[petbattle] hide; show")
 end
 ----------------------------------------------------------------------------------------
 --	Top panel
