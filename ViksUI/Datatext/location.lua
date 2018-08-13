@@ -51,8 +51,9 @@ end
 
 local ela = 0
 local function Update(self, t)
-	ela = ela - t
-	if ela > 0 then return end
+	local curTime = GetTime()
+	if curTime - ela <= 0.2 then return end
+	ela = curTime
 
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = _G.GetRealZoneText() or _G.UNKNOWN;
@@ -75,6 +76,12 @@ local function Update(self, t)
 		
 		x = math.floor(100 * x) or 0
 		y = math.floor(100 * y) or 0
+		
+		local eventcount = 0
+		if (InCombatLockdown() and eventcount > 25000) or (not InCombatLockdown() and eventcount > 10000) or event == "PLAYER_ENTERING_WORLD" then
+			collectgarbage("collect")
+			eventcount = 0
+		end
 	end
 	local displayLine
 	-- zone and subzone
@@ -94,7 +101,6 @@ local function Update(self, t)
 			Text:SetText(string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine))
 		end
 	end
-	ela = .2
 	Stat:SetScript("OnUpdate", Update)
 	Update(Stat, 10)
 end
