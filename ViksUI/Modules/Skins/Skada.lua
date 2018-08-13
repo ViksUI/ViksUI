@@ -74,50 +74,51 @@ barmod.ApplySettings = function(self, win)
 		end
 	end)
 end
+if C.skins.userControll == false then -- Let the user select to control this themself
+	hooksecurefunc(Skada, "UpdateDisplay", function(self)
+		for _, win in ipairs(self:GetWindows()) do
+			for i, v in pairs(win.bargroup:GetBars()) do
+				if not v.BarStyled then
+					if not v.backdrop then
+						v:CreateBackdrop("Transparent")
+						v.backdrop:SetAlpha(0)
+					end
 
-hooksecurefunc(Skada, "UpdateDisplay", function(self)
-	for _, win in ipairs(self:GetWindows()) do
-		for i, v in pairs(win.bargroup:GetBars()) do
-			if not v.BarStyled then
-				if not v.backdrop then
-					v:CreateBackdrop("Transparent")
-					v.backdrop:SetAlpha(0)
+					v:SetHeight(12)
+
+					v.label:ClearAllPoints()
+					v.label.ClearAllPoints = T.dummy
+					v.label:SetPoint("LEFT", v, "LEFT", 2, 0)
+					v.label.SetPoint = T.dummy
+
+					v.label:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
+					v.label.SetFont = T.dummy
+					v.label:SetShadowOffset(0, 0)
+					v.label.SetShadowOffset = T.dummy
+
+					v.timerLabel:ClearAllPoints()
+					v.timerLabel.ClearAllPoints = T.dummy
+					v.timerLabel:SetPoint("RIGHT", v, "RIGHT", 0, 0)
+					v.timerLabel.SetPoint = T.dummy
+
+					v.timerLabel:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
+					v.timerLabel.SetFont = T.dummy
+					v.timerLabel:SetShadowOffset(0, 0)
+					v.timerLabel.SetShadowOffset = T.dummy
+
+					v.BarStyled = true
 				end
-
-				v:SetHeight(12)
-
-				v.label:ClearAllPoints()
-				v.label.ClearAllPoints = T.dummy
-				v.label:SetPoint("LEFT", v, "LEFT", 2, 0)
-				v.label.SetPoint = T.dummy
-
-				v.label:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
-				v.label.SetFont = T.dummy
-				v.label:SetShadowOffset(0, 0)
-				v.label.SetShadowOffset = T.dummy
-
-				v.timerLabel:ClearAllPoints()
-				v.timerLabel.ClearAllPoints = T.dummy
-				v.timerLabel:SetPoint("RIGHT", v, "RIGHT", 0, 0)
-				v.timerLabel.SetPoint = T.dummy
-
-				v.timerLabel:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
-				v.timerLabel.SetFont = T.dummy
-				v.timerLabel:SetShadowOffset(0, 0)
-				v.timerLabel.SetShadowOffset = T.dummy
-
-				v.BarStyled = true
-			end
-			if v.icon and v.icon:IsShown() then
-				v.backdrop:SetPoint("TOPLEFT", -14, 2)
-				v.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
-			else
-				v.backdrop:SetPoint("TOPLEFT", -2, 2)
-				v.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
+				if v.icon and v.icon:IsShown() then
+					v.backdrop:SetPoint("TOPLEFT", -14, 2)
+					v.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
+				else
+					v.backdrop:SetPoint("TOPLEFT", -2, 2)
+					v.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
+				end
 			end
 		end
-	end
-end)
+	end)
+end
 for _, window in ipairs(Skada:GetWindows()) do
 	window:UpdateDisplay()
 end

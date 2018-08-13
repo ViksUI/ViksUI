@@ -172,6 +172,7 @@ C["skins"] = {
 	["opie"] = false,							-- OPie skin
 	["rematch"] = false,						-- Rematch skin
 	["ls_toasts"] = false,						-- Is: Toasts skin
+	["userControll"] = false,					-- Let User Control some parts
 }
 
 ----------------------------------------------------------------------------------------

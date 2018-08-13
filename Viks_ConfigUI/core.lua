@@ -153,6 +153,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigskinsopie" then o = L_GUI_SKINS_OPIE end
 	if o == "UIConfigskinsrematch" then o = L_GUI_SKINS_REMATCH end
 	if o == "UIConfigskinsls_toasts" then o = L_GUI_SKINS_LS_TOASTS end
+	if o == "UIConfigskinsuserControll" then o = "User Control some of the look" end
 
 	-- Combat text options
 	if o == "UIConfigcombattext" then o = L_GUI_COMBATTEXT end
