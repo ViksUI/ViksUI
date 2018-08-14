@@ -31,6 +31,25 @@ local function LoadSkin()
 	select(11, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
 	select(11, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
 
+	
+	-- Azerite Items
+	local function UpdateAzeriteItem(self)
+		if not self.styled then
+			self.AzeriteTexture:SetAlpha(0)
+			self.RankFrame.Texture:SetTexture("")
+
+			self.styled = true
+		end
+		self:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		self:GetHighlightTexture():SetAllPoints()
+	end
+
+	local function UpdateAzeriteEmpoweredItem(self)
+		self.AzeriteTexture:SetAtlas("AzeriteIconFrame")
+		self.AzeriteTexture:SetAllPoints()
+		self.AzeriteTexture:SetDrawLayer("BORDER", 1)
+	end
+	
 	for _, i in pairs(slots) do
 		_G["Character"..i.."Frame"]:Hide()
 		local icon = _G["Character"..i.."IconTexture"]
@@ -55,6 +74,9 @@ local function LoadSkin()
 		hooksecurefunc(slot.IconBorder, 'Hide', function(self)
 			self:GetParent():SetBackdropBorderColor(unpack(C["media"].border_color))
 		end)
+		hooksecurefunc(slot, "DisplayAsAzeriteItem", UpdateAzeriteItem)
+		hooksecurefunc(slot, "DisplayAsAzeriteEmpoweredItem", UpdateAzeriteEmpoweredItem)
+
 	end
 
 	-- Strip Textures
