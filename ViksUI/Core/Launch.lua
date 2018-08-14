@@ -89,11 +89,9 @@ T.ChatSetup = function()
 	ChatFrame_AddMessageGroup(ChatFrame1, "PET_BATTLE_INFO")
 	-- Setup the Trade / Locale spam chat frame	
 	ChatFrame_RemoveAllMessageGroups(ChatFrame3)
-	ChatFrame_AddChannel(ChatFrame3, TRADE)
-	ChatFrame_AddChannel(ChatFrame3, GENERAL)
-	ChatFrame_AddChannel(ChatFrame3, "LocalDefense")
-	ChatFrame_AddChannel(ChatFrame3, "GuildRecruitment")
-	ChatFrame_AddChannel(ChatFrame3, "LookingForGroup")
+	for _, Channel in pairs(ChatFrame1.channelList) do
+		ChatFrame_AddChannel(ChatFrame3, Channel)
+	end
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_MISC_INFO")
