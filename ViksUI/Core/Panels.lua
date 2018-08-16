@@ -135,6 +135,10 @@ local R2_Details = CreateFrame("Frame", "R2_Details", Details_WindowFrame2)
 R2_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))*0.49, "TOPRIGHT", RABar, "TOPLEFT", -xoffset, 0)
 R2_Details:SetFrameLevel(2)
 R2_Details:SetAlpha(pAlpha)
+
+RegisterStateDriver(L_Details, "visibility", "[petbattle] hide; show")
+RegisterStateDriver(R1_Details, "visibility", "[petbattle] hide; show")
+RegisterStateDriver(R2_Details, "visibility", "[petbattle] hide; show")
 end
 
 ----------------------------------------------------------------------------------------
