@@ -28,8 +28,8 @@ local function LoadSkin()
 		"SecondaryHandSlot"
 	}
 
-	select(11, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
-	select(11, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
+	select(13, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
+	select(13, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
 
 	
 	-- Azerite Items

@@ -97,7 +97,6 @@ local function LoadSkin()
 	GarrisonMissionFrameTab1:SetPoint("BOTTOMLEFT", GarrisonMissionFrame, "BOTTOMLEFT", 11, -40)
 	T.SkinTab(GarrisonMissionFrameTab1)
 	T.SkinTab(GarrisonMissionFrameTab2)
-	
 	GarrisonMissionFrameHelpBox:StripTextures()
 	GarrisonMissionFrameHelpBox:CreateBackdrop("Transparent")
 
@@ -170,32 +169,37 @@ local function LoadSkin()
 	local StartButton = MissionPage.StartMissionButton
 	StartButton:SkinButton()
 
-		hooksecurefunc("GarrisonMissionButton_SetRewards", function(self)
-			--Set border color according to rarity of item
-			local firstRegion, r, g, b
-			for _, reward in pairs(self.Rewards) do
-				firstRegion = reward.GetRegions and reward:GetRegions()
-				if firstRegion then firstRegion:Hide() end
-
-				if reward.IconBorder then
-					reward.IconBorder:SetTexture(nil)
-				end
-
-				if reward.IconBorder and reward.IconBorder:IsShown() then
-					r, g, b = reward.IconBorder:GetVertexColor()
-				else
-					r, g, b = unpack(C["media"].border_color)
-				end
-
-				if not reward.border then
-					reward.border = CreateFrame("Frame", nil, reward)
-					T:HandleIcon(reward.Icon, reward.border)
-				end
-
-				reward.border.backdrop:SetBackdropBorderColor(r, g, b)
+	hooksecurefunc("GarrisonMissionButton_SetRewards", function(self, rewards, numRewards)
+		if self.numRewardsStyled == nil then
+			self.numRewardsStyled = 0
+		end
+		while self.numRewardsStyled < numRewards do
+			self.numRewardsStyled = self.numRewardsStyled + 1
+			local reward = self.Rewards[self.numRewardsStyled]
+			reward:GetRegions():Hide()
+			if not reward.backdrop then
+				reward.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				reward.IconBorder:SetAlpha(0)
+				reward:CreateBackdrop("Default")
+				reward.backdrop:SetPoint("TOPLEFT", reward.Icon, "TOPLEFT", -2, 2)
+				reward.backdrop:SetPoint("BOTTOMRIGHT", reward.Icon, "BOTTOMRIGHT", 2, -2)
+				reward.backdrop:SetFrameLevel(reward:GetFrameLevel())
 			end
-		end)
+		end
 
+		for _, reward in pairs(self.Rewards) do
+			if reward.backdrop then
+				local r, g, b = unpack(C.media.border_color)
+				if reward.IconBorder:IsShown() and reward.itemID then
+					local _, _, itemRarity = GetItemInfo(reward.itemID)
+					if itemRarity and itemRarity > 1 then
+						r, g, b = reward.IconBorder:GetVertexColor()
+					end
+				end
+				reward.backdrop:SetBackdropBorderColor(r, g, b)
+			end
+		end
+	end)
 
 	hooksecurefunc("GarrisonMissionPage_SetReward", function(frame)
 		frame.BG:Hide()
