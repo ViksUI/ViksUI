@@ -1848,6 +1848,14 @@ lib.ReadyCheck = function(self)
 	end
 end
 
+lib.PhaseIndicatord = function(self)
+local picon = self.Health:CreateTexture(nil, 'OVERLAY')
+picon:SetPoint('TOPRIGHT', self, 'TOPRIGHT', -2, 0)
+picon:SetSize(14, 14)
+picon:SetTexture([[Interface\AddOns\ViksUI\Media\Other\wm]])
+self.PhaseIndicator = picon
+end
+
 -- raid debuffs
 lib.raidDebuffs = function(self)
 	if cfg.showRaidDebuffs and not (self:GetAttribute("unitsuffix") == "pet" or self:GetAttribute("unitsuffix") == "target" or self:GetAttribute("unitsuffix") == "targettarget") then

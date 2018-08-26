@@ -17,7 +17,6 @@ AnchorP_PROC_ICON = CreateFrame("Frame","Move_P_PROC_ICON",UIParent)
 AnchorP_PROC_ICON:SetPoint("RIGHT", UIParent, "CENTER", -173, 80)
 CreateAnchor(AnchorP_PROC_ICON, "Move P_PROC_ICON", 30, 30)
 
-
 AnchorT_DEBUFF_ICON = CreateFrame("Frame","Move_T_DEBUFF_ICON",UIParent)
 AnchorT_DEBUFF_ICON:SetPoint("LEFT", UIParent, "CENTER", 173, 80)
 CreateAnchor(AnchorT_DEBUFF_ICON, "Move T_DEBUFF_ICON", 30, 30)
@@ -50,8 +49,8 @@ Anchor_PVEDEBUFF = CreateFrame("Frame","Move_PVEDEBUFF",UIParent)
 Anchor_PVEDEBUFF:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 710)
 CreateAnchor(Anchor_PVEDEBUFF, "Move PVEDEBUFF", 60, 60)
 
-SpellActivationOverlayFrame:SetFrameStrata("BACKGROUND")
 
+SpellActivationOverlayFrame:SetFrameStrata("BACKGROUND")
 local Filger = {}
 local MyUnits = {player = true, vehicle = true, pet = true}
 
@@ -190,7 +189,6 @@ function Filger:DisplayActives()
 					bar.bg:SetTemplate("Default")
 				end
 	
-
 				if bar.background then
 					bar.background = _G[bar.background:GetName()]
 				else
@@ -245,11 +243,9 @@ function Filger:DisplayActives()
 	end
 
 	local activeCount = 1
-
 	for n in pairs(self.actives) do
 		self.sortedIndex[activeCount] = n
 		activeCount = activeCount + 1
-
 	end
 	table.sort(self.sortedIndex)
 

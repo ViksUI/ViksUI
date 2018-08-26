@@ -83,6 +83,7 @@ local UnitSpecific = {
 	lib.gen_highlight(self)
 	lib.gen_ppbar(self)
 	lib.gen_RaidMark(self)
+	lib.PhaseIndicatord(self)
 	lib.gen_textbar(self)
 	lib.gen_textstrings(self)
 	if cfg.showPlayerAuras then
@@ -171,6 +172,7 @@ local UnitSpecific = {
 		lib.addQuestIcon(self)
 		lib.createBuffs(self)
 		lib.createDebuffs(self)
+		lib.PhaseIndicatord(self)
 		if cfg.CPoints and C.unitframe_class_bar.combo_old == true then lib.genCPoints(self) end
 		--lib.createAuras(self)
 		if cfg.showPortrait or cfg.portraitHPbar then lib.gen_portrait(self) end
@@ -337,6 +339,7 @@ local UnitSpecific = {
 		lib.createAuraWatch(self)
 		end
 		lib.raidDebuffs(self)
+		lib.PhaseIndicatord(self)
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
 		self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
@@ -376,6 +379,7 @@ local UnitSpecific = {
 		self.Power.bg.multiplier = 0.5
 		lib.createDebuffs(self)
 		lib.gen_InfoIcons(self)
+		lib.PhaseIndicatord(self)
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
 		self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
@@ -523,7 +527,7 @@ local function CreateRaid25Style(self)
 				
 		self.mystyle = "raid25"
 		--self:SetParent(PetBattleHider)
-		lib.focus(self)
+		--lib.focus(self)
 		--lib.init(self)
 		self.scale = cfg.scale
 		self.Range = {

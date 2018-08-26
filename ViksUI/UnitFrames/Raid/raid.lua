@@ -142,13 +142,13 @@ local updateThreat = function(self, event, unit)
 
     if(status and status > 1) then
         local r, g, b = GetThreatStatusColor(status)
-        self.Threat:SetBackdropBorderColor(r, g, b, 1)
+        self.ThreatIndicator:SetBackdropBorderColor(r, g, b, 1)
         self.border:SetBackdropColor(r, g, b, 1)
     else
-        self.Threat:SetBackdropBorderColor(0, 0, 0, 1)
+        self.ThreatIndicator:SetBackdropBorderColor(0, 0, 0, 1)
         self.border:SetBackdropColor(0, 0, 0, 1)
     end
-    self.Threat:Show()
+    self.ThreatIndicator:Show()
 end
 
 ns.nameCache = {}
