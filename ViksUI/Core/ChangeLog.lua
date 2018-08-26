@@ -3,15 +3,24 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.6",
-		"• Filger Improvments",
-		"• Improved /installui",
-		"• Quest Frame Improved",
-		"• Big UnitFrame Updated and oUF",
-		"• Option to hide panels behind actionbars",
-		"• Option to toggle Coordinates (memory leak)",
-		"• Added Skin for Scrapping Machine in BFA",
-		"• Many positions/descriptions/skin improvments",
+		"Update 8.7",
+		"• Fixed PowerType check for combopoints",
+		"• Fixed combo points message for CombatText.",
+		"• Updated location coords - Less memory leak this way",
+		"• Hiding some more panels during Pet battle",
+		"• New: Icy-Vein Stats Priority InfoPanel Above CharacterFrame",
+		"• New Option to control some of the skin look/skada",
+		"• Azerite skin updated",
+		"• Garrison skin updated",
+		"• Panels linked to Details hide correctly",
+		"• Updated MagePortals with new portals/teleport",
+		"• New: War Mode and phase indicator added to frames",
+		"• MapInfo Updated",
+		"• Island Expeditions skin added",
+		"• AutoAccept Updated",
+		"• Added Azerite texture for Bags",
+		"• Fixed color for available quest",
+		"• + Many more minor fixes and skin/libs updates",
 		"",
 		--"• ",
 	--" ",
@@ -134,8 +143,8 @@ _G.StaticPopupDialogs["PATRON"] = {
 
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
-	frame:SetPoint("CENTER")
-	frame:SetSize(445, 380)
+	frame:SetPoint("TOP",0,-50)
+	frame:SetSize(445, 550)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	
@@ -204,21 +213,20 @@ function ViksUI_ToggleChangeLog()
 end
 
 if SavedOptionsPerChar == nil then SavedOptionsPerChar = {} end
-if SavedOptionsPerChar.Install == nil then -- Check to not show if we are running installui
-else
-	function ChangeLog:OnCheckVersion(self)
-		if not SavedOptions["version"] or (SavedOptions["version"] and SavedOptions["version"] ~= T.version) then
-			SavedOptions["version"] = T.version
-			ChangeLog:CreateChangelog()
-		end
-	end
 
-	ChangeLog:RegisterEvent("ADDON_LOADED")
-	ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
-	ChangeLog:SetScript("OnEvent", function(self, event, ...)
-		if SavedOptions == nil then SavedOptions = {} end
-		ChangeLog:OnCheckVersion()
-	end)
+function ChangeLog:OnCheckVersion(self)
+	if not SavedOptions["version"] or (SavedOptions["version"] and SavedOptions["version"] ~= T.version) then
+		SavedOptions["version"] = T.version
+		ChangeLog:CreateChangelog()
+	end
 end
+
+ChangeLog:RegisterEvent("ADDON_LOADED")
+ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
+ChangeLog:SetScript("OnEvent", function(self, event, ...)
+	if SavedOptions == nil then SavedOptions = {} end
+	ChangeLog:OnCheckVersion()
+end)
+
 SLASH_CHANGELOG1 = "/changelog"
 SlashCmdList.CHANGELOG = function() ViksUI_ToggleChangeLog() end
