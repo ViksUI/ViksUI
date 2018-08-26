@@ -9,28 +9,32 @@
 	<Script file="Colors.lua"/>
 	<Script file="Finalize.lua"/>
 
-	<Script file="Elements\Power.lua"/>
-	<Script file="Elements\Aura.lua"/>
-	<Script file="Elements\Health.lua"/>
-	<Script file="Elements\RaidTargetIndicator.lua"/>
-	<Script file="Elements\LeaderIndicator.lua"/>
-	<Script file="Elements\CombatIndicator.lua"/>
-	<Script file="Elements\RestingIndicator.lua"/>
-	<Script file="Elements\PvP.lua"/>
-	<Script file="Elements\Portraits.lua"/>
-	<Script file="Elements\Range.lua"/>
-	<Script file="Elements\CastBar.lua"/>
-	<Script file="Elements\Threat.lua"/>
-	<Script file="Elements\Tags.lua"/>
+	<Script file="Elements\AdditionalPower.lua"/>
+	<Script file="Elements\AlternativePower.lua"/>
 	<Script file="Elements\AssistantIndicator.lua"/>
-	<Script file="Elements\Runes.lua"/>
+	<Script file="Elements\Aura.lua"/>
+	<Script file="Elements\CastBar.lua"/>
+	<Script file="Elements\ClassPower.lua"/>
+	<Script file="Elements\CombatIndicator.lua"/>
 	<Script file="Elements\GroupRoleIndicator.lua"/>
 	<Script file="Elements\HealPrediction.lua"/>
-	<Script file="Elements\ReadyCheckIndicator.lua"/>
+	<Script file="Elements\Health.lua"/>
+	<Script file="Elements\LeaderIndicator.lua"/>
+	<Script file="Elements\PhaseIndicator.lua"/>
+	<Script file="Elements\Portraits.lua"/>
+	<Script file="Elements\Power.lua"/>
+	<Script file="Elements\PvP.lua"/>
 	<Script file="Elements\QuestIndicator.lua"/>
-	<Script file="Elements\AlternativePower.lua"/>
+	<Script file="Elements\RaidTargetIndicator.lua"/>
+	<Script file="Elements\Range.lua"/>
+	<Script file="Elements\ReadyCheckIndicator.lua"/>
+	<Script file="Elements\RestingIndicator.lua"/>
 	<Script file="Elements\ResurrectIndicator.lua"/>
+	<Script file="Elements\Runes.lua"/>
 	<Script file="Elements\Stagger.lua"/>
+	<Script file="Elements\Tags.lua"/>
+	<Script file="Elements\ThreatIndicator.lua"/>
+	<Script file="Elements\Totems.lua"/>
 
 	<Script file="Modules\ArcaneCharge.lua"/>
 	<Script file="Modules\ArtifactPower.lua"/>
@@ -41,11 +45,11 @@
 	<Script file="Modules\CounterBar.lua"/>
 	<Script file="Modules\CPoints.lua"/>
 	<Script file="Modules\DebuffHighlight.lua"/>
-	<!-- <Script file="Modules\EnemySpec.lua"/> -->
+	<!--Script file="Modules\EnemySpec.lua"/-->
 	<Script file="Modules\Experience.lua"/>
-	<!-- <Script file="Modules\FactionIcon.lua"/> -->
+	<!--Script file="Modules\FactionIcon.lua"/-->
 	<Script file="Modules\Fader.lua"/>
-	<!-- <Script file="Modules\GCD.lua"/> -->
+	<!--Script file="Modules\GCD.lua"/-->
 	<Script file="Modules\HarmonyOrbs.lua"/>
 	<Script file="Modules\HolyPower.lua"/>
 	<Script file="Modules\MovableFrames.lua"/>
@@ -56,7 +60,7 @@
 	<Script file="Modules\SoulShards.lua"/>
 	<Script file="Modules\Swing.lua"/>
 	<Script file="Modules\TotemBar.lua"/>
-	<!-- <Script file="Modules\Trinkets.lua"/> -->
+	<!--Script file="Modules\Trinkets.lua"/-->
 
 	<!-- Clique support -->
 	<Button name="oUF_ClickCastUnitTemplate" virtual="true" inherits="SecureUnitButtonTemplate, SecureHandlerStateTemplate, SecureHandlerEnterLeaveTemplate">
