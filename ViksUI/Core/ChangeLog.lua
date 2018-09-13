@@ -3,24 +3,17 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.7",
-		"• Fixed PowerType check for combopoints",
-		"• Fixed combo points message for CombatText.",
-		"• Updated location coords - Less memory leak this way",
-		"• Hiding some more panels during Pet battle",
-		"• New: Icy-Vein Stats Priority InfoPanel Above CharacterFrame",
-		"• New Option to control some of the skin look/skada",
-		"• Azerite skin updated",
-		"• Garrison skin updated",
-		"• Panels linked to Details hide correctly",
-		"• Updated MagePortals with new portals/teleport",
-		"• New: War Mode and phase indicator added to frames",
-		"• MapInfo Updated",
-		"• Island Expeditions skin added",
-		"• AutoAccept Updated",
-		"• Added Azerite texture for Bags",
-		"• Fixed color for available quest",
-		"• + Many more minor fixes and skin/libs updates",
+		"Update 8.75",
+		"• Debuffs added for BFA Dungeon and Uldir",
+		"• Scrapping machine frame temp movable",
+		"• Readycheck icon fixed",
+		"• Skin for missiontable fixed",
+		"• One Click Enchant Scroll fixed",
+		"• Debuff on nameplate pixelperfect",
+		"• Interuptable spell on nameplate colored",
+		"• Improved Filger, still fps issue in raid",
+		"• New flask added to self buff reminder",
+		"• Minir fixes and cleanups",
 		"",
 		--"• ",
 	--" ",
@@ -144,7 +137,7 @@ _G.StaticPopupDialogs["PATRON"] = {
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("TOP",0,-50)
-	frame:SetSize(445, 550)
+	frame:SetSize(445, 450)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	

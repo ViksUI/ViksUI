@@ -1,6 +1,7 @@
 
 local realm = GetRealmName()
 local name = UnitName("player")
+local GlobalHeight = 545
 local ALLOWED_GROUPS = {
 	["general"] = 1,
 	["misc"] = 2,
@@ -716,6 +717,9 @@ local NewButton = function(text, parent)
 	local result = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	local label = result:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	label:SetText(text)
+	label:SetPoint("LEFT", result, "LEFT", 2, 0)
+	label:SetPoint("RIGHT", result, "RIGHT", -2, 0)
+	label:SetJustifyH("LEFT")
 	result:SetWidth(label:GetWidth())
 	result:SetHeight(label:GetHeight())
 	result:SetFontString(label)
@@ -843,19 +847,19 @@ local function ShowGroup(group, button)
 		local o = "UIConfig"..group
 		Local(o)
 		_G["UIConfigTitle"]:SetText(T.option)
-		local height = _G["UIConfig"..group]:GetHeight()
 		_G["UIConfig"..group]:Show()
-		local scrollamntmax = 400
-		local scrollamntmin = scrollamntmax - 10
-		local max = height > scrollamntmax and height-scrollamntmin or 1
+		local height = _G["UIConfig"..group]:GetHeight()
+		local scrollMax = GlobalHeight
+		local scrollMin = scrollMax - 10
+		local max = height > scrollMax and height - scrollMin or 1
 
 		if max == 1 then
-			_G["UIConfigGroupSlider"]:SetValue(1)
+			_G["UIConfigGroupSlider"]:SetValue(0)
 			_G["UIConfigGroupSlider"]:Hide()
 		else
 			_G["UIConfigGroupSlider"]:SetMinMaxValues(0, max)
-			_G["UIConfigGroupSlider"]:Show()
 			_G["UIConfigGroupSlider"]:SetValue(1)
+			_G["UIConfigGroupSlider"]:Show()
 		end
 		_G["UIConfigGroup"]:SetScrollChild(_G["UIConfig"..group])
 
@@ -897,7 +901,7 @@ function CreateUIConfig()
 	local UIConfigMain = CreateFrame("Frame", "UIConfigMain", UIParent)
 	UIConfigMain:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 200)
 	UIConfigMain:SetWidth(780)
-	UIConfigMain:SetHeight(520)
+	UIConfigMain:SetHeight(GlobalHeight + 120)
 	if IsAddOnLoaded("Aurora") then
 		local F = unpack(Aurora)
 		F.CreateBD(UIConfigMain)
@@ -906,6 +910,7 @@ function CreateUIConfig()
 	end
 	UIConfigMain:SetFrameStrata("DIALOG")
 	UIConfigMain:SetFrameLevel(20)
+	UIConfigMain:SetClampedToScreen(true)
 	tinsert(UISpecialFrames, "UIConfigMain")
 
 	-- Version Title
@@ -931,7 +936,7 @@ function CreateUIConfig()
 	local UIConfig = CreateFrame("Frame", "UIConfig", UIConfigMain)
 	UIConfig:SetPoint("TOPLEFT", TitleBox, "BOTTOMLEFT", 10, -15)
 	UIConfig:SetWidth(520)
-	UIConfig:SetHeight(400)
+	UIConfig:SetHeight(GlobalHeight)
 
 	local UIConfigBG = CreateFrame("Frame", "UIConfigBG", UIConfig)
 	UIConfigBG:SetPoint("TOPLEFT", -10, 10)
@@ -941,7 +946,7 @@ function CreateUIConfig()
 	local groups = CreateFrame("ScrollFrame", "UIConfigCategoryGroup", UIConfig)
 	groups:SetPoint("TOPLEFT", TitleBoxVer, "BOTTOMLEFT", 10, -15)
 	groups:SetWidth(160)
-	groups:SetHeight(400)
+	groups:SetHeight(GlobalHeight)
 
 	local groupsBG = CreateFrame("Frame", "groupsBG", UIConfig)
 	groupsBG:SetPoint("TOPLEFT", groups, -10, 10)
@@ -959,7 +964,7 @@ function CreateUIConfig()
 	local slider = CreateFrame("Slider", "UIConfigCategorySlider", groups)
 	slider:SetPoint("TOPRIGHT", 0, 0)
 	slider:SetWidth(20)
-	slider:SetHeight(400)
+	slider:SetHeight(GlobalHeight)
 	slider:SetThumbTexture("Interface\\Buttons\\UI-ScrollBar-Knob")
 	slider:SetOrientation("VERTICAL")
 	slider:SetValueStep(20)
@@ -976,7 +981,7 @@ function CreateUIConfig()
 	local function sortMyTable(a, b)
 		return ALLOWED_GROUPS[a] < ALLOWED_GROUPS[b]
 	end
-	local function pairsByKey(t, f)
+	local function pairsByKey(t)
 		local a = {}
 		for n in pairs(t) do table.insert(a, n) end
 		table.sort(a, sortMyTable)
@@ -989,7 +994,6 @@ function CreateUIConfig()
 		end
 		return iter
 	end
-
 
 	local GetOrderedIndex = function(t)
 		local OrderedIndex = {}
@@ -1027,16 +1031,28 @@ function CreateUIConfig()
 		local o = "UIConfig"..i
 		Local(o)
 		local button = NewButton(T.option, child)
-		button:SetHeight(16)
-		button:SetWidth(125)
+		button:SetHeight(20)
+		button:SetWidth(150)
 		button:SetPoint("TOPLEFT", 5, -offset)
 		button:SetScript("OnClick", function(self) ShowGroup(i, button) self:SetText("|cff00ff00"..T.option.."|r") end)
 		offset = offset + 20
 	end
-	child:SetWidth(125)
+	child:SetWidth(150)
 	child:SetHeight(offset)
-	slider:SetMinMaxValues(0, (offset == 0 and 1 or offset - 12 * 33))
-	slider:SetValue(1)
+
+	local height = offset
+	local scrollMax = GlobalHeight
+	local scrollMin = scrollMax - 3
+	local max = height > scrollMax and height - scrollMin or 1
+
+	if max == 1 then
+		slider:SetValue(0)
+		slider:Hide()
+	else
+		slider:SetMinMaxValues(0, max)
+		slider:SetValue(1)
+		slider:Show()
+	end
 	groups:SetScrollChild(child)
 
 	local x
@@ -1056,13 +1072,13 @@ function CreateUIConfig()
 	local group = CreateFrame("ScrollFrame", "UIConfigGroup", UIConfig)
 	group:SetPoint("TOPLEFT", 0, 5)
 	group:SetWidth(520)
-	group:SetHeight(400)
+	group:SetHeight(GlobalHeight)
 
 	-- Options Scroll
 	local slider = CreateFrame("Slider", "UIConfigGroupSlider", group)
 	slider:SetPoint("TOPRIGHT", 0, 0)
 	slider:SetWidth(20)
-	slider:SetHeight(400)
+	slider:SetHeight(GlobalHeight)
 	slider:SetThumbTexture("Interface\\Buttons\\UI-ScrollBar-Knob")
 	slider:SetOrientation("VERTICAL")
 	slider:SetValueStep(20)
@@ -1179,8 +1195,7 @@ function CreateUIConfig()
 				colortext:SetJustifyH("CENTER")
 				colorbutton:SetWidth(colortext:GetWidth() + 5)
 
-				local oldvalue = value
-
+				--local oldvalue = value
 				local function round(number, decimal)
 					return (("%%.%df"):format(decimal)):format(number)
 				end
@@ -1245,7 +1260,7 @@ function CreateUIConfig()
 
 	local close = NormalButton(CLOSE, UIConfigMain)
 	close:SetPoint("TOPRIGHT", UIConfig, "BOTTOMRIGHT", 10, -25)
-	close:SetScript("OnClick", function(self) PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION) UIConfigMain:Hide() end)
+	close:SetScript("OnClick", function(self) PlaySound(SOUNDKIT.IG_MAINMENU_OPTION) UIConfigMain:Hide() end)
 
 	local load = NormalButton(APPLY, UIConfigMain)
 	load:SetPoint("RIGHT", close, "LEFT", -4, 0)
@@ -1303,13 +1318,11 @@ end
 do
 	function SlashCmdList.CONFIG()
 		if not UIConfigMain or not UIConfigMain:IsShown() then
-
-			PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
 			CreateUIConfig()
 			HideUIPanel(GameMenuFrame)
 		else
-
-			PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
 			UIConfigMain:Hide()
 		end
 	end
@@ -1403,8 +1416,7 @@ GameMenuFrame:HookScript("OnShow", function()
 end)
 
 button:SetScript("OnClick", function()
-
-	PlaySound(PlaySoundKitID and "igMainMenuOption" or SOUNDKIT.IG_MAINMENU_OPTION)
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
 	HideUIPanel(GameMenuFrame)
 	if not UIConfigMain or not UIConfigMain:IsShown() then
 		CreateUIConfig()
