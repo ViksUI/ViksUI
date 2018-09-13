@@ -10,6 +10,7 @@
 	<Script file="Azerite.lua"/>
 	<Script file="AzeriteRespec.lua"/>
 	<Script file="BarberShop.lua"/>
+	<Script file="BFAMissions.lua"/>
 	<Script file="Binding.lua"/>
 	<Script file="BlackMarket.lua"/>
 	<Script file="BonusRoll.lua"/>
