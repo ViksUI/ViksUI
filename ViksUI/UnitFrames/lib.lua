@@ -1844,7 +1844,7 @@ lib.ReadyCheck = function(self)
 		rCheck:SetPoint("BOTTOMLEFT", self.Health, "TOP", -13, -12)
 		rCheck.finishedTimer = 10
 		rCheck.fadeTimer = 3
-		self.ReadyCheck = rCheck
+		self.ReadyCheckIndicator = rCheck
 	end
 end
 
