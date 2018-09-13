@@ -253,7 +253,7 @@ Anchorvikstarget:SetPoint("TOPLEFT", UIParent, "BOTTOM", 270, 305)
 CreateAnchor(Anchorvikstarget, "Move target", 200, 25)
 
 Anchorviksraid = CreateFrame("Frame","Move_raid",UIParent)
-Anchorviksraid:SetPoint("BOTTOM", UIParent, "BOTTOM", -2, 180)
+Anchorviksraid:SetPoint("BOTTOM", UIParent, "BOTTOM", -2, 190)
 CreateAnchor(Anchorviksraid, "Move raid", 530, 20)
 
 Anchorvikstot = CreateFrame("Frame","Move_tot",UIParent)
@@ -281,7 +281,7 @@ Anchorviksfocuscastbar:SetPoint("TOPLEFT", UIParent, "BOTTOM", 579, 450)
 CreateAnchor(Anchorviksfocuscastbar, "Move focuscastbar", 158, 13)
 
 Anchorvikstank = CreateFrame("Frame","Move_tank",UIParent)
-Anchorvikstank:SetPoint("BOTTOM", UIParent, "BOTTOM", -80, 324)
+Anchorvikstank:SetPoint("BOTTOM", UIParent, "BOTTOM", -80, 330)
 CreateAnchor(Anchorvikstank, "Move tank", 80, 18)
 
 Anchorviksboss = CreateFrame("Frame","Move_boss",UIParent)
@@ -303,11 +303,11 @@ AnchorvikstargetDps:SetPoint("TOPLEFT", UIParent, "BOTTOM", 158, 320)
 CreateAnchor(AnchorvikstargetDps, "Move target_Dps", 245, 60)
 
 Anchorviksraid = CreateFrame("Frame","Move_raid",UIParent)
-Anchorviksraid:SetPoint("BOTTOM", UIParent, "BOTTOM", -2, 180)
+Anchorviksraid:SetPoint("BOTTOM", UIParent, "BOTTOM", -2, 190)
 CreateAnchor(Anchorviksraid, "Move raid", 530, 20)
 
 Anchorviksraid40dps = CreateFrame("Frame","Move_raid40dps",UIParent)
-Anchorviksraid40dps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -2, 180)
+Anchorviksraid40dps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -2, 190)
 CreateAnchor(Anchorviksraid40dps, "Move raid40dps", 530, 20)
 
 AnchorvikstotDps = CreateFrame("Frame","Move_tot_Dps",UIParent)
@@ -335,7 +335,7 @@ AnchorviksfocuscastbarDps:SetPoint("TOPLEFT", UIParent, "BOTTOM", 449, 344)
 CreateAnchor(AnchorviksfocuscastbarDps, "Move focuscastbar_Dps", 158, 13)
 
 AnchorvikstankDps = CreateFrame("Frame","Move_tank_Dps",UIParent)
-AnchorvikstankDps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 200, 303)
+AnchorvikstankDps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 200, 320)
 CreateAnchor(AnchorvikstankDps, "Move tankDps", 80, 18)
 
 AnchorviksbossDps = CreateFrame("Frame","Move_boss_Dps",UIParent)
