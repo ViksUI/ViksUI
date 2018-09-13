@@ -31,6 +31,7 @@ local function LoadSkin()
 	select(13, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
 	select(13, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
 
+
 	
 	-- Azerite Items
 	local function UpdateAzeriteItem(self)
@@ -76,6 +77,7 @@ local function LoadSkin()
 		end)
 		hooksecurefunc(slot, "DisplayAsAzeriteItem", UpdateAzeriteItem)
 		hooksecurefunc(slot, "DisplayAsAzeriteEmpoweredItem", UpdateAzeriteEmpoweredItem)
+
 
 	end
 
@@ -279,6 +281,7 @@ local function LoadSkin()
 	TokenFrame:HookScript("OnShow", function()
 		for i = 1, GetCurrencyListSize() do
 			local button = _G["TokenFrameContainerButton"..i]
+
 
 			if button then
 				button.highlight:Kill()
