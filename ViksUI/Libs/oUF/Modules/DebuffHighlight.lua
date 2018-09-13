@@ -11,7 +11,7 @@ local CanDispel = {
 	DRUID = {Magic = false, Curse = true, Poison = true},
 	MONK = {Magic = false, Poison = true, Disease = true},
 	PALADIN = {Magic = false, Poison = true, Disease = true},
-	PRIEST = {Magic = false, Disease = false},
+	PRIEST = {Magic = false, Disease = true},
 	SHAMAN = {Magic = false, Curse = true}
 }
 
