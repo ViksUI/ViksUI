@@ -21,10 +21,6 @@ local BuffsAnchor = CreateFrame("Frame", "BuffsAnchor", UIParent)
 BuffsAnchor:SetPoint("TOPRIGHT", AnchorBuff)
 BuffsAnchor:SetSize((15 * C.aura.player_buff_size) + 42, (C.aura.player_buff_size * 2) + 3)
 
-local DeBuffsAnchor = CreateFrame("Frame", "DeBuffsAnchor", UIParent)
-DeBuffsAnchor:SetPoint("TOPRIGHT", AnchorDeBuff)
-DeBuffsAnchor:SetSize((15 * C.aura.player_buff_size) + 42, (C.aura.player_buff_size * 2) + 3)
-
 for i = 1, NUM_TEMP_ENCHANT_FRAMES do
 	local buff = _G["TempEnchant"..i]
 	local icon = _G["TempEnchant"..i.."Icon"]
@@ -53,7 +49,7 @@ for i = 1, NUM_TEMP_ENCHANT_FRAMES do
 	duration:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
 	duration:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 
-	TemporaryEnchantFrame:SetPoint("TOPRIGHT", AnchorBuff)
+	TemporaryEnchantFrame:SetPoint(unpack(C.position.player_buffs))
 
 	_G["TempEnchant2"]:ClearAllPoints()
 	_G["TempEnchant2"]:SetPoint("RIGHT", _G["TempEnchant1"], "LEFT", -3, 0)
@@ -114,8 +110,6 @@ local function StyleDeBuffs(buttonName, index)
 		buff:SetTemplate("Default")
 		buff:SetBackdropBorderColor(1 * 3/5, 0 * 3/5, 0 * 3/5)
 		buff:SetSize(C.aura.player_buff_size*1.5, C.aura.player_buff_size*1.5)
-		buff:ClearAllPoints()
-		buff:SetPoint("TOPRIGHT", AnchorDeBuff, "TOPRIGHT", 0, 0)
 
 		icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		icon:SetPoint("TOPLEFT", buff, 2, -2)
