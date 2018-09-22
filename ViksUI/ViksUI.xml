@@ -144,7 +144,7 @@
 	<Script file="Modules\Loot\Loot.lua"/>
 	<Script file="Modules\Loot\MasterLoot.lua"/>
 
-	<Script file="Misc\Threatbar.lua"/>
+	<!--Script file="Misc\Threatbar.lua"/-->
 	<Script file="Misc\ClassTimer.lua"/>
 	<Script file="Misc\Filger.lua"/>
 	<Script file="Misc\CooldownFlash.lua"/>
