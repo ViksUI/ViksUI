@@ -87,6 +87,8 @@ T.DebuffWhiteList = {
 	[SpellName(25046)] = true,	-- Arcane Torrent
 	[SpellName(20549)] = true,	-- War Stomp
 	[SpellName(107079)] = true,	-- Quaking Palm
+	-- Mythic+
+	[SpellName(278456)] = true,	-- Infest
 }
 
 T.DebuffBlackList = {
