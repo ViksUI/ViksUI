@@ -212,7 +212,7 @@ StaticPopupDialogs.BW_TEST = {
 			prox.db.profile.font = C.media.normal_font
 			prox.db.profile.objects.ability = false
 		end
-		BigWigs3IconDB.hide = true
+		--BigWigs3IconDB.hide = true
 		BigWigs:GetPlugin("Super Emphasize").db.profile.font = "Calibri"
 		BigWigs:GetPlugin("Alt Power").db.profile.font = "Calibri"
 		if InCombatLockdown() then

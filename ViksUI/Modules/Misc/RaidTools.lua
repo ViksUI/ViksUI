@@ -529,13 +529,13 @@ pulltimer:SetAttribute("macrotext1", "/dbm pull 10")
 CreateBtn("mainassistbutton", Line03, RaidToolsWidth/6, 19, "Set Main Assist", "", RaidToolsTooltipAnchor)
 mainassistbutton:SetPoint("RIGHT", pulltimer, "LEFT", -5, 0)
 mainassistbutton:SetAttribute("macrotext1", "/ma")
-	mainassistbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\mainassist.tga]])
+mainassistbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\mainassist.tga]])
 
 -- Button Set Main Tank
 CreateBtn("maintankbutton", Line03, RaidToolsWidth/6, 19, "Set Main Tank", "", RaidToolsTooltipAnchor)
 maintankbutton:SetPoint("RIGHT", mainassistbutton, "LEFT", -5, 0)
 maintankbutton:SetAttribute("macrotext1", "/mt")
-	maintankbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\tank2.tga]])
+maintankbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\tank2.tga]])
 
 -- Button Readycheck
 CreateBtn("rcbutton", Line03, RaidToolsWidth/6, 19, "Start a readycheck", "", RaidToolsTooltipAnchor)
