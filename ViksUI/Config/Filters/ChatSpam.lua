@@ -56,5 +56,7 @@ T.ChatSpamList = {
 	"No account",
 	"Hordebank.COM",
 	"RGB boost",
-	"TitaniumBay"
+	"TitaniumBay",
+	"anal",
+	"Anal",
 }
