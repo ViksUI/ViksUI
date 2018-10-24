@@ -110,7 +110,7 @@ local UnitSpecific = {
 	lib.TotemBars(self)
 	lib.Experience(self)
 	lib.Reputation(self)
-	--lib.AltPowerBar(self)
+	lib.AltPowerBar(self)
 			-- PvP Icon Credit to oUF Drk
 		local pvp = self.Health:CreateTexture(nil, "OVERLAY")
 		pvp:SetHeight(32)
@@ -166,7 +166,7 @@ local UnitSpecific = {
 		self.Power.colorReaction = true
 		self.Power.Smooth = true
 		self.Power.bg.multiplier = 0.5
-		--lib.AltPowerBar(self)
+		lib.AltPowerBar(self)
 		lib.healcomm(self)
 		lib.gen_castbar(self)
 		lib.addQuestIcon(self)
