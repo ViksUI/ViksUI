@@ -161,7 +161,7 @@ T.RaidDebuffs = {
 	[SpellName(266035)] = 3, -- Bone Splinter
 	[SpellName(266036)] = 4, -- Drain Essence
 	[SpellName(260907)] = 5, -- Soul Manipulation
-	[SpellName(260741)] = 5, -- Jagged Nettles
+	[SpellName(260741)] = 6, -- Jagged Nettles
 	[SpellName(264556)] = 3, -- Tearing Strike
 	[SpellName(265760)] = 5, -- Thorned Barrage
 	[SpellName(260551)] = 3, -- Soul Thorns
@@ -261,6 +261,7 @@ T.RaidDebuffs = {
 	[SpellName(209858)] = 5,	-- Necrotic Rot
 	[SpellName(240559)] = 5,	-- Grievous Wound
 	[SpellName(240443)] = 5,	-- Burst
+	[SpellName(278456)] = 5,	-- Infest
 	
 -----------------------------------------------------------------
 -- Uldir Raid
