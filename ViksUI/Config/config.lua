@@ -84,6 +84,7 @@ C["misc"] = {
 	["OrderHallBar"] = false,					-- Show OrderHallBar Frame
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
 	["InfoPanel_Stats"] = true,					-- Show Game Menu Bar
+	["yoffset2"] = yOffset,
 }
 
 ----------------------------------------------------------------------------------------
@@ -972,7 +973,6 @@ SLASH_RELOADUI2 = "/reloadui"
 SlashCmdList.RELOADUI = ReloadUI
 
 C["spacer"] = {} -- Just spacer for config menu
-
 --------------------------------------------------------------------------------
 --	WORKING ON! Do NOT turn anything on!
 ----------------------------------------------------------------------------------------

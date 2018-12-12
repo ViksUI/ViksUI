@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.nameplate.enable ~= true then return end
+if C.nameplate.enable ~= true or IsAddOnLoaded("Plater") or IsAddOnLoaded("Threat Plates") or IsAddOnLoaded("TidyPlates") then return end
 
 ----------------------------------------------------------------------------------------
 --	oUF nameplates

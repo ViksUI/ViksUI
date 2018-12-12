@@ -33,7 +33,7 @@ local function LoadSkin()
 		bu.border:SetOutside(bu.Icon)
 		bu.Icon:SetParent(bu.border)
 	end
-
+--[[
 	local PVPQueueFrame = _G["PVPQueueFrame"]
 	PVPQueueFrameBg:Hide()
 	PVPQueueFrameInsetRightBorder:Hide()
@@ -46,7 +46,7 @@ local function LoadSkin()
 	PVPQueueFrameInsetTopLeftCorner:Hide()
 
 	PVPQueueFrame.HonorInset:StripTextures()
-
+]]--
 	local SeasonReward = PVPQueueFrame.HonorInset.RatedPanel.SeasonRewardFrame
 	SeasonReward.CircleMask:Hide()
 	SeasonReward.Ring:Hide()
@@ -56,7 +56,7 @@ local function LoadSkin()
 	RewardFrameBorder:SetOutside(SeasonReward.Icon)
 	SeasonReward.Icon:SetParent(RewardFrameBorder)
 	SeasonReward.Icon:SetDrawLayer("OVERLAY")
-
+--[[
 	-- Honor Frame
 	local HonorFrame = _G["HonorFrame"]
 	local Inset = HonorFrame.Inset
@@ -64,7 +64,7 @@ local function LoadSkin()
 	for i = 1, 9 do
 		select(i, Inset:GetRegions()):Hide()
 	end
-
+]]--
 	T:HandleScrollBar(HonorFrameSpecificFrameScrollBar)
 	T:HandleButton(HonorFrameQueueButton, true)
 	T.SkinDropDownBox(HonorFrameTypeDropDown, 165)
@@ -175,9 +175,9 @@ local function LoadSkin()
 	ConquestFrame:StripTextures()
 	ConquestFrame.ShadowOverlay:Hide()
 
-	for i = 1, 9 do
-		select(i, Inset:GetRegions()):Hide()
-	end
+	--for i = 1, 9 do
+		--select(i, Inset:GetRegions()):Hide()
+	--end
 
 	T:HandleButton(ConquestJoinButton, true)
 

@@ -7,6 +7,27 @@ if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
 	T.SkinCloseButton(CharacterFrameCloseButton)
 
+	-- Azerite Items
+	local function UpdateAzeriteItem(self)
+		if not self.styled then
+			self.AzeriteTexture:SetAlpha(0)
+			self.RankFrame.Texture:SetTexture("")
+			self.RankFrame.Label:SetFontObject("SystemFont_Outline_Small")
+			self.RankFrame.Label:SetPoint("CENTER", self.RankFrame.Texture, 0, 3)
+
+			self.styled = true
+		end
+		self:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.3)
+		self:GetHighlightTexture():SetAllPoints()
+	end
+
+	local function UpdateAzeriteEmpoweredItem(self)
+		self.AzeriteTexture:SetAtlas("AzeriteIconFrame")
+		self.AzeriteTexture:SetPoint("TOPLEFT", 2, -2)
+		self.AzeriteTexture:SetPoint("BOTTOMRIGHT", -2, 2)
+		self.AzeriteTexture:SetDrawLayer("BORDER", 1)
+	end
+	
 	local slots = {
 		"HeadSlot",
 		"NeckSlot",
@@ -28,29 +49,9 @@ local function LoadSkin()
 		"SecondaryHandSlot"
 	}
 
-	select(13, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
-	select(13, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
+	select(14, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
+	select(14, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
 
-
-	
-	-- Azerite Items
-	local function UpdateAzeriteItem(self)
-		if not self.styled then
-			self.AzeriteTexture:SetAlpha(0)
-			self.RankFrame.Texture:SetTexture("")
-
-			self.styled = true
-		end
-		self:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		self:GetHighlightTexture():SetAllPoints()
-	end
-
-	local function UpdateAzeriteEmpoweredItem(self)
-		self.AzeriteTexture:SetAtlas("AzeriteIconFrame")
-		self.AzeriteTexture:SetAllPoints()
-		self.AzeriteTexture:SetDrawLayer("BORDER", 1)
-	end
-	
 	for _, i in pairs(slots) do
 		_G["Character"..i.."Frame"]:Hide()
 		local icon = _G["Character"..i.."IconTexture"]
@@ -143,6 +144,10 @@ local function LoadSkin()
 	for _, object in pairs(charframe) do
 		_G[object]:StripTextures()
 	end
+	
+	CharacterFrame.NineSlice:Hide()
+	CharacterFrameInset.NineSlice:Hide()
+	CharacterFrameInsetRight.NineSlice:Hide()
 	
 	CharacterStatsPane.ItemLevelCategory:StripTextures()
 	CharacterStatsPane.ItemLevelCategory:SetTemplate("Overlay")

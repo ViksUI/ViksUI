@@ -847,7 +847,7 @@ SlashCmdList.TEST_UF = function(msg)
 				_G["oUF_Boss"..i].Hide = function() end
 				_G["oUF_Boss"..i].unit = "player"
 				_G["oUF_Boss"..i]:Show()
-				_G["oUF_Boss"..i]:UpdateAllElements()
+				--_G["oUF_Boss"..i]:UpdateAllElements()
 			end
 
 		moving = true

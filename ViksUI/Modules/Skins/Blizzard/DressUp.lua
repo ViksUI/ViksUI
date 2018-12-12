@@ -8,7 +8,6 @@ local function LoadSkin()
 	DressUpFrame:StripTextures()
 	DressUpFrame:SetTemplate("Transparent")
 	DressUpFramePortrait:Hide()
-	DressUpFramePortraitFrame:Hide()
 	DressUpFrameInset:Hide()
 
 	DressUpModel:CreateBackdrop("Default")

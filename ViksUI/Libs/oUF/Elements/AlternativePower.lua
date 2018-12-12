@@ -1,3 +1,31 @@
+--[[
+# Element: Alternative Power Bar
+
+Handles the visibility and updating of a status bar that displays encounter- or quest-related power information, such as
+the number of hour glass charges during the Murozond encounter in the dungeon End Time.
+
+## Widget
+
+AlternativePower - A `StatusBar` used to represent the unit's alternative power.
+
+## Notes
+
+If mouse interactivity is enabled for the widget, `OnEnter` and/or `OnLeave` handlers will be set to display a tooltip.
+A default texture will be applied if the widget is a StatusBar and doesn't have a texture set.
+
+## Examples
+
+    -- Position and size
+    local AlternativePower = CreateFrame('StatusBar', nil, self)
+    AlternativePower:SetHeight(20)
+    AlternativePower:SetPoint('BOTTOM')
+    AlternativePower:SetPoint('LEFT')
+    AlternativePower:SetPoint('RIGHT')
+
+    -- Register with oUF
+    self.AlternativePower = AlternativePower
+--]]
+
 local _, ns = ...
 local oUF = ns.oUF
 
@@ -78,7 +106,8 @@ local function Visibility(self, event, unit)
 	local element = self.AlternativePower
 
 	local barType, _, _, _, _, hideFromOthers, showOnRaid = UnitAlternatePowerInfo(unit)
-	if(barType and (showOnRaid and (UnitInParty(unit) or UnitInRaid(unit)) or not hideFromOthers or unit == 'player' or self.realUnit == 'player')) then
+	if(barType and (showOnRaid and (UnitInParty(unit) or UnitInRaid(unit)) or not hideFromOthers
+		or UnitIsUnit(unit, 'player') or UnitIsUnit(self.realUnit, 'player'))) then
 		self:RegisterEvent('UNIT_POWER_UPDATE', Path)
 		self:RegisterEvent('UNIT_MAXPOWER', Path)
 

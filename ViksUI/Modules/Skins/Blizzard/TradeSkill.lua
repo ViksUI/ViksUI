@@ -9,9 +9,12 @@ local function LoadSkin()
 	TradeSkillFrame.RecipeInset:StripTextures()
 	TradeSkillFrame.DetailsInset:StripTextures()
 	TradeSkillFrame.DetailsFrame.Background:Hide()
+	TradeSkillFrame.NineSlice:Hide()
+	TradeSkillFramePortrait:SetAlpha(0)
 
 	TradeSkillFrame.RecipeList.LearnedTab:StripTextures()
 	TradeSkillFrame.RecipeList.UnlearnedTab:StripTextures()
+	TradeSkillFrame.RecipeInset.NineSlice:Hide()
 
 	TradeSkillFrame:SetTemplate("Transparent")
 	TradeSkillFrame.RankFrame:StripTextures()
@@ -43,6 +46,7 @@ local function LoadSkin()
 	TradeSkillFrame.DetailsFrame.CreateMultipleInputBox.IncrementButton:SetPoint("LEFT", TradeSkillFrame.DetailsFrame.CreateMultipleInputBox, "RIGHT", 5, 0)
 	TradeSkillFrame.DetailsFrame.CreateMultipleInputBox.IncrementButton:SetSize(22, 22)
 	TradeSkillFrame.DetailsFrame.CreateMultipleInputBox.DecrementButton:SetSize(22, 22)
+	TradeSkillFrame.DetailsInset.NineSlice:Hide()
 
 	TradeSkillFrame.DetailsFrame.ExitButton:SetPoint("TOPRIGHT", TradeSkillFrame.DetailsFrame, "BOTTOMRIGHT", 28, -3)
 
@@ -113,8 +117,6 @@ local function LoadSkin()
 	end)
 
 	-- Guild Crafters
-	TradeSkillFrame.DetailsFrame.ViewGuildCraftersButton.LeftSeparator:SetTexture(nil)
-	TradeSkillFrame.DetailsFrame.ViewGuildCraftersButton.RightSeparator:SetTexture(nil)
 	TradeSkillFrame.DetailsFrame.GuildFrame:StripTextures()
 	TradeSkillFrame.DetailsFrame.GuildFrame:SetTemplate("Transparent")
 	TradeSkillFrame.DetailsFrame.GuildFrame.Container:StripTextures()

@@ -1526,6 +1526,8 @@ do
 			OnPlayerTargetChanged( self, ... );
 		elseif ( event == "PLAYER_ENTERING_WORLD" ) then
 			OnPlayerEnteringWorld( self );
+		elseif ( event == "PLAYER_TALENT_UPDATE" ) then
+			OnPlayerEnteringWorld( self );
 		else
 			error( "Unhandled event " .. event );
 		end
@@ -1539,23 +1541,6 @@ do
 		dataSource:Sort();
 		
 		local count = dataSource:Count();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		for index, auraInfo in ipairs( dataSource:Get() ) do
 			SetAuraBar( self, index, auraInfo );
@@ -1775,11 +1760,11 @@ elseif ( LAYOUT == 4 ) then
 	end
 	if ( playerClass == "MAGE") then
 		if GetSpecialization() == 1 and C.unitframe_class_bar.arcane then
-			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 28 );
-			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 28 );
-		else
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
+		else
+			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
+			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
 		end
 	end
 	playerFrame:Show();

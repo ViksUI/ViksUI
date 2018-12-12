@@ -124,6 +124,8 @@ local function LoadSkin()
 	SpellBookFrame:CreateBackdrop("Transparent")
 	SpellBookFrame.backdrop:SetPoint("TOPLEFT", 5, -1)
 	SpellBookFrame.backdrop:SetPoint("BOTTOMRIGHT", 15, -1)
+	SpellBookFrame.NineSlice:Hide()
+	SpellBookFrameInset.NineSlice:Hide()
 
 	T.SkinCloseButton(SpellBookFrameCloseButton, SpellBookFrame.backdrop)
 

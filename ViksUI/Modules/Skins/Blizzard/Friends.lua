@@ -67,8 +67,12 @@ local function LoadSkin()
 	}
 
 	FriendsFrameInset:StripTextures()
+	FriendsFrameInset.NineSlice:Hide()
+	FriendsFrame.NineSlice:Hide()
 	WhoFrameListInset:StripTextures()
+	WhoFrameListInset.NineSlice:Hide()
 	WhoFrameEditBoxInset:StripTextures()
+	WhoFrameEditBoxInset.NineSlice:Hide()
 	LFRQueueFrameListInset:StripTextures()
 	LFRQueueFrameRoleInset:StripTextures()
 	LFRQueueFrameCommentInset:StripTextures()

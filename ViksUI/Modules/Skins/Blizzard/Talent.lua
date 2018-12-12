@@ -28,6 +28,8 @@ local function LoadSkin()
 	PlayerTalentFrame:CreateBackdrop("Transparent")
 	PlayerTalentFrame.backdrop:SetPoint("TOPLEFT", 0, 0)
 	PlayerTalentFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, -1)
+	PlayerTalentFrame.NineSlice:Hide()
+	PlayerTalentFrameInset.NineSlice:Hide()
 
 	PlayerTalentFrameTalentsBg:Hide()
 	PlayerTalentFrameTalents:DisableDrawLayer("BORDER")
@@ -285,6 +287,8 @@ local function LoadSkin()
 	PvpTalentFrame.Swords:SetSize(72, 67)
 	PvpTalentFrame.Orb:Hide()
 	PvpTalentFrame.Ring:Hide()
+	PvpTalentFrame.TalentList.NineSlice:Hide()
+	PvpTalentFrame.TalentList.Inset.NineSlice:Hide()
 
 	-- Skin the PvP Icons
 	SkinPvpTalentTrinketSlot(PvpTalentFrame.TrinketSlot)

@@ -25,7 +25,7 @@ local function LoadSkin()
 	-- Quest Frames
 	local QuestMapFrame = _G["QuestMapFrame"]
 	QuestMapFrame.VerticalSeparator:Hide()
-
+	WorldMapFrame.BorderFrame.NineSlice:Hide()
 	local QuestScrollFrame = _G["QuestScrollFrame"]
 	QuestScrollFrame.DetailFrame:StripTextures()
 	QuestScrollFrame.Background:SetAlpha(0)

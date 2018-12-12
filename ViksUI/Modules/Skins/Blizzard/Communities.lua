@@ -17,44 +17,22 @@ local function LoadSkin()
 
 	local CommunitiesFrame = _G["CommunitiesFrame"]
 	CommunitiesFrame:StripTextures()
+	CommunitiesFrameInset.NineSlice:Hide()
+	CommunitiesFrameInset.Bg:Hide()
 	CommunitiesFrame.PortraitOverlay:Kill()
+	CommunitiesFrame.NineSlice:Hide()
 	CommunitiesFrame.PortraitOverlay.Portrait:Hide()
-	CommunitiesFrame.PortraitOverlay.PortraitFrame:Hide()
 	CommunitiesFrame.CommunitiesList.InsetFrame:StripTextures()
-	CommunitiesFrame.TopBorder:Hide()
-	CommunitiesFrame.LeftBorder:Hide()
-	CommunitiesFrame.TopLeftCorner:Hide()
 
 	CommunitiesFrame:CreateBackdrop("Transparent")
 
 	local CommunitiesFrameCommunitiesList = _G["CommunitiesFrameCommunitiesList"]
+	CommunitiesFrameCommunitiesList.InsetFrame.NineSlice:Hide()
 	CommunitiesFrameCommunitiesList.FilligreeOverlay:Hide()
 	CommunitiesFrameCommunitiesList.Bg:Hide()
 	CommunitiesFrameCommunitiesList.TopFiligree:Hide()
 	CommunitiesFrameCommunitiesList.BottomFiligree:Hide()
-	CommunitiesFrameTopTileStreaks:Hide()
 	CommunitiesFrameCommunitiesListListScrollFrame:StripTextures()
-	CommunitiesFrameInsetBg:Hide()
-	CommunitiesFrameInsetInsetBottomBorder:Hide()
-	CommunitiesFrameInsetInsetLeftBorder:Hide()
-	CommunitiesFrameInsetInsetBotLeftCorner:Hide()
-	CommunitiesFrameInsetInsetBotRightCorner:Hide()
-	CommunitiesFrameInsetInsetRightBorder:Hide()
-	CommunitiesFrameInsetInsetLeftBorder:Hide()
-	CommunitiesFrameInsetInsetTopBorder:Hide()
-	CommunitiesFrameInsetInsetTopLeftCorner:Hide()
-	CommunitiesFrameInsetInsetTopRightCorner:Hide()
-	CommunitiesFrameCommunitiesListInsetBottomBorder:Hide()
-	CommunitiesFrameCommunitiesListInsetBotRightCorner:Hide()
-	CommunitiesFrameCommunitiesListInsetRightBorder:Hide()
-	CommunitiesFrameInsetBottomBorder:Hide()
-	CommunitiesFrameInsetLeftBorder:Hide()
-	CommunitiesFrameInsetRightBorder:Hide()
-	CommunitiesFrameInsetTopRightCorner:Hide()
-	CommunitiesFrameInsetTopLeftCorner:Hide()
-	CommunitiesFrameInsetTopBorder:Hide()
-	CommunitiesFrameInsetBotRightCorner:Hide()
-	CommunitiesFrameInsetBotLeftCorner:Hide()
 
 	hooksecurefunc(CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo)
 		if clubInfo then
@@ -185,12 +163,15 @@ local function LoadSkin()
 	-- [[ CHAT TAB ]]
 	CommunitiesFrame.MemberList:StripTextures()
 	CommunitiesFrame.MemberList.InsetFrame:Hide()
+	CommunitiesFrame.MemberList.WatermarkFrame:Hide()
 
 	CommunitiesFrame.Chat.InsetFrame:StripTextures()
+	CommunitiesFrame.Chat.InsetFrame.NineSlice:Hide()
 	CommunitiesFrame.Chat.InsetFrame:SetTemplate("Transparent")
 
 	CommunitiesFrame.GuildFinderFrame:StripTextures()
 	CommunitiesFrame.GuildFinderFrame.InsetFrame:StripTextures()
+	CommunitiesFrame.GuildFinderFrame.InsetFrame.NineSlice:Hide()
 
 	T:HandleEditBox(CommunitiesFrame.ChatEditBox)
 	CommunitiesFrame.ChatEditBox:SetSize(120, 20)
@@ -431,7 +412,6 @@ local function LoadSkin()
 
 	T.SkinCloseButton(CommunitiesGuildRecruitmentFrameCloseButton)
 
-	CommunitiesGuildRecruitmentFrameRecruitment.ListGuildButton.LeftSeparator:Hide()
 	T:HandleButton(CommunitiesGuildRecruitmentFrameRecruitment.ListGuildButton)
 
 	-- Tabs
@@ -443,9 +423,6 @@ local function LoadSkin()
 	T.SkinEditBox(CommunitiesGuildRecruitmentFrameRecruitment.CommentFrame.CommentInputFrame)
 
 	-- Recruitment Request
-	CommunitiesGuildRecruitmentFrameApplicants.InviteButton.RightSeparator:Hide()
-	CommunitiesGuildRecruitmentFrameApplicants.DeclineButton.LeftSeparator:Hide()
-
 	T:HandleButton(CommunitiesGuildRecruitmentFrameApplicants.InviteButton)
 	T:HandleButton(CommunitiesGuildRecruitmentFrameApplicants.MessageButton)
 	T:HandleButton(CommunitiesGuildRecruitmentFrameApplicants.DeclineButton)
