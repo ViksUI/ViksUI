@@ -17,10 +17,12 @@ local function LoadSkin()
 	end
 
 	AddonList:StripTextures()
+	AddonList.NineSlice:Hide()
 	AddonList:SetTemplate("Transparent")
 	AddonList:SetHeight(AddonList:GetHeight() + 3)
 
 	AddonListInset:StripTextures()
+	AddonListInset.NineSlice:Hide()
 	AddonListInset:SetTemplate("Overlay")
 	AddonListInset:SetPoint("BOTTOMRIGHT", -6, 29)
 

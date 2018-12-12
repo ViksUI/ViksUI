@@ -166,7 +166,7 @@ local function LoadSkin()
 			end
 		end
 	end)
-	FriendsFrame_CheckBattlenetStatus()
+	--FriendsFrame_CheckBattlenetStatus()
 
 	hooksecurefunc("FriendsFrame_Update", function()
 		if FriendsFrame.selectedTab == 1 and FriendsTabHeader.selectedTab == 1 and FriendsFrameBattlenetFrame.Tag:IsShown() then
