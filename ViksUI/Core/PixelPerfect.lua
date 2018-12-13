@@ -12,6 +12,7 @@ T.UIScale = function()
 
 	if C.general.auto_scale == true then
 		C.general.uiscale = min(2, max(0.64, 768 / string.match(T.resolution, "%d+x(%d+)")))
+		C.general.uiscale = tonumber(string.format("%.2f", C.general.uiscale)) -- Bug with scale in 8.1
 	end
 end
 T.UIScale()

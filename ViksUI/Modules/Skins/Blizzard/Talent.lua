@@ -301,9 +301,6 @@ local function LoadSkin()
 
 	PvpTalentFrame.TalentList:SetPoint("BOTTOMLEFT", PlayerTalentFrame, "BOTTOMRIGHT", 5, 26)
 	T:SkinTalentListButtons(PvpTalentFrame.TalentList)
-	PvpTalentFrame.TalentList.MyTopLeftCorner:Hide()
-	PvpTalentFrame.TalentList.MyTopRightCorner:Hide()
-	PvpTalentFrame.TalentList.MyTopBorder:Hide()
 
 	local function HandleInsetButton(Button)
 		T:HandleButton(Button)

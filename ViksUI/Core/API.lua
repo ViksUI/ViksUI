@@ -243,6 +243,21 @@ local function CreateBackdropn(f, t, tex)
 	f.Backdrop = b
 end
 
+local StripTexturesBlizzFrames = {
+	"Inset",
+	"inset",
+	"InsetFrame",
+	"LeftInset",
+	"RightInset",
+	"NineSlice",
+	"BorderFrame",
+	"bottomInset",
+	"BottomInset",
+	"bgLeft",
+	"bgRight",
+	"FilligreeOverlay"
+}
+
 local function StripTextures(object, kill)
 	for i = 1, object:GetNumRegions() do
 		local region = select(i, object:GetRegions())
@@ -251,6 +266,16 @@ local function StripTextures(object, kill)
 				region:Kill()
 			else
 				region:SetTexture(nil)
+			end
+		end
+	end
+
+	if not object:IsObjectType('Texture') then
+		local frameName = object.GetName and object:GetName()
+		for _, blizzard in pairs(StripTexturesBlizzFrames) do
+			local blizzFrame = object[blizzard] or frameName and _G[frameName..blizzard]
+			if blizzFrame then
+				blizzFrame:StripTextures(kill)
 			end
 		end
 	end
