@@ -12,19 +12,17 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
-
+	
 local function LoadSkin()
 
 	local CommunitiesFrame = _G["CommunitiesFrame"]
 	CommunitiesFrame:StripTextures()
+	CommunitiesFrame:CreateBackdrop("Transparent")
 	CommunitiesFrameInset.NineSlice:Hide()
 	CommunitiesFrameInset.Bg:Hide()
 	CommunitiesFrame.PortraitOverlay:Kill()
 	CommunitiesFrame.NineSlice:Hide()
 	CommunitiesFrame.PortraitOverlay.Portrait:Hide()
-	CommunitiesFrame.CommunitiesList.InsetFrame:StripTextures()
-
-	CommunitiesFrame:CreateBackdrop("Transparent")
 
 	local CommunitiesFrameCommunitiesList = _G["CommunitiesFrameCommunitiesList"]
 	CommunitiesFrameCommunitiesList.InsetFrame.NineSlice:Hide()
@@ -164,6 +162,7 @@ local function LoadSkin()
 	CommunitiesFrame.MemberList:StripTextures()
 	CommunitiesFrame.MemberList.InsetFrame:Hide()
 	CommunitiesFrame.MemberList.WatermarkFrame:Hide()
+	CommunitiesFrame.MemberList.InsetFrame.NineSlice:Hide()
 
 	CommunitiesFrame.Chat.InsetFrame:StripTextures()
 	CommunitiesFrame.Chat.InsetFrame.NineSlice:Hide()

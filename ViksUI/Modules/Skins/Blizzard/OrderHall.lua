@@ -34,9 +34,8 @@ local function LoadSkin()
 	-- TalentFrame
 	OrderHallTalentFrame:StripTextures()
 	OrderHallTalentFrame:SetTemplate("Transparent")
-	T.SkinCloseButton(OrderHallTalentFrameCloseButton)
 	OrderHallTalentFrame.NineSlice:Hide()
-	
+	T.SkinCloseButton(OrderHallTalentFrameCloseButton)
 	OrderHallTalentFrame:HookScript("OnShow", function(self)
 		OrderHallTalentFramePortrait:Hide()
 		OrderHallTalentFrame.Currency.Icon:SetAtlas("legionmission-icon-currency", false)

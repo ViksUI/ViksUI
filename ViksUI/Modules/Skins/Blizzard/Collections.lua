@@ -32,7 +32,6 @@ local function LoadSkin()
 	CollectionsJournal:StripTextures()
 	CollectionsJournal:SetTemplate("Transparent")
 	CollectionsJournal:Hide()
-	CollectionsJournal.NineSlice:Hide()
 	CollectionsJournalPortrait:SetAlpha(0)
 
 	for i = 1, 5 do
@@ -63,9 +62,7 @@ local function LoadSkin()
 
 	-- MountJournal
 	MountJournal.LeftInset:StripTextures()
-	MountJournal.LeftInset.NineSlice:Hide()
 	MountJournal.RightInset:StripTextures()
-	MountJournal.RightInset.NineSlice:Hide()
 	MountJournal.MountDisplay:StripTextures()
 	MountJournal.MountDisplay.ShadowOverlay:StripTextures()
 	MountJournal.MountCount:StripTextures()
@@ -154,11 +151,8 @@ local function LoadSkin()
 
 	-- PetJournal
 	PetJournal.LeftInset:StripTextures()
-	PetJournalLeftInset.NineSlice:Hide()
 	PetJournal.RightInset:StripTextures()
-	PetJournalRightInset.NineSlice:Hide()
 	PetJournal.PetCardInset:StripTextures()
-	PetJournalPetCardInset.NineSlice:Hide()
 	PetJournal.loadoutBorder:StripTextures()
 	PetJournalPetCardBG:Hide()
 
@@ -399,7 +393,6 @@ local function LoadSkin()
 
 	-- ToyBox
 	ToyBox.iconsFrame:StripTextures()
-	ToyBox.iconsFrame.NineSlice:Hide()
 	T.SkinEditBox(ToyBox.searchBox, nil, 18)
 	T.SkinNextPrevButton(ToyBox.PagingFrame.PrevPageButton)
 	T.SkinNextPrevButton(ToyBox.PagingFrame.NextPageButton)
@@ -408,6 +401,10 @@ local function LoadSkin()
 	ToyBox.progressBar:CreateBackdrop("Overlay")
 	ToyBox.progressBar:SetStatusBarTexture(C.media.texture)
 	ToyBox.progressBar:SetFrameLevel(ToyBox.progressBar:GetFrameLevel() + 2)
+
+	T.SkinCloseButton(ToyBox.favoriteHelpBox.CloseButton)
+	ToyBox.favoriteHelpBox:StripTextures()
+	ToyBox.favoriteHelpBox:CreateBackdrop("Transparent")
 
 	for i = 1, 18 do
 		ToyBox.iconsFrame["spellButton"..i].slotFrameCollected:SetTexture("")
@@ -431,7 +428,6 @@ local function LoadSkin()
 
 	-- Heirlooms
 	HeirloomsJournal.iconsFrame:StripTextures()
-	HeirloomsJournal.iconsFrame.NineSlice:Hide()
 	T.SkinEditBox(HeirloomsJournal.SearchBox, nil, 18)
 	T.SkinNextPrevButton(HeirloomsJournal.PagingFrame.PrevPageButton)
 	T.SkinNextPrevButton(HeirloomsJournal.PagingFrame.NextPageButton)
@@ -520,7 +516,6 @@ local function LoadSkin()
 	end
 
 	WardrobeCollectionFrame.ItemsCollectionFrame:StripTextures()
-	WardrobeCollectionFrame.ItemsCollectionFrame.NineSlice:Hide()
 	WardrobeCollectionFrame.SetsTransmogFrame:StripTextures()
 	WardrobeCollectionFrame.progressBar:StripTextures()
 	WardrobeCollectionFrame.progressBar:CreateBackdrop("Overlay")
@@ -537,9 +532,7 @@ local function LoadSkin()
 	T.SkinNextPrevButton(WardrobeCollectionFrame.SetsTransmogFrame.PagingFrame.NextPageButton)
 
 	WardrobeCollectionFrame.SetsCollectionFrame.LeftInset:StripTextures()
-	WardrobeCollectionFrame.SetsCollectionFrame.LeftInset.NineSlice:Hide()
 	WardrobeCollectionFrame.SetsCollectionFrame.RightInset:StripTextures()
-	WardrobeCollectionFrame.SetsCollectionFrame.RightInset.NineSlice:Hide()
 	WardrobeCollectionFrame.SetsCollectionFrame.DetailsFrame:StripTextures()
 	WardrobeCollectionFrame.SetsCollectionFrame.DetailsFrame:CreateBackdrop("Overlay")
 	WardrobeCollectionFrame.SetsCollectionFrame.DetailsFrame.backdrop:SetPoint("TOPLEFT", 4, -4)
@@ -549,26 +542,30 @@ local function LoadSkin()
 	WardrobeCollectionFrameScrollFrameScrollBar:SetPoint("TOPLEFT", WardrobeCollectionFrame.SetsCollectionFrame.ScrollFrame, "TOPRIGHT", 4, 15)
 	WardrobeCollectionFrameScrollFrameScrollBar:SetPoint("BOTTOMLEFT", WardrobeCollectionFrame.SetsCollectionFrame.ScrollFrame, "BOTTOMRIGHT", 4, 14)
 
-
 	T.SkinCloseButton(WardrobeCollectionFrame.ItemsCollectionFrame.HelpBox.CloseButton)
 	WardrobeCollectionFrame.ItemsCollectionFrame.HelpBox.Arrow:Hide()
 	WardrobeCollectionFrame.ItemsCollectionFrame.HelpBox:StripTextures()
 	WardrobeCollectionFrame.ItemsCollectionFrame.HelpBox:CreateBackdrop("Transparent")
-	
+
 	T.SkinCloseButton(WardrobeCollectionFrame.SetsTabHelpBox.CloseButton)
 	WardrobeCollectionFrame.SetsTabHelpBox:StripTextures()
 	WardrobeCollectionFrame.SetsTabHelpBox:CreateBackdrop("Transparent")
-	
+
 	T.SkinCloseButton(WardrobeTransmogFrame.SpecHelpBox.CloseButton)
 	WardrobeTransmogFrame.SpecHelpBox.Arrow:Hide()
 	WardrobeTransmogFrame.SpecHelpBox:StripTextures()
 	WardrobeTransmogFrame.SpecHelpBox:CreateBackdrop("Transparent")
-	
+
 	T.SkinCloseButton(WardrobeTransmogFrame.OutfitHelpBox.CloseButton)
 	WardrobeTransmogFrame.OutfitHelpBox.Arrow:Hide()
 	WardrobeTransmogFrame.OutfitHelpBox:StripTextures()
 	WardrobeTransmogFrame.OutfitHelpBox:CreateBackdrop("Transparent")
-	
+
+	T.SkinCloseButton(HeirloomsJournal.UpgradeLevelHelpBox.CloseButton)
+	HeirloomsJournal.UpgradeLevelHelpBox.Arrow:Hide()
+	HeirloomsJournal.UpgradeLevelHelpBox:StripTextures()
+	HeirloomsJournal.UpgradeLevelHelpBox:CreateBackdrop("Transparent")
+
 	local function SetItemQuality(self, itemFrame)
 		if (itemFrame.backdrop) then
 			local _, _, quality = GetItemInfo(itemFrame.itemID);
@@ -585,7 +582,6 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc(WardrobeCollectionFrame.SetsCollectionFrame, "SetItemFrameQuality", SetItemQuality)
-
 
 
 	for i = 1, 2 do

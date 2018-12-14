@@ -9,11 +9,14 @@ if C.combattext.enable ~= true then return end
 -- General filter outgoing healing
 if C.combattext.healing then
 	T.healfilter = {}
+	T.healfilter[270661] = true		-- Self Reliance
 	T.healfilter[143924] = true		-- Leech
 	T.healfilter[127802] = true		-- Touch of the Grave
 	T.healfilter[207694] = true		-- Symbiote Strike
 	T.healfilter[242597] = true		-- Rethu's Incessant Courage
 	T.healfilter[241835] = true		-- Starlight of Celumbra
+	T.healfilter[273836] = true		-- Filthy Transfusion [Azerite trait]
+	T.healfilter[280707] = true		-- Laser Matrix [Azerite trait]
 end
 
 -- General merge outgoing damage
@@ -23,30 +26,27 @@ if C.combattext.merge_aoe_spam then
 	T.aoespam[6603] = 3				-- Auto Attack
 	T.aoespam[195222] = 4			-- Stormlash
 	T.aoespam[195256] = 4			-- Stormlash
-	T.aoespam[222197] = 0			-- Volatile Ichor (Unstable Horrorslime Trinket)
-	T.aoespam[214350] = 3			-- Nightmare Essence (Oakheart's Gnarled Root Trinket)
-	T.aoespam[230261] = 0			-- Flame Wreath (Aran's Relaxing Ruby Trinket)
-	T.aoespam[221812] = 5			-- Plague Swarm (Swarming Plaguehive Trinket)
-	T.aoespam[222711] = 4			-- Poisoned Dreams (Bough of Corruption Trinket)
-	T.aoespam[229737] = 0			-- Solar Collapse (Fury of the Burning Sky Trinket)
-	T.aoespam[229700] = 0			-- Orb of Destruction (Pharamere's Forbidden Grimoire Trinket)
-	T.aoespam[225764] = 1			-- Nether Meteor (Star Gate Trinket)
-	T.aoespam[242525] = 0.5			-- Terror From Below (Terror From Below Trinket)
-	T.aoespam[242571] = 4			-- Spectral Bolt (Tarnished Sentinel Medallion Trinket)
-	T.aoespam[246442] = 4			-- Spectral Blast (Tarnished Sentinel Medallion Trinket)
-	T.aoespam[188091] = 4			-- Deadly Grace (Potion of Deadly Grace)
-	T.aoespam[235999] = 1			-- Kil'jaeden's Burning Wish (Trinket)
-	T.aoespam[257244] = 4			-- Worldforger's Flame (Khaz'goroth's Courage Trinket)
+	T.aoespam[270827] = 0.5			-- Webweaver's Soul Gem (Vessel of Skittering Shadows Trinket)
 	T.aoespam[207694] = 3			-- Symbiote Strike
 	T.aoespam[210380] = 4			-- Aura of Sacrifice
 	T.aoespam[252907] = 5			-- Torment the Weak
 	T.aoespam[252896] = 0.5			-- Chaotic Darkness
 	T.aoespam[253022] = 0.5			-- Sorrow
+	T.aoespam[273836] = 3			-- Filthy Transfusion [Azerite trait]
+	T.aoespam[280705] = 3			-- Laser Matrix [Azerite trait]
+	T.aoespam[282724] = 5			-- Battlefield Focus [Azerite trait]
+	T.aoespam[255586] = 3.5			-- Lightning Arc [Azerite trait]
+	T.aoespam[279856] = 2			-- Glacial Assault [Azerite trait]
+	T.aoespam[271686] = 1			-- Heed My Call [Azerite trait]
+	T.merge[271685] = 271686		-- Heed My Call [Azerite trait]
 end
 
 -- Class config
 if T.class == "DEATHKNIGHT" then
 	if C.combattext.merge_aoe_spam then
+		T.aoespam[91778] = 0		-- Sweeping Claws
+		T.aoespam[207311] = 0		-- Clawing Shadows
+		T.aoespam[115994] = 4		-- Unholy Blight
 		T.aoespam[206931] = 2.5		-- Blooddrinker
 		T.aoespam[279303] = 1		-- Frost Breath
 		T.aoespam[195975] = 1		-- Glacial Advance
@@ -89,7 +89,7 @@ if T.class == "DEATHKNIGHT" then
 		T.merge[70890] = 55090		-- Scourge Strike (Shadow damage)
 	end
 	if C.combattext.healing then
-		T.healfilter[206931] = true	-- Blooddrinker	
+		T.healfilter[206931] = true	-- Blooddrinker
 		T.healfilter[55078] = true	-- Blood Plague
 		T.healfilter[53365] = true	-- Unholy Strength
 		T.healfilter[119980] = true	-- Conversion
@@ -198,7 +198,7 @@ elseif T.class == "HUNTER" then
 		T.aoespam[270329] = 0.5		-- Pheromone Bomb
 		T.aoespam[270332] = 2		-- Pheromone Bomb Tick
 		T.aoespam[260231] = 0.5		-- Violent Reaction (Pheromone Bomb Effect)
-		T.aoespam[271048] = 0.5		-- Volatile Bomb 
+		T.aoespam[271048] = 0.5		-- Volatile Bomb
 		T.aoespam[271049] = 2		-- Volatile Bomb Tick
 		T.aoespam[270338] = 0.5		-- Shrapnel Bomb
 		T.aoespam[270339] = 2		-- Shrapnel Bomb Tick
@@ -207,7 +207,7 @@ elseif T.class == "HUNTER" then
 		T.merge[259398] = 259396	-- Flanking Strike
 		T.merge[267666] = 259396	-- Flanking Strike
 		T.aoespam[259516] = 0.5		-- Flanking Strike
-		T.merge[269752] = 259516	-- Flanking Strike	
+		T.merge[269752] = 259516	-- Flanking Strike
 		T.aoespam[265157] = 0.5		-- Wildfire Bomb
 		T.aoespam[269747] = 6		-- Wildfire Bomb Tick
 		T.aoespam[271788] = 3		-- Serpent Sting (Marksmanship Talent)
@@ -245,7 +245,6 @@ elseif T.class == "HUNTER" then
 		T.aoespam[201594] = 4		-- Stampede
 		T.aoespam[260247] = 1		-- Volley
 		T.aoespam[214581] = 2		-- Sidewinders
-		--BETA T.aoespam[212621] = 2		-- Marked Shot
 		T.aoespam[191413] = 6		-- Bestial Ferocity
 		T.aoespam[16827] = 6		-- Claw
 		T.aoespam[201754] = 1		-- Stomp
@@ -253,6 +252,7 @@ elseif T.class == "HUNTER" then
 		T.aoespam[197465] = 1		-- Surge of the Stormgod
 		T.aoespam[207097] = 4		-- Titan's Thunder
 		-- Healing spells
+		T.aoespam[199483] = 9		-- Camouflage
 		T.aoespam[136] = 9			-- Mend Pet
 		T.merge[214303] = 136		-- Mend Pet (Hati)
 		T.aoespam[197161] = 8		-- Mimiron's Shell Heal
@@ -277,11 +277,11 @@ elseif T.class == "MAGE" then
 		T.aoespam[114923] = 3		-- Nether Tempest
 		T.aoespam[114954] = 3		-- Nether Tempest (AoE)
 		T.aoespam[7268] = 1.6		-- Arcane Missiles
-		--BETA T.aoespam[113092] = 0		-- Frost Bomb
 		T.aoespam[84721] = 3		-- Frozen Orb
 		T.aoespam[228354] = 1.5		-- Flurry
 		T.aoespam[242851] = 1.5		-- Glacial Eruption
-		T.aoespam[228600] = 0		-- Glacial Spike
+		T.aoespam[228600] = 1		-- Glacial Spike
+		T.aoespam[257538] = 1		-- Ebonbolt
 		T.aoespam[205021] = 2		-- Ray of Frost
 		T.aoespam[148022] = 3		-- Icicle (Mastery)
 		T.aoespam[31707] = 3		-- Waterbolt (Pet)
@@ -289,8 +289,6 @@ elseif T.class == "MAGE" then
 		T.aoespam[157981] = 0		-- Blast Wave
 		T.aoespam[157997] = 1		-- Ice Nova
 		T.aoespam[157980] = 1		-- Supernova
-		--BETA T.aoespam[135029] = 3		-- Water Jet (Pet)
-		--BETA T.aoespam[155152] = 3		-- Prismatic Crystal
 		T.aoespam[153596] = 3		-- Comet Storm
 		T.aoespam[153640] = 3		-- Arcane Orb
 		T.aoespam[157977] = 0		-- Unstable Magic (Fire)
@@ -348,7 +346,7 @@ elseif T.class == "MONK" then
 	end
 	if C.combattext.healing then
 		T.healfilter[196608] = true	-- Eye of the Tiger
-	end	
+	end
 elseif T.class == "PALADIN" then
 	if C.combattext.merge_aoe_spam then
 		-- Healing spells
@@ -357,7 +355,6 @@ elseif T.class == "PALADIN" then
 		T.aoespam[209540] = 8		-- Light of the Titans
 		T.aoespam[53652] = 3		-- Beacon of Light
 		T.aoespam[85222] = 1		-- Light of Dawn
-		--BETA T.aoespam[114163] = 3		-- Eternal Flame
 		T.aoespam[114852] = 0		-- Holy Prism
 		T.aoespam[119952] = 3		-- Arcing Light
 		T.aoespam[144581] = 3		-- Blessing of the Guardians (T16)
@@ -388,9 +385,6 @@ elseif T.class == "PALADIN" then
 		T.aoespam[20271] = 1		-- Judgment
 		T.merge[228288] = 20271		-- Judgment Retribution
 		T.aoespam[217020] = 1		-- Zeal
-	end
-	if C.combattext.healing then
-		--BETA T.healfilter[204241] = true	-- Consecration
 	end
 elseif T.class == "PRIEST" then
 	if C.combattext.merge_aoe_spam then
@@ -479,7 +473,6 @@ elseif T.class == "ROGUE" then
 elseif T.class == "SHAMAN" then
 	if C.combattext.merge_aoe_spam then
 		-- Healing spells
-		--BETA T.aoespam[215871] = 6		-- Rainfall
 		T.aoespam[197997] = 1		-- Wellspring
 		T.aoespam[73921] = 5		-- Healing Rain
 		T.aoespam[52042] = 5		-- Healing Stream Totem
@@ -595,16 +588,16 @@ elseif T.class == "WARRIOR" then
 		T.aoespam[12294] = 0.5		-- Mortal Strike (Arms Talent Sweeping Strikes)
 		T.aoespam[262115] = 3		-- Deep Wounds (Arms Mastery DoT)
 		T.aoespam[262161] = 1		-- Warbreaker (Arms Talent)
-		T.aoespam[199850] = 1.5		-- Whirlwind Arms
-		T.merge[199658] = 199850	-- Whirlwind Arms ?	
-		T.aoespam[280772] = 1		-- Siegebreaker (Fury Talent)		
+		T.aoespam[199850] = 1.5		-- Whirlwind (Arms)
+		T.merge[199658] = 199850	-- Whirlwind (Arms)
+		T.aoespam[280772] = 1		-- Siegebreaker (Fury Talent)
 		T.aoespam[218617] = 2		-- Rampage
 		T.merge[184707] = 218617	-- Rampage 2nd
 		T.merge[184709] = 218617	-- Rampage 3rd
 		T.merge[201364] = 218617	-- Rampage 4th
 		T.merge[201363] = 218617	-- Rampage 5th
-		T.aoespam[199667] = 1.5		-- Whirlwind Fury
-		T.merge[44949] = 199667		-- Whirlwind Fury Off-Hand
+		T.aoespam[199667] = 1.5		-- Whirlwind (Fury)
+		T.merge[44949] = 199667		-- Whirlwind Off-Hand (Fury)
 		T.aoespam[46968] = 0		-- Shockwave
 		T.aoespam[6343] = 0			-- Thunder Clap
 		T.aoespam[115767] = 3		-- Deep Wounds

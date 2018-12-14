@@ -1,17 +1,17 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
 
+----------------------------------------------------------------------------------------
+--	AzeriteUI skin
+----------------------------------------------------------------------------------------
 local function LoadSkin()
-
 	AzeriteEmpoweredItemUI:StripTextures()
-	AzeriteEmpoweredItemUI.BorderFrame:StripTextures()
-	AzeriteEmpoweredItemUIPortrait:Hide()
-	AzeriteEmpoweredItemUIPortrait:Hide()
-	AzeriteEmpoweredItemUITopBorder:Hide()
-	AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame.Bg:Hide()
-	AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame.KeyOverlay.Shadow:Hide()
+	AzeriteEmpoweredItemUI:SetTemplate("Transparent")
 
-	AzeriteEmpoweredItemUI:CreateBackdrop("Transparent")
+	AzeriteEmpoweredItemUI.BorderFrame:StripTextures()
+
+	AzeriteEmpoweredItemUIPortrait:Hide()
+	AzeriteEmpoweredItemUI.ClipFrame.BackgroundFrame.Bg:Hide()
 
 	T.SkinCloseButton(AzeriteEmpoweredItemUICloseButton)
 end

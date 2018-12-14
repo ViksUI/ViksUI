@@ -33,10 +33,16 @@ local function LoadSkin()
 		SideDressUpFrame:SetPoint("TOPLEFT", AuctionFrame, "TOPRIGHT", 3, 0)
 	end)
 
-	-- WoW Token Tutorial Frame
+	-- WoW Token
+	WowTokenGameTimeTutorial.NineSlice:Hide()
+	WowTokenGameTimeTutorial.TitleBg:Hide()
 	WowTokenGameTimeTutorial:CreateBackdrop("Transparent")
+	WowTokenGameTimeTutorialInset.NineSlice:Hide()
+	WowTokenGameTimeTutorialBg:Hide()
+	StoreButton:SkinButton()
 	T.SkinCloseButton(WowTokenGameTimeTutorial.CloseButton)
 
+	BrowseWowTokenResults.Buyout:SkinButton(true)
 	local Token = BrowseWowTokenResultsToken
 	Token.ItemBorder:Hide()
 	Token.IconBorder:Hide()
@@ -96,8 +102,6 @@ local function LoadSkin()
 	for _, button in pairs(buttons) do
 		_G[button]:SkinButton(true)
 	end
-	BrowseWowTokenResults.Buyout:SkinButton(true)
-	StoreButton:SkinButton()
 
 	-- Fix Button Positions
 	AuctionsCloseButton:SetPoint("BOTTOMRIGHT", AuctionFrameAuctions, "BOTTOMRIGHT", 66, 10)
@@ -457,6 +461,8 @@ local function LoadSkin()
 	Atr_Hlist_ScrollFrameScrollBar:SetPoint("TOPRIGHT", Atr_Hlist, "TOPRIGHT", -5, -20)
 	Atr_Hlist_ScrollFrameScrollBar:SetPoint("BOTTOMRIGHT", Atr_Hlist, "BOTTOMRIGHT", -5, 22)
 	T.SkinScrollBar(Atr_Hlist_ScrollFrameScrollBar)
+
+	T.SkinScrollBar(AuctionatorScrollFrameScrollBar)
 
 	hooksecurefunc("AuctionFrameTab_OnClick", function(self, button, down, index)
 		local index = self:GetID()
