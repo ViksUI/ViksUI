@@ -50,7 +50,7 @@ L_MISC_BUY_STACK = "Alt-Click para comprar un lote"
 L_MISC_ONECLICK_BUYOUT = "Shift-Right-Click para comprar el objeto seleccionado sin confirmacion" -- Needs review
 L_MISC_ONECLICK_BID = "Shift-Right-Click para pujar por el objeto seleccionado sin confirmacion" -- Needs review
 L_MISC_ONECLICK_CANCEL = "Shift-Right-Click to cancel on the selected item without confirmation" -- Needs review
-L_MISC_UI_OUTDATED = "Tu versión de ViksUI no está actualizada. Puedes descargar la última versión de www.shestak.org"
+L_MISC_UI_OUTDATED = "Tu versión de ViksUI no está actualizada. Puedes descargar la última versión de https://discord.gg/ZnGcJmZ"
 L_MISC_HEADER_MARK = "Mouseover Raid Icons" -- Needs review
 L_MISC_BINDER_OPEN = "Mouse Bindings" -- Needs review
 L_MISC_GROCERY_BUY = "Buy" -- Needs review
@@ -214,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "You get maximum value of" -- Needs review
 
 -- Welcome message
 L_WELCOME_LINE_1 = "Bienvenido a ViksUI "
-L_WELCOME_LINE_2_1 = "Escribe /cfg para configurar la interfaz, o visita http://shestak.org"
+L_WELCOME_LINE_2_1 = "Escribe /cfg para configurar la interfaz, o visita https://discord.gg/ZnGcJmZ"
 L_WELCOME_LINE_2_2 = "para más información."
 
 -- Combat text

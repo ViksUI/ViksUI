@@ -50,7 +50,7 @@ L_MISC_BUY_STACK = "Alt + click per comprarne una pila"
 L_MISC_ONECLICK_BUYOUT = "Shift + click sul destro per comprare direttamente l'oggetto selezionato senza conferma"
 L_MISC_ONECLICK_BID = "Shift + click sul destro per fare una puntata sull'oggetto selezionato senza conferma"
 L_MISC_ONECLICK_CANCEL = "Shift + click sul destro per cancellare l'oggetto selezionato senza conferma"
-L_MISC_UI_OUTDATED = "La tua versione della ViksUI non è aggiornata: puoi scaricare la nuova versione da www.shestak.org."
+L_MISC_UI_OUTDATED = "La tua versione della ViksUI non è aggiornata: puoi scaricare la nuova versione da https://discord.gg/ZnGcJmZ."
 L_MISC_HEADER_MARK = "Marchi d'incursione al passaggio del mouse"
 L_MISC_BINDER_OPEN = "Assegnazione pulsanti mouse"
 L_MISC_GROCERY_BUY = "Compra"
@@ -214,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "Hai raggiunto il valore massimo di"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "Benvenuto/a in ViksUI "
-L_WELCOME_LINE_2_1 = "Digita /cfg per configurare l'interfaccia oppure visita http://shestak.org"
+L_WELCOME_LINE_2_1 = "Digita /cfg per configurare l'interfaccia oppure visita https://discord.gg/ZnGcJmZ"
 L_WELCOME_LINE_2_2 = "per maggiori informazioni."
 
 -- Combat text

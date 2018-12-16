@@ -6,6 +6,7 @@ if C.skins.blizzard_frames ~= true then return end
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
 	WarboardQuestChoiceFrame:StripTextures()
+	WarboardQuestChoiceFrame.NineSlice:Hide()
 	WarboardQuestChoiceFrame:CreateBackdrop("Transparent")
 
 	WarboardQuestChoiceFrame.BorderFrame:Hide()
@@ -34,7 +35,7 @@ local function LoadSkin()
 		option.ArtBackdrop:SetPoint("BOTTOMRIGHT", option.Artwork, 2, -2)
 		option.ArtBackdrop:SetTemplate("Default")
 	end
-
+	WarboardQuestChoiceFrame.CloseButton:StripTextures()
 	T.SkinCloseButton(WarboardQuestChoiceFrame.CloseButton, WarboardQuestChoiceFrame.backdrop)
 end
 

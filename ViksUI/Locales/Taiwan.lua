@@ -50,7 +50,7 @@ L_MISC_BUY_STACK = "Alt+右鍵點擊購買一疊"
 L_MISC_ONECLICK_BUYOUT = "Shift+右鍵,不彈出確認窗口直接購買"
 L_MISC_ONECLICK_BID = "Shift+右鍵,不彈出確認窗口直接競標"
 L_MISC_ONECLICK_CANCEL = "Shift+右鍵,不彈出確認窗口直接取消選擇的物品"
-L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 www.shestak.org 下載最新版"
+L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 https://discord.gg/ZnGcJmZ 下載最新版"
 L_MISC_HEADER_MARK = "鼠標懸停顯示團隊圖標"
 L_MISC_BINDER_OPEN = "鼠標綁定"
 L_MISC_GROCERY_BUY = "購買"
@@ -214,7 +214,7 @@ L_POPUP_CURRENCY_CAP = "您擁有的最高級貨幣為"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "歡迎使用ViksUI "
-L_WELCOME_LINE_2_1 = "輸入/cfg進行UI設置,或者訪問http://shestak.org"
+L_WELCOME_LINE_2_1 = "輸入/cfg進行UI設置,或者訪問https://discord.gg/ZnGcJmZ"
 L_WELCOME_LINE_2_2 = "獲取更多信息"
 
 -- Combat text
