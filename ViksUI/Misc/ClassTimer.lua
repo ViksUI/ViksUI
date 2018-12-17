@@ -30,9 +30,9 @@ local LAYOUT = 4;
 local BACKGROUND_ALPHA = 1;
 local ICON_POSITION = 0;
 local ICON_COLOR = CreateColor( 0, 0, 0, 1 );
-local SPARK = false;
-local CAST_SEPARATOR = false;
-local CAST_SEPARATOR_COLOR = CreateColor( .1,.1,.1,1 );
+local SPARK = true;
+local CAST_SEPARATOR = true;
+local CAST_SEPARATOR_COLOR = CreateColor( .1,.1,.1,.5 );
 local TEXT_MARGIN = 5;
 local MASTER_FONT, STACKS_FONT;
 MASTER_FONT = { C.media.normal_font, fontsize };
@@ -855,60 +855,42 @@ local CLASS_FILTERS = {
 	},
 	WARLOCK = {
 		target = {
-			-- Global
-			CreateSpellEntry(710), -- Banish
-			CreateSpellEntry(6789), -- Mortal Coil
-			CreateSpellEntry(118699), -- Fear
-			-- Shared
-			CreateSpellEntry(689), -- Drain Life
-			-- Affliction
-			CreateSpellEntry(172), -- Corruption
-			CreateSpellEntry(980), -- Bane of Agony
-			CreateSpellEntry(5484), -- Howl of Terror
-			CreateSpellEntry(27243, false, nil, nil, 27243), -- Seed of Corruption
-			CreateSpellEntry(30108, false, nil, nil, 30108), -- Unstable Affliction
-			CreateSpellEntry(48181, false, nil, nil, 48181), -- Haunt
-			CreateSpellEntry(63106), -- Siphon Life
-			CreateSpellEntry(146739), -- Corruption Debuff
-			CreateSpellEntry(198590), -- Drain Soul
-			CreateSpellEntry(205178), -- Soul Effigy
-			CreateSpellEntry(205179), -- Phantom Singularity
-			-- Demonology
-			CreateSpellEntry(603), -- Bane of Doom
-			CreateSpellEntry(30213), -- Legion Strike
-			CreateSpellEntry(30283), -- Shadowfury
-			CreateSpellEntry(205181), -- Shadowflame
-			-- Destruction
-			CreateSpellEntry(80240), -- Bane of Havoc
-			CreateSpellEntry(157736), -- Immolate
-			CreateSpellEntry(196414), -- Eradiction
+			CreateSpellEntry( 980 ), -- Bane of Agony
+			CreateSpellEntry( 603 ), -- Bane of Doom
+			CreateSpellEntry( 80240 ), -- Bane of Havoc
+			CreateSpellEntry( 1490 ), -- Curse of the Elements
+			CreateSpellEntry( 86105 ), -- Jinx: Curse of the Elements
+			CreateSpellEntry( 18223 ), -- Curse of Exhaustion
+			CreateSpellEntry( 1714 ), -- Curse of Tongue
+			CreateSpellEntry( 702 ), -- Curse of Weakness
+			CreateSpellEntry( 146739 ), -- Corruption
+			CreateSpellEntry( 27243, false, nil, nil, 27243 ), -- Seed of Corruption
+			CreateSpellEntry( 48181, false, nil, nil, 48181 ), -- Haunt
+			CreateSpellEntry( 32389 ), -- Shadow Embrace
+			CreateSpellEntry( 233496 ), CreateSpellEntry( 233497 ), CreateSpellEntry( 233498 ),	CreateSpellEntry( 251502 ), CreateSpellEntry( 233490 ), CreateSpellEntry( 205179 ), -- Phantom Singularity
+			CreateSpellEntry( 348, false, nil, nil, 348 ), -- Immolate
+			CreateSpellEntry( 5782 ), -- Fear
+			CreateSpellEntry( 710 ), -- Banish
+			CreateSpellEntry( 5484 ), -- Howl of Terror
+			CreateSpellEntry( 6789 ), -- Deathcoil
+			CreateSpellEntry( 17800 ), -- Shadow & Flame
+			CreateSpellEntry( 114790 ), -- Shadow & Flame
+			CreateSpellEntry( 87389 ), -- Shadow & Flame
 		},
-		player = {
-			-- Global
-			CreateSpellEntry(126), -- Eye of Kilrogg
-			CreateSpellEntry(104773), -- Unending Resolve
-			CreateSpellEntry(108366), -- Soul Leech
-			-- Shared
-			CreateSpellEntry(108416), -- Dark Pact
-			CreateSpellEntry(196098), -- Soul Harvest
-			CreateSpellEntry(196099), -- Demonic Power
-			CreateSpellEntry(196104), -- Mana Tap
-			-- Affliction
-			CreateSpellEntry(216695), -- Tormented Souls
-			CreateSpellEntry(216708), -- Deadwind Harvester
-			-- Demonology
-			CreateSpellEntry(171982), -- Demonic Synergy
-			CreateSpellEntry(193440), -- Demonwrath
-			CreateSpellEntry(196606), -- Shadowy Inspiration
-			CreateSpellEntry(205146), -- Demonic Calling
-			-- Destruction
-			CreateSpellEntry(196546), -- Conflagration of Chaos
+			player = {
+			CreateSpellEntry( 17941 ), -- Shadow Trance
+			CreateSpellEntry( 64371 ), -- Eradication
+			CreateSpellEntry( 113860 ), -- Eradication
+			CreateSpellEntry( 85383 ), -- Improved Soul Fire
+			CreateSpellEntry( 79459 ),  CreateSpellEntry( 79463 ),  CreateSpellEntry( 79460 ),  CreateSpellEntry( 79462 ),  CreateSpellEntry( 79464 ), -- Demon Soul
 		},
 		procs = {
-			-- Affliction
-			CreateSpellEntry(199281), -- Compund Interest
-			-- Destruction
-			CreateSpellEntry(117828),-- Backdraft rank 1/2/3
+			CreateSpellEntry( 86121 ), -- Soul Swap
+			CreateSpellEntry( 54274 ), CreateSpellEntry( 54276 ), CreateSpellEntry( 54277 ), -- Backdraft rank 1/2/3
+			CreateSpellEntry( 71165 ), -- Molten Core
+			CreateSpellEntry( 63167 ), -- Decimation
+			CreateSpellEntry( 47283 ), -- Empowered Imp
+			CreateSpellEntry( 117828 ), -- Empowered Imp
 		},
 	},
 	WARRIOR = {
@@ -988,218 +970,148 @@ local CLASS_FILTERS = {
 
 
 
-
-
-
-
-
-
-
-
-
-local CreateUnitAuraDataSource;
+local CreateUnitAuraDataSource
 do
-	local auraTypes = { "HELPFUL", "HARMFUL" };
+	local auraTypes = { 'HELPFUL', 'HARMFUL' }
 
 	-- private
-	local CheckFilter = function( self, id, caster, filter )
-		if ( filter == nil ) then return false; end
-			
-		local byPlayer = caster == "player" or caster == "pet" or caster == "vehicle";
-			
-		for _, v in ipairs( filter ) do
-			if ( v.id == id and ( v.castByAnyone or byPlayer ) ) then return v; end
+	local CheckFilter = function(self, id, caster, filter)
+		if (filter == nil) then return false end
+		local byPlayer = caster == 'player' or caster == 'pet' or caster == 'vehicle'
+		for _, v in ipairs(filter) do
+			if (v.id == id and (v.castByAnyone or byPlayer)) then return v end
 		end
-		
-		return false;
+		return false
 	end
-	
-	local CheckUnit = function( self, unit, filter, result )
-		if ( not UnitExists( unit ) ) then return 0; end
 
-		local unitIsFriend = UnitIsFriend( "player", unit );
+	local CheckUnit = function(self, unit, filter, result)
+		if (not UnitExists(unit)) then return 0 end
+		local unitIsFriend = UnitIsFriend('player', unit)
+		for _, auraType in ipairs(auraTypes) do
+			local isDebuff = auraType == 'HARMFUL'
 
-		for _, auraType in ipairs( auraTypes ) do
-			local isDebuff = auraType == "HARMFUL";
-		
 			for index = 1, 40 do
-				local name, texture, stacks, _, duration, expirationTime, caster, _, _, spellId = UnitAura( unit, index, auraType );		
-				if ( name == nil ) then
-					break;
-				end							
-				
-				local filterInfo = CheckFilter( self, spellId, caster, filter );
-				if ( filterInfo and ( filterInfo.unitType ~= 1 or unitIsFriend ) and ( filterInfo.unitType ~= 2 or not unitIsFriend ) ) then 					
-					filterInfo.name = name;
-					filterInfo.texture = texture;
-					filterInfo.duration = duration;
-					filterInfo.expirationTime = expirationTime;
-					filterInfo.stacks = stacks;
-					filterInfo.unit = unit;
-					filterInfo.isDebuff = isDebuff;
-					table.insert( result, filterInfo );
+				local name, texture, stacks, _, duration, expirationTime, caster, _, _, spellId = UnitAura(unit, index, auraType)
+				if (name == nil) then break end
+				local filterInfo = CheckFilter(self, spellId, caster, filter)
+				if (filterInfo and (filterInfo.unitType ~= 1 or unitIsFriend) and (filterInfo.unitType ~= 2 or not unitIsFriend)) then
+					filterInfo.name = name
+					filterInfo.texture = texture
+					filterInfo.duration = duration
+					filterInfo.expirationTime = expirationTime
+					filterInfo.stacks = stacks
+					filterInfo.unit = unit
+					filterInfo.isDebuff = isDebuff
+					table.insert(result, filterInfo)
 				end
 			end
 		end
 	end
 
-	-- public 
-	local Update = function( self )
-		local result = self.table;
-
-		for index = 1, #result do
-			table.remove( result );
-		end				
-
-		CheckUnit( self, self.unit, self.filter, result );
-		if ( self.includePlayer ) then
-			CheckUnit( self, "player", self.playerFilter, result );
-		end
-		
-		self.table = result;
+	-- public
+	local Update = function(self)
+		local result = self.table
+		for index = 1, #result do table.remove(result) end
+		CheckUnit(self, self.unit, self.filter, result)
+		if (self.includePlayer) then CheckUnit(self, 'player', self.playerFilter, result) end
+		self.table = result
 	end
 
-	local SetSortDirection = function( self, descending )
-		self.sortDirection = descending;
-	end
-	
-	local GetSortDirection = function( self )
-		return self.sortDirection;
-	end
-	
-	local Sort = function( self )
-		local direction = self.sortDirection;
-		local time = GetTime();
-	
-		local sorted;
+	local SetSortDirection = function(self, descending) self.sortDirection = descending end
+	local GetSortDirection = function(self) return self.sortDirection end
+
+	local Sort = function(self)
+		local direction = self.sortDirection
+		local time = GetTime()
+		local sorted
 		repeat
-			sorted = true;
-			for key, value in pairs( self.table ) do
-				local nextKey = key + 1;
-				local nextValue = self.table[ nextKey ];
-				if ( nextValue == nil ) then break; end
-				
-				local currentRemaining = value.expirationTime == 0 and 4294967295 or math.max( value.expirationTime - time, 0 );
-				local nextRemaining = nextValue.expirationTime == 0 and 4294967295 or math.max( nextValue.expirationTime - time, 0 );
-				
-				if ( ( direction and currentRemaining < nextRemaining ) or ( not direction and currentRemaining > nextRemaining ) ) then
-					self.table[ key ] = nextValue;
-					self.table[ nextKey ] = value;
-					sorted = false;
-				end				
-			end			
-		until ( sorted == true )
+			sorted = true
+			for key, value in pairs(self.table) do
+				local nextKey = key + 1
+				local nextValue = self.table[ nextKey ]
+				if (nextValue == nil) then break end
+				local currentRemaining = value.expirationTime == 0 and 4294967295 or math.max(value.expirationTime - time, 0)
+				local nextRemaining = nextValue.expirationTime == 0 and 4294967295 or math.max(nextValue.expirationTime - time, 0)
+				if ((direction and currentRemaining < nextRemaining) or (not direction and currentRemaining > nextRemaining)) then
+					self.table[ key ] = nextValue
+					self.table[ nextKey ] = value
+					sorted = false
+				end
+			end
+		until (sorted == true)
 	end
-	
-	local Get = function( self )
-		return self.table;
-	end
-	
-	local Count = function( self )
-		return #self.table;
-	end
-	
-	local AddFilter = function( self, filter, defaultColor, debuffColor )
-		if ( filter == nil ) then return; end
-		
-		for _, v in pairs( filter ) do
-			local clone = { };
-			
-			clone.id = v.id;
-			clone.castByAnyone = v.castByAnyone;
-			clone.color = v.color;
-			clone.unitType = v.unitType;
-			clone.castSpellId = v.castSpellId;
-			
-			clone.defaultColor = defaultColor;
-			clone.debuffColor = debuffColor;
-			
-			table.insert( self.filter, clone );
-		end
-	end
-	
-	local AddPlayerFilter = function( self, filter, defaultColor, debuffColor )
-		if ( filter == nil ) then return; end
 
-		for _, v in pairs( filter ) do
-			local clone = { };
-			
-			clone.id = v.id;
-			clone.castByAnyone = v.castByAnyone;
-			clone.color = v.color;
-			clone.unitType = v.unitType;
-			clone.castSpellId = v.castSpellId;
-			
-			clone.defaultColor = defaultColor;
-			clone.debuffColor = debuffColor;
-			
-			table.insert( self.playerFilter, clone );
+	local Get = function(self) return self.table end
+	local Count = function(self) return #self.table end
+
+	local AddFilter = function(self, filter, defaultColor, debuffColor)
+		if (filter == nil) then return end
+		for _, v in pairs(filter) do
+			local clone = { }
+			clone.id = v.id
+			clone.castByAnyone = v.castByAnyone
+			clone.color = v.color
+			clone.unitType = v.unitType
+			clone.castSpellId = v.castSpellId
+			clone.defaultColor = defaultColor
+			clone.debuffColor = debuffColor
+			table.insert(self.filter, clone)
 		end
 	end
-	
-	local GetUnit = function( self )
-		return self.unit;
+
+	local AddPlayerFilter = function(self, filter, defaultColor, debuffColor)
+		if (filter == nil) then return end
+		for _, v in pairs(filter) do
+			local clone = { }
+			clone.id = v.id
+			clone.castByAnyone = v.castByAnyone
+			clone.color = v.color
+			clone.unitType = v.unitType
+			clone.castSpellId = v.castSpellId
+			clone.defaultColor = defaultColor
+			clone.debuffColor = debuffColor
+			table.insert(self.playerFilter, clone)
+		end
 	end
-	
-	local GetIncludePlayer = function( self )
-		return self.includePlayer;
-	end
-	
-	local SetIncludePlayer = function( self, value )
-		self.includePlayer = value;
-	end
-	
+
+	local GetUnit = function(self) return self.unit end
+	local GetIncludePlayer = function(self) return self.includePlayer end
+	local SetIncludePlayer = function(self, value) self.includePlayer = value end
+
 	-- constructor
-	CreateUnitAuraDataSource = function( unit )
-		local result = {  };
-
-		result.Sort = Sort;
-		result.Update = Update;
-		result.Get = Get;
-		result.Count = Count;
-		result.SetSortDirection = SetSortDirection;
-		result.GetSortDirection = GetSortDirection;
-		result.AddFilter = AddFilter;
-		result.AddPlayerFilter = AddPlayerFilter;
-		result.GetUnit = GetUnit; 
-		result.SetIncludePlayer = SetIncludePlayer; 
-		result.GetIncludePlayer = GetIncludePlayer; 
-		
-		result.unit = unit;
-		result.includePlayer = false;
-		result.filter = { };
-		result.playerFilter = { };
-		result.table = { };
-		
-		return result;
+	CreateUnitAuraDataSource = function(unit)
+		local result = {}
+		result.Sort = Sort
+		result.Update = Update
+		result.Get = Get
+		result.Count = Count
+		result.SetSortDirection = SetSortDirection
+		result.GetSortDirection = GetSortDirection
+		result.AddFilter = AddFilter
+		result.AddPlayerFilter = AddPlayerFilter
+		result.GetUnit = GetUnit
+		result.SetIncludePlayer = SetIncludePlayer
+		result.GetIncludePlayer = GetIncludePlayer
+		result.unit = unit
+		result.includePlayer = false
+		result.filter = {}
+		result.playerFilter = {}
+		result.table = {}
+		return result
 	end
 end
 
-local CreateFramedTexture;
+local CreateFramedTexture
 do
-	-- public
-	local SetTexture = function( self, ... )
-		return self.texture:SetTexture( ... );
-	end
-	
-	local GetTexture = function( self )
-		return self.texture:GetTexture();
-	end
-	
-	local GetTexCoord = function( self )
-		return self.texture:GetTexCoord();
-	end
-	
-	local SetTexCoord = function( self, ... )
-		return self.texture:SetTexCoord( ... );
-	end
-	
-	local SetBorderColor = function( self, ... )
-		return self.border:SetVertexColor( ... );
-	end
+	--public
+	local SetTexture = function(self, ...) return self.texture:SetTexture(...) end
+	local GetTexture = function(self) return self.texture:GetTexture() end
+	local GetTexCoord = function(self) return self.texture:GetTexCoord() end
+	local SetTexCoord = function(self, ...) return self.texture:SetTexCoord(...) end
+	local SetBorderColor = function(self, ...) return self.border:SetVertexColor(...) end
 	
 	-- constructor
-	CreateFramedTexture = function( parent )
+	CreateFramedTexture = function(parent)
 		local result = parent:CreateTexture( nil, "BACKGROUND", nil );
 		local border = parent:CreateTexture( nil, "BORDER", nil );
 		local background = parent:CreateTexture( nil, "ARTWORK", nil );
@@ -1276,7 +1188,7 @@ do
 				
 				local castSeparator = self.castSeparator;
 				if ( castSeparator and self.castSpellId ) then
-					local _, _, _, _, _, _, castTime, _, _ = GetSpellInfo( self.castSpellId );
+					local _, _, _, castTime, _, _ = GetSpellInfo(self.castSpellId)
 
 					castTime = castTime / 1000;
 					if ( castTime and remaining > castTime ) then
@@ -1542,6 +1454,8 @@ do
 		
 		local count = dataSource:Count();
 
+
+
 		for index, auraInfo in ipairs( dataSource:Get() ) do
 			SetAuraBar( self, index, auraInfo );
 		end
@@ -1616,7 +1530,7 @@ end
 local _, playerClass = UnitClass( "player" );
 local classFilter = CLASS_FILTERS[ playerClass ];
 classtimerload = CreateFrame("Frame")
-classtimerload:RegisterEvent("PLAYER_ENTERING_WORLD")
+classtimerload:RegisterEvent("PLAYER_LOGIN")
 classtimerload:SetScript("OnEvent", function(self, event, addon)
 if ( LAYOUT == 1 ) then
 	local dataSource = CreateUnitAuraDataSource( "target" );
@@ -1782,6 +1696,6 @@ elseif ( LAYOUT == 4 ) then
 else
 	error( "Undefined layout " .. tostring( LAYOUT ) );
 end
-classtimerload:UnregisterEvent("PLAYER_ENTERING_WORLD")
+classtimerload:UnregisterEvent("PLAYER_LOGIN")
 classtimerload:SetScript("OnEvent", nil)
 end)
