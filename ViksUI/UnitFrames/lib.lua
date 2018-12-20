@@ -1856,6 +1856,13 @@ picon:SetTexture([[Interface\AddOns\ViksUI\Media\Other\wm]])
 self.PhaseIndicator = picon
 end
 
+lib.SummonIndicator = function(self)
+local picon = self.Health:CreateTexture(nil, 'OVERLAY')
+picon:SetPoint('TOP', self, 'TOP', -2, 0)
+picon:SetSize(14, 14)
+self.SummonIndicator = SummonIndicator
+end
+
 -- raid debuffs
 lib.raidDebuffs = function(self)
 	if cfg.showRaidDebuffs and not (self:GetAttribute("unitsuffix") == "pet" or self:GetAttribute("unitsuffix") == "target" or self:GetAttribute("unitsuffix") == "targettarget") then

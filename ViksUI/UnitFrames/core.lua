@@ -84,6 +84,7 @@ local UnitSpecific = {
 	lib.gen_ppbar(self)
 	lib.gen_RaidMark(self)
 	lib.PhaseIndicatord(self)
+	lib.SummonIndicator(self)
 	lib.gen_textbar(self)
 	lib.gen_textstrings(self)
 	if cfg.showPlayerAuras then
@@ -173,6 +174,7 @@ local UnitSpecific = {
 		lib.createBuffs(self)
 		lib.createDebuffs(self)
 		lib.PhaseIndicatord(self)
+		lib.SummonIndicator(self)
 		if cfg.CPoints and C.unitframe_class_bar.combo_old == true then lib.genCPoints(self) end
 		--lib.createAuras(self)
 		if cfg.showPortrait or cfg.portraitHPbar then lib.gen_portrait(self) end
@@ -340,6 +342,7 @@ local UnitSpecific = {
 		end
 		lib.raidDebuffs(self)
 		lib.PhaseIndicatord(self)
+		lib.SummonIndicator(self)
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
 		self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
@@ -380,6 +383,7 @@ local UnitSpecific = {
 		lib.createDebuffs(self)
 		lib.gen_InfoIcons(self)
 		lib.PhaseIndicatord(self)
+		lib.SummonIndicator(self)
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
 		self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
