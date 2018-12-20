@@ -425,7 +425,6 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(45438), -- Ice Block
 			CreateSpellEntry(108839), -- Ice Floes
 			CreateSpellEntry(116014), -- Rune of Power
-			CreateSpellEntry(116267), -- Incanter's Flow
 			-- Shared
 			CreateSpellEntry(32612), -- Invisibility
 			CreateSpellEntry(205025), -- Presence of Mind
@@ -1532,102 +1531,7 @@ local classFilter = CLASS_FILTERS[ playerClass ];
 classtimerload = CreateFrame("Frame")
 classtimerload:RegisterEvent("PLAYER_LOGIN")
 classtimerload:SetScript("OnEvent", function(self, event, addon)
-if ( LAYOUT == 1 ) then
-	local dataSource = CreateUnitAuraDataSource( "target" );
-
-	dataSource:SetSortDirection( SORT_DIRECTION );
-	
-	dataSource:AddPlayerFilter( TRINKET_FILTER, TRINKET_BAR_COLOR );
-	
-	if ( classFilter ) then
-		dataSource:AddFilter( classFilter.target, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );
-		dataSource:AddPlayerFilter( classFilter.player, PLAYER_BAR_COLOR, PLAYER_DEBUFF_COLOR );
-		dataSource:AddPlayerFilter( classFilter.procs, TRINKET_BAR_COLOR );
-		dataSource:SetIncludePlayer( classFilter.player ~= nil );
-	end
-
-	local frame = CreateAuraBarFrame( dataSource,  oUF_Player );
-	local yOffset = 1;
-	if ( playerClass == "DEATHKNIGHT" or playerClass == "SHAMAN" or playerClass == "WARLOCK"  or playerClass == "PALADIN" or myclass == "MONK") then
-		yOffset = yOffset + 80;
-	end
-	frame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 0, yOffset );
-	frame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", 0, yOffset );
-	frame:Show(); 
-elseif ( LAYOUT == 2 ) then
-	local targetDataSource = CreateUnitAuraDataSource( "target" );
-	local playerDataSource = CreateUnitAuraDataSource( "player" );
-
-	targetDataSource:SetSortDirection( SORT_DIRECTION );
-	playerDataSource:SetSortDirection( SORT_DIRECTION );
-	
-	playerDataSource:AddFilter( TRINKET_FILTER, TRINKET_BAR_COLOR );
-
-	if ( classFilter ) then
-		targetDataSource:AddFilter( classFilter.target, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );
-		playerDataSource:AddFilter( classFilter.player, PLAYER_BAR_COLOR, PLAYER_DEBUFF_COLOR );
-		playerDataSource:AddFilter( classFilter.procs, TRINKET_BAR_COLOR );
-	end
-
-	local yOffset = 8;
-
-	
-	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );	
-	playerFrame:SetHiddenHeight( -yOffset );
-	if ( playerClass == "DEATHKNIGHT" or playerClass == "SHAMAN" or playerClass == "WARLOCK"  or playerClass == "PALADIN" or myclass == "MONK") then
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 0, yOffset + 1 );
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", 0, yOffset + 1 );
-	else
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 0, yOffset );
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", 0, yOffset );
-	end
-	playerFrame:Show();
-
-	local targetFrame = CreateAuraBarFrame( targetDataSource,  oUF_Player );
-	targetFrame:SetPoint( "BOTTOMLEFT", playerFrame, "TOPLEFT", 0, yOffset );
-	targetFrame:SetPoint( "BOTTOMRIGHT", playerFrame, "TOPRIGHT", 0, yOffset );
-	targetFrame:Show();
-elseif ( LAYOUT == 3 ) then
-	local yOffset = 15;
-
-	local targetDataSource = CreateUnitAuraDataSource( "target" );
-	local playerDataSource = CreateUnitAuraDataSource( "player" );
-	local trinketDataSource = CreateUnitAuraDataSource( "player" );
-	
-	targetDataSource:SetSortDirection( SORT_DIRECTION );
-	playerDataSource:SetSortDirection( SORT_DIRECTION );
-	trinketDataSource:SetSortDirection( SORT_DIRECTION );
-	
-	if ( classFilter ) then
-		targetDataSource:AddFilter( classFilter.target, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );		
-		playerDataSource:AddFilter( classFilter.player, PLAYER_BAR_COLOR, PLAYER_DEBUFF_COLOR );
-		trinketDataSource:AddFilter( classFilter.procs, TRINKET_BAR_COLOR );
-	end
-	trinketDataSource:AddFilter( TRINKET_FILTER, TRINKET_BAR_COLOR );
-
-	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );
-	playerFrame:SetHiddenHeight( -yOffset );
-	if ( playerClass == "DEATHKNIGHT" or playerClass == "SHAMAN" or playerClass == "WARLOCK"  or playerClass == "PALADIN" or myclass == "MONK") then
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 0, yOffset + 1 );
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", 0, yOffset + 1 );
-	else
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 0, yOffset );
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", 0, yOffset );
-	end
-	playerFrame:Show();
-
-	local trinketFrame = CreateAuraBarFrame( trinketDataSource,  oUF_Player );
-	trinketFrame:SetHiddenHeight( -yOffset );
-	trinketFrame:SetPoint( "BOTTOMLEFT", playerFrame, "TOPLEFT", 0, yOffset );
-	trinketFrame:SetPoint( "BOTTOMRIGHT", playerFrame, "TOPRIGHT", 0, yOffset );
-	trinketFrame:Show();
-	
-	local targetFrame = CreateAuraBarFrame( targetDataSource,  oUF_Player );
-	targetFrame:SetHiddenHeight( -yOffset );
-	targetFrame:SetPoint( "BOTTOMLEFT", trinketFrame, "TOPLEFT", 0, yOffset );
-	targetFrame:SetPoint( "BOTTOMRIGHT", trinketFrame, "TOPRIGHT", 0, yOffset );
-	targetFrame:Show();
-elseif ( LAYOUT == 4 ) then
+if ( LAYOUT == 4 ) then
 	local yOffset = 11;
 
 	local targetDataSource = CreateUnitAuraDataSource( "target" );
@@ -1690,8 +1594,8 @@ elseif ( LAYOUT == 4 ) then
 	trinketFrame:Show();
 	
 	local targetFrame = CreateAuraBarFrame( targetDataSource,  oUF_ViksTarget );
-		targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 1, 8);
-		targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -1, 8);
+		targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 8);
+		targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -2, 8);
 	targetFrame:Show();
 else
 	error( "Undefined layout " .. tostring( LAYOUT ) );
