@@ -191,6 +191,9 @@ Stat:SetScript("OnEnter", function(self)
 		GameTooltip:AddLine(" ")
 		Currency(1220)					-- Order Resources
 		Currency(1560)					-- War Resources
+		Currency(1716)					-- Honorbound Service Medal
+		Currency(1717)					-- 7th Legion Service Medal
+		Currency(1718)					-- Titan Residuum
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
