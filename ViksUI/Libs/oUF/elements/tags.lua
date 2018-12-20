@@ -1,7 +1,75 @@
 -- Credits: Vika, Cladhaire, Tekkub
+--[[
+# Element: Tags
+
+Provides a system for text-based display of information by binding a tag string to a font string widget which in turn is
+tied to a unit frame.
+
+## Widget
+
+A FontString to hold a tag string. Unlike other elements, this widget must not have a preset name.
+
+## Notes
+
+A `Tag` is a Lua string consisting of a function name surrounded by square brackets. The tag will be replaced by the
+output of the function and displayed as text on the font string widget with that the tag has been registered. Literals
+can be pre- or appended by separating them with a `>` before or `<` after the function name. The literals will be only
+displayed when the function returns a non-nil value. I.e. `"[perhp<%]"` will display the current health as a percentage
+of the maximum health followed by the % sign.
+
+A `Tag String` is a Lua string consisting of one or multiple tags with optional literals between them. Each tag will be
+updated individually and the output will follow the tags order. Literals will be displayed in the output string
+regardless of whether the surrounding tag functions return a value. I.e. `"[curhp]/[maxhp]"` will resolve to something
+like `2453/5000`.
+
+A `Tag Function` is used to replace a single tag in a tag string by its output. A tag function receives only two
+arguments - the unit and the realUnit of the unit frame used to register the tag (see Options for further details). The
+tag function is called when the unit frame is shown or when a specified event has fired. It the tag is registered on an
+eventless frame (i.e. one holding the unit "targettarget"), then the tag function is called in a set time interval.
+
+A number of built-in tag functions exist. The layout can also define its own tag functions by adding them to the
+`oUF.Tags.Methods` table. The events upon which the function will be called are specified in a white-space separated
+list added to the `oUF.Tags.Events` table. Should an event fire without unit information, then it should also be listed
+in the `oUF.Tags.SharedEvents` table as follows: `oUF.Tags.SharedEvents.EVENT_NAME = true`.
+
+## Options
+
+.overrideUnit    - if specified on the font string widget, the frame's realUnit will be passed as the second argument to
+                   every tag function whose name is contained in the relevant tag string. Otherwise the second argument
+                   is always nil (boolean)
+.frequentUpdates - defines how often the correspondig tag function(s) should be called. This will override the events for
+                   the tag(s), if any. If the value is a number, it is taken as a time interval in seconds. If the value
+                   is a boolean, the time interval is set to 0.5 seconds (number or boolean)
+
+## Attributes
+
+.parent - the unit frame on which the tag has been registered
+
+## Examples
+
+    -- define the tag function
+    oUF.Tags.Methods['mylayout:threatname'] = function(unit, realUnit)
+        local color = _TAGS['threatcolor'](unit)
+        local name = _TAGS['name'](unit, realUnit)
+        return string.format('%s%s|r', color, name)
+    end
+
+    -- add the events
+    oUF.Tags.Events['mylayout:threatname'] = 'UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE'
+
+    -- create the text widget
+    local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    info:SetPoint('LEFT')
+
+    -- register the tag on the text widget with oUF
+    self:Tag(info, '[mylayout:threatname]')
+--]]
 
 local _, ns = ...
 local oUF = ns.oUF
+local Private = oUF.Private
+
+local UnitExists = Private.UnitExists
 
 local _PATTERN = '%[..-%]+'
 
@@ -16,13 +84,79 @@ local _ENV = {
 		end
 		return string.format('|cff%02x%02x%02x', r * 255, g * 255, b * 255)
 	end,
-	ColorGradient = oUF.ColorGradient,
 }
+_ENV.ColorGradient = function(...)
+	return _ENV._FRAME:ColorGradient(...)
+end
+
 local _PROXY = setmetatable(_ENV, {__index = _G})
 
 local tagStrings = {
+	['affix'] = [[function(u)
+		local c = UnitClassification(u)
+		if(c == 'minus') then
+			return 'Affix'
+		end
+	end]],
+
+	['arcanecharges'] = [[function()
+		if(GetSpecialization() == SPEC_MAGE_ARCANE) then
+			local num = UnitPower('player', Enum.PowerType.ArcaneCharges)
+			if(num > 0) then
+				return num
+			end
+		end
+	end]],
+
+	['arenaspec'] = [[function(u)
+		local id = u:match('arena(%d)$')
+		if(id) then
+			local specID = GetArenaOpponentSpec(tonumber(id))
+			if(specID and specID > 0) then
+				local _, specName = GetSpecializationInfoByID(specID)
+				return specName
+			end
+		end
+	end]],
+
+	['chi'] = [[function()
+		if(GetSpecialization() == SPEC_MONK_WINDWALKER) then
+			local num = UnitPower('player', Enum.PowerType.Chi)
+			if(num > 0) then
+				return num
+			end
+		end
+	end]],
+
+	['classification'] = [[function(u)
+		local c = UnitClassification(u)
+		if(c == 'rare') then
+			return 'Rare'
+		elseif(c == 'rareelite') then
+			return 'Rare Elite'
+		elseif(c == 'elite') then
+			return 'Elite'
+		elseif(c == 'worldboss') then
+			return 'Boss'
+		elseif(c == 'minus') then
+			return 'Affix'
+		end
+	end]],
+
+	['cpoints'] = [[function(u)
+		local cp = UnitPower(u, Enum.PowerType.ComboPoints)
+
+		if(cp > 0) then
+			return cp
+		end
+	end]],
+
 	['creature'] = [[function(u)
 		return UnitCreatureFamily(u) or UnitCreatureType(u)
+	end]],
+
+	['curmana'] = [[function(unit)
+		return UnitPower(unit, Enum.PowerType.Mana)
 	end]],
 
 	['dead'] = [[function(u)
@@ -33,10 +167,42 @@ local tagStrings = {
 		end
 	end]],
 
+	['deficit:name'] = [[function(u)
+		local missinghp = _TAGS['missinghp'](u)
+		if(missinghp) then
+			return '-' .. missinghp
+		else
+			return _TAGS['name'](u)
+		end
+	end]],
+
 	['difficulty'] = [[function(u)
 		if UnitCanAttack('player', u) then
-			local l = UnitLevel(u)
+			local l = UnitEffectiveLevel(u)
 			return Hex(GetCreatureDifficultyColor((l > 0) and l or 999))
+		end
+	end]],
+
+	['group'] = [[function(unit)
+		local name, server = UnitName(unit)
+		if(server and server ~= '') then
+			name = string.format('%s-%s', name, server)
+		end
+
+		for i=1, GetNumGroupMembers() do
+			local raidName, _, group = GetRaidRosterInfo(i)
+			if( raidName == name ) then
+				return group
+			end
+		end
+	end]],
+
+	['holypower'] = [[function()
+		if(GetSpecialization() == SPEC_PALADIN_RETRIBUTION) then
+			local num = UnitPower('player', Enum.PowerType.HolyPower)
+			if(num > 0) then
+				return num
+			end
 		end
 	end]],
 
@@ -63,6 +229,10 @@ local tagStrings = {
 		else
 			return '??'
 		end
+	end]],
+
+	['maxmana'] = [[function(unit)
+		return UnitPowerMax(unit, Enum.PowerType.Mana)
 	end]],
 
 	['missinghp'] = [[function(u)
@@ -114,6 +284,25 @@ local tagStrings = {
 		end
 	end]],
 
+	['powercolor'] = [[function(u)
+		local pType, pToken, altR, altG, altB = UnitPowerType(u)
+		local t = _COLORS.power[pToken]
+
+		if(not t) then
+			if(altR) then
+				if(altR > 1 or altG > 1 or altB > 1) then
+					return Hex(altR / 255, altG / 255, altB / 255)
+				else
+					return Hex(altR, altG, altB)
+				end
+			else
+				return Hex(_COLORS.power[pType])
+			end
+		end
+
+		return Hex(t)
+	end]],
+
 	['pvp'] = [[function(u)
 		if(UnitIsPVP(u)) then
 			return 'PvP'
@@ -121,9 +310,18 @@ local tagStrings = {
 	end]],
 
 	['raidcolor'] = [[function(u)
-		local _, x = UnitClass(u)
-		if(x) then
-			return Hex(_COLORS.class[x])
+		local _, class = UnitClass(u)
+		if(class) then
+			return Hex(_COLORS.class[class])
+		else
+			local id = u:match('arena(%d)$')
+			if(id) then
+				local specID = GetArenaOpponentSpec(tonumber(id))
+				if(specID and specID > 0) then
+					_, _, _, _, _, class = GetSpecializationInfoByID(specID)
+					return Hex(_COLORS.class[class])
+				end
+			end
 		end
 	end]],
 
@@ -140,6 +338,19 @@ local tagStrings = {
 		end
 	end]],
 
+	['runes'] = [[function()
+		local amount = 0
+
+		for i = 1, 6 do
+			local _, _, ready = GetRuneCooldown(i)
+			if(ready) then
+				amount = amount + 1
+			end
+		end
+
+		return amount
+	end]],
+
 	['sex'] = [[function(u)
 		local s = UnitSex(u)
 		if(s == 2) then
@@ -149,12 +360,49 @@ local tagStrings = {
 		end
 	end]],
 
+	['shortclassification'] = [[function(u)
+		local c = UnitClassification(u)
+		if(c == 'rare') then
+			return 'R'
+		elseif(c == 'rareelite') then
+			return 'R+'
+		elseif(c == 'elite') then
+			return '+'
+		elseif(c == 'worldboss') then
+			return 'B'
+		elseif(c == 'minus') then
+			return '-'
+		end
+	end]],
+
 	['smartclass'] = [[function(u)
 		if(UnitIsPlayer(u)) then
 			return _TAGS['class'](u)
 		end
 
 		return _TAGS['creature'](u)
+	end]],
+
+	['smartlevel'] = [[function(u)
+		local c = UnitClassification(u)
+		if(c == 'worldboss') then
+			return 'Boss'
+		else
+			local plus = _TAGS['plus'](u)
+			local level = _TAGS['level'](u)
+			if(plus) then
+				return level .. plus
+			else
+				return level
+			end
+		end
+	end]],
+
+	['soulshards'] = [[function()
+		local num = UnitPower('player', Enum.PowerType.SoulShards)
+		if(num > 0) then
+			return num
+		end
 	end]],
 
 	['status'] = [[function(u)
@@ -182,155 +430,6 @@ local tagStrings = {
 
 	['threatcolor'] = [[function(u)
 		return Hex(GetThreatStatusColor(UnitThreatSituation(u)))
-	end]],
-
-	['cpoints'] = [[function(u)
-		local cp
-		if(UnitHasVehicleUI('player')) then
-			cp = GetComboPoints('vehicle', 'target')
-		else
-			cp = GetComboPoints('player', 'target')
-		end
-
-		if(cp > 0) then
-			return cp
-		end
-	end]],
-
-	['smartlevel'] = [[function(u)
-		local c = UnitClassification(u)
-		if(c == 'worldboss') then
-			return 'Boss'
-		else
-			local plus = _TAGS['plus'](u)
-			local level = _TAGS['level'](u)
-			if(plus) then
-				return level .. plus
-			else
-				return level
-			end
-		end
-	end]],
-
-	['classification'] = [[function(u)
-		local c = UnitClassification(u)
-		if(c == 'rare') then
-			return 'Rare'
-		elseif(c == 'rareelite') then
-			return 'Rare Elite'
-		elseif(c == 'elite') then
-			return 'Elite'
-		elseif(c == 'worldboss') then
-			return 'Boss'
-		elseif(c == 'minus') then
-			return 'Affix'
-		end
-	end]],
-
-	['shortclassification'] = [[function(u)
-		local c = UnitClassification(u)
-		if(c == 'rare') then
-			return 'R'
-		elseif(c == 'rareelite') then
-			return 'R+'
-		elseif(c == 'elite') then
-			return '+'
-		elseif(c == 'worldboss') then
-			return 'B'
-		elseif(c == 'minus') then
-			return '-'
-		end
-	end]],
-
-	['group'] = [[function(unit)
-		local name, server = UnitName(unit)
-		if(server and server ~= '') then
-			name = string.format('%s-%s', name, server)
-		end
-
-		for i=1, GetNumGroupMembers() do
-			local raidName, _, group = GetRaidRosterInfo(i)
-			if( raidName == name ) then
-				return group
-			end
-		end
-	end]],
-
-	['deficit:name'] = [[function(u)
-		local missinghp = _TAGS['missinghp'](u)
-		if(missinghp) then
-			return '-' .. missinghp
-		else
-			return _TAGS['name'](u)
-		end
-	end]],
-
-	['curmana'] = [[function(unit)
-		return UnitPower(unit, Enum.PowerType.Mana)
-	end]],
-
-	['maxmana'] = [[function(unit)
-		return UnitPowerMax(unit, Enum.PowerType.Mana)
-	end]],
-
-	['soulshards'] = [[function()
-		local num = UnitPower('player', Enum.PowerType.SoulShards)
-		if(num > 0) then
-			return num
-		end
-	end]],
-
-	['holypower'] = [[function()
-		if(GetSpecialization() == SPEC_PALADIN_RETRIBUTION) then
-			local num = UnitPower('player', Enum.PowerType.HolyPower)
-			if(num > 0) then
-				return num
-			end
-		end
-	end]],
-
-	['chi'] = [[function()
-		if(GetSpecialization() == SPEC_MONK_WINDWALKER) then
-			local num = UnitPower('player', Enum.PowerType.Chi)
-			if(num > 0) then
-				return num
-			end
-		end
-	end]],
-
-	['arcanecharges'] = [[function()
-		if(GetSpecialization() == SPEC_MAGE_ARCANE) then
-			local num = UnitPower('player', Enum.PowerType.ArcaneCharges)
-			if(num > 0) then
-				return num
-			end
-		end
-	end]],
-
-	['affix'] = [[function(u)
-		local c = UnitClassification(u)
-		if(c == 'minus') then
-			return 'Affix'
-		end
-	end]],
-
-	['powercolor'] = [[function(u)
-		local pType, pToken, altR, altG, altB = UnitPowerType(u)
-		local t = _COLORS.power[pToken]
-
-		if(not t) then
-			if(altR) then
-				if(altR > 1 or altG > 1 or altB > 1) then
-					return Hex(altR / 255, altG / 255, altB / 255)
-				else
-					return Hex(altR, altG, altB)
-				end
-			else
-				return Hex(_COLORS.power[pType])
-			end
-		end
-
-		return Hex(t)
 	end]],
 }
 
@@ -380,48 +479,56 @@ local tags = setmetatable(
 _ENV._TAGS = tags
 
 local tagEvents = {
-	['curhp']               = 'UNIT_HEALTH',
+	['affix']               = 'UNIT_CLASSIFICATION_CHANGED',
+	['arcanecharges']       = 'UNIT_POWER_UPDATE PLAYER_TALENT_UPDATE',
+	['arenaspec']           = 'ARENA_PREP_OPPONENT_SPECIALIZATIONS',
+	['chi']                 = 'UNIT_POWER_UPDATE PLAYER_TALENT_UPDATE',
+	['classification']      = 'UNIT_CLASSIFICATION_CHANGED',
+	['cpoints']             = 'UNIT_POWER_FREQUENT PLAYER_TARGET_CHANGED',
+	['curhp']               = 'UNIT_HEALTH UNIT_MAXHEALTH',
+	['curmana']             = 'UNIT_POWER_UPDATE UNIT_MAXPOWER',
+	['curpp']               = 'UNIT_POWER_UPDATE UNIT_MAXPOWER',
 	['dead']                = 'UNIT_HEALTH',
+	['deficit:name']        = 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_NAME_UPDATE',
+	['difficulty']          = 'UNIT_FACTION',
+	['faction']             = 'NEUTRAL_FACTION_SELECT_RESULT',
+	['group']               = 'GROUP_ROSTER_UPDATE',
+	['holypower']           = 'UNIT_POWER_UPDATE PLAYER_TALENT_UPDATE',
 	['leader']              = 'PARTY_LEADER_CHANGED',
 	['leaderlong']          = 'PARTY_LEADER_CHANGED',
 	['level']               = 'UNIT_LEVEL PLAYER_LEVEL_UP',
 	['maxhp']               = 'UNIT_MAXHEALTH',
+	['maxmana']             = 'UNIT_POWER_UPDATE UNIT_MAXPOWER',
+	['maxpp']               = 'UNIT_MAXPOWER',
 	['missinghp']           = 'UNIT_HEALTH UNIT_MAXHEALTH',
+	['missingpp']           = 'UNIT_MAXPOWER UNIT_POWER_UPDATE',
 	['name']                = 'UNIT_NAME_UPDATE',
+	['offline']             = 'UNIT_HEALTH UNIT_CONNECTION',
 	['perhp']               = 'UNIT_HEALTH UNIT_MAXHEALTH',
+	['perpp']               = 'UNIT_MAXPOWER UNIT_POWER_UPDATE',
+	['plus']                = 'UNIT_CLASSIFICATION_CHANGED',
+	['powercolor']          = 'UNIT_DISPLAYPOWER',
 	['pvp']                 = 'UNIT_FACTION',
+	['rare']                = 'UNIT_CLASSIFICATION_CHANGED',
 	['resting']             = 'PLAYER_UPDATE_RESTING',
+	['runes']               = 'RUNE_POWER_UPDATE',
+	['shortclassification'] = 'UNIT_CLASSIFICATION_CHANGED',
 	['smartlevel']          = 'UNIT_LEVEL PLAYER_LEVEL_UP UNIT_CLASSIFICATION_CHANGED',
+	['soulshards']          = 'UNIT_POWER_UPDATE',
+	['status']              = 'UNIT_HEALTH PLAYER_UPDATE_RESTING UNIT_CONNECTION',
 	['threat']              = 'UNIT_THREAT_SITUATION_UPDATE',
 	['threatcolor']         = 'UNIT_THREAT_SITUATION_UPDATE',
-	['cpoints']             = 'UNIT_POWER_FREQUENT PLAYER_TARGET_CHANGED',
-	['affix']               = 'UNIT_CLASSIFICATION_CHANGED',
-	['plus']                = 'UNIT_CLASSIFICATION_CHANGED',
-	['rare']                = 'UNIT_CLASSIFICATION_CHANGED',
-	['classification']      = 'UNIT_CLASSIFICATION_CHANGED',
-	['shortclassification'] = 'UNIT_CLASSIFICATION_CHANGED',
-	['group']               = 'GROUP_ROSTER_UPDATE',
-	['curpp']               = 'UNIT_POWER_UPDATE',
-	['maxpp']               = 'UNIT_MAXPOWER',
-	['missingpp']           = 'UNIT_MAXPOWER UNIT_POWER_UPDATE',
-	['perpp']               = 'UNIT_MAXPOWER UNIT_POWER_UPDATE',
-	['offline']             = 'UNIT_HEALTH UNIT_CONNECTION',
-	['status']              = 'UNIT_HEALTH PLAYER_UPDATE_RESTING UNIT_CONNECTION',
-	['curmana']             = 'UNIT_POWER_UPDATE UNIT_MAXPOWER',
-	['maxmana']             = 'UNIT_POWER_UPDATE UNIT_MAXPOWER',
-	['soulshards']          = 'UNIT_POWER_UPDATE',
-	['holypower']           = 'UNIT_POWER_UPDATE SPELLS_CHANGED',
-	['chi']                 = 'UNIT_POWER_UPDATE SPELLS_CHANGED',
-	['arcanecharges']       = 'UNIT_POWER_UPDATE SPELLS_CHANGED',
-	['powercolor']          = 'UNIT_DISPLAYPOWER',
 }
 
 local unitlessEvents = {
-	PLAYER_LEVEL_UP = true,
-	PLAYER_UPDATE_RESTING = true,
-	PLAYER_TARGET_CHANGED = true,
-	PARTY_LEADER_CHANGED = true,
+	ARENA_PREP_OPPONENT_SPECIALIZATIONS = true,
 	GROUP_ROSTER_UPDATE = true,
+	NEUTRAL_FACTION_SELECT_RESULT = true,
+	PARTY_LEADER_CHANGED = true,
+	PLAYER_LEVEL_UP = true,
+	PLAYER_TARGET_CHANGED = true,
+	PLAYER_UPDATE_RESTING = true,
+	RUNE_POWER_UPDATE = true,
 }
 
 local events = {}
@@ -466,9 +573,16 @@ local function createOnUpdate(timer)
 	end
 end
 
-local function onShow(self)
-	for _, fs in next, self.__tags do
-		fs:UpdateTag()
+--[[ Tags: frame:UpdateTags()
+Used to update all tags on a frame.
+
+* self - the unit frame from which to update the tags
+--]]
+local function Update(self)
+	if(self.__tags) then
+		for _, fs in next, self.__tags do
+			fs:UpdateTag()
+		end
 	end
 end
 
@@ -530,7 +644,7 @@ local function Tag(self, fs, tagstr, ...)
 
 	if(not self.__tags) then
 		self.__tags = {}
-		table.insert(self.__elements, onShow)
+		table.insert(self.__elements, Update)
 	else
 		-- Since people ignore everything that's good practice - unregister the tag
 		-- if it already exists.
@@ -610,6 +724,7 @@ local function Tag(self, fs, tagstr, ...)
 				end
 
 				_ENV._COLORS = parent.colors
+				_ENV._FRAME = parent
 				return self:SetFormattedText(
 					format,
 					args[1](parent.unit, realUnit) or ''
@@ -625,6 +740,7 @@ local function Tag(self, fs, tagstr, ...)
 				end
 
 				_ENV._COLORS = parent.colors
+				_ENV._FRAME = parent
 				return self:SetFormattedText(
 					format,
 					args[1](unit, realUnit) or '',
@@ -641,6 +757,7 @@ local function Tag(self, fs, tagstr, ...)
 				end
 
 				_ENV._COLORS = parent.colors
+				_ENV._FRAME = parent
 				return self:SetFormattedText(
 					format,
 					args[1](unit, realUnit) or '',
@@ -658,6 +775,7 @@ local function Tag(self, fs, tagstr, ...)
 				end
 
 				_ENV._COLORS = parent.colors
+				_ENV._FRAME = parent
 				for i, func in next, args do
 					tmp[i] = func(unit, realUnit) or ''
 				end
@@ -709,7 +827,7 @@ Used to unregister a tag from a unit frame.
 * fs   - the font string holding the tag (FontString)
 --]]
 local function Untag(self, fs)
-	if(not fs) then return end
+	if(not fs or not self.__tags) then return end
 
 	unregisterEvents(fs)
 	for _, timers in next, eventlessUnits do
@@ -737,3 +855,4 @@ oUF.Tags = {
 
 oUF:RegisterMetaFunction('Tag', Tag)
 oUF:RegisterMetaFunction('Untag', Untag)
+oUF:RegisterMetaFunction('UpdateTags', Update)

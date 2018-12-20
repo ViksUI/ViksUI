@@ -1,5 +1,4 @@
 if(select(2, UnitClass('player')) ~= 'MAGE') then return end
-
 local parent, ns = ...
 local oUF = ns.oUF
 
