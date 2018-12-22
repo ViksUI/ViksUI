@@ -92,8 +92,8 @@ C["font"] = {
 
 	-- Filger font
 	["filger_font"] = C.media.pixel_font,
-	["filger_font_size"] = 8,
-	["filger_font_style"] = "OUTLINEMONOCHROME",
+	["filger_font_size"] = 10,
+	["filger_font_style"] = "OUTLINE",
 	["filger_font_shadow"] = false,
 
 	-- Stylization font

@@ -85,10 +85,6 @@ C["filger_spells"] = {
 			-- Trinkets
 
 			-- Enchants
-			-- Mark of the Claw (Crit and Haste)
-			{spellID = 190909, unitID = "player", caster = "all", filter = "BUFF"},
-			-- Mark of the Heavy Hide (Armor)
-			{spellID = 228399, unitID = "player", caster = "all", filter = "BUFF"},
 		},
 				{
 			Name = "T_DEBUFF_ICON",
@@ -779,6 +775,8 @@ C["filger_spells"] = {
 			{spellID = 190931, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Beast Cleave
 			{spellID = 118455, unitID = "pet", caster = "player", filter = "BUFF"},
+			-- Frenzy
+			{spellID = 19615, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 			-- Mend Pet
 			{spellID = 136, unitID = "pet", caster = "player", filter = "BUFF"},
 
@@ -997,7 +995,7 @@ C["filger_spells"] = {
 			-- Mirror Image
 			{spellID = 55342, filter = "ICD", trigger = "NONE", duration = 40},
 			-- Icicles
-			{spellID = 205473, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 205473, unitID = "player", caster = "player", filter = "BUFF", talentID = 21634},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -1488,7 +1486,7 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].target_debuff_icon)},
 
 			-- Execution Sentence
-			{spellID = 267799, unitID = "target", caster = "player", filter = "DEBUFF"},			
+			{spellID = 267799, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Eye of Tyr
 			{spellID = 209202, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Forbearance
@@ -1689,7 +1687,7 @@ C["filger_spells"] = {
 			-- Pain Suppression
 			{spellID = 33206, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Schism
-			{spellID = 214621, unitID = "target", caster = "player", filter = "DEBUFF"},	
+			{spellID = 214621, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Vampiric Touch
 			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Shadow Word: Pain
@@ -2383,6 +2381,8 @@ C["filger_spells"] = {
 			-- Destruction
 			-- Burning Rush
 			{spellID = 196546, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Nether Ward
+			{spellID = 212295, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -2420,10 +2420,8 @@ C["filger_spells"] = {
 			{spellID = 6789, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Fear
 			{spellID = 118699, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Shared
-			-- Drain Life
-			--{spellID = 689, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Affliction
+			-- Enslave Demon
+			{spellID = 1098, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Agony
 			{spellID = 980, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Corruption
@@ -2432,6 +2430,8 @@ C["filger_spells"] = {
 			{spellID = 5484, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Seed of Corruption
 			{spellID = 27243, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Immolate
+			{spellID = 348, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Unstable Affliction
 			{spellID = 233490, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 			-- Unstable Affliction 2nd
@@ -2778,16 +2778,16 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].special_proc_icon)},
 
 			-- Potions: Miscellaneous
-			-- Skystep Potion
-			{spellID = 188024, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Invisibility Potion
+			-- Invisibility [Invisibility Potion]
 			{spellID = 11392, unitID = "player", caster = "player", filter = "BUFF", absID = true},
-			-- Darkwater Potion
-			{spellID = 105707, unitID = "player", caster = "player", filter = "BUFF", absID = true},
-			-- Draenic Invisibility Potion
+			-- Invisibility [Draenic Invisibility Potion]
 			{spellID = 175833, unitID = "player", caster = "player", filter = "BUFF", absID = true},
+			-- Spirit Realm [Skaggldrynk]
+			{spellID = 188023, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Draenic Swiftness Potion
-			{spellID = 175790, unitID = "player", caster = "player", filter = "BUFF", absID = true},
+			{spellID = 175790, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Darkwater Potion
+			{spellID = 105707, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Speed [Swiftness Potion]
 			{spellID = 2379, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 
@@ -3076,6 +3076,8 @@ C["filger_spells"] = {
 			{spellID = 64695, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Debilitate (Terrorguard)
 			{spellID = 170996, unitID = "player", caster = "all", filter = "DEBUFF"},
+			-- Entrenched in Flame
+			{spellID = 233582, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Slows
 			-- Infected Wounds
@@ -3410,6 +3412,8 @@ C["filger_spells"] = {
 			{spellID = 20707, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Unending Resolve
 			{spellID = 104773, unitID = "target", caster = "all", filter = "BUFF"},
+			-- Nether Ward
+			{spellID = 212295, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Debuffs
 			-- Banish
 			{spellID = 710, unitID = "target", caster = "all", filter = "DEBUFF"},

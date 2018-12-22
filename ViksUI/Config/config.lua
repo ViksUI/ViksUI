@@ -762,7 +762,7 @@ C["actionbar"] = {
 --	Miscellaneous options
 ----------------------------------------------------------------------------------------
 C["Filger"] = {
-	["enable"] = false,							-- Enable Filger
+	["enable"] = true,							-- Enable Filger
 	["test_mode"] = false,						-- Test icon mode
 	["max_test_icon"] = 5,						-- The number of icons to the test
 	["show_tooltip"] = false,					-- Show tooltip
