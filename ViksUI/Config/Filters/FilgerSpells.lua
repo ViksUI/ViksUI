@@ -1251,6 +1251,8 @@ C["filger_spells"] = {
 			Position = {unpack(C["filger_position"].player_proc_icon)},
 
 			-- Buffs
+			-- Rushing Jade Wind
+			{spellID = 116847, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Blackout Kick!
 			{spellID = 116768, unitID = "player", caster = "player", filter = "BUFF"},
 			-- The Mists of Sheilun
@@ -1607,6 +1609,8 @@ C["filger_spells"] = {
 			IconSize = C.Filger.buffs_size,
 			Position = {unpack(C["filger_position"].player_buff_icon)},
 
+			-- Atonement
+			{spellID = 194384, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Rapture
 			{spellID = 47536, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Desperate Prayer
