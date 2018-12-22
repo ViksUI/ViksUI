@@ -1857,10 +1857,9 @@ self.PhaseIndicator = picon
 end
 
 lib.SummonIndicator = function(self)
-local picon = self.Health:CreateTexture(nil, 'OVERLAY')
-picon:SetPoint('TOP', self, 'TOP', -2, 0)
-picon:SetSize(14, 14)
-self.SummonIndicator = SummonIndicator
+self.SummonIndicator = self.Health:CreateTexture(nil, "OVERLAY")
+self.SummonIndicator:SetSize(24, 24)
+self.SummonIndicator:SetPoint("BOTTOMRIGHT", self.Health, 6, -5)
 end
 
 -- raid debuffs
