@@ -18,7 +18,7 @@ local ChangeLogData = {
 	"SECOND PATREON: Wiggy - Huge Thanks for the support",
 		"",
 	"NOTE:",
-		"ALL suport on Discord only",
+		"ALL support on Discord only",
 		"NEW Donate button added",
 		"NEW Patreon button added",
 		"6 years with hundreds of hours on coding, ",
