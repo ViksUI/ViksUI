@@ -225,7 +225,7 @@ function Filger:DisplayActives()
 	end
 
 	local function comp(element1, elemnet2)
-		return element1.sort <= elemnet2.sort
+		return element1.sort < elemnet2.sort
 	end
 	table.sort(temp, comp)
 
@@ -572,7 +572,7 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 					spell = GetItemInfo(slotLink)
 				end
 			end
-			if spell then
+			if spell or data[j].slotID then
 				local id
 				if data[j].absID then
 					id = data[j].spellID or data[j].slotID
