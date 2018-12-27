@@ -36,6 +36,10 @@ local function LoadSkin()
 		option.ArtBackdrop:SetTemplate("Default")
 	end
 	WarboardQuestChoiceFrame.CloseButton:StripTextures()
+	WarboardQuestChoiceFrame:HookScript("OnShow", function(self)
+		if self.CloseButton.Border then self.CloseButton.Border:SetAlpha(0) end
+	end)
+
 	T.SkinCloseButton(WarboardQuestChoiceFrame.CloseButton, WarboardQuestChoiceFrame.backdrop)
 end
 

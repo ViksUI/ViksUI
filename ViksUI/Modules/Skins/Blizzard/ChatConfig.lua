@@ -136,7 +136,7 @@ local function LoadSkin()
 
 					T.SkinCheckBox(_G[checkBoxName.."Check"])
 				end
-			elseif checkBoxTemplate == "ChatConfigCheckBoxWithSwatchTemplate" or checkBoxTemplate == "ChatConfigCheckBoxWithSwatchAndClassColorTemplate" then
+			elseif checkBoxTemplate == "ChatConfigCheckBoxWithSwatchTemplate" or checkBoxTemplate == "ChatConfigWideCheckBoxWithSwatchTemplate" or checkBoxTemplate == "MovableChatConfigWideCheckBoxWithSwatchTemplate" then
 				for index, value in ipairs(checkBoxTable) do
 					local checkBoxName = checkBoxNameString..index
 					local checkbox = _G[checkBoxName]
@@ -149,10 +149,6 @@ local function LoadSkin()
 					ReskinColourSwatch(_G[checkBoxName.."ColorSwatch"])
 
 					T.SkinCheckBox(_G[checkBoxName.."Check"])
-
-					if checkBoxTemplate == "ChatConfigCheckBoxWithSwatchAndClassColorTemplate" then
-						T.SkinCheckBox(_G[checkBoxName.."ColorClasses"])
-					end
 				end
 			end
 
@@ -192,8 +188,8 @@ local function LoadSkin()
 		ReskinColourSwatch(CombatConfigColorsColorizeSpellNamesColorSwatch)
 		ReskinColourSwatch(CombatConfigColorsColorizeDamageNumberColorSwatch)
 
-		for i = 1, 3 do
-			for j = 1, 3 do
+		for i = 1, 4 do
+			for j = 1, 4 do
 				if _G["CombatConfigMessageTypesLeftCheckBox"..i] and _G["CombatConfigMessageTypesLeftCheckBox"..i.."_"..j] then
 					T.SkinCheckBox(_G["CombatConfigMessageTypesLeftCheckBox"..i])
 					T.SkinCheckBox(_G["CombatConfigMessageTypesLeftCheckBox"..i.."_"..j])
@@ -225,22 +221,31 @@ local function LoadSkin()
 	end
 
 	T.SkinEditBox(_G["CombatConfigSettingsNameEditBox"], nil, _G["CombatConfigSettingsNameEditBox"]:GetHeight() - 2)
-	T.SkinNextPrevButton(_G["ChatConfigMoveFilterUpButton"])
-	T.SkinNextPrevButton(_G["ChatConfigMoveFilterDownButton"])
-	_G["ChatConfigMoveFilterUpButton"]:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIcon-ScrollUp-Up")
-	_G["ChatConfigMoveFilterUpButton"]:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIcon-ScrollUp-Down")
+	T.SkinNextPrevButton(_G["ChatConfigMoveFilterUpButton"], nil, "Up")
+	T.SkinNextPrevButton(_G["ChatConfigMoveFilterDownButton"], nil, "Down")
 	_G["ChatConfigFrameDefaultButton"]:SetWidth(125)
 	_G["CombatLogDefaultButton"]:SetWidth(125)
 
 	_G["ChatConfigMoveFilterUpButton"]:SetPoint("TOPLEFT", _G["ChatConfigCombatSettingsFilters"], "BOTTOMLEFT", 0, -1)
 	_G["ChatConfigMoveFilterDownButton"]:SetPoint("TOPLEFT", _G["ChatConfigMoveFilterUpButton"], "TOPRIGHT", 1, 0)
 	_G["ChatConfigFrameDefaultButton"]:SetPoint("TOP", _G["ChatConfigCategoryFrame"], "BOTTOM", 0, -4)
+	ChatConfigFrameRedockButton:SetPoint("LEFT", ChatConfigFrameDefaultButton, "RIGHT", 3, 0)
 	_G["ChatConfigFrameOkayButton"]:SetPoint("TOPRIGHT", _G["ChatConfigBackgroundFrame"], "BOTTOMRIGHT", 0, -4)
 	_G["CombatLogDefaultButton"]:SetPoint("TOPLEFT", _G["ChatConfigCategoryFrame"], "BOTTOMLEFT", 0, -4)
 	_G["CombatConfigSettingsSaveButton"]:SetPoint("TOPLEFT", _G["CombatConfigSettingsNameEditBox"], "TOPRIGHT", 5, 2)
 	_G["ChatConfigCombatSettingsFiltersDeleteButton"]:SetPoint("TOPRIGHT", _G["ChatConfigCombatSettingsFilters"], "BOTTOMRIGHT", 0, -1)
 	_G["ChatConfigCombatSettingsFiltersCopyFilterButton"]:SetPoint("RIGHT", _G["ChatConfigCombatSettingsFiltersDeleteButton"], "LEFT", -3, 0)
 	_G["ChatConfigCombatSettingsFiltersAddFilterButton"]:SetPoint("RIGHT", _G["ChatConfigCombatSettingsFiltersCopyFilterButton"], "LEFT", -3, 0)
+
+	hooksecurefunc(ChatConfigFrameChatTabManager, "UpdateWidth", function(self)
+		for tab in self.tabPool:EnumerateActive() do
+			if not tab.IsSkinned then
+				tab:StripTextures()
+
+				tab.IsSkinned = true
+			end
+		end
+	end)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
