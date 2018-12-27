@@ -189,8 +189,8 @@ function T.SkinScrollBar(frame)
 	if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
 	if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
 
-	local UpButton = frame.ScrollUpButton or frame.UpButton or _G[frame:GetName() and frame:GetName().."ScrollUpButton"] or frame:GetParent().scrollUp
-	local DownButton = frame.ScrollDownButton or frame.DownButton or _G[frame:GetName() and frame:GetName().."ScrollDownButton"] or frame:GetParent().scrollDown
+	local UpButton = frame.ScrollUpButton or frame.ScrollUp or frame.UpButton or _G[frame:GetName() and frame:GetName().."ScrollUpButton"] or frame:GetParent().scrollUp
+	local DownButton = frame.ScrollDownButton or frame.ScrollDown or frame.DownButton or _G[frame:GetName() and frame:GetName().."ScrollDownButton"] or frame:GetParent().scrollDown
 	local ThumbTexture = frame.ThumbTexture or frame.thumbTexture or _G[frame:GetName() and frame:GetName().."ThumbTexture"]
 
 	if UpButton and DownButton then
@@ -403,6 +403,8 @@ function T.SkinEditBox(frame, width, height)
 	if frame.LeftTexture then frame.LeftTexture:Kill() end
 	if frame.RightTexture then frame.RightTexture:Kill() end
 	if frame.MiddleTexture then frame.MiddleTexture:Kill() end
+	
+	if frame.Mid then frame.Mid:Kill() end
 
 	frame:CreateBackdrop("Overlay")
 
@@ -2104,14 +2106,15 @@ function T:HandleWorldMapDropDownMenu(frame)
 	end
 end
 
-function T:HandleIcon(icon, parent)
-	parent = parent or icon:GetParent();
+function T.HandleIcon(icon, parent)
+	parent = parent or icon:GetParent()
+
+	parent:CreateBackdrop("Default")
+	parent.backdrop:SetPoint("TOPLEFT", icon, -2, 2)
+	parent.backdrop:SetPoint("BOTTOMRIGHT", icon, 2, -2)
 
 	icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	parent:CreateBackdrop('Default')
-	icon:SetParent(parent.backdrop)
-	parent.backdrop:SetPoint("TOPLEFT", -4, 4)
-	parent.backdrop:SetPoint("BOTTOMRIGHT", 4, -3)
+	icon:SetParent(parent)
 end
 
 function T:CropIcon(texture, parent)
