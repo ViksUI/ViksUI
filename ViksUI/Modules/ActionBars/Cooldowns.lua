@@ -1,5 +1,4 @@
 local T, C, L, _ = unpack(select(2, ...))
-
 if IsAddOnLoaded("OmniCC") or IsAddOnLoaded("ncCooldown") or IsAddOnLoaded("tullaCC") then return end
 
 ----------------------------------------------------------------------------------------
@@ -171,3 +170,10 @@ if _G["ActionBarButtonEventsFrame"].frames then
 end
 
 hooksecurefunc("ActionBarButtonEventsFrame_RegisterFrame", actionButton_Register)
+
+hooksecurefunc("CooldownFrame_SetDisplayAsPercentage", function(self)
+	local timer = self.timer
+	if timer then
+		Timer_Stop(timer)
+	end
+end)
