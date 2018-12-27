@@ -3,30 +3,29 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.75",
-		"• Debuffs added for BFA Dungeon and Uldir",
-		"• Scrapping machine frame temp movable",
-		"• Readycheck icon fixed",
-		"• Skin for missiontable fixed",
-		"• One Click Enchant Scroll fixed",
-		"• Debuff on nameplate pixelperfect",
-		"• Interuptable spell on nameplate colored",
-		"• Improved Filger, still fps issue in raid",
-		"• New flask added to self buff reminder",
+		"Update 8.77",
+		"• Updated to 8.1",
+		"• Skinning of Blizzard frames fixed",
+		"• Filger fixed",
+		"• Filger/Classbar spells updated",
+		"• oUF Updated",
+		"• Summon indicator added",
 		"• Minir fixes and cleanups",
 		"",
 		--"• ",
 	--" ",
 	"FIRST PATREON: joelsoul - Huge Thanks for the support",
+	"SECOND PATREON: Wiggy - Huge Thanks for the support",
 		"",
 	"NOTE:",
+		"ALL suport on Discord only",
 		"NEW Donate button added",
 		"NEW Patreon button added",
 		"6 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
-		"BE NR 2 TO DONATE :)",
+		"BE NR 3 TO DONATE :)",
 		"",
-	"PATREON's: joelsoul",
+	"PATREON's: joelsoul & Wiggy",
 }
 
 --// TODO LIST
@@ -63,7 +62,7 @@ _G.StaticPopupDialogs["BUGREPORT"] = {
 	editBoxWidth = 325,
 	OnShow = function(self, ...) 
 		self.editBox:SetFocus()
-		self.editBox:SetText("http://www.wowinterface.com/downloads/info21462-ViksUI.html#comments")
+		self.editBox:SetText("https://discord.gg/Dhp5nHh")
 		self.editBox:HighlightText()
 	end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
