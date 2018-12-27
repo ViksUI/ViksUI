@@ -37,9 +37,7 @@ local backdrop = {
 for _, tt in pairs(tooltips) do
 	if not IsAddOnLoaded("Aurora") then
 		tt:SetBackdrop(nil)
-		hooksecurefunc("GameTooltip_SetBackdropStyle", function(self)
-			self:SetBackdrop(nil)
-		end)
+		tt.SetBackdrop = T.dummy
 		if tt.BackdropFrame then
 			tt.BackdropFrame:SetBackdrop(nil)
 		end
@@ -571,26 +569,16 @@ GameTooltip:HookScript("OnTooltipSetItem", FixFont)
 ItemRefTooltip:HookScript("OnTooltipSetItem", FixFont)
 
 ----------------------------------------------------------------------------------------
---	Skin tooltip status bar
+--	Skin WorldMapTooltip and EmbeddedItemTooltip
 ----------------------------------------------------------------------------------------
---BETA do
-	-- local bar = WorldMapTaskTooltipStatusBar.Bar
-	-- local label = bar.Label
-	-- if bar then
-		-- bar:StripTextures()
-		-- bar:SetStatusBarTexture(C.media.texture)
-		-- bar:SetTemplate("Transparent")
-		-- label:ClearAllPoints()
-		-- label:SetPoint("CENTER", bar, 0, 0)
-		-- label:SetDrawLayer("OVERLAY")
-		-- label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
-	-- end
--- end
-
 WorldMapTooltip.ItemTooltip.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 hooksecurefunc(WorldMapTooltip.ItemTooltip.IconBorder, "SetVertexColor", function(self, r, g, b)
 	self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
 	self:SetTexture("")
+end)
+
+hooksecurefunc(WorldMapTooltip.ItemTooltip.IconBorder, "Hide", function(self)
+	self:GetParent().backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
 end)
 
 WorldMapTooltip.ItemTooltip:CreateBackdrop("Default")
@@ -599,26 +587,39 @@ WorldMapTooltip.ItemTooltip.backdrop:SetPoint("BOTTOMRIGHT", WorldMapTooltip.Ite
 WorldMapTooltip.ItemTooltip.Count:ClearAllPoints()
 WorldMapTooltip.ItemTooltip.Count:SetPoint("BOTTOMRIGHT", WorldMapTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 1, 0)
 
---BETA do
-	-- local bar = ReputationParagonTooltipStatusBar.Bar
-	-- local label = bar.Label
-	-- if bar then
-		-- bar:StripTextures()
-		-- bar:SetStatusBarTexture(C.media.texture)
-		-- bar:SetTemplate("Transparent")
-		-- label:ClearAllPoints()
-		-- label:SetPoint("CENTER", bar, 0, 0)
-		-- label:SetDrawLayer("OVERLAY")
-		-- label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
-	-- end
--- end
+local reward = EmbeddedItemTooltip.ItemTooltip
+local icon = reward.Icon
+if icon then
+	icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	reward:CreateBackdrop("Default")
+	reward.backdrop:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
+	reward.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
 
--- ReputationParagonTooltip.ItemTooltip.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
--- hooksecurefunc(ReputationParagonTooltip.ItemTooltip.IconBorder, "SetVertexColor", function(self, r, g, b)
-	-- self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
-	-- self:SetTexture("")
--- end)
+	hooksecurefunc(reward.IconBorder, "SetVertexColor", function(self, r, g, b)
+		self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+		self:SetTexture("")
+	end)
 
--- ReputationParagonTooltip.ItemTooltip:CreateBackdrop("Default")
--- ReputationParagonTooltip.ItemTooltip.backdrop:SetPoint("TOPLEFT", ReputationParagonTooltip.ItemTooltip.Icon, "TOPLEFT", -2, 2)
--- ReputationParagonTooltip.ItemTooltip.backdrop:SetPoint("BOTTOMRIGHT", ReputationParagonTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 2, -2)
+	hooksecurefunc(reward.IconBorder, "Hide", function(self)
+		self:GetParent().backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+	end)
+end
+
+hooksecurefunc("GameTooltip_ShowProgressBar", function(tt)
+	if not tt or tt:IsForbidden() or not tt.progressBarPool then return end
+
+	local frame = tt.progressBarPool:GetNextActive()
+	if (not frame or not frame.Bar) or frame.Bar.backdrop then return end
+
+	local bar = frame.Bar
+	local label = bar.Label
+	if bar then
+		bar:StripTextures()
+		bar:CreateBackdrop("Transparent")
+		bar:SetStatusBarTexture(C.media.texture)
+		label:ClearAllPoints()
+		label:SetPoint("CENTER", bar, 0, 0)
+		label:SetDrawLayer("OVERLAY")
+		label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+	end
+end)
