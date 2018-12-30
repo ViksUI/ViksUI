@@ -24,28 +24,12 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	PP(C.datatext.Quests, Text)
 
 	local function OnEvent(self, event, ...)
-		--local free, total, used = 0, 0, 0
-		--for i = 0, NUM_BAG_SLOTS do
-			--free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
-		--end
-		--used = total - free
 		local numEntries, numQuests = GetNumQuestLogEntries()
 		Text:SetText("Q |r: "..qColor.. numQuests.. "/25")
 		Stat:SetAllPoints(Text)
 		Stat:SetScript("OnEnter", function()
-		--if not InCombatLockdown() then
-			--GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6);
-			--GameTooltip:ClearAllPoints()
-			--GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			--GameTooltip:ClearLines()
-			--GameTooltip:AddDoubleLine("Bags")
-			--GameTooltip:AddLine(" ")
-			--GameTooltip:AddDoubleLine("Total:",total,0, 0.6, 1, 1, 1, 1)
-			--GameTooltip:AddDoubleLine("Used:",used,0, 0.6, 1, 1, 1, 1)
-		--end
-		--GameTooltip:Show()
 	end)
-	--Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
 	end
 	
     local OnMouseDown = function()
@@ -65,6 +49,8 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	local collapse = CreateFrame("Frame")
 	collapse:RegisterEvent("PLAYER_ENTERING_WORLD")
 	collapse:SetScript("OnEvent", function(self, event)
-		ObjectiveTracker_Collapse()
+		if C.automation.auto_collapse_login == true then
+			ObjectiveTracker_Collapse()
+		end
 	end)
 end

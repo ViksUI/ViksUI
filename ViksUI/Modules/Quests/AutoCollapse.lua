@@ -10,6 +10,8 @@ frame:SetScript("OnEvent", function(self, event)
 	if IsInInstance() then
 		ObjectiveTracker_Collapse()
 	elseif ObjectiveTrackerFrame.collapsed and not InCombatLockdown() then
-		--ObjectiveTracker_Expand()
+		if C.automation.auto_collapse_login == false then
+			ObjectiveTracker_Expand()
+		end
 	end
 end)
