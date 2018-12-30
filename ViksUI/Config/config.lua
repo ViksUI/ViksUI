@@ -169,6 +169,7 @@ C["skins"] = {
 	["my_role_play"] = false,					-- MyRolePlay skin
 	["ExtraActionBarFrame"] = true, 			-- Skinn ExtraActionBarFrame with Masque
 	["arh"] = false,							-- Archaeology Helper skin
+	["pawn"] = false,							-- Pawn skin
 	["postal"] = false,							-- Postal skin
 	["opie"] = false,							-- OPie skin
 	["rematch"] = false,						-- Rematch skin
