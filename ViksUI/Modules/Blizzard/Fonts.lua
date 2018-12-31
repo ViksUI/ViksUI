@@ -112,6 +112,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	SetFont(DestinyFontMed,						NORMAL, 14);								 -- Added in 7.3.5 used for ?
 	SetFont(Fancy12Font,						NORMAL, 12);								 -- Added in 7.3.5 used for ?
 	SetFont(Fancy14Font,						NORMAL, 14);								 -- Added in 7.3.5 used for ?
+	SetFont(Fancy16Font, 						NORMAL, 16);
 
 	-- Derived fonts
 	SetFont(BossEmoteNormalHuge, NORMAL, 27, "THICKOUTLINE")
