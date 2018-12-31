@@ -300,7 +300,7 @@ function T.SkinNextPrevButton(btn, left, scroll)
 
 	btn:StripTextures()
 
-	if scroll == "Up" or scroll == "Down" then
+	if scroll == "Up" or scroll == "Down" or scroll == "Any" then
 		normal = nil
 		pushed = nil
 		disabled = nil
