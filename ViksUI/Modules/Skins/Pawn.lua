@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.skins.blizzard_frames ~= true or C.skins.pawn ~= true then return end
+if C.skins.blizzard_frames ~= true or C.skins.pawn ~= true or IsAddOnLoaded('Pawn') ~= true then return end
 
 local function LoadSkin()
 	if addon == 'Blizzard_InspectUI' or IsAddOnLoaded('Blizzard_InspectUI') then
