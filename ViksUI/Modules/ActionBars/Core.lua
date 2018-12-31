@@ -4,7 +4,9 @@ if C.actionbar.enable ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Hide Blizzard ActionBars stuff(by Tukz)
 ----------------------------------------------------------------------------------------
-do
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:SetScript("OnEvent", function()
 	MainMenuBar:SetScale(0.00001)
 	MainMenuBar:EnableMouse(false)
 	OverrideActionBar:SetScale(0.00001)
@@ -17,6 +19,11 @@ do
 	local elements = {
 		MainMenuBar, OverrideActionBar, PossessBarFrame, PetActionBarFrame, StanceBarFrame
 	}
+
+	if not C_ClassTrial.IsClassTrialCharacter() then
+		tinsert(elements, IconIntroTracker)
+	end
+
 	for _, element in pairs(elements) do
 		if element:GetObjectType() == "Frame" then
 			element:UnregisterAllEvents()
@@ -29,9 +36,6 @@ do
 	end
 	elements = nil
 
-	IconIntroTracker:UnregisterAllEvents()
-	IconIntroTracker:Hide()
-
 	for i = 1, 6 do
 		local b = _G["OverrideActionBarButton"..i]
 		b:SetAttribute("statehidden", 1)
@@ -40,7 +44,7 @@ do
 	hooksecurefunc("TalentFrame_LoadUI", function()
 		PlayerTalentFrame:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	end)
-end
+end)
 
 do
 	local uiManagedFrames = {
@@ -196,30 +200,31 @@ frame:SetScript("OnEvent", function(self, event)
 	if C.actionbar.show_grid == true then
 		SetCVar("alwaysShowActionBars", 1)
 		for i = 1, 12 do
+			local reason = ACTION_BUTTON_SHOW_GRID_REASON_EVENT
 			local button = _G[format("ActionButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			ActionButton_ShowGrid(button)
+			ActionButton_ShowGrid(button, reason)
 
 			button = _G[format("MultiBarRightButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			ActionButton_ShowGrid(button)
+			ActionButton_ShowGrid(button, reason)
 
 			button = _G[format("MultiBarBottomRightButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			ActionButton_ShowGrid(button)
+			ActionButton_ShowGrid(button, reason)
 
 			button = _G[format("MultiBarLeftButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			ActionButton_ShowGrid(button)
+			ActionButton_ShowGrid(button, reason)
 
 			button = _G[format("MultiBarBottomLeftButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			ActionButton_ShowGrid(button)
+			ActionButton_ShowGrid(button, reason)
 		end
 	else
 		SetCVar("alwaysShowActionBars", 0)
