@@ -184,8 +184,8 @@ local function LoadSkin()
 		local item1 = tooltip.Item1
 		local item2 = tooltip.Item2
 		tooltip:SetTemplate("Transparent")
-		T:HandleIcon(item1.icon)
-		T:HandleIcon(item2.icon)
+		item1.icon:SkinIcon()
+		item2.icon:SkinIcon()
 		item1.IconBorder:SetTexture(nil)
 		item2.IconBorder:SetTexture(nil)
 
