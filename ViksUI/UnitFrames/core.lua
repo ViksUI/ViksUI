@@ -529,70 +529,95 @@ end
 
 local function CreateRaid25Style(self)
 				
-		self.mystyle = "raid25"
-		--self:SetParent(PetBattleHider)
-		--lib.focus(self)
-		--lib.init(self)
-		self.scale = cfg.scale
-		self.Range = {
-			insideAlpha = 1,
-			outsideAlpha = .4,	}
-		
-		lib.gen_ppbar(self)
-		self.Power.colorTapping = true
-		self.Power.colorDisconnected = true
-		self.Power.colorHappiness = false
-		if cfg.Powercolor then
-		self.Power.colorClass = true
-		else
-		self.Power.colorPower = true
-		end
-		self.Power.Smooth = true
-		self.Power.colorReaction = true
-		self.Power.colorHealth = true
-		self.Power.bg.multiplier = 0.5
-		lib.gen_hpbar(self)
-		lib.gen_hpstrings(self)
-		lib.gen_highlight(self)
-		lib.gen_RaidMark(self)
-		lib.ReadyCheck(self)
-		self.Health.frequentUpdates = true
-		self.Health.Smooth = true
-		self.Health.colorSmooth = true
-		if cfg.HealthcolorClass then
-		self.Health.colorClass = true
-		end
-		lib.CreateTargetBorder(self)
-		lib.CreateThreatBorder(self)
-		lib.debuffHighlight(self)
-		lib.gen_InfoIcons(self)
-		lib.healcomm(self, unit)
-		if cfg.IndicatorIcons2 then
-		self.freebIndicators = true
-		self.freebAfk = true
-		-- Auras
-		local auras = CreateFrame("Frame", nil, self)
-		auras:SetSize(cfg.aurasize, cfg.aurasize)
-		auras:SetPoint("CENTER", self.Health)
-		auras.size = 12  --cfg.aurasize
-		self.freebAuras = auras
-		else
-		lib.raidDebuffs(self)
-		self.DrkIndicators = true
-		lib.createIndicators(self)
-		lib.createAuraWatch(self)
-		end
-		if (playerClass == "MONK") then
-		self.DrkIndicators = true
-		lib.createIndicators(self)
-		lib.createAuraWatch(self)
-		end
-		self.Health.PostUpdate = lib.PostUpdateRaidFrame
-		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
-		self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
-		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
-		self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)
+	self.mystyle = "raid25"
+	--self:SetParent(PetBattleHider)
+	--lib.focus(self)
+	--lib.init(self)
+	self.scale = cfg.scale
+	self.Range = {
+		insideAlpha = 1,
+		outsideAlpha = .4,	}
+	
+	lib.gen_ppbar(self)
+	self.Power.colorTapping = true
+	self.Power.colorDisconnected = true
+	self.Power.colorHappiness = false
+	if cfg.Powercolor then
+	self.Power.colorClass = true
+	else
+	self.Power.colorPower = true
 	end
+	self.Power.Smooth = true
+	self.Power.colorReaction = true
+	self.Power.colorHealth = true
+	self.Power.bg.multiplier = 0.5
+	lib.gen_hpbar(self)
+	lib.gen_hpstrings(self)
+	lib.gen_highlight(self)
+	lib.gen_RaidMark(self)
+	lib.ReadyCheck(self)
+	self.Health.frequentUpdates = true
+	self.Health.Smooth = true
+	self.Health.colorSmooth = true
+	if cfg.HealthcolorClass then
+	self.Health.colorClass = true
+	end
+	lib.CreateTargetBorder(self)
+	lib.CreateThreatBorder(self)
+	lib.debuffHighlight(self)
+	lib.gen_InfoIcons(self)
+	lib.healcomm(self, unit)
+	if cfg.IndicatorIcons2 then
+	self.freebIndicators = true
+	self.freebAfk = true
+	-- Auras
+	local auras = CreateFrame("Frame", nil, self)
+	auras:SetSize(cfg.aurasize, cfg.aurasize)
+	auras:SetPoint("CENTER", self.Health)
+	auras.size = 12  --cfg.aurasize
+	self.freebAuras = auras
+	else
+	lib.raidDebuffs(self)
+	self.DrkIndicators = true
+	lib.createIndicators(self)
+	lib.createAuraWatch(self)
+	end
+	if (playerClass == "MONK") then
+	self.DrkIndicators = true
+	lib.createIndicators(self)
+	lib.createAuraWatch(self)
+	end
+	self.Health.PostUpdate = lib.PostUpdateRaidFrame
+	self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
+	self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
+	self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
+	self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)
+end
+
+local function CreatePartyPetStyle(self)
+				
+	self.mystyle = "PartyPet"
+	self.scale = cfg.scale
+	--self:SetSize(cfg.unit_size.Party.w,cfg.unit_size.Pet.h)
+	lib.gen_hpbar(self)
+	lib.gen_hpstrings(self)
+	lib.gen_highlight(self)
+	lib.gen_RaidMark(self)
+	self.Health.frequentUpdates = false
+	self.Health.Smooth = true
+	lib.AltPowerBar(self)
+	if PlayerClass == "HUNTER" then
+		self.Power.colorReaction = false
+		self.Power.colorClass = false
+	end
+	lib.CreateTargetBorder(self)
+
+	self.Health.PostUpdate = lib.PostUpdateRaidFrame
+	self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
+	self:RegisterEvent('RAID_ROSTER_UPDATE', lib.ChangedTarget)
+	self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
+	self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)
+end
   -----------------------------
   -- SPAWN UNITS
   -----------------------------
@@ -603,6 +628,7 @@ oUF:RegisterStyle('Boss', CreateBossStyle)
 oUF:RegisterStyle('ViksTank', tankStyle)
 oUF:RegisterStyle("oUF_MT", CreateMTStyle)
 oUF:RegisterStyle("raid25", CreateRaid25Style)
+oUF:RegisterStyle("PartyPet", CreatePartyPetStyle)
 
 oUF:Factory(function(self)
 	-- Single Frames
@@ -695,6 +721,88 @@ oUF:Factory(function(self)
 	local maxGroups = 5
 	if cfg.RaidShowAllGroups then maxGroups = 8 end
 
+	if cfg.ShowParty == false then
+		self:SetActiveStyle('ViksGroup')
+		local party_width = cfg.unit_size.Party.w
+		local party_height = cfg.unit_size.Party.h
+		local partytarget_width = cfg.unit_size.Party.w - 3
+		local partytarget_height = cfg.unit_size.Raid25H.h
+		local unit_width = cfg.unit_size.Raid10H.w
+		local unit_height = cfg.unit_size.Raid10H.h
+		-- Party
+		local party = self:SpawnHeader("oUF_Party", nil, "custom [@raid6,exists][petbattle] hide;show",
+			"oUF-initialConfigFunction", [[
+				local header = self:GetParent()
+				self:SetWidth(header:GetAttribute("initial-width"))
+				self:SetHeight(header:GetAttribute("initial-height"))
+			]],
+			"initial-width", T.Scale(party_width),
+			"initial-height", T.Scale(party_height),
+			"showPlayer", true,
+			"showSolo", cfg.RaidShowSolo,
+			"groupBy", true and "ASSIGNEDROLE",
+			"groupingOrder", true and "TANK,HEALER,DAMAGER,NONE",
+			"sortMethod", true and "NAME",
+			"showParty", true,
+			"showRaid", true,
+			"xoffset", 8,
+			"yOffset", -8,
+			"point", "LEFT"
+		)
+		party:SetPoint("BOTTOM", Anchorviksraid, 0, -30)
+
+		-- Party targets
+		self:SetActiveStyle('raid25')
+		local partytarget = self:SpawnHeader("oUF_PartyTargetDPS", nil, "custom [@raid6,exists] hide;show",
+			"oUF-initialConfigFunction", [[
+				local header = self:GetParent()
+				self:SetWidth(header:GetAttribute("initial-width"))
+				self:SetHeight(header:GetAttribute("initial-height"))
+				self:SetAttribute("unitsuffix", "target")
+			]],
+			"initial-width", T.Scale(partytarget_width),
+			"initial-height", T.Scale(partytarget_height),
+			"showPlayer", true,
+			"showSolo", cfg.RaidShowSolo,
+			"groupBy", true and "ASSIGNEDROLE",
+			"groupingOrder", true and "TANK,HEALER,DAMAGER,NONE",
+			"sortMethod", true and "NAME",
+			"showParty", true,
+			"showRaid", true,
+			"xoffset", 11,
+			"yOffset", -8,
+			"point", "LEFT"
+		)
+		partytarget:SetPoint("TOP", party, "BOTTOM", 2, 0)
+		
+		-- // Need more work/tweaking of position for partypet. Also not sure if this will be added
+		--self:SetActiveStyle('PartyPet')	
+		-- Party pets
+		--local partypet = self:SpawnHeader("oUF_PartyPet", nil, "custom [@raid6,exists] hide;show",
+			--"oUF-initialConfigFunction", [[
+				--local header = self:GetParent()
+				--self:SetWidth(header:GetAttribute("initial-width"))
+				--self:SetHeight(header:GetAttribute("initial-height"))
+				--self:SetAttribute("useOwnerUnit", "true")
+				--self:SetAttribute("unitsuffix", "pet")
+			--]],
+			--"initial-width", T.Scale(partytarget_width),
+			--"initial-height", T.Scale(cfg.unit_size.Pet.h),
+			--"showPlayer", true,
+			--"showSolo", cfg.RaidShowSolo,
+			--"groupBy", true and "ASSIGNEDROLE",
+			--"groupingOrder", true and "TANK,HEALER,DAMAGER,NONE",
+			--"sortMethod", true and "NAME",
+			--"showParty", true,
+			--"showRaid", true,
+			--"xoffset", 11,
+			--"yOffset", -8,
+			--"point", "LEFT"
+		--)
+
+		--partypet:SetPoint("BOTTOM", party, "TOP", 2, -4)
+	end
+	
 	-- Raid Frames
 	if cfg.ShowRaid then
 		-- Hide the Blizzard raid frames
@@ -726,6 +834,7 @@ oUF:Factory(function(self)
 		self:SetHeight(%d)
 		]]):format(cfg.unit_size.Raid10H.w,cfg.unit_size.Raid10H.h))
 		raid10:SetPoint("BOTTOM", Anchorviksraid, 0, -30)
+
 	if cfg.HealFrames then
 		self:SetActiveStyle('raid25')
 		--self:SetActiveStyle('ViksGroup')
