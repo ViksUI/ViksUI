@@ -98,9 +98,6 @@ local function LoadSkin()
 	T.SkinTab(GarrisonMissionFrameTab1)
 	T.SkinTab(GarrisonMissionFrameTab2)
 
-	GarrisonMissionFrameHelpBox:StripTextures()
-	GarrisonMissionFrameHelpBox:CreateBackdrop("Transparent")
-
 	-- Mission list
 	local MissionTab = GarrisonMissionFrame.MissionTab
 	local MissionList = MissionTab.MissionList
@@ -111,7 +108,10 @@ local function LoadSkin()
 	MissionPage.CloseButton:SetFrameLevel(MissionPage:GetFrameLevel() + 2)
 	MissionList.CompleteDialog.BorderFrame.ViewButton:SkinButton()
 	GarrisonMissionFrame.MissionComplete.NextMissionButton:SkinButton()
+
 	GarrisonMissionFrameHelpBoxButton:SkinButton()
+	GarrisonMissionFrameHelpBox:StripTextures()
+	GarrisonMissionFrameHelpBox:SetTemplate("Transparent")
 
 	for i = 1, 2 do
 		_G["GarrisonMissionFrameMissionsTab"..i]:StripTextures()
@@ -282,7 +282,11 @@ local function LoadSkin()
 			if firstRegion then firstRegion:Hide() end
 
 			reward:ClearAllPoints()
-			reward:SetPoint("TOPRIGHT", -T.mult + (index * -65), -T.mult)
+			if IsAddOnLoaded("GarrisonMissionManager") then
+				reward:SetPoint("TOPRIGHT", -T.mult * 65 + (index * -65), -T.mult)
+			else
+				reward:SetPoint("TOPRIGHT", -T.mult + (index * -65), -T.mult)
+			end
 
 			if reward.IconBorder then
 				reward.IconBorder:SetTexture(nil)
@@ -831,6 +835,8 @@ local function LoadSkin()
 			button.backdrop:SetPoint("TOPLEFT", 0, 0)
 			button.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
 			button:StyleButton(nil, 2)
+			button.LocBG:SetHeight(75)
+			button.LocBG:SetPoint("RIGHT", 0, -1)
 		end
 	end
 
