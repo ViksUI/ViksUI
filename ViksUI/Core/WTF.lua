@@ -5997,6 +5997,7 @@ local UploadCvar = function()
 	SetCVar("NamePlateHorizontalScale", 1.4)
 	SetCVar("NamePlateVerticalScale", 2.7)
 	SetCVar("NameplatePersonalHideDelaySeconds", 0.2)
+	SetCVar("nameplateShowFriendlyNPCs",1)
 end
 
 StaticPopupDialogs.SETTINGS_ALL = {

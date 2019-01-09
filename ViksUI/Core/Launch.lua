@@ -179,6 +179,7 @@ local function cvarsetup()
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("autoSelfCast", 1)
 	SetCVar("nameplateShowSelf", 0)
+	SetCVar("nameplateShowFriendlyNPCs",1)
 end
 
 local UploadBartender = function()
