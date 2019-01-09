@@ -232,14 +232,11 @@
 	
 	<Script file="Modules\Maps\BattlefieldMap.lua"/>
 	<Script file="Modules\Maps\ButtonCollect.lua"/>
-	<!--Script file="Modules\Maps\ExploreMap.lua"/-->
 	<Include file="Modules\Maps\MapInfo.xml"/>
 	<Script file="Modules\Maps\MapInfo.lua"/>
-	<Script file="Modules\Maps\MapBossCount.lua"/>
 	<Script file="Modules\Maps\MiniMap.lua"/>
 	<Script file="Modules\Maps\MiniMapButtons.lua"/>
 	<Script file="Modules\Maps\ToggleMenu.lua"/>
-	<!--Script file="Modules\Maps\WorldMap.lua"/-->
 	
 	<Include file="Modules\Skins\Blizzard\LoadFrames.xml"/>
 	<Script file="Modules\Skins\Ace3.lua"/>

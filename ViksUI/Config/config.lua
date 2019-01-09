@@ -401,8 +401,6 @@ C["bag"] = {
 ----------------------------------------------------------------------------------------
 C["map"] = {
 	["bg_map_stylization"] = true,				-- BG map stylization
-	["map_boss_count"] = true,					-- Show boss count in World Map
-	["explore_map"] = true,						-- Tracking Explorer and Lore Master achievements in World Map
 	["fog_of_war"] = true,						-- Fog of war on World Map
 }
 
