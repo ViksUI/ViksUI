@@ -36,7 +36,7 @@ if C.announcements.feasts == true then
 		[161414] = true,	-- Blingtron 5000
 		[199109] = true,	-- Auto-Hammer
 		[226241] = true,	-- Codex of the Tranquil Mind
-		[132514] = true,	-- Auto-Hammer(Legion&BfA)
+		[199109] = true,	-- Auto-Hammer(Legion&BfA)
 	}
 end
 
