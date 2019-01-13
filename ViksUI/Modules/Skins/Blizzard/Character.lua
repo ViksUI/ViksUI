@@ -214,9 +214,13 @@ local function LoadSkin()
 	T.SkinIconSelectionFrame(GearManagerDialogPopup, NUM_GEARSET_ICONS_SHOWN, "GearManagerDialogPopupButton", frameNameOverride)
 	
 	-- Handle Tabs at bottom of character frame
-	for i = 1, 3 do
+	for i = 1, 4 do
 		T.SkinTab(_G["CharacterFrameTab"..i])
 	end
+
+	CharacterFrame.ReputationTabHelpBox:StripTextures()
+	CharacterFrame.ReputationTabHelpBox:SetTemplate("Transparent")
+	T.SkinCloseButton(CharacterFrame.ReputationTabHelpBox.CloseButton)
 
 	-- Buttons used to toggle between equipment manager, titles, and character stats
 	local function FixSidebarTabCoords()
@@ -250,8 +254,12 @@ local function LoadSkin()
 	local function UpdateFactionSkins()
 		ReputationListScrollFrame:StripTextures()
 		ReputationFrame:StripTextures(true)
+		local factionOffset = FauxScrollFrame_GetOffset(ReputationListScrollFrame)
 		for i = 1, GetNumFactions() do
 			local statusbar = _G["ReputationBar"..i.."ReputationBar"]
+			local button = _G["ReputationBar"..i.."ExpandOrCollapseButton"]
+			local factionIndex = factionOffset + i
+			local _, _, _, _, _, _, _, _, _, isCollapsed = GetFactionInfo(factionIndex)
 
 			if statusbar then
 				statusbar:SetStatusBarTexture(C.media.texture)
@@ -267,6 +275,18 @@ local function LoadSkin()
 				_G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:SetTexture(nil)
 				_G["ReputationBar"..i.."ReputationBarLeftTexture"]:SetTexture(nil)
 				_G["ReputationBar"..i.."ReputationBarRightTexture"]:SetTexture(nil)
+			end
+
+			if button then
+				if not button.isSkinned then
+					T.SkinExpandOrCollapse(button)
+					if isCollapsed then
+						button.bg.plus:Show()
+					else
+						button.bg.plus:Hide()
+					end
+					button.isSkinned = true
+				end
 			end
 		end
 		ReputationDetailFrame:StripTextures()
@@ -287,8 +307,7 @@ local function LoadSkin()
 		for i = 1, GetCurrencyListSize() do
 			local button = _G["TokenFrameContainerButton"..i]
 
-
-			if button then
+ 			if button then
 				button.highlight:Kill()
 				button.categoryMiddle:Kill()
 				button.categoryLeft:Kill()
