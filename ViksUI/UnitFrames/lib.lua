@@ -1617,10 +1617,10 @@ lib.genCPoints = function(self)
 	if C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old ~= true and (T.class == "ROGUE" or T.class == "DRUID") then
 		self.CPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self)
 		self.CPoints:CreateBackdrop("Default")
-		self.CPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 7)
+		self.CPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 		self.CPoints:SetBackdropBorderColor(unpack(cfg.bordercolor))
 		self.CPoints:SetHeight(7)
-		self.CPoints:SetWidth(self:GetWidth()-3)
+		self.CPoints:SetWidth(self:GetWidth()-2)
 
 		for i = 1, 6 do
 			self.CPoints[i] = CreateFrame("StatusBar", self:GetName().."_ComboBar", self.CPoints)
@@ -1639,14 +1639,7 @@ lib.genCPoints = function(self)
 		self.CPoints[4]:SetStatusBarColor(0.9, 0.9, 0.1)
 		self.CPoints[5]:SetStatusBarColor(0.1, 0.9, 0.1)
 		self.CPoints[6]:SetStatusBarColor(0.1, 0.9, 0.1)
-
-		if T.class == "DRUID" and C.unitframe_class_bar.combo_always ~= true then
-			self:RegisterEvent("UPDATE_SHAPESHIFT_FORM", T.UpdateComboPoint)
-		end
-
-		self.CPoints.Override = T.UpdateComboPoint
 	end
-
 end
 
 lib.genHarmony = function(self)
