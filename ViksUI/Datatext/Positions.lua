@@ -24,7 +24,7 @@ function PP(p, obj)
 		obj:SetPoint("LEFT", DataTextP8,"LEFT", 5, -3)
 	elseif p == 8 then
 		obj:SetHeight(CPTopp:GetHeight())
-		obj:SetPoint("LEFT", DataTextP8,"LEFT", 350, -3)
+		obj:SetPoint("LEFT", DataTextP8,"LEFT", 250, -3)
 	elseif p == 9 then
 		obj:SetHeight(CPTopp:GetHeight())
 		obj:SetPoint("LEFT", DataTextP8,"LEFT", 500, -3)
