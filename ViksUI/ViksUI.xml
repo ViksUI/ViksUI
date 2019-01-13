@@ -168,6 +168,7 @@
 	<Script file="Datatext\Power.lua"/>
 	<Script file="Datatext\Regen.lua"/>
 	<Script file="Datatext\Talent.lua"/>
+	<Script file="Datatext\Bfamissions.lua"/>
 	<!--Script file="Datatext\Arena.lua"/-->
 	<!--Script file="Datatext\Temp.lua"/-->
 	<Script file="Datatext\location.lua"/>

@@ -590,6 +590,7 @@ if o == "UIConfigcooldownenable" then o = "Cooldown Timer on Items" end
 	if o == "UIConfigdatatextcolor" then o = "If Class color data text false then choose color: " end
 	if o == "UIConfigdatatextQuests" then o = "Objectiveframe Datatext Button" end
 	if o == "UIConfigdatatextVolume" then o = "Volume Bar - Scroll to change volume, click to change sub cat" end
+	if o == "UIConfigdatatextBfamissions" then o = "Bfamissions Datatext position (0 for disabled)" end
 	if o == "UIConfigdatatextCurrArchaeology" then o = L_GUI_STATS_CURRENCY_ARCHAEOLOGY end
 	if o == "UIConfigdatatextCurrCooking" then o = L_GUI_STATS_CURRENCY_COOKING end
 	if o == "UIConfigdatatextCurrProfessions" then o = L_GUI_STATS_CURRENCY_PROFESSIONS end
