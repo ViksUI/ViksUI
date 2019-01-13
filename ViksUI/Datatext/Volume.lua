@@ -21,8 +21,13 @@ if C.datatext.Volume and C.datatext.Volume > 0 then
 	Stat:SetFrameLevel(3)
 
 	local Text  = Stat:CreateFontString(nil, "OVERLAY")
+	if C.datatext.Volume >= 9 then
+	Text:SetTextColor(unpack(C.media.pxcolor1))
+	Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
+	else
 	Text:SetTextColor(unpack(C.media.pxcolor1))
 	Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+	end
 	PP(C.datatext.Volume, Text)
 	
 local volumeCVars = {
@@ -121,12 +126,12 @@ local function OnEvent(self, event, ...)
 			
 			activeVolume.Volume.Value = vol
 			setCV(activeVolume.Volume.CVar, vol)
-			Text:SetText(activeVolume.Name..": "..strform("%.f", vol * 100) .. "%")
+			Text:SetText(activeVolume.Name..": ".. qColor..strform("%.f", vol * 100) .. "%")
 		end)
 
 	end
 	
-	Text:SetText(activeVolume.Name..": "..strform("%.f", activeVolume.Volume.Value * 100) .. "%")
+	Text:SetText(activeVolume.Name..": ".. qColor..strform("%.f", activeVolume.Volume.Value * 100) .. "%")
 		self:SetAllPoints(Text)
 		self:SetScript("OnEnter", function()
 			if not InCombatLockdown() then
