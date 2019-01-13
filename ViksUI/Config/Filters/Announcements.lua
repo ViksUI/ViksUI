@@ -36,6 +36,7 @@ if C.announcements.feasts == true then
 		[161414] = true,	-- Blingtron 5000
 		[199109] = true,	-- Auto-Hammer
 		[226241] = true,	-- Codex of the Tranquil Mind
+		[132514] = true,	-- Auto-Hammer(Legion&BfA)
 	}
 end
 
@@ -51,6 +52,7 @@ if C.announcements.portals == true then
 		[88345] = true,		-- Tol Barad
 		[132620] = true,	-- Vale of Eternal Blossoms
 		[176246] = true,	-- Stormshield
+		[281400] = true,	-- Boralus
 		-- Horde
 		[11417] = true,		-- Orgrimmar
 		[11420] = true,		-- Thunder Bluff
@@ -61,9 +63,11 @@ if C.announcements.portals == true then
 		[88346] = true,		-- Tol Barad
 		[132626] = true,	-- Vale of Eternal Blossoms
 		[176244] = true,	-- Warspear
+		[281402] = true,	-- Dazar'alor
 		-- Alliance/Horde
 		[53142] = true,		-- Dalaran
 		[120146] = true,	-- Ancient Dalaran
+		[224871] = true,	-- Dalaran, Broken Isles
 	}
 end
 
