@@ -1,6 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
 local _, class = UnitClass("player")
---local r, g, b = CUSTOM_CLASS_COLORS[class].r, CUSTOM_CLASS_COLORS[class].g, CUSTOM_CLASS_COLORS[class].b		--Classcolor // Use Classcolors Addon Values. 
 local r, g, b = unpack(C.media.pxcolor1)
 if not C.datatext.Wowtime and not C.datatext.Wowtime > 0 then return end
 
@@ -32,10 +31,70 @@ else
 	Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 end
 PP(C.datatext.Wowtime, Text)
---Text:SetFont(pxfont, pxfontsize, "OUTLINE")
---Text:SetHeight(CPMinimb2:GetHeight())
---Text:SetTextColor(r, g, b)
---Text:SetPoint("RIGHT", CPMinimb2,"RIGHT", 0, 1)
+
+-- Check Invasion Status
+local invIndex = {
+	[1] = {title = "Legion Invasion", duration = 66600, maps = {630, 641, 650, 634}, timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3}, baseTime = 1517274000}, -- 1/30 9:00 [1]
+	[2] = {title = "Battle for Azeroth Invasion", duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = 1544691600}, -- 12/13 17:00 [1]
+}
+
+local mapAreaPoiIDs = {
+	[630] = 5175,
+	[641] = 5210,
+	[650] = 5177,
+	[634] = 5178,
+	[862] = 5973,
+	[863] = 5969,
+	[864] = 5970,
+	[896] = 5964,
+	[942] = 5966,
+	[895] = 5896,
+}
+
+local function GetInvasionTimeInfo(mapID)
+	local areaPoiID = mapAreaPoiIDs[mapID]
+	local seconds = C_AreaPoiInfo.GetAreaPOISecondsLeft(areaPoiID)
+	local mapInfo = C_Map.GetMapInfo(mapID)
+	return seconds, mapInfo.name
+end
+
+local function CheckInvasion(index)
+	for _, mapID in pairs(invIndex[index].maps) do
+		local timeLeft, name = GetInvasionTimeInfo(mapID)
+		if timeLeft and timeLeft > 0 then
+			return timeLeft, name
+		end
+	end
+end
+
+local function GetNextTime(baseTime, index)
+	local currentTime = time()
+	local duration = invIndex[index].duration
+	local elapsed = mod(currentTime - baseTime, duration)
+	return duration - elapsed + currentTime
+end
+
+local function GetNextLocation(nextTime, index)
+	local inv = invIndex[index]
+	local count = #inv.timeTable
+	local elapsed = nextTime - inv.baseTime
+	local round = mod(floor(elapsed / inv.duration) + 1, count)
+
+	if round == 0 then
+		round = count
+	end
+
+	return C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
+end
+
+local title
+local function addTitle(text)
+	if not title then
+		GameTooltip:AddLine(' ')
+		GameTooltip:AddLine(text..":")
+		title = true
+	end
+end
 
 local int = 1
 local function Update(self, t)
@@ -105,39 +164,31 @@ Stat:SetScript("OnEnter", function(self)
 	
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", -4, 16)
 	GameTooltip:ClearLines()
-	--local pvp = GetNumWorldPVPAreas()
-	--for i=1, pvp do
-		--local timeleft = select(5, GetWorldPVPAreaInfo(i))
-		--local name = select(2, GetWorldPVPAreaInfo(i))
-		--local inprogress = select(3, GetWorldPVPAreaInfo(i))
-		--local inInstance, instanceType = IsInInstance()
-		--if not ( instanceType == "none" ) then
-		--	timeleft = QUEUE_TIME_UNAVAILABLE
-		--elseif inprogress then
-		--	timeleft = WINTERGRASP_IN_PROGRESS
-		--else
-		--	local hour = tonumber(format("%01.f", floor(timeleft/3600)))
-		--	local min = format(hour>0 and "%02.f" or "%01.f", floor(timeleft/60 - (hour*60)))
-		--	local sec = format("%02.f", floor(timeleft - hour*3600 - min *60)) 
-		--	timeleft = (hour>0 and hour..":" or "")..min..":"..sec
-		--end
-		--GameTooltip:AddDoubleLine("Time to".." "..name,timeleft)
-	--end
-	--GameTooltip:AddLine(" ")
-	
-	--if( UnitLevel( "player" ) >= 100 ) then
-	--local Terrorfist = IsQuestFlaggedCompleted(39288)
-	--local Deathtalon = IsQuestFlaggedCompleted(39287)
-	--local Doomroller = IsQuestFlaggedCompleted(39289)
-	--local Vengeance = IsQuestFlaggedCompleted(39290)
+
 	local c = 0
-	for i,q in ipairs({43892,43893,43894,43895,43896,43897,44164,44166}) do if (IsQuestFlaggedCompleted(q)) then c=c+1 end end
-	--GameTooltip:AddDoubleLine( "Terrorfist" .. ": ", Terrorfist and "|cff00ff00" .. "Defeated" .. "|r" or "|cffff0000" .. "Undefeated" .. "|r" )
-	--GameTooltip:AddDoubleLine( "Deathtalon" .. ": ", Deathtalon and "|cff00ff00" .. "Defeated" .. "|r" or "|cffff0000" .. "Undefeated" .. "|r" )
-	--GameTooltip:AddDoubleLine( "Doomroller" .. ": ", Doomroller and "|cff00ff00" .. "Defeated" .. "|r" or "|cffff0000" .. "Undefeated" .. "|r" )
-	--GameTooltip:AddDoubleLine( "Vengeance" .. ": ", Vengeance and "|cff00ff00" .. "Defeated" .. "|r" or "|cffff0000" .. "Undefeated" .. "|r" )
+	for i,q in ipairs({52840,52834,52835,52837,52839,52838}) do if (IsQuestFlaggedCompleted(q)) then c=c+1 end end
 	GameTooltip:AddDoubleLine( "Seals this week" .. ": ", c)
-	--end
+	
+	for index, value in ipairs(invIndex) do
+		title = false
+		addTitle(value.title)
+		local timeLeft, zoneName = CheckInvasion(index)
+		local nextTime = GetNextTime(value.baseTime, index)
+		if timeLeft then
+			timeLeft = timeLeft / 60
+			if timeLeft < 60 then
+				r,g,b = 1, 0, 0
+			else
+				r,g,b = 0, 1, 0
+			end
+			GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+		end
+		if C['datatext']['Time24'] then
+			GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+		else
+			GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1)
+		end
+	end
 
 	if C.datatext.Localtime == true then
 		local Hr, Min = GetGameTime()
