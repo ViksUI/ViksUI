@@ -155,9 +155,7 @@ skin.panels = {
 	end,
 	
 	PetPanel = function(self)
-		self.List:StripTextures()
-		--self.List:SetTemplate("Transparent")
-		--T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
+		skin:HandleAutoScrollFrame(self.List)
 		-- top
 		self.Top:StripTextures()
 		self.Top.TypeBar:StripTextures()
@@ -336,14 +334,10 @@ skin.panels = {
 	end,
 
 	TeamPanel = function(self)
+		skin:HandleAutoScrollFrame(self.List)
 		self:StripTextures()
-		--self.List:StripTextures()
-		--self.List:SetTemplate("Transparent")
-		--T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
-
 		self.Top:StripTextures()
 		self.Top.Teams:SkinButton()
-		--self.Top.Toggle:SkinButton()
 		T.SkinEditBox(self.Top.SearchBox)
 		self.Top.SearchBox:SetBackdrop({})
 		for _,region in ipairs({self.Top.SearchBox:GetRegions()}) do
@@ -413,6 +407,7 @@ skin.panels = {
 	end,
 
 	MiniQueue = function(self)
+		skin:HandleAutoScrollFrame(self.List)
 		self.Top:StripTextures()
 		self.Top:SetTemplate("Transparent")
 		self.Top.QueueButton:SkinButton()
@@ -433,6 +428,7 @@ skin.panels = {
 	end,
 
 	QueuePanel = function(self)
+		skin:HandleAutoScrollFrame(self.List)
 		self.List:StripTextures()
 		self.List:SetTemplate("Transparent")
 		T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
@@ -508,6 +504,10 @@ skin.panels = {
 		T.SkinCheckBox(self.CustomScale.CheckButton)
 	end,
 ]]--
+	OptionPanel = function(self)
+		skin:HandleAutoScrollFrame(self.List)
+	end,
+	
 	TeamTabs = function(self)
 		hooksecurefunc(self,"Update",function(self)
 			if RematchSettings.TeamTabsToLeft and RematchSettings.AlwaysTeamTabs and self:GetParent()==Rematch.Frame then
@@ -731,6 +731,35 @@ function skin:HandlePanelTab(tab)
 		tab.backdrop:SetPoint("TOPLEFT", 10, -3)
 		tab.backdrop:SetPoint("BOTTOMRIGHT", -10, 3)
 	end
+end
+
+function skin:HandleAutoScrollFrame(listFrame)
+	if not listFrame then
+		return
+	end
+	listFrame:StripTextures()
+	listFrame.Background:StripTextures()
+
+	listFrame.ScrollFrame:StripTextures()
+	listFrame.ScrollFrame.ScrollBar:StripTextures()
+
+	local upButton = listFrame.ScrollFrame.ScrollBar.UpButton
+	T:HandleNextPrevButton(upButton, true, true)
+	upButton:SetSize(upButton:GetWidth()+7,upButton:GetHeight()+7)
+
+	local downButton = listFrame.ScrollFrame.ScrollBar.DownButton
+	T:HandleNextPrevButton(downButton, true, false)
+	downButton:SetSize(downButton:GetWidth()+7,downButton:GetHeight()+7)
+
+	local scrollBar = listFrame.ScrollFrame.ScrollBar
+	scrollBar:GetThumbTexture():SetTexture(nil)
+	if not thumbTrimY then thumbTrimY = 3 end
+	if not thumbTrimX then thumbTrimX = 2 end
+	scrollBar.thumbbg = CreateFrame("Frame", nil, scrollBar)
+	scrollBar.thumbbg:Point("TOPLEFT", scrollBar:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
+	scrollBar.thumbbg:Point("BOTTOMRIGHT", scrollBar:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
+	scrollBar.thumbbg:SetTemplate("Default", true, true)
+	--scrollBar.thumbbg.backdropTexture:SetVertexColor(0.6, 0.6, 0.6)
 end
 
 local f = CreateFrame("Frame")
