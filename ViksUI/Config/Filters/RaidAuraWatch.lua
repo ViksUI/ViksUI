@@ -327,6 +327,77 @@ T.RaidDebuffs = {
 	[SpellName(267430)] = 3, -- Torment
 	[SpellName(263235)] = 5, -- Blood Feast
 	[SpellName(270287)] = 3, -- Blighted Ground
+
+-----------------------------------------------------------------
+-- Battle of Dazar'alor Raid
+-----------------------------------------------------------------
+	-- Jaina
+	[SpellName(285253)] = 3, -- Ice Shard
+	[SpellName(287993)] = 3, -- Chilling Touch
+	[SpellName(287365)] = 3, -- Searing Pitch
+	[SpellName(288038)] = 3, -- Marked Target
+	[SpellName(285254)] = 3, -- Avalanche
+	[SpellName(287626)] = 3, -- Grasp of Frost
+	[SpellName(287490)] = 3, -- Frozen Solid
+	[SpellName(287199)] = 3, -- Ring of Ice
+	[SpellName(288392)] = 3, -- Vengeful Seas
+
+	-- Stormwall Blockade
+	[SpellName(284369)] = 3, -- Sea Storm
+	[SpellName(284410)] = 3, -- Tempting Song
+	[SpellName(284405)] = 3, -- Tempting Song
+	[SpellName(284121)] = 3, -- Thunderous Boom
+	[SpellName(286680)] = 3, -- Roiling Tides
+
+	-- Opulence
+	[SpellName(286501)] = 3, -- Creeping Blaze
+	[SpellName(283610)] = 3, -- Crush
+	[SpellName(289383)] = 3, -- Chaotic Displacement
+	[SpellName(285479)] = 3, -- Flame Jet
+	[SpellName(283063)] = 3, -- Flames of Punishment
+	[SpellName(283507)] = 3, -- Volatile Charge
+
+	-- King Rastakhan
+	[SpellName(284995)] = 3, -- Zombie Dust
+	[SpellName(285349)] = 3, -- Plague of Fire
+	[SpellName(285044)] = 3, -- Toad Toxin
+	[SpellName(284831)] = 3, -- Scorching Detonation
+	[SpellName(289858)] = 3, -- Crushed
+	[SpellName(284662)] = 3, -- Seal of Purification
+	[SpellName(284676)] = 3, -- Seal of Purification
+	[SpellName(285178)] = 3, -- Serpent's Breath
+	[SpellName(285010)] = 3, -- Poison Toad Slime
+
+	-- Jadefire Masters
+	[SpellName(282037)] = 3, -- Rising Flames
+	[SpellName(284374)] = 3, -- Magma Trap
+	[SpellName(285632)] = 3, -- Stalking
+	[SpellName(288151)] = 3, -- Tested
+	[SpellName(284089)] = 3, -- Successful Defense
+	[SpellName(286988)] = 3, -- Searing Embers
+
+	-- Mekkatorque
+	[SpellName(288806)] = 3, -- Gigavolt Blast
+	[SpellName(289023)] = 3, -- Enormous
+	[SpellName(286646)] = 3, -- Gigavolt Charge
+	[SpellName(288939)] = 3, -- Gigavolt Radiation
+	[SpellName(284168)] = 3, -- Shrunk
+	[SpellName(286516)] = 3, -- Anti-Tampering Shock
+	[SpellName(286480)] = 3, -- Anti-Tampering Shock
+	[SpellName(284214)] = 3, -- Trample
+
+	-- Conclave of the Chosen
+	[SpellName(284663)] = 3, -- Bwonsamdi's Wrath
+	[SpellName(282444)] = 3, -- Lacerating Claws
+	[SpellName(282592)] = 3, -- Bleeding Wounds
+	[SpellName(282209)] = 3, -- Mark of Prey
+	[SpellName(285879)] = 3, -- Mind Wipe
+	[SpellName(282135)] = 3, -- Crawling Hex
+	[SpellName(286060)] = 3, -- Cry of the Fallen
+	[SpellName(282447)] = 3, -- Kimbul's Wrath
+	[SpellName(282834)] = 3, -- Kimbul's Wrath
+	[SpellName(286811)] = 3, -- Akunda's Wrath
+	[SpellName(286838)] = 3, -- Static Orb
 }
 -----------------------------------------------------------------
 -- PvP
