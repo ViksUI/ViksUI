@@ -276,6 +276,11 @@ function Stuffing:SlotUpdate(b)
 		end
 	end
 
+	if IsAddOnLoaded("CanIMogIt") then
+		CIMI_AddToFrame(b.frame, ContainerFrameItemButton_CIMIUpdateIcon)
+		ContainerFrameItemButton_CIMIUpdateIcon(b.frame.CanIMogItOverlay)
+	end
+
 	if clink then
 		b.name, _, _, b.itemlevel, b.level, _, _, _, _, _, _, b.itemClassID, b.itemSubClassID = GetItemInfo(clink)
 		if not b.name then	-- Keystone bug
@@ -466,6 +471,7 @@ function CreateReagentContainer()
 		LastButton = button
 	end
 	Reagent:SetHeight(((C.bag.button_size + C.bag.button_space) * (NumRows + 1) + 40) - C.bag.button_space)
+	
 	MoneyFrame_Update(ReagentBankFrame.UnlockInfo.CostMoneyFrame, GetReagentBankCost())
 	ReagentBankFrameUnlockInfo:StripTextures()
 	ReagentBankFrameUnlockInfo:SetAllPoints(Reagent)
@@ -482,6 +488,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 	end
 
 	local ret = {}
+	
 	if slot > 3 then
 		ret.slot = slot
 		slot = slot - 4
@@ -498,6 +505,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
 			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
 		end)
+		
 		table.insert(self.bagframe_buttons, ret)
 
 		BankFrameItemButton_Update(ret.frame)
@@ -505,6 +513,12 @@ function Stuffing:BagFrameSlotNew(p, slot)
 
 		if not ret.frame.tooltipText then
 			ret.frame.tooltipText = ""
+		end
+
+		if slot > GetNumBankSlots() then
+			SetItemButtonTextureVertexColor(ret.frame, 1.0, 0.1, 0.1)
+		else
+			SetItemButtonTextureVertexColor(ret.frame, 1.0, 1.0, 1.0)
 		end
 	else
 		ret.frame = CreateFrame("CheckButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
@@ -764,6 +778,7 @@ function Stuffing:CreateBagFrame(w)
 		f.b_reagent.text:SetPoint("CENTER")
 		f.b_reagent.text:SetText(REAGENT_BANK)
 		f.b_reagent:SetFontString(f.b_reagent.text)
+		
 		-- Buy button
 		f.b_purchase = CreateFrame("Button", "StuffingPurchaseButton"..w, f)
 		f.b_purchase:SetSize(80, 20)
@@ -799,7 +814,20 @@ function Stuffing:CreateBagFrame(w)
 		end
 		self:GetParent():Hide()
 	end)
-	
+
+	local tooltip_hide = function()
+		GameTooltip:Hide()
+	end
+
+	local tooltip_show = function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT", 19, 7)
+		GameTooltip:ClearLines()
+		GameTooltip:SetText(L_BAG_RIGHT_CLICK_CLOSE)
+	end
+
+	f.b_close:HookScript("OnEnter", tooltip_show)
+	f.b_close:HookScript("OnLeave", tooltip_hide)
+
 	-- Create the bags frame
 	local fb = CreateFrame("Frame", n.."BagsFrame", f)
 	fb:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 3)
@@ -1328,6 +1356,7 @@ function Stuffing:BANKFRAME_OPENED()
 	if not self.bankFrame then
 		self:InitBank()
 	end
+	
 	self:Layout(true)
 	for _, x in ipairs(BAGS_BANK) do
 		self:BagSlotUpdate(x)
@@ -1382,6 +1411,7 @@ function Stuffing:BAG_CLOSED(id)
 			break
 		end
 	end
+	Stuffing_Close()
 end
 
 function Stuffing:BAG_UPDATE_COOLDOWN()
@@ -1609,11 +1639,23 @@ end
 
 function Stuffing:PLAYERBANKBAGSLOTS_CHANGED()
 	if not StuffingPurchaseButtonBank then return end
-	local _, full = GetNumBankSlots()
+	local numSlots, full = GetNumBankSlots()
 	if full then
 		StuffingPurchaseButtonBank:Hide()
 	else
 		StuffingPurchaseButtonBank:Show()
+	end
+
+	local button
+	for i = 1, NUM_BANKBAGSLOTS, 1 do
+		button = _G["StuffingBBag"..i.."Slot"]
+		if button then
+			if i <= numSlots then
+				SetItemButtonTextureVertexColor(button, 1.0, 1.0, 1.0)
+			else
+				SetItemButtonTextureVertexColor(button, 1.0, 0.1, 0.1)
+			end
+		end
 	end
 end
 
