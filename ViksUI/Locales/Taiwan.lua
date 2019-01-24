@@ -1,6 +1,119 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 if T.client ~= "zhTW" then return end
 
+------------------------------------------------
+L.DataText = {} -- Data Text Locales  -- Needs review
+------------------------------------------------
+
+L.DataText.LootSpec = "Loot Specialization"
+L.DataText.Garrison = "Garrison"
+L.DataText.Zone = "Zone"
+L.DataText.AvoidanceBreakdown = "Avoidance Breakdown"
+L.DataText.Level = "Lvl"
+L.DataText.Boss = "Boss"
+L.DataText.Miss = "Miss"
+L.DataText.Dodge = "Dodge"
+L.DataText.Block = "Block"
+L.DataText.Parry = "Parry"
+L.DataText.Avoidance = "Avoidance"
+L.DataText.AvoidanceShort = "Avd: "
+L.DataText.Memory = "Memory"
+L.DataText.Hit = "Hit"
+L.DataText.Power = "Power"
+L.DataText.Mastery = "Mastery"
+L.DataText.Crit = "Crit"
+L.DataText.Regen = "Regen"
+L.DataText.Versatility = "Versatility"
+L.DataText.Leech = "Leech"
+L.DataText.Multistrike = "Multistrike"
+L.DataText.Session = "Session: "
+L.DataText.Earned = "Earned:"
+L.DataText.Spent = "Spent:"
+L.DataText.Deficit = "Deficit:"
+L.DataText.Profit = "Profit:"
+L.DataText.Character = "Character: "
+L.DataText.Server = "Server: "
+L.DataText.Gold = "Gold"
+L.DataText.TotalGold = "Total: "
+L.DataText.GoldShort = "|cffffd700g|r"
+L.DataText.SilverShort = "|cffc7c7cfs|r"
+L.DataText.CopperShort = "|cffeda55fc|r"
+L.DataText.Talents = "Talents"
+L.DataText.NoTalent = "No Talents"
+L.DataText.Download = "Download: "
+L.DataText.Bandwidth = "Bandwidth: "
+L.DataText.Guild = "Guild"
+L.DataText.NoGuild = "No Guild"
+L.DataText.Bags = "Bags"
+L.DataText.BagSlots = "Bags Slots"
+L.DataText.Friends = "Friends"
+L.DataText.Online = "Online: "
+L.DataText.Armor = "Armor"
+L.DataText.Durability = "Durability"
+L.DataText.TimeTo = "Time to"
+L.DataText.FriendsList = "Friends list:"
+L.DataText.Spell = "SP"
+L.DataText.AttackPower = "AP"
+L.DataText.Haste = "Haste"
+L.DataText.DPS = "DPS"
+L.DataText.HPS = "HPS"
+L.DataText.Session = "Session: "
+L.DataText.Character = "Character: "
+L.DataText.Server = "Server: "
+L.DataText.Total = "Total: "
+L.DataText.SavedRaid = "Saved Raid(s)"
+L.DataText.Currency = "Currency"
+L.DataText.FPS = "FPS &"
+L.DataText.MS = "MS"
+L.DataText.FPSAndMS = "FPS & MS"
+L.DataText.Critical = " Crit"
+L.DataText.Heal = " Heal"
+L.DataText.Time = "Time"
+L.DataText.ServerTime = "Server Time: "
+L.DataText.LocalTime = "Local Time: "
+L.DataText.Mitigation = "Mitigation By Level: "
+L.DataText.Healing = "Healing: "
+L.DataText.Damage = "Damage: "
+L.DataText.Honor = "Honor: "
+L.DataText.KillingBlow = "Killing Blows: "
+L.DataText.StatsFor = "Stats for "
+L.DataText.HonorableKill = "Honorable Kills:"
+L.DataText.Death = "Deaths:"
+L.DataText.HonorGained = "Honor Gained:"
+L.DataText.DamageDone = "Damage Done:"
+L.DataText.HealingDone = "Healing Done:"
+L.DataText.BaseAssault = "Bases Assaulted:"
+L.DataText.BaseDefend = "Bases Defended:"
+L.DataText.TowerAssault = "Towers Assaulted:"
+L.DataText.TowerDefend = "Towers Defended:"
+L.DataText.FlagCapture = "Flags Captured:"
+L.DataText.FlagReturn = "Flags Returned:"
+L.DataText.GraveyardAssault = "Graveyards Assaulted:"
+L.DataText.GraveyardDefend = "Graveyards Defended:"
+L.DataText.DemolisherDestroy = "Demolishers Destroyed:"
+L.DataText.GateDestroy = "Gates Destroyed:"
+L.DataText.TotalMemory = "Total Memory Usage:"
+L.DataText.ControlBy = "Controlled by:"
+L.DataText.CallToArms = "Call to Arms"
+L.DataText.ArmError = "Could not get Call To Arms information."
+L.DataText.NoDungeonArm = "No dungeons are currently offering a Call To Arms."
+L.DataText.CartControl = "Carts Controlled:"
+L.DataText.VictoryPts = "Victory Points:"
+L.DataText.OrbPossession = "Orb Possessions:"
+L.DataText.Slots = {
+	[1] = {1, "Head", 1000},
+	[2] = {3, "Shoulder", 1000},
+	[3] = {5, "Chest", 1000},
+	[4] = {6, "Waist", 1000},
+	[5] = {9, "Wrist", 1000},
+	[6] = {10, "Hands", 1000},
+	[7] = {7, "Legs", 1000},
+	[8] = {8, "Feet", 1000},
+	[9] = {16, "Main Hand", 1000},
+	[10] = {17, "Off Hand", 1000},
+	[11] = {18, "Ranged", 1000}
+}
+
 ----------------------------------------------------------------------------------------
 --	Localization for zhTW client
 --	Translation: Aelb, Ianchan, Leg883, Mania, Nanjiqq, Spacedragon, Tat2dawn, Tibles
@@ -50,7 +163,7 @@ L_MISC_BUY_STACK = "Alt+右鍵點擊購買一疊"
 L_MISC_ONECLICK_BUYOUT = "Shift+右鍵,不彈出確認窗口直接購買"
 L_MISC_ONECLICK_BID = "Shift+右鍵,不彈出確認窗口直接競標"
 L_MISC_ONECLICK_CANCEL = "Shift+右鍵,不彈出確認窗口直接取消選擇的物品"
-L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 https://discord.gg/ZnGcJmZ 下載最新版"
+L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 http://goo.gl/QAj0J6 下載最新版"
 L_MISC_HEADER_MARK = "鼠標懸停顯示團隊圖標"
 L_MISC_BINDER_OPEN = "鼠標綁定"
 L_MISC_GROCERY_BUY = "購買"
@@ -91,13 +204,13 @@ L_UF_MANA = "低法力"
 L_MAP_CURSOR = "鼠標: "
 L_MAP_BOUNDS = "超出範圍"
 L_MAP_FOG = "地圖全亮"
+L_MAP_COORDS = "Coordinates" -- Needs review
 
 -- Minimap
 L_MINIMAP_CALENDAR = "日曆"
 L_MINIMAP_HEAL_LAYOUT = "左鍵 - HPS 佈局"
 L_MINIMAP_DPS_LAYOUT = "右鍵 - DPS 佈局"
 L_MINIMAP_BLIZZ_LAYOUT = "中鍵 - 默認 佈局"
-L_MINIMAP_ARTIFACT = "Right click to use" -- Needs review
 
 -- Chat
 L_CHAT_WHISPER = "From"
@@ -122,9 +235,28 @@ L_CHAT_GONE_OFFLINE = "|cffff0000下線了|r."
 L_ERRORFRAME_L = "點擊查看錯誤"
 
 -- Bags
+L_BAG_BANK = "Bank"
+L_BAG_NO_SLOTS = "Can't buy anymore slots!"
+L_BAG_COSTS = "Cost: %.2f gold"
+L_BAG_BUY_SLOTS = "Buy new slot with /bags purchase yes"
+L_BAG_OPEN_BANK = "You need to open your bank first."
+L_BAG_SORT = "Sort your bags or your bank, if open."
+L_BAG_STACK = "Fill up partial stacks in your bags or bank, if open."
+L_BAG_BUY_BANKS_SLOT = "Buy bank slot (need to have bank open)."
+L_BAG_SORT_MENU = "Sort"
+L_BAG_SORT_SPECIAL = "Sort Special"
+L_BAG_STACK_MENU = "Stack"
+L_BAG_STACK_SPECIAL = "Stack Special"
 L_BAG_SHOW_BAGS = "顯示背包"
+L_BAG_SORTING_BAGS = "Sorting finished."
+L_BAG_NOTHING_SORT = "Nothing to sort."
+L_BAG_BAGS_BIDS = "Using bags: "
+L_BAG_STACK_END = "Restacking finished."
 L_BAG_RIGHT_CLICK_SEARCH = "點擊右鍵以搜尋物品"
 L_BAG_STACK_MENU = "堆疊"
+L_BAG_BUTTONS_DEPOSIT = "Deposit Reagents"
+L_BAG_BUTTONS_SORT = "LM:Cleanup / RM:Blizzard"
+L_BAG_BUTTONS_ARTIFACT = "Right click to use Artifact Power item in bag"
 L_BAG_RIGHT_CLICK_CLOSE = "右鍵點擊打開菜單"
 
 -- Grab mail
@@ -168,21 +300,6 @@ L_BIND_BINDING = "綁定"
 L_BIND_KEY = "按鍵"
 L_BIND_NO_SET = "沒有綁定快捷鍵"
 
--- BG stats
-L_DATATEXT_BASESASSAULTED = "基地突襲:"
-L_DATATEXT_BASESDEFENDED = "基地防禦:"
-L_DATATEXT_TOWERSASSAULTED = "哨塔突襲:"
-L_DATATEXT_TOWERSDEFENDED = "哨塔防禦:"
-L_DATATEXT_FLAGSCAPTURED = "佔領旗幟:"
-L_DATATEXT_FLAGSRETURNED = "交還旗幟:"
-L_DATATEXT_GRAVEYARDSASSAULTED = "墓地突襲:"
-L_DATATEXT_GRAVEYARDSDEFENDED = "墓地防守:"
-L_DATATEXT_DEMOLISHERSDESTROYED = "石毀車摧毀:"
-L_DATATEXT_GATESDESTROYED = "大門摧毀:"
-L_DATATEXT_ORB_POSSESSIONS = "珠寶財務:"
-L_DATATEXT_VICTORY_POINTS = "勝利點數:"
-L_DATATEXT_CARTS_CONTROLLED = "車輛控制:"
-
 -- Info text
 L_INFO_ERRORS = "目前沒有錯誤"
 L_INFO_INVITE = "接受邀請 "
@@ -194,6 +311,9 @@ L_INFO_SETTINGS_DXE = "鍵入 /settings dxe, 載入 DXE 的設定"
 L_INFO_SETTINGS_MSBT = "鍵入 /settings msbt, 載入 MSBT 的設定"
 L_INFO_SETTINGS_SKADA = "鍵入 /settings skada, 載入 Skada 的設定"
 L_INFO_SETTINGS_ALL = "鍵入 /settings all, 載入所有UI設定"
+L_INFO_SETTINGS_CHAT = "Type /settings chat, to apply the default chat settings."
+L_INFO_SETTINGS_CVAR = "Type /settings cvar, to apply the default cvar(Game UI) settings."
+L_INFO_SETTINGS_ALL = "Type /settings all, to apply the settings for all modifications."
 L_INFO_NOT_INSTALLED = " 沒有安裝"
 L_INFO_SKIN_DISABLED1 = "介面樣式啟用"
 L_INFO_SKIN_DISABLED2 = " 已禁用"
@@ -214,7 +334,7 @@ L_POPUP_CURRENCY_CAP = "您擁有的最高級貨幣為"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "歡迎使用ViksUI "
-L_WELCOME_LINE_2_1 = "輸入/cfg進行UI設置,或者訪問https://discord.gg/ZnGcJmZ"
+L_WELCOME_LINE_2_1 = "輸入/cfg進行UI設置,或者訪問https://discord.gg/Dhp5nHh"
 L_WELCOME_LINE_2_2 = "獲取更多信息"
 
 -- Combat text
@@ -242,6 +362,7 @@ L_STATS_BANDWIDTH = "寬頻:"
 L_STATS_DOWNLOAD = "下載:"
 L_STATS_CLEARED_JUNK = "清除自動販售例外名單列表"
 L_STATS_CLEAR_EXCEPTIONS = "清除例外名單列表"
+L_STATS_CURRENCY_PROFESSIONS_T = "Professions" -- Needs review
 L_STATS_CURRENCY_RAID = "Raid Seals" -- Needs review
 L_STATS_WORLD_MAP = "點擊開啟世界地圖"
 L_STATS_CURRENT_XP = "目前/升級所需 經驗值"
@@ -253,6 +374,7 @@ L_STATS_VIEW_NOTES = "按住Alt鍵檢視公會成員階級/註記/幹部註記"
 L_STATS_HR = "小時"
 L_STATS_INF = "無限"
 L_STATS_ALREADY_EXCEPTIONS = "物品已在例外名單列表"
+L_STATS_NOT_JUNK = "is not junk."
 L_STATS_ITEMLINK = "物品鏈結"
 L_STATS_JUNK_EXCEPTIONS = "自動販售例外名單"
 L_STATS_JUNK_LIST = "自動販售列表"
@@ -330,101 +452,4 @@ L_SLASHCMD_HELP = {
 	"/ainv - 打開/關閉 自動接受公會/好友組隊邀請",
 	"/testuf - 測試頭像框體位置",
 	"/cfg - 打開介面設置面板",
-}
-
--- ExploreMap
-L_EXTRA_EXPLORED = "探索: "
-L_EXTRA_ZONEACHID = {
-	-- http://www.wowhead.com/achievement=*
-	-- e(X)plore achievement id, (Q)uest achievement id
-	["東部王國"]							= {X =   42, A =    0, H =    0},
-	["卡林多"]							= {X =   43, A =    0, H =    0},
-	["外域"]							= {X =   44, A =    0, H =    0},
-	["北裂境"]							= {X =   45, A =    0, H =    0},
-	["潘達利亞"]							= {X = 6974, A =    0, H =    0},
-	["世界地圖"]							= {X =  nil, A =    0, H =    0},
-	-- Eastern Kingdoms
-	["阿拉希高地"]						= {X =  761, A = 4896, H = 4896},
-	["荒蕪之地"]							= {X =  765, A = 4900, H = 4900},
-	["詛咒之地"]							= {X =  766, A = 4909, H = 4909},
-	["燃燒平原"]							= {X =  775, A = 4901, H = 4901},
-	["逆風小徑"]							= {X =  777, A =    0, H =    0},
-	["丹莫洛"]							= {X =  627, A =    0, H =    0},
-	["暮色森林"]							= {X =  778, A = 4903, H =    0},
-	["東瘟疫之地"]						= {X =  771, A = 4892, H = 4892},
-	["艾爾文森林"]						= {X =  776, A =    0, H =    0},
-	["永歌森林"]							= {X =  859, A =    0, H =    0},
-	["鬼魂之地"]							= {X =  858, A =    0, H = 4908},
-	["希爾斯布萊德丘陵"]					= {X =  772, A =    0, H = 4895},
-	["洛克莫丹"]							= {X =  779, A = 4899, H =    0},
-	["北荊棘谷"]							= {X =  781, A = 4906, H = 4906},
-	["赤脊山"]							= {X =  780, A = 4902, H =    0},
-	["灼熱峽谷"]							= {X =  774, A = 4910, H = 4910},
-	["銀松森林"]							= {X =  769, A =    0, H = 4894},
-	["悲傷沼澤"]							= {X =  782, A = 4904, H = 4904},
-	["荊棘谷海角"]						= {X = 4995, A = 4905, H = 4905},
-	["辛特蘭"]							= {X =  773, A = 4897, H = 4897},
-	["提里斯法林地"]						= {X =  768, A =    0, H =    0},
-	["西瘟疫之地"]						= {X =  770, A = 4893, H = 4893},
-	["西部荒野"]							= {X =  802, A = 4903, H =    0},
-	["濕地"]							= {X =  841, A = 4899, H =    0},
-	-- Kalimdor
-	["梣谷"]							= {X =  845, A = 4925, H = 4976},
-	["艾薩拉"]							= {X =  852, A =    0, H = 4927},
-	["藍謎島"]							= {X =  860, A =    0, H =    0},
-	["血謎島"]							= {X =  861, A = 4926, H = 4926},
-	["黑海岸"]							= {X =  844, A = 4928, H = 4928},
-	["淒涼之地"]							= {X =  848, A = 4930, H = 4930},
-	["杜洛塔"]							= {X =  728, A =    0, H =    0},
-	["塵泥沼澤"]							= {X =  850, A = 4929, H = 4978},
-	["費伍德森林"]						= {X =  853, A = 4931, H = 4931},
-	["菲拉斯"]							= {X =  849, A = 4932, H = 4979},
-	["月光林地"]							= {X =  855, A =    0, H =    0},
-	["莫高雷"]							= {X =  736, A =    0, H =    0},
-	["北貧瘠之地"]						= {X =  750, A =    0, H = 4933},
-	["希利蘇斯"]							= {X =  856, A = 4934, H = 4934},
-	["南貧瘠之地"]						= {X = 4996, A = 4937, H = 4981},
-	["石爪山脈"]							= {X =  847, A = 4936, H = 4980},
-	["塔納利斯"]							= {X =  851, A = 4935, H = 4935},
-	["泰達希爾"]							= {X =  842, A =    0, H =    0},
-	["千針石林"]							= {X =  846, A = 4938, H = 4938},
-	["安戈洛環形山"]						= {X =  854, A = 4939, H = 4939},
-	["冬泉谷"]							= {X =  857, A = 4940, H = 4940},
-	-- Outland
-	["劍刃山脈"]							= {X =  865, A = 1193, H = 1193},
-	["地獄火半島"]						= {X =  862, A = 1189, H = 1271},
-	["納葛蘭"]							= {X =  866, A = 1192, H = 1273},
-	["虛空風暴"]							= {X =  843, A = 1194, H = 1194},
-	["影月谷"]							= {X =  864, A = 1195, H = 1195},
-	["泰洛卡森林"]						= {X =  867, A = 1191, H = 1272},
-	["贊格沼澤"]							= {X =  863, A = 1190, H = 1190},
-	-- Northrend
-	["北風凍原"]							= {X = 1264, A =   33, H = 1358},
-	["水晶之歌森林"]						= {X = 1457, A =    0, H =    0},
-	["龍骨荒野"]							= {X = 1265, A =   35, H = 1356},
-	["灰白之丘"]							= {X = 1266, A =   37, H = 1357},
-	["凜風峽灣"]							= {X = 1263, A =   34, H = 1356},
-	["寒冰皇冠"]							= {X = 1270, A =   40, H =   40},
-	["休拉薩盆地"]						= {X = 1268, A =   39, H =   39},
-	["風暴群山"]							= {X = 1269, A =   38, H =   38},
-	["祖爾德拉克"]						= {X = 1267, A =   36, H =   36},
-	-- Cataclysm
-	["地深之源"]							= {X = 4864, A = 4871, H = 4871},
-	["海加爾山"]							= {X = 4863, A = 4870, H = 4870},
-	["暮光高地"]							= {X = 4866, A = 4873, H = 5501},
-	["奧丹姆"]							= {X = 4865, A = 4872, H = 4872},
-	["瓦許伊爾"]							= {X = 4825, A = 4869, H = 4982},
-	["托巴拉德"]							= {X =    0, A = 4874, H = 4874},
-	["托巴拉德半島"]						= {X =    0, A = 4874, H = 4874},
-	-- Pandaria
-	["翠玉林"]							= {X = 6351, A = 6300, H = 6534},
-	["四風峽"]							= {X = 6969, A = 6301, H = 6301},
-	["崑萊峰"]							= {X = 6976, A = 6537, H = 6538},
-	["螳螂荒原"]							= {X = 6977, A = 6539, H = 6539},
-	["悚然荒野"]							= {X = 6978, A = 6540, H = 6540},
-	["恆春谷"]							= {X = 6979, A =    0, H =    0},
-	-- Boolean Explores
-	["奎爾達納斯之島"]					= {X =  868, A =    0, H =    0},
-	["安其拉: 沒落的王朝"]				= {X =    0, A =    0, H =    0},
-	["冬握湖"]							= {X =    0, A =    0, H =    0},
 }

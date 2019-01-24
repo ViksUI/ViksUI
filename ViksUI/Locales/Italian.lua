@@ -1,5 +1,117 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 if T.client ~= "itIT" then return end
+------------------------------------------------
+L.DataText = {} -- Data Text Locales  -- Needs review
+------------------------------------------------
+
+L.DataText.LootSpec = "Loot Specialization"
+L.DataText.Garrison = "Garrison"
+L.DataText.Zone = "Zone"
+L.DataText.AvoidanceBreakdown = "Avoidance Breakdown"
+L.DataText.Level = "Lvl"
+L.DataText.Boss = "Boss"
+L.DataText.Miss = "Miss"
+L.DataText.Dodge = "Dodge"
+L.DataText.Block = "Block"
+L.DataText.Parry = "Parry"
+L.DataText.Avoidance = "Avoidance"
+L.DataText.AvoidanceShort = "Avd: "
+L.DataText.Memory = "Memory"
+L.DataText.Hit = "Hit"
+L.DataText.Power = "Power"
+L.DataText.Mastery = "Mastery"
+L.DataText.Crit = "Crit"
+L.DataText.Regen = "Regen"
+L.DataText.Versatility = "Versatility"
+L.DataText.Leech = "Leech"
+L.DataText.Multistrike = "Multistrike"
+L.DataText.Session = "Session: "
+L.DataText.Earned = "Earned:"
+L.DataText.Spent = "Spent:"
+L.DataText.Deficit = "Deficit:"
+L.DataText.Profit = "Profit:"
+L.DataText.Character = "Character: "
+L.DataText.Server = "Server: "
+L.DataText.Gold = "Gold"
+L.DataText.TotalGold = "Total: "
+L.DataText.GoldShort = "|cffffd700g|r"
+L.DataText.SilverShort = "|cffc7c7cfs|r"
+L.DataText.CopperShort = "|cffeda55fc|r"
+L.DataText.Talents = "Talents"
+L.DataText.NoTalent = "No Talents"
+L.DataText.Download = "Download: "
+L.DataText.Bandwidth = "Bandwidth: "
+L.DataText.Guild = "Guild"
+L.DataText.NoGuild = "No Guild"
+L.DataText.Bags = "Bags"
+L.DataText.BagSlots = "Bags Slots"
+L.DataText.Friends = "Friends"
+L.DataText.Online = "Online: "
+L.DataText.Armor = "Armor"
+L.DataText.Durability = "Durability"
+L.DataText.TimeTo = "Time to"
+L.DataText.FriendsList = "Friends list:"
+L.DataText.Spell = "SP"
+L.DataText.AttackPower = "AP"
+L.DataText.Haste = "Haste"
+L.DataText.DPS = "DPS"
+L.DataText.HPS = "HPS"
+L.DataText.Session = "Session: "
+L.DataText.Character = "Character: "
+L.DataText.Server = "Server: "
+L.DataText.Total = "Total: "
+L.DataText.SavedRaid = "Saved Raid(s)"
+L.DataText.Currency = "Currency"
+L.DataText.FPS = "FPS &"
+L.DataText.MS = "MS"
+L.DataText.FPSAndMS = "FPS & MS"
+L.DataText.Critical = " Crit"
+L.DataText.Heal = " Heal"
+L.DataText.Time = "Time"
+L.DataText.ServerTime = "Server Time: "
+L.DataText.LocalTime = "Local Time: "
+L.DataText.Mitigation = "Mitigation By Level: "
+L.DataText.Healing = "Healing: "
+L.DataText.Damage = "Damage: "
+L.DataText.Honor = "Honor: "
+L.DataText.KillingBlow = "Killing Blows: "
+L.DataText.StatsFor = "Stats for "
+L.DataText.HonorableKill = "Honorable Kills:"
+L.DataText.Death = "Deaths:"
+L.DataText.HonorGained = "Honor Gained:"
+L.DataText.DamageDone = "Damage Done:"
+L.DataText.HealingDone = "Healing Done:"
+L.DataText.BaseAssault = "Bases Assaulted:"
+L.DataText.BaseDefend = "Bases Defended:"
+L.DataText.TowerAssault = "Towers Assaulted:"
+L.DataText.TowerDefend = "Towers Defended:"
+L.DataText.FlagCapture = "Flags Captured:"
+L.DataText.FlagReturn = "Flags Returned:"
+L.DataText.GraveyardAssault = "Graveyards Assaulted:"
+L.DataText.GraveyardDefend = "Graveyards Defended:"
+L.DataText.DemolisherDestroy = "Demolishers Destroyed:"
+L.DataText.GateDestroy = "Gates Destroyed:"
+L.DataText.TotalMemory = "Total Memory Usage:"
+L.DataText.ControlBy = "Controlled by:"
+L.DataText.CallToArms = "Call to Arms"
+L.DataText.ArmError = "Could not get Call To Arms information."
+L.DataText.NoDungeonArm = "No dungeons are currently offering a Call To Arms."
+L.DataText.CartControl = "Carts Controlled:"
+L.DataText.VictoryPts = "Victory Points:"
+L.DataText.OrbPossession = "Orb Possessions:"
+L.DataText.Slots = {
+	[1] = {1, "Head", 1000},
+	[2] = {3, "Shoulder", 1000},
+	[3] = {5, "Chest", 1000},
+	[4] = {6, "Waist", 1000},
+	[5] = {9, "Wrist", 1000},
+	[6] = {10, "Hands", 1000},
+	[7] = {7, "Legs", 1000},
+	[8] = {8, "Feet", 1000},
+	[9] = {16, "Main Hand", 1000},
+	[10] = {17, "Off Hand", 1000},
+	[11] = {18, "Ranged", 1000}
+}
 
 ----------------------------------------------------------------------------------------
 --	Localization for itIT client
@@ -50,13 +162,13 @@ L_MISC_BUY_STACK = "Alt + click per comprarne una pila"
 L_MISC_ONECLICK_BUYOUT = "Shift + click sul destro per comprare direttamente l'oggetto selezionato senza conferma"
 L_MISC_ONECLICK_BID = "Shift + click sul destro per fare una puntata sull'oggetto selezionato senza conferma"
 L_MISC_ONECLICK_CANCEL = "Shift + click sul destro per cancellare l'oggetto selezionato senza conferma"
-L_MISC_UI_OUTDATED = "La tua versione della ViksUI non è aggiornata: puoi scaricare la nuova versione da https://discord.gg/ZnGcJmZ."
+L_MISC_UI_OUTDATED = "La tua versione della ViksUI non è aggiornata: puoi scaricare la nuova versione da http://goo.gl/QAj0J6."
 L_MISC_HEADER_MARK = "Marchi d'incursione al passaggio del mouse"
 L_MISC_BINDER_OPEN = "Assegnazione pulsanti mouse"
 L_MISC_GROCERY_BUY = "Compra"
 L_MISC_GROCERY_DESC = "Compra automaticamente i sacchetti di alimenti"
 L_MISC_SCROLL = "Pergamena"
-L_MISC_COLLAPSE = "The Collapse" -- Need review
+L_MISC_COLLAPSE = "Il Crollo"
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Sciogli il gruppo"
@@ -69,7 +181,7 @@ L_ZONE_GILNEAS = "Battaglia per Gilneas"
 L_ZONE_ANCIENTDALARAN = "Cratere di Dalaran"
 
 -- WatchFrame Wowhead link
-L_WATCH_WOWHEAD_LINK = "Link a Wowhead"
+L_WATCH_WOWHEAD_LINK = "Collegamento a Wowhead"
 
 -- Toggle Menu
 L_TOGGLE_ADDON = "AddOn "
@@ -91,13 +203,13 @@ L_UF_MANA = "Poco mana"
 L_MAP_CURSOR = "Cursore: "
 L_MAP_BOUNDS = "Fuori i confini!"
 L_MAP_FOG = "Nebbia della guerra"
+L_MAP_COORDS = "Coordinate"
 
 -- Minimap
 L_MINIMAP_CALENDAR = "Calendario"
 L_MINIMAP_HEAL_LAYOUT = "Click-Sinistro - Disposizione da Guaritore"
 L_MINIMAP_DPS_LAYOUT = "Click-Destro - Disposizione d'Assaltatore"
 L_MINIMAP_BLIZZ_LAYOUT = "Click-Centrale - Disposizione Blizzard"
-L_MINIMAP_ARTIFACT = "Right click to use" -- Needs review
 
 -- Chat
 L_CHAT_WHISPER = "Da"
@@ -122,10 +234,29 @@ L_CHAT_GONE_OFFLINE = "si è |cffff0000disconnesso/a|r."
 L_ERRORFRAME_L = "Clicca per vedere gli errori."
 
 -- Bags
+L_BAG_BANK = "Bank"
+L_BAG_NO_SLOTS = "Can't buy anymore slots!"
+L_BAG_COSTS = "Cost: %.2f gold"
+L_BAG_BUY_SLOTS = "Buy new slot with /bags purchase yes"
+L_BAG_OPEN_BANK = "You need to open your bank first."
+L_BAG_SORT = "Sort your bags or your bank, if open."
+L_BAG_STACK = "Fill up partial stacks in your bags or bank, if open."
+L_BAG_BUY_BANKS_SLOT = "Buy bank slot (need to have bank open)."
+L_BAG_SORT_MENU = "Sort"
+L_BAG_SORT_SPECIAL = "Sort Special"
+L_BAG_STACK_MENU = "Stack"
+L_BAG_STACK_SPECIAL = "Stack Special"
 L_BAG_SHOW_BAGS = "Mostra le sacche"
+L_BAG_SORTING_BAGS = "Sorting finished."
+L_BAG_NOTHING_SORT = "Nothing to sort."
+L_BAG_BAGS_BIDS = "Using bags: "
+L_BAG_STACK_END = "Restacking finished."
 L_BAG_RIGHT_CLICK_SEARCH = "Clicca col destro per cercare"
 L_BAG_STACK_MENU = "Impila oggetti identici"
-L_BAG_RIGHT_CLICK_CLOSE = "Right-click to open menu" -- Need review
+L_BAG_BUTTONS_DEPOSIT = "Deposit Reagents"
+L_BAG_BUTTONS_SORT = "LM:Cleanup / RM:Blizzard"
+L_BAG_BUTTONS_ARTIFACT = "Right click to use Artifact Power item in bag"
+L_BAG_RIGHT_CLICK_CLOSE = "Clicca col destro per aprire il menu"
 
 -- Grab mail
 L_MAIL_STOPPED = "Interrotto, l'inventario è pieno."
@@ -151,9 +282,9 @@ L_PANELS_AFK_LCLICK = "Click sinistro = non più assente."
 
 -- Cooldowns
 L_COOLDOWNS = "RC: "
-L_COOLDOWNS_COMBATRESS = "CombatRess" -- Needs review
-L_COOLDOWNS_COMBATRESS_REMAINDER = "Combat resurrect: " -- Needs review
-L_COOLDOWNS_NEXTTIME = "Next time: " -- Needs review
+L_COOLDOWNS_COMBATRESS = "Resurrezione in Combattimento"
+L_COOLDOWNS_COMBATRESS_REMAINDER = "Resurrezione in combattimento: "
+L_COOLDOWNS_NEXTTIME = "Tempi di ricarica: "
 
 -- Autoinvite
 L_INVITE_ENABLE = "Invito automatico attivato: "
@@ -168,21 +299,6 @@ L_BIND_BINDING = "Assegnazione"
 L_BIND_KEY = "Tasto"
 L_BIND_NO_SET = "Nessuna assegnazione impostata"
 
--- BG stats
-L_DATATEXT_BASESASSAULTED = "Basi assaltate:"
-L_DATATEXT_BASESDEFENDED = "Basi difese:"
-L_DATATEXT_TOWERSASSAULTED = "Torri assaltate:"
-L_DATATEXT_TOWERSDEFENDED = "Torri difese:"
-L_DATATEXT_FLAGSCAPTURED = "Bandiere catturate:"
-L_DATATEXT_FLAGSRETURNED = "Bandiere recuperate:"
-L_DATATEXT_GRAVEYARDSASSAULTED = "Cimiteri assaltati:"
-L_DATATEXT_GRAVEYARDSDEFENDED = "Cimiteri difesi"
-L_DATATEXT_DEMOLISHERSDESTROYED = "Demolitori distrutti:"
-L_DATATEXT_GATESDESTROYED = "Cancelli distrutti:"
-L_DATATEXT_ORB_POSSESSIONS = "Diamanti posseduti:"
-L_DATATEXT_VICTORY_POINTS = "Punti vittoria:"
-L_DATATEXT_CARTS_CONTROLLED = "Carrelli controllati:"
-
 -- Info text
 L_INFO_ERRORS = "Nessun errore ancora."
 L_INFO_INVITE = "Accettato l'invito di "
@@ -194,6 +310,9 @@ L_INFO_SETTINGS_DXE = "Digita /settings dxe per applicare le impostazioni predef
 L_INFO_SETTINGS_MSBT = "Digita /settings msbt per applicare le impostazioni predefinite per MSBT."
 L_INFO_SETTINGS_SKADA = "Digita /settings skada per applicare le impostazioni predefinite per Skada."
 L_INFO_SETTINGS_ALL = "Digita /settings all, per applicare le impostazioni predefinite per tutte le AddOns."
+L_INFO_SETTINGS_CHAT = "Type /settings chat, to apply the default chat settings."
+L_INFO_SETTINGS_CVAR = "Type /settings cvar, to apply the default cvar(Game UI) settings."
+L_INFO_SETTINGS_ALL = "Type /settings all, to apply the settings for all modifications."
 L_INFO_NOT_INSTALLED = " non è installato."
 L_INFO_SKIN_DISABLED1 = "Restyling per "
 L_INFO_SKIN_DISABLED2 = " è disabilitato."
@@ -214,7 +333,7 @@ L_POPUP_CURRENCY_CAP = "Hai raggiunto il valore massimo di"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "Benvenuto/a in ViksUI "
-L_WELCOME_LINE_2_1 = "Digita /cfg per configurare l'interfaccia oppure visita https://discord.gg/ZnGcJmZ"
+L_WELCOME_LINE_2_1 = "Digita /cfg per configurare l'interfaccia oppure visita https://discord.gg/Dhp5nHh"
 L_WELCOME_LINE_2_2 = "per maggiori informazioni."
 
 -- Combat text
@@ -226,7 +345,7 @@ L_COMBATTEXT_TEST_ENABLED = "Modalità 'prova' del testo di combattimento abilit
 L_COMBATTEXT_TEST_USE_UNLOCK = "Digita /xct per sbloccare e quindi poter muovere e ridimensionare i riquadri del testo di combattimento."
 L_COMBATTEXT_TEST_USE_LOCK = "Digita /xct per bloccare i riquadri del testo di combattimento."
 L_COMBATTEXT_TEST_USE_TEST = "Digita /xct test per attivare la modalità 'prova' per il testo di combattimento."
-L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset to restore default positions." -- Need review
+L_COMBATTEXT_TEST_USE_RESET = "Digita /xct reset to ripristinare le posizioni predefinite."
 L_COMBATTEXT_POPUP = "Per poter salvare la posizione delle finestre del testo di combattimento è necessario riavviare la tua interfaccia utente."
 L_COMBATTEXT_UNSAVED = "La posizione delle finestre del testo di combattimento non è ancora stata salvata: non dimenticare di riavviare l'interfaccia utente."
 L_COMBATTEXT_UNLOCKED = "Testo di combattimento sbloccato."
@@ -242,7 +361,7 @@ L_STATS_BANDWIDTH = "Larghezza banda:"
 L_STATS_DOWNLOAD = "Download:"
 L_STATS_CLEARED_JUNK = "Lista eccezioni dell'elenco cianfrusaglie cancellata."
 L_STATS_CLEAR_EXCEPTIONS = "Cancella la lista eccezioni."
-L_STATS_CURRENCY_RAID = "Raid Seals" -- Needs review
+L_STATS_CURRENCY_RAID = "Sigilli d’incursione"
 L_STATS_WORLD_MAP = "Clicca per aprire la mappa del mondo."
 L_STATS_CURRENT_XP = "PE attuali/massimi"
 L_STATS_MEMORY_USAGE = "Utilizzo memoria interfaccia Blizzard:"
@@ -253,7 +372,8 @@ L_STATS_VIEW_NOTES = "Tieni premuto il tasto Alt per visualizzare ranghi, note e
 L_STATS_HR = "o"
 L_STATS_INF = "inf"
 L_STATS_ALREADY_EXCEPTIONS = "è già nell'elenco delle eccezioni."
-L_STATS_ITEMLINK = "Link all'oggetto"
+L_STATS_NOT_JUNK = "is not junk."
+L_STATS_ITEMLINK = "Collegamento all'oggetto"
 L_STATS_JUNK_EXCEPTIONS = "Eccezioni elenco cianfrusaglie"
 L_STATS_JUNK_LIST = "Elenco cianfrusaglie"
 L_STATS_JUNK_PROFIT = "Profitto vendita cianfrusaglie"
@@ -296,7 +416,7 @@ L_STATS_WATCH_CURRENCY = "Gli oggetti attualmente osservati nel pannello Valuta 
 L_STATS_WATCH_FACTIONS = "Fazioni sotto osservazione dal pannello delle fazioni del personaggio."
 L_STATS_TOOLTIP_TIME_PLAYED = "A livello massimo, un suggerimento mostrerà i dettagli su quanto tempo hai giocato con questo account."
 L_STATS_TOOLTIP_EXPERIENCE = "A livelli inferiori a quello massimo, un suggerimento mostrerà dettagli sull'esperienza."
-L_STATS_SEALS = "Seals this week" -- Needs review
+L_STATS_SEALS = "Sigilli in questa settimana"
 
 -- Slash commands
 L_SLASHCMD_HELP = {
@@ -315,12 +435,14 @@ L_SLASHCMD_HELP = {
 	"/frame - La descrizione non è pronta.",
 	"/farmmode - Incrementa le dimensioni della minimappa.",
 	"/moveui - Consenti lo spostamento degli elementi dell'interfaccia.",
+	"/moveui reset - Resets the movment done by /moveui.",
 	"/resetui - Ripristina le impostazioni generali iniziali.",
 	"/resetuf - Riporta i riquadri delle unità alla loro posizione originaria.",
 	"/resetconfig - Riporta le impostazioni della ViksUI_Config a quelle iniziali.",
 	"/resetstats - Riazzera le statistiche su oro e tempo di gioco.",
 	"/settings ADDON_NAME - Applica le impostazioni a MSBT, DBM, Skada o a tutte le AddOns.",
 	"/ls, /litestats - Comandi d'aiuto per LiteStats.",
+	"/bags - Managing for bags.",
 	"/xct - Gestione testo di combattimento.",
 	"/raidcd - Prova i recuperi d'incursione.",
 	"/enemycd - Prova i recuperi del nemico.",
@@ -330,101 +452,6 @@ L_SLASHCMD_HELP = {
 	"/ainv - Attiva gli inviti automatici.",
 	"/testuf - Prova i riquadri delle unità.",
 	"/cfg - Apri il pannello impostazioni interfaccia.",
-}
-
--- ExploreMap
-L_EXTRA_EXPLORED = "Esplorato/a: "
-L_EXTRA_ZONEACHID = {
-	-- http://www.wowhead.com/achievement=*
-	-- e(X)plore achievement id, (Q)uest achievement id
-	["Regni Orientali"]					= {X =   42, A =    0, H =    0},
-	["Kalimdor"]						= {X =   43, A =    0, H =    0},
-	["Terre Esterne"]					= {X =   44, A =    0, H =    0},
-	["Nordania"]						= {X =   45, A =    0, H =    0},
-	["Pandaria"]						= {X = 6974, A =    0, H =    0},
-	["Mappa del mondo"]					= {X =  nil, A =    0, H =    0},
-	-- Eastern Kingdoms
-	["Altipiani d'Arathi"]				= {X =  761, A = 4896, H = 4896},
-	["Maleterre"]						= {X =  765, A = 4900, H = 4900},
-	["Terre Devastate"]					= {X =  766, A = 4909, H = 4909},
-	["Steppe Ardenti"]					= {X =  775, A = 4901, H = 4901},
-	["Valico Ventomorto"]				= {X =  777, A =    0, H =    0},
-	["Dun Morogh"]						= {X =  627, A =    0, H =    0},
-	["Boscovespro"]						= {X =  778, A = 4903, H =    0},
-	["Terre Infette Orientali"]			= {X =  771, A = 4892, H = 4892},
-	["Foresta di Elwynn"]				= {X =  776, A =    0, H =    0},
-	["Boschi di Cantoeterno"]			= {X =  859, A =    0, H =    0},
-	["Terre Spettrali"]					= {X =  858, A =    0, H = 4908},
-	["Alture di Colletorto"]			= {X =  772, A =    0, H = 4895},
-	["Loch Modan"]						= {X =  779, A = 4899, H =    0},
-	["Rovotorto Settentrionale"]		= {X =  781, A = 4906, H = 4906},
-	["Montagne Crestarossa"]			= {X =  780, A = 4902, H =    0},
-	["Gorgia Rovente"]					= {X =  774, A = 4910, H = 4910},
-	["Selva Pinargento"]				= {X =  769, A =    0, H = 4894},
-	["Palude del Dolore"]				= {X =  782, A = 4904, H = 4904},
-	["Capo di Rovotorto"]				= {X = 4995, A = 4905, H = 4905},
-	["Entroterre"]						= {X =  773, A = 4897, H = 4897},
-	["Radure di Tirisfal"]				= {X =  768, A =    0, H =    0},
-	["Terre Infette Occidentali"]		= {X =  770, A = 4893, H = 4893},
-	["Marche Occidentali"]				= {X =  802, A = 4903, H =    0},
-	["Paludi Grigie"]					= {X =  841, A = 4899, H =    0},
-	-- Kalimdor
-	["Valtetra"]						= {X =  845, A = 4925, H = 4976},
-	["Azshara"]							= {X =  852, A =    0, H = 4927},
-	["Isola Brumazzurra"]				= {X =  860, A =    0, H =    0},
-	["Isola Brumacremisi"]				= {X =  861, A = 4926, H = 4926},
-	["Rivafosca"]						= {X =  844, A = 4928, H = 4928},
-	["Desolanda"]						= {X =  848, A = 4930, H = 4930},
-	["Durotar"]							= {X =  728, A =    0, H =    0},
-	["Acquemorte"]						= {X =  850, A = 4929, H = 4978},
-	["Vilbosco"]						= {X =  853, A = 4931, H = 4931},
-	["Feralas"]							= {X =  849, A = 4932, H = 4979},
-	["Radaluna"]						= {X =  855, A =    0, H =    0},
-	["Mulgore"]							= {X =  736, A =    0, H =    0},
-	["Savane Settentrionali"]			= {X =  750, A =    0, H = 4933},
-	["Silitus"]							= {X =  856, A = 4934, H = 4934},
-	["Savane Meridionali"]				= {X = 4996, A = 4937, H = 4981},
-	["Valle di Petrartiglio"]			= {X =  847, A = 4936, H = 4980},
-	["Tanaris"]							= {X =  851, A = 4935, H = 4935},
-	["Teldrassil"]						= {X =  842, A =    0, H =    0},
-	["Millepicchi"]						= {X =  846, A = 4938, H = 4938},
-	["Cratere di Un'Goro"]				= {X =  854, A = 4939, H = 4939},
-	["Fontefredda"]						= {X =  857, A = 4940, H = 4940},
-	-- Outland
-	["Montagne Spinaguzza"]				= {X =  865, A = 1193, H = 1193},
-	["Penisola del Fuoco Infernale"]	= {X =  862, A = 1189, H = 1271},
-	["Nagrand"]							= {X =  866, A = 1192, H = 1273},
-	["Landa Fatua"]						= {X =  843, A = 1194, H = 1194},
-	["Valle di Torvaluna"]				= {X =  864, A = 1195, H = 1195},
-	["Foresta di Terokk"]				= {X =  867, A = 1191, H = 1272},
-	["Paludi di Zangar"]				= {X =  863, A = 1190, H = 1190},
-	-- Northrend
-	["Tundra Boreale"]					= {X = 1264, A =   33, H = 1358},
-	["Foresta di Cristallo"]			= {X = 1457, A =    0, H =    0},
-	["Dracombra"]						= {X = 1265, A =   35, H = 1356},
-	["Colli Bradi"]						= {X = 1266, A =   37, H = 1357},
-	["Fiordo Echeggiante"]				= {X = 1263, A =   34, H = 1356},
-	["Corona di Ghiaccio"]				= {X = 1270, A =   40, H =   40},
-	["Bacino di Sholazar"]				= {X = 1268, A =   39, H =   39},
-	["Cime Tempestose"]					= {X = 1269, A =   38, H =   38},
-	["Zul'Drak"]						= {X = 1267, A =   36, H =   36},
-	-- Cataclysm
-	["Rocciafonda"]						= {X = 4864, A = 4871, H = 4871},
-	["Monte Hyjal"]						= {X = 4863, A = 4870, H = 4870},
-	["Alture del Crepuscolo"]			= {X = 4866, A = 4873, H = 5501},
-	["Uldum"]							= {X = 4865, A = 4872, H = 4872},
-	["Vashj'ir"]						= {X = 4825, A = 4869, H = 4982},
-	["Tol Barad"]						= {X =    0, A = 4874, H = 4874},
-	["Penisola di Tol Barad"]			= {X =    0, A = 4874, H = 4874},
-	-- Pandaria
-	["Foresta di Giada"]				= {X = 6351, A = 6300, H = 6534},
-	["Valle dei Quattro Venti"]			= {X = 6969, A = 6301, H = 6301},
-	["Massiccio del Kun-Lai"]			= {X = 6976, A = 6537, H = 6538},
-	["Steppe di Tong Long"]				= {X = 6977, A = 6539, H = 6539},
-	["Distese del Terrore"]				= {X = 6978, A = 6540, H = 6540},
-	["Vallata dell'Eterna Primavera"]	= {X = 6979, A =    0, H =    0},
-	-- Boolean Explores
-	["Isola di Quel'Danas"]				= {X =  868, A =    0, H =    0},
-	["Ahn'Qiraj: il Regno Perduto"]		= {X =    0, A =    0, H =    0},
-	["Lungoinverno"]					= {X =    0, A =    0, H =    0},
+	"/installui - Opens installer.",
+	"/vbt - Opens Bartender Select Profile.",
 }

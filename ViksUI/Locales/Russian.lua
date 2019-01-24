@@ -1,5 +1,117 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 if T.client ~= "ruRU" then return end
+------------------------------------------------
+L.DataText = {} -- Data Text Locales  -- Needs review
+------------------------------------------------
+
+L.DataText.LootSpec = "Loot Specialization"
+L.DataText.Garrison = "Garrison"
+L.DataText.Zone = "Zone"
+L.DataText.AvoidanceBreakdown = "Avoidance Breakdown"
+L.DataText.Level = "Lvl"
+L.DataText.Boss = "Boss"
+L.DataText.Miss = "Miss"
+L.DataText.Dodge = "Dodge"
+L.DataText.Block = "Block"
+L.DataText.Parry = "Parry"
+L.DataText.Avoidance = "Avoidance"
+L.DataText.AvoidanceShort = "Avd: "
+L.DataText.Memory = "Memory"
+L.DataText.Hit = "Hit"
+L.DataText.Power = "Power"
+L.DataText.Mastery = "Mastery"
+L.DataText.Crit = "Crit"
+L.DataText.Regen = "Regen"
+L.DataText.Versatility = "Versatility"
+L.DataText.Leech = "Leech"
+L.DataText.Multistrike = "Multistrike"
+L.DataText.Session = "Session: "
+L.DataText.Earned = "Earned:"
+L.DataText.Spent = "Spent:"
+L.DataText.Deficit = "Deficit:"
+L.DataText.Profit = "Profit:"
+L.DataText.Character = "Character: "
+L.DataText.Server = "Server: "
+L.DataText.Gold = "Gold"
+L.DataText.TotalGold = "Total: "
+L.DataText.GoldShort = "|cffffd700g|r"
+L.DataText.SilverShort = "|cffc7c7cfs|r"
+L.DataText.CopperShort = "|cffeda55fc|r"
+L.DataText.Talents = "Talents"
+L.DataText.NoTalent = "No Talents"
+L.DataText.Download = "Download: "
+L.DataText.Bandwidth = "Bandwidth: "
+L.DataText.Guild = "Guild"
+L.DataText.NoGuild = "No Guild"
+L.DataText.Bags = "Bags"
+L.DataText.BagSlots = "Bags Slots"
+L.DataText.Friends = "Friends"
+L.DataText.Online = "Online: "
+L.DataText.Armor = "Armor"
+L.DataText.Durability = "Durability"
+L.DataText.TimeTo = "Time to"
+L.DataText.FriendsList = "Friends list:"
+L.DataText.Spell = "SP"
+L.DataText.AttackPower = "AP"
+L.DataText.Haste = "Haste"
+L.DataText.DPS = "DPS"
+L.DataText.HPS = "HPS"
+L.DataText.Session = "Session: "
+L.DataText.Character = "Character: "
+L.DataText.Server = "Server: "
+L.DataText.Total = "Total: "
+L.DataText.SavedRaid = "Saved Raid(s)"
+L.DataText.Currency = "Currency"
+L.DataText.FPS = "FPS &"
+L.DataText.MS = "MS"
+L.DataText.FPSAndMS = "FPS & MS"
+L.DataText.Critical = " Crit"
+L.DataText.Heal = " Heal"
+L.DataText.Time = "Time"
+L.DataText.ServerTime = "Server Time: "
+L.DataText.LocalTime = "Local Time: "
+L.DataText.Mitigation = "Mitigation By Level: "
+L.DataText.Healing = "Healing: "
+L.DataText.Damage = "Damage: "
+L.DataText.Honor = "Honor: "
+L.DataText.KillingBlow = "Killing Blows: "
+L.DataText.StatsFor = "Stats for "
+L.DataText.HonorableKill = "Honorable Kills:"
+L.DataText.Death = "Deaths:"
+L.DataText.HonorGained = "Honor Gained:"
+L.DataText.DamageDone = "Damage Done:"
+L.DataText.HealingDone = "Healing Done:"
+L.DataText.BaseAssault = "Bases Assaulted:"
+L.DataText.BaseDefend = "Bases Defended:"
+L.DataText.TowerAssault = "Towers Assaulted:"
+L.DataText.TowerDefend = "Towers Defended:"
+L.DataText.FlagCapture = "Flags Captured:"
+L.DataText.FlagReturn = "Flags Returned:"
+L.DataText.GraveyardAssault = "Graveyards Assaulted:"
+L.DataText.GraveyardDefend = "Graveyards Defended:"
+L.DataText.DemolisherDestroy = "Demolishers Destroyed:"
+L.DataText.GateDestroy = "Gates Destroyed:"
+L.DataText.TotalMemory = "Total Memory Usage:"
+L.DataText.ControlBy = "Controlled by:"
+L.DataText.CallToArms = "Call to Arms"
+L.DataText.ArmError = "Could not get Call To Arms information."
+L.DataText.NoDungeonArm = "No dungeons are currently offering a Call To Arms."
+L.DataText.CartControl = "Carts Controlled:"
+L.DataText.VictoryPts = "Victory Points:"
+L.DataText.OrbPossession = "Orb Possessions:"
+L.DataText.Slots = {
+	[1] = {1, "Head", 1000},
+	[2] = {3, "Shoulder", 1000},
+	[3] = {5, "Chest", 1000},
+	[4] = {6, "Waist", 1000},
+	[5] = {9, "Wrist", 1000},
+	[6] = {10, "Hands", 1000},
+	[7] = {7, "Legs", 1000},
+	[8] = {8, "Feet", 1000},
+	[9] = {16, "Main Hand", 1000},
+	[10] = {17, "Off Hand", 1000},
+	[11] = {18, "Ranged", 1000}
+}
 
 ----------------------------------------------------------------------------------------
 --	Localization for ruRU client
@@ -50,7 +162,7 @@ L_MISC_BUY_STACK = "Зажмите Alt и щелкните мышью, чтоб�
 L_MISC_ONECLICK_BUYOUT = "Зажмите Shift и щелкните правой кнопкой мыши, чтобы выкупить выбранный предмет без подтверждения"
 L_MISC_ONECLICK_BID = "Зажмите Shift и щелкните правой кнопкой мыши, чтобы сделать ставку на выбранном предмете без подтверждения"
 L_MISC_ONECLICK_CANCEL = "Зажмите Shift и щелкните правой кнопкой мыши, чтобы отменить аукцион выбранного предмета без подтверждения"
-L_MISC_UI_OUTDATED = "Ваша версия ViksUI устарела. Вы можете скачать последнюю версию с https://discord.gg/ZnGcJmZ"
+L_MISC_UI_OUTDATED = "Ваша версия ViksUI устарела. Вы можете скачать последнюю версию с http://goo.gl/QAj0J6"
 L_MISC_HEADER_MARK = "Метки по наведению курсора"
 L_MISC_BINDER_OPEN = "Назначения мыши"
 L_MISC_GROCERY_BUY = "Купить"
@@ -91,13 +203,13 @@ L_UF_MANA = "Мало маны"
 L_MAP_CURSOR = "Курсор: "
 L_MAP_BOUNDS = "Вне карты!"
 L_MAP_FOG = "Туман войны"
+L_MAP_COORDS = "Координаты"
 
 -- Minimap
 L_MINIMAP_CALENDAR = "Календарь"
 L_MINIMAP_HEAL_LAYOUT = "Левый клик - Лекарь"
 L_MINIMAP_DPS_LAYOUT = "Правый клик - Боец"
 L_MINIMAP_BLIZZ_LAYOUT = "Средний клик - Blizzard"
-L_MINIMAP_ARTIFACT = "ПКМ - использовать"
 
 -- Chat
 L_CHAT_WHISPER = "От"
@@ -122,9 +234,28 @@ L_CHAT_GONE_OFFLINE = "|cffff0000выходит|r из игрового мира
 L_ERRORFRAME_L = "Щелкните, чтобы посмотреть ошибки."
 
 -- Bags
+L_BAG_BANK = "Bank"
+L_BAG_NO_SLOTS = "Can't buy anymore slots!"
+L_BAG_COSTS = "Cost: %.2f gold"
+L_BAG_BUY_SLOTS = "Buy new slot with /bags purchase yes"
+L_BAG_OPEN_BANK = "You need to open your bank first."
+L_BAG_SORT = "Sort your bags or your bank, if open."
+L_BAG_STACK = "Fill up partial stacks in your bags or bank, if open."
+L_BAG_BUY_BANKS_SLOT = "Buy bank slot (need to have bank open)."
+L_BAG_SORT_MENU = "Sort"
+L_BAG_SORT_SPECIAL = "Sort Special"
+L_BAG_STACK_MENU = "Stack"
+L_BAG_STACK_SPECIAL = "Stack Special"
 L_BAG_SHOW_BAGS = "Показать сумки"
+L_BAG_SORTING_BAGS = "Sorting finished."
+L_BAG_NOTHING_SORT = "Nothing to sort."
+L_BAG_BAGS_BIDS = "Using bags: "
+L_BAG_STACK_END = "Restacking finished."
 L_BAG_RIGHT_CLICK_SEARCH = "ПКМ для поиска"
 L_BAG_STACK_MENU = "Сложить"
+L_BAG_BUTTONS_DEPOSIT = "Deposit Reagents"
+L_BAG_BUTTONS_SORT = "LM:Cleanup / RM:Blizzard"
+L_BAG_BUTTONS_ARTIFACT = "Right click to use Artifact Power item in bag"
 L_BAG_RIGHT_CLICK_CLOSE = "ПКМ, чтобы открыть меню"
 
 -- Grab mail
@@ -168,21 +299,6 @@ L_BIND_BINDING = "Назначение"
 L_BIND_KEY = "Клавиша"
 L_BIND_NO_SET = "Не назначено"
 
--- BG stats
-L_DATATEXT_BASESASSAULTED = "Штурмы баз:"
-L_DATATEXT_BASESDEFENDED = "Оборона баз:"
-L_DATATEXT_TOWERSASSAULTED = "Штурмы башен:"
-L_DATATEXT_TOWERSDEFENDED = "Оборона башен:"
-L_DATATEXT_FLAGSCAPTURED = "Захваты флага:"
-L_DATATEXT_FLAGSRETURNED = "Возвраты флага:"
-L_DATATEXT_GRAVEYARDSASSAULTED = "Штурмы кладбищ:"
-L_DATATEXT_GRAVEYARDSDEFENDED = "Оборона кладбищ:"
-L_DATATEXT_DEMOLISHERSDESTROYED = "Разрушителей уничтожено:"
-L_DATATEXT_GATESDESTROYED = "Врат разрушено:"
-L_DATATEXT_ORB_POSSESSIONS = "Захваты сферы:"
-L_DATATEXT_VICTORY_POINTS = "Очки победы:"
-L_DATATEXT_CARTS_CONTROLLED = "Захваты вагонеток:"
-
 -- Info text
 L_INFO_ERRORS = "Ошибок не обнаружено."
 L_INFO_INVITE = "Приглашение принято от "
@@ -193,6 +309,8 @@ L_INFO_SETTINGS_DBM = "Введите /settings dbm, чтобы применит
 L_INFO_SETTINGS_DXE = "Введите /settings dxe, чтобы применить настройки DXE."
 L_INFO_SETTINGS_MSBT = "Введите /settings msbt, чтобы применить настройки MSBT."
 L_INFO_SETTINGS_SKADA = "Введите /settings skada, чтобы применить настройки Skada."
+L_INFO_SETTINGS_CHAT = "Type /settings chat, to apply the default chat settings."
+L_INFO_SETTINGS_CVAR = "Type /settings cvar, to apply the default cvar(Game UI) settings."
 L_INFO_SETTINGS_ALL = "Введите /settings all, чтобы применить настройки для всех модификаций."
 L_INFO_NOT_INSTALLED = " не установлен."
 L_INFO_SKIN_DISABLED1 = "Стилизация для "
@@ -214,7 +332,7 @@ L_POPUP_CURRENCY_CAP = "Вы набрали максимальное колич�
 
 -- Welcome message
 L_WELCOME_LINE_1 = "Добро пожаловать в ViksUI "
-L_WELCOME_LINE_2_1 = "Введите /cfg для входа в настройки интерфейса, или посетите страницу https://discord.gg/ZnGcJmZ"
+L_WELCOME_LINE_2_1 = "Введите /cfg для входа в настройки интерфейса, или посетите страницу https://discord.gg/Dhp5nHh"
 L_WELCOME_LINE_2_2 = "для получения дополнительной информации."
 
 -- Combat text
@@ -253,6 +371,7 @@ L_STATS_VIEW_NOTES = "Зажмите Alt для просмотра званий,
 L_STATS_HR = "ч"
 L_STATS_INF = "бесконечный"
 L_STATS_ALREADY_EXCEPTIONS = "Уже в списке автопродажи."
+L_STATS_NOT_JUNK = "is not junk."
 L_STATS_ITEMLINK = "Ссылка на предмет"
 L_STATS_JUNK_EXCEPTIONS = "Предметы для автопродажи"
 L_STATS_JUNK_LIST = "Список автопродажи"
@@ -330,101 +449,6 @@ L_SLASHCMD_HELP = {
 	"/ainv - Включение автоматического приглашения.",
 	"/testuf - Тест юнит фреймов.",
 	"/cfg - Открыть настройки интерфейса.",
-}
-
--- ExploreMap
-L_EXTRA_EXPLORED = "Исследовано: "
-L_EXTRA_ZONEACHID = {
-	-- http://www.wowhead.com/achievement=*
-	-- e(X)plore achievement id, (Q)uest achievement id
-	["Восточные королевства"]			= {X =   42, A =    0, H =    0},
-	["Калимдор"]						= {X =   43, A =    0, H =    0},
-	["Запределье"]						= {X =   44, A =    0, H =    0},
-	["Нордскол"]						= {X =   45, A =    0, H =    0},
-	["Пандария"]						= {X = 6974, A =    0, H =    0},
-	["Карта мира"]						= {X =  nil, A =    0, H =    0},
-	-- Eastern Kingdoms
-	["Нагорье Арати"]					= {X =  761, A = 4896, H = 4896},
-	["Бесплодные земли"]				= {X =  765, A = 4900, H = 4900},
-	["Выжженные земли"]					= {X =  766, A = 4909, H = 4909},
-	["Пылающие степи"]					= {X =  775, A = 4901, H = 4901},
-	["Перевал Мертвого Ветра"]			= {X =  777, A =    0, H =    0},
-	["Дун Морог"]						= {X =  627, A =    0, H =    0},
-	["Сумеречный лес"]					= {X =  778, A = 4903, H =    0},
-	["Восточные Чумные земли"]			= {X =  771, A = 4892, H = 4892},
-	["Элвиннский лес"]					= {X =  776, A =    0, H =    0},
-	["Леса Вечной Песни"]				= {X =  859, A =    0, H =    0},
-	["Призрачные земли"]				= {X =  858, A =    0, H = 4908},
-	["Предгорья Хилсбрада"]				= {X =  772, A =    0, H = 4895},
-	["Лок Модан"]						= {X =  779, A = 4899, H =    0},
-	["Северная Тернистая долина"]		= {X =  781, A = 4906, H = 4906},
-	["Красногорье"]						= {X =  780, A = 4902, H =    0},
-	["Тлеющее ущелье"]					= {X =  774, A = 4910, H = 4910},
-	["Серебряный бор"]					= {X =  769, A =    0, H = 4894},
-	["Болото Печали"]					= {X =  782, A = 4904, H = 4904},
-	["Мыс Тернистой долины"]			= {X = 4995, A = 4905, H = 4905},
-	["Внутренние земли"]				= {X =  773, A = 4897, H = 4897},
-	["Тирисфальские леса"]				= {X =  768, A =    0, H =    0},
-	["Западные Чумные земли"]			= {X =  770, A = 4893, H = 4893},
-	["Западный Край"]					= {X =  802, A = 4903, H =    0},
-	["Болотина"]						= {X =  841, A = 4899, H =    0},
-	-- Kalimdor
-	["Ясеневый лес"]					= {X =  845, A = 4925, H = 4976},
-	["Азшара"]							= {X =  852, A =    0, H = 4927},
-	["Остров Лазурной Дымки"]			= {X =  860, A =    0, H =    0},
-	["Остров Кровавой Дымки"]			= {X =  861, A = 4926, H = 4926},
-	["Темные берега"]					= {X =  844, A = 4928, H = 4928},
-	["Пустоши"]							= {X =  848, A = 4930, H = 4930},
-	["Дуротар"]							= {X =  728, A =    0, H =    0},
-	["Пылевые топи"]					= {X =  850, A = 4929, H = 4978},
-	["Оскверненный лес"]				= {X =  853, A = 4931, H = 4931},
-	["Фералас"]							= {X =  849, A = 4932, H = 4979},
-	["Лунная поляна"]					= {X =  855, A =    0, H =    0},
-	["Мулгор"]							= {X =  736, A =    0, H =    0},
-	["Северные Степи"]					= {X =  750, A =    0, H = 4933},
-	["Силитус"]							= {X =  856, A = 4934, H = 4934},
-	["Южные Степи"]						= {X = 4996, A = 4937, H = 4981},
-	["Когтистые горы"]					= {X =  847, A = 4936, H = 4980},
-	["Танарис"]							= {X =  851, A = 4935, H = 4935},
-	["Тельдрассил"]						= {X =  842, A =    0, H =    0},
-	["Тысяча Игл"]						= {X =  846, A = 4938, H = 4938},
-	["Кратер Ун'Горо"]					= {X =  854, A = 4939, H = 4939},
-	["Зимние Ключи"]					= {X =  857, A = 4940, H = 4940},
-	-- Outland
-	["Острогорье"]						= {X =  865, A = 1193, H = 1193},
-	["Полуостров Адского Пламени"]		= {X =  862, A = 1189, H = 1271},
-	["Награнд"]							= {X =  866, A = 1192, H = 1273},
-	["Пустоверть"]						= {X =  843, A = 1194, H = 1194},
-	["Долина Призрачной Луны"]			= {X =  864, A = 1195, H = 1195},
-	["Лес Тероккар"]					= {X =  867, A = 1191, H = 1272},
-	["Зангартопь"]						= {X =  863, A = 1190, H = 1190},
-	-- Northrend
-	["Борейская тундра"]				= {X = 1264, A =   33, H = 1358},
-	["Лес Хрустальной Песни"]			= {X = 1457, A =    0, H =    0},
-	["Драконий Погост"]					= {X = 1265, A =   35, H = 1356},
-	["Седые холмы"]						= {X = 1266, A =   37, H = 1357},
-	["Ревущий фьорд"]					= {X = 1263, A =   34, H = 1356},
-	["Ледяная Корона"]					= {X = 1270, A =   40, H =   40},
-	["Низина Шолазар"]					= {X = 1268, A =   39, H =   39},
-	["Грозовая Гряда"]					= {X = 1269, A =   38, H =   38},
-	["Зул'Драк"]						= {X = 1267, A =   36, H =   36},
-	-- Cataclysm
-	["Подземье"]						= {X = 4864, A = 4871, H = 4871},
-	["Хиджал"]							= {X = 4863, A = 4870, H = 4870},
-	["Сумеречное нагорье"]				= {X = 4866, A = 4873, H = 5501},
-	["Ульдум"]							= {X = 4865, A = 4872, H = 4872},
-	["Вайш'ир"]							= {X = 4825, A = 4869, H = 4982},
-	["Тол Барад"]						= {X =    0, A = 4874, H = 4874},
-	["Полуостров Тол Барад"]			= {X =    0, A = 4874, H = 4874},
-	-- Pandaria
-	["Нефритовый лес"]					= {X = 6351, A = 6300, H = 6534},
-	["Долина Четырех Ветров"]			= {X = 6969, A = 6301, H = 6301},
-	["Вершина Кунь-Лай"]				= {X = 6976, A = 6537, H = 6538},
-	["Танлунские степи"]				= {X = 6977, A = 6539, H = 6539},
-	["Жуткие пустоши"]					= {X = 6978, A = 6540, H = 6540},
-	["Вечноцветущий Дол"]				= {X = 6979, A =    0, H =    0},
-	-- Boolean Explores
-	["Остров Кель'Данас"]				= {X =  868, A =    0, H =    0},
-	["Ан'Кираж: Павшее Королевство"]	= {X =    0, A =    0, H =    0},
-	["Озеро Ледяных Оков"]				= {X =    0, A =    0, H =    0},
+	"/installui - Opens installer.",
+	"/vbt - Opens Bartender Select Profile.",
 }
