@@ -167,7 +167,7 @@ Stat:SetScript("OnEnter", function(self)
 
 	local c = 0
 	for i,q in ipairs({52840,52834,52835,52837,52839,52838}) do if (IsQuestFlaggedCompleted(q)) then c=c+1 end end
-	GameTooltip:AddDoubleLine( "Seals this week" .. ": ", c)
+	GameTooltip:AddDoubleLine( L_STATS_SEALS .. ": ", c)
 	
 	for index, value in ipairs(invIndex) do
 		title = false
