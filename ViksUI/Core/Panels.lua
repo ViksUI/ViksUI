@@ -412,6 +412,12 @@ EBarR:SetAlpha(pAlpha)
 RegisterStateDriver(SideBar, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(EBarL, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(EBarR, "visibility", "[petbattle] hide; show")
+
+if C.panels.HideABPanels == true then
+	EBarL:SetAlpha(0)
+	EBarR:SetAlpha(0)
+	SideBar:SetAlpha(0)
+end
 end
 ----------------------------------------------------------------------------------------
 --	Top panel
@@ -670,10 +676,7 @@ end
 --	Hide Panels behind actionbars
 ----------------------------------------------------------------------------------------
 if C.panels.HideABPanels == true then
-EBarL:SetAlpha(0)
-EBarR:SetAlpha(0)
 CPMAB:SetAlpha(0)
-SideBar:SetAlpha(0)
 RABar:SetAlpha(0)
 LABar:SetAlpha(0)
 end
