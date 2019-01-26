@@ -56,6 +56,7 @@ end)
 ----------------------------------------------------------------------------------------
 --	Collect garbage
 ----------------------------------------------------------------------------------------
+--[[
 local eventcount = 0
 local Garbage = CreateFrame("Frame")
 Garbage:RegisterAllEvents()
@@ -67,3 +68,4 @@ Garbage:SetScript("OnEvent", function(self, event)
 		eventcount = 0
 	end
 end)
+]]--

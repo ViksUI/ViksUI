@@ -348,6 +348,7 @@ T.RaidDebuffs = {
 	[SpellName(284405)] = 3, -- Tempting Song
 	[SpellName(284121)] = 3, -- Thunderous Boom
 	[SpellName(286680)] = 3, -- Roiling Tides
+	[SpellName(285000)] = 5, -- 
 
 	-- Opulence
 	[SpellName(286501)] = 3, -- Creeping Blaze
