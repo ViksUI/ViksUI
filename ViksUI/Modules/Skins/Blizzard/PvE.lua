@@ -89,12 +89,14 @@ local function LoadSkin()
 	T.SkinCheckBox(LFGListApplicationDialog.HealerButton.CheckButton)
 	T.SkinCheckBox(LFGListApplicationDialog.DamagerButton.CheckButton)
 
+	LFDQueueFrameRoleButtonTank.cover:Kill()
 	local scrollbars = {
 		"ScenarioQueueFrameSpecificScrollFrameScrollBar",
 		"LFGListApplicationViewerScrollFrameScrollBar",
 		"LFDQueueFrameSpecificListScrollFrameScrollBar",
 		"LFDQueueFrameRandomScrollFrameScrollBar",
-		"RaidFinderQueueFrameScrollFrameScrollBar"
+		"RaidFinderQueueFrameScrollFrameScrollBar",
+		"LFGListEntryCreationSearchScrollFrameScrollBar"
 	}
 
 	for _, scrollbar in pairs(scrollbars) do
@@ -322,7 +324,6 @@ local function LoadSkin()
 	end)
 
 	LFGListFrame.EntryCreation:StripTextures()
-	LFGListFrame.EntryCreation.Inset:StripTextures()
 	LFGListFrame.EntryCreation.Description:StripTextures()
 	LFGListApplicationDialogDescription:StripTextures()
 	LFGListInviteDialog:SetTemplate("Transparent")
@@ -345,6 +346,15 @@ local function LoadSkin()
 	T.SkinCheckBox(LFGListFrame.EntryCreation.PrivateGroup.CheckButton)
 	LFGListFrame.EntryCreation.ListGroupButton:SkinButton()
 	LFGListFrame.EntryCreation.CancelButton:SkinButton()
+
+	LFGListFrame.EntryCreation.ActivityFinder.Background:Kill()
+	LFGListFrame.EntryCreation.ActivityFinder.Dialog:StripTextures()
+	LFGListFrame.EntryCreation.ActivityFinder.Dialog:SetTemplate("Transparent")
+	LFGListFrame.EntryCreation.ActivityFinder.Dialog.BorderFrame:StripTextures()
+	LFGListFrame.EntryCreation.ActivityFinder.Dialog.BorderFrame:SetTemplate("Transparent")
+	T.SkinEditBox(LFGListFrame.EntryCreation.ActivityFinder.Dialog.EntryBox, 276, 17)
+	LFGListFrame.EntryCreation.ActivityFinder.Dialog.SelectButton:SkinButton()
+	LFGListFrame.EntryCreation.ActivityFinder.Dialog.CancelButton:SkinButton()
 
 	-- ApplicationViewer (Custom Groups)
 	LFGListFrame.ApplicationViewer.InfoBackground:SetTexCoord(0.1, 0.9, 0.1, 0.9)
