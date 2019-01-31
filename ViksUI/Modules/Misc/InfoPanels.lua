@@ -4,53 +4,53 @@ if C.misc.InfoPanel_Stats ~= true then return end
 -- Stats Panel with info from https://www.icy-veins.com - Credit to Wyr3d and Papasol for the idea
 ----------------------------------------------------------------------------------------
 local IcyVeinStats = {}
-IcyVeinStats["DEATHKNIGHT-250"] = "1.Str and Stam > 2.Haste > 3.Vers > 4.Mast > 5.Crit " --// Blood DK
-IcyVeinStats["DEATHKNIGHT-251"] = "1.Str > 2.Mast > 3.Crit > 4.Vers > 5.Haste" --// Frost DK
-IcyVeinStats["DEATHKNIGHT-252"] = "1.Str > 2.Haste > 3. Crit or Vers > 4.Mast" --// Unholy DK
+IcyVeinStats["DEATHKNIGHT-250"] = "ilvl > Vers > Haste > Mast > Crit" --// Blood DK
+IcyVeinStats["DEATHKNIGHT-251"] = "Str > Mast > Crit > Vers > Haste" --// Frost DK
+IcyVeinStats["DEATHKNIGHT-252"] = "Str > Haste > Crit = Vers > Mast" --// Unholy DK
 
-IcyVeinStats["DRUID-102"] = "1.Int > 2.Haste > 3.Crit > 4.Vers > 5.Mast" --// Boomkin Druid
-IcyVeinStats["DRUID-103"] = "1.Agi > 2.Haste > 3.Crit .Mast > 4.Vers" --// Feral Druid
-IcyVeinStats["DRUID-104"] = "1.Armor, Agil and Stam > 2.Vers > 3.Mast > 4.Haste .Crit" --// Bear Druid
-IcyVeinStats["DRUID-105"] = "|cFFFFFF00Raid:|r 1.Int > 2.Mast = Haste = Crit = Vers |cFFFFFF00Dung:|r 1.Mast = Haste > 2.Int > 3.Vers > 4.Crit" --// Restro Druid
+IcyVeinStats["DRUID-102"] = "Int > Haste > Mast > Crit > Vers" --// Boomkin Druid
+IcyVeinStats["DRUID-103"] = "Crit > Mast > Haste > Agil > Vers" --// Feral Druid
+IcyVeinStats["DRUID-104"] = "|cFFFFFF00Survival:|r Armor/Agil/Stam > Mast > Vers > Haste > Crit |cFFFFFF00Damage:|r Agil > Haste > Crit > Vers > Mast" --// Bear Druid
+IcyVeinStats["DRUID-105"] = "|cFFFFFF00Raid:|r Int > Haste/Crit/Vers > Mast|cFFFFFF00Dung:|r Mast = Haste > Int > Vers > Crit" --// Restro Druid
 
-IcyVeinStats["HUNTER-253"] = "|cFFFFFF00Single:|r 1.Agil > 2.Crit > 3.Mast > 4.Haste |cFFFFFF00Multi:|r 1.Agil > 2.Mast > 3.Haste > 4.Crit" --// Beast Master Hunter
-IcyVeinStats["HUNTER-254"] = "|cFFFFFF00Single:|r 1.Agil > 2.Haste > 3.Mast > 4.Vers |cFFFFFF00Multi:|r 1.Agil > 2.Mast > 3.Haste > 4.Crit" --// Marksman Hunter
-IcyVeinStats["HUNTER-255"] = "1.Agil > 2.Haste > 3.Crit > 4.Vers > 5.Mast" --// Survival Hunter
+IcyVeinStats["HUNTER-253"] = "|cFFFFFF00Single:|r Agil > Haste > Crit > Mast > Vers |cFFFFFF00Multi:|r Agil > Mast > Haste > Crit > Vers" --// Beast Master Hunter
+IcyVeinStats["HUNTER-254"] = "|cFFFFFF00Single:|r Agil > Mast > Haste> Crit > Vers |cFFFFFF00Multi:|r Agil > Mast > Crit > Vers > Haste" --// Marksman Hunter
+IcyVeinStats["HUNTER-255"] = "|cFFFFFF00Single:|r Agil > Haste > Crit > Vers > Mast |cFFFFFF00Multi:|r Agil > Haste > Crit > Vers > Mast" --// Survival Hunter
 
-IcyVeinStats["MAGE-62"] = "1.Int > 2.Crit > 3.Haste > 4.Mast > 5.Vers" --// Arcane Mage
-IcyVeinStats["MAGE-63"] = "1.Int > 2.Mast > 3.Vers > 4.Crit > 5.Haste" --// Fire Mage
-IcyVeinStats["MAGE-64"] = "1.Int > 2.Crit to 33% > 3.Haste > 4.Vers > 5.Mast > 6.Crit after 33%" --// Frost Mage
+IcyVeinStats["MAGE-62"] = "Int > Crit > Haste > Mast > Vers" --// Arcane Mage
+IcyVeinStats["MAGE-63"] = "Int > Mast > Vers > Hate > Crit" --// Fire Mage
+IcyVeinStats["MAGE-64"] = "Int > Crit to 33% > Haste > Vers > Mast > Crit after 33%" --// Frost Mage
 
-IcyVeinStats["MONK-268"] = "1.Agil > 2.Crit = Vers > 3.Mast > 4.Haste" --// Brewmaster Monk
-IcyVeinStats["MONK-269"] = "1.Weapon Dam > 2.Agi > 3.Vers > 4.Mast > 5.Crit > 6.Haste" --// Windwalker Monk
-IcyVeinStats["MONK-270"] = "|cFFFFFF00Raid:|r 1.Int > 2.Crit > 3.Vers > 4.Haste .Mast |cFFFFFF00Dung:|r 1.Int > 2.Haste = Mast > 3.Vers > 4.Crit" --// Mistweaver Monk
+IcyVeinStats["MONK-268"] = "Agil > Crit = Vers = Mast > Haste" --// Brewmaster Monk
+IcyVeinStats["MONK-269"] = "Weapon Dam > Agi > Vers > Mast > Crit > Haste" --// Windwalker Monk
+IcyVeinStats["MONK-270"] = "|cFFFFFF00Raid:|r Int > Crit > Mast = Vers > Haste |cFFFFFF00Dung:|r Int > Mast = Haste > Vers > Crit" --// Mistweaver Monk
 
-IcyVeinStats["PALADIN-65"] = "|cFFFFFF00Standard:|r 1.Int > 2.Crit > 3.Mast > 4.Haste |cFFFFFF00Avenging C:|r 1.Int > 2.Crit > 3.Haste > 4.Vers" --// Holy Paladin
-IcyVeinStats["PALADIN-66"] = "1.Str > 2.Haste > 3.Mast > 4.Vers > 5.Crit" --// Protection Paladin
-IcyVeinStats["PALADIN-70"] = "1.Str > 2.Haste > 3.Crit = Vers = Mast" --// Retribution Paladin
+IcyVeinStats["PALADIN-65"] = "|cFFFFFF00Standard:|r Int > Crit > Mast > Haste > Vers |cFFFFFF00Avenging C:|r Int > Crit > Haste > Vers > Mast" --// Holy Paladin
+IcyVeinStats["PALADIN-66"] = "Str > Haste > Mast > Vers > Crit" --// Protection Paladin
+IcyVeinStats["PALADIN-70"] = "Str > Haste > Crit = Vers = Mast" --// Retribution Paladin
 
-IcyVeinStats["PRIEST-256"] = "1.Int > 2.Haste > 3.Crit > 4.Mast > 5.Vers" --// Disc Priest
-IcyVeinStats["PRIEST-257"] = "|cFFFFFF00Raid:|r 1.Leech = Avoid > 2.Int .Mast > 3.Crit > 4.Haste |cFFFFFF00Dung:|r Leech = Avoid > 2.Int > 3.Haste > 4.Crit = Vers" --// Holy Priest
-IcyVeinStats["PRIEST-258"] = "1.Int > 2.Haste > 3.Crit > 4.Mast > 5.Vers" --// Shadow Priest
+IcyVeinStats["PRIEST-256"] = "Int > Haste > Crit > Mast > Vers" --// Disc Priest
+IcyVeinStats["PRIEST-257"] = "|cFFFFFF00Raid:|r (Leech = Avoid) > Int > Mast = Crit > Vers > Haste |cFFFFFF00Dung:|r (Leech = Avoid) > Int > Crit > Haste > Vers > Mast" --// Holy Priest
+IcyVeinStats["PRIEST-258"] = "Int > Haste = Crit > Mast > Vers" --// Shadow Priest
 
-IcyVeinStats["ROGUE-259"] = "1.Agi > 2.Haste > 3.Crit > 4.Mast > 5.Vers" --// Assassin Rogue
-IcyVeinStats["ROGUE-260"] = "1.Agil > 2.Vers = Haste > 3.Mast > 4.Crit" --// Outlaw Rogue
-IcyVeinStats["ROGUE-261"] = "1.Agil > 2.Crit .Mast > 3.Haste > 4.Vers" --// Subtley Rogue
+IcyVeinStats["ROGUE-259"] = "Agi > Haste > Crit > Mast > Vers" --// Assassin Rogue
+IcyVeinStats["ROGUE-260"] = "Agil > Haste > Vers > Crit > Mast" --// Outlaw Rogue
+IcyVeinStats["ROGUE-261"] = "Agil > Vers > Crit > Mast > Haste" --// Subtley Rogue
 
-IcyVeinStats["SHAMAN-262"] = "1.Int > 2.Crit > 3.Haste > 4.Vers > 5.Mast" --// Elemental Shaman
-IcyVeinStats["SHAMAN-263"] = "1.Agil > 2.Haste > 3.Crit = Vers > 4.Mast" --// Enhancement Shaman
-IcyVeinStats["SHAMAN-264"] = "|cFFFFFF00Raid:|r 1.Leech = Avoid > 2.Int > 3.Crit > 4.Vers |cFFFFFF00Dungeon:|r 1.Leech = Avoid > 2.Int > 3.Haste > 4.Crit = Vers" --// Restro Shaman
+IcyVeinStats["SHAMAN-262"] = "Int > Crit > Haste > Vers > Mast" --// Elemental Shaman
+IcyVeinStats["SHAMAN-263"] = "Agil > Haste > Crit = Vers > Mast" --// Enhancement Shaman
+IcyVeinStats["SHAMAN-264"] = "(Leech = Avoid) > Int > Crit > Vers > Haste = Mast"  --// Restro Shaman
 
-IcyVeinStats["WARLOCK-265"] = "1.Int > 2.Mast > 3.Haste > 4.Crit = Vers" --// Affliction Warlock
-IcyVeinStats["WARLOCK-266"] = "|cFFFFFF00Single Tar:|r 1.Int > 2.Haste > 3.Mast > 4.Crit > 5.Vers |cFFFFFF004+Tar:|r 1.Int > 2.Mast > 3.Haste = Crit > 4.Vers" --// Demonology Warlock
-IcyVeinStats["WARLOCK-267"] = "1.Int > 2.Crit = Haste > 3.Vers > 4.Mast" --// Destruction Warlock
+IcyVeinStats["WARLOCK-265"] = "Mast > Int > Haste > Crit = Vers" --// Affliction Warlock
+IcyVeinStats["WARLOCK-266"] = "Int > Haste > Crit > Vers > Mast" --// Demonology Warlock
+IcyVeinStats["WARLOCK-267"] = "Int > Haste > Crit = Mast > Vers" --// Destruction Warlock
 
-IcyVeinStats["WARRIOR-71"] = "1.Str > 2.Crit > 3.Haste > 4.Vers > 5.Mast" --// Arms Warrior
-IcyVeinStats["WARRIOR-72"] = "1.Str > 2.Haste > 3.Mast > 4.Vers > 5.Crit" --// Fury WARRIOR
-IcyVeinStats["WARRIOR-73"] = "1.Haste > 2.Vers = Mast > 3.Crit > 4.Str" --// Protection Warrior
+IcyVeinStats["WARRIOR-71"] = "Str > Haste > Crit > Mast > Vers" --// Arms Warrior
+IcyVeinStats["WARRIOR-72"] = "Str > Haste > Mast > Vers > Crit" --// Fury WARRIOR
+IcyVeinStats["WARRIOR-73"] = "Haste > Armor > Vers > Mast > Crit > Str" --// Protection Warrior
 
-IcyVeinStats["DEMONHUNTER-577"] = "1.Agil > 2.Haste = Vers > 3.Crit > 4.Mast" --// Havoc Demon Hunter
-IcyVeinStats["DEMONHUNTER-581"] = "1.Agi > 2.Haste > 3.Vers > 4.Mast > 5.Crit" --// Vengeance Demon Hunter
+IcyVeinStats["DEMONHUNTER-577"] = "Agi > Haste = Vers > Crit > Mast" --// Havoc Demon Hunter
+IcyVeinStats["DEMONHUNTER-581"] = "Agi > Haste > Vers > Mast > Crit" --// Vengeance Demon Hunter
 
 ViksUI_StatTable = IcyVeinStats
 
