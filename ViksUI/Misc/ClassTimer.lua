@@ -54,21 +54,8 @@ local TRINKET_FILTER = {
 	CreateSpellEntry(33702), CreateSpellEntry(33697), CreateSpellEntry(20572), -- Blood Fury (orc racial)
 	CreateSpellEntry(57933), -- Tricks of Trade (15% dmg buff)
 	CreateSpellEntry(121279), -- Lifeblood
-	CreateSpellEntry(96230), -- Synapse Springs
 	CreateSpellEntry(45861), -- Nitro Boost (Engeneering)
 	CreateSpellEntry(68992), -- Darkflight (Worgen Sprint Racial)
-
-	--[[Weaponenchants & Stuff]]--
-	CreateSpellEntry(159676, true), -- Mark of the Frostwolf
-	CreateSpellEntry(159675, true), -- Mark of Warsong
-	CreateSpellEntry(159234, true), -- Mark of the Thunderlord
-	CreateSpellEntry(159678, true), -- Mark of Shadowmoon
-	CreateSpellEntry(159679, true), -- Mark of Blackrock
-	CreateSpellEntry(173322, true), -- Mark of Bleeding Hollow
-	CreateSpellEntry(159238, true), -- Shattered Bleed
-	CreateSpellEntry(156060, true), -- Megawatt Filament
-	CreateSpellEntry(156055, true), -- Oglethorpe's Missile Splitter
-	CreateSpellEntry(173288, true), -- Hemet's Heartseeker
 
 	--[[Darkmoon-Trinkets]]--
 	CreateSpellEntry(162915), -- Spirit of the Warlords (Skull of War)
@@ -76,28 +63,6 @@ local TRINKET_FILTER = {
 	CreateSpellEntry(162919), -- Nightmare Fire (Sandman's Pouch)
 	CreateSpellEntry(162917), -- Strength of Steel (Knight's Badge)
 
-	--[[Legendary Rings]]--
-	CreateSpellEntry(177159), -- Archmage's Incandescence (Intellect)
-	CreateSpellEntry(177160), -- Archmage's Incandescence (Strength)
-	CreateSpellEntry(177161), -- Archmage's Incandescence (Agility)
-	CreateSpellEntry(177172), -- Archmage's Incandescence (Agility)
-	CreateSpellEntry(177175), -- Archmage's Incandescence (Strength)
-	CreateSpellEntry(177176), -- Archmage's Incandescence (Agility)
-	CreateSpellEntry(187619), -- Thorasus, the Stone Heart of Draenor (Strength-DD)
-	CreateSpellEntry(187617), -- Sanctus, Sigil of the Unbroken (Tank)
-	CreateSpellEntry(187620), -- Maalus, the Blood Drinker (Agility-DD)
-	CreateSpellEntry(187616), -- Nithramus, the All-Seer (Intellect-DD)
-	CreateSpellEntry(187618), -- Etheralus, the Eternal Reward (Healer)
-
-	--[[Hellfire Citadel]]--
-	CreateSpellEntry(183941), -- Hungering Blows
-	CreateSpellEntry(183926), -- Countenance of Tyranny
-	CreateSpellEntry(184073), -- Mark of Doom
-	CreateSpellEntry(184770), -- Tyrant's Immortality
-	CreateSpellEntry(184293), -- Spirit Shift
-	CreateSpellEntry(183929), -- Sudden Intuition
-	CreateSpellEntry(183931), -- Anzus Flight
-	CreateSpellEntry(183924), -- Sign of the Dark Star
 }
 
 local CLASS_FILTERS = {
@@ -425,6 +390,7 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(45438), -- Ice Block
 			CreateSpellEntry(108839), -- Ice Floes
 			CreateSpellEntry(116014), -- Rune of Power
+			CreateSpellEntry(116267), -- Incanter's Flow
 			-- Shared
 			CreateSpellEntry(32612), -- Invisibility
 			CreateSpellEntry(205025), -- Presence of Mind
@@ -533,7 +499,6 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(31935), -- Avenger's Shield
 			CreateSpellEntry(204242), -- Consecration
 			CreateSpellEntry(204301), -- Blessed Hammer
-			CreateSpellEntry(209202), -- Eye of Tyr
 			-- Retribution
 			CreateSpellEntry(183218), -- Hand of Hindrance
 			CreateSpellEntry(197277), -- Judgement
@@ -853,43 +818,62 @@ local CLASS_FILTERS = {
 		},
 	},
 	WARLOCK = {
-		target = {
-			CreateSpellEntry( 980 ), -- Bane of Agony
-			CreateSpellEntry( 603 ), -- Bane of Doom
-			CreateSpellEntry( 80240 ), -- Bane of Havoc
-			CreateSpellEntry( 1490 ), -- Curse of the Elements
-			CreateSpellEntry( 86105 ), -- Jinx: Curse of the Elements
-			CreateSpellEntry( 18223 ), -- Curse of Exhaustion
-			CreateSpellEntry( 1714 ), -- Curse of Tongue
-			CreateSpellEntry( 702 ), -- Curse of Weakness
-			CreateSpellEntry( 146739 ), -- Corruption
-			CreateSpellEntry( 27243, false, nil, nil, 27243 ), -- Seed of Corruption
-			CreateSpellEntry( 48181, false, nil, nil, 48181 ), -- Haunt
-			CreateSpellEntry( 32389 ), -- Shadow Embrace
+			target = {
+			-- Global
+			CreateSpellEntry(710), -- Banish
+			CreateSpellEntry(6789), -- Mortal Coil
+			CreateSpellEntry(118699), -- Fear
+			-- Shared
+			CreateSpellEntry(689), -- Drain Life
+			-- Affliction
+			CreateSpellEntry(172), -- Corruption
+			CreateSpellEntry(980), -- Bane of Agony
+			CreateSpellEntry(5484), -- Howl of Terror
+			CreateSpellEntry(27243, false, nil, nil, 27243), -- Seed of Corruption
+			CreateSpellEntry(30108, false, nil, nil, 30108), -- Unstable Affliction
+			CreateSpellEntry(48181, false, nil, nil, 48181), -- Haunt
+			CreateSpellEntry(63106), -- Siphon Life
+			CreateSpellEntry(146739), -- Corruption Debuff
+			CreateSpellEntry(198590), -- Drain Soul
+			CreateSpellEntry(205178), -- Soul Effigy
+			CreateSpellEntry(205179), -- Phantom Singularity
 			CreateSpellEntry( 233496 ), CreateSpellEntry( 233497 ), CreateSpellEntry( 233498 ),	CreateSpellEntry( 251502 ), CreateSpellEntry( 233490 ), CreateSpellEntry( 205179 ), -- Phantom Singularity
-			CreateSpellEntry( 348, false, nil, nil, 348 ), -- Immolate
-			CreateSpellEntry( 5782 ), -- Fear
-			CreateSpellEntry( 710 ), -- Banish
-			CreateSpellEntry( 5484 ), -- Howl of Terror
-			CreateSpellEntry( 6789 ), -- Deathcoil
-			CreateSpellEntry( 17800 ), -- Shadow & Flame
-			CreateSpellEntry( 114790 ), -- Shadow & Flame
-			CreateSpellEntry( 87389 ), -- Shadow & Flame
+			-- Demonology
+			CreateSpellEntry(603), -- Bane of Doom
+			CreateSpellEntry(30213), -- Legion Strike
+			CreateSpellEntry(30283), -- Shadowfury
+			CreateSpellEntry(205181), -- Shadowflame
+			-- Destruction
+			CreateSpellEntry(80240), -- Bane of Havoc
+			CreateSpellEntry(157736), -- Immolate
+			CreateSpellEntry(196414), -- Eradiction
 		},
-			player = {
-			CreateSpellEntry( 17941 ), -- Shadow Trance
-			CreateSpellEntry( 64371 ), -- Eradication
-			CreateSpellEntry( 113860 ), -- Eradication
-			CreateSpellEntry( 85383 ), -- Improved Soul Fire
-			CreateSpellEntry( 79459 ),  CreateSpellEntry( 79463 ),  CreateSpellEntry( 79460 ),  CreateSpellEntry( 79462 ),  CreateSpellEntry( 79464 ), -- Demon Soul
+		player = {
+			-- Global
+			CreateSpellEntry(126), -- Eye of Kilrogg
+			CreateSpellEntry(104773), -- Unending Resolve
+			CreateSpellEntry(108366), -- Soul Leech
+			-- Shared
+			CreateSpellEntry(108416), -- Dark Pact
+			CreateSpellEntry(196098), -- Soul Harvest
+			CreateSpellEntry(196099), -- Demonic Power
+			CreateSpellEntry(196104), -- Mana Tap
+			-- Affliction
+			CreateSpellEntry(216695), -- Tormented Souls
+			CreateSpellEntry(216708), -- Deadwind Harvester
+			-- Demonology
+			CreateSpellEntry(171982), -- Demonic Synergy
+			CreateSpellEntry(193440), -- Demonwrath
+			CreateSpellEntry(196606), -- Shadowy Inspiration
+			CreateSpellEntry(205146), -- Demonic Calling
+			-- Destruction
+			CreateSpellEntry(196546), -- Conflagration of Chaos
 		},
 		procs = {
-			CreateSpellEntry( 86121 ), -- Soul Swap
-			CreateSpellEntry( 54274 ), CreateSpellEntry( 54276 ), CreateSpellEntry( 54277 ), -- Backdraft rank 1/2/3
-			CreateSpellEntry( 71165 ), -- Molten Core
-			CreateSpellEntry( 63167 ), -- Decimation
-			CreateSpellEntry( 47283 ), -- Empowered Imp
-			CreateSpellEntry( 117828 ), -- Empowered Imp
+			-- Affliction
+			CreateSpellEntry(199281), -- Compund Interest
+			-- Destruction
+			CreateSpellEntry(117828),-- Backdraft rank 1/2/3
 		},
 	},
 	WARRIOR = {
@@ -966,8 +950,6 @@ local CLASS_FILTERS = {
 		},
 	},
 };
-
-
 
 local CreateUnitAuraDataSource
 do
@@ -1282,6 +1264,11 @@ do
 		-- constructor
 		CreateAuraBar = function( parent )
 			local result = CreateFrame( "Frame", nil, parent, nil );
+
+
+
+
+
 
 			if ( bit.band( ICON_POSITION, 4 ) == 0 ) then		
 				local icon = CreateFramedTexture( result, "ARTWORK" );
