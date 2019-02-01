@@ -26,7 +26,8 @@ local tooltips = {
 	StoryTooltip,
 	ReputationParagonTooltip,
 	WarCampaignTooltip,
-	EmbeddedItemTooltip
+	EmbeddedItemTooltip,
+	RaiderIO_ProfileTooltip
 }
 
 local backdrop = {
