@@ -2942,14 +2942,14 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	if SavedOptionsPerChar.BottomBars == nil then SavedOptionsPerChar.BottomBars = C.actionbar.bottombars end
 
 	if T.getscreenwidth < 1024 and GetCVar("gxMonitor") == "0" then
-		SetCVar("useuiscale", 0)
+		SetCVar("useUiScale", 0)
 		StaticPopup_Show("DISABLE_UI")
 	else
-		SetCVar("useuiscale", 1)
+		SetCVar("useUiScale", 1)
 		if C.general.uiscale > 1.28 then C.general.uiscale = 1.28 end
 
-		-- Set our uiscale
-		if (format("%.2f", GetCVar("uiScale")) ~= format("%.2f", C.general.uiscale)) then
+		-- Set our uiScale
+		if tonumber(GetCVar("uiScale")) ~= tonumber(C.general.uiscale) then
 			SetCVar("uiScale", C.general.uiscale)
 		end
 
@@ -3086,6 +3086,7 @@ StaticPopupDialogs.SET_BTLine = {
 --	Slash Commands
 ----------------------------------------------------------------------------------------
 
+
 -- Bartender Select Profile
 SLASH_SET_BT1 = "/vbt"
 SlashCmdList.SET_BT = function() StaticPopup_Show("SET_BT") end
@@ -3105,6 +3106,7 @@ SlashCmdList['INSTALLUI'] = install
 
 SLASH_RESETSTATS1 = "/resetstats"
 SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end
+
 
 SLASH_RESETSTATS1 = "/resetstats"
 SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end

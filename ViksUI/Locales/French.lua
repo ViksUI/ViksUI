@@ -417,6 +417,8 @@ L_STATS_WATCH_FACTIONS = "Superviser les factions de l'onglet de Réputation."
 L_STATS_TOOLTIP_TIME_PLAYED = "Quand vous êtes au niveau maximum, la bulle d'aide affichera les détails du temps de jeu pour ce compte."
 L_STATS_TOOLTIP_EXPERIENCE = "Quand vous êtes en dessous du niveau maximum, une bulle d'aide affichera les détails concernant votre expérience."
 L_STATS_SEALS = "Sceau cette semaine"
+L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
+L_STATS_SPEC = "Spec" -- Need review
 
 -- Slash commands
 L_SLASHCMD_HELP = {

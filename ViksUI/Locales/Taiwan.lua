@@ -419,6 +419,8 @@ L_STATS_WATCH_FACTIONS = "從角色人物介面觀看資訊"
 L_STATS_TOOLTIP_TIME_PLAYED = "達到最高等級後,提示將顯示角色上線時間紀錄"
 L_STATS_TOOLTIP_EXPERIENCE = "未達最高等級時,提示將顯示經驗值訊息"
 L_STATS_SEALS = "Seals this week" -- Needs review
+L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
+L_STATS_SPEC = "Spec" -- Need review
 
 -- Slash commands
 L_SLASHCMD_HELP = {

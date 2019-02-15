@@ -1513,8 +1513,8 @@ do
 	end
 end
 
-local _, playerClass = UnitClass( "player" );
-local classFilter = CLASS_FILTERS[ playerClass ];
+--local _, playerClass = UnitClass( "player" );
+local classFilter = CLASS_FILTERS[ T.class ];
 classtimerload = CreateFrame("Frame")
 classtimerload:RegisterEvent("PLAYER_LOGIN")
 classtimerload:SetScript("OnEvent", function(self, event, addon)
@@ -1538,14 +1538,15 @@ if ( LAYOUT == 4 ) then
 
 	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );
 	playerFrame:SetHiddenHeight( -yOffset );
-	if ( playerClass == "DEATHKNIGHT" or playerClass == "SHAMAN" or playerClass == "WARLOCK"  or myclass == "MONK" or playerClass == "ROGUE") then
+	if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "WARLOCK" or T.class == "MONK" or T.class == "ROGUE") then
+	--if ( playerClass == "DEATHKNIGHT" or playerClass == "SHAMAN" or playerClass == "WARLOCK"  or myclass == "MONK" or playerClass == "ROGUE") then
 		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
 	else
 		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
 		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
 	end
-	if ( playerClass == "PALADIN") then
+	if ( T.class == "PALADIN") then
 		if GetSpecialization() == 3 then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
@@ -1554,7 +1555,7 @@ if ( LAYOUT == 4 ) then
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
 		end
 	end
-	if ( playerClass == "DRUID") then
+	if ( T.class == "DRUID") then
 		if GetSpecialization() == 2 then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
@@ -1563,7 +1564,7 @@ if ( LAYOUT == 4 ) then
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
 		end
 	end
-	if ( playerClass == "MAGE") then
+	if ( T.class == "MAGE") then
 		if GetSpecialization() == 1 and C.unitframe_class_bar.arcane then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );

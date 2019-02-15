@@ -418,6 +418,8 @@ L_STATS_WATCH_FACTIONS = "Mirar facciones desde la herramienta de facciones."
 L_STATS_TOOLTIP_TIME_PLAYED = "Cuando estes a nivel max, la descripcion mostrara detalles del tiempo jugado de la cuenta."
 L_STATS_TOOLTIP_EXPERIENCE = "Cuando no estes a nivel max, la descripcion mostrara detalles de la experiencia."
 L_STATS_SEALS = "Seals this week" -- Needs review
+L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
+L_STATS_SPEC = "Spec" -- Need review
 
 -- Slash commands
 L_SLASHCMD_HELP = {

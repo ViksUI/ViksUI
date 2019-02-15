@@ -416,6 +416,8 @@ L_STATS_WATCH_FACTIONS = "Просмотр фракций из окна репу
 L_STATS_TOOLTIP_TIME_PLAYED = "Когда уровень максимальный, подсказка будет показывать время игры персонажами."
 L_STATS_TOOLTIP_EXPERIENCE = "Когда уровень не максимальный, подсказка будет показывать подробности опыта."
 L_STATS_SEALS = "Печатей на этой неделе"
+L_STATS_TOTAL_CPU_USAGE = "Использование процессора:"
+L_STATS_SPEC = "Спек"
 
 -- Slash commands
 L_SLASHCMD_HELP = {

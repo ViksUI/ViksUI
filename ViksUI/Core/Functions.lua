@@ -408,15 +408,16 @@ function T.SkinEditBox(frame, width, height)
 end
 
 function T.SkinDropDownBox(frame, width)
-	local button = _G[frame:GetName().."Button"] or _G[frame:GetName().."_Button"]
+	local button = _G[frame:GetName()] and (_G[frame:GetName().."Button"] or _G[frame:GetName().."_Button"]) or frame.Button
+	local text = _G[frame:GetName()] and _G[frame:GetName().."Text"] or frame.Text
 	if not width then width = 155 end
 
 	frame:StripTextures()
 	frame:SetWidth(width)
 
-	if _G[frame:GetName().."Text"] then
-		_G[frame:GetName().."Text"]:ClearAllPoints()
-		_G[frame:GetName().."Text"]:SetPoint("RIGHT", button, "LEFT", -2, 0)
+	if text then
+		text:ClearAllPoints()
+		text:SetPoint("RIGHT", button, "LEFT", -2, 0)
 	end
 
 	button:ClearAllPoints()
@@ -559,6 +560,39 @@ function T.SkinIconSelectionFrame(frame, numIcons, buttonNameTemplate, frameName
 			icon:SetPoint("TOPLEFT", 2, -2)
 			icon:SetPoint("BOTTOMRIGHT", -2, 2)
 			icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		end
+	end
+end
+
+function T.SkinMaxMinFrame(frame, point)
+	frame:SetSize(18, 18)
+
+	if point then
+		frame:SetPoint("RIGHT", point, "LEFT", -2, 0)
+	end
+
+	for name, direction in pairs({ ["MaximizeButton"] = "up", ["MinimizeButton"] = "down"}) do
+		local button = frame[name]
+		if button then
+			button:StripTextures()
+			button:SetTemplate("Overlay")
+			button:SetPoint("CENTER")
+			button:SetHitRectInsets(1, 1, 1, 1)
+
+			button.minus = button:CreateTexture(nil, "OVERLAY")
+			button.minus:SetSize(7, 1)
+			button.minus:SetPoint("CENTER")
+			button.minus:SetTexture(C.media.blank)
+
+			if direction == "up" then
+				button.plus = button:CreateTexture(nil, "OVERLAY")
+				button.plus:SetSize(1, 7)
+				button.plus:SetPoint("CENTER")
+				button.plus:SetTexture(C.media.blank)
+			end
+
+			button:HookScript("OnEnter", T.SetModifiedBackdrop)
+			button:HookScript("OnLeave", T.SetOriginalBackdrop)
 		end
 	end
 end
@@ -1174,6 +1208,22 @@ T.PostCastStart = function(Castbar, unit, name)
 			Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
 		end
 	end
+
+	if Castbar.Time and Castbar.Text then
+		local timeWidth = Castbar.Time:GetStringWidth()
+		local textWidth = Castbar:GetWidth() - timeWidth - 5
+
+		if timeWidth == 0 then
+			C_Timer.After(0.05, function()
+				textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
+				if textWidth > 0 then
+					Castbar.Text:SetWidth(textWidth)
+				end
+			end)
+		else
+			Castbar.Text:SetWidth(textWidth)
+		end
+	end
 end
 
 local channelingTicks = T.CastBarTicks
@@ -1243,6 +1293,22 @@ T.PostChannelStart = function(Castbar, unit, name)
 		Castbar.Overlay:SetBackdropBorderColor(unpack(C.media.border_color))
 		if C.unitframe.castbar_icon == true and (unit == "target" or unit == "focus") then
 			Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
+		end
+	end
+
+	if Castbar.Time and Castbar.Text then
+		local timeWidth = Castbar.Time:GetStringWidth()
+		local textWidth = Castbar:GetWidth() - timeWidth - 5
+
+		if timeWidth == 0 then
+			C_Timer.After(0.05, function()
+				textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
+				if textWidth > 0 then
+					Castbar.Text:SetWidth(textWidth)
+				end
+			end)
+		else
+			Castbar.Text:SetWidth(textWidth)
 		end
 	end
 end
@@ -1324,7 +1390,7 @@ T.HideAuraFrame = function(self)
 	end
 end
 
-T.PostCreateAura = function(element, button)
+T.PostCreateIcon = function(element, button)
 	button:SetTemplate("Default")
 
 	button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
@@ -1358,9 +1424,7 @@ T.PostCreateAura = function(element, button)
 	end
 end
 
-T.PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff, duration, timeLeft)
-	local _, _, _, dtype, duration, expirationTime, _, isStealable = UnitAura(unit, index, icon.filter)
-
+T.PostUpdateIcon = function(_, unit, icon, _, _, duration, expiration, debuffType, isStealable)
 	local playerUnits = {
 		player = true,
 		pet = true,
@@ -1377,7 +1441,7 @@ T.PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff, 
 			end
 		else
 			if C.aura.debuff_color_type == true then
-				local color = DebuffTypeColor[dtype] or DebuffTypeColor.none
+				local color = DebuffTypeColor[debuffType] or DebuffTypeColor.none
 				icon:SetBackdropBorderColor(color.r, color.g, color.b)
 				icon.icon:SetDesaturated(false)
 			else
@@ -1385,7 +1449,7 @@ T.PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff, 
 			end
 		end
 	else
-		if (isStealable or ((T.class == "MAGE" or T.class == "PRIEST" or T.class == "SHAMAN" or T.class == "HUNTER") and dtype == "Magic")) and not UnitIsFriend("player", unit) then
+		if (isStealable or ((T.class == "MAGE" or T.class == "PRIEST" or T.class == "SHAMAN" or T.class == "HUNTER") and debuffType == "Magic")) and not UnitIsFriend("player", unit) then
 			icon:SetBackdropBorderColor(1, 0.85, 0)
 		else
 			icon:SetBackdropBorderColor(unpack(C.media.border_color))
@@ -1395,7 +1459,7 @@ T.PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff, 
 
 	if duration and duration > 0 and C.aura.show_timer == true then
 		icon.remaining:Show()
-		icon.timeLeft = expirationTime
+		icon.timeLeft = expiration
 		icon:SetScript("OnUpdate", CreateAuraTimer)
 	else
 		icon.remaining:Hide()

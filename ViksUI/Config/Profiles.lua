@@ -46,15 +46,30 @@ end
 ----------------------------------------------------------------------------------------
 --	Tank chars @Quel'Thalas Config
 ----------------------------------------------------------------------------------------
-if T.name == "Bauge" or "Vikingdruid" and T.realm == "Quel'Thalas" then
+if T.name == "Bauge" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
 	C["nameplate"].enhance_threat = true
 end
 
 ----------------------------------------------------------------------------------------
 --	Viks Config all chars
 ----------------------------------------------------------------------------------------
-if T.name == "Bauge" or "Ulva" or "Vikingpower" or "Villdyret" or "Búre" or "Bor" or "Vikingdruid" and T.realm == "Quel'Thalas" then
+if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bor" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
 	C["general"].welcome_message = false
 	C["nameplate"].enhance_threat = true
 	C["skins"].rematch = true
+	C["skins"].pawn = true
+	C["skins"].bigwigs = true
+	C["misc"].InfoPanel_Stats = false
+	C["misc"].hide_banner = false
+	C["media"].fontsize = 14
+	C["panels"].NoPanels = false
+	C["chat"].spam = false
+	C["announcements"].bad_gear = false
+	C["announcements"].feasts = false
+	C["announcements"].portals = false
+	C["unitframe"].RaidShowSolo = true
+	C["unitframe"].plugins_smooth_bar = true
+	C["Filger"].disable_cd = true
+	C["Filger"].enable = false
+	C["automation"].accept_quest = true
 end

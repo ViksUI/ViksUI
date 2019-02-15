@@ -62,6 +62,8 @@ local function LoadSkin()
 		slot:StripTextures()
 		slot:StyleButton()
 		slot:SetNormalTexture("")
+		slot.SetHighlightTexture = T.dummy
+		slot:GetHighlightTexture().SetAllPoints = T.dummy
 		slot:SetFrameLevel(slot:GetFrameLevel() + 2)
 		slot:SetTemplate("Default")
 

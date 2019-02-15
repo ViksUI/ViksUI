@@ -18,6 +18,7 @@ frame:SetScript("OnEvent", function(self, event)
 		if frame.icon then
 			frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 			frame.icon.SetTexCoord = T.dummy
+			frame.backdrop:SetFrameLevel(0)
 		end
 
 		if frame.bar then
