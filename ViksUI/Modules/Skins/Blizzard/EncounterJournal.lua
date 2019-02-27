@@ -1,6 +1,7 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
 
+
 local _G = _G
 local select, unpack, pairs = select, unpack, pairs
 local CreateFrame = CreateFrame
@@ -82,6 +83,7 @@ local function LoadSkin()
 	EncounterInfo.bossesScroll:CreateBackdrop("Transparent")
 	EncounterInfo.bossesScroll.backdrop:SetPoint("TOPLEFT", EncounterInfo.bossesScroll, "TOPLEFT", -25, 1)
 	T:HandleScrollBar(EncounterInfo.bossesScroll.ScrollBar, 4)
+	T:HandleScrollBar(_G.EncounterJournalEncounterFrameInstanceFrameLoreScrollFrameScrollBar)
 
 	local scrollFrames = {
 		EncounterInfo.overviewScroll,
@@ -259,6 +261,7 @@ local function LoadSkin()
 		item.name:ClearAllPoints()
 		item.name:SetPoint("TOPLEFT", item.icon, "TOPRIGHT", 6, -2)
 		item.boss:SetTextColor(1, 1, 1)
+		item.name:SetFontObject("QuestFont_Large")
 		item.boss:ClearAllPoints()
 		item.boss:SetPoint("BOTTOMLEFT", 4, 6)
 		item.slot:ClearAllPoints()
