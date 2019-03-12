@@ -219,38 +219,6 @@ skin.panels = {
 			button.checked:ClearAllPoints()
 			button.checked:SetPoint("CENTER",0,0)
 		end
-		--[[
-		for _,button in ipairs(self.List.ScrollFrame.buttons) do
-			if not button.isSkinned then
-				button.Pet.IconBorder:SetAlpha(0)
-				button.Faceplate:Hide()
-				button.Backplate:Hide()
-
-				button:CreateBackdrop("Overlay")
-				button.backdrop:SetPoint("TOPLEFT", 2, -2)
-				button.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
-
-				button:StyleButton(nil, 4)
-				button.Pet:CreateBackdrop("Default")
-				button.Pet.backdrop:SetPoint("TOPLEFT", -1, 1)
-				button.Pet.backdrop:SetPoint("BOTTOMRIGHT", 1, -1)
-				button.Pet:StyleButton(nil, 1)
-
-				button.Pet.Favorite:SetParent(button.Pet.backdrop)
-				button.Pet.Level.BG:SetAlpha(0)
-				button.Pet.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-				button.Pet.Icon:SetDrawLayer("ARTWORK")
-				button.Pet.Icon:SetParent(button.Pet.backdrop)
-				button.Pet.Icon:ClearAllPoints()
-				button.Pet.Icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", -3, 4)
-				button.isSkinned = true
-			end
-		end
-		hooksecurefunc(self,"UpdateList",function() skin.ColorPetListBordersPet(self.List.ScrollFrame) end)
-		self.List.ScrollFrame:HookScript("OnVerticalScroll",skin.ColorPetListBordersPet)
-		self.List.ScrollFrame:HookScript("OnMouseWheel",skin.ColorPetListBordersPet)
-		]]--
 	end,
 
 	LoadoutPanel = function(self)
@@ -348,43 +316,6 @@ skin.panels = {
 		self.Top.SearchBox:SetHeight(22)
 		self.Top.SearchBox:SetPoint("LEFT",self.Top.Toggle,"RIGHT",4,0)
 		self.Top.SearchBox:SetPoint("RIGHT",self.Top.Teams,"LEFT",-4,0)
-		--[[
-		local function shiftpets(button)
-			if not button.slim then
-				for i=1,3 do
-					local anchorPoint,relativeTo,relativePoint,x,y = button.Pets[i]:GetPoint()
-					button.Pets[i].IconBorder:SetAlpha(0)
-					button.Pets[i]:SetPoint(anchorPoint,relativeTo,relativePoint,x,0)
-					button.Pets[i]:CreateBackdrop("Overlay")
-					button.Pets[i]:StyleButton(nil, 4)
-					button.Pets[i]:SetWidth(24)
-					button.Pets[i]:CreateBackdrop("Default")
-				end
-			end
-		end
-		]]--
-		--self.Top.Team:SkinButton()
-		--shiftpets(self.Top.Team)
-		--for _,button in ipairs(self.List.ScrollFrame.buttons) do
-			--if not button.isSkinned then
-				--button.Faceplate:Hide()
-				--button.Backplate:Hide()
-				--button:CreateBackdrop("Overlay")
-				--button.backdrop:SetPoint("TOPLEFT", 2, -2)
-				--button.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
-				--button:StyleButton(nil, 4)
-				--button.isSkinned = true
-			--end
-			--shiftpets(button)
-		--end
-		--local function blackborders()
-			--for _,button in ipairs(self.List.ScrollFrame.buttons) do
-				--button:SetBackdropBorderColor(0,0,0)
-			--end
-		--end
-		--hooksecurefunc(self,"UpdateList",blackborders)
-		--self.List.ScrollFrame:HookScript("OnVerticalScroll",blackborders)
-		--self.List.ScrollFrame:HookScript("OnMouseWheel",blackborders)
 	end,
 
 	MiniPanel = function(self)
@@ -406,104 +337,17 @@ skin.panels = {
 		end
 	end,
 
-	MiniQueue = function(self)
-		skin:HandleAutoScrollFrame(self.List)
-		self.Top:StripTextures()
-		self.Top:SetTemplate("Transparent")
-		self.Top.QueueButton:SkinButton()
-		self.Status:StripTextures()
-		self.Status:SetTemplate("Transparent")
-		--self.List:StripTextures()
-		--self.List:SetTemplate("Transparent")
-		--T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
-		--for _,button in ipairs(self.List.ScrollFrame.buttons) do
-			--button:SkinButton()
-			--if button.slim then
-				--button:GetChildren():Hide()
-			--end
-		--end
-		--hooksecurefunc(self,"UpdateList",function() skin.ColorPetListBordersQueue(self.List.ScrollFrame) end)
-		--self.List.ScrollFrame:HookScript("OnVerticalScroll",skin.ColorPetListBordersQueue)
-		--self.List.ScrollFrame:HookScript("OnMouseWheel",skin.ColorPetListBordersQueue)
-	end,
-
 	QueuePanel = function(self)
 		skin:HandleAutoScrollFrame(self.List)
 		self.List:StripTextures()
 		self.List:SetTemplate("Transparent")
-		T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
+		--T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
 		self.Top:StripTextures()
 		self.Top.QueueButton:SkinButton()
-		--self.Top.Toggle:SkinButton()
-		--self.Top.LevelingSlot:SkinButton()
-
-		--self.Top.LevelingSlot.Pet.IconBorder:SetAlpha(0)
-		--self.Top.LevelingSlot.Pet:CreateBackdrop("Overlay")
-		--self.Top.LevelingSlot.Pet.backdrop:SetPoint("TOPLEFT", 2, -2)
-		--self.Top.LevelingSlot.Pet.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
-		--self.Top.LevelingSlot.Pet:StyleButton(nil, 4)
-
-		--self.Top.LevelingSlot.Pet.Level.BG:SetAlpha(0)
-
-		--self.Top.LevelingSlot.Pet.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		--self.Top.LevelingSlot.Pet.Icon:SetDrawLayer("ARTWORK")
-		--self.Top.LevelingSlot.Pet.Icon:SetParent(self.Top.LevelingSlot.Pet.backdrop)
-		--self.Top.LevelingSlot.Pet.Icon:ClearAllPoints()
-		--self.Top.LevelingSlot.Pet.Icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", -3, 4)
-		--self.Top.LevelingSlot.Pet:SetSize(48, 48)
-
 		self.Status:StripTextures()
 		self.Status:SetTemplate("Transparent")
-		--[[
-		for _,button in ipairs(self.List.ScrollFrame.buttons) do
-			if not button.isSkinned then
-				button.Pet.IconBorder:SetAlpha(0)
-				button.Faceplate:Hide()
-				button.Backplate:Hide()
-				button:CreateBackdrop("Overlay")
-				button.backdrop:SetPoint("TOPLEFT", 2, -2)
-				button.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
-				button:StyleButton(nil, 4)
-
-				button.Pet:CreateBackdrop("Default")
-				button.Pet.backdrop:SetPoint("TOPLEFT", -1, 1)
-				button.Pet.backdrop:SetPoint("BOTTOMRIGHT", 1, -1)
-				button.Pet:StyleButton(nil, 1)
-
-				button.Pet.Favorite:SetParent(button.Pet.backdrop)
-				button.Pet.Level.BG:SetAlpha(0)
-
-				button.Pet.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-				button.Pet.Icon:SetDrawLayer("ARTWORK")
-				button.Pet.Icon:SetParent(button.Pet.backdrop)
-				button.Pet.Icon:ClearAllPoints()
-				button.Pet.Icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", -3, 4)
-				button.isSkinned = true
-			end
-		end
-		hooksecurefunc(self,"UpdateList",function() skin.ColorPetListBordersQueue(self.List.ScrollFrame) end)
-		self.List.ScrollFrame:HookScript("OnVerticalScroll",skin.ColorPetListBordersQueue)
-		self.List.ScrollFrame:HookScript("OnMouseWheel",skin.ColorPetListBordersQueue)
-		]]--
 	end,
---[[
-	OptionPanel = function(self)
-		self.List:StripTextures()
-		self.List:SetTemplate("Transparent")
-		T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
-		for _,button in ipairs(self.List.ScrollFrame.buttons) do
-			button:StripTextures()
-			for _,region in ipairs({button.Header:GetRegions()}) do
-				if region:GetDrawLayer()=="BACKGROUND" then
-					region:SetColorTexture(0.15, 0.15, 0.15)
-				end
-			end
-			T.SkinCheckBox(button.CheckButton)
-		end
-		self.CustomScale.ScaleButton:SkinButton()
-		T.SkinCheckBox(self.CustomScale.CheckButton)
-	end,
-]]--
+
 	OptionPanel = function(self)
 		skin:HandleAutoScrollFrame(self.List)
 	end,
@@ -666,6 +510,9 @@ function skin:SetButtonIcon(button,icon)
 	end
 	if icons[icon] then
 		button.RematchElvUISkinIcon:SetTexCoord(unpack(icons[icon]))
+		if button.Texture then -- hide ElvUI's icon texture; it's being replaced with RematchElvUISkinIcon
+			button.Texture:SetAlpha(0)
+		end
 	end
 end
 

@@ -141,7 +141,6 @@ C["skins"] = {
 	["minimap_buttons"] = true,					-- Skin addons icons on minimap
 	["clcprot"] = false,						-- CLCProt skin
 	["clcret"] = false,							-- CLCRet skin
-	["combustion_helper"] = false,				-- CombustionHelper skin
 	["bigwigs"] = false,						-- BigWigs skin
 	["dbm"] = true,								-- DBM skin
 	["dbm_movable"] = false,					-- Allow to move DBM bars
@@ -207,7 +206,7 @@ C["combattext"] = {
 	["merge_melee"] = true,						-- Merges multiple auto attack damage spam
 	["dispel"] = true,							-- Tells you about your dispels(works only with ["damage"] = true)
 	["interrupt"] = true,						-- Tells you about your interrupts(works only with ["damage"] = true)
-	["direction"] = "bottom",					-- Scrolling Direction("top"(goes down) or "bottom"(goes up))
+	["direction"] = true,						-- Change scrolling direction from bottom to top
 	["short_numbers"] = true,					-- Use short numbers ("25.3k" instead of "25342")
 }
 
