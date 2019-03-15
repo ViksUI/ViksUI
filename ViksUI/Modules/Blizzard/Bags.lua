@@ -492,13 +492,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		ret.slot = slot
 		slot = slot - 4
 
-		-- FIXME
-		if T.wowbuild >= 29634 then
-			ret.frame = CreateFrame("ItemButton", "StuffingBBag"..slot.."Slot", p, "BankItemButtonBagTemplate")
-		else
-			ret.frame = CreateFrame("CheckButton", "StuffingBBag"..slot.."Slot", p, "BankItemButtonBagTemplate")
-		end
-
+		ret.frame = CreateFrame("ItemButton", "StuffingBBag"..slot.."Slot", p, "BankItemButtonBagTemplate")
 		ret.frame:StripTextures()
 		ret.frame:SetID(slot)
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
@@ -527,12 +521,8 @@ function Stuffing:BagFrameSlotNew(p, slot)
 			SetItemButtonTextureVertexColor(ret.frame, 1.0, 1.0, 1.0)
 		end
 	else
-		-- FIXME
-		if T.wowbuild >= 29634 then
-			ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
-		else
-			ret.frame = CreateFrame("CheckButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
-		end
+
+		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
 
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
@@ -552,10 +542,6 @@ function Stuffing:BagFrameSlotNew(p, slot)
 	ret.frame:StyleButton()
 	ret.frame:SetTemplate("Default")
 	ret.frame:SetNormalTexture(nil)
-	-- FIXME
-	if T.wowbuild < 29634 then
-		ret.frame:SetCheckedTexture(nil)
-	end
 
 	ret.icon = _G[ret.frame:GetName().."IconTexture"]
 	ret.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -605,12 +591,7 @@ function Stuffing:SlotNew(bag, slot)
 	end
 
 	if not ret.frame then
-		-- FIXME
-		if T.wowbuild >= 29634 then
-			ret.frame = CreateFrame("ItemButton", "StuffingBag"..bag.."_"..slot, self.bags[bag], tpl)
-		else
-			ret.frame = CreateFrame("Button", "StuffingBag"..bag.."_"..slot, self.bags[bag], tpl)
-		end
+		ret.frame = CreateFrame("ItemButton", "StuffingBag"..bag.."_"..slot, self.bags[bag], tpl)
 
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")

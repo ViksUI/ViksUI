@@ -187,7 +187,8 @@ LPSTAT_CONFIG = {
 		tip_frame = cBN and "NivayacBniv_Bag" or C.bag.enable and "StuffingFrameBags" or "UIParent",
 		tip_anchor = cBN and "BOTTOMRIGHT" or C.bag.enable and "TOPRIGHT" or "BOTTOMRIGHT",
 		tip_x = cBN and 3 or C.bag.enable and -50 or -21,
-		tip_y = cBN and -3 or C.bag.enable and 0 or 20
+		tip_y = cBN and -3 or C.bag.enable and 0 or 20,
+		strata = "DIALOG" or "MEDIUM"
 	},
 	Gold2 = {
 		enabled = true,
