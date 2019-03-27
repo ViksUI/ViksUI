@@ -53,7 +53,7 @@ end
 ----------------------------------------------------------------------------------------
 --	Viks Config all chars
 ----------------------------------------------------------------------------------------
-if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bor" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
+if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure" or "Bor" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
 	C["general"].welcome_message = false
 	C["nameplate"].enhance_threat = true
 	C["skins"].rematch = true
@@ -72,4 +72,5 @@ if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bor" 
 	C["Filger"].disable_cd = true
 	C["Filger"].enable = false
 	C["automation"].accept_quest = true
+	C["automation"].accept_invite = true
 end

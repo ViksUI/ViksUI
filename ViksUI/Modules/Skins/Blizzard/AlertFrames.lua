@@ -763,6 +763,7 @@ local function LoadSkin()
 	end
 	hooksecurefunc(NewPetAlertSystem, "setUpFunction", SkinNewPetMountAlert)
 	hooksecurefunc(NewMountAlertSystem, "setUpFunction", SkinNewPetMountAlert)
+	hooksecurefunc(NewToyAlertSystem, "setUpFunction", SkinNewPetMountAlert)
 
 	-- Bonus Roll Money
 	local frame = BonusRollMoneyWonFrame
