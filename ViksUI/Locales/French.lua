@@ -116,7 +116,7 @@ L.DataText.Slots = {
 
 ----------------------------------------------------------------------------------------
 --	Localization for frFR client
---	Translation: Cranan, Puree
+--	Translation: Cranan, Puree, AlbertDuval
 ----------------------------------------------------------------------------------------
 -- Announce flasks and food
 L_ANNOUNCE_FF_NOFOOD = "Sans nourriture : "
@@ -307,7 +307,7 @@ L_INFO_DUEL = "Duel rejetée par "
 L_INFO_PET_DUEL = "Duel de familier décliné par "
 L_INFO_DISBAND = "Groupe dissous..."
 L_INFO_SETTINGS_DBM = "Taper /settings dbm, pour configurer DBM automatiquement."
-L_INFO_SETTINGS_DXE = "Taper /settings dxe, pour configurer DXE automatiquement."
+L_INFO_SETTINGS_BIGWIGS = "Taper /settings bw, pour configurer BigWigs automatiquement."
 L_INFO_SETTINGS_MSBT = "Taper /settings msbt, pour configurer msbt automatiquement."
 L_INFO_SETTINGS_SKADA = "Taper /settings skada, pour configurer skada automatiquement."
 L_INFO_SETTINGS_CHAT = "Type /settings chat, to apply the default chat settings."
@@ -323,10 +323,9 @@ L_POPUP_RESETUI = "Etes-vous sûr de vouloir réinitialiser ViksUI ?"
 L_POPUP_RESETSTATS = "Réinitialiser les statistiques pour le temps passé dans le jeu ?"
 L_POPUP_SWITCH_RAID = "Sélectionner une interface raid."
 L_POPUP_DISBAND_RAID = "Etes-vous sûr de vouloir dissoudre le groupe ?"
-L_POPUP_DISABLEUI = "ViksUI ne fonctionne pas avec cette résolution, voulez-vous désactiver ViksUI ? (Annuler si vous souhaitez essayer une autre résolution)"
-L_POPUP_SETTINGS_ALL = "Voulez-vous appliquer les modifications pour tout ? (DBM/DXE, Skada et MSBT)"
+L_POPUP_DISABLEUI = "ShestakUI ne fonctionne pas avec cette résolution, voulez-vous désactiver ShestakUI ? (Annuler si vous souhaitez essayer une autre résolution)"
+L_POPUP_SETTINGS_ALL = "Voulez-vous appliquer les modifications pour tout ? (DBM, BigWigs, Skada et MSBT)"
 L_POPUP_SETTINGS_DBM = "La position des éléments de DBM doit être changée."
-L_POPUP_SETTINGS_DXE = "La position des éléments de DXE doit être changée."
 L_POPUP_SETTINGS_BW = "La position des éléments de BigWigs doit être changée."
 L_POPUP_ARMORY = "Armurerie"
 L_POPUP_CURRENCY_CAP = "Vous avez atteint un maximum de "
