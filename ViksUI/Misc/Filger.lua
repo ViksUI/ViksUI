@@ -216,7 +216,7 @@ function Filger:DisplayActives()
 	end
 
 	local function sortTable(a, b)
-		if C.filger.expiration == true and a.data.filter == "CD" then
+		if C.Filger.expiration == true and a.data.filter == "CD" then
 			return a.start + a.duration < b.start + b.duration
 		else
 			return a.sort < b.sort
