@@ -1,7 +1,7 @@
 local T, C, L, _ = unpack(select(2, ...))
 
 ----------------------------------------------------------------------------------------
---	Kill all shit stuff on default UI that we don't need
+--	Kill all stuff on default UI that we don't need
 ----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
@@ -12,7 +12,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		end
 	end
 
-	if C.unitframe.enable then
+	if C.unitframe.enable and (SavedOptions and (SavedOptions.RaidLayout == "HEAL" or SavedOptions.RaidLayout == "DPS")) then
 		InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
 		InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)
 		if not InCombatLockdown() then
@@ -21,7 +21,6 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		end
 		ShowPartyFrame = T.dummy
 		HidePartyFrame = T.dummy
-		--BETA CompactUnitFrame_UpdateAll = T.dummy -- Conflict with nameplates
 		CompactUnitFrameProfiles_ApplyProfile = T.dummy
 		CompactRaidFrameManager_UpdateShown = T.dummy
 		CompactRaidFrameManager_UpdateOptionsFlowContainer = T.dummy

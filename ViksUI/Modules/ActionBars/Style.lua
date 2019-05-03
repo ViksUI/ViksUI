@@ -63,21 +63,17 @@ local function StyleNormalButton(self)
 		if self:GetHeight() ~= C.actionbar.button_size and not InCombatLockdown() and not name:match("ExtraAction") then
 			self:SetSize(C.actionbar.button_size, C.actionbar.button_size)
 		end
-		button:CreateBackdrop("Transparent")
-		button.backdrop:SetAllPoints()
+		button:SetTemplate("Transparent")
 		if C.actionbar.classcolor_border == true then
-			button.backdrop:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
+			button:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
 		end
 
 		icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		icon:SetPoint("TOPLEFT", button, 2, -2)
 		icon:SetPoint("BOTTOMRIGHT", button, -2, 2)
+		icon:SetDrawLayer("BACKGROUND", 7)
 
 		button.isSkinned = true
-	end
-
-	if normal and button:GetChecked() then
-		ActionButton_UpdateState(button)
 	end
 
 	if normal then
@@ -123,16 +119,16 @@ local function StyleSmallButton(normal, button, icon, name, pet)
 
 	if not button.isSkinned then
 		button:SetSize(C.actionbar.button_size, C.actionbar.button_size)
-		button:CreateBackdrop("Transparent")
-		button.backdrop:SetAllPoints()
+		button:SetTemplate("Transparent")
 		if C.actionbar.classcolor_border == true then
-			button.backdrop:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
+			button:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
 		end
 
 		icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		icon:ClearAllPoints()
 		icon:SetPoint("TOPLEFT", button, 2, -2)
 		icon:SetPoint("BOTTOMRIGHT", button, -2, 2)
+		icon:SetDrawLayer("BACKGROUND", 7)
 
 		if pet then
 			local autocast = _G[name.."AutoCastable"]
@@ -177,7 +173,7 @@ function T.StylePet()
 	end
 end
 
-local function UpdateHotkey(self, actionButtonType)
+local function UpdateHotkey(self)
 	local hotkey = _G[self:GetName().."HotKey"]
 	local text = hotkey:GetText()
 
@@ -215,27 +211,25 @@ local function SetupFlyoutButton()
 	for i = 1, buttons do
 		local button = _G["SpellFlyoutButton"..i]
 		if button then
-			StyleNormalButton(button)
-			button:StyleButton()
-
 			if button:GetHeight() ~= C.actionbar.button_size and not InCombatLockdown() then
 				button:SetSize(C.actionbar.button_size, C.actionbar.button_size)
 			end
 
-			if button:GetChecked() then
-				button:SetChecked(false)
-			end
+			if not button.IsSkinned then
+				StyleNormalButton(button)
+				button:StyleButton()
 
-			if C.actionbar.rightbars_mouseover == true then
-				SpellFlyout:HookScript("OnEnter", function(self) RightBarMouseOver(1) end)
-				SpellFlyout:HookScript("OnLeave", function(self) RightBarMouseOver(0) end)
-				button:HookScript("OnEnter", function(self) RightBarMouseOver(1) end)
-				button:HookScript("OnLeave", function(self) RightBarMouseOver(0) end)
+				if C.actionbar.rightbars_mouseover == true then
+					SpellFlyout:HookScript("OnEnter", function(self) RightBarMouseOver(1) end)
+					SpellFlyout:HookScript("OnLeave", function(self) RightBarMouseOver(0) end)
+					button:HookScript("OnEnter", function(self) RightBarMouseOver(1) end)
+					button:HookScript("OnLeave", function(self) RightBarMouseOver(0) end)
+				end
+				button.IsSkinned = true
 			end
 		end
 	end
 end
-SpellFlyout:HookScript("OnShow", SetupFlyoutButton)
 
 local function StyleFlyoutButton(self)
 	if self.FlyoutBorder then
@@ -254,10 +248,11 @@ local function StyleFlyoutButton(self)
 		local _, _, numSlots, isKnown = GetFlyoutInfo(x)
 		if isKnown then
 			if numSlots > buttons then
-			buttons = numSlots
+				buttons = numSlots
 			end
 		end
 	end
+	SetupFlyoutButton()
 end
 
 local function HideHighlightButton(self)

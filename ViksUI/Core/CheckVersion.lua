@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------------------
 --	Check outdated UI version
 ----------------------------------------------------------------------------------------
-local check = function(self, event, prefix, message, channel, sender)
+local check = function(self, event, prefix, message, _, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix ~= "ViksUIVersion" or sender == T.name then return end
 		if tonumber(message) ~= nil and tonumber(message) > tonumber(T.version) then
@@ -31,7 +31,7 @@ frame:SetScript("OnEvent", check)
 C_ChatInfo.RegisterAddonMessagePrefix("ViksUIVersion")
 
 ----------------------------------------------------------------------------------------
---	Whisp UI version
+--	Whisper UI version
 ----------------------------------------------------------------------------------------
 local whisp = CreateFrame("Frame")
 whisp:RegisterEvent("CHAT_MSG_WHISPER")

@@ -32,7 +32,7 @@ elseif T.class == "PRIEST" then
 elseif T.class == "ROGUE" then
 	unusable = {{LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_STAFF, LE_ITEM_WEAPON_WAND}, {LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD}}
 elseif T.class == "SHAMAN" then
-	unusable = {{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD1H, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND}, {LE_ITEM_ARMOR_PLATEM}}
+	unusable = {{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD1H, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND}, {LE_ITEM_ARMOR_PLATE}}
 elseif T.class == "WARLOCK" then
 	unusable = {{LE_ITEM_WEAPON_AXE1H, LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_MACE1H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW}, {LE_ITEM_ARMOR_LEATHER, LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD}, true}
 elseif T.class == "WARRIOR" then
@@ -1048,7 +1048,7 @@ function Stuffing:Layout(isBank)
 				local bag
 				if isBank then bag = v else bag = v + 1 end
 
-				for ind, val in ipairs(btns) do
+				for _, val in ipairs(btns) do
 					if val.bag == bag then
 						val.frame:SetAlpha(1)
 					else
@@ -1462,7 +1462,7 @@ function Stuffing:SortOnUpdate(elapsed)
 
 	for bagIndex in pairs(BS_itemSwapGrid) do
 		for slotIndex in pairs(BS_itemSwapGrid[bagIndex]) do
-			local destinationBag  = BS_itemSwapGrid[bagIndex][slotIndex].destinationBag
+			local destinationBag = BS_itemSwapGrid[bagIndex][slotIndex].destinationBag
 			local destinationSlot = BS_itemSwapGrid[bagIndex][slotIndex].destinationSlot
 
 			local _, _, locked1 = GetContainerItemInfo(bagIndex, slotIndex)
@@ -1529,7 +1529,7 @@ function Stuffing:SortBags()
 
 					local n, _, q, iL, rL, c1, c2, _, Sl = GetItemInfo(itemLink)
 					-- Hearthstone
-					if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) or n == GetItemInfo(141605) then
+					if n == GetItemInfo(6948) or n == GetItemInfo(110560) then
 						q = 9
 					end
 					-- Fix for battle pets
@@ -1674,12 +1674,12 @@ function Stuffing.Menu(self, level)
 	info.notCheckable = 1
 	info.func = function()
 		if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
- 			SortReagentBankBags()
- 		elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
- 			SortBankBags()
- 		else
- 			SortBags()
- 		end
+			SortReagentBankBags()
+		elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
+			SortBankBags()
+		else
+			SortBags()
+		end
 	end
 	UIDropDownMenu_AddButton(info, level)
 
@@ -1687,7 +1687,10 @@ function Stuffing.Menu(self, level)
 	info.text = BAG_FILTER_CLEANUP
 	info.notCheckable = 1
 	info.func = function()
-		Stuffing_Sort("d")
+		if InCombatLockdown() then
+			print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
+		end
+		Stuffing:SortBags()
 	end
 	UIDropDownMenu_AddButton(info, level)
 
@@ -1695,6 +1698,9 @@ function Stuffing.Menu(self, level)
 	info.text = L_BAG_STACK_MENU
 	info.notCheckable = 1
 	info.func = function()
+		if InCombatLockdown() then
+			print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
+		end
 		Stuffing:SetBagsForSorting("d")
 		Stuffing:Restack()
 	end

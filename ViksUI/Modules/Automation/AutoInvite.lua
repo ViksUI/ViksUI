@@ -57,6 +57,10 @@ end
 ----------------------------------------------------------------------------------------
 --	Auto invite by whisper(by Tukz)
 ----------------------------------------------------------------------------------------
+if T.client == "ruRU" then
+	C.automation.invite_keyword = "инв"
+end
+
 local autoinvite = CreateFrame("Frame")
 autoinvite:RegisterEvent("CHAT_MSG_WHISPER")
 autoinvite:RegisterEvent("CHAT_MSG_BN_WHISPER")
@@ -73,13 +77,15 @@ autoinvite:SetScript("OnEvent", function(self, event, arg1, arg2, ...)
 end)
 
 SlashCmdList.AUTOINVITE = function(msg)
-	if msg == "off" then
-		SavedOptionsPerChar.AutoInvite = false
-		print("|cffffff00"..L_INVITE_DISABLE..".|r")
-	elseif msg == "" then
-		SavedOptionsPerChar.AutoInvite = true
-		print("|cffffff00"..L_INVITE_ENABLE..C.misc.invite_keyword..".|r")
-		C.misc.invite_keyword = C.misc.invite_keyword
+	if msg == "" then
+		if SavedOptionsPerChar.AutoInvite == true then
+			SavedOptionsPerChar.AutoInvite = false
+			print("|cffffff00"..L_INVITE_DISABLE..".|r")
+		else
+			SavedOptionsPerChar.AutoInvite = true
+			print("|cffffff00"..L_INVITE_ENABLE..C.misc.invite_keyword..".|r")
+			C.misc.invite_keyword = C.misc.invite_keyword
+		end
 	else
 		SavedOptionsPerChar.AutoInvite = true
 		print("|cffffff00"..L_INVITE_ENABLE..msg..".|r")

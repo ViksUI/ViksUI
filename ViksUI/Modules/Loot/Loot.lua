@@ -14,7 +14,7 @@ Butsu:SetScript("OnEvent", function(self, event, ...)
 	self[event](self, event, ...)
 end)
 
-function Butsu:LOOT_OPENED(event, autoloot)
+function Butsu:LOOT_OPENED()
 	self:Show()
 	lb:Show()
 
@@ -121,7 +121,7 @@ function Butsu:LOOT_OPENED(event, autoloot)
 end
 Butsu:RegisterEvent("LOOT_OPENED")
 
-function Butsu:LOOT_SLOT_CLEARED(event, slot)
+function Butsu:LOOT_SLOT_CLEARED(_, slot)
 	if not self:IsShown() then return end
 
 	_NS.slots[slot]:Hide()
@@ -171,7 +171,7 @@ Butsu:SetScript("OnMouseUp", function(self)
 	self:StopMovingOrSizing()
 end)
 
-Butsu:SetScript("OnHide", function(self)
+Butsu:SetScript("OnHide", function()
 	StaticPopup_Hide("CONFIRM_LOOT_DISTRIBUTION")
 	CloseLoot()
 end)
@@ -189,8 +189,7 @@ Butsu:SetFrameLevel(10)
 
 local close = CreateFrame("Button", "LootCloseButton", Butsu, "UIPanelCloseButton")
 T.SkinCloseButton(close, nil, nil, true)
-close:SetWidth(14)
-close:SetHeight(14)
+close:SetSize(14, 14)
 close:SetScript("OnClick", function() CloseLoot() end)
 
 ----------------------------------------------------------------------------------------
@@ -260,13 +259,12 @@ local function LDD_Initialize()
 end
 
 T.SkinCloseButton(lb, LootCloseButton, "-", true)
-lb:SetWidth(14)
-lb:SetHeight(14)
+lb:SetSize(14, 14)
 lb:ClearAllPoints()
 lb:SetPoint("BOTTOMRIGHT", Butsu, "TOPRIGHT", -21, -18)
 lb:SetFrameStrata("DIALOG")
 lb:RegisterForClicks("RightButtonUp", "LeftButtonUp")
-lb:SetScript("OnClick", function(self, button)
+lb:SetScript("OnClick", function(_, button)
 	if button == "RightButton" then
 		ToggleDropDownMenu(nil, nil, LDD, lb, 0, 0)
 	else

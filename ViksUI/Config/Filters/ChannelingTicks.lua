@@ -21,7 +21,8 @@ T.CastBarTicks = {
 	[SpellName(740)] = 4,		-- Tranquility
 	-- Mage
 	[SpellName(5143)] = 5,		-- Arcane Missiles
-	[SpellName(12051)] = 4,		-- Evocation
+	[SpellName(12051)] = 3,		-- Evocation
+	[SpellName(205021)] = 10,	-- Ray of Frost
 	-- Monk
 	[SpellName(115175)] = 9,	-- Soothing Mist
 	[SpellName(117952)] = 6,	-- Crackling Jade Lightning
@@ -30,7 +31,9 @@ T.CastBarTicks = {
 	[SpellName(15407)] = 4,		-- Mind Flay
 	[SpellName(47540)] = 3,		-- Penance
 	[SpellName(64843)] = 4,		-- Divine Hymn
+	[SpellName(48045)] = 5,		-- Mind Sear
 	-- Warlock
 	[SpellName(198590)] = 6,	-- Drain Soul
 	[SpellName(755)] = 6,		-- Health Funnel
+	[SpellName(234153)] = 6,	-- Drain Life
 }

@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.Filger.enable ~= true then return end
+if C.filger.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Lightweight buff/debuff tracking (Filger by Nils Ruesch, editors Affli/SinaC/Ildyria)
@@ -20,10 +20,6 @@ CreateAnchor(AnchorP_PROC_ICON, "Move P_PROC_ICON", 30, 30)
 AnchorT_DEBUFF_ICON = CreateFrame("Frame","Move_T_DEBUFF_ICON",UIParent)
 AnchorT_DEBUFF_ICON:SetPoint("LEFT", UIParent, "CENTER", 173, 80)
 CreateAnchor(AnchorT_DEBUFF_ICON, "Move T_DEBUFF_ICON", 30, 30)
-
-AnchorFDEBUFF_BAR = CreateFrame("Frame","Move_FDEBUFF_BAR",UIParent)
-AnchorFDEBUFF_BAR:SetPoint("BOTTOM", UIParent, "BOTTOM", 290, 380)
-CreateAnchor(AnchorFDEBUFF_BAR, "Move FDEBUFF_BAR", 200, 24)
 
 AnchorT_SPECIAL_P_BUFF_ICON = CreateFrame("Frame","Move_SPECIAL_P_BUFF_ICON",UIParent)
 AnchorT_SPECIAL_P_BUFF_ICON:SetPoint("RIGHT", UIParent, "CENTER", -173, -25)
@@ -216,7 +212,7 @@ function Filger:DisplayActives()
 	end
 
 	local function sortTable(a, b)
-		if C.Filger.expiration == true and a.data.filter == "CD" then
+		if C.filger.expiration == true and a.data.filter == "CD" then
 			return a.start + a.duration < b.start + b.duration
 		else
 			return a.sort < b.sort
@@ -282,13 +278,13 @@ function Filger:DisplayActives()
 			bar:SetScript("OnUpdate", nil)
 		end
 		bar.spellID = value.spid
-		if C.Filger.show_tooltip then
+		if C.filger.show_tooltip then
 			bar:EnableMouse(true)
 			bar:SetScript("OnEnter", Filger.TooltipOnEnter)
 			bar:SetScript("OnLeave", Filger.TooltipOnLeave)
 		end
-		bar:SetWidth(self.IconSize or C.Filger.buffs_size)
-		bar:SetHeight(self.IconSize or C.Filger.buffs_size)
+		bar:SetWidth(self.IconSize or C.filger.buffs_size)
+		bar:SetHeight(self.IconSize or C.filger.buffs_size)
 		bar:SetAlpha(value.data.opacity or 1)
 		bar:Show()
 		index = index + 1
@@ -301,8 +297,8 @@ function Filger:DisplayActives()
 end
 
 function Filger:OnEvent(event, unit, _, castID)
-	if C.Filger.disable_cd == true and self.Name == "COOLDOWN" then return end
-	if C.Filger.disable_pvp == true and (self.Name == "PVE/PVP_DEBUFF" or self.Name == "T_BUFF") then return end
+	if C.filger.disable_cd == true and self.Name == "COOLDOWN" then return end
+	if C.filger.disable_pvp == true and (self.Name == "PVE/PVP_DEBUFF" or self.Name == "T_BUFF") then return end
 	if event == "UNIT_AURA" and (unit == "player" or unit == "target" or unit == "pet" or unit == "focus") then
 		for spid in pairs(self.actives) do
 			if self.actives[spid].data.filter ~= "CD" and self.actives[spid].data.filter ~= "ICD" and self.actives[spid].data.unitID == unit then
@@ -542,15 +538,15 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 		frame.Mode = data.Mode or "ICON"
 		frame.Interval = data.Interval or 3
 		frame:SetAlpha(data.Alpha or 1)
-		frame.IconSize = data.IconSize or C.Filger.buffs_size
+		frame.IconSize = data.IconSize or C.filger.buffs_size
 		frame.BarWidth = data.BarWidth or 186
 		frame.Position = data.Position or "CENTER"
 		frame:SetPoint(unpack(data.Position))
 		frame.actives = {}
 
-		if C.Filger.test_mode then
+		if C.filger.test_mode then
 			frame.actives = {}
-			for j = 1, math.min(C.Filger.max_test_icon, #C["filger_spells"][T.class][i]), 1 do
+			for j = 1, math.min(C.filger.max_test_icon, #C["filger_spells"][T.class][i]), 1 do
 				local data = C["filger_spells"][T.class][i][j]
 				local name, icon
 				if data.spellID then

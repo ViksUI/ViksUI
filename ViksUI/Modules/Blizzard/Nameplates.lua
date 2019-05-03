@@ -249,7 +249,7 @@ local function threatColor(self, forced)
 	if UnitIsTapDenied(self.unit) then
 		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
 	elseif combat then
-		if threatStatus == 3 then  -- securely tanking, highest threat
+		if threatStatus == 3 then	-- securely tanking, highest threat
 			if T.Role == "Tank" then
 				if C.nameplate.enhance_threat == true then
 					self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
@@ -263,19 +263,19 @@ local function threatColor(self, forced)
 					SetVirtualBorder(self.Health, unpack(C.nameplate.bad_color))
 				end
 			end
-		elseif threatStatus == 2 then  -- insecurely tanking, another unit have higher threat but not tanking
+		elseif threatStatus == 2 then	-- insecurely tanking, another unit have higher threat but not tanking
 			if C.nameplate.enhance_threat == true then
 				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
 			else
 				SetVirtualBorder(self.Health, unpack(C.nameplate.near_color))
 			end
-		elseif threatStatus == 1 then  -- not tanking, higher threat than tank
+		elseif threatStatus == 1 then	-- not tanking, higher threat than tank
 			if C.nameplate.enhance_threat == true then
 				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
 			else
 				SetVirtualBorder(self.Health, unpack(C.nameplate.near_color))
 			end
-		elseif threatStatus == 0 then  -- not tanking, lower threat than tank
+		elseif threatStatus == 0 then	-- not tanking, lower threat than tank
 			if C.nameplate.enhance_threat == true then
 				if T.Role == "Tank" then
 					self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
@@ -455,11 +455,10 @@ local function style(self, unit)
 	self.Power.bg:SetTexture(C.media.texture)
 	self.Power.bg.multiplier = 0.2
 
-
 	-- Hide Blizzard Power Bar and changed position for Class Bar
 	hooksecurefunc(_G.NamePlateDriverFrame, "SetupClassNameplateBars", function(frame)
 		if frame.classNamePlateMechanicFrame then
-			local point, relativeTo, relativePoint, xOfs, yOfs = frame.classNamePlateMechanicFrame:GetPoint()
+			local point, _, relativePoint, xOfs = frame.classNamePlateMechanicFrame:GetPoint()
 			if point then
 				if point == "TOP" and C_NamePlate.GetNamePlateForUnit("player") then
 					frame.classNamePlateMechanicFrame:SetPoint(point, C_NamePlate.GetNamePlateForUnit("player"), relativePoint, xOfs, 53)
@@ -545,7 +544,7 @@ local function style(self, unit)
 	-- Raid Icon
 	self.RaidTargetIndicator = self:CreateTexture(nil, "OVERLAY", nil, 7)
 	self.RaidTargetIndicator:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
-	self.RaidTargetIndicator:SetPoint("BOTTOM", self.Health, "TOP", 0, C.nameplate.track_auras == true and 38 or 16)
+	self.RaidTargetIndicator:SetPoint("BOTTOM", self.Health, "TOP", 0, C.nameplate.track_debuffs == true and 38 or 16)
 
 	-- Create Class Icon
 	if C.nameplate.class_icons == true then
@@ -572,17 +571,17 @@ local function style(self, unit)
 		self.HPHeal = self.Health:CreateFontString(nil, "OVERLAY")
 		self.HPHeal:SetFont(C.font.nameplates_font, 32, C.font.nameplates_font_style)
 		self.HPHeal:SetText("|cFFD53333+|r")
-		self.HPHeal:SetPoint("BOTTOM", self.Name, "TOP", 0, C.nameplate.track_auras == true and 13 or 0)
+		self.HPHeal:SetPoint("BOTTOM", self.Name, "TOP", 0, C.nameplate.track_debuffs == true and 13 or 0)
 	end
 
 	-- Aura tracking
-	if C.nameplate.track_auras == true or C.nameplate.track_buffs == true then
+	if C.nameplate.track_debuffs == true or C.nameplate.track_buffs == true then
 		self.Auras = CreateFrame("Frame", nil, self)
 		self.Auras:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, C.font.nameplates_font_size + 7)
 		self.Auras.initialAnchor = "BOTTOMRIGHT"
 		self.Auras["growth-y"] = "UP"
 		self.Auras["growth-x"] = "LEFT"
-		self.Auras.numDebuffs = C.nameplate.track_auras and 6 or 0
+		self.Auras.numDebuffs = C.nameplate.track_debuffs and 6 or 0
 		self.Auras.numBuffs = C.nameplate.track_buffs and 4 or 0
 		self.Auras:SetSize(20 + C.nameplate.width, C.nameplate.auras_size)
 		self.Auras.spacing = 5 * T.noscalemult
@@ -708,8 +707,8 @@ local function style(self, unit)
 	self:RegisterEvent("UNIT_NAME_UPDATE", UpdateName)
 
 	table.insert(self.__elements, UpdateTarget)
-	self:RegisterEvent("PLAYER_TARGET_CHANGED", UpdateTarget)
-	
+	self:RegisterEvent("PLAYER_TARGET_CHANGED", UpdateTarget, true)
+
 	-- Disable movement via /moveui
 	self.disableMovement = true
 end

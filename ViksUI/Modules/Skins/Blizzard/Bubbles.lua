@@ -5,7 +5,6 @@ if C.chat.bubbles ~= true then return end
 --	ChatBubbles skin(by Haleth)
 ----------------------------------------------------------------------------------------
 local f = CreateFrame("Frame", nil, UIParent)
-local noscalemult = T.mult * C.general.uiscale
 local total = 0
 local numKids = 0
 
@@ -24,15 +23,14 @@ local function styleBubble(frame)
 	end
 
 	frame:SetBackdrop({
-		bgFile = C.media.blank_border, edgeFile = C.media.blank_border, edgeSize = noscalemult,
-		insets = {left = -noscalemult, right = -noscalemult, top = -noscalemult, bottom = -noscalemult}
+		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.noscalemult,
+		insets = {left = -T.noscalemult, right = -T.noscalemult, top = -T.noscalemult, bottom = -T.noscalemult}
 	})
-	frame:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+	frame:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
 	frame:SetBackdropBorderColor(unpack(C.media.border_color))
 	frame:SetClampedToScreen(false)
 	frame:SetFrameStrata("BACKGROUND")
 end
-
 
 f:SetScript("OnUpdate", function(self, elapsed)
 	total = total + elapsed

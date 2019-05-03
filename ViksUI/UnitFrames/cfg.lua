@@ -46,13 +46,12 @@ cfg.RCheckIcon = C.unitframe.RCheckIcon							-- Show Ready Check Icons On Healt
 cfg.Experiencebar = C.unitframe.plugins_experience_bar			-- show experience bar
 cfg.Reputationbar = C.unitframe.plugins_reputation_bar			-- show reputation bar
 cfg.enableDebuffHighlight = C.unitframe.enableDebuffHighlight	-- Highlight Unit Frame if having a Debuffs
-cfg.showAuraWatch = C.unitframe.showAuraWatch					-- watch specific auras
 cfg.showIndicators = C.unitframe.showIndicators					-- Show Indicators on frames
-cfg.ShowIncHeals = C.unitframe.ShowIncHeals						-- Show incoming heals in player and raid frames
+cfg.plugins_healcomm = C.unitframe.plugins_healcomm				-- Show incoming heals in player and raid frames
 cfg.Castbars = C.unitframe.Castbars								-- Show built-in castbars
 cfg.debuffsOnlyShowPlayer = C.unitframe.debuffsOnlyShowPlayer 	-- only show your debuffs on target
 cfg.buffsOnlyShowPlayer = C.unitframe.buffsOnlyShowPlayer 		-- only show your buffs
-cfg.showRaidDebuffs = C.unitframe.showRaidDebuffs 				-- Shows debuff as icon on your raid frames
+cfg.plugins_aura_watch = C.unitframe.plugins_aura_watch 				-- Shows debuff as icon on your raid frames
 cfg.scale = 1
 cfg.showPlayerAuras = C.unitframe.showPlayerAuras				-- use a custom player buffs/debuffs frame instead of blizzard's default
 cfg.Powercolor = C.unitframe.Powercolor							-- power color = class color

@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.Filger.filger and C.unitframe.enable ~= true then return end
+if C.filger.filger and C.unitframe.enable ~= true then return end
 
 -- P_BUFF_ICON
 AnchorP_PROC_ICON = CreateFrame("Frame","Move_P_PROC_ICON",UIParent)
@@ -21,10 +21,6 @@ CreateAnchor(AnchorT_BAR, "Move T_BAR", 36, 36)
 AnchorT_DEBUFF_ICON = CreateFrame("Frame","Move_T_DEBUFF_ICON",UIParent)
 AnchorT_DEBUFF_ICON:SetPoint("LEFT", UIParent, "CENTER", 158, 80)
 CreateAnchor(AnchorT_DEBUFF_ICON, "Move T_DEBUFF_ICON", 36, 36)
-
-AnchorFDEBUFF_BAR = CreateFrame("Frame","Move_FDEBUFF_BAR",UIParent)
-AnchorFDEBUFF_BAR:SetPoint("BOTTOM", UIParent, "BOTTOM", 290, 380)
-CreateAnchor(AnchorFDEBUFF_BAR, "Move FDEBUFF_BAR", 200, 24)
 
 Anchor_CD = CreateFrame("Frame","Move_CD",UIParent)
 Anchor_CD:SetPoint("LEFT", UIParent, "LEFT", 500, -180)

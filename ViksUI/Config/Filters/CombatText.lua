@@ -374,7 +374,6 @@ elseif T.class == "PALADIN" then
 		T.aoespam[31935] = .5		-- Avenger's Shield
 		T.aoespam[114871] = 0		-- Holy Prism
 		T.aoespam[114919] = 3		-- Arcing Light
-		--BETA T.aoespam[213757] = 3		-- Execution Sentence
 		T.aoespam[86704] = 0		-- Ancient Fury
 		T.aoespam[157122] = 3		-- Holy Shield
 		T.merge[53595] = 88263		-- Hammer of the Righteous
@@ -607,13 +606,13 @@ elseif T.class == "WARRIOR" then
 		T.aoespam[118000] = 0		-- Dragon Roar
 		T.aoespam[96103] = 0.5		-- Raging Blow
 		T.aoespam[6572] = 0			-- Revenge
-		T.aoespam[5308] = 0			-- Execute
+		T.aoespam[280849] = 0.25	-- Execute
 		T.aoespam[772] = 3			-- Rend
 		T.aoespam[156287] = 3		-- Ravager
 		T.aoespam[23881] = 0		-- Bloodthirst
 		T.merge[85384] = 96103		-- Raging Blow Off-Hand
 		T.merge[95738] = 50622		-- Bladestorm Off-Hand
-		T.merge[163558] = 5308		-- Execute Off-Hand
+		T.merge[163558] = 280849		-- Execute Off-Hand
 	end
 	if C.combattext.healing then
 		T.healfilter[117313] = true	-- Bloodthirst Heal

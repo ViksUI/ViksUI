@@ -4,6 +4,13 @@
 --	Movement function(by Allez)
 ----------------------------------------------------------------------------------------
 T.MoverFrames = {
+	VehicleButtonAnchor,
+	ExtraButtonAnchor,
+	ActionBarAnchor,
+	RightActionBarAnchor,
+	PetActionBarAnchor,
+	ShiftHolder,
+	MicroAnchor,
 	VehicleAnchor,
 	WatchFrameAnchor,
 	AchievementAnchor,

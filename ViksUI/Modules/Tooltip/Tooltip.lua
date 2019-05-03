@@ -46,7 +46,7 @@ for _, tt in pairs(tooltips) do
 		bg:SetTemplate("Transparent")
 
 		tt.GetBackdrop = function() return backdrop end
-		tt.GetBackdropColor = function() return unpack(C.media.overlay_color) end
+		tt.GetBackdropColor = function() return C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha end
 		tt.GetBackdropBorderColor = function() return unpack(C.media.border_color) end
 	end
 end
@@ -499,7 +499,7 @@ hooksecurefunc("GameTooltip_ShowCompareItem", function(self, anchorFrame)
 	if anchorType and anchorType ~= "ANCHOR_PRESERVE" then
 		if (side == "left") and (totalWidth > leftPos) then
 			self:SetAnchorType(anchorType, (totalWidth - leftPos), 0)
-		elseif (side == "right") and (rightPos + totalWidth) >  GetScreenWidth() then
+		elseif (side == "right") and (rightPos + totalWidth) > GetScreenWidth() then
 			self:SetAnchorType(anchorType, -((rightPos + totalWidth) - GetScreenWidth()), 0)
 		end
 	end

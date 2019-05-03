@@ -60,8 +60,6 @@
 	<Include file="UnitFrames\uf.xml"/>
 	<Include file="UnitFrames\template.xml"/>
 	<Include file="UnitFrames\Raid\load.xml"/>
-	<!--Script file="Main\Cooldown.lua"/-->
-	<!--Script file="Main\Fonts.lua"/-->
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\AlreadyKnown.lua"/>
 	<Script file="Modules\Misc\Archaeology.lua"/>
@@ -94,7 +92,6 @@
 	<Script file="Modules\Misc\ReputationBar.lua"/>
 	<!--Script file="Modules\Misc\Tools.lua"/-->
 	<Script file="Modules\Misc\RaidTools.lua"/>
-	<Script file="Modules\Misc\InfoPanels.lua"/>
 	
 	<Script file="Modules\ActionBars\Core.lua"/>
 	<Script file="Modules\ActionBars\Bindings.lua"/>
@@ -144,10 +141,8 @@
 	<Script file="Modules\Loot\Loot.lua"/>
 	<Script file="Modules\Loot\MasterLoot.lua"/>
 
-	<Script file="Misc\Threatbar.lua"/>
 	<Script file="Misc\ClassTimer.lua"/>
 	<Script file="Misc\Filger.lua"/>
-	<Script file="Misc\CooldownFlash.lua"/>
 	<Script file="Modules\Datatext\Positions.lua"/>
 	<Script file="Modules\Datatext\Durability.lua"/>
 	<Script file="Modules\Datatext\RunSpeed.lua"/>

@@ -14,5 +14,5 @@ ViksUI = engine	-- Allow other addons to use Engine
 	local T, C, L, _ = unpack(select(2, ...))
 
 	This is how another addon imports the ViksUI engine:
-	local T, C, L, _ = unpack(select(2, ...))
+	local T, C, L, _ = unpack(ViksUI)
 ]]

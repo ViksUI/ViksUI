@@ -23,7 +23,7 @@ end
 local Page = {
 	["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 8; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10;",
 	["ROGUE"] = "[bonusbar:1] 7;",
-	["DEFAULT"] = "[possessbar] 11; [vehicleui] 12; [shapeshift] 13; [overridebar] 14; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;",
+	["DEFAULT"] = "[possessbar] 12; [shapeshift] 13; [overridebar] 14; [vehicleui] 12; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;",
 }
 
 local function GetBar()
@@ -40,7 +40,6 @@ end
 bar:RegisterEvent("PLAYER_LOGIN")
 bar:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR")
 bar:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR")
---BETA bar:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 bar:SetScript("OnEvent", function(self, event, ...)
 	if event == "PLAYER_LOGIN" then
 		for i = 1, NUM_ACTIONBAR_BUTTONS do
@@ -69,7 +68,5 @@ bar:SetScript("OnEvent", function(self, event, ...)
 				ActionButton_Update(button)
 			end
 		end
-	else
-		MainMenuBar_OnEvent(self, event, ...)
 	end
 end)

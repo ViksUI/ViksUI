@@ -73,7 +73,6 @@ local ReplaceAnchors do
 
 	function ReplaceAnchors(alertFrameSubSystem)
 		if alertFrameSubSystem.alertFramePool then
-			local frame = alertFrameSubSystem.alertFramePool:GetNextActive()
 			if alertBlacklist[alertFrameSubSystem.alertFramePool.frameTemplate] then
 				return alertFrameSubSystem.alertFramePool.frameTemplate, true
 			else
@@ -123,7 +122,7 @@ local function SetUpAlert()
 		end
 	end
 
-	for i, name in next, remove do
+	for i in next, remove do
 		table.remove(AlertFrame.alertFrameSubSystems, i)
 	end
 end

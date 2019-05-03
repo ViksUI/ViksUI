@@ -119,9 +119,9 @@ L.DataText.Slots = {
 --	Translation: Ianchan, Mania, Nanjiqq, Tat2dawn
 ----------------------------------------------------------------------------------------
 -- Announce flasks and food
-L_ANNOUNCE_FF_NOFOOD = "缺少食物Buff: "
+L_ANNOUNCE_FF_NOFOOD = "缺少食物: "
 L_ANNOUNCE_FF_NOFLASK = "缺少合剂: "
-L_ANNOUNCE_FF_ALLBUFFED = "已获得所有增益!"
+L_ANNOUNCE_FF_ALLBUFFED = "已获得所有增益 !"
 L_ANNOUNCE_FF_CHECK_BUTTON = "检查食物和合剂"
 
 -- Says thanks for some spells
@@ -129,17 +129,17 @@ L_ANNOUNCE_SS_THANKS = "谢谢你的 "
 L_ANNOUNCE_SS_RECEIVED = " 收到来自于 "
 
 -- Pull countdown announce
-L_ANNOUNCE_PC_GO = "开始!"
-L_ANNOUNCE_PC_MSG = "准备接怪: %s,倒数 %s.."
-L_ANNOUNCE_PC_ABORTED = "取消拉怪!"
+L_ANNOUNCE_PC_GO = "开始 !"
+L_ANNOUNCE_PC_MSG = "准备接怪: %s，倒数 %s.."
+L_ANNOUNCE_PC_ABORTED = "取消拉怪 !"
 
 -- Announce feasts and portals
-L_ANNOUNCE_FP_STAT = "%s 放置了 %s - [%s]."
+L_ANNOUNCE_FP_STAT = "%s 放置了 %s - [%s]。"
 L_ANNOUNCE_FP_PRE = "%s 放置了 %s"
 L_ANNOUNCE_FP_PUT = "%s 放置了 %s"
 L_ANNOUNCE_FP_CAST = "%s 开启了 %s"
-L_ANNOUNCE_FP_CLICK = "%s 正在开启 %s... 请点击!"
-L_ANNOUNCE_FP_USE = "%s 使用了 %s."
+L_ANNOUNCE_FP_CLICK = "%s 正在开启 %s... 请点击 !"
+L_ANNOUNCE_FP_USE = "%s 使用了 %s。"
 
 -- Announce your interrupts
 L_ANNOUNCE_INTERRUPTED = "已打断"
@@ -147,28 +147,28 @@ L_ANNOUNCE_INTERRUPTED = "已打断"
 -- Tooltip
 L_TOOLTIP_NO_TALENT = "没有天赋"
 L_TOOLTIP_LOADING = "读取中..."
-L_TOOLTIP_ACH_STATUS = "你的状态:"
-L_TOOLTIP_ACH_COMPLETE = "你的状态: 完成 "
+L_TOOLTIP_ACH_STATUS = "你的状态: "
+L_TOOLTIP_ACH_COMPLETE = "你的状态: 完成"
 L_TOOLTIP_ACH_INCOMPLETE = "你的状态: 未完成"
-L_TOOLTIP_SPELL_ID = "法术ID:"
-L_TOOLTIP_ITEM_ID = "物品ID:"
+L_TOOLTIP_SPELL_ID = "法术ID: "
+L_TOOLTIP_ITEM_ID = "物品ID: "
 L_TOOLTIP_WHO_TARGET = "关注"
-L_TOOLTIP_ITEM_COUNT = "物品数量:"
-L_TOOLTIP_INSPECT_OPEN = "检查框体已打开"
+L_TOOLTIP_ITEM_COUNT = "物品数量: "
+L_TOOLTIP_INSPECT_OPEN = "检查框体已开启"
 
 -- Misc
 L_MISC_UNDRESS = "无装备"
 L_MISC_DRINKING = " 进食中..."
-L_MISC_BUY_STACK = "Alt+右键点击购买一叠"
-L_MISC_ONECLICK_BUYOUT = "Shift+右键,不弹出确认框体直接购买"
-L_MISC_ONECLICK_BID = "Shift+右鍵,不弹出确认框体直接竞标"
-L_MISC_ONECLICK_CANCEL = "Shift+右键,不弹出确认框体直接取消选择的物品"
-L_MISC_UI_OUTDATED = "ViksUI 版本已过期，请至 下载最新版"
+L_MISC_BUY_STACK = "Alt+右键批量购买"
+L_MISC_ONECLICK_BUYOUT = "Shift+右键 不弹出确认框体直接购买"
+L_MISC_ONECLICK_BID = "Shift+右鍵 不弹出确认框体直接竞标"
+L_MISC_ONECLICK_CANCEL = "Shift+右键 不弹出确认框体直接取消选择的物品"
+L_MISC_UI_OUTDATED = "ViksUI 版本已过期，请至 http://goo.gl/QAj0J6 下载最新版。"
 L_MISC_HEADER_MARK = "鼠标悬停显示团队图标"
 L_MISC_BINDER_OPEN = "鼠标绑定"
 L_MISC_GROCERY_BUY = "购买"
 L_MISC_GROCERY_DESC = "杂货商自动购买"
-L_MISC_SCROLL = "附魔卷轴"
+L_MISC_SCROLL = "附魔羊皮纸"
 L_MISC_COLLAPSE = "The Collapse" -- Need review
 
 -- Raid Utility
@@ -189,10 +189,10 @@ L_TOGGLE_ADDON = "插件 "
 L_TOGGLE_ADDONS = " 插件系列"
 L_TOGGLE_EXPAND = "展开 "
 L_TOGGLE_COLLAPSE = "折叠 "
-L_TOGGLE_RCLICK = "右键点击以启用/禁用 "
-L_TOGGLE_LCLICK = "左键点击以显示/隐藏窗口 "
+L_TOGGLE_RCLICK = "右键 启用/禁用 "
+L_TOGGLE_LCLICK = "左键 显示/隐藏窗口 "
 L_TOGGLE_RELOAD = " (需要重载插件)"
-L_TOGGLE_NOT_FOUND = " 未创建."
+L_TOGGLE_NOT_FOUND = " 未创建"
 
 -- UnitFrame
 L_UF_GHOST = "灵魂"
@@ -202,15 +202,15 @@ L_UF_MANA = "低法力值"
 
 -- Map
 L_MAP_CURSOR = "指针: "
-L_MAP_BOUNDS = "超出范围!"
+L_MAP_BOUNDS = "超出范围 !"
 L_MAP_FOG = "地图全亮"
-L_MAP_COORDS = "Coordinates" -- Needs review
+L_MAP_COORDS = "坐标"
 
 -- Minimap
 L_MINIMAP_CALENDAR = "日历"
-L_MINIMAP_HEAL_LAYOUT = "左鍵 - 治疗 布局"
-L_MINIMAP_DPS_LAYOUT = "右键 - 攻击 布局"
-L_MINIMAP_BLIZZ_LAYOUT = "中键 - 默认布局"
+L_MINIMAP_HEAL_LAYOUT = "左鍵 - HPS 布局"
+L_MINIMAP_DPS_LAYOUT = "右键 - DPS 布局"
+L_MINIMAP_BLIZZ_LAYOUT = "中键 - 暴雪 布局"
 
 -- Chat
 L_CHAT_WHISPER = "From"
@@ -223,13 +223,13 @@ L_CHAT_PARTY = "P"
 L_CHAT_PARTY_LEADER = "PL"
 L_CHAT_RAID = "R"
 L_CHAT_RAID_LEADER = "RL"
-L_CHAT_RAID_WARNING = "RE"
+L_CHAT_RAID_WARNING = "RW"
 L_CHAT_INSTANCE_CHAT = "I"
 L_CHAT_INSTANCE_CHAT_LEADER = "IL"
 L_CHAT_OFFICER = "O"
 L_CHAT_PET_BATTLE = "PB"
-L_CHAT_COME_ONLINE = "|cff298F00上线|r."
-L_CHAT_GONE_OFFLINE = "|cffff0000下线|r."
+L_CHAT_COME_ONLINE = "|cff298F00上线了|r"
+L_CHAT_GONE_OFFLINE = "|cffff0000下线了|r"
 
 -- Errors frame
 L_ERRORFRAME_L = "点击查看错误"
@@ -260,15 +260,15 @@ L_BAG_BUTTONS_ARTIFACT = "Right click to use Artifact Power item in bag"
 L_BAG_RIGHT_CLICK_CLOSE = "右键点击打开菜单"
 
 -- Grab mail
-L_MAIL_STOPPED = "无法拾取,背包已满."
-L_MAIL_UNIQUE = "中止,在背包或银行发现重复的唯一物品."
+L_MAIL_STOPPED = "无法拾取，背包已满。"
+L_MAIL_UNIQUE = "中止，在背包或银行发现重复的唯一物品。"
 L_MAIL_COMPLETE = "完成"
 L_MAIL_NEED = "需要信箱"
 L_MAIL_MESSAGES = "新邮件"
 
 -- Loot
 L_LOOT_RANDOM = "随机拾取"
-L_LOOT_SELF = "自由拾取"
+L_LOOT_SELF = "个人拾取"
 L_LOOT_FISH = "钓鱼拾取"
 L_LOOT_ANNOUNCE = "向频道通告"
 L_LOOT_TO_RAID = "  团队"
@@ -277,9 +277,9 @@ L_LOOT_TO_GUILD = "  公会"
 L_LOOT_TO_SAY = "  说"
 
 -- LitePanels AFK module
-L_PANELS_AFK = "你处于暂离状态!"
-L_PANELS_AFK_RCLICK = "右键点击隐藏."
-L_PANELS_AFK_LCLICK = "左键点击返回."
+L_PANELS_AFK = "正处于暂离状态 !"
+L_PANELS_AFK_RCLICK = "右键隐藏"
+L_PANELS_AFK_LCLICK = "左键脱离暂离状态"
 
 -- Cooldowns
 L_COOLDOWNS = "CD: "
@@ -288,14 +288,14 @@ L_COOLDOWNS_COMBATRESS_REMAINDER = "战复剩余: "
 L_COOLDOWNS_NEXTTIME = "下次: "
 
 -- Autoinvite
-L_INVITE_ENABLE = "自动邀请功能启用: "
-L_INVITE_DISABLE = "自动邀请功能关闭"
+L_INVITE_ENABLE = "自动邀请已启用 关键词: "
+L_INVITE_DISABLE = "自动邀请已关闭"
 
 -- Bind key
-L_BIND_SAVED = "快捷键设置已保存."
-L_BIND_DISCARD = "新的快捷键设置已撤消."
-L_BIND_INSTRUCT = "将鼠标悬停至任意动作条进行绑定.按Esc或者右键点击以清除当前动作条的按键绑定."
-L_BIND_CLEARED = "已清除所有快捷键设置."
+L_BIND_SAVED = "快捷键设置已保存"
+L_BIND_DISCARD = "新的快捷键设置已撤消"
+L_BIND_INSTRUCT = "将鼠标悬停至任意快捷键进行绑定。按Esc或者右键清除当前快捷键的按键绑定。"
+L_BIND_CLEARED = "已清除所有快捷键设置"
 L_BIND_BINDING = "绑定"
 L_BIND_KEY = "按键"
 L_BIND_NO_SET = "没有绑定快捷键"
@@ -318,16 +318,15 @@ L_INFO_SKIN_DISABLED1 = "介面样式启用 "
 L_INFO_SKIN_DISABLED2 = " 已禁用."
 
 -- Popups
-L_POPUP_INSTALLUI = "该角色首次使用ViksUI.你必须重新加载UI来配置."
+L_POPUP_INSTALLUI = "该角色首次使用ViksUI，你必须重新加载UI来配置。"
 L_POPUP_RESETUI = "你确定要重新加载ViksUI?"
-L_POPUP_RESETSTATS = "你确定要重置本次游戏时间和金币收益统计数据?"
-L_POPUP_SWITCH_RAID = "选择团队布局."
+L_POPUP_RESETSTATS = "你确定要重置所有角色游戏时间和金币的统计数据?"
+L_POPUP_SWITCH_RAID = "选择团队布局"
 L_POPUP_DISBAND_RAID = "你确定要解散团队?"
-L_POPUP_DISABLEUI = "ShestakUI不支持此分辨率, 是否停用ShestakUI? (若调整其他分辨率,请按取消)"
-L_POPUP_SETTINGS_ALL = "套用所有插件设置? (DBM/BigWigs/Skada/MSBT)"
-L_POPUP_SETTINGS_DBM = "需要改变DBM锚点及样式元素."
-L_POPUP_SETTINGS_DXE = "需要改变DXE锚点及样式元素."
-L_POPUP_SETTINGS_BW = "需要改变BigWigs锚点及样式元素."
+L_POPUP_DISABLEUI = "ViksUI不支持此分辨率，是否停用ViksUI? (若要尝试其他分辨率请按取消)"
+L_POPUP_SETTINGS_ALL = "套用所有插件设置?(DBM/BigWigs/Skada/MSBT)"
+L_POPUP_SETTINGS_DBM = "需要改变DBM锚点及样式元素"
+L_POPUP_SETTINGS_BW = "需要改变BigWigs锚点及样式元素"
 L_POPUP_ARMORY = "英雄榜"
 L_POPUP_CURRENCY_CAP = "你拥有的最高级货币为"
 
@@ -338,17 +337,17 @@ L_WELCOME_LINE_2_2 = "获取更多信息."
 
 -- Combat text
 L_COMBATTEXT_KILLING_BLOW = "最后一击"
-L_COMBATTEXT_ALREADY_UNLOCKED = "战斗信息已解锁."
-L_COMBATTEXT_ALREADY_LOCKED = "战斗信息已锁定."
-L_COMBATTEXT_TEST_DISABLED = "战斗信息测试模式已禁用."
-L_COMBATTEXT_TEST_ENABLED = "战斗信息测试模式已启用."
-L_COMBATTEXT_TEST_USE_UNLOCK = "输入 /xct unlock 移动/调整战斗信息框架大小."
-L_COMBATTEXT_TEST_USE_LOCK = "输入 /xct lock 锁定战斗信息框架."
-L_COMBATTEXT_TEST_USE_TEST = "输入 /xct test 启用/禁用战斗信息测试模式."
-L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset 恢复默认位置."
-L_COMBATTEXT_POPUP = "保存战斗信息窗口的位置须重载插件."
-L_COMBATTEXT_UNSAVED = "战斗信息窗口位置尚未保存,不要忘记重新载入插件."
-L_COMBATTEXT_UNLOCKED = "战斗信息已解锁."
+L_COMBATTEXT_ALREADY_UNLOCKED = "战斗信息已解锁"
+L_COMBATTEXT_ALREADY_LOCKED = "战斗信息已锁定"
+L_COMBATTEXT_TEST_DISABLED = "战斗信息测试模式已禁用"
+L_COMBATTEXT_TEST_ENABLED = "战斗信息测试模式已启用"
+L_COMBATTEXT_TEST_USE_UNLOCK = "键入 /xct unlock 移动/调整战斗信息框架大小"
+L_COMBATTEXT_TEST_USE_LOCK = "键入 /xct lock 锁定战斗信息框架"
+L_COMBATTEXT_TEST_USE_TEST = "键入 /xct test 启用/禁用战斗信息测试模式"
+L_COMBATTEXT_TEST_USE_RESET = "键入 /xct reset 恢复到初始位置"
+L_COMBATTEXT_POPUP = "保存战斗信息窗口的位置须重载插件"
+L_COMBATTEXT_UNSAVED = "战斗信息窗口位置尚未保存，不要忘记重新载入插件。"
+L_COMBATTEXT_UNLOCKED = "战斗信息已解锁"
 
 -- LiteStats
 L_STATS_ACC_PLAYED = "帐号启用总时间"

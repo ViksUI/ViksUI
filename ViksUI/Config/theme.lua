@@ -16,41 +16,41 @@ theme.t:SetPoint("TOPLEFT", theme, 2, -2)
 theme.t:SetPoint("BOTTOMRIGHT", theme, -2, 2)
 
 local function ThemeBorderC(r, g, b, a)
-	if not GUIConfigAll then return end
-	if GUIConfigAll[T.realm][T.name] == true then
-		if GUIConfig == nil then GUIConfig = {} end
-		if GUIConfig["media"] == nil then GUIConfig["media"] = {} end
-		GUIConfig["media"]["border_color"] = {r, g, b, a}
+	if not ViksUIOptionsGlobal then return end
+	if ViksUIOptionsGlobal[T.realm][T.name] == true then
+		if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
+		if ViksUIOptionsPerChar["media"] == nil then ViksUIOptionsPerChar["media"] = {} end
+		ViksUIOptionsPerChar["media"]["border_color"] = {r, g, b, a}
 	else
-		if GUIConfigSettings == nil then GUIConfigSettings = {} end
-		if GUIConfigSettings["media"] == nil then GUIConfigSettings["media"] = {} end
-		GUIConfigSettings["media"]["border_color"] = {r, g, b, a}
+		if ViksUIOptions == nil then ViksUIOptions = {} end
+		if ViksUIOptions["media"] == nil then ViksUIOptions["media"] = {} end
+		ViksUIOptions["media"]["border_color"] = {r, g, b, a}
 	end
 end
 
 local function ThemeBackdropC(r, g, b, a)
-	if not GUIConfigAll then return end
-	if GUIConfigAll[T.realm][T.name] == true then
-		if GUIConfig == nil then GUIConfig = {} end
-		if GUIConfig["media"] == nil then GUIConfig["media"] = {} end
-		GUIConfig["media"]["backdrop_color"] = {r, g, b, a}
+	if not ViksUIOptionsGlobal then return end
+	if ViksUIOptionsGlobal[T.realm][T.name] == true then
+		if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
+		if ViksUIOptionsPerChar["media"] == nil then ViksUIOptionsPerChar["media"] = {} end
+		ViksUIOptionsPerChar["media"]["backdrop_color"] = {r, g, b, a}
 	else
-		if GUIConfigSettings == nil then GUIConfigSettings = {} end
-		if GUIConfigSettings["media"] == nil then GUIConfigSettings["media"] = {} end
-		GUIConfigSettings["media"]["backdrop_color"] = {r, g, b, a}
+		if ViksUIOptions == nil then ViksUIOptions = {} end
+		if ViksUIOptions["media"] == nil then ViksUIOptions["media"] = {} end
+		ViksUIOptions["media"]["backdrop_color"] = {r, g, b, a}
 	end
 end
 
 local function ThemeOverlayC(r, g, b, a)
-	if not GUIConfigAll then return end
-	if GUIConfigAll[T.realm][T.name] == true then
-		if GUIConfig == nil then GUIConfig = {} end
-		if GUIConfig["media"] == nil then GUIConfig["media"] = {} end
-		GUIConfig["media"]["overlay_color"] = {r, g, b, a}
+	if not ViksUIOptionsGlobal then return end
+	if ViksUIOptionsGlobal[T.realm][T.name] == true then
+		if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
+		if ViksUIOptionsPerChar["media"] == nil then ViksUIOptionsPerChar["media"] = {} end
+		ViksUIOptionsPerChar["media"]["overlay_color"] = {r, g, b, a}
 	else
-		if GUIConfigSettings == nil then GUIConfigSettings = {} end
-		if GUIConfigSettings["media"] == nil then GUIConfigSettings["media"] = {} end
-		GUIConfigSettings["media"]["overlay_color"] = {r, g, b, a}
+		if ViksUIOptions == nil then ViksUIOptions = {} end
+		if ViksUIOptions["media"] == nil then ViksUIOptions["media"] = {} end
+		ViksUIOptions["media"]["overlay_color"] = {r, g, b, a}
 	end
 end
 

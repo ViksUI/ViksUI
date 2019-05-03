@@ -1,66 +1,49 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.map.bg_map_stylization ~= true or IsAddOnLoaded("Capping") or IsAddOnLoaded("Aurora") then return end
+if C.minimap.bg_map_stylization ~= true or IsAddOnLoaded("Capping") or IsAddOnLoaded("Aurora") then return end
 
 ----------------------------------------------------------------------------------------
---	BattlefieldMinimap style
+--	BattlefieldMap style
 ----------------------------------------------------------------------------------------
 local tinymap = CreateFrame("Frame", "UIZoneMap", UIParent)
-tinymap:SetPoint("CENTER")
-tinymap:SetSize(223, 150)
-tinymap:EnableMouse(true)
-tinymap:SetMovable(true)
-tinymap:RegisterEvent("ADDON_LOADED")
-tinymap:SetPoint("CENTER", UIParent, 0, 0)
-tinymap:SetFrameLevel(7)
 tinymap:Hide()
 
-local tinymapbg = CreateFrame("Frame", nil, tinymap)
-tinymapbg:SetAllPoints()
-tinymapbg:SetFrameLevel(0)
-tinymapbg:SetTemplate("Transparent")
-
+tinymap:RegisterEvent("ADDON_LOADED")
 tinymap:SetScript("OnEvent", function(self, event, addon)
-	if addon ~= "Blizzard_BattlefieldMinimap" then return end
+	if addon ~= "Blizzard_BattlefieldMap" then return end
 
-	BattlefieldMinimap:SetScript("OnShow", function(self)
-		tinymap:Show()
-		BattlefieldMinimapCorner:Kill()
-		BattlefieldMinimapBackground:Kill()
-		BattlefieldMinimapTab:Kill()
-		BattlefieldMinimapTabLeft:Kill()
-		BattlefieldMinimapTabMiddle:Kill()
-		BattlefieldMinimapTabRight:Kill()
-		BattlefieldMinimapCloseButton:Kill()
-		self:SetParent(tinymap)
-		self:SetPoint("TOPLEFT", tinymap, "TOPLEFT", 2, -2)
-		self:SetFrameStrata(tinymap:GetFrameStrata())
-		BattlefieldMinimap:SetFrameLevel(6)
-		tinymap:SetScale(1)
-		tinymap:SetAlpha(1)
-		BattlefieldMinimap_Update()
-	end)
+	BattlefieldMapFrame:SetSize(223, 150)
+	BattlefieldMapFrame:CreateBackdrop("Transparent")
+	BattlefieldMapFrame.backdrop:SetPoint("TOPLEFT", -2, 4)
+	BattlefieldMapFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, 1)
 
-	BattlefieldMinimap:SetScript("OnHide", function(self)
-		tinymap:SetScale(0.00001)
-		tinymap:SetAlpha(0)
-	end)
+	BattlefieldMapFrame.BorderFrame:DisableDrawLayer("BORDER")
+	BattlefieldMapFrame.BorderFrame:DisableDrawLayer("ARTWORK")
 
-	tinymap:SetScript("OnMouseUp", function(self, btn)
+	BattlefieldMapFrame.BorderFrame.CloseButton:Hide()
+	BattlefieldMapFrame.BorderFrame.CloseButtonBorder:Hide()
+
+	BattlefieldMapTab:SetParent(tinymap)
+
+	BattlefieldMapFrame.ScrollContainer:HookScript("OnMouseUp", function(self, btn)
 		if btn == "LeftButton" then
-			self:StopMovingOrSizing()
+			BattlefieldMapTab:StopMovingOrSizing()
 			if OpacityFrame:IsShown() then OpacityFrame:Hide() end
 		elseif btn == "RightButton" then
-			ToggleDropDownMenu(nil, nil, BattlefieldMinimapTabDropDown, self:GetName(), 0, -4)
+			local function InitializeOptionsDropDown(BattlefieldMapFrame)
+				BattlefieldMapFrame:GetParent():InitializeOptionsDropDown()
+			end
+			UIDropDownMenu_Initialize(BattlefieldMapTab.OptionsDropDown, InitializeOptionsDropDown, "MENU")
+			ToggleDropDownMenu(nil, nil, BattlefieldMapTab.OptionsDropDown, "cursor", 0, -4)
 			if OpacityFrame:IsShown() then OpacityFrame:Hide() end
 		end
 	end)
 
-	tinymap:SetScript("OnMouseDown", function(self, btn)
+	BattlefieldMapFrame.ScrollContainer:HookScript("OnMouseDown", function(self, btn)
 		if btn == "LeftButton" then
-			if BattlefieldMinimapOptions and BattlefieldMinimapOptions.locked then
+			if BattlefieldMapOptions and BattlefieldMapOptions.locked then
 				return
 			else
-				self:StartMoving()
+				BattlefieldMapTab:StartMoving()
 			end
 		end
 	end)

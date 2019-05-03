@@ -18,14 +18,15 @@ C["media"] = {
 	["fontsize"] = 12, 														    		-- Size of font 
 	["border_color"] = { 0, .38, .651, 1}, 												-- border color of Viks UI panels
 	["backdrop_color"] = {.06,.06,.06, 1}, 												-- background color of Viks UI panels
+	["backdrop_alpha"] = 0.7,															-- Alpha for transparent backdrop
 	["overlay_color"] = {0, 0, 0, 0.9},													-- Color for action bars overlay
-	["texture"] = [[Interface\AddOns\ViksUI\Media\textures\Texture.tga]],
+	["texture"] = [[Interface\AddOns\ViksUI\Media\textures\Texture.tga]],				-- Texture for status bars
 	["blank"] = "Interface\\Buttons\\WHITE8x8",
-	["blank_border"] = "Interface\\Buttons\\WHITE8x8",			-- Texture for borders			-- Texture for status bars
-	["highlight"] = [[Interface\AddOns\ViksUI\Media\textures\Highlight]],			-- Texture for debuffs highlight
+	["blank_border"] = "Interface\\Buttons\\WHITE8x8",									-- Texture for borders			
+	["highlight"] = [[Interface\AddOns\ViksUI\Media\textures\Highlight]],				-- Texture for debuffs highlight
 	["pxcolor1"] = { .001,.38,.651,1 },													-- Color for Name on Datatext
 	["pxcolor2"] = { .41,.80,.94,1 },													-- Color for Value on Datatext if not dynamic color by value
-	["oUFfont"] = [=[Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf]=], 				-- DataText Font Normal
+	["oUFfont"] = [=[Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf]=], 			-- DataText Font Normal
 	["oUFfontsize"] = 12, 																-- Size of font Datatext
 	["oUFfontcolor"] = { .07, .7, .3, 1}, 												-- Font color used when class colored bars
 	["whisp_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Whisper.ogg]],				-- Sound for wispers
@@ -40,7 +41,6 @@ C["general"] = {
 	["auto_scale"] = true,						-- Autoscale
 	["uiscale"] = 0.96,							-- Your value(between 0.64 and 1) if "auto_scale" is disable
 	["welcome_message"] = true,					-- Enable welcome message in chat
-	["custom_lagtolerance"] = false,			-- Custom lag tolerance to your latency
 }
 
 ----------------------------------------------------------------------------------------
@@ -69,22 +69,16 @@ C["misc"] = {
 	["chars_currency"] = true,					-- Tracks your currency tokens across multiple characters
 	["markbar"] = true,							-- Markbar for Raid Icons and flares
 	["classtimer"] = true,						-- Shows buff/debuffs/procs as bar on player/target frame
-	["CooldownFlash"] = false,					-- Flash icon on screen when spell are ready after cd
-	["raidcooldowns"] = true,					-- Shows and tracks cooldowns used from raid members
 	["WatchFrame"] = true,						-- Use custom Quest watch frame
-	["MMBFbutton"] = true,						-- Minimap Button Frame Custom toggle button
-	["BT4Bars"] = true,
-	["Pscale"] = 1,
-	["panelsh"] = true,
-	["Threatbar"] = false,						-- Custom Threath Bar, that show on bar under main actionbars.
+	["BT4Bars"] = true,							-- Panels behind Sidebar & Small bars for Bartender 4
+	["Pscale"] = 1,								-- Scale ViksUI Panels
+	["panelsh"] = true,							-- Set UI Panels to hidden
 	["merchant_itemlevel"] = false,				-- Show item level for weapons and armor in merchant
 	["combatanimation"] = true,					-- Text animation when entering/exiting combat
 	["hide_banner"] = true,						-- Hide Boss Banner Loot Frame
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
-	["OrderHallBar"] = false,					-- Show OrderHallBar Frame
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
-	["InfoPanel_Stats"] = true,					-- Show Game Menu Bar
-	["yoffset2"] = yOffset,
+	["custom_lagtolerance"] = false,			-- Custom lag tolerance to your latency
 }
 
 ----------------------------------------------------------------------------------------
@@ -206,32 +200,18 @@ C["combattext"] = {
 }
 
 ----------------------------------------------------------------------------------------
---	Addon Skins  //-- These are still the best to use atm
-----------------------------------------------------------------------------------------
-C["addonskins"] = {				 
-	["PallyPower"] = false, 					-- Pally Power skinning
-	["Skada"] = true, 						-- Skada skinning
-	["Recount"] = false, 					-- Recount skinning
-	["Omen"] = false, 						-- Omen skinning
-	["KLE"] = false, 						-- KLE skinning
-	["Quartz"] = true, 						-- Quartz skinning
-	["Bigwigs"] = true, 					-- BigWigs Bossmod skinning
-	["DXE"] = false,
-}
-
-----------------------------------------------------------------------------------------
 --	Buffs reminder options
 ----------------------------------------------------------------------------------------
 C["reminder"] = {
 	-- Self buffs
 	["solo_buffs_enable"] = true,				-- Enable buff reminder
-	["solo_buffs_sound"] = true,				-- Enable warning sound notification for buff reminder
+	["solo_buffs_sound"] = false,				-- Enable warning sound notification for buff reminder
 	["solo_buffs_size"] = 45,					-- Icon size
 	-- Raid buffs
 	["raid_buffs_enable"] = true,				-- Show missing raid buffs
-	["raid_buffs_always"] = false,				-- Show frame always
-	["raid_buffs_size"] = 20.1,					-- Icon size
-	["raid_buffs_alpha"] = 0.3,					-- Transparent icons when the buff is present
+	["raid_buffs_always"] = false,				-- Show frame always (default show only in raid)
+	["raid_buffs_size"] = 19.2,					-- Icon size
+	["raid_buffs_alpha"] = 0,					-- Transparent icons when the buff is present
 }
 
 ----------------------------------------------------------------------------------------
@@ -241,7 +221,9 @@ C["raidcooldown"] = {
 	["enable"] = true,							-- Enable raid cooldowns
 	["height"] = 15,							-- Bars height
 	["width"] = 186,							-- Bars width(if show_icon = false, bar width+28)
-	["upwards"] = true,							-- Sort upwards bars
+	["upwards"] = false,						-- Sort upwards bars
+	["expiration"] = false,						-- Sort by expiration time
+	["show_self"] = true,						-- Show self cooldowns
 	["show_icon"] = true,						-- Show icons
 	["show_inraid"] = true,						-- Show in raid zone
 	["show_inparty"] = true,					-- Show in party zone
@@ -320,12 +302,16 @@ C["tooltip"] = {
 ----------------------------------------------------------------------------------------
 C["minimap"] = {
 	["enable"] = true,
-	["minimb1"] = true,						--Background for Minimap bottom right
-	["minimb2"] = true,						--Background for Minimap bottom left
-	["Picomenu"] = true,					--Use Picomenu
-	["compass"] = true,						--Show N/S/E/W
-	["size"] = 136,
-	["toggle_menu"] = false,						-- Show toggle menu
+	["tracking_icon"] = false,				-- Tracking icon
+	["garrison_icon"] = false,				-- Garrison icon
+	["size"] = 136,							-- Minimap size
+	["toggle_menu"] = false,				-- Show toggle menu
+	["hide_combat"] = false,				-- Hide minimap in combat
+	["compass"] = true,						-- Show N/S/E/W
+	-- Other
+	["bg_map_stylization"] = true,			-- BG map stylization
+	["minimb1"] = true,						-- Background for Minimap bottom right
+	["minimb2"] = true,						-- Background for Minimap bottom left
 }
 ----------------------------------------------------------------------------------------
 --	Panels options
@@ -391,14 +377,6 @@ C["bag"] = {
 }
 
 ----------------------------------------------------------------------------------------
---	Map options
-----------------------------------------------------------------------------------------
-C["map"] = {
-	["bg_map_stylization"] = true,				-- BG map stylization
-	["fog_of_war"] = true,						-- Fog of war on World Map
-}
-
-----------------------------------------------------------------------------------------
 --	Loot and Roll Frames
 ----------------------------------------------------------------------------------------
 C["loot"] = {
@@ -423,19 +401,19 @@ C["nameplate"] = {
 	["combat"] = false,							-- Automatically show nameplate in combat
 	["health_value"] = false,					-- Numeral health value
 	["show_castbar_name"] = false,				-- Show castbar name
-	["enhance_threat"] = true,					-- If tank good aggro = green, bad = red
 	["class_icons"] = false,					-- Icons by class in PvP
-	["name_abbrev"] = false,					-- Display the abbreviated names
+	["name_abbrev"] = false,					-- Display abbreviated names
 	["clamp"] = false,							-- Clamp nameplates to the top of the screen when outside of view
-	["good_color"] = {0.2, 0.8, 0.2},			-- Good threat color
-	["near_color"] = {1, 1, 0},					-- Near threat color
-	["bad_color"] = {1, 0, 0},					-- Bad threat color
-	["offtank_color"] = {0, 0.5, 1},			-- Offtank threat color
-	["track_auras"] = false,					-- Show debuffs
+	["track_debuffs"] = false,					-- Show debuffs (from the list)
 	["track_buffs"] = false,					-- Show buffs above player nameplate (from the list)
 	["auras_size"] = 25,						-- Debuffs size
 	["healer_icon"] = false,					-- Show icon above enemy healers nameplate in battlegrounds
 	["totem_icons"] = false,					-- Show icon above enemy totems nameplate
+	["enhance_threat"] = true,					-- Enable threat feature, automatically changes by your role
+	["good_color"] = {0.2, 0.8, 0.2},			-- Good threat color
+	["near_color"] = {1, 1, 0},					-- Near threat color
+	["bad_color"] = {1, 0, 0},					-- Bad threat color
+	["offtank_color"] = {0, 0.5, 1},			-- Offtank threat color
 }
 
 ----------------------------------------------------------------------------------------
@@ -463,52 +441,51 @@ C["aura"] = {
 --	Unit Frames options
 ----------------------------------------------------------------------------------------
 C["unitframe"] = {
+	-- Main
 	["enable"] = true,																	-- enable/disable action bars
 	["HealFrames"] = false,																-- Healing layout/positions
-	["ShowRaid"] = true,																-- Show Raid Frames
-	["ShowParty"] = true,																-- show party frames (shown as 5man raid)
-	["RaidShowAllGroups"] = true,														-- Show All 8 Raid Groups, if not then 5	
-	["RaidShowSolo"] = false,															-- show raid frames even when solo
 	["HealthcolorClass"] = false,														-- health color = class color
 	["HealthBarBackGround"] = { .1, .1, .1, 1},
-	["bigcastbar"] = true,
 	["Powercolor"] = true,																-- power color = class color
+	["VuhDo"] = false, 																	-- Always Hide Raidframes if VuhDo is loaded.
+	["UFfont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",
+	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
+	["insideAlpha"] = 1,																-- Alpha when Unitframe is in range	
+	["outsideAlpha"] = 0.6,																-- Alpha when Unitframe is out of range
+	["uf_color"] = {0.4, 0.4, 0.4},														-- Color for UF if ["own_color"] = true
+	-- misc
+	["showPlayerAuras"] = false, 														-- use a custom player buffs/debuffs frame instead of blizzard's default.
+	["IndicatorIcons2"] = false,														-- Ø Toggles different Indicator types.
+	["aurasize"] = 18,																	-- Ø Aura Size for indicator type 2
+	["indicatorsize"] = 6,																-- Ø Size on Squares on Indicator type 2
+	["symbolsize"] = 11,																-- Ø Size on Symbols on Indicator type 2
+	["fontsizeEdge"] = 12,																-- Ø
+	["Findoutline"] = "OUTLINE",														-- Ø
+	-- Cast bars
+	["Castbars"] = true, 																-- Show castbars
+	["castbar_ticks"] = true,															-- Castbar ticks
+	-- Frames
 	["showtot"] = true, 																-- show target of target frame
 	["showpet"] = true,																	-- show pet frame
 	["showfocus"] = true, 																-- show focus frame
 	["showfocustarget"] = true, 														-- show focus targets frame
 	["showBossFrames"] = true, 															-- show boss frame
-	["TotemBars"] = true, 																-- show totem bars
 	["MTFrames"] = true, 																-- show main tank frames
-	["showPlayerAuras"] = false, 														-- use a custom player buffs/debuffs frame instead of blizzard's default.
-	["ThreatBar"] = true,																-- show threat bar
-	["showPortrait"] = true,															-- show portraits Icon
-	["showPortraitHPbar"] = false,														-- show portraits on Healthbar
-	["Castbars"] = true, 																-- Show built-in castbars
-	["VuhDo"] = false, 																	-- Always Hide Raidframes if VuhDo is loaded.
-	["showRaidDebuffs"] = true,															-- Shows debuff as icon on your raid frames
-	["showAuraWatch"] = true,															-- Watch specific auras
-	--["enableDebuffHighlight"] = true,													-- Highlight Unit Frame if having a Debuffs
-	["ShowIncHeals"] = true,															-- Show incoming heals in player and raid frames
-	["RCheckIcon"] = true,																-- Show Ready Check Icons On Health Frames
-	["IndicatorIcons2"] = false,														-- Toggles different Indicator types.	
-	["UFfont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",
-	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
-	["aurasize"] = 18,																	-- Aura Size for indicator type 2
-	["indicatorsize"] = 6,																-- Size on Squares on Indicator type 2
-	["symbolsize"] = 11,																-- Size on Symbols on Indicator type 2
-	["fontsizeEdge"] = 12,
-	["Findoutline"] = "OUTLINE",
-	["insideAlpha"] = 1,																-- Alpha when Unitframe is in range	
-	["outsideAlpha"] = 0.6,																-- Alpha when Unitframe is out of range	
+	["ShowRaid"] = true,																-- Show Raid Frames
+	["ShowParty"] = true,																-- show party frames (shown as 5man raid)
+	["RaidShowAllGroups"] = true,														-- Show All 8 Raid Groups, if not then 5	
+	["RaidShowSolo"] = false,															-- show raid frames even when solo
+	-- Icons
 	["showLFDIcons"] = true,															-- Show Raid Roll Icon on Frames
 	["customLFDIcons"] = true,															-- Show Custom Raid Roll Icon on Frames
 	["customLFDText"] = false,															-- Show Raid Roll Icon as Text on Frames
 	["showIndicators"] = true,															-- Show Indicators on frames
 	["debuffsOnlyShowPlayer"] = false,													-- only show your debuffs on target
 	["buffsOnlyShowPlayer"] = false,													-- only show your buffs
-	["uf_color"] = {0.4, 0.4, 0.4},														-- Color for UF if ["own_color"] = true
-	["castbar_ticks"] = true,															-- Castbar ticks
+	["RCheckIcon"] = true,																-- Show Ready Check Icons On Health Frames
+	-- Portrait
+	["showPortrait"] = true,															-- show portraits Icon
+	["showPortraitHPbar"] = false,														-- show portraits on Healthbar
 	-- Plugins
 	["plugins_gcd"] = false,					-- Global cooldown spark on player frame
 	["plugins_swing"] = false,					-- Swing bar
@@ -517,17 +494,15 @@ C["unitframe"] = {
 	["plugins_smooth_bar"] = false,				-- Smooth bar
 	--["plugins_enemy_spec"] = false,				-- Enemy specialization
 	["plugins_combat_feedback"] = false,		-- Combat text on player/target frame
-	["plugins_fader"] = false,					-- Fade unit frames
+	["plugins_fader"] = false,					-- Ø Fade unit frames
 	--["plugins_diminishing"] = false,			-- Diminishing Returns icons on arena frames
-	
-		-- Plugins
 	["plugins_debuffhighlight_icon"] = false,	-- Debuff highlight texture + icon
 	["plugins_aura_watch"] = true,				-- Raid debuff icons (from the list)
 	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
 	["plugins_pvp_debuffs"] = false,			-- Show also PvP debuff icons (from the list)
-	["plugins_healcomm"] = true,				-- Incoming heal bar on raid frame
+	["plugins_healcomm"] = true,				-- Show incoming heals in player and raid frames
 	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click(doesn't work with Clique)
-	}
+}
 
 ----------------------------------------------------------------------------------------
 --	Unit Frames Class bar options
@@ -612,8 +587,6 @@ C["raidframes"] = {
     ["sortClass"] = false,
     ["classOrder"] = "DEATHKNIGHT,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR", --Uppercase English class names separated by a comma. \n { CLASS[,CLASS]... }"
     ["hidemenu"] = false,
-	["plugins_aura_watch"] = true,				-- Raid debuff icons
-	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
 }
 
 ----------------------------------------------------------------------------------------
@@ -756,7 +729,7 @@ C["actionbar"] = {
 ----------------------------------------------------------------------------------------
 --	Miscellaneous options
 ----------------------------------------------------------------------------------------
-C["Filger"] = {
+C["filger"] = {
 	["enable"] = true,							-- Enable Filger
 	["test_mode"] = false,						-- Test icon mode
 	["max_test_icon"] = 5,						-- The number of icons to the test
@@ -764,13 +737,11 @@ C["Filger"] = {
 	["disable_cd"] = false,						-- Disable cooldowns
 	["disable_pvp"] = false,					-- Disable PvP debuffs on Player and Target
 	["expiration"] = false,						-- Sort cooldowns by expiration time
-	["filgerCD"] = false,						-- Filger, shows Cooldowns on a bar list.
-	["filgertbar"] = false,						-- Filger, shows special bars for target.
 	["proc_size"] = 37,							-- Icon size for procs
-	["buffs_size"] = 37,							-- Icon size for buffs
+	["buffs_size"] = 37,						-- Icon size for buffs
 	["debuff_size"] = 37,						-- Icon size for debuffs
 	["bar_iconsize"] = 25,						-- Icon size for bars
-	["bar_width"] = 186,							-- Width for bars
+	["bar_width"] = 186,						-- Width for bars
 	["cooldown_size"] = 30,						-- Icon size for cooldowns
 }
 
@@ -793,34 +764,34 @@ C["position"] = {
 	["tooltip"] = {"TOPLEFT", UIParent, "TOPLEFT", 2, -20},							-- Tooltip
 	["attempt"] = {"TOP", UIParent, "TOP", 0, -25},									-- Attempts frame
 	["capture_bar"] = {"TOP", UIParent, "TOP", 0, 3},								-- BG capture bars
-	["vehicle"] = {"BOTTOM", Minimap, "TOP", 0, 27},								-- Vehicle frame
-	["ghost"] = {"BOTTOM", Minimap, "TOP", 0, 5},									-- Ghost frame
+	["vehicle"] = {"TOP", UIParent, "TOP", 0, -30},									-- Vehicle frame
+	["ghost"] = {"TOP", UIParent, "TOP", 0, -30},									-- Ghost frame
 	["uierror"] = {"TOP", UIParent, "TOP", 0, -30},									-- Errors frame
 	["quest"] = {"TOPLEFT", UIParent, "TOPLEFT", 21, -2},							-- Quest log
 	["loot"] = {"TOPLEFT", UIParent, "TOPLEFT", 245, -220},							-- Loot
 	["group_loot"] = {"BOTTOM", UIParent, "BOTTOM", -238, 500},						-- Group roll loot
-	["threat_meter"] = {"CENTER", UIParent, "CENTER", 0, 0},						-- Threat meter
+	["threat_meter"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -4, 200},			-- Threat meter
 	["raid_cooldown"] = {"TOPLEFT", UIParent, "TOPLEFT", 21, -21},					-- Raid cooldowns
 	["enemy_cooldown"] = {"BOTTOMLEFT", "oUF_Player", "TOPRIGHT", 33, 350},			-- Enemy cooldowns
 	["pulse_cooldown"] = {"CENTER", UIParent, "CENTER", 0, 0},						-- Pulse cooldowns
-	["bg_score"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 350},								-- BG stats
+	["bg_score"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 350},				-- BG stats
 	["player_buffs"] = {"TOPRIGHT", Minimap, "TOPLEFT", -6, 2},						-- Player buffs
 	["self_buffs"] = {"CENTER", UIParent, "CENTER", 0, 0},							-- Self buff reminder
 	["raid_buffs"] = {"CENTER", UIParent, "CENTER", 0, 0},							-- Raid buff reminder
 	["top_panel"] = {"TOP", UIParent, "TOP", 0, -20},								-- Top panel
 	["raid_utility"] = {"TOP", UIParent, "TOP", -280, 1},							-- Raid utility
-	["archaeology"] = {"RIGHT", CPMinimb2, "RIGHT", -40, 1},							-- Archaeology frame
+	["archaeology"] = {"RIGHT", CPMinimb2, "RIGHT", -40, 1},						-- Archaeology frame
 	["auto_button"] = {"LEFT", UIParent, "LEFT", 0, 0},								-- Auto button
 	["extra_button"] = {"BOTTOM", UIParent, "BOTTOM", 0, 350},						-- Extra action button
 	["alt_power_bar"] = {"TOP", UIParent, "TOP", 0, -21},							-- Alt power bar
 	["talking_head"] = {"TOP", UIParent, "TOP", 0, -21},							-- Talking Head
 	-- ActionBar positions
-	["bottom_bars"] = {"BOTTOM", UIParent, "BOTTOM", 0, 8},							-- Bottom bars
+	["bottom_bars"] = {"BOTTOM", UIParent, "BOTTOM", 0, 20},						-- Bottom bars
 	["right_bars"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -21, 330},			-- Right bars
 	["pet_horizontal"] = {"BOTTOMRIGHT", UIParent, "BOTTOM", -175, 167},			-- Horizontal pet bar
 	["stance_bar"] = {"BOTTOMRIGHT", UIParent, "BOTTOM", -202, 167},				-- Stance bar
 	["vehicle_bar"] = {"BOTTOMRIGHT", ActionButton1, "BOTTOMLEFT", -3, 0},			-- Vehicle button
-	["micro_menu"] = {"TOPLEFT", UIParent, "TOPLEFT", 2, -2},						-- Micro menu
+	["micro_menu"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -4, 200},					-- Micro menu
 	-- UnitFrame positions
 	unitframes = {
 		["player"] = {"BOTTOMRIGHT", "ActionBarAnchor", "TOPLEFT", -9, 175},		-- Player frame
@@ -844,117 +815,6 @@ C["position"] = {
 	},
 }
 
-
-----------------------------------------------------------------------------------------
---	ViksUI fonts configuration file
---	BACKUP THIS FILE BEFORE UPDATING!
-----------------------------------------------------------------------------------------
---	Configuration example:
-----------------------------------------------------------------------------------------
--- C["font"] = {
---		-- Stats font
---		["stats_font"] = "Interface\\AddOns\\ViksUI\\Media\\Font\\Normal.ttf",
--- 		["stats_font_size"] = 11,
---		["stats_font_style"] = "",
---		["stats_font_shadow"] = true,
--- }
-----------------------------------------------------------------------------------------
-
-----------------------------------------------------------------------------------------
---	Fonts options
-----------------------------------------------------------------------------------------
-C["font"] = {
-	-- Stats font
-	["stats_font"] = C.media.pixel_font,
-	["stats_font_size"] = 8,
-	["stats_font_style"] = "OUTLINEMONOCHROME",
-	["stats_font_shadow"] = false,
-
-
-
-	-- Combat text font
-	["combat_text_font"] = C.media.pixel_font,
-	["combat_text_font_size"] = 16,
-	["combat_text_font_style"] = "OUTLINEMONOCHROME",
-	["combat_text_font_shadow"] = false,
-
-	-- Chat font
-	["chat_font"] = C.media.normal_font,
-	["chat_font_style"] = "",
-	["chat_font_shadow"] = true,
-
-	-- Chat tabs font
-	["chat_tabs_font"] = "Interface\\Addons\\ViksUI\\Media\\Font\\DICTATOR.ttf",
-	["chat_tabs_font_size"] = 13,
-	["chat_tabs_font_style"] = "OUTLINEMONOCHROME",
-	["chat_tabs_font_shadow"] = false,
-
-	-- Action bars font
-	["action_bars_font"] = C.media.pixel_font,
-	["action_bars_font_size"] = 8,
-	["action_bars_font_style"] = "OUTLINEMONOCHROME",
-	["action_bars_font_shadow"] = false,
-
-	-- Threat meter font
-	["threat_meter_font"] = C.media.pixel_font,
-	["threat_meter_font_size"] = 8,
-	["threat_meter_font_style"] = "OUTLINEMONOCHROME",
-	["threat_meter_font_shadow"] = false,
-
-	-- Raid cooldowns font
-	["raid_cooldowns_font"] = C.media.pixel_font,
-	["raid_cooldowns_font_size"] = 8,
-	["raid_cooldowns_font_style"] = "OUTLINEMONOCHROME",
-	["raid_cooldowns_font_shadow"] = false,
-
-	-- Cooldowns timer font
-	["cooldown_timers_font"] = C.media.pixel_font,
-	["cooldown_timers_font_size"] = 16,
-	["cooldown_timers_font_style"] = "OUTLINEMONOCHROME",
-	["cooldown_timers_font_shadow"] = false,
-
-	-- Loot font
-	["loot_font"] = C.media.pixel_font,
-	["loot_font_size"] = 8,
-	["loot_font_style"] = "OUTLINEMONOCHROME",
-	["loot_font_shadow"] = false,
-
-	-- Nameplates font
-	["nameplates_font"] = C.media.pixel_font,
-	["nameplates_font_size"] = 8,
-	["nameplates_font_style"] = "OUTLINEMONOCHROME",
-	["nameplates_font_shadow"] = false,
-
-	-- Unit frames font
-	["unit_frames_font"] = C.media.pixel_font,
-	["unit_frames_font_size"] = 8,
-	["unit_frames_font_style"] = "OUTLINEMONOCHROME",
-	["unit_frames_font_shadow"] = false,
-
-	-- Auras font
-	["auras_font"] = C.media.pixel_font,
-	["auras_font_size"] = 8,
-	["auras_font_style"] = "OUTLINEMONOCHROME",
-	["auras_font_shadow"] = false,
-
-	-- Filger font
-	["filger_font"] = C.media.pixel_font,
-	["filger_font_size"] = 8,
-	["filger_font_style"] = "OUTLINEMONOCHROME",
-	["filger_font_shadow"] = false,
-
-	-- Stylization font
-	["stylization_font"] = C.media.pixel_font,
-	["stylization_font_size"] = 8,
-	["stylization_font_style"] = "OUTLINEMONOCHROME",
-	["stylization_font_shadow"] = false,
-
-	-- Bags font
-	["bags_font"] = C.media.pixel_font,
-	["bags_font_size"] = 8,
-	["bags_font_style"] = "OUTLINEMONOCHROME",
-	["bags_font_shadow"] = false,
-}
 
 -- pet action icons
 PET_DEFENSIVE_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_defensive]]

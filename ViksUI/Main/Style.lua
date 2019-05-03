@@ -3,8 +3,6 @@ local MSQ = LibStub("Masque", true)
 if not MSQ then return end
 
 local _, class = UnitClass("player")
---local r, g, b = CUSTOM_CLASS_COLORS[class].r, CUSTOM_CLASS_COLORS[class].g, CUSTOM_CLASS_COLORS[class].b		--Classcolor // Use Classcolors Addon Values. Add/Remove -- Infront of local to enable/disable
---local r, g, b = RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b  		--Classcolor // Blizz default values. Add/Remove -- Infront of local to enable/disable
 local r, g, b = unpack(C.media.border_color)
 
 

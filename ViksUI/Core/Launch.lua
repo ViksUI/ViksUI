@@ -2775,10 +2775,10 @@ local step6 = function()
 	text3:Hide()
 	InstallOption1Button:Show()
 	InstallOption1Button:SetText("NoPanels.")
-	InstallOption1Button:SetScript('OnClick', function() GUIConfigSettings.panels.NoPanels = true end)
+	InstallOption1Button:SetScript('OnClick', function() ViksUIOptions.panels.NoPanels = true end)
 	InstallOption2Button:Show()
 	InstallOption2Button:SetText("Normal Panels.")
-	InstallOption2Button:SetScript('OnClick', function() GUIConfigSettings.panels.NoPanels = false end)
+	InstallOption2Button:SetScript('OnClick', function() ViksUIOptions.panels.NoPanels = false end)
 	text4:SetText("Click one of the buttons then click 'Continue'.")
 	sbt:SetText("6/ "..maxsteps)
 	option1:SetScript("OnClick", step7)
@@ -2798,10 +2798,10 @@ local step5 = function()
 	text3:Hide()
 	InstallOption1Button:Show()
 	InstallOption1Button:SetText("DPS.")
-	InstallOption1Button:SetScript('OnClick', function() GUIConfig.unitframe.HealFrames = false GUIConfigSettings.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" end)
+	InstallOption1Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" end)
 	InstallOption2Button:Show()
 	InstallOption2Button:SetText("HEALER")
-	InstallOption2Button:SetScript('OnClick', function() GUIConfig.unitframe.HealFrames = true GUIConfigSettings.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" end)
+	InstallOption2Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" end)
 	--InstallOption3Button:Show()
 	--InstallOption3Button:SetText("TANK")
 	text4:SetText("Click one of the buttons then click 'Continue'.")
@@ -2927,12 +2927,12 @@ OnLogon:SetScript("OnEvent", function(self, event)
 	if SavedAddonProfiles == nil then SavedAddonProfiles = {} end
 	if SavedOptionsPerChar == nil then SavedOptionsPerChar = {} end
 	if SavedOptionsPerChar.RaidLayout == nil then SavedOptionsPerChar.RaidLayout = "UNKNOWN" end
-	if GUIConfig == nil then GUIConfig = {} end
-	if GUIConfigSettings == nil then GUIConfigSettings = {} end
-	if GUIConfig.unitframe == nil then GUIConfig.unitframe = {} end
-	if GUIConfigSettings.unitframe == nil then GUIConfigSettings.unitframe = {} end
-	if GUIConfigSettings.panels == nil then GUIConfigSettings.panels = {} end
-	if GUIConfigSettings.panels.NoPanels == nil then GUIConfigSettings.panels.NoPanels = false end
+	if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
+	if ViksUIOptions == nil then ViksUIOptions = {} end
+	if ViksUIOptionsPerChar.unitframe == nil then ViksUIOptionsPerChar.unitframe = {} end
+	if ViksUIOptions.unitframe == nil then ViksUIOptions.unitframe = {} end
+	if ViksUIOptions.panels == nil then ViksUIOptions.panels = {} end
+	if ViksUIOptions.panels.NoPanels == nil then ViksUIOptions.panels.NoPanels = false end
 	if SavedOptionsPerChar.FogOfWar == nil then SavedOptionsPerChar.FogOfWar = false end
 	if SavedOptionsPerChar.AutoInvite == nil then SavedOptionsPerChar.AutoInvite = false end
 	if SavedOptionsPerChar.Archaeology == nil then SavedOptionsPerChar.Archaeology = false end
@@ -2968,11 +2968,11 @@ OnLogon:SetScript("OnEvent", function(self, event)
 		StaticPopup_Show("SWITCH_RAID")
 	end
 	if IsAddOnLoaded("Bartender4") then
-		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and GUIConfigSettings.panels.NoPanels then
+		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels then
 			StaticPopup_Show("SET_BTLine")
 			SavedOptionsPerChar.BartenderSet = true
 		end
-		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and GUIConfigSettings.panels.NoPanels ~= true then
+		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels ~= true then
 			StaticPopup_Show("SET_BT")
 			SavedOptionsPerChar.BartenderSet = true
 		end
@@ -3048,8 +3048,8 @@ StaticPopupDialogs.SWITCH_RAID = {
 	button1 = DAMAGER,
 	button2 = HEALER,
 	--button3 = "Blizzard",
-	OnAccept = function() GUIConfig.unitframe.HealFrames = false GUIConfigSettings.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
-	OnCancel = function() GUIConfig.unitframe.HealFrames = true GUIConfigSettings.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
+	OnAccept = function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
+	OnCancel = function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
 	--OnAlt = function() SavedOptionsPerChar.RaidLayout = "NONE" ReloadUI() end,
 	timeout = 0,
 	whileDead = 1,

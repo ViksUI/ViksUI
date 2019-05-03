@@ -9,7 +9,7 @@ local Noop = function() return end
 T.Mult = T.mult
 T.Scale = T.Scale
 ----------------------------------------------------------------------------------------
---	Template functions
+--	Position functions
 ----------------------------------------------------------------------------------------
 local shadows = {
 	edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", 
@@ -89,25 +89,43 @@ local function Point(obj, arg1, arg2, arg3, arg4, arg5)
 end
 
 local function SetOutside(obj, anchor, xOffset, yOffset)
-	xOffset = xOffset or (MakeInset and 2) or 1
-	yOffset = yOffset or (MakeInset and 2) or 1
+	xOffset = xOffset or 2
+	yOffset = yOffset or 2
 	anchor = anchor or obj:GetParent()
 
-	if obj:GetPoint() then obj:ClearAllPoints() end
+	if obj:GetPoint() then
+		obj:ClearAllPoints()
+	end
 
-	obj:Point("TOPLEFT", anchor, "TOPLEFT", -xOffset, yOffset)
-	obj:Point("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", xOffset, -yOffset)
+	obj:SetPoint("TOPLEFT", anchor, "TOPLEFT", -xOffset, yOffset)
+	obj:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", xOffset, -yOffset)
 end
 
 local function SetInside(obj, anchor, xOffset, yOffset)
-	xOffset = xOffset or (MakeInset and 2) or 1
-	yOffset = yOffset or (MakeInset and 2) or 1
+	xOffset = xOffset or 2
+	yOffset = yOffset or 2
 	anchor = anchor or obj:GetParent()
 
-	if obj:GetPoint() then obj:ClearAllPoints() end
+	if obj:GetPoint() then
+		obj:ClearAllPoints()
+	end
 
-	obj:Point("TOPLEFT", anchor, "TOPLEFT", xOffset, -yOffset)
-	obj:Point("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -xOffset, yOffset)
+	obj:SetPoint("TOPLEFT", anchor, "TOPLEFT", xOffset, -yOffset)
+	obj:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -xOffset, yOffset)
+end
+
+----------------------------------------------------------------------------------------
+--	Template functions
+----------------------------------------------------------------------------------------
+local function CreateOverlay(f)
+	if f.overlay then return end
+
+	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
+	overlay:SetPoint("TOPLEFT", 2, -2)
+	overlay:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlay:SetTexture(C.media.blank)
+	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+	f.overlay = overlay
 end
 
 local function CreateBorder(f, i, o)
@@ -117,7 +135,7 @@ local function CreateBorder(f, i, o)
 		border:SetPoint("TOPLEFT", T.mult, -T.mult)
 		border:SetPoint("BOTTOMRIGHT", -T.mult, T.mult)
 		border:SetBackdrop({
-			edgeFile = C.media.blank_border, edgeSize = T.mult,
+			edgeFile = C.media.blank, edgeSize = T.mult,
 			insets = {left = T.mult, right = T.mult, top = T.mult, bottom = T.mult}
 		})
 		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
@@ -131,7 +149,7 @@ local function CreateBorder(f, i, o)
 		border:SetPoint("BOTTOMRIGHT", T.mult, -T.mult)
 		border:SetFrameLevel(f:GetFrameLevel() + 1)
 		border:SetBackdrop({
-			edgeFile = C.media.blank_border, edgeSize = T.mult,
+			edgeFile = C.media.blank, edgeSize = T.mult,
 			insets = {left = T.mult, right = T.mult, top = T.mult, bottom = T.mult}
 		})
 		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
@@ -154,19 +172,12 @@ local function SetTemplate(f, t)
 	GetTemplate(t)
 
 	f:SetBackdrop({
-		bgFile = C.media.blank_border, edgeFile = C.media.blank_border, edgeSize = T.mult,
+		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
 		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
 	})
-	local borderr, borderg, borderb = unpack(C.media.border_color)
-	local backdropr, backdropg, backdropb = unpack(C.media.backdrop_color)
-	local backdropa = 0.8
-	local texture = C.Medias.Blank
 
-	if tex then
-		texture = C.Medias.Normal
-	end
 	if t == "Transparent" then
-		backdropa = C.media.overlay_color[4]
+		backdropa = C.media.backdrop_alpha
 		f:CreateBorder(true, true)
 	elseif t == "Overlay" then
 		backdropa = 1
@@ -188,12 +199,12 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:SetFrameStrata("BACKGROUND")
 	f:SetPoint(a1, p, a2, x, y)
 	f:SetBackdrop({
-		bgFile = C.media.blank_border, edgeFile = C.media.blank_border, edgeSize = T.mult,
+		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
 		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
 	})
 
 	if t == "Transparent" then
-		backdropa = C.media.overlay_color[4]
+		backdropa = C.media.backdrop_alpha
 		f:CreateBorder(true, true)
 	elseif t == "Overlay" then
 		backdropa = 1
@@ -224,23 +235,6 @@ local function CreateBackdrop(f, t)
 	end
 
 	f.backdrop = b
-end
-
-local function CreateBackdropn(f, t, tex)
-	if f.Backdrop then return end
-	if not t then t = "Default" end
-
-	local b = CreateFrame("Frame", nil, f)
-	b:SetOutside()
-	b:SetTemplate(t, tex)
-
-	if f:GetFrameLevel() - 1 >= 0 then
-		b:SetFrameLevel(f:GetFrameLevel() - 1)
-	else
-		b:SetFrameLevel(0)
-	end
-
-	f.Backdrop = b
 end
 
 local StripTexturesBlizzFrames = {
@@ -449,7 +443,7 @@ local function FadeOut(f)
 	UIFrameFadeOut(f, 0.8, f:GetAlpha(), 0)
 end
 
-local function addapi(object)
+local function addAPI(object)
 	local mt = getmetatable(object).__index
 	if not object.Size then mt.Size = Size end
 	if not object.Width then mt.Width = Width end
@@ -476,14 +470,14 @@ end
 
 local handled = {["Frame"] = true}
 local object = CreateFrame("Frame")
-addapi(object)
-addapi(object:CreateTexture())
-addapi(object:CreateFontString())
+addAPI(object)
+addAPI(object:CreateTexture())
+addAPI(object:CreateFontString())
 
 object = EnumerateFrames()
 while object do
 	if not object:IsForbidden() and not handled[object:GetObjectType()] then
-		addapi(object)
+		addAPI(object)
 		handled[object:GetObjectType()] = true
 	end
 
@@ -492,20 +486,4 @@ end
 
 -- Hacky fix for issue on 7.1 PTR where scroll frames no longer seem to inherit the methods from the "Frame" widget
 local scrollFrame = CreateFrame("ScrollFrame")
-addapi(scrollFrame)
-
-------------------------------------------------------------------------------------------
--- Overlay Function (Buttons)
-------------------------------------------------------------------------------------------
-local function CreateOverlayButton(f)
-	if f.overlaybutton then return end
-
-	local overlaybutton = f:CreateTexture(f:GetName() and f:GetName().."overlaybutton" or nil, "BORDER", f)
-	overlaybutton:ClearAllPoints()
-	overlaybutton:SetPoint("TOPLEFT", 2, -2)
-	overlaybutton:SetPoint("BOTTOMRIGHT", -2, 2)
-	overlaybutton:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\Minimalist.tga")
-	overlaybutton:SetAlpha(1)
-	overlaybutton:SetVertexColor(0.22, 0.22, 0.22)
-	f.overlaybutton = overlaybutton
-end
+addAPI(scrollFrame)

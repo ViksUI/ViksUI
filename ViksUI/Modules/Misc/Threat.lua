@@ -16,7 +16,6 @@ end
 
 local bar, tList, barList = {}, {}, {}
 local max = math.max
-local timer = 0
 local targeted = false
 
 RAID_CLASS_COLORS["PET"] = {r = 0, g = 0.7, b = 0, colorStr = "ff00b200"}
@@ -39,7 +38,7 @@ local truncate = function(value)
 end
 
 local AddUnit = function(unit)
-	local threatpct, rawpct, threatval = select(3, UnitDetailedThreatSituation(unit, "target"))
+	local threatpct, _, threatval = select(3, UnitDetailedThreatSituation(unit, "target"))
 	if threatval and threatval < 0 then
 		threatval = threatval + 410065408
 	end

@@ -125,7 +125,7 @@ end
 --[[Frames]]--
 local ViksUIAFKPanel = CreateFrame("Frame", "ViksUIAFKPanel", nil)
 ViksUIAFKPanel:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 100)
-ViksUIAFKPanel:SetSize((T.ScreenWidth - 550), 80)
+ViksUIAFKPanel:SetSize((T.screenWidth - 550), 80)
 ViksUIAFKPanel:SetTemplate("Transparent")
 ViksUIAFKPanel:SetFrameStrata("FULLSCREEN")
 ViksUIAFKPanel:Hide()
@@ -260,7 +260,7 @@ end
 ----------------------------------------------------------------------------------------
 --	Custom Lag Tolerance(by Elv22)
 ----------------------------------------------------------------------------------------
-if C.general.custom_lagtolerance == true then
+if C.misc.custom_lagtolerance == true then
 	local customlag = CreateFrame("Frame")
 	local int = 5
 	local _, _, _, lag = GetNetStats()
@@ -430,67 +430,70 @@ if C.misc.hide_talking_head == true then
 end
 
 ----------------------------------------------------------------------------------------
--- confirm item destruction with delete key
+--	Hide button for oUF_RaidDPS 
 ----------------------------------------------------------------------------------------
+if C.misc.hide_raid_button == true then
+	local show = false
+	SlashCmdList.HideRaidMODE = function()
+		if show == false then
+			if oUF_RaidDPS1 then
+				for i = 1, C.raidframe.raid_groups do
+					_G["oUF_RaidDPS"..i]:SetAlpha(0)
+				end
+				oUF_MainTank:SetAlpha(0)
+			end
+			show = true
+		else
+			if oUF_RaidDPS1 then
+				for i = 1, C.raidframe.raid_groups do
+					_G["oUF_RaidDPS"..i]:SetAlpha(1)
+				end
+				oUF_MainTank:SetAlpha(1)
+			end
+			show = false
+		end
 
-local addText = "\n\n|cff808080Note:|r You may also press the |cffffd200Delete|r key as confirmation."
-local itemDialogs = {
-  "DELETE_ITEM",
-  "DELETE_GOOD_ITEM",
-  "DELETE_QUEST_ITEM",
-  "DELETE_GOOD_QUEST_ITEM",
-}
- 
-for k, v in pairs(itemDialogs) do
-  StaticPopupDialogs[v].text = _G[v] .. addText
+	end
+	SLASH_HIDERAIDMODE1 = "/hideraid"
+
+	local HideRaid = CreateFrame("Button", "HideRaidMode", UIParent)
+	HideRaid:SetTemplate("ClassColor")
+	HideRaid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
+	HideRaid:SetSize(19, 19)
+	HideRaid:SetAlpha(0)
+	HideRaid:Hide()
+
+	HideRaid.t = HideRaid:CreateTexture(nil, "OVERLAY")
+	HideRaid.t:SetTexture("Interface\\Icons\\inv_misc_spyglass_03")
+	HideRaid.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	HideRaid.t:SetPoint("TOPLEFT", HideRaid, 2, -2)
+	HideRaid.t:SetPoint("BOTTOMRIGHT", HideRaid, -2, 2)
+
+	HideRaid:SetScript("OnClick", function()
+		if oUF_RaidDPS1 and oUF_RaidDPS1:IsShown() then
+			SlashCmdList.HideRaidMODE()
+		end
+	end)
+
+	HideRaid:SetScript("OnEnter", function()
+		if oUF_RaidDPS1 and oUF_RaidDPS1:IsShown() then
+			HideRaid:FadeIn()
+		end
+	end)
+
+	HideRaid:SetScript("OnLeave", function()
+		HideRaid:FadeOut()
+	end)
+
+	HideRaid:RegisterEvent("PLAYER_LOGIN")
+	HideRaid:SetScript("OnEvent", function(self)
+		if C.unitframe.enable == true and SavedOptions and SavedOptions.RaidLayout == "DPS" then
+			self:Show()
+		end
+	end)
 end
- 
-local f = CreateFrame("Frame", nil, UIParent)
-f:RegisterEvent("DELETE_ITEM_CONFIRM")
-f:SetScript("OnEvent", function(self, event)
-  for i = 1, STATICPOPUP_NUMDIALOGS do
-    local dialog = _G["StaticPopup" .. i]
-    local editBox = _G["StaticPopup" .. i .. "EditBox"]
-    local isItemDialog = false
-    for k, v in pairs(itemDialogs) do
-      if dialog.which == v then
-        isItemDialog = true
-      end
-    end
-    if isItemDialog then
-      if editBox then
-        editBox:ClearFocus()
-      end
-      dialog:SetScript("OnKeyDown", function(self, key)
-        if key == "DELETE" then
-          DeleteCursorItem()
-        end
-      end)
-      dialog:HookScript("OnHide", function(self)
-        self:SetScript("OnKeyDown", nil)
-      end)
-    end
-  end
-end)
-hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)
 
 ----------------------------------------------------------------------------------------
 --	Change UIErrorsFrame strata
 ----------------------------------------------------------------------------------------
 UIErrorsFrame:SetFrameLevel(0)
-
-------------------------------------------------------------------------------------------
--- Remove Class Hall Resource Bar
-------------------------------------------------------------------------------------------
-
-local f = CreateFrame("Frame")
-f:SetScript("OnEvent", function(self, event, addon)
-	if addon == "Blizzard_OrderHallUI" and C["misc"]["OrderHallBar"] == false then
-		OrderHallCommandBar:UnregisterAllEvents()
-		OrderHallCommandBar:HookScript("OnShow", OrderHallCommandBar.Hide)
-		OrderHallCommandBar:Kill()
-		OrderHall_CheckCommandBar = function () end
-		self:UnregisterEvent(event)
-	end
-end)
-f:RegisterEvent("ADDON_LOADED")

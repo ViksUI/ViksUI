@@ -111,18 +111,24 @@ local UnitSpecific = {
 	lib.TotemBars(self)
 	lib.Experience(self)
 	lib.Reputation(self)
+	if C.unitframe.plugins_swing == true then
+	lib.Swing_bar(self)
+	end
+	if C.unitframe.plugins_gcd == true then
+	lib.Gcd_bar(self)
+	end
 	lib.AltPowerBar(self)
-			-- PvP Icon Credit to oUF Drk
-		local pvp = self.Health:CreateTexture(nil, "OVERLAY")
-		pvp:SetHeight(32)
-		pvp:SetWidth(32)
-		pvp:SetPoint("TOP", 10, -5)
-		self.MyPvP = pvp
+	-- PvP Icon Credit to oUF Drk
+	local pvp = self.Health:CreateTexture(nil, "OVERLAY")
+	pvp:SetHeight(32)
+	pvp:SetWidth(32)
+	pvp:SetPoint("TOP", 10, -5)
+	self.MyPvP = pvp
 
-		-- This makes oUF update the information. 
-		self:RegisterEvent("UNIT_FACTION", MyPvPUpdate)
-		-- This makes oUF update the information on forced updates.
-		table.insert(self.__elements, MyPvPUpdate)
+	-- This makes oUF update the information. 
+	self:RegisterEvent("UNIT_FACTION", MyPvPUpdate)
+	-- This makes oUF update the information on forced updates.
+	table.insert(self.__elements, MyPvPUpdate)
 	if cfg.CPoints and C.unitframe_class_bar.combo_old ~= true then lib.genCPoints(self) end
 	if cfg.showHarmony then lib.genHarmony(self) end
 	if cfg.showPortrait or cfg.portraitHPbar then lib.gen_portrait(self) end
@@ -175,6 +181,9 @@ local UnitSpecific = {
 		lib.createDebuffs(self)
 		lib.PhaseIndicatord(self)
 		lib.SummonIndicator(self)
+		if C.unitframe.plugins_combat_feedback == true then
+		lib.combat_feedback(self)
+		end
 		if cfg.CPoints and C.unitframe_class_bar.combo_old == true then lib.genCPoints(self) end
 		--lib.createAuras(self)
 		if cfg.showPortrait or cfg.portraitHPbar then lib.gen_portrait(self) end

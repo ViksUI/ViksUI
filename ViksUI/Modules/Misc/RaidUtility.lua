@@ -9,11 +9,11 @@ AnchorRaidUtilityPanel:SetPoint("TOPRIGHT", CPCool, "TOPLEFT", -8, 0)
 CreateAnchor(AnchorRaidUtilityPanel, "Move Raid Utility Panel", 125, 20)
 
 -- Create main frame
-local RaidUtilityPanel = CreateFrame("Frame", "RaidUtilityPanel", oUF_PetBattleFrameHider)
-RaidUtilityPanel:CreatePanel("Transparent", 140, 146, "BOTTOM", AnchorRaidUtilityPanel,0,22)
-RaidUtilityPanel:SetFrameLevel(0)
-RaidUtilityPanel:SetFrameStrata("HIGH")
-
+local RaidUtilityPanel = CreateFrame("Frame", "RaidUtilityPanel", T_PetBattleFrameHider)
+RaidUtilityPanel:CreatePanel("Transparent", 170, 145, unpack(C.position.raid_utility))
+if GetCVarBool("watchFrameWidth") then
+	RaidUtilityPanel:SetPoint(C.position.raid_utility[1], C.position.raid_utility[2], C.position.raid_utility[3], C.position.raid_utility[4] + 100, C.position.raid_utility[5])
+end
 RaidUtilityPanel.toggled = false
 
 -- Check if We are Raid Leader or Raid Officer
@@ -35,7 +35,7 @@ local function CreateButton(name, parent, template, width, height, point, relati
 	b:EnableMouse(true)
 	if text then
 		b.t = b:CreateFontString(nil, "OVERLAY")
-		b.t:SetFont(C.media.pixel_font, 8, C.media.pixel_font_style)
+		b.t:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 		b.t:SetPoint("CENTER")
 		b.t:SetJustifyH("CENTER")
 		b.t:SetText(text)
@@ -43,7 +43,7 @@ local function CreateButton(name, parent, template, width, height, point, relati
 end
 
 -- Show button
-CreateButton("RaidUtilityShowButton", oUF_PetBattleFrameHider, "UIPanelButtonTemplate, SecureHandlerClickTemplate", RaidUtilityPanel:GetWidth() / 1.5, 18, "TOPRIGHT", RaidUtilityPanel, "BOTTOMRIGHT", -4, -2, RAID_CONTROL)
+CreateButton("RaidUtilityShowButton", T_PetBattleFrameHider, "UIPanelButtonTemplate, SecureHandlerClickTemplate", RaidUtilityPanel:GetWidth() / 1.5, 18, "TOP", RaidUtilityPanel, "TOP", 0, 0, RAID_CONTROL)
 RaidUtilityShowButton:SetFrameRef("RaidUtilityPanel", RaidUtilityPanel)
 RaidUtilityShowButton:SetAttribute("_onclick", [=[self:Hide(); self:GetFrameRef("RaidUtilityPanel"):Show();]=])
 RaidUtilityShowButton:SetScript("OnMouseUp", function(self, button)

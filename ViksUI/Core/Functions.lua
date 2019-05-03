@@ -407,7 +407,7 @@ function T.SkinEditBox(frame, width, height)
 	if height then frame:SetHeight(height) end
 end
 
-function T.SkinDropDownBox(frame, width)
+function T.SkinDropDownBox(frame, width, pos)
 	local button = _G[frame:GetName()] and (_G[frame:GetName().."Button"] or _G[frame:GetName().."_Button"]) or frame.Button
 	local text = _G[frame:GetName()] and _G[frame:GetName().."Text"] or frame.Text
 	if not width then width = 155 end
@@ -418,10 +418,15 @@ function T.SkinDropDownBox(frame, width)
 	if text then
 		text:ClearAllPoints()
 		text:SetPoint("RIGHT", button, "LEFT", -2, 0)
+		text:SetWidth(frame:GetWidth() / 1.5)
 	end
 
 	button:ClearAllPoints()
-	button:SetPoint("RIGHT", frame, "RIGHT", -10, 3)
+	if pos then
+		button:SetPoint("TOPRIGHT", frame.Right, -20, -21)
+	else
+		button:SetPoint("RIGHT", frame, "RIGHT", -10, 3)
+	end
 	button.SetPoint = T.dummy
 	scrolldn = false
 	T.SkinNextPrevButton(button)
@@ -603,7 +608,7 @@ function T.SkinExpandOrCollapse(f)
 
 	local bg = CreateFrame("Frame", nil, f)
 	bg:SetSize(13, 13)
-	bg:SetPoint("TOPLEFT", f:GetNormalTexture(), 2, -1)
+	bg:SetPoint("TOPLEFT", f:GetNormalTexture(), 0, -1)
 	bg:SetTemplate("Overlay")
 	f.bg = bg
 
@@ -649,6 +654,17 @@ function T.SkinExpandOrCollapse(f)
 			self.bg.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
 		end
 	end)
+end
+
+function T.SkinHelpBox(frame)
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	if frame.CloseButton then
+		T.SkinCloseButton(frame.CloseButton)
+	end
+	if frame.Arrow then
+		frame.Arrow:Hide()
+	end
 end
 
 local LoadBlizzardSkin = CreateFrame("Frame")
@@ -886,13 +902,13 @@ T.PostUpdateRaidHealth = function(health, unit, min, max)
 				end
 			else
 				if C.unitframe.color_value == true then
-					if C.raidframes.deficit_health == true then
+					if C.unitframe.deficit_health == true then
 						health.value:SetText("|cffffffff".."-"..T.ShortValue(max - min))
 					else
 						health.value:SetFormattedText("|cff%02x%02x%02x%d%%|r", r * 255, g * 255, b * 255, floor(min / max * 100))
 					end
 				else
-					if C.raidframes.deficit_health == true then
+					if C.unitframe.deficit_health == true then
 						health.value:SetText("|cffffffff".."-"..T.ShortValue(max - min))
 					else
 						health.value:SetFormattedText("|cffffffff%d%%|r", floor(min / max * 100))
@@ -906,7 +922,7 @@ T.PostUpdateRaidHealth = function(health, unit, min, max)
 				health.value:SetText("|cffffffff"..T.ShortValue(max).."|r")
 			end
 		end
-		if C.raidframes.alpha_health == true then
+		if C.unitframe.alpha_health == true then
 			if min / max > 0.95 then
 				health:SetAlpha(0.6)
 				power:SetAlpha(0.6)
@@ -1423,50 +1439,50 @@ T.PostCreateIcon = function(element, button)
 	end
 end
 
-T.PostUpdateIcon = function(_, unit, icon, _, _, duration, expiration, debuffType, isStealable)
+T.PostUpdateIcon = function(_, unit, button, _, _, duration, expiration, debuffType, isStealable)
 	local playerUnits = {
 		player = true,
 		pet = true,
 		vehicle = true,
 	}
 
-	if icon.debuff then
-		if not UnitIsFriend("player", unit) and not playerUnits[icon.owner] then
+	if button.isDebuff then
+		if not UnitIsFriend("player", unit) and not playerUnits[button.caster] then
 			if C.aura.player_aura_only then
-				icon:Hide()
+				button:Hide()
 			else
-				icon:SetBackdropBorderColor(unpack(C.media.border_color))
-				icon.icon:SetDesaturated(true)
+				button:SetBackdropBorderColor(unpack(C.media.border_color))
+				button.icon:SetDesaturated(true)
 			end
 		else
 			if C.aura.debuff_color_type == true then
 				local color = DebuffTypeColor[debuffType] or DebuffTypeColor.none
-				icon:SetBackdropBorderColor(color.r, color.g, color.b)
-				icon.icon:SetDesaturated(false)
+				button:SetBackdropBorderColor(color.r, color.g, color.b)
+				button.icon:SetDesaturated(false)
 			else
-				icon:SetBackdropBorderColor(1, 0, 0)
+				button:SetBackdropBorderColor(1, 0, 0)
 			end
 		end
 	else
 		if (isStealable or ((T.class == "MAGE" or T.class == "PRIEST" or T.class == "SHAMAN" or T.class == "HUNTER") and debuffType == "Magic")) and not UnitIsFriend("player", unit) then
-			icon:SetBackdropBorderColor(1, 0.85, 0)
+			button:SetBackdropBorderColor(1, 0.85, 0)
 		else
-			icon:SetBackdropBorderColor(unpack(C.media.border_color))
+			button:SetBackdropBorderColor(unpack(C.media.border_color))
 		end
-		icon.icon:SetDesaturated(false)
+		button.icon:SetDesaturated(false)
 	end
 
 	if duration and duration > 0 and C.aura.show_timer == true then
-		icon.remaining:Show()
-		icon.timeLeft = expiration
-		icon:SetScript("OnUpdate", CreateAuraTimer)
+		button.remaining:Show()
+		button.timeLeft = expiration
+		button:SetScript("OnUpdate", CreateAuraTimer)
 	else
-		icon.remaining:Hide()
-		icon.timeLeft = math.huge
-		icon:SetScript("OnUpdate", nil)
+		button.remaining:Hide()
+		button.timeLeft = math.huge
+		button:SetScript("OnUpdate", nil)
 	end
 
-	icon.first = true
+	button.first = true
 end
 
 T.UpdateThreat = function(self, event, unit)

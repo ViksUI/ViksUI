@@ -20,14 +20,14 @@ switch:EnableMouse(true)
 switch:RegisterForClicks("AnyUp")
 switch:SetScript("OnClick", function(self, button)
 	if button == "LeftButton" then
-		GUIConfig.unitframe.HealFrames = true
-		GUIConfigSettings.unitframe.HealFrames = true
+		ViksUIOptionsPerChar.unitframe.HealFrames = true
+		ViksUIOptions.unitframe.HealFrames = true
 		SavedOptionsPerChar.RaidLayout = "HEAL"
 		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -210
 		ReloadUI()
 	elseif button == "RightButton" then
-		GUIConfig.unitframe.HealFrames = false
-		GUIConfigSettings.unitframe.HealFrames = false
+		ViksUIOptionsPerChar.unitframe.HealFrames = false
+		ViksUIOptions.unitframe.HealFrames = false
 		SavedOptionsPerChar.RaidLayout = "DPS"
 		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -240
 		ReloadUI()
@@ -52,9 +52,9 @@ end)
 
 switch:RegisterEvent("PLAYER_LOGIN")
 switch:SetScript("OnEvent", function(self)
-	if SavedOptions and (GUIConfig.unitframe.HealFrames ~= true or GUIConfigSettings.unitframe.HealFrames ~= true) then
+	if SavedOptions and (ViksUIOptionsPerChar.unitframe.HealFrames ~= true or ViksUIOptions.unitframe.HealFrames ~= true) then
 		switch.t:SetTexCoord(0.25, 0.5, 0, 1)
-	elseif SavedOptions and (GUIConfig.unitframe.HealFrames == true or GUIConfigSettings.unitframe.HealFrames == true) then
+	elseif SavedOptions and (ViksUIOptionsPerChar.unitframe.HealFrames == true or ViksUIOptions.unitframe.HealFrames == true) then
 		switch.t:SetTexCoord(0.75, 1, 0, 1)
 	end
 end)

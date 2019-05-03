@@ -38,10 +38,11 @@ L_GUI_MISC_ENCHANTMENT_SCROLL = "Pergamena Incantamento sul riquadro sul riquadr
 L_GUI_MISC_ARCHAEOLOGY = "Archeologia: reliquie e recuperi"
 L_GUI_MISC_CHARS_CURRENCY = "Traccia la valuta complessiva posseduta dai tuoi personaggi"
 L_GUI_MISC_ARMORY_LINK = "Aggiungi un collegamento all’Armeria nei menu a comparsa delle unità (ciò disattiva alcune voci nei menu)"
-L_GUI_MISC_MERCHANT_ITEMLEVEL = "Show item level for weapons and armor in merchant" -- Need review
-L_GUI_MISC_MINIMIZE_MOUSEOVER = "Mouseover for quest minimize button" -- Need review
-L_GUI_MISC_HIDE_BANNER = "Hide Boss Banner Loot Frame" -- Need review
-L_GUI_MISC_HIDE_TALKING_HEAD = "Hide Talking Head Frame" -- Need review
+L_GUI_MISC_MERCHANT_ITEMLEVEL = "Mostra il livello dell’oggetto di armi e armature in vendita"
+L_GUI_MISC_MINIMIZE_MOUSEOVER = "Pulsante per minimizzare le missioni al passaggio del mouse"
+L_GUI_MISC_HIDE_BANNER = "Nascondi il Boss Banner Loot Frame"
+L_GUI_MISC_HIDE_TALKING_HEAD = "Nascondi il Talking Head Frame"
+L_GUI_MISC_HIDE_RAID_BUTTON = "Nascondi il pulsante di oUF_RaidDPS"
 
 -- Announcements options
 L_GUI_ANNOUNCEMENTS = "Annunci"
@@ -62,20 +63,19 @@ L_GUI_ANNOUNCEMENTS_SAFARI_HAT = "Controlla se il Cappello da Safari sia indossa
 
 -- Automation options
 L_GUI_AUTOMATION = "Automatismi"
-L_GUI_AUTOMATION_RELEASE = "'Auto-risorgi' nei Campi di Battaglia" -- Need review
+L_GUI_AUTOMATION_RELEASE = "'Auto-risorgi' nei Campi di Battaglia"
 L_GUI_AUTOMATION_SCREENSHOT = "Cattura una schermata quando completi un'impresa"
 L_GUI_AUTOMATION_SOLVE_ARTIFACT = "Popup automatico restauro manufatto"
 L_GUI_AUTOMATION_ACCEPT_INVITE = "'Auto-accetta' gli inviti"
 L_GUI_AUTOMATION_DECLINE_DUEL = "'Auto-declina' i duelli"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "'Auto-accetta' le missioni"
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "In instance, 'auto-chiudi' il tracciatore degli obiettivi"
-L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Auto collapse ObjectiveTrackerFrame after reload" -- Need review
+L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Comprimi automaticamente l’ObjectiveTrackerFrame dopo un ricaricamento"
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "'Auto-salta' i filmati"
 L_GUI_AUTOMATION_AUTO_ROLE = "'Auto-imposta' il tuo ruolo"
 L_GUI_AUTOMATION_CANCEL_BAD_BUFFS = "'Auto-cancella' alcuni benefici"
 L_GUI_AUTOMATION_TAB_BINDER = "Usando il tasto TAB, consente di prendere come bersaglio soltanto nemici controllati da altri giocatori (se presenti)"
 L_GUI_AUTOMATION_LOGGING_COMBAT = "In instances da incursione, 'auto-attiva' la registrazione del Registro di combattimento in un file di testo"
-L_GUI_AUTOMATION_CURRENCY_CAP = "Popup automatico valuta massima raggiunta"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "Lancia benefici con la rotellina del mouse"
 L_GUI_AUTOMATION_OPEN_ITEMS = "Apertura automatica degli oggetti nelle sacche"
 
@@ -83,13 +83,9 @@ L_GUI_AUTOMATION_OPEN_ITEMS = "Apertura automatica degli oggetti nelle sacche"
 L_GUI_SKINS = "Restyling"
 L_GUI_SKINS_BLIZZARD = "Attiva il restyling dei riquadri Blizzard"
 L_GUI_SKINS_MINIMAP_BUTTONS = "Attiva il restyling dei pulsanti delle AddOns sulla minimappa"
-L_GUI_SKINS_CLCR = "Attiva il restyling di CLCRet"
-L_GUI_SKINS_CLCP = "Attiva il restyling di CLCProt"
-L_GUI_SKINS_COMBUSTION_HELPER = "Attiva il restyling di CombustionHelper"
 L_GUI_SKINS_BW = "Attiva il restyling di BigWigs"
 L_GUI_SKINS_DBM = "Attiva il restyling di DBM"
-L_GUI_SKINS_DBM_MOVABLE = "Allow to move DBM bars" -- Need review
-L_GUI_SKINS_DXE = "Attiva il restyling di DXE"
+L_GUI_SKINS_DBM_MOVABLE = "Consenti di poter spostare le barre di DBM"
 L_GUI_SKINS_OMEN = "Attiva il restyling di Omen"
 L_GUI_SKINS_RECOUNT = "Attiva il restyling di Recount"
 L_GUI_SKINS_BLOOD_SHIELD_TRACKER = "Attiva il restyling di BloodShieldTracker"
@@ -99,23 +95,20 @@ L_GUI_SKINS_NUG_RUNNING = "Attiva il restyling di NugRunning"
 L_GUI_SKINS_OVALE = "Attiva il restyling di OvaleSpellPriority"
 L_GUI_SKINS_CLIQUE = "Attiva il restyling di Clique"
 L_GUI_SKINS_ACE3 = "Attiva il restyling degli elementi per le opzioni di Ace3"
-L_GUI_SKINS_PP = "Attiva il restyling di PallyPower"
 L_GUI_SKINS_CAPPING = "Attiva il restyling di Capping"
 L_GUI_SKINS_COOL_LINE = "Attiva il restyling di CoolLine"
 L_GUI_SKINS_ATLASLOOT = "Attiva il restyling di AtlasLoot"
 L_GUI_SKINS_TINY_DPS = "Attiva il restyling di TinyDPS"
-L_GUI_SKINS_FACE_SHOOTER = "Attiva il restyling di FaceShooter"
 L_GUI_SKINS_MAGE_NUGGETS = "Attiva il restyling di MageNuggets"
 L_GUI_SKINS_NPCSCAN = "Attiva il restyling di NPCScan"
 L_GUI_SKINS_VANASKOS = "Attiva il restyling di VanasKoS"
 L_GUI_SKINS_WEAK_AURAS = "Attiva il restyling di WeakAuras"
 L_GUI_SKINS_SKADA = "Attiva il restyling di Skada"
 L_GUI_SKINS_MY_ROLE_PLAY = "Attiva il restyling di MyRolePlay"
-L_GUI_SKINS_ARH = "Enable styling Archaeology Helper" -- Need review
-L_GUI_SKINS_POSTAL = "Enable styling Postal" -- Need review
-L_GUI_SKINS_OPIE = "Enable styling OPie" -- Need review
-L_GUI_SKINS_REMATCH = "Enable styling Rematch" -- Need review
-L_GUI_SKINS_LS_TOASTS = "Enable styling ls: Toasts" -- Need review
+L_GUI_SKINS_POSTAL = " Attiva il restyling di Postal"
+L_GUI_SKINS_OPIE = " Attiva il restyling di OPie"
+L_GUI_SKINS_REMATCH = " Attiva il restyling di Rematch"
+L_GUI_SKINS_LS_TOASTS = " Attiva il restyling di ls: Toasts"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Testo di combattimento"
@@ -144,8 +137,8 @@ L_GUI_COMBATTEXT_MERGE_AOE_SPAM = "Unisci lo spam per danni multipli a più bers
 L_GUI_COMBATTEXT_MERGE_MELEE = "Unifica lo spam di attacchi automatici multipli"
 L_GUI_COMBATTEXT_DISPEL = "Comunica le tue dissoluzioni (dispels)"
 L_GUI_COMBATTEXT_INTERRUPT = "Comunica le tue interruzioni (interrupts)"
-L_GUI_COMBATTEXT_DIRECTION = "Direzione di scorrimento ('sù' (vai in basso) o 'giù' (vai in alto))"
-L_GUI_COMBATTEXT_SHORT_NUMBERS = "Use short numbers ('25.3k' instead of '25342')" -- Need review
+L_GUI_COMBATTEXT_DIRECTION = "Change scrolling direction from bottom to top" -- Need review
+L_GUI_COMBATTEXT_SHORT_NUMBERS = "Usa abbreviazioni numeriche ('25.3k' invece di '25342')"
 
 -- Buffs reminder options
 L_GUI_REMINDER = "Promemoria benefici"
@@ -208,8 +201,8 @@ L_GUI_TOOLTIP_HIDE_COMBAT = "Nascondi i suggerimenti in combattimento"
 L_GUI_TOOLTIP_TALENTS = "Mostra i talenti nei suggerimenti"
 L_GUI_TOOLTIP_ACHIEVEMENTS = "Mostra il paragone delle imprese nei suggerimenti"
 L_GUI_TOOLTIP_TARGET = "Mostra nei suggerimenti chi ha il giocatore come bersaglio"
-L_GUI_TOOLTIP_TITLE = "Player title in tooltip" -- Need review
-L_GUI_TOOLTIP_REALM = "Player realm name in tooltip" -- Need review
+L_GUI_TOOLTIP_TITLE = "Titolo del giocatore nei suggerimenti"
+L_GUI_TOOLTIP_REALM = "Reame del giocatore nei suggerimenti"
 L_GUI_TOOLTIP_RANK = "Rango in gilda nei suggerimenti"
 L_GUI_TOOLTIP_ARENA_EXPERIENCE = "Esperienza PvP del giocatore in arena"
 L_GUI_TOOLTIP_SPELL_ID = "ID Incantesimo/Abilità"
@@ -218,7 +211,6 @@ L_GUI_TOOLTIP_WHO_TARGETTING = "Visualizza chi ha in bersaglio l'unità che è n
 L_GUI_TOOLTIP_ITEM_COUNT = "Conteggio oggetti"
 L_GUI_TOOLTIP_UNIT_ROLE = "Ruolo dell'unità"
 L_GUI_TOOLTIP_INSTANCE_LOCK = "Info incursione nei suggerimenti"
-L_GUI_TOOLTIP_ITEM_TRANSMOGRIFY = "Mostra gli oggetti che non possono essere transmogrifati"
 
 -- Chat options
 L_GUI_CHAT_ENABLE = "Attiva chat"
@@ -241,7 +233,7 @@ L_GUI_CHAT_DAMAGE_METER_SPAM = "Riunisce lo spam di un contatore dei danni in un
 -- Bag options
 L_GUI_BAGS = "Sacche"
 L_GUI_BAGS_ENABLE = "Attiva le sacche"
-L_GUI_BAGS_ILVL = "Show item level for weapons and armor" -- Need review
+L_GUI_BAGS_ILVL = "Mostra il livello oggetto di armi e armature"
 L_GUI_BAGS_BUTTON_SIZE = "Dimensioni degli scomparti"
 L_GUI_BAGS_BUTTON_SPACE = "Spazio tra gli scomparti"
 L_GUI_BAGS_BANK = "Numero di colonne in banca"
@@ -250,15 +242,13 @@ L_GUI_BAGS_BAG = "Numero di colonne nella sacca principale"
 -- Minimap options
 L_GUI_MINIMAP_ENABLE = "Attiva la minimappa"
 L_GUI_MINIMAP_ICON = "Icona tracciamento"
-L_GUI_GARRISON_ICON = "Garrison icon" -- Need review
+L_GUI_GARRISON_ICON = "Icona della guarnigione"
 L_GUI_MINIMAP_SIZE = "Dimensioni della minimappa"
 L_GUI_MINIMAP_HIDE_COMBAT = "Nascondi la minimappa in combattimento"
 L_GUI_MINIMAP_TOGGLE_MENU = "Mostra il menu a scomparsa"
 
 -- Map options
 L_GUI_MAP_BG_STYLIZATION = "Restyling della mappa dei Campi di Battaglia"
-L_GUI_MAP_BOSS_COUNT = "Mostra il conteggio dei bosses sulla mappa del mondo"
-L_GUI_MAP_EXPLORE = "Traccia le imprese Esploratore mondiale e Storico sulla mappa del mondo"
 L_GUI_MAP_FOG_OF_WAR = "Nebbia della guerra sulla mappa del mondo"
 
 -- Loot options
@@ -273,28 +263,28 @@ L_GUI_LOOT_AUTODE = "'Auto-conferma' il disincantamento degli oggetti"
 L_GUI_NAMEPLATE_ENABLE = "Attiva le barre delle unità"
 L_GUI_NAMEPLATE_COMBAT = "Mostra automaticamente le barre delle unità in combattimento"
 L_GUI_NAMEPLATE_HEALTH = "Valore numerico della salute"
-L_GUI_NAMEPLATE_CASTBAR = "Mostra le barre incantesimi delle barre delle unità"
 L_GUI_NAMEPLATE_HEIGHT = "Altezza delle barre delle unità"
 L_GUI_NAMEPLATE_WIDTH = "Larghezza delle barre delle unità"
-L_GUI_NAMEPLATE_DISTANCE = "Show nameplates for units within this range" -- Need review
+L_GUI_NAMEPLATE_DISTANCE = "Mostra le barre delle unità per le unità entro questo raggio"
 L_GUI_NAMEPLATE_AD_HEIGHT = "Altezza aggiuntiva per determinate barre delle unità"
 L_GUI_NAMEPLATE_AD_WIDTH = "Larghezza aggiuntiva per determinate barre delle unità"
 L_GUI_NAMEPLATE_CASTBAR_NAME = "Mostra il nome di incantesimi/abilità sulle barre incantesimi"
 L_GUI_NAMEPLATE_THREAT = "Attiva il sensore di rilevamento minaccia (si adatta automaticamente al tuo ruolo)"
 L_GUI_NAMEPLATE_CLASS_ICON = "Icone delle classi in PvP"
 L_GUI_NAMEPLATE_NAME_ABBREV = "Mostra nomi abbreviati"
-L_GUI_NAMEPLATE_CLAMP = "Clamp nameplates to the top of the screen when outside of view" -- Need review
+L_GUI_NAMEPLATE_CLAMP = "Aggancia le barre delle unità in cima allo schermo quando sono fuori portata visiva"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Colore se il PG è minacciato (in base a difensore o assaltatore/guaritore)"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Colore per perdita/guadagno minaccia"
 L_GUI_NAMEPLATE_BAD_COLOR = "Colore se il PG non è minacciato (se difensore o assaltatore/guaritore)"
-L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
+L_GUI_NAMEPLATE_OFFTANK_COLOR = "Colore della minaccia per il difensore secondario"
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Mostra le penalità sulle barre delle unità (l'ozpione 'Mostra nomi abbreviati' deve essere disabilitata)"
-L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Mostra i benefici (da un elenco) sopra la barra la barra del giocatore"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Dimensioni delle penalità sulle barre delle unità"
 L_GUI_NAMEPLATE_HEALER_ICON = "Nei Campi di Battaglia, mostra un'icona 'guaritore' accanto alle barre delle unità di tutti i guaritori nemici"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Mostra un’icona sopra la barra dei totem nemici"
 
 -- ActionBar options
+L_GUI_ACTIONBAR = "Barre delle azioni"
 L_GUI_ACTIONBAR_ENABLE = "Attiva le barre delle azioni"
 L_GUI_ACTIONBAR_HOTKEY = "Mostra i nomi dei tasti di scelta rapida sugli scomparti"
 L_GUI_ACTIONBAR_MACRO = "Mostra i nomi delle macro sugli scomparti"
@@ -308,12 +298,12 @@ L_GUI_ACTIONBAR_HIDE_HIGHLIGHT = "Nascondi il lumeggiare (highlight) di un proc.
 L_GUI_ACTIONBAR_BOTTOMBARS = "Numero delle barre delle azioni in basso (1, 2 o 3)"
 L_GUI_ACTIONBAR_RIGHTBARS = "Numero di barre delle azioni sulla destra (0, 1, 2 o 3)"
 L_GUI_ACTIONBAR_RIGHTBARS_MOUSEOVER = "Barre sulla destra al passaggio del mouse"
-L_GUI_ACTIONBAR_PETBAR_MOUSEOVER = "Barra famiglio al passaggio del mouse (solo con la barra famiglio orizzontale)"
 L_GUI_ACTIONBAR_PETBAR_HIDE = "Nascondi la barra famiglio"
 L_GUI_ACTIONBAR_PETBAR_HORIZONTAL = "Rendi orizzontale la barra famiglio"
-L_GUI_ACTIONBAR_STANCEBAR_MOUSEOVER = "Barra postura al passaggio del mouse"
+L_GUI_ACTIONBAR_PETBAR_MOUSEOVER = "Barra famiglio al passaggio del mouse (solo con la barra famiglio orizzontale)"
 L_GUI_ACTIONBAR_STANCEBAR_HIDE = "Nascondi barra postura"
 L_GUI_ACTIONBAR_STANCEBAR_HORIZONTAL = "Rendi orizzontale la barra postura"
+L_GUI_ACTIONBAR_STANCEBAR_MOUSEOVER = "Barra postura al passaggio del mouse"
 L_GUI_ACTIONBAR_MICROMENU = "Attiva il micromenu"
 L_GUI_ACTIONBAR_MICROMENU_MOUSEOVER = "Micromenu al passaggio del mouse"
 
@@ -334,17 +324,17 @@ L_GUI_AURA_CAST_BY = "Mostra chi ha lanciato un beneficio o una penalità nei su
 L_GUI_AURA_CLASSCOLOR_BORDER = "Colora i bordi dei benefici del giocatore in base al colore della classi"
 
 -- Filger
-L_GUI_FILGER = "Timers (Filger)" -- Need review
-L_GUI_FILGER_ENABLE = "Enable Filger" -- Need review
-L_GUI_FILGER_TEST_MODE = "Test icon mode" -- Need review
-L_GUI_FILGER_MAX_TEST_ICON = "The number of icons to the test" -- Need review
-L_GUI_FILGER_SHOW_TOOLTIP = "Show tooltip" -- Need review
-L_GUI_FILGER_DISABLE_CD = "Disable cooldowns" -- Need review
+L_GUI_FILGER = "Timers (Filger)"
+L_GUI_FILGER_ENABLE = "Attiva Filger"
+L_GUI_FILGER_TEST_MODE = "Modalità di prova delle icone"
+L_GUI_FILGER_MAX_TEST_ICON = "Il numero di icone da sottoporre alla prova"
+L_GUI_FILGER_SHOW_TOOLTIP = "Mostra suggerimenti"
+L_GUI_FILGER_DISABLE_CD = "Disattiva i recuperi"
 L_GUI_FILGER_DISABLE_PVP = "Disable PvP debuffs on Player and Target" -- Need review
 L_GUI_FILGER_EXPIRATION = "Sort cooldowns by expiration time" -- Need review
-L_GUI_FILGER_BUFFS_SIZE = "Buffs size" -- Need review
-L_GUI_FILGER_COOLDOWN_SIZE = "Cooldowns size" -- Need review
-L_GUI_FILGER_PVP_SIZE = "PvP debuffs size" -- Need review
+L_GUI_FILGER_BUFFS_SIZE = "Dimensione dei benefici"
+L_GUI_FILGER_COOLDOWN_SIZE = "Dimensione dei recuperi"
+L_GUI_FILGER_PVP_SIZE = "Dimensione delle penalità PvP"
 
 -- Unit Frames options
 L_GUI_UF_ENABLE = "Abilita i riquadri delle unità"
@@ -354,7 +344,7 @@ L_GUI_UF_ENEMY_HEALTH_COLOR = "Colora di rosso la barra della salute dei nemici"
 L_GUI_UF_TOTAL_VALUE = "Visualizza un testo sui riquadri di giocatore e bersaglio con i valori XXXX/Totale"
 L_GUI_UF_COLOR_VALUE = "Valori di salute e mana colorati"
 L_GUI_UF_BAR_COLOR_VALUE = "Barra della salute colorata in base alla salute restante"
-L_GUI_UF_LINES = "Show Player and Target lines" -- Need review
+L_GUI_UF_LINES = "Mostra le linee per giocatore e bersaglio"
 L_GUI_UF_UNIT_CASTBAR = "Mostra le barre incantesimi"
 L_GUI_UF_CASTBAR_ICON = "Mostra le icone della barra incantesimi"
 L_GUI_UF_CASTBAR_LATENCY = "Latenza della barra incantesimi"
@@ -366,8 +356,8 @@ L_GUI_UF_SHOW_BOSS = "Mostra i riquadri per i bosses"
 L_GUI_UF_BOSS_RIGHT = "Riquadri per i bosses sulla destra"
 L_GUI_UF_SHOW_ARENA = "Mostra i riquadri per l'arena"
 L_GUI_UF_ARENA_RIGHT = "Riquadri per l'arena sulla destra"
-L_GUI_UF_BOSS_DEBUFFS = "Number of debuffs on the boss frames" -- Need review
-L_GUI_UF_BOSS_BUFFS = "Number of buffs on the boss frames" -- Need review
+L_GUI_UF_BOSS_DEBUFFS = "Numero di penalità sui riquadri dei bosses"
+L_GUI_UF_BOSS_BUFFS = "Numero di benefici sui riquadri dei bosses"
 L_GUI_UF_ICONS_PVP = "Testo PvP (senza icona) al passaggio del mouse sui riquadri di giocatore e bersaglio"
 L_GUI_UF_ICONS_COMBAT = "Icona di status 'in combattimento'"
 L_GUI_UF_ICONS_RESTING = "Icona 'Riposato' per personaggi di basso livello"
@@ -379,21 +369,22 @@ L_GUI_UF_PLUGINS_GCD = "Scintilla del recupero globale"
 L_GUI_UF_PLUGINS_SWING = "Attiva la barra dei fendenti"
 L_GUI_UF_PLUGINS_REPUTATION_BAR = "Attiva la barra reputazioni"
 L_GUI_UF_PLUGINS_EXPERIENCE_BAR = "Attiva la barra esperienza"
-L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Artifact Power bar" -- Need review
+L_GUI_UF_PLUGINS_ARTIFACT_BAR = "Barra potenza artefatto"
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Barra a cambiamento graduale"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "Mostra la specializzazione dei talenti del nemico"
 L_GUI_UF_PLUGINS_COMBAT_FEEDBACK = "Testo di combattimento sul riquadro del giocatore/bersaglio"
 L_GUI_UF_PLUGINS_FADER = "Sfuma i riquadri delle unità"
 L_GUI_UF_PLUGINS_DIMINISHING = "Diminuzione dell'effetto (diminishing return) sulle icone dei riquadri d'arena"
+L_GUI_UF_PLUGINS_POWER_PREDICTION = "Previsione del costo in potere sulla barra del riquadro del giocatore"
 
 -- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "Barre di classe"
 L_GUI_UF_PLUGINS_COMBO_BAR = "Icone punti combo per druido e ladro"
-L_GUI_UF_PLUGINS_COMBO_BAR_ALWAYS = "Always show Combo bar for Druid" -- Need review
-L_GUI_UF_PLUGINS_COMBO_BAR_OLD = "Show combo point on the target" -- Need review
-L_GUI_UF_PLUGINS_ARCANE_BAR = "Enable Arcane Charge bar" -- Need review
+L_GUI_UF_PLUGINS_COMBO_BAR_ALWAYS = "Mostra sempre la barra combo per il druido"
+L_GUI_UF_PLUGINS_COMBO_BAR_OLD = "Mostra i punti combo sul bersaglio"
+L_GUI_UF_PLUGINS_ARCANE_BAR = "Attiva la barra carica arcana"
 L_GUI_UF_PLUGINS_CHI_BAR = "Attiva la barra di classe del monaco"
-L_GUI_UF_PLUGINS_STAGGER_BAR = "Enable Stagger bar (for Monk Tanks)" -- Need review
+L_GUI_UF_PLUGINS_STAGGER_BAR = "Attiva la barra noncuranza (per i monaci difensori)"
 L_GUI_UF_PLUGINS_HOLY_BAR = "Attiva la barra di classe del paladino"
 L_GUI_UF_PLUGINS_SHARD_BAR = "Attiva la barra di classe dello stregone"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Attiva la barra di classe del cavaliere della morte"
@@ -401,7 +392,7 @@ L_GUI_UF_PLUGINS_TOTEM_BAR = "Attiva la barra dei totems dello sciamano"
 L_GUI_UF_PLUGINS_RANGE_BAR = "Attiva la barra della distanza per i sacerdoti"
 
 -- Raid Frames options
-L_GUI_UF_BY_ROLE = "Sorting players in group by role" -- Needs review
+L_GUI_UF_BY_ROLE = "Suddividi i giocatori in gruppo a seconda del ruolo"
 L_GUI_UF_AGGRO_BORDER = "Cambio di colore dei bordi in base al grado di aggressione"
 L_GUI_UF_DEFICIT_HEALTH = "Deficit salute in incursione"
 L_GUI_UF_SHOW_PARTY = "Mostra i riquadri del gruppo"
@@ -416,19 +407,20 @@ L_GUI_UF_SHOW_TANK = "Mostra i difensori dell'incursione"
 L_GUI_UF_SHOW_TANK_TT = "Mostra il bersaglio del bersaglio dei difensori dell'incursione"
 L_GUI_UF_RAID_GROUP = "Numero dei gruppi nell'incursione"
 L_GUI_UF_RAID_VERTICAL_GROUP = "Gruppi dell'incursione verticali (solo per la Disposizione da Guaritore)"
-L_GUI_UF_ICONS_LEADER = "Icona del capoincursione, dell'assistente e del responsabile del bottino sui riquadri"
 L_GUI_UF_ICONS_ROLE = "Icona del ruolo sui riquadri"
 L_GUI_UF_ICONS_RAID_MARK = "Marchi d'incursione"
 L_GUI_UF_ICONS_READY_CHECK = "Icone dell'appello"
+L_GUI_UF_ICONS_LEADER = "Icona del capoincursione, dell'assistente e del responsabile del bottino sui riquadri"
+L_GUI_UF_ICONS_SUMON = "Icone d’evocazione sui riquadri"
 L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "Evidenzia texture + icona delle penalità"
 L_GUI_UF_PLUGINS_AURA_WATCH = "Icone delle penalità d'incursione"
 L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "Timer sulle icone delle penalità d'incursione"
-L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Show also PvP debuff icons (from the list)" -- Need review
+L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Mostra anche un’icona per le penalità PvP (dall’elenco)"
 L_GUI_UF_PLUGINS_HEALCOMM = "Mostra le cure in arrivo sul riquadro"
 L_GUI_UF_PLUGINS_AUTO_RESURRECTION = "'Auto-lancia' resurrezione col tasto centrale quando l'unità è morta (non funziona con Clique attiva)"
 
 -- Panel options
-L_GUI_TOP_PANEL = "Pannello Superiore"
+L_GUI_TOP_PANEL = "Pannello superiore"
 L_GUI_TOP_PANEL_ENABLE = "Attiva il pannello superiore"
 L_GUI_TOP_PANEL_MOUSE = "Pannello superiore al passaggio del mouse"
 L_GUI_TOP_PANEL_WIDTH = "Larghezza pannello"
@@ -444,12 +436,11 @@ L_GUI_STATS_FPS = "Frames Per Seconds"
 L_GUI_STATS_EXPERIENCE = "Esperienza"
 L_GUI_STATS_COORDS = "Coordinate"
 L_GUI_STATS_LOCATION = "Località"
-L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Show Archaeology Fragments under currency tab" -- Needs review
-L_GUI_STATS_CURRENCY_COOKING = "Show Cooking Awards under currency tab" -- Needs review
-L_GUI_STATS_CURRENCY_PROFESSIONS = "Show Profession Tokens under currency tab" -- Needs review
-L_GUI_STATS_CURRENCY_RAID = "Show Raid Seals under currency tab" -- Needs review
-L_GUI_STATS_CURRENCY_PVP = "Show PvP Currency under currency tab" -- Needs review
-L_GUI_STATS_CURRENCY_MISCELLANEOUS = "Show Miscellaneous Currency under currency tab" -- Needs review
+L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Mostra i frammenti di archeologia sotto la linguetta della valuta"
+L_GUI_STATS_CURRENCY_COOKING = "Mostra le ricompense di cucina sotto la linguetta della valuta"
+L_GUI_STATS_CURRENCY_PROFESSIONS = "Mostra i gettoni delle professioni sotto la linguetta della valuta"
+L_GUI_STATS_CURRENCY_RAID = "Mostra i sigilli delle incursioni"
+L_GUI_STATS_CURRENCY_MISCELLANEOUS = "Mostra valuta varia sotto la linguetta della valuta"
 
 -- Error options
 L_GUI_ERROR = "Errori"

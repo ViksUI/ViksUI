@@ -1139,6 +1139,7 @@ local myPostCreateIcon = function(self, button)
 	frame1px1(h)
 	CreateShadow(h)
 end
+
 local updateTooltip = function(self)
 	GameTooltip:SetUnitAura(self:GetParent().__owner.unit, self:GetID(), self.filter)
 
@@ -1284,57 +1285,57 @@ local postUpdateIcon = function(element, unit, button, index)
 end
 
  --Create Auras
-	  lib.createAuras = function(f)
-		Auras = CreateFrame("Frame", nil, f)
-		Auras.size = 18		
-		Auras:SetHeight(41)
-		Auras:SetWidth(f:GetWidth())
-		Auras.spacing = 7
-		if f.mystyle == "target" then
-			Auras:SetPoint("LEFT", f, "TOPRIGHT", 15, 5)
-			Auras.numBuffs = 20
-			Auras.numDebuffs = 15
-			Auras.size = 17	
-			--Auras.onlyShowPlayer = true
-			Auras.spacing = 5.9
-		end
-		if f.mystyle == "oUF_Arena" then
-			Auras:SetPoint("LEFT", f, "LEFT", 0, -9)
-			Auras.numBuffs = 0
-			Auras.numDebuffs = 5
-			Auras.spacing = 10
-			Auras.size = 12			
-		end		
-		if f.mystyle == "tot" then
-			Auras:SetPoint("LEFT", f, "LEFT", 0, -9)
-			Auras.numBuffs = 0
-			Auras.numDebuffs = 5
-			Auras.spacing = 10
-			Auras.size = 12			
-		end
-		if f.mystyle == "focus" then
-		Auras.size = 14	
-		Auras:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 1, 8)
-			Auras.numBuffs = 2
-			Auras.numDebuffs = 7
-			Auras.spacing = 9
-		end
-		Auras.gap = true
-		Auras.initialAnchor = "BOTTOMLEFT"
-		Auras["growth-x"] = "RIGHT"		
-		Auras["growth-y"] = "DOWN"
-		Auras.PostCreateIcon = postCreateIcon
-		Auras.PostUpdateIcon = postUpdateIcon
-		f.Auras = Auras
-		
-			if f.mystyle == "oUF_MT" then
-			Auras:SetPoint("CENTER", f, "RIGHT", 0, 0)
-			Auras.numBuffs = 0
-			Auras.numDebuffs = 5
-			Auras.spacing = 10
-			Auras.size = 16			
-		end
-	end
+lib.createAuras = function(f)
+Auras = CreateFrame("Frame", nil, f)
+Auras.size = 18		
+Auras:SetHeight(41)
+Auras:SetWidth(f:GetWidth())
+Auras.spacing = 7
+if f.mystyle == "target" then
+	Auras:SetPoint("LEFT", f, "TOPRIGHT", 15, 5)
+	Auras.numBuffs = 20
+	Auras.numDebuffs = 15
+	Auras.size = 17	
+	--Auras.onlyShowPlayer = true
+	Auras.spacing = 5.9
+end
+if f.mystyle == "oUF_Arena" then
+	Auras:SetPoint("LEFT", f, "LEFT", 0, -9)
+	Auras.numBuffs = 0
+	Auras.numDebuffs = 5
+	Auras.spacing = 10
+	Auras.size = 12			
+end		
+if f.mystyle == "tot" then
+	Auras:SetPoint("LEFT", f, "LEFT", 0, -9)
+	Auras.numBuffs = 0
+	Auras.numDebuffs = 5
+	Auras.spacing = 10
+	Auras.size = 12			
+end
+if f.mystyle == "focus" then
+Auras.size = 14	
+Auras:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 1, 8)
+	Auras.numBuffs = 2
+	Auras.numDebuffs = 7
+	Auras.spacing = 9
+end
+Auras.gap = true
+Auras.initialAnchor = "BOTTOMLEFT"
+Auras["growth-x"] = "RIGHT"		
+Auras["growth-y"] = "DOWN"
+Auras.PostCreateIcon = postCreateIcon
+Auras.PostUpdateIcon = postUpdateIcon
+f.Auras = Auras
+
+	if f.mystyle == "oUF_MT" then
+	Auras:SetPoint("CENTER", f, "RIGHT", 0, 0)
+	Auras.numBuffs = 0
+	Auras.numDebuffs = 5
+	Auras.spacing = 10
+	Auras.size = 16			
+end
+end
 
 -- Generates the Buffs
 lib.createBuffs = function(f)
@@ -1363,7 +1364,7 @@ lib.createBuffs = function(f)
 	elseif f.mystyle == "player" then
 		b.size = 28
 		b.num = 60
-		b:SetPoint("TOPRIGHT", AnchorviksBuff,  0, 0)
+		b:SetPoint("TOPRIGHT", MinimapAnchor, "TOPLEFT", -6, -2)
 		b.initialAnchor = "TOPRIGHT"
 		b["growth-x"] = "LEFT"
 		b["growth-y"] = "DOWN"
@@ -1401,7 +1402,7 @@ lib.createDebuffs = function(f)
 		b.spacing = 6
 	elseif f.mystyle == "player" then
 		b.size = 40
-		b:SetPoint("TOPRIGHT", AnchorviksDeBuff, 0, 0)
+		b:SetPoint("TOPRIGHT", CPMinimb2, -76, 27)
 		b.initialAnchor = "TOPRIGHT"
 		b["growth-x"] = "LEFT"
 		b["growth-y"] = "DOWN"
@@ -1614,7 +1615,7 @@ end
 
 -- Combo Points
 lib.genCPoints = function(self)
-	if C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old ~= true and (T.class == "ROGUE" or T.class == "DRUID") then
+	if C.unitframe_class_bar.combo == true and (T.class == "ROGUE" or T.class == "DRUID") then
 		self.CPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self)
 		self.CPoints:CreateBackdrop("Default")
 		self.CPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
@@ -1857,7 +1858,7 @@ end
 
 -- raid debuffs
 lib.raidDebuffs = function(self)
-	if cfg.showRaidDebuffs and not (self:GetAttribute("unitsuffix") == "pet" or self:GetAttribute("unitsuffix") == "target" or self:GetAttribute("unitsuffix") == "targettarget") then
+	if cfg.plugins_aura_watch and not (self:GetAttribute("unitsuffix") == "pet" or self:GetAttribute("unitsuffix") == "target" or self:GetAttribute("unitsuffix") == "targettarget") then
 		T.CreateAuraWatch(self, unit)
 
 		-- Raid debuffs
@@ -1953,6 +1954,52 @@ lib.createAuraWatch = function(self, unit)
 	--end
 end
 
+-- Swing bar
+lib.Swing_bar = function(self, unit)
+	self.Swing = CreateFrame("StatusBar", self:GetName().."_Swing", self)
+	self.Swing:CreateBackdrop("Default")
+	self.Swing:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -2, 7)
+	self.Swing:SetSize(cfg.unit_size.Player.w-4, 5)
+	self.Swing:SetStatusBarTexture(C.media.texture)
+	if C.unitframe.own_color == true then
+		self.Swing:SetStatusBarColor(unpack(C.unitframe.uf_color))
+	else
+		self.Swing:SetStatusBarColor(T.color.r, T.color.g, T.color.b)
+	end
+
+	self.Swing.bg = self.Swing:CreateTexture(nil, "BORDER")
+	self.Swing.bg:SetAllPoints(self.Swing)
+	self.Swing.bg:SetTexture(C.media.texture)
+	if C.unitframe.own_color == true then
+		self.Swing.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
+	else
+		self.Swing.bg:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.2)
+	end
+
+	self.Swing.Text = T.SetFontString(self.Swing, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+	self.Swing.Text:SetPoint("CENTER", 0, 0)
+	self.Swing.Text:SetTextColor(1, 1, 1)
+end
+
+-- GCD spark
+lib.Gcd_bar = function(self, unit)
+--if C.unitframe.plugins_gcd == true then
+	self.GCD = CreateFrame("Frame", self:GetName().."_GCD", self)
+	self.GCD:SetWidth(cfg.unit_size.Player.w)
+	self.GCD:SetHeight(3)
+	self.GCD:SetFrameStrata("HIGH")
+	self.GCD:SetPoint("BOTTOMLEFT", oUF_Player, "TOPLEFT", 0, 0)
+
+	self.GCD.Color = {1, 1, 1}
+	self.GCD.Height = T.Scale(3)
+	self.GCD.Width = T.Scale(4)
+end
+
+lib.combat_feedback = function(self, unit)
+	self.CombatFeedbackText = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size * 2, C.font.unit_frames_font_style)
+	self.CombatFeedbackText:SetPoint("CENTER", 0, 1)
+end	
+
 lib.createIndicators = function(self, unit)
 	if cfg.showIndicators then
 		local auraStatus
@@ -1982,7 +2029,7 @@ end
 
 -- oUF_HealPred
 lib.healcomm = function(self, unit)
-if cfg.ShowIncHeals then
+if cfg.plugins_healcomm then
 		local mhpb = CreateFrame('StatusBar', nil, self.Health)
 		mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 		mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)

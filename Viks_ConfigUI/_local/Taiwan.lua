@@ -42,6 +42,7 @@ L_GUI_MISC_MERCHANT_ITEMLEVEL = "Show item level for weapons and armor in mercha
 L_GUI_MISC_MINIMIZE_MOUSEOVER = "Mouseover for quest minimize button" -- Need review
 L_GUI_MISC_HIDE_BANNER = "自動隱藏Boss額外拾取提示"
 L_GUI_MISC_HIDE_TALKING_HEAD = "Hide Talking Head Frame" -- Need review
+L_GUI_MISC_HIDE_RAID_BUTTON = "Hide button for oUF_RaidDPS" -- Need review
 
 -- Announcements options
 L_GUI_ANNOUNCEMENTS = "通告提醒"
@@ -75,7 +76,6 @@ L_GUI_AUTOMATION_AUTO_ROLE = "自動設定角色類型"
 L_GUI_AUTOMATION_CANCEL_BAD_BUFFS = "自動取消非增益性質的Buff"
 L_GUI_AUTOMATION_TAB_BINDER = "Tab只選定玩家"
 L_GUI_AUTOMATION_LOGGING_COMBAT = "團隊副本時自動開啟戰鬥記錄"
-L_GUI_AUTOMATION_CURRENCY_CAP = "自動彈出貨幣提示框"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "使用滑鼠滾輪施放Buff"
 L_GUI_AUTOMATION_OPEN_ITEMS = "自動打開背包中的封裝物品"
 
@@ -83,13 +83,9 @@ L_GUI_AUTOMATION_OPEN_ITEMS = "自動打開背包中的封裝物品"
 L_GUI_SKINS = "介面樣式增強"
 L_GUI_SKINS_BLIZZARD = "暴雪默認介面"
 L_GUI_SKINS_MINIMAP_BUTTONS = "小地圖插件圖示"
-L_GUI_SKINS_CLCR = "CLCRet"
-L_GUI_SKINS_CLCP = "CLCProt"
-L_GUI_SKINS_COMBUSTION_HELPER = "CombustionHelper"
 L_GUI_SKINS_BW = "BigWigs"
 L_GUI_SKINS_DBM = "DBM"
 L_GUI_SKINS_DBM_MOVABLE = "Allow to move DBM bars" -- Need review
-L_GUI_SKINS_DXE = "DXE"
 L_GUI_SKINS_OMEN = "Omen"
 L_GUI_SKINS_RECOUNT = "Recount"
 L_GUI_SKINS_BLOOD_SHIELD_TRACKER = "BloodShieldTracker"
@@ -99,19 +95,16 @@ L_GUI_SKINS_NUG_RUNNING = "NugRunning"
 L_GUI_SKINS_OVALE = "OvaleSpellPriority"
 L_GUI_SKINS_CLIQUE = "Clique"
 L_GUI_SKINS_ACE3 = "Ace3"
-L_GUI_SKINS_PP = "PallyPower"
 L_GUI_SKINS_CAPPING = "Capping"
 L_GUI_SKINS_COOL_LINE = "CoolLine"
 L_GUI_SKINS_ATLASLOOT = "AtlasLoot"
 L_GUI_SKINS_TINY_DPS = "TinyDPS"
-L_GUI_SKINS_FACE_SHOOTER = "FaceShooter"
 L_GUI_SKINS_MAGE_NUGGETS = "MageNuggets"
 L_GUI_SKINS_NPCSCAN = "NPCScan"
 L_GUI_SKINS_VANASKOS = "VanasKoS"
 L_GUI_SKINS_WEAK_AURAS = "WeakAuras"
 L_GUI_SKINS_SKADA = "Skada"
 L_GUI_SKINS_MY_ROLE_PLAY = "MyRolePlay"
-L_GUI_SKINS_ARH = "Archaeology Helper"
 L_GUI_SKINS_POSTAL = "Postal"
 L_GUI_SKINS_OPIE = "OPie"
 L_GUI_SKINS_REMATCH = "Rematch"
@@ -144,7 +137,7 @@ L_GUI_COMBATTEXT_MERGE_AOE_SPAM = "將AOE傷害合併為一條信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "將多個自動攻擊傷害合併為一條信息"
 L_GUI_COMBATTEXT_DISPEL = "當你驅散成功時提示"
 L_GUI_COMBATTEXT_INTERRUPT = "當你斷法成功時提示"
-L_GUI_COMBATTEXT_DIRECTION = "滾動方向('top'(向上) or 'bottom'(向下))"
+L_GUI_COMBATTEXT_DIRECTION = "Change scrolling direction from bottom to top" -- Need review
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "數值以K為單位顯示"
 
 -- Buffs reminder options
@@ -218,7 +211,6 @@ L_GUI_TOOLTIP_WHO_TARGETTING = "隊伍/團隊時,顯示關注成員(誰以目標
 L_GUI_TOOLTIP_ITEM_COUNT = "叠堆數量"
 L_GUI_TOOLTIP_UNIT_ROLE = "角色類型"
 L_GUI_TOOLTIP_INSTANCE_LOCK = "自身信息提示"
-L_GUI_TOOLTIP_ITEM_TRANSMOGRIFY = "非幻化裝備提示"
 
 -- Chat options
 L_GUI_CHAT_ENABLE = "開啟聊天框增強"
@@ -257,8 +249,6 @@ L_GUI_MINIMAP_TOGGLE_MENU = "小地圖頂部快捷菜單"
 
 -- Map options
 L_GUI_MAP_BG_STYLIZATION = "開啟戰場地圖增強"
-L_GUI_MAP_BOSS_COUNT = "世界地圖顯示Boss數據"
-L_GUI_MAP_EXPLORE = "追蹤世界探險家/博學大師成就"
 L_GUI_MAP_FOG_OF_WAR = "世界地圖全亮選項"
 
 -- Loot options
@@ -273,7 +263,6 @@ L_GUI_LOOT_AUTODE = "自動選擇分解"
 L_GUI_NAMEPLATE_ENABLE = "開啟單位名條增強"
 L_GUI_NAMEPLATE_COMBAT = "戰鬥中自動顯示單位名條"
 L_GUI_NAMEPLATE_HEALTH = "生命值以百分比顯示"
-L_GUI_NAMEPLATE_CASTBAR = "施法條"
 L_GUI_NAMEPLATE_HEIGHT = "單位名條高度"
 L_GUI_NAMEPLATE_WIDTH = "單位名條寬度"
 L_GUI_NAMEPLATE_DISTANCE = "Show nameplates for units within this range" -- Need review
@@ -295,6 +284,7 @@ L_GUI_NAMEPLATE_HEALER_ICON = "戰場中顯示治療職業圖示"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
 
 -- ActionBar options
+L_GUI_ACTIONBAR = "Action Bars" -- Need review
 L_GUI_ACTIONBAR_ENABLE = "開啟快捷列增強"
 L_GUI_ACTIONBAR_HOTKEY = "熱鍵文字"
 L_GUI_ACTIONBAR_MACRO = "巨集名字"
@@ -311,9 +301,9 @@ L_GUI_ACTIONBAR_RIGHTBARS_MOUSEOVER = "滑鼠懸停顯示右側快捷列"
 L_GUI_ACTIONBAR_PETBAR_MOUSEOVER = "滑鼠懸停顯示寵物快捷列"
 L_GUI_ACTIONBAR_PETBAR_HIDE = "隱藏寵物快捷列"
 L_GUI_ACTIONBAR_PETBAR_HORIZONTAL = "寵物快捷列橫向排列"
-L_GUI_ACTIONBAR_STANCEBAR_MOUSEOVER = "滑鼠懸停顯示變身/姿態/圖騰快捷列"
 L_GUI_ACTIONBAR_STANCEBAR_HIDE = "隱藏變身/姿態/圖騰快捷列"
 L_GUI_ACTIONBAR_STANCEBAR_HORIZONTAL = "變身/姿態快捷列橫向排列"
+L_GUI_ACTIONBAR_STANCEBAR_MOUSEOVER = "滑鼠懸停顯示變身/姿態/圖騰快捷列" -- Need review
 L_GUI_ACTIONBAR_MICROMENU = "微型菜單"
 L_GUI_ACTIONBAR_MICROMENU_MOUSEOVER = "滑鼠懸停顯示微型菜單"
 
@@ -385,6 +375,7 @@ L_GUI_UF_PLUGINS_ENEMY_SPEC = "敵對玩家天賦"
 L_GUI_UF_PLUGINS_COMBAT_FEEDBACK = "玩家/目標框架顯示戰鬥文字"
 L_GUI_UF_PLUGINS_FADER = "自動隱藏玩家框架"
 L_GUI_UF_PLUGINS_DIMINISHING = "競技場框架顯示技能遞減"
+L_GUI_UF_PLUGINS_POWER_PREDICTION = "Power cost prediction bar on player frame" -- Need review
 
 -- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "職業欄"
@@ -416,10 +407,11 @@ L_GUI_UF_SHOW_TANK = "團隊主坦克框架"
 L_GUI_UF_SHOW_TANK_TT = "坦克目標的目標"
 L_GUI_UF_RAID_GROUP = "小隊數目"
 L_GUI_UF_RAID_VERTICAL_GROUP = "竪向排列團隊隊伍(僅在治療佈局中啟用)"
-L_GUI_UF_ICONS_LEADER = "團隊隊長標記/助手標記/分配者標記"
 L_GUI_UF_ICONS_ROLE = "團隊中顯示角色類型"
 L_GUI_UF_ICONS_RAID_MARK = "團隊標記"
 L_GUI_UF_ICONS_READY_CHECK = "就緒確認標記"
+L_GUI_UF_ICONS_LEADER = "團隊隊長標記/助手標記/分配者標記"
+L_GUI_UF_ICONS_SUMON = "Sumon icons on frames" -- Need review
 L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "高亮DeBuffs圖示"
 L_GUI_UF_PLUGINS_AURA_WATCH = "團隊法術監視"
 L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "團隊減益時間"
@@ -448,7 +440,6 @@ L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "考古學"
 L_GUI_STATS_CURRENCY_COOKING = "烹飪"
 L_GUI_STATS_CURRENCY_PROFESSIONS = "專業技能"
 L_GUI_STATS_CURRENCY_RAID = "副本代幣"
-L_GUI_STATS_CURRENCY_PVP = "PvP代幣"
 L_GUI_STATS_CURRENCY_MISCELLANEOUS = "其他"
 
 -- Error options

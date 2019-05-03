@@ -59,7 +59,6 @@ if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure"
 	C["skins"].rematch = true
 	C["skins"].pawn = true
 	C["skins"].bigwigs = true
-	C["misc"].InfoPanel_Stats = false
 	C["misc"].hide_banner = false
 	C["media"].fontsize = 14
 	C["panels"].NoPanels = false
@@ -69,8 +68,8 @@ if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure"
 	C["announcements"].portals = false
 	C["unitframe"].RaidShowSolo = true
 	C["unitframe"].plugins_smooth_bar = true
-	C["Filger"].disable_cd = true
-	C["Filger"].enable = false
+	C["filger"].disable_cd = true
+	C["filger"].enable = false
 	C["automation"].accept_quest = true
 	C["automation"].accept_invite = true
 end

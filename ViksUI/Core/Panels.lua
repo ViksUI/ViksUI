@@ -675,8 +675,11 @@ end
 ----------------------------------------------------------------------------------------
 --	Hide Panels behind actionbars
 ----------------------------------------------------------------------------------------
-if C.panels.HideABPanels == true then
+if C.panels.HideABPanels == true or C.actionbar.enable == true then
 CPMAB:SetAlpha(0)
 RABar:SetAlpha(0)
 LABar:SetAlpha(0)
+EBarL:SetAlpha(0)
+EBarR:SetAlpha(0)
+SideBar:SetAlpha(0)
 end

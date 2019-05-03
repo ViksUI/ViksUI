@@ -60,12 +60,6 @@ if IsAddOnLoaded("Dominos") or IsAddOnLoaded("Bartender4") or IsAddOnLoaded("Raz
 	C.actionbar.toggle_mode = false
 end
 
-if IsAddOnLoaded("Mapster") then
-	C.map.explore_map = false
-	C.map.fog_of_war = false
-	C.map.map_boss_count = false
-end
-
 if IsAddOnLoaded("Prat-3.0") or IsAddOnLoaded("Chatter") or IsAddOnLoaded("BasicChatMods") then
 	C.chat.enable = false
 end

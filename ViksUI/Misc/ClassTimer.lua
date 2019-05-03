@@ -1538,8 +1538,14 @@ if ( LAYOUT == 4 ) then
 
 	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );
 	playerFrame:SetHiddenHeight( -yOffset );
-	if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "WARLOCK" or T.class == "MONK" or T.class == "ROGUE") then
-	--if ( playerClass == "DEATHKNIGHT" or playerClass == "SHAMAN" or playerClass == "WARLOCK"  or myclass == "MONK" or playerClass == "ROGUE") then
+	if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "WARLOCK" or T.class == "MONK") then
+		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
+		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
+	else
+		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
+		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
+	end
+	if (T.class == "ROGUE" and C.unitframe_class_bar.combo_old ~= true) then
 		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
 	else
@@ -1555,7 +1561,7 @@ if ( LAYOUT == 4 ) then
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
 		end
 	end
-	if ( T.class == "DRUID") then
+	if ( T.class == "DRUID" and C.unitframe_class_bar.combo_old ~= true) then
 		if GetSpecialization() == 2 then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20 );
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20 );
@@ -1582,8 +1588,13 @@ if ( LAYOUT == 4 ) then
 	trinketFrame:Show();
 	
 	local targetFrame = CreateAuraBarFrame( targetDataSource,  oUF_ViksTarget );
-		targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 8);
-		targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -2, 8);
+		if ((T.class == "DRUID" or T.class == "ROGUE") and C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old == true) then
+			targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 20);
+			targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -2, 20);
+		else
+			targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 8);
+			targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -2, 8);
+		end
 	targetFrame:Show();
 else
 	error( "Undefined layout " .. tostring( LAYOUT ) );

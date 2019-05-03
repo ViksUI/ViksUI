@@ -43,7 +43,7 @@ T.RaidBuffs = {
 	},
 	SHAMAN = {
 		{61295, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Riptide
-		{974, "BOTTOMRIGHT", {0.2, 0.7, 0.2}, true},		-- Earth Shield
+		{204288, "BOTTOMRIGHT", {0.2, 0.7, 0.2}, true},		-- Earth Shield
 	},
 	HUNTER = {
 		{35079, "TOPRIGHT", {0.2, 0.2, 1}},					-- Misdirection
@@ -56,7 +56,6 @@ T.RaidBuffs = {
 	},
 	WARRIOR = {
 		{114030, "TOPLEFT", {0.2, 0.2, 1}},					-- Vigilance
-		--BETA {3411, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Intervene
 	},
 	ALL = {
 		{23333, "LEFT", {1, 0, 0}, true}, 					-- Warsong flag, Horde
@@ -399,6 +398,30 @@ T.RaidDebuffs = {
 	[SpellName(282834)] = 3, -- Kimbul's Wrath
 	[SpellName(286811)] = 3, -- Akunda's Wrath
 	[SpellName(286838)] = 3, -- Static Orb
+	
+-----------------------------------------------------------------
+-- Crucible of Storms
+-----------------------------------------------------------------
+	--The Restless Cabal
+	[SpellName(282386)] = 3, -- Aphotic Blast
+	[SpellName(282384)] = 3, -- Shear Mind
+	[SpellName(282566)] = 3, -- Promises of Power
+	[SpellName(282561)] = 3, -- Dark Herald
+	[SpellName(282432)] = 3, -- Crushing Doubt
+	[SpellName(282589)] = 3, -- Mind Scramble
+	[SpellName(292826)] = 3, -- Mind Scramble
+
+	--Fa'thuul the Feared
+	[SpellName(284851)] = 3, -- Touch of the End
+	[SpellName(286459)] = 3, -- Feedback: Void
+	[SpellName(286457)] = 3, -- Feedback: Ocean
+	[SpellName(286458)] = 3, -- Feedback: Storm
+	[SpellName(285367)] = 3, -- Piercing Gaze of N'Zoth
+	[SpellName(284733)] = 3, -- Embrace of the Void
+	[SpellName(284722)] = 3, -- Umbral Shell
+	[SpellName(285345)] = 3, -- Maddening Eyes of N'Zoth
+	[SpellName(285477)] = 3, -- Obscurity
+	[SpellName(285652)] = 3, -- Insatiable Torment
 }
 -----------------------------------------------------------------
 -- PvP

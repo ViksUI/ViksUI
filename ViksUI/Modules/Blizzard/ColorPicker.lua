@@ -4,7 +4,6 @@ if C.misc.color_picker ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Improved ColorPicker(ColorPickerPlus by Jaslm)
 ----------------------------------------------------------------------------------------
-local initialized = nil
 local colorBuffer = {}
 local editingText
 
@@ -189,8 +188,8 @@ load:SetScript("OnEvent", function(self, event)
 	-- ClassColor button
 	b = CreateFrame("Button", "ColorPPClass", ColorPickerFrame, "UIPanelButtonTemplate")
 	b:SkinButton()
-	b:SetText("C")
-	b:SetWidth(18)
+	b:SetText(CLASS)
+	b:SetWidth(b:GetWidth() + 10)
 	b:SetHeight(22)
 	b:SetPoint("TOPRIGHT", "ColorPPPaste", "BOTTOMRIGHT", 0, -7)
 

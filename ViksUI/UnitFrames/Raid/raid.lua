@@ -138,8 +138,8 @@ end
 local updateThreat = function(self, event, unit)
     if(unit ~= self.unit) then return end
 
-    local status = UnitThreatSituation(unit)
-
+		local status = UnitThreatSituation(unit)
+		unit = unit or self.unit
     if(status and status > 1) then
         local r, g, b = GetThreatStatusColor(status)
         self.ThreatIndicator:SetBackdropBorderColor(r, g, b, 1)

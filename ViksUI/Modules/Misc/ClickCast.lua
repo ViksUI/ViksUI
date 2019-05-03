@@ -43,7 +43,6 @@ for i, v in pairs({
 end
 
 hooksecurefunc("CreateFrame", function(ftype, name, parent, template)
-
 	if template and template:find("SecureUnitButtonTemplate") then
 		ClickCastFrames[_G[name]] = true
 	end
@@ -183,7 +182,7 @@ SpellBinder.ToggleButtons = function()
 		if SpellBinder.sbOpen and SpellBookFrame.bookType ~= BOOKTYPE_PROFESSION then
 			local slot = SpellBook_GetSpellBookSlot(SpellBinder.spellbuttons[i]:GetParent())
 			if slot then
-				local spellname, subtype = GetSpellBookItemName(slot, SpellBookFrame.bookType)
+				local spellname = GetSpellBookItemName(slot, SpellBookFrame.bookType)
 				if spellname then
 					SpellBinder.spellbuttons[i]:Show()
 				end
@@ -268,7 +267,7 @@ end
 local addSpell = function(self, button)
 	if SpellBinder.sbOpen then
 		local slot = SpellBook_GetSpellBookSlot(self:GetParent())
-		local spellname, subtype = GetSpellBookItemName(slot, SpellBookFrame.bookType)
+		local spellname = GetSpellBookItemName(slot, SpellBookFrame.bookType)
 		local texture = GetSpellBookItemTexture(slot, SpellBookFrame.bookType)
 
 		if spellname ~= 0 and ((SpellBookFrame.bookType == BOOKTYPE_PET) or (SpellBookFrame.selectedSkillLine > 1)) then
