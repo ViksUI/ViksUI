@@ -6,10 +6,10 @@ local L = ns
 local realm = GetRealmName()
 local name = UnitName("player")
 
-local _, pysHeight = _G.GetPhysicalScreenSize()
+local pysWidth, pysHeight = _G.GetPhysicalScreenSize()
 local fixedHeight = 768 / pysHeight
 local scale = tonumber(floor(fixedHeight*100 + .5)/100)
-local mult = fixedHeight / scale
+mult = fixedHeight / scale
 
 -- Main window
 local options = CreateFrame("Frame", "ViksUIOptionsPanel", UIParent)
@@ -142,6 +142,7 @@ ns.addCategory("threat", L_GUI_THREAT, L_GUI_THREAT_SUBTEXT)
 --ns.addCategory("stats", L_GUI_STATS, L_GUI_STATS_SUBTEXT)
 ns.addCategory("datatext", L_GUI_DATATEXT, L_GUI_DATATEXT_SUBTEXT)
 ns.addCategory("error", L_GUI_ERROR, L_GUI_ERROR_SUBTEXT)
+ns.addCategory("panels", L_GUI_PANELS, L_GUI_PANELS_SUBTEXT)
 ns.addCategory("misc", OTHER, L_GUI_MISC_SUBTEXT, true)
 
 -- General
@@ -1687,6 +1688,60 @@ do
 
 	local combat = ns.CreateCheckBox(parent, "combat", L_GUI_ERROR_HIDE_COMBAT)
 	combat:SetPoint("TOPLEFT", white, "BOTTOMLEFT", 0, 0)
+end
+
+-- Panels
+do
+	local parent = ViksUIOptionsPanel.panels
+	
+	local CPwidth = ns.CreateNumberSlider(parent, "CPwidth", nil, nil, 0, 500, 1, true, L.panels_CPwidth)
+	CPwidth:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -30)
+
+	local CPLwidth = ns.CreateNumberSlider(parent, "CPLwidth", nil, nil, 0, 500, 1, true, L.panels_CPLwidth)
+	CPLwidth:SetPoint("TOPLEFT", CPwidth, "BOTTOMLEFT", 0, -20)
+
+	local CPTextheight = ns.CreateNumberSlider(parent, "CPTextheight", nil, nil, 0, 300, 1, true, L.panels_CPTextheight)
+	CPTextheight:SetPoint("TOPLEFT", CPLwidth, "BOTTOMLEFT", 0, -20)
+	
+	local CPbarsheight = ns.CreateNumberSlider(parent, "CPbarsheight", nil, nil, 0, 50, 1, true, L.panels_CPbarsheight)
+	CPbarsheight:SetPoint("TOPLEFT", CPTextheight, "BOTTOMLEFT", 0, -20)
+	
+	local CPXPBa_r = ns.CreateNumberSlider(parent, "CPXPBa_r", nil, nil, 0, 50, 1, true, L.panels_CPXPBa_r)
+	CPXPBa_r:SetPoint("TOPLEFT", CPbarsheight, "BOTTOMLEFT", 0, -20)
+	
+	local xoffset = ns.CreateNumberSlider(parent, "xoffset", nil, nil, 0, 15, 0.5, true, L.panels_xoffset)
+	xoffset:SetPoint("TOPLEFT", CPXPBa_r, "BOTTOMLEFT", 0, -20)
+	
+	local yoffset = ns.CreateNumberSlider(parent, "yoffset", nil, nil, 0, 15, 0.5, true, L.panels_yoffset)
+	yoffset:SetPoint("TOPLEFT", xoffset, "BOTTOMLEFT", 0, -20)
+	
+	local CPSidesWidth = ns.CreateNumberSlider(parent, "CPSidesWidth", nil, nil, 0, 300, 1, true, L.panels_CPSidesWidth)
+	CPSidesWidth:SetPoint("LEFT", CPwidth, "RIGHT", 150, 0)
+	
+	local CPMABwidth = ns.CreateNumberSlider(parent, "CPMABwidth", nil, nil, 0, 800, 1, true, L.panels_CPMABwidth)
+	CPMABwidth:SetPoint("TOPLEFT", CPSidesWidth, "BOTTOMLEFT", 0, -20)
+	
+	local CPMABheight = ns.CreateNumberSlider(parent, "CPMABheight", nil, nil, 0, 100, 1, true, L.panels_CPMABheight)
+	CPMABheight:SetPoint("TOPLEFT", CPMABwidth, "BOTTOMLEFT", 0, -20)
+	
+	local CPMAByoffset = ns.CreateNumberSlider(parent, "CPMAByoffset", nil, nil, 0, 100, 1, true, L.panels_CPMAByoffset)
+	CPMAByoffset:SetPoint("TOPLEFT", CPMABheight, "BOTTOMLEFT", 0, -20)
+	
+	local CPABarSide = ns.CreateNumberSlider(parent, "CPABarSide", nil, nil, 0, 50, 1, true, L.panels_CPABarSide)
+	CPABarSide:SetPoint("TOPLEFT", CPMAByoffset, "BOTTOMLEFT", 0, -20)
+
+	local CPCooldheight = ns.CreateNumberSlider(parent, "CPCooldheight", nil, nil, 0, 100, 1, true, L.panels_CPCooldheight)
+	CPCooldheight:SetPoint("TOPLEFT", CPABarSide, "BOTTOMLEFT", 0, -20)
+	
+	local CPTop = ns.CreateNumberSlider(parent, "CPTop", nil, nil, 0, 3000, 1, true, L.panels_CPTop)
+	CPTop:SetPoint("TOPLEFT", CPCooldheight, "BOTTOMLEFT", 0, -20)
+		
+	local NoPanels = ns.CreateCheckBox(parent, "NoPanels", L.panels_NoPanels)
+	NoPanels:SetPoint("TOPLEFT", yoffset, "BOTTOMLEFT", 0, -20)
+	
+	local HideABPanels = ns.CreateCheckBox(parent, "HideABPanels", L.panels_HideABPanels)
+	HideABPanels:SetPoint("TOPLEFT", NoPanels, "BOTTOMLEFT", 0, -10)
+
 end
 
 -- Miscellaneous

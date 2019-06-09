@@ -79,6 +79,7 @@ C["misc"] = {
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
 	["custom_lagtolerance"] = false,			-- Custom lag tolerance to your latency
+	["armory_link"] = false,					-- Add the Armory link in the chat menu and target (It breaks set focus)
 }
 
 ----------------------------------------------------------------------------------------
@@ -328,7 +329,7 @@ C["panels"] = {
 	["CPSidesWidth"] = 178, 						-- Width of panels that is used to hold dmg meter and threathbar (Recount & Omen) 
 	["CPMABwidth"] = 538, 							-- Width for Main Actionbar
 	["CPMABheight"] = 32, 							-- Hight for Main Actionbar
-	["CPMAByoffset"] = 68, 							-- Hight for Main Actionbar
+	["CPMAByoffset"] = 68, 							-- Main action bar panel placement distance from bottom of screen
 	["CPCooldheight"] = 18, 						-- Hight for Cooldown Bar
 	["CPTop"] = 1912, 								-- Width for Top Panels
 	["CPMinimap"] = C["minimap"].size, 				-- Width/Hight for Minimap Panel

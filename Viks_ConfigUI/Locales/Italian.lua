@@ -514,6 +514,44 @@ L_GUI_STATS_CURRENCY_PROFESSIONS = "Mostra i gettoni delle professioni sotto la 
 L_GUI_STATS_CURRENCY_RAID = "Mostra i sigilli delle incursioni"
 L_GUI_STATS_CURRENCY_MISCELLANEOUS = "Mostra valuta varia sotto la linguetta della valuta"
 
+-- Panels options
+L_GUI_PANELS = "Panels" -- Needs review
+L_GUI_PANELS_SUBTEXT = "Manage all the panels on screen." -- Needs review
+L.panels_CPwidth = "Chat Width" -- Needs review
+L.panels_CPwidth_desc = "Width for Left and Right side panels that holds text" -- Needs review
+L.panels_CPLwidth = "Chat Lines." -- Needs review
+L.panels_CPLwidth_desc = "Width for Left and Right Chat lines." -- Needs review
+L.panels_CPTextheight = "Chat Hight" -- Needs review
+L.panels_CPTextheight_desc = "Hight for the panel that chat window is inside" -- Needs review
+L.panels_CPbarsheight = "Chat Bar Hight" -- Needs review
+L.panels_CPbarsheight_desc = "Hight for panels that shows under and above chat window. And Top Panel" -- Needs review
+L.panels_CPABarSide = "Side Action Bar" -- Needs review
+L.panels_CPABarSide_desc = "Width for Action Bars next to chat windows" -- Needs review
+L.panels_CPXPBa_r = "Xp Bar" -- Needs review
+L.panels_CPXPBa_r_desc = "Hight for the XP bar above Left Chat" -- Needs review
+L.panels_xoffset = "X Offset" -- Needs review
+L.panels_xoffset_desc = "Horisontal spacing between panels" -- Needs review
+L.panels_yoffset = "Y Offset" -- Needs review
+L.panels_yoffset_desc = "Vertical spacing between panels" -- Needs review
+L.panels_CPSidesWidth = "Addon Panels" -- Needs review
+L.panels_CPSidesWidth_desc = "Width of panels that is used to hold dmg meter and threathbar (Recount & Omen)" -- Needs review
+L.panels_CPMABwidth = "Width Main Actionbar" -- Needs review
+L.panels_CPMABwidth_desc = "Width for panel behind main action bar" -- Needs review
+L.panels_CPMABheight = "Hight For Main Actionbar" -- Needs review
+L.panels_CPMABheight_desc = "Hight for panel behind main action bar" -- Needs review
+L.panels_CPMAByoffset = "Y Offset Actionbar" -- Needs review
+L.panels_CPMAByoffset_desc = "Main action bar panel placement distance from bottom of screen" -- Needs review
+L.panels_CPCooldheight = "Cooldown Bar" -- Needs review
+L.panels_CPCooldheight_desc = "Hight For Cooldown Panel under main action bar panel" -- Needs review
+L.panels_CPTop = "Top Panels" -- Needs review
+L.panels_CPTop_desc = "Width For Top Panel" -- Needs review
+L.panels_Pscale = "Can Be Used To Resize All Panels. It Does Not Change X Y Values" -- Needs review
+L.panels_Pscale_desc = "Can Be Used To Resize All Panels. It Does Not Change X Y Values" -- Needs review
+L.panels_NoPanels = "Will Set All Panels To Hidden And Show Lines Instead. On Test Stage Still!" -- Needs review
+L.panels_NoPanels_desc = "Will Set All Panels To Hidden And Show Lines Instead. On Test Stage Still!" -- Needs review
+L.panels_HideABPanels = "Hides Actionbars Panels" -- Needs review
+L.panels_HideABPanels_desc = "Hides All Panels Behind Actionbars!" -- Needs review
+
 -- Error options
 L_GUI_ERROR = "Errori"
 L_GUI_ERROR_SUBTEXT = "Filtering standard text at the top of the screen from Blizzard." -- Need review
