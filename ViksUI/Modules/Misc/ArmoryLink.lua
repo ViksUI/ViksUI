@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.chat.enable ~= true then return end
+if C.misc.armory_link ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Add Armory link in UnitPopupMenus (It breaks set focus)
