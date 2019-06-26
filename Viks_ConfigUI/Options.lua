@@ -899,8 +899,11 @@ do
 	local accept_quest = ns.CreateCheckBox(parent, "accept_quest", L_GUI_AUTOMATION_ACCEPT_QUEST)
 	accept_quest:SetPoint("TOPLEFT", decline_duel, "BOTTOMLEFT", 0, 0)
 
+	local auto_collapse_login = ns.CreateCheckBox(parent, "auto_collapse_login", L_GUI_AUTOMATION_AUTO_COLLAPSE_LOGIN)
+	auto_collapse_login:SetPoint("TOPLEFT", accept_quest, "BOTTOMLEFT", 0, 0)
+	
 	local auto_collapse = ns.CreateCheckBox(parent, "auto_collapse", L_GUI_AUTOMATION_AUTO_COLLAPSE)
-	auto_collapse:SetPoint("TOPLEFT", accept_quest, "BOTTOMLEFT", 0, 0)
+	auto_collapse:SetPoint("TOPLEFT", auto_collapse_login, "BOTTOMLEFT", 0, 0)
 
 	local auto_collapse_reload = ns.CreateCheckBox(parent, "auto_collapse_reload", L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD)
 	auto_collapse_reload:SetPoint("TOPLEFT", auto_collapse, "BOTTOMLEFT", 20, 0)

@@ -223,6 +223,7 @@ L_GUI_AUTOMATION_SOLVE_ARTIFACT = "自动弹出帮助框架"
 L_GUI_AUTOMATION_ACCEPT_INVITE = "自动接受组队邀请"
 L_GUI_AUTOMATION_DECLINE_DUEL = "自动取消决斗"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "自动接受任务(按住Shift临时停用)"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_LOGIN = "Auto collapse ObjectiveTrackerFrame on Login" -- Need review
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "副本时自动折叠任务追踪框架"
 L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "重载时自动折叠任务追踪框架"
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "自动跳过过场动画(按住Ctrl临时停用)"

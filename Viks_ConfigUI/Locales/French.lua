@@ -222,6 +222,7 @@ L_GUI_AUTOMATION_SOLVE_ARTIFACT = "Affiche automatiquement une fenêtre pour la 
 L_GUI_AUTOMATION_ACCEPT_INVITE = "Accepter automatiquement les invitations"
 L_GUI_AUTOMATION_DECLINE_DUEL = "Décliner les duels automatiquement"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "Accepter les quêtes automatiquement"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_LOGIN = "Auto collapse ObjectiveTrackerFrame on Login" -- Need review
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "Rétrécie automatiquement la liste des quêtes en instance"
 L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Fermeture automatique de la fenêtre de suivi des objectifs après rechargement"
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "Désactive automatiquement les cinématiques/film (inactif si la touche Ctrl est appuyée)"

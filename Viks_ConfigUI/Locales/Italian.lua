@@ -223,6 +223,7 @@ L_GUI_AUTOMATION_SOLVE_ARTIFACT = "Auto popup for solve artifact"
 L_GUI_AUTOMATION_ACCEPT_INVITE = "Auto accept invite"
 L_GUI_AUTOMATION_DECLINE_DUEL = "Auto decline duel (/disduel to temporarily disable)"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "Auto accept quest (disabled if hold Shift)"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_LOGIN = "Auto collapse ObjectiveTrackerFrame on Login" -- Need review
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "Auto collapse ObjectiveTrackerFrame in instance"
 L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Auto collapse ObjectiveTrackerFrame after reload"
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "Auto skip cinematics/movies (disabled if hold Ctrl)"

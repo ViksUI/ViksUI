@@ -223,6 +223,7 @@ L_GUI_AUTOMATION_SOLVE_ARTIFACT = "自動彈出幫助框架"
 L_GUI_AUTOMATION_ACCEPT_INVITE = "自動接受組隊邀請"
 L_GUI_AUTOMATION_DECLINE_DUEL = "自動取消决鬥"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "自動接受任務"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_LOGIN = "Auto collapse ObjectiveTrackerFrame on Login" -- Need review
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "副本中自動關閉任務追蹤框架"
 L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Auto collapse ObjectiveTrackerFrame after reload" -- Need review
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "自動跳過過場動畫"

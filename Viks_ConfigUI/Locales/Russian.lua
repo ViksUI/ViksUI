@@ -223,6 +223,7 @@ L_GUI_AUTOMATION_SOLVE_ARTIFACT = "Окно сборки артефактов д
 L_GUI_AUTOMATION_ACCEPT_INVITE = "Принятие приглашений от друзей и гильдии"
 L_GUI_AUTOMATION_DECLINE_DUEL = "Отмена дуэлей (/disduel, чтобы временно отключить)"
 L_GUI_AUTOMATION_ACCEPT_QUEST = "Принятие заданий (если зажат Shift - не работает)"
+L_GUI_AUTOMATION_AUTO_COLLAPSE_LOGIN = "Auto collapse ObjectiveTrackerFrame on Login" -- Need review
 L_GUI_AUTOMATION_AUTO_COLLAPSE = "Сворачивать отслеживание заданий в подземельях"
 L_GUI_AUTOMATION_AUTO_COLLAPSE_RELOAD = "Всегда сворачивать отслеживание заданий после экрана загрузки"
 L_GUI_AUTOMATION_SKIP_CINEMATIC = "Пропуск видеороликов (если зажат Ctrl - не работает)"
