@@ -185,7 +185,7 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 
 			Bar:Height(20)
 			Bar:SetStatusBarTexture(Texture)
-			Bar:CreateBackdropn()
+			Bar:CreateBackdrop()
 			Bar.Backdrop:CreateShadow()
 			Bar.Backdrop:SetFrameStrata("BACKGROUND")
 			Bar.Backdrop:SetFrameLevel(1)
@@ -240,7 +240,7 @@ function ObjectiveTracker:UpdatePopup()
 				local Frame = Block.ScrollChild
 
 				if not Frame.Backdrop then
-					Frame:CreateBackdropn()
+					Frame:CreateBackdrop()
 
 					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
 					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
