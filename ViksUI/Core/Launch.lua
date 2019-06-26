@@ -2994,7 +2994,7 @@ end)
 --	Popups
 ----------------------------------------------------------------------------------------
 
-StaticPopupDialogs.SKADAINST_UI = {
+StaticPopupDialogs.SKAINST_UI = {
 	text = "Install settings for Skada",
 	button1 = ACCEPT,
 	button2 = CANCEL,
@@ -3095,8 +3095,8 @@ SLASH_SET_BTLine1 = "/vbtline"
 SlashCmdList.SET_BTLine = function() StaticPopup_Show("SET_BT") end
 
 -- Setup Skada Windows
-SLASH_SKADA1 = "/skadasetup_ui"
-SlashCmdList.SKADA = function() StaticPopup_Show("SKADAINST_UI") end
+SLASH_SKA1 = "/skasetup_ui"
+SlashCmdList.SKA = function() StaticPopup_Show("SKAINST_UI") end
 
 SLASH_CONFIGURE1 = "/resetui"
 SlashCmdList.CONFIGURE = function() StaticPopup_Show("RESET_UI") end
