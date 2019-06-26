@@ -2753,7 +2753,7 @@ maxsteps = 7
 local step7 = function()
 	SavedOptionsPerChar.Install = true
 	sb:SetValue(7)
-	PlaySoundFile("Sound\\interface\\LevelUp.wav")
+	PlaySound(888)
 	header:SetText("4. Success!")
 	text1:SetText("Installation is complete.")
 	text2:SetText("Please click the 'Finish' button to reload the UI.")

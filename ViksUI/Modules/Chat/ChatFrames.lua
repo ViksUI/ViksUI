@@ -392,11 +392,6 @@ local function SetupChatPosAndFont(self)
 		elseif i == 4 then
 			chat:ClearAllPoints()
 			chat:SetSize(C.chat.width-20, C.chat.height)
-			if C.chat.background == true then
-				chat:SetPoint(C.position.chatr[1], C.position.chatr[2], C.position.chatr[3], C.position.chatr[4], C.position.chatr[5] + 4)
-			else
-				chat:SetPoint(C.position.chatr[1], C.position.chatr[2], C.position.chatr[3], C.position.chatr[4], C.position.chatr[5])
-			end
 			if C.panels.NoPanels == true then
 				chat:SetSize(C.chat.width-20, C.chat.height-8)
 				chat:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)

@@ -331,6 +331,9 @@ local function LoadSkin()
 
 	CharacterFrame:SetTemplate("Transparent")
 
+	-- Help box
+	T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
+	
 	-- Unit Background Texture
 	CharacterModelFrameBackgroundTopLeft:SetPoint("TOPLEFT", CharacterModelFrame.backdrop, "TOPLEFT", 2, -2)
 	CharacterModelFrameBackgroundTopRight:SetPoint("TOPRIGHT", CharacterModelFrame.backdrop, "TOPRIGHT", -2, -2)

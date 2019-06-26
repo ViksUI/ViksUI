@@ -5,7 +5,6 @@ local T, C, L, _ = unpack(select(2, ...))
 
 if C.datatext.Quests and C.datatext.Quests > 0 then
 	local Stat = CreateFrame("Frame", "DataTextQuests", UIParent)
-	Stat:CreatePanel("Invisible", 1, 1, "BOTTOMLEFT", self, "TOPLEFT", 0, 0)
 
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
@@ -26,9 +25,19 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	local function OnEvent(self, event, ...)
 		local numEntries, numQuests = GetNumQuestLogEntries()
 		Text:SetText("Q |r: "..qColor.. numQuests.. "/25")
-		Stat:SetAllPoints(Text)
-		Stat:SetScript("OnEnter", function()
-	end)
+		self:SetAllPoints(Text)
+		self:SetScript("OnEnter", function()
+			if not InCombatLockdown() then
+				GameTooltip:SetOwner(self, "ANCHOR_TOP", -20, 6);
+				GameTooltip:ClearAllPoints()
+				GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, 1)
+				GameTooltip:ClearLines()
+				GameTooltip:AddDoubleLine("Click to toggle ObjectiveTrackerFrame")
+				GameTooltip:AddDoubleLine("")
+				GameTooltip:Show()
+			end
+		end)
+	self:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 	end
 	

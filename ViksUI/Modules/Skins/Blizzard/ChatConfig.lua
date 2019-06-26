@@ -33,6 +33,7 @@ local function LoadSkin()
 	for i = 1, getn(frames) do
 		local frame = _G[frames[i]]
 		if frame then
+			frame:StripTextures()
 			frame:SetTemplate("Overlay")
 		end
 	end

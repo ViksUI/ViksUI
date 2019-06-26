@@ -152,6 +152,7 @@ hooksecurefunc("LFRBrowseFrameListButton_SetData", function(button, index)
 	end
 end)
 
+--[[ // Removed?
 -- WorldStateScoreList
 hooksecurefunc("WorldStateScoreFrame_Update", function()
 	local inArena = IsActiveBattlefieldArena()
@@ -194,6 +195,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 		end
 	end
 end)
+]]--
 
 local _VIEW
 
