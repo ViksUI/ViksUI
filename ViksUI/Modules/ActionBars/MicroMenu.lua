@@ -12,9 +12,9 @@ frame.shown = false
 UpdateMicroButtonsParent(frame)
 if C.actionbar.micromenu_mouseover == true then frame:SetAlpha(0) end
 
-local function CheckFade(self, elapsed)
+local function CheckFade()
 	local mouseactive
-	for i, button in pairs(MICRO_BUTTONS) do
+	for _, button in pairs(MICRO_BUTTONS) do
 		local b = _G[button]
 		if b.mouseover == true then
 			mouseactive = true
@@ -44,7 +44,7 @@ local function CheckFade(self, elapsed)
 end
 frame:SetScript("OnUpdate", CheckFade)
 
-for i, button in pairs(MICRO_BUTTONS) do
+for _, button in pairs(MICRO_BUTTONS) do
 	local m = _G[button]
 	local pushed = m:GetPushedTexture()
 	local normal = m:GetNormalTexture()
@@ -100,6 +100,9 @@ hooksecurefunc("UpdateMicroButtons", function()
 
 	CharacterMicroButton:ClearAllPoints()
 	CharacterMicroButton:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -2, 0)
+
+	GuildMicroButtonTabard:ClearAllPoints()
+	GuildMicroButtonTabard:SetPoint("TOP", GuildMicroButton.frame, "TOP", 0, 25)
 
 	MainMenuBarPerformanceBar:SetPoint("BOTTOM", MainMenuMicroButton, "BOTTOM", 0, 0)
 end)
