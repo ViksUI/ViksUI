@@ -18,7 +18,7 @@ skin.panels = {
 		self.TitleBar:StripTextures()
 		T.SkinCloseButton(self.TitleBar.CloseButton)
 		T.SkinCloseButton(self.TitleBar.MinimizeButton,nil,"-")
-		T.SkinCloseButton(self.TitleBar.LockButton,nil,"")
+		self.TitleBar.LockButton:Kill()
 		T.SkinCloseButton(self.TitleBar.SinglePanelButton,nil,"=")												   											  
 		skin:SetButtonIcon(self.TitleBar.LockButton,"Locked")
 		for _,tab in ipairs(self.PanelTabs.Tabs) do
