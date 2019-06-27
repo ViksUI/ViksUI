@@ -80,8 +80,6 @@ local function LoadSkin()
 		end)
 		hooksecurefunc(slot, "DisplayAsAzeriteItem", UpdateAzeriteItem)
 		hooksecurefunc(slot, "DisplayAsAzeriteEmpoweredItem", UpdateAzeriteEmpoweredItem)
-
-
 	end
 
 	-- Strip Textures
@@ -95,6 +93,9 @@ local function LoadSkin()
 		"PaperDollEquipmentManagerPane"
 	}
 
+	for _, object in pairs(charframe) do
+		_G[object]:StripTextures()
+	end
 
 	EquipmentFlyoutFrameHighlight:Kill()
 	local function SkinItemFlyouts()
@@ -143,13 +144,6 @@ local function LoadSkin()
 		T.SkinScrollBar(_G[scrollbar])
 	end
 
-	for _, object in pairs(charframe) do
-		_G[object]:StripTextures()
-	end
-	
-	--CharacterFrame.NineSlice:Hide()
-	--CharacterFrameInset.NineSlice:Hide()
-	--CharacterFrameInsetRight.NineSlice:Hide()
 	
 	CharacterStatsPane.ItemLevelCategory:StripTextures()
 	CharacterStatsPane.ItemLevelCategory:SetTemplate("Overlay")
@@ -333,7 +327,7 @@ local function LoadSkin()
 
 	-- Help box
 	T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
-	
+
 	-- Unit Background Texture
 	CharacterModelFrameBackgroundTopLeft:SetPoint("TOPLEFT", CharacterModelFrame.backdrop, "TOPLEFT", 2, -2)
 	CharacterModelFrameBackgroundTopRight:SetPoint("TOPRIGHT", CharacterModelFrame.backdrop, "TOPRIGHT", -2, -2)

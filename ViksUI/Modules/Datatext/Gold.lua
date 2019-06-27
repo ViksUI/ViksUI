@@ -190,6 +190,7 @@ Stat:SetScript("OnEnter", function(self)
 		Currency(1565)					-- Rich Azerite Fragment
 		GameTooltip:AddLine(" ")
 		Currency(1220)					-- Order Resources
+		Currency(1721)					-- Prismatic Manapearl
 		Currency(1560)					-- War Resources
 		Currency(1716)					-- Honorbound Service Medal
 		Currency(1717)					-- 7th Legion Service Medal

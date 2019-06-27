@@ -242,11 +242,11 @@ function ObjectiveTracker:UpdatePopup()
 				if not Frame.Backdrop then
 					Frame:CreateBackdrop()
 
-					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
-					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
-					Frame.Backdrop:SetFrameLevel(0)
-					Frame.Backdrop:SetTemplate("Transparent")
-					Frame.Backdrop:CreateShadow()
+					--Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					--Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+					--Frame.Backdrop:SetFrameLevel(0)
+					--Frame.Backdrop:SetTemplate("Transparent")
+					--Frame.Backdrop:CreateShadow()
 
 					Frame.FlashFrame.IconFlash:Hide()
 				end
@@ -452,6 +452,39 @@ function ObjectiveTracker:SkinRewards()
 	end
 end
 
+function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tradeskillLineIndex, inProgress, selected, isCriteria, isSpellTarget, isEffectivelyTracked)
+	if not self.IsSkinned then
+		self:SetTemplate()
+		self:CreateShadow()
+		self.Underlay:SetAlpha(0)
+		self.Glow:SetAlpha(0)
+		self.SelectedGlow:SetAlpha(0)
+
+		self.IsSkinned = true
+	end
+
+	self:SetNormalTexture("")
+	self:SetPushedTexture("")
+	self:SetHighlightTexture("")
+
+	if selected then
+		self:SetBackdropColor(0/255, 152/255, 34/255, 1)
+	else
+		self:SetBackdropColor(unpack(C.media.backdrop_color))
+	end
+
+	if rarity == LE_WORLD_QUEST_QUALITY_RARE then
+		self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
+	elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
+		self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
+	end
+
+	if PreviousPOI and PreviousPOI.IsSkinned then
+		PreviousPOI:SetBackdropColor(unpack(C.media.backdrop_color))
+		PreviousPOI.Shadow:SetBackdropBorderColor(unpack(C.media.border_color))
+	end
+end
+
 function ObjectiveTracker:AddHooks()
 	hooksecurefunc("ObjectiveTracker_Update", self.Skin)
 	hooksecurefunc("ScenarioBlocksFrame_OnLoad", self.SkinScenario)
@@ -466,14 +499,25 @@ function ObjectiveTracker:AddHooks()
 	hooksecurefunc("ObjectiveTrackerProgressBar_SetValue", self.UpdateProgressBarColors)
 	hooksecurefunc("ScenarioTrackerProgressBar_SetValue", self.UpdateProgressBarColors)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", SkinGroupFindButton)
+	hooksecurefunc("QuestObjectiveSetupBlockButton_AddRightButton", UpdatePositions)																			 
 	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.AddDash)
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
+	hooksecurefunc("BonusObjectiveTracker_AnimateReward", self.SkinRewards)																	
 	
+	if T.wowBuild < 28724 then
+		hooksecurefunc("WorldMap_SetupWorldQuestButton", self.SkinWorldQuestsPOI)
+	else
+		hooksecurefunc(QuestUtil, "SetupWorldQuestButton", self.SkinWorldQuestsPOI)
+	end					   
 end
 
 function ObjectiveTracker:Enable()
+	OBJECTIVE_TRACKER_COLOR["Header"] = {r = CustomClassColor[1], g = CustomClassColor[2], b = CustomClassColor[3]}
+	OBJECTIVE_TRACKER_COLOR["HeaderHighlight"] = {r = CustomClassColor[1]*1.2, g = CustomClassColor[2]*1.2, b = CustomClassColor[3]*1.2}
+	OBJECTIVE_TRACKER_COLOR["Complete"] = { r = 0, g = 1, b = 0 }
+	OBJECTIVE_TRACKER_COLOR["Normal"] = { r = 1, g = 1, b = 1 }
 	self:AddHooks()
 	self:Disable()
 	self:SkinScenario()

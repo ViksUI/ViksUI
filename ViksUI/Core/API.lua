@@ -168,9 +168,13 @@ local function GetTemplate(t)
 	end
 end
 
-local function SetTemplate(f, t)
+local function SetTemplate(f, t, tex)
 	GetTemplate(t)
 
+	if tex then
+		texture = C.media.texture
+	end
+	
 	f:SetBackdrop({
 		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
 		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
@@ -220,13 +224,14 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-local function CreateBackdrop(f, t)
+local function CreateBackdrop(f, t, tex)
+	if f.Backdrop then return end
 	if not t then t = "Default" end
 
 	local b = CreateFrame("Frame", "$parentBackdrop", f)
 	b:SetPoint("TOPLEFT", -2, 2)
 	b:SetPoint("BOTTOMRIGHT", 2, -2)
-	b:SetTemplate(t)
+	b:SetTemplate(t, tex)
 
 	if f:GetFrameLevel() - 1 >= 0 then
 		b:SetFrameLevel(f:GetFrameLevel() - 1)
@@ -244,6 +249,9 @@ local StripTexturesBlizzFrames = {
 	"LeftInset",
 	"RightInset",
 	"NineSlice",
+	"BG",
+	"border",
+	"Border",
 	"BorderFrame",
 	"bottomInset",
 	"BottomInset",
@@ -432,6 +440,57 @@ local function FontString(parent, name, fontName, fontHeight, fontStyle)
 	return fs
 end
 
+function T:HandleInsetFrame(frame)
+	assert(frame, "doesn't exist!")
+
+	if frame.InsetBorderTop then frame.InsetBorderTop:Hide() end
+	if frame.InsetBorderTopLeft then frame.InsetBorderTopLeft:Hide() end
+	if frame.InsetBorderTopRight then frame.InsetBorderTopRight:Hide() end
+
+	if frame.InsetBorderBottom then frame.InsetBorderBottom:Hide() end
+	if frame.InsetBorderBottomLeft then frame.InsetBorderBottomLeft:Hide() end
+	if frame.InsetBorderBottomRight then frame.InsetBorderBottomRight:Hide() end
+
+	if frame.InsetBorderLeft then frame.InsetBorderLeft:Hide() end
+	if frame.InsetBorderRight then frame.InsetBorderRight:Hide() end
+
+	if frame.Bg then frame.Bg:Hide() end
+end
+
+----------------------------------------------------------------------------------------
+-- All frames that have a Portrait
+----------------------------------------------------------------------------------------
+function T:HandlePortraitFrame(frame, setBackdrop)
+	assert(frame, "doesn't exist!")
+
+	local name = frame and frame.GetName and frame:GetName()
+	local insetFrame = name and _G[name..'Inset'] or frame.Inset
+	local portraitFrame = name and _G[name..'Portrait'] or frame.Portrait or frame.portrait
+	local portraitFrameOverlay = name and _G[name..'PortraitOverlay'] or frame.PortraitOverlay
+	local artFrameOverlay = name and _G[name..'ArtOverlayFrame'] or frame.ArtOverlayFrame
+
+	frame:StripTextures()
+
+	if portraitFrame then portraitFrame:SetAlpha(0) end
+	if portraitFrameOverlay then portraitFrameOverlay:SetAlpha(0) end
+	if artFrameOverlay then artFrameOverlay:SetAlpha(0) end
+
+	if insetFrame then
+		T:HandleInsetFrame(insetFrame)
+	end
+
+	if frame.CloseButton then
+		T.SkinCloseButton(frame.CloseButton)
+	end
+
+	if setBackdrop then
+		frame:CreateBackdrop('Transparent')
+		frame.backdrop:SetAllPoints()
+	else
+		frame:SetTemplate('Transparent')
+	end
+end
+
 ----------------------------------------------------------------------------------------
 --	Fade in/out functions
 ----------------------------------------------------------------------------------------
@@ -459,6 +518,7 @@ local function addAPI(object)
 	if not object.CreateBackdropn then mt.CreateBackdropn = CreateBackdropn end -- Temp for New function
 	if not object.StripTextures then mt.StripTextures = StripTextures end
 	if not object.CreateShadow then mt.CreateShadow = CreateShadow end
+	if not object.HandlePortraitFrame then mt.HandlePortraitFrame = HandlePortraitFrame end
 	if not object.Kill then mt.Kill = Kill end
 	if not object.StyleButton then mt.StyleButton = StyleButton end
 	if not object.SkinButton then mt.SkinButton = SkinButton end
