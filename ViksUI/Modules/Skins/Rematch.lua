@@ -17,6 +17,9 @@ skin.panels = {
 		self:SetTemplate("Transparent")
 		self.TitleBar:StripTextures()
 		T.SkinCloseButton(self.TitleBar.CloseButton)
+		T.SkinCloseButton(self.TitleBar.MinimizeButton,nil,"-")
+		T.SkinCloseButton(self.TitleBar.LockButton,nil,"")
+		T.SkinCloseButton(self.TitleBar.SinglePanelButton,nil,"=")												   											  
 		skin:SetButtonIcon(self.TitleBar.LockButton,"Locked")
 		for _,tab in ipairs(self.PanelTabs.Tabs) do
 			skin:HandlePanelTab(tab)
@@ -25,6 +28,8 @@ skin.panels = {
 			local titlebar = Rematch.Frame.TitleBar
 			skin:SetButtonIcon(titlebar.LockButton,RematchSettings.LockPosition and "Locked" or "Unlocked")
 			titlebar.SinglePanelButton:SetShown(not RematchSettings.Minimized)
+			skin:SetButtonIcon(titlebar.MinimizeButton,RematchSettings.Minimized and "Maximized" or "Minimized")
+			skin:SetButtonIcon(titlebar.SinglePanelButton,RematchSettings.SinglePanel and "DualPanel" or "SinglePanel")
 		end)
 	end,
 
@@ -115,7 +120,7 @@ skin.panels = {
 		  for _,region in ipairs({frame:GetRegions()}) do
 		    local anchorPoint,relativeTo = region:GetPoint()
 		    if region:GetObjectType()=="Texture" and region:GetDrawLayer()=="ARTWORK" and anchorPoint=="LEFT" and relativeTo==frame then
-		      region:SetColorTexture(r, g, b)
+		      region:SetTexture(r,g,b)
 		      region:SetHeight(4)
 		    end
 		  end
@@ -184,7 +189,7 @@ skin.panels = {
 		  button.Selected:SetPoint("TOPLEFT",2,-2)
 		  button.Selected:SetPoint("BOTTOMRIGHT",-2,2)
 		  for _,texture in ipairs({"LeftSelected","RightSelected","MidSelected"}) do
-		        button.Selected[texture]:SetColorTexture(1, 1, 1, 0.25)
+		        button.Selected[texture]:SetTexture(1,1,1,0.25)
 		        button.Selected[texture]:SetHeight(20)
 		  end
 			for _,region in ipairs({button.Selected:GetRegions()}) do
@@ -314,8 +319,17 @@ skin.panels = {
 			end
 		end
 		self.Top.SearchBox:SetHeight(22)
-		self.Top.SearchBox:SetPoint("LEFT",self.Top.Toggle,"RIGHT",4,0)
+		--self.Top.SearchBox:SetPoint("LEFT",self.Top.Toggle,"RIGHT",4,0)
 		self.Top.SearchBox:SetPoint("RIGHT",self.Top.Teams,"LEFT",-4,0)
+	end,
+
+	MiniQueue = function(self)
+		skin:HandleAutoScrollFrame(self.List)
+		self.Top:StripTextures()
+		self.Top:SetTemplate("Transparent")
+		self.Top.QueueButton:SkinButton()
+		self.Status:StripTextures()
+		self.Status:SetTemplate("Transparent")
 	end,
 
 	MiniPanel = function(self)
@@ -341,7 +355,7 @@ skin.panels = {
 		skin:HandleAutoScrollFrame(self.List)
 		self.List:StripTextures()
 		self.List:SetTemplate("Transparent")
-		--T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
+		T.SkinScrollBar(self.List.ScrollFrame.ScrollBar)
 		self.Top:StripTextures()
 		self.Top.QueueButton:SkinButton()
 		self.Status:StripTextures()
@@ -363,6 +377,12 @@ skin.panels = {
 			  button:SetSize(40,40)
 			  button.Icon:SetPoint("CENTER")
 			end
+			self.UpButton:SkinButton()
+			self.UpButton:SetSize(40,40)
+			self.UpButton.Icon:SetPoint("CENTER")
+			self.DownButton:SkinButton()
+			self.DownButton:SetSize(40,40)
+			self.DownButton.Icon:SetPoint("CENTER")
 		end)
 	end,
 
@@ -427,7 +447,7 @@ skin.panels = {
 		self.Controls.UndoButton:SkinButton()
 		self.Controls.DeleteButton:SkinButton()
 		T.SkinCloseButton(self.CloseButton)
-
+		T.SkinCloseButton(self.LockButton,nil,"")
 		hooksecurefunc(self,"UpdateLockState",function()
 			skin:SetButtonIcon(self.LockButton,RematchSettings.LockNotesPosition and "Locked" or "Unlocked")
 		end)
@@ -452,6 +472,7 @@ skin.misc = {
 		-- menu framepool is local, going to force the creation of three levels of menus and skin them
 		for i=1,3 do
 			local menu = Rematch:GetMenuFrame(i,UIParent)
+			menu:Hide()
 			menu:StripTextures()
 			menu:SetTemplate("Default")
 			for _,region in ipairs({menu.Title:GetRegions()}) do
@@ -507,9 +528,17 @@ function skin:SetButtonIcon(button,icon)
 		button.RematchElvUISkinIcon:SetPoint("TOPLEFT",button,"TOPLEFT",10,-10)
 		button.RematchElvUISkinIcon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-10,10)
 		button.RematchElvUISkinIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\icons.tga")
+		button:HookScript("OnEnter",function(self)
+			button.RematchElvUISkinIcon:SetVertexColor(1, 0.48235, 0.17255)
+		end)
+		button:HookScript("OnLeave",function(self)
+			button.RematchElvUISkinIcon:SetVertexColor(0.9,0.9,0.9)
+		end)
+		button.RematchElvUISkinIcon:SetVertexColor(0.9,0.9,0.9)
 	end
 	if icons[icon] then
 		button.RematchElvUISkinIcon:SetTexCoord(unpack(icons[icon]))
+		button.RematchElvUISkinIcon:SetAlpha(1)										 
 		if button.Texture then -- hide ElvUI's icon texture; it's being replaced with RematchElvUISkinIcon
 			button.Texture:SetAlpha(0)
 		end
@@ -518,8 +547,10 @@ end
 
 function skin:ColorPetListBordersPet()
 	for _,button in ipairs(self.buttons) do
+									  
 		if (button.index ~= nil) then
 			local petID = roster.petList[button.index]
+							  
 			if type(petID) == "string" then
 				local _, _, _, _, rarity = C_PetJournal.GetPetStats(petID)
 				if rarity then
@@ -531,6 +562,7 @@ function skin:ColorPetListBordersPet()
 			else
 				button.Name:SetTextColor(0.5, 0.5, 0.5)
 			end
+													 
 		end
 	end
 end
@@ -568,6 +600,7 @@ function skin:HandlePanelTab(tab)
 		tab:StripTextures()
 	end
 	tab.backdrop = CreateFrame("Frame", nil, tab)
+	tab.backdrop:SetTemplate("Default")									 
 	tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
 	if bg then
 		tab.backdrop:SetTemplate("Overlay")
@@ -600,12 +633,15 @@ function skin:HandleAutoScrollFrame(listFrame)
 
 	local scrollBar = listFrame.ScrollFrame.ScrollBar
 	scrollBar:GetThumbTexture():SetTexture(nil)
-	if not thumbTrimY then thumbTrimY = 3 end
-	if not thumbTrimX then thumbTrimX = 2 end
-	scrollBar.thumbbg = CreateFrame("Frame", nil, scrollBar)
-	scrollBar.thumbbg:Point("TOPLEFT", scrollBar:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
-	scrollBar.thumbbg:Point("BOTTOMRIGHT", scrollBar:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
-	scrollBar.thumbbg:SetTemplate("Default", true, true)
+	--if not thumbTrimY then thumbTrimY = 3 end
+	--if not thumbTrimX then thumbTrimX = 2 end
+	--scrollBar.thumbbg = CreateFrame("Frame", nil, scrollBar)
+	--scrollBar.thumbbg:Point("TOPLEFT", scrollBar:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
+	--scrollBar.thumbbg:Point("BOTTOMRIGHT", scrollBar:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
+	--scrollBar:SetThumbTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga")
+	scrollBar:GetThumbTexture():SetVertexColor(0.5,0.5,0.5)
+	scrollBar:GetThumbTexture():Size(14,14)
+	--scrollBar.thumbbg:SetTemplate("Default", true, true)
 	--scrollBar.thumbbg.backdropTexture:SetVertexColor(0.6, 0.6, 0.6)
 end
 
