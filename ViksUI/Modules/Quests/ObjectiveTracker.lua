@@ -474,9 +474,9 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 	end
 
 	if rarity == LE_WORLD_QUEST_QUALITY_RARE then
-		self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
+		--Fix self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
 	elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
-		self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
+		--Fix self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
 	end
 
 	if PreviousPOI and PreviousPOI.IsSkinned then
@@ -500,7 +500,7 @@ function ObjectiveTracker:AddHooks()
 	hooksecurefunc("ScenarioTrackerProgressBar_SetValue", self.UpdateProgressBarColors)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", SkinGroupFindButton)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_AddRightButton", UpdatePositions)																			 
-	--hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
+	--Fix hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.AddDash)
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
