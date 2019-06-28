@@ -17,9 +17,7 @@ skin.panels = {
 		self:SetTemplate("Transparent")
 		self.TitleBar:StripTextures()
 		T.SkinCloseButton(self.TitleBar.CloseButton)
-		T.SkinCloseButton(self.TitleBar.MinimizeButton,nil,"-")
-		self.TitleBar.LockButton:Kill()
-		T.SkinCloseButton(self.TitleBar.SinglePanelButton,nil,"=")												   											  
+		self.TitleBar.LockButton:Kill()										   											  
 		skin:SetButtonIcon(self.TitleBar.LockButton,"Locked")
 		for _,tab in ipairs(self.PanelTabs.Tabs) do
 			skin:HandlePanelTab(tab)
@@ -28,8 +26,6 @@ skin.panels = {
 			local titlebar = Rematch.Frame.TitleBar
 			skin:SetButtonIcon(titlebar.LockButton,RematchSettings.LockPosition and "Locked" or "Unlocked")
 			titlebar.SinglePanelButton:SetShown(not RematchSettings.Minimized)
-			skin:SetButtonIcon(titlebar.MinimizeButton,RematchSettings.Minimized and "Maximized" or "Minimized")
-			skin:SetButtonIcon(titlebar.SinglePanelButton,RematchSettings.SinglePanel and "DualPanel" or "SinglePanel")
 		end)
 	end,
 
@@ -120,7 +116,7 @@ skin.panels = {
 		  for _,region in ipairs({frame:GetRegions()}) do
 		    local anchorPoint,relativeTo = region:GetPoint()
 		    if region:GetObjectType()=="Texture" and region:GetDrawLayer()=="ARTWORK" and anchorPoint=="LEFT" and relativeTo==frame then
-		      region:SetTexture(r,g,b)
+		      region:SetColorTexture(r, g, b)
 		      region:SetHeight(4)
 		    end
 		  end
@@ -189,7 +185,7 @@ skin.panels = {
 		  button.Selected:SetPoint("TOPLEFT",2,-2)
 		  button.Selected:SetPoint("BOTTOMRIGHT",-2,2)
 		  for _,texture in ipairs({"LeftSelected","RightSelected","MidSelected"}) do
-		        button.Selected[texture]:SetTexture(1,1,1,0.25)
+		        button.Selected[texture]:SetColorTexture(1, 1, 1, 0.25)
 		        button.Selected[texture]:SetHeight(20)
 		  end
 			for _,region in ipairs({button.Selected:GetRegions()}) do
@@ -237,12 +233,16 @@ skin.panels = {
 		self.Target.Pet2.IconBorder:SetAlpha(0)
 		self.Target.Pet3:SkinButton()
 		self.Target.Pet3.IconBorder:SetAlpha(0)
-		self.Target.Model:SkinButton()
+		self.Target.Model:CreateBackdrop("Transparent")
+		self.Target.Model.backdrop:SetPoint("TOPLEFT", 0, 0)
+		self.Target.Model.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
 		self.Target.ModelBorder:SetAlpha(0)
 
 		for i = 1, 3 do
 			self.Loadouts[i]:StripTextures()
-			self.Loadouts[i]:SetTemplate("Overlay")
+			self.Loadouts[i]:CreateBackdrop("Overlay")
+			self.Loadouts[i].backdrop:SetPoint("TOPLEFT")
+			self.Loadouts[i].backdrop:SetPoint("BOTTOMRIGHT")
 
 			self.Loadouts[i].Pet.Pet.IconBorder:SetAlpha(0)
 			self.Loadouts[i].Pet.Pet:StyleButton(nil, 4)
@@ -265,6 +265,7 @@ skin.panels = {
 			self.Loadouts[i].XP:StripTextures()
 			self.Loadouts[i].XP:CreateBackdrop("Overlay")
 			self.Loadouts[i].XP:SetStatusBarTexture(C.media.texture)
+			self.Loadouts[i].XP:SetFrameLevel(self.Loadouts[i].XP:GetFrameLevel() + 2)
 		end
 		self.Target.TargetButton:SkinButton()
 		self.Target.LoadSaveButton:SkinButton()
@@ -272,7 +273,6 @@ skin.panels = {
 			for j = 1, 3 do
 				self.Loadouts[i].Abilities[j].IconBorder:Hide()
 				self.Loadouts[i].Abilities[j].IconBorder:SetTexture(nil)
-				self.Loadouts[i].Abilities[j]:CreateBackdrop("Overlay")
 				self.Loadouts[i].Abilities[j]:StyleButton(nil, 4)
 				self.Loadouts[i].Abilities[j]:SetSize(30, 30)
 				self.Loadouts[i].Abilities[j]:CreateBackdrop("Default")
@@ -291,9 +291,17 @@ skin.panels = {
 			end
 		end
 		self.Flyout:SetTemplate("Transparent")
-		for i=1,2 do
-			self.Flyout.Abilities[i]:SkinButton()
+		for i = 1, 2 do							
 			self.Flyout.Abilities[i].IconBorder:Hide()
+
+			self.Flyout.Abilities[i]:StyleButton()
+			self.Flyout.Abilities[i]:SetTemplate("Default")
+
+			self.Flyout.Abilities[i].Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			self.Flyout.Abilities[i].Icon:ClearAllPoints()
+			self.Flyout.Abilities[i].Icon:SetPoint("TOPLEFT", 2, -2)
+			self.Flyout.Abilities[i].Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+			self.Flyout.Abilities[i].Icon:SetDrawLayer("OVERLAY")
 		end
 	end,
 
@@ -319,17 +327,7 @@ skin.panels = {
 			end
 		end
 		self.Top.SearchBox:SetHeight(22)
-		--self.Top.SearchBox:SetPoint("LEFT",self.Top.Toggle,"RIGHT",4,0)
 		self.Top.SearchBox:SetPoint("RIGHT",self.Top.Teams,"LEFT",-4,0)
-	end,
-
-	MiniQueue = function(self)
-		skin:HandleAutoScrollFrame(self.List)
-		self.Top:StripTextures()
-		self.Top:SetTemplate("Transparent")
-		self.Top.QueueButton:SkinButton()
-		self.Status:StripTextures()
-		self.Status:SetTemplate("Transparent")
 	end,
 
 	MiniPanel = function(self)
@@ -349,6 +347,15 @@ skin.panels = {
 			self.Flyout.Abilities[i]:SkinButton()
 			self.Flyout.Abilities[i].IconBorder:Hide()
 		end
+	end,
+
+	MiniQueue = function(self)
+		skin:HandleAutoScrollFrame(self.List)
+		self.Top:StripTextures()
+		self.Top:SetTemplate("Transparent")
+		self.Top.QueueButton:SkinButton()
+		self.Status:StripTextures()
+		self.Status:SetTemplate("Transparent")
 	end,
 
 	QueuePanel = function(self)
@@ -397,8 +404,6 @@ skin.panels = {
 		self.Prompt:SetTemplate("Transparent")
 		T.SkinEditBox(self.EditBox)
 		self.EditBox:SetBackdrop({})
-		self.TabPicker:SkinButton()
-		self.TabPicker.Icon:SetDrawLayer("ARTWORK")
 		self.TeamTabIconPicker:StripTextures()
 		self.TeamTabIconPicker:SetTemplate("Transparent")
 		T.SkinScrollBar(self.TeamTabIconPicker.ScrollFrame.ScrollBar)
@@ -447,7 +452,7 @@ skin.panels = {
 		self.Controls.UndoButton:SkinButton()
 		self.Controls.DeleteButton:SkinButton()
 		T.SkinCloseButton(self.CloseButton)
-		T.SkinCloseButton(self.LockButton,nil,"")
+		self.LockButton:Kill()
 		hooksecurefunc(self,"UpdateLockState",function()
 			skin:SetButtonIcon(self.LockButton,RematchSettings.LockNotesPosition and "Locked" or "Unlocked")
 		end)
@@ -472,7 +477,6 @@ skin.misc = {
 		-- menu framepool is local, going to force the creation of three levels of menus and skin them
 		for i=1,3 do
 			local menu = Rematch:GetMenuFrame(i,UIParent)
-			menu:Hide()
 			menu:StripTextures()
 			menu:SetTemplate("Default")
 			for _,region in ipairs({menu.Title:GetRegions()}) do
@@ -599,8 +603,7 @@ function skin:HandlePanelTab(tab)
 	else
 		tab:StripTextures()
 	end
-	tab.backdrop = CreateFrame("Frame", nil, tab)
-	tab.backdrop:SetTemplate("Default")									 
+	tab.backdrop = CreateFrame("Frame", nil, tab)							 
 	tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
 	if bg then
 		tab.backdrop:SetTemplate("Overlay")
@@ -624,29 +627,23 @@ function skin:HandleAutoScrollFrame(listFrame)
 	listFrame.ScrollFrame.ScrollBar:StripTextures()
 
 	local upButton = listFrame.ScrollFrame.ScrollBar.UpButton
-	T:HandleNextPrevButton(upButton, true, true)
-	upButton:SetSize(upButton:GetWidth()+7,upButton:GetHeight()+7)
+	T.SkinNextPrevButton(upButton, nil, "Up")
+	upButton:SetSize(upButton:GetWidth() + 7,upButton:GetHeight() + 7)
 
 	local downButton = listFrame.ScrollFrame.ScrollBar.DownButton
-	T:HandleNextPrevButton(downButton, true, false)
-	downButton:SetSize(downButton:GetWidth()+7,downButton:GetHeight()+7)
+	T.SkinNextPrevButton(downButton, nil, "Down")
+	downButton:SetSize(downButton:GetWidth() + 7,downButton:GetHeight() + 7)
 
 	local scrollBar = listFrame.ScrollFrame.ScrollBar
 	scrollBar:GetThumbTexture():SetTexture(nil)
-	--if not thumbTrimY then thumbTrimY = 3 end
-	--if not thumbTrimX then thumbTrimX = 2 end
-	--scrollBar.thumbbg = CreateFrame("Frame", nil, scrollBar)
-	--scrollBar.thumbbg:Point("TOPLEFT", scrollBar:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
-	--scrollBar.thumbbg:Point("BOTTOMRIGHT", scrollBar:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
-	--scrollBar:SetThumbTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga")
-	scrollBar:GetThumbTexture():SetVertexColor(0.5,0.5,0.5)
-	scrollBar:GetThumbTexture():Size(14,14)
-	--scrollBar.thumbbg:SetTemplate("Default", true, true)
-	--scrollBar.thumbbg.backdropTexture:SetVertexColor(0.6, 0.6, 0.6)
+	scrollBar.thumbbg = CreateFrame("Frame", nil, scrollBar)
+	scrollBar.thumbbg:SetPoint("TOPLEFT", scrollBar:GetThumbTexture(), "TOPLEFT", 0, -3)
+	scrollBar.thumbbg:SetPoint("BOTTOMRIGHT", scrollBar:GetThumbTexture(), "BOTTOMRIGHT", 0, 3)														 
+	scrollBar.thumbbg:SetTemplate("Overlay")
 end
 
 local f = CreateFrame("Frame")
-f:SetScript("OnEvent",function(self,event,...)
+f:SetScript("OnEvent",function(self)
 	C_Timer.After(0,function()
 		if Rematch.isLoaded and not self.skinDone then
 			for panel,func in pairs(skin.panels) do
