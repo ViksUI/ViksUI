@@ -3,11 +3,11 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.81",
-		"• Patch 8.2 Bug Fixes",
-		"• Panels Added to Config",
-		"• Channeling ticks updated",
-		"• Right click on a frame in /ui will reset that frame after next reload ui",
+		"Update 8.82",
+		"• Many more Patch 8.2 Bug Fixes",
+		"• Skins updated",
+		"• Azerite Essence skin added",
+		"• Zone/BG Map can be resized and scaled. Under Minimap in config",
 		"",
 		"",
 		--"• ",
