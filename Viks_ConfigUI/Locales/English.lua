@@ -395,6 +395,10 @@ L_GUI_MINIMAP_MINIBT_2 = "Background for Minimap bottom left"
 L.minimap_bg_map_stylization = "BG map stylization"
 L.minimap_fog_of_war = "Remove fog of war on World Map"
 L.minimap_fog_of_war_desc = "Right click on the close button of World Map to activate the option to hide fog of war"
+L.minimap_zoneMapMultilplier = "zoneMap Multiplier"
+L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything"
+L.minimap_zoneMapScale = "ZoneMap Scale"
+L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame."
 
 -- Loot options
 L_GUI_LOOT_SUBTEXT = "Settings for loot frame."

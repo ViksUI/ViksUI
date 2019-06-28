@@ -313,6 +313,8 @@ C["minimap"] = {
 	["bg_map_stylization"] = true,			-- BG map stylization
 	["minimb1"] = true,						-- Background for Minimap bottom right
 	["minimb2"] = true,						-- Background for Minimap bottom left
+	["zoneMapMultilplier"] = 1,				-- Multiplier for zoneMap (NOT scale)
+	["zoneMapScale"] = 1, 					-- Scale zonemap
 }
 ----------------------------------------------------------------------------------------
 --	Panels options

@@ -7,11 +7,16 @@ if C.minimap.bg_map_stylization ~= true or IsAddOnLoaded("Capping") or IsAddOnLo
 local tinymap = CreateFrame("Frame", "UIZoneMap", UIParent)
 tinymap:Hide()
 
+multix = C.minimap.zoneMapMultilplier
+zonescale = C.minimap.zoneMapScale
+
 tinymap:RegisterEvent("ADDON_LOADED")
 tinymap:SetScript("OnEvent", function(self, event, addon)
 	if addon ~= "Blizzard_BattlefieldMap" then return end
+	
+	BattlefieldMapFrame:SetSize(223*multix, 150*multix)
+	BattlefieldMapFrame:SetScale(zonescale)
 
-	BattlefieldMapFrame:SetSize(223, 150)
 	BattlefieldMapFrame:CreateBackdrop("Transparent")
 	BattlefieldMapFrame.backdrop:SetPoint("TOPLEFT", -2, 4)
 	BattlefieldMapFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, 1)
@@ -21,6 +26,7 @@ tinymap:SetScript("OnEvent", function(self, event, addon)
 
 	BattlefieldMapFrame.BorderFrame.CloseButton:Hide()
 	BattlefieldMapFrame.BorderFrame.CloseButtonBorder:Hide()
+	BattlefieldMapFrame:SetResizable(true)
 
 	BattlefieldMapTab:SetParent(tinymap)
 

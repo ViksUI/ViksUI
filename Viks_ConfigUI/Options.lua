@@ -1341,6 +1341,12 @@ do
 	
 	local minimb2 = ns.CreateCheckBox(parent, "minimb2", L_GUI_MINIMAP_MINIBT_2)
 	minimb2:SetPoint("TOPLEFT", minimb1, "BOTTOMLEFT", 0, -8)
+	
+	local zoneMapMultilplier = ns.CreateNumberSlider(parent, "zoneMapMultilplier", nil, nil, 0, 5, 0.1, true, zoneMapMultilplier)
+	zoneMapMultilplier:SetPoint("TOPLEFT", minimb2, "BOTTOMLEFT", 0, -20)
+	
+	local zoneMapScale = ns.CreateNumberSlider(parent, "zoneMapScale", nil, nil, 0, 2, 0.01, true, zoneMapScale)
+	zoneMapScale:SetPoint("TOPLEFT", zoneMapMultilplier, "BOTTOMLEFT", 0, -20)
 end
 
 -- Loot
