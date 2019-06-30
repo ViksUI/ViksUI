@@ -69,6 +69,7 @@ T.ABItems = {
 	140257, -- Advanced Telemancy Beacon
 	142401, -- Telemancy Orbs
 	168482, -- Benthic Sealant
+	168253, -- Fathom Hook
 }
 
 T.ABEquipedItems = {

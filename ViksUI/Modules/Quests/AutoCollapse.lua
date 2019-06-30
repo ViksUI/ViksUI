@@ -2,16 +2,20 @@
 if C.automation.auto_collapse ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	Auto collapse ObjectiveTrackerFrame in instance
+--	Auto collapse ObjectiveTrackerFrame
 ----------------------------------------------------------------------------------------
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-frame:SetScript("OnEvent", function(self, event)
-	if IsInInstance() then
-		ObjectiveTracker_Collapse()
-	elseif ObjectiveTrackerFrame.collapsed and not InCombatLockdown() then
-		if C.automation.auto_collapse_login == false then
-			ObjectiveTracker_Expand()
+if C.automation.auto_collapse or C.automation.auto_collapse_reload then
+	local collapse = CreateFrame("Frame")
+	collapse:RegisterEvent("PLAYER_ENTERING_WORLD")
+	collapse:SetScript("OnEvent", function()
+		if C.automation.auto_collapse and not C.automation.auto_collapse_reload then
+			if IsInInstance() then
+				ObjectiveTracker_Collapse()
+			elseif ObjectiveTrackerFrame.collapsed and not InCombatLockdown() then
+				ObjectiveTracker_Expand()
+			end
+		elseif C.automation.auto_collapse_reload then
+			ObjectiveTracker_Collapse()
 		end
-	end
-end)
+	end)
+end

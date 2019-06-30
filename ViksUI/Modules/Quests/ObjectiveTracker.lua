@@ -6,7 +6,6 @@ if C.misc.WatchFrame then
 ----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame", "WatchFrameAnchor", oUF_PetBattleFrameHider)
 frame:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, 10)
---frame:SetPoint(unpack(C.position.quest))
 frame:SetHeight(150)
 frame:SetWidth(224)
 
@@ -186,10 +185,6 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 			Bar:Height(20)
 			Bar:SetStatusBarTexture(Texture)
 			Bar:CreateBackdrop()
-			Bar.Backdrop:CreateShadow()
-			Bar.Backdrop:SetFrameStrata("BACKGROUND")
-			Bar.Backdrop:SetFrameLevel(1)
-			Bar.Backdrop:SetOutside(Bar)
 
 			if (Label) then
 				Label:ClearAllPoints()
@@ -208,7 +203,7 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 					Bar.NewBorder = CreateFrame("Frame", nil, Bar)
 					Bar.NewBorder:SetTemplate()
 					Bar.NewBorder:SetFrameLevel(Bar:GetFrameLevel() - 1)
-					Bar.NewBorder:CreateShadow()
+					--Bar.NewBorder:CreateShadow()
 					Bar.NewBorder:SetOutside(Icon)
 					Bar.NewBorder:SetShown(Icon:IsShown())
 				end
@@ -471,12 +466,6 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 		self:SetBackdropColor(0/255, 152/255, 34/255, 1)
 	else
 		self:SetBackdropColor(unpack(C.media.backdrop_color))
-	end
-
-	if rarity == LE_WORLD_QUEST_QUALITY_RARE then
-		--Fix self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
-	elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
-		--Fix self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
 	end
 
 	if PreviousPOI and PreviousPOI.IsSkinned then
