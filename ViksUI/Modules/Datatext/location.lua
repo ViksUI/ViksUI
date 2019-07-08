@@ -60,13 +60,25 @@ local function Update(self, t)
 	
 	if cordson == true then
 		local unitMap = C_Map.GetBestMapForUnit("player")
+		local mapRects, tempVec2D = {}, CreateVector2D(0, 0)
+		local function GetPlayerMapPos(mapID)
+			tempVec2D.x, tempVec2D.y = UnitPosition("player")
+			if not tempVec2D.x then return end
 
-		if unitMap then
-			local GetPlayerMapPosition = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
-
-			if GetPlayerMapPosition then
-				x, y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
+			local mapRect = mapRects[mapID]
+			if not mapRect then
+				mapRect = {
+					select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(0, 0))),
+					select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(1, 1)))}
+				mapRect[2]:Subtract(mapRect[1])
+				mapRects[mapID] = mapRect
 			end
+			tempVec2D:Subtract(mapRect[1])
+
+			return (tempVec2D.y/mapRect[2].y), (tempVec2D.x/mapRect[2].x)
+		end
+		if unitMap then
+			x, y = GetPlayerMapPos(unitMap)
 		end
 		
 		if (not x) and (not y) then
