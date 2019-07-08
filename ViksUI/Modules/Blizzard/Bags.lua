@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.bag.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -132,7 +132,6 @@ local function Stuffing_OnShow()
 	Stuffing:Layout()
 	Stuffing:SearchReset()
 	PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
-	collectgarbage("collect")
 end
 
 local function StuffingBank_OnHide()
@@ -198,12 +197,12 @@ end
 local trashButton = {}
 local trashBag = {}
 
+-- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
+local S_ITEM_LEVEL = "^" .. gsub(_G.ITEM_LEVEL, "%%d", "(%%d+)")
+
 -- Tooltip used for scanning
 local scanner = CreateFrame("GameTooltip", "iLvlScanningTooltip", nil, "GameTooltipTemplate")
 local scannerName = scanner:GetName()
-
--- Tooltip and scanning by Phanx @ http://www.wowinterface.com/forums/showthread.php?p=271406
-local S_ITEM_LEVEL = "^" .. gsub(_G.ITEM_LEVEL, "%%d", "(%%d+)")
 
 local ItemDB = {}
 
@@ -288,7 +287,7 @@ function Stuffing:SlotUpdate(b)
 		end
 
 		if C.bag.ilvl == true and b.itemlevel and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4 or (b.itemClassID == 3 and b.itemSubClassID == 11)) then
-			--Fix b.itemlevel = _getRealItemLevel(clink, self, b.bag, b.slot) or b.itemlevel
+			b.itemlevel = _getRealItemLevel(clink, self, b.bag, b.slot) or b.itemlevel
 			b.frame.text:SetText(b.itemlevel)
 		end
 
