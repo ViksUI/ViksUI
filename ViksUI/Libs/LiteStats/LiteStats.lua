@@ -78,18 +78,32 @@ end)
 -- Config missing?
 if not modules then return end
 
+local mapRects, tempVec2D = {}, CreateVector2D(0, 0)
+local function GetPlayerMapPos(mapID)
+	tempVec2D.x, tempVec2D.y = UnitPosition("player")
+	if not tempVec2D.x then return end
+
+	local mapRect = mapRects[mapID]
+	if not mapRect then
+		mapRect = {
+			select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(0, 0))),
+			select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(1, 1)))}
+		mapRect[2]:Subtract(mapRect[1])
+		mapRects[mapID] = mapRect
+	end
+	tempVec2D:Subtract(mapRect[1])
+
+	return (tempVec2D.y/mapRect[2].y), (tempVec2D.x/mapRect[2].x)
+end
+
 if modules and ((coords and coords.enabled) or (location and location.enabled)) then
 	ls:SetScript("OnUpdate", function(self, elapsed)
 		self.elapsed = (self.elapsed or 0) + elapsed
 		if self.elapsed >= 0.2 then
 			local unitMap = C_Map.GetBestMapForUnit("player")
 
-			if unitMap then
-				local GetPlayerMapPosition = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
-
-				if GetPlayerMapPosition then
-					coordX, coordY = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
-				end
+			if unitMap then						
+				coordX, coordY = GetPlayerMapPos(unitMap)
 			end
 
 			self.elapsed = 0
@@ -297,7 +311,6 @@ if memory.enabled then
 			end, update = 5,
 		},
 		OnEnter = function(self)
-			collectgarbage()
 			self.hovered = true
 			GameTooltip:SetOwner(self, "ANCHOR_NONE")
 			GameTooltip:ClearAllPoints()
@@ -975,12 +988,12 @@ end
 if coords.enabled then
 	Inject("Coords", {
 		text = {string = Coords},
-		OnClick = function(_, button)
-			if button == "LeftButton" then
-				ToggleFrame(WorldMapFrame)
-			else
+		OnClick = function()
+			if IsShiftKeyDown() then
 				ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
 				ChatEdit_ChooseBoxForSend():Insert(format(" (%s: %s)", GetZoneText(), Coords()))
+			else
+				ToggleFrame(WorldMapFrame)
 			end
 		end
 	})
@@ -1046,7 +1059,7 @@ if guild.enabled then
 			end, update = 5
 		},
 		OnLoad = function(self)
-			GuildRoster()
+			C_GuildInfo.GuildRoster()
 			SortGuildRoster(guild.sorting == "note" and "rank" or "note")
 			SortGuildRoster(guild.sorting)
 			self:RegisterEvent("GROUP_ROSTER_UPDATE")
@@ -1064,7 +1077,7 @@ if guild.enabled then
 			if IsInGuild() then
 				AltUpdate(self)
 				if not self.gmotd then
-					if self.elapsed > 1 then GuildRoster(); self.elapsed = 0 end
+					if self.elapsed > 1 then C_GuildInfo.GuildRoster(); self.elapsed = 0 end
 					if GetGuildRosterMOTD() ~= "" then self.gmotd = true; if self.hovered then self:GetScript("OnEnter")(self) end end
 					self.elapsed = self.elapsed + u
 				end
@@ -1126,7 +1139,7 @@ if guild.enabled then
 		OnEnter = function(self)
 			if IsInGuild() then
 				self.hovered = true
-				GuildRoster()
+				C_GuildInfo.GuildRoster()
 				local name, rank, level, zone, note, officernote, connected, status, class, isMobile, zone_r, zone_g, zone_b, classc, levelc, grouped
 				local total, _, online = GetNumGuildMembers()
 				local gmotd = GetGuildRosterMOTD()
