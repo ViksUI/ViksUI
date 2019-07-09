@@ -51,6 +51,8 @@ local function LoadSkin()
 	-- Compare
 	PawnUIFrame_CompareSwapButton:SkinButton(true)
 	T.SkinScrollBar(PawnUICompareScrollFrameScrollBar)
+	PawnUICompareItemIcon1:CreateBackdrop("Overlay")
+	PawnUICompareItemIcon2:CreateBackdrop("Overlay")
 
 	-- Gems
 	T.SkinEditBox(PawnUIFrame_GemQualityLevelBox, 40, 20)
@@ -74,7 +76,7 @@ local function LoadSkin()
 	T.SkinCheckBox(PawnUIFrame_IgnoreGemsWhileLevelingCheck)
 	T.SkinCheckBox(PawnUIFrame_DebugCheck)
 	T.SkinCheckBox(PawnUIFrame_ShowItemIDsCheck)
-	T.SkinCheckBox(PawnUIFrame_ShowRelicUpgradesCheck)
+	T.SkinCheckBox(PawnUIFrame_ShowItemLevelUpgradesCheck)
 	T.SkinCheckBox(PawnUIFrame_TooltipUpgradeOnRadio)
 	T.SkinCheckBox(PawnUIFrame_TooltipUpgradeOnUpgradesOnlyRadio)
 	T.SkinCheckBox(PawnUIFrame_TooltipUpgradeOffRadio)
