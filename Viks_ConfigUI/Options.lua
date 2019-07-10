@@ -521,8 +521,11 @@ do
 	local ovale = ns.CreateCheckBox(parent, "ovale", L_GUI_SKINS_OVALE)
 	ovale:SetPoint("TOPLEFT", omen, "BOTTOMLEFT", 0, 0)
 
+	local pawn = ns.CreateCheckBox(parent, "pawn", L_GUI_SKINS_PAWN)
+	pawn:SetPoint("LEFT", ovale, "RIGHT", 320, 0)
+	
 	local postal = ns.CreateCheckBox(parent, "postal", L_GUI_SKINS_POSTAL)
-	postal:SetPoint("LEFT", ovale, "RIGHT", 320, 0)
+	postal:SetPoint("LEFT", pawn, "RIGHT", 320, 0)
 
 	local recount = ns.CreateCheckBox(parent, "recount", L_GUI_SKINS_RECOUNT)
 	recount:SetPoint("TOPLEFT", ovale, "BOTTOMLEFT", 0, 0)
@@ -1326,7 +1329,7 @@ do
 	local toggle_menu = ns.CreateCheckBox(parent, "toggle_menu", L_GUI_MINIMAP_TOGGLE_MENU)
 	toggle_menu:SetPoint("TOPLEFT", hide_combat, "BOTTOMLEFT", 0, 0)
 	
-	local compass = ns.CreateCheckBox(parent, "compass", L_GUI_MINIMAP_TOGGLE_MENU)
+	local compass = ns.CreateCheckBox(parent, "compass", L_GUI_MINIMAP_COMPASS)
 	compass:SetPoint("TOPLEFT", toggle_menu, "BOTTOMLEFT", 0, 0)
 
 	-- Other
