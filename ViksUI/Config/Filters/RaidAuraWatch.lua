@@ -254,6 +254,25 @@ T.RaidDebuffs = {
 	[SpellName(260685)] = 3, -- Taint of G'huun
 	[SpellName(266107)] = 5, -- Thirst for Blood
 	[SpellName(260455)] = 3, -- Serrated Fangs
+	
+--Operation: Mechagon
+	[SpellName(291928)] = 3, -- Giga-Zap
+	[SpellName(292267)] = 3, -- Giga-Zap
+	[SpellName(302274)] = 3, -- Fulminating Zap
+	[SpellName(298669)] = 3, -- Taze
+	[SpellName(295445)] = 3, -- Wreck
+	[SpellName(294929)] = 3, -- Blazing Chomp
+	[SpellName(297257)] = 3, -- Electrical Charge
+	[SpellName(294855)] = 3, -- Blossom Blast
+	[SpellName(291972)] = 3, -- Explosive Leap
+	[SpellName(285443)] = 3, -- "Hidden" Flame Cannon
+	[SpellName(291974)] = 3, -- Obnoxious Monologue
+	[SpellName(296150)] = 3, -- Vent Blast
+	[SpellName(298602)] = 3, -- Smoke Cloud
+	[SpellName(296560)] = 3, -- Clinging Static
+	[SpellName(297283)] = 3, -- Cave In
+	[SpellName(291914)] = 3, -- Cutting Beam
+	[SpellName(302384)] = 3, -- Static Discharge
 
 -- Mythic+ Affixes (Legion, unsure if changes in BFA)
 	[SpellName(226489)] = 5,	-- Sanguine Ichor
@@ -422,6 +441,84 @@ T.RaidDebuffs = {
 	[SpellName(285345)] = 3, -- Maddening Eyes of N'Zoth
 	[SpellName(285477)] = 3, -- Obscurity
 	[SpellName(285652)] = 3, -- Insatiable Torment
+
+-----------------------------------------------------------------
+-- Eternal Palace
+-----------------------------------------------------------------	
+	--Lady Ashvane
+	[SpellName(296693)] = 3, -- Waterlogged
+	[SpellName(296725)] = 3, -- Barnacle Bash
+	[SpellName(296942)] = 3, -- Arcing Azerite
+	[SpellName(296938)] = 3, -- Arcing Azerite
+	[SpellName(296941)] = 3, -- Arcing Azerite
+	[SpellName(296939)] = 3, -- Arcing Azerite
+	[SpellName(296943)] = 3, -- Arcing Azerite
+	[SpellName(296940)] = 3, -- Arcing Azerite
+	[SpellName(296752)] = 3, -- Cutting Coral
+	[SpellName(297333)] = 3, -- Briny Bubble
+	[SpellName(297397)] = 3, -- Briny Bubble
+
+	--Abyssal Commander Sivara
+	[SpellName(300701)] = 3, -- Rimefrost
+	[SpellName(300705)] = 3, -- Septic Taint
+	[SpellName(294847)] = 3, -- Unstable Mixture
+	[SpellName(295850)] = 3, -- Delirious
+	[SpellName(295421)] = 3, -- Overflowing Venom
+	[SpellName(295807)] = 3, -- Frozen
+	[SpellName(300883)] = 3, -- Inversion Sickness
+	[SpellName(295705)] = 3, -- Toxic Bolt
+
+	--The Queen’s Court
+	[SpellName(301830)] = 3, -- Pashmar's Touch
+	[SpellName(296851)] = 3, -- Fanatical Verdict
+	[SpellName(297836)] = 3, -- Potent Spark
+	[SpellName(297586)] = 3, -- Suffering
+	[SpellName(304410)] = 3, -- Repeat Performance
+	[SpellName(299914)] = 3, -- Frenetic Charge
+	[SpellName(303306)] = 3, -- Sphere of Influence
+	[SpellName(300545)] = 3, -- Mighty Rupture
+
+	--Radiance of Azshara
+	[SpellName(296566)] = 3, -- Tide Fist
+	[SpellName(296737)] = 3, -- Arcane Bomb
+	[SpellName(296746)] = 3, -- Arcane Bomb
+	[SpellName(295920)] = 3, -- Ancient Tempest
+	[SpellName(296462)] = 3, -- Squall Trap
+	[SpellName(299152)] = 3, -- Waterlogged
+
+	--Orgozoa
+	[SpellName(298156)] = 3, -- Desensitizing Sting
+	[SpellName(298306)] = 3, -- Incubation Fluid
+
+	--Blackwater Behemoth
+	[SpellName(292127)] = 3, -- Darkest Depths
+	[SpellName(292138)] = 3, -- Radiant Biomass
+	[SpellName(292167)] = 3, -- Toxic Spine
+	[SpellName(301494)] = 3, -- Piercing Barb
+
+	--Za’qul
+	[SpellName(295495)] = 3, -- Mind Tether
+	[SpellName(295480)] = 3, -- Mind Tether
+	[SpellName(295249)] = 3, -- Delirium Realm
+	[SpellName(303819)] = 3, -- Nightmare Pool
+	[SpellName(293509)] = 3, -- Manifest Nightmares
+	[SpellName(295327)] = 3, -- Shattered Psyche
+	[SpellName(294545)] = 3, -- Portal of Madness
+	[SpellName(298192)] = 3, -- Dark Beyond
+	[SpellName(292963)] = 3, -- Dread
+	[SpellName(300133)] = 3, -- Snapped
+
+	--Queen Azshara
+	[SpellName(298781)] = 3, -- Arcane Orb
+	[SpellName(297907)] = 3, -- Cursed Heart
+	[SpellName(302999)] = 3, -- Arcane Vulnerability
+	[SpellName(302141)] = 3, -- Beckon
+	[SpellName(299276)] = 3, -- Sanction
+	[SpellName(303657)] = 3, -- Arcane Burst
+	[SpellName(298756)] = 3, -- Serrated Edge
+	[SpellName(301078)] = 3, -- Charged Spear
+	[SpellName(298014)] = 3, -- Cold Blast
+	[SpellName(298018)] = 3, -- Frozen
 }
 -----------------------------------------------------------------
 -- PvP
