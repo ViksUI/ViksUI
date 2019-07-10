@@ -3,12 +3,12 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.82",
+		"Update 8.83",
 		"• Many more Patch 8.2 Bug Fixes",
-		"• Skins updated",
-		"• Azerite Essence skin added",
-		"• Zone/BG Map can be resized and scaled. Under Minimap in config",
-		"",
+		"• ilvl in bags fixed",
+		"• Few skin updates",
+		"• Added Debuffs for Mechagon and Eternal Palace",
+		"• Updated chat default setting",
 		"",
 		--"• ",
 	--" ",
