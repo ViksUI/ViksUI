@@ -11,11 +11,10 @@ local frames = {
 	"PetitionFrame", "HelpFrame", "GossipFrame", "DressUpFrame", "GuildRegistrarFrame",
 	"WorldStateScoreFrame", "ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame",
 	"GameMenuFrame", "VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame", "BankFrame",
-	"OpenMailFrame", "StackSplitFrame", "MacOptionsFrame", "TutorialFrame", "StaticPopup1",
-	"StaticPopup2", "ScrollOfResurrectionSelectionFrame"
+	"OpenMailFrame", "StackSplitFrame", "MacOptionsFrame", "TutorialFrame", "ScrollOfResurrectionSelectionFrame"
 }
 
-for i, v in pairs(frames) do
+for _, v in pairs(frames) do
 	if _G[v] then
 		_G[v]:EnableMouse(true)
 		_G[v]:SetMovable(true)

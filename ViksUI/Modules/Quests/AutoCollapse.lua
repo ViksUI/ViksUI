@@ -14,7 +14,7 @@ if C.automation.auto_collapse or C.automation.auto_collapse_reload then
 			elseif ObjectiveTrackerFrame.collapsed and not InCombatLockdown() then
 				ObjectiveTracker_Expand()
 			end
-		elseif C.automation.auto_collapse_reload then
+		elseif C.automation.auto_collapse_reload or C.automation.auto_collapse_login then
 			ObjectiveTracker_Collapse()
 		end
 	end)

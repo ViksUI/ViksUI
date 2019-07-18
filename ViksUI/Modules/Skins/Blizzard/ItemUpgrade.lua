@@ -29,6 +29,9 @@ local function LoadSkin()
 			ItemUpgradeFrame.ItemButton.IconTexture:SetTexture(nil)
 		end
 	end)
+	
+	ItemUpgradeFrame.TextFrame:StripTextures()
+	ItemUpgradeFrame.TextFrame:SetTemplate("Default")
 
 	ItemUpgradeFrame.FinishedGlow:Kill()
 

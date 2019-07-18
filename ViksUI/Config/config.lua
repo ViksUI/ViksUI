@@ -114,6 +114,7 @@ C["automation"] = {
 	["accept_quest"] = false,					-- Auto accept quests(if hold shift or alt, auto accept is disable)
 	["auto_collapse"] = true,					-- Auto collapse WatchFrame in instance
 	["auto_collapse_login"] = true,				-- Auto collapse WatchFrame on login
+	["auto_collapse_reload"] = true,			-- Auto collapse WatchFrame on reloads
 	["skip_cinematic"] = false,					-- Auto skip cinematics/movies
 	["auto_role"] = true,						-- Auto set your role
 	["cancel_bad_buffs"] = false,				-- Auto cancel various buffs

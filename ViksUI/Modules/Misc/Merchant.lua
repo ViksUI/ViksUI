@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------------------
 --	Alt+Click to buy a stack
 ----------------------------------------------------------------------------------------
-hooksecurefunc("MerchantItemButton_OnModifiedClick", function(self, ...)
+hooksecurefunc("MerchantItemButton_OnModifiedClick", function(self)
 	if IsAltKeyDown() then
 		local itemLink = GetMerchantItemLink(self:GetID())
 		if not itemLink then return end
