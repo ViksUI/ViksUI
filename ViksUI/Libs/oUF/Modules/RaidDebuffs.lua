@@ -274,7 +274,7 @@ local Enable = function(self)
 		rd.__owner = self
 		return true
 	end
-	self:RegisterEvent("PLAYER_TALENT_UPDATE", CheckSpec, true)
+	self:RegisterEvent("PLAYER_TALENT_UPDATE", CheckSpec)
 	CheckSpec()
 end
 

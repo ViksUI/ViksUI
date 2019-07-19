@@ -12,6 +12,7 @@ local heal_format = "+%d"
 local maxAlpha = 0.6
 local updateFrame
 local feedback = {}
+local originalHeight = {}
 local color
 local colors = {
 	STANDARD		= {1, 1, 1},
@@ -60,7 +61,7 @@ local function createUpdateFrame()
 	end)
 end
 
-local function combat(self, event, unit, eventType, flags, amount)
+local function combat(self, event, unit, eventType, flags, amount, dtype)
 	if unit ~= self.unit then return end
 	if unit == "vehicle" then return end
 	local FeedbackText = self.CombatFeedbackText
@@ -139,12 +140,12 @@ end
 local function addCombat(object)
 	if not object.CombatFeedbackText then return end
 
-	local _, fontHeight = object.CombatFeedbackText:GetFont()
+	local font, fontHeight, fontFlags = object.CombatFeedbackText:GetFont()
 	object.CombatFeedbackText.origHeight = fontHeight
 	object.CombatFeedbackText.maxAlpha = object.CombatFeedbackText.maxAlpha or maxAlpha
 	createUpdateFrame()
 	object:RegisterEvent("UNIT_COMBAT", combat)
 end
 
-for _, object in ipairs(oUF.objects) do addCombat(object) end
+for k, object in ipairs(oUF.objects) do addCombat(object) end
 oUF:RegisterInitCallback(addCombat)

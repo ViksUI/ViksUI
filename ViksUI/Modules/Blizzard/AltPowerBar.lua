@@ -53,7 +53,6 @@ bar:SetScript("OnMouseDown", function(self, button)
 		bar:ClearAllPoints()
 		bar:StartMoving()
 	elseif IsControlKeyDown() and button == "RightButton" then
-		bar:ClearAllPoints()
 		bar:SetPoint(unpack(C.position.alt_power_bar))
 	end
 end)

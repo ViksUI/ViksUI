@@ -142,7 +142,7 @@ local function registerStyle()
 	bars:RegisterBarStyle("ViksUI", {
 		apiVersion = 1,
 		version = 1,
-		GetSpacing = function() return T.Scale(13) end,
+		GetSpacing = function(bar) return T.Scale(13) end,
 		ApplyStyle = applystyle,
 		BarStopped = freestyle,
 		GetStyleName = function() return "ViksUI" end,
@@ -156,7 +156,7 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(_, event, addon)
+f:SetScript("OnEvent", function(self, event, addon)
 	if event == "ADDON_LOADED" then
 		if addon == "BigWigs_Plugins" then
 			if not BigWigs3DB.namespaces.BigWigs_Plugins_Bars or BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles.Default.InstalledBars ~= C.actionbar.bottombars then

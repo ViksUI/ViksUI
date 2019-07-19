@@ -4,7 +4,7 @@ if C.unitframe.enable ~= true or C.unitframe_class_bar.range ~= true or T.class 
 ----------------------------------------------------------------------------------------
 --	RangeBar for Priest(by m2jest1c)
 ----------------------------------------------------------------------------------------
-local _, ns = ...
+local parent, ns = ...
 local oUF = ns.oUF
 
 local Items = {
@@ -42,7 +42,7 @@ local Colors = {
 	{0.9, 0.1, 0.1},	-- >40
 }
 
-local Update = function(self)
+local Update = function(self, event, unit)
 	local rb = self.RangeBar
 	if rb.PreUpdate then
 		rb:PreUpdate()
@@ -72,7 +72,7 @@ local Update = function(self)
 	end
 
 	local timer = 0
-	rb:SetScript("OnUpdate", function(_, elapsed)
+	rb:SetScript("OnUpdate", function(self, elapsed)
 		timer = timer + elapsed
 		if timer >= 0.2 then
 			local Distance = 0
@@ -112,7 +112,7 @@ local Enable = function(self)
 		rb.__owner = self
 		rb.ForceUpdate = ForceUpdate
 
-		self:RegisterEvent("PLAYER_TARGET_CHANGED", Path, true)
+		self:RegisterEvent("PLAYER_TARGET_CHANGED", Path)
 		self:RegisterEvent("UNIT_FLAGS", Path)
 
 		return true

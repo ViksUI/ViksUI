@@ -90,7 +90,7 @@ local Enable = function(self)
 	bar:SetScript("OnShow", OnShow)
 	bar:SetScript("OnHide", OnHide)
 
-	self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", UpdateGCD, true)
+	self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", UpdateGCD)
 end
 
 oUF:AddElement("GCD", UpdateGCD, Enable)

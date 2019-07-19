@@ -71,26 +71,25 @@ local function LoadSkin()
 	LFGListApplicationDialog.CancelButton:SkinButton()
 
 	local checkButtons = {
-		LFDQueueFrameRoleButtonTank,
-		LFDQueueFrameRoleButtonHealer,
-		LFDQueueFrameRoleButtonDPS,
-		LFDQueueFrameRoleButtonLeader,
-		RaidFinderQueueFrameRoleButtonTank,
-		RaidFinderQueueFrameRoleButtonHealer,
-		RaidFinderQueueFrameRoleButtonDPS,
-		RaidFinderQueueFrameRoleButtonLeader,
-		LFGListApplicationDialog.TankButton,
-		LFGListApplicationDialog.HealerButton,
-		LFGListApplicationDialog.DamagerButton,
-		LFGInvitePopupRoleButtonTank,
-		LFGInvitePopupRoleButtonHealer,
-		LFGInvitePopupRoleButtonDPS
+		"LFDQueueFrameRoleButtonTank",
+		"LFDQueueFrameRoleButtonHealer",
+		"LFDQueueFrameRoleButtonDPS",
+		"LFDQueueFrameRoleButtonLeader",
+		"RaidFinderQueueFrameRoleButtonTank",
+		"RaidFinderQueueFrameRoleButtonHealer",
+		"RaidFinderQueueFrameRoleButtonDPS",
+		"RaidFinderQueueFrameRoleButtonLeader"
 	}
 
-	for _, roleButton in pairs(checkButtons) do
-		T.SkinCheckBox(roleButton.checkButton or roleButton.CheckButton)
+	for _, object in pairs(checkButtons) do
+		T.SkinCheckBox(_G[object].checkButton)
 	end
 
+	T.SkinCheckBox(LFGListApplicationDialog.TankButton.CheckButton)
+	T.SkinCheckBox(LFGListApplicationDialog.HealerButton.CheckButton)
+	T.SkinCheckBox(LFGListApplicationDialog.DamagerButton.CheckButton)
+
+	LFDQueueFrameRoleButtonTank.cover:Kill()
 	local scrollbars = {
 		"ScenarioQueueFrameSpecificScrollFrameScrollBar",
 		"LFGListApplicationViewerScrollFrameScrollBar",
@@ -302,7 +301,6 @@ local function LoadSkin()
 	LFDQueueFrameRandomScrollFrameScrollBackgroundBottomRight:SetTexture(nil)
 	LFDQueueFrameRandomScrollFrameChildFrameBonusRepFrame.ChooseButton:SkinButton()
 	RolePollPopup:SetTemplate("Transparent")
-	LFGInvitePopup:StripTextures()
 	LFGInvitePopup:SetTemplate("Transparent")
 	LFGDungeonReadyPopup:SetTemplate("Transparent")
 	LFGDungeonReadyDialog.SetBackdrop = T.dummy

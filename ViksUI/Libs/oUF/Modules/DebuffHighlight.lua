@@ -9,7 +9,6 @@ local oUF = ns.oUF
 
 local CanDispel = {
 	DRUID = {Magic = false, Curse = true, Poison = true},
-	MAGE = {Curse = true},
 	MONK = {Magic = false, Poison = true, Disease = true},
 	PALADIN = {Magic = false, Poison = true, Disease = true},
 	PRIEST = {Magic = false, Disease = true},
@@ -57,8 +56,10 @@ local function CheckSpec()
 	elseif T.class == "PRIEST" then
 		if spec == 3 then
 			dispellist.Magic = false
+			dispellist.Disease = false
 		else
 			dispellist.Magic = true
+			dispellist.Disease = true
 		end
 	elseif T.class == "SHAMAN" then
 		if spec == 3 then
@@ -118,7 +119,7 @@ local function Enable(object)
 
 	-- Make sure aura scanning is active for this object
 	object:RegisterEvent("UNIT_AURA", Update)
-	object:RegisterEvent("PLAYER_TALENT_UPDATE", CheckSpec, true)
+	object:RegisterEvent("PLAYER_TALENT_UPDATE", CheckSpec)
 	CheckSpec()
 
 	if object.DebuffHighlightBackdrop or object.DebuffHighlightBackdropBorder then
@@ -143,4 +144,4 @@ end
 
 oUF:AddElement("DebuffHighlight", Update, Enable, Disable)
 
-for _, frame in ipairs(oUF.objects) do Enable(frame) end
+for i, frame in ipairs(oUF.objects) do Enable(frame) end

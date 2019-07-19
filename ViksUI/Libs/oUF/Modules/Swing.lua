@@ -90,11 +90,11 @@ local function Enable(self, unit)
 		end
 
 		if not bar.disableMelee then
-			self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", Melee, true)
+			self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", Melee)
 		end
 
 		if not bar.disableOoc then
-			self:RegisterEvent("PLAYER_REGEN_ENABLED", Ooc, true)
+			self:RegisterEvent("PLAYER_REGEN_ENABLED", Ooc)
 		end
 
 		bar:Hide()

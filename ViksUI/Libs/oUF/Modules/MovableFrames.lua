@@ -59,7 +59,7 @@ local getPoint = function(obj, anchor)
 
 		return string.format("%s\031%s\031%d\031%d", point, "UIParent", round(x * UIS / OS), round(y * UIS / OS))
 	else
-		local point, _, _, x, y = anchor:GetPoint()
+		local point, parent, _, x, y = anchor:GetPoint()
 
 		return string.format("%s\031%s\031%d\031%d", point, "UIParent", round(x), round(y))
 	end
@@ -394,7 +394,7 @@ do
 			self.backdrop:SetBackdropBorderColor(1, 0, 0)
 		end)
 		backdrop:SetScript("OnMouseUp", OnMouseUp)
-
+		
 		backdropPool[target] = backdrop
 
 		return backdrop
@@ -415,21 +415,21 @@ StaticPopupDialogs.RESET_UF = {
 SlashCmdList.RESETUF = function() StaticPopup_Show("RESET_UF") end
 SLASH_RESETUF1 = "/resetuf"
 
-T.MoveUnitFrames = function()
+T.MoveUnitFrames = function(inp)
 	if InCombatLockdown() then return print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") end
 
 	if not _LOCK then
-		for _, obj in next, oUF.objects do
+		for k, obj in next, oUF.objects do
 			if not obj.disableMovement then
-				local _, _, isHeader = getObjectInformation(obj)
+				local style, identifier, isHeader = getObjectInformation(obj)
 				local backdrop = getBackdrop(obj, isHeader)
 				if backdrop then backdrop:Show() end
-			end
+			end	
 		end
 
 		_LOCK = true
 	else
-		for _, bdrop in next, backdropPool do
+		for k, bdrop in next, backdropPool do
 			bdrop:Hide()
 		end
 

@@ -47,7 +47,7 @@ end
 local collect = CreateFrame("Frame")
 collect:RegisterEvent("PLAYER_ENTERING_WORLD")
 collect:SetScript("OnEvent", function(self)
-	for _, child in ipairs({Minimap:GetChildren()}) do
+	for i, child in ipairs({Minimap:GetChildren()}) do
 		if not BlackList[child:GetName()] then
 			if child:GetObjectType() == "Button" and child:GetNumRegions() >= 3 and child:IsShown() then
 				child:SetParent(button)

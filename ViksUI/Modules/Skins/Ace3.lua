@@ -84,7 +84,7 @@ AceGUI.RegisterAsWidget = function(self, widget)
 		end
 		button:SetParent(frame.backdrop)
 		text:SetParent(frame.backdrop)
-		button:HookScript("OnClick", function(this)
+		button:HookScript("OnClick", function(this, button)
 			local self = this.obj
 			if self.dropdown then
 				self.dropdown:SetTemplate("Transparent")

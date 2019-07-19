@@ -31,8 +31,8 @@ end
 
 local function Enable(object)
 	if not object.EnemySpec then return end
-	object:RegisterEvent("UPDATE_BATTLEFIELD_SCORE", Update, true)
-	object:RegisterEvent("ARENA_OPPONENT_UPDATE", Update, true)
+	object:RegisterEvent("UPDATE_BATTLEFIELD_SCORE", Update)
+	object:RegisterEvent("ARENA_OPPONENT_UPDATE", Update)
 	return true
 end
 
@@ -44,4 +44,4 @@ local function Disable(object)
 end
 
 oUF:AddElement("EnemySpec", Update, Enable, Disable)
-for _, frame in ipairs(oUF.objects) do Enable(frame) end
+for i, frame in ipairs(oUF.objects) do Enable(frame) end

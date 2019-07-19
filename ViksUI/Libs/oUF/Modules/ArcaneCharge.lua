@@ -5,7 +5,7 @@ local oUF = ns.oUF
 
 local SPELL_POWER_ARCANE_CHARGES = Enum.PowerType.ArcaneCharges or 16
 
-local function Update(self, _, unit, powerType)
+local function Update(self, event, unit, powerType)
 	if(self.unit ~= unit or (powerType and powerType ~= "ARCANE_CHARGES")) then return end
 
 	local element = self.ArcaneCharge
@@ -62,7 +62,7 @@ local function Enable(self)
 		element.hadler = CreateFrame("Frame", nil, element)
 		element.hadler:RegisterEvent("PLAYER_TALENT_UPDATE")
 		element.hadler:RegisterEvent("PLAYER_ENTERING_WORLD")
-		element.hadler:SetScript("OnEvent", function() Visibility(self) end)
+		element.hadler:SetScript("OnEvent", function(frame) Visibility(self) end)
 
 		return true
 	end

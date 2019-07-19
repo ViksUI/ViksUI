@@ -171,7 +171,7 @@ local function CreateRollFrame()
 end
 
 local function GetFrame()
-	for _, f in ipairs(frames) do
+	for i, f in ipairs(frames) do
 		if not f.rollID then return f end
 	end
 
@@ -222,7 +222,7 @@ local function START_LOOT_ROLL(rollID, time)
 	f.pass:SetText(0)
 	f.disenchant:SetText(0)
 
-	local texture, name, _, quality, bop, canNeed, canGreed, canDisenchant, reasonNeed, reasonGreed, reasonDisenchant, deSkillRequired = GetLootRollItemInfo(rollID)
+	local texture, name, count, quality, bop, canNeed, canGreed, canDisenchant, reasonNeed, reasonGreed, reasonDisenchant, deSkillRequired = GetLootRollItemInfo(rollID)
 	f.button.icon:SetTexture(texture)
 	f.button.link = GetLootRollItemLink(rollID)
 
@@ -287,7 +287,7 @@ local function LOOT_HISTORY_ROLL_CHANGED(rollindex, playerindex)
 end
 
 LootRollAnchor:RegisterEvent("ADDON_LOADED")
-LootRollAnchor:SetScript("OnEvent", function(_, _, addon)
+LootRollAnchor:SetScript("OnEvent", function(frame, event, addon)
 	if addon ~= "ViksUI" then return end
 
 	LootRollAnchor:UnregisterEvent("ADDON_LOADED")
@@ -297,7 +297,7 @@ LootRollAnchor:SetScript("OnEvent", function(_, _, addon)
 	UIParent:UnregisterEvent("START_LOOT_ROLL")
 	UIParent:UnregisterEvent("CANCEL_LOOT_ROLL")
 
-	LootRollAnchor:SetScript("OnEvent", function(_, event, ...)
+	LootRollAnchor:SetScript("OnEvent", function(frame, event, ...)
 		if event == "LOOT_HISTORY_ROLL_CHANGED" then
 			return LOOT_HISTORY_ROLL_CHANGED(...)
 		else

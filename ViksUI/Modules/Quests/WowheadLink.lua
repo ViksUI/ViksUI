@@ -40,7 +40,7 @@ StaticPopupDialogs.WATCHFRAME_URL = {
 	whileDead = true,
 	hasEditBox = true,
 	editBoxWidth = 350,
-	OnShow = function(self) self.editBox:SetFocus() end,
+	OnShow = function(self, ...) self.editBox:SetFocus() end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
 	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
 	preferredIndex = 5,
@@ -52,7 +52,7 @@ hooksecurefunc("QuestObjectiveTracker_OnOpenDropDown", function(self)
 	questID = b.id
 	info = UIDropDownMenu_CreateInfo()
 	info.text = L_WATCH_WOWHEAD_LINK
-	info.func = function()
+	info.func = function(id)
 		local inputBox = StaticPopup_Show("WATCHFRAME_URL")
 		inputBox.editBox:SetText(linkQuest:format(questID))
 		inputBox.editBox:HighlightText()

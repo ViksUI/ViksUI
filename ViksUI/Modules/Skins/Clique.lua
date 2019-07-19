@@ -8,6 +8,9 @@ local function LoadSkin()
 	if not IsAddOnLoaded("Clique") then return end
 	CliqueConfig:StripTextures()
 	CliqueConfig:SetTemplate("Transparent")
+	CliqueConfig:ClearAllPoints()
+	CliqueConfig:SetPoint("TOPLEFT", SpellBookFrame.backdrop, "TOPRIGHT", 42, 0)
+	CliqueConfig.SetPoint = T.dummy
 
 	CliqueConfigPage1Column1:StripTextures()
 	CliqueConfigPage1Column2:StripTextures()
@@ -44,7 +47,7 @@ local function LoadSkin()
 	CliqueSpellTab.backdrop:SetAllPoints()
 	CliqueSpellTab:StyleButton()
 
-	CliqueConfigPage1:SetScript("OnShow", function()
+	CliqueConfigPage1:SetScript("OnShow", function(self)
 		for i = 1, 12 do
 			if _G["CliqueRow"..i] then
 				_G["CliqueRow"..i.."Icon"]:SetTexCoord(0.1, 0.9, 0.1, 0.9)

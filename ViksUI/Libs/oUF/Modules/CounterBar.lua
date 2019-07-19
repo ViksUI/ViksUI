@@ -12,7 +12,7 @@ local OnUpdate = function(self, elapsed)
 	self:SetValue(self.expiration)
 end
 
-local Update = function(self, _, unit)
+local Update = function(self, event, unit, ...)
 	if self.unit ~= unit then return end
 
 	local counterbar = self.CounterBar
