@@ -669,7 +669,7 @@ end
 
 local LoadBlizzardSkin = CreateFrame("Frame")
 LoadBlizzardSkin:RegisterEvent("ADDON_LOADED")
-LoadBlizzardSkin:SetScript("OnEvent", function(self, event, addon)
+LoadBlizzardSkin:SetScript("OnEvent", function(self, _, addon)
 	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") or not C.skins.blizzard_frames then
 		self:UnregisterEvent("ADDON_LOADED")
 		return
@@ -945,7 +945,7 @@ T.PreUpdatePower = function(power, unit)
 	end
 end
 
-T.PostUpdatePower = function(power, unit, cur, min, max)
+T.PostUpdatePower = function(power, unit, cur, _, max)
 	if unit and unit:find("arena%dtarget") then return end
 	local self = power:GetParent()
 	local pType, pToken = UnitPowerType(unit)
@@ -1158,7 +1158,7 @@ local setBarTicks = function(Castbar, numTicks)
 	end
 end
 
-T.PostCastStart = function(Castbar, unit, name)
+T.PostCastStart = function(Castbar, unit)
 	Castbar.channeling = false
 	if unit == "vehicle" then unit = "player" end
 
@@ -1242,8 +1242,7 @@ T.PostCastStart = function(Castbar, unit, name)
 	end
 end
 
-
-T.PostChannelStart = function(Castbar, unit, name)
+T.PostChannelStart = function(Castbar, unit)
 	Castbar.channeling = true
 	if unit == "vehicle" then unit = "player" end
 
@@ -1485,7 +1484,7 @@ T.PostUpdateIcon = function(_, unit, button, _, _, duration, expiration, debuffT
 	button.first = true
 end
 
-T.UpdateThreat = function(self, event, unit)
+T.UpdateThreat = function(self, _, unit)
 	if self.unit ~= unit then return end
 	local threat = UnitThreatSituation(self.unit)
 	if threat and threat > 1 then
@@ -1507,7 +1506,7 @@ local CountOffSets = {
 	BOTTOM = {0, 0},
 }
 
-T.CreateAuraWatchIcon = function(self, icon)
+T.CreateAuraWatchIcon = function(_, icon)
 	icon:SetTemplate("Default")
 	icon.icon:SetPoint("TOPLEFT", icon, 1, -1)
 	icon.icon:SetPoint("BOTTOMRIGHT", icon, -1, 1)
@@ -1519,7 +1518,7 @@ T.CreateAuraWatchIcon = function(self, icon)
 	icon.overlay:SetTexture()
 end
 
-T.CreateAuraWatch = function(self, unit)
+T.CreateAuraWatch = function(self)
 	local auras = CreateFrame("Frame", nil, self)
 	auras:SetPoint("TOPLEFT", self.Health, 0, 0)
 	auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)

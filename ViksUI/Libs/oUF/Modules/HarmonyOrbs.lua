@@ -5,7 +5,7 @@ local oUF = ns.oUF
 
 local SPELL_POWER_CHI = Enum.PowerType.Chi or 12
 
-local function Update(self, event, unit, powerType)
+local function Update(self, _, unit, powerType)
 	if(self.unit ~= unit and (powerType and (powerType ~= "CHI" and powerType ~= "DARK_FORCE"))) then return end
 
 	local element = self.HarmonyBar
@@ -86,7 +86,7 @@ local function Enable(self, unit)
 		element.hadler = CreateFrame("Frame", nil, element)
 		element.hadler:RegisterEvent("PLAYER_TALENT_UPDATE")
 		element.hadler:RegisterEvent("PLAYER_ENTERING_WORLD")
-		element.hadler:SetScript("OnEvent", function(frame) Visibility(self) end)
+		element.hadler:SetScript("OnEvent", function() Visibility(self) end)
 
 		element.maxChi = 0
 

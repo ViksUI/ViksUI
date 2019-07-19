@@ -2918,7 +2918,7 @@ end
 
 local OnLogon = CreateFrame("Frame")
 OnLogon:RegisterEvent("PLAYER_LOGIN")
-OnLogon:SetScript("OnEvent", function(self, event)
+OnLogon:SetScript("OnEvent", function(self)
 	self:UnregisterEvent("PLAYER_LOGIN")
 
 	-- Create empty CVar if they doesn't exist

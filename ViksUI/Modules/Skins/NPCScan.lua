@@ -6,7 +6,7 @@ if C.skins.npcscan ~= true then return end
 ----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
-frame:SetScript("OnEvent", function(self, event)
+frame:SetScript("OnEvent", function()
 	if not IsAddOnLoaded("_NPCScan") then return end
 	_NPCScanButton:StripTextures()
 	_NPCScanButton:SetTemplate("Transparent")
@@ -43,14 +43,14 @@ frame:SetScript("OnEvent", function(self, event)
 			close.text:SetPoint("CENTER", 0, 1)
 			close.text:SetText("x")
 
-			close:HookScript("OnEnter", function(self)
+			close:HookScript("OnEnter", function()
 				close.backdrop:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
 				if close.backdrop.overlay then
 					close.backdrop.overlay:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.3)
 				end
 			end)
 
-			close:HookScript("OnLeave", function(self)
+			close:HookScript("OnLeave", function()
 				close.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
 				if close.backdrop.overlay then
 					close.backdrop.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
