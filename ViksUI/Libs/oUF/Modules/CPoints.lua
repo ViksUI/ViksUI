@@ -5,7 +5,7 @@ local oUF = ns.oUF
 
 local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
-local function Update(self, event, unit, powerType)
+local function Update(self, _, unit, powerType)
 	if(self.unit ~= unit and (powerType and (powerType ~= "COMBO_POINTS"))) then return end
 
 	local element = self.CPoints
@@ -116,13 +116,13 @@ local Enable = function(self)
 
 		self:RegisterEvent("UNIT_POWER_UPDATE", Path, true)
 		self:RegisterEvent("UNIT_MAXPOWER", Path, true)
-		self:RegisterEvent("PLAYER_TARGET_CHANGED", Path)
+		self:RegisterEvent("PLAYER_TARGET_CHANGED", Path, true)
 
 		if T.class == "DRUID" and C.unitframe_class_bar.combo_always ~= true and C.unitframe_class_bar.combo_old ~= true then
 			element.hadler = CreateFrame("Frame", nil, element)
 			element.hadler:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 			element.hadler:RegisterEvent("PLAYER_ENTERING_WORLD")
-			element.hadler:SetScript("OnEvent", function(frame) Visibility(self) end)
+			element.hadler:SetScript("OnEvent", function() Visibility(self) end)
 		end
 
 		for index = 1, MAX_COMBO_POINTS do

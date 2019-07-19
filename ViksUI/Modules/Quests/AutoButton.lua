@@ -87,7 +87,7 @@ Scanner:SetScript("OnEvent", function()
 		for s = 1, GetContainerNumSlots(b) do
 			local itemID = GetContainerItemID(b, s)
 			itemID = tonumber(itemID)
-			for i, Items in pairs(Items) do
+			for _, Items in pairs(Items) do
 				if itemID == Items then
 					local itemName = GetItemInfo(itemID)
 					local count = GetItemCount(itemID)
@@ -103,7 +103,7 @@ Scanner:SetScript("OnEvent", function()
 						AutoButton.c:SetText("")
 					end
 
-					AutoButton:SetScript("OnUpdate", function(self, elapsed)
+					AutoButton:SetScript("OnUpdate", function()
 						local cd_start, cd_finish, cd_enable = GetContainerItemCooldown(b, s)
 						CooldownFrame_Set(AutoButton.cd, cd_start, cd_finish, cd_enable)
 					end)
@@ -133,7 +133,7 @@ Scanner:SetScript("OnEvent", function()
 				AutoButton.t:SetTexture(itemIcon)
 				AutoButton.c:SetText("")
 
-				AutoButton:SetScript("OnUpdate", function(self, elapsed)
+				AutoButton:SetScript("OnUpdate", function()
 					local cd_start, cd_finish, cd_enable = GetInventoryItemCooldown("player", w)
 					CooldownFrame_Set(AutoButton.cd, cd_start, cd_finish, cd_enable)
 				end)
