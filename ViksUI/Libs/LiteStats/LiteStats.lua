@@ -799,12 +799,17 @@ if gold.enabled then
 
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(MISCELLANEOUS, ttsubh.r, ttsubh.g, ttsubh.b)
+				Currency(1560)					-- War Resources
+				Currency(1710)					-- Seafarer's Dubloon
+				Currency(1716)					-- Honorbound Service Medal
+				Currency(1717)					-- 7th Legion Service Medal		
+				Currency(1721)					-- Prismatic Manapearl
 				Currency(515)					-- Darkmoon Prize Ticket
 				Currency(1710)					-- Seafarer's Dubloon
 				Currency(1565)					-- Rich Azerite Fragment
 				GameTooltip:AddLine(" ")
-				Currency(1220)					-- Order Resources
 				Currency(1560)					-- War Resources
+				Currency(1718)					-- Titan Residuum
 			end
 
 			GameTooltip:AddLine(" ")
