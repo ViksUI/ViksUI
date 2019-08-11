@@ -67,7 +67,8 @@ T.MoverFrames = {
 	Move_tank,
 	Move_threatbar,
 	Move_raid,
-	Move_raid40dps,	
+	Move_raid40dps,
+	SpellActivationOverlayFrame,
 }
 
 local moving = false

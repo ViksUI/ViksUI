@@ -116,6 +116,16 @@ T.CheckPlayerBuff = function(spell)
 end
 
 ----------------------------------------------------------------------------------------
+--	Player's level check
+----------------------------------------------------------------------------------------
+local function CheckLevel(_, _, level)
+	T.level = level
+end
+local LevelUpdater = CreateFrame("Frame")
+LevelUpdater:RegisterEvent("PLAYER_LEVEL_UP")
+LevelUpdater:SetScript("OnEvent", CheckLevel)
+
+----------------------------------------------------------------------------------------
 --	Pet Battle Hider
 ----------------------------------------------------------------------------------------
 T_PetBattleFrameHider = CreateFrame("Frame", "ViksUI_PetBattleFrameHider", UIParent, "SecureHandlerStateTemplate")

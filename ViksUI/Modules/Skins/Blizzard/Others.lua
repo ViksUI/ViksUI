@@ -40,6 +40,7 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 			"BasicScriptErrors"
 		}
 
+		_G.LFDRoleCheckPopup:StripTextures()
 		QueueStatusFrame:StripTextures()
 		GameMenuFrame:StripTextures()
 
@@ -108,6 +109,7 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 
 		-- Movie popup
 		MovieFrame.CloseDialog:SetScale(C.general.uiscale)
+		MovieFrame.CloseDialog:StripTextures()
 		MovieFrame.CloseDialog:SetTemplate("Transparent")
 		MovieFrame.CloseDialog.ConfirmButton:SkinButton()
 		MovieFrame.CloseDialog.ResumeButton:SkinButton()

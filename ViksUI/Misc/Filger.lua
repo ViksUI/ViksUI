@@ -352,6 +352,12 @@ function Filger:OnEvent(event, unit, _, castID)
 					self.actives[spid] = nil
 				end
 			end
+		elseif event == "SPELL_UPDATE_COOLDOWN" then
+			for spid in pairs(self.actives) do
+				if self.actives[spid].data.filter == "CD" then
+					self.actives[spid] = nil
+				end
+			end
 		end
 
 		local ptt = GetSpecialization()
@@ -359,29 +365,29 @@ function Filger:OnEvent(event, unit, _, castID)
 			local data = C["filger_spells"][T.class][self.Id][i]
 			local found = false
 			local spellName, name, icon, count, duration, expirationTime, caster, start, spid, filter
-			
+
 			if event == "SPELL_UPDATE_COOLDOWN" or event == "PLAYER_ENTERING_WORLD" then
 				if data.filter == "CD" and (not data.spec or data.spec == ptt) then
-				if data.spellID then
-					name, _, icon = GetSpellInfo(data.spellID)
-					if name then
-						if data.absID then
-							start, duration = GetSpellCooldown(data.spellID)
-						else
-							start, duration = GetSpellCooldown(name)
+					if data.spellID then
+						name, _, icon = GetSpellInfo(data.spellID)
+						if name then
+							if data.absID then
+								start, duration = GetSpellCooldown(data.spellID)
+							else
+								start, duration = GetSpellCooldown(name)
+							end
+							spid = data.spellID
 						end
-						spid = data.spellID
+					elseif data.slotID then
+						spid = data.slotID
+						local slotLink = GetInventoryItemLink("player", data.slotID)
+						if slotLink then
+							name, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
+							start, duration = GetInventoryItemCooldown("player", data.slotID)
+						end
 					end
-				elseif data.slotID then
-					spid = data.slotID
-					local slotLink = GetInventoryItemLink("player", data.slotID)
-					if slotLink then
-						name, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
-						start, duration = GetInventoryItemCooldown("player", data.slotID)
-					end
-				end
-				if name and (duration or 0) > 1.5 then
-					found = true
+					if name and (duration or 0) > 1.5 then
+						found = true
 					end
 				end
 			end
