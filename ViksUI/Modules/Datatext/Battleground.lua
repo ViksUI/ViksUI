@@ -12,27 +12,31 @@ BGFrame:EnableMouse(true)
 BGFrame:SetScript("OnEnter", function(self)
 	local numScores = GetNumBattlefieldScores()
 	local pvpStatIDs = C_PvP.GetMatchPVPStatIDs()
+	if pvpStatIDs then
+		for i = 1, numScores do
+			local Name, KillingBlows, HonorableKills, Deaths, HonorGained, _, _, _, _, DamageDone, HealingDone 	= GetBattlefieldScore(i)
+			if name and name == T.name then
+				local CurrentMapID = C_Map.GetBestMapForUnit("player")
+				GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, T.Scale(4))
+				GameTooltip:ClearLines()
+				GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, 1)
+				GameTooltip:ClearLines()
+				GameTooltip:AddDoubleLine(STATISTICS, classcolor..name.."|r")
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddDoubleLine(KILLING_BLOWS, KillingBlows, 1, 1, 1)
+				GameTooltip:AddDoubleLine(HONORABLE_KILLS, HonorableKills, 1, 1, 1)
+				GameTooltip:AddDoubleLine(DEATHS, Deaths, 1, 1, 1)
+				GameTooltip:AddDoubleLine(HONOR, format("%d", HonorGained), 1, 1, 1)
+				GameTooltip:AddDoubleLine(DAMAGE, DamageDone, 1, 1, 1)
+				GameTooltip:AddDoubleLine(HEALS, HealingDone, 1, 1, 1)
 
-	for i = 1, numScores do
-		local name, _, honorableKills, deaths, _, _, _, _, _, damageDone, healingDone = GetBattlefieldScore(i)
-		if name and name == T.name then
-			GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, T.Scale(4))
-			GameTooltip:ClearLines()
-			GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			GameTooltip:ClearLines()
-			GameTooltip:AddDoubleLine(STATISTICS, classcolor..name.."|r")
-			GameTooltip:AddLine(" ")
-			GameTooltip:AddDoubleLine(HONORABLE_KILLS..":", honorableKills, 1, 1, 1)
-			GameTooltip:AddDoubleLine(DEATHS..":", deaths, 1, 1, 1)
-			GameTooltip:AddDoubleLine(DAMAGE..":", damageDone, 1, 1, 1)
-			GameTooltip:AddDoubleLine(SHOW_COMBAT_HEALING..":", healingDone, 1, 1, 1)
+				-- Add extra statistics depending on what BG you are
+				for j = 1, pvpStatIDs do
+					GameTooltip:AddDoubleLine(C_PvP.GetMatchPVPStatColumn(pvpStatIDs[j])..":", GetBattlefieldStatData(i, j), 1, 1, 1)
+				end
 
-			-- Add extra statistics depending on what BG you are
-			for j = 1, #pvpStatIDs do
-				GameTooltip:AddDoubleLine(C_PvP.GetMatchPVPStatColumn(pvpStatIDs[j])..":", GetBattlefieldStatData(i, j), 1, 1, 1)
+				break
 			end
-
-			break
 		end
 	end
 	GameTooltip:Show()
@@ -44,7 +48,7 @@ BGFrame:SetScript("OnMouseUp", function(self, button)
 		if button == "RightButton" then
 			ToggleBattlefieldMap()
 		else
-			ToggleWorldStateScoreFrame()
+			TogglePVPScoreboardOrResults()
 		end
 	end
 end)
