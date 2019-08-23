@@ -3,12 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.83",
-		"• Many more Patch 8.2 Bug Fixes",
-		"• ilvl in bags fixed",
-		"• Few skin updates",
-		"• Added Debuffs for Mechagon and Eternal Palace",
-		"• Updated chat default setting",
+		"Update 8.84",
+		"• Many more minor fixes and improvments",
 		"",
 		--"• ",
 	--" ",
