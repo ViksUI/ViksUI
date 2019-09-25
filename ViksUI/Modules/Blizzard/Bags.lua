@@ -500,7 +500,7 @@ function CreateReagentContainer()
 		LastButton = button
 	end
 	Reagent:SetHeight(((C.bag.button_size + C.bag.button_space) * (NumRows + 1) + 40) - C.bag.button_space)
-	
+
 	MoneyFrame_Update(ReagentBankFrame.UnlockInfo.CostMoneyFrame, GetReagentBankCost())
 	ReagentBankFrameUnlockInfo:StripTextures()
 	ReagentBankFrameUnlockInfo:SetAllPoints(Reagent)
@@ -768,7 +768,7 @@ function Stuffing:CreateBagFrame(w)
 	local f = CreateFrame("Frame", n, UIParent)
 	f:EnableMouse(true)
 	f:SetMovable(true)
-	f:SetFrameStrata("DIALOG")
+	f:SetFrameStrata("MEDIUM")
 	f:SetFrameLevel(5)
 	f:SetScript("OnMouseDown", function(self, button)
 		if IsShiftKeyDown() and button == "LeftButton" then
@@ -809,7 +809,7 @@ function Stuffing:CreateBagFrame(w)
 		f.b_reagent.text:SetPoint("CENTER")
 		f.b_reagent.text:SetText(REAGENT_BANK)
 		f.b_reagent:SetFontString(f.b_reagent.text)
-		
+
 		-- Buy button
 		f.b_purchase = CreateFrame("Button", "StuffingPurchaseButton"..w, f)
 		f.b_purchase:SetSize(80, 20)
@@ -892,7 +892,7 @@ function Stuffing:InitBags()
 	self.buttons = {}
 	self.bags = {}
 	self.bagframe_buttons = {}
-	self.bags_num = {}				   
+	self.bags_num = {}
 
 	local f = self:CreateBagFrame("Bags")
 	f:SetScript("OnShow", Stuffing_OnShow)
@@ -1048,7 +1048,7 @@ function Stuffing:Layout(isBank)
 		fb:SetTemplate("Transparent")
 
 		local bsize = C.bag.button_size
-		
+
 		local w = 2 * 10
 		w = w + ((#bs - 1) * bsize)
 		w = w + ((#bs - 2) * 4)
@@ -1306,7 +1306,7 @@ function Stuffing:ADDON_LOADED(addon)
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
 	self:RegisterEvent("SCRAPPING_MACHINE_SHOW")
-	self:RegisterEvent("BAG_UPDATE_DELAYED")										 
+	self:RegisterEvent("BAG_UPDATE_DELAYED")
 
 	SlashCmdList.STUFFING = StuffingSlashCmd
 	SLASH_STUFFING1 = "/bags"
@@ -1376,7 +1376,7 @@ function Stuffing:BAG_UPDATE(id)
 	self:BagSlotUpdate(id)
 end
 
-function Stuffing:BAG_UPDATE_DELAYED(id)
+function Stuffing:BAG_UPDATE_DELAYED()
 	for _, i in ipairs(BAGS_BACKPACK) do
 		local numSlots = GetContainerNumSlots(i)
 		if self.bags_num[i] and self.bags_num[i] ~= numSlots then
@@ -1400,7 +1400,7 @@ function Stuffing:BANKFRAME_OPENED()
 	if not self.bankFrame then
 		self:InitBank()
 	end
-	
+
 	self:Layout(true)
 	for _, x in ipairs(BAGS_BANK) do
 		self:BagSlotUpdate(x)

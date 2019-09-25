@@ -240,7 +240,6 @@ local function SetChatStyle(frame)
 	frame.ScrollBar:Kill()
 	frame.ScrollToBottomButton:Kill()
 
-	
 	-- Kill off editbox artwork
 	local a, b, c = select(6, _G[chat.."EditBox"]:GetRegions())
 	a:Kill() b:Kill() c:Kill()
@@ -279,7 +278,7 @@ local function SetChatStyle(frame)
 		hooksecurefunc("ChatEdit_UpdateHeader", function()
 			local chatType = _G[chat.."EditBox"]:GetAttribute("chatType")
 			if not chatType then return end
-			
+
 			local chanTarget = _G[chat.."EditBox"]:GetAttribute("channelTarget")
 			local chanName = chanTarget and GetChannelName(chanTarget)
 			if chanName and chatType == "CHANNEL" then

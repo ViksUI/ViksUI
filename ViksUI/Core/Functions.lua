@@ -84,6 +84,7 @@ local function CheckRole()
 	local spec = GetSpecialization()
 	local role = spec and GetSpecializationRole(spec)
 
+	T.Spec = spec
 	if role == "TANK" then
 		T.Role = "Tank"
 	elseif role == "HEALER" then
@@ -456,7 +457,7 @@ function T.SkinCheckBox(frame, default)
 	frame.backdrop:SetPoint("BOTTOMRIGHT", -4, 4)
 
 	if frame.SetHighlightTexture then
-		local highligh = frame:CreateTexture(nil, nil, self)
+		local highligh = frame:CreateTexture()
 		highligh:SetColorTexture(1, 1, 1, 0.3)
 		highligh:SetPoint("TOPLEFT", frame, 6, -6)
 		highligh:SetPoint("BOTTOMRIGHT", frame, -6, 6)
@@ -465,7 +466,7 @@ function T.SkinCheckBox(frame, default)
 
 	if frame.SetCheckedTexture then
 		if default then return end
-		local checked = frame:CreateTexture(nil, nil, self)
+		local checked = frame:CreateTexture()
 		checked:SetColorTexture(1, 0.82, 0, 0.8)
 		checked:SetPoint("TOPLEFT", frame, 6, -6)
 		checked:SetPoint("BOTTOMRIGHT", frame, -6, 6)
@@ -473,21 +474,12 @@ function T.SkinCheckBox(frame, default)
 	end
 
 	if frame.SetDisabledCheckedTexture then
-		local disabled = frame:CreateTexture(nil, nil, self)
+		local disabled = frame:CreateTexture()
 		disabled:SetColorTexture(0.6, 0.6, 0.6, 0.75)
 		disabled:SetPoint("TOPLEFT", frame, 6, -6)
 		disabled:SetPoint("BOTTOMRIGHT", frame, -6, 6)
 		frame:SetDisabledCheckedTexture(disabled)
 	end
-
-	frame:HookScript("OnDisable", function(self)
-		if not self.SetDisabledTexture then return end
-		if self:GetChecked() then
-			self:SetDisabledTexture(disabled)
-		else
-			self:SetDisabledTexture("")
-		end
-	end)
 end
 
 function T.SkinCloseButton(f, point, text, pixel)
@@ -674,6 +666,25 @@ function T.SkinHelpBox(frame)
 	end
 	if frame.Arrow then
 		frame.Arrow:Hide()
+	end
+end
+
+function T.SkinStatusBarWidget(frame)
+	local bar = frame.Bar
+	local atlas = bar:GetStatusBarAtlas()
+	if not atlas then
+		bar:SetStatusBarTexture(C.media.texture)
+	end
+	if not bar.styled then
+		bar.BGLeft:SetAlpha(0)
+		bar.BGRight:SetAlpha(0)
+		bar.BGCenter:SetAlpha(0)
+		bar.BorderLeft:SetAlpha(0)
+		bar.BorderRight:SetAlpha(0)
+		bar.BorderCenter:SetAlpha(0)
+		bar.Spark:SetAlpha(0)
+		bar:CreateBackdrop("Overlay")
+		bar.styled = true
 	end
 end
 
@@ -1494,11 +1505,27 @@ T.PostUpdateIcon = function(_, unit, button, _, _, duration, expiration, debuffT
 	button.first = true
 end
 
+T.CustomFilter = function(_, unit, button, _, _, _, _, _, _, caster)
+	if C.aura.player_aura_only then
+		if button.isDebuff then
+			local playerUnits = {
+				player = true,
+				pet = true,
+				vehicle = true,
+			}
+			if not UnitIsFriend("player", unit) and not playerUnits[caster] then
+				return false
+			end
+		end
+	end
+	return true
+end
+
 T.UpdateThreat = function(self, _, unit)
 	if self.unit ~= unit then return end
 	local threat = UnitThreatSituation(self.unit)
 	if threat and threat > 1 then
-		r, g, b = GetThreatStatusColor(threat)
+		local r, g, b = GetThreatStatusColor(threat)
 		self.backdrop:SetBackdropBorderColor(r, g, b)
 	else
 		self.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
@@ -1542,19 +1569,19 @@ T.CreateAuraWatch = function(self)
 	local buffs = {}
 
 	if T.RaidBuffs["ALL"] then
-		for key, value in pairs(T.RaidBuffs["ALL"]) do
+		for _, value in pairs(T.RaidBuffs["ALL"]) do
 			tinsert(buffs, value)
 		end
 	end
 
 	if T.RaidBuffs[T.class] then
-		for key, value in pairs(T.RaidBuffs[T.class]) do
+		for _, value in pairs(T.RaidBuffs[T.class]) do
 			tinsert(buffs, value)
 		end
 	end
 
 	if buffs then
-		for key, spell in pairs(buffs) do
+		for _, spell in pairs(buffs) do
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = spell[1]
 			icon.anyUnit = spell[4]

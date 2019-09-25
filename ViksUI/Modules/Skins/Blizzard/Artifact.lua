@@ -20,10 +20,10 @@ local function LoadSkin()
 	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
 	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", ArtifactFrame)
 
-	T.SkinHelpBox(ArtifactFrame.KnowledgeLevelHelpBox)
+	--T.SkinHelpBox(ArtifactFrame.KnowledgeLevelHelpBox)
 
 	T.SkinCloseButton(ArtifactFrame.CloseButton)
-	T.SkinCloseButton(ArtifactFrame.AppearanceTabHelpBox.CloseButton)
+	--T.SkinCloseButton(ArtifactFrame.AppearanceTabHelpBox.CloseButton)
 end
 
 T.SkinFuncs["Blizzard_ArtifactUI"] = LoadSkin

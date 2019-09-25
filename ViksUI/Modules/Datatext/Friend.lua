@@ -11,6 +11,29 @@ qColor = ("|cff%.2x%.2x%.2x"):format(r * 255, g * 255, b * 255)
 --------------------------------------------------------------------
 
 if C.datatext.Friends and C.datatext.Friends > 0 then
+-- localized references for global functions (about 50% faster)
+local join 			= string.join
+local find			= string.find
+local format		= string.format
+local sort			= table.sort
+
+local levelNameString = "|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r"
+local clientLevelNameString = "|cffffffff%s|r (|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r%s) |cff%02x%02x%02x%s|r"
+local levelNameClassString = "|cff%02x%02x%02x%d|r %s%s%s"
+local worldOfWarcraftString = "World of Warcraft"
+local battleNetString = "Battle.NET"
+local wowString = "WoW"
+local otherGameInfoString = "%s (%s)"
+local otherGameInfoString2 = "%s %s"
+local totalOnlineString = join("", FRIENDS_LIST_ONLINE, ": %s/%s")
+local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
+local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
+local displayString = join("", "%s: ", qColor, "%d|r")
+local statusTable = { "[AFK]", "[DND]", "" }
+local groupedTable = { "|cffaaaaaa*|r", "" } 
+local friendTable, BNTable = {}, {}
+local dataValid = false
+local totalOnline, BNTotalOnline = 0, 0
 
 	-- create a popup
 StaticPopupDialogs.SET_BN_BROADCAST = {
@@ -31,35 +54,10 @@ StaticPopupDialogs.SET_BN_BROADCAST = {
 	hideOnEscape = 1
 }
 
--- localized references for global functions (about 50% faster)
-local join 			= string.join
-local find			= string.find
-local format		= string.format
-local sort			= table.sort
-
 local Stat = CreateFrame("Frame", "DataTextFriends", UIParent)
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("MEDIUM")
 Stat:SetFrameLevel(3)
-
-local levelNameString = "|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r"
-local clientLevelNameString = "%s |cff%02x%02x%02x(%d|r |cff%02x%02x%02x%s|r%s) |cff%02x%02x%02x%s|r"
-local levelNameClassString = "|cff%02x%02x%02x%d|r %s%s%s"
-local worldOfWarcraftString = "World of Warcraft"
-local battleNetString = "Battle.NET"
-local wowString = "WoW"
-local otherGameInfoString = "%s (%s)"
-local otherGameInfoString2 = "%s %s"
-local totalOnlineString = join("", FRIENDS_LIST_ONLINE, ": %s/%s")
-local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
-local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
-local displayString = join("", "%s: ", qColor, "%d|r")
-local statusTable = { "[AFK]", "[DND]", "" }
-local groupedTable = { "|cffaaaaaa*|r", "" } 
-local friendTable, BNTable = {}, {}
-local dataValid = false
-local totalOnline, BNTotalOnline = 0, 0
-
 
 local Text  = Stat:CreateFontString(nil, "OVERLAY")
 if C.datatext.Friends >= 9 then
@@ -211,84 +209,76 @@ local function UpdateFriendTable(total)
 end
 
 local function BuildBNTable(total)
-    BNTotalOnline = 0
-    wipe(BNTable)
-    
-    if not BNConnected() then
-        return
-    end
+	BNTotalOnline = 0
+	wipe(BNTable)
 
-    for i = 1, total do
-        local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(i)
-        local hasFocus, _, _, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetGameAccountInfo(toonID or presenceID)
+	for i = 1, total do
+		local accountInfo = C_BattleNet.GetFriendAccountInfo(i)
+		if accountInfo then
+			local class = accountInfo.gameAccountInfo.className
 
-        for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-            if class == v then
-                class = k
-            end
-        end
+			for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+				if class == v then
+					class = k
+				end
+			end
 
-        BNTable[i] = { presenceID, presenceName, battleTag, toonName, toonID, client, isOnline, isAFK, isDND, noteText, realmName, faction, race, class, zoneName, level }
+			BNTable[i] = { accountInfo.bnetAccountID, accountInfo.accountName, accountInfo.battleTag, accountInfo.gameAccountInfo.characterName, accountInfo.gameAccountInfo.gameAccountID, accountInfo.gameAccountInfo.clientProgram, accountInfo.gameAccountInfo.isOnline, accountInfo.isAFK, accountInfo.isDND, accountInfo.note, accountInfo.gameAccountInfo.realmName, accountInfo.gameAccountInfo.factionName, accountInfo.gameAccountInfo.raceName, class, accountInfo.gameAccountInfo.areaName, accountInfo.gameAccountInfo.characterLevel }
 
-        if isOnline then
-            BNTotalOnline = BNTotalOnline + 1
-        end
-    end
+			if accountInfo.gameAccountInfo.isOnline then
+				BNTotalOnline = BNTotalOnline + 1
+			end
+		end
+	end
 end
 
 local function UpdateBNTable(total)
-    BNTotalOnline = 0
-    
-    if not BNConnected() then
-        wipe(BNTable)
-        
-        return
-    end
+	BNTotalOnline = 0
 
-    for i = 1, #BNTable do
-        -- get guild roster information
-        local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(i)
-        local hasFocus, _, _, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetGameAccountInfo(toonID or presenceID)
+	for i = 1, #BNTable do
+		local accountInfo = C_BattleNet.GetFriendAccountInfo(i)
+		if accountInfo then
+			-- get the correct index in our table
+			local index = GetTableIndex(BNTable, 1, accountInfo.bnetAccountID)
+			local class = accountInfo.gameAccountInfo.className
 
-        for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-            if class == v then
-                class = k
-            end
-        end
+			-- we cannot find a BN member in our table, so rebuild it
+			if index == -1 then
+				BuildBNTable(total)
+				return
+			end
 
-        -- get the correct index in our table		
-        local index = GetTableIndex(BNTable, 1, presenceID)
+			for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+				if class == v then
+					class = k
+				end
+			end
 
-        -- we cannot find a BN member in our table, so rebuild it
-        if index == -1 then
-            BuildBNTable(total)
-            return
-        end
+			-- update on-line status for all members
+			BNTable[index][7] = accountInfo.gameAccountInfo.isOnline
 
-        -- update on-line status for all members
-        BNTable[index][7] = isOnline
+			-- update information only for on-line members
+			if accountInfo.gameAccountInfo.isOnline then
+				BNTable[index][2] = accountInfo.accountName
+				BNTable[index][3] = accountInfo.battleTag
+				BNTable[index][4] = accountInfo.gameAccountInfo.characterName
+				BNTable[index][5] = accountInfo.gameAccountInfo.gameAccountID
+				BNTable[index][6] = accountInfo.gameAccountInfo.clientProgram
+				BNTable[index][8] = accountInfo.isAFK
+				BNTable[index][9] = accountInfo.isDND
+				BNTable[index][10] = accountInfo.note
+				BNTable[index][11] = accountInfo.gameAccountInfo.realmName
+				BNTable[index][12] = accountInfo.gameAccountInfo.factionName
+				BNTable[index][13] = accountInfo.gameAccountInfo.raceName
+				BNTable[index][14] = class
+				BNTable[index][15] = accountInfo.gameAccountInfo.areaName
+				BNTable[index][16] = accountInfo.gameAccountInfo.characterLevel
+				BNTable[index][17] = accountInfo.isBattleTagFriend
 
-        -- update information only for on-line members
-        if isOnline then
-            BNTable[index][2] = presenceName
-            BNTable[index][3] = RemoveTagNumber(battleTag)
-            BNTable[index][4] = toonName
-            BNTable[index][5] = toonID
-            BNTable[index][6] = client
-            BNTable[index][8] = isAFK
-            BNTable[index][9] = isDND
-            BNTable[index][10] = noteText
-            BNTable[index][11] = realmName
-            BNTable[index][12] = faction
-            BNTable[index][13] = race
-            BNTable[index][14] = class
-            BNTable[index][15] = zoneName
-            BNTable[index][16] = level
-            BNTable[index][17] = isBattleTagPresence
-
-            BNTotalOnline = BNTotalOnline + 1
-        end
-    end
+				BNTotalOnline = BNTotalOnline + 1
+			end
+		end
+	end
 end
 
 local function Update(self, event)
@@ -610,26 +600,21 @@ end)
 
 Stat:RegisterEvent("BN_FRIEND_ACCOUNT_ONLINE")
 Stat:RegisterEvent("BN_FRIEND_ACCOUNT_OFFLINE")
-Stat:RegisterEvent("BN_FRIEND_INFO_CHANGED")
---Stat:RegisterEvent("BN_FRIEND_TOON_ONLINE")
---Stat:RegisterEvent("BN_FRIEND_TOON_OFFLINE")
---Stat:RegisterEvent("BN_TOON_NAME_UPDATED")
 Stat:RegisterEvent("FRIENDLIST_UPDATE")
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
---Stat:RegisterEvent("FRIENDLIST_SHOW")
 Stat:RegisterEvent("IGNORELIST_UPDATE")
 Stat:RegisterEvent("MUTELIST_UPDATE")
 Stat:RegisterEvent("PLAYER_FLAGS_CHANGED")
 Stat:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
+Stat:RegisterEvent("BN_FRIEND_INFO_CHANGED")
 Stat:RegisterEvent("BN_FRIEND_INVITE_LIST_INITIALIZED")
 Stat:RegisterEvent("BN_FRIEND_INVITE_ADDED")
 Stat:RegisterEvent("BN_FRIEND_INVITE_REMOVED")
---Stat:RegisterEvent("BN_SELF_ONLINE")
 Stat:RegisterEvent("BN_BLOCK_LIST_UPDATED")
 Stat:RegisterEvent("BN_CONNECTED")
 Stat:RegisterEvent("BN_DISCONNECTED")
+Stat:RegisterEvent("BN_INFO_CHANGED")
 Stat:RegisterEvent("BATTLETAG_INVITE_SHOW")
-Stat:RegisterEvent("PARTY_REFER_A_FRIEND_UPDATED")
 
 Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
 Stat:SetScript("OnEvent", Update)

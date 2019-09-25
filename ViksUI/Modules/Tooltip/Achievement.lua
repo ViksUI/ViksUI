@@ -1,6 +1,6 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 if C.tooltip.enable ~= true or C.tooltip.achievements ~= true then return end
---[[
+
 ----------------------------------------------------------------------------------------
 --	Your achievement status in tooltip(Enhanced Achievements by Syzgyn)
 ----------------------------------------------------------------------------------------
@@ -35,4 +35,3 @@ end
 
 hooksecurefunc(GameTooltip, "SetHyperlink", SetHyperlink)
 hooksecurefunc(ItemRefTooltip, "SetHyperlink", SetHyperlink)
-]]--

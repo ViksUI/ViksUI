@@ -10,45 +10,12 @@ local function LoadSkin()
 	DressUpFramePortrait:Hide()
 	DressUpFrameInset:Hide()
 
-	DressUpModel:CreateBackdrop("Default")
-	DressUpModel.backdrop:SetPoint("TOPLEFT", -3, 4)
-	DressUpModel.backdrop:SetPoint("BOTTOMRIGHT", 2, 1)
+	DressUpFrame.ModelScene:CreateBackdrop("Default")
+	DressUpFrame.ModelScene.backdrop:SetPoint("TOPLEFT", -3, 4)
+	DressUpFrame.ModelScene.backdrop:SetPoint("BOTTOMRIGHT", 2, 1)
 	DressUpFrame.ModelBackground:SetDrawLayer("BACKGROUND", 3)
 
-	MaximizeMinimizeFrame:StripTextures()
-	MaximizeMinimizeFrame:SetSize(18, 18)
-	MaximizeMinimizeFrame:SetPoint("RIGHT", DressUpFrameCloseButton, "LEFT", -2, 0)
-
-	local MaximizeButton = MaximizeMinimizeFrame.MaximizeButton
-	MaximizeButton:StripTextures()
-	MaximizeButton:SetTemplate("Overlay")
-	MaximizeButton:SetHitRectInsets(1, 1, 1, 1)
-
-	MaximizeButton.minus = MaximizeButton:CreateTexture(nil, "OVERLAY")
-	MaximizeButton.minus:SetSize(7, 1)
-	MaximizeButton.minus:SetPoint("CENTER")
-	MaximizeButton.minus:SetTexture(C.media.blank)
-
-	MaximizeButton.plus = MaximizeButton:CreateTexture(nil, "OVERLAY")
-	MaximizeButton.plus:SetSize(1, 7)
-	MaximizeButton.plus:SetPoint("CENTER")
-	MaximizeButton.plus:SetTexture(C.media.blank)
-
-	MaximizeButton:HookScript("OnEnter", T.SetModifiedBackdrop)
-	MaximizeButton:HookScript("OnLeave", T.SetOriginalBackdrop)
-
-	local MinimizeButton = MaximizeMinimizeFrame.MinimizeButton
-	MinimizeButton:StripTextures()
-	MinimizeButton:SetTemplate("Overlay")
-	MinimizeButton:SetHitRectInsets(1, 1, 1, 1)
-
-	MinimizeButton.minus = MinimizeButton:CreateTexture(nil, "OVERLAY")
-	MinimizeButton.minus:SetSize(7, 1)
-	MinimizeButton.minus:SetPoint("CENTER")
-	MinimizeButton.minus:SetTexture(C.media.blank)
-
-	MinimizeButton:HookScript("OnEnter", T.SetModifiedBackdrop)
-	MinimizeButton:HookScript("OnLeave", T.SetOriginalBackdrop)
+	T.SkinMaxMinFrame(MaximizeMinimizeFrame, DressUpFrameCloseButton)
 
 	DressUpFrameCancelButton:SkinButton()
 	DressUpFrameResetButton:SkinButton()
@@ -65,8 +32,8 @@ local function LoadSkin()
 
 	SideDressUpFrame:StripTextures()
 	SideDressUpFrame:SetTemplate("Transparent")
-	SideDressUpModelResetButton:SkinButton()
-	T.SkinCloseButton(SideDressUpModelCloseButton, SideDressUpFrame)
+	--FIXME SideDressUpModelResetButton:SkinButton()
+	-- T.SkinCloseButton(SideDressUpModelCloseButton, SideDressUpFrame)
 
 	WardrobeOutfitFrame:StripTextures(true)
 	WardrobeOutfitFrame:CreateBackdrop("Transparent")
@@ -78,7 +45,7 @@ local function LoadSkin()
 	WardrobeOutfitEditFrame.AcceptButton:SkinButton()
 	WardrobeOutfitEditFrame.CancelButton:SkinButton()
 	WardrobeOutfitEditFrame.DeleteButton:SkinButton()
-	T.SkinEditBox(WardrobeOutfitEditFrame.EditBox)
+	T.SkinEditBox(WardrobeOutfitEditFrame.EditBox, 250, 25)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)

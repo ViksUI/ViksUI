@@ -333,7 +333,7 @@ local function LoadSkin()
 	PlayerTalentFrameLockInfo:StripTextures()
 	PlayerTalentFrameLockInfo:SetTemplate("Transparent")
 	PlayerTalentFrameLockInfo:SetFrameLevel(PlayerTalentFrameLockInfo:GetFrameLevel() + 1)
-
+--[[
 	-- Help box
 	local HelpBox = {
 		PlayerTalentFrameTalentsPvpTalentFrame.TrinketSlot.HelpBox,
@@ -349,6 +349,7 @@ local function LoadSkin()
 			frame.Arrow:Hide()
 		end
 	end
+	]]--
 end
 
 T.SkinFuncs["Blizzard_TalentUI"] = LoadSkin

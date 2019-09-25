@@ -71,6 +71,8 @@ T.ABItems = {
 	168482, -- Benthic Sealant
 	168253, -- Fathom Hook
 	169816, -- Quasi-Faceted Scanner
+	168634, -- Telemancy Beacon
+	168432, -- Fresh Sponge
 }
 
 T.ABEquipedItems = {

@@ -44,8 +44,7 @@ local function AutoButtonShow(item)
 end
 
 -- Create anchor
-
-AnchorAutoButtonAnchor = CreateFrame("Frame", "AutoButtonAnchor", UIParent)
+local AnchorAutoButtonAnchor = CreateFrame("Frame", "AutoButtonAnchor", UIParent)
 AnchorAutoButtonAnchor:SetPoint("BOTTOMLEFT", RChatTab, "TOPLEFT", 0, 13)
 CreateAnchor(AutoButtonAnchor, "Move AutoButton", 40, 40)
 

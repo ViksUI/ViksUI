@@ -11,7 +11,7 @@ local function LoadSkin()
 	BlackMarketFrame.Inset:CreateBackdrop("Overlay")
 	BlackMarketFrame.Inset.backdrop:SetPoint("TOPLEFT", 0, 0)
 	BlackMarketFrame.Inset.backdrop:SetPoint("BOTTOMRIGHT", 1, 4)
-	
+
 	T.SkinScrollBar(BlackMarketScrollFrameScrollBar)
 	BlackMarketFrame.MoneyFrameBorder:StripTextures()
 	T.SkinEditBox(BlackMarketBidPriceGold, nil, 18)

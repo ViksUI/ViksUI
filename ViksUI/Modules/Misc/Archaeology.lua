@@ -66,7 +66,7 @@ function stArch:OnLoad(self)
 		progressBars[i]["bar"]:SetPoint("TOPRIGHT", progressBars[i]["border"], "TOPRIGHT", -2, -2)
 		progressBars[i]["bar"]:SetPoint("BOTTOMLEFT", progressBars[i]["border"], "BOTTOMLEFT", 2, 2)
 		progressBars[i]["bar"]:SetStatusBarColor(0.4, 0.4, 0.4)
-		progressBars[i]["bar"]:SetScript("OnEnter", function()
+		progressBars[i]["bar"]:SetScript("OnEnter", function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 2, 250)
 			GameTooltip:ClearLines()
 			if GetNumArtifactsByRace(i) > 0 then
@@ -111,7 +111,7 @@ function stArch:OnLoad(self)
 	-- Archaeology Skill Level Frame
 	local archSkill = stArch["archSkill"]
 	archSkill["frame"] = CreateFrame("Frame", "ArchSkillFrame", self)
-	archSkill["bar"] = CreateFrame("StatusBar", "ArchSkillBar", archSkill["frame"], "TextStatusbar")
+	archSkill["bar"] = CreateFrame("StatusBar", "ArchSkillBar", archSkill["frame"], "TextStatusBar")
 	archSkill["text"] = archSkill["bar"]:CreateFontString()
 
 	-- Border
@@ -233,7 +233,7 @@ function stArch:UpdateFrameHeight(self)
 	end
 end
 
-function IsArchaeologist()
+local function IsArchaeologist()
 	local _, _, arch = GetProfessions()
 	if arch then
 		return true

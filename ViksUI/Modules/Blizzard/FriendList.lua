@@ -114,7 +114,6 @@ hooksecurefunc("WhoList_Update", function()
 
 		local info = C_FriendList.GetWhoInfo(index)
 		if info then
-			local name = info.fullName
 			local guild = info.fullGuildName
 			local level = info.level
 			local race = info.raceStr
@@ -152,8 +151,8 @@ hooksecurefunc("LFRBrowseFrameListButton_SetData", function(button, index)
 	end
 end)
 
---[[ // Removed?
 -- WorldStateScoreList
+--[[FIXME
 hooksecurefunc("WorldStateScoreFrame_Update", function()
 	local inArena = IsActiveBattlefieldArena()
 	local offset = FauxScrollFrame_GetOffset(WorldStateScoreScrollFrame)
@@ -195,7 +194,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 		end
 	end
 end)
-]]--
+--]]
 
 local _VIEW
 
@@ -327,7 +326,7 @@ end)
 local FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%%d", "%%s")
 FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%$d", "%$s")
 local function friendsFrame()
-	local scrollFrame = FriendsFrameFriendsScrollFrame
+	local scrollFrame = FriendsListFrameScrollFrame
 	local offset = HybridScrollFrame_GetOffset(scrollFrame)
 	local buttons = scrollFrame.buttons
 
@@ -335,8 +334,7 @@ local function friendsFrame()
 
 	for i = 1, #buttons do
 		local nameText, infoText
-		button = buttons[i]
-		index = offset + i
+		local button = buttons[i]
 		if button:IsShown() then
 			if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 				local name, level, class, area, connected = GetFriendInfo(button.id)
@@ -368,5 +366,5 @@ local function friendsFrame()
 		end
 	end
 end
-hooksecurefunc(FriendsFrameFriendsScrollFrame, "update", friendsFrame)
+hooksecurefunc(FriendsListFrameScrollFrame, "update", friendsFrame)
 hooksecurefunc("FriendsFrame_UpdateFriends", friendsFrame)

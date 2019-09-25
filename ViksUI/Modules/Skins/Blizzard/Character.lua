@@ -27,7 +27,7 @@ local function LoadSkin()
 		self.AzeriteTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		self.AzeriteTexture:SetDrawLayer("BORDER", 1)
 	end
-	
+
 	local slots = {
 		"HeadSlot",
 		"NeckSlot",
@@ -59,7 +59,6 @@ local function LoadSkin()
 		local border = _G["Character"..i].IconBorder
 
 		border:Kill()
-		slot:StripTextures()
 		slot:StyleButton()
 		slot:SetNormalTexture("")
 		slot.SetHighlightTexture = T.dummy
@@ -71,13 +70,7 @@ local function LoadSkin()
 		icon:ClearAllPoints()
 		icon:SetPoint("TOPLEFT", 2, -2)
 		icon:SetPoint("BOTTOMRIGHT", -2, 2)
-		hooksecurefunc(slot.IconBorder, 'SetVertexColor', function(self, r, g, b)
-			self:GetParent():SetBackdropBorderColor(r, g, b)
-			self:SetTexture("")
-		end)
-		hooksecurefunc(slot.IconBorder, 'Hide', function(self)
-			self:GetParent():SetBackdropBorderColor(unpack(C["media"].border_color))
-		end)
+
 		hooksecurefunc(slot, "DisplayAsAzeriteItem", UpdateAzeriteItem)
 		hooksecurefunc(slot, "DisplayAsAzeriteEmpoweredItem", UpdateAzeriteEmpoweredItem)
 	end
@@ -129,6 +122,7 @@ local function LoadSkin()
 
 	-- Icon in upper right corner of character frame
 	CharacterFramePortrait:Kill()
+	CharacterModelFrameBackgroundOverlay:SetColorTexture(0, 0, 0)
 	CharacterModelFrame:CreateBackdrop("Default")
 	CharacterModelFrame.backdrop:SetPoint("TOPLEFT", -3, 4)
 	CharacterModelFrame.backdrop:SetPoint("BOTTOMRIGHT", 4, 0)
@@ -166,7 +160,7 @@ local function LoadSkin()
 	
 	-- Titles
 	PaperDollTitlesPane:HookScript("OnShow", function(self)
-		for x, object in pairs(PaperDollTitlesPane.buttons) do
+		for _, object in pairs(PaperDollTitlesPane.buttons) do
 			object.BgTop:SetTexture(nil)
 			object.BgBottom:SetTexture(nil)
 			object.BgMiddle:SetTexture(nil)
@@ -182,7 +176,7 @@ local function LoadSkin()
 	PaperDollEquipmentManagerPaneEquipSet:SetPoint("TOPLEFT", PaperDollEquipmentManagerPane, "TOPLEFT", 8, 0)
 	PaperDollEquipmentManagerPaneSaveSet:SetPoint("LEFT", PaperDollEquipmentManagerPaneEquipSet, "RIGHT", 4, 0)
 	PaperDollEquipmentManagerPane:HookScript("OnShow", function(self)
-		for x, object in pairs(PaperDollEquipmentManagerPane.buttons) do
+		for _, object in pairs(PaperDollEquipmentManagerPane.buttons) do
 			object.BgTop:SetTexture(nil)
 			object.BgBottom:SetTexture(nil)
 			object.BgMiddle:SetTexture(nil)
@@ -205,17 +199,13 @@ local function LoadSkin()
 			object.icon.SetSize = T.dummy
 		end
 	end)
-	
-	T.SkinIconSelectionFrame(GearManagerDialogPopup, NUM_GEARSET_ICONS_SHOWN, "GearManagerDialogPopupButton", frameNameOverride)
-	
+
+	T.SkinIconSelectionFrame(GearManagerDialogPopup, NUM_GEARSET_ICONS_SHOWN, "GearManagerDialogPopupButton")
+
 	-- Handle Tabs at bottom of character frame
 	for i = 1, 4 do
 		T.SkinTab(_G["CharacterFrameTab"..i])
 	end
-
-	CharacterFrame.ReputationTabHelpBox:StripTextures()
-	CharacterFrame.ReputationTabHelpBox:SetTemplate("Transparent")
-	T.SkinCloseButton(CharacterFrame.ReputationTabHelpBox.CloseButton)
 
 	-- Buttons used to toggle between equipment manager, titles, and character stats
 	local function FixSidebarTabCoords()
@@ -327,9 +317,9 @@ local function LoadSkin()
 
 	-- Help box
 	T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
-	T.SkinHelpBox(PaperDollItemsFrame.HelpTipBox)
-	PaperDollItemsFrame.HelpTipBox.CloseButton.SetPoint = T.dummy
-	
+	--FIXME T.SkinHelpBox(PaperDollItemsFrame.HelpTipBox)
+	-- PaperDollItemsFrame.HelpTipBox.CloseButton.SetPoint = T.dummy
+
 	-- Unit Background Texture
 	CharacterModelFrameBackgroundTopLeft:SetPoint("TOPLEFT", CharacterModelFrame.backdrop, "TOPLEFT", 2, -2)
 	CharacterModelFrameBackgroundTopRight:SetPoint("TOPRIGHT", CharacterModelFrame.backdrop, "TOPRIGHT", -2, -2)

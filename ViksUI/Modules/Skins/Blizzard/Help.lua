@@ -127,7 +127,7 @@ local function LoadSkin()
 
 	BrowserSettingsTooltip:StripTextures()
 	BrowserSettingsTooltip:CreateBackdrop("Transparent")
-	BrowserSettingsTooltip.CacheButton:SkinButton()
+	--FIXME BrowserSettingsTooltip.CacheButton:SkinButton()
 	BrowserSettingsTooltip.CookiesButton:SkinButton()
 
 	-- Misc items
@@ -135,7 +135,6 @@ local function LoadSkin()
 	HelpFrameKnowledgebaseSearchBox:SetPoint("TOPLEFT", HelpFrameMainInset, "TOPLEFT", 13, -10)
 	HelpFrameKnowledgebaseNavBarHomeButton:ClearAllPoints()
 	HelpFrameKnowledgebaseNavBarHomeButton:SetPoint("TOPLEFT", HelpFrameKnowledgebaseSearchBox, "BOTTOMLEFT", -2, -10)
-	--HelpFrameKnowledgebaseNavBarOverlay:Kill()
 	HelpFrameKnowledgebaseNavBar:StripTextures()
 	HelpFrame:StripTextures(true)
 	HelpFrame:CreateBackdrop("Transparent")

@@ -240,22 +240,12 @@ local function LoadSkin()
 		button.hover = hover
 	end
 
-	QuestNPCModel:StripTextures()
-	QuestNPCModel:CreateBackdrop("Transparent")
-	QuestNPCModel:Point("TOPLEFT", QuestLogDetailFrame, "TOPRIGHT", 4, -34)
-	QuestNPCModelTextFrame:StripTextures()
-	QuestNPCModelTextFrame:CreateBackdrop("Default")
-	QuestNPCModelTextFrame.backdrop:Point("TOPLEFT", QuestNPCModel.backdrop, "BOTTOMLEFT", 0, -2)
-	QuestNPCModelNameTooltipFrame:CreateBackdrop("Transparent")
-	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("TOPLEFT", QuestNPCModel.backdrop, "BOTTOMLEFT", 0, -1)
-	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("TOPRIGHT", QuestNPCModel.backdrop, "BOTTOMRIGHT", 0, -1)
-	QuestNPCModelNameText:SetPoint("TOPLEFT", QuestNPCModelNameplate, 15, -15)
-	QuestNPCModelNameText:SetPoint("BOTTOMRIGHT", QuestNPCModelNameplate, -15, 12)
+	_G.QuestModelScene:StripTextures()
+	_G.QuestModelScene:CreateBackdrop("Transparent")
+	_G.QuestModelScene:Point("TOPLEFT", _G.QuestLogDetailFrame, "TOPRIGHT", 4, -34)
+	_G.QuestNPCModelTextFrame:StripTextures()
+	_G.QuestNPCModelTextFrame:CreateBackdrop("Transparent")
 
-	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(QuestFrame, parentFrame, portrait, text, name, x, y)
-		QuestNPCModel:ClearAllPoints();
-		QuestNPCModel:SetPoint("TOPLEFT", QuestFrame, "TOPRIGHT", x + 10, y)
-	end)
 
 	QuestLogPopupDetailFrame:StripTextures()
 	QuestLogPopupDetailFrameInset:StripTextures()
