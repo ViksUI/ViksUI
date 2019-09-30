@@ -18,7 +18,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 
 	local NORMAL = C.media.normal_font
 	local NUMBER = C.media.normal_font
-	local BLANK = C.media.blank_font
+	-- local BLANK = C.media.blank_font
 	local MONOCHROME = ''
 
 	UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = 12

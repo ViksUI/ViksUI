@@ -41,25 +41,18 @@ LPSTAT_CONFIG = {
 	 	anchor_frame = "Clock", anchor_to = "left", anchor_from = "right",
 		x_off = C.stats.clock and 3 or 0, y_off = 0, tip_frame = "UIParent", tip_anchor = "BOTTOMLEFT", tip_x = 21, tip_y = 20
 	},
-	Memory = {
-		enabled = C.stats.memory,
-		fmt_mb = "%.1f"..class"mb", -- "12.5mb"
-		fmt_kb = "%.0f"..class"kb", -- "256kb"
-		max_addons = nil, -- Holding Alt reveals hidden addons
-		anchor_frame = C.stats.latency and "Latency" or "Clock", anchor_to = "left", anchor_from = "right",
-		x_off = 3, y_off = 0, tip_frame = "UIParent", tip_anchor = "BOTTOMLEFT", tip_x = 21, tip_y = 20
-	},
 	FPS = {
 		enabled = C.stats.fps,
 		fmt = "%d"..class"fps", -- "42fps"
-		anchor_frame = C.stats.memory and "Memory" or "Latency", anchor_to = "left", anchor_from = "right",
-		x_off = 3, y_off = 0,
+		max_addons = nil, -- Holding Alt reveals hidden addons
+		anchor_frame = C.stats.latency and "Latency" or "Clock", anchor_to = "left", anchor_from = "right",
+		x_off = 3, y_off = 0, tip_frame = "UIParent", tip_anchor = "BOTTOMLEFT", tip_x = 21, tip_y = 20
 	},
 	Friends = {
 		enabled = C.stats.friend,
 		fmt = "%d/%d"..class"f", -- "3/40F"
 		maxfriends = nil, -- Set max friends listed, nil means no limit
-		anchor_frame = C.stats.fps and "FPS" or "Memory", anchor_to = "left", anchor_from = "right",
+		anchor_frame = C.stats.fps and "FPS" or C.stats.latency and "Latency" or "Clock", anchor_to = "left", anchor_from = "right",
 		x_off = 3, y_off = 0, tip_frame = "UIParent", tip_anchor = "BOTTOMLEFT", tip_x = 21, tip_y = 20
 	},
 	Guild = {

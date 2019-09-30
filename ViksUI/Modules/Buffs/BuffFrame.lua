@@ -4,6 +4,7 @@ if C.aura.player_auras ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Style player buff(by Tukz)
 ----------------------------------------------------------------------------------------
+_G.BUFF_WARNING_TIME = 0
 local rowbuffs = 16
 
 local GetFormattedTime = function(s)
@@ -20,6 +21,11 @@ end
 local BuffsAnchor = CreateFrame("Frame", "BuffsAnchor", UIParent)
 BuffsAnchor:SetPoint("TOPRIGHT", AnchorBuff)
 BuffsAnchor:SetSize((15 * C.aura.player_buff_size) + 42, (C.aura.player_buff_size * 2) + 3)
+
+TemporaryEnchantFrame:SetPoint(unpack(C.position.player_buffs))
+
+_G["TempEnchant2"]:ClearAllPoints()
+_G["TempEnchant2"]:SetPoint("RIGHT", _G["TempEnchant1"], "LEFT", -3, 0)
 
 for i = 1, NUM_TEMP_ENCHANT_FRAMES do
 	local buff = _G["TempEnchant"..i]
@@ -48,11 +54,6 @@ for i = 1, NUM_TEMP_ENCHANT_FRAMES do
 	duration:SetDrawLayer("ARTWORK")
 	duration:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
 	duration:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-
-	TemporaryEnchantFrame:SetPoint(unpack(C.position.player_buffs))
-
-	_G["TempEnchant2"]:ClearAllPoints()
-	_G["TempEnchant2"]:SetPoint("RIGHT", _G["TempEnchant1"], "LEFT", -3, 0)
 end
 
 local function StyleBuffs(buttonName, index)
@@ -82,7 +83,26 @@ local function StyleBuffs(buttonName, index)
 		duration:SetDrawLayer("ARTWORK")
 		duration:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
 		duration:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+		if not buff.timer then
+			buff.timer = buff:CreateAnimationGroup()
+			buff.timerAnim = buff.timer:CreateAnimation()
+			buff.timerAnim:SetDuration(0.1)
+																								  
 
+			buff.timer:SetScript("OnFinished", function(self, requested)
+				if not requested then
+					if buff.timeLeft and C.aura.show_timer == true then
+						buff.duration:SetFormattedText(GetFormattedTime(buff.timeLeft))
+						buff.duration:SetVertexColor(1, 1, 1)
+					else
+						self:Stop()
+					end
+					self:Play()
+				end
+			end)
+			buff.timer:Play()
+		end
+		
 		count:ClearAllPoints()
 		count:SetPoint("BOTTOMRIGHT", 2, 0)
 		count:SetDrawLayer("ARTWORK")
@@ -121,7 +141,27 @@ local function StyleDeBuffs(buttonName, index)
 		duration:SetDrawLayer("ARTWORK")
 		duration:SetFont(C.font.auras_font, C.font.auras_font_size*2, C.font.auras_font_style)
 		duration:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+		
+		if not buff.timer then
+			buff.timer = buff:CreateAnimationGroup()
+			buff.timerAnim = buff.timer:CreateAnimation()
+			buff.timerAnim:SetDuration(0.1)
+						  
 
+			buff.timer:SetScript("OnFinished", function(self, requested)
+				if not requested then
+					if buff.timeLeft and C.aura.show_timer == true then
+						buff.duration:SetFormattedText(GetFormattedTime(buff.timeLeft))
+						buff.duration:SetVertexColor(1, 1, 1)
+					else
+						self:Stop()
+					end
+					self:Play()
+				end
+			end)
+			buff.timer:Play()
+		end
+		
 		count:ClearAllPoints()
 		count:SetPoint("BOTTOMRIGHT", 2, 0)
 		count:SetDrawLayer("ARTWORK")
@@ -197,3 +237,29 @@ hooksecurefunc("BuffFrame_UpdateAllBuffAnchors", UpdateBuffAnchors)
 hooksecurefunc("DebuffButton_UpdateAnchors", UpdateDebuffAnchors)
 hooksecurefunc("AuraButton_UpdateDuration", UpdateDuration)
 hooksecurefunc("AuraButton_OnUpdate", UpdateFlash)
+
+function AuraButton_UpdateDuration(buff, timeLeft)
+	local name = buff:GetName()
+	if not strmatch(name, "TempEnchant") then return end
+
+	buff.timeLeft = timeLeft
+	if not buff.timerEnchant then
+		buff.timerEnchant = buff:CreateAnimationGroup()
+		buff.timerAnim = buff.timerEnchant:CreateAnimation()
+		buff.timerAnim:SetDuration(0.1)
+
+		buff.timerEnchant:SetScript("OnFinished", function(self, requested)
+			if not requested then
+				if buff.timeLeft and C.aura.show_timer == true then
+					buff.duration:SetFormattedText(GetFormattedTime(buff.timeLeft))
+					buff.duration:SetVertexColor(1, 1, 1)
+					buff.duration:Show()
+				else
+					self:Stop()
+				end
+				self:Play()
+			end
+		end)
+		buff.timerEnchant:Play()
+	end
+end
