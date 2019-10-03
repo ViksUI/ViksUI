@@ -159,7 +159,7 @@ local function LoadSkin()
 	CharacterFrame:SetTemplate("Overlay")
 	
 	-- Titles
-	PaperDollTitlesPane:HookScript("OnShow", function(self)
+	PaperDollTitlesPane:HookScript("OnShow", function()
 		for _, object in pairs(PaperDollTitlesPane.buttons) do
 			object.BgTop:SetTexture(nil)
 			object.BgBottom:SetTexture(nil)
@@ -175,7 +175,7 @@ local function LoadSkin()
 	PaperDollEquipmentManagerPaneSaveSet:SetWidth(PaperDollEquipmentManagerPaneSaveSet:GetWidth() - 8)
 	PaperDollEquipmentManagerPaneEquipSet:SetPoint("TOPLEFT", PaperDollEquipmentManagerPane, "TOPLEFT", 8, 0)
 	PaperDollEquipmentManagerPaneSaveSet:SetPoint("LEFT", PaperDollEquipmentManagerPaneEquipSet, "RIGHT", 4, 0)
-	PaperDollEquipmentManagerPane:HookScript("OnShow", function(self)
+	PaperDollEquipmentManagerPane:HookScript("OnShow", function()
 		for _, object in pairs(PaperDollEquipmentManagerPane.buttons) do
 			object.BgTop:SetTexture(nil)
 			object.BgBottom:SetTexture(nil)
@@ -317,8 +317,6 @@ local function LoadSkin()
 
 	-- Help box
 	T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
-	--FIXME T.SkinHelpBox(PaperDollItemsFrame.HelpTipBox)
-	-- PaperDollItemsFrame.HelpTipBox.CloseButton.SetPoint = T.dummy
 
 	-- Unit Background Texture
 	CharacterModelFrameBackgroundTopLeft:SetPoint("TOPLEFT", CharacterModelFrame.backdrop, "TOPLEFT", 2, -2)

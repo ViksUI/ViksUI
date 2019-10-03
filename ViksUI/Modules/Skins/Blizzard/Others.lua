@@ -5,7 +5,7 @@ local T, C, L, _ = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 local SkinBlizzUI = CreateFrame("Frame")
 SkinBlizzUI:RegisterEvent("ADDON_LOADED")
-SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
+SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") then return end
 
 	-- Stuff not in Blizzard load-on-demand
@@ -360,6 +360,10 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 			hooksecurefunc("BuildIconArray", function(_, baseName, _, rowSize, numRows)
 				local numIcons = rowSize * numRows
 				SkinIconArray(baseName, numIcons)
+			end)
+
+			hooksecurefunc(HelpTipTemplateMixin, "ApplyText", function(self)
+				T.SkinHelpBox(self)
 			end)
 		end
 	end

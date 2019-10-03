@@ -18,7 +18,7 @@ switch.t:SetPoint("BOTTOMRIGHT", switch, -2, 2)
 
 switch:EnableMouse(true)
 switch:RegisterForClicks("AnyUp")
-switch:SetScript("OnClick", function(self, button)
+switch:SetScript("OnClick", function(_, button)
 	if button == "LeftButton" then
 		ViksUIOptionsPerChar.unitframe.HealFrames = true
 		ViksUIOptions.unitframe.HealFrames = true
@@ -51,7 +51,7 @@ switch:SetScript("OnLeave", function()
 end)
 
 switch:RegisterEvent("PLAYER_LOGIN")
-switch:SetScript("OnEvent", function(self)
+switch:SetScript("OnEvent", function()
 	if SavedOptions and (ViksUIOptionsPerChar.unitframe.HealFrames ~= true or ViksUIOptions.unitframe.HealFrames ~= true) then
 		switch.t:SetTexCoord(0.25, 0.5, 0, 1)
 	elseif SavedOptions and (ViksUIOptionsPerChar.unitframe.HealFrames == true or ViksUIOptions.unitframe.HealFrames == true) then

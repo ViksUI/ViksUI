@@ -126,7 +126,7 @@ local function LoadSkin()
 			local checkBoxNameString = frame:GetName().."CheckBox"
 
 			if checkBoxTemplate == "ChatConfigCheckBoxTemplate" then
-				for index, value in ipairs(checkBoxTable) do
+				for index in ipairs(checkBoxTable) do
 					local checkBoxName = checkBoxNameString..index
 					local checkbox = _G[checkBoxName]
 
@@ -138,7 +138,7 @@ local function LoadSkin()
 					T.SkinCheckBox(_G[checkBoxName.."Check"])
 				end
 			elseif checkBoxTemplate == "ChatConfigCheckBoxWithSwatchTemplate" or checkBoxTemplate == "ChatConfigWideCheckBoxWithSwatchTemplate" or checkBoxTemplate == "MovableChatConfigWideCheckBoxWithSwatchTemplate" then
-				for index, value in ipairs(checkBoxTable) do
+				for index in ipairs(checkBoxTable) do
 					local checkBoxName = checkBoxNameString..index
 					local checkbox = _G[checkBoxName]
 
@@ -161,7 +161,7 @@ local function LoadSkin()
 
 		local nameString = frame:GetName().."Swatch"
 
-		for index, value in ipairs(swatchTable) do
+		for index in ipairs(swatchTable) do
 			local swatchName = nameString..index
 			local swatch = _G[swatchName]
 
@@ -185,7 +185,7 @@ local function LoadSkin()
 		frame.styled = true
 	end)
 
-	ChatConfigBackgroundFrame:SetScript("OnShow", function(self)
+	ChatConfigBackgroundFrame:SetScript("OnShow", function()
 		ReskinColourSwatch(CombatConfigColorsColorizeSpellNamesColorSwatch)
 		ReskinColourSwatch(CombatConfigColorsColorizeDamageNumberColorSwatch)
 
