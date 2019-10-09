@@ -293,9 +293,10 @@ end
 
 function T.SkinNextPrevButton(btn, left, scroll)
 	local normal, pushed, disabled
-	local isPrevButton = btn:GetName() and (string.find(btn:GetName(), "Left") or string.find(btn:GetName(), "Prev") or string.find(btn:GetName(), "Decrement") or string.find(btn:GetName(), "Back")) or left
-	local isScrollUpButton = btn:GetName() and string.find(btn:GetName(), "ScrollUp") or scroll == "Up"
-	local isScrollDownButton = btn:GetName() and string.find(btn:GetName(), "ScrollDown") or scroll == "Down"
+	local frameName = btn.GetName and btn:GetName()
+	local isPrevButton = frameName and (string.find(frameName, "Left") or string.find(frameName, "Prev") or string.find(frameName, "Decrement") or string.find(frameName, "Back")) or left
+	local isScrollUpButton = frameName and string.find(frameName, "ScrollUp") or scroll == "Up"
+	local isScrollDownButton = frameName and string.find(frameName, "ScrollDown") or scroll == "Down"
 
 	if btn:GetNormalTexture() then
 		normal = btn:GetNormalTexture():GetTexture()
@@ -404,8 +405,9 @@ function T.SkinEditBox(frame, width, height)
 
 	frame:CreateBackdrop("Overlay")
 
-	if frame:GetName() and (frame:GetName():find("Gold") or frame:GetName():find("Silver") or frame:GetName():find("Copper")) then
-		if frame:GetName():find("Gold") then
+	local frameName = frame.GetName and frame:GetName()
+	if frameName and (frameName:find("Gold") or frameName:find("Silver") or frameName:find("Copper")) then
+		if frameName:find("Gold") then
 			frame.backdrop:SetPoint("TOPLEFT", -3, 1)
 			frame.backdrop:SetPoint("BOTTOMRIGHT", -3, 0)
 		else
@@ -449,7 +451,7 @@ function T.SkinDropDownBox(frame, width, pos)
 	frame.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
 end
 
-function T.SkinCheckBox(frame, default)
+function T.SkinCheckBox(frame)
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
 	frame:CreateBackdrop("Overlay")
@@ -466,7 +468,6 @@ function T.SkinCheckBox(frame, default)
 	end
 
 	if frame.SetCheckedTexture then
-		if default then return end
 		local checked = frame:CreateTexture()
 		checked:SetColorTexture(1, 0.82, 0, 0.8)
 		checked:SetPoint("TOPLEFT", frame, 6, -6)
@@ -1469,9 +1470,7 @@ T.PostUpdateIcon = function(_, unit, button, _, _, duration, expiration, debuffT
 
 	if button.isDebuff then
 		if not UnitIsFriend("player", unit) and not playerUnits[button.caster] then
-			if C.aura.player_aura_only then
-				button:Hide()
-			else
+			if not C.aura.player_aura_only then
 				button:SetBackdropBorderColor(unpack(C.media.border_color))
 				button.icon:SetDesaturated(true)
 			end
@@ -1518,6 +1517,21 @@ T.CustomFilter = function(_, unit, button, _, _, _, _, _, _, caster)
 				return false
 			end
 		end
+	end
+	return true
+end
+
+T.CustomFilterBoss = function(_, unit, button, name, _, _, _, _, _, caster)
+	if button.isDebuff then
+		local playerUnits = {
+			player = true,
+			pet = true,
+			vehicle = true,
+		}
+		if playerUnits[caster] or caster == unit and not T.DebuffBlackList[name] then
+			return true
+		end
+		return false
 	end
 	return true
 end

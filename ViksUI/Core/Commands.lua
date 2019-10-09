@@ -299,7 +299,8 @@ SlashCmdList.TEST_ACHIEVEMENT = function()
 	GuildChallengeAlertSystem:AddAlert(3, 2, 5)
 	InvasionAlertSystem:AddAlert(678, DUNGEON_FLOOR_THENEXUS1, true, 1, 1)
 	WorldQuestCompleteAlertSystem:AddAlert(AlertFrameMixin:BuildQuestData(42114))
-
+	-- GarrisonFollowerAlertSystem:AddAlert(32, "Dagg", 90, 2, true, C_Garrison.GetFollowerInfo(32)) -- error when mouseover
+	-- GarrisonShipFollowerAlertSystem:AddAlert(592, "Ship", "Transport", "GarrBuilding_Barracks_1_H", 3, 2, 1) -- error when mouseover
 	GarrisonBuildingAlertSystem:AddAlert(GARRISON_CACHE)
 	GarrisonTalentAlertSystem:AddAlert(3, _G.C_Garrison.GetTalent(370))
 	LegendaryItemAlertSystem:AddAlert("\124cffa335ee\124Hitem:18832:0:0:0:0:0:0:0:0:0:0\124h[Brutality Blade]\124h\124r")
@@ -310,6 +311,7 @@ SlashCmdList.TEST_ACHIEVEMENT = function()
 	RafRewardDeliveredAlertSystem:AddAlert("", "Interface\\Icons\\Ability_pvp_gladiatormedallion", TRINKET0SLOT, 214)
 	DigsiteCompleteAlertSystem:AddAlert("Human")
 	NewRecipeLearnedAlertSystem:AddAlert(204)
+	-- BonusRollFrame_StartBonusRoll(242969, 'test', 20, 515, 15, 14)
 end
 SLASH_TEST_ACHIEVEMENT1 = "/tach"
 SLASH_TEST_ACHIEVEMENT2 = "/ефср"
