@@ -144,7 +144,8 @@ function ObjectiveTracker:UpdateQuestItem(block)
 				Count:SetPoint("BOTTOMRIGHT", QuestItemButton, 0, 3)
 				Count:SetFont(C.media.fontcombat, 12)
 			end
-
+			
+			QuestItemButton.HotKey:SetFontObject(NumberFont_OutlineThick_Mono_Small)
 			QuestItemButton.IsSkinned = true
 		end
 	end

@@ -267,13 +267,15 @@ local function UpdateBNTable(total)
 				BNTable[index][8] = accountInfo.isAFK
 				BNTable[index][9] = accountInfo.isDND
 				BNTable[index][10] = accountInfo.note
-				BNTable[index][11] = accountInfo.gameAccountInfo.realmName
-				BNTable[index][12] = accountInfo.gameAccountInfo.factionName
-				BNTable[index][13] = accountInfo.gameAccountInfo.raceName
-				BNTable[index][14] = class
-				BNTable[index][15] = accountInfo.gameAccountInfo.areaName
-				BNTable[index][16] = accountInfo.gameAccountInfo.characterLevel
-				BNTable[index][17] = accountInfo.isBattleTagFriend
+				BNTable[index][11] = accountInfo.gameAccountInfo.wowProjectID
+				BNTable[index][12] = accountInfo.gameAccountInfo.realmName
+				BNTable[index][13] = accountInfo.gameAccountInfo.factionName
+				BNTable[index][14] = accountInfo.gameAccountInfo.raceName
+				BNTable[index][15] = class
+				BNTable[index][16] = accountInfo.gameAccountInfo.areaName
+				BNTable[index][17] = accountInfo.gameAccountInfo.characterLevel
+				BNTable[index][18] = accountInfo.isBattleTagFriend
+				BNTable[index][19] = accountInfo.gameText
 
 				BNTotalOnline = BNTotalOnline + 1
 			end
@@ -346,11 +348,11 @@ Stat:SetScript("OnMouseUp", function(self, btn)
                 menuCountWhispers = menuCountWhispers + 1
                 menuList[3].menuList[menuCountWhispers] = {text = realID, arg1 = realID, arg2 = true, notCheckable=true, func = whisperClick}
 
-                if BNTable[i][6] == wowString and UnitFactionGroup("player") == BNTable[i][12] then
-                    classc, levelc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[BNTable[i][14]], GetQuestDifficultyColor(BNTable[i][16])
+                if BNTable[i][6] == wowString and UnitFactionGroup("player") == BNTable[i][13] then
+                    classc, levelc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[BNTable[i][15]], GetQuestDifficultyColor(BNTable[i][17])
 
                     if classc == nil then
-                        classc = GetQuestDifficultyColor(BNTable[i][16])
+                        classc = GetQuestDifficultyColor(BNTable[i][17])
                     end
 
                     if UnitInParty(BNTable[i][4]) or UnitInRaid(BNTable[i][4]) then
@@ -360,7 +362,7 @@ Stat:SetScript("OnMouseUp", function(self, btn)
                     end
 
                     menuCountInvites = menuCountInvites + 1
-                    menuList[2].menuList[menuCountInvites] = {text = format(levelNameString,levelc.r*255,levelc.g*255,levelc.b*255,BNTable[i][16],classc.r*255,classc.g*255,classc.b*255,BNTable[i][4]), arg1 = BNTable[i][5],notCheckable=true, func = inviteClick}
+                    menuList[2].menuList[menuCountInvites] = {text = format(levelNameString,levelc.r*255,levelc.g*255,levelc.b*255,BNTable[i][17],classc.r*255,classc.g*255,classc.b*255,BNTable[i][4]), arg1 = BNTable[i][5],notCheckable=true, func = inviteClick}
                 end
             end
         end
@@ -435,6 +437,12 @@ Stat:SetScript("OnEnter", function(self)
 
                         local Client = "World of Warcraft"
                         local isBattleTag = BNTable[i][17]
+						local wowversion
+						if BNTable[i][11]==1 then 
+							wowversion = "Retail" 
+						elseif BNTable[i][11]==2 then 
+							wowversion = "Classic" 
+						end
 
                         if onWoW == 1 then
                             GameTooltip:AddLine(" ")
@@ -449,8 +457,8 @@ Stat:SetScript("OnEnter", function(self)
                             status = 3
                         end
 
-                        classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[BNTable[i][14]]
-                        levelc = GetQuestDifficultyColor(BNTable[i][16])
+                        classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[BNTable[i][15]]
+                        levelc = GetQuestDifficultyColor(BNTable[i][17])
 
                         if not classc then
                             classc = {r=1, g=1, b=1}
@@ -462,22 +470,22 @@ Stat:SetScript("OnEnter", function(self)
                             grouped = 2
                         end
 
-                        GameTooltip:AddDoubleLine(format(clientLevelNameString, BNTable[i][3],levelc.r*255,levelc.g*255,levelc.b*255,BNTable[i][16],classc.r*255,classc.g*255,classc.b*255,BNTable[i][4],groupedTable[grouped], 255, 0, 0, statusTable[status]),isBattleTag == false and BNTable[i][2],238,238,238,238,238,238)
+                        GameTooltip:AddDoubleLine(format(clientLevelNameString, BNTable[i][3],levelc.r*255,levelc.g*255,levelc.b*255,BNTable[i][17],classc.r*255,classc.g*255,classc.b*255,BNTable[i][4],groupedTable[grouped], 255, 0, 0, statusTable[status]),BNTable[i][2].." - ".. wowversion,238,238,238,238,238,238)
 
                         if IsShiftKeyDown() then
-                            if GetRealZoneText() == BNTable[i][15] then
+                            if GetRealZoneText() == BNTable[i][16] then
                                 zonec = activezone
                             else
                                 zonec = inactivezone
                             end
 
-                            if GetRealmName() == BNTable[i][11] then
+                            if GetRealmName() == BNTable[i][12] then
                                 realmc = activezone
                             else
                                 realmc = inactivezone
                             end
 
-                            GameTooltip:AddDoubleLine("  "..BNTable[i][15], BNTable[i][11], zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
+                            GameTooltip:AddDoubleLine("  "..BNTable[i][16], BNTable[i][12], zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
                         end
                     end
                 end
@@ -507,7 +515,7 @@ Stat:SetScript("OnEnter", function(self)
                         onD3 = onD3 + 1
 
                         local Client = "Diablo III"
-                        local isBattleTag = BNTable[i][17]
+                        local isBattleTag = BNTable[i][18]
 
                         if onD3 == 1 then
                             GameTooltip:AddDoubleLine(" ", " ")
@@ -525,7 +533,7 @@ Stat:SetScript("OnEnter", function(self)
                         onHotS = onHotS + 1
 
                         local Client = "Heroes of the Storm"
-                        local isBattleTag = BNTable[i][17]
+                        local isBattleTag = BNTable[i][18]
 
                         if onHotS == 1 then
                             GameTooltip:AddDoubleLine(" ", " ")
@@ -543,7 +551,7 @@ Stat:SetScript("OnEnter", function(self)
                         onS2 = onS2 + 1
 
                         local Client = "Starcraft II"
-                        local isBattleTag = BNTable[i][17]
+                        local isBattleTag = BNTable[i][18]
 
                         if onS2 == 1 then
                             GameTooltip:AddDoubleLine(" ", " ")
@@ -561,7 +569,7 @@ Stat:SetScript("OnEnter", function(self)
                         onOW = onOW + 1
 
                         local Client = "Overwatch"
-                        local isBattleTag = BNTable[i][17]
+                        local isBattleTag = BNTable[i][18]
 
                         if onOW == 1 then
                             GameTooltip:AddDoubleLine(" ", " ")
@@ -579,7 +587,7 @@ Stat:SetScript("OnEnter", function(self)
                         onClient = onClient + 1
 
                         local Client = "Battle.NET Client"
-                        local isBattleTag = BNTable[i][17]
+                        local isBattleTag = BNTable[i][18]
 
                         if onClient == 1 then
                             GameTooltip:AddDoubleLine(" ", " ")

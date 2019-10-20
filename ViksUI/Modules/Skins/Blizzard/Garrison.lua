@@ -303,6 +303,10 @@ local function LoadSkin()
 				r, g, b = unpack(C.media.border_color)
 			end
 
+			if (r > 0.64 and r < 0.67) or (r > 0.99 and g > 0.99 and b > 0.99) then
+				r, g, b = unpack(C.media.border_color)
+			end
+
 			if not reward.backdrop then
 				reward.Icon:SkinIcon()
 				reward.backdrop:SetFrameLevel(reward:GetFrameLevel())
@@ -324,7 +328,7 @@ local function LoadSkin()
 		local r, g, b
 		if frame.IconBorder and frame.IconBorder:IsShown() then
 			r, g, b = frame.IconBorder:GetVertexColor()
-			if r > 0.64 and r < 0.67 then
+			if (r > 0.64 and r < 0.67) or (r > 0.99 and g > 0.99 and b > 0.99) then
 				r, g, b = unpack(C.media.border_color)
 			end
 		else
@@ -413,7 +417,11 @@ local function LoadSkin()
 				reward.Quantity:SetParent(reward.backdrop)
 				reward.IconBorder:SetAlpha(0)
 				hooksecurefunc(reward.IconBorder, "SetVertexColor", function(self, r, g, b)
-					self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+					if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
+						self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+					else
+						self:GetParent().backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+					end
 				end)
 			end
 		end
@@ -423,6 +431,7 @@ local function LoadSkin()
 		GarrisonLandingPage.FollowerTab.XPBar,
 		GarrisonLandingPage.ShipFollowerTab.XPBar,
 		GarrisonMissionFrame.FollowerTab.XPBar,
+		GarrisonShipyardFrame.FollowerTab.XPBar,
 		OrderHallMissionFrame.FollowerTab.XPBar,
 		BFAMissionFrame.FollowerTab.XPBar
 	}
@@ -437,6 +446,10 @@ local function LoadSkin()
 		if xpBar:GetParent().PortraitFrame then
 			xpBar:ClearAllPoints()
 			xpBar:SetPoint("BOTTOMLEFT", xpBar:GetParent().PortraitFrame, "BOTTOMRIGHT", 8, -15)
+		end
+
+		if xpBar.Label then
+			xpBar.Label:SetFontObject(SystemFont_Outline_Small)
 		end
 	end
 
@@ -489,7 +502,7 @@ local function LoadSkin()
 
 	-- ShipYard
 	GarrisonShipyardFrame:StripTextures(true)
-	GarrisonShipyardFrame:SetTemplate("Transparent")
+	GarrisonShipyardFrame:CreateBackdrop("Transparent")
 	GarrisonShipyardFrame.BorderFrame.GarrCorners:StripTextures()
 	GarrisonShipyardFrame.BorderFrame:StripTextures(true)
 	GarrisonShipyardFrame.BorderFrame.TitleText:SetPoint("TOP", -6, -1)
@@ -512,6 +525,9 @@ local function LoadSkin()
 	GarrisonShipyardFrame.MissionComplete.NextMissionButton:SkinButton()
 	GarrisonShipyardFrame.MissionCompleteBackground:SetAllPoints(MissionList.MapTexture)
 	MissionPage.StartMissionButton:SkinButton()
+	MissionList.MapTexture:ClearAllPoints()
+	MissionList.MapTexture:SetPoint("TOPLEFT")
+	MissionList.MapTexture:SetPoint("BOTTOMRIGHT")
 
 	T.SkinEditBox(GarrisonShipyardFrameFollowers.SearchBox)
 	GarrisonShipyardFrameFollowers.SearchBox:SetPoint("TOPLEFT", 2, 25)
@@ -724,6 +740,15 @@ local function LoadSkin()
 	OrderHallMissionFrameMissions.CombatAllyUI.InProgress.Unassign:SkinButton()
 	OrderHallMissionFrameMissions.CombatAllyUI.InProgress.CombatAllySpell.iconTexture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	OrderHallMissionFrameMissions.CombatAllyUI.InProgress.CombatAllySpell:CreateBackdrop("Default")
+	HandleGarrisonPortrait(OrderHallMissionFrameMissions.CombatAllyUI.InProgress.PortraitFrame)
+	OrderHallMissionFrameMissions.CombatAllyUI.InProgress.CombatAllySpell:SetPoint("BOTTOMLEFT", OrderHallMissionFrameMissions.CombatAllyUI.InProgress.PortraitFrame.backdrop, "BOTTOMRIGHT", 12, -20)
+	hooksecurefunc(OrderHallMissionFrameMissions.CombatAllyUI.InProgress.PortraitFrame.PortraitRingQuality, "SetVertexColor", function(self, r, g, b)
+		if r ~= 1 and g ~= 1 and b ~= 1 then
+			OrderHallMissionFrameMissions.CombatAllyUI.InProgress.PortraitFrame.backdrop:SetBackdropBorderColor(r, g, b)
+		end
+		self:SetTexture("")
+	end)
+
 	OrderHallMissionFrameMissions.MaterialFrame:StripTextures()
 	OrderHallMissionFrame.MissionTab:StripTextures()
 	OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage:StripTextures()
