@@ -2945,6 +2945,7 @@ OnLogon:SetScript("OnEvent", function(self)
 		SetCVar("useUiScale", 0)
 		StaticPopup_Show("DISABLE_UI")
 	else
+		C.general.uiscale = tonumber(C.general.uiscale)
 		SetCVar("useUiScale", 1)
 		if C.general.uiscale > 1.28 then C.general.uiscale = 1.28 end
 
