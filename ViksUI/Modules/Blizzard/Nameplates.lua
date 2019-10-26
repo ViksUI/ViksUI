@@ -42,6 +42,7 @@ function frame:PLAYER_ENTERING_WORLD()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateSelectedAlpha", 1)
 	SetCVar("nameplateNotSelectedAlpha", 1)
+	SetCVar("nameplateLargeTopInset", 0.08)
 
 	SetCVar("nameplateOtherTopInset", C.nameplate.clamp and 0.08 or -1)
 	SetCVar("nameplateOtherBottomInset", C.nameplate.clamp and 0.1 or -1)
@@ -474,6 +475,7 @@ local function style(self, unit)
 	self.Name:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
 	self.Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -3, 4)
 	self.Name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 3, 4)
+	self.Name:SetWordWrap(false)
 
 	if C.nameplate.name_abbrev == true then
 		self:Tag(self.Name, "[NameplateNameColor][NameLongAbbrev]")

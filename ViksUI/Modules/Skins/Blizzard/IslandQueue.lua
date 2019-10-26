@@ -1,43 +1,68 @@
 local T, C, L, _ = unpack(select(2, ...))
+
+----------------------------------------------------------------------------------------
+--	Islands skin
+----------------------------------------------------------------------------------------
+local LoadTootlipSkin = CreateFrame("Frame")
+LoadTootlipSkin:RegisterEvent("ADDON_LOADED")
+LoadTootlipSkin:SetScript("OnEvent", function(self, _, addon)
+	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") or not C.tooltip.enable then
+		self:UnregisterEvent("ADDON_LOADED")
+		return
+	end
+
+	if addon == "Blizzard_IslandsQueueUI" then
+		local tt = IslandsQueueFrame.WeeklyQuest.QuestReward.Tooltip
+		tt:SetTemplate("Transparent")
+		tt.ItemTooltip.Icon:SkinIcon()
+		tt.ItemTooltip.IconBorder:SetAlpha(0)
+	end
+end)
+
 if C.skins.blizzard_frames ~= true then return end
 
---Cache global variables
---Lua functions
-local _G = _G
-
---WoW API / Variables
-
---Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS:
-
 local function LoadSkin()
+	IslandsQueueFrame:StripTextures()
+	IslandsQueueFrame:SetTemplate("Transparent")
 
-	local IslandsFrame = _G["IslandsQueueFrame"]
-	IslandsFrame:StripTextures()
-	IslandsQueueFrame.ArtOverlayFrame.PortraitFrame:SetAlpha(0)
-	IslandsQueueFrame.ArtOverlayFrame.portrait:SetAlpha(0)
-	IslandsQueueFrame.portrait:Hide()
+	IslandsQueueFrame.ArtOverlayFrame:SetAlpha(0)
+	IslandsQueueFrame.TitleBanner.Banner:SetAlpha(0)
 
-	IslandsFrame:CreateBackdrop("Transparent")
+	IslandsQueueFrame.HelpButton.Ring:Hide()
+	IslandsQueueFrame.HelpButton:SetPoint("TOPLEFT", IslandsQueueFrame, "TOPLEFT", -12, 12)
+
+	IslandsQueueFrame.DifficultySelectorFrame.Background:Hide()
+	IslandsQueueFrame.DifficultySelectorFrame:SetPoint("BOTTOM", 0, -15)
+	IslandsQueueFrame.DifficultySelectorFrame.QueueButton:SkinButton()
 
 	T.SkinCloseButton(IslandsQueueFrameCloseButton)
-	T:HandleButton(IslandsFrame.DifficultySelectorFrame.QueueButton)
-
-	local WeeklyQuest = IslandsFrame.WeeklyQuest
-	local StatusBar = WeeklyQuest.StatusBar
-	WeeklyQuest.OverlayFrame:StripTextures()
 
 	-- StatusBar
-	StatusBar:SetStatusBarTexture(C.media.texture)
-	StatusBar:CreateBackdrop("Default")
+	IslandsQueueFrame.WeeklyQuest.OverlayFrame:StripTextures()
+	IslandsQueueFrame.WeeklyQuest.StatusBar:CreateBackdrop("Overlay")
 
-	--StatusBar Icon
-	WeeklyQuest.QuestReward.Icon:SetTexCoord(unpack(T.TexCoords))
+	local reward = IslandsQueueFrame.WeeklyQuest.QuestReward
+	reward:ClearAllPoints()
+	reward:SetPoint("LEFT", IslandsQueueFrame.WeeklyQuest.StatusBar, "RIGHT", -3, 0)
+	reward.CircleMask:Hide()
+	reward:StripTextures()
+	reward.Icon:SkinIcon()
+	reward.Icon:SetSize(19, 19)
 
-	-- Maybe Adjust me
-	local TutorialFrame = IslandsFrame.TutorialFrame
-	T:HandleButton(TutorialFrame.Leave)
-	T.SkinCloseButton(TutorialFrame.CloseButton)
+	-- TutorialFrame
+	IslandsQueueFrame.TutorialFrame:StripTextures()
+	IslandsQueueFrame.TutorialFrame:SetTemplate("Transparent")
+	IslandsQueueFrame.TutorialFrame:SetPoint("TOPLEFT", 300, -150)
+	IslandsQueueFrame.TutorialFrame:SetPoint("BOTTOMRIGHT", -300, 170)
+	IslandsQueueFrame.TutorialFrame.TutorialText:SetTextColor(1, 1, 1)
+
+	local TutorialIcon = IslandsQueueFrame.TutorialFrame:CreateTexture(nil, "BORDER")
+	TutorialIcon:SetTexture([[Interface\Icons\INV_Glowing Azerite Spire]])
+	TutorialIcon:SetSize(64, 64)
+	TutorialIcon:SetPoint("TOP", IslandsQueueFrame.TutorialFrame, "TOP", 0, -10)
+	TutorialIcon:SkinIcon(true)
+	IslandsQueueFrame.TutorialFrame.Leave:SkinButton()
+	T.SkinCloseButton(IslandsQueueFrame.TutorialFrame.CloseButton)
 end
 
 T.SkinFuncs["Blizzard_IslandsQueueUI"] = LoadSkin

@@ -1374,6 +1374,9 @@ do
 
 	local auto_confirm_de = ns.CreateCheckBox(parent, "auto_confirm_de", L_GUI_LOOT_AUTODE)
 	auto_confirm_de:SetPoint("TOPLEFT", auto_greed, "BOTTOMLEFT", 0, 0)
+	
+	local faster_loot = ns.CreateCheckBox(parent, "faster_loot")
+	faster_loot:SetPoint("TOPLEFT", auto_confirm_de, "BOTTOMLEFT", 0, 0)
 end
 
 -- Nameplate
@@ -1861,6 +1864,9 @@ do
 	
 	local Pscale = ns.CreateNumberSlider(parent, "Pscale", nil, nil, 0.4, 1.1, 0.01, true, L_GUI_MISC_PSCALE)
 	Pscale:SetPoint("TOPLEFT", panelsh, "BOTTOMLEFT", 0, -20)
+	
+	local XPBar = ns.CreateCheckBox(parent, "XPBar", "Enable XP/REP/HONOR Bars above chat windows")
+	XPBar:SetPoint("TOPLEFT", Pscale, "BOTTOMLEFT", 0, 0)
 end
 
 -- datatext

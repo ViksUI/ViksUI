@@ -1,22 +1,36 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.skins.blizzard_frames ~= true then return end
 
---Cache global variables
---Lua functions
-local _G = _G
+----------------------------------------------------------------------------------------
+--	PartyPoseUI skin
+----------------------------------------------------------------------------------------
+local function SkinPartyPoseFrame(frame)
+	frame:StripTextures()
+	frame:CreateBackdrop("Transparent")
+	frame.backdrop:SetPoint("TOPLEFT", -2, UnitFactionGroup("player") == "Horde" and 11 or 15)
+	frame.backdrop:SetPoint("BOTTOMRIGHT", 2, -3)
+	frame.Border:Hide()
 
---WoW API / Variables
+	frame.ModelScene:StripTextures()
+	frame.ModelScene:CreateBackdrop("Transparent")
 
---Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS:
+	local rewardFrame = frame.RewardAnimations.RewardFrame
+	rewardFrame.NameFrame:SetAlpha(0)
+	rewardFrame.IconBorder:SetAlpha(0)
+	rewardFrame.Icon:SetPoint("TOPLEFT", -15, -2)
+	rewardFrame.Icon:SkinIcon()
+
+	frame.LeaveButton:SkinButton()
+end
 
 local function LoadSkin()
-
-	local IslandsPartyPoseFrame = _G["IslandsPartyPoseFrame"]
-	IslandsPartyPoseFrame:StripTextures()
-	IslandsPartyPoseFrame:CreateBackdrop("Transparent")
-
-	T:HandleButton(IslandsPartyPoseFrame.LeaveButton)
+	SkinPartyPoseFrame(IslandsPartyPoseFrame)
 end
 
 T.SkinFuncs["Blizzard_IslandsPartyPoseUI"] = LoadSkin
+
+local function LoadSecondarySkin()
+	SkinPartyPoseFrame(WarfrontsPartyPoseFrame)
+end
+
+T.SkinFuncs["Blizzard_WarfrontsPartyPoseUI"] = LoadSecondarySkin

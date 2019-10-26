@@ -17,9 +17,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	if addon ~= "ViksUI" or addon == "tekticles" then return end
 
 	local NORMAL = C.media.normal_font
-	local NUMBER = C.media.normal_font
 	-- local BLANK = C.media.blank_font
-	local MONOCHROME = ''
 
 	UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = 12
 	CHAT_FONT_HEIGHTS = {11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
@@ -41,20 +39,15 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	SetFont(QuestFont_Shadow_Small, NORMAL, 15)
 	SetFont(QuestFont_Super_Huge, NORMAL, 20, nil, nil, nil, nil, 0, 0, 0, 1, -1)
 	SetFont(QuestFont_Huge, NORMAL, 17, nil, nil, nil, nil, 0, 0, 0, 1, -1)
-	SetFont(QuestMapRewardsFont, NORMAL, 12, nil, nil, nil, nil, 0, 0, 0, 1, -1)
+	SetFont(QuestFont_Enormous, NORMAL, 30, nil, 1, 0.82, 0)
 	SetFont(ReputationDetailFont, NORMAL, 11, nil, nil, nil, nil, 0, 0, 0, 1, -1)
 	SetFont(SpellFont_Small, NORMAL, 11)
-	SetFont(NumberFont_OutlineThick_Mono_Small, NUMBER, 13, "OUTLINE")
-	SetFont(SystemFont_Shadow_Large_Outline,	NUMBER, 20, "OUTLINE")
-	SetFont(QuestFont,                          NORMAL, 14)
-	SetFont(GameFontNormalMed3,					NORMAL, 15)
-	SetFont(GameFontHighlightMedium,            NORMAL, 15)
-	SetFont(CombatTextFont,                     COMBAT, 200, MONOCHROME.."OUTLINE") -- number here just increase the font quality.
 	SetFont(SystemFont_InverseShadow_Small, NORMAL, 11)
 	SetFont(SystemFont_Large, NORMAL, 17)
 	SetFont(SystemFont_Med1, NORMAL, 13)
 	SetFont(SystemFont_Med2, NORMAL, 14, nil, 0.15, 0.09, 0.04)
 	SetFont(SystemFont_Med3, NORMAL, 15)
+	SetFont(SystemFont_Outline, NORMAL, 13, "OUTLINE")
 	SetFont(SystemFont_OutlineThick_Huge2, NORMAL, 22, "THICKOUTLINE")
 	SetFont(SystemFont_OutlineThick_Huge4, NORMAL, 27, "THICKOUTLINE")
 	SetFont(SystemFont_OutlineThick_WTF, NORMAL, 31, "THICKOUTLINE", nil, nil, nil, 0, 0, 0, 1, -1)
@@ -70,49 +63,24 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	SetFont(SystemFont_Shadow_Small, NORMAL, 11)
 	SetFont(SystemFont_Shadow_Small2, NORMAL, 11)
 	SetFont(SystemFont_Small, NORMAL, 12)
+	SetFont(SystemFont_Small2, NORMAL, 12)
 	SetFont(SystemFont_Tiny, NORMAL, 11)
 	SetFont(GameTooltipHeader, NORMAL, GetLocale() == "zhTW" and 14 or 13, nil, nil, nil, nil, 0, 0, 0, 1, -1)
 	SetFont(Tooltip_Med, NORMAL, GetLocale() == "zhTW" and 12 or 11, nil, nil, nil, nil, 0, 0, 0, 1, -1)
-	SetFont(Tooltip_Small, NORMAL, GetLocale() == "zhTW" and 11 or 10, nil, nil, nil, nil, 0, 0, 0, 1, -1)
-	SetFont(GameTooltipTextSmall, NORMAL, GetLocale() == "zhTW" and 12 or 11, nil, nil, nil, nil, 0, 0, 0, 1, -1)
+	SetFont(Tooltip_Small, NORMAL, GetLocale() == "zhTW" and 12 or 11, nil, nil, nil, nil, 0, 0, 0, 1, -1)
 	SetFont(FriendsFont_Small, NORMAL, 11)
 	SetFont(FriendsFont_Normal, NORMAL, 12)
 	SetFont(FriendsFont_Large, NORMAL, 15)
 	SetFont(FriendsFont_UserText, NORMAL, 11)
-	SetFont(SystemFont_Outline, 				NORMAL, 13, MONOCHROME.."OUTLINE");			 -- Pet level on World map
-	SetFont(GameFontNormalMed2,					NORMAL, 12*1.1);		 -- Quest tracker
-	SetFont(GameFontNormalLarge2,				NORMAL, 15); 								 -- Garrison Follower Names
-	SetFont(QuestFont_Enormous, 				NORMAL, 24, nil, SHADOWCOLOR, NORMALOFFSET); -- Garrison Titles
-	SetFont(DestinyFontHuge,					NORMAL, 20, nil, SHADOWCOLOR, BIGOFFSET);	 -- Garrison Mission Report
-	SetFont(Game24Font, 						NORMAL, 24);								 -- Garrison Mission level (in detail frame)
-	SetFont(SystemFont_Huge1, 					NORMAL, 20);								 -- Garrison Mission XP
-	SetFont(SystemFont_Huge1_Outline, 			NORMAL, 18, MONOCHROME.."OUTLINE");			 -- Garrison Mission Chance
-	SetFont(Fancy22Font,						NORMAL, 20)									 -- Talking frame Title font
-	SetFont(Fancy24Font,						NORMAL, 20)									 -- Artifact frame - weapon name
-	SetFont(Game30Font,							NORMAL, 28)									 -- Mission Level
-	SetFont(GameFontHighlightSmall2,			NORMAL, 12);			 -- Skill or Recipe description on TradeSkill frame
-	SetFont(Game18Font,							NORMAL, 18)									 -- MissionUI Bonus Chance
-	SetFont(GameFontNormalSmall2,				NORMAL, 12)			 					 	 -- MissionUI Followers names
-	SetFont(GameFontNormalHuge2,				NORMAL, 24)			 					 	 -- Mythic weekly best dungeon name
-	SetFont(GameFont_Gigantic,				NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);		 -- Used at the install steps
-	SetFont(ZoneTextString, NORMAL, 32, "OUTLINE")
-	SetFont(SubZoneTextString, NORMAL, 25, "OUTLINE")
-	SetFont(PVPInfoTextString, NORMAL, 22, "THINOUTLINE")
-	SetFont(PVPArenaTextString, NORMAL, 22, "THINOUTLINE")
 	SetFont(CoreAbilityFont, NORMAL, 32, nil, 1, 0.82, 0, 0, 0, 0, 1, -1)
 	SetFont(ChatBubbleFont, NORMAL, 14)
-	SetFont(WhiteNormalNumberFont, NORMAL, 11)
-	SetFont(NumberFontNormalSmall, NORMAL, 11, "OUTLINE")
 	SetFont(Game13FontShadow, NORMAL, 14)
 	SetFont(Game15Font_o1, NORMAL, 15)
-	
-	-- 7.3.5
-	SetFont(Game16Font,							NORMAL, 16);								 -- Added in 7.3.5 used for ?
-	SetFont(Game46Font,							NORMAL, 46);								 -- Added in 7.3.5 used for ?
-	SetFont(DestinyFontMed,						NORMAL, 14);								 -- Added in 7.3.5 used for ?
-	SetFont(Fancy12Font,						NORMAL, 12);								 -- Added in 7.3.5 used for ?
-	SetFont(Fancy14Font,						NORMAL, 14);								 -- Added in 7.3.5 used for ?
-	SetFont(Fancy16Font, 						NORMAL, 16);
+	SetFont(Fancy14Font, NORMAL, 14)
+	SetFont(Game16Font, NORMAL, 16)
+	SetFont(Game12Font, NORMAL, 12)
+	SetFont(Fancy16Font, NORMAL, 16)
+	SetFont(FriendsFont_11, NORMAL, 11)
 
 	-- Derived fonts
 	SetFont(BossEmoteNormalHuge, NORMAL, 27, "THICKOUTLINE")
@@ -121,6 +89,13 @@ frame:SetScript("OnEvent", function(self, event, addon)
 	SetFont(WorldMapTextFont, NORMAL, 32, "OUTLINE")
 	SetFont(SubZoneTextFont, NORMAL, 30, "OUTLINE")
 	SetFont(HelpFrameKnowledgebaseNavBarHomeButtonText, NORMAL, 13, nil, nil, nil, nil, 0, 0, 0, 1, -1)
+	SetFont(WhiteNormalNumberFont, NORMAL, 11)
+	SetFont(ZoneTextString, NORMAL, 32, "OUTLINE")
+	SetFont(SubZoneTextString, NORMAL, 25, "OUTLINE")
+	SetFont(PVPInfoTextString, NORMAL, 22, "THINOUTLINE")
+	SetFont(PVPArenaTextString, NORMAL, 22, "THINOUTLINE")
+	SetFont(QuestMapRewardsFont, NORMAL, 12, nil, nil, nil, nil, 0, 0, 0, 1, -1)
+	SetFont(NumberFontNormalSmall, NORMAL, 11, "OUTLINE")
 
 	-- Player title
 	for _, butt in pairs(PaperDollTitlesPane.buttons) do butt.text:SetFontObject(GameFontHighlightSmallLeft) end

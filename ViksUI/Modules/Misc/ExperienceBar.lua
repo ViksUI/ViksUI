@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.XPBar.enable ~= true then return end
+if C.misc.XPBar ~= true then return end
 
 local ExperienceEnable = true
 local Experience = CreateFrame("Frame", nil, UIParent)

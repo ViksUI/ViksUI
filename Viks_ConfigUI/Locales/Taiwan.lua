@@ -412,6 +412,8 @@ L_GUI_LOOT_ICON_SIZE = "拾取框架圖示大小"
 L_GUI_LOOT_WIDTH = "拾取框架寬度"
 L_GUI_LOOT_AUTOGREED = "滿級后自動貪婪綠色物品"
 L_GUI_LOOT_AUTODE = "自動選擇分解"
+L.loot_faster_loot = "Faster looting" -- Need review
+L.loot_faster_loot_desc = "Works only if enabled auto loot" -- Need review
 
 -- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "Nameplates settings" -- Need review

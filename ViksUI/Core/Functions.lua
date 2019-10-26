@@ -173,21 +173,22 @@ T.SkinFuncs = {}
 T.SkinFuncs["ViksUI"] = {}
 
 function T.SkinScrollBar(frame)
-	if frame:GetName() then
-		if _G[frame:GetName().."BG"] then
-			_G[frame:GetName().."BG"]:SetTexture(nil)
+	local frameName = frame.GetName and frame:GetName()
+	if frameName then
+		if _G[frameName.."BG"] then
+			_G[frameName.."BG"]:SetTexture(nil)
 		end
-		if _G[frame:GetName().."Track"] then
-			_G[frame:GetName().."Track"]:SetTexture(nil)
+		if _G[frameName.."Track"] then
+			_G[frameName.."Track"]:SetTexture(nil)
 		end
-		if _G[frame:GetName().."Top"] then
-			_G[frame:GetName().."Top"]:SetTexture(nil)
+		if _G[frameName.."Top"] then
+			_G[frameName.."Top"]:SetTexture(nil)
 		end
-		if _G[frame:GetName().."Bottom"] then
-			_G[frame:GetName().."Bottom"]:SetTexture(nil)
+		if _G[frameName.."Bottom"] then
+			_G[frameName.."Bottom"]:SetTexture(nil)
 		end
-		if _G[frame:GetName().."Middle"] then
-			_G[frame:GetName().."Middle"]:SetTexture(nil)
+		if _G[frameName.."Middle"] then
+			_G[frameName.."Middle"]:SetTexture(nil)
 		end
 	end
 
@@ -200,9 +201,9 @@ function T.SkinScrollBar(frame)
 	if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
 	if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
 
-	local UpButton = frame.ScrollUpButton or frame.ScrollUp or frame.UpButton or _G[frame:GetName() and frame:GetName().."ScrollUpButton"] or frame:GetParent().scrollUp
-	local DownButton = frame.ScrollDownButton or frame.ScrollDown or frame.DownButton or _G[frame:GetName() and frame:GetName().."ScrollDownButton"] or frame:GetParent().scrollDown
-	local ThumbTexture = frame.ThumbTexture or frame.thumbTexture or _G[frame:GetName() and frame:GetName().."ThumbTexture"]
+	local UpButton = frame.ScrollUpButton or frame.ScrollUp or frame.UpButton or _G[frameName and frameName.."ScrollUpButton"] or frame:GetParent().scrollUp
+	local DownButton = frame.ScrollDownButton or frame.ScrollDown or frame.DownButton or _G[frameName and frameName.."ScrollDownButton"] or frame:GetParent().scrollDown
+	local ThumbTexture = frame.ThumbTexture or frame.thumbTexture or _G[frameName and frameName.."ThumbTexture"]
 
 	if UpButton and DownButton then
 		if not UpButton.icon then
@@ -451,7 +452,10 @@ function T.SkinDropDownBox(frame, width, pos)
 	frame.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
 end
 
-function T.SkinCheckBox(frame)
+function T.SkinCheckBox(frame, size)
+	if size then
+		frame:SetSize(size, size)
+	end
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
 	frame:CreateBackdrop("Overlay")

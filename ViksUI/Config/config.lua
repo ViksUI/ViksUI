@@ -80,6 +80,7 @@ C["misc"] = {
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
 	["custom_lagtolerance"] = false,			-- Custom lag tolerance to your latency
 	["armory_link"] = false,					-- Add the Armory link in the chat menu and target (It breaks set focus)
+	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
 }
 
 ----------------------------------------------------------------------------------------
@@ -390,6 +391,7 @@ C["loot"] = {
 	["width"] = 221,							-- Loot window width
 	["auto_greed"] = true,						-- Push "greed" or "disenchant" button when an item roll
 	["auto_confirm_de"] = true,					-- Auto confirm disenchant
+	["faster_loot"] = false,					-- Faster auto looting
 }
 
 ----------------------------------------------------------------------------------------
@@ -692,10 +694,6 @@ C["togglemenu"] = {
 	["buttonwidth"] = 98,					-- Width of menu buttons
 	["buttonheight"] = 18,					-- Height of menu buttons
 	["classcolor"] = true,					-- Class color buttons
-}
-
-C["XPBar"] = {
-	["enable"] = true,								--Enables XPBar, Based on SaftExperience
 }
 
 ----------------------------------------------------------------------------------------

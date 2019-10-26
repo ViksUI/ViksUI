@@ -411,6 +411,9 @@ L_GUI_LOOT_ICON_SIZE = "Symbolgröße"
 L_GUI_LOOT_WIDTH = "Breite des Plünderfensters"
 L_GUI_LOOT_AUTOGREED = "Aktiviere automatisches Würfeln (Gier) für Gegenstände, falls das höchste Level erreicht wurde."
 L_GUI_LOOT_AUTODE = "Entzauberung automatisch bestätigen"
+L.loot_faster_loot = "Schnelleres Plündern"
+L.loot_faster_loot_desc = "Funktioniert nur, wenn die automatische Beute aktiviert ist"
+
 
 -- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "Nameplates Einstellung"
