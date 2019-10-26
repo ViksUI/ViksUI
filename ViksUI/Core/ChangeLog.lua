@@ -3,9 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.87",
+		"Update 8.88",
 		"• More fixes for version 8.2.5",
-		"• Wowversion added to friend datatext",
 		"",
 		--"• ",
 	--" ",
