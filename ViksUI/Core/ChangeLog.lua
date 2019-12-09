@@ -3,8 +3,12 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.88",
-		"• More fixes for version 8.2.5",
+		"Update 8.89",
+		"• More fixes and adjustments",
+		"• More items added to autobutton",
+		"• Taint workaround",
+		"• ClickCast updated",
+		"• PulseCd updated",
 		"",
 		--"• ",
 	--" ",
