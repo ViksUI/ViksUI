@@ -6,69 +6,70 @@ if C.skins.blizzard_frames ~= true then return end
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
 	local StripAllTextures = {
-		"PVEFrame",
-		"PVEFrameLeftInset",
-		"LFDParentFrame",
-		"LFDParentFrameInset",
-		"RaidFinderFrame",
-		"RaidFinderQueueFrame",
-		"RaidFinderFrameBottomInset",
-		"RaidFinderFrameRoleInset",
-		"ScenarioFinderFrame",
-		"LFGDungeonReadyDialog",
-		"LFGDungeonReadyStatus",
-		"LFDQueueFrameCooldownFrame",
-		"RaidFinderQueueFrameCooldownFrame",
-		"RaidFinderQueueFramePartyBackfill",
-		"LFDQueueFramePartyBackfill",
-		"LFDQueueFrame",
-		"LFGListApplicationDialog"
+		PVEFrame,
+		PVEFrameLeftInset,
+		LFDParentFrame,
+		LFDParentFrameInset,
+		RaidFinderFrame,
+		RaidFinderQueueFrame,
+		RaidFinderFrameBottomInset,
+		RaidFinderFrameRoleInset,
+		ScenarioFinderFrame,
+		LFGDungeonReadyDialog,
+		LFGDungeonReadyStatus,
+		LFDQueueFrameCooldownFrame,
+		RaidFinderQueueFrameCooldownFrame,
+		RaidFinderQueueFramePartyBackfill,
+		LFDQueueFramePartyBackfill,
+		LFDQueueFrame,
+		LFGListApplicationDialog
 	}
 
-	for _, object in pairs(StripAllTextures) do
-		_G[object]:StripTextures()
+	for i = 1, #StripAllTextures do
+		StripAllTextures[i]:StripTextures()
 	end
 
 	local KillTextures = {
-		"LFDQueueFrameBackground",
-		"PVEFramePortrait",
-		"ScenarioFinderFrameInset",
-		"LFGDungeonReadyDialogBackground",
-		"RaidFinderQueueFrameBackground",
-		"LFGDungeonReadyDialogBottomArt",
-		"LFGDungeonReadyDialogFiligree",
-		"ScenarioQueueFrameRandomScrollFrameScrollBackground",
-		"ScenarioQueueFrameRandomScrollFrameScrollBackgroundTopLeft",
-		"ScenarioQueueFrameRandomScrollFrameScrollBackgroundBottomRight",
-		"RaidFinderQueueFrameScrollFrameScrollBackground",
-		"RaidFinderQueueFrameScrollFrameScrollBackgroundTopLeft",
-		"RaidFinderQueueFrameScrollFrameScrollBackgroundBottomRight"
+		LFDQueueFrameBackground,
+		PVEFramePortrait,
+		ScenarioFinderFrameInset,
+		LFGDungeonReadyDialogBackground,
+		RaidFinderQueueFrameBackground,
+		LFGDungeonReadyDialogBottomArt,
+		LFGDungeonReadyDialogFiligree,
+		ScenarioQueueFrameRandomScrollFrameScrollBackground,
+		ScenarioQueueFrameRandomScrollFrameScrollBackgroundTopLeft,
+		ScenarioQueueFrameRandomScrollFrameScrollBackgroundBottomRight,
+		RaidFinderQueueFrameScrollFrameScrollBackground,
+		RaidFinderQueueFrameScrollFrameScrollBackgroundTopLeft,
+		RaidFinderQueueFrameScrollFrameScrollBackgroundBottomRight,
+		PVEFrame.shadows,
+		LFGListFrame.EntryCreation.ActivityFinder.Background
 	}
 
-	for _, texture in pairs(KillTextures) do
-		_G[texture]:Kill()
+	for i = 1, #KillTextures do
+		KillTextures[i]:Kill()
 	end
 
 	local buttons = {
-		"LFDQueueFrameFindGroupButton",
-		"RaidFinderFrameFindRaidButton",
-		"ScenarioQueueFrameFindGroupButton",
-		"LFGDungeonReadyDialogLeaveQueueButton",
-		"LFGDungeonReadyDialogEnterDungeonButton",
-		"RaidFinderQueueFramePartyBackfillBackfillButton",
-		"RaidFinderQueueFramePartyBackfillNoBackfillButton",
-		"LFDQueueFramePartyBackfillBackfillButton",
-		"LFDQueueFramePartyBackfillNoBackfillButton",
-		"LFGInvitePopupAcceptButton",
-		"LFGInvitePopupDeclineButton"
+		LFDQueueFrameFindGroupButton,
+		RaidFinderFrameFindRaidButton,
+		ScenarioQueueFrameFindGroupButton,
+		LFGDungeonReadyDialogLeaveQueueButton,
+		LFGDungeonReadyDialogEnterDungeonButton,
+		RaidFinderQueueFramePartyBackfillBackfillButton,
+		RaidFinderQueueFramePartyBackfillNoBackfillButton,
+		LFDQueueFramePartyBackfillBackfillButton,
+		LFDQueueFramePartyBackfillNoBackfillButton,
+		LFGInvitePopupAcceptButton,
+		LFGInvitePopupDeclineButton,
+		LFGListApplicationDialog.SignUpButton,
+		LFGListApplicationDialog.CancelButton
 	}
 
 	for i = 1, #buttons do
-		_G[buttons[i]]:SkinButton()
+		buttons[i]:SkinButton()
 	end
-
-	LFGListApplicationDialog.SignUpButton:SkinButton()
-	LFGListApplicationDialog.CancelButton:SkinButton()
 
 	local checkButtons = {
 		LFDQueueFrameRoleButtonTank,
@@ -99,19 +100,18 @@ local function LoadSkin()
 	end)
 
 	local scrollbars = {
-		"ScenarioQueueFrameSpecificScrollFrameScrollBar",
-		"LFGListApplicationViewerScrollFrameScrollBar",
-		"LFDQueueFrameSpecificListScrollFrameScrollBar",
-		"LFDQueueFrameRandomScrollFrameScrollBar",
-		"RaidFinderQueueFrameScrollFrameScrollBar",
-		"LFGListEntryCreationSearchScrollFrameScrollBar"
+		ScenarioQueueFrameSpecificScrollFrameScrollBar,
+		LFGListApplicationViewerScrollFrameScrollBar,
+		LFDQueueFrameSpecificListScrollFrameScrollBar,
+		LFDQueueFrameRandomScrollFrameScrollBar,
+		RaidFinderQueueFrameScrollFrameScrollBar,
+		LFGListEntryCreationSearchScrollFrameScrollBar,
+		LFGListFrame.SearchPanel.ScrollFrame.scrollBar
 	}
 
-	for _, scrollbar in pairs(scrollbars) do
-		T.SkinScrollBar(_G[scrollbar])
+	for i = 1, #scrollbars do
+		T.SkinScrollBar(scrollbars[i])
 	end
-
-	T.SkinScrollBar(LFGListFrame.SearchPanel.ScrollFrame.scrollBar)
 
 	for i = 1, 4 do
 		local button = GroupFinderFrame["groupButton"..i]
@@ -164,6 +164,17 @@ local function LoadSkin()
 			item.Icon:SetDrawLayer("OVERLAY")
 			item.Icon:SetParent(item.border)
 
+			hooksecurefunc(item.IconBorder, "SetVertexColor", function(self, r, g, b)
+				if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
+					self:GetParent().border.backdrop:SetBackdropBorderColor(r, g, b)
+				end
+				self:SetTexture("")
+			end)
+
+			hooksecurefunc(item.IconBorder, "Hide", function(self)
+				self:GetParent().border.backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+			end)
+
 			item.Count:SetDrawLayer("OVERLAY")
 			item.Count:SetParent(item.border)
 
@@ -214,7 +225,6 @@ local function LoadSkin()
 	LFGListApplicationDialog:SetTemplate("Transparent")
 	PVEFrame:CreateBackdrop("Transparent")
 	PVEFrame.backdrop:SetAllPoints()
-	PVEFrame.shadows:Kill()
 	ScenarioQueueFrame.Bg:Hide()
 
 	LFDQueueFrameNoLFDWhileLFR:CreateBackdrop("Overlay")
@@ -263,6 +273,17 @@ local function LoadSkin()
 	LFGListFrame.SearchPanel.RefreshButton.Icon:SetPoint("CENTER")
 	LFGListFrame.SearchPanel.FilterButton:SkinButton()
 	LFGListFrame.SearchPanel.FilterButton:SetPoint("LEFT", LFGListFrame.SearchPanel.SearchBox, "RIGHT", 5, 0)
+
+	hooksecurefunc("LFGListApplicationViewer_UpdateApplicant", function(button)
+		if not button.DeclineButton.isSkinned then
+			button.DeclineButton:SkinButton()
+			button.DeclineButton.isSkinned = true
+		end
+		if not button.InviteButton.isSkinned then
+			button.InviteButton:SkinButton()
+			button.InviteButton.isSkinned = true
+		end
+	end)
 
 	hooksecurefunc("LFGListSearchEntry_Update", function(button)
 		if button and not button.isSkinned then
@@ -320,11 +341,17 @@ local function LoadSkin()
 	LFGDungeonReadyPopup:SetTemplate("Transparent")
 	LFGDungeonReadyDialog.SetBackdrop = T.dummy
 
-	for _, frame in pairs({LFGDungeonReadyDialogRewardsFrameReward1, LFGDungeonReadyDialogRewardsFrameReward2}) do
-		frame.texture:SetSize(18, 18)
-		frame.texture:SkinIcon(true)
-		frame:DisableDrawLayer("OVERLAY")
-	end
+	hooksecurefunc("LFGDungeonReadyDialog_UpdateRewards", function()
+		for i = 1, LFD_MAX_REWARDS do
+			local reward = LFGDungeonReadyDialogRewardsFrame.Rewards[i]
+			if not reward.isSkinned then
+				reward.texture:SetSize(18, 18)
+				reward.texture:SkinIcon(true)
+				reward:DisableDrawLayer("OVERLAY")
+				reward.isSkinned = true
+			end
+		end
+	end)
 
 	LFGListFrame.CategorySelection.CategoryButtons[1]:SetNormalFontObject(GameFontNormal)
 	hooksecurefunc("LFGListCategorySelection_AddButton", function(self, index)
@@ -340,6 +367,8 @@ local function LoadSkin()
 			button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
 			button.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
 			button.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
+
+			button.Label:SetFontObject(_G.GameFontNormal)
 			button.styled = true
 		end
 	end)
@@ -369,7 +398,6 @@ local function LoadSkin()
 	LFGListFrame.EntryCreation.ListGroupButton:SkinButton()
 	LFGListFrame.EntryCreation.CancelButton:SkinButton()
 
-	LFGListFrame.EntryCreation.ActivityFinder.Background:Kill()
 	LFGListFrame.EntryCreation.ActivityFinder.Dialog:StripTextures()
 	LFGListFrame.EntryCreation.ActivityFinder.Dialog:SetTemplate("Transparent")
 	LFGListFrame.EntryCreation.ActivityFinder.Dialog.BorderFrame:StripTextures()
@@ -384,22 +412,29 @@ local function LoadSkin()
 	LFGListFrame.ApplicationViewer.Inset:StripTextures()
 	LFGListFrame.ApplicationViewer.Inset:SetTemplate("Transparent")
 	LFGListFrame.ApplicationViewer.NameColumnHeader:SkinButton(true)
-	LFGListFrame.ApplicationViewer.RoleColumnHeader:SkinButton(true)
-	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SkinButton(true)
 	LFGListFrame.ApplicationViewer.NameColumnHeader:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.NameColumnHeader:SetPoint("BOTTOMLEFT", LFGListFrame.ApplicationViewer.Inset, "TOPLEFT", 0, 1)
+	LFGListFrame.ApplicationViewer.NameColumnHeader.Label:SetFont(C.media.normal_font, 10)
+
+	LFGListFrame.ApplicationViewer.RoleColumnHeader:SkinButton(true)
 	LFGListFrame.ApplicationViewer.RoleColumnHeader:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.RoleColumnHeader:SetPoint("LEFT", LFGListFrame.ApplicationViewer.NameColumnHeader, "RIGHT", 1, 0)
+	LFGListFrame.ApplicationViewer.RoleColumnHeader.Label:SetFont(C.media.normal_font, 10)
+
+	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SkinButton(true)
 	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SetPoint("LEFT", LFGListFrame.ApplicationViewer.RoleColumnHeader, "RIGHT", 1, 0)
+	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader.Label:SetFont(C.media.normal_font, 10)
+
 	LFGListFrame.ApplicationViewer.RefreshButton:SkinButton()
 	LFGListFrame.ApplicationViewer.RefreshButton:SetSize(24,24)
 	LFGListFrame.ApplicationViewer.RefreshButton:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.RefreshButton:SetPoint("BOTTOMRIGHT", LFGListFrame.ApplicationViewer.Inset, "TOPRIGHT", 16, 4)
 	LFGListFrame.ApplicationViewer.RemoveEntryButton:SkinButton(true)
-	LFGListFrame.ApplicationViewer.EditButton:SkinButton(true)
 	LFGListFrame.ApplicationViewer.RemoveEntryButton:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.RemoveEntryButton:SetPoint("BOTTOMLEFT", -1, 3)
+
+	LFGListFrame.ApplicationViewer.EditButton:SkinButton(true)
 	LFGListFrame.ApplicationViewer.EditButton:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.EditButton:SetPoint("BOTTOMRIGHT", -6, 3)
 	LFGListApplicationViewerScrollFrameScrollBar:ClearAllPoints()

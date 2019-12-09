@@ -95,10 +95,12 @@ local function LoadSkin()
 		local playerTalentSpec = GetSpecialization(nil, self.isPet, PlayerSpecTab2:GetChecked() and 2 or 1)
 		local shownSpec = spec or playerTalentSpec or 1
 		local numSpecs = GetNumSpecializations(nil, self.isPet)
+		local sex = self.isPet and UnitSex("pet") or UnitSex("player")
 
-		local id, _, _, icon = GetSpecializationInfo(shownSpec, nil, self.isPet)
+		local id, _, _, icon = GetSpecializationInfo(shownSpec, nil, self.isPet, nil, sex)
+		if not id then return end
+
 		local scrollChild = self.spellsScroll.child
-
 		scrollChild.specIcon:SetTexture(icon)
 
 		local index = 1
@@ -164,7 +166,7 @@ local function LoadSkin()
 			_G["PlayerTalentFrameSpecializationSpecButton"..i.."Glow"]:Hide()
 			_G["PlayerTalentFrameSpecializationSpecButton"..i.."Glow"].Show = T.dummy
 
-			local hover = bu:CreateTexture(nil, nil, self)
+			local hover = bu:CreateTexture()
 			hover:SetColorTexture(1, 1, 1, 0.3)
 			bu:SetHighlightTexture(hover)
 			bu:GetHighlightTexture():SetPoint("TOPLEFT", 10, 0)
@@ -333,7 +335,7 @@ local function LoadSkin()
 	PlayerTalentFrameLockInfo:StripTextures()
 	PlayerTalentFrameLockInfo:SetTemplate("Transparent")
 	PlayerTalentFrameLockInfo:SetFrameLevel(PlayerTalentFrameLockInfo:GetFrameLevel() + 1)
---[[
+
 	-- Help box
 	local HelpBox = {
 		PlayerTalentFrameTalentsPvpTalentFrame.TrinketSlot.HelpBox,
@@ -342,14 +344,8 @@ local function LoadSkin()
 
 	for i = 1, #HelpBox do
 		local frame = HelpBox[i]
-		frame:StripTextures()
-		frame:SetTemplate("Transparent")
-		T.SkinCloseButton(frame.CloseButton)
-		if frame.Arrow then
-			frame.Arrow:Hide()
-		end
+		T.SkinHelpBox(frame)
 	end
-	]]--
 end
 
 T.SkinFuncs["Blizzard_TalentUI"] = LoadSkin

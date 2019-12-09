@@ -61,8 +61,12 @@ local function CreatCopyFrame()
 	isf = true
 end
 
+local canChangeMessage = function(arg1, id)
+	if id and arg1 == "" then return id end
+end
+
 local function MessageIsProtected(message)
-	return strmatch(message, '[^|]-|K[vq]%d-[^|]-|k')
+	return message and (message ~= gsub(message, '(:?|?)|K(.-)|k', canChangeMessage))
 end
 
 local function Copy(cf)
@@ -106,7 +110,7 @@ for i = 1, NUM_CHAT_WINDOWS do
 	icon:SetTexture("Interface\\BUTTONS\\UI-GuildButton-PublicNote-Up")
 	icon:SetSize(16, 16)
 
-	button:SetScript("OnMouseUp", function(self, btn)
+	button:SetScript("OnMouseUp", function(_, btn)
 		if btn == "RightButton" then
 			ToggleFrame(ChatMenu)
 		elseif btn == "MiddleButton" then

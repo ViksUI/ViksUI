@@ -32,7 +32,7 @@ local fontstrings = setmetatable({}, {
 	end,
 })
 
-function frame:OnEvent(event)
+function frame:OnEvent()
 	local min = 1
 	for slot, id in pairs(SLOTIDS) do
 		local v1, v2 = GetInventoryItemDurability(id)
@@ -51,8 +51,6 @@ function frame:OnEvent(event)
 			if str then str:SetText(nil) end
 		end
 	end
-
-	local r, g, b = RYGColorGradient(min)
 end
 
 frame:SetScript("OnEvent", frame.OnEvent)

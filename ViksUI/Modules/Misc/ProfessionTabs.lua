@@ -115,7 +115,11 @@ local function UpdateTab(object, name, rank, texture, hat)
 	tabs[object].index = tabs[object].index + 1
 end
 
-local function GetProfessionRank(currentSkill)
+local function GetProfessionRank(currentSkill, skillLineName)
+	if skillLineName then
+		return skillLineName
+	end
+
 	if currentSkill <= 74 then
 		return APPRENTICE
 	end
@@ -131,13 +135,13 @@ end
 
 local function HandleProfession(object, professionID, hat)
 	if professionID then
-		local _, _, currentSkill, _, numAbilities, offset, skillID = GetProfessionInfo(professionID)
+		local _, _, currentSkill, _, numAbilities, offset, skillID, _, _, _, skillLineName = GetProfessionInfo(professionID)
 
 		if defaults[skillID] then
 			for index = 1, numAbilities do
 				if defaults[skillID][index] then
 					local name = GetSpellBookItemName(offset + index, "profession")
-					local rank = GetProfessionRank(currentSkill)
+					local rank = GetProfessionRank(currentSkill, skillLineName)
 					local texture = GetSpellBookItemTexture(offset + index, "profession")
 
 					if name and rank and texture then
@@ -160,7 +164,7 @@ local function HandleTabs(object)
 	if InCombatLockdown() then
 		handler:RegisterEvent("PLAYER_REGEN_ENABLED")
 	else
-		local firstProfession, secondProfession, archaeology, fishing, cooking, firstAid = GetProfessions()
+		local firstProfession, secondProfession, archaeology, fishing, cooking = GetProfessions()
 
 		ResetTabs(object)
 
@@ -169,7 +173,6 @@ local function HandleTabs(object)
 		HandleProfession(object, archaeology)
 		HandleProfession(object, fishing)
 		HandleProfession(object, cooking, true)
-		HandleProfession(object, firstAid)
 
 		for index = 1, #spells do
 			if IsSpellKnown(spells[index]) then
@@ -193,7 +196,7 @@ function handler:TRADE_SKILL_SHOW(event)
 	end
 end
 
-function handler:TRADE_SKILL_CLOSE(event)
+function handler:TRADE_SKILL_CLOSE()
 	for object in next, tabs do
 		if object:IsShown() then
 			UpdateSelectedTabs(object)

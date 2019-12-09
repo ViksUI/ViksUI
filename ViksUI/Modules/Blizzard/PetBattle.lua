@@ -110,7 +110,7 @@ for i, unit in pairs(units) do
 end
 
 -- Pets speed indicator update
-hooksecurefunc("PetBattleFrame_UpdateSpeedIndicators", function(self)
+hooksecurefunc("PetBattleFrame_UpdateSpeedIndicators", function()
 	if not f.ActiveAlly.SpeedIcon:IsShown() and not f.ActiveEnemy.SpeedIcon:IsShown() then
 		f.ActiveAlly.FirstAttack:Hide()
 		f.ActiveEnemy.FirstAttack:Hide()
@@ -219,6 +219,13 @@ hooksecurefunc("PetBattleWeatherFrame_Update", function(self)
 		self.Duration:SetPoint("CENTER", self, 0, 8)
 		self:ClearAllPoints()
 		self:SetPoint("TOP", UIParent, 0, -15)
+		self:SetFrameStrata("MEDIUM")
+		if not self.ChildFrame then
+			self.ChildFrame = CreateFrame("Frame", nil, self)
+			self.ChildFrame:SetAllPoints(self)
+			self.ChildFrame:SetFrameStrata("LOW")
+		end
+		self.BackgroundArt:SetParent(self.ChildFrame)
 	end
 end)
 
@@ -306,7 +313,7 @@ local function SkinPetButton(self)
 end
 
 -- Setup pet action bar
-hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function(self)
+hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function()
 	for i = 1, NUM_BATTLE_PET_ABILITIES do
 		local b = bf.abilityButtons[i]
 
@@ -327,7 +334,7 @@ hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function(self)
 	bf.SwitchPetButton:ClearAllPoints()
 	bf.SwitchPetButton:SetPoint("LEFT", bf.abilityButtons[3], "RIGHT", C.actionbar.petbuttonspacing, 0)
 
-	bf.SwitchPetButton:SetScript("OnClick", function(self)
+	bf.SwitchPetButton:SetScript("OnClick", function()
 		PetBattlePetSelectionFrame_Show(bf.PetSelectionFrame)
 	end)
 
@@ -392,17 +399,9 @@ hooksecurefunc("PetBattleUnitFrame_UpdateDisplay", function(self)
 	-- There must be a petOwner and a petIndex
 	if not self.petOwner or not self.petIndex then return end
 
-	-- Is this Enemy or Player? (This Value will be Added to the Glow Index)
-	local nEnemy = 0
-	if self.petOwner == LE_BATTLE_PET_ENEMY then nEnemy = 3 end
-
 	-- Check if this is the Tooltip
 	local isTooltip = false
 	if self:GetName() == "PetBattlePrimaryUnitTooltip" then isTooltip = true end
-
-	-- Set which Glow frame this will use (Enemy Frames are +3 / Tooltip is 7)
-	local sGlow = "Glow7"
-	if not isTooltip then sGlow = "Glow"..tostring(self.petIndex + nEnemy) end
 
 	-- Set the color for the Glow
 	local nQuality = C_PetBattles.GetBreedQuality(self.petOwner, self.petIndex) - 1

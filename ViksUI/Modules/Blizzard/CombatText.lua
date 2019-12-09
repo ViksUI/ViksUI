@@ -33,7 +33,7 @@ end
 -- Limit lines
 local function LimitLines()
 	for i = 1, #ct.frames do
-		f = ct.frames[i]
+		local f = ct.frames[i]
 		if i == 4 and C.combattext.icons then
 			f:SetMaxLines(math.floor(f:GetHeight() / (C.combattext.icon_size * 1.5)))
 		else
@@ -58,10 +58,10 @@ end
 
 -- Partial resists styler
 local part = "-%s [%s %s]"
-local r, g, b
+local r, g, b, lowMana, lowHealth
 
 -- Function, handles everything
-local function OnEvent(self, event, subevent, powerType)
+local function OnEvent(_, event, subevent, powerType)
 	if event == "COMBAT_TEXT_UPDATE" then
 		local arg2, arg3 = GetCurrentCombatTextEventInfo()
 		if SHOW_COMBAT_TEXT == "0" then
@@ -324,6 +324,7 @@ local function OnEvent(self, event, subevent, powerType)
 		if GetRuneCooldown(arg1) ~= 0 then return end
 		xCT3:AddMessage("+"..COMBAT_TEXT_RUNE_DEATH, 0.75, 0, 0)
 	elseif event == "UNIT_ENTERED_VEHICLE" or event == "UNIT_EXITING_VEHICLE" then
+		local arg1 = subevent
 		if arg1 == "player" then
 			SetUnit()
 		end
@@ -356,7 +357,7 @@ end
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGOUT")
-frame:SetScript("OnEvent", function(self, event)
+frame:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_LOGOUT" then
 		SetCVar("floatingCombatTextCombatHealing", 1)
 		SetCVar("floatingCombatTextCombatDamage", 1)
@@ -463,7 +464,7 @@ end
 local StartConfigmode = function()
 	if not InCombatLockdown()then
 		for i = 1, #ct.frames do
-			f = ct.frames[i]
+			local f = ct.frames[i]
 			f:SetTemplate("Transparent")
 			f:SetBackdropBorderColor(1, 0, 0, 1)
 
@@ -484,14 +485,14 @@ local StartConfigmode = function()
 				f.fs:SetTextColor(1, 1, 0, 0.9)
 			end
 
-			f.t = f:CreateTexture("ARTWORK")
+			f.t = f:CreateTexture(nil, "ARTWORK")
 			f.t:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
 			f.t:SetPoint("TOPRIGHT", f, "TOPRIGHT", -1, -19)
 			f.t:SetHeight(20)
 			f.t:SetColorTexture(0.5, 0.5, 0.5)
 			f.t:SetAlpha(0.3)
 
-			f.d = f:CreateTexture("ARTWORK")
+			f.d = f:CreateTexture(nil, "ARTWORK")
 			f.d:SetHeight(16)
 			f.d:SetWidth(16)
 			f.d:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
@@ -500,7 +501,7 @@ local StartConfigmode = function()
 
 			if not f.tr then
 				f.tr = CreateFrame("Frame", nil, f)
-				f.tr:SetScript("OnDragStart", function(self, button)
+				f.tr:SetScript("OnDragStart", function(self)
 					self:GetParent():StartMoving()
 				end)
 				f.tr:SetScript("OnDragStop", function(self)
@@ -541,7 +542,7 @@ end
 
 local function EndConfigmode()
 	for i = 1, #ct.frames do
-		f = ct.frames[i]
+		local f = ct.frames[i]
 		f:SetBackdrop(nil)
 		f.iborder:Hide()
 		f.oborder:Hide()
@@ -579,7 +580,7 @@ local function StartTestMode()
 	end
 
 	for i = 1, #ct.frames do
-		ct.frames[i]:SetScript("OnUpdate", function(self, elapsed)
+		ct.frames[i]:SetScript("OnUpdate", function(_, elapsed)
 			UpdateInterval = random(65, 1000) / 250
 			TimeSinceLastUpdate = TimeSinceLastUpdate + elapsed
 			if TimeSinceLastUpdate > UpdateInterval then
@@ -699,7 +700,7 @@ if C.combattext.merge_aoe_spam then
 	if C.combattext.damage or C.combattext.healing then
 		local pairs = pairs
 		SQ = {}
-		for k, v in pairs(T.aoespam) do
+		for k in pairs(T.aoespam) do
 			SQ[k] = {queue = 0, msg = "", color = {}, count = 0, utime = 0, locked = false}
 		end
 		ct.SpamQueue = function(spellId, add)
@@ -714,13 +715,13 @@ if C.combattext.merge_aoe_spam then
 		end
 		local tslu = 0
 		local xCTspam = CreateFrame("Frame")
-		xCTspam:SetScript("OnUpdate", function(self, elapsed)
+		xCTspam:SetScript("OnUpdate", function(_, elapsed)
 			local count
 			tslu = tslu + elapsed
 			if tslu > 0.5 then
 				tslu = 0
 				local utime = time()
-				for k, v in pairs(SQ) do
+				for k in pairs(SQ) do
 					if not SQ[k]["locked"] and SQ[k]["queue"] > 0 and SQ[k]["utime"] <= utime then
 						if SQ[k]["count"] > 1 then
 							count = " |cffFFFFFF x "..SQ[k]["count"].."|r"
@@ -740,14 +741,15 @@ if C.combattext.merge_aoe_spam then
 	end
 end
 
+local unpack, select, time = unpack, select, time
+local gflags = bit.bor(COMBATLOG_OBJECT_AFFILIATION_MINE,
+	COMBATLOG_OBJECT_REACTION_FRIENDLY,
+	COMBATLOG_OBJECT_CONTROL_PLAYER,
+	COMBATLOG_OBJECT_TYPE_GUARDIAN
+)
+
 -- Damage
 if C.combattext.damage then
-	local unpack, select, time = unpack, select, time
-	local gflags = bit.bor(COMBATLOG_OBJECT_AFFILIATION_MINE,
-		COMBATLOG_OBJECT_REACTION_FRIENDLY,
-		COMBATLOG_OBJECT_CONTROL_PLAYER,
-		COMBATLOG_OBJECT_TYPE_GUARDIAN
-	)
 	local xCTd = CreateFrame("Frame")
 	if C.combattext.damage_color then
 		ct.dmgcolor = {}
@@ -763,7 +765,7 @@ if C.combattext.damage then
 		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Blank"
 	end
 	local misstypes = {ABSORB = ABSORB, BLOCK = BLOCK, DEFLECT = DEFLECT, DODGE = DODGE, EVADE = EVADE, IMMUNE = IMMUNE, MISS = MISS, MISFIRE = MISS, PARRY = PARRY, REFLECT = REFLECT, RESIST = RESIST}
-	local dmg = function(self, event)
+	local dmg = function()
 		local msg, icon
 		local _, eventType, _, sourceGUID, _, sourceFlags, _, destGUID = CombatLogGetCurrentEventInfo()
 		if (sourceGUID == ct.pguid and destGUID ~= ct.pguid) or (sourceGUID == UnitGUID("pet") and C.combattext.pet_damage) or (sourceFlags == gflags) then
@@ -966,12 +968,11 @@ end
 
 -- Healing
 if C.combattext.healing then
-	local unpack, select, time = unpack, select, time
 	local xCTh = CreateFrame("Frame")
 	if C.combattext.icons then
 		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Blank"
 	end
-	local heal = function(self, event)
+	local heal = function()
 		local msg, icon
 		local _, eventType, _, sourceGUID, _, sourceFlags = CombatLogGetCurrentEventInfo()
 		if sourceGUID == ct.pguid or sourceFlags == gflags then

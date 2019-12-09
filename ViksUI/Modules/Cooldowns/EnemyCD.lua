@@ -74,7 +74,7 @@ local StopTimer = function(icon)
 	UpdatePositions()
 end
 
-local IconUpdate = function(self, elapsed)
+local IconUpdate = function(self)
 	if (self.endTime < GetTime()) then
 		StopTimer(self)
 	end
@@ -116,7 +116,7 @@ local StartTimer = function(name, sID)
 	UpdatePositions()
 end
 
-local OnEvent = function(self, event)
+local OnEvent = function(_, event)
 	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local _, eventType, _, _, sourceName, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 
@@ -128,7 +128,7 @@ local OnEvent = function(self, event)
 			end
 		end
 	elseif event == "ZONE_CHANGED_NEW_AREA" then
-		for k, v in pairs(icons) do
+		for _, v in pairs(icons) do
 			v.endTime = 0
 		end
 	end

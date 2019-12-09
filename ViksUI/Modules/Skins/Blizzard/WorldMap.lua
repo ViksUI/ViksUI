@@ -3,17 +3,25 @@ if C.skins.blizzard_frames ~= true then return end
 
 
 local _G = _G
+local function WorldMapBountyBoard(Frame)
+	Frame.BountyName:FontTemplate()
+
+	T.SkinCloseButton(Frame.TutorialBox.CloseButton)
+end
 local function LoadSkin()
 	local WorldMapFrame = _G["WorldMapFrame"]
 	WorldMapFrame:StripTextures()
 	WorldMapFrame.BorderFrame:StripTextures()
 	WorldMapFrame.BorderFrame:SetFrameStrata(WorldMapFrame:GetFrameStrata())
+	WorldMapFrame.BorderFrame.NineSlice:Hide()									   
 	WorldMapFrame.NavBar:StripTextures()
 	WorldMapFrame.NavBar.overlay:StripTextures()
 	WorldMapFrame.NavBar:SetPoint("TOPLEFT", 1, -40)
 
 	WorldMapFrame.ScrollContainer:CreateBackdrop()
 	WorldMapFrame:CreateBackdrop("Transparent")
+	WorldMapFrame.backdrop:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", -8, 0)
+	WorldMapFrame.backdrop:SetPoint("BOTTOMRIGHT", WorldMapFrame, "BOTTOMRIGHT", 0, -9)																
 
 	WorldMapFrameHomeButton:StripTextures()
 	WorldMapFrameHomeButton:SetHeight(25)
@@ -28,19 +36,22 @@ local function LoadSkin()
 	WorldMapFrame.BorderFrame.NineSlice:Hide()
 	local QuestScrollFrame = _G["QuestScrollFrame"]
 	QuestScrollFrame.DetailFrame:StripTextures()
+	QuestScrollFrame.DetailFrame.BottomDetail:Hide()
 	QuestScrollFrame.Background:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator.Divider:Hide()
 	QuestScrollFrame.Contents.StoryHeader:StripTextures()
 	
+	local QuestScrollFrameScrollBar = _G.QuestScrollFrameScrollBar
 	QuestScrollFrame.DetailFrame:CreateBackdrop("Default")
 	QuestScrollFrame.DetailFrame.backdrop:SetFrameLevel(1)
 	QuestScrollFrame.DetailFrame.backdrop:Point("TOPLEFT", QuestScrollFrame.DetailFrame, "TOPLEFT", 3, 1)
 	QuestScrollFrame.DetailFrame.backdrop:Point("BOTTOMRIGHT", QuestScrollFrame.DetailFrame, "BOTTOMRIGHT", -2, -7)
 	QuestScrollFrame.Background:SetInside(QuestScrollFrame.DetailFrame.backdrop)
-	QuestScrollFrame.Contents.StoryHeader:CreateBackdrop("Invisible")
-	QuestScrollFrame.Contents.StoryHeader.backdrop:SetBackdropColor(.1,.1,.1, 1)
-	QuestScrollFrame.Contents.StoryHeader.backdrop:SetPoint("TOPLEFT", QuestScrollFrame.Contents.StoryHeader, "TOPLEFT", 6, -16)
-	QuestScrollFrame.Contents.StoryHeader.backdrop:SetPoint("BOTTOMRIGHT", QuestScrollFrame.Contents.StoryHeader, "BOTTOMRIGHT", -6, 6)
+	QuestScrollFrame.Contents.StoryHeader.Background:Width(251)
+	QuestScrollFrame.Contents.StoryHeader.Background:SetPoint("TOP", 0, -9)
+	QuestScrollFrame.Contents.StoryHeader.Text:SetPoint("TOPLEFT", 18, -20)
+	QuestScrollFrame.Contents.StoryHeader.HighlightTexture:SetAllPoints(QuestScrollFrame.Contents.StoryHeader.Background)
+	QuestScrollFrame.Contents.StoryHeader.HighlightTexture:SetAlpha(0)
 	
 	QuestMapFrame.DetailsFrame:StripTextures()
 	QuestMapFrame.DetailsFrame.RewardsFrame:StripTextures()
@@ -103,6 +114,46 @@ local function LoadSkin()
 	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2])
 	WorldMapBountyBoard(WorldMapFrame.overlayFrames[3])
 
+	WorldMapBountyBoard(WorldMapFrame.overlayFrames[3]) -- BountyBoard
+	QuestMapFrame.QuestSessionManagement:StripTextures()
+
+	local ExecuteSessionCommand = QuestMapFrame.QuestSessionManagement.ExecuteSessionCommand
+	ExecuteSessionCommand:SetTemplate("Default")
+	ExecuteSessionCommand:StyleButton()
+
+	local icon = ExecuteSessionCommand:CreateTexture(nil, "ARTWORK")
+	icon:SetPoint("TOPLEFT", 0, 0)
+	icon:SetPoint("BOTTOMRIGHT", 0, 0)
+	ExecuteSessionCommand.normalIcon = icon
+
+	local sessionCommandToButtonAtlas = { -- Skin from Aurora
+		[_G.Enum.QuestSessionCommand.Start] = "QuestSharing-DialogIcon",
+		[_G.Enum.QuestSessionCommand.Stop] = "QuestSharing-Stop-DialogIcon"
+	}
+
+	hooksecurefunc(QuestMapFrame.QuestSessionManagement, "UpdateExecuteCommandAtlases", function(self, command)
+		self.ExecuteSessionCommand:SetNormalTexture("")
+		self.ExecuteSessionCommand:SetPushedTexture("")
+		self.ExecuteSessionCommand:SetDisabledTexture("")
+
+		local atlas = sessionCommandToButtonAtlas[command]
+		if atlas then
+			self.ExecuteSessionCommand.normalIcon:SetAtlas(atlas)
+		end
+	end)
+
+	hooksecurefunc(QuestSessionManager, "NotifyDialogShow", function(_, dialog)
+		if not dialog.isSkinned then
+			dialog:StripTextures()
+			dialog:SetTemplate("Transparent")
+			dialog.ButtonContainer.Confirm:SkinButton()
+			dialog.ButtonContainer.Decline:SkinButton()
+			if dialog.MinimizeButton then
+				T.SkinCloseButton(dialog.MinimizeButton, nil, "-")
+			end
+			dialog.isSkinned = true
+		end
+	end)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
