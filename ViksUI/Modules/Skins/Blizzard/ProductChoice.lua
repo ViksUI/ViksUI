@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if T.wowBuild == 32976 then return end --FixMe
+if T.wowBuild >= 32976 then return end --FixMe
 if C.skins.blizzard_frames ~= true then return end
 
 ----------------------------------------------------------------------------------------
