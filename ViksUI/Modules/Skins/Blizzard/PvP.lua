@@ -221,8 +221,7 @@ local function LoadSkin()
 	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -3)
 
 	ConquestJoinButton:SkinButton(true)
-
-	local NewSeasonPopup = PVPQueueFrame.NewSeasonPopup
+	local NewSeasonPopup = _G.PVPQueueFrame.NewSeasonPopup
 	NewSeasonPopup:StripTextures()
 	NewSeasonPopup:CreateBackdrop("Overlay")
 	NewSeasonPopup.backdrop:SetPoint("TOPLEFT", 10, -10)
@@ -235,7 +234,7 @@ local function LoadSkin()
 	NewSeasonPopup.SeasonDescription2:SetTextColor(1, 1, 1)
 	NewSeasonPopup.SeasonDescription2:SetShadowOffset(1, -1)
 
-	local RewardFrame = SeasonRewardFrame
+	local RewardFrame = NewSeasonPopup.SeasonRewardFrame
 	RewardFrame.Ring:Hide()
 	RewardFrame.CircleMask:Hide()
 	RewardFrame.Icon:SkinIcon()
@@ -243,7 +242,7 @@ local function LoadSkin()
 	select(3, RewardFrame:GetRegions()):SetShadowOffset(1, -1)
 
 	NewSeasonPopup.Leave:SkinButton()
-end
+	end
 
 T.SkinFuncs["Blizzard_PVPUI"] = LoadSkin
 

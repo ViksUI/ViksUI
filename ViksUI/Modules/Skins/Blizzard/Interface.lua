@@ -7,10 +7,9 @@ if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
 	InterfaceOptionsFrame:StripTextures()
 	InterfaceOptionsFrame:SetTemplate("Transparent")
-
-	InterfaceOptionsFrameHeader:SetTexture(nil)
-	InterfaceOptionsFrameHeader:ClearAllPoints()
-	InterfaceOptionsFrameHeader:SetPoint("TOP", InterfaceOptionsFrame, 0, 0)
+	InterfaceOptionsFrame.Header:StripTextures()
+	InterfaceOptionsFrame.Header:ClearAllPoints()
+	InterfaceOptionsFrame.Header:SetPoint("TOP", InterfaceOptionsFrame, 0, 0)
 
 	InterfaceOptionsFrameTab1:StripTextures()
 	InterfaceOptionsFrameTab2:StripTextures()

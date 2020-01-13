@@ -8,24 +8,17 @@ local function LoadSkin()
 	local frames = {
 		"CalendarFrame",
 		"CalendarCreateEventFrame",
-		"CalendarCreateEventTitleFrame",
 		"CalendarCreateEventInviteList",
 		"CalendarCreateEventDescriptionContainer",
 		"CalendarCreateEventInviteListSection",
 		"CalendarTexturePickerFrame",
-		"CalendarTexturePickerTitleFrame",
 		"CalendarMassInviteFrame",
-		"CalendarMassInviteTitleFrame",
 		"CalendarViewRaidFrame",
-		"CalendarViewRaidTitleFrame",
-		"CalendarViewHolidayTitleFrame",
 		"CalendarViewEventFrame",
-		"CalendarViewEventTitleFrame",
 		"CalendarViewEventDescriptionContainer",
 		"CalendarViewEventInviteList",
 		"CalendarViewEventInviteListSection",
 		"CalendarEventPickerFrame",
-		"CalendarEventPickerTitleFrame"
 	}
 
 	for _, frame in pairs(frames) do
@@ -36,6 +29,12 @@ local function LoadSkin()
 	CalendarFrame.backdrop:SetPoint("TOPLEFT", 0, 0)
 	CalendarFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
 
+	_G.CalendarViewHolidayFrame.Header:StripTextures()
+	_G.CalendarViewRaidFrame.Header:StripTextures()
+	_G.CalendarMassInviteFrame.Header:StripTextures()
+	_G.CalendarTexturePickerFrame.Header:StripTextures()
+	_G.CalendarEventPickerFrame.Header:StripTextures()
+	
 	T.SkinCloseButton(CalendarCloseButton)
 
 	T.SkinNextPrevButton(CalendarPrevMonthButton)

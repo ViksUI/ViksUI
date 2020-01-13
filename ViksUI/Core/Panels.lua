@@ -312,10 +312,10 @@ if C.panels.NoPanels == true then
 	-- show hide button CHAT
 	local ChatOptions = CreateFrame("Frame", "ChatOptions", LEFTChatline)
 	ChatOptions:SetTemplate()
-	ChatOptions:SetSize(((CPLwidth+10)/3), 30)
+	ChatOptions:SetSize(((CPLwidth)/3), 30)
 	ChatOptions:SetPoint("LEFT", LEFTChatline, "LEFT", 0, 5)
 	ChatOptions:SetFrameLevel(2)
-	ChatOptions:SetFrameStrata("BACKGROUND")
+	ChatOptions:SetFrameStrata("HIGH")
 	ChatOptions:SetAlpha(0.0)
 
 	LEFTChatline.icon = LEFTChatline:CreateTexture(nil, "OVERLAY")

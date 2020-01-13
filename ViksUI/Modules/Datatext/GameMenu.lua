@@ -127,7 +127,15 @@ local function Enable()
 	GameMenuButton12:Point("LEFT", GameMenuButton11, "RIGHT", spacing, 0)
 	GameMenuButton12.icon:SetTexture([[Interface\AddOns\ViksUI\media\microbar\pvp.tga]])
 	GameMenuButton12:SetScript("OnMouseDown", function(self)
-		--PVPFrame_ToggleFrame()
+		if T.level >= SHOW_PVP_LEVEL then
+			TogglePVPUI()
+		else
+			if C.error.white == false then
+				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_PVP_LEVEL), 1, 0.1, 0.1)
+			else
+				print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_PVP_LEVEL).."|r")
+			end
+		end
 	end)
 
 	--Button 13 - Guild

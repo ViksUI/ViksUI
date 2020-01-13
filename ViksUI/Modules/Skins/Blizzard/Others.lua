@@ -64,6 +64,10 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 				frame:SetTemplate("Overlay")
 			end
 		end
+		
+		_G.GameMenuFrame.Header:StripTextures()
+		_G.GameMenuFrame.Header:ClearAllPoints()
+		_G.GameMenuFrame.Header:SetPoint("TOP", _G.GameMenuFrame, 0, 7)
 
 		-- Reskin popups
 		for i = 1, 4 do

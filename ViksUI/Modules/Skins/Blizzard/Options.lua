@@ -8,9 +8,9 @@ local function LoadSkin()
 	VideoOptionsFrame:StripTextures()
 	VideoOptionsFrame:SetTemplate("Transparent")
 
-	VideoOptionsFrameHeader:SetTexture(nil)
-	VideoOptionsFrameHeader:ClearAllPoints()
-	VideoOptionsFrameHeader:SetPoint("TOP", VideoOptionsFrame, 0, 0)
+	VideoOptionsFrame.Header:StripTextures()
+	VideoOptionsFrame.Header:ClearAllPoints()
+	VideoOptionsFrame.Header:SetPoint("TOP", VideoOptionsFrame, 0, 0)
 
 	local frames = {
 		"VideoOptionsFrameCategoryFrame",
