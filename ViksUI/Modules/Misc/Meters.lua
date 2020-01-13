@@ -16,17 +16,19 @@ local thickness = 1
 ------------------------------------------------------------------------------------------
 --local function updatepanels()
 
-	if IsAddOnLoaded('Skada') or IsAddOnLoaded('Details!') or IsAddOnLoaded('Recount') then
+	if IsAddOnLoaded('Skada') or IsAddOnLoaded('Details') or IsAddOnLoaded('Recount') then
 		CreateBtn("ShowHideMeters", RIGHTChatline, 55, 20, "", "")
+		RIGHTChatline:SetFrameStrata("HIGH")
+		RIGHTChatline:SetFrameLevel(15)
 		ShowHideMeters:SetPoint("LEFT", RIGHTChatline, "LEFT", 0, 0)
 		if IsAddOnLoaded('Skada') then
 			ShowHideMeters:SetAttribute("macrotext1", "/chatU\n/Skada toggle")
 		end
 		if IsAddOnLoaded('Recount') then
-			ShowHideMeters:SetAttribute("macrotext1", "/recount config")
+			ShowHideMeters:SetAttribute("macrotext1", "/chatU\n/recount toggle")
 		end	
-		if IsAddOnLoaded('Details!') then
-			ShowHideMeters:SetAttribute("macrotext1", "/details option")
+		if IsAddOnLoaded('Details') then
+			ShowHideMeters:SetAttribute("macrotext1", "/chatU\n/details toggle")
 		end	
 		ShowHideMeters:SetAlpha(0)
 
@@ -68,7 +70,16 @@ local thickness = 1
 		-- Close Button // Not perfect solution
 		CreateBtn("resetChat", RIGHTChatline, 70, 20, "", "")
 		resetChat:SetPoint("LEFT", RIGHTChatline, "LEFT", 60, 0)
-		resetChat:SetAttribute("macrotext1", "/chatS\n/Skada toggle")
+		if IsAddOnLoaded('Skada') then
+			resetChat:SetAttribute("macrotext1", "/chatS\n/Skada toggle")
+		end
+		if IsAddOnLoaded('Recount') then
+			resetChat:SetAttribute("macrotext1", "/chatS\n/recound toggle")
+		end	
+		if IsAddOnLoaded('Details') then
+			resetChat:SetAttribute("macrotext1", "/chatS\n/details hide")
+		end	
+
 		resetChat:SetAlpha(0)
 		
 		local resetChatText = RIGHTChatline:CreateFontString(nil, "OVERLAY")
