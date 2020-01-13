@@ -37,6 +37,7 @@ if C.combattext.merge_aoe_spam then
 	T.aoespam[282724] = 5			-- Battlefield Focus [Azerite trait]
 	T.aoespam[255586] = 3.5			-- Lightning Arc [Azerite trait]
 	T.aoespam[279856] = 2			-- Glacial Assault [Azerite trait]
+	T.aoespam[295261] = 3			-- Focused Azerite Beam [Azerite Essence]
 	T.aoespam[271686] = 1			-- Heed My Call [Azerite trait]
 	T.merge[271685] = 271686		-- Heed My Call [Azerite trait]
 end
@@ -312,6 +313,7 @@ elseif T.class == "MAGE" then
 		T.aoespam[211076] = 3		-- Mark of Aluneth
 		T.merge[210817] = 44425		-- Arcane Rebound
 		T.aoespam[44425] = 1.2		-- Arcane Barrage
+		T.aoespam[277703] = 3		-- Trailing Embers
 	end
 elseif T.class == "MONK" then
 	if C.combattext.merge_aoe_spam then
@@ -371,12 +373,12 @@ elseif T.class == "PALADIN" then
 		T.aoespam[81297] = 3		-- Consecration
 		T.aoespam[53385] = 0		-- Divine Storm
 		T.aoespam[88263] = 1		-- Hammer of the Righteous
+		T.merge[53595] = 88263		-- Hammer of the Righteous
 		T.aoespam[31935] = .5		-- Avenger's Shield
 		T.aoespam[114871] = 0		-- Holy Prism
 		T.aoespam[114919] = 3		-- Arcing Light
 		T.aoespam[86704] = 0		-- Ancient Fury
 		T.aoespam[157122] = 3		-- Holy Shield
-		T.merge[53595] = 88263		-- Hammer of the Righteous
 		T.aoespam[209478] = 1		-- Tyr's Enforcer
 		T.aoespam[209202] = 1		-- Eye of Tyr
 		T.aoespam[105421] = 1		-- Blinding Light
@@ -385,6 +387,7 @@ elseif T.class == "PALADIN" then
 		T.aoespam[20271] = 1		-- Judgment
 		T.merge[228288] = 20271		-- Judgment Retribution
 		T.aoespam[217020] = 1		-- Zeal
+		T.aoespam[204011] = 3		-- Retribution Aura
 	end
 elseif T.class == "PRIEST" then
 	if C.combattext.merge_aoe_spam then

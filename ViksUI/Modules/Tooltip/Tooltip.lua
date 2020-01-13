@@ -119,7 +119,7 @@ ricon:SetHeight(18)
 ricon:SetWidth(18)
 ricon:SetPoint("BOTTOM", GameTooltip, "TOP", 0, 5)
 
-GameTooltip:HookScript("OnHide", function(self) ricon:SetTexture(nil) end)
+GameTooltip:HookScript("OnHide", function() ricon:SetTexture(nil) end)
 
 -- Add "Targeted By" line
 local targetedList = {}
@@ -348,7 +348,7 @@ local OnTooltipSetUnit = function(self)
 		if GetCVar("colorblindMode") == "1" then n = n + 1 end
 		_G["GameTooltipTextLeft"..n]:SetFormattedText("|cff%02x%02x%02x%s|r %s", levelColor.r * 255, levelColor.g * 255, levelColor.b * 255, level, race or UNKNOWN)
 
-		for i = 2, lines do
+		for i = n + 1, lines do
 			local line = _G["GameTooltipTextLeft"..i]
 			if not line or not line:GetText() then return end
 			if line and line:GetText() and (line:GetText() == FACTION_HORDE or line:GetText() == FACTION_ALLIANCE) then
@@ -510,6 +510,9 @@ GameTooltip.ItemTooltip.backdrop:SetPoint("TOPLEFT", GameTooltip.ItemTooltip.Ico
 GameTooltip.ItemTooltip.backdrop:SetPoint("BOTTOMRIGHT", GameTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 2, -2)
 GameTooltip.ItemTooltip.Count:ClearAllPoints()
 GameTooltip.ItemTooltip.Count:SetPoint("BOTTOMRIGHT", GameTooltip.ItemTooltip.Icon, "BOTTOMRIGHT", 1, 0)
+
+BONUS_OBJECTIVE_REWARD_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|t %2$s"
+BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|t |cffffffff%2$d|r %3$s"
 
 local reward = EmbeddedItemTooltip.ItemTooltip
 local icon = reward.Icon

@@ -24,7 +24,7 @@ local function LoadSkin()
 	BonusRollFrame.PromptFrame.IconBackdrop:SetPoint("BOTTOMRIGHT", BonusRollFrame.PromptFrame.Icon, 2, -2)
 
 	BonusRollFrame.PromptFrame.Timer:CreateBackdrop("Default")
-	BonusRollFrame.PromptFrame.Timer.Bar:SetColorTexture(1, 1, 1)
+	BonusRollFrame.PromptFrame.Timer:SetStatusBarTexture(C.media.texture)
 	BonusRollFrame.PromptFrame.Timer:SetPoint("BOTTOMLEFT", BonusRollFrame.PromptFrame, "BOTTOMLEFT", 0, 1)
 
 	BonusRollFrame.SpecRing:SetTexture("")
@@ -59,7 +59,7 @@ local function LoadSkin()
 		if text2 and text2:find('|t') then pfifc:SetText(text2:gsub('|T(.-):.-|t', '|T%1:16:16:0:0:64:64:5:59:5:59|t')) end
 	end)
 
-	--T.SkinHelpBox(BonusRollFrame.PromptFrame.EncounterJournalLinkButtonHelp)
+	T.SkinHelpBox(BonusRollFrame.PromptFrame.EncounterJournalLinkButtonHelp)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
