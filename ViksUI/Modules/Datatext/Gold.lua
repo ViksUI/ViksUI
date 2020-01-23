@@ -189,6 +189,8 @@ Stat:SetScript("OnEnter", function(self)
 		Currency(1710)					-- Seafarer's Dubloon
 		Currency(1565)					-- Rich Azerite Fragment
 		GameTooltip:AddLine(" ")
+		Currency(1755)					-- Coalescing Visions
+		Currency(1719)					-- Corrupted Mementos
 		Currency(1220)					-- Order Resources
 		Currency(1721)					-- Prismatic Manapearl
 		Currency(1560)					-- War Resources

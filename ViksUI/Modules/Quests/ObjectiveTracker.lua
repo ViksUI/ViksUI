@@ -196,7 +196,7 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 			if (Icon) then
 				Icon:Size(20, 20)
 				Icon:SetMask("")
-				Icon:SetTexCoord(.08, .92, .08, .92)
+				Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 				Icon:ClearAllPoints()
 				Icon:SetPoint("RIGHT", Bar, 26, 0)
 
@@ -209,7 +209,10 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 					Bar.NewBorder:SetShown(Icon:IsShown())
 				end
 			end
-
+			hooksecurefunc(Bar.AnimIn, "Play", function()
+				Bar.AnimIn:Stop()
+			end)		
+			BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
 			Bar.IsSkinned = true
 		elseif (Icon and Bar.NewBorder) then
 			Bar.NewBorder:SetShown(Icon:IsShown())
@@ -235,14 +238,14 @@ function ObjectiveTracker:UpdatePopup()
 			if Block then
 				local Frame = Block.ScrollChild
 
-				if not Frame.Backdrop then
-					Frame:CreateBackdrop()
+				if not Frame.backdrop then
+					Frame:CreateBackdrop("Default")
 
-					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
-					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
-					Frame.Backdrop:SetFrameLevel(0)
-					Frame.Backdrop:SetTemplate("Transparent")
-					Frame.Backdrop:CreateShadow()
+					Frame.backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+					Frame.backdrop:SetFrameLevel(0)
+					Frame.backdrop:SetTemplate("Transparent")
+					Frame.backdrop:CreateShadow()
 
 					Frame.FlashFrame.IconFlash:Hide()
 				end
@@ -251,16 +254,16 @@ function ObjectiveTracker:UpdatePopup()
 					Frame.QuestIconBg:SetAlpha(0)
 					Frame.QuestIconBadgeBorder:SetAlpha(0)
 					Frame.QuestionMark:ClearAllPoints()
-					Frame.QuestionMark:SetPoint("CENTER", Frame.Backdrop, "LEFT", 10, 0)
-					Frame.QuestionMark:SetParent(Frame.Backdrop)
+					Frame.QuestionMark:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
+					Frame.QuestionMark:SetParent(Frame.backdrop)
 					Frame.QuestionMark:SetDrawLayer("OVERLAY", 7)
 					Frame.IconShine:Hide()
 				elseif type == "OFFER" then
 					Frame.QuestIconBg:SetAlpha(0)
 					Frame.QuestIconBadgeBorder:SetAlpha(0)
 					Frame.Exclamation:ClearAllPoints()
-					Frame.Exclamation:SetPoint("CENTER", Frame.Backdrop, "LEFT", 10, 0)
-					Frame.Exclamation:SetParent(Frame.Backdrop)
+					Frame.Exclamation:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
+					Frame.Exclamation:SetParent(Frame.backdrop)
 					Frame.Exclamation:SetDrawLayer("OVERLAY", 7)
 				end
 
@@ -350,7 +353,7 @@ function ObjectiveTracker:SkinPOI(questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:SetSize(24, 24)
+			Button:SetSize(20, 20)
 			Button:SetTemplate()
 			Button:StyleButton()
 			Button:CreateShadow()
@@ -367,7 +370,7 @@ function ObjectiveTracker:SkinPOI(questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.FullHighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:SetSize(24, 24)
+			Button:SetSize(20, 20)
 			Button:SetTemplate()
 			Button:StyleButton()
 			Button:CreateShadow()
@@ -469,6 +472,12 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 		self:SetBackdropColor(unpack(C.media.backdrop_color))
 	end
 
+	if rarity == LE_WORLD_QUEST_QUALITY_RARE then
+		self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
+	elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
+		self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
+	end
+
 	if PreviousPOI and PreviousPOI.IsSkinned then
 		PreviousPOI:SetBackdropColor(unpack(C.media.backdrop_color))
 		PreviousPOI.Shadow:SetBackdropBorderColor(unpack(C.media.border_color))
@@ -490,17 +499,12 @@ function ObjectiveTracker:AddHooks()
 	hooksecurefunc("ScenarioTrackerProgressBar_SetValue", self.UpdateProgressBarColors)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", SkinGroupFindButton)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_AddRightButton", UpdatePositions)																			 
-	--Fix hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
+	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.AddDash)
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
 	hooksecurefunc("BonusObjectiveTracker_AnimateReward", self.SkinRewards)																	
-	
-	if T.wowBuild < 28724 then
-		hooksecurefunc("WorldMap_SetupWorldQuestButton", self.SkinWorldQuestsPOI)
-	else
-		hooksecurefunc(QuestUtil, "SetupWorldQuestButton", self.SkinWorldQuestsPOI)
-	end					   
+	hooksecurefunc(QuestUtil, "SetupWorldQuestButton", self.SkinWorldQuestsPOI)					   
 end
 
 function ObjectiveTracker:Enable()

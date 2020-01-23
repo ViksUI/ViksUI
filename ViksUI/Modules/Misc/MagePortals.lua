@@ -67,7 +67,7 @@ for i, spell in pairs(spells) do
 
 	l:SetPoint("LEFT", b, "LEFT", 2, 0)
 	l:SetPoint("RIGHT", b, "RIGHT", -2, 0)
-	l:SetHeight(C.media.fontsize)
+	l:SetWordWrap(false)
 
 	b:SetFontString(l)
 
@@ -92,7 +92,7 @@ learnSpell:SetScript("OnEvent", function()
 end)
 
 local button = CreateFrame("Button", nil, UIParent)
-button:SetTemplate("Transparent")
+button:SetTemplate("ClassColor")
 button:SetPoint("TOPLEFT", RChatTab, "TOPLEFT")
 button:SetSize(20, 20)
 button:SetAlpha(0)
@@ -103,7 +103,7 @@ button.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 button.t:SetPoint("TOPLEFT", button, 2, -2)
 button.t:SetPoint("BOTTOMRIGHT", button, -2, 2)
 
-button:SetScript("OnClick", function(self)
+button:SetScript("OnClick", function()
 	if not InCombatLockdown() then
 		if _G["TeleportMenu"]:IsShown() then
 			_G["TeleportMenu"]:Hide()
