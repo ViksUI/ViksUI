@@ -209,9 +209,7 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 					Bar.NewBorder:SetShown(Icon:IsShown())
 				end
 			end
-			hooksecurefunc(Bar.AnimIn, "Play", function()
-				Bar.AnimIn:Stop()
-			end)		
+		
 			BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
 			Bar.IsSkinned = true
 		elseif (Icon and Bar.NewBorder) then
