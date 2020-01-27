@@ -32,10 +32,25 @@ else
 end
 PP(C.datatext.Wowtime, Text)
 
+local visionList = { 58151, 58155, 58156, 58167, 58168 }
+local QUESTS_LABEL
+
+local region = GetCVar("portal")
+if region == "EU" then
+	legionbase = 1565168400 -- CN-16
+	bfabase = 1546768800 -- CN+7
+elseif region == "US" then
+	legionbase = 1565197200 -- CN-8
+	bfabase = 1546769340 -- CN+16
+elseif region == "CN" then
+	legionbase = 1565226000 -- CN time 8/8/2019 09:00 [1]
+	bfabase = 1546743600 -- CN time 1/6/2019 11:00 [1]
+end
+
 -- Check Invasion Status
 local invIndex = {
-	[1] = {title = "Legion Invasion", duration = 66600, maps = {630, 641, 650, 634}, timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3}, baseTime = 1517274000}, -- 1/30 9:00 [1]
-	[2] = {title = "Battle for Azeroth Invasion", duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = 1544691600}, -- 12/13 17:00 [1]
+	[1] = {title = "Legion Invasion", duration = 66600, maps = {630, 641, 650, 634}, timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3}, baseTime = legionbase}, -- 1/30 9:00 [1]
+	[2] = {title = "Battle for Azeroth Invasion", duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = bfabase}, -- 12/13 17:00 [1]
 }
 
 local mapAreaPoiIDs = {
@@ -190,6 +205,13 @@ Stat:SetScript("OnEnter", function(self)
 		end
 	end
 
+	for _, id in pairs(visionList) do
+		if IsQuestFlaggedCompleted(id) then
+			addTitle(QUESTS_LABEL)
+			GameTooltip:AddDoubleLine("Lesser Vision of N'Zoth", QUEST_COMPLETE, 1,1,1, 1,0,0)
+		end
+	end
+	
 	if C.datatext.Localtime == true then
 		local Hr, Min = GetGameTime()
 		if Min<10 then Min = "0"..Min end

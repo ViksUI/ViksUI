@@ -204,7 +204,7 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 					Bar.NewBorder = CreateFrame("Frame", nil, Bar)
 					Bar.NewBorder:SetTemplate()
 					Bar.NewBorder:SetFrameLevel(Bar:GetFrameLevel() - 1)
-					--Bar.NewBorder:CreateShadow()
+					Bar.NewBorder:CreateShadow()
 					Bar.NewBorder:SetOutside(Icon)
 					Bar.NewBorder:SetShown(Icon:IsShown())
 				end

@@ -409,8 +409,9 @@ local CLASS_FILTERS = {
 		},
 		procs = {
 			-- Arcane
-			CreateSpellEntry(79683), -- Arcane Missiles!
 			CreateSpellEntry(198924), -- Quickening
+			CreateSpellEntry(263725), -- Clearcasting
+			CreateSpellEntry(276743), -- Clearcasting
 			-- Fire
 			CreateSpellEntry(48107), -- Heating Up!
 			-- Frost
