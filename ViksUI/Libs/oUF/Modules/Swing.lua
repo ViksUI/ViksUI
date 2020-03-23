@@ -33,7 +33,7 @@ local function Melee(self)
 
 	if UnitGUID(self.unit) == tarGUID then
 		if string.find(event, "MISSED") then
-			if missType == "PARRY" then
+			if missType == "PARRY" and bar.max then
 				bar.max = bar.min + ((bar.max - bar.min) * 0.6)
 				bar:SetMinMaxValues(bar.min, bar.max)
 			end
@@ -64,8 +64,8 @@ local function Melee(self)
 	end
 end
 
-local function Ranged(self, event, unit, spellName)
-	if spellName ~= GetSpellInfo(75) and spellName ~= GetSpellInfo(5019) then return end
+local function Ranged(self, _, unit, _, spellID)
+	if spellID ~= 75 and spellID ~= 5019 then return end
 
 	local bar = self.Swing
 	bar.min = GetTime()

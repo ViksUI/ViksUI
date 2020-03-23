@@ -41,7 +41,6 @@ PlayerPowerBarAlt:UnregisterEvent("PLAYER_ENTERING_WORLD")
 -- AltPowerBar
 local bar = CreateFrame("Frame", "UIAltPowerBar", UIParent)
 bar:SetSize(221, 25)
-bar:SetPoint(unpack(C.position.alt_power_bar))
 bar:SetTemplate("Default")
 
 -- Make moveable
@@ -67,7 +66,10 @@ bar:RegisterEvent("UNIT_POWER_UPDATE")
 bar:RegisterEvent("UNIT_POWER_BAR_SHOW")
 bar:RegisterEvent("UNIT_POWER_BAR_HIDE")
 bar:RegisterEvent("PLAYER_ENTERING_WORLD")
-bar:SetScript("OnEvent", function(self)
+bar:SetScript("OnEvent", function(self, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		bar:SetPoint(unpack(C.position.alt_power_bar))
+	end
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	if UnitAlternatePowerInfo("player") then
 		self:Show()
@@ -115,19 +117,17 @@ status:SetScript("OnUpdate", function(self, elapsed)
 	update = update + elapsed
 
 	if update >= 1 then
-		local power = UnitPower("player", ALTERNATE_POWER_INDEX)
-		local mpower = UnitPowerMax("player", ALTERNATE_POWER_INDEX)
+		local cur = UnitPower("player", ALTERNATE_POWER_INDEX)
+		local max = UnitPowerMax("player", ALTERNATE_POWER_INDEX)
 		local texture, r, g, b = UnitAlternatePowerTextureInfo("player", 2, 0)
 		if blizzColors[texture] then
 			r, g, b = unpack(blizzColors[texture])
-		elseif r == 1 and g == 1 and b == 1 then
-			r, g, b = oUF:ColorGradient(power, mpower, 0.8, 0, 0, 0.8, 0.8, 0, 0, 0.8, 0)
-		elseif not texture then
-			r, g, b = 0.3, 0.7, 0.3
+		elseif (r == 1 and g == 1 and b == 1) or not texture then
+			r, g, b = oUF:ColorGradient(cur, max, 0.8, 0.2, 0.1, 1, 0.8, 0.1, 0.33, 0.59, 0.33)
 		end
-		self:SetMinMaxValues(0, mpower)
-		self:SetValue(power)
-		self.text:SetText(power.."/"..mpower)
+		self:SetMinMaxValues(0, max)
+		self:SetValue(cur)
+		self.text:SetText(cur.."/"..max)
 		self:SetStatusBarColor(r, g, b)
 		self.bg:SetVertexColor(r, g, b, 0.25)
 		update = 0

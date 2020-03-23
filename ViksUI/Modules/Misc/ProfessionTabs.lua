@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.misc.profession_tabs ~= true or IsAddOnLoaded("TradeSkillMaster") then return end
+if C.misc.profession_tabs ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Professions tabs on tradeskill frame(ProfessionTabs by Beoko)
@@ -35,7 +35,6 @@ local defaults = {
 	-- Secondary Professions
 	[794] = {false, false},	-- Archaeology
 	[185] = {true, true},	-- Cooking
-	[129] = {true, false},	-- First Aid
 	[356] = {false, false},	-- Fishing
 }
 
@@ -188,7 +187,7 @@ end
 function handler:TRADE_SKILL_SHOW(event)
 	local owner = ATSWFrame or MRTSkillFrame or SkilletFrame or TradeSkillFrame
 
-	if (IsAddOnLoaded("TradeSkillDW") or IsAddOnLoaded("TradeSkillMaster")) and owner == TradeSkillFrame then
+	if IsAddOnLoaded("TradeSkillDW") and owner == TradeSkillFrame then
 		self:UnregisterEvent(event)
 	else
 		HandleTabs(owner)

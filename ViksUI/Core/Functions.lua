@@ -443,8 +443,7 @@ function T.SkinDropDownBox(frame, width, pos)
 		button:SetPoint("RIGHT", frame, "RIGHT", -10, 3)
 	end
 	button.SetPoint = T.dummy
-	scrolldn = false
-	T.SkinNextPrevButton(button)
+	T.SkinNextPrevButton(button, nil, "Down")
 
 	frame:CreateBackdrop("Overlay")
 	frame:SetFrameLevel(frame:GetFrameLevel() + 2)
@@ -1513,8 +1512,10 @@ T.CustomFilterBoss = function(_, unit, button, name, _, _, _, _, _, caster)
 			pet = true,
 			vehicle = true,
 		}
-		if playerUnits[caster] or caster == unit and not T.DebuffBlackList[name] then
-			return true
+		if (playerUnits[caster] or caster == unit) then
+			if (T.DebuffBlackList and not T.DebuffBlackList[name]) or not T.DebuffBlackList then
+				return true
+			end
 		end
 		return false
 	end

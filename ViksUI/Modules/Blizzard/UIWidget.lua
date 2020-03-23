@@ -24,7 +24,6 @@ end)
 
 for _, frame in pairs({top, below}) do
 	local anchor = frame == top and topAnchor or belowAnchor
-	anchor:EnableMouse(true)
 	anchor:SetMovable(true)
 	anchor:SetUserPlaced(true)
 	anchor:SetClampedToScreen(true)
@@ -127,4 +126,8 @@ hooksecurefunc(UIWidgetTemplateCaptureBarMixin, "Setup", function(widgetInfo)
 		widgetInfo.backdrop:SetPoint("TOPLEFT", widgetInfo.LeftBar, -2, 2)
 		widgetInfo.backdrop:SetPoint("BOTTOMRIGHT", widgetInfo.RightBar, 2, -2)
 	end
+end)
+
+hooksecurefunc(UIWidgetTemplateScenarioHeaderCurrenciesAndBackgroundMixin, "Setup", function(widgetInfo)
+	widgetInfo.Frame:SetAlpha(0)
 end)

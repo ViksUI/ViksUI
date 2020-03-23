@@ -11,6 +11,7 @@ if C.raidcooldown.enable == true then
 		[20484] = 600,	-- Rebirth
 		[61999] = 600,	-- Raise Ally
 		[20707] = 600,	-- Soulstone
+		[265116] = 600,	-- Unstable Temporal Time Shifter
 		-- Heroism
 		[32182] = 300,	-- Heroism
 		[2825] = 300,	-- Bloodlust
@@ -53,6 +54,7 @@ if C.enemycooldown.enable == true then
 		-- Interrupts and Silences
 		[57994] = 12,	-- Wind Shear
 		[47528] = 15,	-- Mind Freeze
+		[183752] = 15,	-- Disrupt
 		[106839] = 15,	-- Skull Bash
 		[116705] = 15,	-- Spear Hand Strike
 		[96231] = 15,	-- Rebuke

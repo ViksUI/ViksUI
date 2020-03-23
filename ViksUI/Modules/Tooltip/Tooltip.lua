@@ -22,7 +22,6 @@ local tooltips = {
 	WarCampaignTooltip,
 	EmbeddedItemTooltip,
 	-- Addons
-	RaiderIO_ProfileTooltip,
 	AtlasLootTooltip,
 	QuestGuru_QuestWatchTooltip,
 	LibDBIconTooltip
@@ -50,6 +49,14 @@ for _, tt in pairs(tooltips) do
 		tt.GetBackdropColor = function() return C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha end
 		tt.GetBackdropBorderColor = function() return unpack(C.media.border_color) end
 	end
+end
+
+if RaiderIO_ProfileTooltip then
+	RaiderIO_ProfileTooltip:SetBackdrop(nil)
+	RaiderIO_ProfileTooltip.SetBackdrop = T.dummy
+	RaiderIO_ProfileTooltip:CreateBackdrop("Transparent")
+	RaiderIO_ProfileTooltip.backdrop:SetPoint("TOPLEFT", 3, 0)
+	RaiderIO_ProfileTooltip.backdrop:SetPoint("BOTTOMRIGHT", -2, 0)
 end
 
 -- LibExtraTip skin

@@ -119,6 +119,7 @@ function Filger:DisplayActives()
 					bar.cooldown = CreateFrame("Cooldown", "$parentCD", bar, "CooldownFrameTemplate")
 					bar.cooldown:SetAllPoints(bar.icon)
 					bar.cooldown:SetReverse(true)
+					bar.cooldown:SetDrawEdge(false)				
 					bar.cooldown:SetFrameLevel(3)
 				end
 
@@ -315,7 +316,7 @@ function Filger:OnEvent(event, unit, _, castID)
 				if not name then break end
 
 				local data = SpellGroups[self.Id].spells[name] or SpellGroups[self.Id].spells[spid]
-				if data and (data.caster ~= 1 and (caster == data.caster or data.caster == "all") or MyUnits[caster]) and data.unitID == unit then
+				if data and (data.caster ~= 1 and (caster == data.caster or data.caster == "all") or MyUnits[caster]) and (not data.unitID or data.unitID == unit) then
 					if data.absID then
 						data = SpellGroups[self.Id].spells[spid]
 					end
@@ -329,7 +330,7 @@ function Filger:OnEvent(event, unit, _, castID)
 							local slotLink = GetInventoryItemLink("player", data.slotID)
 							_, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
 						end
-						self.actives[spid] = {data = data, name = name, icon = icon, count = count, start = GetTime(), duration = data.duration, spid = spid, sort = data.sort}
+						self.actives[spid] = {data = data, name = name, icon = icon, count = count, start = expirationTime - duration, duration = data.duration, spid = spid, sort = data.sort}
 					end
 				end
 				index = index + 1

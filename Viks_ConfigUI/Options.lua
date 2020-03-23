@@ -934,6 +934,12 @@ do
 
 	local open_items = ns.CreateCheckBox(parent, "open_items", L_GUI_AUTOMATION_OPEN_ITEMS)
 	open_items:SetPoint("TOPLEFT", buff_on_scroll, "BOTTOMLEFT", 0, 0)
+	
+	local AutoRepair = ns.CreateCheckBox(parent, "AutoRepair", L_GUI_AUTOMATION_REPAIR)
+	AutoRepair:SetPoint("TOPLEFT", open_items, "BOTTOMLEFT", 0, 0)
+	
+	local AutoRepairG = ns.CreateCheckBox(parent, "AutoRepairG", L_GUI_AUTOMATION_REPAIR_GUILDF)
+	AutoRepairG:SetPoint("TOPLEFT", AutoRepair, "BOTTOMLEFT", 0, 0)
 end
 
 -- Combat text

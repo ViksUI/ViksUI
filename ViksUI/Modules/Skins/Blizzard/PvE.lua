@@ -113,6 +113,12 @@ local function LoadSkin()
 		T.SkinScrollBar(scrollbars[i])
 	end
 
+	-- Set texture to hide circle
+	_G.GroupFinderFrame.groupButton1.icon:SetTexture("Interface\\Icons\\INV_Helmet_08")
+	_G.GroupFinderFrame.groupButton2.icon:SetTexture("Interface\\Icons\\Icon_Scenarios")
+	_G.GroupFinderFrame.groupButton3.icon:SetTexture("Interface\\LFGFrame\\UI-LFR-PORTRAIT")
+	_G.GroupFinderFrame.groupButton4.icon:SetTexture("Interface\\Icons\\Achievement_General_StayClassy")
+
 	for i = 1, 4 do
 		local button = GroupFinderFrame["groupButton"..i]
 
@@ -407,7 +413,6 @@ local function LoadSkin()
 	LFGListFrame.EntryCreation.ActivityFinder.Dialog.CancelButton:SkinButton()
 
 	-- ApplicationViewer (Custom Groups)
-	LFGListFrame.ApplicationViewer.InfoBackground:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	T.SkinCheckBox(LFGListFrame.ApplicationViewer.AutoAcceptButton)
 	LFGListFrame.ApplicationViewer.Inset:StripTextures()
 	LFGListFrame.ApplicationViewer.Inset:SetTemplate("Transparent")
@@ -440,6 +445,10 @@ local function LoadSkin()
 	LFGListApplicationViewerScrollFrameScrollBar:ClearAllPoints()
 	LFGListApplicationViewerScrollFrameScrollBar:SetPoint("TOPLEFT", LFGListFrame.ApplicationViewer.Inset, "TOPRIGHT", 0, -14)
 	LFGListApplicationViewerScrollFrameScrollBar:SetPoint("BOTTOMLEFT", LFGListFrame.ApplicationViewer.Inset, "BOTTOMRIGHT", 0, 14)
+
+	LFGListFrame.ApplicationViewer.InfoBackground:SkinIcon()
+	LFGListFrame.ApplicationViewer.InfoBackground:SetPoint("TOPLEFT", 1, -27)
+	LFGListFrame.ApplicationViewer.InfoBackground:SetSize(326, 90)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
@@ -510,6 +519,7 @@ local function LoadSecondarySkin()
 	NoticeFrame.SeasonDescription:SetShadowOffset(1, -1)
 	NoticeFrame.SeasonDescription2:SetTextColor(1, 1, 1)
 	NoticeFrame.SeasonDescription2:SetShadowOffset(1, -1)
+	NoticeFrame.SeasonDescription2:SetWidth(400)
 	NoticeFrame.SeasonDescription3:SetTextColor(1, 0.8, 0)
 	NoticeFrame.SeasonDescription3:SetShadowOffset(1, -1)
 
@@ -517,6 +527,59 @@ local function LoadSecondarySkin()
 	NoticeFrame.Affix.Portrait:SkinIcon()
 
 	NoticeFrame.Leave:SkinButton()
+
+	if IsAddOnLoaded("PremadeGroupsFilter") then
+		T.SkinCheckBox(UsePFGButton)
+		PremadeGroupsFilterDialog:StripTextures()
+		PremadeGroupsFilterDialog:CreateBackdrop("Transparent")
+		PremadeGroupsFilterDialog.backdrop:SetPoint("TOPLEFT", 3, 0)
+		PremadeGroupsFilterDialog.backdrop:SetPoint("BOTTOMRIGHT", 0, -2)
+		PremadeGroupsFilterDialog.ResetButton:SkinButton()
+		PremadeGroupsFilterDialog.RefreshButton:SkinButton()
+		T.SkinCloseButton(PremadeGroupsFilterDialog.CloseButton)
+
+		T.SkinDropDownBox(PremadeGroupsFilterDialog.Difficulty.DropDown)
+		T.SkinEditBox(PremadeGroupsFilterDialog.Expression)
+		PremadeGroupsFilterDialog.Advanced:StripTextures()
+		PremadeGroupsFilterDialog.Difficulty.DropDown:SetPoint("TOPRIGHT", PremadeGroupsFilterDialog.Difficulty, "TOPRIGHT", 5, 1)
+		PremadeGroupsFilterDialog.ResetButton:SetPoint("BOTTOMLEFT", PremadeGroupsFilterDialog, "BOTTOMLEFT", 9, 2)
+		PremadeGroupsFilterDialog.RefreshButton:SetPoint("BOTTOMRIGHT", PremadeGroupsFilterDialog, "BOTTOMRIGHT", -11, 2)
+
+		local checkButtons = {
+			PremadeGroupsFilterDialog.Difficulty.Act,
+			PremadeGroupsFilterDialog.Ilvl.Act,
+			PremadeGroupsFilterDialog.Noilvl.Act,
+			PremadeGroupsFilterDialog.Defeated.Act,
+			PremadeGroupsFilterDialog.Members.Act,
+			PremadeGroupsFilterDialog.Tanks.Act,
+			PremadeGroupsFilterDialog.Heals.Act,
+			PremadeGroupsFilterDialog.Dps.Act
+		}
+
+		for _, button in pairs(checkButtons) do
+			button:SetSize(27, 27)
+			T.SkinCheckBox(button)
+		end
+
+		local editBoxes = {
+			PremadeGroupsFilterDialog.Ilvl.Min,
+			PremadeGroupsFilterDialog.Ilvl.Max,
+			PremadeGroupsFilterDialog.Defeated.Min,
+			PremadeGroupsFilterDialog.Defeated.Max,
+			PremadeGroupsFilterDialog.Members.Min,
+			PremadeGroupsFilterDialog.Members.Max,
+			PremadeGroupsFilterDialog.Tanks.Min,
+			PremadeGroupsFilterDialog.Tanks.Max,
+			PremadeGroupsFilterDialog.Heals.Min,
+			PremadeGroupsFilterDialog.Heals.Max,
+			PremadeGroupsFilterDialog.Dps.Min,
+			PremadeGroupsFilterDialog.Dps.Max
+		}
+
+		for _, box in pairs(editBoxes) do
+			T.SkinEditBox(box, nil, 17)
+		end
+	end
 end
 
 T.SkinFuncs["Blizzard_ChallengesUI"] = LoadSecondarySkin

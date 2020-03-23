@@ -68,7 +68,11 @@ local applystyle = function(bar)
 	bar:SetHeight(15)
 	bar:SetScale(1)
 	bar.OldSetScale = bar.SetScale
-	bar.SetScale = T.dummy
+
+	-- Set currect scale if bars attached to nameplates
+	hooksecurefunc(bar, "SetParent", function()
+		bar:SetScale(T.noscalemult)
+	end)
 
 	-- Create or reparent and use bar background
 	local bg = nil
@@ -108,7 +112,7 @@ local applystyle = function(bar)
 	bar.candyBarLabel:SetJustifyH("LEFT")
 	bar.candyBarLabel:ClearAllPoints()
 	bar.candyBarLabel:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, 0)
-	bar.candyBarLabel:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -4, 0)
+	bar.candyBarLabel:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -14, 0)
 
 	bar.candyBarDuration:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
 	bar.candyBarDuration:SetShadowOffset(C.font.stylization_font_shadow and 1 or 0, C.font.stylization_font_shadow and -1 or 0)
@@ -122,7 +126,7 @@ local applystyle = function(bar)
 	bar.candyBarBar.OldSetPoint = bar.candyBarBar.SetPoint
 	bar.candyBarBar.SetPoint = T.dummy
 	bar.candyBarBar:SetStatusBarTexture(C.media.texture)
-	if not bar.data["bigwigs:emphasized"] == true then
+	if not bar:Get("bigwigs:emphasized") then
 		bar.candyBarBar:SetStatusBarColor(T.color.r, T.color.g, T.color.b, 1)
 	end
 	bar.candyBarBackground:SetTexture(C.media.texture)
@@ -148,9 +152,16 @@ local function registerStyle()
 		BarStopped = freestyle,
 		GetStyleName = function() return "ViksUI" end,
 	})
-	if BigWigsLoader and bars.defaultDB.barStyle == "ViksUI" then
+	if BigWigsLoader and BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles.Default.barStyle == "ViksUI" then
 		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
 			BigWigsProximityAnchor:SetTemplate("Transparent")
+		end)
+
+		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_BarEmphasized", function(_, _, bar)
+			local module = bar:Get("bigwigs:module")
+			local key = bar:Get("bigwigs:option")
+			local colors = BigWigs:GetPlugin("Colors")
+			bar.candyBarBar:SetStatusBarColor(colors:GetColor("barEmphasized", module, key))
 		end)
 	end
 end
@@ -165,6 +176,17 @@ f:SetScript("OnEvent", function(_, event, addon)
 			end
 			registerStyle()
 			f:UnregisterEvent("ADDON_LOADED")
+		elseif addon == "ViksUI" then
+			if BigWigsLoader and C.skins.blizzard_frames == true then
+				BigWigsLoader.RegisterMessage(addon, "BigWigs_FrameCreated", function(_, frame, name)
+					if name == "QueueTimer" then
+						frame:SetSize(240, 15)
+						frame:StripTextures()
+						frame:SetStatusBarTexture(C.media.texture)
+						frame:CreateBackdrop("Overlay")
+					end
+				end)
+			end
 		end
 	end
 end)

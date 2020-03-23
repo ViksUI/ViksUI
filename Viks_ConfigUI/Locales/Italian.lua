@@ -234,6 +234,8 @@ L_GUI_AUTOMATION_TAB_BINDER = "Auto change Tab key to only target enemy players"
 L_GUI_AUTOMATION_LOGGING_COMBAT = "Auto enables combat log text file in raid instances"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "Cast buff on mouse scroll (from the list)"
 L_GUI_AUTOMATION_OPEN_ITEMS = "Auto opening of items in bag"
+L_GUI_AUTOMATION_REPAIR = "Automaticly repair"
+L_GUI_AUTOMATION_REPAIR_GUILDF = "Automaticly repair with Guild Funds"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Testo di combattimento"

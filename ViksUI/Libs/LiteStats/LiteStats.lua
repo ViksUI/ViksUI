@@ -1488,7 +1488,7 @@ if friends.enabled then
 								if client == "App" then
 									client = accountInfo.gameAccountInfo.richPresence
 								else
-									client = clientTags[client]
+									client = clientTags[client] or ""
 								end
 								if accountInfo.gameAccountInfo.isGameAFK then
 									status = "|cffE7E716"..L_CHAT_AFK.."|r"
@@ -1890,8 +1890,13 @@ if experience.enabled then
 					self:GetScript("OnUpdate")(self, 5)
 				end
 				self:GetScript("OnEnter")(self)
-			elseif button == "LeftButton" and conf.ExpMode == "rep" then
-				ToggleCharacter("ReputationFrame")
+			elseif button == "LeftButton" then
+				if conf.ExpMode == "rep" then
+					ToggleCharacter("ReputationFrame")
+				elseif conf.ExpMode == "art" then
+					UIParentLoadAddOn("Blizzard_AzeriteEssenceUI")
+					ToggleFrame(AzeriteEssenceUI)
+				end
 			end
 		end
 	})

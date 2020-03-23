@@ -234,6 +234,8 @@ L_GUI_AUTOMATION_TAB_BINDER = "Клавиша 'Tab' выбирает враже�
 L_GUI_AUTOMATION_LOGGING_COMBAT = "Включать запись журнала боя в рейде"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "Накладывать эффекты прокруткой колеса мыши (из списка)"
 L_GUI_AUTOMATION_OPEN_ITEMS = "Открывать сундуки, ящики и т.д"
+L_GUI_AUTOMATION_REPAIR = "Automaticly repair"
+L_GUI_AUTOMATION_REPAIR_GUILDF = "Automaticly repair with Guild Funds"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Текст боя"

@@ -2827,6 +2827,13 @@ C["filger_spells"] = {
 			IconSize = C.filger.buffs_size,
 			Position = {unpack(C["filger_position"].special_proc_icon)},
 
+			-- Ashjra'kamas, Shroud of Resolve
+			-- Draconic Empowerment
+			{spellID = 317859, unitID = "player", caster = "player", filter = "BUFF"},
+
+			-- Gift of the Titans
+			{spellID = 313698, unitID = "player", caster = "player", filter = "BUFF"},
+
 			-- Potions: Miscellaneous
 			-- Invisibility [Invisibility Potion]
 			{spellID = 11392, unitID = "player", caster = "player", filter = "BUFF", absID = true},
@@ -2858,6 +2865,8 @@ C["filger_spells"] = {
 			{spellID = 256740, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Drums of the Mountain
 			{spellID = 230935, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Mallet of Thunderous Skins
+			{spellID = 292686, unitID = "player", caster = "all", filter = "BUFF"},
 
 			-- Engineering
 			-- Goblin Glider [Goblin Glider Kit]
@@ -3206,6 +3215,10 @@ C["filger_spells"] = {
 			{spellID = 76577, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Rocket Fuel Leak
 			{spellID = 94794, unitID = "player", caster = "player", filter = "DEBUFF"},
+
+			-- Mythic+
+			-- Necrotic Wound
+			{spellID = 209858, unitID = "player", caster = "all", filter = "DEBUFF", count = 16},
 		},
 		{
 			Name = "T_BUFF",
@@ -3546,7 +3559,7 @@ C["filger_spells"] = {
 			-- Food & Drink
 			{spellID = 257427, unitID = "target", caster = "all", filter = "BUFF"},
 
-			-- Mythic
+			-- Mythic+
 			-- Sanguine Ichor
 			{spellID = 226510, unitID = "target", caster = "all", filter = "BUFF"},
 		},

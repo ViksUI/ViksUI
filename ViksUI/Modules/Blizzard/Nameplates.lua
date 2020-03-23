@@ -12,6 +12,7 @@ frame:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end
 if C.nameplate.combat == true then
 	frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 	frame:RegisterEvent("PLAYER_REGEN_DISABLED")
+	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	function frame:PLAYER_REGEN_ENABLED()
 		SetCVar("nameplateShowEnemies", 0)
@@ -20,17 +21,18 @@ if C.nameplate.combat == true then
 	function frame:PLAYER_REGEN_DISABLED()
 		SetCVar("nameplateShowEnemies", 1)
 	end
-end
 
-frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-function frame:PLAYER_ENTERING_WORLD()
-	if C.nameplate.combat == true then
+	function frame:PLAYER_ENTERING_WORLD()
 		if InCombatLockdown() then
 			SetCVar("nameplateShowEnemies", 1)
 		else
 			SetCVar("nameplateShowEnemies", 0)
 		end
 	end
+end
+
+frame:RegisterEvent("PLAYER_LOGIN")
+function frame:PLAYER_LOGIN()
 	if C.nameplate.enhance_threat == true then
 		SetCVar("threatWarning", 3)
 	end
@@ -667,12 +669,13 @@ local function style(self, unit)
 
 		local r, g, b
 		local mu = self.bg.multiplier
+		local isPlayer = UnitIsPlayer(unit)
 		local unitReaction = UnitReaction(unit, "player")
-		if not UnitIsUnit("player", unit) and UnitIsPlayer(unit) and (unitReaction and unitReaction >= 5) then
+		if not UnitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
 			r, g, b = unpack(T.Colors.power["MANA"])
 			self:SetStatusBarColor(r, g, b)
 			self.bg:SetVertexColor(r * mu, g * mu, b * mu)
-		elseif not UnitIsTapDenied(unit) and not UnitIsPlayer(unit) then
+		elseif not UnitIsTapDenied(unit) and not isPlayer then
 			local reaction = T.Colors.reaction[unitReaction]
 			if reaction then
 				r, g, b = reaction[1], reaction[2], reaction[3]
@@ -684,7 +687,7 @@ local function style(self, unit)
 			self.bg:SetVertexColor(r * mu, g * mu, b * mu)
 		end
 
-		if UnitIsPlayer(unit) then
+		if isPlayer then
 			if perc <= 0.5 and perc >= 0.2 then
 				SetVirtualBorder(self, 1, 1, 0)
 			elseif perc < 0.2 then
@@ -692,7 +695,7 @@ local function style(self, unit)
 			else
 				SetVirtualBorder(self, unpack(C.media.border_color))
 			end
-		elseif not UnitIsPlayer(unit) and C.nameplate.enhance_threat == true then
+		elseif not isPlayer and C.nameplate.enhance_threat == true then
 			SetVirtualBorder(self, unpack(C.media.border_color))
 		end
 

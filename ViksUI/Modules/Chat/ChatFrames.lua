@@ -314,16 +314,13 @@ local function SetChatStyle(frame)
 		origs[_G[chat]] = _G[chat].AddMessage
 		_G[chat].AddMessage = AddMessage
 		-- Custom timestamps color
-		_G.TIMESTAMP_FORMAT_HHMM = T.RGBToHex(unpack(C.chat.time_color)).."[%I:%M]|r "
-		_G.TIMESTAMP_FORMAT_HHMMSS = T.RGBToHex(unpack(C.chat.time_color)).."[%I:%M:%S]|r "
-		_G.TIMESTAMP_FORMAT_HHMMSS_24HR = T.RGBToHex(unpack(C.chat.time_color)).."[%H:%M:%S]|r "
-		_G.TIMESTAMP_FORMAT_HHMMSS_AMPM = T.RGBToHex(unpack(C.chat.time_color)).."[%I:%M:%S %p]|r "
-		_G.TIMESTAMP_FORMAT_HHMM_24HR = T.RGBToHex(unpack(C.chat.time_color)).."[%H:%M]|r "
-		_G.TIMESTAMP_FORMAT_HHMM_AMPM = T.RGBToHex(unpack(C.chat.time_color)).."[%I:%M %p]|r "
-	end
-	if id == 4 then
-		_G[chat.."TabText"]:ClearAllPoints()
-		_G[chat.."TabText"]:SetPoint("CENTER", _G[chat.."Tab"], 0, -4)
+		local color = C.chat.custom_time_color and T.RGBToHex(unpack(C.chat.time_color)) or ""
+		_G.TIMESTAMP_FORMAT_HHMM = color.."[%I:%M]|r "
+		_G.TIMESTAMP_FORMAT_HHMMSS = color.."[%I:%M:%S]|r "
+		_G.TIMESTAMP_FORMAT_HHMMSS_24HR = color.."[%H:%M:%S]|r "
+		_G.TIMESTAMP_FORMAT_HHMMSS_AMPM = color.."[%I:%M:%S %p]|r "
+		_G.TIMESTAMP_FORMAT_HHMM_24HR = color.."[%H:%M]|r "
+		_G.TIMESTAMP_FORMAT_HHMM_AMPM = color.."[%I:%M %p]|r "
 	end
 	frame.skinned = true
 end
@@ -413,36 +410,37 @@ local function SetupChatPosAndFont()
 			end
 		end
 	end
-	
-	local bnet = CreateFrame('Frame', 'ViksUIBnetMover', UIParent)
-	bnet:Size(BNToastFrame:GetWidth(), BNToastFrame:GetHeight())
-	bnet:Point(unpack(C.position.bn_popup))
-	--move:RegisterFrame(bnet)
 
-	for i = 1, BNToastFrame:GetNumRegions() do
-		if i ~= 10 then
-			local region = select(i, BNToastFrame:GetRegions())
-			if region:GetObjectType() == "Texture" then region:SetTexture(nil) end
-		end
-	end	
-	BNToastFrame:SetTemplate("Transparent")
-	T.SkinCloseButton(BNToastFrame.CloseButton)
-	
 	-- Reposition Quick Join Toast and battle.net popup
 	QuickJoinToastButton:ClearAllPoints()
-	QuickJoinToastButton:SetPoint(unpack(C.position.bn_popup))
-	QuickJoinToastButton:EnableMouse(false)
+	QuickJoinToastButton:SetPoint("TOPLEFT", 0, 90)
 	QuickJoinToastButton.ClearAllPoints = T.dummy
 	QuickJoinToastButton.SetPoint = T.dummy
-	QuickJoinToastButton:SetAlpha(0)
-	
-	GeneralDockManagerOverflowButton:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, 5)
-	hooksecurefunc(GeneralDockManagerScrollFrame, "SetPoint", function(self, point, anchor, attachTo, x, y)
-		if anchor == GeneralDockManagerOverflowButton and x == 0 and y == 0 then
-			self:SetPoint(point, anchor, attachTo, 0, -4)
+
+	QuickJoinToastButton.Toast:ClearAllPoints()
+	QuickJoinToastButton.Toast:SetPoint(unpack(C.position.bn_popup))
+	QuickJoinToastButton.Toast.Background:SetTexture("")
+	QuickJoinToastButton.Toast:CreateBackdrop("Transparent")
+	QuickJoinToastButton.Toast.backdrop:SetPoint("TOPLEFT", 0, 0)
+	QuickJoinToastButton.Toast.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
+	QuickJoinToastButton.Toast.backdrop:Hide()
+
+	hooksecurefunc(QuickJoinToastButton, "ShowToast", function() QuickJoinToastButton.Toast.backdrop:Show() end)
+	hooksecurefunc(QuickJoinToastButton, "HideToast", function() QuickJoinToastButton.Toast.backdrop:Hide() end)
+
+	hooksecurefunc(BNToastFrame, "SetPoint", function(self, _, anchor)
+		if anchor == QuickJoinToastButton then
+			self:SetPoint(unpack(C.position.bn_popup))
 		end
 	end)
 end
+
+GeneralDockManagerOverflowButton:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, 5)
+hooksecurefunc(GeneralDockManagerScrollFrame, "SetPoint", function(self, point, anchor, attachTo, x, y)
+	if anchor == GeneralDockManagerOverflowButton and x == 0 and y == 0 then
+		self:SetPoint(point, anchor, attachTo, 0, -4)
+	end
+end)
 
 local UIChat = CreateFrame("Frame")
 UIChat:RegisterEvent("ADDON_LOADED")
@@ -495,4 +493,20 @@ for i = 1, NUM_CHAT_WINDOWS do
 	if i ~= 2 then
 		hooksecurefunc(_G["ChatFrame"..i], "AddMessage", TypoHistory_Posthook_AddMessage)
 	end
+end
+
+----------------------------------------------------------------------------------------
+--	Loot icons
+----------------------------------------------------------------------------------------
+if C.chat.loot_icons == true then
+	local function AddLootIcons(self, event, message, ...)
+		local function Icon(link)
+			local texture = GetItemIcon(link)
+			return "\124T"..texture..":12:12:0:0:64:64:5:59:5:59\124t"..link
+		end
+		message = message:gsub("(\124c%x+\124Hitem:.-\124h\124r)", Icon)
+		return false, message, ...
+	end
+
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", AddLootIcons)
 end

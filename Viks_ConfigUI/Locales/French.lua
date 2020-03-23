@@ -233,6 +233,8 @@ L_GUI_AUTOMATION_TAB_BINDER = "Active la touche Tab pour ne cibler que les perso
 L_GUI_AUTOMATION_LOGGING_COMBAT = "Active automatiquement l'enregistrement du journal de combat en raid"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "Lancement de sort via la molette souris"
 L_GUI_AUTOMATION_OPEN_ITEMS = "Ouverture automatique des objets dans les sacs"
+L_GUI_AUTOMATION_REPAIR = "Automaticly repair"
+L_GUI_AUTOMATION_REPAIR_GUILDF = "Automaticly repair with Guild Funds"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Texte de combat"

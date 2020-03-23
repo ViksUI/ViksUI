@@ -18,6 +18,11 @@ end)
 
 if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
+	-- Set texture to hide circle
+	PVPQueueFrame.CategoryButton1.Icon:SetTexture("Interface\\Icons\\achievement_bg_winwsg")
+	PVPQueueFrame.CategoryButton2.Icon:SetTexture("Interface\\Icons\\achievement_bg_killxenemies_generalsroom")
+	PVPQueueFrame.CategoryButton3.Icon:SetTexture("Interface\\Icons\\Achievement_General_StayClassy")
+
 	for i = 1, 3 do
 		local button = _G["PVPQueueFrameCategoryButton"..i]
 		button.Ring:Kill()
@@ -221,7 +226,8 @@ local function LoadSkin()
 	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -3)
 
 	ConquestJoinButton:SkinButton(true)
-	local NewSeasonPopup = _G.PVPQueueFrame.NewSeasonPopup
+
+	local NewSeasonPopup = PVPQueueFrame.NewSeasonPopup
 	NewSeasonPopup:StripTextures()
 	NewSeasonPopup:CreateBackdrop("Overlay")
 	NewSeasonPopup.backdrop:SetPoint("TOPLEFT", 10, -10)
@@ -233,16 +239,17 @@ local function LoadSkin()
 	NewSeasonPopup.SeasonDescription:SetShadowOffset(1, -1)
 	NewSeasonPopup.SeasonDescription2:SetTextColor(1, 1, 1)
 	NewSeasonPopup.SeasonDescription2:SetShadowOffset(1, -1)
+	NewSeasonPopup.SeasonDescription2:SetWidth(400)
 
 	local RewardFrame = NewSeasonPopup.SeasonRewardFrame
 	RewardFrame.Ring:Hide()
 	RewardFrame.CircleMask:Hide()
 	RewardFrame.Icon:SkinIcon()
-	select(3, RewardFrame:GetRegions()):SetTextColor(1, 1, 1)
+	select(3, RewardFrame:GetRegions()):SetTextColor(1, 0.8, 0)
 	select(3, RewardFrame:GetRegions()):SetShadowOffset(1, -1)
 
 	NewSeasonPopup.Leave:SkinButton()
-	end
+end
 
 T.SkinFuncs["Blizzard_PVPUI"] = LoadSkin
 

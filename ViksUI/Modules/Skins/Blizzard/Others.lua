@@ -45,6 +45,8 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		GameMenuFrame:StripTextures()
 		LFDRoleCheckPopup:StripTextures()
 		RolePollPopup:StripTextures()
+		OpacityFrame:StripTextures()
+		ColorPickerFrame.Border:Hide()
 
 		for i = 1, getn(bgskins) do
 			local frame = _G[bgskins[i]]
@@ -113,7 +115,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		_G["CinematicFrameCloseDialogResumeButton"]:SkinButton()
 		_G["CinematicFrameCloseDialogResumeButton"]:SetPoint("LEFT", _G["CinematicFrameCloseDialogConfirmButton"], "RIGHT", 15, 0)
 
-		-- Movie popup
+		-- Movie popup /run MovieFrame_PlayMovie(MovieFrame, 18)
 		MovieFrame.CloseDialog:SetScale(C.general.uiscale)
 		MovieFrame.CloseDialog:StripTextures()
 		MovieFrame.CloseDialog:SetTemplate("Transparent")
@@ -134,13 +136,17 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		T.SkinEditBox(WardrobeOutfitEditFrame.EditBox, 250, 25)
 
 		-- Reskin Dropdown menu
-		hooksecurefunc("UIDropDownMenu_InitializeHelper", function(frame)
+		hooksecurefunc("UIDropDownMenu_InitializeHelper", function()
 			for i = 1, UIDROPDOWNMENU_MAXLEVELS do
 				_G["DropDownList"..i]["Border"]:StripTextures()
 				_G["DropDownList"..i.."Backdrop"]:SetTemplate("Transparent")
 				_G["DropDownList"..i.."MenuBackdrop"]:SetTemplate("Transparent")
 			end
 		end)
+
+		if RaiderIO_CustomDropDownListMenuBackdrop then
+			RaiderIO_CustomDropDownListMenuBackdrop:StripTextures()
+		end
 
 		-- Reskin menu
 		local ChatMenus = {
@@ -307,7 +313,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 						navButton.MenuArrowButton:SetHeight(20)
 						navButton.MenuArrowButton:SetPoint("RIGHT", navButton, "RIGHT", -2, 0)
 					end
-
+					navButton.xoffset = 2
 					navButton.isSkinned = true
 				end
 			end

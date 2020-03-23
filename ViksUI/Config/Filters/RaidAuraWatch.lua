@@ -277,11 +277,24 @@ T.RaidDebuffs = {
 
 -- Mythic+ Affixes (Legion, unsure if changes in BFA)
 	[SpellName(226489)] = 5,	-- Sanguine Ichor
+	[SpellName(226512)] = 5,	-- Sanguine Ichor
 	[SpellName(209858)] = 5,	-- Necrotic Rot
 	[SpellName(240559)] = 5,	-- Grievous Wound
+	[SpellName(196376)] = 5,	-- Grievous Tear
 	[SpellName(240443)] = 5,	-- Burst
-	[SpellName(278456)] = 5,	-- Infest
-	
+	-- 8.3 Mythic+
+	[SpellName(314406)] = 3,	-- Crippling Pestilence
+	[SpellName(314411)] = 3,	-- Lingering Doubt
+	[SpellName(314467)] = 4,	-- Volatile Rupture
+	[SpellName(314478)] = 5,	-- Cascading Terror
+	[SpellName(314483)] = 5,	-- Cascading Terror
+	[SpellName(314531)] = 3,	-- Tear Flesh
+	[SpellName(314565)] = 3,	-- Defiled Ground
+	[SpellName(314592)] = 3,	-- Mind Flay
+	[SpellName(314392)] = 3,	-- Vile Corruption
+	[SpellName(314308)] = 4,	-- Spirit Breaker
+
+
 -----------------------------------------------------------------
 -- Uldir Raid
 -----------------------------------------------------------------
@@ -520,6 +533,90 @@ T.RaidDebuffs = {
 	[SpellName(301078)] = 3, -- Charged Spear
 	[SpellName(298014)] = 3, -- Cold Blast
 	[SpellName(298018)] = 3, -- Frozen
+	
+-----------------------------------------------------------------
+-- Ny'alotha, the Waking City
+-----------------------------------------------------------------
+	-- Wrathion
+	[SpellName(313255)] = 3, -- Creeping Madness (Slow Effect)
+	[SpellName(306163)] = 3, -- Incineration
+	[SpellName(306015)] = 3, -- Searing Armor [SpellName(tank]
+	-- Maut
+	[SpellName(307805)] = 3, -- Devour Magic
+	[SpellName(314337)] = 3, -- Ancient Curse
+	[SpellName(306301)] = 3, -- Forbidden Mana
+	[SpellName(314992)] = 3, -- Darin Essence
+	[SpellName(307399)] = 3, -- Shadow Claws [SpellName(tank]
+	-- Prophet Skitra
+	[SpellName(306387)] = 3, -- Shadow Shock
+	[SpellName(313276)] = 3, -- Shred Psyche
+	-- Dark Inquisitor
+	[SpellName(306311)] = 3, -- Soul Flay
+	[SpellName(312406)] = 3, -- Void Woken
+	[SpellName(311551)] = 3, -- Abyssal Strike [SpellName(tank]
+	-- Hivemind
+	[SpellName(313461)] = 3, -- Corrosion
+	[SpellName(313672)] = 3, -- Acid Pool
+	[SpellName(313460)] = 3, -- Nullification
+	-- Shadhar
+	[SpellName(307471)] = 3, -- Crush [SpellName(tank]
+	[SpellName(307472)] = 3, -- Dissolve [SpellName(tank]
+	[SpellName(307358)] = 3, -- Debilitating Spit
+	[SpellName(306928)] = 3, -- Umbral Breath
+	[SpellName(312530)] = 3, -- Entropic Breath
+	[SpellName(306929)] = 3, -- Bubbling Breath
+	-- Drest
+	[SpellName(310406)] = 3, -- Void Glare
+	[SpellName(310277)] = 3, -- Volatile Seed [SpellName(tank]
+	[SpellName(310309)] = 3, -- Volatile Vulnerability
+	[SpellName(310358)] = 3, -- Mutterings of Insanity
+	[SpellName(310552)] = 3, -- Mind Flay
+	[SpellName(310478)] = 3, -- Void Miasma
+	-- Ilgy
+	[SpellName(309961)] = 3, -- Eye of Nzoth [SpellName(tank]
+	[SpellName(310322)] = 3, -- Morass of Corruption
+	[SpellName(311401)] = 3, -- Touch of the Corruptor
+	[SpellName(314396)] = 3, -- Cursed Blood
+	[SpellName(275269)] = 3, -- Fixate
+	[SpellName(312486)] = 3, -- Recurring Nightmare
+	-- Vexiona
+	[SpellName(307317)] = 3, -- Encroaching Shadows
+	[SpellName(307359)] = 3, -- Despair
+	[SpellName(315932)] = 3, -- Brutal Smash
+	[SpellName(307218)] = 3, -- Twilight Decimator
+	[SpellName(307284)] = 3, -- Terrifying Presence
+	[SpellName(307421)] = 3, -- Annihilation
+	[SpellName(307019)] = 3, -- Void Corruption [SpellName(tank]
+	-- Raden
+	[SpellName(306819)] = 3, -- Nullifying Strike [SpellName(tank]
+	[SpellName(306279)] = 3, -- Insanity Exposure
+	[SpellName(315258)] = 3, -- Dread Inferno
+	[SpellName(306257)] = 3, -- Unstable Vita
+	[SpellName(313227)] = 3, -- Decaying Wound
+	[SpellName(310019)] = 3, -- Charged Bonds
+	[SpellName(316065)] = 3, -- Corrupted Existence
+	-- Carapace
+	[SpellName(315954)] = 3, -- Black Scar [SpellName(tank]
+	[SpellName(306973)] = 3, -- Madness
+	[SpellName(316848)] = 3, -- Adaptive Membrane
+	[SpellName(307044)] = 3, -- Nightmare Antibody
+	[SpellName(313364)] = 3, -- Mental Decay
+	[SpellName(317627)] = 3, -- Infinite Void
+	-- Nzoth
+	[SpellName(318442)] = 3, -- Paranoia
+	[SpellName(313400)] = 3, -- Corrupted Mind
+	[SpellName(313793)] = 3, -- Flames of Insanity
+	[SpellName(316771)] = 3, -- Mindwrack
+	[SpellName(314889)] = 3, -- Probe Mind
+	[SpellName(317112)] = 3, -- Evoke Anguish
+	[SpellName(318976)] = 3, -- Stupefying Glare
+-----------------------------------------------------------------
+-- Other
+-----------------------------------------------------------------
+	[SpellName(87023)] = 4,		-- Cauterize
+	[SpellName(94794)] = 4,		-- Rocket Fuel Leak
+	[SpellName(116888)] = 4,	-- Shroud of Purgatory
+	[SpellName(121175)] = 2,	-- Orb of Power
 }
 -----------------------------------------------------------------
 -- PvP

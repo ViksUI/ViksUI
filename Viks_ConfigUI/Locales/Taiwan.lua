@@ -234,6 +234,8 @@ L_GUI_AUTOMATION_TAB_BINDER = "Tab只選定玩家"
 L_GUI_AUTOMATION_LOGGING_COMBAT = "團隊副本時自動開啟戰鬥記錄"
 L_GUI_AUTOMATION_BUFF_ON_SCROLL = "使用滑鼠滾輪施放Buff"
 L_GUI_AUTOMATION_OPEN_ITEMS = "自動打開背包中的封裝物品"
+L_GUI_AUTOMATION_REPAIR = "Automaticly repair"
+L_GUI_AUTOMATION_REPAIR_GUILDF = "Automaticly repair with Guild Funds"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "戰鬥文字"
