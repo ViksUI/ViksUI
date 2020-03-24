@@ -687,7 +687,7 @@ oUF:Factory(function(self)
 	
 
 	-- Boss frames
-	--if cfg.showBossFrames then
+	if cfg.showBossFrames then
 		self:SetActiveStyle('Boss')
 		local boss = {}
 		for i = 1, MAX_BOSS_FRAMES do
@@ -703,7 +703,7 @@ oUF:Factory(function(self)
 					boss[i]:SetPoint("BOTTOMRIGHT", boss[i-1], "BOTTOMRIGHT", 0, 59)
 				end
 		end 
-	--end
+	end
 	
 		-- Tank Frame
 	if cfg.showTankFrames then
@@ -730,7 +730,7 @@ oUF:Factory(function(self)
 	local maxGroups = 5
 	if cfg.RaidShowAllGroups then maxGroups = 8 end
 
-	if cfg.ShowParty == false then
+	if cfg.ShowParty then
 		self:SetActiveStyle('ViksGroup')
 		local party_width = cfg.unit_size.Party.w
 		local party_height = cfg.unit_size.Party.h
@@ -761,28 +761,28 @@ oUF:Factory(function(self)
 		party:SetPoint("BOTTOM", Anchorviksraid, 0, -30)
 
 		-- Party targets
-		self:SetActiveStyle('raid25')
-		local partytarget = self:SpawnHeader("oUF_PartyTargetDPS", nil, "custom [@raid6,exists] hide;show",
-			"oUF-initialConfigFunction", [[
-				local header = self:GetParent()
-				self:SetWidth(header:GetAttribute("initial-width"))
-				self:SetHeight(header:GetAttribute("initial-height"))
-				self:SetAttribute("unitsuffix", "target")
-			]],
-			"initial-width", T.Scale(partytarget_width),
-			"initial-height", T.Scale(partytarget_height),
-			"showPlayer", true,
-			"showSolo", cfg.RaidShowSolo,
-			"groupBy", true and "ASSIGNEDROLE",
-			"groupingOrder", true and "TANK,HEALER,DAMAGER,NONE",
-			"sortMethod", true and "NAME",
-			"showParty", true,
-			"showRaid", true,
-			"xoffset", 11,
-			"yOffset", -8,
-			"point", "LEFT"
-		)
-		partytarget:SetPoint("TOP", party, "BOTTOM", 2, 0)
+		--self:SetActiveStyle('raid25')
+		--local partytarget = self:SpawnHeader("oUF_PartyTargetDPS", nil, "custom [@raid6,exists] hide;show",
+			--"oUF-initialConfigFunction", [[
+				--local header = self:GetParent()
+				--self:SetWidth(header:GetAttribute("initial-width"))
+				--self:SetHeight(header:GetAttribute("initial-height"))
+				--self:SetAttribute("unitsuffix", "target")
+			--]],
+			--"initial-width", T.Scale(partytarget_width),
+			--"initial-height", T.Scale(partytarget_height),
+			--"showPlayer", true,
+			--"showSolo", cfg.RaidShowSolo,
+			--"groupBy", true and "ASSIGNEDROLE",
+			--"groupingOrder", true and "TANK,HEALER,DAMAGER,NONE",
+			--"sortMethod", true and "NAME",
+			--"showParty", true,
+			--"showRaid", true,
+			--"xoffset", 11,
+			--"yOffset", -8,
+			--"point", "LEFT"
+		--)
+		--partytarget:SetPoint("TOP", party, "BOTTOM", 2, 0)
 		
 		-- // Need more work/tweaking of position for partypet. Also not sure if this will be added
 		--self:SetActiveStyle('PartyPet')	
