@@ -1501,6 +1501,8 @@ C["filger_spells"] = {
 			{spellID = 209202, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Judgment
 			{spellID = 197277, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Glimmer of Light
+			{spellID = 287280, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hand of Hindrance
 			{spellID = 183218, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Forbearance
@@ -1523,6 +1525,8 @@ C["filger_spells"] = {
 			{spellID = 209202, filter = "CD"},
 			-- Cleanse
 			{spellID = 4987, filter = "CD"},
+			-- Cleanse Toxins
+			{spellID = 213644, filter = "CD"},
 			-- Hand of Reckoning
 			{spellID = 62124, filter = "CD"},
 			-- Rebuke

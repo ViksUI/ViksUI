@@ -765,6 +765,7 @@ C["position"] = {
 	["bag"] = {"BOTTOMRIGHT", Minimap, "TOPRIGHT", 2, 5},							-- Bag
 	["bank"] = {"LEFT", UIParent, "LEFT", 23, 150},									-- Bank
 	["bn_popup"] = {"BOTTOMLEFT", ChatFrame1, "TOPLEFT", -3, 27},					-- Battle.net popup
+	["bn_popup_line"] = {"BOTTOMLEFT", ChatFrame1, "TOPLEFT", -9, 50},				-- Battle.net popup with line style
 	["achievement"] = {"TOP", UIParent, "TOP", 0, -21},								-- Achievements frame
 	["tooltip"] = {"TOPLEFT", UIParent, "TOPLEFT", 2, -20},							-- Tooltip
 	["uiwidget"] = {"TOP", UIParent, "TOP", 0, -55},								-- UIWidget frame

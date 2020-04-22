@@ -191,6 +191,7 @@ Stat:SetScript("OnEnter", function(self)
 		GameTooltip:AddLine(" ")
 		Currency(1755)					-- Coalescing Visions
 		Currency(1719)					-- Corrupted Mementos
+		Currency(1803)					-- Echoes of Ny'alotha
 		Currency(1220)					-- Order Resources
 		Currency(1721)					-- Prismatic Manapearl
 		Currency(1560)					-- War Resources

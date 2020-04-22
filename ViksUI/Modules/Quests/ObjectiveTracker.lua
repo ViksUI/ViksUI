@@ -470,11 +470,11 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 		self:SetBackdropColor(unpack(C.media.backdrop_color))
 	end
 
-	if rarity == LE_WORLD_QUEST_QUALITY_RARE then
-		self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
-	elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
-		self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
-	end
+	--if rarity == LE_WORLD_QUEST_QUALITY_RARE then
+		--self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
+	--elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
+		--self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
+	--end
 
 	if PreviousPOI and PreviousPOI.IsSkinned then
 		PreviousPOI:SetBackdropColor(unpack(C.media.backdrop_color))

@@ -200,8 +200,13 @@ local function SetChatStyle(frame)
 
 	-- Move the chat edit box
 	_G[chat.."EditBox"]:ClearAllPoints()
-	_G[chat.."EditBox"]:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -10, 23)
-	_G[chat.."EditBox"]:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 11, 23)
+	if C.panels.NoPanels then
+		_G[chat.."EditBox"]:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -16, 50)
+		_G[chat.."EditBox"]:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 17, 50)
+	else
+		_G[chat.."EditBox"]:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -10, 23)
+		_G[chat.."EditBox"]:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 11, 23)
+	end
 
 	-- Hide textures
 	for j = 1, #CHAT_FRAME_TEXTURES do
@@ -430,7 +435,11 @@ local function SetupChatPosAndFont()
 
 	hooksecurefunc(BNToastFrame, "SetPoint", function(self, _, anchor)
 		if anchor == QuickJoinToastButton then
+			if C.panels.NoPanels then
+			self:SetPoint(unpack(C.position.bn_popup_line))
+			else
 			self:SetPoint(unpack(C.position.bn_popup))
+			end
 		end
 	end)
 end
