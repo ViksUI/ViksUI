@@ -156,15 +156,31 @@ local function _createGStrings()
 	g:Hide()
 end
 
-local function OnEvent(self, event, ...) -- Event handler
+local function OnEvent(self, event, ...)
 	if event == "ADDON_LOADED" and (...) == "Blizzard_InspectUI" then
 		self:UnregisterEvent(event)
+
+		if not InspectFrameiLvL and not C.tooltip.average_lvl then
+			local text = InspectModelFrame:CreateFontString("InspectFrameiLvL", "OVERLAY", "SystemFont_Outline_Small")
+			text:SetPoint("BOTTOM", 5, 20)
+			text:Hide()
+			InspectPaperDollFrame:HookScript("OnShow", function()
+				local avgilvl = C_PaperDollInfo.GetInspectItemLevel("target")
+				if avgilvl and tonumber(avgilvl) > 0 then
+					text:SetText("|cFFFFFF00"..avgilvl)
+					text:Show()
+				end
+			end)
+			InspectPaperDollFrame:HookScript("OnHide", function()
+				text:Hide()
+			end)
+		end
 
 		g = CreateFrame("Frame", nil, _G.InspectPaperDollFrame) -- iLevel number frame for Inspect
 		_createGStrings()
 		_createGStrings = nil
 
-		_G.InspectPaperDollFrame:HookScript("OnShow", function(self)
+		_G.InspectPaperDollFrame:HookScript("OnShow", function()
 			g:SetFrameLevel(_G.InspectHeadSlot:GetFrameLevel())
 			f:RegisterEvent("INSPECT_READY")
 			f:RegisterEvent("UNIT_INVENTORY_CHANGED")
@@ -172,7 +188,7 @@ local function OnEvent(self, event, ...) -- Event handler
 			g:Show()
 		end)
 
-		_G.InspectPaperDollFrame:HookScript("OnHide", function(self)
+		_G.InspectPaperDollFrame:HookScript("OnHide", function()
 			f:UnregisterEvent("INSPECT_READY")
 			f:UnregisterEvent("UNIT_INVENTORY_CHANGED")
 			g:Hide()
@@ -183,7 +199,7 @@ local function OnEvent(self, event, ...) -- Event handler
 		_createStrings()
 		_createStrings = nil
 
-		_G.PaperDollFrame:HookScript("OnShow", function(self)
+		_G.PaperDollFrame:HookScript("OnShow", function()
 			f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 			f:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
 			f:RegisterEvent("ARTIFACT_UPDATE")
@@ -193,7 +209,7 @@ local function OnEvent(self, event, ...) -- Event handler
 			f:Show()
 		end)
 
-		_G.PaperDollFrame:HookScript("OnHide", function(self)
+		_G.PaperDollFrame:HookScript("OnHide", function()
 			f:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
 			f:UnregisterEvent("ITEM_UPGRADE_MASTER_UPDATE")
 			f:UnregisterEvent("ARTIFACT_UPDATE")
