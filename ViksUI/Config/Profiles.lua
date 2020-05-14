@@ -72,4 +72,7 @@ if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure"
 	C["filger"].enable = false
 	C["automation"].accept_quest = true
 	C["automation"].accept_invite = true
+	T.CustomFilgerSpell = {
+		{"COOLDOWN", {spellID = 313698, filter = "ICD", trigger = "BUFF", duration = 80}}, -- Gift of the Titans
+	}
 end

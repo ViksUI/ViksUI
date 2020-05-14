@@ -790,9 +790,9 @@ C["position"] = {
 	["auto_button"] = {"LEFT", UIParent, "LEFT", 0, 0},								-- Auto button
 	["extra_button"] = {"BOTTOM", UIParent, "BOTTOM", 0, 350},						-- Extra action button
 	["alt_power_bar"] = {"TOP", UIWidgetTopCenterContainerFrame, "BOTTOM", 0, -7},	-- Alt power bar
-	["talking_head"] = {"TOP", UIParent, "TOP", 0, -21},							-- Talking Head
-	["uiwidget_top"] = {"TOP", UIParent, "TOP", 0, -21},							-- Top Widget
-	["uiwidget_below"] = {"TOP", UIParent, "TOP", 0, -71},	
+	["talking_head"] = {"TOP", UIParent, "TOP", 0, -25},							-- Talking Head
+	["uiwidget_top"] = {"TOP", UIParent, "TOP", 0, -25},							-- Top Widget
+	["uiwidget_below"] = {"TOP", UIWidgetTopCenterContainerFrame, "BOTTOM", 0, -15},-- Below Widget
 	-- ActionBar positions
 	["bottom_bars"] = {"BOTTOM", UIParent, "BOTTOM", 0, 40},						-- Bottom bars
 	["right_bars"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -21, 330},			-- Right bars

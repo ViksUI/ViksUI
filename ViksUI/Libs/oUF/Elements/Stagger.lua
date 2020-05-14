@@ -105,11 +105,15 @@ local function Visibility(self, event, unit)
 			self.Stagger:Hide()
 			self:UnregisterEvent('UNIT_AURA', Path)
 		end
+		if SPEC_MONK_WINDWALKER ~= GetSpecialization() then
+			if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end	-- ViksUI
+		end
 	else
 		if(not self.Stagger:IsShown()) then
 			self.Stagger:Show()
 			self:RegisterEvent('UNIT_AURA', Path)
 		end
+		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end	-- ViksUI
 
 		return Path(self, event, unit)
 	end
@@ -138,6 +142,11 @@ local function Enable(self)
 
 		self:RegisterEvent('UNIT_DISPLAYPOWER', VisibilityPath)
 		self:RegisterEvent('PLAYER_TALENT_UPDATE', VisibilityPath, true)
+
+		element.hadler = CreateFrame("Frame", nil, element)	-- ViksUI
+		element.hadler:RegisterEvent("PLAYER_TALENT_UPDATE")
+		element.hadler:RegisterEvent("PLAYER_ENTERING_WORLD")
+		element.hadler:SetScript("OnEvent", function() Visibility(self) end)
 
 		if(element:IsObjectType('StatusBar') and not element:GetStatusBarTexture()) then
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])

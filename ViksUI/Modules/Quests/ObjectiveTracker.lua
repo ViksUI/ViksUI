@@ -47,6 +47,11 @@ local qfont = C.media.fontcombat
 function ObjectiveTracker:Disable()
 	ObjectiveTrackerFrameHeaderMenuMinimizeButton:Hide()
 end
+BONUS_OBJECTIVE_TRACKER_MODULE.Header.Background:Hide()
+WORLD_QUEST_TRACKER_MODULE.Header.Background:Hide()
+ObjectiveTrackerBlocksFrame.UIWidgetsHeader.Background:Hide()
+
+ObjectiveTrackerFrame.HeaderMenu.Title:SetAlpha(0)
 
 function ObjectiveTracker:OnEnter()
 	self:SetFadeInTemplate(1, 1)
