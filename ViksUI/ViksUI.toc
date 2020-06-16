@@ -2,7 +2,7 @@
 ## Title: |cff105c92ViksUI|r
 ## Notes: A total UI overhaul for World of Warcraft
 ## Author: Viks, Tryllemann
-## Version: 8.93
+## Version: 8.94
 ## OptionalDeps: Blizzard_CombatText, Blizzard_DebugTools, Blizzard_PetJournal, SharedMedia, Viks_ConfigUI, Masque, Bartender4, Skada, KLE, DBM, TinyDPS, DXE, Blizzard_CombatText, alEnemyCD, alRaidCD, AtlasLoot, caelNamePlates, cargBags, Clique, dNameplates, eCastingBar, epgp, Grid, Grid2, Mapster, Omen, oUF_Freebgrid, PitBull4, Postal, Prat-3.0, Quartz, Recount, ShadowedUnitFrames, sThreatMeter2, Stuf, TidyPlates, TipTac, TipTacTalents, TradeSkillMaster_Mailing, OPie, tullaCC, VuhDo, _NPCScan.Overlay, Rematch, ls_Toasts, RaiderIO
 ## SavedVariables: SavedOptions, SavedStats, SavedAddonProfiles, SavedBindings, SavedCurrency
 ## SavedVariablesPerCharacter: SavedOptionsPerChar, StuffingDB, SavedPositions
@@ -13,7 +13,7 @@
 ## X-Translation: Aelb, AlbertDuval, Alwa, Baine, Chubidu, Cranan, eXecrate, F5Hellbound, Ianchan, Leg883, Mania, Nanjiqq, Oz, Puree, Sakaras, Seal, Sinaris, Spacedragon, Tat2dawn, Tibles, Vienchen, Wetxius
 ## X-Thanks: Akimba, Antthemage, Crunching, Dandruff, DesFolk, Elfrey, Ente, Erratic, Falchior, Gromcha, Halogen, Homicidal Retribution, ILF7, Illusion, Ipton, k07n, Kazarl, Lanseb, Leots, m2jest1c, MoLLIa, Nefrit, Noobolov, Obakol, Oz, PterOs, Sart, Scorpions, Sitatunga, Sw2rT1, Tryllemann, Wetxius, Yakodzuna, UI Users and Russian Community
 ## X-oUF: oUF_Viks
-## X-Curse-Packaged-Version: 8.93
+## X-Curse-Packaged-Version: 8.94
 ## X-Curse-Project-Name: ViksUI
 ## X-Curse-Project-ID: 83550
 ## X-WoWI-ID: 21462
