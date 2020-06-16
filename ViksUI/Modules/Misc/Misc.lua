@@ -1,9 +1,9 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-SetCVar("scriptErrors", 1)
+
 ----------------------------------------------------------------------------------------
 --	Force readycheck warning
 ----------------------------------------------------------------------------------------
-local ShowReadyCheckHook = function(self, initiator)
+local ShowReadyCheckHook = function(_, initiator)
 	if initiator ~= "player" then
 		PlaySound(SOUNDKIT.READY_CHECK, "Master")
 	end
@@ -18,7 +18,7 @@ ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
 ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
 ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
 ForceWarning:RegisterEvent("RESURRECT_REQUEST")
-ForceWarning:SetScript("OnEvent", function(self, event)
+ForceWarning:SetScript("OnEvent", function(_, event)
 	if event == "UPDATE_BATTLEFIELD_STATUS" then
 		for i = 1, GetMaxBattlefieldID() do
 			local status = GetBattlefieldStatus(i)
@@ -33,7 +33,7 @@ ForceWarning:SetScript("OnEvent", function(self, event)
 	elseif event == "LFG_PROPOSAL_SHOW" then
 		PlaySound(SOUNDKIT.READY_CHECK, "Master")
 	elseif event == "RESURRECT_REQUEST" then
-		PlaySound(116679)
+		PlaySound(37, "Master")
 	end
 end)
 
@@ -293,28 +293,6 @@ LFDParentFrame:HookScript("OnShow", function()
 		end
 	end
 end)
-
-----------------------------------------------------------------------------------------
---	Remove Boss Emote spam during BG(ArathiBasin SpamFix by Partha)
-----------------------------------------------------------------------------------------
-if C.misc.hide_bg_spam == true then
-	local Fixer = CreateFrame("Frame")
-	local RaidBossEmoteFrame, spamDisabled = RaidBossEmoteFrame
-
-	local function DisableSpam()
-		if GetZoneText() == L_ZONE_ARATHIBASIN or GetZoneText() == L_ZONE_GILNEAS then
-			RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
-			spamDisabled = true
-		elseif spamDisabled then
-			RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
-			spamDisabled = false
-		end
-	end
-
-	Fixer:RegisterEvent("PLAYER_ENTERING_WORLD")
-	Fixer:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	Fixer:SetScript("OnEvent", DisableSpam)
-end
 
 ----------------------------------------------------------------------------------------
 --	Undress button in dress-up frame(by Nefarion)

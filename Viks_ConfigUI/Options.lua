@@ -491,12 +491,15 @@ do
 	dbm_movable:SetPoint("TOPLEFT", dbm, "BOTTOMLEFT", 20, 0)
 
 	dbm.children = {dbm_movable}
+	
+	local details = ns.CreateCheckBox(parent, "details", L_GUI_SKINS_DETAILS)
+	details:SetPoint("TOPLEFT", dbm_movable, "BOTTOMLEFT", -20, 0)
 
 	local dominos = ns.CreateCheckBox(parent, "dominos", L_GUI_SKINS_DOMINOS)
-	dominos:SetPoint("TOPLEFT", dbm_movable, "BOTTOMLEFT", -20, 0)
+	dominos:SetPoint("LEFT", details, "RIGHT", 320, 0)
 
 	local flyout_button = ns.CreateCheckBox(parent, "flyout_button", L_GUI_SKINS_FLYOUT_BUTTON)
-	flyout_button:SetPoint("TOPLEFT", dominos, "BOTTOMLEFT", 0, 0)
+	flyout_button:SetPoint("TOPLEFT", details, "BOTTOMLEFT", 0, 0)
 
 	local ls_toasts = ns.CreateCheckBox(parent, "ls_toasts", L_GUI_SKINS_LS_TOASTS)
 	ls_toasts:SetPoint("LEFT", flyout_button, "RIGHT", 320, 0)
@@ -729,8 +732,6 @@ do
 	local totem = ns.CreateCheckBox(parent, "totem", L_GUI_UF_PLUGINS_TOTEM_BAR)
 	totem:SetPoint("TOPLEFT", rune, "BOTTOMLEFT", 0, 0)
 
-	local range = ns.CreateCheckBox(parent, "range", L_GUI_UF_PLUGINS_RANGE_BAR)
-	range:SetPoint("TOPLEFT", totem, "BOTTOMLEFT", 0, 0)
 end
 
 -- Raid Frames
@@ -1791,11 +1792,8 @@ do
 	local profession_tabs = ns.CreateCheckBox(parent, "profession_tabs", L_GUI_MISC_PROFESSION_TABS)
 	profession_tabs:SetPoint("TOPLEFT", raid_tools, "BOTTOMLEFT", 0, 0)
 
-	local hide_bg_spam = ns.CreateCheckBox(parent, "hide_bg_spam", L_GUI_MISC_HIDE_BG_SPAM)
-	hide_bg_spam:SetPoint("TOPLEFT", profession_tabs, "BOTTOMLEFT", 0, 0)
-
 	local item_level = ns.CreateCheckBox(parent, "item_level", L_GUI_MISC_ITEM_LEVEL)
-	item_level:SetPoint("TOPLEFT", hide_bg_spam, "BOTTOMLEFT", 0, 0)
+	item_level:SetPoint("TOPLEFT", profession_tabs, "BOTTOMLEFT", 0, 0)
 
 	local already_known = ns.CreateCheckBox(parent, "already_known", L_GUI_MISC_ALREADY_KNOWN)
 	already_known:SetPoint("TOPLEFT", item_level, "BOTTOMLEFT", 0, 0)

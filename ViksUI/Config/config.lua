@@ -142,6 +142,7 @@ C["skins"] = {
 	["omen"] = false,							-- Omen skin
 	["recount"] = false,						-- Recount skin
 	["blood_shield_tracker"] = false,			-- BloodShieldTracker skin
+	["details"] = false,						-- Details skin
 	["dominos"] = false,						-- Dominos skin
 	["flyout_button"] = false,					-- FlyoutButtonCustom skin
 	["nug_running"] = false,					-- NugRunning skin
@@ -527,7 +528,6 @@ C["unitframe_class_bar"] = {
 	["rune"] = true,							-- Rune bar
 	["totem"] = true,							-- Totem bar
 	["arcane"] = true, 							-- show Mage Arcane Charges bar
-	["range"] = false,							-- Range bar (only for Priest)
 }	
 ----------------------------------------------------------------------------------------
 --	Raid Frames options

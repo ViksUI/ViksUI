@@ -67,7 +67,6 @@
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
 	<Script file="Modules\Misc\Combat.lua"/>
-	<Script file="Modules\Misc\GuildFinderSort.lua"/>
 	<Script file="Modules\Misc\HealerIconNameplate.lua"/>
 	<Script file="Modules\Misc\LFGQueueTimer.lua"/>
 	<Script file="Modules\Misc\MagePortals.lua"/>
@@ -77,7 +76,6 @@
 	<Script file="Modules\Misc\Misc.lua"/>
 	<Script file="Modules\Misc\Mounts.lua"/>
 	<Script file="Modules\Misc\MouseoverMarking.lua"/>
-	<Script file="Modules\Misc\OneClickBuyOut.lua"/>
 	<Script file="Modules\Misc\OneClickDisenchanting.lua"/>
 	<Script file="Modules\Misc\OneClickEnchantScroll.lua"/>
 	<Script file="Modules\Misc\ProfessionTabs.lua"/>
@@ -247,6 +245,7 @@
 	<Script file="Modules\Skins\Clique.lua"/>
 	<Script file="Modules\Skins\CoolLine.lua"/>
 	<Script file="Modules\Skins\DBM.lua"/>
+	<Script file="Modules\Skins\Details.lua"/>
 	<Script file="Modules\Skins\Dominos.lua"/>
 	<Script file="Modules\Skins\FlyoutButtonCustom.lua"/>
 	<Script file="Modules\Skins\MageNuggets.lua"/>
