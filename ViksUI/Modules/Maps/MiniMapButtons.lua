@@ -23,13 +23,11 @@ switch:SetScript("OnClick", function(_, button)
 		ViksUIOptionsPerChar.unitframe.HealFrames = true
 		ViksUIOptions.unitframe.HealFrames = true
 		SavedOptionsPerChar.RaidLayout = "HEAL"
-		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -210
 		ReloadUI()
 	elseif button == "RightButton" then
 		ViksUIOptionsPerChar.unitframe.HealFrames = false
 		ViksUIOptions.unitframe.HealFrames = false
 		SavedOptionsPerChar.RaidLayout = "DPS"
-		--DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -240
 		ReloadUI()
 	end
 end)
@@ -107,6 +105,9 @@ end)
 farm:SetScript("OnEnter", function()
 
 	farm:FadeIn()
+	GameTooltip:SetOwner(switch, "ANCHOR_LEFT")
+	GameTooltip:AddLine(L_MINIMAP_FARM)
+	GameTooltip:Show()
 end)
 
 farm:SetScript("OnLeave", function()

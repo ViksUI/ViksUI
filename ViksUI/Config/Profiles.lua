@@ -19,7 +19,9 @@
 --		}
 -- end
 ----------------------------------------------------------------------------------------
-
+if T.name == "Drachlock" or "Viksdruid" or "Tøttan" or "Tryllefox" or "Týr" or "Deathstorms" or "Bompibjorn" or "Vìk" or "Sløv" or "Mechvik" or "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure" or "Bor" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" or "Tjalla" and T.realm == "Quel'Thalas" then
+ Viks = true
+ end
 ----------------------------------------------------------------------------------------
 --	Per Class Config (overwrite general)
 --	Class need to be UPPERCASE
@@ -46,14 +48,14 @@ end
 ----------------------------------------------------------------------------------------
 --	Tank chars @Quel'Thalas Config
 ----------------------------------------------------------------------------------------
-if T.name == "Bauge" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
+if T.name == "Sløv" or "Bauge" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
 	C["nameplate"].enhance_threat = true
 end
 
 ----------------------------------------------------------------------------------------
 --	Viks Config all chars
 ----------------------------------------------------------------------------------------
-if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure" or "Bor" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir" or "Bloodwrath" and T.realm == "Quel'Thalas" then
+if Viks then
 	C["general"].welcome_message = false
 	C["nameplate"].enhance_threat = true
 	C["skins"].rematch = true
@@ -75,4 +77,24 @@ if T.name == "Bauge" or "Reidmar" or "Sneskre" or "Skytter" or "Búre" or "Bure"
 	T.CustomFilgerSpell = {
 		{"COOLDOWN", {spellID = 313698, filter = "ICD", trigger = "BUFF", duration = 80}}, -- Gift of the Titans
 	}
+-- KeyBindings
+	--Raidmarkers
+	SetBinding ("NUMPAD1", "RAIDTARGET8")
+	SetBinding ("NUMPAD2", "RAIDTARGET7")
+	SetBinding ("NUMPAD3", "RAIDTARGET6")
+	SetBinding ("NUMPAD4", "RAIDTARGET5")
+	SetBinding ("NUMPAD5", "RAIDTARGET1")
+	SetBinding ("NUMPAD6", "RAIDTARGET4")
+	SetBinding ("NUMPAD7", "RAIDTARGET3")
+	SetBinding ("NUMPAD8", "RAIDTARGET2")
+	SetBinding ("NUMPAD0", "RAIDTARGETNONE")
+	--Movment
+	SetBinding ("A", "STRAFELEFT")
+	SetBinding ("D", "STRAFERIGHT")
+	--Bartender Keys
+	SetBinding ("Q", "CLICK BT4Button113:LeftButton")
+	SetBinding ("E", "CLICK BT4Button111:LeftButton")
+	SetBinding ("G", "CLICK BT4Button110:LeftButton")
+	SetBinding ("F", "CLICK BT4Button112:LeftButton")
+	SetBinding ("H", "CLICK BT4Button109:LeftButton")
 end

@@ -3,7 +3,6 @@ local T, C, L, _ = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 --	Prevent users config errors
 ----------------------------------------------------------------------------------------
---[[
 if C.actionbar.rightbars > 3 then
 	C.actionbar.rightbars = 3
 end
@@ -26,19 +25,6 @@ if C.actionbar.bottombars < 1 then
 	C.actionbar.bottombars = 1
 end
 
-if C.actionbar.petbar_horizontal == true then
-	C.actionbar.stancebar_horizontal = false
-end
---]]
-if C.error.black == true and C.error.white == true then
-	C.error.white = false
-end
-
-if C.error.combat == true then
-	C.error.black = false
-	C.error.white = false
-end
-
 ----------------------------------------------------------------------------------------
 --	Auto-overwrite script config is X addon is found
 ----------------------------------------------------------------------------------------
@@ -58,6 +44,10 @@ end
 if IsAddOnLoaded("Dominos") or IsAddOnLoaded("Bartender4") or IsAddOnLoaded("RazerNaga") then
 	C.actionbar.enable = false
 	C.actionbar.toggle_mode = false
+end
+
+if IsAddOnLoaded("Mapster") then
+	C.minimap.fog_of_war = false
 end
 
 if IsAddOnLoaded("Prat-3.0") or IsAddOnLoaded("Chatter") or IsAddOnLoaded("BasicChatMods") then
@@ -107,7 +97,7 @@ if IsAddOnLoaded("Doom_CooldownPulse") then
 end
 
 if IsAddOnLoaded("GnomishVendorShrinker") or IsAddOnLoaded("AlreadyKnown") then
-	C.misc.already_known = false
+	C.trade.already_known = false
 end
 
 if IsAddOnLoaded("Clique") or IsAddOnLoaded("sBinder") then

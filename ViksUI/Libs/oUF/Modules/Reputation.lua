@@ -5,7 +5,24 @@ if C.unitframe.enable ~= true or C.unitframe.plugins_reputation_bar ~= true then
 --	Based on oUF_Reputation(by p3lim)
 ----------------------------------------------------------------------------------------
 local _, ns = ...
-local oUF = ns.oUF
+local oUF = ns.oUF or oUF
+assert(oUF, 'oUF Reputation was unable to locate oUF install')
+
+local paragonStrings = {
+	deDE = 'Huldigend',
+	esES = 'Baluarte',
+	frFR = 'Parangon',
+	itIT = 'Eccellenza',
+	ptBR = 'Parag\195\163o',
+	ruRU = '\208\152\208\180\208\181\208\176\208\187',
+	koKR = '\235\182\136\235\169\184\236\157\152 \235\143\153\235\167\185',
+	zhCN = '\229\183\133\229\179\176',
+}
+
+paragonStrings.esMX = paragonStrings.esES
+paragonStrings.zhTW = paragonStrings.zhCN
+
+_G.PARAGON = paragonStrings[GetLocale()] or 'Paragon'
 
 local function GetReputation()
 	local pendingReward
@@ -40,41 +57,16 @@ local function GetReputation()
 	return cur, max, name, factionID, standingID, standingText, pendingReward
 end
 
-for tag, func in next, {
-	['reputation:cur'] = function()
-		return (GetReputation())
-	end,
-	['reputation:max'] = function(unit, runit)
-		local _, max = GetReputation()
-		return max
-	end,
-	['reputation:per'] = function()
-		local cur, max = GetReputation()
-		return math.floor(cur / max * 100 + 1/2)
-	end,
-	['reputation:standing'] = function()
-		local _, _, _, _, _, standingText = GetReputation()
-		return standingText
-	end,
-	['reputation:faction'] = function()
-		local _, _, name = GetReputation()
-		return name
-	end,
-} do
-	oUF.Tags.Methods[tag] = func
-	oUF.Tags.Events[tag] = 'UPDATE_FACTION'
-end
-
-oUF.Tags.SharedEvents.UPDATE_FACTION = true
 oUF.colors.reaction[MAX_REPUTATION_REACTION + 1] = {0, 0.5, 0.9} -- paragon color
 
 local function UpdateTooltip(element)
-	local cur, max, name, factionID, standingID, standingText, pendingReward = GetReputation()
+	local cur, max, name, _, standingID, standingText, pendingReward = GetReputation()
+	local rewardAtlas = pendingReward and "|A:ParagonReputation_Bag:0:0:0:0|a" or ""
+	local color = element.__owner.colors.reaction[standingID]
 
-	GameTooltip:SetOwner(element, "ANCHOR_BOTTOM", 0, -5)
-	GameTooltip:AddLine(string.format("%s (%s)", name, standingText))
+	GameTooltip:SetText(format("%s (%s)", name, standingText), color[1], color[2], color[3])
 	if(cur ~= max) then
-		GameTooltip:AddLine(string.format("%d / %d (%d%%)", cur, max, (cur) / (max) * 100))
+		GameTooltip:AddLine(format("%s / %s (%d%%) %s", BreakUpLargeNumbers(cur), BreakUpLargeNumbers(max), (cur) / (max) * 100, rewardAtlas), 0.75, 0.9, 1)
 	end
 
 	GameTooltip:Show()
@@ -82,7 +74,7 @@ end
 
 local function OnEnter(element)
 	element:SetAlpha(element.inAlpha)
-	GameTooltip:SetOwner(element, element.tooltipAnchor)
+	GameTooltip:SetOwner(element, "ANCHOR_BOTTOM", 0, -5)	-- ViksUI
 	element:UpdateTooltip()
 end
 
@@ -91,8 +83,25 @@ local function OnLeave(element)
 	element:SetAlpha(element.outAlpha)
 end
 
-local function OnMouseUp()
-	ToggleCharacter("ReputationFrame")
+local function OnMouseUp(element, btn)
+	if btn == "MiddleButton" then
+		if element.outAlpha == 0 then
+			element.outAlpha = 1
+			SavedOptions.Reputation = true
+		else
+			element.outAlpha = 0
+			SavedOptions.Reputation = false
+		end
+	else
+		ToggleCharacter("ReputationFrame")
+	end
+end
+
+local function CheckAlpha(element)
+	if SavedOptions and SavedOptions.Reputation == true then
+		element.outAlpha = 1
+		element:SetAlpha(element.outAlpha or 1)
+	end
 end
 
 local function Update(self, event, unit)
@@ -105,8 +114,9 @@ local function Update(self, event, unit)
 		element:SetValue(cur)
 
 		if(element.colorStanding) then
-			local _, id = GetWatchedFactionInfo()
-			element:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
+			local colors = self.colors.reaction[standingID]
+			element:SetStatusBarColor(colors[1], colors[2], colors[3])
+			element.bg:SetVertexColor(colors[1], colors[2], colors[3], 0.2)	-- ViksUI
 		end
 
 		if(element.Reward) then
@@ -205,6 +215,10 @@ local function Enable(self, unit)
 			if(not element:GetScript('OnMouseUp')) then
 				element:SetScript('OnMouseUp', OnMouseUp)
 			end
+
+			element.hadler = CreateFrame("Frame", nil, element)
+			element.hadler:RegisterEvent("PLAYER_LOGIN")
+			element.hadler:SetScript("OnEvent", function() CheckAlpha(element) end)
 		end
 
 		return true

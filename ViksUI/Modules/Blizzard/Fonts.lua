@@ -124,7 +124,7 @@ else
 end
 
 if LSM then
-	LSM:Register(LSM.MediaType.FONT, "Calibri", C.media.normal_font, LOCALE_MASK)
-	LSM:Register(LSM.MediaType.FONT, "Hooge", C.media.pixel_font, LOCALE_MASK)
-	LSM:Register(LSM.MediaType.STATUSBAR, "Smooth!", C.media.texture)
+	LSM:Register(LSM.MediaType.FONT, "Calibri", [[Interface\AddOns\ViksUI\Media\Font\Normal.ttf]], LOCALE_MASK)
+	LSM:Register(LSM.MediaType.FONT, "Hooge", [[Interface\AddOns\ViksUI\Media\Font\Pixel.ttf]], LOCALE_MASK)
+	LSM:Register(LSM.MediaType.STATUSBAR, "Smooth!", [[Interface\AddOns\ViksUI\Media\Textures\texture.tga]])
 end

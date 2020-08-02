@@ -257,25 +257,6 @@ end)
 ViksUIAFKPanel:SetScript("OnShow", function(self) UIFrameFadeIn(UIParent, .5, 1, 0) end)
 ViksUIAFKPanel:SetScript("OnHide", function(self) UIFrameFadeOut(UIParent, .5, 0, 1) end)
 end
-----------------------------------------------------------------------------------------
---	Custom Lag Tolerance(by Elv22)
-----------------------------------------------------------------------------------------
-if C.misc.custom_lagtolerance == true then
-	local customlag = CreateFrame("Frame")
-	local int = 5
-	local _, _, _, lag = GetNetStats()
-	local LatencyUpdate = function(self, elapsed)
-		int = int - elapsed
-		if int < 0 then
-			if lag ~= 0 and lag <= 400 then
-				SetCVar("SpellQueueWindow", tostring(lag))
-			end
-			int = 5
-		end
-	end
-	customlag:SetScript("OnUpdate", LatencyUpdate)
-	LatencyUpdate(customlag, 10)
-end
 
 ----------------------------------------------------------------------------------------
 --	Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
@@ -316,28 +297,12 @@ end)
 ----------------------------------------------------------------------------------------
 --	Boss Banner Hider
 ----------------------------------------------------------------------------------------
-if C.misc.hide_banner == true then
+if C.general.hide_banner == true then
 	BossBanner.PlayBanner = function() end
 end
 
 ----------------------------------------------------------------------------------------
---	Hide TalkingHeadFrame
-----------------------------------------------------------------------------------------
-if C.misc.hide_talking_head == true then
-	local frame = CreateFrame("Frame")
-	frame:RegisterEvent("ADDON_LOADED")
-	frame:SetScript("OnEvent", function(self, event, addon)
-		if addon == "Blizzard_TalkingHeadUI" then
-			hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
-				TalkingHeadFrame:Hide()
-			end)
-			self:UnregisterEvent(event)
-		end
-	end)
-end
-
-----------------------------------------------------------------------------------------
---	Hide button for oUF_RaidDPS 
+--	Hide button for oUF_RaidDPS
 ----------------------------------------------------------------------------------------
 if C.misc.hide_raid_button == true then
 	local show = false

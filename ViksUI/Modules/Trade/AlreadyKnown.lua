@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.misc.already_known ~= true then return end
+if C.trade.already_known ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Colorizes recipes/mounts/pets/toys that is already known(AlreadyKnown by Villiv)
@@ -256,7 +256,6 @@ local function AuctionHouseFrame_RefreshScrollFrame(self)
 	local buttons = HybridScrollFrame_GetButtons(self.ScrollFrame)
 	local buttonCount = buttons and #buttons or 0
 	local offset = self:GetScrollOffset()
-	local populateCount = math.min(buttonCount, numResults)
 	for i = 1, buttonCount do
 		local visible = i + offset <= numResults
 		local button = buttons[i]

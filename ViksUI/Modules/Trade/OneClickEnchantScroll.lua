@@ -1,12 +1,12 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.misc.enchantment_scroll ~= true then return end
+if C.trade.enchantment_scroll ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Enchantment scroll on TradeSkill frame(OneClickEnchantScroll by Sara.Festung)
 ----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
-frame:SetScript("OnEvent", function(self, event, addon)
+frame:SetScript("OnEvent", function(_, _, addon)
 	if addon == "Blizzard_TradeSkillUI" and not IsAddOnLoaded("OneClickEnchantScroll") then
 		local button = CreateFrame("Button", "TradeSkillCreateScrollButton", TradeSkillFrame, "MagicButtonTemplate")
 		if C.skins.blizzard_frames == true then

@@ -38,7 +38,7 @@ end
 --	Auto invite by whisper(by Tukz)
 ----------------------------------------------------------------------------------------
 if T.client == "ruRU" then
-	C.automation.invite_keyword = "инв"
+	C.misc.invite_keyword = "инв"
 end
 
 local autoinvite = CreateFrame("Frame")

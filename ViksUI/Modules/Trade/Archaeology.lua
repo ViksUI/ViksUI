@@ -1,5 +1,5 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
-if C.misc.archaeology ~= true or IsAddOnLoaded("stArchaeologist") then return end
+if C.trade.archaeology ~= true or IsAddOnLoaded("stArchaeologist") then return end
 
 ----------------------------------------------------------------------------------------
 --	Archaeology tracker(stArchaeologist by Safturento)
@@ -487,7 +487,7 @@ stArchFrame:EnableMouse(true)
 stArchFrame:SetMovable(true)
 stArchFrame:SetUserPlaced(true)
 stArchFrame:HookScript("OnMouseDown", function(self, button)
-	if IsShiftKeyDown() then
+	if IsAltKeyDown() or IsShiftKeyDown() then
 		self:StartMoving()
 	elseif IsControlKeyDown() and button == "RightButton" then
 		self:SetPoint(unpack(C.position.archaeology))
@@ -529,7 +529,7 @@ b:SetPoint("TOPRIGHT", CPMinimb2, "TOPLEFT", -4, 0)
 b:SetSize(19, 19)
 b:SetAlpha(0)
 
-b:SetScript("OnClick", function(self)
+b:SetScript("OnClick", function()
 	if _G["stArchaeologyFrame"]:IsShown() then
 		_G["stArchaeologyFrame"]:Hide()
 		SavedOptionsPerChar.Archaeology = false
@@ -547,10 +547,14 @@ end)
 
 b:SetScript("OnEnter", function()
 	b:FadeIn()
+	GameTooltip:SetOwner(b, "ANCHOR_LEFT")
+	GameTooltip:AddLine(PROFESSIONS_ARCHAEOLOGY)
+	GameTooltip:Show()
 end)
 
 b:SetScript("OnLeave", function()
 	b:FadeOut()
+	GameTooltip:Hide()
 end)
 
 local bt = b:CreateTexture(nil, "OVERLAY")
@@ -574,11 +578,11 @@ local last = 0
 local time = 3
 
 f:RegisterEvent("UNIT_SPELLCAST_STOP")
-f:SetScript("OnEvent", function(self, event, unit, _, _, _, spellid)
+f:SetScript("OnEvent", function(_, _, unit, _, _, _, spellid)
 	if not unit == "player" or select(2, UnitRace("player")) == "Dwarf" then return end
 	if spellid == 80451 then
 		text:SetText("3")
-		f:SetScript("OnUpdate", function(self, elapsed)
+		f:SetScript("OnUpdate", function(_, elapsed)
 			last = last + elapsed
 			if last > 1 then
 				time = time - 1

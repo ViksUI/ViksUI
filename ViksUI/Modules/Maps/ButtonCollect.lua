@@ -16,6 +16,35 @@ local buttons = {}
 local button = CreateFrame("Frame", "ButtonCollectFrame", UIParent)
 local line = math.ceil(C.minimap.size / 16)
 
+local function SkinButton(f)
+	f:SetPushedTexture(nil)
+	f:SetHighlightTexture(nil)
+	f:SetDisabledTexture(nil)
+	f:SetSize(20, 20)
+
+	for i = 1, f:GetNumRegions() do
+		local region = select(i, f:GetRegions())
+		if region:IsVisible() and region:GetObjectType() == "Texture" then
+			local tex = tostring(region:GetTexture())
+
+			if tex and (tex:find("Border") or tex:find("Background") or tex:find("AlphaMask")) then
+				region:SetTexture(nil)
+			else
+				region:ClearAllPoints()
+				region:SetPoint("TOPLEFT", f, "TOPLEFT", 2, -2)
+				region:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -2, 2)
+				region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				region:SetDrawLayer("ARTWORK")
+				if f:GetName() == "PS_MinimapButton" then
+					region.SetPoint = T.dummy
+				end
+			end
+		end
+	end
+
+	f:SetTemplate("ClassColor")
+end
+
 local function PositionAndStyle()
 	button:SetSize(16, 16)
 	button:SetPoint(unpack(C.position.minimap_buttons))
@@ -34,13 +63,15 @@ local function PositionAndStyle()
 		end
 		buttons[i].ClearAllPoints = T.dummy
 		buttons[i].SetPoint = T.dummy
-		buttons[i]:SetAlpha(0)
-		buttons[i]:HookScript("OnEnter", function()
-			buttons[i]:FadeIn()
+		if C.skins.minimap_buttons_mouseover then
+			buttons[i]:SetAlpha(0)
+			buttons[i]:HookScript("OnEnter", function()
+				buttons[i]:FadeIn()
 		end)
 		buttons[i]:HookScript("OnLeave", function()
 			buttons[i]:FadeOut()
 		end)
+		end
 	end
 end
 
@@ -59,4 +90,9 @@ collect:SetScript("OnEvent", function()
 		button:Hide()
 	end
 	PositionAndStyle()
+
+	if WIM3MinimapButton and WIM3MinimapButton:GetParent() == UIParent and WIM3MinimapButton:GetNumRegions() < 9 then
+		SkinButton(WIM3MinimapButton)
+		SkinButton(WIM3MinimapButton)
+	end
 end)

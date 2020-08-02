@@ -309,6 +309,7 @@ do
 	frame:RegisterEvent("VARIABLES_LOADED")
 end
 
+local getBackdrop
 do
 	local function UpdateCoords(self)
 		local mover = self.child
@@ -345,6 +346,7 @@ do
 
 	local OnMouseUp = function(self, button)
 		if button == "RightButton" then
+			self.backdrop:SetBackdropColor(0.2, 0.6, 0.2, 0.7)
 			local style, identifier = getObjectInformation(self.obj)
 			_DB[style][identifier] =  nil
 		end
@@ -370,7 +372,7 @@ do
 		backdrop:SetScript("OnShow", OnShow)
 
 		local name = backdrop:CreateFontString(nil, "OVERLAY")
-		name:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+		name:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 		name:SetTextColor(1, 1, 1)
 		name:SetAllPoints(target)
 

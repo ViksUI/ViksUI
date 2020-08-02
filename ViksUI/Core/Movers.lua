@@ -9,7 +9,7 @@ T.MoverFrames = {
 	ActionBarAnchor,
 	RightActionBarAnchor,
 	PetActionBarAnchor,
-	ShiftHolder,
+	StanceBarAnchor,
 	MicroAnchor,
 	VehicleAnchor,
 	WatchFrameAnchor,
@@ -69,6 +69,8 @@ T.MoverFrames = {
 	Move_raid,
 	Move_raid40dps,
 	SpellActivationOverlayFrame,
+	SplitBarLeft,
+	SplitBarRight
 }
 
 local moving = false
@@ -80,7 +82,9 @@ local placed = {
 	"stArchaeologyFrame",
 	"StuffingFrameBags",
 	"StuffingFrameBank",
-	"alDamageMeterFrame"
+	"alDamageMeterFrame",
+	"UIWidgetTopAnchor",
+	"UIWidgetBelowAnchor"
 }
 
 local function UpdateCoords(self)

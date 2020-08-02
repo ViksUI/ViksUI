@@ -15,6 +15,7 @@ frame:SetScript("OnEvent", function()
 	StanceBarFrame:EnableMouse(false)
 	MicroButtonAndBagsBar:SetScale(0.00001)
 	MicroButtonAndBagsBar:EnableMouse(false)
+	MicroButtonAndBagsBar:SetPoint("BOTTOMRIGHT", 0, -99) -- Prevent scaling for right panels
 
 	local elements = {
 		MainMenuBar, MainMenuBarArtFrame, OverrideActionBar, PossessBarFrame, PetActionBarFrame, StanceBarFrame
@@ -53,7 +54,7 @@ end)
 function RightBarMouseOver(alpha)
 	RightActionBarAnchor:SetAlpha(alpha)
 	PetActionBarAnchor:SetAlpha(alpha)
-	ShapeShiftBarAnchor:SetAlpha(alpha)
+	StanceBarAnchor:SetAlpha(alpha)
 
 	if MultiBarLeft:IsShown() then
 		for i = 1, 12 do
@@ -100,14 +101,14 @@ function RightBarMouseOver(alpha)
 	end
 
 	if C.actionbar.stancebar_horizontal == false and C.actionbar.stancebar_hide == false then
-		if ShiftHolder:IsShown() then
+		if StanceHolder:IsShown() then
 			for i = 1, NUM_STANCE_SLOTS do
 				local pb = _G["StanceButton"..i]
 				pb:SetAlpha(alpha)
 				local f = _G["StanceButton"..i.."Cooldown"]
 				T.HideSpiral(f, alpha)
 			end
-			ShiftHolder:SetAlpha(alpha)
+			StanceHolder:SetAlpha(alpha)
 		end
 	end
 end
@@ -119,7 +120,7 @@ function StanceBarMouseOver(alpha)
 		local f = _G["StanceButton"..i.."Cooldown"]
 		T.HideSpiral(f, alpha)
 	end
-	ShapeShiftBarAnchor:SetAlpha(alpha)
+	StanceHolder:SetAlpha(alpha)
 end
 
 function PetBarMouseOver(alpha)
