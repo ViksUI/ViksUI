@@ -41,6 +41,7 @@ AceGUI.RegisterAsWidget = function(self, widget)
 			frame:CreateBackdrop("Overlay")
 			frame.backdrop:SetPoint("TOPLEFT", 20, -2)
 			frame.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+			frame.backdrop:SetClipsChildren(true)
 		end
 		button:SetParent(frame.backdrop)
 		text:SetParent(frame.backdrop)
@@ -168,6 +169,12 @@ AceGUI.RegisterAsContainer = function(self, widget)
 			widget.CreateTab = function(self, id)
 				local tab = oldCreateTab(self, id)
 				tab:StripTextures()
+				tab.backdrop = CreateFrame("Frame", nil, tab)
+				tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
+				tab.backdrop:SetTemplate("Overlay")
+				tab.backdrop:SetPoint("TOPLEFT", 10, -3)
+				tab.backdrop:SetPoint("BOTTOMRIGHT", -10, 3)
+				tab.text:SetPoint("LEFT", 14, 0)
 				return tab
 			end
 		end

@@ -117,6 +117,13 @@
 	<Script file="Modules\Announcements\SayThanks.lua"/>
 	<Script file="Modules\Announcements\Spells.lua"/>
 	
+	<Script file="Modules\Auras\AuraSource.lua"/>
+	<Script file="Modules\Auras\BuffFrame.lua"/>
+	<Script file="Modules\Auras\ClassTimer.lua"/>
+	<Script file="Modules\Auras\Filger.lua"/>
+	<Script file="Modules\Auras\SelfBuffsReminder.lua"/>
+	<Script file="Modules\Auras\RaidBuffsReminder.lua"/>
+	
 	<Script file="Modules\Automation\AutoInvite.lua"/>
 	<Script file="Modules\Automation\AutoOpens.lua"/>
 	<Script file="Modules\Automation\AutoRelease.lua"/>
@@ -141,8 +148,6 @@
 	<Script file="Modules\Loot\Loot.lua"/>
 	<Script file="Modules\Loot\MasterLoot.lua"/>
 
-	<Script file="Misc\ClassTimer.lua"/>
-	<Script file="Misc\Filger.lua"/>
 	<Script file="Modules\Datatext\Positions.lua"/>
 	<Script file="Modules\Datatext\Durability.lua"/>
 	<Script file="Modules\Datatext\RunSpeed.lua"/>
@@ -197,14 +202,6 @@
 	<Script file="Modules\Blizzard\TimerTracker.lua"/>
 	<Script file="Modules\Blizzard\UIWidget.lua"/>
 	<Script file="Modules\Blizzard\Vehicle.lua"/>
-	
-	<Script file="Modules\Buffs\AuraSource.lua"/>
-	<Script file="Modules\Buffs\BuffFrame.lua"/>
-	<!--Include file="Modules\Buffs\template.xml"/>
-	<Script file="Modules\Buffs\buffs.lua"/>
-	<Script file="Modules\Buffs\header.lua"/-->
-	<Script file="Modules\Buffs\SelfBuffsReminder.lua"/>
-	<Script file="Modules\Buffs\RaidBuffsReminder.lua"/>
 	
 	<Script file="Modules\Cooldowns\DiminishingCD.lua"/>
 	<Script file="Modules\Cooldowns\EnemyCD.lua"/>

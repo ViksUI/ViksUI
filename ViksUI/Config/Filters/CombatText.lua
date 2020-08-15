@@ -19,6 +19,7 @@ if C.combattext.healing then
 	T.healfilter[280707] = true		-- Laser Matrix [Azerite trait]
 	T.healfilter[302847] = true		-- Anima of Life [Azerite Essence]
 	T.healfilter[298197] = true		-- Stand Your Ground [Azerite Essence]
+	T.healfilter[287608] = true		-- Uprooted [Azerite Essence]
 end
 
 -- General merge outgoing damage

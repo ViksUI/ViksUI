@@ -4,26 +4,32 @@ if C.filger.enable ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Lightweight buff/debuff tracking (Filger by Nils Ruesch, editors Affli/SinaC/Ildyria)
 ----------------------------------------------------------------------------------------
--- P_BUFF_ICON
-AnchorBUFF_ICON = CreateFrame("Frame","Move_BUFF_ICON",UIParent)
-AnchorBUFF_ICON:SetPoint("RIGHT", UIParent, "CENTER", -173, 23)
-CreateAnchor(AnchorBUFF_ICON, "Move BUFF_ICON", 64, 64)
+P_BUFF_ICON_Anchor:SetPoint(unpack(C.position.filger.player_buff_icon))
+P_BUFF_ICON_Anchor:SetSize(C.filger.buffs_size, C.filger.buffs_size)
 
-AnchorT_BUFF_ICON = CreateFrame("Frame","Move_T_BUFF_ICON",UIParent)
-AnchorT_BUFF_ICON:SetPoint("LEFT", UIParent, "CENTER", 173, 23)
-CreateAnchor(AnchorT_BUFF_ICON, "Move T_BUFF_ICON", 64, 64)
+P_PROC_ICON_Anchor:SetPoint(unpack(C.position.filger.player_proc_icon))
+P_PROC_ICON_Anchor:SetSize(C.filger.buffs_size, C.filger.buffs_size)
 
-AnchorP_PROC_ICON = CreateFrame("Frame","Move_P_PROC_ICON",UIParent)
-AnchorP_PROC_ICON:SetPoint("RIGHT", UIParent, "CENTER", -173, 80)
-CreateAnchor(AnchorP_PROC_ICON, "Move P_PROC_ICON", 30, 30)
+SPECIAL_P_BUFF_ICON_Anchor:SetPoint(unpack(C.position.filger.special_proc_icon))
+SPECIAL_P_BUFF_ICON_Anchor:SetSize(C.filger.buffs_size, C.filger.buffs_size)
 
-AnchorT_DEBUFF_ICON = CreateFrame("Frame","Move_T_DEBUFF_ICON",UIParent)
-AnchorT_DEBUFF_ICON:SetPoint("LEFT", UIParent, "CENTER", 173, 80)
-CreateAnchor(AnchorT_DEBUFF_ICON, "Move T_DEBUFF_ICON", 30, 30)
+T_DEBUFF_ICON_Anchor:SetPoint(unpack(C.position.filger.target_debuff_icon))
+T_DEBUFF_ICON_Anchor:SetSize(C.filger.buffs_size, C.filger.buffs_size)
 
-AnchorT_SPECIAL_P_BUFF_ICON = CreateFrame("Frame","Move_SPECIAL_P_BUFF_ICON",UIParent)
-AnchorT_SPECIAL_P_BUFF_ICON:SetPoint("RIGHT", UIParent, "CENTER", -173, -25)
-CreateAnchor(AnchorT_SPECIAL_P_BUFF_ICON, "Move SPECIAL_P_BUFF_ICON", 24, 24)
+T_BUFF_Anchor:SetPoint(unpack(C.position.filger.target_buff_icon))
+T_BUFF_Anchor:SetSize(C.filger.pvp_size, C.filger.pvp_size)
+
+PVE_PVP_DEBUFF_Anchor:SetPoint(unpack(C.position.filger.pve_debuff))
+PVE_PVP_DEBUFF_Anchor:SetSize(C.filger.pvp_size, C.filger.pvp_size)
+
+PVE_PVP_CC_Anchor:SetPoint(unpack(C.position.filger.pve_cc))
+PVE_PVP_CC_Anchor:SetSize(221, 25)
+
+COOLDOWN_Anchor:SetPoint(C.position.filger.cooldown[1], C.position.filger.cooldown[2], C.position.filger.cooldown[3], C.position.filger.cooldown[4], C.unitframe.plugins_swing and C.position.filger.cooldown[5] + 12 or C.position.filger.cooldown[5])
+COOLDOWN_Anchor:SetSize(C.filger.cooldown_size, C.filger.cooldown_size)
+
+T_DE_BUFF_BAR_Anchor:SetPoint(C.position.filger.target_bar[1], C.unitframe.portrait_enable and "oUF_Target_Portrait" or C.position.filger.target_bar[2], C.position.filger.target_bar[3], C.unitframe.portrait_enable and C.position.filger.target_bar[4] - 3 or C.position.filger.target_bar[4], C.unitframe.portrait_enable and C.position.filger.target_bar[5] + 38 or C.position.filger.target_bar[5])
+T_DE_BUFF_BAR_Anchor:SetSize(218, 25)
 
 SpellActivationOverlayFrame:SetFrameStrata("BACKGROUND")
 
@@ -119,7 +125,7 @@ function Filger:DisplayActives()
 					bar.cooldown = CreateFrame("Cooldown", "$parentCD", bar, "CooldownFrameTemplate")
 					bar.cooldown:SetAllPoints(bar.icon)
 					bar.cooldown:SetReverse(true)
-					bar.cooldown:SetDrawEdge(false)				
+					bar.cooldown:SetDrawEdge(false)
 					bar.cooldown:SetFrameLevel(3)
 				end
 
@@ -255,7 +261,9 @@ function Filger:DisplayActives()
 		end
 		if value.duration and value.duration > 0 then
 			if self.Mode == "ICON" then
-				CooldownFrame_Set(bar.cooldown, value.start, value.duration, 1)
+				if value.start + value.duration - GetTime() > 0.3 then
+					bar.cooldown:SetCooldown(value.start + 0.1, value.duration)
+				end
 				if value.data.filter == "CD" or value.data.filter == "ICD" then
 					bar.value = value
 					bar:SetScript("OnUpdate", Filger.UpdateCD)
@@ -297,57 +305,87 @@ function Filger:DisplayActives()
 	end
 end
 
-function Filger:OnEvent(event, unit, _, castID)
-	if C.filger.disable_cd == true and self.Name == "COOLDOWN" then return end
-	if C.filger.disable_pvp == true and (self.Name == "PVE/PVP_DEBUFF" or self.Name == "T_BUFF") then return end
-	if event == "UNIT_AURA" and (unit == "player" or unit == "target" or unit == "pet" or unit == "focus") then
-		for spid in pairs(self.actives) do
-			if self.actives[spid].data.filter ~= "CD" and self.actives[spid].data.filter ~= "ICD" and self.actives[spid].data.unitID == unit then
-				self.actives[spid] = nil
-			end
+local function FindAuras(self, unit)
+	for spid in pairs(self.actives) do
+		if self.actives[spid].data.filter ~= "CD" and self.actives[spid].data.filter ~= "ICD" and self.actives[spid].data.unitID == unit then
+			self.actives[spid] = nil
 		end
+	end
 
-		local ptt = GetSpecialization()
-		for i = 1, 2 do
-			local filter = (i == 1 and "HELPFUL" or "HARMFUL")
-			local index = 1
-			while true do
-				local name, icon, count, _, duration, expirationTime, caster, _, _, spid = UnitAura(unit, index, filter)
-				if not name then break end
+	for i = 1, 2 do
+		local filter = (i == 1 and "HELPFUL" or "HARMFUL")
+		local index = 1
+		while true do
+			local name, icon, count, _, duration, expirationTime, caster, _, _, spid = UnitAura(unit, index, filter)
+			if not name then break end
 
-				local data = SpellGroups[self.Id].spells[name] or SpellGroups[self.Id].spells[spid]
-				if data and (data.caster ~= 1 and (caster == data.caster or data.caster == "all") or MyUnits[caster]) and (not data.unitID or data.unitID == unit) then
-					if data.absID then
-						data = SpellGroups[self.Id].spells[spid]
-					end
-					local isTalent = data.talentID and select(10, GetTalentInfoByID(data.talentID))
-					if ((data.filter == "BUFF" and filter == "HELPFUL") or (data.filter == "DEBUFF" and filter == "HARMFUL")) and (not data.spec or data.spec == ptt) and (not data.talentID or isTalent) then
-						if not data.count or count >= data.count then
-							self.actives[spid] = {data = data, name = name, icon = icon, count = count, start = expirationTime - duration, duration = duration, spid = spid, sort = data.sort}
-						end
-					elseif data.filter == "ICD" and (data.trigger == "BUFF" or data.trigger == "DEBUFF") and (not data.spec or data.spec == ptt) and (not data.talentID or isTalent) then
-						if data.slotID then
-							local slotLink = GetInventoryItemLink("player", data.slotID)
-							_, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
-						end
-						self.actives[spid] = {data = data, name = name, icon = icon, count = count, start = expirationTime - duration, duration = data.duration, spid = spid, sort = data.sort}
-					end
+			local data = SpellGroups[self.Id].spells[name] or SpellGroups[self.Id].spells[spid]
+			if data and (data.caster ~= 1 and (caster == data.caster or data.caster == "all") or MyUnits[caster]) and (not data.unitID or data.unitID == unit) then
+				if data.absID then
+					data = SpellGroups[self.Id].spells[spid]
 				end
-				index = index + 1
+				local isTalent = data.talentID and select(10, GetTalentInfoByID(data.talentID))
+				if ((data.filter == "BUFF" and filter == "HELPFUL") or (data.filter == "DEBUFF" and filter == "HARMFUL")) and (not data.spec or data.spec == T.Spec) and (not data.talentID or isTalent) then
+					if not data.count or count >= data.count then
+						self.actives[spid] = {data = data, name = name, icon = icon, count = count, start = expirationTime - duration, duration = duration, spid = spid, sort = data.sort}
+					end
+				elseif data.filter == "ICD" and (data.trigger == "BUFF" or data.trigger == "DEBUFF") and (not data.spec or data.spec == T.Spec) and (not data.talentID or isTalent) then
+					if data.slotID then
+						local slotLink = GetInventoryItemLink("player", data.slotID)
+						_, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
+					end
+					self.actives[spid] = {data = data, name = name, icon = icon, count = count, start = expirationTime - duration, duration = data.duration, spid = spid, sort = data.sort}
+				end
 			end
+			index = index + 1
 		end
-		Filger.DisplayActives(self)
+	end
+	Filger.DisplayActives(self)
+end
+
+function Filger:OnEvent(event, unit, _, castID)
+	if event == "UNIT_AURA" and (unit == "player" or unit == "target" or unit == "pet" or unit == "focus") then
+		FindAuras(self, unit)
 	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
-		local ptt = GetSpecialization()
 		local name, _, icon = GetSpellInfo(castID)
 		local data = SpellGroups[self.Id].spells[name]
-		if data and data.filter == "ICD" and data.trigger == "NONE" and (not data.spec or data.spec == ptt) then
+		if data and data.filter == "ICD" and data.trigger == "NONE" and (not data.spec or data.spec == T.Spec) then
 			self.actives[castID] = {data = data, name = name, icon = icon, count = nil, start = GetTime(), duration = data.duration, spid = castID, sort = data.sort}
 			Filger.DisplayActives(self)
 		end
-	elseif event == "PLAYER_ENTERING_WORLD" or event == "SPELL_UPDATE_COOLDOWN"
-	or event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_FOCUS_CHANGED" then
+	elseif event == "PLAYER_TARGET_CHANGED" then
+		FindAuras(self, "target")
+	elseif event == "PLAYER_FOCUS_CHANGED" then
+		FindAuras(self, "focus")
+	elseif event == "PLAYER_ENTERING_WORLD" or event == "SPELL_UPDATE_COOLDOWN" then
 		if event ~= "SPELL_UPDATE_COOLDOWN" then
+			local _, instanceType = IsInInstance()
+			if instanceType == "raid" or instanceType == "pvp" then
+				if self:IsEventRegistered("UNIT_AURA") then
+					self:UnregisterEvent("UNIT_AURA")
+					self:SetScript("OnUpdate", function(timer, elapsed)
+						timer.elapsed = (timer.elapsed or 0) + elapsed
+						if timer.elapsed < 0.1 then return end
+						timer.elapsed = 0
+						FindAuras(self, "player")
+						if UnitExists("target") then
+							FindAuras(self, "target")
+						end
+						if UnitExists("pet") then
+							FindAuras(self, "pet")
+						end
+						if UnitExists("focus") then
+							FindAuras(self, "focus")
+						end
+					end)
+				end
+			else
+				if self:GetScript("OnUpdate") then
+					self:SetScript("OnUpdate", nil)
+					self:RegisterEvent("UNIT_AURA")
+				end
+			end
+
 			for spid in pairs(self.actives) do
 				if self.actives[spid].data.filter ~= "CD" and self.actives[spid].data.filter ~= "ICD" then
 					self.actives[spid] = nil
@@ -361,14 +399,13 @@ function Filger:OnEvent(event, unit, _, castID)
 			end
 		end
 
-		local ptt = GetSpecialization()
 		for i = 1, #C["filger_spells"][T.class][self.Id], 1 do
 			local data = C["filger_spells"][T.class][self.Id][i]
 			local found = false
 			local spellName, name, icon, count, duration, expirationTime, caster, start, spid, filter
 
 			if event == "SPELL_UPDATE_COOLDOWN" or event == "PLAYER_ENTERING_WORLD" then
-				if data.filter == "CD" and (not data.spec or data.spec == ptt) then
+				if data.filter == "CD" and (not data.spec or data.spec == T.Spec) then
 					if data.spellID then
 						name, _, icon = GetSpellInfo(data.spellID)
 						if name then
@@ -394,7 +431,7 @@ function Filger:OnEvent(event, unit, _, castID)
 			end
 			if event ~= "SPELL_UPDATE_COOLDOWN" then
 				local isTalent = data.talentID and select(10, GetTalentInfoByID(data.talentID))
-				if (data.filter == "BUFF" or data.filter == "DEBUFF") and (not data.spec or data.spec == ptt) and (not data.talentID or isTalent) then
+				if (data.filter == "BUFF" or data.filter == "DEBUFF") and (not data.spec or data.spec == T.Spec) and (not data.talentID or isTalent) then
 					local postfix = data.caster == "player" and "|PLAYER" or ""
 					if data.filter == "BUFF" then
 						filter = "HELPFUL"..postfix
@@ -493,7 +530,6 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 
 		for j = 1, #data, 1 do
 			local name
-			local id
 			if data[j].spellID then
 				name = GetSpellInfo(data[j].spellID)
 			else
@@ -535,54 +571,70 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 		table.remove(C["filger_spells"][T.class], v)
 	end
 
+	local isEnabled = {
+		["P_BUFF_ICON"] = C.filger.show_buff,
+		["P_PROC_ICON"] = C.filger.show_proc,
+		["T_DEBUFF_ICON"] = C.filger.show_debuff,
+		["T_DE/BUFF_BAR"] = C.filger.show_aura_bar,
+		["PVE/PVP_CC"] = C.filger.show_aura_bar,
+		["SPECIAL_P_BUFF_ICON"] = C.filger.show_special,
+		["PVE/PVP_DEBUFF"] = C.filger.show_pvp_player,
+		["T_BUFF"] = C.filger.show_pvp_target,
+		["COOLDOWN"] = C.filger.show_cd,
+	}
+
 	for i = 1, #SpellGroups, 1 do
 		local data = SpellGroups[i].data
-		local frame = CreateFrame("Frame", "FilgerFrame"..i.."_"..data.Name, T_PetBattleFrameHider)
-		frame.Id = i
-		frame.Name = data.Name
-		frame.Direction = data.Direction or "DOWN"
-		frame.IconSide = data.IconSide or "LEFT"
-		frame.Mode = data.Mode or "ICON"
-		frame.Interval = data.Interval or 3
-		frame:SetAlpha(data.Alpha or 1)
-		frame.IconSize = data.IconSize or C.filger.buffs_size
-		frame.BarWidth = data.BarWidth or 186
-		frame.Position = data.Position or "CENTER"
-		frame:SetPoint(unpack(data.Position))
-		frame.actives = {}
-
-		if C.filger.test_mode then
+		if isEnabled[data.Name] then
+			local frame = CreateFrame("Frame", "FilgerFrame"..i.."_"..data.Name, T_PetBattleFrameHider)
+			frame.Id = i
+			frame.Name = data.Name
+			frame.Direction = data.Direction or "DOWN"
+			frame.IconSide = data.IconSide or "LEFT"
+			frame.Mode = data.Mode or "ICON"
+			frame.Interval = data.Interval or 3
+			frame:SetAlpha(data.Alpha or 1)
+			frame.IconSize = data.IconSize or C.filger.buffs_size
+			frame.BarWidth = data.BarWidth or 186
+			frame.Position = data.Position or "CENTER"
+			frame:SetPoint(unpack(data.Position))
 			frame.actives = {}
-			for j = 1, math.min(C.filger.max_test_icon, #C["filger_spells"][T.class][i]), 1 do
-				local data = C["filger_spells"][T.class][i][j]
-				local name, icon
-				if data.spellID then
-					name, _, icon = GetSpellInfo(data.spellID)
-				elseif data.slotID then
-					local slotLink = GetInventoryItemLink("player", data.slotID)
-					if slotLink then
-						name, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
+
+			if C.filger.test_mode then
+				frame.actives = {}
+				for j = 1, math.min(C.filger.max_test_icon, #C["filger_spells"][T.class][i]), 1 do
+					local data = C["filger_spells"][T.class][i][j]
+					local name, icon
+					if data.spellID then
+						name, _, icon = GetSpellInfo(data.spellID)
+					elseif data.slotID then
+						local slotLink = GetInventoryItemLink("player", data.slotID)
+						if slotLink then
+							name, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
+						end
+					end
+					frame.actives[j] = {data = data, name = name, icon = icon, count = 9, start = 0, duration = 0, spid = data.spellID or data.slotID, sort = data.sort}
+				end
+				Filger.DisplayActives(frame)
+			else
+				for j = 1, #C["filger_spells"][T.class][i], 1 do
+					local data = C["filger_spells"][T.class][i][j]
+					if data.filter == "BUFF" or data.filter == "DEBUFF" or (data.filter == "ICD" and (data.trigger == "BUFF" or data.trigger == "DEBUFF")) then
+						frame:RegisterEvent("UNIT_AURA")
+					elseif data.filter == "CD" then
+						frame:RegisterEvent("SPELL_UPDATE_COOLDOWN")
+					elseif data.trigger == "NONE" then
+						frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+					end
+					if data.unitID == "target" then
+						frame:RegisterEvent("PLAYER_TARGET_CHANGED")
+					elseif data.unitID == "focus" then
+						frame:RegisterEvent("PLAYER_FOCUS_CHANGED")
 					end
 				end
-				frame.actives[j] = {data = data, name = name, icon = icon, count = 9, start = 0, duration = 0, spid = data.spellID or data.slotID, sort = data.sort}
+				frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+				frame:SetScript("OnEvent", Filger.OnEvent)
 			end
-			Filger.DisplayActives(frame)
-		else
-			for j = 1, #C["filger_spells"][T.class][i], 1 do
-				local data = C["filger_spells"][T.class][i][j]
-				if data.filter == "CD" then
-					frame:RegisterEvent("SPELL_UPDATE_COOLDOWN")
-					break
-				elseif data.trigger == "NONE" then
-					frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-					break
-				end
-			end
-			frame:RegisterEvent("UNIT_AURA")
-			frame:RegisterEvent("PLAYER_FOCUS_CHANGED")
-			frame:RegisterEvent("PLAYER_TARGET_CHANGED")
-			frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-			frame:SetScript("OnEvent", Filger.OnEvent)
 		end
 	end
 end

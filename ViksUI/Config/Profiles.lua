@@ -59,6 +59,7 @@ if Viks then
 	C["general"].welcome_message = false
 	C["nameplate"].enhance_threat = true
 	C["skins"].rematch = true
+	C["skins"].opie = true
 	C["skins"].pawn = true
 	C["skins"].bigwigs = true
 	C["misc"].hide_banner = false
@@ -91,10 +92,4 @@ if Viks then
 	--Movment
 	SetBinding ("A", "STRAFELEFT")
 	SetBinding ("D", "STRAFERIGHT")
-	--Bartender Keys
-	SetBinding ("Q", "CLICK BT4Button113:LeftButton")
-	SetBinding ("E", "CLICK BT4Button111:LeftButton")
-	SetBinding ("G", "CLICK BT4Button110:LeftButton")
-	SetBinding ("F", "CLICK BT4Button112:LeftButton")
-	SetBinding ("H", "CLICK BT4Button109:LeftButton")
 end
