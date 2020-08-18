@@ -735,6 +735,7 @@ C["datatext"] = {
 	["Regen"] = 0,  						-- show mana regeneration
 	["System"] = 7,                			-- show fps and ms on panels, and total addon memory in tooltip
 	["Talents"] = 13,                       -- Show Your Talent's. Shift Click to change spec. 
+	["Profession"] = 17,  			  		-- Profession
 	["togglemenu"] = 0,  			  		-- minimenu
 	["Volume"] = 12,  			  			-- Volume
 	["Wowtime"] = 14,              			-- THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!

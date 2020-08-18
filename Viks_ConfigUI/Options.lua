@@ -1938,75 +1938,78 @@ end
 do
 	local parent = ViksUIOptionsPanel.datatext
 
-	local Arena = ns.CreateNumberSlider(parent, "Arena", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Arena)
-	Arena:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -20)
+	local Arena = ns.CreateNumberSlider(parent, "Arena", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Arena)
+	Arena:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -5)
 
-	local Armor = ns.CreateNumberSlider(parent, "Armor", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Armor)
-	Armor:SetPoint("TOPLEFT", Arena, "BOTTOMLEFT", 0, -20)
+	local Armor = ns.CreateNumberSlider(parent, "Armor", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Armor)
+	Armor:SetPoint("TOPLEFT", Arena, "BOTTOMLEFT", 0, -15)
 
-	local RunSpeed = ns.CreateNumberSlider(parent, "RunSpeed", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_RunSpeed)
-	RunSpeed:SetPoint("TOPLEFT", Armor, "BOTTOMLEFT", 0, -20)
+	local RunSpeed = ns.CreateNumberSlider(parent, "RunSpeed", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_RunSpeed)
+	RunSpeed:SetPoint("TOPLEFT", Armor, "BOTTOMLEFT", 0, -15)
 
-	local Avd = ns.CreateNumberSlider(parent, "Avd", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Avd)
-	Avd:SetPoint("TOPLEFT", RunSpeed, "BOTTOMLEFT", 0, -20)
+	local Avd = ns.CreateNumberSlider(parent, "Avd", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Avd)
+	Avd:SetPoint("TOPLEFT", RunSpeed, "BOTTOMLEFT", 0, -15)
 
-	local Bags = ns.CreateNumberSlider(parent, "Bags", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Bags)
-	Bags:SetPoint("TOPLEFT", Avd, "BOTTOMLEFT", 0, -20)
+	local Bags = ns.CreateNumberSlider(parent, "Bags", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Bags)
+	Bags:SetPoint("TOPLEFT", Avd, "BOTTOMLEFT", 0, -15)
 
-	local Crit = ns.CreateNumberSlider(parent, "Crit", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Crit)
-	Crit:SetPoint("TOPLEFT", Bags, "BOTTOMLEFT", 0, -20)
+	local Crit = ns.CreateNumberSlider(parent, "Crit", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Crit)
+	Crit:SetPoint("TOPLEFT", Bags, "BOTTOMLEFT", 0, -15)
 
-	local Durability = ns.CreateNumberSlider(parent, "Durability", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Durability)
-	Durability:SetPoint("TOPLEFT", Crit, "BOTTOMLEFT", 0, -20)
+	local Durability = ns.CreateNumberSlider(parent, "Durability", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Durability)
+	Durability:SetPoint("TOPLEFT", Crit, "BOTTOMLEFT", 0, -15)
 
-	local Friends = ns.CreateNumberSlider(parent, "Friends", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Friends)
-	Friends:SetPoint("TOPLEFT", Durability, "BOTTOMLEFT", 0, -20)
+	local Friends = ns.CreateNumberSlider(parent, "Friends", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Friends)
+	Friends:SetPoint("TOPLEFT", Durability, "BOTTOMLEFT", 0, -15)
 
-	local Gold = ns.CreateNumberSlider(parent, "Gold", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Gold)
-	Gold:SetPoint("TOPLEFT", Friends, "BOTTOMLEFT", 0, -20)
+	local Gold = ns.CreateNumberSlider(parent, "Gold", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Gold)
+	Gold:SetPoint("TOPLEFT", Friends, "BOTTOMLEFT", 0, -15)
 
-	local Guild = ns.CreateNumberSlider(parent, "Guild", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Guild)
-	Guild:SetPoint("TOPLEFT", Gold, "BOTTOMLEFT", 0, -20)
+	local Guild = ns.CreateNumberSlider(parent, "Guild", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Guild)
+	Guild:SetPoint("TOPLEFT", Gold, "BOTTOMLEFT", 0, -15)
 
-	local Haste = ns.CreateNumberSlider(parent, "Haste", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Haste)
-	Haste:SetPoint("TOPLEFT", Guild, "BOTTOMLEFT", 0, -20)
+	local Haste = ns.CreateNumberSlider(parent, "Haste", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Haste)
+	Haste:SetPoint("TOPLEFT", Guild, "BOTTOMLEFT", 0, -15)
 
-	local Versatility = ns.CreateNumberSlider(parent, "Versatility", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Versatility)
-	Versatility:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 280, -20)
+	local Versatility = ns.CreateNumberSlider(parent, "Versatility", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Versatility)
+	Versatility:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 280, -5)
 	
-	local location = ns.CreateNumberSlider(parent, "location", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_location)
-	location:SetPoint("TOPLEFT", Versatility, "BOTTOMLEFT", 0, -20)
+	local location = ns.CreateNumberSlider(parent, "location", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_location)
+	location:SetPoint("TOPLEFT", Versatility, "BOTTOMLEFT", 0, -15)
 	
-	local Mastery = ns.CreateNumberSlider(parent, "Mastery", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Mastery)
-	Mastery:SetPoint("TOPLEFT", location, "BOTTOMLEFT", 0, -20)
+	local Mastery = ns.CreateNumberSlider(parent, "Mastery", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Mastery)
+	Mastery:SetPoint("TOPLEFT", location, "BOTTOMLEFT", 0, -15)
 	
-	local Power = ns.CreateNumberSlider(parent, "Power", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Power)
-	Power:SetPoint("TOPLEFT", Mastery, "BOTTOMLEFT", 0, -20)
+	local Power = ns.CreateNumberSlider(parent, "Power", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Power)
+	Power:SetPoint("TOPLEFT", Mastery, "BOTTOMLEFT", 0, -15)
 	
-	local Regen = ns.CreateNumberSlider(parent, "Regen", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Regen)
-	Regen:SetPoint("TOPLEFT", Power, "BOTTOMLEFT", 0, -20)
+	local Profession = ns.CreateNumberSlider(parent, "Profession", nil, nil, 0, 18, 1, true)
+	Profession:SetPoint("TOPLEFT", Power, "BOTTOMLEFT", 0, -15)
 	
-	local System = ns.CreateNumberSlider(parent, "System", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_System)
-	System:SetPoint("TOPLEFT", Regen, "BOTTOMLEFT", 0, -20)
+	local Regen = ns.CreateNumberSlider(parent, "Regen", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Regen)
+	Regen:SetPoint("TOPLEFT", Profession, "BOTTOMLEFT", 0, -15)
 	
-	local Talents = ns.CreateNumberSlider(parent, "Talents", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Talents)
-	Talents:SetPoint("TOPLEFT", System, "BOTTOMLEFT", 0, -20)
+	local System = ns.CreateNumberSlider(parent, "System", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_System)
+	System:SetPoint("TOPLEFT", Regen, "BOTTOMLEFT", 0, -15)
 	
-	local togglemenu = ns.CreateNumberSlider(parent, "togglemenu", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_togglemenu)
-	togglemenu:SetPoint("TOPLEFT", Talents, "BOTTOMLEFT", 0, -20)
+	local Talents = ns.CreateNumberSlider(parent, "Talents", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Talents)
+	Talents:SetPoint("TOPLEFT", System, "BOTTOMLEFT", 0, -15)
 	
-	local Volume = ns.CreateNumberSlider(parent, "Volume", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Volume)
-	Volume:SetPoint("TOPLEFT", togglemenu, "BOTTOMLEFT", 0, -20)
+	local togglemenu = ns.CreateNumberSlider(parent, "togglemenu", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_togglemenu)
+	togglemenu:SetPoint("TOPLEFT", Talents, "BOTTOMLEFT", 0, -15)
 	
-	local Quests = ns.CreateNumberSlider(parent, "Quests", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Quests)
-	Quests:SetPoint("TOPLEFT", Volume, "BOTTOMLEFT", 0, -20)
+	local Volume = ns.CreateNumberSlider(parent, "Volume", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Volume)
+	Volume:SetPoint("TOPLEFT", togglemenu, "BOTTOMLEFT", 0, -15)
 	
-	local Bfamissions = ns.CreateNumberSlider(parent, "Bfamissions", nil, nil, 0, 15, 1, true, L_GUI_DATATEXT_Bfamissions)
-	Bfamissions:SetPoint("TOPLEFT", Quests, "BOTTOMLEFT", 0, -20)
+	local Quests = ns.CreateNumberSlider(parent, "Quests", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Quests)
+	Quests:SetPoint("TOPLEFT", Volume, "BOTTOMLEFT", 0, -15)
+	
+	local Bfamissions = ns.CreateNumberSlider(parent, "Bfamissions", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Bfamissions)
+	Bfamissions:SetPoint("TOPLEFT", Quests, "BOTTOMLEFT", 0, -15)
 	
 	-- CheckBoxes
 	local currency = ns.addSubCategory(parent, L_GUI_DATATEXT_SUBHEADER_CURRENCY)
-	currency:SetPoint("TOPLEFT", Haste, "BOTTOMLEFT", 0, -12)
+	currency:SetPoint("TOPLEFT", Haste, "BOTTOMLEFT", 0, -27)
 
 	local showcoords = ns.CreateCheckBox(parent, "showcoords", L_GUI_DATATEXT_showcoords)
 	showcoords:SetPoint("TOPLEFT", currency, "BOTTOMLEFT", 0, -8)

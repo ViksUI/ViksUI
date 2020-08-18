@@ -27,19 +27,19 @@ function PP(p, obj)
 		obj:SetPoint("LEFT", DataTextP8,"LEFT", 250, -3)
 	elseif p == 9 then
 		obj:SetHeight(CPTopp:GetHeight())
-		obj:SetPoint("LEFT", DataTextP8,"LEFT", 500, -3)
+		obj:SetPoint("LEFT", DataTextP8,"LEFT", 450, -3)
 	elseif p == 10 then
 		obj:SetHeight(CPTopp:GetHeight())
 		obj:SetPoint("TOP", DataTextP7,"TOP", 0, -3)
 	elseif p == 11 then
 		obj:SetHeight(CPTopp:GetHeight())
-		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -500, -3)
+		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -450, -3)
 	elseif p == 12 then
 		obj:SetHeight(CPTopp:GetHeight())
-		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -350, -3)
+		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -250, -3)
 	elseif p == 13 then
 		obj:SetHeight(CPTopp:GetHeight())
-		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -50, -3)
+		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -5, -3)
 	elseif p == 14 then
 		obj:SetHeight(LBottom:GetHeight())
 		obj:SetPoint("CENTER", DataTextP11, "CENTER", 0, 0)
@@ -49,5 +49,11 @@ function PP(p, obj)
 	elseif p == 16 then
 		obj:SetHeight(LBottom:GetHeight())
 		obj:SetPoint("CENTER", DataTextP12, "CENTER", 0, 0)
+	elseif p == 17 then
+		obj:SetHeight(CPTopp:GetHeight())
+		obj:SetPoint("LEFT", DataTextP8,"LEFT", 600, -3)
+	elseif p == 18 then
+		obj:SetHeight(CPTopp:GetHeight())
+		obj:SetPoint("RIGHT", DataTextP9,"RIGHT", -600, -3)
 	end
 end

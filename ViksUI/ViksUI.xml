@@ -170,7 +170,7 @@
 	<Script file="Modules\Datatext\Talent.lua"/>
 	<Script file="Modules\Datatext\Bfamissions.lua"/>
 	<Script file="Modules\Datatext\Battleground.lua"/>
-	<!--Script file="Modules\Datatext\Temp.lua"/-->
+	<Script file="Modules\Datatext\Professions.lua"/>
 	<Script file="Modules\Datatext\location.lua"/>
 	<Script file="Modules\Quests\AutoCollapse.lua"/>
 	<Script file="Modules\Datatext\Quests.lua"/>
