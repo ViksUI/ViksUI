@@ -3,17 +3,21 @@ if GetLocale() ~= "zhCN" then return end
 
 ----------------------------------------------------------------------------------------
 --	Localization for zhCN client
---	Translation: Mania, Tat2dawn, Sakaras
+--	Translation: Mania, Tat2dawn, Sakaras, Joe
 ----------------------------------------------------------------------------------------
-L_GUI_SET_SAVED_SETTTINGS = "为每个角色分别保存设定"
-L_GUI_SET_SAVED_SETTTINGS_DESC = "Switch between a profile that applies to all characters and one that is unique to this character." -- Need review
-L_GUI_RESET_CHAR = "确定要重置你所有角色的'ViksUI'设定?"
-L_GUI_RESET_ALL = "确定要重置全部'ViksUI'设定?"
-L_GUI_PER_CHAR = "确定要设定/取消'每个角色单独设定'模式?"
+L_GUI_SET_SAVED_SETTTINGS = "角色专用设定"
+L_GUI_SET_SAVED_SETTTINGS_DESC = "在 一般设定 与 角色专用设定 之间切换。"
+L_GUI_RESET_CHAR = "确定要重置你所有角色的 ViksUI 设定?"
+L_GUI_RESET_ALL = "确定要重置全部 ViksUI 到预设值?"
+L_GUI_PER_CHAR = "确定要设定/取消 角色专用设定 模式?"
 L_GUI_RESET_CAT = "确定要重置当前分类到预设值?"
 L_GUI_RESET_CAT_DESC = "左键重置当前分类到预设值。\nCTRL+左键重置全部到预设值。"
 L_GUI_NEED_RELOAD = "请点击套用以重载当前改动。"
 L_GUI_LAYOUT = "布局切换"
+L_GUI_SPELL_LIST = "List of spells" -- Need review
+L_GUI_SPELL_INPUT = "Spell ID" -- Need review
+L_GUI_TIME_INPUT = "Time" -- Need review
+
 -- General options
 L_GUI_GENERAL_SUBTEXT = "一般用戶界面设置，键入 /uihelp 获取更多可用命令。"
 L_GUI_GENERAL_WELCOME_MESSAGE = "欢迎信息"
@@ -169,7 +173,6 @@ L_GUI_UF_PLUGINS_HOLY_BAR = "圣光能量"
 L_GUI_UF_PLUGINS_SHARD_BAR = "灵魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "图腾"
-L_GUI_UF_PLUGINS_RANGE_BAR = "距离显示(仅牧师)"
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "定制队伍/团队框架"
@@ -178,7 +181,8 @@ L_GUI_UF_AGGRO_BORDER = "边框按仇恨值着色"
 L_GUI_UF_DEFICIT_HEALTH = "团队生命值亏减模式"
 L_GUI_UF_SHOW_PARTY = "队伍框架"
 L_GUI_UF_SHOW_RAID = "团队框架"
-L_GUI_UF_VERTICAL_HEALTH = "垂直显示团队框架生命值"
+L.raidframe_vertical_health = "垂直显示团队框架生命值"
+L.raidframe_vertical_health_desc = "Only for heal layout" -- Needs review
 L_GUI_UF_ALPHA_HEALTH = "满血时淡化单位框架"
 L_GUI_UF_SHOW_RANGE = "单位框架按距离变化设定透明度"
 L_GUI_UF_RANGE_ALPHA = "透明度"
@@ -189,7 +193,8 @@ L_GUI_UF_PLAYER_PARTY = "队伍中显示玩家框架"
 L_GUI_UF_SHOW_TANK = "团队主坦克框架"
 L_GUI_UF_SHOW_TANK_TT = "坦克目标的目标"
 L_GUI_UF_RAID_GROUP = "小队数目"
-L_GUI_UF_RAID_VERTICAL_GROUP = "竖向排列团队队伍(仅在HPS布局中生效)"
+L.raidframe_raid_groups_vertical = "竖向排列团队队伍(仅在HPS布局中生效)" -- Needs review
+L.raidframe_raid_groups_vertical_desc = "竖向排列团队队伍(仅在HPS布局中生效)" -- Needs review
 L_GUI_UF_SUBHEADER_ICONS = "标记"
 L_GUI_UF_ICONS_ROLE = "角色类型标记"
 L_GUI_UF_ICONS_RAID_MARK = "团队标记"
@@ -204,9 +209,11 @@ L_GUI_UF_PLUGINS_PVP_DEBUFFS = "PvP DeBuff图标"
 L_GUI_UF_PLUGINS_HEALCOMM = "即将受到的治疗"
 L.raidframe_plugins_auto_resurrection = "中键施放复活技能"
 L.raidframe_plugins_auto_resurrection_desc = "鼠标中键点击已死亡角色时施放复活技能(Clique启用时无效)"
-L.raidframe_hide_health_value = "隐藏血量(仅在HPS布局中生效)"
-L.raidframe_auto_position = "玩家/目标框架自动定位 (仅在HPS布局非竖向排列时生效)"
-L.raidframe_auto_position_desc = "当小队数目大于5，框架位置按小队数目调整"
+L.raidframe_hide_health_value = "Hide raid health value" -- Needs review
+L.raidframe_auto_position = "玩家/目标框架自动定位 (仅在HPS布局非竖向排列时生效)" -- Need review
+L.raidframe_auto_position_desc = "当小队数目大于5，框架位置按小队数目调整" -- Need review
+L.raidframe_auto_position_dynamic = "Dynamic" -- Need review
+L.raidframe_auto_position_static = "Static" -- Need review
 L.raidframe_subheader_heal_size = "HPS布局框架大小"
 L.raidframe_heal_width = "框架宽度"
 L.raidframe_heal_height = "框架高度"
@@ -326,7 +333,7 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "副坦仇恨颜色"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "战斗文字"
-L_GUI_COMBATTEXT_SUBTEXT = "For moving type in the chat '/xct'" -- Need review
+L_GUI_COMBATTEXT_SUBTEXT = "键入 /xct 获取更多可用命令"
 L_GUI_COMBATTEXT_ENABLE = "启用xCT战斗信息"
 L.combattext_blizz_head_numbers = "启用暴雪默认战斗信息"
 L.combattext_blizz_head_numbers_desc = "暴雪默认伤害/治疗模式(需关闭xCT战斗信息)"
@@ -357,7 +364,7 @@ L_GUI_COMBATTEXT_MERGE_AOE_SPAM = "将AOE伤害合并为一条信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "将多个自动攻击伤害合并为一条信息"
 L_GUI_COMBATTEXT_DISPEL = "当你驱散成功时提示"
 L_GUI_COMBATTEXT_INTERRUPT = "当你打断成功时提示"
-L_GUI_COMBATTEXT_DIRECTION = "Change scrolling direction from bottom to top" -- Need review
+L_GUI_COMBATTEXT_DIRECTION = "滚动方向从下向上"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "数值以K为单位显示"
 
 -- Auras/Buffs/Debuffs
@@ -436,6 +443,8 @@ L_GUI_FILGER_PVP_SIZE = "PvP DeBuff图标大小"
 L.filger_buffs_space = "图标间距"
 L.filger_pvp_space = "图标间距"
 L.filger_cooldown_space = "图标间距"
+L.filger_subheader_spells = "Adding new spells" -- Need review
+L.filger_category_list = "Spell list category" -- Need review
 
 -- Announcements options
 L_GUI_ANNOUNCEMENTS = "通告预警"
@@ -465,8 +474,9 @@ L.automation_solve_artifact_desc = "当有足夠碎片时自动弹出辨识窗�
 L.automation_accept_invite = "自动接受好友/公会成员的组队邀请"
 L.automation_decline_duel = "自动取消决斗"
 L.automation_accept_quest = "自动交接任务(按住Shift临时停用)"
-L.automation_auto_collapse = "副本时自动折叠任务追踪框架"
-L.automation_auto_collapse_reload = "重载时自动折叠任务追踪框架"
+L.automation_auto_collapse = "Auto collapse Objective Tracker" -- Need review
+L.automation_auto_collapse_raid = "In Instance" -- Need review
+L.automation_auto_collapse_reload = "After reload" -- Need review
 L.automation_skip_cinematic = "自动跳过过场动画(按住Ctrl临时停用)"
 L.automation_auto_role = "自动设定角色类型"
 L.automation_cancel_bad_buffs = "自动取消非增益性质的Buff"
@@ -671,4 +681,5 @@ L_GUI_DATATEXT_CurrRaid = "Raid Seals under gold"
 L_GUI_DATATEXT_Quests = "Quest position"
 L_GUI_DATATEXT_Bfamissions = "BFA Missions"
 L.datatext_Profession = "Professions"
+L.chat_smileys = "Insert smileys instead of symbols like xD"
 L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault."

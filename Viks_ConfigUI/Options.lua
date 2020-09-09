@@ -124,6 +124,12 @@ local ErrorTable = {
 	"NONE"
 }
 
+local CollapseTable = {
+	"RAID",
+	"RELOAD",
+	"NONE",
+}
+
 local TextureTable
 local LSM = LibStub and LibStub:GetLibrary("LibSharedMedia-3.0", true)
 if LSM then
@@ -133,6 +139,275 @@ else
 		"Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga"
 	}
 end
+
+local FilgerTable = {
+	L.filger_show_buff,
+	L.filger_show_proc,
+	L.filger_show_debuff,
+	L.filger_show_aura_bar,
+	L.filger_show_cd,
+	IGNORE
+}
+
+local FilgerDropDownText = {
+	[L.filger_show_buff] = "buff_spells_list",
+	[L.filger_show_proc] = "proc_spells_list",
+	[L.filger_show_debuff] = "debuff_spells_list",
+	[L.filger_show_aura_bar] = "aura_bar_spells_list",
+	[L.filger_show_cd] = "cd_spells_list",
+	[IGNORE] = "ignore_spells_list",
+}
+
+local SpellList = CreateFrame("Frame", "SpellList", ViksUIOptionsPanel, "ButtonFrameTemplate")
+SpellList:SetPoint("TOPLEFT", ViksUIOptionsPanel, "TOPRIGHT", 22, 0)
+SpellList:SetSize(290, 420)
+SpellList:Hide()
+
+_G["SpellListPortrait"]:SetTexture("Interface\\Spellbook\\Spellbook-Icon")
+
+SpellList.title = _G["SpellListTitle"] or SpellList:CreateFontString("SpellListTitle", "OVERLAY", "GameFontNormal")
+SpellList.title:SetPoint("TOP", _G["SpellList"], "TOP", 0, -5)
+SpellList.title:SetText(L_GUI_SPELL_LIST)
+
+local ScrollSpells = CreateFrame("ScrollFrame", "SpellListScrollFrameSpellList", _G["SpellListInset"], "UIPanelScrollFrameTemplate")
+ScrollSpells:SetPoint("TOPLEFT", _G["SpellListInset"], "TOPLEFT", -10, 19)
+ScrollSpells:SetPoint("BOTTOMRIGHT", _G["SpellListInset"], "BOTTOMRIGHT", -30, 40)
+ScrollSpells.child = CreateFrame("Frame", "SpellListScrollFrameSpellListChild", ScrollSpells)
+ScrollSpells.child:SetSize(270, 290)
+ScrollSpells:SetScrollChild(ScrollSpells.child)
+
+local isFilger = false
+local doubleInput = false
+SpellList.makeSpellsList = function(_, db, double)
+	local oldb
+	local scroll = SpellListScrollFrameSpellListChild
+
+	local i = 1
+	while _G["SpellList"..i.."_cbs"] do
+		_G["SpellList"..i.."_fs"]:SetText("")
+		_G["SpellList"..i.."_fs2"]:SetText("")
+		_G["SpellList"..i.."_texture"]:SetTexture(nil)
+		_G["SpellList"..i.."_cbs"]:ClearAllPoints()
+		_G["SpellList"..i.."_cbs"]:Hide()
+		i = i + 1
+	end
+
+	local i = 1
+	for k, spell in pairs(db) do
+		if spell then
+			if not isFilger or isFilger and spell[2] == T.class then
+				local sp = (double or ViksUIOptionsPanelfilger:IsShown()) and spell[1] or spell
+				local name, _, icon = GetSpellInfo(sp)
+				local bf = _G["SpellList"..i.."_cbs"] or CreateFrame("Button", "SpellList"..i.."_cbs", scroll)
+
+				if i == 1 then
+					bf:SetPoint("TOPLEFT", scroll, "TOPLEFT", 10, -5)
+					bf:SetPoint("BOTTOMRIGHT", scroll, "TOPRIGHT", -10, -29)
+				else
+					bf:SetPoint("TOPLEFT", oldb, "BOTTOMLEFT", 0, -2)
+					bf:SetPoint("BOTTOMRIGHT", oldb, "BOTTOMRIGHT", 0, -26)
+				end
+
+				bf:EnableMouse(true)
+
+				bf.tex = bf.tex or bf:CreateTexture("SpellList"..i.."_texture", "OVERLAY")
+				bf.tex:SetSize(22, 22)
+				bf.tex:SetPoint("LEFT")
+				bf.tex:SetTexture(icon)
+				if IsAddOnLoaded("Aurora") or C.skins.blizzard_frames == true then
+					bf.tex:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				end
+
+				bf.delete = bf.delete or CreateFrame("Button", "SpellList"..i.."_delete", bf)
+				bf.delete:SetSize(16, 16)
+				bf.delete:SetPoint("RIGHT")
+				bf.delete:SetNormalTexture("Interface\\BUTTONS\\UI-GroupLoot-Pass-Up")
+				bf.delete:GetNormalTexture():SetVertexColor(0.8, 0, 0)
+				bf.delete:SetPushedTexture("Interface\\BUTTONS\\UI-GroupLoot-Pass-Up")
+				bf.delete:SetHighlightTexture("Interface\\BUTTONS\\UI-GroupLoot-Pass-Up")
+				bf.delete:SetScript("OnClick", function()
+					tremove(db, k)
+					SpellList:makeSpellsList(db, double)
+					ns.setReloadNeeded(true)
+				end)
+
+				bf:SetScript("OnEnter", function(self)
+					bf.delete:GetNormalTexture():SetVertexColor(1, 0, 0)
+					self:SetBackdrop({bgFile = "Interface\\Buttons\\WHITE8x8"})
+					self:SetBackdropColor(0.2, 0.2, 0.2, 0.7)
+					GameTooltip:SetOwner(bf, "ANCHOR_TOP", 5, 5)
+					GameTooltip:SetHyperlink(format("spell:%s", sp))
+				end)
+				bf:SetScript("OnLeave", function(self)
+					bf.delete:GetNormalTexture():SetVertexColor(0.8, 0, 0)
+					self:SetBackdrop(nil)
+					GameTooltip:Hide()
+				end)
+
+				bf.fs = bf.fs or bf:CreateFontString("SpellList"..i.."_fs", "OVERLAY", "GameFontNormal")
+				bf.fs:SetText(name)
+				bf.fs:SetPoint("RIGHT", bf.delete, "LEFT", -4, 0)
+				bf.fs:SetPoint("LEFT", bf.tex, "RIGHT", 5, 0)
+				bf.fs:SetWordWrap(false)
+				bf.fs:SetJustifyH("RIGHT")
+
+				bf.fs2 = bf.fs2 or bf:CreateFontString("SpellList"..i.."_fs2", "OVERLAY", "GameFontNormal")
+				bf.fs2:SetPoint("RIGHT", bf.delete, "LEFT", -4, 0)
+				bf.fs2:SetWordWrap(false)
+				bf.fs2:SetJustifyH("RIGHT")
+
+				if double and spell[2] and tonumber(spell[2]) > 0 then
+					bf.fs2:SetText(format(GARRISON_DURATION_SECONDS, spell[2]))
+					bf.fs:SetPoint("RIGHT", bf.fs2, "LEFT", -4, 0)
+				end
+
+				bf:Show()
+				oldb = bf
+				i = i + 1
+			end
+		end
+	end
+	SpellList:Show()
+	if double then
+		SpellListTextInput2:Show()
+	else
+		SpellListTextInput2:Hide()
+	end
+end
+
+local function onEnterPressed(self)
+	local value = tonumber(self:GetText())
+	AddSpellButton:Disable()
+	if value and value > 0 then
+		local name = GetSpellInfo(value)
+		if name then
+			self:SetText(name)
+			self:SetCursorPosition(0)
+			self:ClearFocus()
+			self.value = value
+			if not SpellListTextInput2:IsShown() or SpellListTextInput2:GetText() ~= "" then
+				AddSpellButton:Enable()
+			end
+		else
+			self:SetText(UNKNOWN)
+			self.value = value
+		end
+	else
+		self.value = ""
+	end
+end
+
+local InputSpell = CreateFrame("EditBox", SpellList:GetName().."TextInput", SpellList, "InputBoxTemplate")
+InputSpell:SetAutoFocus(false)
+InputSpell:SetWidth(150)
+InputSpell:SetHeight(18)
+InputSpell:SetMaxLetters(99)
+InputSpell:SetFontObject(GameFontHighlight)
+
+InputSpell:SetPoint("TOPLEFT", SpellList, "BOTTOMLEFT", -2, 37)
+
+InputSpell.value = ""
+
+InputSpell:SetScript("OnEscapePressed", function(self) self:ClearFocus() self:SetText(InputSpell.value) end)
+InputSpell:SetScript("OnEnterPressed", onEnterPressed)
+InputSpell:SetScript("OnEditFocusGained", function() InputSpell:SetText(InputSpell.value) end)
+InputSpell:SetScript("OnEditFocusLost", onEnterPressed)
+
+local label = InputSpell:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+label:SetWidth(440)
+label:SetHeight(20)
+label:SetJustifyH("LEFT")
+label:SetPoint("BOTTOMLEFT", InputSpell, "TOPLEFT", -2, 2)
+label:SetText(L_GUI_SPELL_INPUT)
+
+local function onEnterPressed(self)
+	local value = tonumber(self:GetText())
+	AddSpellButton:Disable()
+	if value and value > 0 then
+		self:ClearFocus()
+		self.value = value
+		if InputSpell.value ~= "" then
+			AddSpellButton:Enable()
+		end
+	end
+end
+
+local InputArg = CreateFrame("EditBox", SpellList:GetName().."TextInput2", SpellList, "InputBoxTemplate")
+InputArg:SetAutoFocus(false)
+InputArg:SetWidth(40)
+InputArg:SetHeight(18)
+InputArg:SetMaxLetters(4)
+InputArg:SetFontObject(GameFontHighlight)
+
+InputArg:SetPoint("LEFT", InputSpell, "RIGHT", 10, 0)
+
+InputArg:SetScript("OnEscapePressed", function(self) self:ClearFocus() self:SetText(InputArg.value) end)
+InputArg:SetScript("OnEnterPressed", onEnterPressed)
+InputArg:SetScript("OnEditFocusGained", function() InputArg.value = InputArg:GetText() end)
+InputArg:SetScript("OnEditFocusLost", onEnterPressed)
+
+local label = InputArg:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+label:SetWidth(440)
+label:SetHeight(20)
+label:SetJustifyH("LEFT")
+label:SetPoint("BOTTOMLEFT", InputArg, "TOPLEFT", -2, 2)
+label:SetText(L_GUI_TIME_INPUT)
+
+InputArg:Hide()
+
+local curOption
+local function BuildSpellList(option, double, hiding)
+	if not hiding and SpellList:IsVisible() then SpellList:Hide() return end
+	curOption = option
+	doubleInput = double
+	isFilger = hiding
+	SpellList:makeSpellsList(option, double)
+end
+
+ns.HideSpellList = function()
+	InputSpell:SetText("")
+	InputSpell.value = ""
+	InputArg:SetText("")
+	UIDropDownMenu_SetText(ViksUIOptionsPanelfilgercategory_listDropDown, "")
+	ViksUIOptionsPanelfilgercategory_listDropDown.selectedValue = nil
+	AddSpellButton:Disable()
+	SpellList:Hide()
+end
+
+local AddSpellButton = CreateFrame("Button", "AddSpellButton", SpellList, "UIPanelButtonTemplate")
+AddSpellButton:SetPoint("TOPRIGHT", SpellList, "BOTTOMRIGHT", -10, 40)
+AddSpellButton:SetSize(100, 23)
+AddSpellButton:SetText(ADD)
+AddSpellButton:SetWidth(AddSpellButton.Text:GetWidth() + 15)
+AddSpellButton:SetScript("OnClick", function()
+	if doubleInput then
+		tinsert(curOption, {InputSpell.value, InputArg.value})
+	else
+		if isFilger then
+			tinsert(curOption, {InputSpell.value, T.class})
+		else
+			tinsert(curOption, InputSpell.value)
+		end
+	end
+	InputSpell:SetText("")
+	InputSpell.value = ""
+	InputArg:SetText("")
+	AddSpellButton:Disable()
+	ns.setReloadNeeded(true)
+	SpellList:makeSpellsList(curOption, doubleInput)
+end)
+
+AddSpellButton:SetScript("OnEnter", function()
+	GameTooltip:SetOwner(AddSpellButton, "ANCHOR_RIGHT", 5, 5)
+	GameTooltip:SetHyperlink(format("spell:%s", InputSpell.value))
+end)
+
+AddSpellButton:SetScript("OnLeave", function()
+	GameTooltip:Hide()
+end)
+
+AddSpellButton:Disable()
+tinsert(ns.buttons, AddSpellButton)
 
 -- Category
 ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, true)
@@ -853,6 +1128,30 @@ end
 	local plugins_aura_watch = ns.CreateCheckBox(parent, "plugins_aura_watch", L_GUI_UF_PLUGINS_AURA_WATCH)
 	plugins_aura_watch:SetPoint("TOPLEFT", plugins_debuffhighlight_icon, "BOTTOMLEFT", 0, 0)
 
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", 20, 0)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(ADD)
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton:SetScript("OnClick", function()
+		if not C.options["raidframe"] then
+			C.options["raidframe"] = {}
+		end
+		if not C.options["raidframe"]["plugins_aura_watch_list"] then
+			C.options["raidframe"]["plugins_aura_watch_list"] = {}
+		end
+		BuildSpellList(C.options["raidframe"]["plugins_aura_watch_list"])
+	end)
+	tinsert(ns.buttons, ListButton)
+
+	local function toggleListButton()
+		local shown = plugins_aura_watch:GetChecked()
+		ListButton:SetEnabled(shown)
+	end
+
+	plugins_aura_watch:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
+
 	local plugins_aura_watch_timer = ns.CreateCheckBox(parent, "plugins_aura_watch_timer", L_GUI_UF_PLUGINS_AURA_WATCH_TIMER)
 	plugins_aura_watch_timer:SetPoint("TOPLEFT", plugins_aura_watch, "BOTTOMLEFT", 20, 0)
 
@@ -876,10 +1175,35 @@ do
 	local drinking = ns.CreateCheckBox(parent, "drinking", L_GUI_ANNOUNCEMENTS_DRINKING)
 	drinking:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
-	local interrupts = ns.CreateCheckBox(parent, "interrupts", L_GUI_ANNOUNCEMENTS_INTERRUPTS)
-	interrupts:SetPoint("TOPLEFT", drinking, "BOTTOMLEFT", 0, 0)
-
 	local spells = ns.CreateCheckBox(parent, "spells", L_GUI_ANNOUNCEMENTS_SPELLS)
+	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
+
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("LEFT", spells.Text, "RIGHT", 20, 0)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(">>")
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton:SetScript("OnClick", function()
+		if not C.options["announcements"] then
+			C.options["announcements"] = {}
+		end
+		if not C.options["announcements"]["spells_list"] then
+			C.options["announcements"]["spells_list"] = T.announce_spells
+		end
+		BuildSpellList(C.options["announcements"]["spells_list"])
+	end)
+	tinsert(ns.buttons, ListButton)
+
+	local function toggleListButton()
+		local shown = spells:GetChecked()
+		ListButton:SetEnabled(shown)
+		if not T.announce_spells then ListButton:Disable() return end
+	end
+
+	spells:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
+
+	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL)
 	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
 
 	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL)
@@ -1138,7 +1462,31 @@ do
 
 	local show_inarena = ns.CreateCheckBox(parent, "show_inarena", L_GUI_COOLDOWN_RAID_IN_ARENA)
 	show_inarena:SetPoint("TOPLEFT", show_inparty, "BOTTOMLEFT", 0, 0)
-	
+
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("TOPLEFT", show_inarena, "BOTTOMLEFT", 3, -5)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(L_GUI_SPELL_LIST)
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton:SetScript("OnClick", function()
+		if not C.options["raidcooldown"] then
+			C.options["raidcooldown"] = {}
+		end
+		if not C.options["raidcooldown"]["spells_list"] then
+			C.options["raidcooldown"]["spells_list"] = T.raid_spells
+		end
+		BuildSpellList(C.options["raidcooldown"]["spells_list"], true)
+	end)
+	tinsert(ns.buttons, ListButton)
+
+	local function toggleListButton()
+		local shown = enable:GetChecked()
+		ListButton:SetEnabled(shown)
+		if not T.raid_spells then ListButton:Disable() return end
+	end
+
+	enable:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
 end
 
 -- Enemy cooldowns
@@ -1168,6 +1516,31 @@ do
 
 	local class_color = ns.CreateCheckBox(parent, "class_color")
 	class_color:SetPoint("TOPLEFT", show_inparty, "BOTTOMLEFT", 0, 0)
+
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("TOPLEFT", class_color, "BOTTOMLEFT", 3, -5)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(L_GUI_SPELL_LIST)
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton:SetScript("OnClick", function()
+		if not C.options["enemycooldown"] then
+			C.options["enemycooldown"] = {}
+		end
+		if not C.options["enemycooldown"]["spells_list"] then
+			C.options["enemycooldown"]["spells_list"] = T.enemy_spells
+		end
+		BuildSpellList(C.options["enemycooldown"]["spells_list"], true)
+	end)
+	tinsert(ns.buttons, ListButton)
+
+	local function toggleListButton()
+		local shown = enable:GetChecked()
+		ListButton:SetEnabled(shown)
+		if not T.enemy_spells then ListButton:Disable() return end
+	end
+
+	enable:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
 end
 
 -- Pulse cooldowns
@@ -1341,6 +1714,9 @@ do
 
 	local damage_meter_spam = ns.CreateCheckBox(parent, "damage_meter_spam", L_GUI_CHAT_DAMAGE_METER_SPAM)
 	damage_meter_spam:SetPoint("TOPLEFT", sticky, "BOTTOMLEFT", 0, 0)
+
+	local smileys = ns.CreateCheckBox(parent, "smileys", L.chat_smileys)
+	smileys:SetPoint("TOPLEFT", damage_meter_spam, "BOTTOMLEFT", 0, 0)
 end
 
 -- Bag
@@ -1704,6 +2080,23 @@ do
 
 	local max_test_icon = ns.CreateNumberSlider(parent, "max_test_icon", nil, nil, 0, 10, 1, true, L_GUI_FILGER_MAX_TEST_ICON)
 	max_test_icon:SetPoint("TOPLEFT", test_mode, "BOTTOMLEFT", 0, -20)
+
+	-- Spell List
+	local subheader = ns.addSubCategory(parent, L.filger_subheader_spells)
+	subheader:SetPoint("TOPLEFT", max_test_icon, "BOTTOMLEFT", 0, -10)
+
+	local category_list = ns.CreateDropDown(parent, "category_list", true, L.filger_category_list, FilgerTable)
+	category_list:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+
+	hooksecurefunc(category_list, "SetValue", function()
+		if not C.options["filger"] then
+			C.options["filger"] = {}
+		end
+		if not C.options["filger"][FilgerDropDownText[category_list.selectedValue]] then
+			C.options["filger"][FilgerDropDownText[category_list.selectedValue]] = {}
+		end
+		BuildSpellList(C.options["filger"][FilgerDropDownText[category_list.selectedValue]], false, true)
+	end)
 end
 --[[
 -- Top Panel
@@ -2141,6 +2534,24 @@ f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
 	if not ViksUI then return end
 	T, C = unpack(ViksUI)
+	
+	SpellList:StripTextures()
+	SpellList:CreateBackdrop("Transparent")
+	SpellList.backdrop:SetPoint("TOPLEFT", -18, 0)
+	SpellList.backdrop:SetPoint("BOTTOMRIGHT", 0, 9)
+
+	SpellListScrollFrameSpellList:StripTextures()
+	SpellListScrollFrameSpellList:CreateBackdrop("Overlay")
+	SpellListScrollFrameSpellList.backdrop:SetPoint("TOPLEFT", 2, 3)
+	SpellListScrollFrameSpellList.backdrop:SetPoint("BOTTOMRIGHT", 2, -3)
+	T.SkinCloseButton(SpellListCloseButton)
+
+	SpellListScrollFrameSpellListScrollBar:SetPoint("TOPLEFT", SpellListScrollFrameSpellList, "TOPRIGHT", 6, -13)
+	SpellListScrollFrameSpellListScrollBar:SetPoint("BOTTOMLEFT", SpellListScrollFrameSpellList, "BOTTOMRIGHT", 6, 13)
+	T.SkinScrollBar(SpellListScrollFrameSpellListScrollBar)
+
+	T.SkinEditBox(SpellListTextInput)
+	T.SkinEditBox(SpellListTextInput2)
 end)
 
 local menuButton = CreateFrame("Button", "GameMenuButtonSettingsUI", GameMenuFrame, "GameMenuButtonTemplate")

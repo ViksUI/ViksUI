@@ -91,7 +91,6 @@ C["misc"] = {
 	["panelsh"] = true,							-- Set UI Panels to hidden
 	["combatanimation"] = true,					-- Text animation when entering/exiting combat
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
-	["custom_lagtolerance"] = false,			-- Custom lag tolerance to your latency
 	["armory_link"] = false,					-- Add the Armory link in the chat menu and target (It breaks set focus)
 	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
 }
@@ -168,7 +167,7 @@ C["unitframe"] = {
 	["HealthcolorClass"] = false,														-- health color = class color
 	["HealthBarBackGround"] = { .1, .1, .1, 1},
 	["Powercolor"] = true,																-- power color = class color
-	["VuhDo"] = false, 																	-- Always Hide Raidframes if VuhDo is loaded.
+	["VuhDo"] = true, 																	-- Always Hide Raidframes if VuhDo is loaded.
 	["UFfont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",
 	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
 	["insideAlpha"] = 1,																-- Alpha when Unitframe is in range	
@@ -393,10 +392,10 @@ C["tooltip"] = {
 	["instance_lock"] = true,					-- Your instance lock status in tooltip
 	["mount"] = true,							-- Show source of mount
 	--Ancher
-	["bottomleft"] = false, 				-- Anchor to BottomLeft
-	["bottomright"] = false, 				-- Anchor to Bottomright
-	["topright"] = false, 					-- Anchor to Top Right
-	["topleft"] = true, 					-- Anchor to Top Left
+	["bottomleft"] = false, 					-- Anchor to BottomLeft
+	["bottomright"] = false, 					-- Anchor to Bottomright
+	["topright"] = false, 						-- Anchor to Top Right
+	["topleft"] = true, 						-- Anchor to Top Left
 }
 
 ----------------------------------------------------------------------------------------
@@ -408,17 +407,14 @@ C["chat"] = {
 	["background_alpha"] = 0.4,					-- Background alpha
 	["filter"] = true,							-- Removing some systems spam("Player1" won duel "Player2")
 	["spam"] = true,							-- Removing some players spam(gold/portals/etc)
-	["width"] = C.panels.CPwidth - 4,							-- Chat width
-	["height"] = C.panels.CPTextheight - 4,							-- Chat height
+	["width"] = C.panels.CPwidth - 4,			-- Chat width
+	["height"] = C.panels.CPTextheight - 4,		-- Chat height
 	["chat_bar"] = false,						-- Lite Button Bar for switch chat channel
 	["chat_bar_mouseover"] = false,				-- Lite Button Bar on mouseover
-	["loot_icons"] = true,						-- Icons for loot
-	["custom_time_color"] = true,				-- Enable custom timestamp coloring
-	["time_color"] = {1, 1, 0},					-- Timestamp coloring(http://www.december.com/html/spec/colorcodes.html)
 	["whisp_sound"] = true,						-- Sound when whisper
 	["bubbles"] = true,							-- Skin Blizzard chat bubbles
 	["transp_bubbles"] = true,					-- Transparent Chat Bubbles.
-	["transp_bubbles_a"] = 0.35,					-- Alpha for Transparent Chat Bubbles.
+	["transp_bubbles_a"] = 0.35,				-- Alpha for Transparent Chat Bubbles.
 	["combatlog"] = true,						-- Show CombatLog tab(need two reloads when false)
 	["tabs_mouseover"] = false,					-- Chat tabs on mouseover
 	["sticky"] = true,							-- Remember last channel
@@ -438,8 +434,8 @@ C["nameplate"] = {
 	["width"] = 120,							-- Nameplate width
 	["alpha"] = 0.75,							-- Nameplate alpha
 	["distance"] = 40,							-- Show nameplates for units within this range
-	["ad_height"] = 0,							-- Additional height for selected nameplate
-	["ad_width"] = 0,							-- Additional width for selected nameplate
+	["ad_height"] = 5,							-- Additional height for selected nameplate
+	["ad_width"] = 8,							-- Additional width for selected nameplate
 	["combat"] = false,							-- Automatically show nameplate in combat
 	["health_value"] = false,					-- Numeral health value
 	["show_castbar_name"] = false,				-- Show castbar name
@@ -517,7 +513,7 @@ C["loot"] = {
 	["width"] = 221,							-- Loot window width
 	["auto_greed"] = true,						-- Push "greed" or "disenchant" button when an item roll
 	["auto_confirm_de"] = true,					-- Auto confirm disenchant
-	["faster_loot"] = true,					-- Faster auto looting
+	["faster_loot"] = true,						-- Faster auto looting
 }
 
 ----------------------------------------------------------------------------------------
@@ -553,8 +549,8 @@ C["filger"] = {
 ----------------------------------------------------------------------------------------
 C["announcements"] = {
 	["drinking"] = true,						-- Announce when arena enemy is drinking
-	["interrupts"] = false,						-- Announce when you interrupt
-	["spells"] = false,							-- Announce when you cast some spell
+	["interrupts"] = true,						-- Announce when you interrupt
+	["spells"] = true,							-- Announce when you cast some spell
 	["spells_from_all"] = false,				-- Check spells cast from all members
 	["toys"] = false,							-- Announce some toys
 	["pull_countdown"] = true,					-- Pull countdown announce(/pc #)
@@ -704,8 +700,8 @@ C["stats"] = {
 C["trade"] = {
 	["profession_tabs"] = true,					-- Professions tabs on TradeSkill frames
 	["already_known"] = true,					-- Colorizes recipes/mounts/pets/toys that is already known
-	["disenchanting"] = false,					-- Milling, Prospecting and Disenchanting by Alt + click
-	["enchantment_scroll"] = false,				-- Enchantment scroll on TradeSkill frame
+	["disenchanting"] = true,					-- Milling, Prospecting and Disenchanting by Alt + click
+	["enchantment_scroll"] = true,				-- Enchantment scroll on TradeSkill frame
 	["sum_buyouts"] = false,					-- Sum up all current auctions
 	["archaeology"] = false,					-- Archaeology tracker ('/arch' or right mouseover minimap button to show)
 	["merchant_itemlevel"] = false,				-- Show item level for weapons and armor in merchant

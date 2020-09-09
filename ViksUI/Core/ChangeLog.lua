@@ -3,13 +3,9 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.95",
-		"• Added spell to combatext spam",
-		"• Filger reworked",
-		"• Locals updated", 
-		"• Support for LibSharedMedia", 
-		"• New icons to Microbar datatext", 
-		"• Many more minor changes, fixes and cleanups",
+		"Update 8.96",
+		"• Limited time, so check the Github log!",
+
 		--"• ",
 	--" ",
 	"FIRST PATREON: joelsoul - Huge Thanks for the support",

@@ -91,7 +91,7 @@ local function DisbandRaidGroup()
 			end
 		end
 	end
-	LeaveParty()
+	C_PartyInfo.LeaveParty()
 end
 
 StaticPopupDialogs.DISBAND_RAID = {
@@ -117,9 +117,9 @@ SLASH_GROUPDISBAND2 = "/кв"
 SlashCmdList.PARTYTORAID = function()
 	if GetNumGroupMembers() > 0 then
 		if UnitInRaid("player") and (UnitIsGroupLeader("player")) then
-			ConvertToParty()
+			C_PartyInfo.ConvertToParty()
 		elseif UnitInParty("player") and (UnitIsGroupLeader("player")) then
-			ConvertToRaid()
+			C_PartyInfo.ConvertToRaid()
 		end
 	else
 		print("|cffffff00"..ERR_NOT_IN_GROUP.."|r")
@@ -159,6 +159,20 @@ end
 SLASH_SPEC1 = "/ss"
 SLASH_SPEC2 = "/spec"
 SLASH_SPEC3 = "/ыы"
+
+----------------------------------------------------------------------------------------
+--	Get target NPC name and ID
+----------------------------------------------------------------------------------------
+SlashCmdList.NPCID = function()
+	-- NPC name and id
+	local name = UnitName("target")
+	local unitGUID = UnitGUID("target")
+	local id = unitGUID and select(6, strsplit('-', unitGUID))
+	if id then
+		print(name..": "..id)
+	end
+end
+SLASH_NPCID1 = "/getid"
 
 ----------------------------------------------------------------------------------------
 --	Demo mode for DBM

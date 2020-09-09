@@ -11,6 +11,9 @@ L_GUI_RESET_CAT = "Are you sure you want to reset category's settings?"
 L_GUI_RESET_CAT_DESC = "Reset category's settings. \nCTRL-click to reset all"
 L_GUI_NEED_RELOAD = "You need to reload the UI to apply your changes."
 L_GUI_LAYOUT = "Change layout"
+L_GUI_SPELL_LIST = "List of spells"
+L_GUI_SPELL_INPUT = "Spell ID"
+L_GUI_TIME_INPUT = "Time"
 
 -- General options
 L_GUI_GENERAL_SUBTEXT = "These settings control the general user interface settings. Type in chat '/uihelp' for help."
@@ -226,7 +229,8 @@ L.raidframe_plugins_auto_resurrection_desc = "Auto cast resurrection on middle-c
 L.raidframe_hide_health_value = "Hide health value (only for heal layout)"
 L.raidframe_auto_position = "Auto reposition raid frame (only for heal layout)"
 L.raidframe_auto_position_desc = "If there are more than 5 groups, the frame points changes"
-L.raidframe_subheader_heal_size = "Size for heal layout"
+L.raidframe_auto_position_dynamic = "Dynamic"
+L.raidframe_auto_position_static = "Static"L.raidframe_subheader_heal_size = "Size for heal layout"
 L.raidframe_heal_width = "Frame width"
 L.raidframe_heal_height = "Frame height"
 L.raidframe_heal_power_height = "Power height"
@@ -314,6 +318,7 @@ L_GUI_CHAT_DAMAGE_METER_SPAM = "Merge damage meter spam in one line-link"
 L.chat_loot_icons = "Icons for loot"
 L.chat_custom_time_color = "Enable custom timestamp coloring"
 L.chat_time_color = "Timestamp coloring"
+L.chat_smileys = "Insert smileys instead of symbols like xD"
 
 -- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "Nameplate settings"
@@ -463,6 +468,8 @@ L_GUI_FILGER_PVP_SIZE = "PvP auras size"
 L.filger_buffs_space = "Buffs space"
 L.filger_pvp_space = "PvP auras space"
 L.filger_cooldown_space = "Cooldowns space"
+L.filger_subheader_spells = "Adding new spells"
+L.filger_category_list = "Spell list category"
 
 -- Announcements options
 L_GUI_ANNOUNCEMENTS = "Announcements"

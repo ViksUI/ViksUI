@@ -690,3 +690,7 @@ T.RaidDebuffsReverse = {
 T.RaidDebuffsIgnore = {
 	--[spellID] = true,			-- Spell name
 }
+
+for _, spell in pairs(C.unitframe.plugins_aura_watch_list) do
+	T.RaidDebuffs[SpellName(spell)] = 3
+end
