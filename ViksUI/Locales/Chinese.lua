@@ -221,8 +221,8 @@ L_POPUP_CURRENCY_CAP = "你拥有的最高级货币为"
 
 -- Welcome message
 L_WELCOME_LINE_1 = "欢迎使用ViksUI "
-L_WELCOME_LINE_2_1 = "输入/cfg进行插件设置,或者访问"
-L_WELCOME_LINE_2_2 = "获取更多信息."
+L_WELCOME_LINE_2_1 = "键入 /cfg 进行插件设置, 或者访问https://discord.gg/Dhp5nHh"
+L_WELCOME_LINE_2_2 = "获取更多信息。"
 
 -- Combat text
 L_COMBATTEXT_KILLING_BLOW = "最后一击"
@@ -230,8 +230,7 @@ L_COMBATTEXT_ALREADY_UNLOCKED = "战斗信息已解锁"
 L_COMBATTEXT_ALREADY_LOCKED = "战斗信息已锁定"
 L_COMBATTEXT_TEST_DISABLED = "战斗信息测试模式已禁用"
 L_COMBATTEXT_TEST_ENABLED = "战斗信息测试模式已启用"
-L_COMBATTEXT_TEST_USE_UNLOCK = "键入 /xct unlock 移动/调整战斗信息框架大小"
-L_COMBATTEXT_TEST_USE_LOCK = "键入 /xct lock 锁定战斗信息框架"
+L_COMBATTEXT_TEST_USE_MOVE = "键入 /xct move 移动/调整战斗信息框架大小"
 L_COMBATTEXT_TEST_USE_TEST = "键入 /xct test 启用/禁用战斗信息测试模式"
 L_COMBATTEXT_TEST_USE_RESET = "键入 /xct reset 恢复到初始位置"
 L_COMBATTEXT_POPUP = "保存战斗信息窗口的位置须重载插件"
@@ -243,7 +242,7 @@ L_STATS_ACC_PLAYED = "帐号启用总时间"
 L_STATS_ADDED_JUNK = "增加自动出售例外名单"
 L_STATS_REMOVE_EXCEPTION = "新增/移除例外名单"
 L_STATS_AUTO_REPAIR = "自动修装"
-L_STATS_GUILD_REPAIR = "公会银行修理"
+L_STATS_GUILD_REPAIR = "公会银行修装"
 L_STATS_AUTO_SELL = "自动出售灰色物品"
 L_STATS_BANDWIDTH = "宽带占用:"
 L_STATS_DOWNLOAD = "下载:"
@@ -256,32 +255,33 @@ L_STATS_MEMORY_USAGE = "插件内存占用:"
 L_STATS_GARBAGE_COLLECTED = "整理内存"
 L_STATS_CHANGE_SORTING = "[公会]右键更改排列方式,Shift+右键反向排列"
 L_STATS_HIDDEN = "隐藏"
-L_STATS_VIEW_NOTES = "按住Alt键检视公会成员会阶/注记/干部注记"
-L_STATS_HR = "小时"
-L_STATS_INF = "无限"
-L_STATS_ALREADY_EXCEPTIONS = "物品已在例外名单列表"
-L_STATS_NOT_JUNK = "is not junk."
-L_STATS_ITEMLINK = "物品链接"
-L_STATS_JUNK_EXCEPTIONS = "自动出售例外名单"
-L_STATS_JUNK_LIST = "自动出售列表"
+L_STATS_JUNK_ALREADY_ADDITIONS = "已加入自动出售名单"
+L_STATS_JUNK_ITEMLINK = "物品链接"
+L_STATS_JUNK_ADDITIONS = "自动出售名单"
+L_STATS_JUNK_LIST = "自动出售常用命令"
 L_STATS_JUNK_PROFIT = "自动出售所得金额"
+L_STATS_JUNK_CLEARED = "自动出售名单已清除"
+L_STATS_JUNK_CLEAR_ADDITIONS = "清除自动出售名单"
+L_STATS_JUNK_ADDED = "自动出售 - 已加入"
+L_STATS_JUNK_ADD_ITEM = "增加/移除 物品"
+L_STATS_JUNK_REMOVED = "自动出售 - 已移除"
+L_STATS_JUNK_ITEMS_LIST = "列出自动出售名单"
 L_STATS_KILLS = "击杀"
 L_STATS_OPEN_CALENDAR = "左键开启日历"
 L_STATS_OPEN_CHARACTER = "左键开启角色面板"
 L_STATS_OPEN_CURRENCY = "左键单击开启货币面板."
 L_STATS_OPEN_TALENT = "左键开启天赋面板"
 L_STATS_XP_RATE = "当前等级经验百分值"
-L_STATS_IGNORED_ITEMS = "列出目前忽略物品"
-L_STATS_TOGGLE_TIME = "本地/服务器及24小时制可显示于时间管理器"
-L_STATS_LOCATION = "位置/座标"
-L_STATS_MEMORY = "内存"
+L_STATS_HR = "小时"
+L_STATS_INF = "无限"
 L_STATS_ON = "启用"
-L_STATS_OTHER_OPTIONS = "其它选项可能配置在%s"
-L_STATS_PLAYED_LEVEL = "当前等级总上线时间"
+L_STATS_PLAYED_LEVEL = "当前等级总在线时间"
 L_STATS_PLAYED_SESSION = "此次在线时长"
+L_STATS_ACC_PLAYED = "帐号启用总时间"
 L_STATS_PLAYED_TOTAL = "总在线时长"
 L_STATS_QUEST = "任务"
 L_STATS_QUESTS_TO = "任务/杀怪得到经验值 %s"
+L_STATS_CURRENT_XP = "当前/升级所需经验值"
 L_STATS_REMAINING_XP = "升级尚需经验值"
 L_STATS_REMOVED_JUNK = "移除自动出售例外名单"
 L_STATS_RESTED_XP = "休息奖励经验值"
@@ -326,35 +326,34 @@ L_STATS_OTHER_OPTIONS = "其它选项可以在这里设置: %s"
 
 -- Slash commands
 L_SLASHCMD_HELP = {
-	"命令列表:",
-	"/rl - 重载界面",
+	"可用的命令: ",
+	"/rl or // - 重载界面",
 	"/rc - 就位确认",
-	"/gm - 打开GM面板.",
+	"/gm - 开启GM界面",
 	"/dis ADDON_NAME - 禁用指定插件",
 	"/en ADDON_NAME - 启用指定插件",
-	"/rd - 解散队伍.",
-	"/toraid - 转换队伍/团队",
+	"/rd - 解散队伍",
+	"/toraid - 转换为队伍/团队",
 	"/teleport - 传送随机副本",
-	"/spec - 切换天赋",
+	"/ss - 切换天赋",
+	"/tt - 密语当前目标",
 	"/heal - 载入HPS布局",
 	"/dps - 载入DPS布局",
 	"/frame - 在聊天窗口输出鼠标指向的框体的名字",
 	"/farmmode - 开启/关闭小地图采集模式",
-	"/moveui - 解锁/锁定 界面中所有可以移动的框体",
-	"/resetui - 重置UI界面",
-	"/resetuf - 重置头像框架",
-	"/resetconfig - 重置配置文件",
-	"/resetstats - 重置角色属性面板",
-	"/settings ADDON_NAME - 设置指定插件",
-	"/ls - 载入设置",
+	"/resetui - 重置一般设置到初始值",
+	"/resetuf - 重置头像框架到初始位置",
+	"/resetconfig - 重置ViksUI_Config到初始值",
+	"/resetstats - 重置所有角色游戏时间和金币的统计数据",
+	"/settings - 设置指定插件",
+	"/ls - 信息条功能说明",
 	"/xct - 战斗信息选项",
-	"/raidcd - 团队技能冷却监视",
-	"/enemycd - 敌对技能冷却监视",
-	"/pulsecd - 技能冷却提醒",
-	"/threat - 仇恨条",
-	"/tt - 密语当前目标",
-	"/ainv - 开启/关闭 自动接受公会/好友组队邀请",
+	"/raidcd - 团队技能冷却测试模式",
+	"/enemycd - 敌对技能冷却测试模式",
+	"/pulsecd - 技能冷却闪烁测试模式",
+	"/threat - 仇恨栏測試模式",
 	"/testuf - 头像框架测试模式",
+	"/moveui - 解锁/锁定 界面中所有可移动的框体，Ctrl+右键选中的框架重置到预设位置", -- Need review
 	"/cfg - 开启ViksUI设置界面",
 	"/installui - Opens installer.",
 	"/vbt - Opens Bartender Select Profile.",

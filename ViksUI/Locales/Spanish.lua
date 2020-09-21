@@ -98,6 +98,8 @@ L_MINIMAP_CALENDAR = "Calendario"
 L_MINIMAP_HEAL_LAYOUT = "Left-Click - Heal Layout" -- Needs review
 L_MINIMAP_DPS_LAYOUT = "Right-Click - DPS Layout" -- Needs review
 L_MINIMAP_BLIZZ_LAYOUT = "Middle-Click - Blizzard Layout" -- Needs review
+L_MINIMAP_FARM = "Minimap size" -- Need review
+L_MINIMAP_TOGGLE = "Toggle action bars" -- Need review
 
 -- Chat
 L_CHAT_WHISPER = "De"
@@ -211,7 +213,7 @@ L_POPUP_RESETSTATS = "¿Estás seguro de que quieres reiniciar las estadísticas
 L_POPUP_SWITCH_RAID = "Select Raid layout." -- Needs review
 L_POPUP_DISBAND_RAID = "¿Estás seguro de que quieres disolver el grupo?"
 L_POPUP_DISABLEUI = "ViksUI no funciona con esta resolución, ¿Quieres desactivar ViksUI? (Pulsa cancelar si quieres probar otra resolución)"
-L_POPUP_SETTINGS_ALL = "¿Aplicar modificaciones para todos los addons? (DBM/DXE, Skada o MSBT)"
+L_POPUP_SETTINGS_ALL = "¿Aplicar modificaciones para todos los addons? (DBM, BigWigs, Skada o MSBT)"
 L_POPUP_SETTINGS_DBM = "Necesito cambiar la posición de los elementos del DBM."
 L_POPUP_SETTINGS_BW = "Necesito cambiar la posición de los elementos del BigWigs."
 L_POPUP_ARMORY = "Arsenal"
@@ -228,8 +230,7 @@ L_COMBATTEXT_ALREADY_UNLOCKED = "Texto de combate desbloqueado."
 L_COMBATTEXT_ALREADY_LOCKED = "Texto de combate bloqueado."
 L_COMBATTEXT_TEST_DISABLED = "Modo Texto de combate deshabilitado."
 L_COMBATTEXT_TEST_ENABLED = "Modo Texto de combate habilitado."
-L_COMBATTEXT_TEST_USE_UNLOCK = "Escribe /xct unlock para mover y cambiar el tamaño del marco de texto de combate."
-L_COMBATTEXT_TEST_USE_LOCK = "Escribe /xct lock para bloquear el marco de texto de combate."
+L_COMBATTEXT_TEST_USE_MOVE = "Escribe /xct move para mover y cambiar el tamaño del marco de texto de combate."
 L_COMBATTEXT_TEST_USE_TEST = "Escribe /xct test para probar el modo Texto de combate."
 L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset to restore default positions." -- Need review
 L_COMBATTEXT_POPUP = "Para guardar la posición de la ventana de texto de combate necesitas recargar tu UI."
@@ -252,6 +253,8 @@ L_STATS_CURRENCY_RAID = "Raid Seals" -- Need review
 L_STATS_WORLD_MAP = "Clickeando abres el Mapa del Mundo."
 L_STATS_CURRENT_XP = "Actual/Max EXP"
 L_STATS_MEMORY_USAGE = "Blizzard UI Memory Usage:" -- Needs review
+L_STATS_TOTAL_MEMORY_USAGE = "Uso total de la memoria:"
+L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
 L_STATS_GARBAGE_COLLECTED = "Basura recogida"
 L_STATS_CHANGE_SORTING = "[Hermandad] Click-Derecho para cambiar la clasificacion, Shift-Click-Derecho para invertir el orden."
 L_STATS_HIDDEN = "Oculto"
@@ -284,9 +287,11 @@ L_STATS_ON = "ON"
 L_STATS_OTHER_OPTIONS = "Otras opciones se pueden configurar en %s"
 L_STATS_PLAYED_LEVEL = "Jugado este nivel"
 L_STATS_PLAYED_SESSION = "Jugado esta sesión"
+L_STATS_ACC_PLAYED = "Jugado"
 L_STATS_PLAYED_TOTAL = "Total jugado"
 L_STATS_QUEST = "M"
 L_STATS_QUESTS_TO = "Misiones/Muertes para %s"
+L_STATS_CURRENT_XP = "Actual/Max EXP"
 L_STATS_REMAINING_XP = "EXP Restante"
 L_STATS_REMOVED_JUNK = "Removida excepcion de basura"
 L_STATS_RESTED_XP = "EXP de descanso"
@@ -302,16 +307,35 @@ L_STATS_SESSION_XP = "EXP en esta sesion"
 L_STATS_INSERTS_COORDS = "Shift-Click en los modulos de localizacion o coordenadas inserta las coords en el chat."
 L_STATS_EQUIPMENT_CHANGER = "Shift-Click o Click-Central para el cambiador de equipamiento."
 L_STATS_SORTING_BY = "Ordenado por"
+L_STATS_SEALS = "Seals this week" -- Needs review
+L_STATS_SPEC = "Spec" -- Need review
 L_STATS_TIPS = "consejos:"
-L_STATS_TOTAL_MEMORY_USAGE = "Uso total de la memoria:"
-L_STATS_NOT_TO_SELL = "Usa /junk para configurar que objetos no se venderan."
-L_STATS_WATCH_CURRENCY = "Elementos vistos en la pestana de dinero se reflejaran en la descripcion."
+L_STATS_OPEN_CALENDAR = "Click-Izquierdo abre el calendario."
+L_STATS_RC_TIME_MANAGER = "Click-Derecho abre el administrador de tiempo."
+L_STATS_TOGGLE_TIME = "Hora Local/Reino y el reloj de 24hr se pueden activar desde el administrador de tiempo."
+L_STATS_MEMORY = "Memoria"
+L_STATS_RC_COLLECTS_GARBAGE = "Click-Derecho recolecta basura de Lua."
+L_STATS_VIEW_NOTES = "Manten pulsada la tecla Alt para ver rangos, notas y notas de oficiales."
+L_STATS_CHANGE_SORTING = "[Hermandad] Click-Derecho para cambiar la clasificacion, Shift-Click-Derecho para invertir el orden."
+L_STATS_OPEN_CHARACTER = "Click-Izquierdo abre la pestana de personaje."
+L_STATS_RC_AUTO_REPAIRING1 = "Click-Derecho activa el Auto-Reparar."
+L_STATS_RC_AUTO_REPAIRING2 = "Middle-Click toggles Guild AutoRepairing." -- Need review
+L_STATS_EQUIPMENT_CHANGER = "Shift-Click o Alt-Click para el cambiador de equipamiento."
+L_STATS_RC_EXPERIENCE = "Clic derecho para alternar experiencia, tiempo jugado y facciones."
 L_STATS_WATCH_FACTIONS = "Mirar facciones desde la herramienta de facciones."
 L_STATS_TOOLTIP_TIME_PLAYED = "Cuando estes a nivel max, la descripcion mostrara detalles del tiempo jugado de la cuenta."
 L_STATS_TOOLTIP_EXPERIENCE = "Cuando no estes a nivel max, la descripcion mostrara detalles de la experiencia."
-L_STATS_SEALS = "Seals this week" -- Needs review
-L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
-L_STATS_SPEC = "Spec" -- Need review
+L_STATS_TOOLTIP_TIME_PLAYED = "Cuando estes a nivel max, la descripcion mostrara detalles del tiempo jugado de la cuenta."
+L_STATS_OPEN_TALENT = "Click-Izquierdo activa tu especializacion de talentos."
+L_STATS_RC_TALENT = "Right-Click toggles your loot specialization." -- Need review
+L_STATS_LOCATION = "Situación/Coordenadas"
+L_STATS_WORLD_MAP = "Clickeando abres el Mapa del Mundo."
+L_STATS_INSERTS_COORDS = "Shift-Click en los modulos de localizacion o coordenadas inserta las coords en el chat."
+L_STATS_OPEN_CURRENCY = "Click-Izquierdo abre la pestana de dinero."
+L_STATS_RC_AUTO_SELLING = "Click-Derecho activa el Auto-Vender."
+L_STATS_NEED_TO_SELL = "Use /junk to configure which items need to sell." -- Need review
+L_STATS_WATCH_CURRENCY = "Elementos vistos en la pestana de dinero se reflejaran en la descripcion."
+L_STATS_OTHER_OPTIONS = "Otras opciones se pueden configurar en %s"
 
 -- Slash commands
 L_SLASHCMD_HELP = {
@@ -324,7 +348,8 @@ L_SLASHCMD_HELP = {
 	"/rd - Rompe el grupo o la banda.",
 	"/toraid - Convierte el grupo a bandaConvert to party or raid.",
 	"/teleport - Teleportarse desde una mazmorra aleatoria.",
-	"/spec, /ss - Cambia entre especializaciones de talentos.",
+	"/ss - Cambia entre especializaciones de talentos.",
+	"/tt - Susurrar objetivo.",
 	"/heal - Cambia a la apariencia de 'Curación'.",
 	"/dps - Cambia a la apariencia de 'Daño'.",
 	"/frame - La descripción aun no está lista.",
@@ -334,8 +359,8 @@ L_SLASHCMD_HELP = {
 	"/resetuf - Reinicia los marcos de unidades a su posición por defecto.",
 	"/resetconfig - Reinicia la configuración de ViksUI_Config.",
 	"/resetstats - Reinicia las estadísticas de oro y tiempo empleado.",
-	"/settings ADDON_NAME - Aplica la configuración a msbt, dbm, skada, o a todos los addons (con 'all').",
-	"/ls, /litestats - Ayuda para LiteStats.",
+	"/settings - Aplica la configuración a msbt, dbm, skada, o a todos los addons (con 'all').",
+	"/ls - Ayuda para LiteStats.",
 	"/xct - Gestiona el texto de combate.",
 	"/raidcd - Prueba de los enfriamientos de la banda.",
 	"/enemycd - Prueba de los enfriamientos del enemigo.",
@@ -344,6 +369,7 @@ L_SLASHCMD_HELP = {
 	"/tt - Susurrar objetivo.",
 	"/ainv - Activa la invitación automática.",
 	"/testuf - Prueba de los marcos de unidades.",
+	"/moveui - Permite mover los elementos de la interfaz.", -- Need review
 	"/cfg - Abre la configuración de la interfaz.",
 	"/installui - Opens installer.",
 	"/vbt - Opens Bartender Select Profile.",

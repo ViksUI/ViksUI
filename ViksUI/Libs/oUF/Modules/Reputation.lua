@@ -87,10 +87,10 @@ local function OnMouseUp(element, btn)
 	if btn == "MiddleButton" then
 		if element.outAlpha == 0 then
 			element.outAlpha = 1
-			SavedOptions.Reputation = true
+			ViksUISettings.Reputation = true
 		else
 			element.outAlpha = 0
-			SavedOptions.Reputation = false
+			ViksUISettings.Reputation = false
 		end
 	else
 		ToggleCharacter("ReputationFrame")
@@ -98,7 +98,7 @@ local function OnMouseUp(element, btn)
 end
 
 local function CheckAlpha(element)
-	if SavedOptions and SavedOptions.Reputation == true then
+	if ViksUISettings and ViksUISettings.Reputation == true then
 		element.outAlpha = 1
 		element:SetAlpha(element.outAlpha or 1)
 	end

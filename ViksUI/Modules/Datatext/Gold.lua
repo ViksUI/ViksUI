@@ -79,10 +79,10 @@ end
 
 		local realm = GetRealmName();
 		local name  = UnitName("player");				
-		if (SavedStats == nil) then SavedStats = {}; end
-		if (SavedStats.gold == nil) then SavedStats.gold = {}; end
-		if (SavedStats.gold[realm]==nil) then SavedStats.gold[realm]={}; end
-		SavedStats.gold[realm][name] = GetMoney();
+		if (ViksUIStats == nil) then ViksUIStats = {}; end
+		if (ViksUIStats.gold == nil) then ViksUIStats.gold = {}; end
+		if (ViksUIStats.gold[realm]==nil) then ViksUIStats.gold[realm]={}; end
+		ViksUIStats.gold[realm][name] = GetMoney();
 		OldMoney = NewMoney
 end
 
@@ -118,7 +118,7 @@ Stat:SetScript("OnEnter", function(self)
 	local totalGold = 0
 	GameTooltip:AddLine("Character: ")
 
-	local thisRealmList = SavedStats.gold[myPlayerRealm]
+	local thisRealmList = ViksUIStats.gold[myPlayerRealm]
 	for k, v in pairs(thisRealmList) do
 		GameTooltip:AddDoubleLine(k, FormatTooltipMoney(v), 1, 1, 1, 1, 1, 1)
 		totalGold = totalGold + v
@@ -216,9 +216,9 @@ local function RESETGOLD()
 	local myPlayerRealm = T.realm
 	local myPlayerName  = UnitName("player")
 
-	SavedStats.gold = {}
-	SavedStats.gold[myPlayerRealm] = {}
-	SavedStats.gold[myPlayerRealm][myPlayerName] = GetMoney()
+	ViksUIStats.gold = {}
+	ViksUIStats.gold[myPlayerRealm] = {}
+	ViksUIStats.gold[myPlayerRealm][myPlayerName] = GetMoney()
 end
 SLASH_RESETGOLD1 = "/resetgold"
 SlashCmdList["RESETGOLD"] = RESETGOLD
@@ -228,9 +228,9 @@ Stat:SetScript("OnMouseDown", function(self, btn)
 		local myPlayerRealm = T.realm
 		local myPlayerName  = UnitName("player")
 	
-		SavedStats.gold = {}
-		SavedStats.gold[myPlayerRealm] = {}
-		SavedStats.gold[myPlayerRealm][myPlayerName] = GetMoney()
+		ViksUIStats.gold = {}
+		ViksUIStats.gold[myPlayerRealm] = {}
+		ViksUIStats.gold[myPlayerRealm][myPlayerName] = GetMoney()
 	elseif btn == "LeftButton" then
 		ToggleAllBags()
 	else

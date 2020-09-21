@@ -12,16 +12,6 @@ if ViksUIOptionsGlobal[T.realm][T.name] == nil then ViksUIOptionsGlobal[T.realm]
 -- Сreate the main options table
 if ViksUIOptions == nil then ViksUIOptions = {} end
 
--- TODO: Remove Backward compatible for old GUI after while
-if GUIConfigSettings then
-	ViksUIOptions = GUIConfigSettings
-end
-
-if GUIConfigAll and GUIConfigAll[T.realm][T.name] == true then
-	ViksUIOptionsGlobal[T.realm][T.name] = true
-	ViksUIOptionsPerChar = GUIConfig
-end
-
 -- Determine which settings to use
 local profile
 if ViksUIOptionsGlobal[T.realm][T.name] == true then
@@ -44,6 +34,7 @@ C["unitframe"].plugins_aura_watch_list = {}
 C["announcements"].spells_list = {}
 C["raidcooldown"].spells_list = {}
 C["enemycooldown"].spells_list = {}
+C["media"].profile = "-- Insert Your code here\n"
 
 -- Apply or remove saved settings as needed
 for group, options in pairs(profile) do
@@ -63,3 +54,6 @@ end
 
 -- Add global options variable
 C.options = profile
+
+-- Load edited profile code
+loadstring("local T, C, L = unpack(ViksUI)\n"..C["media"].profile)()

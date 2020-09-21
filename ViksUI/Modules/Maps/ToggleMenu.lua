@@ -242,6 +242,8 @@ local function addMainMenuButtons(menuItems, menuName, menuBackground)
 			Text:SetFont(C.media.pixel_font, C.media.pxfontHsize, C.media.pxfontHFlag)
 			Text:SetPoint("CENTER", menuItems[index], 0, 0)
 			Text:SetText(value.text)
+			Text:SetWidth(buttonwidth(1) - buttonspacing(1))
+			Text:SetHeight(C.media.pxfontHsize)
 
 			local hideItem = (value.text == ADDONS)
 			InsertButton(menuItems, index, hideItem)

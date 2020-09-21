@@ -1,6 +1,7 @@
-local T, C, L
+local T, C
 local _, ns = ...
 local L = ns
+
 ----------------------------------------------------------------------------------------
 --	GUI for ViksUI(by Haleth, Solor)
 ----------------------------------------------------------------------------------------
@@ -76,6 +77,24 @@ StaticPopupDialogs.VIKSUI_RESET = {
 	end,
 	whileDead = true,
 	hideOnEscape = true,
+	showAlert = true,
+}
+
+StaticPopupDialogs.VIKSUI_RESET_CATEGORY = {
+	text = L_GUI_RESET_CAT,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function()
+		if ViksUIOptionsPanelgeneral2:IsShown() then
+			C.options.media = {}
+			C.options.media.profile = C.media.profile
+		else
+			C.options[C.category] = {}
+		end
+		ReloadUI()
+	end,
+	whileDead = true,
+	hideOnEscape = true,
 }
 
 local ResetButton = CreateFrame("Button", nil, options, "UIPanelButtonTemplate")
@@ -84,8 +103,12 @@ ResetButton:SetText(DEFAULT)
 ResetButton.tooltipText = "|cffFFD100"..L_GUI_RESET_CAT_DESC.."|r"
 ResetButton:SetPoint("BOTTOMLEFT", ViksUIOptionsPanel, "BOTTOMLEFT", 10, 7)
 ResetButton:SetScript("OnClick", function()
-	if ViksUIOptionsGlobal[realm][name] == true then
-		StaticPopup_Show("VIKSUI_RESET_PERCHAR")
+	if IsModifiedClick() then
+		if ViksUIOptionsGlobal[realm][name] == true then
+			StaticPopup_Show("VIKSUI_RESET_PERCHAR")
+		else
+			StaticPopup_Show("VIKSUI_RESET")
+		end
 	else
 		StaticPopup_Show("VIKSUI_RESET")
 	end
@@ -409,6 +432,61 @@ end)
 AddSpellButton:Disable()
 tinsert(ns.buttons, AddSpellButton)
 
+-- Expert mode
+do
+	local frame = CreateFrame("Frame", "ViksUIProfileFrame", UIParent)
+	frame:SetWidth(540)
+	frame:SetHeight(320)
+	frame:SetPoint("CENTER", UIParent, "CENTER", 0, 100)
+	frame:SetFrameStrata("DIALOG")
+	tinsert(UISpecialFrames, "ViksUIProfileFrame")
+	frame:Hide()
+	frame:EnableMouse(true)
+
+	local editBox = CreateFrame("EditBox", "ViksUIProfileFrameEditBox", frame)
+	editBox:SetMultiLine(true)
+	editBox:SetMaxLetters(99999)
+	editBox:SetAutoFocus(true)
+	editBox:SetFontObject(ChatFontNormal)
+	editBox:SetWidth(510)
+	editBox:SetHeight(300)
+	editBox:SetScript("OnEscapePressed", function() frame:Hide() end)
+
+	local scrollArea = CreateFrame("ScrollFrame", "ViksUIProfileFrameScroll", frame, "UIPanelScrollFrameTemplate")
+	scrollArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -8)
+	scrollArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -27, 30)
+	scrollArea:SetScrollChild(editBox)
+
+	local CancelButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	CancelButton:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -4, 3)
+	CancelButton:SetSize(100, 23)
+	CancelButton:SetText(CLOSE)
+	CancelButton:SetWidth(CancelButton.Text:GetWidth() + 15)
+	CancelButton:SetScript("OnClick", function()
+		frame:Hide()
+	end)
+
+	tinsert(ns.buttons, CancelButton)
+
+	local SaveButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	SaveButton:SetPoint("BOTTOMRIGHT", CancelButton, "BOTTOMLEFT", -4, 0)
+	SaveButton:SetSize(100, 23)
+	SaveButton:SetText(SAVE)
+	SaveButton:SetWidth(SaveButton.Text:GetWidth() + 15)
+	SaveButton:SetScript("OnClick", function()
+		local _, output = loadstring(editBox:GetText())
+		if output then
+			print("|cffFF0000"..output.."|r")
+		else
+			C.options.media = C.options.media or {}
+			C.options.media.profile = editBox:GetText()
+			frame:Hide()
+			ns.setReloadNeeded(true)
+		end
+	end)
+
+	tinsert(ns.buttons, SaveButton)
+end
 -- Category
 ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, true)
 ns.addCategory("font", L.font, L.font_subtext, true, true)
@@ -514,6 +592,33 @@ do
 
 	local pixel_font_size = ns.CreateNumberSlider(parent, "pixel_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
 	pixel_font_size:SetPoint("TOPLEFT", pixel_font, "BOTTOMLEFT", 16, -16)
+
+	local LuaButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	LuaButton:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -20, 5)
+	LuaButton:SetSize(100, 23)
+	LuaButton:SetText(L_GUI_EXPERT_MODE)
+	LuaButton:SetWidth(LuaButton.Text:GetWidth() + 15)
+	LuaButton:SetScript("OnClick", function()
+		ViksUIProfileFrameEditBox:SetText(C.media.profile)
+		C_Timer.After(0.01, function()
+			local _, max = ViksUIProfileFrameScrollScrollBar:GetMinMaxValues()
+			for _ = 1, max do
+				ScrollFrameTemplate_OnMouseWheel(ViksUIProfileFrameScroll, -1)
+			end
+		end)
+		ViksUIProfileFrame:Show()
+	end)
+
+	LuaButton:SetScript("OnEnter", function()
+		GameTooltip:SetOwner(LuaButton, "ANCHOR_RIGHT", 5, 5)
+		GameTooltip:SetText(L_GUI_EXPERT_MODE_DESC, nil, nil, nil, nil, true)
+	end)
+
+	LuaButton:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+
+	tinsert(ns.buttons, LuaButton)
 end
 
 -- Font
@@ -984,6 +1089,30 @@ do
 	local plugins_aura_watch = ns.CreateCheckBox(parent, "plugins_aura_watch", L_GUI_UF_PLUGINS_AURA_WATCH)
 	plugins_aura_watch:SetPoint("TOPLEFT", plugins_debuffhighlight_icon, "BOTTOMLEFT", 0, 0)
 
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", 20, 0)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(ADD)
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton:SetScript("OnClick", function()
+		if not C.options["unitframe"] then
+			C.options["unitframe"] = {}
+		end
+		if not C.options["unitframe"]["plugins_aura_watch_list"] then
+			C.options["unitframe"]["plugins_aura_watch_list"] = {}
+		end
+		BuildSpellList(C.options["unitframe"]["plugins_aura_watch_list"])
+	end)
+	tinsert(ns.buttons, ListButton)
+
+	local function toggleListButton()
+		local shown = plugins_aura_watch:GetChecked()
+		ListButton:SetEnabled(shown)
+	end
+
+	plugins_aura_watch:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
+	
 	local plugins_aura_watch_timer = ns.CreateCheckBox(parent, "plugins_aura_watch_timer", L_GUI_UF_PLUGINS_AURA_WATCH_TIMER)
 	plugins_aura_watch_timer:SetPoint("TOPLEFT", plugins_aura_watch, "BOTTOMLEFT", 20, 0)
 
@@ -1175,6 +1304,9 @@ do
 	local drinking = ns.CreateCheckBox(parent, "drinking", L_GUI_ANNOUNCEMENTS_DRINKING)
 	drinking:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
+	local interrupts = ns.CreateCheckBox(parent, "interrupts", L_GUI_ANNOUNCEMENTS_INTERRUPTS)
+	interrupts:SetPoint("TOPLEFT", drinking, "BOTTOMLEFT", 0, 0)
+	
 	local spells = ns.CreateCheckBox(parent, "spells", L_GUI_ANNOUNCEMENTS_SPELLS)
 	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
 
@@ -1927,8 +2059,11 @@ do
 	local rightbars = ns.CreateNumberSlider(parent, "rightbars", nil, nil, 0, 3, 1, true, L_GUI_ACTIONBAR_RIGHTBARS)
 	rightbars:SetPoint("LEFT", bottombars, "RIGHT", 120, 0)
 
+	local bottombars_mouseover = ns.CreateCheckBox(parent, "bottombars_mouseover")
+	bottombars_mouseover:SetPoint("TOPLEFT", bottombars, "BOTTOMLEFT", 0, -10)
+	
 	local rightbars_mouseover = ns.CreateCheckBox(parent, "rightbars_mouseover", L_GUI_ACTIONBAR_RIGHTBARS_MOUSEOVER)
-	rightbars_mouseover:SetPoint("TOPLEFT", bottombars, "BOTTOMLEFT", 0, -10)
+	rightbars_mouseover:SetPoint("TOPLEFT", bottombars_mouseover, "BOTTOMLEFT", 0, -10)
 
 	local petbar_hide = ns.CreateCheckBox(parent, "petbar_hide", L_GUI_ACTIONBAR_PETBAR_HIDE)
 	petbar_hide:SetPoint("TOPLEFT", rightbars_mouseover, "BOTTOMLEFT", 0, 0)
@@ -2447,7 +2582,7 @@ do
 	frame.name = "ViksUI"
 	frame:SetScript("OnShow", function(self)
 		if self.show then return end
-		local T, C, L = unpack(ViksUI)
+		local T = unpack(ViksUI)
 		local title = self:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 		title:SetPoint("TOPLEFT", 16, -16)
 		title:SetText("Info:")
@@ -2534,7 +2669,7 @@ f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
 	if not ViksUI then return end
 	T, C = unpack(ViksUI)
-	
+
 	SpellList:StripTextures()
 	SpellList:CreateBackdrop("Transparent")
 	SpellList.backdrop:SetPoint("TOPLEFT", -18, 0)
@@ -2552,6 +2687,9 @@ f:SetScript("OnEvent", function()
 
 	T.SkinEditBox(SpellListTextInput)
 	T.SkinEditBox(SpellListTextInput2)
+
+	ViksUIProfileFrame:SetTemplate("Transparent")
+	T.SkinScrollBar(ViksUIProfileFrameScrollScrollBar)
 end)
 
 local menuButton = CreateFrame("Button", "GameMenuButtonSettingsUI", GameMenuFrame, "GameMenuButtonTemplate")

@@ -12,7 +12,7 @@ frame:SetScript("OnEvent", function(_, _, addon)
 		end
 	end
 
-	if C.unitframe.enable and (SavedOptions and (SavedOptions.RaidLayout == "HEAL" or SavedOptions.RaidLayout == "DPS")) then
+	if C.unitframe.enable and (ViksUISettingsPerChar and (ViksUISettingsPerChar.RaidLayout == "HEAL" or ViksUISettingsPerChar.RaidLayout == "DPS")) then
 		InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
 		InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)
 		if not InCombatLockdown() then
@@ -64,7 +64,9 @@ frame:SetScript("OnEvent", function(_, _, addon)
 		InterfaceOptionsActionBarsPanelRightTwo:Kill()
 		InterfaceOptionsActionBarsPanelAlwaysShowActionBars:Kill()
 		InterfaceOptionsActionBarsPanelStackRightBars:Kill()
-		SetCVar("multiBarRightVerticalLayout", 0)
+		if not InCombatLockdown() then
+			SetCVar("multiBarRightVerticalLayout", 0)
+		end
 	end
 
 	if C.nameplate.enable then

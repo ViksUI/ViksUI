@@ -255,7 +255,7 @@ function T.UploadDBM()
 		DBT_AllPersistentOptions["Default"]["DBM"].TimerPoint = "BOTTOMLEFT"
 		DBT_AllPersistentOptions["Default"]["DBM"].FillUpBars = true
 		DBT_AllPersistentOptions["Default"]["DBM"].IconLeft = true
-		DBT_AllPersistentOptions["Default"]["DBM"].ExpandUpwards = true
+		DBT_AllPersistentOptions["Default"]["DBM"].ExpandUpwardsLarge = true
 		DBT_AllPersistentOptions["Default"]["DBM"].Texture = C.media.texture
 		DBT_AllPersistentOptions["Default"]["DBM"].IconRight = false
 		DBT_AllPersistentOptions["Default"]["DBM"].HugeBarXOffset = 0

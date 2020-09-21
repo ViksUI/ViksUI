@@ -220,7 +220,7 @@ L_POPUP_CURRENCY_CAP = "You get maximum value of"
 -- Welcome message
 L_WELCOME_LINE_1 = "Welcome to ViksUI "
 L_WELCOME_LINE_2_1 = "Type /cfg to config interface, or visit https://discord.gg/Dhp5nHh"
-L_WELCOME_LINE_2_2 = "for more information"
+L_WELCOME_LINE_2_2 = "for more information."
 
 -- Combat text
 L_COMBATTEXT_KILLING_BLOW = "Killing Blow"
@@ -317,7 +317,8 @@ L_SLASHCMD_HELP = {
 	"/rd - Disband party or raid.",
 	"/toraid - Convert to party or raid.",
 	"/teleport - Teleportation from random dungeon.",
-	"/spec, /ss - Switches between talent spec's.",
+	"/ss - Switches between talent spec's.",
+	"/tt - Whisper target.",
 	"/heal - Switches to 'Heal' layout.",
 	"/dps - Switches to 'DPS' layout.",
 	"/frame - Description is not ready.",
@@ -339,6 +340,7 @@ L_SLASHCMD_HELP = {
 	"/tt - Whisper target.",
 	"/ainv - Enables automatic invitation.",
 	"/testuf - Unit frame test.",
+	"/moveui - Allows the movement of interface elements. Right-Click to reset position",
 	"/cfg - Opens interface settings.",
 	"/installui - Opens installer.",
 	"/vbt - Opens Bartender Select Profile.",

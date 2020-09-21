@@ -195,10 +195,10 @@ local function OnMouseUp(element, btn)
 	if btn == "MiddleButton" then
 		if element.offAlpha == 0 then
 			element.offAlpha = 1
-			SavedOptions.ArtifactPower = true
+			ViksUISettings.ArtifactPower = true
 		else
 			element.offAlpha = 0
-			SavedOptions.ArtifactPower = false
+			ViksUISettings.ArtifactPower = false
 		end
 	else
 		if (HasArtifactEquipped() and not C_ArtifactUI.IsEquippedArtifactDisabled()) then
@@ -211,7 +211,7 @@ local function OnMouseUp(element, btn)
 end
 
 local function CheckAlpha(element)
-	if SavedOptions and SavedOptions.ArtifactPower == true then
+	if ViksUISettings and ViksUISettings.ArtifactPower == true then
 		element.offAlpha = 1
 		element:SetAlpha(element.offAlpha or 1)
 	end

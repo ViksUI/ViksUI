@@ -99,7 +99,7 @@ L_MINIMAP_HEAL_LAYOUT = "Click-Sinistro - Disposizione da Guaritore"
 L_MINIMAP_DPS_LAYOUT = "Click-Destro - Disposizione d'Assaltatore"
 L_MINIMAP_BLIZZ_LAYOUT = "Click-Centrale - Disposizione Blizzard"
 L_MINIMAP_FARM = "Minimap size" -- Need review
-L_MINIMAP_TOGGLE = "Toggle action bars" -- Need review													  
+L_MINIMAP_TOGGLE = "Toggle action bars" -- Need review
 
 -- Chat
 L_CHAT_WHISPER = "Da"
@@ -254,6 +254,8 @@ L_STATS_CURRENCY_RAID = "Sigilli d’incursione"
 L_STATS_WORLD_MAP = "Clicca per aprire la mappa del mondo."
 L_STATS_CURRENT_XP = "PE attuali/massimi"
 L_STATS_MEMORY_USAGE = "Utilizzo memoria interfaccia Blizzard:"
+L_STATS_TOTAL_MEMORY_USAGE = "Utilizzo totale memoria:"
+L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
 L_STATS_GARBAGE_COLLECTED = "Spazzatura raccolta"
 L_STATS_CHANGE_SORTING = "[Gilda] Clicca col destro per invitare e sussurrare, clicca col tasto centrale per cambiare l'ordine, clicca Shift + tasto centrale per invertirlo."
 L_STATS_HIDDEN = "Nascosto/a"
@@ -286,9 +288,11 @@ L_STATS_ON = "Acceso"
 L_STATS_OTHER_OPTIONS = "Altre opzioni potranno essere configurate tra %s"
 L_STATS_PLAYED_LEVEL = "Tempo giocato a questo livello"
 L_STATS_PLAYED_SESSION = "Tempo giocato in questa sessione"
+L_STATS_ACC_PLAYED = "Account in uso"
 L_STATS_PLAYED_TOTAL = "Tempo giocato totale"
 L_STATS_QUEST = "M"
 L_STATS_QUESTS_TO = "Missioni/uccisioni per %s"
+L_STATS_CURRENT_XP = "PE attuali/massimi"
 L_STATS_REMAINING_XP = "PE rimanenti"
 L_STATS_REMOVED_JUNK = "Eccezione cianfrusaglie rimossa."
 L_STATS_RESTED_XP = "PE da 'riposato'"
@@ -304,16 +308,35 @@ L_STATS_SESSION_XP = "Andamento PE della sessione"
 L_STATS_INSERTS_COORDS = "Tieni premuto Shift e clicca sul nome della località o sulle coordinate per inserirli automaticamente in chat."
 L_STATS_EQUIPMENT_CHANGER = "Tieni premuto Shift e clicca (o utilizza il tasto centrale del mouse, se lo hai) per cambiare il set d'equipaggiamento."
 L_STATS_SORTING_BY = "Suddivisi per"
+L_STATS_SEALS = "Sigilli in questa settimana"
+L_STATS_SPEC = "Spec" -- Need review
 L_STATS_TIPS = "suggerimenti:"
-L_STATS_TOTAL_MEMORY_USAGE = "Utilizzo totale memoria:"
-L_STATS_NOT_TO_SELL = "Utilizza /junk per configurare quali oggetti non vendere."
-L_STATS_WATCH_CURRENCY = "Gli oggetti attualmente osservati nel pannello Valuta saranno inseriti nei suggerimenti."
+L_STATS_OPEN_CALENDAR = "Clicca col sinistro per aprire il calendario."
+L_STATS_RC_TIME_MANAGER = "Clicca col destro per aprire le impostazionni orologio."
+L_STATS_TOGGLE_TIME = "L'orario 'locale/reame' e quello '24 ore' possono essere attivati con le impostazioni orologio."
+L_STATS_MEMORY = "Memoria"
+L_STATS_RC_COLLECTS_GARBAGE = "Clicca col destro per raccogliere la 'spazzatura Lua'."
+L_STATS_VIEW_NOTES = "Tieni premuto il tasto Alt per visualizzare ranghi, note e note degli ufficiali."
+L_STATS_CHANGE_SORTING = "[Gilda] Clicca col destro per invitare e sussurrare, clicca col tasto centrale per cambiare l'ordine, clicca Shift + tasto centrale per invertirlo."
+L_STATS_OPEN_CHARACTER = "Clicca col sinistro per aprire il pannello personaggio."
+L_STATS_RC_AUTO_REPAIRING1 = "Clicca col destro per attivare/disattivare la riparazione automatica."
+L_STATS_RC_AUTO_REPAIRING2 = "Middle-Click toggles Guild AutoRepairing." -- Need review
+L_STATS_EQUIPMENT_CHANGER = "Tieni premuto Shift o Alt è clicca per cambiare il set d'equipaggiamento." -- Need review
+L_STATS_RC_EXPERIENCE = "Clicca col destro per navigare tra esperienza, tempo giocato e il visualizzatore fazione sotto osservazione."
 L_STATS_WATCH_FACTIONS = "Fazioni sotto osservazione dal pannello delle fazioni del personaggio."
 L_STATS_TOOLTIP_TIME_PLAYED = "A livello massimo, un suggerimento mostrerà i dettagli su quanto tempo hai giocato con questo account."
 L_STATS_TOOLTIP_EXPERIENCE = "A livelli inferiori a quello massimo, un suggerimento mostrerà dettagli sull'esperienza."
-L_STATS_SEALS = "Sigilli in questa settimana"
-L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
-L_STATS_SPEC = "Spec" -- Need review
+L_STATS_TOOLTIP_TIME_PLAYED = "A livello massimo, un suggerimento mostrerà i dettagli su quanto tempo hai giocato con questo account."
+L_STATS_OPEN_TALENT = "Clicca col sinistro per cambiare la spec. talenti attiva."
+L_STATS_RC_TALENT = "Right-Click toggles your loot specialization." -- Need review
+L_STATS_LOCATION = "Località/Coordinate"
+L_STATS_WORLD_MAP = "Clicca per aprire la mappa del mondo."
+L_STATS_INSERTS_COORDS = "Tieni premuto Shift e clicca sul nome della località o sulle coordinate per inserirli automaticamente in chat."
+L_STATS_OPEN_CURRENCY = "Clicca col sinistro per aprire il pannello Valuta."
+L_STATS_RC_AUTO_SELLING = "Clicca col destro per attivare/disattivare la vendita automatica delle cianfrusaglie"
+L_STATS_NEED_TO_SELL = "Use /junk to configure which items need to sell." -- Need review
+L_STATS_WATCH_CURRENCY = "Gli oggetti attualmente osservati nel pannello Valuta saranno inseriti nei suggerimenti."
+L_STATS_OTHER_OPTIONS = "Altre opzioni potranno essere configurate tra %s"
 
 -- Slash commands
 L_SLASHCMD_HELP = {
@@ -326,7 +349,8 @@ L_SLASHCMD_HELP = {
 	"/rd - Sciogli gruppo o incursione.",
 	"/toraid - Trasforma il gruppo in incursione.",
 	"/teleport - Teletrasporto dalle spedizioni casuali.",
-	"/spec, /ss - Passa da una specializzazione dei talenti all'altra",
+	"/ss - Passa da una specializzazione dei talenti all'altra",
+	"/tt - Sussurra al bersaglio.",
 	"/heal - Passa alla configurazione 'guaritori'.",
 	"/dps - Passa alla configurazione 'assaltatori'.",
 	"/frame - La descrizione non è pronta.",
@@ -337,9 +361,8 @@ L_SLASHCMD_HELP = {
 	"/resetuf - Riporta i riquadri delle unità alla loro posizione originaria.",
 	"/resetconfig - Riporta le impostazioni della ViksUI_Config a quelle iniziali.",
 	"/resetstats - Riazzera le statistiche su oro e tempo di gioco.",
-	"/settings ADDON_NAME - Applica le impostazioni a MSBT, DBM, Skada o a tutte le AddOns.",
-	"/ls, /litestats - Comandi d'aiuto per LiteStats.",
-	"/bags - Managing for bags.",
+	"/settings - Applica le impostazioni a MSBT, DBM, Skada o a tutte le AddOns.",
+	"/ls - Comandi d'aiuto per LiteStats.",
 	"/xct - Gestione testo di combattimento.",
 	"/raidcd - Prova i recuperi d'incursione.",
 	"/enemycd - Prova i recuperi del nemico.",
@@ -348,6 +371,7 @@ L_SLASHCMD_HELP = {
 	"/tt - Sussurra al bersaglio.",
 	"/ainv - Attiva gli inviti automatici.",
 	"/testuf - Prova i riquadri delle unità.",
+	"/moveui - Consenti lo spostamento degli elementi dell'interfaccia.", -- Need review
 	"/cfg - Apri il pannello impostazioni interfaccia.",
 	"/installui - Opens installer.",
 	"/vbt - Opens Bartender Select Profile.",

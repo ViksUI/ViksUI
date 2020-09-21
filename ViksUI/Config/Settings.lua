@@ -91,7 +91,7 @@ C["misc"] = {
 	["panelsh"] = true,							-- Set UI Panels to hidden
 	["combatanimation"] = true,					-- Text animation when entering/exiting combat
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
-	["armory_link"] = false,					-- Add the Armory link in the chat menu and target (It breaks set focus)
+	["armory_link"] = true,						-- Add the Armory link in the chat menu and target (It breaks set focus)
 	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
 }
 
@@ -343,21 +343,22 @@ C["actionbar"] = {
 	["button_space"] = 3,						-- Buttons space
 	["split_bars"] = false,						-- Split the fifth bar on two bars on 6 buttons
 	["classcolor_border"] = false,				-- Enable classcolor border
-	["toggle_mode"] = true,						-- Enable toggle mode
 	["hide_highlight"] = false,					-- Hide proc highlight
+	["toggle_mode"] = true,						-- Enable toggle mode
 	-- Bottom bars
 	["bottombars"] = 2,							-- Number of action bars on the bottom (1, 2 or 3)
+	["bottombars_mouseover"] = false,			-- Bottom bars on mouseover
 	-- Right bars
-	["rightbars"] = 2,							-- Number of action bars on right (0, 1, 2 or 3)
+	["rightbars"] = 3,							-- Number of action bars on right (0, 1, 2 or 3)
 	["rightbars_mouseover"] = true,				-- Right bars on mouseover
 	-- Pet bar
 	["petbar_hide"] = false,					-- Hide pet bar
 	["petbar_horizontal"] = false,				-- Enable horizontal pet bar
-	["petbar_mouseover"] = false,				-- Pet bar on mouseover(only for horizontal pet bar)
+	["petbar_mouseover"] = false,				-- Pet bar on mouseover (only for horizontal pet bar)
 	-- Stance bar
 	["stancebar_hide"] = false,					-- Hide stance bar
 	["stancebar_horizontal"] = true,			-- Enable horizontal stance bar
-	["stancebar_mouseover"] = true,				-- Stance bar on mouseover(only for horizontal stance bar)
+	["stancebar_mouseover"] = true,				-- Stance bar on mouseover (only for horizontal stance bar)
 	-- MicroMenu
 	["micromenu"] = false,						-- Enable micro menu
 	["micromenu_mouseover"] = false,			-- Micro menu on mouseover
@@ -614,7 +615,7 @@ C["raidcooldown"] = {
 	["enable"] = true,							-- Enable raid cooldowns
 	["height"] = 15,							-- Bars height
 	["width"] = 186,							-- Bars width(if show_icon = false, bar width+28)
-	["upwards"] = false,						-- Sort upwards bars
+	["upwards"] = true,						-- Sort upwards bars
 	["expiration"] = false,						-- Sort by expiration time
 	["show_self"] = true,						-- Show self cooldowns
 	["show_icon"] = true,						-- Show icons

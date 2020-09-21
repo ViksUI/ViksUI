@@ -185,7 +185,7 @@ SLASH_DBMTEST2 = "/виьеуые"
 --	Switch to heal layout
 ----------------------------------------------------------------------------------------
 SlashCmdList.HEAL = function()
-	SavedOptionsPerChar.RaidLayout = "HEAL"
+	ViksUISettingsPerChar.RaidLayout = "HEAL"
 	ReloadUI()
 end
 SLASH_HEAL1 = "/heal"
@@ -195,7 +195,7 @@ SLASH_HEAL2 = "/руфд"
 --	Switch to dps layout
 ----------------------------------------------------------------------------------------
 SlashCmdList.DPS = function()
-	SavedOptionsPerChar.RaidLayout = "DPS"
+	ViksUISettingsPerChar.RaidLayout = "DPS"
 	ReloadUI()
 end
 SLASH_DPS1 = "/dps"

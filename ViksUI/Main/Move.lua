@@ -2,11 +2,11 @@ local T, C, L, _ = unpack(select(2, ...))
 local t_unlock = false
 
 AnchorFrames = {}
-SavedPositions = {}
+ViksUIPositions = {}
 
 local SetPosition = function(anch)
 	local ap, _, rp, x, y = anch:GetPoint()
-	SavedPositions[anch:GetName()] = {ap, "UIParent", rp, x, y}
+	ViksUIPositions[anch:GetName()] = {ap, "UIParent", rp, x, y}
 end
 
 local OnDragStart = function(self)
@@ -104,7 +104,7 @@ function AnchorsLock()
 end
 
 function AnchorsReset()
-	if(SavedPositions) then SavedPositions = nil end
+	if(ViksUIPositions) then ViksUIPositions = nil end
 	ReloadUI()
 end
 local grid
@@ -186,7 +186,7 @@ local RestoreUI = function(self)
 		end)
 		return
 	end
-	for frame_name, SetPoint in pairs(SavedPositions) do
+	for frame_name, SetPoint in pairs(ViksUIPositions) do
 		if _G[frame_name] then
 			_G[frame_name]:ClearAllPoints()
 			_G[frame_name]:SetPoint(unpack(SetPoint))

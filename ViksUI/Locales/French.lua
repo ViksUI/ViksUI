@@ -244,7 +244,7 @@ L_STATS_ADDED_JUNK = "Exception pour l'objet ajouté"
 L_STATS_REMOVE_EXCEPTION = "Ajouter / supprimer exception."
 L_STATS_AUTO_REPAIR = "Réparation automatique"
 L_STATS_GUILD_REPAIR = "Réparation automatique avec la banque de guilde"
-L_STATS_AUTO_SELL = "Vente automatique d'objet "
+L_STATS_AUTO_SELL = "Vente automatique d'objet"
 L_STATS_BANDWIDTH = "Bande passante :"
 L_STATS_DOWNLOAD = "Téléchargement :"
 L_STATS_CLEARED_JUNK = "Liste d'exceptions d'objet effacée."
@@ -253,16 +253,14 @@ L_STATS_CURRENCY_RAID = "Sceaux de raid"
 L_STATS_WORLD_MAP = "Clic ouvre la carte du monde."
 L_STATS_CURRENT_XP = "XP courant/max"
 L_STATS_MEMORY_USAGE = "Usage mémoire pour l'interface Blizzard :"
+L_STATS_TOTAL_MEMORY_USAGE = "Utilisation mémoire :"
+L_STATS_TOTAL_CPU_USAGE = "Utilisation processeur :"
 L_STATS_GARBAGE_COLLECTED = "Déchets ramassés"
 L_STATS_CHANGE_SORTING = "[Guild] Clic-Droit pour inviter et chuchoter, Clic-Milieu pour changer le type de tri, Maj-Clic-Centre pour inverser l'ordre."
 L_STATS_HIDDEN = "Caché"
-L_STATS_VIEW_NOTES = "Maintenez enfoncé la touche Alt pour voir les grades, notes et notes d'officiers."
-L_STATS_HR = "Par heure"
-L_STATS_INF = "infini"
-L_STATS_ALREADY_EXCEPTIONS = "est déjà dans la liste d'exceptions."
-L_STATS_ITEMLINK = "élément Lien"
-L_STATS_NOT_JUNK = "is not junk."
-L_STATS_JUNK_EXCEPTIONS = "Exceptions de camelote"
+L_STATS_JUNK_ALREADY_ADDITIONS = "est déjà dans la liste des objets indésirables."
+L_STATS_JUNK_ITEMLINK = "élément Lien"
+L_STATS_JUNK_ADDITIONS = "Ajout à la liste des indésirables"
 L_STATS_JUNK_LIST = "Liste de camelote"
 L_STATS_JUNK_PROFIT = "Camelote profit"
 L_STATS_JUNK_CLEARED = "Liste des indésirables effacée."
@@ -270,7 +268,7 @@ L_STATS_JUNK_CLEAR_ADDITIONS = "Effacer la liste des indésirables."
 L_STATS_JUNK_ADDED = "Ajouté à la liste des objets indésirables"
 L_STATS_JUNK_ADD_ITEM = "Ajouter/retirer des objets."
 L_STATS_JUNK_REMOVED = "Retiré de la liste des objets indésirables"
-L_STATS_JUNK_ITEMS_LIST = "Liste des objets à vendre."												   
+L_STATS_JUNK_ITEMS_LIST = "Liste des objets à vendre."
 L_STATS_KILLS = "Tuer"
 L_STATS_OPEN_CALENDAR = "Clic-Gauche ouvre le calendrier (/cal)."
 L_STATS_OPEN_CHARACTER = "Clic-Gauche ouvre l'onglet caractère."
@@ -285,9 +283,11 @@ L_STATS_ON = "ON"
 L_STATS_OTHER_OPTIONS = "Les autres options peuvent être configurées dans %s"
 L_STATS_PLAYED_LEVEL = "Temps joué à ce niveau"
 L_STATS_PLAYED_SESSION = "Temps joué à cette session"
+L_STATS_ACC_PLAYED = "Temps joué pour le compte"
 L_STATS_PLAYED_TOTAL = "Temps joué total"
 L_STATS_QUEST = "Quête"
 L_STATS_QUESTS_TO = "Quêtes/Tuer à %s"
+L_STATS_CURRENT_XP = "XP courant/max"
 L_STATS_REMAINING_XP = "XP restant"
 L_STATS_REMOVED_JUNK = "Exception de camelote enlevée"
 L_STATS_RESTED_XP = "XP reposé"
@@ -303,16 +303,35 @@ L_STATS_SESSION_XP = "XP session taux"
 L_STATS_INSERTS_COORDS = "Maj-clic sur l'emplacement ou coords insère le module de vos coords au chat"
 L_STATS_EQUIPMENT_CHANGER = "Maj-clic ou clic-milieu sur le gestionnaire équipement."
 L_STATS_SORTING_BY = "Tri par"
+L_STATS_SEALS = "Sceau cette semaine"
+L_STATS_SPEC = "Spé"
 L_STATS_TIPS = "Conseils :"
-L_STATS_TOTAL_MEMORY_USAGE = "Utilisation de la mémoire totale :"
-L_STATS_NOT_TO_SELL = "Tapez /junk pour configurer les items à ne pas vendre."
-L_STATS_WATCH_CURRENCY = "Consulté onglet monnaie articles se reflétera dans l'info bulle."
+L_STATS_OPEN_CALENDAR = "Clic-Gauche ouvre le calendrier."
+L_STATS_RC_TIME_MANAGER = "Clic-Droit pour ouvrir la fenêtre de gestion du temps."
+L_STATS_TOGGLE_TIME = "Local/Royaume & mode 24 heures le temps peut être changé, dans la gestion des fenêtres de temps."
+L_STATS_MEMORY = "Mémoire"
+L_STATS_RC_COLLECTS_GARBAGE = "Cliquez-droit sur Lua recueille les déchets."
+L_STATS_VIEW_NOTES = "Maintenez enfoncé la touche Alt pour voir les grades, notes et notes d'officiers."
+L_STATS_CHANGE_SORTING = "[Guild] Clic-Droit pour inviter et chuchoter, Clic-Milieu pour changer le type de tri, Maj-Clic-Centre pour inverser l'ordre."
+L_STATS_OPEN_CHARACTER = "Clic-Gauche ouvre l'onglet caractère."
+L_STATS_RC_AUTO_REPAIRING1 = "Clic-Droit permet de basculer en mode réparation auto."
+L_STATS_RC_AUTO_REPAIRING2 = "Bouton du milieu pour activer la réparation automatique de Guilde."
+L_STATS_EQUIPMENT_CHANGER = "Maj-clic ou alt-clic sur le gestionnaire équipement."
+L_STATS_RC_EXPERIENCE = "Clic-Droit pour faire défiler l'expérience, le temps joué, et la faction à suivre."
 L_STATS_WATCH_FACTIONS = "Superviser les factions de l'onglet de Réputation."
 L_STATS_TOOLTIP_TIME_PLAYED = "Quand vous êtes au niveau maximum, la bulle d'aide affichera les détails du temps de jeu pour ce compte."
 L_STATS_TOOLTIP_EXPERIENCE = "Quand vous êtes en dessous du niveau maximum, une bulle d'aide affichera les détails concernant votre expérience."
-L_STATS_SEALS = "Sceau cette semaine"
-L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
-L_STATS_SPEC = "Spec" -- Need review
+L_STATS_TOOLTIP_TIME_PLAYED = "Quand vous êtes au niveau maximum, la bulle d'aide affichera les détails du temps de jeu pour ce compte."
+L_STATS_OPEN_TALENT = "Clic-Gauche permet de modifier votre spécialisation."
+L_STATS_RC_TALENT = "Clic-Droit pour modifier la spécialisation utilisée pour le butin."
+L_STATS_LOCATION = "Position/Coords"
+L_STATS_WORLD_MAP = "Clic ouvre la carte du monde."
+L_STATS_INSERTS_COORDS = "Maj-clic sur l'emplacement ou coords insère le module de vos coords au chat"
+L_STATS_OPEN_CURRENCY = "Clic-Gauche ouvre l'onglet monnaie."
+L_STATS_RC_AUTO_SELLING = "Clic-Droit permet de basculer en mode vente automatique."
+L_STATS_NEED_TO_SELL = "Utiliser /junk pour définir quels objets doivent être vendu."
+L_STATS_WATCH_CURRENCY = "Consulté onglet monnaie articles se reflétera dans l'info bulle."
+L_STATS_OTHER_OPTIONS = "Les autres options peuvent être configurées dans %s"
 
 -- Slash commands
 L_SLASHCMD_HELP = {
@@ -325,7 +344,8 @@ L_SLASHCMD_HELP = {
 	"/rd - Dissout le groupe ou raid.",
 	"/toraid - Active le mode raid.",
 	"/teleport - Téléportation dans le donjon aléatoire en cours.",
-	"/spec, /ss - Bascule d'une spécialisation talent à l'autre.",
+	"/ss - Bascule d'une spécialisation talent à l'autre.",
+	"/tt - Chuchote à la cible.",
 	"/heal - Bascule vers l'interface 'Heal'.",
 	"/dps - Bascule sur l'interface 'DPS'.",
 	"/frame - Description is not ready.",
@@ -345,6 +365,7 @@ L_SLASHCMD_HELP = {
 	"/tt - Chuchote à la cible.",
 	"/ainv - Active l'invitation automatique.",
 	"/testuf - Lance un test des cadres d'unité.",
+	"/moveui - Permet de déplacer des éléments de l'interface.", -- Need review
 	"/cfg - Ouvre les paramètres de l'interface.",
 	"/installui - Opens installer.",
 	"/vbt - Opens Bartender Select Profile.",

@@ -254,16 +254,14 @@ L_STATS_CURRENCY_RAID = "Schlachtzugs Siegel"
 L_STATS_WORLD_MAP = "Klicken, zum Öffnen der World-Map."
 L_STATS_CURRENT_XP = "Aktuell/Max XP"
 L_STATS_MEMORY_USAGE = "Blizzard UI Speicher Auslastung:"
+L_STATS_TOTAL_MEMORY_USAGE = "Gesamte Speicherausnutzung:"
+L_STATS_TOTAL_CPU_USAGE = "Gesamte CPU-Auslastung:"
 L_STATS_GARBAGE_COLLECTED = "Abfall zusammengefasst"
 L_STATS_CHANGE_SORTING = "[Gilde] Rechts-Klick, zum Ändern der Sortierung und Umschalt-Rechts-Klick zum Umkehren der Reihenfolge."
 L_STATS_HIDDEN = "Versteckt"
-L_STATS_VIEW_NOTES = "Halte die Alt-Taste gedrückt, zum Anzeigen der Ränge, Notizen und Offizier Notizen."
-L_STATS_HR = "std"
-L_STATS_INF = "unend"
-L_STATS_ALREADY_EXCEPTIONS = "ist bereits in der Ausnahmeliste."
-L_STATS_NOT_JUNK = "is not junk."
-L_STATS_ITEMLINK = "itemlink"
-L_STATS_JUNK_EXCEPTIONS = "Junk-Ausnahmen"
+L_STATS_JUNK_ALREADY_ADDITIONS = "ist bereits in der Ergänzungsliste."
+L_STATS_JUNK_ITEMLINK = "itemlink"
+L_STATS_JUNK_ADDITIONS = "Junk-Ergänzungen"
 L_STATS_JUNK_LIST = "Junk-Liste"
 L_STATS_JUNK_PROFIT = "Junk-Gewinn"
 L_STATS_JUNK_CLEARED = "Junk-Liste bereinigt."
@@ -271,7 +269,7 @@ L_STATS_JUNK_CLEAR_ADDITIONS = "Ergänzungsliste leeren."
 L_STATS_JUNK_ADDED = "Hinzufügen von Junk"
 L_STATS_JUNK_ADD_ITEM = "Items hinzufügen/entfernen."
 L_STATS_JUNK_REMOVED = "Entfernen von Junk-Zusätzen"
-L_STATS_JUNK_ITEMS_LIST = "Liste für Verkaufsartikel."												   
+L_STATS_JUNK_ITEMS_LIST = "Liste für Verkaufsartikel."
 L_STATS_KILLS = "G"
 L_STATS_OPEN_CALENDAR = "Links-Klick, zum Öffnen des Kalenders (/cal)."
 L_STATS_OPEN_CHARACTER = "Links-Klick, zum Öffnen des Charakterfensters."
@@ -286,9 +284,11 @@ L_STATS_ON = "AN"
 L_STATS_OTHER_OPTIONS = "Weitere Einstellungen können in %s konfiguriert werden"
 L_STATS_PLAYED_LEVEL = "Auf diesem Level gespielt"
 L_STATS_PLAYED_SESSION = "Diese Sitzung gespielt"
+L_STATS_ACC_PLAYED = "Gesamtspielzeit"
 L_STATS_PLAYED_TOTAL = "Gesamt gespielt"
 L_STATS_QUEST = "Q"
 L_STATS_QUESTS_TO = "Quests/Getötet bis %s"
+L_STATS_CURRENT_XP = "Aktuell/Max XP"
 L_STATS_REMAINING_XP = "Verbleibende XP"
 L_STATS_REMOVED_JUNK = "Junk-Ausnahme entfernt"
 L_STATS_RESTED_XP = "Erholte XP"
@@ -304,21 +304,40 @@ L_STATS_SESSION_XP = "Sitzung - XP Rate"
 L_STATS_INSERTS_COORDS = "Umschalt-Klick auf das Standort/Koordination Modul, zum Einfügen Deiner aktuellen Koordinaten in den Chat."
 L_STATS_EQUIPMENT_CHANGER = "Umschalt-Klick oder Mittel-Klick für den Ausrüstungsmanager."
 L_STATS_SORTING_BY = "Sortieren nach"
+L_STATS_SEALS = "Angebot der Woche"
+L_STATS_SPEC = "Spec"
 L_STATS_TIPS = "Tipps:"
-L_STATS_TOTAL_MEMORY_USAGE = "Gesamte Speicherausnutzung:"
-L_STATS_NOT_TO_SELL = "Verwende /junk zum Konfigurieren der Gegenstände, die nicht verkauft werden sollen."
-L_STATS_WATCH_CURRENCY = "Bereits gesehene Gegenstände aus dem Abzeichen-Fenster werden im Tooltip angezeigt."
+L_STATS_OPEN_CALENDAR = "Links-Klick, zum Öffnen des Kalenders."
+L_STATS_RC_TIME_MANAGER = "Rechts-Klick, um die Einstellungen der Uhr anzuzeigen."
+L_STATS_TOGGLE_TIME = "Lokal/Realm & 24-Stunden-Modus können in den Einstellungen der Uhr gewechselt werden."
+L_STATS_MEMORY = "Speicher"
+L_STATS_RC_COLLECTS_GARBAGE = "Rechts-Klick sammelt Lua-Abfall."
+L_STATS_VIEW_NOTES = "Halte die Alt-Taste gedrückt, zum Anzeigen der Ränge, Notizen und Offizier Notizen."
+L_STATS_CHANGE_SORTING = "[Gilde] Rechts-Klick, zum Ändern der Sortierung und Umschalt-Rechts-Klick zum Umkehren der Reihenfolge."
+L_STATS_OPEN_CHARACTER = "Links-Klick, zum Öffnen des Charakterfensters."
+L_STATS_RC_AUTO_REPAIRING1 = "Rechts-Klick, zum Ein- oder Ausschalten des automatischen Reparieren."
+L_STATS_RC_AUTO_REPAIRING2 = "Mittelklick schaltet Gilde AutoReparatur ein und aus."
+L_STATS_EQUIPMENT_CHANGER = "Umschalt-Klick oder Alt-Klick für den Ausrüstungsmanager."
+L_STATS_RC_EXPERIENCE = "Rechts-Klick, zum Wechseln zwischen Erfahrung, gespielte Zeit und Fraktionsüberwachung."
 L_STATS_WATCH_FACTIONS = "Überwache Fraktionen aus dem Ruffenster."
 L_STATS_TOOLTIP_TIME_PLAYED = "Wenn das max. Level erreicht ist, wird das Tooltip die gespielte Zeit für den Account anzeigen."
 L_STATS_TOOLTIP_EXPERIENCE = "Wenn unter dem max. Level, wird ein Tooltip mit weiteren Details angezeigt."
-L_STATS_SEALS = "Angebot der Woche"
-L_STATS_TOTAL_CPU_USAGE = "Total CPU Usage:" -- Need review
-L_STATS_SPEC = "Spec" -- Need review
+L_STATS_TOOLTIP_TIME_PLAYED = "Wenn das max. Level erreicht ist, wird das Tooltip die gespielte Zeit für den Account anzeigen."
+L_STATS_OPEN_TALENT = "Links-Klick, zum Wechseln Deiner Talentspezialisierung."
+L_STATS_RC_TALENT = "Rechts-Klick ändert die Beute Spezialisierung."
+L_STATS_LOCATION = "Standort/Koordinaten"
+L_STATS_WORLD_MAP = "Klicken, zum Öffnen der World-Map."
+L_STATS_INSERTS_COORDS = "Umschalt-Klick auf das Standort/Koordination Modul, zum Einfügen Deiner aktuellen Koordinaten in den Chat."
+L_STATS_OPEN_CURRENCY = "Links-Klick, zum Öffnen des Abzeichen-Fensters."
+L_STATS_RC_AUTO_SELLING = "Rechts-Klick, zum Ein- oder Ausschalten des automatischen Verkaufen."
+L_STATS_NEED_TO_SELL = "Verwende /junk, um zu konfigurieren, welche Artikel verkauft werden sollen."
+L_STATS_WATCH_CURRENCY = "Bereits gesehene Gegenstände aus dem Abzeichen-Fenster werden im Tooltip angezeigt."
+L_STATS_OTHER_OPTIONS = "Weitere Einstellungen können in %s konfiguriert werden"
 
 -- Slash commands
 L_SLASHCMD_HELP = {
 	"Available slash commands:",
-	"/rl - Interface neu laden.",
+	"/rl or // - Interface neu laden.",
 	"/rc - Starte Bereitschaftscheck.",
 	"/gm - Öffne das Game Master Fenster.",
 	"/dis ADDON_NAME - Deaktiviere Addon.",
@@ -326,7 +345,8 @@ L_SLASHCMD_HELP = {
 	"/rd - Gruppe oder Schlachtzug auflösen.",
 	"/toraid - In Gruppe oder Schlachtzug umwandeln.",
 	"/teleport - Teleport vom beliebigen Dungeon.",
-	"/spec, /ss - Zwischen den Talenten wechseln.",
+	"/ss - Zwischen den Talenten wechseln.",
+	"/tt - Ziehl anflüstern.",
 	"/heal - Zum Heiler Layout wechseln.",
 	"/dps - Zum DPS Layout wechseln.",
 	"/frame - Beschreibung nicht verfügbar.",
@@ -337,9 +357,8 @@ L_SLASHCMD_HELP = {
 	"/resetuf - Zurücksetzen der Einheitenfenster auf die Standardposition.",
 	"/resetconfig - Zurücksetzen der ViksUI_Config Einstellungen.",
 	"/resetstats - Gold Statistik und gespielte Zeit zurücksetzen.",
-	"/settings ADDON_NAME - Einstellungen für msbt, dbm, skada, oder alle Addons anwenden.",
-	"/ls, /litestats - Hilfe für LiteStats.",
-	"/bags - Managing for bags.",
+	"/settings - Einstellungen für msbt, dbm, skada, oder alle Addons anwenden.",
+	"/ls - Hilfe für LiteStats.",
 	"/xct - Kampflogtext verwalten.",
 	"/raidcd - Abklingzeiten für Schlachtzüge testen.",
 	"/enemycd - Gegnerische Abklingzeiten testen.",
@@ -348,6 +367,7 @@ L_SLASHCMD_HELP = {
 	"/tt - Ziehl anflüstern.",
 	"/ainv - Automatisches Einladen aktivieren.",
 	"/testuf - Einheitenfenster testen.",
+	"/moveui - Ermöglicht das Bewegen der Interface Elemente.", -- Need review
 	"/cfg - Interface Einstellungen öffnen.",
 	"/installui - Opens installer.",
 	"/vbt - Opens Bartender Select Profile.",

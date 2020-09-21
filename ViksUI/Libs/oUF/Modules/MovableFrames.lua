@@ -294,9 +294,9 @@ do
 
 	function frame:VARIABLES_LOADED()
 		-- I honestly don't trust the load order of CVs
-		if SavedOptionsPerChar == nil then SavedOptionsPerChar = {} end
-		_DB = SavedOptionsPerChar.UFPos or {}
-		SavedOptionsPerChar.UFPos = _DB
+		if ViksUISettingsPerChar == nil then ViksUISettingsPerChar = {} end
+		_DB = ViksUISettingsPerChar.UFPos or {}
+		ViksUISettingsPerChar.UFPos = _DB
 
 		-- Got to catch them all
 		for _, obj in next, oUF.objects do
@@ -348,7 +348,7 @@ do
 		if button == "RightButton" then
 			self.backdrop:SetBackdropColor(0.2, 0.6, 0.2, 0.7)
 			local style, identifier = getObjectInformation(self.obj)
-			_DB[style][identifier] =  nil
+			restoreDefaultPosition(style, identifier)
 		end
 	end
 
@@ -422,7 +422,7 @@ StaticPopupDialogs.RESET_UF = {
 	text = L_POPUP_RESETUI,
 	button1 = ACCEPT,
 	button2 = CANCEL,
-	OnAccept = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") else SavedOptionsPerChar.UFPos = {} ReloadUI() end end,
+	OnAccept = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") else ViksUISettingsPerChar.UFPos = {} ReloadUI() end end,
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = true,

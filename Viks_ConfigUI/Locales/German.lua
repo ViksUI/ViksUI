@@ -6,41 +6,46 @@ if GetLocale() ~= "deDE" then return end
 --	Translation: Alwa, Baine, Chubidu, Vienchen
 ----------------------------------------------------------------------------------------
 L_GUI_SET_SAVED_SETTTINGS = "Einstellungen für jeden Charakter einzeln vornehmen"
-L_GUI_SET_SAVED_SETTTINGS_DESC = "Switch between a profile that applies to all characters and one that is unique to this character." -- Need review
+L_GUI_SET_SAVED_SETTTINGS_DESC = "Umschalten zwischen einem Profil, das für alle Chars gilt, und einem Profil, das für diesen Chars gilt."
 L_GUI_RESET_CHAR = "Bist du sicher, dass du die Charaktereinstellungen für ViksUI zurücksetzen willst?"
 L_GUI_RESET_ALL = "Bist du sicher, dass du alle Einstellungen von ViksUI zurücksetzen willst?"
 L_GUI_PER_CHAR = "Bist du sicher, dass du 'Einzelne Einstellungen für jeden Charakter' ein oder ausschalten möchtest?"
-L_GUI_RESET_CAT = "Are you sure you want to reset category's settings?" -- Need review
-L_GUI_RESET_CAT_DESC = "Reset category's settings. \nCTRL-click to reset all" -- Need review
+L_GUI_RESET_CAT = "Bist Du sicher, dass Du die Einstellungen der Kategorie zurücksetzen möchtest?"
+L_GUI_RESET_CAT_DESC = "Einstellungen der Kategorie zurücksetzen. \nCTRL-Klick zum Zurücksetzen aller"
 L_GUI_NEED_RELOAD = "Benutzeroberfläche erneut laden, um Ihre Änderungen zu übernehmen."
-L_GUI_LAYOUT = "Change layout" -- Need review
+L_GUI_LAYOUT = "Layout ändern"
+L_GUI_SPELL_LIST = "Liste der Zauber"
+L_GUI_SPELL_INPUT = "Zauber ID"
+L_GUI_TIME_INPUT = "Zeit"
+L_GUI_EXPERT_MODE = "Expert mode" -- Need review
+L_GUI_EXPERT_MODE_DESC = "Custom editing of Lua profile" -- Need review
 
 -- General options
 L_GUI_GENERAL_SUBTEXT = "Diese Einstellungen steuern die allgemeinen Einstellungen der Benutzeroberfläche. Geben Sie im Chat '/uihelp ein, um Hilfe zu erhalten."
 L_GUI_GENERAL_WELCOME_MESSAGE = "Welcome message in chat"
 L_GUI_GENERAL_AUTOSCALE = "Automatisch UI skalieren"
 L_GUI_GENERAL_UISCALE = "UI Skalierung (falls automatische Skalierung deaktiviert)"
-L.general_subheader_blizzard = "Blizzard UI elements" -- Need review
-L.general_error_filter = "Error filtering" -- Need review
-L.general_error_blacklist = "Blacklist" -- Need review
-L.general_error_whitelist = "Whitelist" -- Need review
-L.general_error_combat = "In combat" -- Need review
-L.general_error_none = "None" -- Need review
+L.general_subheader_blizzard = "Blizzard UI Elemente"
+L.general_error_filter = "Fehlerfilterung"
+L.general_error_blacklist = "Blacklist"
+L.general_error_whitelist = "Whitelist"
+L.general_error_combat = "Im Kampf"
+L.general_error_none = "Nichts"
 L.general_vehicle_mouseover = "Fahrzeugfenster bei mouseover anzeigen"
 L.general_move_blizzard = "Einige Blizzardfenster frei bewegbar machen"
 L.general_color_picker = "Verbesserte Farbauswahl"
-L.general_color_picker_desc = "Add copy/paste buttons and digit text entry for Blizzard color picker frame" -- Need review
+L.general_color_picker_desc = "Hinzufügen von Kopieren/Einfügen-Schaltflächen und Eingabe von Zifferntext für Blizzard-Farbauswahlrahmen"
 L.general_minimize_mouseover = "Mouseover für Quest minimieren Taste"
 L.general_hide_banner = "Autoverstecken des Boss Loot Frame"
 L.general_hide_talking_head = "Verstecke Talking Head Frame"
 
 -- Media options
 L.media_border_color = "Farbe für Rahmen"
-L.media_classborder_color = "Color for class borders" -- Need review
+L.media_classborder_color = "Farbe für Klassenrahmen"
 L.media_backdrop_color = "Farbe für Rahmen-Hintergrund"
 L.media_backdrop_alpha = "Alpha für transparenten Hintergrund"
-L.media_texture = "Main texture" -- Need review
-L.media_subheader_pixel = "Ändere Pixel Font"
+L.media_texture = "Haupttextur"
+L.media_subheader_pixel = "Ändere Pixel Schriftart"
 
 -- Font options
 L.font = "Schriftart"
@@ -52,17 +57,17 @@ L.font_subheader_stats = "Stats Schriftart"
 L.font_subheader_combat = "Combat Text Schriftart"
 L.font_subheader_chat = "Chat Text Schriftart"
 L.font_subheader_chat_tabs = "Chat Tabs Schriftart"
-L.font_subheader_action = "Action bars font" -- Need review
-L.font_subheader_threat = "Threat meter font" -- Need review
-L.font_subheader_raidcd = "Raid cooldowns font" -- Need review
-L.font_subheader_cooldown = "Cooldowns timer font" -- Need review
-L.font_subheader_loot = "Loot font" -- Need review
-L.font_subheader_nameplates = "Nameplates font" -- Need review
-L.font_subheader_unit = "Unit frames font" -- Need review
-L.font_subheader_aura = "Auras font" -- Need review
-L.font_subheader_filger = "Filger font" -- Need review
-L.font_subheader_style = "Stylization font" -- Need review
-L.font_subheader_bag = "Bags font" -- Need review
+L.font_subheader_action = "Actionbars Schriftart"
+L.font_subheader_threat = "Threatmeter Schriftart"
+L.font_subheader_raidcd = "Raid Cooldowns Schriftart"
+L.font_subheader_cooldown = "Cooldowns Timer Schriftart"
+L.font_subheader_loot = "Loot Schriftart"
+L.font_subheader_nameplates = "Nameplates Schriftart"
+L.font_subheader_unit = "Unit Frames Schriftart"
+L.font_subheader_aura = "Auras Schriftart"
+L.font_subheader_filger = "Filger Schriftart"
+L.font_subheader_style = "Design Schriftart"
+L.font_subheader_bag = "Taschen Schriftart"
 
 -- Skins options
 L_GUI_SKINS = "Design/Skins"
@@ -100,10 +105,10 @@ L_GUI_SKINS_WEAK_AURAS = "WeakAuras"
 L.skins_minimap_buttons_mouseover = "Addons icons on mouseover" -- Need review
 
 -- Unit Frames options
-L_GUI_UF_SUBTEXT = "Customize player, target frames and etc." -- Need review
+L_GUI_UF_SUBTEXT = "Anpassen von Player, Zielframes usw."
 L_GUI_UF_ENABLE = "Unitframes aktivieren"
 L_GUI_UF_OWN_COLOR = "Farbe für die Lebensleiste festlegen"
-L_GUI_UF_UF_COLOR = "Farbe der Gesundheitsleiste (falls eigene Farbe verwender wird)"
+L_GUI_UF_UF_COLOR = "Farbe der Lebensleiste (falls eigene Farbe verwender wird)"
 L_GUI_UF_ENEMY_HEALTH_COLOR = "Lebensleiste eines gegnerischen Ziels ist rot"
 L_GUI_UF_TOTAL_VALUE = "Zeige Infotext auf Spieler und Ziel mit XXX/Gesamt"
 L_GUI_UF_COLOR_VALUE = "Lebens/Mana Werte einfärben"

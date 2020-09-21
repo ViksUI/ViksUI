@@ -148,6 +148,20 @@ T.ChatSetup = function()
 	ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
 	--Local Defense
 	ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
+	
+	-- Reset saved variables on char
+	ViksUIPositions = {}
+	ViksUISettingsPerChar = {}
+
+	ViksUISettingsPerChar.Install = true
+	ViksUISettingsPerChar.FogOfWar = true
+	ViksUISettingsPerChar.Coords = true
+	ViksUISettingsPerChar.AutoInvite = false
+	ViksUISettingsPerChar.Archaeology = false
+	ViksUISettingsPerChar.BarsLocked = false
+	ViksUISettingsPerChar.SplitBars = true
+	ViksUISettingsPerChar.RightBars = C.actionbar.rightbars
+	ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars
 end
 
 local function cvarsetup()
@@ -2169,27 +2183,60 @@ SkadaDB = {
 	},
 	["profiles"] = {
 		["Default"] = {
-			["modulesBlocked"] = {
-				["CC"] = true,
-				["Power"] = true,
+			["modeclicks"] = {
+				["Deaths"] = 1,
+				["Healing"] = 2,
+				["Enemy damage taken"] = 1,
+				["DPS"] = 1,
+			},
+			["columns"] = {
+				["Healing_Percent"] = true,
+				["Absorbs and healing_HPS"] = true,
+				["Healing_HPS"] = false,
+				["Healing_Healing"] = true,
+			},
+			["report"] = {
+				["number"] = 6,
+				["mode"] = "DPS",
+				["channel"] = "raid",
 			},
 			["windows"] = {
 				{
 					["titleset"] = false,
 					["barheight"] = 12,
+					["spellschoolcolors"] = false,
+					["barfontsize"] = 12,
 					["classicons"] = false,
 					["barslocked"] = true,
-					["wipemode"] = "Overhealing",
-					["y"] = 92,
-					["x"] = -341,
-					["name"] = "Threath",
-					["barfontsize"] = 12,
-					["point"] = "BOTTOMRIGHT",
-					["spellschoolcolors"] = false,
-					["modeincombat"] = "Threat",
 					["roleicons"] = true,
-					["mode"] = "Threat",
+					["background"] = {
+						["color"] = {
+							["a"] = 0.2,
+							["b"] = 0.5,
+						},
+						["bordertexture"] = "None",
+						["borderthickness"] = -0,
+						["height"] = 80,
+					},
+					["wipemode"] = "Overhealing",
 					["bartexture"] = "Armory",
+					["barwidth"] = 167,
+					["x"] = -341.0006103515625,
+					["name"] = "Threath",
+					["y"] = 91.99999237060547,
+					["barfont"] = "ViksUIStdFont",
+					["title"] = {
+						["color"] = {
+							["a"] = 0.8,
+							["g"] = 0.1,
+							["r"] = 0.1,
+						},
+						["height"] = 10,
+						["fontsize"] = 11,
+						["texture"] = "Aluminium",
+					},
+					["enablebackground"] = true,
+					["modeincombat"] = "Threat",
 					["buttons"] = {
 						["report"] = false,
 						["menu"] = false,
@@ -2198,71 +2245,73 @@ SkadaDB = {
 						["segment"] = false,
 						["reset"] = false,
 					},
-					["enablebackground"] = true,
+					["mode"] = "Threat",
+					["point"] = "BOTTOMRIGHT",
+				}, -- [1]
+				{
+					["barheight"] = 12,
+					["barslocked"] = true,
+					["modeincombat"] = "",
+					["wipemode"] = "",
+					["set"] = "total",
+					["hidden"] = false,
+					["y"] = 5.000000953674316,
+					["barfont"] = "ViksUIStdFont",
 					["title"] = {
+						["fontsize"] = 11,
+						["font"] = "Accidental Presidency",
+						["borderthickness"] = 2,
 						["color"] = {
 							["a"] = 0.8,
 							["r"] = 0.1,
 							["g"] = 0.1,
 							["b"] = 0.3,
 						},
-						["fontsize"] = 11,
-						["height"] = 10,
+						["fontflags"] = "",
+						["bordertexture"] = "None",
+						["margin"] = -0,
 						["texture"] = "Aluminium",
 					},
-					["background"] = {
-						["color"] = {
-							["a"] = 0.2,
-							["r"] = -0,
-							["g"] = -0,
-							["b"] = 0.5,
-						},
-						["bordertexture"] = "None",
-						["borderthickness"] = 0,
-						["height"] = 80,
-					},
-					["barwidth"] = 167,
-				}, -- [1]
-				{
+					["display"] = "bar",
+					["barfontflags"] = "",
 					["point"] = "BOTTOMRIGHT",
-					["barcolor"] = {
-						["a"] = 1,
-						["r"] = 0.3,
-						["g"] = 0.3,
-						["b"] = 0.8,
-					},
-					["classcolortext"] = false,
-					["mode"] = "Healing",
-					["scale"] = 1,
-					["reversegrowth"] = false,
-					["snapto"] = true,
-					["barfontsize"] = 12,
-					["modeincombat"] = "",
-					["name"] = "Heal",
-					["barslocked"] = true,
-					["x"] = -341,
-					["barorientation"] = 1,
-					["enabletitle"] = true,
-					["wipemode"] = "",
-					["returnaftercombat"] = false,
 					["barbgcolor"] = {
 						["a"] = 0.6,
 						["r"] = 0.3,
 						["g"] = 0.3,
 						["b"] = 0.3,
 					},
+					["reversegrowth"] = false,
+					["returnaftercombat"] = false,
+					["barorientation"] = 1,
+					["mode"] = "Healing",
+					["version"] = 1,
+					["classcolortext"] = false,
+					["barcolor"] = {
+						["a"] = 1,
+						["r"] = 0.3,
+						["g"] = 0.3,
+						["b"] = 0.8,
+					},
 					["bartexture"] = "Armory",
-					["set"] = "current",
+					["barwidth"] = 167,
+					["barspacing"] = -0,
+					["snapto"] = true,
+					["scale"] = 1,
+					["enabletitle"] = true,
+					["barfontsize"] = 11,
+					["name"] = "Heal",
+					["classcolorbars"] = false,
+					["x"] = -341.0006103515625,
 					["buttons"] = {
 						["segment"] = true,
 						["menu"] = true,
+						["stop"] = true,
 						["mode"] = true,
 						["report"] = true,
 						["reset"] = true,
 					},
-					["barwidth"] = 167,
-					["barspacing"] = -0,
-					["hidden"] = false,
+					["clickthrough"] = false,
 					["background"] = {
 						["borderthickness"] = -0,
 						["color"] = {
@@ -2276,8 +2325,16 @@ SkadaDB = {
 						["margin"] = -0,
 						["texture"] = "Solid",
 					},
-					["y"] = 5,
-					["barfont"] = "Accidental Presidency",
+				}, -- [2]
+				{
+					["barheight"] = 15,
+					["barslocked"] = true,
+					["enabletitle"] = true,
+					["wipemode"] = "",
+					["set"] = "current",
+					["hidden"] = false,
+					["y"] = 5.000000953674316,
+					["barfont"] = "ViksUIStdFont",
 					["title"] = {
 						["fontsize"] = 11,
 						["font"] = "Accidental Presidency",
@@ -2293,52 +2350,46 @@ SkadaDB = {
 						["margin"] = -0,
 						["texture"] = "Aluminium",
 					},
-					["classcolorbars"] = false,
 					["display"] = "bar",
-					["clickthrough"] = false,
 					["barfontflags"] = "",
-					["barheight"] = 12,
-				}, -- [2]
-				{
 					["classcolortext"] = false,
-					["barcolor"] = {
-						["a"] = 1,
-						["r"] = 0.3,
-						["g"] = 0.3,
-						["b"] = 0.8,
-					},
-					["barheight"] = 15,
-					["clickthrough"] = false,
-					["scale"] = 1,
-					["reversegrowth"] = false,
-					["modeincombat"] = "DPS",
-					["barfontsize"] = 11,
-					["enabletitle"] = true,
-					["name"] = "Dps",
-					["barslocked"] = true,
-					["x"] = 341.000020858108,
-					["barorientation"] = 1,
-					["mode"] = "DPS",
-					["wipemode"] = "",
-					["returnaftercombat"] = false,
 					["barbgcolor"] = {
 						["a"] = 0.6,
 						["r"] = 0.3,
 						["g"] = 0.3,
 						["b"] = 0.3,
 					},
+					["reversegrowth"] = false,
+					["returnaftercombat"] = false,
+					["barorientation"] = 1,
+					["snapto"] = true,
+					["version"] = 1,
+					["barcolor"] = {
+						["a"] = 1,
+						["r"] = 0.3,
+						["g"] = 0.3,
+						["b"] = 0.8,
+					},
+					["point"] = "BOTTOMLEFT",
+					["bartexture"] = "BantoBar",
+					["barwidth"] = 163,
+					["barspacing"] = -0,
+					["modeincombat"] = "DPS",
+					["scale"] = 1,
+					["mode"] = "DPS",
+					["barfontsize"] = 11,
+					["clickthrough"] = false,
+					["classcolorbars"] = false,
+					["name"] = "Dps",
 					["buttons"] = {
 						["segment"] = true,
 						["menu"] = true,
+						["stop"] = true,
 						["mode"] = true,
 						["report"] = true,
 						["reset"] = true,
 					},
-					["bartexture"] = "BantoBar",
-					["set"] = "current",
-					["barwidth"] = 163,
-					["barspacing"] = -0,
-					["hidden"] = false,
+					["x"] = 341.0003051757813,
 					["background"] = {
 						["borderthickness"] = -0,
 						["color"] = {
@@ -2352,28 +2403,227 @@ SkadaDB = {
 						["margin"] = -0,
 						["texture"] = "Solid",
 					},
-					["y"] = 5,
-					["barfont"] = "Accidental Presidency",
+				}, -- [3]
+			},
+			["versions"] = {
+				["1.6.3"] = true,
+				["1.6.4"] = true,
+				["1.6.7"] = true,
+			},
+			["feed"] = "Damage: Raid DPS",
+			["modulesBlocked"] = {
+				["CC"] = true,
+				["Power"] = true,
+			},
+		},
+		["ViksUI_Line"] = {
+			["modulesBlocked"] = {
+				["CC"] = true,
+				["Power"] = true,
+			},
+			["windows"] = {
+				{
+					["titleset"] = false,
+					["barheight"] = 12,
+					["classicons"] = false,
+					["barslocked"] = true,
+					["background"] = {
+						["color"] = {
+							["a"] = -0,
+							["b"] = 0.5019607843137255,
+						},
+						["borderthickness"] = -0,
+						["height"] = 70.99858856201172,
+						["bordertexture"] = "None",
+					},
+					["wipemode"] = "Overhealing",
+					["y"] = 100.0011672973633,
+					["x"] = -13.9476318359375,
+					["title"] = {
+						["color"] = {
+							["a"] = 0.8,
+							["g"] = 0.1,
+							["r"] = 0.1,
+						},
+						["fontsize"] = 11,
+						["height"] = 10,
+						["texture"] = "Aluminium",
+					},
+					["modeincombat"] = "Threat",
+					["bartexture"] = "Armory",
+					["point"] = "BOTTOMRIGHT",
+					["spellschoolcolors"] = false,
+					["barfontsize"] = 12,
+					["roleicons"] = true,
+					["mode"] = "Threat",
+					["buttons"] = {
+						["report"] = false,
+						["menu"] = false,
+						["stop"] = false,
+						["mode"] = false,
+						["segment"] = false,
+						["reset"] = false,
+					},
+					["barwidth"] = 167.0000152587891,
+					["name"] = "Threath",
+					["enablebackground"] = true,
+					["barfont"] = "ViksUIStdFont",
+				}, -- [1]
+				{
+					["barheight"] = 12,
+					["barslocked"] = true,
+					["clickthrough"] = false,
+					["wipemode"] = "",
+					["set"] = "current",
+					["hidden"] = false,
+					["y"] = 21.00229644775391,
+					["barfont"] = "ViksUIStdFont",
 					["title"] = {
 						["fontsize"] = 11,
 						["font"] = "Accidental Presidency",
 						["borderthickness"] = 2,
+						["fontflags"] = "",
 						["color"] = {
 							["a"] = 0.8,
-							["r"] = 0.1,
-							["g"] = 0.1,
 							["b"] = 0.3,
+							["g"] = 0.1,
+							["r"] = 0.1,
 						},
-						["fontflags"] = "",
 						["bordertexture"] = "None",
 						["margin"] = -0,
 						["texture"] = "Aluminium",
 					},
-					["classcolorbars"] = false,
 					["display"] = "bar",
-					["snapto"] = true,
 					["barfontflags"] = "",
-					["point"] = "BOTTOMLEFT",
+					["point"] = "BOTTOMRIGHT",
+					["scale"] = 1,
+					["reversegrowth"] = false,
+					["barfontsize"] = 12,
+					["barorientation"] = 1,
+					["mode"] = "Healing",
+					["x"] = -13.9486083984375,
+					["modeincombat"] = "",
+					["buttons"] = {
+						["segment"] = true,
+						["stop"] = true,
+						["menu"] = true,
+						["mode"] = true,
+						["report"] = true,
+						["reset"] = true,
+					},
+					["bartexture"] = "Armory",
+					["barwidth"] = 167,
+					["barspacing"] = -0,
+					["name"] = "Heal",
+					["barbgcolor"] = {
+						["a"] = 0.6,
+						["b"] = 0.3,
+						["g"] = 0.3,
+						["r"] = 0.3,
+					},
+					["enabletitle"] = true,
+					["returnaftercombat"] = false,
+					["background"] = {
+						["borderthickness"] = -0,
+						["color"] = {
+							["a"] = -0,
+							["b"] = 0.5019607843137255,
+							["g"] = -0,
+							["r"] = -0,
+						},
+						["height"] = 66,
+						["bordertexture"] = "None",
+						["margin"] = -0,
+						["texture"] = "Solid",
+					},
+					["classcolorbars"] = false,
+					["snapto"] = true,
+					["barcolor"] = {
+						["a"] = 1,
+						["b"] = 0.8,
+						["g"] = 0.3,
+						["r"] = 0.3,
+					},
+					["classcolortext"] = false,
+					["version"] = 1,
+				}, -- [2]
+				{
+					["barheight"] = 15,
+					["barslocked"] = true,
+					["enabletitle"] = true,
+					["wipemode"] = "",
+					["set"] = "current",
+					["hidden"] = false,
+					["y"] = 23.00288009643555,
+					["barfont"] = "ViksUIStdFont",
+					["title"] = {
+						["fontsize"] = 11,
+						["font"] = "Accidental Presidency",
+						["borderthickness"] = 2,
+						["fontflags"] = "",
+						["color"] = {
+							["a"] = 0.8,
+							["b"] = 0.3,
+							["g"] = 0.1,
+							["r"] = 0.1,
+						},
+						["bordertexture"] = "None",
+						["margin"] = -0,
+						["texture"] = "Aluminium",
+					},
+					["display"] = "bar",
+					["barfontflags"] = "",
+					["classcolortext"] = false,
+					["scale"] = 1,
+					["reversegrowth"] = false,
+					["barfontsize"] = 11,
+					["barorientation"] = 1,
+					["snapto"] = true,
+					["x"] = -181.1072998046875,
+					["name"] = "Dps",
+					["buttons"] = {
+						["segment"] = true,
+						["stop"] = true,
+						["menu"] = true,
+						["mode"] = true,
+						["report"] = true,
+						["reset"] = true,
+					},
+					["bartexture"] = "BantoBar",
+					["barwidth"] = 222.0092926025391,
+					["barspacing"] = -0,
+					["clickthrough"] = false,
+					["barbgcolor"] = {
+						["a"] = 0.6,
+						["b"] = 0.3,
+						["g"] = 0.3,
+						["r"] = 0.3,
+					},
+					["mode"] = "DPS",
+					["returnaftercombat"] = false,
+					["background"] = {
+						["borderthickness"] = -0,
+						["color"] = {
+							["a"] = -0,
+							["b"] = 0.5019607843137255,
+							["g"] = -0,
+							["r"] = -0,
+						},
+						["height"] = 143.9972076416016,
+						["bordertexture"] = "None",
+						["margin"] = -0,
+						["texture"] = "Solid",
+					},
+					["classcolorbars"] = false,
+					["modeincombat"] = "DPS",
+					["point"] = "BOTTOMRIGHT",
+					["barcolor"] = {
+						["a"] = 1,
+						["b"] = 0.8,
+						["g"] = 0.3,
+						["r"] = 0.3,
+					},
+					["version"] = 1,
 				}, -- [3]
 			},
 			["feed"] = "Damage: Raid DPS",
@@ -2386,9 +2636,9 @@ SkadaDB = {
 				["Absorbs and healing_HPS"] = true,
 			},
 			["versions"] = {
-				["1.6.3"] = true,
-				["1.6.4"] = true,
 				["1.6.7"] = true,
+				["1.6.4"] = true,
+				["1.6.3"] = true,
 			},
 		},
 	},
@@ -2751,7 +3001,7 @@ maxsteps = 7
 -- Creating the steps in installui
 -- Step 6 / Finish
 local step7 = function()
-	SavedOptionsPerChar.Install = true
+	ViksUISettingsPerChar.Install = true
 	sb:SetValue(7)
 	PlaySound(888)
 	header:SetText("4. Success!")
@@ -2798,10 +3048,10 @@ local step5 = function()
 	text3:Hide()
 	InstallOption1Button:Show()
 	InstallOption1Button:SetText("DPS.")
-	InstallOption1Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" end)
+	InstallOption1Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false ViksUISettingsPerChar.RaidLayout = "DPS" end)
 	InstallOption2Button:Show()
 	InstallOption2Button:SetText("HEALER")
-	InstallOption2Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" end)
+	InstallOption2Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true ViksUISettingsPerChar.RaidLayout = "HEAL" end)
 	--InstallOption3Button:Show()
 	--InstallOption3Button:SetText("TANK")
 	text4:SetText("Click one of the buttons then click 'Continue'.")
@@ -2844,7 +3094,7 @@ local step3 = function()
 	option2:SetScript("OnClick", function()
 		--positionsetup()
 		UploadBartender()
-		SavedOptionsPerChar.BartenderSet = false
+		ViksUISettingsPerChar.BartenderSet = false
 		step4()
 	end)
 end
@@ -2921,24 +3171,66 @@ OnLogon:RegisterEvent("PLAYER_LOGIN")
 OnLogon:SetScript("OnEvent", function(self)
 	self:UnregisterEvent("PLAYER_LOGIN")
 
+	-- TODO delete old variable
+	if SavedOptions then
+		ViksUISettings = SavedOptions
+		SavedOptions = nil
+	end
+
+	if SavedStats then
+		ViksUIStats = SavedStats
+		SavedStats = nil
+	end
+
+	if SavedBindings then
+		ViksUIBindings = SavedBindings
+		SavedBindings = nil
+	end
+
+	if SavedCurrency then
+		ViksUICurrency = SavedCurrency
+		SavedCurrency = nil
+	end
+	
+	if ViksUISettings == nil then ViksUISettings = {} end
+	if not ViksUISettings.Migrated then
+		if SavedOptionsPerChar then
+			
+			if SavedOptionsPerChar.UFPos then
+				SavedPositions.UFPos = SavedOptionsPerChar.UFPos
+				SavedOptionsPerChar.UFPos = nil
+				StaticPopup_Show("INSTALL_UI")
+			end
+			ViksUISettingsPerChar = SavedOptionsPerChar
+			SavedOptionsPerChar = nil
+		end
+
+		if SavedPositions then
+			ViksUIPositions = SavedPositions
+			SavedPositions = nil
+		end
+
+		ViksUISettings.Migrated = true
+	end
+	
 	-- Create empty CVar if they doesn't exist
-	if SavedOptions == nil then SavedOptions = {} end
-	if SavedPositions == nil then SavedPositions = {} end
-	if SavedOptionsPerChar == nil then SavedOptionsPerChar = {} end
-	if SavedOptionsPerChar.RaidLayout == nil then SavedOptionsPerChar.RaidLayout = "UNKNOWN" end
+	if ViksUISettings == nil then ViksUISettings = {} end
+	if ViksUIPositions == nil then ViksUIPositions = {} end
+	if ViksUISettingsPerChar == nil then ViksUISettingsPerChar = {} end
+	if ViksUISettingsPerChar.RaidLayout == nil then ViksUISettingsPerChar.RaidLayout = "UNKNOWN" end
 	if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
 	if ViksUIOptions == nil then ViksUIOptions = {} end
 	if ViksUIOptionsPerChar.unitframe == nil then ViksUIOptionsPerChar.unitframe = {} end
 	if ViksUIOptions.unitframe == nil then ViksUIOptions.unitframe = {} end
 	if ViksUIOptions.panels == nil then ViksUIOptions.panels = {} end
 	if ViksUIOptions.panels.NoPanels == nil then ViksUIOptions.panels.NoPanels = false end
-	if SavedOptionsPerChar.FogOfWar == nil then SavedOptionsPerChar.FogOfWar = false end
-	if SavedOptionsPerChar.AutoInvite == nil then SavedOptionsPerChar.AutoInvite = false end
-	if SavedOptionsPerChar.Archaeology == nil then SavedOptionsPerChar.Archaeology = false end
-	if SavedOptionsPerChar.BarsLocked == nil then SavedOptionsPerChar.BarsLocked = false end
-	if SavedOptionsPerChar.SplitBars == nil then SavedOptionsPerChar.SplitBars = true end
-	if SavedOptionsPerChar.RightBars == nil then SavedOptionsPerChar.RightBars = C.actionbar.rightbars end
-	if SavedOptionsPerChar.BottomBars == nil then SavedOptionsPerChar.BottomBars = C.actionbar.bottombars end
+	if ViksUISettingsPerChar.FogOfWar == nil then ViksUISettingsPerChar.FogOfWar = false end
+	if ViksUISettingsPerChar.AutoInvite == nil then ViksUISettingsPerChar.AutoInvite = false end
+	if ViksUISettingsPerChar.Archaeology == nil then ViksUISettingsPerChar.Archaeology = false end
+	if ViksUISettingsPerChar.BarsLocked == nil then ViksUISettingsPerChar.BarsLocked = false end
+	if ViksUISettingsPerChar.SplitBars == nil then ViksUISettingsPerChar.SplitBars = true end
+	if ViksUISettingsPerChar.RightBars == nil then ViksUISettingsPerChar.RightBars = C.actionbar.rightbars end
+	if ViksUISettingsPerChar.BottomBars == nil then ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars end
 
 	if T.getscreenwidth < 1024 and GetCVar("gxMonitor") == "0" then
 		SetCVar("useUiScale", 0)
@@ -2959,27 +3251,27 @@ OnLogon:SetScript("OnEvent", function(self)
 		end
 
 		-- Install default if we never ran ViksUI on this character
-		if not SavedOptionsPerChar.Install then
+		if not ViksUISettingsPerChar.Install then
 			install()
 		end
 	end
 
-	if SavedOptionsPerChar.RaidLayout == "UNKNOWN" and SavedOptionsPerChar.Install then
+	if ViksUISettingsPerChar.RaidLayout == "UNKNOWN" and ViksUISettingsPerChar.Install then
 		StaticPopup_Show("SWITCH_RAID")
 	end
 	if IsAddOnLoaded("Bartender4") then
-		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels then
+		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels then
 			StaticPopup_Show("SET_BTLine")
-			SavedOptionsPerChar.BartenderSet = true
+			ViksUISettingsPerChar.BartenderSet = true
 		end
-		if SavedOptionsPerChar.Install and SavedOptionsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels ~= true then
+		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels ~= true then
 			StaticPopup_Show("SET_BT")
-			SavedOptionsPerChar.BartenderSet = true
+			ViksUISettingsPerChar.BartenderSet = true
 		end
 	end
 	-- Welcome message
 	if C.general.welcome_message == true then
-		print("|cffffff00".."Welcome to ViksUI "..T.version.." "..T.client..", "..T.name)
+		print("|cffffff00".."Welcome to ViksUI "..T.version..", "..T.name)
 		print("|cffffff00".."Type /config to config interface".." |cffffff00".."for more informations.")
 	end
 	
@@ -3023,7 +3315,7 @@ StaticPopupDialogs.RESET_UI = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = InstallUI,
-	OnCancel = function() SavedOptionsPerChar.Install = true end,
+	OnCancel = function() ViksUISettingsPerChar.Install = true end,
 	showAlert = true,
 	timeout = 0,
 	whileDead = 1,
@@ -3035,7 +3327,7 @@ StaticPopupDialogs.RESET_STATS = {
 	text = L_POPUP_RESETSTATS,
 	button1 = ACCEPT,
 	button2 = CANCEL,
-	OnAccept = function() SavedStats = {} ReloadUI() end,
+	OnAccept = function() ViksUIStats = {} ReloadUI() end,
 	showAlert = true,
 	timeout = 0,
 	whileDead = 1,
@@ -3048,9 +3340,9 @@ StaticPopupDialogs.SWITCH_RAID = {
 	button1 = DAMAGER,
 	button2 = HEALER,
 	--button3 = "Blizzard",
-	OnAccept = function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false SavedOptionsPerChar.RaidLayout = "DPS" ReloadUI() end,
-	OnCancel = function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true SavedOptionsPerChar.RaidLayout = "HEAL" ReloadUI() end,
-	--OnAlt = function() SavedOptionsPerChar.RaidLayout = "NONE" ReloadUI() end,
+	OnAccept = function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false ViksUISettingsPerChar.RaidLayout = "DPS" ReloadUI() end,
+	OnCancel = function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true ViksUISettingsPerChar.RaidLayout = "HEAL" ReloadUI() end,
+	--OnAlt = function() ViksUISettingsPerChar.RaidLayout = "NONE" ReloadUI() end,
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = false,

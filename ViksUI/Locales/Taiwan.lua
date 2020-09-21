@@ -6,9 +6,9 @@ if T.client ~= "zhTW" then return end
 --	Translation: Aelb, Ianchan, Leg883, Mania, Nanjiqq, Spacedragon, Tat2dawn, Tibles
 ----------------------------------------------------------------------------------------
 -- Announce flasks and food
-L_ANNOUNCE_FF_NOFOOD = "缺少食物Buff: "
-L_ANNOUNCE_FF_NOFLASK = "缺少精煉藥劑: "
-L_ANNOUNCE_FF_ALLBUFFED = "已獲得所有增益!"
+L_ANNOUNCE_FF_NOFOOD = "缺少食物: "
+L_ANNOUNCE_FF_NOFLASK = "缺少精煉: "
+L_ANNOUNCE_FF_ALLBUFFED = "已獲得所有增益 !"
 L_ANNOUNCE_FF_CHECK_BUTTON = "檢查食物和精煉"
 
 -- Says thanks for some spells
@@ -16,17 +16,17 @@ L_ANNOUNCE_SS_THANKS = "謝謝你的 "
 L_ANNOUNCE_SS_RECEIVED = " 收到來自于 "
 
 -- Pull countdown announce
-L_ANNOUNCE_PC_GO = "開始！"
-L_ANNOUNCE_PC_MSG = "正在拉: %s, 倒數 %s.."
-L_ANNOUNCE_PC_ABORTED = "取消拉怪！"
+L_ANNOUNCE_PC_GO = "開始 !"
+L_ANNOUNCE_PC_MSG = "準備接怪: %s，倒數 %s.."
+L_ANNOUNCE_PC_ABORTED = "取消拉怪 !"
 
 -- Announce feasts and portals
-L_ANNOUNCE_FP_STAT = "%s 放置了 %s - [%s]."
+L_ANNOUNCE_FP_STAT = "%s 放置了 %s - [%s]。"
 L_ANNOUNCE_FP_PRE = "%s 放置了 %s"
 L_ANNOUNCE_FP_PUT = "%s 放置了 %s"
 L_ANNOUNCE_FP_CAST = "%s 開啟了 %s"
-L_ANNOUNCE_FP_CLICK = "%s 正在開啟 %s... 請點擊！"
-L_ANNOUNCE_FP_USE = "%s 使用了 %s."
+L_ANNOUNCE_FP_CLICK = "%s 正在開啟 %s... 請點擊 !"
+L_ANNOUNCE_FP_USE = "%s 使用了 %s。"
 
 -- Announce your interrupts
 L_ANNOUNCE_INTERRUPTED = "已打斷"
@@ -34,14 +34,14 @@ L_ANNOUNCE_INTERRUPTED = "已打斷"
 -- Tooltip
 L_TOOLTIP_NO_TALENT = "沒有天賦"
 L_TOOLTIP_LOADING = "讀取中..."
-L_TOOLTIP_ACH_STATUS = "你的狀態:"
-L_TOOLTIP_ACH_COMPLETE = "你的狀態: 完成 "
+L_TOOLTIP_ACH_STATUS = "你的狀態: "
+L_TOOLTIP_ACH_COMPLETE = "你的狀態: 完成"
 L_TOOLTIP_ACH_INCOMPLETE = "你的狀態: 未完成"
-L_TOOLTIP_SPELL_ID = "法術ID:"
-L_TOOLTIP_ITEM_ID = "物品ID:"
+L_TOOLTIP_SPELL_ID = "法術ID: "
+L_TOOLTIP_ITEM_ID = "物品ID: "
 L_TOOLTIP_WHO_TARGET = "關注"
-L_TOOLTIP_ITEM_COUNT = "物品數量:"
-L_TOOLTIP_INSPECT_OPEN = "檢查框體已打開"
+L_TOOLTIP_ITEM_COUNT = "物品數量: "
+L_TOOLTIP_INSPECT_OPEN = "檢查框體已開啟"
 
 -- Misc
 L_MISC_UNDRESS = "無裝備"
@@ -76,30 +76,30 @@ L_TOGGLE_ADDON = "插件 "
 L_TOGGLE_ADDONS = " 插件系列"
 L_TOGGLE_EXPAND = "展開 "
 L_TOGGLE_COLLAPSE = "折疊 "
-L_TOGGLE_RCLICK = "右鍵點擊以啟用或禁用"
-L_TOGGLE_LCLICK = "左鍵點擊來顯示/隱藏窗口 "
+L_TOGGLE_RCLICK = "右鍵 啟用/禁用"
+L_TOGGLE_LCLICK = "左鍵 顯示/隱藏窗口 "
 L_TOGGLE_RELOAD = " (需要重載插件)"
-L_TOGGLE_NOT_FOUND = " 未創建."
+L_TOGGLE_NOT_FOUND = " 未創建"
 
 -- UnitFrame
 L_UF_GHOST = "靈魂"
 L_UF_DEAD = "死亡"
 L_UF_OFFLINE = "離線"
-L_UF_MANA = "低法力"
+L_UF_MANA = "低法力值"
 
 -- Map
-L_MAP_CURSOR = "鼠標: "
-L_MAP_BOUNDS = "超出範圍"
+L_MAP_CURSOR = "滑鼠: "
+L_MAP_BOUNDS = "超出範圍 !"
 L_MAP_FOG = "地圖全亮"
-L_MAP_COORDS = "Coordinates" -- Needs review
+L_MAP_COORDS = "坐標"
 
 -- Minimap
 L_MINIMAP_CALENDAR = "日曆"
 L_MINIMAP_HEAL_LAYOUT = "左鍵 - HPS 佈局"
 L_MINIMAP_DPS_LAYOUT = "右鍵 - DPS 佈局"
-L_MINIMAP_BLIZZ_LAYOUT = "中鍵 - 默認 佈局"
+L_MINIMAP_BLIZZ_LAYOUT = "中鍵 - 暴雪 佈局"
 L_MINIMAP_FARM = "小地圖大小"
-L_MINIMAP_TOGGLE = "快捷列自由折疊"									  
+L_MINIMAP_TOGGLE = "快捷列自由折疊"
 
 -- Chat
 L_CHAT_WHISPER = "From"
@@ -117,8 +117,8 @@ L_CHAT_INSTANCE_CHAT = "I"
 L_CHAT_INSTANCE_CHAT_LEADER = "IL"
 L_CHAT_OFFICER = "O"
 L_CHAT_PET_BATTLE = "PB"
-L_CHAT_COME_ONLINE = "|cff298F00上線了|r."
-L_CHAT_GONE_OFFLINE = "|cffff0000下線了|r."
+L_CHAT_COME_ONLINE = "|cff298F00上線了|r"
+L_CHAT_GONE_OFFLINE = "|cffff0000下線了|r"
 
 -- Errors frame
 L_ERRORFRAME_L = "點擊查看錯誤"
@@ -244,7 +244,7 @@ L_STATS_ACC_PLAYED = "帳號啟用總時間"
 L_STATS_ADDED_JUNK = "增加自動販售例外名單"
 L_STATS_REMOVE_EXCEPTION = "新增/移除 例外名單"
 L_STATS_AUTO_REPAIR = "自動修裝"
-L_STATS_GUILD_REPAIR = "公會銀行修理"
+L_STATS_GUILD_REPAIR = "公會銀行修裝"
 L_STATS_AUTO_SELL = "自動販售灰色物品"
 L_STATS_BANDWIDTH = "寬頻:"
 L_STATS_DOWNLOAD = "下載:"

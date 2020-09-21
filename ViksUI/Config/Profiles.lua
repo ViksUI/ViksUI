@@ -52,48 +52,7 @@ if T.name == "Sløv" or "Bauge" or "Vikingdruid" or "Modi" or "ViksDK" or "Honir
 	C["nameplate"].enhance_threat = true
 end
 
-----------------------------------------------------------------------------------------
---	Viks Config all chars
-----------------------------------------------------------------------------------------
-if Viks then
-	C["general"].welcome_message = false
-	C["nameplate"].enhance_threat = true
-	C["skins"].rematch = true
-	C["skins"].opie = true
-	C["skins"].pawn = true
-	C["skins"].skada = true
-	C["skins"].ace3 = true
-	C["skins"].dbm = true
-	C["skins"].bigwigs = true
-	C["misc"].hide_banner = false
-	C["media"].fontsize = 14
-	C["chat"].spam = true
-	C["announcements"].bad_gear = false
-	C["announcements"].feasts = false
-	C["announcements"].portals = false
-	C["announcements"].interrupts = false
-	C["announcements"].spells = false
-	C["unitframe"].RaidShowSolo = true
-	C["unitframe"].plugins_smooth_bar = true
-	C["filger"].disable_cd = true
-	C["filger"].enable = true
-	C["automation"].accept_quest = true
-	C["automation"].accept_invite = true
-	T.CustomFilgerSpell = {
-		{"COOLDOWN", {spellID = 313698, filter = "ICD", trigger = "BUFF", duration = 80}}, -- Gift of the Titans
-	}
--- KeyBindings
-	--Raidmarkers
-	SetBinding ("NUMPAD1", "RAIDTARGET8")
-	SetBinding ("NUMPAD2", "RAIDTARGET7")
-	SetBinding ("NUMPAD3", "RAIDTARGET6")
-	SetBinding ("NUMPAD4", "RAIDTARGET5")
-	SetBinding ("NUMPAD5", "RAIDTARGET1")
-	SetBinding ("NUMPAD6", "RAIDTARGET4")
-	SetBinding ("NUMPAD7", "RAIDTARGET3")
-	SetBinding ("NUMPAD8", "RAIDTARGET2")
-	SetBinding ("NUMPAD0", "RAIDTARGETNONE")
-	--Movment
-	SetBinding ("A", "STRAFELEFT")
-	SetBinding ("D", "STRAFERIGHT")
-end
+
+if ViksUICustomProfile then
+	ViksUICustomProfile()
+end 

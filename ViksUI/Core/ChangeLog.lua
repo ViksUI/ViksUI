@@ -198,11 +198,11 @@ function ViksUI_ToggleChangeLog()
 	ChangeLog:CreateChangelog()
 end
 
-if SavedOptionsPerChar == nil then SavedOptionsPerChar = {} end
+if ViksUISettingsPerChar == nil then ViksUISettingsPerChar = {} end
 
 function ChangeLog:OnCheckVersion(self)
-	if not SavedOptions["version"] or (SavedOptions["version"] and SavedOptions["version"] ~= T.version) then
-		SavedOptions["version"] = T.version
+	if not ViksUISettings["version"] or (ViksUISettings["version"] and ViksUISettings["version"] ~= T.version) then
+		ViksUISettings["version"] = T.version
 		ChangeLog:CreateChangelog()
 	end
 end
@@ -210,7 +210,7 @@ end
 ChangeLog:RegisterEvent("ADDON_LOADED")
 ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
 ChangeLog:SetScript("OnEvent", function(self, event, ...)
-	if SavedOptions == nil then SavedOptions = {} end
+	if ViksUISettings == nil then ViksUISettings = {} end
 	ChangeLog:OnCheckVersion()
 end)
 

@@ -59,10 +59,10 @@ local ls, coordX, coordY, conf, Coords = CreateFrame("Frame"), 0, 0, {}
 RegEvents(ls, "ADDON_LOADED PLAYER_REGEN_DISABLED PLAYER_REGEN_ENABLED")
 ls:SetScript("OnEvent", function(_, event, addon)
 	if event == "ADDON_LOADED" and addon == "ViksUI" then
-		if not SavedStats then SavedStats = {} end
-		if not SavedStats[realm] then SavedStats[realm] = {} end
-		if not SavedStats[realm][char] then SavedStats[realm][char] = {} end
-		conf = SavedStats[realm][char]
+		if not ViksUIStats then ViksUIStats = {} end
+		if not ViksUIStats[realm] then ViksUIStats[realm] = {} end
+		if not ViksUIStats[realm][char] then ViksUIStats[realm][char] = {} end
+		conf = ViksUIStats[realm][char]
 
 		-- true/false defaults for autosell and autorepair
 		if conf.AutoSell == nil then conf.AutoSell = false end
@@ -526,7 +526,7 @@ if gold.enabled then
 		OnLoad = function(self)
 			self.started = GetMoney()
 			RegEvents(self, "PLAYER_LOGIN PLAYER_MONEY MERCHANT_SHOW")
-			if not SavedStats.JunkIgnore then SavedStats.JunkIgnore = {} end
+			if not ViksUIStats.JunkIgnore then ViksUIStats.JunkIgnore = {} end
 		end,
 		OnEvent = function(self, event)
 			conf.Gold = GetMoney()
@@ -537,7 +537,7 @@ if gold.enabled then
 						local link = GetContainerItemLink(bag, slot)
 						if link then
 							local itemstring, ignore = strmatch(link, "|Hitem:(%d-):"), false
-							for _, exception in pairs(SavedStats.JunkIgnore) do
+							for _, exception in pairs(ViksUIStats.JunkIgnore) do
 								if exception == itemstring then ignore = true; break end
 							end
 							if select(3, GetItemInfo(link)) == 0 and not ignore then
@@ -573,7 +573,7 @@ if gold.enabled then
 			GameTooltip:AddLine(L_STATS_SERVER_GOLD, ttsubh.r, ttsubh.g, ttsubh.b)
 
 			local total = 0
-			for char, conf in pairs(SavedStats[realm]) do
+			for char, conf in pairs(ViksUIStats[realm]) do
 				if conf.Gold and conf.Gold > 99 then
 					GameTooltip:AddDoubleLine(char, formatgold(1, conf.Gold), 1, 1, 1, 1, 1, 1)
 					total = total + conf.Gold
@@ -612,28 +612,28 @@ if gold.enabled then
 	function SlashCmdList.KJUNK(s)
 		local action = strsplit(" ", s)
 		if action == "list" then
-			print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_EXCEPTIONS, (#SavedStats.JunkIgnore == 0 and NONE or "")))
-			for i, id in pairs(SavedStats.JunkIgnore) do
+			print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_EXCEPTIONS, (#ViksUIStats.JunkIgnore == 0 and NONE or "")))
+			for i, id in pairs(ViksUIStats.JunkIgnore) do
 				local _, link = GetItemInfo(id)
 				print("- ["..i.."]", link)
 			end
 		elseif action == "clear" then
-			SavedStats.JunkIgnore = {}
+			ViksUIStats.JunkIgnore = {}
 			print("|cff66C6FF"..L_STATS_CLEARED_JUNK)
 		elseif action == "add" or strfind(action, "^del") or strfind(action, "^rem") then
 			for id in s:gmatch("|Hitem:(%d-):") do
 				local _, link, rarity = GetItemInfo(id)
 				if action == "add" then
 					if rarity == 0 then
-						if not tContains(SavedStats.JunkIgnore,id) then
-							tinsert(SavedStats.JunkIgnore, id)
+						if not tContains(ViksUIStats.JunkIgnore,id) then
+							tinsert(ViksUIStats.JunkIgnore, id)
 							print(format("|cff66C6FF%s:|r %s", L_STATS_ADDED_JUNK, link))
 						else
 							print(format("%s |cff66C6FF%s", link, L_STATS_ALREADY_EXCEPTIONS))
 						end
 					else print(format("|cff66C6FF", link, L_STATS_NOT_JUNK)) end
 				elseif strfind(action, "^del") or strfind(action, "^rem") then
-					tDeleteItem(SavedStats.JunkIgnore, id)
+					tDeleteItem(ViksUIStats.JunkIgnore, id)
 					print(format("|cff66C6FF%s:|r %s", L_STATS_REMOVED_JUNK, link))
 				end
 			end
@@ -667,7 +667,7 @@ if gold.enabled then
 		OnLoad = function(self)
 			self.started = GetMoney()
 			RegEvents(self, "PLAYER_LOGIN PLAYER_MONEY MERCHANT_SHOW")
-			if not SavedStats.JunkIgnore then SavedStats.JunkIgnore = {} end
+			if not ViksUIStats.JunkIgnore then ViksUIStats.JunkIgnore = {} end
 		end,
 		OnEvent = function(self, event)
 
@@ -679,7 +679,7 @@ if gold.enabled then
 						local link = GetContainerItemLink(bag, slot)
 						if link then
 							local itemstring, ignore = strmatch(link, "|Hitem:(%d-):"), false
-							for _, exception in pairs(SavedStats.JunkIgnore) do
+							for _, exception in pairs(ViksUIStats.JunkIgnore) do
 								if exception == itemstring then ignore = true break end
 							end
 							if (select(3, GetItemInfo(link)) == 0 and not ignore) or (ignore and select(3, GetItemInfo(link)) ~= 0) then
@@ -715,7 +715,7 @@ if gold.enabled then
 			end
 			GameTooltip:AddLine(L_STATS_SERVER_GOLD, ttsubh.r, ttsubh.g, ttsubh.b)
 			local total = 0
-			for char, conf in pairs(SavedStats[realm]) do
+			for char, conf in pairs(ViksUIStats[realm]) do
 
 
 
@@ -1211,24 +1211,28 @@ end
 --	Friends
 ----------------------------------------------------------------------------------------
 if friends.enabled then
-	local totalFriendsOnline = 0
 	local totalBattleNetOnline = 0
 	local BNTable = {}
 	local friendTable = {}
 	local BNTableEnter = {}
 	local function BuildFriendTable(total)
-		totalFriendsOnline = 0
 		wipe(friendTable)
 
 		for i = 1, total do
-			local name, level, class, area, connected, status, note = GetFriendInfo(i)
-			for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
-			if GetLocale() ~= "enUS" then
-				for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do if class == v then class = k end end
-			end
-			friendTable[i] = {name, level, class, area, connected, status, note}
-			if connected then
-				totalFriendsOnline = totalFriendsOnline + 1
+			local info = C_FriendList.GetFriendInfoByIndex(i)
+			if info and info.connected then
+				local class = info.className
+				local status = ""
+				if info.dnd then
+					status = CHAT_FLAG_DND
+				elseif info.afk then
+					status = CHAT_FLAG_AFK
+				end
+				for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
+				if GetLocale() ~= "enUS" then
+					for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do if class == v then class = k end end
+				end
+				friendTable[i] = {info.name, info.level, class,  info.area, info.connected, status, info.notes}
 			end
 		end
 
@@ -1254,13 +1258,6 @@ if friends.enabled then
 				totalBattleNetOnline = totalBattleNetOnline + 1
 			end
 		end
-
-		-- table.sort(BNTable, function(a, b)
-			-- if a[2] and b[2] and a[3] and b[3] then
-				-- if a[2] == b[2] then return a[3] < b[3] end
-				-- return a[2] < b[2]
-			-- end
-		-- end)
 	end
 	local clientTags = {
 		[BNET_CLIENT_D3] = "Diablo 3",
@@ -1278,10 +1275,9 @@ if friends.enabled then
 		OnEvent = function(self, event)
 			if event ~= "GROUP_ROSTER_UPDATE" then
 				local numBNetTotal, numBNetOnline = BNGetNumFriends()
-				local online, total = 0, GetNumFriends()
-				for i = 0, total do if select(5, GetFriendInfo(i)) then online = online + 1 end end
-				online = online + numBNetOnline
-				total = total + numBNetTotal
+				local numOnline, numTotal = C_FriendList.GetNumOnlineFriends(), C_FriendList.GetNumFriends()
+				local online = numOnline + numBNetOnline
+				local total = numTotal + numBNetTotal
 				self.text:SetText(format(friends.fmt, online, total))
 			end
 			if self.hovered then self:GetScript("OnEnter")(self) end
@@ -1296,7 +1292,7 @@ if friends.enabled then
 				HideTT(self)
 
 				local BNTotal = BNGetNumFriends()
-				local total = GetNumFriends()
+				local total = C_FriendList.GetNumFriends()
 				BuildBNTable(BNTotal)
 				BuildFriendTable(total)
 
@@ -1307,43 +1303,41 @@ if friends.enabled then
 				menuList[2].menuList = {}
 				menuList[3].menuList = {}
 
-				if totalFriendsOnline > 0 then
+				if #friendTable > 0 then
 					for i = 1, #friendTable do
-						if friendTable[i][5] then
-							if UnitInParty(friendTable[i][1]) or UnitInRaid(friendTable[i][1]) then
-								grouped = " |cffaaaaaa*|r"
-							else
-								grouped = ""
-							end
+						if UnitInParty(friendTable[i][1]) or UnitInRaid(friendTable[i][1]) then
+							grouped = " |cffaaaaaa*|r"
+						else
+							grouped = ""
+						end
 
-							classc, levelc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[friendTable[i][3]], GetQuestDifficultyColor(friendTable[i][2])
-							if classc == nil then
-								classc = GetQuestDifficultyColor(friendTable[i][2])
-							end
+						classc, levelc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[friendTable[i][3]], GetQuestDifficultyColor(friendTable[i][2])
+						if classc == nil then
+							classc = GetQuestDifficultyColor(friendTable[i][2])
+						end
 
-							menuCountWhispers = menuCountWhispers + 1
-							menuList[3].menuList[menuCountWhispers] = {
-								text = format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r%s", levelc.r * 255, levelc.g * 255, levelc.b * 255, friendTable[i][2], classc.r * 255, classc.g * 255, classc.b * 255, friendTable[i][1], grouped),
+						menuCountWhispers = menuCountWhispers + 1
+						menuList[3].menuList[menuCountWhispers] = {
+							text = format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r%s", levelc.r * 255, levelc.g * 255, levelc.b * 255, friendTable[i][2], classc.r * 255, classc.g * 255, classc.b * 255, friendTable[i][1], grouped),
+							arg1 = friendTable[i][1],
+							notCheckable = true,
+							func = function(_, arg1)
+								menuFrame:Hide()
+								SetItemRef("player:"..arg1, ("|Hplayer:%1$s|h[%1$s]|h"):format(arg1), "LeftButton")
+							end
+						}
+
+						if not (UnitInParty(friendTable[i][1]) or UnitInRaid(friendTable[i][1])) then
+							menuCountInvites = menuCountInvites + 1
+							menuList[2].menuList[menuCountInvites] = {
+								text = format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r", levelc.r * 255, levelc.g * 255, levelc.b * 255, friendTable[i][2], classc.r * 255, classc.g * 255, classc.b * 255, friendTable[i][1]),
 								arg1 = friendTable[i][1],
 								notCheckable = true,
 								func = function(_, arg1)
 									menuFrame:Hide()
-									SetItemRef("player:"..arg1, ("|Hplayer:%1$s|h[%1$s]|h"):format(arg1), "LeftButton")
+									C_PartyInfo.InviteUnit(arg1)
 								end
 							}
-
-							if not (UnitInParty(friendTable[i][1]) or UnitInRaid(friendTable[i][1])) then
-								menuCountInvites = menuCountInvites + 1
-								menuList[2].menuList[menuCountInvites] = {
-									text = format("|cff%02x%02x%02x%d|r |cff%02x%02x%02x%s|r", levelc.r * 255, levelc.g * 255, levelc.b * 255, friendTable[i][2], classc.r * 255, classc.g * 255, classc.b * 255, friendTable[i][1]),
-									arg1 = friendTable[i][1],
-									notCheckable = true,
-									func = function(_, arg1)
-										menuFrame:Hide()
-										C_PartyInfo.InviteUnit(arg1)
-									end
-								}
-							end
 						end
 					end
 				end
@@ -1396,9 +1390,8 @@ if friends.enabled then
 		OnEnter = function(self)
 			C_FriendList.ShowFriends()
 			self.hovered = true
-			local online, total = 0, GetNumFriends()
+			local online, total = C_FriendList.GetNumOnlineFriends(), C_FriendList.GetNumFriends()
 			local name, level, class, zone, connected, status, note, classc, levelc, zone_r, zone_g, zone_b, grouped, realm_r, realm_g, realm_b
-			for i = 0, total do if select(5, GetFriendInfo(i)) then online = online + 1 end end
 			local BNonline, BNtotal = 0, BNGetNumFriends()
 			wipe(BNTableEnter)
 			if BNtotal > 0 then
@@ -1422,7 +1415,19 @@ if friends.enabled then
 					GameTooltip:AddLine(" ")
 					GameTooltip:AddLine(WOW_FRIEND)
 					for i = 1, total do
-						name, level, class, zone, connected, status, note = GetFriendInfo(i)
+						local info = C_FriendList.GetFriendInfoByIndex(i)
+						local name = info.name
+						local level = info.level
+						local class = info.className
+						local zone = info.area
+						local connected = info.connected
+						local status = ""
+						if info.dnd then
+							status = CHAT_FLAG_DND
+						elseif info.afk then
+							status = CHAT_FLAG_AFK
+						end
+						local note = info.notes
 						if not connected then break end
 						if GetRealZoneText() == zone then zone_r, zone_g, zone_b = 0.3, 1.0, 0.3 else zone_r, zone_g, zone_b = 0.65, 0.65, 0.65 end
 						for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
@@ -1811,7 +1816,7 @@ if experience.enabled then
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(L_STATS_ACC_PLAYED, ttsubh.r, ttsubh.g, ttsubh.b)
 				local total = 0
-				for realm, t in pairs(SavedStats) do
+				for realm, t in pairs(ViksUIStats) do
 					for name, conf in pairs(t) do
 						if conf.Played then
 							local r, g, b, player = 1, 1, 1
