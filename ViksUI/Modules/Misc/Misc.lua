@@ -369,3 +369,9 @@ end
 --	Change UIErrorsFrame strata
 ----------------------------------------------------------------------------------------
 UIErrorsFrame:SetFrameLevel(0)
+
+----------------------------------------------------------------------------------------
+--	Insert DELETE Text into Autoconfirm box when deleting some objects
+----------------------------------------------------------------------------------------
+
+hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)
