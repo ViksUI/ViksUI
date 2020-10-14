@@ -540,6 +540,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		slot = slot - 4
 
 		ret.frame = CreateFrame("ItemButton", "StuffingBBag"..slot.."Slot", p, "BankItemButtonBagTemplate")
+		Mixin(ret.frame, BackdropTemplateMixin)
 		ret.frame:StripTextures()
 		ret.frame:SetID(slot)
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
@@ -570,7 +571,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 	else
 
 		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
-
+		Mixin(ret.frame, BackdropTemplateMixin)
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
 				self:GetParent():SetBackdropBorderColor(r, g, b)

@@ -10,7 +10,7 @@ local playerList = {}
 local classColor = {}
 local nameToID = {}
 local collapsed = {}
-
+local C_CurrencyInfo_GetCurrencyListSize = C_CurrencyInfo.GetCurrencyListSize
 local function UpdateData()
 	if TokenFrame:IsVisible() then
 		return

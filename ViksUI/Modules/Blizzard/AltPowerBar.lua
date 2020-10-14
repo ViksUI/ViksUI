@@ -3,36 +3,6 @@ local T, C, L, _ = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 --	Skin AltPowerBar(by Tukz)
 ----------------------------------------------------------------------------------------
-local blizzColors = {
-	-- FIXME Blizzard return textureId now
-	-- ["INTERFACE\\UNITPOWERBARALT\\XAVIUS_HORIZONTAL_FILL.BLP"] = {0.4, 0.1, 0.6},
-	-- ["INTERFACE\\UNITPOWERBARALT\\TWINOGRONDISTANCE_HORIZONTAL_FILL.BLP"] = {0.5, 0.4, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\SHADOWPALADINBAR_HORIZONTAL_FILL.BLP"] = {0.4, 0.05, 0.67},
-	-- ["INTERFACE\\UNITPOWERBARALT\\NAARUCHARGE_HORIZONTAL_FILL.BLP"] = {0.5, 0.4, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\KARGATHROARCROWD_HORIZONTAL_FILL.BLP"] = {0.5, 0.4, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\BULLETBAR_HORIZONTAL_FILL.BLP"] = {0.5, 0.4, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\FELCORRUPTIONRED_HORIZONTAL_FILL.BLP"] = {0.8, 0.05, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\FELCORRUPTION_HORIZONTAL_FILL.BLP"] = {0.13, 0.55, 0.13},
-	-- ["INTERFACE\\UNITPOWERBARALT\\GARROSHENERGY_HORIZONTAL_FILL.BLP"] = {0.4, 0.05, 0.67},
-	-- ["INTERFACE\\UNITPOWERBARALT\\ARSENAL_HORIZONTAL_FILL.BLP"] = {1, 0, 0.2},
-	-- ["INTERFACE\\UNITPOWERBARALT\\PRIDE_HORIZONTAL_FILL.BLP"] = {0.2, 0.4, 1},
-	-- ["INTERFACE\\UNITPOWERBARALT\\LIGHTNING_HORIZONTAL_FILL.BLP"] = {0.12, 0.56, 1},
-	-- ["INTERFACE\\UNITPOWERBARALT\\THUNDERKING_HORIZONTAL_FILL.BLP"] = {0.12, 0.56, 1},
-	-- ["INTERFACE\\UNITPOWERBARALT\\AMBER_HORIZONTAL_FILL.BLP"] = {0.97, 0.81, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\STONEGUARDAMETHYST_HORIZONTAL_FILL.BLP"] = {0.67, 0, 1},
-	-- ["INTERFACE\\UNITPOWERBARALT\\STONEGUARDCOBALT_HORIZONTAL_FILL.BLP"] = {0.1, 0.4, 0.95},
-	-- ["INTERFACE\\UNITPOWERBARALT\\STONEGUARDJADE_HORIZONTAL_FILL.BLP"] = {0.13, 0.55, 0.13},
-	-- ["INTERFACE\\UNITPOWERBARALT\\STONEGUARDJASPER_HORIZONTAL_FILL.BLP"] = {1, 0.4, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\BREWINGSTORM_HORIZONTAL_FILL.BLP"] = {1, 0.84, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\SHAWATER_HORIZONTAL_FILL.BLP"] = {0.1, 0.6, 1},
-	-- ["INTERFACE\\UNITPOWERBARALT\\ARCANE_CIRCULAR_FILL.BLP"] = {0.52, 0.44, 1},
-	-- ["INTERFACE\\UNITPOWERBARALT\\MOLTENFEATHERS_HORIZONTAL_FILL.BLP"] = {1, 0.4, 0},
-	-- ["INTERFACE\\UNITPOWERBARALT\\RHYOLITH_HORIZONTAL_FILL.BLP"] = {1, 0.4, 0}, -- 525289
-	-- ["INTERFACE\\UNITPOWERBARALT\\CHOGALL_HORIZONTAL_FILL.BLP"] = {0.4, 0.05, 0.67},
-	-- ["INTERFACE\\UNITPOWERBARALT\\ONYXIA_HORIZONTAL_FILL.BLP"] = {0.4, 0.05, 0.67},
-	-- ["INTERFACE\\UNITPOWERBARALT\\MAP_HORIZONTAL_FILL.BLP"] = {0.97, 0.81, 0}
-}
-
 -- Get rid of old AltPowerBar
 PlayerPowerBarAlt:UnregisterEvent("UNIT_POWER_BAR_SHOW")
 PlayerPowerBarAlt:UnregisterEvent("UNIT_POWER_BAR_HIDE")
@@ -71,7 +41,7 @@ bar:SetScript("OnEvent", function(self, event)
 		bar:SetPoint(unpack(C.position.alt_power_bar))
 	end
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	if UnitAlternatePowerInfo("player") then
+	if GetUnitPowerBarInfo("player") then
 		self:Show()
 	else
 		self:Hide()
@@ -80,10 +50,9 @@ end)
 
 -- Tooltip
 bar:SetScript("OnEnter", function(self)
-	local name = select(11, UnitAlternatePowerInfo("player"))
-	local tooltip = select(12, UnitAlternatePowerInfo("player"))
+	local name, tooltip = GetUnitPowerBarStrings("player")
 
-	GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM", 0, -5)
 	GameTooltip:AddLine(name, 1, 1, 1)
 	GameTooltip:AddLine(tooltip, nil, nil, nil, true)
 
@@ -119,10 +88,8 @@ status:SetScript("OnUpdate", function(self, elapsed)
 	if update >= 1 then
 		local cur = UnitPower("player", ALTERNATE_POWER_INDEX)
 		local max = UnitPowerMax("player", ALTERNATE_POWER_INDEX)
-		local texture, r, g, b = UnitAlternatePowerTextureInfo("player", 2, 0)
-		if blizzColors[texture] then
-			r, g, b = unpack(blizzColors[texture])
-		elseif (r == 1 and g == 1 and b == 1) or not texture then
+		local texture, r, g, b = GetUnitPowerBarTextureInfo("player", 2, 0)
+		if not texture or (r == 1 and g == 1 and b == 1) then
 			r, g, b = oUF:ColorGradient(cur, max, 0.8, 0.2, 0.1, 1, 0.8, 0.1, 0.33, 0.59, 0.33)
 		end
 		self:SetMinMaxValues(0, max)

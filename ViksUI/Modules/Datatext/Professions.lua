@@ -17,7 +17,8 @@ local displayString = ""
 local tooltipString = ""
 
 local function GetProfessionName(index)
-	local name, _, _, _, _, _, _, _ = GetProfessionInfo(index)
+	if not index then return end
+	local name, texture, rank, maxRank, _, _, _, _, _, _, currentLevelName = GetProfessionInfo(index)
 	return name
 end
 

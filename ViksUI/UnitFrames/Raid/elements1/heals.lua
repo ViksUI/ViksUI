@@ -52,7 +52,7 @@ oUF.Tags.Methods['freebgrid:def'] = function(u)
         end
     end 
 end
-oUF.Tags.Events['freebgrid:def'] = 'UNIT_MAXHEALTH UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_CONNECTION PLAYER_FLAGS_CHANGED '..oUF.Tags.Events['freebgrid:altpower']
+oUF.Tags.Events['freebgrid:def'] = 'UNIT_MAXHEALTH UNIT_HEALTH UNIT_HEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED '..oUF.Tags.Events['freebgrid:altpower']
 
 oUF.Tags.Methods['freebgrid:heals'] = function(u)
     local incheal = UnitGetIncomingHeals(u) or 0

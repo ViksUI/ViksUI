@@ -7,6 +7,7 @@ if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
 	InterfaceOptionsFrame:StripTextures()
 	InterfaceOptionsFrame:SetTemplate("Transparent")
+
 	InterfaceOptionsFrame.Header:StripTextures()
 	InterfaceOptionsFrame.Header:ClearAllPoints()
 	InterfaceOptionsFrame.Header:SetPoint("TOP", InterfaceOptionsFrame, 0, 0)
@@ -17,9 +18,7 @@ local function LoadSkin()
 	local frames = {
 		"InterfaceOptionsFramePanelContainer",
 		"InterfaceOptionsFrameAddOns",
-		"InterfaceOptionsFrameCategories",
-		"InterfaceOptionsFrameTab1",
-		"InterfaceOptionsFrameTab2"
+		"InterfaceOptionsFrameCategories"
 	}
 
 	for i = 1, getn(frames) do
@@ -64,6 +63,7 @@ local function LoadSkin()
 		-- Display
 		"DisplayPanelRotateMinimap",
 		"DisplayPanelAJAlerts",
+		"DisplayPanelShowInGameNavigation",
 		"DisplayPanelShowTutorials",
 		-- Social
 		"SocialPanelProfanityFilter",
@@ -116,7 +116,8 @@ local function LoadSkin()
 		-- Assessability
 		"AccessibilityPanelMovePad",
 		"AccessibilityPanelCinematicSubtitles",
-		"AccessibilityPanelColorblindMode"
+		"AccessibilityPanelColorblindMode",
+		"AccessibilityPanelOverrideFadeOut"
 	}
 
 	for i = 1, getn(checkboxes) do
@@ -136,8 +137,6 @@ local function LoadSkin()
 		"AutoActivate40Players",
 		"AutoActivateSpec1",
 		"AutoActivateSpec2",
-		"AutoActivateSpec3",
-		"AutoActivateSpec4",
 		"AutoActivatePvE",
 		"AutoActivatePvP",
 		"KeepGroupsTogether",
@@ -175,6 +174,8 @@ local function LoadSkin()
 		"CameraPanelStyleDropDown",
 		"MousePanelClickMoveStyleDropDown",
 		"AccessibilityPanelColorFilterDropDown",
+		"AccessibilityPanelMotionSicknessDropdown",
+		"AccessibilityPanelShakeIntensityDropdown",
 		"DisplayPanelOutlineDropDown",
 		"DisplayPanelSelfHighlightDropDown",
 		"DisplayPanelDisplayDropDown",
@@ -209,7 +210,6 @@ local function LoadSkin()
 		"InterfaceOptionsCombatPanelSpellAlertOpacitySlider",
 		"CompactUnitFrameProfilesGeneralOptionsFrameHeightSlider",
 		"CompactUnitFrameProfilesGeneralOptionsFrameWidthSlider",
-		-- BETA"InterfaceOptionsBattlenetPanelToastDurationSlider",
 		"InterfaceOptionsCameraPanelMaxDistanceSlider",
 		"InterfaceOptionsCameraPanelFollowSpeedSlider",
 		"InterfaceOptionsMousePanelMouseSensitivitySlider",
@@ -241,9 +241,6 @@ local function LoadSkin()
 	_G["InterfaceOptionsFrameTab2"]:SetPoint("TOPLEFT", _G["InterfaceOptionsFrameTab1"], "TOPRIGHT", 3, 0)
 	_G["InterfaceOptionsFrameTab2"]:SetWidth(112)
 	_G["InterfaceOptionsFrameTab2"].SetWidth = T.dummy
-	--_G["InterfaceOptionsFrameTab1TabSpacer"]:Kill()
-	--_G["InterfaceOptionsFrameTab2TabSpacer1"]:Kill()
-	--_G["InterfaceOptionsFrameTab2TabSpacer2"]:Kill()
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)

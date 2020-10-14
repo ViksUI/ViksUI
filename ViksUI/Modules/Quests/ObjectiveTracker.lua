@@ -106,6 +106,11 @@ function ObjectiveTracker:Skin()
 					HeaderBar:SetTemplate()
 
 					HeaderBar:CreateShadow()
+					local Minimize = Header.MinimizeButton
+					Minimize.SetCollapsed = function() return end
+					Minimize:StripTextures()
+					Minimize:ClearAllPoints()
+					Minimize:SetAllPoints(HeaderBar)								 
 
 					Modules.IsSkinned = true
 				end
@@ -131,10 +136,11 @@ function ObjectiveTracker:UpdateQuestItem(block)
 	if (QuestItemButton) then
 		local Icon = QuestItemButton.icon
 		local Count = QuestItemButton.Count
+		local HotKey = QuestItemButton.HotKey									   
 
 		if not (QuestItemButton.IsSkinned) then
 			QuestItemButton:Size(26, 26)
-			QuestItemButton:SetTemplate()
+			QuestItemButton:CreateBackdrop()
 			QuestItemButton:CreateShadow()
 			QuestItemButton:StyleButton()
 			QuestItemButton:SetNormalTexture(nil)
@@ -150,7 +156,10 @@ function ObjectiveTracker:UpdateQuestItem(block)
 				Count:SetFont(C.media.fontcombat, 12)
 			end
 			
-			QuestItemButton.HotKey:SetFontObject(NumberFont_OutlineThick_Mono_Small)
+			if HotKey then
+				HotKey:SetText("")
+				HotKey:SetAlpha(0)
+			end
 			QuestItemButton.IsSkinned = true
 		end
 	end
@@ -191,6 +200,10 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 			Bar:Height(20)
 			Bar:SetStatusBarTexture(Texture)
 			Bar:CreateBackdrop()
+			Bar.Backdrop:CreateShadow()
+			Bar.Backdrop:SetFrameStrata("BACKGROUND")
+			Bar.Backdrop:SetFrameLevel(1)
+			Bar.Backdrop:SetOutside(Bar)							   
 
 			if (Label) then
 				Label:ClearAllPoints()
@@ -207,7 +220,7 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 
 				if not (Bar.NewBorder) then
 					Bar.NewBorder = CreateFrame("Frame", nil, Bar)
-					Bar.NewBorder:SetTemplate()
+					Bar.NewBorder:CreateBackdrop()
 					Bar.NewBorder:SetFrameLevel(Bar:GetFrameLevel() - 1)
 					Bar.NewBorder:CreateShadow()
 					Bar.NewBorder:SetOutside(Icon)
@@ -233,40 +246,47 @@ end
 function ObjectiveTracker:UpdatePopup()
 	for i = 1, GetNumAutoQuestPopUps() do
 		local ID, type = GetAutoQuestPopUp(i)
-		local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
+		local Title = C_QuestLog.GetTitleForQuestID(ID)
 
 		if Title and Title ~= "" then
-			local Block = AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
+			local Block = self:GetBlock(ID, "ScrollFrame", "AutoQuestPopUpBlockTemplate")
 
 			if Block then
 				local Frame = Block.ScrollChild
 
-				if not Frame.backdrop then
+				if not Frame.Backdrop then
 					Frame:CreateBackdrop("Default")
 
-					Frame.backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
-					Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
-					Frame.backdrop:SetFrameLevel(0)
-					Frame.backdrop:SetTemplate("Transparent")
-					Frame.backdrop:CreateShadow()
+					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+					Frame.Backdrop:SetFrameLevel(0)
+					Frame.Backdrop:SetTemplate("Transparent")
+					Frame.Backdrop:CreateShadow()
 
 					Frame.FlashFrame.IconFlash:Hide()
+					
+					Frame.Shine:ClearAllPoints()
+					Frame.Shine:SetParent(T.Hider)
+					
+					Frame.IconShine:ClearAllPoints()
+					Frame.IconShine:SetParent(T.Hider)
 				end
 
 				if  type == "COMPLETE" then
 					Frame.QuestIconBg:SetAlpha(0)
 					Frame.QuestIconBadgeBorder:SetAlpha(0)
 					Frame.QuestionMark:ClearAllPoints()
-					Frame.QuestionMark:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
-					Frame.QuestionMark:SetParent(Frame.backdrop)
+					Frame.QuestionMark:SetPoint("CENTER", Frame.Backdrop, "LEFT", 10, 0)
+					Frame.QuestionMark:SetParent(Frame.Backdrop)
 					Frame.QuestionMark:SetDrawLayer("OVERLAY", 7)
 					Frame.IconShine:Hide()
 				elseif type == "OFFER" then
 					Frame.QuestIconBg:SetAlpha(0)
 					Frame.QuestIconBadgeBorder:SetAlpha(0)
+					test = Frame
 					Frame.Exclamation:ClearAllPoints()
-					Frame.Exclamation:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
-					Frame.Exclamation:SetParent(Frame.backdrop)
+					Frame.Exclamation:SetPoint("CENTER", Frame.Backdrop, "LEFT", 10, 0)
+					Frame.Exclamation:SetParent(Frame.Backdrop)
 					Frame.Exclamation:SetDrawLayer("OVERLAY", 7)
 				end
 
@@ -311,39 +331,6 @@ local function UpdatePositions(block)
 	end
 end
 
-function ObjectiveTracker:AddDash(block)
-	for i = 1, GetNumQuestWatches() do
-		local questIndex = GetQuestIndexForWatch(i)
-
-		if questIndex then
-			local id = GetQuestWatchInfo(i)
-			local block = QUEST_TRACKER_MODULE:GetBlock(id)
-			local title, level, _, _, _, _, frequency = GetQuestLogTitle(questIndex)
-
-			if block.lines then
-				for key, line in pairs(block.lines) do
-					if frequency == LE_QUEST_FREQUENCY_DAILY then
-						local red, green, blue = 1/4, 6/9, 1
-
-						line.Dash:SetText("— ")
-						line.Dash:SetVertexColor(red, green, blue)
-					elseif frequency == LE_QUEST_FREQUENCY_WEEKLY then
-						local red, green, blue = 0, 252/255, 177/255
-
-						line.Dash:SetText("— ")
-						line.Dash:SetVertexColor(red, green, blue)
-					else
-						local col = GetQuestDifficultyColor(level)
-
-						line.Dash:SetText("— ")
-						line.Dash:SetVertexColor(col.r, col.g, col.b)
-					end
-				end
-			end
-		end
-	end
-end
-
 function ObjectiveTracker:SkinPOI(questID, style, index)
 	local Incomplete = self.poiTable["numeric"]
 	local Complete = self.poiTable["completed"]
@@ -352,16 +339,23 @@ function ObjectiveTracker:SkinPOI(questID, style, index)
 		local Button = ObjectiveTrackerBlocksFrame.poiTable["numeric"][i]
 
 		if Button and not Button.IsSkinned then
-			Button.NormalTexture:SetTexture("")
-			Button.PushedTexture:SetTexture("")
+			Button:SetNormalTexture("")
+			Button:SetPushedTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
 			Button:SetSize(20, 20)
+			Button:StripTextures()
 			Button:SetTemplate()
 			Button:StyleButton()
 			Button:CreateShadow()
 
 			Button.IsSkinned = true
+		end
+		if Button.NormalTexture then
+			Button.NormalTexture:SetAlpha(0)
+		end
+		if Button.style == "numeric" then
+		Button.Display:SetNumber(Button.index)
 		end
 	end
 
@@ -369,27 +363,32 @@ function ObjectiveTracker:SkinPOI(questID, style, index)
 		local Button = ObjectiveTrackerBlocksFrame.poiTable["completed"][i]
 
 		if Button and not Button.IsSkinned then
-			Button.NormalTexture:SetTexture("")
-			Button.PushedTexture:SetTexture("")
-			Button.FullHighlightTexture:SetTexture("")
+			Button:SetNormalTexture("")
+			Button:SetPushedTexture("")
+			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
 			Button:SetSize(20, 20)
+			Button:StripTextures()
 			Button:SetTemplate()
 			Button:StyleButton()
 			Button:CreateShadow()
 
 			Button.IsSkinned = true
 		end
+		if Button.NormalTexture then
+			Button.NormalTexture:SetAlpha(0)
+		end
 	end
+	
 end
 
 function ObjectiveTracker:SelectPOI(color)
 	local Shadow = self.Shadow
 
 	if Shadow then
-		local ID = GetQuestLogIndexByID(self.questID)
+		local ID = C_QuestLog.GetQuestLogIndexByID(self.questID)
 		local Level = select(2, GetQuestLogTitle(ID))
-		local Color = GetQuestDifficultyColor(Level) or {r = 1, g = 1, b = 0, a = 1}
+		local Color = C_QuestLog.GetQuestDifficultyColor(Level) or {r = 1, g = 1, b = 0, a = 1}
 		local Number = self.Number
 
 		if PreviousPOI then
@@ -406,8 +405,8 @@ function ObjectiveTracker:SelectPOI(color)
 end
 
 function ObjectiveTracker:ShowObjectiveTrackerLevel()
-	for i = 1, GetNumQuestWatches() do
-		local questID, title, questLogIndex = GetQuestWatchInfo(i)
+	for i = 1, C_QuestLog.GetNumQuestWatches() do
+		local questID, title, questLogIndex = C_QuestLog.GetQuestWatchInfo(i)
 		
 		if ( not questID ) then
 			break
@@ -416,8 +415,8 @@ function ObjectiveTracker:ShowObjectiveTrackerLevel()
 		local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
 		
 		if block then
-			local title, level = GetQuestLogTitle(questLogIndex)
-			local color = GetQuestDifficultyColor(level)
+			local title, level = C_QuestLog.GetQuestLogTitle(questLogIndex)
+			local color = C_QuestLog.GetQuestDifficultyColor(level)
 			local hex = T.RGBToHex(color.r, color.g, color.b) or OBJECTIVE_TRACKER_COLOR["Header"]
 			local text = hex.."["..level.."]|r "..title
 
@@ -475,12 +474,6 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 		self:SetBackdropColor(unpack(C.media.backdrop_color))
 	end
 
-	--if rarity == LE_WORLD_QUEST_QUALITY_RARE then
-		--self.Shadow:SetBackdropBorderColor(0.00, 0.44, 0.87)
-	--elseif rarity == LE_WORLD_QUEST_QUALITY_EPIC then
-		--self.Shadow:SetBackdropBorderColor(0.64, 0.21, 0.93)
-	--end
-
 	if PreviousPOI and PreviousPOI.IsSkinned then
 		PreviousPOI:SetBackdropColor(unpack(C.media.backdrop_color))
 		PreviousPOI.Shadow:SetBackdropBorderColor(unpack(C.media.border_color))
@@ -502,8 +495,7 @@ function ObjectiveTracker:AddHooks()
 	hooksecurefunc("ScenarioTrackerProgressBar_SetValue", self.UpdateProgressBarColors)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", SkinGroupFindButton)
 	hooksecurefunc("QuestObjectiveSetupBlockButton_AddRightButton", UpdatePositions)																			 
-	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.AddDash)
+	hooksecurefunc("AutoQuestPopupTracker_Update", self.UpdatePopup)
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
 	hooksecurefunc("BonusObjectiveTracker_AnimateReward", self.SkinRewards)																	

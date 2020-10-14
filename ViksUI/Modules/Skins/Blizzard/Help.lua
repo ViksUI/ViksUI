@@ -34,8 +34,11 @@ local function LoadSkin()
 		_G[frames[i]]:CreateBackdrop("Overlay")
 	end
 
+	HelpFrameLeftInset.backdrop:SetPoint("BOTTOMRIGHT", -3, -2)
+
 	HelpFrame.Header:StripTextures(true)
 	HelpFrame.Header:SetFrameLevel(HelpFrame.Header:GetFrameLevel() + 2)
+
 	HelpFrameKnowledgebaseErrorFrame:SetFrameLevel(HelpFrameKnowledgebaseErrorFrame:GetFrameLevel() + 2)
 
 	HelpFrameReportBugScrollFrame:StripTextures()

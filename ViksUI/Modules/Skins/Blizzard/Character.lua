@@ -52,8 +52,8 @@ local function LoadSkin()
 		"SecondaryHandSlot"
 	}
 
-	select(16, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
-	select(16, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
+	select(17, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
+	select(17, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
 
 	for _, i in pairs(slots) do
 		_G["Character"..i.."Frame"]:Hide()
@@ -150,6 +150,7 @@ local function LoadSkin()
 		"ReputationListScrollFrameScrollBar",
 		"GearManagerDialogPopupScrollFrameScrollBar"
 	}
+
 	for _, scrollbar in pairs(scrollbars) do
 		T.SkinScrollBar(_G[scrollbar])
 	end
@@ -298,7 +299,7 @@ local function LoadSkin()
 		T.SkinCheckBox(ReputationDetailMainScreenCheckBox)
 		T.SkinCheckBox(ReputationDetailInactiveCheckBox)
 		T.SkinCheckBox(ReputationDetailAtWarCheckBox)
-		T.SkinCheckBox(ReputationDetailLFGBonusReputationCheckBox)
+		--FIXME T.SkinCheckBox(ReputationDetailLFGBonusReputationCheckBox)
 	end
 	ReputationFrame:HookScript("OnShow", UpdateFactionSkins)
 	hooksecurefunc("ExpandFactionHeader", UpdateFactionSkins)
@@ -333,7 +334,7 @@ local function LoadSkin()
 	CharacterFrame:SetTemplate("Transparent")
 
 	-- Help box
-	T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
+	--FIXME T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
 
 	-- Unit Background Texture
 	CharacterModelFrameBackgroundTopLeft:SetPoint("TOPLEFT", CharacterModelFrame.backdrop, "TOPLEFT", 2, -2)

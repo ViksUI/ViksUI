@@ -42,13 +42,19 @@ local function Visibility(self)
 	local element = self.HolyPower
 	local spec = GetSpecialization()
 
-	if spec == SPEC_PALADIN_RETRIBUTION then
-		element:Show()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
-	else
-		element:Hide()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end
-	end
+	--FIXME if spec == SPEC_PALADIN_RETRIBUTION then
+		if not UnitHasVehicleUI("player") then
+			element:Show()
+			if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
+		end
+		self:RegisterEvent("UNIT_POWER_UPDATE", Path)
+		element.isEnabled = true
+	-- else
+		-- element:Hide()
+		-- if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end
+		-- self:UnregisterEvent("UNIT_POWER_UPDATE", Path)
+		-- element.isEnabled = false
+	-- end
 end
 
 local function Enable(self)
@@ -56,8 +62,6 @@ local function Enable(self)
 	if(element) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
-
-		self:RegisterEvent('UNIT_POWER_UPDATE', Path)
 
 		element.hadler = CreateFrame("Frame", nil, element)
 		element.hadler:RegisterEvent("PLAYER_TALENT_UPDATE")
@@ -71,7 +75,6 @@ end
 local function Disable(self)
 	local element = self.HolyPower
 	if(element) then
-		self:UnregisterEvent('UNIT_POWER_UPDATE', Path)
 		element.hadler:UnregisterEvent("PLAYER_TALENT_UPDATE")
 		element.hadler:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end

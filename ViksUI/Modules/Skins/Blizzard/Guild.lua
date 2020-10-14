@@ -6,8 +6,6 @@ if C.skins.blizzard_frames ~= true then return end
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
 	GuildFrame:StripTextures(true)
-	GuildFrame.NineSlice:Hide()
-	GuildFrameInset.NineSlice:Hide()
 	GuildFrame:SetTemplate("Transparent")
 
 	T.SkinCloseButton(GuildMemberDetailCloseButton)

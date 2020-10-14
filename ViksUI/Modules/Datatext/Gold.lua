@@ -40,11 +40,11 @@ if not C.datatext.Gold or C.datatext.Gold == 0 then return end
 	end	
 
 local function Currency(id, weekly, capped)
-	local name, amount, tex, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
+	local name, amount, tex, week, weekmax, maxed, discovered = C_CurrencyInfo.GetCurrencyInfo(id)
 
 	local r, g, b = 1, 1, 1
 	for i = 1, GetNumWatchedTokens() do
-		local _, _, _, itemID = GetBackpackCurrencyInfo( i )
+		local _, _, _, itemID = C_CurrencyInfo.GetBackpackCurrencyInfo( i )
 		if id == itemID then r, g, b = .77, .12, .23 end
 	end
 

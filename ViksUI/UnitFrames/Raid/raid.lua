@@ -544,9 +544,7 @@ local style = function(self)
 
     -- Add events
     self:RegisterEvent('PLAYER_FOCUS_CHANGED', FocusTarget)
-    self:RegisterEvent('RAID_ROSTER_UPDATE', FocusTarget)
     self:RegisterEvent('PLAYER_TARGET_CHANGED', ChangedTarget)
-    self:RegisterEvent('RAID_ROSTER_UPDATE', ChangedTarget)
 
     self:SetScale(C.raidframes.scale)
 
@@ -708,9 +706,7 @@ local style25 = function(self)
 
     -- Add events
     self:RegisterEvent('PLAYER_FOCUS_CHANGED', FocusTarget)
-    self:RegisterEvent('RAID_ROSTER_UPDATE', FocusTarget)
     self:RegisterEvent('PLAYER_TARGET_CHANGED', ChangedTarget)
-    self:RegisterEvent('RAID_ROSTER_UPDATE', ChangedTarget)
 
     self:SetScale(C.raidframes.scale)
 
@@ -871,9 +867,7 @@ local style40 = function(self)
 
     -- Add events
     self:RegisterEvent('PLAYER_FOCUS_CHANGED', FocusTarget)
-    self:RegisterEvent('RAID_ROSTER_UPDATE', FocusTarget)
     self:RegisterEvent('PLAYER_TARGET_CHANGED', ChangedTarget)
-    self:RegisterEvent('RAID_ROSTER_UPDATE', ChangedTarget)
 
     self:SetScale(C.raidframes.scale)
 

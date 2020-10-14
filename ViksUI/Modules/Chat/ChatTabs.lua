@@ -59,38 +59,46 @@ local ChatFrame2_GetAlpha = function()
 	end
 end
 
-local faneifyTab = function(frame)
+local faneifyTab = function(frame, selected)
 	local i = frame:GetID()
 
-	if not frame.Fane then
-		frame:HookScript("OnEnter", OnEnter)
-		frame:HookScript("OnLeave", OnLeave)
-		if C.chat.tabs_mouseover ~= true then
-			frame:SetAlpha(1)
-
-			if i ~= 2 then
-				-- Might not be the best solution, but we avoid hooking into the UIFrameFade
-				-- system this way.
-				frame.SetAlpha = UIFrameFadeRemoveFrame
-			else
-				frame.SetAlpha = ChatFrame2_SetAlpha
-				frame.GetAlpha = ChatFrame2_GetAlpha
-
-				-- We do this here as people might be using AddonLoader together with Fane
-				if CombatLogQuickButtonFrame_Custom then
-					CombatLogQuickButtonFrame_Custom:SetAlpha(0.4)
-				end
-			end
+	if frame:GetParent() == _G.ChatConfigFrameChatTabManager then
+		if selected then
+			frame.Text:SetTextColor(1, 1, 1)
 		end
 
-		frame.Fane = true
-	end
-
-	-- We can't trust sel
-	if i == SELECTED_CHAT_FRAME:GetID() then
-		updateFS(frame, nil, unpack(C.media.pxcolor1))
+		frame:SetAlpha(1)
 	else
-		updateFS(frame, nil, unpack(C.media.pxcolor1))
+		if not frame.Fane then
+			frame:HookScript("OnEnter", OnEnter)
+			frame:HookScript("OnLeave", OnLeave)
+			if C.chat.tabs_mouseover ~= true then
+				frame:SetAlpha(1)
+
+				if i ~= 2 then
+					-- Might not be the best solution, but we avoid hooking into the UIFrameFade
+					-- system this way.
+					frame.SetAlpha = UIFrameFadeRemoveFrame
+				else
+					frame.SetAlpha = ChatFrame2_SetAlpha
+					frame.GetAlpha = ChatFrame2_GetAlpha
+
+					-- We do this here as people might be using AddonLoader together with Fane
+					if CombatLogQuickButtonFrame_Custom then
+						CombatLogQuickButtonFrame_Custom:SetAlpha(0.4)
+					end
+				end
+			end
+
+			frame.Fane = true
+		end
+
+		-- We can't trust sel
+		if i == SELECTED_CHAT_FRAME:GetID() then
+			updateFS(frame, nil, unpack(C.media.pxcolor1))
+		else
+			updateFS(frame, nil, 1, 1, 1)
+		end
 	end
 end
 

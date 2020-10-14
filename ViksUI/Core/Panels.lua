@@ -42,13 +42,13 @@ end
 ----------------------------------------------------------------------------------------
 
 --Left Bottom Panel
-local LBottom = CreateFrame("Frame", "LBottom", UIParent)
+local LBottom = CreateFrame("Frame", "LBottom", UIParent, "BackdropTemplate")
 LBottom:CreatePanel("Transparent", CPwidth*Pscale, CPbarsheight*Pscale, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", xoffset, yoffset)
 LBottom:SetFrameLevel(2)
 LBottom:SetAlpha(pAlpha)
 
 --Left Chat Panel
-local LChat = CreateFrame("Frame", "LChat", UIParent)	
+local LChat = CreateFrame("Frame", "LChat", UIParent, "BackdropTemplate")
 if C.panels.NoPanels == true then
 LChat:CreatePanel("Invisible", (CPLwidth*Pscale)-2, (CPTextheight+16)*Pscale, "BOTTOMLEFT", LBottom, "TOPLEFT", 10, yoffset)
 LChat:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b,0)
@@ -61,13 +61,13 @@ LChat:SetFrameLevel(2)
 end
 
 --Left Chat Tab Panel
-local LChatTab = CreateFrame("Frame", "LChatTab", UIParent) 			
+local LChatTab = CreateFrame("Frame", "LChatTab", UIParent, "BackdropTemplate")		
 LChatTab:CreatePanel("Transparent", CPwidth*Pscale, CPbarsheight*Pscale, "BOTTOMLEFT", LChat, "TOPLEFT", 0, yoffset+1)
 LChatTab:SetFrameLevel(2)
 LChatTab:SetAlpha(pAlpha)
 
 -- Left Action Bar Next to chat
-local LABar = CreateFrame("Frame", "LABar", UIParent) 
+local LABar = CreateFrame("Frame", "LABar", UIParent, "BackdropTemplate")
 LABar:CreatePanel("Transparent", CPABarSide*Pscale, Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset+1), "BOTTOMLEFT", LBottom, "BOTTOMRIGHT", xoffset, 0)
 LABar:SetFrameLevel(2)
 LABar:SetAlpha(pAlpha)
@@ -120,6 +120,7 @@ R_Omen:SetAlpha(pAlpha)
 end
 
 --Background Panel For Details if used
+--[[ FIXME
 if IsAddOnLoaded("Details") then 
 local L_Details = CreateFrame("Frame", "L_Details", Details_WindowFrame3)
 L_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-10, LABar:GetHeight(), "BOTTOMLEFT", LABar, "BOTTOMRIGHT", xoffset, 0)
@@ -140,6 +141,7 @@ RegisterStateDriver(L_Details, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(R1_Details, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(R2_Details, "visibility", "[petbattle] hide; show")
 end
+]]-- 
 
 ----------------------------------------------------------------------------------------
 -- OTHER PANELS
@@ -425,13 +427,13 @@ end
 if C.toppanel.enable ~= true then return end
 
 C.toppanel.height = C.toppanel.height + ((C.font.stats_font_size - 8) * 7)
-C.toppanel.width = C.toppanel.width + (C.font.stats_font_size - 8)
+C.toppanel.width = C.toppanel.width + ((C.font.stats_font_size - 8) * 3)
 
-local toppanelanchor = CreateFrame("Frame", "TopPanelAnchor", oUF_PetBattleFrameHider)
+local toppanelanchor = CreateFrame("Frame", "TopPanelAnchor", T_PetBattleFrameHider, "BackdropTemplate")
 toppanelanchor:SetPoint(unpack(C.position.top_panel))
 toppanelanchor:SetSize(C.toppanel.width, C.toppanel.height / 2)
 
-local toppanel = CreateFrame("Frame", "TopPanel", oUF_PetBattleFrameHider)
+local toppanel = CreateFrame("Frame", "TopPanel", T_PetBattleFrameHider, "BackdropTemplate")
 toppanel:SetPoint("CENTER", toppanelanchor, "CENTER", 0, 0)
 toppanel:SetSize(C.toppanel.width, C.toppanel.height / 2)
 if C.toppanel.mouseover == true then

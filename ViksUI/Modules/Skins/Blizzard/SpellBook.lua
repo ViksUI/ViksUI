@@ -39,9 +39,9 @@ local function LoadSkin()
 	SpellBookFrameTutorialButton.Ring:Hide()
 	SpellBookFrameTutorialButton:SetPoint("TOPLEFT", SpellBookFrame, "TOPLEFT", -5, 10)
 
-	SpellLockedTooltip:StripTextures()
-	SpellLockedTooltip:SetTemplate("Transparent")
-	T.SkinCloseButton(SpellLockedTooltip.CloseButton)
+	--FIXME SpellLockedTooltip:StripTextures()
+	-- SpellLockedTooltip:SetTemplate("Transparent")
+	-- T.SkinCloseButton(SpellLockedTooltip.CloseButton)
 
 	-- Skin SpellButtons
 	local function SpellButtons(_, first)
@@ -77,7 +77,7 @@ local function LoadSkin()
 				end
 			end
 
-			local r, g, b = _G["SpellButton"..i.."SpellName"]:GetTextColor()
+			local r = _G["SpellButton"..i.."SpellName"]:GetTextColor()
 
 			if r < 0.8 then
 				_G["SpellButton"..i.."SpellName"]:SetTextColor(0.6, 0.6, 0.6)
@@ -102,8 +102,7 @@ local function LoadSkin()
 			tab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
 			tab:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
-			tab:CreateBackdrop("Default")
-			tab.backdrop:SetAllPoints()
+			tab:SetTemplate("Default")
 			tab:StyleButton(true)
 
 			local point, relatedTo, point2 = tab:GetPoint()
@@ -111,19 +110,17 @@ local function LoadSkin()
 		end
 	end
 
-	local function SkinSkillLine()
+	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs", function()
 		for i = 1, MAX_SKILLLINE_TABS do
 			local tab = _G["SpellBookSkillLineTab"..i]
-			local _, _, _, _, isGuild = GetSpellTabInfo(i)
-			if isGuild then
+			if tab:GetNormalTexture() then
 				tab:GetNormalTexture():ClearAllPoints()
 				tab:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
 				tab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
 				tab:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 			end
 		end
-	end
-	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs", SkinSkillLine)
+	end)
 
 	SpellBookFrame:CreateBackdrop("Transparent")
 	SpellBookFrame.backdrop:SetPoint("TOPLEFT", 5, -1)

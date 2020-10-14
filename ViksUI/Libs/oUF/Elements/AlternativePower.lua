@@ -1,31 +1,3 @@
---[[
-# Element: Alternative Power Bar
-
-Handles the visibility and updating of a status bar that displays encounter- or quest-related power information, such as
-the number of hour glass charges during the Murozond encounter in the dungeon End Time.
-
-## Widget
-
-AlternativePower - A `StatusBar` used to represent the unit's alternative power.
-
-## Notes
-
-If mouse interactivity is enabled for the widget, `OnEnter` and/or `OnLeave` handlers will be set to display a tooltip.
-A default texture will be applied if the widget is a StatusBar and doesn't have a texture set.
-
-## Examples
-
-    -- Position and size
-    local AlternativePower = CreateFrame('StatusBar', nil, self)
-    AlternativePower:SetHeight(20)
-    AlternativePower:SetPoint('BOTTOM')
-    AlternativePower:SetPoint('LEFT')
-    AlternativePower:SetPoint('RIGHT')
-
-    -- Register with oUF
-    self.AlternativePower = AlternativePower
---]]
-
 local _, ns = ...
 local oUF = ns.oUF
 
@@ -33,8 +5,9 @@ local oUF = ns.oUF
 local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 
 local function updateTooltip(self)
-	GameTooltip:SetText(self.powerName, 1, 1, 1)
-	GameTooltip:AddLine(self.powerTooltip, nil, nil, nil, 1)
+	local name, tooltip = GetUnitPowerBarStringsByID(self.__barID)
+	GameTooltip:SetText(name or '', 1, 1, 1)
+	GameTooltip:AddLine(tooltip or '', nil, nil, nil, true)
 	GameTooltip:Show()
 end
 
@@ -63,14 +36,13 @@ local function Update(self, event, unit, powerType)
 		element:PreUpdate()
 	end
 
-	local cur, max
-	local barType, min, _, _, _, _, _, _, _, _, powerName, powerTooltip = UnitAlternatePowerInfo(unit)
-	element.barType = barType
-	element.powerName = powerName
-	element.powerTooltip = powerTooltip
-	if(barType) then
+	local cur, max, min
+	local barInfo = element.__barInfo
+
+	if(barInfo) then
 		cur = UnitPower(unit, ALTERNATE_POWER_INDEX)
 		max = UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
+		min = barInfo.minPower
 		element:SetMinMaxValues(min, max)
 		element:SetValue(cur)
 	end
@@ -80,9 +52,9 @@ local function Update(self, event, unit, powerType)
 
 	* self - the AlternativePower element
 	* unit - the unit for which the update has been triggered (string)
-	* cur  - the current value of the unit's alternative power (number)
-	* min  - the minimum value of the unit's alternative power (number)
-	* max  - the maximum value of the unit's alternative power (number)
+	* cur  - the current value of the unit's alternative power (number?)
+	* min  - the minimum value of the unit's alternative power (number?)
+	* max  - the maximum value of the unit's alternative power (number?)
 	--]]
 	if(element.PostUpdate) then
 		return element:PostUpdate(unit, cur, min, max)
@@ -105,9 +77,14 @@ local function Visibility(self, event, unit)
 	if(unit ~= self.unit) then return end
 	local element = self.AlternativePower
 
-	local barType, _, _, _, _, hideFromOthers, showOnRaid = UnitAlternatePowerInfo(unit)
-	if(barType and (showOnRaid and (UnitInParty(unit) or UnitInRaid(unit)) or not hideFromOthers
-		or UnitIsUnit(unit, 'player') or UnitIsUnit(self.realUnit, 'player'))) then
+	local barID = UnitPowerBarID(unit)
+	local barInfo = GetUnitPowerBarInfoByID(barID)
+	element.__barID = barID
+	element.__barInfo = barInfo
+	if(barInfo and (barInfo.showOnRaid and (UnitInParty(unit) or UnitInRaid(unit))
+		or not barInfo.hideFromOthers or UnitIsUnit(unit, 'player')
+		or UnitIsUnit(self.realUnit, 'player'))
+	) then
 		self:RegisterEvent('UNIT_POWER_UPDATE', Path)
 		self:RegisterEvent('UNIT_MAXPOWER', Path)
 

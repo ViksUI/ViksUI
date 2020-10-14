@@ -3,7 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 8.96",
+		"Update 9.00",
+		"• Updated to Pre Patch Shadowland",
 		"• Limited time, so check the Github log!",
 
 		--"• ",

@@ -23,7 +23,7 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	PP(C.datatext.Quests, Text)
 
 	local function OnEvent(self, event, ...)
-		local numEntries, numQuests = GetNumQuestLogEntries()
+		local numEntries, numQuests = C_QuestLog.GetNumQuestLogEntries()
 		Text:SetText("Q |r: "..qColor.. numQuests.. "/25")
 		self:SetAllPoints(Text)
 		self:SetScript("OnEnter", function()

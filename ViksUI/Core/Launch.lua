@@ -3232,7 +3232,7 @@ OnLogon:SetScript("OnEvent", function(self)
 	if ViksUISettingsPerChar.RightBars == nil then ViksUISettingsPerChar.RightBars = C.actionbar.rightbars end
 	if ViksUISettingsPerChar.BottomBars == nil then ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars end
 
-	if T.getscreenwidth < 1024 and GetCVar("gxMonitor") == "0" then
+	if T.screenWidth < 1024 and GetCVar("gxMonitor") == "0" then
 		SetCVar("useUiScale", 0)
 		StaticPopup_Show("DISABLE_UI")
 	else

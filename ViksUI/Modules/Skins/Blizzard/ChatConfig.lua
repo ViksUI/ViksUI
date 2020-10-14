@@ -7,9 +7,11 @@ if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
 	ChatConfigFrame:StripTextures()
 	ChatConfigFrame:SetTemplate("Transparent")
+
 	ChatConfigFrame.Header:StripTextures()
 	ChatConfigFrame.Header:ClearAllPoints()
 	ChatConfigFrame.Header:SetPoint("TOP", ChatConfigFrame, 0, 7)
+
 	local frames = {
 		"ChatConfigCategoryFrame",
 		"ChatConfigBackgroundFrame",
@@ -31,7 +33,6 @@ local function LoadSkin()
 	for i = 1, getn(frames) do
 		local frame = _G[frames[i]]
 		if frame then
-			frame:StripTextures()
 			frame:SetTemplate("Overlay")
 		end
 	end

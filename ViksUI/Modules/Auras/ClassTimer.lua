@@ -1264,7 +1264,7 @@ do
 		
 		-- constructor
 		CreateAuraBar = function( parent )
-			local result = CreateFrame( "Frame", nil, parent, nil );
+			local result = CreateFrame( "Frame", nil, parent, nil , "BackdropTemplate");
 
 
 
@@ -1310,7 +1310,7 @@ do
 				result.stacks = stacks;
 			end
 			
-			local bar = CreateFrame( "StatusBar", nil, result, nil );
+			local bar = CreateFrame( "StatusBar", nil, result, nil , "BackdropTemplate");
 			bar:SetStatusBarTexture( texture );
 			if ( bit.band( ICON_POSITION, 2 ) == 2 or bit.band( ICON_POSITION, 4 ) == 4 ) then
 				bar:SetPoint( "TOPLEFT", result, "TOPLEFT", 0, 0 );
@@ -1470,7 +1470,7 @@ do
 
 	-- constructor
 	CreateAuraBarFrame = function( dataSource, parent )
-		local result = CreateFrame( "Frame", nil, parent, nil );
+		local result = CreateFrame( "Frame", nil, parent, nil , "BackdropTemplate");
 		local unit = dataSource:GetUnit();
 		
 		result.unit = unit;
@@ -1478,7 +1478,7 @@ do
 		result.lines = { };		
 		result.dataSource = dataSource;
 		
-		local background = result:CreateTexture( nil, "BACKGROUND", nil );
+		local background = result:CreateTexture( nil, "BACKGROUND", nil , "BackdropTemplate");
 		background:SetAlpha( BACKGROUND_ALPHA );
 		background:SetTexture( texture );
 		background:SetPoint( "TOPLEFT", result, "TOPLEFT", 0, 0 );
@@ -1486,13 +1486,10 @@ do
 		background:SetVertexColor( .1,.1,.1,1 );
 		result.background = background;
 		
-		local border = CreateFrame( "Frame", nil, result, nil );
+		local border = CreateFrame( "Frame", nil, result, nil , "BackdropTemplate");
 		border:SetAlpha( BACKGROUND_ALPHA );
 		border:SetFrameStrata( "BACKGROUND" );
-		border:SetBackdrop( {
-			edgeFile = glowTex, edgeSize = 5,
-			insets = { left = 3, right = 3, top = 3, bottom = 3 }
-		} );
+		border:SetTemplate('Default')
 		border:SetBackdropColor( 0, 0, 0, 0 );
 		border:SetBackdropBorderColor( 0, 0, 0 );
 		border:SetPoint( "TOPLEFT", result, "TOPLEFT", -5, 5 );
@@ -1516,7 +1513,7 @@ end
 
 --local _, playerClass = UnitClass( "player" );
 local classFilter = CLASS_FILTERS[ T.class ];
-classtimerload = CreateFrame("Frame")
+classtimerload = CreateFrame("Frame", "BackdropTemplate")
 classtimerload:RegisterEvent("PLAYER_LOGIN")
 classtimerload:SetScript("OnEvent", function(self, event, addon)
 if ( LAYOUT == 4 ) then

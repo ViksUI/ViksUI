@@ -27,6 +27,21 @@ local gsub			= string.gsub
 local sort			= table.sort
 local ceil			= math.ceil
 
+local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+local GetGuildRosterInfo = GetGuildRosterInfo
+local GetGuildRosterMOTD = GetGuildRosterMOTD
+local C_GuildInfo_GuildRoster = C_GuildInfo.GuildRoster
+local GetNumGuildMembers = GetNumGuildMembers
+local GetQuestDifficultyColor = GetQuestDifficultyColor
+local GetRealmName = GetRealmName
+local InCombatLockdown = InCombatLockdown
+local IsInGuild = IsInGuild
+local maxDailyXP = maxDailyXP
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local UnitGetGuildXP = UnitGetGuildXP
+local UnitInParty = UnitInParty
+local UnitInRaid = UnitInRaid
+
 local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
 local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
 local displayString = join("", "Guild", ": ", qColor, "%d|r")
@@ -81,7 +96,7 @@ local function BuildGuildTable()
 	local name, rank, level, zone, note, officernote, connected, status, class
 	local count = 0
 	for i = 1, GetNumGuildMembers() do
-		name, rank, rankIndex, level, _, zone, note, officernote, connected, status, class = GetGuildRosterInfo(i)
+		name, rank, _, level, _, zone, note, officernote, connected, status, class, _, _, isMobile = GetGuildRosterInfo(i)
 		-- we are only interested in online members
 		name = Ambiguate(name, "guild")
 		if status == 1 then
@@ -94,7 +109,7 @@ local function BuildGuildTable()
 		
 		if connected then 
 			count = count + 1
-			guildTable[count] = { name, rank, level, zone, note, officernote, connected, status, class, rankIndex }
+			guildTable[count] = {name, rank, level, zone, note, officernote, connected, status, class, isMobile}
 			name = Ambiguate(name, "guild")
 		end
 	end
@@ -109,12 +124,12 @@ end
 
 local function Update(self, event, ...)	
 	if IsInGuild() then
-	GuildRoster() -- Bux Fix on 5.4.
+		C_GuildInfo_GuildRoster() -- Bux Fix on 5.4.
 		-- special handler to request guild roster updates when guild members come online or go
 		-- offline, since this does not automatically trigger the GuildRoster update from the server
 		if event == "CHAT_MSG_SYSTEM" then
 			local message = select(1, ...)
-			if find(message, friendOnline) or find(message, friendOffline) then GuildRoster() end
+			if find(message, friendOnline) or find(message, friendOffline) then C_GuildInfo_GuildRoster() end
 		end
 		-- our guild xp changed, recalculate it
 		if event == "GUILD_XP_UPDATE" then UpdateGuildXP() return end
@@ -126,7 +141,7 @@ local function Update(self, event, ...)
 			if not GuildFrame and IsInGuild() then LoadAddOn("Blizzard_GuildUI") UpdateGuildMessage() end
 		end
 		-- an event occured that could change the guild roster, so request update, and wait for guild roster update to occur
-		if event ~= "GUILD_ROSTER_UPDATE" and event~="PLAYER_GUILD_UPDATE" then GuildRoster() return end
+		if event ~= "GUILD_ROSTER_UPDATE" and event~="PLAYER_GUILD_UPDATE" then C_GuildInfo_GuildRoster() return end
 
 		totalOnline = select(3, GetNumGuildMembers())
 		
@@ -207,7 +222,7 @@ Stat:SetScript("OnEnter", function(self)
 	if not IsInGuild() then return end
 	
 	local total, online = GetNumGuildMembers()
-	GuildRoster()
+	C_GuildInfo_GuildRoster()
 	BuildGuildTable()
 	
 	

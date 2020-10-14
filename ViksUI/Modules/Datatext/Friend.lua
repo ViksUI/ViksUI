@@ -34,6 +34,7 @@ local groupedTable = { "|cffaaaaaa*|r", "" }
 local friendTable, BNTable = {}, {}
 local dataValid = false
 local totalOnline, BNTotalOnline = 0, 0
+local C_FriendList_GetFriendInfo = C_FriendList.GetFriendInfo
 
 
 	-- create a popup
@@ -149,7 +150,7 @@ local function BuildFriendTable(total)
     local name, level, class, area, connected, status, note
 
     for i = 1, total do
-        name, level, class, area, connected, status, note = GetFriendInfo(i)
+        name, level, class, area, connected, status, note = C_FriendList.GetFriendInfo(i)
 
         for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
             if class == v then
@@ -177,7 +178,7 @@ local function UpdateFriendTable(total)
     local name, level, class, area, connected, status, note
 
     for i = 1, #friendTable do
-        name, level, class, area, connected, status, note = GetFriendInfo(i)
+        name, level, class, area, connected, status, note = C_FriendList.GetFriendInfo(i)
 
         for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
             if class == v then
@@ -296,7 +297,7 @@ local function Update(self, event)
 	end
 	
 	if event == "FRIENDLIST_UPDATE" or "PLAYER_ENTERING_WORLD" then
-		local total = GetNumFriends()
+		local total = C_FriendList.GetNumFriends()
 		if total == #friendTable then
 			UpdateFriendTable(total)
 		else

@@ -40,7 +40,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			"BasicScriptErrors"
 		}
 
-		_G.LFDRoleCheckPopup:StripTextures()
 		QueueStatusFrame:StripTextures()
 		GameMenuFrame:StripTextures()
 		LFDRoleCheckPopup:StripTextures()
@@ -66,10 +65,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 				frame:SetTemplate("Overlay")
 			end
 		end
-		
-		_G.GameMenuFrame.Header:StripTextures()
-		_G.GameMenuFrame.Header:ClearAllPoints()
-		_G.GameMenuFrame.Header:SetPoint("TOP", _G.GameMenuFrame, 0, 7)
 
 		-- Reskin popups
 		for i = 1, 4 do
@@ -127,13 +122,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		_G["PetBattleQueueReadyFrame"]:SetTemplate("Transparent")
 		_G["PetBattleQueueReadyFrame"].AcceptButton:SkinButton()
 		_G["PetBattleQueueReadyFrame"].DeclineButton:SkinButton()
-
-		-- Wardrobe Outfit
-		WardrobeOutfitEditFrame:SetTemplate("Transparent")
-		WardrobeOutfitEditFrame.AcceptButton:SkinButton()
-		WardrobeOutfitEditFrame.CancelButton:SkinButton()
-		WardrobeOutfitEditFrame.DeleteButton:SkinButton()
-		T.SkinEditBox(WardrobeOutfitEditFrame.EditBox, 250, 25)
 
 		-- Reskin Dropdown menu
 		hooksecurefunc("UIDropDownMenu_InitializeHelper", function()
@@ -284,12 +272,14 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		StackSplitFrame.backdrop:SetPoint("BOTTOMRIGHT", -5, 10)
 		StackSplitFrame.OkayButton:SkinButton()
 		StackSplitFrame.CancelButton:SkinButton()
+
 		_G["StaticPopup1CloseButton"]:HookScript("OnShow", function(self)
 			self:StripTextures(true)
 			T.SkinCloseButton(self, nil, "-")
 		end)
 		T.SkinCloseButton(_G["RolePollPopupCloseButton"])
-		T.SkinCloseButton(_G["ItemRefCloseButton"])
+		--FIXME T.SkinCloseButton(_G["ItemRefCloseButton"])
+
 		if C.skins.blizzard_frames == true then
 			-- Social Browser frame
 			SocialBrowserFrame:StripTextures()
@@ -302,18 +292,18 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			SplashFrame.BottomCloseButton:SkinButton()
 			T.SkinCloseButton(SplashFrame.TopCloseButton)
 
-			--NavBar Buttons (Used in WorldMapFrame, EncounterJournal and HelpFrame)
+			-- NavBar Buttons (Used in EncounterJournal and HelpFrame)
 			local function SkinNavBarButtons(self)
+				--if self:GetParent():GetName() == "WorldMapFrame" then return end
 				local navButton = self.navList[#self.navList]
 				if navButton and not navButton.isSkinned then
-					T:HandleButton(navButton, true)
-					navButton:SetHeight(25)
+					navButton:SkinButton(true)
 					if navButton.MenuArrowButton then
-						T:HandleNextPrevButton(navButton.MenuArrowButton, true)
-						navButton.MenuArrowButton:SetHeight(20)
-						navButton.MenuArrowButton:SetPoint("RIGHT", navButton, "RIGHT", -2, 0)
+						navButton.MenuArrowButton:SetNormalTexture(nil)
+						navButton.MenuArrowButton:SetPushedTexture(nil)
+						navButton.MenuArrowButton:SetHighlightTexture(nil)
 					end
-					navButton.xoffset = 2
+					navButton.xoffset = 1
 					navButton.isSkinned = true
 				end
 			end
@@ -328,16 +318,16 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			hooksecurefunc("NavBar_Initialize", SetHomeButtonOffsetX)
 
 			if T.client == "ruRU" then
-				_G["DeclensionFrame"]:SetTemplate("Transparent")
-				_G["DeclensionFrameCancelButton"]:SkinButton()
-				_G["DeclensionFrameOkayButton"]:SkinButton()
-				T.SkinNextPrevButton(_G["DeclensionFrameSetNext"])
-				T.SkinNextPrevButton(_G["DeclensionFrameSetPrev"])
-				for i = 1, 5 do
-					_G["DeclensionFrameDeclension"..i.."Edit"]:StripTextures(true)
-					_G["DeclensionFrameDeclension"..i.."Edit"]:SetTemplate("Overlay")
-					_G["DeclensionFrameDeclension"..i.."Edit"]:SetTextInsets(3, 0, 0, 0)
-				end
+				--FIXME _G["DeclensionFrame"]:SetTemplate("Transparent")
+				-- _G["DeclensionFrameCancelButton"]:SkinButton()
+				-- _G["DeclensionFrameOkayButton"]:SkinButton()
+				-- T.SkinNextPrevButton(_G["DeclensionFrameSetNext"])
+				-- T.SkinNextPrevButton(_G["DeclensionFrameSetPrev"])
+				-- for i = 1, 5 do
+					-- _G["DeclensionFrameDeclension"..i.."Edit"]:StripTextures(true)
+					-- _G["DeclensionFrameDeclension"..i.."Edit"]:SetTemplate("Overlay")
+					-- _G["DeclensionFrameDeclension"..i.."Edit"]:SetTextInsets(3, 0, 0, 0)
+				-- end
 			end
 			if C.skins.clique ~= true and IsAddOnLoaded("Clique") then
 				CliqueSpellTab:GetRegions():SetSize(0.1, 0.1)

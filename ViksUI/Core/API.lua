@@ -24,7 +24,7 @@ local shadows2 = {
 	}
 function CreateShadow(f)
 	if f.shadow then return end
-	local shadow = CreateFrame("Frame", nil, f)
+	local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetPoint("TOPLEFT", -4, 4)
@@ -131,7 +131,7 @@ end
 local function CreateBorder(f, i, o)
 	if i then
 		if f.iborder then return end
-		local border = CreateFrame("Frame", "$parentInnerBorder", f)
+		local border = CreateFrame("Frame", "$parentInnerBorder", f, "BackdropTemplate")
 		border:SetPoint("TOPLEFT", T.mult, -T.mult)
 		border:SetPoint("BOTTOMRIGHT", -T.mult, T.mult)
 		border:SetBackdrop({
@@ -144,7 +144,7 @@ local function CreateBorder(f, i, o)
 
 	if o then
 		if f.oborder then return end
-		local border = CreateFrame("Frame", "$parentOuterBorder", f)
+		local border = CreateFrame("Frame", "$parentOuterBorder", f, "BackdropTemplate")
 		border:SetPoint("TOPLEFT", -T.mult, T.mult)
 		border:SetPoint("BOTTOMRIGHT", T.mult, -T.mult)
 		border:SetFrameLevel(f:GetFrameLevel() + 1)
@@ -168,13 +168,11 @@ local function GetTemplate(t)
 	end
 end
 
-local function SetTemplate(f, t, tex)
+local function SetTemplate(f, t)
+	Mixin(f, BackdropTemplateMixin) -- 9.0 to set backdrop
 	GetTemplate(t)
 
-	if tex then
-		texture = C.media.texture
-	end
-	
+
 	f:SetBackdrop({
 		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
 		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
@@ -195,6 +193,7 @@ local function SetTemplate(f, t, tex)
 end
 
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
+	Mixin(f, BackdropTemplateMixin) -- 9.0 to set backdrop
 	GetTemplate(t)
 
 	f:SetWidth(w)
@@ -224,14 +223,14 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-local function CreateBackdrop(f, t, tex)
-	if f.Backdrop then return end
+local function CreateBackdrop(f, t)
+	if f.backdrop then return end
 	if not t then t = "Default" end
 
 	local b = CreateFrame("Frame", "$parentBackdrop", f)
 	b:SetPoint("TOPLEFT", -2, 2)
 	b:SetPoint("BOTTOMRIGHT", 2, -2)
-	b:SetTemplate(t, tex)
+	b:SetTemplate(t)
 
 	if f:GetFrameLevel() - 1 >= 0 then
 		b:SetFrameLevel(f:GetFrameLevel() - 1)

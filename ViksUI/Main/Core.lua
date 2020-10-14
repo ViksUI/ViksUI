@@ -124,7 +124,7 @@ local shadows = {
 }
 function CreateShadow(f)
 	if f.shadow then return end
-	local shadow = CreateFrame("Frame", nil, f)
+	local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetPoint("TOPLEFT", -4, 4)

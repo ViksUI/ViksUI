@@ -10,6 +10,7 @@ local function LoadSkin()
 		"unbindButton",
 		"okayButton",
 		"cancelButton",
+		"quickKeybindButton",
 	}
 
 	for _, v in pairs(buttons) do

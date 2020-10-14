@@ -26,7 +26,7 @@ local shadows2 = {
 	}
 function CreateShadow(f)
 	if f.shadow then return end
-	local shadow = CreateFrame("Frame", nil, f)
+	local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetPoint("TOPLEFT", -4, 4)
@@ -40,7 +40,7 @@ end
 
 function CreateShadow_1(f)
 	if f.shadow then return end
-	local shadow = CreateFrame("Frame", nil, f)
+	local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetPoint("TOPLEFT", -4, 4)
@@ -62,7 +62,7 @@ function framefix1px(f)
 end
 function CreateShadowClassbar3(f) --
 	if f.shadow then return end
-	local shadow = CreateFrame("Frame", nil, f)
+	local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetPoint("TOPLEFT", -2, 2)
@@ -115,8 +115,8 @@ end
 -- Creating Icon for the CastBar
 function frame(f)
     if f.frame==nil then
-      local frame = CreateFrame("Frame", nil, f)
-      frame = CreateFrame("Frame", nil, f)
+      local frame = CreateFrame("Frame", nil, f, "BackdropTemplate")
+      frame = CreateFrame("Frame", nil, f, "BackdropTemplate")
       frame:SetFrameLevel(12)
       frame:SetFrameStrata(f:GetFrameStrata())
       frame:SetPoint("TOPLEFT", 4, -4)
@@ -136,8 +136,8 @@ function frame(f)
 end 
 function CreateShadow1_1(f)
     if f.frameBD==nil then
-      local frameBD = CreateFrame("Frame", nil, f)
-      frameBD = CreateFrame("Frame", nil, f)
+      local frameBD = CreateFrame("Frame", nil, f, "BackdropTemplate")
+      frameBD = CreateFrame("Frame", nil, f, "BackdropTemplate")
       frameBD:SetFrameLevel(1)
       frameBD:SetFrameStrata(f:GetFrameStrata())
       frameBD:SetPoint("TOPLEFT", -0, 0)
@@ -380,7 +380,7 @@ end
 
 --Setting up the health bar
 lib.gen_hpbar = function(f)
-    local s = CreateFrame("StatusBar", nil, f)
+    local s = CreateFrame("StatusBar", nil, f, "BackdropTemplate")
     s:SetStatusBarTexture(cfg.statusbar_texture)
 	s:GetStatusBarTexture():SetHorizTile(true)
 	s.Smooth = true
@@ -401,7 +401,7 @@ lib.gen_hpbar = function(f)
 	end
     s:SetWidth(f:GetWidth())
     s:SetPoint("TOP",0,0)
-    local h = CreateFrame("Frame", nil, s)
+    local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
     h:SetPoint("TOPLEFT",-5,5)
 
 	if f.mystyle == "target" or f.mystyle == "player" or f.mystyle == "focus" or f.mystyle == "oUF_Arena" then
@@ -523,7 +523,7 @@ end
 
 --Setting up the Power Bar. TODO: Clean up the SetHight and SetWidth, by fixing RetVal
 lib.gen_ppbar = function(f)
-    local s = CreateFrame("StatusBar", nil, f)
+    local s = CreateFrame("StatusBar", nil, f, "BackdropTemplate")
     s:SetStatusBarTexture(cfg.powerbar_texture)
 	s:GetStatusBarTexture():SetHorizTile(true)
 	fixStatusbar(s)
@@ -531,7 +531,7 @@ lib.gen_ppbar = function(f)
 	s:SetFrameLevel(1)
     s:SetPoint("BOTTOM",UIParent,"BOTTOM",0,1)
 	if f.mystyle == "player" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",-7,22)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Player.h-25)
@@ -542,7 +542,7 @@ lib.gen_ppbar = function(f)
 
 	end
 	if f.mystyle == "target" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",7,22)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Target.h-25)
@@ -553,7 +553,7 @@ lib.gen_ppbar = function(f)
 
 	end
 	if f.mystyle == "oUF_Arena" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",7,22)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Arena.h-25)
@@ -564,14 +564,14 @@ lib.gen_ppbar = function(f)
 
 	end
 	if f.mystyle == "focus" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",4,2)
 		h:SetFrameLevel(0)
 		s:SetSize(cfg.unit_size.Focus.w, cfg.unit_size.Focus.h-3)
 		frame1px2_2(h)
 	end
 	if f.mystyle == "raid" then	
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetWidth(f:GetWidth())
 		s:SetHeight(5)
 		s:SetPoint("BOTTOM",f,"BOTTOM",0,5)
@@ -582,7 +582,7 @@ lib.gen_ppbar = function(f)
 		frame1px2_2(h)
 	end
 	if f.mystyle == "raid25" then	
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetWidth(4)
 		s:SetHeight(25)
 		s:SetPoint("BOTTOMLEFT",f,"BOTTOMLEFT",-4,5)
@@ -591,7 +591,7 @@ lib.gen_ppbar = function(f)
 		--frame1px2_2(h)
 	end
 	if f.mystyle == "party" then --// Not in use yet. TODO: Fix this and not use RaidStyle as Partyframes	
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		--s:SetPoint("TOPLEFT", f, "BOTTOMLEFT", 0, -10)
 		--s:SetPoint("TOPRIGHT", f, "BOTTOMRIGHT", 0, -10)
 		s:SetWidth(f:GetWidth())
@@ -604,7 +604,7 @@ lib.gen_ppbar = function(f)
 		frame1px2_2(h)
 	end	
 	if f.mystyle == "tank" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",15,3)
 		s:SetWidth(25)
 		h:SetFrameLevel(10)
@@ -615,7 +615,7 @@ lib.gen_ppbar = function(f)
 
 	end
 	if f.mystyle == "boss" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",0,-6)
 		h:SetFrameLevel(10)
 		h:SetFrameStrata("LOW")
@@ -633,7 +633,7 @@ end
 
 -- Creating the text bar
 lib.gen_textbar = function(f)
-    local s = CreateFrame("StatusBar", nil, f)
+    local s = CreateFrame("StatusBar", nil, f, "BackdropTemplate")
     s:SetStatusBarTexture(cfg.Textbar_texture)
 	s:GetStatusBarTexture():SetHorizTile(true)
 	s:SetStatusBarColor(.106,.106,.106,1) -------------------------------------------
@@ -643,7 +643,7 @@ lib.gen_textbar = function(f)
 	s:SetFrameStrata("background")
     s:SetPoint("BOTTOM",UIParent,"BOTTOM",0,1)
 	if f.mystyle == "player" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",6,6)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Player.h-23)
@@ -652,7 +652,7 @@ lib.gen_textbar = function(f)
 		frame1px2_2(h)
 	end
 	if f.mystyle == "target" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",-6,6)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Target.h-23)
@@ -661,7 +661,7 @@ lib.gen_textbar = function(f)
 		frame1px2_2(h)
 	end
 	if f.mystyle == "oUF_Arena" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",-6,6)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Arena.h-23)
@@ -670,7 +670,7 @@ lib.gen_textbar = function(f)
 		frame1px2_2(h)
 	end
 	if f.mystyle == "focus" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",-4,-6)
 		h:SetFrameLevel(0)
 		s:SetHeight(cfg.unit_size.Focus.h-3)
@@ -684,7 +684,7 @@ lib.gen_textbar = function(f)
 	end	
 	end
 	if f.mystyle == "tank" then
-		local h = CreateFrame("Frame", nil, s)
+		local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 		s:SetPoint("BOTTOM",f,"BOTTOM",15,3)
 		s:SetWidth(25)
 		h:SetFrameLevel(10)
@@ -770,7 +770,7 @@ end
 
 lib.gen_portrait = function(f)
 	if cfg.portraitHPbar then
-    local portrait = CreateFrame("PlayerModel", nil, f)
+    local portrait = CreateFrame("PlayerModel", nil, f, "BackdropTemplate")
 	portrait.PostUpdate = function(f)
 	portrait:SetPortraitZoom(0.85)
 	portrait:SetPosition(0,0,-0.05)
@@ -783,7 +783,7 @@ lib.gen_portrait = function(f)
 	f.Portrait = portrait
 	end
 	if cfg.showPortrait then
-	local p = CreateFrame("PlayerModel", nil, f)
+	local p = CreateFrame("PlayerModel", nil, f, "BackdropTemplate")
     p:SetFrameStrata("BACKGROUND")
 	p:SetFrameLevel(3)
     p:SetWidth(cfg.unit_size.Portrait.w)
@@ -795,7 +795,7 @@ lib.gen_portrait = function(f)
 	p:SetPoint("RIGHT", f, "LEFT", -11, 4.5)
 	end
     f.Portrait = p
-	local h = CreateFrame("Frame", nil, p)
+	local h = CreateFrame("Frame", nil, p, "BackdropTemplate")
 	h:SetFrameLevel(2)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -805,7 +805,7 @@ end
 
   --gen combat and LFD icons
 lib.gen_InfoIcons = function(f)
-    local h = CreateFrame("Frame",nil,f)
+    local h = CreateFrame("Frame",nil,f, "BackdropTemplate")
     h:SetAllPoints(f)
     h:SetFrameLevel(10)
 	if f.mystyle == 'player' then
@@ -863,7 +863,7 @@ lib.addQuestIcon = function(self)
 end
 
 lib.gen_RaidMark = function(f)
-	local h = CreateFrame("Frame", nil, f)
+	local h = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	h:SetAllPoints(f)
 	h:SetFrameLevel(10)
 	h:SetAlpha(0.8)
@@ -899,7 +899,7 @@ end
 -- Target Border
 function lib.CreateTargetBorder(self)
 	local glowBorder = {edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", edgeSize = 1}
-	self.TargetBorder = CreateFrame("Frame", nil, self)
+	self.TargetBorder = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	if self.mystyle == "raid25" then
 	self.TargetBorder:SetPoint("TOPLEFT", self, "TOPLEFT", -6, 2)
 	self.TargetBorder:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, 3)
@@ -925,7 +925,7 @@ end
 -- Create Raid Threat Status Border
 function lib.CreateThreatBorder(self)
 	local glowBorder = {edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", edgeSize = 2}
-	self.Thtborder = CreateFrame("Frame", nil, self)
+	self.Thtborder = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	if self.mystyle == "raid25" then
 	self.Thtborder:SetPoint("TOPLEFT", self, "TOPLEFT", -6, 2)
 	self.Thtborder:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, 3)
@@ -957,7 +957,7 @@ end
 lib.gen_castbar = function(f)
 	if not cfg.Castbars then return end
 	local cbColor = {95/255, 182/255, 255/255}
-	local s = CreateFrame("StatusBar", "oUF_Castbar"..f.mystyle, f)
+	local s = CreateFrame("StatusBar", "oUF_Castbar"..f.mystyle, f, "BackdropTemplate")
 	s:SetHeight(cfg.unit_size.CastbarFocus.h)
 	s:SetWidth(f:GetWidth()-22)
 	if f.mystyle == "focus" then
@@ -1014,7 +1014,7 @@ lib.gen_castbar = function(f)
 	s.FailColor = {255/255, 12/255, 0/255}
 	s.ChannelingColor = cbColor
 	--Helper
-	local h = CreateFrame("Frame", nil, s)
+	local h = CreateFrame("Frame", nil, s, "BackdropTemplate")
 	h:SetFrameLevel(0)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -1042,7 +1042,7 @@ lib.gen_castbar = function(f)
 	i:SetPoint("RIGHT", s, "LEFT", -8, 0)
 	i:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	--Helper 2 For Icon
-	local h2 = CreateFrame("Frame", nil, s)
+	local h2 = CreateFrame("Frame", nil, s, "BackdropTemplate")
 	h2:SetFrameLevel(0)
 	h2:SetPoint("TOPLEFT",i,"TOPLEFT", 1, -1)
 	h2:SetPoint("BOTTOMRIGHT",i,"BOTTOMRIGHT", -1, 1)
@@ -1104,7 +1104,7 @@ lib.gen_mirrorcb = function(f)
 	  _G[bar..'Text']:SetPoint('CENTER', MirrorTimer1StatusBar, 0, 1)
 	  _G[bar..'StatusBar']:SetAllPoints(_G[bar])
 	  --glowing borders
-	  local h = CreateFrame("Frame", nil, _G[bar])
+	  local h = CreateFrame("Frame", nil, _G[bar], "BackdropTemplate")
 	  h:SetFrameLevel(0)
 	  h:SetPoint("TOPLEFT",-5,5)
 	  h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -1132,7 +1132,7 @@ local myPostCreateIcon = function(self, button)
 	button.count:ClearAllPoints()
 	button.count:SetPoint("BOTTOMRIGHT", button, 7, -5)
 	button.count:SetVertexColor(1,1,1)	
-	local h = CreateFrame("Frame", nil, button)
+	local h = CreateFrame("Frame", nil, button, "BackdropTemplate")
 	h:SetFrameLevel(0)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -1211,7 +1211,7 @@ local postCreateIcon = function(element, button)
 	button.cd.noOCC = true
 	button.cd.noCooldownCount = true
 	
-	local h = CreateFrame("Frame", nil, button)
+	local h = CreateFrame("Frame", nil, button, "BackdropTemplate")
 	h:SetFrameLevel(0)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -1286,7 +1286,7 @@ end
 
  --Create Auras
 lib.createAuras = function(f)
-Auras = CreateFrame("Frame", nil, f)
+Auras = CreateFrame("Frame", nil, f, "BackdropTemplate")
 Auras.size = 18		
 Auras:SetHeight(41)
 Auras:SetWidth(f:GetWidth())
@@ -1339,7 +1339,7 @@ end
 
 -- Generates the Buffs
 lib.createBuffs = function(f)
-	b = CreateFrame("Frame", nil, f)
+	b = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	b.size = 20
 	b.num = 40
 	b.spacing = 8
@@ -1386,7 +1386,7 @@ end
 
 -- Generates the Debuffs
 lib.createDebuffs = function(f)
-	b = CreateFrame("Frame", nil, f)
+	b = CreateFrame("Frame", nil, f, "BackdropTemplate")
 	b.size = 20
 	b.num = 12
 	b.onlyShowPlayer = cfg.debuffsOnlyShowPlayer
@@ -1441,7 +1441,7 @@ lib.createDebuffs = function(f)
 end
 
 lib.gen_WeaponEnchant = function(self)
-	self.Enchant = CreateFrame("Frame", nil, self)
+	self.Enchant = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	self.Enchant:SetSize(52, 24)
 	self.Enchant:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -25, -200)
 	self.Enchant.size = 26
@@ -1492,7 +1492,7 @@ end
 --WARLOCK
 lib.genShards = function(self)
     if playerClass ~= "WARLOCK" then return end
-    local ShardsFrame = CreateFrame("Frame", self:GetName().."SoulShards", self)
+    local ShardsFrame = CreateFrame("Frame", self:GetName().."SoulShards", self, "BackdropTemplate")
 	ShardsFrame:CreateBackdrop("Default")
     ShardsFrame:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1,7)
     ShardsFrame:SetHeight(7)
@@ -1501,11 +1501,11 @@ lib.genShards = function(self)
 
     local totalShards = 5 
         for i= 1, totalShards do
-            local Shards = CreateFrame("StatusBar", self:GetName().."SoulShards"..i, ShardsFrame)
+            local Shards = CreateFrame("StatusBar", self:GetName().."SoulShards"..i, ShardsFrame, "BackdropTemplate")
             Shards:SetSize(((ShardsFrame:GetWidth())/totalShards)-0.5, 7)
             Shards:SetStatusBarTexture(cfg.statusbar_texture)
             Shards:SetFrameLevel(4)
-            local h = CreateFrame("Frame", nil, Shards)
+            local h = CreateFrame("Frame", nil, Shards, "BackdropTemplate", "BackdropTemplate")
             h:SetFrameLevel(1)
             h:SetPoint("TOPLEFT",-5,5)
             h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -1527,14 +1527,14 @@ lib.addArcaneCharges = function(self)
 	if T.class == "MAGE" then
 		-- Arcane Charge bar
 		if C.unitframe_class_bar.arcane == true then
-			self.ArcaneCharge = CreateFrame("Frame", self:GetName().."ArcaneCharge", self)
+			self.ArcaneCharge = CreateFrame("Frame", self:GetName().."ArcaneCharge", self, "BackdropTemplate", "BackdropTemplate")
 			self.ArcaneCharge:CreateBackdrop("Default")
 			self.ArcaneCharge:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1,7)
 			self.ArcaneCharge:SetHeight(7)
 			self.ArcaneCharge:SetWidth(self.Health:GetWidth()-2)
 
 			for i = 1, 4 do
-				self.ArcaneCharge[i] = CreateFrame("StatusBar", self:GetName().."ArcaneCharge"..i, self.ArcaneCharge)
+				self.ArcaneCharge[i] = CreateFrame("StatusBar", self:GetName().."ArcaneCharge"..i, self.ArcaneCharge, "BackdropTemplate")
 				self.ArcaneCharge[i]:SetSize(((self.Health:GetWidth()-2)/4)-0.5, 7)
 				if i == 1 then
 					self.ArcaneCharge[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 7)
@@ -1556,13 +1556,13 @@ end
 -- Paladins, HolyPowerbar
 lib.genHolyPower = function(self)
 	if playerClass ~= "PALADIN" then return end
-			self.HolyPower = CreateFrame("Frame", self:GetName().."_HolyPowerBar", self)
+			self.HolyPower = CreateFrame("Frame", self:GetName().."_HolyPowerBar", self, "BackdropTemplate")
 			self.HolyPower:CreateBackdrop("Default")
 			self.HolyPower:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 			self.HolyPower:SetSize(self:GetWidth()-2, 7)
 
 			for i = 1, 5 do
-				self.HolyPower[i] = CreateFrame("StatusBar", self:GetName().."HolyPowerBar"..i, self.HolyPower)
+				self.HolyPower[i] = CreateFrame("StatusBar", self:GetName().."HolyPowerBar"..i, self.HolyPower, "BackdropTemplate")
 				self.HolyPower[i]:SetSize((self:GetWidth()-6) / 5, 7)
 				if i == 1 then
 					self.HolyPower[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
@@ -1585,12 +1585,12 @@ end
 -- Deathknight, runebar
 lib.genRunes = function(self)
 	if playerClass ~= "DEATHKNIGHT" then return end
-	local runes = CreateFrame("Frame", nil, self)
+	local runes = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	runes:SetPoint("BOTTOMLEFT", self, "TOPLEFT",1,7)
 	runes:SetWidth(cfg.unit_size.Player.w - 2)
 	runes:SetHeight(6)
 	for i = 1, 6 do
-		runes[i] = CreateFrame("StatusBar", self:GetName().."Runes"..i, runes)
+		runes[i] = CreateFrame("StatusBar", self:GetName().."Runes"..i, runes, "BackdropTemplate")
 		runes[i]:SetHeight(runes:GetHeight())
 		runes[i]:SetWidth((runes:GetWidth() - 5) / 6)
 		if (i == 1) then
@@ -1603,7 +1603,7 @@ lib.genRunes = function(self)
 		runes[i]:GetStatusBarTexture():SetHorizTile(false)
 	end
 				
-	runes.backdrop = CreateFrame("Frame", nil, runes)
+	runes.backdrop = CreateFrame("Frame", nil, runes, "BackdropTemplate")
 	frame11px_1(runes.backdrop)
 	runes.backdrop:SetBackdropBorderColor(unpack(cfg.bordercolor))
 	runes.backdrop:SetPoint("TOPLEFT", -2, 2)
@@ -1616,7 +1616,7 @@ end
 -- Combo Points
 lib.genCPoints = function(self)
 	if C.unitframe_class_bar.combo == true and (T.class == "ROGUE" or T.class == "DRUID") then
-		self.CPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self)
+		self.CPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self, "BackdropTemplate")
 		self.CPoints:CreateBackdrop("Default")
 		self.CPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 		self.CPoints:SetBackdropBorderColor(unpack(cfg.bordercolor))
@@ -1624,7 +1624,7 @@ lib.genCPoints = function(self)
 		self.CPoints:SetWidth(self:GetWidth()-2)
 
 		for i = 1, 6 do
-			self.CPoints[i] = CreateFrame("StatusBar", self:GetName().."_ComboBar", self.CPoints)
+			self.CPoints[i] = CreateFrame("StatusBar", self:GetName().."_ComboBar", self.CPoints, "BackdropTemplate")
 			self.CPoints[i]:SetSize(213 / 10, 7)
 			if i == 1 then
 				self.CPoints[i]:SetPoint("LEFT", self.CPoints)
@@ -1646,13 +1646,13 @@ end
 lib.genHarmony = function(self)
 	if playerClass ~= "MONK" then return end
 	-- Chi bar
-	self.HarmonyBar = CreateFrame("Frame", self:GetName().."_HarmonyBar", self)
+	self.HarmonyBar = CreateFrame("Frame", self:GetName().."_HarmonyBar", self, "BackdropTemplate")
 	self.HarmonyBar:CreateBackdrop("Default")
 	self.HarmonyBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 	self.HarmonyBar:SetSize((self:GetWidth()-2), 7)
 
 	for i = 1, 6 do
-		self.HarmonyBar[i] = CreateFrame("StatusBar", self:GetName().."_HarmonyBar", self.HarmonyBar)
+		self.HarmonyBar[i] = CreateFrame("StatusBar", self:GetName().."_HarmonyBar", self.HarmonyBar, "BackdropTemplate")
 		self.HarmonyBar[i]:SetSize((self.HarmonyBar:GetWidth()-4) / 6, 7)
 		if i == 1 then
 			self.HarmonyBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
@@ -1669,14 +1669,14 @@ lib.genHarmony = function(self)
 	end
 	-- Statue bar
 	if C.unitframe_class_bar.totem == true then
-		self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", self)
+		self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", self, "BackdropTemplate")
 		self.TotemBar:SetFrameLevel(self.Health:GetFrameLevel() + 2)
 		self.TotemBar:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
 		self.TotemBar:SetSize(53, 7)
 		self.TotemBar.Destroy = true
 
 		for i = 1, 1 do
-			self.TotemBar[i] = CreateFrame("StatusBar", self:GetName().."_TotemBar", self.TotemBar)
+			self.TotemBar[i] = CreateFrame("StatusBar", self:GetName().."_TotemBar", self.TotemBar, "BackdropTemplate")
 			self.TotemBar[i]:SetSize(53, 7)
 			self.TotemBar[i]:SetPoint("BOTTOM", self.Health, "BOTTOM", 0, 1)
 			self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
@@ -1692,7 +1692,7 @@ lib.genHarmony = function(self)
 
 	-- Stagger bar
 	if C.unitframe_class_bar.stagger == true then
-		self.Stagger = CreateFrame("StatusBar", self:GetName().."_Stagger", self)
+		self.Stagger = CreateFrame("StatusBar", self:GetName().."_Stagger", self, "BackdropTemplate")
 		self.Stagger:CreateBackdrop("Default")
 		self.Stagger:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 		self.Stagger:SetSize((self:GetWidth()-2), 7)
@@ -1705,7 +1705,7 @@ lib.genHarmony = function(self)
 end
 
 lib.AltPowerBar = function(self)
-	self.AlternativePower = CreateFrame("StatusBar", nil, self.Health)
+	self.AlternativePower = CreateFrame("StatusBar", nil, self.Health, "BackdropTemplate")
 	self.AlternativePower:SetFrameLevel(self.Health:GetFrameLevel() + 1)
 	self.AlternativePower:SetHeight(4)
 	self.AlternativePower:SetStatusBarTexture(C.media.texture)
@@ -1730,14 +1730,14 @@ end
 lib.TotemBars = function(self)
 -- Totem bar
 if C.unitframe_class_bar.totem == true and T.class == "SHAMAN" then
-	self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", self)
+	self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", self, "BackdropTemplate")
 	self.TotemBar:CreateBackdrop("Default")
 	self.TotemBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 7)
 	self.TotemBar:SetSize((self.Health:GetWidth()-2), 7)
 	self.TotemBar.Destroy = true
 	self.TotemBar.colors = {{233/255, 46/255, 16/255};{173/255, 217/255, 25/255};{35/255, 127/255, 255/255};{178/255, 53/255, 240/255};}
 	for i = 1, 4 do
-		self.TotemBar[i] = CreateFrame("StatusBar", self:GetName().."_TotemBar", self.TotemBar)
+		self.TotemBar[i] = CreateFrame("StatusBar", self:GetName().."_TotemBar", self.TotemBar, "BackdropTemplate")
 		self.TotemBar[i]:SetSize((self.Health:GetWidth() - 5) / 4, 7)
 
 		local fixpos
@@ -1763,7 +1763,7 @@ end
 
 lib.Experience = function(self)
 	if cfg.Experiencebar then 
-	local Experience = CreateFrame('StatusBar', nil, self)
+	local Experience = CreateFrame('StatusBar', nil, self, "BackdropTemplate")
 	Experience:SetStatusBarTexture(cfg.statusbar_texture)
 	Experience:SetStatusBarColor(0, 0.7, 1)
 	if cfg.Reputationbar and T.level ~= MAX_PLAYER_LEVEL then 
@@ -1780,14 +1780,14 @@ lib.Experience = function(self)
 	Experience.inAlpha = 1
 	Experience.outAlpha = 0.75
 	
-	local h = CreateFrame("Frame", nil, Experience)
+	local h = CreateFrame("Frame", nil, Experience, "BackdropTemplate", "BackdropTemplate")
 	h:SetFrameLevel(1)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
 	frame1px2_2(h)
 	CreateShadow(h)
 				
-	local Rested = CreateFrame('StatusBar', nil, Experience)
+	local Rested = CreateFrame('StatusBar', nil, Experience, "BackdropTemplate")
 	Rested:SetStatusBarTexture(cfg.statusbar_texture)
 	Rested:SetStatusBarColor(0, 0.4, 1, 0.4)
 	Rested:SetFrameLevel(2)
@@ -1802,7 +1802,7 @@ end
 
 lib.Reputation = function(self)
 	if cfg.Reputationbar then 
-	local Reputation = CreateFrame('StatusBar', nil, self)
+	local Reputation = CreateFrame('StatusBar', nil, self, "BackdropTemplate")
 	Reputation:SetStatusBarTexture(cfg.statusbar_texture)
 	Reputation:SetWidth(3)
 	Reputation:SetHeight(31)
@@ -1814,7 +1814,7 @@ lib.Reputation = function(self)
 	Reputation:SetFrameLevel(2)
 	Reputation:SetOrientation("VERTICAL")
 	
-	local h = CreateFrame("Frame", nil, Reputation)
+	local h = CreateFrame("Frame", nil, Reputation, "BackdropTemplate", "BackdropTemplate")
 	h:SetFrameLevel(1)
 	h:SetPoint("TOPLEFT",-5,5)
 	h:SetPoint("BOTTOMRIGHT",5,-5)
@@ -1862,7 +1862,7 @@ lib.raidDebuffs = function(self)
 		T.CreateAuraWatch(self, unit)
 
 		-- Raid debuffs
-		self.RaidDebuffs = CreateFrame("Frame", nil, self)
+		self.RaidDebuffs = CreateFrame("Frame", nil, self, "BackdropTemplate")
 		self.RaidDebuffs:SetHeight(19)
 		self.RaidDebuffs:SetWidth(19)
 		self.RaidDebuffs:SetPoint("TOP", self, -10, 1)
@@ -1886,13 +1886,13 @@ lib.raidDebuffs = function(self)
 		self.RaidDebuffs.count:SetTextColor(1, 1, 1)
 
 		if C.aura.show_spiral == true then
-			self.RaidDebuffs.cd = CreateFrame("Cooldown", nil, self.RaidDebuffs, "CooldownFrameTemplate")
+			self.RaidDebuffs.cd = CreateFrame("Cooldown", nil, self.RaidDebuffs, "CooldownFrameTemplate", "BackdropTemplate")
 			self.RaidDebuffs.cd:SetPoint("TOPLEFT", 2, -2)
 			self.RaidDebuffs.cd:SetPoint("BOTTOMRIGHT", -2, 2)
 			self.RaidDebuffs.cd:SetReverse(true)
 			self.RaidDebuffs.cd:SetDrawEdge(false)
 			self.RaidDebuffs.cd.noCooldownCount = true
-			self.RaidDebuffs.parent = CreateFrame("Frame", nil, self.RaidDebuffs)
+			self.RaidDebuffs.parent = CreateFrame("Frame", nil, self.RaidDebuffs, "BackdropTemplate")
 			self.RaidDebuffs.parent:SetFrameLevel(self.RaidDebuffs.cd:GetFrameLevel() + 1)
 			if C.unitframe.plugins_aura_watch_timer == true then
 				self.RaidDebuffs.time:SetParent(self.RaidDebuffs.parent)
@@ -1925,7 +1925,7 @@ local AWPostCreateIcon = function(AWatch, icon, spellID, name, self)
 	local count = lib.gen_fontstring(icon, cfg.pixelfont, 10, "OUTLINE")
 	count:SetPoint("CENTER", icon, "BOTTOM", 3, 3)
 	icon.count = count		
-	local h = CreateFrame("Frame", nil, icon)
+	local h = CreateFrame("Frame", nil, icon, "BackdropTemplate")
 	h:SetFrameLevel(4)
 	h:SetPoint("TOPLEFT",-3,3)
 	h:SetPoint("BOTTOMRIGHT",3,-3)
@@ -1956,7 +1956,7 @@ end
 
 -- Swing bar
 lib.Swing_bar = function(self, unit)
-	self.Swing = CreateFrame("StatusBar", self:GetName().."_Swing", self)
+	self.Swing = CreateFrame("StatusBar", self:GetName().."_Swing", self, "BackdropTemplate")
 	self.Swing:CreateBackdrop("Default")
 	self.Swing:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -2, 7)
 	self.Swing:SetSize(cfg.unit_size.Player.w-4, 5)
@@ -1984,7 +1984,7 @@ end
 -- GCD spark
 lib.Gcd_bar = function(self, unit)
 --if C.unitframe.plugins_gcd == true then
-	self.GCD = CreateFrame("Frame", self:GetName().."_GCD", self)
+	self.GCD = CreateFrame("Frame", self:GetName().."_GCD", self, "BackdropTemplate")
 	self.GCD:SetWidth(cfg.unit_size.Player.w)
 	self.GCD:SetHeight(3)
 	self.GCD:SetFrameStrata("HIGH")
@@ -2030,19 +2030,19 @@ end
 -- oUF_HealPred
 lib.healcomm = function(self, unit)
 if cfg.plugins_healcomm then
-		local mhpb = CreateFrame('StatusBar', nil, self.Health)
+		local mhpb = CreateFrame('StatusBar', nil, self.Health, "BackdropTemplate")
 		mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 		mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
 		mhpb:SetWidth(self:GetWidth())
 		mhpb:SetStatusBarTexture(cfg.statusbar_texture)
 		mhpb:SetStatusBarColor(0, 1, 0.5, 0.25)
-		local ohpb = CreateFrame('StatusBar', nil, self.Health)
+		local ohpb = CreateFrame('StatusBar', nil, self.Health, "BackdropTemplate")
 		ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 		ohpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
 		ohpb:SetWidth(self:GetWidth())
 		ohpb:SetStatusBarTexture(cfg.statusbar_texture)
 		ohpb:SetStatusBarColor(0, 1, 0, 0.25)
-		local ahpb = CreateFrame('StatusBar', nil, self.Health)
+		local ahpb = CreateFrame('StatusBar', nil, self.Health, "BackdropTemplate")
 		ahpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 		ahpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
 		ahpb:SetWidth(self:GetWidth())

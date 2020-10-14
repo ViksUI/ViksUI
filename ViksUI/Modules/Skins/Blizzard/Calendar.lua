@@ -6,35 +6,36 @@ if C.skins.blizzard_frames ~= true then return end
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
 	local frames = {
-		"CalendarFrame",
-		"CalendarCreateEventFrame",
-		"CalendarCreateEventInviteList",
-		"CalendarCreateEventDescriptionContainer",
-		"CalendarCreateEventInviteListSection",
-		"CalendarTexturePickerFrame",
-		"CalendarMassInviteFrame",
-		"CalendarViewRaidFrame",
-		"CalendarViewEventFrame",
-		"CalendarViewEventDescriptionContainer",
-		"CalendarViewEventInviteList",
-		"CalendarViewEventInviteListSection",
-		"CalendarEventPickerFrame",
+		CalendarFrame,
+		CalendarCreateEventFrame,
+		CalendarCreateEventFrame.Header,
+		CalendarCreateEventInviteList,
+		CalendarCreateEventDescriptionContainer,
+		CalendarCreateEventInviteListSection,
+		CalendarTexturePickerFrame,
+		CalendarTexturePickerFrame.Header,
+		CalendarMassInviteFrame,
+		CalendarMassInviteFrame.Header,
+		CalendarViewRaidFrame,
+		CalendarViewRaidFrame.Header,
+		CalendarViewHolidayFrame.Header,
+		CalendarViewEventFrame,
+		CalendarViewEventFrame.Header,
+		CalendarViewEventDescriptionContainer,
+		CalendarViewEventInviteList,
+		CalendarViewEventInviteListSection,
+		CalendarEventPickerFrame,
+		CalendarEventPickerFrame.Header
 	}
 
 	for _, frame in pairs(frames) do
-		_G[frame]:StripTextures()
+		frame:StripTextures()
 	end
 
 	CalendarFrame:CreateBackdrop("Transparent")
 	CalendarFrame.backdrop:SetPoint("TOPLEFT", 0, 0)
 	CalendarFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
 
-	_G.CalendarViewHolidayFrame.Header:StripTextures()
-	_G.CalendarViewRaidFrame.Header:StripTextures()
-	_G.CalendarMassInviteFrame.Header:StripTextures()
-	_G.CalendarTexturePickerFrame.Header:StripTextures()
-	_G.CalendarEventPickerFrame.Header:StripTextures()
-	
 	T.SkinCloseButton(CalendarCloseButton)
 
 	T.SkinNextPrevButton(CalendarPrevMonthButton)

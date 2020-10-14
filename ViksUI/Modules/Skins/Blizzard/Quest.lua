@@ -265,22 +265,18 @@ local function LoadSkin()
 
 	-- Skin the +/- buttons in the QuestLog
 	hooksecurefunc("QuestLogQuests_Update", function()
-		local tex, texture
-		for i = 6, QuestMapFrame.QuestsFrame.Contents:GetNumChildren() do
-			local child = select(i, QuestMapFrame.QuestsFrame.Contents:GetChildren())
-			if child and child.ButtonText and not child.Text then
-				if not child.buttonSized then
-					child:Size(16, 16)
-					child.buttonSized = true
-				end
+		for i = 1, _G.QuestMapFrame.QuestsFrame.Contents:GetNumChildren() do
+			local child = select(i, _G.QuestMapFrame.QuestsFrame.Contents:GetChildren())
+			if child and child.ButtonText and not child.questID then
+				child:Size(16, 16)
 
-				tex = select(2, child:GetRegions())
-				if tex and tex.GetTexture then
-					texture = tex:GetTexture()
-					if texture then
-						if texture:find("PlusButton") then
+				for x = 1, child:GetNumRegions() do
+					local tex = select(x, child:GetRegions())
+					if tex and tex.GetAtlas then
+						local atlas = tex:GetAtlas()
+						if atlas == 'Campaign_HeaderIcon_Closed' or atlas == 'Campaign_HeaderIcon_ClosedPressed' then
 							tex:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\PlusButton")
-						else
+						elseif atlas == 'Campaign_HeaderIcon_Open' or atlas == 'Campaign_HeaderIcon_OpenPressed' then
 							tex:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\MinusButton")
 						end
 					end
@@ -288,6 +284,20 @@ local function LoadSkin()
 			end
 		end
 	end)
+	
+	-- +/- Buttons for the CampaignHeaders in the QuestLog
+	hooksecurefunc(_G.CampaignCollapseButtonMixin, 'UpdateState', function(button, isCollapsed)
+		if isCollapsed then
+			button:SetNormalTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\PlusButton")
+			button:SetPushedTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\PlusButton")
+		else
+			button:SetNormalTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\MinusButton")
+			button:SetPushedTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\MinusButton")
+		end
+
+		button:Size(16, 16)
+	end)
+
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)

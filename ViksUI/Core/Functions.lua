@@ -1876,6 +1876,7 @@ function T:HandleMaxMinFrame(frame)
 			button:SetHighlightTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\vehicleexit")
 
 			if not button.backdrop then
+				Mixin(button, BackdropTemplateMixin)
 				button:CreateBackdrop("Default", true)
 				button.backdrop:SetPoint("TOPLEFT", button, 1, -1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", button, -1, 1)

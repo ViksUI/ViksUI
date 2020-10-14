@@ -243,7 +243,7 @@ QuickQuest:Register("GOSSIP_SHOW", function()
 		return
 	end
 
-	local active = GetNumGossipActiveQuests()
+	local active = C_GossipInfo.GetNumActiveQuests()
 	if(active > 0) then
 		local logQuests = GetQuestLogQuests(true)
 		for index = 1, active do
@@ -262,10 +262,10 @@ QuickQuest:Register("GOSSIP_SHOW", function()
 		end
 	end
 
-	local available = GetNumGossipAvailableQuests()
+	local available = C_GossipInfo.GetAvailableQuests()
 	if(available > 0) then
 		for index = 1, available do
-			local _, _, trivial, ignored = GetAvailableGossipQuestInfo(index)
+			local _, _, trivial, ignored = C_GossipInfo.GetAvailableGossipQuestInfo(index)
 			if((not trivial and not ignored) or IsTrackingHidden()) then
 				SelectGossipAvailableQuest(index)
 			elseif(trivial and npcID == 64337 and QuickQuestDB.nomi) then
@@ -278,17 +278,17 @@ QuickQuest:Register("GOSSIP_SHOW", function()
 		return SelectGossipOption(1)
 	end
 
-	if(darkmoonDailyNPCs[npcID] and active == 1 and not select(5, GetActiveGossipQuestInfo(1))) then
+	if(darkmoonDailyNPCs[npcID] and active == 1 and not select(5, C_GossipInfo.GetActiveGossipQuestInfo(1))) then
 		-- auto-start the daily interaction
-		for index = 1, GetNumGossipOptions() do
-			if(string.find((select((index * 2) - 1, GetGossipOptions())), 'FF0008E8')) then
+		for index = 1, C_GossipInfo.GetNumGossipOptions() do
+			if(string.find((select((index * 2) - 1, C_GossipInfo.GetGossipOptions())), 'FF0008E8')) then
 				-- matching by the blue text color is sufficient
 				return SelectGossipOption(index)
 			end
 		end
 	end
 
-	if(available == 0 and active == 0 and GetNumGossipOptions() == 1) then
+	if(available == 0 and active == 0 and C_GossipInfo.GetNumGossipOptions() == 1) then
 		if(string.match((GetGossipOptions()), TRACKER_HEADER_PROVINGGROUNDS)) then
 			-- ignore proving grounds queue
 			return

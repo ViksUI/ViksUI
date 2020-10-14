@@ -1,5 +1,8 @@
 local _, ns = ...
 local oUF = ns.oUF
+local Private = oUF.Private
+
+local unitSelectionType = Private.unitSelectionType
 
 local function UpdateColor(element, unit, cur, max)
 	local parent = element.__owner
@@ -14,6 +17,8 @@ local function UpdateColor(element, unit, cur, max)
 		(element.colorClassPet and UnitPlayerControlled(unit) and not UnitIsPlayer(unit)) then
 		local _, class = UnitClass(unit)
 		t = parent.colors.class[class]
+	elseif(element.colorSelection and unitSelectionType(unit, element.considerSelectionInCombatHostile)) then
+		t = parent.colors.selection[unitSelectionType(unit, element.considerSelectionInCombatHostile)]
 	elseif(element.colorReaction and UnitReaction(unit, 'player')) then
 		t = parent.colors.reaction[UnitReaction(unit, 'player')]
 	elseif(element.colorSmooth) then
@@ -101,14 +106,34 @@ local function ForceUpdate(element)
 	return Path(element.__owner, 'ForceUpdate', element.__owner.unit)
 end
 
+--[[ Health:SetFrequentUpdates(state)
+Used to toggle frequent updates.
+
+* self  - the Health element
+* state - the desired state of frequent updates (boolean)
+--]]
+local function SetFrequentUpdates(element, state)
+	if(element.frequentUpdates ~= state) then
+		element.frequentUpdates = state
+		if(element.frequentUpdates) then
+			element.__owner:UnregisterEvent('UNIT_HEALTH', Path)
+			element.__owner:RegisterEvent('UNIT_HEALTH', Path)
+		else
+			element.__owner:UnregisterEvent('UNIT_HEALTH', Path)
+			element.__owner:RegisterEvent('UNIT_HEALTH', Path)
+		end
+	end
+end
+
 local function Enable(self, unit)
 	local element = self.Health
 	if(element) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
+		element.SetFrequentUpdates = SetFrequentUpdates
 
 		if(element.frequentUpdates) then
-			self:RegisterEvent('UNIT_HEALTH_FREQUENT', Path)
+			self:RegisterEvent('UNIT_HEALTH', Path)
 		else
 			self:RegisterEvent('UNIT_HEALTH', Path)
 		end
@@ -116,6 +141,7 @@ local function Enable(self, unit)
 		self:RegisterEvent('UNIT_MAXHEALTH', Path)
 		self:RegisterEvent('UNIT_CONNECTION', Path)
 		self:RegisterEvent('UNIT_FACTION', Path) -- For tapping
+		self:RegisterEvent('UNIT_FLAGS', Path) -- For selection
 
 		if(element:IsObjectType('StatusBar') and not element:GetStatusBarTexture()) then
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
@@ -136,11 +162,12 @@ local function Disable(self)
 	if(element) then
 		element:Hide()
 
-		self:UnregisterEvent('UNIT_HEALTH_FREQUENT', Path)
+		self:UnregisterEvent('UNIT_HEALTH', Path)
 		self:UnregisterEvent('UNIT_HEALTH', Path)
 		self:UnregisterEvent('UNIT_MAXHEALTH', Path)
 		self:UnregisterEvent('UNIT_CONNECTION', Path)
 		self:UnregisterEvent('UNIT_FACTION', Path)
+		self:UnregisterEvent('UNIT_FLAGS', Path)
 	end
 end
 

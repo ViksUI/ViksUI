@@ -24,6 +24,7 @@ frame:SetScript("OnEvent", function(_, _, addon)
 
 	UNIT_NAME_FONT = NORMAL
 	STANDARD_TEXT_FONT = NORMAL
+
 	-- Base fonts
 	SetFont(AchievementFont_Small, NORMAL, 11, nil, nil, nil, nil, 0, 0, 0, 1, -1)
 	SetFont(InvoiceFont_Med, NORMAL, 13, nil, 0.15, 0.09, 0.04)
@@ -61,7 +62,7 @@ frame:SetScript("OnEvent", function(_, _, addon)
 	SetFont(SystemFont_Shadow_Med1, NORMAL, 13)
 	SetFont(SystemFont_Shadow_Med2, NORMAL, 13)
 	SetFont(SystemFont_Shadow_Med3, NORMAL, 15)
-	SetFont(SystemFont_Shadow_Outline_Huge2, NORMAL, 22, "OUTLINE")
+	--FIXME SetFont(SystemFont_Shadow_Outline_Huge2, NORMAL, 22, "OUTLINE")
 	SetFont(SystemFont_Shadow_Small, NORMAL, 11)
 	SetFont(SystemFont_Shadow_Small2, NORMAL, 11)
 	SetFont(SystemFont_Small, NORMAL, 12)
