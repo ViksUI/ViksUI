@@ -16,6 +16,7 @@ mult = fixedHeight / scale
 -- [[ Variables ]]
 
 ns.buttons = {}
+ns.NextPrevButtons = {}
 
 local checkboxes = {}
 local sliders = {}
@@ -488,8 +489,13 @@ local function setActiveTab(tab)
 	activeTab.panel.tab.Text:SetTextColor(1, 1, 1)
 
 	activeTab.panel:Show()
+
 	if activeTab.panel.second then
-		activeTab.panel.general:Show()
+		activeTab.panel.PrevPageButton:Show()
+		activeTab.panel.PrevPageButton:Disable()
+		activeTab.panel.NextPageButton:Enable()
+		activeTab.panel.pageText:SetFormattedText(COLLECTION_PAGE_NUMBER, 1, activeTab.panel.maxPages)
+		activeTab.panel.currentPage = 1
 	end
 
 	if activeTab.panel_2 then
@@ -505,18 +511,12 @@ local onTabClick = function(tab)
 	activeTab.panel.tab.Text:SetTextColor(1, 0.82, 0)
 
 	if activeTab.panel.second then
-		activeTab.panel.general:Hide()
+		activeTab.panel.PrevPageButton:Hide()
 		activeTab.panel_2:Hide()
-
-		activeTab.panel.general.Text:SetTextColor(1, 1, 1)
-		activeTab.panel.optional.Text:SetTextColor(1, 0.82, 0)
 	end
 
 	if activeTab.panel.third then
 		activeTab.panel_3:Hide()
-		activeTab.panel.general.Text:SetTextColor(1, 1, 1)
-		activeTab.panel.optional.Text:SetTextColor(1, 0.82, 0)
-		activeTab.panel.more.Text:SetTextColor(1, 0.82, 0)
 	end
 
 	setActiveTab(tab)
@@ -546,49 +546,90 @@ local function CreateOptionPanel(name, text, subText)
 end
 
 ns.addCategory = function(name, text, subText, second, third)
-	local tag = strlower(name)
-	local panel, panel_2, panel_3 = CreateOptionPanel(baseName..name, text, subText)
+	local tab = CreateFrame("Button", nil, ViksUIOptionsPanel)
+	tab:SetPoint("TOPLEFT", 11, -offset)
+	tab:SetSize(168, 22)
 
-	if second then
+	tab.Text = tab:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+	tab.Text:SetPoint("LEFT", tab, 8, 0)
+	tab.Text:SetText(text)
+	tab.Text:SetSize(160, 20)
+	tab.Text:SetJustifyH("LEFT")
+
+	tab:SetScript("OnMouseUp", onTabClick)
+
+	local tag = strlower(name)
+
+	local panel, panel_2, panel_3 = CreateOptionPanel(baseName..name, text, subText)
+	panel[1] = panel
+
+	local numPages = third and 3 or second and 2 or 1
+	if numPages > 1 then
 		local name2 = name.."2"
 		local tag2 = strlower(name2)
 		panel_2 = CreateOptionPanel(baseName..name2, text, subText)
+		panel[2] = panel_2
 
-		local general = CreateFrame("Button", nil, ViksUIOptionsPanel, "UIPanelButtonTemplate")
-		general:SetPoint("TOPRIGHT", -190, -44)
-		general:SetSize(128, 25)
-		general:SetText(GENERAL_LABEL)
-		general:SetWidth(general.Text:GetWidth() + 15)
-		general.Text:SetTextColor(1, 1, 1)
-		general:Hide()
+		local PrevPageButton = CreateFrame("Button", baseName..name.."PrevButton", ViksUIOptionsPanel)
+		PrevPageButton:SetPoint("TOPRIGHT", -45, -44)
+		PrevPageButton:SetSize(28, 28)
+		PrevPageButton:SetHighlightTexture("Interface\Buttons\UI-Common-MouseHilight")
+		PrevPageButton:Hide()
+		PrevPageButton:Disable()
 
-		local optional = CreateFrame("Button", nil, general, "UIPanelButtonTemplate")
-		optional:SetPoint("LEFT", general, "RIGHT", 5, 0)
-		optional:SetSize(128, 25)
-		optional:SetText(ADVANCED_LABEL)
-		optional:SetWidth(optional.Text:GetWidth() + 15)
+		local pageText = PrevPageButton:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+		pageText:SetPoint("RIGHT", PrevPageButton, "LEFT", -5, 0)
+		panel.pageText = pageText
 
-		general:SetScript("OnClick", function()
-			panel:Show()
-			panel_2:Hide()
-			general.Text:SetTextColor(1, 1, 1)
-			optional.Text:SetTextColor(1, 0.82, 0)
+		local NextPageButton = CreateFrame("Button", baseName..name.."NextButton", PrevPageButton)
+		NextPageButton:SetPoint("LEFT", PrevPageButton, "RIGHT", 5, 0)
+		NextPageButton:SetSize(28, 28)
+		NextPageButton:SetHighlightTexture("Interface\Buttons\UI-Common-MouseHilight")
+
+		panel.currentPage = 1
+		panel.maxPages = numPages
+		local function SetPage(prev)
+			panel.currentPage = panel.currentPage + (prev and - 1 or 1)
+			pageText:SetFormattedText(COLLECTION_PAGE_NUMBER, panel.currentPage, panel.maxPages)
+
+			for i = 1, numPages do
+				panel[i]:Hide()
+			end
+
+			if panel.currentPage == 1 then
+				PrevPageButton:Disable()
+				NextPageButton:Enable()
+				panel:Show()
+			elseif panel.currentPage == 2 then
+				PrevPageButton:Enable()
+				if not third then
+					NextPageButton:Disable()
+				else
+					NextPageButton:Enable()
+				end
+				panel_2:Show()
+			elseif panel.currentPage == 3 then
+				PrevPageButton:Enable()
+				NextPageButton:Disable()
+				panel_3:Show()
+			end
+		end
+
+		PrevPageButton:SetScript("OnClick", function()
+			SetPage(true)
 		end)
 
-		optional:SetScript("OnClick", function()
-			panel:Hide()
-			panel_2:Show()
-			general.Text:SetTextColor(1, 0.82, 0)
-			optional.Text:SetTextColor(1, 1, 1)
+		NextPageButton:SetScript("OnClick", function()
+			SetPage(false)
 		end)
 
 		tinsert(panels, panel_2)
-		tinsert(ns.buttons, general)
-		tinsert(ns.buttons, optional)
+		tinsert(ns.NextPrevButtons, PrevPageButton)
+		tinsert(ns.NextPrevButtons, NextPageButton)
 
 		panel.second = true
-		panel.general = general
-		panel.optional = optional
+		panel.PrevPageButton = PrevPageButton
+		panel.NextPageButton = NextPageButton
 
 		if name == "general" then
 			panel_2.tag = "media"
@@ -600,90 +641,44 @@ ns.addCategory = function(name, text, subText, second, third)
 
 		panel:SetScript("OnMouseWheel", function(_, delta)
 			if delta < 0 then
-				optional:Click()
+				NextPageButton:Click()
 			end
 		end)
 
 		panel_2:SetScript("OnMouseWheel", function(_, delta)
 			if delta > 0 then
-				general:Click()
+				PrevPageButton:Click()
 			end
 		end)
 
-		if third then
+		if numPages > 2 then
 			local name3 = name.."3"
 			local tag3 = strlower(name3)
 			panel_3 = CreateOptionPanel(baseName..name3, text, subText)
-
-			local more = CreateFrame("Button", nil, general, "UIPanelButtonTemplate")
-			more:SetPoint("LEFT", optional, "RIGHT", 5, 0)
-			more:SetSize(128, 25)
-			more:SetText(LFG_LIST_MORE)
-			more:SetWidth(more.Text:GetWidth() + 15)
-
-			general:SetScript("OnClick", function()
-				panel:Show()
-				panel_2:Hide()
-				panel_3:Hide()
-				general.Text:SetTextColor(1, 1, 1)
-				optional.Text:SetTextColor(1, 0.82, 0)
-				more.Text:SetTextColor(1, 0.82, 0)
-			end)
-
-			optional:SetScript("OnClick", function()
-				panel:Hide()
-				panel_2:Show()
-				panel_3:Hide()
-				general.Text:SetTextColor(1, 0.82, 0)
-				optional.Text:SetTextColor(1, 1, 1)
-				more.Text:SetTextColor(1, 0.82, 0)
-			end)
-
-			more:SetScript("OnClick", function()
-				panel:Hide()
-				panel_2:Hide()
-				panel_3:Show()
-				general.Text:SetTextColor(1, 0.82, 0)
-				optional.Text:SetTextColor(1, 0.82, 0)
-				more.Text:SetTextColor(1, 1, 1)
-			end)
+			panel[3] = panel_3
 
 			tinsert(panels, panel_3)
-			tinsert(ns.buttons, more)
 
 			panel.third = true
-			panel.more = more
 
 			panel_3.tag = tag
 			ViksUIOptionsPanel[tag3] = panel_3
 
 			panel_2:SetScript("OnMouseWheel", function(_, delta)
 				if delta > 0 then
-					general:Click()
+					PrevPageButton:Click()
 				elseif delta < 0 then
-					more:Click()
+					NextPageButton:Click()
 				end
 			end)
 
 			panel_3:SetScript("OnMouseWheel", function(_, delta)
 				if delta > 0 then
-					optional:Click()
+					PrevPageButton:Click()
 				end
 			end)
 		end
 	end
-
-	local tab = CreateFrame("Button", nil, ViksUIOptionsPanel)
-	tab:SetPoint("TOPLEFT", 11, -offset)
-	tab:SetSize(168 * mult, 22 * mult)
-
-	tab.Text = tab:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-	tab.Text:SetPoint("LEFT", tab, 8, 0)
-	tab.Text:SetText(text)
-	tab.Text:SetSize(160, 20)
-	tab.Text:SetJustifyH("LEFT")
-
-	tab:SetScript("OnMouseUp", onTabClick)
 
 	tab.panel = panel
 	tab.panel_2 = panel_2
@@ -832,10 +827,13 @@ init:SetScript("OnEvent", function()
 		panel.backdrop:SetPoint("BOTTOMRIGHT", -10, -5)
 	end
 
-	setActiveTab(ViksUIOptionsPanel.general.tab)
 
 	for _, button in pairs(ns.buttons) do
 		button:SkinButton()
+	end
+
+	for _, button in pairs(ns.NextPrevButtons) do
+		T.SkinNextPrevButton(button, nil, "Any")
 	end
 
 	for _, box in pairs(checkboxes) do
@@ -865,6 +863,7 @@ init:SetScript("OnEvent", function()
 	local title = ViksUIOptionsPanel:CreateFontString("UIConfigTitleVer", "OVERLAY", "GameFontNormal")
 	title:SetPoint("TOP", 0, -10)
 	title:SetText("ViksUI "..T.version)
+	setActiveTab(ViksUIOptionsPanel.general.tab)
 
 	displaySettings()
 end)

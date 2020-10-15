@@ -61,7 +61,7 @@
 	<Include file="UnitFrames\Raid\load.xml"/>
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\ArmoryLink.lua"/>
-	<!-- BETA Script file="Modules\Misc\CharsCurrency.lua"/-->
+	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
 	<Script file="Modules\Misc\Combat.lua"/>
 	<Script file="Modules\Misc\HealerIconNameplate.lua"/>

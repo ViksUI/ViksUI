@@ -37,7 +37,7 @@ local spells = (UnitFactionGroup("player") == "Horde") and {
 }
 
 local frame = CreateFrame("Frame", "TeleportMenu", UIParent)
-frame:CreatePanel("Invisible", C.minimap.size, (#spells) * 20 + 4, "BOTTOMLEFT", RChatTab, "TOPLEFT", -2, 3)
+frame:CreatePanel("Invisible", C.minimap.size, (#spells) * 20 + 4, "BOTTOMLEFT", RChat, "TOPLEFT", -2, 20)
 frame:SetFrameStrata("MEDIUM")
 frame:EnableMouse(true)
 frame:RegisterEvent("UNIT_SPELLCAST_START")
@@ -93,7 +93,7 @@ end)
 
 local button = CreateFrame("Button", nil, UIParent)
 button:SetTemplate("ClassColor")
-button:SetPoint("TOPLEFT", RChatTab, "TOPLEFT")
+button:SetPoint("TOPLEFT", RChat, "TOPLEFT")
 button:SetSize(20, 20)
 button:SetAlpha(0)
 

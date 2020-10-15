@@ -3040,6 +3040,7 @@ local step6 = function()
 end
 -- Step 6 / Select UnitFrame Layout
 local step5 = function()
+sb:SetValue(5)
 	if not option2:IsShown() then option2:Show() end
 	sb:SetValue(5)
 	header:SetText("5. Unit Frame Layout")
@@ -3065,6 +3066,9 @@ local step5 = function()
 end
 -- Step 5 / Setting up skada Profile
 local step4 = function()
+	if ViksUISettings.SkadaSettings then 
+	step5() 	
+	return end
 	if not option2:IsShown() then option2:Show() end
 	sb:SetValue(4)
 	header:SetText("4. Skada")
@@ -3076,12 +3080,16 @@ local step4 = function()
 	option1:SetScript("OnClick", step5)
 	option2:SetScript("OnClick", function()
 		--positionsetup()
-		UploadSkada()	
+		UploadSkada()
+		ViksUISettings.SkadaSettings = true
 		step5()
 	end)
 end
 -- Step 4 / Setting up bartenders profile
 local step3 = function()
+	if ViksUISettings.BTSettings then 
+	step4() 
+	return end
 	if not option2:IsShown() then option2:Show() end
 	sb:SetValue(3)
 	header:SetText("3. Bartender")
@@ -3095,6 +3103,7 @@ local step3 = function()
 		--positionsetup()
 		UploadBartender()
 		ViksUISettingsPerChar.BartenderSet = false
+		ViksUISettings.BTSettings = true
 		step4()
 	end)
 end

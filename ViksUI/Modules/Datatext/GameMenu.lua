@@ -122,25 +122,9 @@ local function Enable()
 		PVEFrame_ToggleFrame()
 	end)
 
-	--Button 12 - PVP LF tool
-	T.CreateBtn("GameMenuButton12", GameMenuBG, size, size, "PVP LF Tool", "", GameMenuBG)
-	GameMenuButton12:Point("LEFT", GameMenuButton11, "RIGHT", spacing, 0)
-	GameMenuButton12.icon:SetTexture([[Interface\AddOns\ViksUI\media\microbar\pvp.tga]])
-	GameMenuButton12:SetScript("OnMouseDown", function(self)
-		if T.level >= SHOW_PVP_LEVEL then
-			TogglePVPUI()
-		else
-			if C.error.white == false then
-				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_PVP_LEVEL), 1, 0.1, 0.1)
-			else
-				print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, SHOW_PVP_LEVEL).."|r")
-			end
-		end
-	end)
-
 	--Button 13 - Guild
 	T.CreateBtn("GameMenuButton13", GameMenuBG, size, size, "Guild", "", GameMenuBG)
-	GameMenuButton13:Point("LEFT", GameMenuButton12, "RIGHT", spacing, 0)
+	GameMenuButton13:Point("LEFT", GameMenuButton11, "RIGHT", spacing, 0)
 	GameMenuButton13.icon:SetTexture([[Interface\AddOns\ViksUI\media\microbar\guild.tga]])
 	GameMenuButton13:SetScript("OnMouseDown", function(self)
 		if IsInGuild() then
@@ -197,7 +181,7 @@ local function Enable()
 	GameMenuButton18.icon:SetTexture([[Interface\AddOns\ViksUI\media\microbar\location.tga]])
 	GameMenuButton18.icon:Size(size-10, size-10)
 	GameMenuButton18:SetScript("OnMouseDown", function(self)
-		GarrisonLandingPageMinimapButton_OnClick()
+		GarrisonLandingPageMinimapButton_OnClick(_G.GarrisonLandingPageMinimapButton)
 	end)
 
 	--Button 19 - Compose a Tweet

@@ -199,11 +199,11 @@ function ObjectiveTracker:UpdateProgressBar(_, line)
 
 			Bar:Height(20)
 			Bar:SetStatusBarTexture(Texture)
-			Bar:CreateBackdrop()
-			Bar.Backdrop:CreateShadow()
-			Bar.Backdrop:SetFrameStrata("BACKGROUND")
-			Bar.Backdrop:SetFrameLevel(1)
-			Bar.Backdrop:SetOutside(Bar)							   
+			--Bar:CreateBackdrop(nil, Texture)
+			--Bar.Backdrop:CreateShadow()
+			--Bar.Backdrop:SetFrameStrata("BACKGROUND")
+			--Bar.Backdrop:SetFrameLevel(1)
+			--Bar.Backdrop:SetOutside(Bar)							   
 
 			if (Label) then
 				Label:ClearAllPoints()
@@ -255,12 +255,11 @@ function ObjectiveTracker:UpdatePopup()
 				local Frame = Block.ScrollChild
 
 				if not Frame.Backdrop then
-					Frame:CreateBackdrop("Default")
+					Frame:CreateBackdrop("Transparent")
 
 					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
 					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
 					Frame.Backdrop:SetFrameLevel(0)
-					Frame.Backdrop:SetTemplate("Transparent")
 					Frame.Backdrop:CreateShadow()
 
 					Frame.FlashFrame.IconFlash:Hide()

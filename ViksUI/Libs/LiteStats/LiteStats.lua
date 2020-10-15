@@ -1479,7 +1479,8 @@ end
 if gold.enabled then
 	local titleName
 	local function Currency(id, weekly, capped)
-		local name, amount, tex, week, weekmax, maxed, discovered = C_CurrencyInfo.GetCurrencyInfo(id)
+		local info = C_CurrencyInfo.GetCurrencyInfo(id)
+		local name, amount, tex, week, weekmax, maxed, discovered = info.name, info.quantity, info.iconFileID, info.canEarnPerWeek, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
 		if amount == 0 then return end
 		if titleName then
 			GameTooltip:AddLine(" ")
