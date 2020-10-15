@@ -3,14 +3,17 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.00",
-		"• Updated to Pre Patch Shadowland",
-		"• Limited time, so check the Github log!",
+		"Update 9.01",
+		"• More bugfixes",
+		"• For details on bugfixes, check the Github log!",
+		"• InstallUI will only ask for BT/skada settings untill installed",
+		"• Welcome to new Patreon Molly!!",
 
 		--"• ",
 	--" ",
 	"FIRST PATREON: joelsoul - Huge Thanks for the support",
 	"SECOND PATREON: Wiggy - Huge Thanks for the support",
+	"THIRD PATREON: Molly - Huge Thanks for the support",
 	"THEY ARE KEEPING VIKSUI ALIVE: SO BIG THANKS FROM ALL UI USERS!",
 	"Give them a thumbs up on Discord chat",
 		"",
@@ -20,7 +23,7 @@ local ChangeLogData = {
 		"and countless hours with support for free!",
 		"BE NR 3 TO DONATE :)",
 		"",
-	"PATREON's: joelsoul & Wiggy",
+	"PATREON's: joelsoul, Wiggy & Molly",
 }
 
 --// TODO LIST
