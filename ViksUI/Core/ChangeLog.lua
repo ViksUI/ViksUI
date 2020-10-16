@@ -3,10 +3,10 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.01",
-		"• More bugfixes",
-		"• For details on bugfixes, check the Github log!",
-		"• InstallUI will only ask for BT/skada settings untill installed",
+		"Update 9.02",
+		"• Better support for Russian clients",
+		"• Added option to change Headers fonts",
+		"• ",
 		"• Welcome to new Patreon Molly!!",
 
 		--"• ",
