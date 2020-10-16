@@ -146,10 +146,15 @@ end
 ----------------------------------------------------------------------------------------
 -- OTHER PANELS
 ----------------------------------------------------------------------------------------
+if C.media.pxfontHsize > 13 then
+CPToppHight = C.media.pxfontHsize
+else
+CPToppHight = CPbarsheight
+end
 
 --Top of Screen Panel
 local CPTopp = CreateFrame("Frame", "CPTopp",UIParent)
-CPTopp:CreatePanel("Transparent", 1, CPbarsheight, "TOP", UIParent, "TOP", 0, -1)
+CPTopp:CreatePanel("Transparent", 1, CPToppHight, "TOP", UIParent, "TOP", 0, -1)
 CPTopp:SetPoint("LEFT", UIParent, "LEFT", 3, 0)
 CPTopp:SetPoint("RIGHT", UIParent, "RIGHT", -3, 0)
 CPTopp:SetFrameLevel(2)
