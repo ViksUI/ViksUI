@@ -12,7 +12,7 @@ C["media"] = {
 	["pixel_font"] = [=[Interface\Addons\ViksUI\Media\Font\pixel.ttf]=], 				-- DataText Font Normal
 	["pxfontHeader"] = "Interface\\Addons\\ViksUI\\Media\\Font\\LinkinPark.ttf", 		-- DataText Font for Headers. Used on Top Line
 	["pixel_font_style"] = "MONOCHROMEOUTLINE", 										-- Normal Text Flags like: "OVERLAY", "OUTLINE", "THINOUTLINE", "THICKOUTLINE" and "MONOCHROME"
-	["pxfontHFlag"] = "NONE", 															-- Normal Text Flags like: "OVERLAY", "OUTLINE", "THINOUTLINE", "THICKOUTLINE" and "MONOCHROME"
+	["pxfontHFlag"] = "OUTLINE", 															-- Normal Text Flags like: "OVERLAY", "OUTLINE", "THINOUTLINE", "THICKOUTLINE" and "MONOCHROME"
 	["pixel_font_size"] = 14, 															-- Size of font Datatext
 	["pxfontHsize"] = 13, 																-- Size of font Datatext
 	["fontsize"] = 12, 														    		-- Size of font 
@@ -32,7 +32,14 @@ C["media"] = {
 	["whisp_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Whisper.ogg]],				-- Sound for wispers
 	["warning_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Warning.ogg]],			-- Sound for warning
 	["proc_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Proc.ogg]],					-- Sound for procs
+	["yoffsetTop"] = -2,																-- Used to offset text in top panel on font change												
 }
+
+if GetLocale() == "ruRU" then 
+	C.media.pxfontHeader = [[Interface\Addons\ViksUI\Media\Font\Cleanwork.ttf]]
+	C.media.pxfontHsize = 16
+	C.media.yoffsetTop = -2
+end
 
 ----------------------------------------------------------------------------------------
 --	General

@@ -592,7 +592,22 @@ do
 
 	local pixel_font_size = ns.CreateNumberSlider(parent, "pixel_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
 	pixel_font_size:SetPoint("TOPLEFT", pixel_font, "BOTTOMLEFT", 16, -16)
+	
+	local subheader2 = ns.addSubCategory(parent, "Pixel Header Font")
+	subheader2:SetPoint("TOPLEFT", pixel_font_size, "BOTTOMLEFT", 0, -10)
 
+	local pxfontHeader = ns.CreateDropDown(parent, "pxfontHeader", true, "Pixel Font Headers & Datatext", FontTable, LSM and true)
+	pxfontHeader:SetPoint("TOPLEFT", subheader2, "BOTTOMLEFT", -16, -10)
+
+	local pxfontHFlag = ns.CreateDropDown(parent, "pxfontHFlag", true, "Headers Style", FlagsTable)
+	pxfontHFlag:SetPoint("LEFT", pxfontHeader, "RIGHT", 150, 0)
+
+	local pxfontHsize = ns.CreateNumberSlider(parent, "pxfontHsize", nil, nil, 8, 48, 1, true, FONT_SIZE)
+	pxfontHsize:SetPoint("TOPLEFT", pxfontHeader, "BOTTOMLEFT", 16, -16)
+	
+	local yoffsetTop = ns.CreateNumberSlider(parent, "yoffsetTop", nil, nil, -10, -10, 1, true, "Vertical offset for Datatext in Top Panel")
+	yoffsetTop:SetPoint("TOPLEFT", pxfontHsize, "BOTTOMLEFT", 0, -30)
+	
 	local LuaButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	LuaButton:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -20, 5)
 	LuaButton:SetSize(100, 23)
