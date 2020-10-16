@@ -87,7 +87,7 @@ function ObjectiveTracker:Skin()
 				Background:SetAtlas(nil)
 
 				local Text = Modules.Header.Text
-				Text:SetFont(qfont, 16)
+				Text:SetFont(C.media.pxfontHeader, 16)
 				Text:SetDrawLayer("OVERLAY", 7)
 				Text:SetParent(Header)
 
@@ -126,7 +126,7 @@ function ObjectiveTracker:SkinScenario()
 
 	StageBlock.NormalBG:SetTexture("")
 	StageBlock.FinalBG:SetTexture("")
-	StageBlock.Stage:SetFont(C.media.fontcombat, 17)
+	StageBlock.Stage:SetFont(C.media.pxfontHeader, 17)
 	StageBlock.GlowTexture:SetTexture("")
 end
 
@@ -153,7 +153,7 @@ function ObjectiveTracker:UpdateQuestItem(block)
 			if (Count) then
 				Count:ClearAllPoints()
 				Count:SetPoint("BOTTOMRIGHT", QuestItemButton, 0, 3)
-				Count:SetFont(C.media.fontcombat, 12)
+				Count:SetFont(C.media.pxfontHeader, 12)
 			end
 			
 			if HotKey then
