@@ -23,10 +23,14 @@ Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
 local Text  = Stat:CreateFontString(nil, "OVERLAY")
-if C.datatext.Wowtime >= 6 then
+if C.datatext.location >= 9 then
 	Text:SetTextColor(unpack(C.media.pxcolor1))
-	Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
-else
+	if C.datatext.location ~= 14 or C.datatext.location ~= 15 then
+		Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize-2, C.media.pxfontHFlag)
+	else
+		Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
+	end
+else	
 	Text:SetTextColor(unpack(C.media.pxcolor1))
 	Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 end

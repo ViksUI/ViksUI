@@ -14,8 +14,12 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	
 	if C.datatext.location >= 9 then
 		Text:SetTextColor(unpack(C.media.pxcolor1))
-		Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
-	else
+		if C.datatext.location ~= 14 or C.datatext.location ~= 15 then
+			Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize-2, C.media.pxfontHFlag)
+		else
+			Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
+		end
+	else	
 		Text:SetTextColor(unpack(C.media.pxcolor1))
 		Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 	end
@@ -24,7 +28,7 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 
 	local function OnEvent(self, event, ...)
 		local numEntries, numQuests = C_QuestLog.GetNumQuestLogEntries()
-		Text:SetText("Q |r: "..qColor.. numQuests.. "/25")
+		Text:SetText("Q|r:"..qColor.. numQuests.. "/25")
 		self:SetAllPoints(Text)
 		self:SetScript("OnEnter", function()
 			if not InCombatLockdown() then
