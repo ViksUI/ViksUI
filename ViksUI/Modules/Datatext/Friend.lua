@@ -305,7 +305,7 @@ local function Update(self, event)
 		end
 	end
 
-	Text:SetFormattedText(displayString, "Friends", totalOnline + BNTotalOnline)
+	Text:SetFormattedText(displayString, FRIENDS, totalOnline + BNTotalOnline)
 	self:SetAllPoints(Text)
 end
 
