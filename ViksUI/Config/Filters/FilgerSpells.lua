@@ -1767,6 +1767,8 @@ C["filger_spells"] = {
 			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Shadow Word: Pain
 			{spellID = 589, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Devouring Plague
+			{spellID = 335467, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Purge the Wicked
 			{spellID = 204197, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Light of T'uure

@@ -174,7 +174,7 @@
 	<Script file="Modules\Quests\AutoCollapse.lua"/>
 	<Script file="Modules\Datatext\Quests.lua"/>
 
-	<!-- FIXME Script file="Modules\Quests\AutoAccept.lua"/-->
+	<Script file="Modules\Quests\AutoAccept.lua"/>
 	<Script file="Modules\Quests\AutoButton.lua"/>
 	<Script file="Modules\Quests\QuestLog.lua"/>
 	<Script file="Modules\Quests\ObjectiveTracker.lua"/>

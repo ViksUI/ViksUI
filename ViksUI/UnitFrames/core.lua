@@ -876,8 +876,10 @@ SlashCmdList.TEST_UF = function(msg)
 	if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end
 	if not moving then
 			for _, frames in pairs({"oUF_ViksTarget", "oUF_ViksTargetTarget", "oUF_ViksPet", "oUF_ViksFocus", "oUF_ViksFocusTarget"}) do
-			_G[frames].oldunit = _G[frames].unit
-			_G[frames]:SetAttribute("unit", "player")
+			if _G[frames] then
+				_G[frames].oldunit = _G[frames].unit
+				_G[frames]:SetAttribute("unit", "player")
+			end
 		end
 
 			for i = 1, MAX_BOSS_FRAMES do
@@ -891,7 +893,9 @@ SlashCmdList.TEST_UF = function(msg)
 
 	else
 		for _, frames in pairs({"oUF_ViksTarget", "oUF_ViksTargetTarget", "oUF_ViksPet", "oUF_ViksFocus", "oUF_ViksFocusTarget"}) do
-			_G[frames]:SetAttribute("unit", _G[frames].oldunit)
+			if _G[frames] then
+				_G[frames]:SetAttribute("unit", _G[frames].oldunit)
+			end
 		end
 
 			for i = 1, MAX_BOSS_FRAMES do

@@ -73,9 +73,11 @@ MiniMapWorldMapButton:Hide()
 
 -- Garrison icon
 if C.minimap.garrison_icon == true then
-	GarrisonLandingPageMinimapButton:ClearAllPoints()
-	GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
 	GarrisonLandingPageMinimapButton:SetSize(32, 32)
+	hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function(self)
+		self:ClearAllPoints()
+		self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
+	end)
 else
 	GarrisonLandingPageMinimapButton:SetScale(0.0001)
 	GarrisonLandingPageMinimapButton:SetAlpha(0)
@@ -271,11 +273,26 @@ if not IsTrialAccount() and not C_StorePublic.IsDisabledByParentalControls() the
 	tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
 end
 
-if T.level > 99 then
-	tinsert(micromenu, {text = ORDER_HALL_LANDING_PAGE_TITLE, notCheckable = 1, func = function() GarrisonLandingPage_Toggle() end})
-elseif T.level > 89 then
-	tinsert(micromenu, {text = GARRISON_LANDING_PAGE_TITLE, notCheckable = 1, func = function() GarrisonLandingPage_Toggle() end})
-end
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("GARRISON_SHOW_LANDING_PAGE")
+frame:SetScript("OnEvent", function()
+	local textTitle
+	local garrisonType = C_Garrison.GetLandingPageGarrisonType()
+	if garrisonType == Enum.GarrisonType.Type_6_0 then
+		textTitle = GARRISON_LANDING_PAGE_TITLE
+	elseif garrisonType == Enum.GarrisonType.Type_7_0 then
+		textTitle = ORDER_HALL_LANDING_PAGE_TITLE
+	elseif garrisonType == Enum.GarrisonType.Type_8_0 then
+		textTitle = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE
+	elseif garrisonType == Enum.GarrisonType.Type_9_0 then
+		textTitle = GARRISON_TYPE_9_0_LANDING_PAGE_TITLE
+	end
+
+	if textTitle then
+		tinsert(micromenu, {text = textTitle, notCheckable = 1, func = function() GarrisonLandingPage_Toggle() end})
+	end
+	frame:UnregisterAllEvents()
+end)
 
 Minimap:SetScript("OnMouseUp", function(self, button)
 	local position = MinimapAnchor:GetPoint()
