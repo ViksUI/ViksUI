@@ -166,74 +166,43 @@ function ObjectiveTracker:UpdateQuestItem(block)
 end
 
 function ObjectiveTracker:UpdateProgressBar(_, line)
-	local Progress = line.ProgressBar
-	local Bar = Progress.Bar
+	local progressBar = line.ProgressBar
+	local bar = progressBar.Bar
+	local icon = bar.Icon
+	local label = bar.Label
 
-	if (Bar) then
-		local Label = Bar.Label
-		local Icon = Bar.Icon
-		local IconBG = Bar.IconBG
-		local Backdrop = Bar.BarBG
-		local Glow = Bar.BarGlow
-		local Sheen = Bar.Sheen
-		local Frame = Bar.BarFrame
-		local Frame2 = Bar.BarFrame2
-		local Frame3 = Bar.BarFrame3
-		local BorderLeft = Bar.BorderLeft
-		local BorderRight = Bar.BorderRight
-		local BorderMid = Bar.BorderMid
-		local Texture = C["media"].texture
-		Bar:SetStatusBarTexture(Texture)
+	if not progressBar.styled then
+		bar.BarFrame:Hide()
+		bar.BarGlow:Kill()
+		bar.Sheen:Hide()
+		bar.IconBG:Kill()
+		bar:SetSize(200, 20)
+		bar:SetStatusBarTexture(C.media.texture)
+		bar:SetTemplate("Transparent")
+		bar:SetBackdropColor(0, 0, 0, 0)
 
-		if not (Bar.IsSkinned) then
-			if (Backdrop) then Backdrop:Hide() Backdrop:SetAlpha(0) end
-			if (IconBG) then IconBG:Hide() IconBG:SetAlpha(0) end
-			if (Glow) then Glow:Hide() end
-			if (Sheen) then Sheen:Hide() end
-			if (Frame) then Frame:Hide() end
-			if (Frame2) then Frame2:Hide() end
-			if (Frame3) then Frame3:Hide() end
-			if (BorderLeft) then BorderLeft:SetAlpha(0) end
-			if (BorderRight) then BorderRight:SetAlpha(0) end
-			if (BorderMid) then BorderMid:SetAlpha(0) end
+		label:ClearAllPoints()
+		label:SetPoint("CENTER", 0, -1)
+		label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 
-			Bar:Height(20)
-			Bar:SetStatusBarTexture(Texture)
-			--Bar:CreateBackdrop(nil, Texture)
-			--Bar.Backdrop:CreateShadow()
-			--Bar.Backdrop:SetFrameStrata("BACKGROUND")
-			--Bar.Backdrop:SetFrameLevel(1)
-			--Bar.Backdrop:SetOutside(Bar)							   
+		icon:SetPoint("RIGHT", 24, 0)
+		icon:SetSize(20, 20)
 
-			if (Label) then
-				Label:ClearAllPoints()
-				Label:SetPoint("CENTER", Bar, 0, 0)
-				Label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
-			end
+		local border = CreateFrame("Frame", "$parentBorder", bar)
+		border:SetAllPoints(icon)
+		border:SetTemplate("Transparent")
+		border:SetBackdropColor(0, 0, 0, 0)
+		bar.newIconBg = border
 
-			if (Icon) then
-				Icon:Size(20, 20)
-				Icon:SetMask("")
-				Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-				Icon:ClearAllPoints()
-				Icon:SetPoint("RIGHT", Bar, 26, 0)
+		hooksecurefunc(bar.AnimIn, "Play", function()
+			bar.AnimIn:Stop()
+		end)
 
-				if not (Bar.NewBorder) then
-					Bar.NewBorder = CreateFrame("Frame", nil, Bar)
-					Bar.NewBorder:CreateBackdrop()
-					Bar.NewBorder:SetFrameLevel(Bar:GetFrameLevel() - 1)
-					Bar.NewBorder:CreateShadow()
-					Bar.NewBorder:SetOutside(Icon)
-					Bar.NewBorder:SetShown(Icon:IsShown())
-				end
-			end
-		
-			BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
-			Bar.IsSkinned = true
-		elseif (Icon and Bar.NewBorder) then
-			Bar.NewBorder:SetShown(Icon:IsShown())
-		end
+		BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
+		progressBar.styled = true
 	end
+
+	bar.newIconBg:SetShown(icon:IsShown())
 end
 
 function ObjectiveTracker:UpdateProgressBarColors(Min)
@@ -257,10 +226,10 @@ function ObjectiveTracker:UpdatePopup()
 				if not Frame.Backdrop then
 					Frame:CreateBackdrop("Transparent")
 
-					--Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
-					--Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
-					--Frame.Backdrop:SetFrameLevel(0)
-					--Frame.Backdrop:CreateShadow()
+					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+					Frame.Backdrop:SetFrameLevel(0)
+					Frame.Backdrop:CreateShadow()
 
 					Frame.FlashFrame.IconFlash:Hide()
 					
