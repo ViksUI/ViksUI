@@ -3,9 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.02",
-		"• Better support for Russian clients",
-		"• Added option to change Headers fonts",
+		"Update 9.03",
+		"• More Bug fixes",
 		"• ",
 		"• Welcome to new Patreon Molly!!",
 

@@ -257,10 +257,10 @@ function ObjectiveTracker:UpdatePopup()
 				if not Frame.Backdrop then
 					Frame:CreateBackdrop("Transparent")
 
-					Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
-					Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
-					Frame.Backdrop:SetFrameLevel(0)
-					Frame.Backdrop:CreateShadow()
+					--Frame.Backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					--Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+					--Frame.Backdrop:SetFrameLevel(0)
+					--Frame.Backdrop:CreateShadow()
 
 					Frame.FlashFrame.IconFlash:Hide()
 					
