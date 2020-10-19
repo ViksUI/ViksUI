@@ -3,9 +3,9 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.03",
+		"Update 9.04",
 		"• More Bug fixes",
-		"• ",
+		"• New details profile. Do a /settings details",
 		"• Welcome to new Patreon Molly!!",
 
 		--"• ",
