@@ -120,7 +120,7 @@ R_Omen:SetAlpha(pAlpha)
 end
 
 --Background Panel For Details if used
---[[ FIXME
+
 if IsAddOnLoaded("Details") then 
 local L_Details = CreateFrame("Frame", "L_Details", Details_WindowFrame3)
 L_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-10, LABar:GetHeight(), "BOTTOMLEFT", LABar, "BOTTOMRIGHT", xoffset, 0)
@@ -141,7 +141,6 @@ RegisterStateDriver(L_Details, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(R1_Details, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(R2_Details, "visibility", "[petbattle] hide; show")
 end
-]]-- 
 
 ----------------------------------------------------------------------------------------
 -- OTHER PANELS
