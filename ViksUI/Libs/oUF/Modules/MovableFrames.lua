@@ -349,6 +349,8 @@ do
 			self.backdrop:SetBackdropColor(0.2, 0.6, 0.2, 0.7)
 			local style, identifier = getObjectInformation(self.obj)
 			restoreDefaultPosition(style, identifier)
+		elseif button == "MiddleButton" then
+			self:Hide()
 		end
 	end
 

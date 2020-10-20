@@ -227,7 +227,8 @@ local function LoadSkin()
 	for i = 1, 3 do
 		T.SkinTab(_G["PVEFrameTab"..i])
 	end
-
+	
+	_G.LFGListApplicationDialog:StripTextures()
 	LFGListApplicationDialog:SetTemplate("Transparent")
 	PVEFrame:CreateBackdrop("Transparent")
 	PVEFrame.backdrop:SetAllPoints()

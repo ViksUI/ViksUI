@@ -22,6 +22,7 @@ local colors = {
 	debuff = {},
 	reaction = {},
 	power = {},
+	threat = {},
 }
 
 -- We do this because people edit the vars directly, and changing the default
@@ -100,11 +101,19 @@ colors.power[16] = colors.power.ARCANE_CHARGES
 colors.power[17] = colors.power.FURY
 colors.power[18] = colors.power.PAIN
 
+-- alternate power, sourced from FrameXML/CompactUnitFrame.lua
+colors.power.ALTERNATE = {0.7, 0.7, 0.6}
+colors.power[10] = colors.power.ALTERNATE
+
+for i = 0, 3 do
+	colors.threat[i] = {GetThreatStatusColor(i)}
+end
+
 local function colorsAndPercent(a, b, ...)
 	if(a <= 0 or b == 0) then
 		return nil, ...
 	elseif(a >= b) then
-		return nil, select(select('#', ...) - 2, ...)
+		return nil, select(-3, ...)
 	end
 
 	local num = select('#', ...) / 3

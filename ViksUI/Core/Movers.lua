@@ -142,6 +142,8 @@ local RestoreDefaults = function(self, button)
 			ViksUIPositions.Default[self.frame:GetName()] = nil
 			ViksUIPositions[self.frame:GetName()] = nil
 		end
+	elseif button == "MiddleButton" then
+		self:Hide()
 	end
 end
 

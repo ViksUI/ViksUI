@@ -831,7 +831,7 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(980), -- Bane of Agony
 			CreateSpellEntry(5484), -- Howl of Terror
 			CreateSpellEntry(27243, false, nil, nil, 27243), -- Seed of Corruption
-			CreateSpellEntry(30108, false, nil, nil, 30108), -- Unstable Affliction
+			CreateSpellEntry(316099, false, nil, nil, 316099), -- Unstable Affliction
 			CreateSpellEntry(48181, false, nil, nil, 48181), -- Haunt
 			CreateSpellEntry(63106), -- Siphon Life
 			CreateSpellEntry(146739), -- Corruption Debuff
@@ -862,6 +862,8 @@ local CLASS_FILTERS = {
 			-- Affliction
 			CreateSpellEntry(216695), -- Tormented Souls
 			CreateSpellEntry(216708), -- Deadwind Harvester
+			CreateSpellEntry(264571), -- Nightfall
+			CreateSpellEntry(333889), -- Fel Domination
 			-- Demonology
 			CreateSpellEntry(171982), -- Demonic Synergy
 			CreateSpellEntry(193440), -- Demonwrath

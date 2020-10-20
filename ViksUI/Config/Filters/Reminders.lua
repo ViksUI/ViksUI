@@ -98,6 +98,18 @@ if C.reminder.solo_buffs_enable == true then
 				["pvp"] = true,
 			},
 		},
+		PALADIN = {
+			[1] = {	-- Auras group
+				["spells"] = {
+					SpellName(465),		-- Devotion Aura
+					SpellName(183435),	-- Retribution Aura
+					SpellName(317920),	-- Concentration Aura
+				},
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true
+			},
+		},
 		PRIEST = {
 			[1] = {	-- Stamina group
 				["spells"] = {
@@ -128,6 +140,30 @@ if C.reminder.solo_buffs_enable == true then
 				["combat"] = true,
 				["instance"] = true,
 				["pvp"] = true,
+			},
+		},
+		SHAMAN = {
+			[1] = {	-- Windfury Weapon group
+				["spells"] = {
+					SpellName(33757),	-- Windfury Weapon
+				},
+				["mainhand"] = true,
+				["spec"] = 2,
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+				["level"] = 10,
+			},
+			[2] = {	-- Flametongue Weapon group
+				["spells"] = {
+					SpellName(318038),	-- Flametongue Weapon
+				},
+				["offhand"] = true,
+				["spec"] = 2,
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+				["level"] = 10,
 			},
 		},
 		WARRIOR = {

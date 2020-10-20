@@ -445,7 +445,12 @@ local function style(self, unit)
 	self.Health.bg:SetAllPoints()
 	self.Health.bg:SetTexture(C.media.texture)
 	self.Health.bg.multiplier = 0.2
+	
+	local QuestIcon = self:CreateTexture(nil, "OVERLAY")
+	QuestIcon:SetSize(C.nameplate.height, C.nameplate.height)
+	QuestIcon:SetPoint("LEFT", self, "RIGHT", 4, 0)
 
+	self.QuestIcon = QuestIcon
 	-- Create Health Text
 	if C.nameplate.health_value == true then
 		self.Health.value = self.Health:CreateFontString(nil, "OVERLAY")

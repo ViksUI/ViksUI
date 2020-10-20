@@ -177,7 +177,7 @@ Stat:SetScript('OnEnter', function(self)
 			local text = ''
 			local r1, g1 ,b1
 
-			if finished or IsQuestFlaggedCompleted(questID) then
+			if finished or  C_QuestLog.IsQuestFlaggedCompleted(questID) then
 				text = GOAL_COMPLETED
 				r1, g1, b1 = GREEN_FONT_COLOR:GetRGB()
 			else

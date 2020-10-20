@@ -59,7 +59,7 @@
 	<Script file="Modules\SoulShards.lua"/>
 	<Script file="Modules\Swing.lua"/>
 	<Script file="Modules\TotemBar.lua"/>
-	<!--Script file="Modules\Trinkets.lua"/-->
+	<Script file="Modules\QuestIcon.lua"/>
 	
 	<Script file="finalize.lua"/>
 
