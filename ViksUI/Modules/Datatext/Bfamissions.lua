@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if not C.datatext.Bfamissions or C.datatext.Bfamissions == 0 or T.level <= 110 then return end
+if not C.datatext.Bfamissions or C.datatext.Bfamissions == 0 then return end
 
 -- Variables
 local format = string.format
@@ -22,8 +22,8 @@ local COMPLETE = COMPLETE
 local RESEARCH_TIME_LABEL = RESEARCH_TIME_LABEL
 local GARRISON_LANDING_SHIPMENT_COUNT = GARRISON_LANDING_SHIPMENT_COUNT
 local FOLLOWERLIST_LABEL_TROOPS = FOLLOWERLIST_LABEL_TROOPS
-local LE_FOLLOWER_TYPE_GARRISON_8_0 = LE_FOLLOWER_TYPE_GARRISON_8_0
-local LE_GARRISON_TYPE_8_0 = LE_GARRISON_TYPE_8_0
+local LE_FOLLOWER_TYPE_GARRISON_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0
+local LE_GARRISON_TYPE_8_0 = Enum.GarrisonType.Type_8_0
 
 local Stat = CreateFrame("Frame", "DataTextBfamissions", UIParent)
 Stat:RegisterEvent('PLAYER_ENTERING_WORLD')

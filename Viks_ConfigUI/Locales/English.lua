@@ -346,6 +346,7 @@ L_GUI_NAMEPLATE_CLAMP = "Clamp nameplates to the top of the screen when outside 
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Show debuffs (from the list)"
 L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Debuffs size"
+L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs"
 L_GUI_NAMEPLATE_HEALER_ICON = "Show icon above enemy healers nameplate in battlegrounds"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate"
 L_GUI_NAMEPLATE_THREAT = "Enable threat feature, automatically changes by your role"

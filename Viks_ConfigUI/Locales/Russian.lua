@@ -434,6 +434,7 @@ L_GUI_NAMEPLATE_CLAMP = "Прикреплять к верху экрана, ко
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Отображать отрицательные эффекты (из списка)"
 L_GUI_NAMEPLATE_SHOW_BUFFS = "Отображать баффы над полосой игрока (из списка)"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Размер иконок аур"
+L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
 L_GUI_NAMEPLATE_HEALER_ICON = "Отображать иконку над вражескими целителями на полях боя"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "Отображать иконку над вражескими тотемами"
 L_GUI_NAMEPLATE_THREAT = "Цветовое обозначение угрозы (зависит от роли)"

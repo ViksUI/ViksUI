@@ -2014,6 +2014,9 @@ do
 
 	local totem_icons = ns.CreateCheckBox(parent, "totem_icons", L_GUI_NAMEPLATE_TOTEM_ICONS)
 	totem_icons:SetPoint("TOPLEFT", healer_icon, "BOTTOMLEFT", 0, 0)
+	
+	local quest_icon = ns.CreateCheckBox(parent, "quest_icon", L_GUI_NAMEPLATE_QUEST_ICON)
+	quest_icon:SetPoint("TOPLEFT", totem_icons, "BOTTOMLEFT", 0, 0)
 
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.nameplate2

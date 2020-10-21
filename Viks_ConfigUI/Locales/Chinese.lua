@@ -326,6 +326,7 @@ L_GUI_NAMEPLATE_CLAMP = "当单位姓名板超出屏幕时仍贴边显示"
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "显示DeBuff(需要关闭名字缩写)"
 L_GUI_NAMEPLATE_SHOW_BUFFS = "显示Buff"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "DeBuff大小"
+L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
 L_GUI_NAMEPLATE_HEALER_ICON = "战场中显示治疗职业图标"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "显示敌对图腾图标"
 L_GUI_NAMEPLATE_THREAT = "仇恨情况"

@@ -83,7 +83,7 @@ for _, button in pairs(MICRO_BUTTONS) do
 
 	m.mouseover = false
 	m:HookScript("OnEnter", function(self)
-		self.frame:SetBackdropBorderColor(unpack(C.media.classborder_color))
+		self.frame:SetBackdropBorderColor(unpack(C.media.border_color))
 		self.mouseover = true
 	end)
 	m:HookScript("OnLeave", function(self)

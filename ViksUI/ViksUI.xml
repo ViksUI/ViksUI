@@ -8,6 +8,7 @@
 	
 	<!-- core -->
 	<Script file="Config\Settings.lua"/>
+	<Script file="Config\Positions.lua"/>
 	<Script file="Config\Fonts.lua"/>
 	<Script file="Config\Profiles.lua"/>
 	<Script file="Media\Media.lua"/>
@@ -45,7 +46,6 @@
 	<Script file="Core\Launch.lua"/>
 	<Script file="Core\Disable.lua"/>
 	<Script file="Core\Commands.lua"/>
-	<Script file="Config\Positions.lua"/>
 	<Script file="Core\WTF.lua"/>
 	<Script file="Core\Kill.lua"/>
 	<Script file="Core\Temp.lua"/>
@@ -167,7 +167,7 @@
 	<Script file="Modules\Datatext\Power.lua"/>
 	<Script file="Modules\Datatext\Regen.lua"/>
 	<Script file="Modules\Datatext\Talent.lua"/>
-	<Script file="Modules\Datatext\Bfamissions.lua"/>
+	<!--Script file="Modules\Datatext\Bfamissions.lua"/--> 
 	<Script file="Modules\Datatext\Battleground.lua"/>
 	<Script file="Modules\Datatext\Professions.lua"/>
 	<Script file="Modules\Datatext\location.lua"/>
