@@ -369,7 +369,6 @@ L_GUI_TOOLTIP_TARGET = "Afficher la cible"
 L_GUI_TOOLTIP_TITLE = "Afficher les titres"
 L_GUI_TOOLTIP_REALM = "Affiche le serveur du joueur"
 L_GUI_TOOLTIP_RANK = "Afficher le rang de guilde"
-L_GUI_TOOLTIP_ARENA_EXPERIENCE = "Expérience en arène"
 L_GUI_TOOLTIP_SPELL_ID = "Afficher l'ID du sort"
 L_GUI_TOOLTIP_AVERAGE_LVL_DESC = "The average item level" -- Need review
 L_GUI_TOOLTIP_RAID_ICON = "Afficher l'îcone de raid"

@@ -1780,11 +1780,8 @@ do
 	local rank = ns.CreateCheckBox(parent, "rank")
 	rank:SetPoint("TOPLEFT", realm, "BOTTOMLEFT", 0, 0)
 
-	local arena_experience = ns.CreateCheckBox(parent, "arena_experience")
-	arena_experience:SetPoint("TOPLEFT", rank, "BOTTOMLEFT", 0, 0)
-
 	local spell_id = ns.CreateCheckBox(parent, "spell_id")
-	spell_id:SetPoint("TOPLEFT", arena_experience, "BOTTOMLEFT", 0, 0)
+	spell_id:SetPoint("TOPLEFT", rank, "BOTTOMLEFT", 0, 0)
 
 	local average_lvl = ns.CreateCheckBox(parent, "average_lvl", STAT_AVERAGE_ITEM_LEVEL)
 	average_lvl:SetPoint("TOPLEFT", spell_id, "BOTTOMLEFT", 0, 0)

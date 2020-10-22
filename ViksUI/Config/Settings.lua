@@ -454,7 +454,7 @@ C["nameplate"] = {
 	["auras_size"] = 25,						-- Debuffs size
 	["healer_icon"] = false,					-- Show icon above enemy healers nameplate in battlegrounds
 	["totem_icons"] = false,					-- Show icon above enemy totems nameplate
-	["quest_icon"] = true,						-- Show quest icon next to nameplate
+	["quest_icon"] = false,						-- Show quest icon next to nameplate (Lags with many nameplates visible)
 	-- Threat
 	["enhance_threat"] = true,					-- Enable threat feature, automatically changes by your role
 	["good_color"] = {0.2, 0.8, 0.2},			-- Good threat color

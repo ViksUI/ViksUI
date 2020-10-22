@@ -349,7 +349,6 @@ L_GUI_TOOLTIP_TARGET = "Mostra nei suggerimenti chi ha il giocatore come bersagl
 L_GUI_TOOLTIP_TITLE = "Titolo del giocatore nei suggerimenti"
 L_GUI_TOOLTIP_REALM = "Reame del giocatore nei suggerimenti"
 L_GUI_TOOLTIP_RANK = "Rango in gilda nei suggerimenti"
-L_GUI_TOOLTIP_ARENA_EXPERIENCE = "Esperienza PvP del giocatore in arena"
 L_GUI_TOOLTIP_SPELL_ID = "ID Incantesimo/Abilità"
 L_GUI_TOOLTIP_AVERAGE_LVL_DESC = "The average item level" -- Need review
 L_GUI_TOOLTIP_RAID_ICON = "Visualizza i marchi d'incursione nei suggerimenti"

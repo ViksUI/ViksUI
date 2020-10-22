@@ -349,7 +349,6 @@ L_GUI_TOOLTIP_TARGET = "目標的目標"
 L_GUI_TOOLTIP_TITLE = "Player title in tooltip" -- Need review
 L_GUI_TOOLTIP_REALM = "目標所在伺服器名"
 L_GUI_TOOLTIP_RANK = "公會階級"
-L_GUI_TOOLTIP_ARENA_EXPERIENCE = "競技場等級"
 L_GUI_TOOLTIP_SPELL_ID = "法術ID"
 L_GUI_TOOLTIP_AVERAGE_LVL_DESC = "The average item level" -- Need review
 L_GUI_TOOLTIP_RAID_ICON = "團隊標記"

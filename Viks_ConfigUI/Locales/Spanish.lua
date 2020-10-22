@@ -349,7 +349,6 @@ L_GUI_TOOLTIP_TARGET = "Jugador objetivo en la descripción"
 L_GUI_TOOLTIP_TITLE = "Player title in tooltip" -- Need review
 L_GUI_TOOLTIP_REALM = "Player realm name in tooltip" -- Need review
 L_GUI_TOOLTIP_RANK = "Rango del jugador en la hermandad en la descripción"
-L_GUI_TOOLTIP_ARENA_EXPERIENCE = "Experiencia JcJ del jugador en Arenas en la descripción"
 L_GUI_TOOLTIP_SPELL_ID = "ID del hechizo"
 L_GUI_TOOLTIP_AVERAGE_LVL_DESC = "The average item level" -- Need review
 L_GUI_TOOLTIP_RAID_ICON = "Icono de banda"

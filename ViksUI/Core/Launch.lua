@@ -3232,7 +3232,9 @@ OnLogon:SetScript("OnEvent", function(self)
 	if ViksUIOptionsPerChar.unitframe == nil then ViksUIOptionsPerChar.unitframe = {} end
 	if ViksUIOptions.unitframe == nil then ViksUIOptions.unitframe = {} end
 	if ViksUIOptions.panels == nil then ViksUIOptions.panels = {} end
+	if ViksUIOptionsPerChar.panels == nil then ViksUIOptionsPerChar.panels = {} end
 	if ViksUIOptions.panels.NoPanels == nil then ViksUIOptions.panels.NoPanels = false end
+	if ViksUIOptionsPerChar.panels.NoPanels == nil then ViksUIOptionsPerChar.panels.NoPanels = false end
 	if ViksUISettingsPerChar.FogOfWar == nil then ViksUISettingsPerChar.FogOfWar = false end
 	if ViksUISettingsPerChar.AutoInvite == nil then ViksUISettingsPerChar.AutoInvite = false end
 	if ViksUISettingsPerChar.Archaeology == nil then ViksUISettingsPerChar.Archaeology = false end

@@ -3,10 +3,10 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.05",
-		"• More Bug fixes (Runes,Skins,questlog)",
-		"• Added QuestIcon option to nameplate",
-		"• Spells updated to filger, classtimers and reminders",
+		"Update 9.06",
+		"• More Bug fixes",
+		"• Quest icon for nameplates off by default",
+		"• It lags with many nameplates visible",
 		"• Welcome to new Patreon Molly!!",
 
 		--"• ",
