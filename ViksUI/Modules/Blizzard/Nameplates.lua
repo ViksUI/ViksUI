@@ -446,11 +446,15 @@ local function style(self, unit)
 	self.Health.bg:SetTexture(C.media.texture)
 	self.Health.bg.multiplier = 0.2
 	
-	local QuestIcon = self:CreateTexture(nil, "OVERLAY")
-	QuestIcon:SetSize(C.nameplate.height, C.nameplate.height)
-	QuestIcon:SetPoint("LEFT", self, "RIGHT", 4, 0)
+	-- Create Quest Icon
+	if C.nameplate.quest_icon == true then
+		local QuestIcon = self:CreateTexture(nil, "OVERLAY")
+		QuestIcon:SetSize(C.nameplate.height, C.nameplate.height)
+		QuestIcon:SetPoint("LEFT", self, "RIGHT", 4, 0)
 
-	self.QuestIcon = QuestIcon
+		self.QuestIcon = QuestIcon
+	end
+	
 	-- Create Health Text
 	if C.nameplate.health_value == true then
 		self.Health.value = self.Health:CreateFontString(nil, "OVERLAY")
@@ -726,6 +730,10 @@ local function style(self, unit)
 
 	-- Disable movement via /moveui
 	self.disableMovement = true
+
+	if T.PostCreateNameplates then
+		T.PostCreateNameplates(self, unit)
+	end
 end
 
 oUF:RegisterStyle("ViksUINameplate", style)

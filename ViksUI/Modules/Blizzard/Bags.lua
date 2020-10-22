@@ -872,6 +872,13 @@ function Stuffing:CreateBagFrame(w)
 			end
 			ToggleDropDownMenu(nil, nil, Stuffing_DDMenu, self:GetName(), 0, 0)
 			return
+		elseif btn == "LeftButton" and IsShiftKeyDown() then
+			if InCombatLockdown() then
+				print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
+			end
+			Stuffing:SetBagsForSorting("d")
+			Stuffing:Restack()
+			return
 		end
 		self:GetParent():Hide()
 	end)
@@ -1033,12 +1040,18 @@ function Stuffing:InitBags()
 		f.sortButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		f.sortButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
 		f.sortButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-		f.sortButton.ttText = "Sort"
+		f.sortButton.ttText = "Sort (Bank&Reagent if open)"
 		f.sortButton:SetScript("OnEnter", tooltip_show)
 		f.sortButton:SetScript("OnLeave", tooltip_hide)
 		f.sortButton:SetScript("OnMouseUp", function(self, btn)
 			SetSortBagsRightToLeft(true)
-			SortBags()
+			if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
+				SortReagentBankBags()
+			elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
+				SortBankBags()
+			else
+				SortBags()
+			end
 		end)
 	end
 	f.editbox = editbox
