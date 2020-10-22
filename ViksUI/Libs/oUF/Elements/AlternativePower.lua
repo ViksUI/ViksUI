@@ -1,8 +1,12 @@
 local _, ns = ...
 local oUF = ns.oUF
+local Private = oUF.Private
+
+local unitSelectionType = Private.unitSelectionType
 
 -- sourced from FrameXML/UnitPowerBarAlt.lua
 local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
+local ALTERNATE_POWER_NAME = 'ALTERNATE'
 
 local function updateTooltip(self)
 	local name, tooltip = GetUnitPowerBarStringsByID(self.__barID)
@@ -22,9 +26,58 @@ local function onLeave()
 	GameTooltip:Hide()
 end
 
-local function Update(self, event, unit, powerType)
-	if(self.unit ~= unit or powerType ~= 'ALTERNATE') then return end
+local function UpdateColor(self, event, unit, powerType)
+	if(self.unit ~= unit or powerType ~= ALTERNATE_POWER_NAME) then return end
+	local element = self.AlternativePower
 
+	local r, g, b, t
+	if(element.colorThreat and not UnitPlayerControlled(unit) and UnitThreatSituation('player', unit)) then
+		t =  self.colors.threat[UnitThreatSituation('player', unit)]
+	elseif(element.colorPower) then
+		t = self.colors.power[ALTERNATE_POWER_INDEX]
+	elseif(element.colorClass and UnitIsPlayer(unit))
+		or (element.colorClassNPC and not UnitIsPlayer(unit)) then
+		local _, class = UnitClass(unit)
+		t = self.colors.class[class]
+	elseif(element.colorSelection and unitSelectionType(unit, element.considerSelectionInCombatHostile)) then
+		t = self.colors.selection[unitSelectionType(unit, element.considerSelectionInCombatHostile)]
+	elseif(element.colorReaction and UnitReaction(unit, 'player')) then
+		t = self.colors.reaction[UnitReaction(unit, 'player')]
+	elseif(element.colorSmooth) then
+		local adjust = 0 - (element.min or 0)
+		r, g, b = self:ColorGradient((element.cur or 1) + adjust, (element.max or 1) + adjust, unpack(element.smoothGradient or self.colors.smooth))
+	end
+
+	if(t) then
+		r, g, b = t[1], t[2], t[3]
+	end
+
+	if(b) then
+		element:SetStatusBarColor(r, g, b)
+
+		local bg = element.bg
+		if(bg) then
+			local mu = bg.multiplier or 1
+			bg:SetVertexColor(r * mu, g * mu, b * mu)
+		end
+	end
+
+	--[[ Callback: AlternativePower:PostUpdateColor(unit, r, g, b)
+	Called after the element color has been updated.
+
+	* self - the AlternativePower element
+	* unit - the unit for which the update has been triggered (string)
+	* r    - the red component of the used color (number)[0-1]
+	* g    - the green component of the used color (number)[0-1]
+	* b    - the blue component of the used color (number)[0-1]
+	--]]
+	if(element.PostUpdateColor) then
+		element:PostUpdateColor(unit, r, g, b)
+	end
+end
+
+local function Update(self, event, unit, powerType)
+	if(self.unit ~= unit or powerType ~= ALTERNATE_POWER_NAME) then return end
 	local element = self.AlternativePower
 
 	--[[ Callback: AlternativePower:PreUpdate()
@@ -38,7 +91,6 @@ local function Update(self, event, unit, powerType)
 
 	local cur, max, min
 	local barInfo = element.__barInfo
-
 	if(barInfo) then
 		cur = UnitPower(unit, ALTERNATE_POWER_INDEX)
 		max = UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
@@ -46,6 +98,10 @@ local function Update(self, event, unit, powerType)
 		element:SetMinMaxValues(min, max)
 		element:SetValue(cur)
 	end
+
+	element.cur = cur
+	element.min = min
+	element.max = max
 
 	--[[ Callback: AlternativePower:PostUpdate(unit, cur, min, max)
 	Called after the element has been updated.
@@ -70,7 +126,17 @@ local function Path(self, ...)
 	* unit  - the unit accompanying the event (string)
 	* ...   - the arguments accompanying the event
 	--]]
-	return (self.AlternativePower.Override or Update)(self, ...)
+	(self.AlternativePower.Override or Update) (self, ...);
+
+	--[[ Override: AlternativePower.UpdateColor(self, event, unit, ...)
+	Used to completely override the internal function for updating the widgets' colors.
+
+	* self  - the parent object
+	* event - the event triggering the update (string)
+	* unit  - the unit accompanying the event (string)
+	* ...   - the arguments accompanying the event
+	--]]
+	(self.AlternativePower.UpdateColor or UpdateColor) (self, ...)
 end
 
 local function Visibility(self, event, unit)
@@ -82,20 +148,20 @@ local function Visibility(self, event, unit)
 	element.__barID = barID
 	element.__barInfo = barInfo
 	if(barInfo and (barInfo.showOnRaid and (UnitInParty(unit) or UnitInRaid(unit))
-		or not barInfo.hideFromOthers or UnitIsUnit(unit, 'player')
-		or UnitIsUnit(self.realUnit, 'player'))
-	) then
+		or not barInfo.hideFromOthers
+		or UnitIsUnit(unit, 'player')))
+	then
 		self:RegisterEvent('UNIT_POWER_UPDATE', Path)
 		self:RegisterEvent('UNIT_MAXPOWER', Path)
 
 		element:Show()
-		Path(self, event, unit, 'ALTERNATE')
+		Path(self, event, unit, ALTERNATE_POWER_NAME)
 	else
 		self:UnregisterEvent('UNIT_POWER_UPDATE', Path)
 		self:UnregisterEvent('UNIT_MAXPOWER', Path)
 
 		element:Hide()
-		Path(self, event, unit, 'ALTERNATE')
+		Path(self, event, unit, ALTERNATE_POWER_NAME)
 	end
 end
 
@@ -107,7 +173,7 @@ local function VisibilityPath(self, ...)
 	* event - the event triggering the update (string)
 	* unit  - the unit accompanying the event (string)
 	--]]
-	return (self.AlternativePower.OverrideVisibility or Visibility)(self, ...)
+	return (self.AlternativePower.OverrideVisibility or Visibility) (self, ...)
 end
 
 local function ForceUpdate(element)
@@ -123,7 +189,7 @@ local function Enable(self, unit)
 		self:RegisterEvent('UNIT_POWER_BAR_SHOW', VisibilityPath)
 		self:RegisterEvent('UNIT_POWER_BAR_HIDE', VisibilityPath)
 
-		if(element:IsObjectType('StatusBar') and not element:GetStatusBarTexture()) then
+		if(element:IsObjectType('StatusBar') and not (element:GetStatusBarTexture() or element:GetStatusBarAtlas())) then
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
 
@@ -151,8 +217,6 @@ local function Enable(self, unit)
 			PlayerPowerBarAlt:UnregisterEvent('UNIT_POWER_BAR_HIDE')
 			PlayerPowerBarAlt:UnregisterEvent('PLAYER_ENTERING_WORLD')
 		end
-
-		element:Hide()
 
 		return true
 	end

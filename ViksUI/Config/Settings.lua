@@ -33,6 +33,8 @@ C["media"] = {
 	["warning_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Warning.ogg]],			-- Sound for warning
 	["proc_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Proc.ogg]],					-- Sound for procs
 	["yoffsetTop"] = -2,																-- Used to offset text in top panel on font change												
+	["classcolor_border"] = false,														-- Use class color for border color		
+	["classborder_color"] = {T.color.r, T.color.g, T.color.b, 1},					-- Color for class borders	
 }
 
 if GetLocale() == "ruRU" then 

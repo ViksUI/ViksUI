@@ -48,6 +48,7 @@ L.media_texture = "Main texture"
 L.media_subheader_pixel = "Change Pixel font"
 L.media_subheader_pixel2 = "Change Pixel font for Headers"
 L.media_subheader_Dcolor = "Change color for DataTexts"
+L.media_classcolor_border = "Use Class color for borders"
 
 -- Font options
 L.font = "Fonts"

@@ -1,5 +1,9 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 
+if C.media.classcolor_border == true then
+	C.media.border_color = {T.color.r, T.color.g, T.color.b, 1}
+end
+
 local backdropr, backdropg, backdropb, backdropa = unpack(C.media.backdrop_color)
 local borderr, borderg, borderb, bordera = unpack(C.media.border_color)
 local floor = math.floor

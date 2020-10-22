@@ -564,7 +564,7 @@ do
 
 	local hide_talking_head = ns.CreateCheckBox(parent, "hide_talking_head")
 	hide_talking_head:SetPoint("TOPLEFT", hide_banner, "BOTTOMLEFT", 0, 0)
-
+	
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.general2
 
@@ -573,9 +573,12 @@ do
 
 	local backdrop_color = ns.CreateColourPicker(parent, "backdrop_color", true)
 	backdrop_color:SetPoint("TOPLEFT", border_color, "BOTTOMLEFT", 0, -8)
+	
+	local classcolor_border = ns.CreateCheckBox(parent, "classcolor_border")
+	classcolor_border:SetPoint("TOPLEFT", backdrop_color, "BOTTOMLEFT", 0, 0)
 
 	local backdrop_alpha = ns.CreateNumberSlider(parent, "backdrop_alpha", nil, nil, 0, 1, 0.05, true)
-	backdrop_alpha:SetPoint("TOPLEFT", backdrop_color, "BOTTOMLEFT", 0, -28)
+	backdrop_alpha:SetPoint("TOPLEFT", classcolor_border, "BOTTOMLEFT", 0, -28)
 
 	local texture = ns.CreateDropDown(parent, "texture", true, nil, TextureTable, LSM and true)
 	texture:SetPoint("TOPLEFT", backdrop_alpha, "BOTTOMLEFT", -20, -15)

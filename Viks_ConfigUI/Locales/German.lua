@@ -46,6 +46,7 @@ L.media_backdrop_color = "Farbe für Rahmen-Hintergrund"
 L.media_backdrop_alpha = "Alpha für transparenten Hintergrund"
 L.media_texture = "Haupttextur"
 L.media_subheader_pixel = "Ändere Pixel Schriftart"
+L.media_classcolor_border = "Use Class color for borders"
 
 -- Font options
 L.font = "Schriftart"
