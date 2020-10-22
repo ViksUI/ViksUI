@@ -115,6 +115,7 @@ function RightBarMouseOver(alpha)
 end
 
 function StanceBarMouseOver(alpha)
+	if C.actionbar.stancebar_hide == true then return end
 	for i = 1, NUM_STANCE_SLOTS do
 		local pb = _G["StanceButton"..i]
 		pb:SetAlpha(alpha)
