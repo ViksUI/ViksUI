@@ -1266,6 +1266,8 @@ C["filger_spells"] = {
 			{spellID = 20271, filter = "CD"},
 			-- Blade of Justice
 			{spellID = 184575, filter = "CD"},
+			-- Hammer of Wrath
+			{spellID = 24275, filter = "CD"},
 			-- Holy Shock
 			{spellID = 20473, filter = "CD"},
 			-- Consecration
@@ -1392,6 +1394,8 @@ C["filger_spells"] = {
 			{spellID = 87160, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Twist of Fate
 			{spellID = 123254, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Dark Thoughts
+			{spellID = 341207, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -1406,6 +1410,12 @@ C["filger_spells"] = {
 			{spellID = 214621, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Weakened Soul
 			{spellID = 6788, unitID = "player", caster = "player", filter = "DEBUFF"},
+			-- Vampiric Touch
+			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Shadow Word: Pain
+			{spellID = 589, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Devouring Plague
+			{spellID = 335467, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
