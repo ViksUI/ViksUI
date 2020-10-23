@@ -599,6 +599,7 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(199683), -- Last Word
 			CreateSpellEntry(217676), -- Mind Spike
 			CreateSpellEntry(226943), -- Mind Bomb
+			CreateSpellEntry(335467), -- Devouring Plague
 		},
 		player = {
 			--Global
@@ -651,6 +652,7 @@ local CLASS_FILTERS = {
 		},
 		procs = {
 			CreateSpellEntry(45243), -- Focused Will
+			CreateSpellEntry(341207), -- Dark Thoughts
 			CreateSpellEntry(88690), -- Surge of Light
 			CreateSpellEntry(124430), -- Shadowy Insight
 			CreateSpellEntry(195329), -- Defender of the Weak
