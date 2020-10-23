@@ -539,18 +539,23 @@ local cMapID, void
 
 -- Function to get player map position
 local function GetPlayerMapPos(cMapID)
-	tempVec2D.x, tempVec2D.y = UnitPosition("player")
+	tempVec2D.x, tempVec2D.y = UnitPosition('player')
 	if not tempVec2D.x then return end
+
 	local mapRect = mapRects[cMapID]
 	if not mapRect then
-		mapRect = {}
-		void, mapRect[1] = C_Map.GetWorldPosFromMapPos(cMapID, CreateVector2D(0, 0))
-		void, mapRect[2] = C_Map.GetWorldPosFromMapPos(cMapID, CreateVector2D(1, 1))
+		local _, pos1 = C_Map.GetWorldPosFromMapPos(cMapID, CreateVector2D(0, 0))
+		local _, pos2 = C_Map.GetWorldPosFromMapPos(cMapID, CreateVector2D(1, 1))
+		if not pos1 or not pos2 then return end
+
+		mapRect = {pos1, pos2}
 		mapRect[2]:Subtract(mapRect[1])
 		mapRects[cMapID] = mapRect
 	end
-	tempVec2D:Subtract(mapRects[cMapID][1])
-	return tempVec2D.y/mapRects[cMapID][2].y, tempVec2D.x/mapRects[cMapID][2].x
+	tempVec2D:Subtract(mapRect[1])
+
+	return (tempVec2D.y/mapRect[2].y), (tempVec2D.x/mapRect[2].x)
+
 end
 
 -- Set MapID on zone changes and hide coordinates frame if player zone is different to map
