@@ -27,9 +27,9 @@ T.CastBarTicks = {
 	[SpellName(115175)] = 8,	-- Soothing Mist
 	[SpellName(117952)] = 4,	-- Crackling Jade Lightning
 	-- Priest
-	[SpellName(15407)] = 4,		-- Mind Flay
-	[SpellName(48045)] = 4,		-- Mind Sear
-	[SpellName(47540)] = 3,		-- Penance
+	[SpellName(15407)] = 5,		-- Mind Flay
+	[SpellName(48045)] = 5,		-- Mind Sear
+	[SpellName(47540)] = 4,		-- Penance
 	[SpellName(64843)] = 4,		-- Divine Hymn
 	-- Warlock
 	[SpellName(755)] = 5,		-- Health Funnel
