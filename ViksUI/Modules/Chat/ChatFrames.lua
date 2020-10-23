@@ -18,13 +18,15 @@ local AddMessage = function(self, text, ...)
 	end
 	return origs[self](self, text, ...)
 end
-SetCVar("chatStyle", "im")
+
 local format = string.format
 local gsub = string.gsub
 local sub = string.sub
 local find = string.find
 local len = string.len
 
+-- Enable nicknames classcolor
+SetCVar("chatClassColorOverride", 0)
 
 local smileyPack = {
 	['Angry'] = [[Interface\AddOns\ViksUI\Media\smileys\angry.blp]],
@@ -43,6 +45,14 @@ local smileyPack = {
 	['Wink'] = [[Interface\AddOns\ViksUI\Media\smileys\wink.blp]],
 	['Happy'] = [[Interface\AddOns\ViksUI\Media\smileys\happy.blp]],
 	['Heart'] = [[Interface\AddOns\ViksUI\Media\smileys\heart.blp]],
+	['Facepalm'] = [[Interface\AddOns\ViksUI\Media\smileys\Facepalm.blp]],
+	['Kappa'] = [[Interface\AddOns\ViksUI\Media\smileys\Kappa.blp]],
+	['Murloc'] = [[Interface\AddOns\ViksUI\Media\smileys\Murloc.blp]],
+	['Poop'] = [[Interface\AddOns\ViksUI\Media\smileys\Poop.blp]],
+	['Rage'] = [[Interface\AddOns\ViksUI\Media\smileys\Rage.blp]],
+	['SadKitty'] = [[Interface\AddOns\ViksUI\Media\smileys\SadKitty.blp]],
+	['Scream'] = [[Interface\AddOns\ViksUI\Media\smileys\Scream.blp]],
+	['ZZZ'] = [[Interface\AddOns\ViksUI\Media\smileys\ZZZ.blp]],
 }
 
 local smileyKeys = {
@@ -68,25 +78,24 @@ local smileyKeys = {
 	["%:O"] = "Gasp",
 	["%:%-0"] = "Surprise",
 	["%:P"] = "Tongue",
-	["%:%-P"] = "Tongue",
 	["%:p"] = "Tongue",
-	["%:%-p"] = "Tongue",
-	["%=P"] = "Tongue",
-	["%=p"] = "Tongue",
-	["%;%-p"] = "Tongue",
 	["%;p"] = "Tongue",
 	["%;P"] = "Tongue",
-	["%;%-P"] = "Tongue",
 	["%;%)"] = "Wink",
 	["%:S"] = "Hmm",
 	["%:%-S"] = "Hmm",
 	["%;%("] = "Cry",
-	["%:%,%-%("] = "Cry",
-	["%:%'%("] = "Cry",
-	["%:%'%-%("] = "Cry",
 	["%:%F"] = "MiddleFinger",
-	["<3"] = "Heart",
+	[":<3"] = "Heart",
 	["</3"] = "BrokenHeart",
+	[":facepalm:"] = "Facepalm",
+	[":kappa:"] = "Kappa",
+	[":murloc:"] = "Murloc",
+	[":poop:"] = "Poop",
+	[":rage:"] = "Rage",
+	[":sadkitty:"] = "SadKitty",
+	[":scream:"] = "Scream",
+	[":zzz:"] = "ZZZ",
 }
 
 local function InsertEmotions( msg )
@@ -204,8 +213,8 @@ local function SetChatStyle(frame)
 		_G[chat.."EditBox"]:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -16, 50)
 		_G[chat.."EditBox"]:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 17, 50)
 	else
-		_G[chat.."EditBox"]:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -10, 23)
-		_G[chat.."EditBox"]:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 11, 23)
+		_G[chat.."EditBox"]:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -9, 32)
+		_G[chat.."EditBox"]:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 11, 32)
 	end
 
 	-- Hide textures
