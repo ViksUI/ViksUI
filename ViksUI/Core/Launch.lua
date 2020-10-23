@@ -1,6 +1,15 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 
 T.ChatSetup = function()
+	local IsPublicChannelFound = EnumerateServerChannels()
+	
+	if not IsPublicChannelFound then
+		-- Restart this function until we are able to query public channels
+		C_Timer.After(1, Chat.Reset)
+		
+		return
+	end
+	
 	FCF_ResetChatWindows()
 	FCF_SetLocked(ChatFrame1, 1)
 	FCF_DockFrame(ChatFrame2)
@@ -12,8 +21,79 @@ T.ChatSetup = function()
 	FCF_SetLocked(ChatFrame3, 1)
 	FCF_UnDockFrame(ChatFrame4)
 	FCF_SetLocked(ChatFrame4, 1)
-	ChatFrame4:Show()			
-			
+	ChatFrame4:Show()
+	FCF_SetChatWindowFontSize(nil, ChatFrame1, 12)
+	FCF_SetChatWindowFontSize(nil, ChatFrame2, 12)
+	FCF_SetChatWindowFontSize(nil, ChatFrame3, 12)
+	FCF_SetChatWindowFontSize(nil, ChatFrame4, 12)	
+	DEFAULT_CHAT_FRAME:SetUserPlaced(true)
+	
+	local ChatGroup = {}
+	local Channels = {}
+	
+	for i=1, select("#", EnumerateServerChannels()), 1 do
+		Channels[i] = select(i, EnumerateServerChannels())
+	end
+	
+	-- Remove everything in first 4 chat windows
+	for i = 1, 4 do
+		if i ~= 2 then
+			local ChatFrame = _G["ChatFrame"..i]
+
+			ChatFrame_RemoveAllMessageGroups(ChatFrame)
+			ChatFrame_RemoveAllChannels(ChatFrame)
+		end
+	end
+	
+	-- Join public channels
+	for i = 1, #Channels do
+		SlashCmdList["JOIN"](Channels[i])
+	end
+	
+	-- Fix a editbox texture
+	ChatEdit_ActivateChat(ChatFrame1EditBox)
+	ChatEdit_DeactivateChat(ChatFrame1EditBox)
+
+	-----------------------
+	-- ChatFrame 1 Setup --
+	-----------------------
+	
+	ChatGroup = {"SAY", "EMOTE", "YELL", "MONSTER_SAY", "MONSTER_EMOTE", "MONSTER_YELL", "MONSTER_WHISPER", "MONSTER_BOSS_EMOTE", "MONSTER_BOSS_WHISPER", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "INSTANCE_CHAT", "INSTANCE_CHAT_LEADER", "BG_HORDE", "BG_ALLIANCE", "BG_NEUTRAL", "AFK", "DND", "ACHIEVEMENT"}
+	
+	for _, v in ipairs(ChatGroup) do
+		ChatFrame_AddMessageGroup(_G.ChatFrame1, v)
+	end
+
+	-----------------------
+	-- ChatFrame 3 Setup --
+	-----------------------
+
+	for i = 1, #Channels do
+		ChatFrame_RemoveChannel(ChatFrame1, Channels[i])
+		ChatFrame_AddChannel(ChatFrame3, Channels[i])
+	end
+	
+	-- Adjust Chat Colors
+	ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
+	ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
+	ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
+	ChangeChatColor("CHANNEL4", 232/255, 228/255, 121/255)
+	ChangeChatColor("CHANNEL5", 0/255, 228/255, 121/255)
+	ChangeChatColor("CHANNEL6", 0/255, 228/255, 0/255)
+	
+	-----------------------
+	-- ChatFrame 4 Setup --
+	-----------------------
+	
+	local Tab4 = ChatFrame4Tab
+	local Chat4 = ChatFrame4
+
+	ChatGroup = {"GUILD", "OFFICER", "GUILD_ACHIEVEMENT", "WHISPER", "BN_WHISPER", "BN_CONVERSATION"}
+	
+	for _, v in ipairs(ChatGroup) do
+		ChatFrame_AddMessageGroup(_G.ChatFrame4, v)
+	end
+	
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
 		local chatFrameId = frame:GetID()
@@ -37,9 +117,7 @@ T.ChatSetup = function()
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
 		
-		-- set default font size
-		FCF_SetChatWindowFontSize(nil, frame, 11)
-		
+	
 		-- rename windows general because moved to chat #3
 		if i == 1 then
 			FCF_SetWindowName(frame, "GROUP")
@@ -51,104 +129,8 @@ T.ChatSetup = function()
 			FCF_SetWindowName(frame, "GUILD") 			
 		end
 	end
-	---Chat Channels Setup
-	ChatFrame_RemoveAllMessageGroups(ChatFrame1)
-	ChatFrame_RemoveChannel(ChatFrame1, TRADE)
-	ChatFrame_RemoveChannel(ChatFrame1, GENERAL)
-	ChatFrame_RemoveChannel(ChatFrame1, "LocalDefense")
-	ChatFrame_RemoveChannel(ChatFrame1, "GuildRecruitment")
-	ChatFrame_RemoveChannel(ChatFrame1, "LookingForGroup")
-	ChatFrame_AddMessageGroup(ChatFrame1, "SAY")
-	ChatFrame_AddMessageGroup(ChatFrame1, "EMOTE")
-	ChatFrame_AddMessageGroup(ChatFrame1, "YELL")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONSTER_SAY")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONSTER_EMOTE")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONSTER_YELL")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONSTER_WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONSTER_BOSS_EMOTE")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONSTER_BOSS_WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame1, "PARTY")
-	ChatFrame_AddMessageGroup(ChatFrame1, "PARTY_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame1, "RAID")
-	ChatFrame_AddMessageGroup(ChatFrame1, "RAID_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame1, "RAID_WARNING")
-	ChatFrame_AddMessageGroup(ChatFrame1, "INSTANCE_CHAT")
-	ChatFrame_AddMessageGroup(ChatFrame1, "INSTANCE_CHAT_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame1, "BATTLEGROUND")
-	ChatFrame_AddMessageGroup(ChatFrame1, "BATTLEGROUND_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame1, "BG_HORDE")
-	ChatFrame_AddMessageGroup(ChatFrame1, "BG_ALLIANCE")
-	ChatFrame_AddMessageGroup(ChatFrame1, "BG_NEUTRAL")
-	ChatFrame_AddMessageGroup(ChatFrame1, "SYSTEM")
-	ChatFrame_AddMessageGroup(ChatFrame1, "ERRORS")
-	ChatFrame_AddMessageGroup(ChatFrame1, "AFK")
-	ChatFrame_AddMessageGroup(ChatFrame1, "DND")
-	ChatFrame_AddMessageGroup(ChatFrame1, "IGNORED")
-	ChatFrame_AddMessageGroup(ChatFrame1, "ACHIEVEMENT")
-	ChatFrame_AddMessageGroup(ChatFrame1, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame1, "PET_BATTLE_INFO")
-	-- Setup the Trade / Locale spam chat frame	
-	ChatFrame_RemoveAllMessageGroups(ChatFrame3)
-	for _, Channel in pairs(ChatFrame1.channelList) do
-		ChatFrame_AddChannel(ChatFrame3, Channel)
-	end
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_MISC_INFO")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame3, "CHANNEL")
-	ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
-	ChatFrame_AddMessageGroup(ChatFrame3, "CURRENCY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "OPENING")
-	ChatFrame_AddMessageGroup(ChatFrame3, "TRADESKILLS")
-	-- Setup the guild chat frame
-	ChatFrame_RemoveAllMessageGroups(ChatFrame4)
-	ChatFrame_AddMessageGroup(ChatFrame4, "GUILD")
-	ChatFrame_AddMessageGroup(ChatFrame4, "OFFICER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "GUILD_ACHIEVEMENT")
-	ChatFrame_AddMessageGroup(ChatFrame4, "WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BN_WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BN_CONVERSATION")
-	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_GUILD_XP_GAIN")
-	-- enable classcolor automatically on login and on each character without doing /configure each time.
-	ToggleChatColorNamesByClassGroup(true, "SAY")
-	ToggleChatColorNamesByClassGroup(true, "EMOTE")
-	ToggleChatColorNamesByClassGroup(true, "YELL")
-	ToggleChatColorNamesByClassGroup(true, "GUILD")
-	ToggleChatColorNamesByClassGroup(true, "OFFICER")
-	ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
-	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
-	ToggleChatColorNamesByClassGroup(true, "WHISPER")
-	ToggleChatColorNamesByClassGroup(true, "PARTY")
-	ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "RAID")
-	ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
-	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
-	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND_LEADER")	
-	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
-	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")		
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL6")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL7")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL8")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
-	--Adjust Chat Colors
-	--General
-	ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
-	--Trade
-	ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
-	--Local Defense
-	ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
-	
+
+
 	-- Reset saved variables on char
 	ViksUIPositions = {}
 	ViksUISettingsPerChar = {}
@@ -173,7 +155,8 @@ local function cvarsetup()
 	SetCVar("UberTooltips", 1)
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("removeChatDelay", 1)
-	SetCVar("chatStyle", "im")
+	SetCVar("showVKeyCastbar", 1)
+	SetCVar("chatStyle", "classic")
 	SetCVar("WholeChatWindowClickable", 0)
 	SetCVar("WhisperMode", "inline")
 	SetCVar("colorblindMode", 0)
@@ -184,16 +167,31 @@ local function cvarsetup()
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("scriptErrors", 1)
 	SetCVar("taintLog", 0)
+	SetCVar("countdownForCooldowns", 1)
+	SetCVar("alwaysShowActionBars", 1)
 	SetCVar("buffDurations", 1)
 	SetCVar("autoOpenLootHistory", 0)
 	SetCVar("violenceLevel", 5)
 	SetCVar("lossOfControl", 0)
 	SetCVar("threatWarning", 3)
 	SetCVar('SpamFilter', 0)
+	SetCVar("instantQuestText", 1)
+	SetCVar("nameplateMotion", 0)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("autoSelfCast", 1)
+	SetCVar("nameplateShowAll", 1)
+	SetCVar("nameplateShowEnemies", 1)
+	SetCVar("nameplateShowEnemyMinions", 1)
+	SetCVar("nameplateShowEnemyMinus", 1)
+	SetCVar("nameplateShowFriends", 0)
+	SetCVar("nameplateShowFriendlyMinions", 0)
+	SetCVar("nameplateMaxDistance", 60)
+	SetCVar("nameplateResourceOnTarget", 0)
 	SetCVar("nameplateShowSelf", 0)
-	SetCVar("nameplateShowFriendlyNPCs",1)
+	SetCVar("cameraSmoothStyle", 0)
+	SetCVar('showQuestTrackingTooltips', 1)
+	SetCVar("profanityFilter", 0)
+	SetCVar('fstack_preferParentKeys', 0) --Add back the frame names via fstack!
 end
 
 local UploadBartender = function()
