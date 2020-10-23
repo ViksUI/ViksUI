@@ -3,27 +3,30 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.06",
+		"Update 9.07",
 		"• More Bug fixes",
-		"• Quest icon for nameplates off by default",
-		"• It lags with many nameplates visible",
-		"• Welcome to new Patreon Molly!!",
+		"• Chat setup fixed. Run /settings chat and also /settings cvar.",
+		"• Do a reload after (Use // for quick reloadui)",
+		"• Again, to many small changes to note here. Full log on Github",
+		"• ",
+		"• Welcome to new Patreon nAyu:!!",
 
 		--"• ",
 	--" ",
 	"FIRST PATREON: joelsoul - Huge Thanks for the support",
 	"SECOND PATREON: Wiggy - Huge Thanks for the support",
 	"THIRD PATREON: Molly - Huge Thanks for the support",
+	"FOURTH PATREON: nAyu - Huge Thanks for the support",
 	"THEY ARE KEEPING VIKSUI ALIVE: SO BIG THANKS FROM ALL UI USERS!",
 	"Give them a thumbs up on Discord chat",
 		"",
 	"NOTE:",
 		"ALL support on Discord only",
-		"9 years with hundreds of hours on coding, ",
+		"10 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
-		"BE NR 3 TO DONATE :)",
+		"BE NR 5 TO DONATE :)",
 		"",
-	"PATREON's: joelsoul, Wiggy & Molly",
+	"PATREON's: joelsoul, Wiggy, Molly & nAyu",
 }
 
 --// TODO LIST
