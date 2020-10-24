@@ -78,6 +78,21 @@ T.AFK_LIST = {
 	"Anim nr: 101 = get up, 113 = salute, 119 = crouching run, 120 = crouch, 124 = channel spell, 125 = channel spell, 126 = spin, 137 = stunned",
 }
 
+-- Keys
+local ignoreKeys = {
+	LALT = true,
+	LSHIFT = true,
+	RSHIFT = true
+}
+
+local printKeys = {
+	["PRINTSCREEN"] = true
+}
+
+if IsMacClient() then
+	printKeys[_G["KEY_PRINTSCREEN_MAC"]] = true
+end
+
 --[[Guild]]--
 local function GuildText()
 	if IsInGuild() then
@@ -92,6 +107,20 @@ end
 local function UpdateTimer()
 	local time = GetTime() - startTime
 	ViksUIAFKPanel.AFKTimer:SetText(format("%02d" .. color ..":|r%02d", floor(time/60), time % 60))
+end
+
+-- On Key down
+local function OnKeyDown(_, key)
+	if (ignoreKeys[key]) then
+		return
+	end
+	if printKeys[key] then
+		Screenshot()
+	else
+		SpinStop()
+		ViksUIAFKPanel:Hide()
+		Minimap:Show()
+	end
 end
 
 --[[Playermodel]]--
@@ -201,10 +230,12 @@ ViksUIAFKPanel:SetScript("OnEvent", function(self, event, unit)
 				GuildText()
 				if not AFKPlayerModel then Model() end
 				Minimap:Hide()
+				ObjectiveTrackerFrame:Hide()				
 			else
 				SpinStop()
 				ViksUIAFKPanel:Hide()
 				Minimap:Show()
+				ObjectiveTrackerFrame:Show()				
 			end
 		end
 	elseif event == "PLAYER_DEAD" then
@@ -212,18 +243,21 @@ ViksUIAFKPanel:SetScript("OnEvent", function(self, event, unit)
 			SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
+			ObjectiveTrackerFrame:Show()				   
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		if UnitIsAFK("player") then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
+			ObjectiveTrackerFrame:Show()
 		end
 	elseif event == "MODIFIER_STATE_CHANGED" then
 		if UnitIsAFK("player") then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
+			ObjectiveTrackerFrame:Show()
 		end
 	end
 end)
