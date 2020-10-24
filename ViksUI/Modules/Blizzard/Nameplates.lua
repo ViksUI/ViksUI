@@ -448,8 +448,10 @@ local function style(self, unit)
 	-- Create Quest Icon
 	if C.nameplate.quest_icon == true then
 		local QuestIcon = self:CreateTexture(nil, "OVERLAY")
-		QuestIcon:SetSize(C.nameplate.height, C.nameplate.height)
-		QuestIcon:SetPoint("LEFT", self, "RIGHT", 4, 0)
+		QuestIcon:SetTexture([[Interface\AddOns\ViksUI\Media\microbar\quest.tga]])
+		QuestIcon:ClearAllPoints()
+		QuestIcon:SetSize(20, 20)
+		QuestIcon:SetPoint("LEFT", self, "RIGHT", 2, 0)
 
 		self.QuestIcon = QuestIcon
 	end
@@ -470,7 +472,7 @@ local function style(self, unit)
 	self.Power:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, -6-(C.nameplate.height * T.noscalemult / 2))
 	self.Power.frequentUpdates = true
 	self.Power.colorPower = true
-	self.Power.PostUpdate = T.PreUpdatePower
+	self.Power.PostUpdateColor = T.PostUpdatePowerColor
 	CreateVirtualFrame(self.Power)
 
 	self.Power.bg = self.Power:CreateTexture(nil, "BORDER")
