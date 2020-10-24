@@ -798,7 +798,7 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(98007), -- Spiritlink Totem
 			CreateSpellEntry(114052), -- Ascendance
 			CreateSpellEntry(157504), -- Cloudburst Totem
-			CreateSpellEntry(201633), -- Earthen Shield
+			CreateSpellEntry(974),	-- Earthen Shield
 			CreateSpellEntry(207400), -- Ancestral Vigor
 			CreateSpellEntry(207498), -- Ancestral Protection
 			CreateSpellEntry(207778), -- Gift of the Queen

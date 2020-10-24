@@ -769,46 +769,6 @@ T.PostUpdateHealth = function(health, unit, min, max)
 		end
 	else
 		local r, g, b
-		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
-			local c = T.Colors.reaction[UnitReaction(unit, "player")]
-			if c then
-				r, g, b = c[1], c[2], c[3]
-				health:SetStatusBarColor(r, g, b)
-			else
-				r, g, b = 0.3, 0.7, 0.3
-				health:SetStatusBarColor(r, g, b)
-			end
-		end
-		if unit == "pet" then
-			local _, class = UnitClass("player")
-			local r, g, b = unpack(T.Colors.class[class])
-			if C.unitframe.own_color == true then
-				health:SetStatusBarColor(unpack(C.unitframe.uf_color))
-				health.bg:SetVertexColor(0.1, 0.1, 0.1)
-			else
-				if b then
-					health:SetStatusBarColor(r, g, b)
-					if health.bg and health.bg.multiplier then
-						local mu = health.bg.multiplier
-						health.bg:SetVertexColor(r * mu, g * mu, b * mu)
-					end
-				end
-			end
-		end
-		if C.unitframe.bar_color_value == true and not UnitIsTapDenied(unit) then
-			if C.unitframe.own_color == true then
-				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
-			else
-				r, g, b = health:GetStatusBarColor()
-			end
-			local newr, newg, newb = oUF:ColorGradient(min, max, 1, 0, 0, 1, 1, 0, r, g, b)
-
-			health:SetStatusBarColor(newr, newg, newb)
-			if health.bg and health.bg.multiplier then
-				local mu = health.bg.multiplier
-				health.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
-			end
-		end
 		if min ~= max then
 			r, g, b = oUF:ColorGradient(min, max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
 			if (unit == "player" and not UnitHasVehicleUI("player") or unit == "vehicle") and health:GetAttribute("normalUnit") ~= "pet" then
@@ -870,6 +830,54 @@ T.PostUpdateHealth = function(health, unit, min, max)
 	end
 end
 
+T.PostUpdateHealthColor = function(health, unit, r, g, b)
+	if unit and unit:find("arena%dtarget") then return end
+	if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
+	else
+		local r, g, b
+		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
+			local c = T.Colors.reaction[UnitReaction(unit, "player")]
+			if c then
+				r, g, b = c[1], c[2], c[3]
+				health:SetStatusBarColor(r, g, b)
+			else
+				r, g, b = 0.3, 0.7, 0.3
+				health:SetStatusBarColor(r, g, b)
+			end
+		end
+		if unit == "pet" then
+			local _, class = UnitClass("player")
+			local r, g, b = unpack(T.Colors.class.class[class])
+			if C.unitframe.own_color == true then
+				health:SetStatusBarColor(unpack(C.unitframe.uf_color))
+				health.bg:SetVertexColor(0.1, 0.1, 0.1)
+			else
+				if b then
+					health:SetStatusBarColor(r, g, b)
+					if health.bg and health.bg.multiplier then
+						local mu = health.bg.multiplier
+						health.bg:SetVertexColor(r * mu, g * mu, b * mu)
+					end
+				end
+			end
+		end
+		if C.unitframe.bar_color_value == true and not UnitIsTapDenied(unit) then
+			if C.unitframe.own_color == true then
+				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
+			else
+				r, g, b = health:GetStatusBarColor()
+			end
+			local newr, newg, newb = oUF:ColorGradient(health.cur, health.max, 1, 0, 0, 1, 1, 0, r, g, b)
+
+			health:SetStatusBarColor(newr, newg, newb)
+			if health.bg and health.bg.multiplier then
+				local mu = health.bg.multiplier
+				health.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
+			end
+		end
+	end
+end
+
 T.PostUpdateRaidHealth = function(health, unit, min, max)
 	local self = health:GetParent()
 	local power = self.Power
@@ -885,29 +893,6 @@ T.PostUpdateRaidHealth = function(health, unit, min, max)
 		end
 	else
 		local r, g, b
-		if not UnitIsPlayer(unit) and UnitIsFriend(unit, "player") and C.unitframe.own_color ~= true then
-			local c = T.Colors.reaction[5]
-			local r, g, b = c[1], c[2], c[3]
-			health:SetStatusBarColor(r, g, b)
-			if health.bg and health.bg.multiplier then
-				local mu = health.bg.multiplier
-				health.bg:SetVertexColor(r * mu, g * mu, b * mu)
-			end
-		end
-		if C.unitframe.bar_color_value == true and not UnitIsTapDenied(unit) then
-			if C.unitframe.own_color == true then
-				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
-			else
-				r, g, b = health:GetStatusBarColor()
-			end
-			local newr, newg, newb = oUF:ColorGradient(min, max, 1, 0, 0, 1, 1, 0, r, g, b)
-
-			health:SetStatusBarColor(newr, newg, newb)
-			if health.bg and health.bg.multiplier then
-				local mu = health.bg.multiplier
-				health.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
-			end
-		end
 		if min ~= max then
 			r, g, b = oUF:ColorGradient(min, max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
 			if self:GetParent():GetName():match("oUF_PartyDPS") then
@@ -952,7 +937,38 @@ T.PostUpdateRaidHealth = function(health, unit, min, max)
 	end
 end
 
-T.PreUpdatePower = function(power, unit)
+T.PostUpdateRaidHealthColor = function(health, unit, r, g, b)
+	if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
+
+	else
+		local r, g, b
+		if not UnitIsPlayer(unit) and UnitIsFriend(unit, "player") and C.unitframe.own_color ~= true then
+			local c = T.Colors.reaction[5]
+			local r, g, b = c[1], c[2], c[3]
+			health:SetStatusBarColor(r, g, b)
+			if health.bg and health.bg.multiplier then
+				local mu = health.bg.multiplier
+				health.bg:SetVertexColor(r * mu, g * mu, b * mu)
+			end
+		end
+		if C.unitframe.bar_color_value == true and not UnitIsTapDenied(unit) then
+			if C.unitframe.own_color == true then
+				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
+			else
+				r, g, b = health:GetStatusBarColor()
+			end
+			local newr, newg, newb = oUF:ColorGradient(health.cur, health.max, 1, 0, 0, 1, 1, 0, r, g, b)
+
+			health:SetStatusBarColor(newr, newg, newb)
+			if health.bg and health.bg.multiplier then
+				local mu = health.bg.multiplier
+				health.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
+			end
+		end
+	end
+end
+
+T.PostUpdatePowerColor = function(power, unit)
 	local _, pToken = UnitPowerType(unit)
 
 	local color = T.Colors.power[pToken]
@@ -1181,88 +1197,28 @@ local function castColor(unit)
 end
 
 T.PostCastStart = function(Castbar, unit)
-	Castbar.channeling = false
 	if unit == "vehicle" then unit = "player" end
 
 	if unit == "player" and C.unitframe.castbar_latency == true and Castbar.Latency then
 		local _, _, _, ms = GetNetStats()
 		Castbar.Latency:SetText(("%dms"):format(ms))
-		Castbar.SafeZone:SetDrawLayer("BORDER")
-		Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
+		if Castbar.casting then
+			Castbar.SafeZone:SetDrawLayer("BORDER")
+			Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
+		else
+			Castbar.SafeZone:SetDrawLayer("ARTWORK")
+			Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
+		end
 	end
 
 	if unit == "player" and C.unitframe.castbar_ticks == true then
-		setBarTicks(Castbar, 0)
-	end
-
-	if Castbar.notInterruptible and UnitCanAttack("player", unit) then
-		Castbar:SetStatusBarColor(0.8, 0, 0)
-		Castbar.bg:SetVertexColor(0.8, 0, 0, 0.2)
-		Castbar.Overlay:SetBackdropBorderColor(0.8, 0, 0)
-		if C.unitframe.castbar_icon == true and (unit == "target" or unit == "focus") then
-			Castbar.Button:SetBackdropBorderColor(0.8, 0, 0)
-		end
-	else
-		if unit == "pet" or unit == "vehicle" then
-			local _, class = UnitClass("player")
-			local r, g, b = unpack(T.Colors.class[class])
-			if C.unitframe.own_color == true then
-				Castbar:SetStatusBarColor(unpack(C.unitframe.uf_color))
-				Castbar.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
-			else
-				if b then
-					Castbar:SetStatusBarColor(r, g, b)
-					Castbar.bg:SetVertexColor(r, g, b, 0.2)
-				end
-			end
+		if Castbar.casting then
+			setBarTicks(Castbar, 0)
 		else
-			if C.unitframe.own_color == true then
-				Castbar:SetStatusBarColor(unpack(C.unitframe.uf_color))
-				Castbar.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
-			else
-				local r, g, b = castColor(unit)
-				Castbar:SetStatusBarColor(r, g, b)
-				Castbar.bg:SetVertexColor(r, g, b, 0.2)
-			end
+			local spell = UnitChannelInfo(unit)
+			Castbar.channelingTicks = T.CastBarTicks[spell] or 0
+			setBarTicks(Castbar, Castbar.channelingTicks)
 		end
-		Castbar.Overlay:SetBackdropBorderColor(unpack(C.media.border_color))
-		if C.unitframe.castbar_icon == true and (unit == "target" or unit == "focus") then
-			Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
-		end
-	end
-
-	if Castbar.Time and Castbar.Text then
-		local timeWidth = Castbar.Time:GetStringWidth()
-		local textWidth = Castbar:GetWidth() - timeWidth - 5
-
-		if timeWidth == 0 then
-			C_Timer.After(0.05, function()
-				textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
-				if textWidth > 0 then
-					Castbar.Text:SetWidth(textWidth)
-				end
-			end)
-		else
-			Castbar.Text:SetWidth(textWidth)
-		end
-	end
-end
-
-T.PostChannelStart = function(Castbar, unit)
-	Castbar.channeling = true
-	if unit == "vehicle" then unit = "player" end
-
-	if unit == "player" and C.unitframe.castbar_latency == true and Castbar.Latency then
-		local _, _, _, ms = GetNetStats()
-		Castbar.Latency:SetText(("%dms"):format(ms))
-		Castbar.SafeZone:SetDrawLayer("ARTWORK")
-		Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
-	end
-
-	if unit == "player" and C.unitframe.castbar_ticks == true then
-		local spell = UnitChannelInfo(unit)
-		Castbar.channelingTicks = T.CastBarTicks[spell] or 0
-		setBarTicks(Castbar, Castbar.channelingTicks)
 	end
 
 	if Castbar.notInterruptible and UnitCanAttack("player", unit) then

@@ -23,16 +23,6 @@ local function LoadSkin()
 	PlayerTalentFramePetSpecializationTutorialButton:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
 
 	PlayerTalentFrame:StripTextures()
-	for _, Frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
-		Frame:StripTextures()
-
-		for _, Child in pairs({Frame:GetChildren()}) do
-			if Child:IsObjectType('Frame') and not Child:GetName() then
-				Child:StripTextures()
-			end
-		end
-	end
-
 	PlayerTalentFrameInset:StripTextures()
 	PlayerTalentFrame:CreateBackdrop("Transparent")
 	PlayerTalentFrame.backdrop:SetPoint("TOPLEFT", 0, 0)
@@ -48,7 +38,7 @@ local function LoadSkin()
 		select(i, PlayerTalentFrameSpecialization:GetRegions()):Hide()
 	end
 
-	select(7, PlayerTalentFrameSpecialization:GetChildren()):DisableDrawLayer("OVERLAY")
+	select(8, PlayerTalentFrameSpecialization:GetChildren()):DisableDrawLayer("OVERLAY")
 
 	for i = 1, 5 do
 		select(i, PlayerTalentFrameSpecializationSpellScrollFrameScrollChild:GetRegions()):Hide()
@@ -62,7 +52,7 @@ local function LoadSkin()
 			select(i, PlayerTalentFramePetSpecialization:GetRegions()):Hide()
 		end
 
-		select(7, PlayerTalentFramePetSpecialization:GetChildren()):DisableDrawLayer("OVERLAY")
+		select(8, PlayerTalentFramePetSpecialization:GetChildren()):DisableDrawLayer("OVERLAY")
 
 		for i = 1, 5 do
 			select(i, PlayerTalentFramePetSpecializationSpellScrollFrameScrollChild:GetRegions()):Hide()
