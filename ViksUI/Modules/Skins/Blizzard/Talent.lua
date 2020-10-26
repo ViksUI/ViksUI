@@ -23,6 +23,16 @@ local function LoadSkin()
 	PlayerTalentFramePetSpecializationTutorialButton:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPLEFT", -12, 12)
 
 	PlayerTalentFrame:StripTextures()
+	for _, Frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
+		Frame:StripTextures()
+
+		for _, Child in pairs({Frame:GetChildren()}) do
+			if Child:IsObjectType('Frame') and not Child:GetName() then
+				Child:StripTextures()
+			end
+		end
+	end
+
 	PlayerTalentFrameInset:StripTextures()
 	PlayerTalentFrame:CreateBackdrop("Transparent")
 	PlayerTalentFrame.backdrop:SetPoint("TOPLEFT", 0, 0)

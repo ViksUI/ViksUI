@@ -66,6 +66,7 @@ local function LoadSkin()
 	QuestScrollFrame.DetailFrame.backdrop:SetFrameLevel(1)
 	QuestScrollFrame.DetailFrame.backdrop:Point('TOPLEFT', QuestScrollFrame.DetailFrame, 'TOPLEFT', 3, 1)
 	QuestScrollFrame.DetailFrame.backdrop:Point('BOTTOMRIGHT', QuestScrollFrame.DetailFrame, 'BOTTOMRIGHT', -2, -7)
+	QuestMapFrame.Background:SetInside(QuestScrollFrame.DetailFrame.backdrop)
 
 	SkinHeaders(QuestScrollFrame.Contents.StoryHeader)
 	T.SkinScrollBar(QuestScrollFrameScrollBar, 3, 3)
@@ -131,7 +132,7 @@ local function LoadSkin()
 
 	-- Elements
 	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1])
-	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[3])
+	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2])
 
 	WorldMapFrame.overlayFrames[2]:StripTextures()
 	WorldMapFrame.overlayFrames[2].Icon:SetTexture([[Interface\Minimap\Tracking\None]])
