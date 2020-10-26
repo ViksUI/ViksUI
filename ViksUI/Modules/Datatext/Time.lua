@@ -87,23 +87,23 @@ local function CheckInvasion(index)
 end
 
 local function GetNextTime(baseTime, index)
-	--local currentTime = time()
-	--local duration = invIndex[index].duration
-	--local elapsed = mod(currentTime - baseTime, duration)
-	--return duration - elapsed + currentTime
+	local currentTime = time()
+	local duration = invIndex[index].duration
+	local elapsed = mod(currentTime - baseTime, duration)
+	return duration - elapsed + currentTime
 end
 
 local function GetNextLocation(nextTime, index)
-	--local inv = invIndex[index]
-	--local count = #inv.timeTable
-	--local elapsed = nextTime - inv.baseTime
-	--local round = mod(floor(elapsed / inv.duration) + 1, count)
+	local inv = invIndex[index]
+	local count = #inv.timeTable
+	local elapsed = nextTime - inv.baseTime
+	local round = mod(floor(elapsed / inv.duration) + 1, count)
 
-	--if round == 0 then
-		--round = count
-	--end
+	if round == 0 then
+		round = count
+	end
 
-	--return C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
+	return C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
 end
 
 local title
@@ -200,12 +200,12 @@ Stat:SetScript("OnEnter", function(self)
 			else
 				r,g,b = 0, 1, 0
 			end
-			--GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+			GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
 		end
 		if C['datatext']['Time24'] then
-			--GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+			GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
 		else
-			--GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1)
+			GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1)
 		end
 	end
 
