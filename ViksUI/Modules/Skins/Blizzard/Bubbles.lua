@@ -31,6 +31,9 @@ local function onUpdate(self, elapsed)
 			styleBubble(bubble)
 		end
 	end
+	
+	local name = self.Name and self.Name:GetText()
+	if name then self.Name:SetFrameStrata("BACKGROUND", 7) end
 end
 
 local f = CreateFrame("Frame")
