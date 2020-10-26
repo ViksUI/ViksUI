@@ -7,7 +7,11 @@ local check = function(self, event, prefix, message, _, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix ~= "ViksUIVersion" or sender == T.name then return end
 		if tonumber(message) ~= nil and tonumber(message) > tonumber(T.version) then
-			print("|cffff0000"..L_MISC_UI_OUTDATED.."|r")
+			if T.vik == true then
+				print("|cffff0000" .. "HEY!, Viks here, thank you for using my addon. Always nice to group with a use of my addon. It's outdated so go and grab the latest version!".."|r")
+			else
+				print("|cffff0000"..L_MISC_UI_OUTDATED.."|r")
+			end
 			self:UnregisterEvent("CHAT_MSG_ADDON")
 		end
 	else

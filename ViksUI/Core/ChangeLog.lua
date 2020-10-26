@@ -3,20 +3,21 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.07",
-		"• More Bug fixes",
-		"• Chat setup fixed. Run /settings chat and also /settings cvar.",
-		"• Do a reload after (Use // for quick reloadui)",
-		"• Again, to many small changes to note here. Full log on Github",
+		"Update 9.08",
+		"• More Bug fixes and skin updates",
+		"• Better threathindicator",
+		"• Invasion timers are back)",
+		"• Fog of war added for Shadowland maps",
 		"• ",
-		"• Welcome to new Patreon nAyu:!!",
+		"• Welcome to new Patreon Elewem:!!",
 
 		--"• ",
 	--" ",
-	"FIRST PATREON: joelsoul - Huge Thanks for the support",
-	"SECOND PATREON: Wiggy - Huge Thanks for the support",
-	"THIRD PATREON: Molly - Huge Thanks for the support",
-	"FOURTH PATREON: nAyu - Huge Thanks for the support",
+	"FIRST PATREON: joelsoul - Huge Thanks for the support <3",
+	"SECOND PATREON: Wiggy - Huge Thanks for the support <3",
+	"THIRD PATREON: Molly - Huge Thanks for the support <3",
+	"FOURTH PATREON: nAyu - Huge Thanks for the support <3",
+	"FIFTH PATREON: Elewem - Huge Thanks for the support <3",
 	"THEY ARE KEEPING VIKSUI ALIVE: SO BIG THANKS FROM ALL UI USERS!",
 	"Give them a thumbs up on Discord chat",
 		"",
@@ -24,9 +25,9 @@ local ChangeLogData = {
 		"ALL support on Discord only",
 		"10 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
-		"BE NR 5 TO DONATE :)",
+		"BE NR 6 TO DONATE :)",
 		"",
-	"PATREON's: joelsoul, Wiggy, Molly & nAyu",
+	"PATREON's: joelsoul, Wiggy, Molly, nAyu & Elewem",
 }
 
 --// TODO LIST
