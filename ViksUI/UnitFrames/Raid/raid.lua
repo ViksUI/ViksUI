@@ -136,19 +136,8 @@ local FocusTarget = function(self)
 end
 
 local updateThreat = function(self, event, unit)
-    if(unit ~= self.unit) then return end
-
-		local status = UnitThreatSituation(unit)
-		unit = unit or self.unit
-    if(status and status > 1) then
-        local r, g, b = GetThreatStatusColor(status)
-        self.ThreatIndicator:SetBackdropBorderColor(r, g, b, 1)
-        self.border:SetBackdropColor(r, g, b, 1)
-    else
-        self.ThreatIndicator:SetBackdropBorderColor(0, 0, 0, 1)
-        self.border:SetBackdropColor(0, 0, 0, 1)
-    end
-    self.ThreatIndicator:Show()
+	self.ThreatIndicator = CreateFrame("Frame", nil, self)
+	self.ThreatIndicator.PostUpdate = T.UpdateThreat
 end
 
 ns.nameCache = {}

@@ -395,6 +395,48 @@ local function castColor(self)
 	end
 end
 
+local function HealthPostUpdate(self, unit)
+	local main = self:GetParent()
+	local perc = 0
+	if self.max and self.max > 0 then
+		perc = self.cur / self.max
+	end
+
+	local r, g, b
+	local mu = self.bg.multiplier
+	local isPlayer = UnitIsPlayer(unit)
+	local unitReaction = UnitReaction(unit, "player")
+	if not UnitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
+		r, g, b = unpack(T.Colors.power["MANA"])
+		self:SetStatusBarColor(r, g, b)
+		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+	elseif not UnitIsTapDenied(unit) and not isPlayer then
+		local reaction = T.Colors.reaction[unitReaction]
+		if reaction then
+			r, g, b = reaction[1], reaction[2], reaction[3]
+		else
+			r, g, b = UnitSelectionColor(unit, true)
+		end
+
+		self:SetStatusBarColor(r, g, b)
+		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+	end
+
+	if isPlayer then
+		if perc <= 0.5 and perc >= 0.2 then
+			SetVirtualBorder(self, 1, 1, 0)
+		elseif perc < 0.2 then
+			SetVirtualBorder(self, 1, 0, 0)
+		else
+			SetVirtualBorder(self, unpack(C.media.border_color))
+		end
+	elseif not isPlayer and C.nameplate.enhance_threat == true then
+		SetVirtualBorder(self, unpack(C.media.border_color))
+	end
+
+	threatColor(main, true)
+end
+
 local function callback(self, _, unit)
 	if not self then return end
 	if unit then
@@ -472,7 +514,7 @@ local function style(self, unit)
 	self.Power:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, -6-(C.nameplate.height * T.noscalemult / 2))
 	self.Power.frequentUpdates = true
 	self.Power.colorPower = true
-	self.Power.PostUpdateColor = T.PostUpdatePowerColor
+	self.Power.PostUpdate = T.PreUpdatePower
 	CreateVirtualFrame(self.Power)
 
 	self.Power.bg = self.Power:CreateTexture(nil, "BORDER")
@@ -527,8 +569,6 @@ local function style(self, unit)
 	self.Castbar.bg:SetColorTexture(1, 0.8, 0, 0.2)
 
 	self.Castbar.PostCastStart = castColor
-	self.Castbar.PostChannelStart = castColor
-	self.Castbar.PostCastNotInterruptible = castColor
 	self.Castbar.PostCastInterruptible = castColor
 
 	-- Create Cast Time Text
@@ -681,46 +721,7 @@ local function style(self, unit)
 		threatColor(main)
 	end)
 
-	self.Health.PostUpdate = function(self, unit, min, max)
-		local perc = 0
-		if max and max > 0 then
-			perc = min / max
-		end
-
-		local r, g, b
-		local mu = self.bg.multiplier
-		local isPlayer = UnitIsPlayer(unit)
-		local unitReaction = UnitReaction(unit, "player")
-		if not UnitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
-			r, g, b = unpack(T.Colors.power["MANA"])
-			self:SetStatusBarColor(r, g, b)
-			self.bg:SetVertexColor(r * mu, g * mu, b * mu)
-		elseif not UnitIsTapDenied(unit) and not isPlayer then
-			local reaction = T.Colors.reaction[unitReaction]
-			if reaction then
-				r, g, b = reaction[1], reaction[2], reaction[3]
-			else
-				r, g, b = UnitSelectionColor(unit, true)
-			end
-
-			self:SetStatusBarColor(r, g, b)
-			self.bg:SetVertexColor(r * mu, g * mu, b * mu)
-		end
-
-		if isPlayer then
-			if perc <= 0.5 and perc >= 0.2 then
-				SetVirtualBorder(self, 1, 1, 0)
-			elseif perc < 0.2 then
-				SetVirtualBorder(self, 1, 0, 0)
-			else
-				SetVirtualBorder(self, unpack(C.media.border_color))
-			end
-		elseif not isPlayer and C.nameplate.enhance_threat == true then
-			SetVirtualBorder(self, unpack(C.media.border_color))
-		end
-
-		threatColor(main, true)
-	end
+	self.Health.PostUpdate = HealthPostUpdate
 
 	-- Every event should be register with this
 	table.insert(self.__elements, UpdateName)
