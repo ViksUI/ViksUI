@@ -370,16 +370,9 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 
 		self.IsSkinned = true
 	end
-
-	self:SetNormalTexture("C.media.texture")
-	self:SetPushedTexture("C.media.texture")
-	self:SetHighlightTexture("C.media.texture")
-
-	if selected then
-		self:SetBackdropColor(0/255, 152/255, 34/255, 1)
-	else
-		self:SetBackdropColor(unpack(C.media.backdrop_color))
-	end
+	self:SetTemplate("Default")
+	self:StyleButton()
+	self:SetNormalTexture(nil)
 
 	if PreviousPOI and PreviousPOI.IsSkinned then
 		PreviousPOI:SetBackdropColor(unpack(C.media.backdrop_color))
@@ -419,5 +412,29 @@ function ObjectiveTracker:Enable()
 end
 
 ObjectiveTracker:Enable()
+
+----------------------------------------------------------------------------------------
+--	Ctrl+Click to abandon a quest or Alt+Click to share a quest(by Suicidal Katt)
+----------------------------------------------------------------------------------------
+hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self)
+	if IsControlKeyDown() then
+		CloseDropDownMenus()
+		QuestMapQuestOptions_AbandonQuest(self.questID)
+	elseif IsAltKeyDown() and C_QuestLog.IsPushableQuest(self.questID) then
+		CloseDropDownMenus()
+		QuestMapQuestOptions_ShareQuest(self.questID)
+	end
+end)
+
+hooksecurefunc(QUEST_TRACKER_MODULE, "OnBlockHeaderClick", function(_, block)
+	if IsControlKeyDown() then
+		CloseDropDownMenus()
+		QuestMapQuestOptions_AbandonQuest(block.id)
+	elseif IsAltKeyDown() and C_QuestLog.IsPushableQuest(block.id) then
+		CloseDropDownMenus()
+		QuestMapQuestOptions_ShareQuest(block.id)
+	end
+end)
+
 
 end
