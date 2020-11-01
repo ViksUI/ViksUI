@@ -36,6 +36,7 @@ function frame:PLAYER_LOGIN()
 	if C.nameplate.enhance_threat == true then
 		SetCVar("threatWarning", 3)
 	end
+	SetCVar("nameplateGlobalScale", 1)
 	SetCVar("namePlateMinScale", 1)
 	SetCVar("namePlateMaxScale", 1)
 	SetCVar("nameplateLargerScale", 1)
@@ -395,11 +396,11 @@ local function castColor(self)
 	end
 end
 
-local function HealthPostUpdate(self, unit)
+local function HealthPostUpdate(self, unit, cur, max)
 	local main = self:GetParent()
 	local perc = 0
-	if self.max and self.max > 0 then
-		perc = self.cur / self.max
+	if max and max > 0 then
+		perc = cur / max
 	end
 
 	local r, g, b
@@ -443,7 +444,7 @@ local function callback(self, _, unit)
 		local unitGUID = UnitGUID(unit)
 		self.npcID = unitGUID and select(6, strsplit('-', unitGUID))
 		self.unitName = UnitName(unit)
-		if self.unitName and T.PlateBlacklist[self.unitName] then
+		if self.npcID and T.PlateBlacklist[self.npcID] then
 			self:Hide()
 		else
 			self:Show()

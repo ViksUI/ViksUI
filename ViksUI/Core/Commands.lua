@@ -70,6 +70,17 @@ end
 SLASH_ENABLE_ADDON1 = "/en"
 SLASH_ENABLE_ADDON2 = "/enable"
 
+SlashCmdList.ONLY_UI = function()
+	for i = 1, GetNumAddOns() do
+		local name = GetAddOnInfo(i)
+		if name ~= "ViksUI" and name ~= "ViksUI_Config" and name ~= "!BaudErrorFrame" and GetAddOnEnableState(T.name, name) == 2 then
+			DisableAddOn(name, T.name)
+		end
+	end
+	ReloadUI()
+end
+SLASH_ONLY_UI1 = "/onlyui"
+
 ----------------------------------------------------------------------------------------
 --	Disband party or raid(by Monolit)
 ----------------------------------------------------------------------------------------
@@ -165,7 +176,6 @@ SLASH_SPEC3 = "/ыы"
 --	Get target NPC name and ID
 ----------------------------------------------------------------------------------------
 SlashCmdList.NPCID = function()
-	-- NPC name and id
 	local name = UnitName("target")
 	local unitGUID = UnitGUID("target")
 	local id = unitGUID and select(6, strsplit('-', unitGUID))

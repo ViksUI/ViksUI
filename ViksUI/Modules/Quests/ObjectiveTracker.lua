@@ -436,5 +436,102 @@ hooksecurefunc(QUEST_TRACKER_MODULE, "OnBlockHeaderClick", function(_, block)
 	end
 end)
 
+----------------------------------------------------------------------------------------
+--	Skin bonus/world quest objective progress bar
+----------------------------------------------------------------------------------------
+local function SkinBar(line)
+	local progressBar = line.ProgressBar
+	local bar = progressBar.Bar
+	local icon = bar.Icon
+	local label = bar.Label
 
+	if not progressBar.styled then
+		bar.BarFrame:Hide()
+		bar.BarGlow:Kill()
+		bar.Sheen:Hide()
+		bar.IconBG:Kill()
+		bar:SetSize(200, 20)
+		bar:SetStatusBarTexture(C.media.texture)
+		bar:SetTemplate("Transparent")
+		bar:SetBackdropColor(0, 0, 0, 0)
+
+		label:ClearAllPoints()
+		label:SetPoint("CENTER", 0, -1)
+		label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+
+		icon:SetPoint("RIGHT", 24, 0)
+		icon:SetSize(20, 20)
+
+		local border = CreateFrame("Frame", "$parentBorder", bar)
+		border:SetAllPoints(icon)
+		border:SetTemplate("Transparent")
+		border:SetBackdropColor(0, 0, 0, 0)
+		bar.newIconBg = border
+
+		hooksecurefunc(bar.AnimIn, "Play", function()
+			bar.AnimIn:Stop()
+		end)
+
+		BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
+		progressBar.styled = true
+	end
+
+	bar.newIconBg:SetShown(icon:IsShown())
+end
+
+hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(_, _, line)
+	SkinBar(line)
+end)
+
+hooksecurefunc(WORLD_QUEST_TRACKER_MODULE, "AddProgressBar", function(_, _, line)
+	SkinBar(line)
+end)
+
+----------------------------------------------------------------------------------------
+--	Skin default/scenario quest objective progress bar
+----------------------------------------------------------------------------------------
+local function SkinSimpleBar(self, block, line)
+	local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
+	local bar = progressBar.Bar
+	local label = bar.Label
+
+	if not progressBar.styled then
+		bar:SetSize(200, 20)
+		bar:SetStatusBarTexture(C.media.texture)
+		bar:SetTemplate("Transparent")
+		bar:SetBackdropColor(0, 0, 0, 0)
+		bar:DisableDrawLayer("ARTWORK")
+
+		label:ClearAllPoints()
+		label:SetPoint("CENTER", 0, -1)
+		label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+		label:SetDrawLayer("OVERLAY")
+
+		progressBar.styled = true
+	end
+end
+
+hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
+	SkinSimpleBar(self, block, line)
+end)
+
+hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
+	SkinSimpleBar(self, block, line)
+end)
+
+----------------------------------------------------------------------------------------
+--	Skin Timer bar
+----------------------------------------------------------------------------------------
+hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", function(self, block, line)
+	local timerBar = self.usedTimerBars[block] and self.usedTimerBars[block][line]
+	local bar = timerBar.Bar
+
+	if not timerBar.styled then
+		bar:SetStatusBarTexture(C.media.texture)
+		bar:SetTemplate("Transparent")
+		bar:SetBackdropColor(0, 0, 0, 0)
+		bar:DisableDrawLayer("ARTWORK")
+		timerBar.styled = true
+	end
+end)
 end
