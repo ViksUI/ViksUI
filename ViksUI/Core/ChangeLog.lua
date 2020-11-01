@@ -3,11 +3,9 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.08",
+		"Update 9.09",
 		"• More Bug fixes and skin updates",
-		"• Better threathindicator",
-		"• Invasion timers are back)",
-		"• Fog of war added for Shadowland maps",
+		"• Talent Advisior added (Thest phase",
 		"• ",
 		"• Welcome to new Patreon Elewem:!!",
 
