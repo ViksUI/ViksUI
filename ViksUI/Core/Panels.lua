@@ -37,6 +37,105 @@ pAlpha = 0
 else
 pAlpha = 1
 end
+
+----------------------------------------------------------------------------------------
+--	Bottom bars anchor
+----------------------------------------------------------------------------------------
+local BottomBarAnchor = CreateFrame("Frame", "ActionBarAnchor", T_PetBattleFrameHider)
+BottomBarAnchor:CreatePanel("Invisible", 1, 1, unpack(C.position.bottom_bars))
+BottomBarAnchor:SetWidth((C.actionbar.button_size * 12) + (C.actionbar.button_space * 11))
+if C.actionbar.bottombars == 2 then
+	BottomBarAnchor:SetHeight((C.actionbar.button_size * 2) + C.actionbar.button_space)
+elseif C.actionbar.bottombars == 3 then
+	if C.actionbar.split_bars == true then
+		BottomBarAnchor:SetHeight((C.actionbar.button_size * 2) + C.actionbar.button_space)
+	else
+		BottomBarAnchor:SetHeight((C.actionbar.button_size * 3) + (C.actionbar.button_space * 2))
+	end
+else
+	BottomBarAnchor:SetHeight(C.actionbar.button_size)
+end
+BottomBarAnchor:SetFrameStrata("LOW")
+
+----------------------------------------------------------------------------------------
+--	Right bars anchor
+----------------------------------------------------------------------------------------
+local RightBarAnchor = CreateFrame("Frame", "RightActionBarAnchor", T_PetBattleFrameHider)
+RightBarAnchor:CreatePanel("Invisible", 1, 1, unpack(C.position.right_bars))
+RightBarAnchor:SetHeight((C.actionbar.button_size * 12) + (C.actionbar.button_space * 11))
+if C.actionbar.rightbars == 1 then
+	RightBarAnchor:SetWidth(C.actionbar.button_size)
+elseif C.actionbar.rightbars == 2 then
+	RightBarAnchor:SetWidth((C.actionbar.button_size * 2) + C.actionbar.button_space)
+elseif C.actionbar.rightbars == 3 then
+	RightBarAnchor:SetWidth((C.actionbar.button_size * 3) + (C.actionbar.button_space * 2))
+else
+	RightBarAnchor:Hide()
+end
+RightBarAnchor:SetFrameStrata("LOW")
+
+----------------------------------------------------------------------------------------
+--	Split bar anchor
+----------------------------------------------------------------------------------------
+if C.actionbar.split_bars == true then
+	local SplitBarLeft = CreateFrame("Frame", "SplitBarLeft", T_PetBattleFrameHider)
+	SplitBarLeft:CreatePanel("Invisible", (C.actionbar.button_size * 3) + (C.actionbar.button_space * 3), (C.actionbar.button_size * 2) + C.actionbar.button_space, "BOTTOMRIGHT", ActionBarAnchor, "BOTTOMLEFT", 0, 0)
+	SplitBarLeft:SetFrameStrata("LOW")
+
+	local SplitBarRight = CreateFrame("Frame", "SplitBarRight", T_PetBattleFrameHider)
+	SplitBarRight:CreatePanel("Invisible", (C.actionbar.button_size * 3) + (C.actionbar.button_space * 3), (C.actionbar.button_size * 2) + C.actionbar.button_space, "BOTTOMLEFT", ActionBarAnchor, "BOTTOMRIGHT", 0, 0)
+	SplitBarRight:SetFrameStrata("LOW")
+end
+
+----------------------------------------------------------------------------------------
+--	Pet bar anchor
+----------------------------------------------------------------------------------------
+local PetBarAnchor = CreateFrame("Frame", "PetActionBarAnchor", T_PetBattleFrameHider)
+if C.actionbar.petbar_horizontal == true then
+	PetBarAnchor:CreatePanel("Invisible", (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), (C.actionbar.button_size + C.actionbar.button_space), unpack(C.position.pet_horizontal))
+elseif C.actionbar.rightbars > 0 then
+	PetBarAnchor:CreatePanel("Invisible", C.actionbar.button_size + C.actionbar.button_space, (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), "RIGHT", RightBarAnchor, "LEFT", 0, 0)
+else
+	PetBarAnchor:CreatePanel("Invisible", (C.actionbar.button_size + C.actionbar.button_space), (C.actionbar.button_size * 10) + (C.actionbar.button_space * 9), unpack(C.position.right_bars))
+end
+PetBarAnchor:SetFrameStrata("LOW")
+RegisterStateDriver(PetBarAnchor, "visibility", "[pet,novehicleui,nopossessbar,nopetbattle] show; hide")
+
+----------------------------------------------------------------------------------------
+--	Stance bar anchor
+----------------------------------------------------------------------------------------
+local StanceAnchor = CreateFrame("Frame", "StanceBarAnchor", T_PetBattleFrameHider)
+if C.actionbar.stancebar_horizontal == true then
+	if C.actionbar.petbar_horizontal == true then
+		StanceAnchor:SetPoint(C.position.stance_bar[1], C.position.stance_bar[2], C.position.stance_bar[3], C.position.stance_bar[4], C.position.stance_bar[5] - (C.actionbar.button_size + C.actionbar.button_space))
+	else
+		StanceAnchor:SetPoint(unpack(C.position.stance_bar))
+	end
+	StanceAnchor:SetWidth((C.actionbar.button_size * 7) + (C.actionbar.button_space * 6))
+	StanceAnchor:SetHeight(C.actionbar.button_size)
+else
+	if C.actionbar.petbar_horizontal == true then
+		StanceAnchor:SetPoint("RIGHT", "RightActionBarAnchor", "LEFT", 0, (C.actionbar.button_size / 2) + 2)
+	else
+		StanceAnchor:SetPoint("RIGHT", PetActionBarAnchor:IsShown() and "PetActionBarAnchor" or "RightActionBarAnchor", "LEFT", 0, (C.actionbar.button_size / 2) + 2)
+		PetBarAnchor:HookScript("OnShow", function() StanceAnchor:SetPoint("RIGHT", "PetActionBarAnchor", "LEFT", 0, (C.actionbar.button_size / 2) + 2) end)
+		PetBarAnchor:HookScript("OnHide", function() StanceAnchor:SetPoint("RIGHT", "RightActionBarAnchor", "LEFT", 0, (C.actionbar.button_size / 2) + 2) end)
+	end
+	StanceAnchor:SetWidth(C.actionbar.button_size + C.actionbar.button_space)
+	StanceAnchor:SetHeight((C.actionbar.button_size * 7) + (C.actionbar.button_space * 6))
+end
+
+StanceAnchor:RegisterEvent("PLAYER_LOGIN")
+StanceAnchor:SetScript("OnEvent", function()
+	local forms = GetNumShapeshiftForms()
+	if forms > 0 then
+		if C.actionbar.stancebar_horizontal == true then
+			StanceAnchor:SetWidth((C.actionbar.button_size * forms) + (C.actionbar.button_space * (forms - 1)))
+		else
+			StanceAnchor:SetHeight((C.actionbar.button_size * forms) + (C.actionbar.button_space * (forms - 1)))
+		end
+	end
+end)
 ----------------------------------------------------------------------------------------
 -- LEFT Panels
 ----------------------------------------------------------------------------------------
