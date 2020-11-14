@@ -400,6 +400,7 @@ C["tooltip"] = {
 	["achievements"] = true,					-- Comparing achievements in tooltip
 	["instance_lock"] = true,					-- Your instance lock status in tooltip
 	["mount"] = true,							-- Show source of mount
+	["npc_id"] = false,							-- Show npc id
 	--Ancher
 	["bottomleft"] = false, 					-- Anchor to BottomLeft
 	["bottomright"] = false, 					-- Anchor to Bottomright
@@ -456,13 +457,25 @@ C["nameplate"] = {
 	["auras_size"] = 25,						-- Debuffs size
 	["healer_icon"] = false,					-- Show icon above enemy healers nameplate in battlegrounds
 	["totem_icons"] = false,					-- Show icon above enemy totems nameplate
-	["quest_icon"] = false,						-- Show quest icon next to nameplate (Lags with many nameplates visible)
+	["quest_icon"] = true,						-- Show quest icon next to nameplate (Lags with many nameplates visible)
+	["npc_colors"] = false,						-- Show Custom colored icon for important NPC in dungeons and raid
+	["target_glow"] = false,					-- Show glow texture for target
+	["target_arrow"] = false,					-- Show target Arrow
 	-- Threat
 	["enhance_threat"] = true,					-- Enable threat feature, automatically changes by your role
 	["good_color"] = {0.2, 0.8, 0.2},			-- Good threat color
 	["near_color"] = {1, 1, 0},					-- Near threat color
 	["bad_color"] = {1, 0, 0},					-- Bad threat color
 	["offtank_color"] = {0, 0.5, 1},			-- Offtank threat color
+	["priority_color"] = {0, .33, 1},			-- Nameplate color for High priority Targets
+	["semipri_color"] = {0, 1, 1},				-- Nameplate color for Semi priority Targets
+	["nuke_color"] = {55/255, 1, 0},			-- Nameplate color for Nuke Targets
+	["t3mobs_color"] = {205/255, 1, 93/255},	-- Nameplate color for T3 mobs
+	["tides_color"] = {205/255, 1, 93/255},		-- Nameplate color for Void Mobs (m+ affix)
+	["explosive_color"] = {.8, 1, .36},			-- Nameplate color for Explosive (m+ affix)
+	["pvpstuff_color"] = {.334, 1, .051},		-- Nameplate color for pvp stuff	
+	["targetarrow_color"] = {0, 1, 1},			-- Color for Target Arrow
+	["targetglow_color"] = {0, 1, 1},			-- Color for Target Glow	
 }
 
 ----------------------------------------------------------------------------------------

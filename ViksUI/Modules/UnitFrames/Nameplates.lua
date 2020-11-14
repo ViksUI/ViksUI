@@ -256,7 +256,7 @@ local function threatColor(self, forced)
 		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
 	elseif combat then
 		if self.npcID == "120651" then	-- Explosives affix
-			self.Health:SetStatusBarColor(1, 0.3, 0)
+			self.Health:SetStatusBarColor(unpack(C.nameplate.explosive_color))
 		elseif threatStatus == 3 then	-- securely tanking, highest threat
 			if T.Role == "Tank" then
 				if C.nameplate.enhance_threat == true then
@@ -315,17 +315,34 @@ end
 
 local function UpdateTarget(self)
 	if UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player") then
-		self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
-		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
-		self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
+		if C.nameplate.target_arrow == true then
+			self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
+			self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 5+((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), -8)
+			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+			self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), ((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+		else
+			self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
+			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+			self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
+		end
 		if C.nameplate.class_icons == true then
 			self.Class.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
 		end
+		self.ArrowR:Show()
+		self.ArrowL:Show()
+		self.Level:Hide()
 		self:SetAlpha(1)
 	else
-		self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
-		self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-(C.nameplate.height * T.noscalemult))
-		self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
+		if C.nameplate.target_arrow == true then
+			self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
+			self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+5, -8)
+			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult), -8-(C.nameplate.height * T.noscalemult))
+			self.Castbar.Icon:SetSize((C.nameplate.height * T.noscalemult), (C.nameplate.height * T.noscalemult))
+		else
+			self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
+			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-(C.nameplate.height * T.noscalemult))
+			self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
+		end
 		if C.nameplate.class_icons == true then
 			self.Class.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
 		end
@@ -333,6 +350,19 @@ local function UpdateTarget(self)
 			self:SetAlpha(1)
 		else
 			self:SetAlpha(C.nameplate.alpha)
+		end
+		self.ArrowR:Hide()
+		self.ArrowL:Hide()
+		self.Level:Show()
+	end
+
+	if C.nameplate.target_glow then
+		if UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player") then
+			--self.Glow:Show()
+			self.highlight:Show()
+		else
+			--self.Glow:Hide()
+			self.highlight:Hide()
 		end
 	end
 end
@@ -449,6 +479,33 @@ local function callback(self, _, unit)
 		else
 			self:Show()
 		end
+		if C.nameplate.npc_colors then
+			if T.PlateDangerous[self.npcID] or T.PlateDangerous[self.unitName] then
+				--self.Health:SetStatusBarColor(unpack(C.nameplate.priority_color))
+				self.Arrow:SetVertexColor(unpack(C.nameplate.priority_color))
+				self.Arrow:Show()
+			elseif T.PlateImportant[self.npcID] or T.PlateImportant[self.unitName] then
+				self.Arrow:SetVertexColor(unpack(C.nameplate.semipri_color))
+				self.Arrow:Show()
+			elseif T.PlateNuke[self.npcID] or T.PlateNuke[self.unitName] then
+				self.Arrow:SetVertexColor(unpack(C.nameplate.nuke_color))
+				self.Arrow:Show()
+			elseif T.PlateT3Mobs[self.npcID] or T.PlateT3Mobs[self.unitName] then
+				self.Arrow:SetVertexColor(unpack(C.nameplate.t3mobs_color))
+				self.Arrow:Show()
+			elseif T.PlateTides[self.npcID] or T.PlateTides[self.unitName] then
+				self.Arrow:SetVertexColor(unpack(C.nameplate.tides_color))
+				self.Arrow:Show()
+			elseif T.PlateExplosive[self.npcID] or T.PlateExplosive[self.unitName] then
+				self.Arrow:SetVertexColor(unpack(C.nameplate.explosive_color))
+				self.Arrow:Show()
+			elseif T.PlatePvP[self.npcID] or T.PlatePvP[self.unitName] then
+				self.Arrow:SetVertexColor(unpack(C.nameplate.pvpstuff_color))
+				self.Arrow:Show()
+			else
+				self.Arrow:Hide()
+			end
+		end
 
 		if UnitIsUnit(unit, "player") then
 			self.Power:Show()
@@ -548,6 +605,19 @@ local function style(self, unit)
 		self:Tag(self.Name, "[NameplateNameColor][NameLong]")
 	end
 
+	-- Target Glow
+	if C.nameplate.target_glow then
+		local highlight = self:CreateTexture(nil, "OVERLAY")
+		highlight:SetPoint("TOPLEFT", -7 * T.noscalemult, 5 * T.noscalemult)
+		highlight:SetPoint("BOTTOMRIGHT", 7 * T.noscalemult, -5 * T.noscalemult)
+		highlight:SetTexture([[Interface\AddOns\ViksUI\Media\textures\Highlight]])
+		highlight:SetVertexColor(unpack(C.nameplate.targetglow_color))
+		highlight:SetBlendMode("ADD")
+		highlight:Hide()
+		self.highlight = highlight
+		table.insert(self.__elements, UpdateTargetGlow)
+	end
+
 	-- Create Level
 	self.Level = self:CreateFontString(nil, "OVERLAY")
 	self.Level:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult, C.font.nameplates_font_style)
@@ -560,7 +630,11 @@ local function style(self, unit)
 	self.Castbar:SetFrameLevel(3)
 	self.Castbar:SetStatusBarTexture(C.media.texture)
 	self.Castbar:SetStatusBarColor(1, 0.8, 0)
-	self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -8)
+	if C.nameplate.target_arrow == true then
+		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+5, -8)
+	else
+		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -8)
+	end
 	self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, -8-(C.nameplate.height * T.noscalemult))
 	CreateVirtualFrame(self.Castbar)
 
@@ -598,7 +672,11 @@ local function style(self, unit)
 	self.Castbar.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	self.Castbar.Icon:SetDrawLayer("ARTWORK")
 	self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
-	self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", 8, 0)
+	if C.nameplate.target_arrow == true then
+		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -8)
+	else
+		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", 8, 0)
+	end
 	CreateVirtualFrame(self.Castbar, self.Castbar.Icon)
 
 	-- Raid Icon
@@ -626,6 +704,28 @@ local function style(self, unit)
 		CreateVirtualFrame(self.Totem, self.Totem.Icon)
 	end
 
+	-- Arrow for important NPC
+	self.Arrow = self.Health:CreateTexture(nil, "OVERLAY")
+	self.Arrow:SetSize(C.nameplate.height * T.noscalemult + 8, C.nameplate.height * T.noscalemult + 8)
+	self.Arrow:SetPoint("CENTER", self.Health, "BOTTOM", 0, 0)
+	self.Arrow:SetTexture([[Interface\AddOns\ViksUI\Media\Other\priority.tga]])
+	self.Arrow:Hide()
+
+	-- Target Arrow
+	self.ArrowR = self.Health:CreateTexture(nil, "OVERLAY")
+	self.ArrowR:SetSize((C.nameplate.height + C.nameplate.ad_width) * T.noscalemult + 8, (C.nameplate.height  + C.nameplate.ad_width) * T.noscalemult + 8)
+	self.ArrowR:SetPoint("RIGHT", self.Health, "LEFT", -4, 0)
+	self.ArrowR:SetTexture([[Interface\AddOns\ViksUI\Media\Other\TargetArrowRight.tga]])
+	self.ArrowR:SetVertexColor(unpack(C.nameplate.targetarrow_color))
+	self.ArrowR:Hide()
+	
+	self.ArrowL = self.Health:CreateTexture(nil, "OVERLAY")
+	self.ArrowL:SetSize((C.nameplate.height + C.nameplate.ad_width) * T.noscalemult + 8, (C.nameplate.height  + C.nameplate.ad_width) * T.noscalemult + 8)
+	self.ArrowL:SetPoint("LEFT", self.Health, "RIGHT", 4, 0)
+	self.ArrowL:SetTexture([[Interface\AddOns\ViksUI\Media\Other\TargetArrowLeft.tga]])
+	self.ArrowL:SetVertexColor(unpack(C.nameplate.targetarrow_color))
+	self.ArrowL:Hide()
+	
 	-- Create Healer Icon
 	if C.nameplate.healer_icon == true then
 		self.HPHeal = self.Health:CreateFontString(nil, "OVERLAY")
@@ -647,7 +747,7 @@ local function style(self, unit)
 		self.Auras.spacing = 5 * T.noscalemult
 		self.Auras.size = C.nameplate.auras_size * T.noscalemult - 3
 
-		self.Auras.CustomFilter = function(_, unit, _, name, _, _, _, _, _, caster, _, nameplateShowSelf, _, _, _, _, nameplateShowAll)
+		self.Auras.CustomFilter = function(_, unit, button, name, _, _, _, _, _, caster, isStealable, nameplateShowSelf, _, _, _, _, nameplateShowAll)
 			local allow = false
 
 			if caster == "player" then
@@ -661,6 +761,12 @@ local function style(self, unit)
 					if ((nameplateShowAll or nameplateShowSelf) and not T.DebuffBlackList[name]) then
 						allow = true
 					elseif T.DebuffWhiteList[name] then
+						allow = true
+					end
+				end
+			else
+				if not UnitIsFriend("player", unit) and not button.isDebuff then
+					if T.BuffWhiteList[name] or (isStealable or ((T.class == "MAGE" or T.class == "PRIEST" or T.class == "SHAMAN" or T.class == "HUNTER") and debuffType == "Magic")) then
 						allow = true
 					end
 				end

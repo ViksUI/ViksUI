@@ -17,3 +17,5 @@ T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
 T.wowBuild = select(2, GetBuildInfo()); T.wowBuild = tonumber(T.wowBuild)
 T.TexCoords = {.1, .9, .1, .9}
 C_NamePlate.SetNamePlateFriendlyClickThrough(true)
+T.beta = select(4, GetBuildInfo())
+

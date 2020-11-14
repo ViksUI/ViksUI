@@ -435,12 +435,22 @@ L_GUI_NAMEPLATE_SHOW_BUFFS = "Mostra i benefici (da un elenco) sopra la barra la
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Dimensioni delle penalità sulle barre delle unità"
 L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
 L_GUI_NAMEPLATE_HEALER_ICON = "Nei Campi di Battaglia, mostra un'icona 'guaritore' accanto alle barre delle unità di tutti i guaritori nemici"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Mostra un’icona sopra la barra dei totem nemici"
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Mostra un’icona sopra la barra dei totem nemici"L.nameplate_target_glow = "Show glow texture for target"
+L.nameplate_npc_colors = "Show different color for priority targets"
 L_GUI_NAMEPLATE_THREAT = "Attiva il sensore di rilevamento minaccia (si adatta automaticamente al tuo ruolo)"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Colore se il PG è minacciato (in base a difensore o assaltatore/guaritore)"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Colore per perdita/guadagno minaccia"
 L_GUI_NAMEPLATE_BAD_COLOR = "Colore se il PG non è minacciato (se difensore o assaltatore/guaritore)"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Colore della minaccia per il difensore secondario"
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
 
 -- ActionBar options
 L_GUI_ACTIONBAR = "Barre delle azioni"

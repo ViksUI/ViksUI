@@ -141,6 +141,15 @@ if C.reminder.solo_buffs_enable == true then
 				["instance"] = true,
 				["pvp"] = true,
 			},
+			[3] = {	-- Lethal Poisons
+				["spells"] = {
+					SpellName(315584),	-- Instant Poisen
+				},
+				["spec"] = 2,			
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+			},
 		},
 		SHAMAN = {
 			[1] = {	-- Windfury Weapon group

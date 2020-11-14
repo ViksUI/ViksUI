@@ -35,6 +35,7 @@
 	<Script file="Config\Filters\Errors.lua"/>
 	<Script file="Config\Filters\Nameplates.lua"/>
 	<Script file="Config\Filters\NeedItems.lua"/>
+	<Script file="Config\Filters\NpcColor.lua"/>
 	<Script file="Config\Filters\OpenItems.lua"/>
 	<Script file="Config\Filters\RaidAuraWatch.lua"/>
 	<Script file="Config\Filters\Reminders.lua"/>

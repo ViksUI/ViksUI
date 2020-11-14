@@ -87,10 +87,12 @@ local function CheckInvasion(index)
 end
 
 local function GetNextTime(baseTime, index)
+if T.beta ~= 90002 then
 	local currentTime = time()
 	local duration = invIndex[index].duration
 	local elapsed = mod(currentTime - baseTime, duration)
 	return duration - elapsed + currentTime
+end
 end
 
 local function GetNextLocation(nextTime, index)
@@ -200,12 +202,12 @@ Stat:SetScript("OnEnter", function(self)
 			else
 				r,g,b = 0, 1, 0
 			end
-			GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+			if T.beta ~= 90002 then GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b) end
 		end
 		if C['datatext']['Time24'] then
-			GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+			if T.beta ~= 90002 then GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1) end
 		else
-			GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1)
+			if T.beta ~= 90002 then GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1) end
 		end
 	end
 

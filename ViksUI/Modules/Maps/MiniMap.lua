@@ -125,6 +125,7 @@ if StreamingIcon then
 	StreamingIcon:SetFrameStrata("BACKGROUND")
 end
 
+if T.beta ~= 90002 then
 -- Ticket icon
 HelpOpenTicketButton:SetParent(Minimap)
 HelpOpenTicketButton:CreateBackdrop("Transparent")
@@ -137,6 +138,7 @@ HelpOpenTicketButton:SetNormalTexture("Interface\\Icons\\inv_misc_note_03")
 HelpOpenTicketButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 HelpOpenTicketButton:GetPushedTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 HelpOpenTicketButton:SetSize(16, 16)
+end
 
 -- GhostFrame
 GhostFrame:StripTextures()

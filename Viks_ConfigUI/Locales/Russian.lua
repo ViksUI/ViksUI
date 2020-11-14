@@ -27,6 +27,9 @@ L.media_subheader_pixel = "Change Pixel font"
 L.media_subheader_pixel2 = "Change Pixel font for Headers"
 L.media_subheader_Dcolor = "Change color for DataTexts"
 L.general_classcolor_border = "Use Class color for borders"
+L.media_texture = "Основная текстура"
+L.media_subheader_normal = "Изменение основного шрифта"
+L.media_subheader_pixel = "Изменение дополнительного шрифта"
 
 -- Font options
 L.font = "Шрифты"
@@ -312,6 +315,8 @@ L_GUI_COOLDOWN_ENEMY_DIRECTION = "Направление иконок"
 L_GUI_COOLDOWN_ENEMY_EVERYWHERE = "Отображать везде"
 L_GUI_COOLDOWN_ENEMY_IN_BG = "Отображать на полях боя"
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "Отображать на арене"
+L.enemycooldown_show_inparty = "Отображать в группе для союзников"
+L.enemycooldown_class_color = "Окрашивать края в цвет класса"
 
 -- Pulse cooldowns options
 L_GUI_COOLDOWN_PULSE = "Свои перезарядки"
@@ -428,6 +433,13 @@ L_GUI_NAMEPLATE_DISTANCE = "Дальность отображения"
 L_GUI_NAMEPLATE_AD_HEIGHT = "Дополнительная высота"
 L_GUI_NAMEPLATE_AD_WIDTH = "Дополнительная ширина"
 L_GUI_NAMEPLATE_CASTBAR_NAME = "Название заклинания"
+L.nameplate_alpha = "Alpha"
+L.nameplate_alpha_desc = "Non-target nameplate alpha"
+L.nameplate_ad_height = "Additional height"
+L.nameplate_ad_width = "Additional width"
+L.nameplate_ad_height_desc = "Additional height for selected nameplate"
+L.nameplate_ad_width_desc = "Additional width for selected nameplate"
+L_GUI_NAMEPLATE_TARGET_ARROW = "Show arrow for target"
 L_GUI_NAMEPLATE_CLASS_ICON = "Иконки классов в PvP"
 L_GUI_NAMEPLATE_NAME_ABBREV = "Сокращение имен"
 L_GUI_NAMEPLATE_CLAMP = "Прикреплять к верху экрана, когда цели пропадают из прямой видимости"
@@ -436,12 +448,22 @@ L_GUI_NAMEPLATE_SHOW_BUFFS = "Отображать баффы над полос�
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Размер иконок аур"
 L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
 L_GUI_NAMEPLATE_HEALER_ICON = "Отображать иконку над вражескими целителями на полях боя"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Отображать иконку над вражескими тотемами"
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Отображать иконку над вражескими тотемами"L.nameplate_target_glow = "Show glow texture for target"
+L.nameplate_npc_colors = "Show different color for priority targets"
 L_GUI_NAMEPLATE_THREAT = "Цветовое обозначение угрозы (зависит от роли)"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Цвет наименьшей угрозы (для танка наивысшей)"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Цвет получения/сброса угрозы"
 L_GUI_NAMEPLATE_BAD_COLOR = "Цвет наивысшей угрозы (для танка наименьшей)"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Цвет угрозы для оффтанка (если вы танк)"
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
 
 -- ActionBar options
 L_GUI_ACTIONBAR = "Панели команд"

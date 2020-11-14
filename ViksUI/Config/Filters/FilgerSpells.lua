@@ -217,7 +217,7 @@ C["filger_spells"] = {
 			-- Darkness
 			{spellID = 196718, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Immolation Aura
-			--FIXME {spellID = 178740, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 258920, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Demon Spikes
 			{spellID = 203720, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Soul Barrier
@@ -323,7 +323,7 @@ C["filger_spells"] = {
 			-- Demon Spikes
 			{spellID = 203720, filter = "CD"},
 			-- Immolation Aura
-			--FIXME {spellID = 178740, filter = "CD"},
+			{spellID = 258920, filter = "CD"},
 			-- Felblade
 			{spellID = 213241, filter = "CD"},
 			-- Throw Glaive
@@ -1226,7 +1226,7 @@ C["filger_spells"] = {
 			Position = {"TOP", T_DEBUFF_ICON_Anchor},
 
 			-- Execution Sentence
-			--FIXME {spellID = 267799, unitID = "target", caster = "player", filter = "DEBUFF"},
+			{spellID = 343527, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Eye of Tyr
 			{spellID = 209202, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Judgment
@@ -1295,7 +1295,7 @@ C["filger_spells"] = {
 			-- Divine Protection
 			{spellID = 498, filter = "CD", absID = true},
 			-- Execution Sentence
-			--FIXME {spellID = 267798, filter = "CD"},
+			{spellID = 343527, filter = "CD"},
 			-- Light's Hammer
 			{spellID = 114158, filter = "CD"},
 			-- Blinding Light
@@ -1560,7 +1560,7 @@ C["filger_spells"] = {
 			-- Rapture
 			{spellID = 47536, filter = "CD"},
 			-- Shadow Covenant
-			--FIXME {spellID = 204065, filter = "CD"},
+			{spellID = 314867, filter = "CD"},
 		},
 	},
 	["ROGUE"] = {

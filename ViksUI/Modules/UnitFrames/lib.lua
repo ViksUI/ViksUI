@@ -9,6 +9,7 @@ local T, C, L, _ = unpack(select(2, ...))
 	local lib = CreateFrame("Frame")  
 	local _, playerClass = UnitClass("player")
 	local oUF = ns.oUF or oUF
+	T.oUF = oUF
 -----------------------------
 --MISC STYLING 
 -----------------------------

@@ -70,9 +70,12 @@ local applystyle = function(bar)
 	bar.OldSetScale = bar.SetScale
 
 	-- Set currect scale if bars attached to nameplates
-	hooksecurefunc(bar, "SetParent", function()
-		bar:SetScale(T.noscalemult)
-	end)
+	if not bar.hook then
+		hooksecurefunc(bar, "SetParent", function()
+			bar:SetScale(T.noscalemult)
+		end)
+		bar.hook = true
+	end
 
 	-- Create or reparent and use bar background
 	local bg = nil
@@ -152,7 +155,8 @@ local function registerStyle()
 		BarStopped = freestyle,
 		GetStyleName = function() return "ViksUI" end,
 	})
-	if BigWigsLoader and BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles.Default.barStyle == "ViksUI" then
+
+	if BigWigsLoader and myProfile and myProfile.barStyle == "ViksUI" then
 		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
 			BigWigsProximityAnchor:SetTemplate("Transparent")
 			BigWigsAltPower:SetTemplate("Transparent")
@@ -173,10 +177,17 @@ f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(_, event, addon)
 	if event == "ADDON_LOADED" then
 		if addon == "BigWigs_Plugins" then
-			if not BigWigs3DB.namespaces.BigWigs_Plugins_Bars or BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles.Default.InstalledBars ~= C.actionbar.bottombars then
-				StaticPopup_Show("SETTINGS_BIGWIGS")
+			local myProfile
+			if BigWigs3DB then
+				if BigWigs3DB.profileKeys and BigWigs3DB.namespaces and BigWigs3DB.namespaces.BigWigs_Plugins_Bars and BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles then
+					myProfile = BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles[BigWigs3DB.profileKeys[UnitName("player").." - "..GetRealmName()]]
+				end
+				if not myProfile or myProfile.InstalledBars ~= C.actionbar.bottombars then
+					StaticPopup_Show("SETTINGS_BIGWIGS")
+				end
 			end
-			registerStyle()
+
+			registerStyle(myProfile)
 			f:UnregisterEvent("ADDON_LOADED")
 		elseif addon == "ViksUI" then
 			if BigWigsLoader and C.skins.blizzard_frames == true then

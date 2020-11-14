@@ -34,6 +34,9 @@ L.media_backdrop_alpha = "Alpha for transparent backdrop"
 L.media_subheader_pixel = "Change Pixel font"
 L.media_subheader_pixel2 = "Change Pixel font for Headers"
 L.media_subheader_Dcolor = "Change color for DataTexts"
+L.media_texture = "Main texture" -- Need review
+L.media_subheader_normal = "Change general font" -- Need review
+L.media_subheader_pixel = "Modification de la Police Pixel" -- Need review
 
 -- Font options
 L.font = "Polices" -- Need review
@@ -145,6 +148,7 @@ L_GUI_UF_PLUGINS_POWER_PREDICTION = "Prédiction du coût des sorts sur la fenê
 L.unitframe_plugins_absorbs = "Absorbs value on player frame" -- Need review
 L.unitframe_subheader_player_width = "Player and target frame size" -- Need review
 L.unitframe_player_width = "Width" -- Need review
+L.unitframe_subheader_boss_width = "Boss and arena frame size" -- Need review
 L.unitframe_extra_height_auto = "Auto height for health/power" -- Need review
 L.unitframe_extra_height_auto_desc = "Smart adjust depending on font size" -- Need review
 L.unitframe_extra_health_height = "Additional height for health" -- Need review
@@ -446,6 +450,7 @@ L_GUI_NAMEPLATE_WIDTH = "Largeur des barres de nom"
 L_GUI_NAMEPLATE_DISTANCE = "Display range" -- Need review
 L_GUI_NAMEPLATE_AD_HEIGHT = "Additional height" -- Need review
 L_GUI_NAMEPLATE_AD_WIDTH = "Additional width" -- Need review
+L_GUI_NAMEPLATE_TARGET_ARROW = "Show arrow for target"
 L_GUI_NAMEPLATE_CASTBAR_NAME = "Afficher le nom du sort"
 L_GUI_NAMEPLATE_CLASS_ICON = "Icône de classe en JcJ"
 L_GUI_NAMEPLATE_NAME_ABBREV = "Afficher les noms abrégés"
@@ -455,12 +460,22 @@ L_GUI_NAMEPLATE_SHOW_BUFFS = "Afficher les améliorations au dessus des barres d
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Taille des affaiblissements"
 L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
 L_GUI_NAMEPLATE_HEALER_ICON = "Affiche une icône de soigneur sur toutes les barres de vie des soigneurs ennemis dans les champs de bataille"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Afficher une icone au dessus des barres de vie des totems ennemis"
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Afficher une icone au dessus des barres de vie des totems ennemis"L.nameplate_target_glow = "Show glow texture for target"
+L.nameplate_npc_colors = "Show different color for priority targets"
 L_GUI_NAMEPLATE_THREAT = "Activer la gestion de la menace, change automatiquement selon votre rôle"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Bonne couleur de menace, dépend de si vous êtes un tank ou dps/heal"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Perte/Gain de couleur de menace"
 L_GUI_NAMEPLATE_BAD_COLOR = "Mauvaise couleur de menace, dépend de si vous êtes un tank ou dps/heal"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Coloration de la menace du tank secondaire"
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
 
 -- ActionBar options
 L_GUI_ACTIONBAR = "Barres d'action"

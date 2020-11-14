@@ -316,6 +316,7 @@ L.nameplate_ad_height = "Zusätzliche Höhe"
 L.nameplate_ad_width = "Zusätzliche Breite"
 L.nameplate_ad_height_desc = "Additional height for selected nameplate" -- Needs review
 L.nameplate_ad_width_desc = "Additional width for selected nameplate" -- Needs review
+L_GUI_NAMEPLATE_TARGET_ARROW = "Show arrow for target"
 L_GUI_NAMEPLATE_CASTBAR_NAME = "Zeige den Namen in der Zauberleiste"
 L_GUI_NAMEPLATE_CLASS_ICON = "Zeige Klassensymbole an (PvP)"
 L_GUI_NAMEPLATE_NAME_ABBREV = "Namen abgekürzt anzeigen"
@@ -324,12 +325,22 @@ L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Zeige Schwächungszauber (Abgekürzte Namen müs
 L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)" -- Need review
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Größe der Debuffs"
 L_GUI_NAMEPLATE_HEALER_ICON = "Zeige Heilersymbol auf allen gegnerischen Heiler-Nameplates im BG"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need reviewL.nameplate_target_glow = "Show glow texture for target"
+L.nameplate_npc_colors = "Show different color for priority targets"
 L_GUI_NAMEPLATE_THREAT = "Aktiviere Bedrohungsanzeige, ändert sich automatisch je nach deiner Rolle"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Positive Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Verlust oder Zuwachs der Bedrohung farbig kennzeichen"
 L_GUI_NAMEPLATE_BAD_COLOR = "Negative Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Kampftext"

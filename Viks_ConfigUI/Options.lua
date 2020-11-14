@@ -583,9 +583,16 @@ do
 	local texture = ns.CreateDropDown(parent, "texture", true, nil, TextureTable, LSM and true)
 	texture:SetPoint("TOPLEFT", backdrop_alpha, "BOTTOMLEFT", -20, -15)
 
+	-- Normal Font
+	local subheader = ns.addSubCategory(parent, L.media_subheader_normal)
+	subheader:SetPoint("TOPLEFT", texture, "BOTTOMLEFT", 16, -10)
+
+	local normal_font = ns.CreateDropDown(parent, "normal_font", true, L.font_stats_font, FontTable, LSM and true)
+	normal_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+
 	-- Pixel Font
 	local subheader = ns.addSubCategory(parent, L.media_subheader_pixel)
-	subheader:SetPoint("TOPLEFT", texture, "BOTTOMLEFT", 16, -10)
+	subheader:SetPoint("TOPLEFT", normal_font, "BOTTOMLEFT", 16, -10)
 
 	local pixel_font = ns.CreateDropDown(parent, "pixel_font", true, L.font_stats_font, FontTable, LSM and true)
 	pixel_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
@@ -1191,7 +1198,6 @@ do
 
 	local totem = ns.CreateCheckBox(parent, "totem", L_GUI_UF_PLUGINS_TOTEM_BAR)
 	totem:SetPoint("TOPLEFT", rune, "BOTTOMLEFT", 0, 0)
-
 end
 
 -- Raid Frames
@@ -1806,6 +1812,9 @@ do
 	
 	local mount = ns.CreateCheckBox(parent, "mount")
 	mount:SetPoint("TOPLEFT", instance_lock, "BOTTOMLEFT", 0, 0)
+	
+	local npc_id = ns.CreateCheckBox(parent, "npc_id", "NPC id")
+	npc_id:SetPoint("TOPLEFT", mount, "BOTTOMLEFT", 0, 0)
 end
 
 -- Chat
@@ -2017,6 +2026,15 @@ do
 	
 	local quest_icon = ns.CreateCheckBox(parent, "quest_icon", L_GUI_NAMEPLATE_QUEST_ICON)
 	quest_icon:SetPoint("TOPLEFT", totem_icons, "BOTTOMLEFT", 0, 0)
+	
+	local target_glow = ns.CreateCheckBox(parent, "target_glow")
+	target_glow:SetPoint("TOPLEFT", quest_icon, "BOTTOMLEFT", 0, 0)
+	
+	local npc_colors = ns.CreateCheckBox(parent, "npc_colors")
+	npc_colors:SetPoint("TOPLEFT", target_glow, "BOTTOMLEFT", 0, 0)
+	
+	local target_arrow = ns.CreateCheckBox(parent, "target_arrow", "Show arrow for target (Rearanges castbar icons position")
+	target_arrow:SetPoint("TOPLEFT", npc_colors, "BOTTOMLEFT", 0, 0)
 
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.nameplate2
@@ -2035,6 +2053,39 @@ do
 
 	local offtank_color = ns.CreateColourPicker(parent, "offtank_color", true, L_GUI_NAMEPLATE_OFFTANK_COLOR)
 	offtank_color:SetPoint("TOPLEFT", bad_color, "BOTTOMLEFT", 0, -10)
+	
+	local subheader = ns.addSubCategory(parent, "Priority Markings colors")
+	subheader:SetPoint("TOPLEFT", offtank_color, "BOTTOMLEFT", 0, -10)
+	
+	local priority_color = ns.CreateColourPicker(parent, "priority_color", true, L_GUI_NAMEPLATE_PRIORITY_COLOR)
+	priority_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -10)
+	
+	local semipri_color = ns.CreateColourPicker(parent, "semipri_color", true, L_GUI_NAMEPLATE_SEMIPRI_COLOR)
+	semipri_color:SetPoint("TOPLEFT", priority_color, "BOTTOMLEFT", 0, -10)
+	
+	local nuke_color = ns.CreateColourPicker(parent, "nuke_color", true, L_GUI_NAMEPLATE_NUKE_COLOR)
+	nuke_color:SetPoint("TOPLEFT", semipri_color, "BOTTOMLEFT", 0, -10)
+	
+	local t3mobs_color = ns.CreateColourPicker(parent, "t3mobs_color", true, L_GUI_NAMEPLATE_T3MOBS_COLOR)
+	t3mobs_color:SetPoint("TOPLEFT", nuke_color, "BOTTOMLEFT", 0, -10)
+	
+	local tides_color = ns.CreateColourPicker(parent, "tides_color", true, L_GUI_NAMEPLATE_TIDES_COLOR)
+	tides_color:SetPoint("TOPLEFT", t3mobs_color, "BOTTOMLEFT", 0, -10)
+
+	local pvpstuff_color = ns.CreateColourPicker(parent, "pvpstuff_color", true, L_GUI_NAMEPLATE_PVPSTUFF_COLOR)
+	pvpstuff_color:SetPoint("TOPLEFT", tides_color, "BOTTOMLEFT", 0, -10)
+	
+	local explosive_color = ns.CreateColourPicker(parent, "explosive_color", true, L_GUI_NAMEPLATE_EXPLOSIVE_COLOR)
+	explosive_color:SetPoint("TOPLEFT", pvpstuff_color, "BOTTOMLEFT", 0, -10)
+	
+	local subheader2 = ns.addSubCategory(parent, "Target Arrow and Glow colors")
+	subheader2:SetPoint("TOPLEFT", explosive_color, "BOTTOMLEFT", 0, -10)
+	
+	local targetarrow_color = ns.CreateColourPicker(parent, "targetarrow_color", true, L_GUI_NAMEPLATE_TARGETARROW_COLOR)
+	targetarrow_color:SetPoint("TOPLEFT", subheader2, "BOTTOMLEFT", 0, -10)
+	
+	local targetglow_color = ns.CreateColourPicker(parent, "targetglow_color", true, L_GUI_NAMEPLATE_TARGETGLOW_COLOR)
+	targetglow_color:SetPoint("TOPLEFT", targetarrow_color, "BOTTOMLEFT", 0, -10)
 end
 
 -- ActionBar
@@ -2420,13 +2471,13 @@ do
 	local invite_keyword = ns.CreateEditBox(parent, "invite_keyword", true, L_GUI_MISC_INVKEYWORD)
 	invite_keyword:SetPoint("TOPLEFT", shift_marking, "BOTTOMLEFT", 6, -10)
 
-	local afk_spin_camera = ns.CreateCheckBox(parent, "afk_spin_camera", L_GUI_MISC_SPIN_CAMERA)
+	local afk_spin_camera = ns.CreateCheckBox(parent, "afk_spin_camera")
 	afk_spin_camera:SetPoint("TOPLEFT", invite_keyword, "BOTTOMLEFT", -6, -10)
 
 	local vehicle_mouseover = ns.CreateCheckBox(parent, "vehicle_mouseover", L_GUI_MISC_VEHICLE_MOUSEOVER)
 	vehicle_mouseover:SetPoint("TOPLEFT", afk_spin_camera, "BOTTOMLEFT", 0, 0)
 
-	local quest_auto_button = ns.CreateCheckBox(parent, "quest_auto_button", L_GUI_MISC_QUEST_AUTOBUTTON)
+	local quest_auto_button = ns.CreateCheckBox(parent, "quest_auto_button")
 	quest_auto_button:SetPoint("TOPLEFT", vehicle_mouseover, "BOTTOMLEFT", 0, 0)
 
 	local raid_tools = ns.CreateCheckBox(parent, "raid_tools")

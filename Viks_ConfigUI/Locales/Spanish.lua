@@ -432,12 +432,22 @@ L_GUI_NAMEPLATE_SHOW_BUFFS = "Show buffs above player nameplate (from the list)"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Tamaño de los perjuicios"
 L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs"
 L_GUI_NAMEPLATE_HEALER_ICON = "Show icon above enemy healers nameplate in battlegrounds"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need review
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Show icon above enemy totems nameplate" -- Need reviewL.nameplate_target_glow = "Show glow texture for target"
+L.nameplate_npc_colors = "Show different color for priority targets"
 L_GUI_NAMEPLATE_THREAT = "Activar visor de amenaza, cambia automáticamente según tu rol"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Color de alta amenaza, varía dependiendo si eres tanque o dps/sanador"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Color de perdiendo/ganando amenaza"
 L_GUI_NAMEPLATE_BAD_COLOR = "Color de baja amenaza, varía dependiendo si eres tanque o dps/sanador"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Offtank threat color" -- Need review
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
 
 -- ActionBar options
 L_GUI_ACTIONBAR = "Action Bars" -- Need review
