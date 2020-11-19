@@ -41,9 +41,9 @@ Builds = {
 		["Leveling Frost"] = {3,false, {2,2,1,1,1,2,1}},
 	},
 	MONK = {
-		["Leveling Brewmaster"] = {1,false, {3,2,3,2,2,3,1}},
-		["Leveling Mistweaver"] = {2,false, {3,2,2,3,3,3,1}},
-		["Leveling Windwalker"] = {3,false, {3,1,2,2,1,3,2}},
+		["Leveling Brewmaster"] = {1,false, {1,2,1,2,2,2,1}},
+		["Leveling Mistweaver"] = {2,false, {1,2,2,1,1,3,3}},
+		["Leveling Windwalker"] = {3,false, {1,2,2,2,1,3,2}},
 	},
 	PALADIN = {
 		["Leveling Holy"] = {1,false, {1,3,1,2,2,3,3}},

@@ -3,11 +3,11 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.09",
-		"• More Bug fixes and skin updates",
-		"• Talent Advisior added (Thest phase",
+		"Update 9.10",
+		"• More Bug fixes",
+		"• Markings for NPC in dungeons",
+		"• Added Target arrow to Nameplate",
 		"• ",
-		"• Welcome to new Patreon Elewem:!!",
 
 		--"• ",
 	--" ",

@@ -68,8 +68,8 @@ cast.OnCastSent = function(self, event, unit, spell, rank)
 	--self.Castbar.SafeZone.sendTime = GetTime()
 end
 cast.PostCastStart = function(self, unit, name, rank, text)
-	local pcolor = {255/255, 128/255, 128/255}
-	local interruptcb = {95/255, 182/255, 255/255}
+	local pcolor = {95/255, 182/255, 255/25}
+	local interruptcb = {0.78, 0.25, 0.25}
 	self:SetAlpha(1.0)
 	self.Spark:Show()
 	self:SetStatusBarColor(unpack(self.casting and self.CastingColor or self.ChannelingColor))
@@ -89,10 +89,15 @@ cast.PostCastStart = function(self, unit, name, rank, text)
 			self.channelingTicks = channelingTicks[spell] or 0
 			cast.setBarTicks(self, self.channelingTicks)
 		end
-	elseif (unit == "target" or unit == "focus" or unit == "party") and not self.interrupt then
+	elseif self.notInterruptible then
 		self:SetStatusBarColor(interruptcb[1],interruptcb[2],interruptcb[3],1)
+		self.bg = self:CreateTexture(nil, "BORDER")
+		self.bg:SetAllPoints()
 	else
+		self:SetStatusBarTexture(cfg.statusbar_texture)
 		self:SetStatusBarColor(pcolor[1], pcolor[2], pcolor[3],1)
+		self.bg = self:CreateTexture(nil, "BORDER")
+		self.bg:SetAllPoints()
 	end
 end
 cast.PostCastStop = function(self, unit, name, rank, castid)

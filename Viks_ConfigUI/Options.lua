@@ -2660,7 +2660,7 @@ do
 		subtitle:SetWidth(580)
 		subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
 		subtitle:SetJustifyH("LEFT")
-		subtitle:SetText("UI Site: |cff298F00https://discord.gg/ZnGcJmZ|r\nGitHub: |cff298F00https://github.com/Viks/ViksUI|r\nCurse: |cff298F00https://www.curseforge.com/wow/addons/viksui|r\nWoWInterface: |cff298F00https://www.wowinterface.com/downloads/info21462-ViksUI.html#info|r\nChange Log: |cff298F00https://github.com/Tryllemann/ViksUI/commits/master|r")
+		subtitle:SetText("UI Site: |cff298F00https://discord.gg/ZnGcJmZ|r\nGitHub: |cff298F00https://github.com/Viks/ViksUI|r\nCurse: |cff298F00https://www.curseforge.com/wow/addons/viksui|r\nWoWInterface: |cff298F00https://www.wowinterface.com/downloads/info21462-ViksUI.html#info|r\nChange Log: |cff298F00https://github.com/ViksUI/ViksUI/commits/master|r")
 
 		local title2 = self:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 		title2:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -16)

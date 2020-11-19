@@ -34,6 +34,7 @@ T.PlateDangerous = {
 	["Drowned Deathbringer"] = true,
 	["Spiteful Shade"] = true,
 	["Flesh Crafter"] = true,
+	["Workshop Assistant"] = true,
 	["Runecarver Sorn"] = true,
 	["Dockhound Packmaster"] = true,
 	["Ashvane Commander"] = true,
@@ -63,6 +64,7 @@ T.PlateDangerous = {
 	["Irontide Cleaver"] = true,
 	["Spinemaw Staghorn"] = true,
 	["Shrine Templar"] = true,
+	["Stoneborn Reaver"] = true,
 }
 
 T.PlateImportant = {
@@ -121,9 +123,13 @@ T.PlateImportant = {
 	["Spirit of Gold"] = true,
 	["Sathel the Accursed"] = true,
 	["Mistveil Tender"] = true,
+	["Mistveil Shaper"] = true,
 	["Depraved Obliterator"] = true,
 	["Blood Visage"] = true,
 	["Maddened Survivalist"] = true,
+	["Vicious Gargon"] = true,
+	["167892"] = true,
+	["Rotmarrow Slime"] = true,
 }
 
 T.PlateNuke = {
@@ -218,6 +224,9 @@ T.PlateT3Mobs = {
 	["Marked Sister"] = true,
 	["Diseased Horror"] = true,
 	["Skeletal Marauder"] = true,
+	["Stoneborn Slasher"] = true,
+	["Plaguebelcher"] = true,
+	["Blighted Spinebreaker"] = true,
 }
 
 T.PlateTides = {
