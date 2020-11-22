@@ -1972,23 +1972,25 @@ end
 -- Nameplate
 do
 	local parent = ViksUIOptionsPanel.nameplate
-
+	
+	local multScale = 768 / select(2, GetPhysicalScreenSize())
+	
 	local enable = ns.CreateCheckBox(parent, "enable", L_GUI_NAMEPLATE_ENABLE)
 	enable:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
-	local height = ns.CreateNumberSlider(parent, "height", nil, nil, 0, 20, 1, true, L_GUI_NAMEPLATE_HEIGHT)
+	local height = ns.CreateNumberSlider(parent, "height", nil, nil, 0, 20 / multScale, 1, true, L_GUI_NAMEPLATE_HEIGHT)
 	height:SetPoint("TOPLEFT", enable, "BOTTOMLEFT", 0, -20)
 
-	local width = ns.CreateNumberSlider(parent, "width", nil, nil, 0, 200, 1, true, L_GUI_NAMEPLATE_WIDTH)
+	local width = ns.CreateNumberSlider(parent, "width", nil, nil, 0, 150 / multScale, 1, true, L_GUI_NAMEPLATE_WIDTH)
 	width:SetPoint("LEFT", height, "RIGHT", 120, 0)
 
 	local distance = ns.CreateNumberSlider(parent, "distance", nil, nil, 0, 200, 1, true, L_GUI_NAMEPLATE_DISTANCE)
 	distance:SetPoint("TOPLEFT", height, "BOTTOMLEFT", 0, -20)
 
-	local ad_height = ns.CreateNumberSlider(parent, "ad_height", nil, nil, 0, 30, 1, true, L_GUI_NAMEPLATE_AD_HEIGHT)
+	local ad_height = ns.CreateNumberSlider(parent, "ad_height", nil, nil, 0, 15 / multScale, 1, true, L_GUI_NAMEPLATE_AD_HEIGHT)
 	ad_height:SetPoint("TOPLEFT", distance, "BOTTOMLEFT", 0, -20)
 
-	local ad_width = ns.CreateNumberSlider(parent, "ad_width", nil, nil, 0, 50, 1, true, L_GUI_NAMEPLATE_AD_WIDTH)
+	local ad_width = ns.CreateNumberSlider(parent, "ad_width", nil, nil, 0, 80 / multScale, 1, true, L_GUI_NAMEPLATE_AD_WIDTH)
 	ad_width:SetPoint("LEFT", ad_height, "RIGHT", 120, 0)
 
 	local combat = ns.CreateCheckBox(parent, "combat", L_GUI_NAMEPLATE_COMBAT)
@@ -2015,7 +2017,7 @@ do
 	local track_buffs = ns.CreateCheckBox(parent, "track_buffs", L_GUI_NAMEPLATE_SHOW_BUFFS)
 	track_buffs:SetPoint("TOPLEFT", track_debuffs, "BOTTOMLEFT", 0, 0)
 
-	local auras_size = ns.CreateNumberSlider(parent, "auras_size", nil, nil, 0, 50, 1, true, L_GUI_NAMEPLATE_DEBUFFS_SIZE)
+	local auras_size = ns.CreateNumberSlider(parent, "auras_size", nil, nil, 0, 35 / multScale, 1, true, L_GUI_NAMEPLATE_DEBUFFS_SIZE)
 	auras_size:SetPoint("TOPLEFT", track_buffs, "BOTTOMLEFT", 0, -20)
 
 	local healer_icon = ns.CreateCheckBox(parent, "healer_icon", L_GUI_NAMEPLATE_HEALER_ICON)

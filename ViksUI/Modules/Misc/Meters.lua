@@ -6,7 +6,7 @@
 -- LOCALS/FUNCTIONS/VARIABLES
 ------------------------------------------------------------------------------------------
 local T, C, L, _ = unpack(select(2, ...))
-if C.panels.NoPanels ~= true then return end
+if C.panels.NoPanels ~= true or C.misc.markbar ~= true then return end
 local class = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
 local CreateBtn = T.CreateBtn
 local thickness = 1
