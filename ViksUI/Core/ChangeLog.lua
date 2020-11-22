@@ -3,10 +3,11 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.10",
-		"• More Bug fixes",
-		"• Markings for NPC in dungeons",
-		"• Added Target arrow to Nameplate",
+		"Update 9.11",
+		"• Adjustements to PixelPerfect for High Res",
+		"• Finalizing colors for NPC Colors",
+		"• Few skins adjusted and fixed",
+		"• Meters swap button turns off now with rest",
 		"• ",
 
 		--"• ",
