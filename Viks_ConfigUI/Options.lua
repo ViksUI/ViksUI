@@ -2513,9 +2513,12 @@ do
 	
 	local markbar = ns.CreateCheckBox(parent, "markbar", L_GUI_MISC_MARKBAR)
 	markbar:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
+
+	local meters = ns.CreateCheckBox(parent, "meters", "Skada/Details Toggle & Chat Move for NoPanel")
+	meters:SetPoint("TOPLEFT", markbar, "BOTTOMLEFT", 0, 0)
 	
 	local classtimer = ns.CreateCheckBox(parent, "classtimer", L_GUI_MISC_CLASSTIMER)
-	classtimer:SetPoint("TOPLEFT", markbar, "BOTTOMLEFT", 0, 0)
+	classtimer:SetPoint("TOPLEFT", meters, "BOTTOMLEFT", 0, 0)
 	
 	local WatchFrame = ns.CreateCheckBox(parent, "WatchFrame", L_GUI_MISC_WATCHFRAME)
 	WatchFrame:SetPoint("TOPLEFT", classtimer, "BOTTOMLEFT", 0, 0)

@@ -424,13 +424,14 @@ if C.panels.NoPanels == true then
 	ChatOptions:SetAlpha(0.0)
 
 	LEFTChatline.icon = LEFTChatline:CreateTexture(nil, "OVERLAY")
-	LEFTChatline.icon:SetSize(17, 17)
-	LEFTChatline.icon:SetPoint("LEFT", LEFTChatline, "LEFT", 60, 0)
+	LEFTChatline.icon:SetSize(14, 14)
+	LEFTChatline.icon:SetPoint("LEFT", LEFTChatline, "LEFT", 60, -2)
 	LEFTChatline.icon:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\chat.tga]])
 
 	local LEFTChatlinetext = LEFTChatline:CreateFontString(nil, "OVERLAY")
-	LEFTChatlinetext:SetFont(C["media"].pixel_font, C["media"].pixel_font_size, C["media"].pixel_font_style)
-	LEFTChatlinetext:SetPoint("LEFT", LEFTChatline, "LEFT", 20, 0)
+	LEFTChatlinetext:SetFont(C["media"].pixel_font, C["media"].pixel_font_size-2, C["media"].pixel_font_style)
+	LEFTChatlinetext:SetPoint("LEFT", LEFTChatline, "LEFT", 20, -2)
+	LEFTChatlinetext:SetTextColor(unpack(C.media.pxcolor1))
 	LEFTChatlinetext:SetText("Chat")		
 	
 	ChatOptions:SetScript("OnMouseDown", function(self, Button)
@@ -445,7 +446,7 @@ if C.panels.NoPanels == true then
 	end)
 	
 	ChatOptions:SetScript("OnLeave", function(self)
-		LEFTChatlinetext:SetTextColor(1, 1, 1)
+		LEFTChatlinetext:SetTextColor(unpack(C.media.pxcolor1))
 		LEFTChatline.icon:SetVertexColor(1, 1, 1)
 	end)
 end		

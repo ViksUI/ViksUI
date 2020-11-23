@@ -95,23 +95,25 @@ ShowHideRaid:SetFrameStrata("BACKGROUND")
 ShowHideRaid:SetAlpha(0)
 
 local RaidToolsText = RIGHTChatline:CreateFontString(nil, "OVERLAY")
-RaidToolsText:SetFontObject(CombatLogFont)
+RaidToolsText:SetFont(C.media.pixel_font, C.media.pixel_font_size-2, C.media.pixel_font_style)
+RaidToolsText:SetTextColor(unpack(C.media.pxcolor1))
 RaidToolsText:SetPoint("RIGHT", RIGHTChatline, "RIGHT", -150, -2)
-RaidToolsText:SetText("Raid Tools")
+RaidToolsText:SetText("RAID TOOLS")
 		
-RIGHTChatline.iconmiddle = RIGHTChatline:CreateTexture(nil, "OVERLAY")
-RIGHTChatline.iconmiddle:SetSize(17, 17)
-RIGHTChatline.iconmiddle:SetPoint("RIGHT", RaidToolsText, "LEFT", -4, -2)
-RIGHTChatline.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+--RIGHTChatline.iconmiddle = RIGHTChatline:CreateTexture(nil, "OVERLAY")
+--RIGHTChatline.iconmiddle:SetSize(17, 17)
+--RIGHTChatline.iconmiddle:SetPoint("RIGHT", RaidToolsText, "LEFT", -4, -2)
+--RIGHTChatline.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+--RIGHTChatline.iconmiddle:SetVertexColor(unpack(C.media.pxcolor1))
 
 ShowHideRaid:SetScript("OnEnter", function(self)
 RaidToolsText:SetTextColor(class.r, class.g, class.b)
-RIGHTChatline.iconmiddle:SetVertexColor(class.r, class.g, class.b)
+--RIGHTChatline.iconmiddle:SetVertexColor(class.r, class.g, class.b)
 end)
 
 ShowHideRaid:SetScript("OnLeave", function(self)
-RaidToolsText:SetTextColor(1, 1, 1)
-RIGHTChatline.iconmiddle:SetVertexColor(1, 1, 1)
+RaidToolsText:SetTextColor(unpack(C.media.pxcolor1))
+--RIGHTChatline.iconmiddle:SetVertexColor(unpack(C.media.pxcolor1))
 end)
 
 -- tooltip Anchor
@@ -275,7 +277,6 @@ ShowHideRaid:SetScript("OnMouseDown", function(self)
 end)
 		
 
-
 ------------------------------------------------------------------------------------------
 -- UI TOOLS MODULE
 ------------------------------------------------------------------------------------------
@@ -285,23 +286,24 @@ ShowHideTools:SetAttribute("macrotext1", "/config")
 ShowHideTools:SetAlpha(0)
 
 local ToolsText = RIGHTChatline:CreateFontString(nil, "OVERLAY")
-ToolsText:SetFontObject(CombatLogFont)
+ToolsText:SetFont(C.media.pixel_font, C.media.pixel_font_size-2, C.media.pixel_font_style)
+ToolsText:SetTextColor(unpack(C.media.pxcolor1))
 ToolsText:SetPoint("RIGHT", RIGHTChatline, "RIGHT", -28, -2)
-ToolsText:SetText("UI Tools")
+ToolsText:SetText("UI TOOLS")
 
-RIGHTChatline.iconright = RIGHTChatline:CreateTexture(nil, "OVERLAY")
-RIGHTChatline.iconright:SetSize(17, 17)
-RIGHTChatline.iconright:SetPoint("RIGHT", RIGHTChatline, "RIGHT", -12, -2)
-RIGHTChatline.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\acp.tga]])
+--RIGHTChatline.iconright = RIGHTChatline:CreateTexture(nil, "OVERLAY")
+--RIGHTChatline.iconright:SetSize(17, 17)
+--RIGHTChatline.iconright:SetPoint("RIGHT", RIGHTChatline, "RIGHT", -12, -2)
+--RIGHTChatline.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\acp.tga]])
 
 ShowHideTools:SetScript("OnEnter", function(self)
 	ToolsText:SetTextColor(class.r, class.g, class.b)
-	RIGHTChatline.iconright:SetVertexColor(class.r, class.g, class.b)
+	--RIGHTChatline.iconright:SetVertexColor(class.r, class.g, class.b)
 end)
 
 ShowHideTools:SetScript("OnLeave", function(self)
-	ToolsText:SetTextColor(1, 1, 1)
-	RIGHTChatline.iconright:SetVertexColor(1, 1, 1)	
+	ToolsText:SetTextColor(unpack(C.media.pxcolor1))
+	--RIGHTChatline.iconright:SetVertexColor(1, 1, 1)	
 end)
 
 else
@@ -385,23 +387,24 @@ ShowHideRaid:SetFrameStrata("BACKGROUND")
 ShowHideRaid:SetAlpha(0)
 
 local RaidToolsText = RChatTab:CreateFontString(nil, "OVERLAY")
-RaidToolsText:SetFontObject(CombatLogFont)
+RaidToolsText:SetFont(C.media.pixel_font, C.media.pixel_font_size-2, C.media.pixel_font_style)
+RaidToolsText:SetTextColor(unpack(C.media.pxcolor1))
 RaidToolsText:SetPoint("RIGHT", RChatTab, "RIGHT", -150, 0)
 RaidToolsText:SetText("Raid Tools")
 		
-RChatTab.iconmiddle = RChatTab:CreateTexture(nil, "OVERLAY")
-RChatTab.iconmiddle:SetSize(17, 17)
-RChatTab.iconmiddle:SetPoint("RIGHT", RaidToolsText, "LEFT", -4, 0)
-RChatTab.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+--RChatTab.iconmiddle = RChatTab:CreateTexture(nil, "OVERLAY")
+--RChatTab.iconmiddle:SetSize(17, 17)
+--RChatTab.iconmiddle:SetPoint("RIGHT", RaidToolsText, "LEFT", -4, 0)
+--RChatTab.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
 
 ShowHideRaid:SetScript("OnEnter", function(self)
 RaidToolsText:SetTextColor(class.r, class.g, class.b)
-RChatTab.iconmiddle:SetVertexColor(class.r, class.g, class.b)
+--RChatTab.iconmiddle:SetVertexColor(class.r, class.g, class.b)
 end)
 
 ShowHideRaid:SetScript("OnLeave", function(self)
-RaidToolsText:SetTextColor(1, 1, 1)
-RChatTab.iconmiddle:SetVertexColor(1, 1, 1)
+RaidToolsText:SetTextColor(unpack(C.media.pxcolor1))
+--RChatTab.iconmiddle:SetVertexColor(1, 1, 1)
 end)
 
 -- tooltip Anchor
@@ -575,22 +578,23 @@ ShowHideTools:SetAttribute("macrotext1", "/config")
 ShowHideTools:SetAlpha(0)
 
 local ToolsText = RChatTab:CreateFontString(nil, "OVERLAY")
-ToolsText:SetFontObject(CombatLogFont)
+ToolsText:SetFont(C.media.pixel_font, C.media.pixel_font_size-2, C.media.pixel_font_style)
+ToolsText:SetTextColor(unpack(C.media.pxcolor1))
 ToolsText:SetPoint("RIGHT", RChatTab, "RIGHT", -28, 0)
-ToolsText:SetText("UI Tools")
+ToolsText:SetText("UI TOOLS")
 
-RChatTab.iconright = RChatTab:CreateTexture(nil, "OVERLAY")
-RChatTab.iconright:SetSize(17, 17)
-RChatTab.iconright:SetPoint("RIGHT", RChatTab, "RIGHT", -12, 0)
-RChatTab.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\acp.tga]])
+--RChatTab.iconright = RChatTab:CreateTexture(nil, "OVERLAY")
+--RChatTab.iconright:SetSize(17, 17)
+--RChatTab.iconright:SetPoint("RIGHT", RChatTab, "RIGHT", -12, 0)
+--RChatTab.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\acp.tga]])
 
 ShowHideTools:SetScript("OnEnter", function(self)
 	ToolsText:SetTextColor(class.r, class.g, class.b)
-	RChatTab.iconright:SetVertexColor(class.r, class.g, class.b)
+	--RChatTab.iconright:SetVertexColor(class.r, class.g, class.b)
 end)
 
 ShowHideTools:SetScript("OnLeave", function(self)
-	ToolsText:SetTextColor(1, 1, 1)
-	RChatTab.iconright:SetVertexColor(1, 1, 1)	
+	ToolsText:SetTextColor(unpack(C.media.pxcolor1))
+	--RChatTab.iconright:SetVertexColor(1, 1, 1)	
 end)
 end

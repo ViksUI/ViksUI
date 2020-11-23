@@ -3287,6 +3287,7 @@ OnLogon:SetScript("OnEvent", function(self)
 	C_Timer.After(1, function() -- Making sure other addons don't turn this off
 		SetCVar("cameraDistanceMaxZoomFactor", 2.6) -- Set Max camera distance
 		SetCVar("scriptErrors", 1) -- Making sure to show lua errors.
+		QuickJoinToastButton:Hide() -- Something is overriding this with NoPanel, So overriding it again ;p
 	end)
 end)
 

@@ -102,6 +102,7 @@ C["misc"] = {
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
 	["armory_link"] = true,						-- Add the Armory link in the chat menu and target (It breaks set focus)
 	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
+	["meters"] = true,							-- Show button for toggle dps meters and move chat (only in line layout)
 }
 
 ----------------------------------------------------------------------------------------
@@ -428,6 +429,7 @@ C["chat"] = {
 	["combatlog"] = true,						-- Show CombatLog tab(need two reloads when false)
 	["tabs_mouseover"] = false,					-- Chat tabs on mouseover
 	["sticky"] = true,							-- Remember last channel
+	["reset_pos"] = true,						-- Reposition chatframes at login
 	["damage_meter_spam"] = true,				-- Merge damage meter spam in one line-link
 	["smileys"] = true,							-- Insert smileys instead of symbols like xD
 	["loot_icons"] = false,						-- Icons for loot

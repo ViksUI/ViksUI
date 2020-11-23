@@ -131,10 +131,10 @@ hooksecurefunc(GameTooltip, "SetQuestCurrency", function(tooltip, type, id)
 end)
 
 hooksecurefunc(GameTooltip, "SetQuestLogCurrency", function(tooltip, _, id)
-	local name = GetQuestLogRewardCurrencyInfo(id)
-	if name then
-		AddTooltipInfo(tooltip, nameToID[name], true)
-	end
+	--Fixme local name = GetQuestLogRewardCurrencyInfo(id)
+	--Fixme if name then
+		--Fixme AddTooltipInfo(tooltip, nameToID[name], true)
+	--Fixme end
 end)
 
 if xMerchantFrame then

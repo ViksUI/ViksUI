@@ -471,7 +471,9 @@ UIChat:SetScript("OnEvent", function(self, event, addon)
 		end
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		SetupChatPosAndFont(self)
+		if C.chat.reset_pos == false then
+			SetupChatPosAndFont(self)
+		end
 	end
 end)
 
