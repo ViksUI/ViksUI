@@ -45,7 +45,6 @@ C.font.stats_font_size = C.font.stats_font_size * T.mult
 C.font.stylization_font_size = C.font.stylization_font_size * T.mult
 C.font.cooldown_timers_font_size = C.font.cooldown_timers_font_size * T.mult
 
-T.Scale = function(x) return Scale(x) end
 local function Point(obj, arg1, arg2, arg3, arg4, arg5)
 	if arg2 == nil then
 		arg2 = obj:GetParent()
