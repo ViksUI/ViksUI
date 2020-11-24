@@ -3,14 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.12",
-		"• Updated code for Skada/Details toggle button",
-		"• Updated Raidaurawatch/debuffs for Shadowland Dung/Raid",
-		"• Castbar should now show red color when not interuptable",
-		"• Meters swap button Toggle option in Config",
-		"• Option to ignore chat repositioning on startup",
-		"• Reworked Text buttons above chat for NoPanel layout",
-		"• Reworked World Map skin and Quest frame",
+		"Update 9.13",
+		"• Important fix that mess up the UI",
 		"• ",
 
 		--"• ",

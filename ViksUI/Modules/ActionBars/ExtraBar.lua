@@ -21,11 +21,28 @@ ExtraActionBarFrame.ignoreInLayout = true
 ExtraAbilityContainer.SetSize = T.dummy
 UIPARENT_MANAGED_FRAME_POSITIONS.ExtraAbilityContainer = nil
 
-ZoneAbilityFrame:SetParent(anchor)
+-- Zone Ability button
+local zoneAnchor = CreateFrame("Frame", "ZoneButtonAnchor", UIParent)
+zoneAnchor:SetPoint(unpack(C.position.zone_button))
+zoneAnchor:SetSize(109, 53)
+zoneAnchor:SetFrameStrata("LOW")
+RegisterStateDriver(zoneAnchor, "visibility", "[petbattle] hide; show")
+
+ZoneAbilityFrame:SetParent(zoneAnchor)
 ZoneAbilityFrame:ClearAllPoints()
 ZoneAbilityFrame:SetAllPoints()
 ZoneAbilityFrame.ignoreInLayout = true
-ZoneAbilityFrame.SpellButtonContainer:SetPoint("TOP", anchor, "TOP")
+ZoneAbilityFrame.SpellButtonContainer:SetPoint("TOPRIGHT", zoneAnchor)
+ZoneAbilityFrame.SpellButtonContainer.spacing = 3
+
+hooksecurefunc("ExtraActionBar_Update", function()
+	if ViksUIPositions["ZoneButtonAnchor"] then return end
+	if HasExtraActionBar() then
+		zoneAnchor:SetPoint("BOTTOMRIGHT", ExtraActionBarFrame, "BOTTOMLEFT", -3, 0)
+	else
+		zoneAnchor:SetPoint(unpack(C.position.zone_button))
+	end
+end)
 
 ------------------------------------------------------------------------------------------
 --	Skin ExtraActionBarFrame(by Zork)
