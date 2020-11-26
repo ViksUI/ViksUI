@@ -3,8 +3,14 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.13",
-		"• Important fix that mess up the UI",
+		"Update 9.14",
+		"• Nameplate Debuff/Buff shown based on players inputt in options",
+		"• More frames movable with /ui",
+		"• Stancebar updated",
+		"• Added new portal to Oribos for mage",
+		"• Fixed CharsCurrency SetQuestLogCurrency function.",
+		"• Updated Experience Bars. Right click on bar to swap",
+		"• Fix for HybridMinimap",
 		"• ",
 
 		--"• ",
