@@ -6,6 +6,7 @@
 T.MoverFrames = {
 	VehicleButtonAnchor,
 	ExtraButtonAnchor,
+	ExtraActionBarFrame,
 	ZoneButtonAnchor,
 	ActionBarAnchor,
 	RightActionBarAnchor,
@@ -71,7 +72,23 @@ T.MoverFrames = {
 	Move_raid40dps,
 	SpellActivationOverlayFrame,
 	SplitBarLeft,
-	SplitBarRight
+	SplitBarRight,
+	ViksUIExperienceBar1,
+	ViksUIExperienceBar2,
+	LBottom,
+	LChat,
+	LChatTab,
+	LABar,
+	RBottom,
+	RChat,
+	RChatTab,
+	RABar,
+	R_Omen,
+	L_Details,
+	R1_Details,
+	R2_Details,
+	CPTopp,
+	CPMinim
 }
 
 local moving = false
