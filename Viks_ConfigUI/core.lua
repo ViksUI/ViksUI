@@ -965,4 +965,22 @@ init:SetScript("OnEvent", function()
 	setActiveTab(ViksUIOptionsPanel.general.tab)
 
 	displaySettings()
+	
+ViksUIOptionsPanel:EnableMouse(true)
+ViksUIOptionsPanel:SetMovable(true)
+
+ViksUIOptionsPanel:SetScript("OnMouseDown", function(self, button)
+  if button == "LeftButton" and not self.isMoving then
+   self:StartMoving();
+   self.isMoving = true;
+  end
+end)
+
+ViksUIOptionsPanel:SetScript("OnMouseUp", function(self, button)
+  if button == "LeftButton" and self.isMoving then
+   self:StopMovingOrSizing();
+   self.isMoving = false;
+  end
+end)
+
 end)
