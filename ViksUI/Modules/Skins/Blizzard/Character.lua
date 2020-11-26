@@ -299,7 +299,6 @@ local function LoadSkin()
 		T.SkinCheckBox(ReputationDetailMainScreenCheckBox)
 		T.SkinCheckBox(ReputationDetailInactiveCheckBox)
 		T.SkinCheckBox(ReputationDetailAtWarCheckBox)
-		--FIXME T.SkinCheckBox(ReputationDetailLFGBonusReputationCheckBox)
 	end
 	ReputationFrame:HookScript("OnShow", UpdateFactionSkins)
 	hooksecurefunc("ExpandFactionHeader", UpdateFactionSkins)
@@ -332,9 +331,6 @@ local function LoadSkin()
 	end)
 
 	CharacterFrame:SetTemplate("Transparent")
-
-	-- Help box
-	--FIXME T.SkinHelpBox(CharacterFrame.ReputationTabHelpBox)
 
 	-- Unit Background Texture
 	CharacterModelFrameBackgroundTopLeft:SetPoint("TOPLEFT", CharacterModelFrame.backdrop, "TOPLEFT", 2, -2)

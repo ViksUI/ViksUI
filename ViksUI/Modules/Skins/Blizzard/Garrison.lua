@@ -111,10 +111,6 @@ local function LoadSkin()
 	MissionList.CompleteDialog.BorderFrame.ViewButton:SkinButton()
 	GarrisonMissionFrame.MissionComplete.NextMissionButton:SkinButton()
 
-	--FIXME GarrisonMissionFrameHelpBoxButton:SkinButton()
-	-- GarrisonMissionFrameHelpBox:StripTextures()
-	-- GarrisonMissionFrameHelpBox:SetTemplate("Transparent")
-
 	local function SkinTab(tab)
 		tab:StripTextures()
 		tab:StyleButton()
@@ -183,14 +179,18 @@ local function LoadSkin()
 		portrait.Portrait:ClearAllPoints()
 		portrait.Portrait:SetPoint("TOPLEFT", 1, -1)
 
-		portrait.PortraitRing:Hide()
-		portrait.PortraitRingQuality:SetTexture("")
-		portrait.PortraitRingCover:SetTexture("")
-		portrait.LevelBorder:SetAlpha(0)
+		if portrait.PortraitRing then
+			portrait.PortraitRing:Hide()
+			portrait.PortraitRingQuality:SetTexture("")
+			portrait.PortraitRingCover:SetTexture("")
+		end
 
-		portrait.Level:ClearAllPoints()
-		portrait.Level:SetPoint("BOTTOM", 0, 1)
-		portrait.Level:SetFontObject("SystemFont_Outline_Small")
+		if portrait.Level then
+			portrait.Level:ClearAllPoints()
+			portrait.Level:SetPoint("BOTTOM", 0, 1)
+			portrait.Level:SetFontObject("SystemFont_Outline_Small")
+			portrait.LevelBorder:SetAlpha(0)
+		end
 
 		if not portrait.backdrop then
 			portrait:CreateBackdrop("Default")
@@ -706,11 +706,6 @@ local function LoadSkin()
 	OrderHallMissionFrame.GarrCorners:StripTextures()
 	OrderHallMissionFrame.ClassHallIcon:Kill()
 	T.SkinCloseButton(OrderHallMissionFrame.CloseButton)
-
-	--FIXME OrderHallMissionTutorialFrame.GlowBox.ArrowGlowUp:Hide()
-	-- OrderHallMissionTutorialFrame.GlowBox:StripTextures()
-	-- OrderHallMissionTutorialFrame.GlowBox:SetTemplate("Transparent")
-	-- T.SkinCloseButton(OrderHallMissionTutorialFrame.GlowBox.CloseButton)
 
 	for i = 1, 3 do
 		T.SkinTab(_G["OrderHallMissionFrameTab"..i])
