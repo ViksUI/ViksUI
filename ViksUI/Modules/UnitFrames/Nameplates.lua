@@ -207,6 +207,74 @@ local function SetVirtualBorder(frame, r, g, b)
 	frame.borderright:SetColorTexture(r, g, b)
 end
 
+-- Auras functions
+local AurasCustomFilter = function(_, unit, button, name, _, _, _, _, _, _, isStealable, nameplateShowSelf, _, _, _, _, nameplateShowAll)
+	local allow = false
+
+	if not UnitIsFriend("player", unit) then
+		if button.isDebuff then
+			if button.isPlayer then
+				if ((nameplateShowAll or nameplateShowSelf) and not T.DebuffBlackList[name]) then
+					allow = true
+				elseif T.DebuffWhiteList[name] then
+					allow = true
+				end
+			end
+		else
+			if T.BuffWhiteList[name] then
+				allow = true
+				button.bordertop:SetColorTexture(0, 0.5, 0)
+				button.borderbottom:SetColorTexture(0, 0.5, 0)
+				button.borderleft:SetColorTexture(0, 0.5, 0)
+				button.borderright:SetColorTexture(0, 0.5, 0)
+			elseif isStealable then
+				allow = true
+				button.bordertop:SetColorTexture(1, 0.85, 0)
+				button.borderbottom:SetColorTexture(1, 0.85, 0)
+				button.borderleft:SetColorTexture(1, 0.85, 0)
+				button.borderright:SetColorTexture(1, 0.85, 0)
+			else
+				button.bordertop:SetColorTexture(unpack(C.media.border_color))
+				button.borderbottom:SetColorTexture(unpack(C.media.border_color))
+				button.borderleft:SetColorTexture(unpack(C.media.border_color))
+				button.borderright:SetColorTexture(unpack(C.media.border_color))
+			end
+		end
+	end
+
+	return allow
+end
+
+local AurasPostCreateIcon = function(element, button)
+	CreateVirtualFrame(button)
+	button:EnableMouse(false)
+
+	button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size * T.noscalemult, C.font.auras_font_style)
+	button.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	button.remaining:SetPoint("CENTER", button, "CENTER", 1, 0)
+	button.remaining:SetJustifyH("CENTER")
+
+	button.cd.noCooldownCount = true
+
+	button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+	button.count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
+	button.count:SetJustifyH("RIGHT")
+	button.count:SetFont(C.font.auras_font, C.font.auras_font_size * T.noscalemult, C.font.auras_font_style)
+	button.count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+
+	if C.aura.show_spiral == true then
+		element.disableCooldown = false
+		button.cd:SetReverse(true)
+		button.parent = CreateFrame("Frame", nil, button)
+		button.parent:SetFrameLevel(button.cd:GetFrameLevel() + 1)
+		button.count:SetParent(button.parent)
+		button.remaining:SetParent(button.parent)
+	else
+		element.disableCooldown = true
+	end
+end
+
 local FormatTime = function(s)
 	local day, hour, minute = 86400, 3600, 60
 	if s >= day then
@@ -242,6 +310,19 @@ local CreateAuraTimer = function(self, elapsed)
 			self.elapsed = 0
 		end
 	end
+end
+
+local AurasPostUpdateIcon = function(_, _, icon, _, _, duration, expiration)
+	if duration and duration > 0 and C.aura.show_timer == true then
+		icon.remaining:Show()
+		icon.timeLeft = expiration
+		icon:SetScript("OnUpdate", CreateAuraTimer)
+	else
+		icon.remaining:Hide()
+		icon.timeLeft = math.huge
+		icon:SetScript("OnUpdate", nil)
+	end
+	icon.first = true
 end
 
 local function threatColor(self, forced)
@@ -314,39 +395,46 @@ local function threatColor(self, forced)
 end
 
 local function UpdateTarget(self)
-	if UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player") then
-		if C.nameplate.target_arrow == true then
-			self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
-			self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 5+((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), -8)
-			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
-			self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), ((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
-		else
-			self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
-			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
-			self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
-		end
-		if C.nameplate.class_icons == true then
-			self.Class.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
+	local isTarget = UnitIsUnit(self.unit, "target")
+	local isMe = UnitIsUnit(self.unit, "player")
+	
+	if isTarget and not isMe then
+		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
+			if C.nameplate.target_arrow == true then
+				self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
+				self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 5+((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), -8)
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+				self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), ((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+			else
+				self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+				self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
+			end
+			if C.nameplate.class_icons == true then
+				self.Class.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
+			end
 		end
 		self.ArrowR:Show()
 		self.ArrowL:Show()
 		self.Level:Hide()
 		self:SetAlpha(1)
 	else
-		if C.nameplate.target_arrow == true then
-			self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
-			self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+5, -8)
-			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult), -8-(C.nameplate.height * T.noscalemult))
-			self.Castbar.Icon:SetSize((C.nameplate.height * T.noscalemult), (C.nameplate.height * T.noscalemult))
-		else
-			self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
-			self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-(C.nameplate.height * T.noscalemult))
-			self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
+		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
+			if C.nameplate.target_arrow == true then
+				self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
+				self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+5, -8)
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult), -8-(C.nameplate.height * T.noscalemult))
+				self.Castbar.Icon:SetSize((C.nameplate.height * T.noscalemult), (C.nameplate.height * T.noscalemult))
+			else
+				self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-(C.nameplate.height * T.noscalemult))
+				self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
+			end
+			if C.nameplate.class_icons == true then
+				self.Class.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
+			end
 		end
-		if C.nameplate.class_icons == true then
-			self.Class.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
-		end
-		if not UnitExists("target") or UnitIsUnit(self.unit, "player") then
+		if not UnitExists("target") or isMe then
 			self:SetAlpha(1)
 		else
 			self:SetAlpha(C.nameplate.alpha)
@@ -358,10 +446,8 @@ local function UpdateTarget(self)
 
 	if C.nameplate.target_glow then
 		if UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player") then
-			--self.Glow:Show()
 			self.highlight:Show()
 		else
-			--self.Glow:Hide()
 			self.highlight:Hide()
 		end
 	end
@@ -517,6 +603,29 @@ local function callback(self, _, unit)
 			self.Name:Show()
 			self.Castbar:SetAlpha(1)
 			self.RaidTargetIndicator:SetAlpha(1)
+
+			if C.nameplate.only_name then
+				if UnitIsFriend("player", unit) then
+					self.Health:SetAlpha(0)
+					self.Name:ClearAllPoints()
+					self.Name:SetPoint("CENTER", self, "CENTER", 0, 0)
+					self.Level:SetAlpha(0)
+					self.Castbar:SetAlpha(0)
+					if C.nameplate.target_glow then
+						self.Glow:SetAlpha(0)
+					end
+				else
+					self.Health:SetAlpha(1)
+					self.Name:ClearAllPoints()
+					self.Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -3, 4)
+					self.Name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 3, 4)
+					self.Level:SetAlpha(1)
+					self.Castbar:SetAlpha(1)
+					if C.nameplate.target_glow then
+						self.Glow:SetAlpha(1)
+					end
+				end
+			end
 		end
 	end
 end
@@ -747,76 +856,9 @@ local function style(self, unit)
 		self.Auras.spacing = 5 * T.noscalemult
 		self.Auras.size = C.nameplate.auras_size * T.noscalemult - 3
 
-		self.Auras.CustomFilter = function(_, unit, button, name, _, _, _, _, _, caster, isStealable, nameplateShowSelf, _, _, _, _, nameplateShowAll)
-			local allow = false
-
-			if caster == "player" then
-				if UnitIsUnit(unit, "player") then
-					if ((nameplateShowAll or nameplateShowSelf) and not T.BuffBlackList[name]) then
-						allow = true
-					elseif T.BuffWhiteList[name] then
-						allow = true
-					end
-				else
-					if ((nameplateShowAll or nameplateShowSelf) and not T.DebuffBlackList[name]) then
-						allow = true
-					elseif T.DebuffWhiteList[name] then
-						allow = true
-					end
-				end
-			else
-				if not UnitIsFriend("player", unit) and not button.isDebuff then
-					if T.BuffWhiteList[name] or (isStealable or ((T.class == "MAGE" or T.class == "PRIEST" or T.class == "SHAMAN" or T.class == "HUNTER") and debuffType == "Magic")) then
-						allow = true
-					end
-				end
-			end
-
-			return allow
-		end
-
-		self.Auras.PostCreateIcon = function(element, button)
-			CreateVirtualFrame(button)
-			button:EnableMouse(false)
-
-			button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size * T.noscalemult, C.font.auras_font_style)
-			button.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-			button.remaining:SetPoint("CENTER", button, "CENTER", 1, 0)
-			button.remaining:SetJustifyH("CENTER")
-
-			button.cd.noCooldownCount = true
-
-			button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-			button.count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
-			button.count:SetJustifyH("RIGHT")
-			button.count:SetFont(C.font.auras_font, C.font.auras_font_size * T.noscalemult, C.font.auras_font_style)
-			button.count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-
-			if C.aura.show_spiral == true then
-				element.disableCooldown = false
-				button.cd:SetReverse(true)
-				button.parent = CreateFrame("Frame", nil, button)
-				button.parent:SetFrameLevel(button.cd:GetFrameLevel() + 1)
-				button.count:SetParent(button.parent)
-				button.remaining:SetParent(button.parent)
-			else
-				element.disableCooldown = true
-			end
-		end
-
-		self.Auras.PostUpdateIcon = function(_, _, icon, _, _, duration, expiration)
-			if duration and duration > 0 and C.aura.show_timer == true then
-				icon.remaining:Show()
-				icon.timeLeft = expiration
-				icon:SetScript("OnUpdate", CreateAuraTimer)
-			else
-				icon.remaining:Hide()
-				icon.timeLeft = math.huge
-				icon:SetScript("OnUpdate", nil)
-			end
-			icon.first = true
-		end
+		self.Auras.CustomFilter = AurasCustomFilter
+		self.Auras.PostCreateIcon = AurasPostCreateIcon
+		self.Auras.PostUpdateIcon = AurasPostUpdateIcon
 	end
 
 	self.Health:RegisterEvent("PLAYER_REGEN_DISABLED")
