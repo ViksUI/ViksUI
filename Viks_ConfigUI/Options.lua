@@ -435,9 +435,9 @@ tinsert(ns.buttons, AddSpellButton)
 -- Expert mode
 do
 	local frame = CreateFrame("Frame", "ViksUIProfileFrame", UIParent)
-	frame:SetWidth(540)
-	frame:SetHeight(320)
-	frame:SetPoint("CENTER", UIParent, "CENTER", 0, 100)
+	frame:SetWidth(650)
+	frame:SetHeight(520)
+	frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	frame:SetFrameStrata("DIALOG")
 	tinsert(UISpecialFrames, "ViksUIProfileFrame")
 	frame:Hide()
@@ -448,17 +448,19 @@ do
 	editBox:SetMaxLetters(99999)
 	editBox:SetAutoFocus(true)
 	editBox:SetFontObject(ChatFontNormal)
-	editBox:SetWidth(510)
-	editBox:SetHeight(300)
+	editBox:SetWidth(620)
+	editBox:SetHeight(500)
 	editBox:SetScript("OnEscapePressed", function() frame:Hide() end)
 
 	local scrollArea = CreateFrame("ScrollFrame", "ViksUIProfileFrameScroll", frame, "UIPanelScrollFrameTemplate")
-	scrollArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -8)
-	scrollArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -27, 30)
+	scrollArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -10)
+	scrollArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -29, 34)
 	scrollArea:SetScrollChild(editBox)
+	ViksUIProfileFrameScrollScrollBar:SetPoint("TOPLEFT", ViksUIProfileFrameScroll, "TOPRIGHT", 8, -12)
+	ViksUIProfileFrameScrollScrollBar:SetPoint("BOTTOMLEFT", ViksUIProfileFrameScroll, "BOTTOMRIGHT", 8, 12)
 
 	local CancelButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-	CancelButton:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -4, 3)
+	CancelButton:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -4, 4)
 	CancelButton:SetSize(100, 23)
 	CancelButton:SetText(CLOSE)
 	CancelButton:SetWidth(CancelButton.Text:GetWidth() + 15)
@@ -2695,6 +2697,41 @@ do
 	local CurrRaid = ns.CreateCheckBox(parent, "CurrRaid", L_GUI_DATATEXT_CurrRaid)
 	CurrRaid:SetPoint("TOPLEFT", CurrPvP, "BOTTOMLEFT", 0, 0)
 end
+
+----------------------------------------------------------------------------------------
+--	Skin extra frames
+----------------------------------------------------------------------------------------
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function()
+	if not ViksUI then return end
+	T, C = unpack(ViksUI)
+
+	SpellList:StripTextures()
+	SpellList:CreateBackdrop("Transparent")
+	SpellList.backdrop:SetPoint("TOPLEFT", -18, 0)
+	SpellList.backdrop:SetPoint("BOTTOMRIGHT", 0, 9)
+
+	SpellListScrollFrameSpellList:StripTextures()
+	SpellListScrollFrameSpellList:CreateBackdrop("Overlay")
+	SpellListScrollFrameSpellList.backdrop:SetPoint("TOPLEFT", 2, 3)
+	SpellListScrollFrameSpellList.backdrop:SetPoint("BOTTOMRIGHT", 2, -3)
+	T.SkinCloseButton(SpellListCloseButton)
+
+	SpellListScrollFrameSpellListScrollBar:SetPoint("TOPLEFT", SpellListScrollFrameSpellList, "TOPRIGHT", 6, -13)
+	SpellListScrollFrameSpellListScrollBar:SetPoint("BOTTOMLEFT", SpellListScrollFrameSpellList, "BOTTOMRIGHT", 6, 13)
+	T.SkinScrollBar(SpellListScrollFrameSpellListScrollBar)
+
+	T.SkinEditBox(SpellListTextInput)
+	T.SkinEditBox(SpellListTextInput2)
+
+	ViksUIProfileFrame:SetTemplate("Transparent")
+	T.SkinScrollBar(ViksUIProfileFrameScrollScrollBar)
+	ViksUIProfileFrameScroll:CreateBackdrop("Overlay")
+	ViksUIProfileFrameScroll.backdrop:SetPoint("TOPLEFT", -4, 4)
+	ViksUIProfileFrameScroll.backdrop:SetPoint("BOTTOMRIGHT", 4, -4)
+end)
+
 ----------------------------------------------------------------------------------------
 --	Information
 ----------------------------------------------------------------------------------------
@@ -2787,37 +2824,9 @@ end
 ----------------------------------------------------------------------------------------
 --	Button in GameMenuButton frame
 ----------------------------------------------------------------------------------------
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function()
-	if not ViksUI then return end
-	T, C = unpack(ViksUI)
-
-	SpellList:StripTextures()
-	SpellList:CreateBackdrop("Transparent")
-	SpellList.backdrop:SetPoint("TOPLEFT", -18, 0)
-	SpellList.backdrop:SetPoint("BOTTOMRIGHT", 0, 9)
-
-	SpellListScrollFrameSpellList:StripTextures()
-	SpellListScrollFrameSpellList:CreateBackdrop("Overlay")
-	SpellListScrollFrameSpellList.backdrop:SetPoint("TOPLEFT", 2, 3)
-	SpellListScrollFrameSpellList.backdrop:SetPoint("BOTTOMRIGHT", 2, -3)
-	T.SkinCloseButton(SpellListCloseButton)
-
-	SpellListScrollFrameSpellListScrollBar:SetPoint("TOPLEFT", SpellListScrollFrameSpellList, "TOPRIGHT", 6, -13)
-	SpellListScrollFrameSpellListScrollBar:SetPoint("BOTTOMLEFT", SpellListScrollFrameSpellList, "BOTTOMRIGHT", 6, 13)
-	T.SkinScrollBar(SpellListScrollFrameSpellListScrollBar)
-
-	T.SkinEditBox(SpellListTextInput)
-	T.SkinEditBox(SpellListTextInput2)
-
-	ViksUIProfileFrame:SetTemplate("Transparent")
-	T.SkinScrollBar(ViksUIProfileFrameScrollScrollBar)
-end)
-
 local menuButton = CreateFrame("Button", "GameMenuButtonSettingsUI", GameMenuFrame, "GameMenuButtonTemplate")
 menuButton:SetText("ViksUI")
-menuButton:SetPoint("TOP", "GameMenuButtonAddons", "BOTTOM", 0, -1)
+menuButton:SetPoint("TOP", GetLocale() ~= "koKR" and "GameMenuButtonAddons" or "GameMenuButtonRatings", "BOTTOM", 0, -1)
 
 GameMenuFrame:HookScript("OnShow", function(self)
 	self:SetHeight(self:GetHeight() + menuButton:GetHeight())
