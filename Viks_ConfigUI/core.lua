@@ -578,6 +578,10 @@ local onTabClick = function(tab)
 		activeTab.panel_3:Hide()
 	end
 
+	if activeTab.panel.fourth then
+		activeTab.panel_4:Hide()
+	end
+
 	setActiveTab(tab)
 
 	ns.HideSpellList()
@@ -604,7 +608,7 @@ local function CreateOptionPanel(name, text, subText)
 	return panel
 end
 
-ns.addCategory = function(name, text, subText, second, third)
+ns.addCategory = function(name, text, subText, second, third, fourth)
 	local tab = CreateFrame("Button", nil, ViksUIOptionsPanel)
 	tab:SetPoint("TOPLEFT", 11, -offset)
 	tab:SetSize(168, 22)
@@ -619,10 +623,10 @@ ns.addCategory = function(name, text, subText, second, third)
 
 	local tag = strlower(name)
 
-	local panel, panel_2, panel_3 = CreateOptionPanel(baseName..name, text, subText)
+	local panel, panel_2, panel_3, panel_4 = CreateOptionPanel(baseName..name, text, subText)
 	panel[1] = panel
 
-	local numPages = third and 3 or second and 2 or 1
+	local numPages = fourth and 4 or third and 3 or second and 2 or 1
 	if numPages > 1 then
 		local name2 = name.."2"
 		local tag2 = strlower(name2)
@@ -669,8 +673,16 @@ ns.addCategory = function(name, text, subText, second, third)
 				panel_2:Show()
 			elseif panel.currentPage == 3 then
 				PrevPageButton:Enable()
-				NextPageButton:Disable()
+				if not fourth then
+					NextPageButton:Disable()
+				else
+					NextPageButton:Enable()
+				end
 				panel_3:Show()
+			elseif panel.currentPage == 4 then
+				PrevPageButton:Enable()
+				NextPageButton:Disable()
+				panel[4]:Show()
 			end
 		end
 
@@ -732,6 +744,34 @@ ns.addCategory = function(name, text, subText, second, third)
 			end)
 
 			panel_3:SetScript("OnMouseWheel", function(_, delta)
+				if delta > 0 then
+					PrevPageButton:Click()
+				end
+			end)
+		end
+		
+		if numPages > 3 then
+			local name4 = name.."4"
+			local tag4 = strlower(name4)
+			panel_4 = CreateOptionPanel(baseName..name4, text, subText)
+			panel[4] = panel_4
+
+			tinsert(panels, panel_4)
+
+			panel.fourth = true
+
+			panel_3.tag = tag
+			ViksUIOptionsPanel[tag4] = panel_4
+
+			panel_3:SetScript("OnMouseWheel", function(_, delta)
+				if delta > 0 then
+					PrevPageButton:Click()
+				elseif delta < 0 then
+					NextPageButton:Click()
+				end
+			end)
+
+			panel_4:SetScript("OnMouseWheel", function(_, delta)
 				if delta > 0 then
 					PrevPageButton:Click()
 				end

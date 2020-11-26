@@ -69,6 +69,9 @@ L.font_subheader_aura = "增益減益"
 L.font_subheader_filger = "法术监视(Filger)"
 L.font_subheader_style = "界面美化"
 L.font_subheader_bag = "背包"
+L.font_subheader_blizzard = "System font size" -- Need review
+L.font_tooltip_header_font_size = "Tooltip header" -- Need review
+L.font_tooltip_font_size = "Tooltip text" -- Need review
 
 -- Skins options
 L_GUI_SKINS = "界面美化"
@@ -108,7 +111,8 @@ L_GUI_SKINS_WEAK_AURAS = "WeakAuras"
 L_GUI_UF_SUBTEXT = "定制玩家/目标框架/其他框架"
 L_GUI_UF_ENABLE = "单位框架增强"
 L_GUI_UF_OWN_COLOR = "自定义颜色"
-L_GUI_UF_UF_COLOR = "生命条颜色(须启用自定义颜色)"
+L_GUI_UF_UF_COLOR = "生命条颜色"
+L.unitframe_uf_color_bg = "背景颜色"
 L_GUI_UF_ENEMY_HEALTH_COLOR = "敌对目标生命条以红色着色"
 L_GUI_UF_TOTAL_VALUE = "玩家/目标框架显示详细的文字变化"
 L_GUI_UF_COLOR_VALUE = "生命值/魔法值按职业着色"
@@ -326,12 +330,14 @@ L_GUI_NAMEPLATE_CLASS_ICON = "PvP时显示职业图标"
 L_GUI_NAMEPLATE_NAME_ABBREV = "名字缩写"
 L_GUI_NAMEPLATE_CLAMP = "当单位姓名板超出屏幕时仍贴边显示"
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "显示DeBuff(需要关闭名字缩写)"
-L_GUI_NAMEPLATE_SHOW_BUFFS = "显示Buff"
-L_GUI_NAMEPLATE_DEBUFFS_SIZE = "DeBuff大小"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "Show dispellable enemy buffs and buffs from the list" -- Need review
+L_GUI_NAMEPLATE_DEBUFFS_SIZE = "DeBuff大小" -- Need review
 L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
 L_GUI_NAMEPLATE_HEALER_ICON = "战场中显示治疗职业图标"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "显示敌对图腾图标"L.nameplate_target_glow = "Show glow texture for target"
+L_GUI_NAMEPLATE_TOTEM_ICONS = "显示敌对图腾图标"
+L.nameplate_target_glow = "目标边框高亮"
 L.nameplate_npc_colors = "Show different color for priority targets"
+L.nameplate_only_name = "友方玩家只显示名称"
 L_GUI_NAMEPLATE_THREAT = "仇恨情况"
 L_GUI_NAMEPLATE_GOOD_COLOR = "安全仇恨颜色"
 L_GUI_NAMEPLATE_NEAR_COLOR = "临界仇恨颜色"
