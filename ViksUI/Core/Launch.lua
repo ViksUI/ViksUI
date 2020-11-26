@@ -3239,6 +3239,7 @@ OnLogon:SetScript("OnEvent", function(self)
 	if ViksUISettingsPerChar.SplitBars == nil then ViksUISettingsPerChar.SplitBars = true end
 	if ViksUISettingsPerChar.RightBars == nil then ViksUISettingsPerChar.RightBars = C.actionbar.rightbars end
 	if ViksUISettingsPerChar.BottomBars == nil then ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars end
+	if ViksUISettingsPerChar.Misc == nil then ViksUISettingsPerChar.Misc = {} end
 
 	if T.screenWidth < 1024 and GetCVar("gxMonitor") == "0" then
 		SetCVar("useUiScale", 0)
