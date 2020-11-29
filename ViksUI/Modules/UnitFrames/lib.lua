@@ -1270,7 +1270,7 @@ local postUpdateIcon = function(element, unit, button, index)
 		if button.isPlayer or UnitIsFriend("player", unit) or not button.isDebuff then
 				button.icon:SetDesaturated(false)                 
 			elseif(not UnitPlayerControlled(unit)) then -- If Unit is Player Controlled don"t desaturate debuffs
-				button:SetBackdropColor(0, 0, 0)
+				--button:SetBackdropColor(0, 0, 0)
 				button.overlay:SetVertexColor(0.3, 0.3, 0.3)      
 				button.icon:SetDesaturated(true)  
 				button.time:Hide()
