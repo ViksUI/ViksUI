@@ -173,13 +173,21 @@ local function onValueChanged(self, value)
 end
 
 local function onMouseWheel(self, delta)
+	if not IsControlKeyDown() and not IsShiftKeyDown() then
+		local script = self.parent:GetScript("OnMouseWheel")
+		if script then
+			script(self.parent, delta)
+		end
+		return
+	end
+
 	value = self.textInput:GetText()
 
 	local step = self.step
 	if IsControlKeyDown() then
 		step = self.step * 5
 	elseif IsShiftKeyDown() then
-		step = self.step * 2
+		step = self.step
 	end
 
 	if delta < 0 then
@@ -247,6 +255,7 @@ local function createSlider(parent, option, lowText, highText, low, high, step, 
 	f:SetMinMaxValues(low, high)
 	f:SetObeyStepOnDrag(true)
 	f:SetValueStep(step)
+	f:SetWidth(150)
 
 	f.tooltipText = ns[parent.tag.."_"..option.."_desc"] or textDesc or ns[parent.tag.."_"..option] or text
 
@@ -254,6 +263,7 @@ local function createSlider(parent, option, lowText, highText, low, high, step, 
 	f.step = step
 	f.min = low
 	f.max = high
+	f.parent = parent
 
 	f:SetScript("OnValueChanged", onValueChanged)
 	f:SetScript("OnMouseWheel", onMouseWheel)
@@ -290,12 +300,12 @@ ns.CreateNumberSlider = function(parent, option, lowText, highText, low, high, s
 
 	local f = CreateFrame("EditBox", parent:GetName()..option.."TextInput", slider, "InputBoxTemplate")
 	f:SetAutoFocus(false)
-	f:SetWidth(60)
+	f:SetWidth(50)
 	f:SetHeight(18)
 	f:SetMaxLetters(8)
 	f:SetFontObject(GameFontHighlight)
 
-	f:SetPoint("LEFT", slider, "RIGHT", 20, 0)
+	f:SetPoint("LEFT", slider, "RIGHT", 10, 0)
 
 	f:SetScript("OnEscapePressed", onSliderEscapePressed)
 	f:SetScript("OnEnterPressed", onSliderEnterPressed)
@@ -463,6 +473,7 @@ end
 
 -- DropDown
 local DropDownText = {
+	["Interface\\AddOns\\ViksUI\\Media\\textures\\Texture.tga"] = "Normal texture",
 	["Interface\\AddOns\\ViksUI\\Media\\Font\\normal_font.ttf"] = "Normal font",
 	["Interface\\AddOns\\ViksUI\\Media\\Font\\pixel.ttf"] = "Pixel Font",
 	[STANDARD_TEXT_FONT] = "Blizzard font",
@@ -476,25 +487,32 @@ local DropDownText = {
 	["STATIC"] = L.raidframe_auto_position_static,
 }
 
-ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, keyName)
+ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, LSM, isFont)
 	local f = CreateFrame("Frame", parent:GetName()..option.."DropDown", parent, "UIDropDownMenuTemplate")
 	UIDropDownMenu_SetWidth(f, 110)
 
-	UIDropDownMenu_Initialize(f, function(self)
+	UIDropDownMenu_Initialize(f, function(self, level)
 		local info = UIDropDownMenu_CreateInfo()
 		info.func = self.SetValue
 		for key, value in pairs(tableValue) do
-			info.text = keyName and key or DropDownText[value] or value
+			info.text = LSM and (DropDownText[value] or key) or DropDownText[value] or value
 			info.arg1 = value
 			info.arg2 = key
 			info.checked = value == f.selectedValue
+
+			if isFont then
+				local fObject = CreateFont(info.text)
+				fObject:SetFont(value, 12)
+				info.fontObject = fObject
+			end
+
 			UIDropDownMenu_AddButton(info)
 		end
 	end)
 
 	function f:SetValue(newValue, newkey)
 		f.selectedValue = newValue
-		local text = keyName and newkey or DropDownText[newValue] or newValue
+		local text = LSM and (DropDownText[newValue] or newkey) or DropDownText[newValue] or newValue
 		UIDropDownMenu_SetText(f, text)
 		SaveValue(f, newValue)
 		old[f] = f.oldValue
