@@ -1247,21 +1247,23 @@ if experience.enabled then
 			if event == "PLAYER_LOGOUT" or event == "TIME_PLAYED_MSG" then
 				conf.Played = floor(playedtotal + GetTime() - playedmsg)
 			end
-			if (event == "AZERITE_ITEM_EXPERIENCE_CHANGED" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
-				if event == "PLAYER_EQUIPMENT_CHANGED" then
-					local slot = ...
-					if slot ~= INVSLOT_MAINHAND then
-						return
-					end
-				end
-				local azeriteItemLocation = C_AzeriteItem and C_AzeriteItem.FindActiveAzeriteItem()
-				if azeriteItemLocation then
-					AzeritXP, AzeritTotalLevelXP = C_AzeriteItem.GetAzeriteItemXPInfo(azeriteItemLocation)
-					AzeritLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
-					self.text:SetText(gsub(experience.artifact_fmt, "%[([%w%%]-)%]", tags))
-				else
+			if T.level < 51 then
+				if (event == "AZERITE_ITEM_EXPERIENCE_CHANGED" or event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_LOGIN") and conf.ExpMode == "art" then
 					if event == "PLAYER_EQUIPMENT_CHANGED" then
-						conf.ExpMode = "played"
+						local slot = ...
+						if slot ~= INVSLOT_MAINHAND then
+							return
+						end
+					end
+					local azeriteItemLocation = C_AzeriteItem and C_AzeriteItem.FindActiveAzeriteItem()
+					if azeriteItemLocation then
+						AzeritXP, AzeritTotalLevelXP = C_AzeriteItem.GetAzeriteItemXPInfo(azeriteItemLocation)
+						AzeritLevel = C_AzeriteItem.GetPowerLevel(azeriteItemLocation)
+						self.text:SetText(gsub(experience.artifact_fmt, "%[([%w%%]-)%]", tags))
+					else
+						if event == "PLAYER_EQUIPMENT_CHANGED" then
+							conf.ExpMode = "played"
+						end
 					end
 				end
 			end
