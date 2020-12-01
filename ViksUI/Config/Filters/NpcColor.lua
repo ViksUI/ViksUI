@@ -167,6 +167,7 @@ T.PlateNuke = {
 	["Eye of Drest'agath"] = true,
 	["Rockmane Howler"] = true,
 	["Scrapbone Bully"] = true,
+	["Flameforge Enforcer"] = true,
 }
 
 T.PlateT3Mobs = {
