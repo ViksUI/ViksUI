@@ -808,7 +808,10 @@ PET_MOVE_TO_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_moveto]]
 SLASH_RELOADUI1 = "/rl"
 SLASH_RELOADUI2 = "/reloadui"
 SlashCmdList.RELOADUI = ReloadUI
-
+C["experiencebar"] = {
+	--["ViksUIExperienceBar1"] = "XP",
+	--["ViksUIExperienceBar2"] = "HONOR",
+}
 C["spacer"] = {} -- Just spacer for config menu
 --------------------------------------------------------------------------------
 --	WORKING ON! Do NOT turn anything on!

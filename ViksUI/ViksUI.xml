@@ -79,7 +79,6 @@
 	<Script file="Modules\Misc\SlotItemLevel.lua"/>
 	<Script file="Modules\Misc\Stats.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
-	<Script file="Modules\Misc\ExperienceBar.lua"/>
 	<!--Script file="Modules\Misc\ReputationBar.lua"/-->
 	<!--Script file="Modules\Misc\Tools.lua"/-->
 	<Script file="Modules\Misc\RaidTools.lua"/>
@@ -275,5 +274,6 @@
 	<Script file="Modules\Tooltip\ItemCount.lua"/>
 	<Script file="Modules\Tooltip\UnitRole.lua"/>
 	<Script file="Modules\Tooltip\InstanceLockCompare.lua"/>
+	<Script file="Modules\Misc\ExperienceBar.lua"/>
 	<Script file="Core\Movers.lua"/>
 </Ui>

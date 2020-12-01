@@ -1,8 +1,6 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.misc.XPBar ~= true then return end
 
-ViksUISettingsPerChar.Misc = {}
-
 local ExperienceEnable = true
 local Experience = CreateFrame("Frame", nil, UIParent)
 local Menu = CreateFrame("Frame", "ViksUIExperienceMenu", UIParent, "UIDropDownMenuTemplate")
@@ -11,6 +9,9 @@ local Panels = CreateFrame("Frame")
 local BarSelected
 local Bars = 20
 local barTex = C.media.texture
+if ViksUIOptionsPerChar.experiencebar == nil  then ViksUIOptionsPerChar.experiencebar = {} end
+C["experiencebar"] = {
+}
 
 Experience.NumBars = 2
 Experience.RestedColor = {75 / 255, 175 / 255, 76 / 255}
@@ -18,6 +19,7 @@ Experience.XPColor = {0 / 255, 144 / 255, 255 / 255}
 Experience.PetXPColor = {255 / 255, 255 / 255, 105 / 255}
 Experience.AZColor = {229 / 255, 204 / 255, 127 / 255}
 Experience.HNColor = {222 / 255, 22 / 255, 22 / 255}
+Experience.AnimaColor = {153 / 255, 204 / 255, 255 / 255}														 
 Experience.Menu = {
 	{
 		text = XP,
@@ -26,7 +28,7 @@ Experience.Menu = {
 			
 			Experience:Update()
 			
-			ViksUISettingsPerChar.Misc[BarSelected:GetName()] = BarSelected.BarType
+			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true
 	},
@@ -36,7 +38,7 @@ Experience.Menu = {
 			BarSelected.BarType = "HONOR"
 			
 			Experience:Update()
-			ViksUISettingsPerChar.Misc[BarSelected:GetName()] = BarSelected.BarType
+			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true
 	},
@@ -46,7 +48,7 @@ Experience.Menu = {
 			BarSelected.BarType = "AZERITE"
 			
 			Experience:Update()
-			ViksUISettingsPerChar.Misc[BarSelected:GetName()] = BarSelected.BarType
+			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -57,7 +59,7 @@ Experience.Menu = {
 			BarSelected.BarType = "PETXP"
 			
 			Experience:Update()
-			ViksUISettingsPerChar.Misc[BarSelected:GetName()] = BarSelected.BarType
+			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -66,8 +68,22 @@ Experience.Menu = {
 		text = REPUTATION,
 		func = function()
 			BarSelected.BarType = "REP"
+			
 			Experience:Update()
-			ViksUISettingsPerChar.Misc[BarSelected:GetName()] = BarSelected.BarType
+
+			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+		end,
+		notCheckable = true,
+		disabled = true,
+	},
+	{
+		text = ANIMA_DIVERSION_CURRENCY_TOOLTIP_TITLE,
+		func = function()
+			BarSelected.BarType = "ANIMA"
+			
+			Experience:Update()
+
+			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -99,6 +115,17 @@ function Experience:SetTooltip()
 		if (IsRested == 1 and Rested) then
 			GameTooltip:AddLine("|cff4BAF4C"..TUTORIAL_TITLE26..": +" .. Rested .." (" .. floor(Rested / Max * 100) .. "%)|r")
 		end
+	elseif BarType == "ANIMA" then
+		Current, Max = Experience:GetAnima()
+		
+		if Max == 0 then
+			return
+		end
+		
+		local Level = C_CovenantSanctumUI.GetRenownLevel()
+		
+		GameTooltip:AddLine("|cffFF3333"..COVENANT_SANCTUM_TAB_RENOWN.." "..LEVEL..": " .. Level)
+		GameTooltip:AddLine("|cff99CCFF"..ANIMA_DIVERSION_CURRENCY_TOOLTIP_TITLE..": " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "%)")
 	elseif BarType == "PETXP" then
 		Current, Max = GetPetExperience()
 
@@ -169,10 +196,21 @@ function Experience:GetReputation()
 	return Value, Max
 end
 
+function Experience:GetAnima()
+	local CurrencyID, MaxDisplayableValue = C_CovenantSanctumUI.GetAnimaInfo()
+	local CurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(CurrencyID)
+	local Current = CurrencyInfo.quantity 
+	local Max = CurrencyInfo.maxQuantity
+	
+	return Current, Max
+end
+
 function Experience:VerifyMenu()
 	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
 	local HavePetXP = select(2, HasPetUI())
 	local WatchedFaction = GetWatchedFactionInfo()
+	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
+	local AnimaCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
 	
 	if AzeriteItem then
 		Experience.Menu[3].disabled = false
@@ -191,22 +229,30 @@ function Experience:VerifyMenu()
 	else
 		Experience.Menu[5].disabled = true
 	end
+	
+	if AnimaCurrency and AnimaCurrencyInfo.quantity ~= 0 and AnimaCurrencyInfo.maxQuantity ~= 0 then
+		Experience.Menu[6].disabled = false
+	else
+		Experience.Menu[6].disabled = true
+	end
 end
 
 function Experience:Update()
 	local Current, Max
 	local Rested = GetXPExhaustion()
 	local IsRested = GetRestState()
+	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
+	local AnimaCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
+	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
+	local HavePetXP = select(2, HasPetUI())
+	local WatchedFaction = GetWatchedFactionInfo()
 
 	for i = 1, self.NumBars do
 		local Bar = self["XPBar"..i]
 		local RestedBar = self["RestedBar"..i]
 		local R, G, B
-		local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
-		local HavePetXP = select(2, HasPetUI())
-		local WatchedFaction = GetWatchedFactionInfo()
 		
-		if (Bar.BarType == "AZERITE" and not AzeriteItem) or (Bar.BarType == "PETXP" and not HavePetXP) or (Bar.BarType == "REP" and not WatchedFaction) then
+		if (Bar.BarType == "AZERITE" and not AzeriteItem) or (Bar.BarType == "PETXP" and not HavePetXP) or (Bar.BarType == "REP" and not WatchedFaction) or (Bar.BarType == "ANIMA" and AnimaCurrencyInfo.quantity == 0 and AnimaCurrencyInfo.maxQuantity == 0) then
 			local MoreText = ""
 			
 			if Bar.BarType == "REP" then
@@ -222,6 +268,10 @@ function Experience:Update()
 			Current, Max = self:GetHonor()
 			
 			R, G, B = unpack(self.HNColor)
+		elseif Bar.BarType == "ANIMA" then
+			Current, Max = Experience:GetAnima()
+			
+			R, G, B = unpack(self.AnimaColor)
 		elseif Bar.BarType == "PETXP" then
 			Current, Max = GetPetExperience()
 			
@@ -264,15 +314,14 @@ function Experience:DisplayMenu()
 	Experience:VerifyMenu()
 	
 	EasyMenu(Experience.Menu, Menu, "cursor", 0, 0, "MENU")
-	
-	ViksUISettingsPerChar.Misc[BarSelected:GetName()] = BarSelected.BarType
+
 end
 
 function Experience:Create()
 	for i = 1, self.NumBars do
 		local XPBar = CreateFrame("StatusBar", "ViksUIExperienceBar" .. i, UIParent)
 		local RestedBar = CreateFrame("StatusBar", nil, XPBar)
-		local Data = ViksUISettingsPerChar
+		local Data = ViksUIOptionsPerChar
 		XPBar:SetStatusBarTexture(barTex)
 		XPBar:EnableMouse()
 		XPBar:SetFrameStrata("MEDIUM")
@@ -301,15 +350,15 @@ function Experience:Create()
 		XPBar.backdrop:SetOutside()
 		XPBar:SetReverseFill(i == 2 and true)
 		-- Default settings
-		if Data.Misc["ViksUIExperienceBar" .. i] then
-			XPBar.BarType = Data.Misc["ViksUIExperienceBar" .. i]
+		if ViksUIOptionsPerChar.experiencebar["ViksUIExperienceBar" .. i] then
+			if i == 1 then
+				XPBar.BarType = ViksUIOptionsPerChar.experiencebar["ViksUIExperienceBar1"]
+			else
+				XPBar.BarType = ViksUIOptionsPerChar.experiencebar["ViksUIExperienceBar2"]
+			end
 		else
 			if i == 1 then
-				if T.level == 60 then
-					XPBar.BarType = "REP"
-				else
-					XPBar.BarType = "XP"
-				end
+				XPBar.BarType = "XP"
 			else
 				XPBar.BarType = "HONOR"
 			end
@@ -318,7 +367,8 @@ function Experience:Create()
 		self["XPBar"..i] = XPBar
 		self["RestedBar"..i] = RestedBar
 	end
-
+	
+	self:RegisterEvent("ADDON_LOADED")	
 	self:RegisterEvent("PLAYER_XP_UPDATE")
 	self:RegisterEvent("UPDATE_FACTION")
 	self:RegisterEvent("PLAYER_LEVEL_UP")
@@ -332,6 +382,8 @@ function Experience:Create()
 	self:RegisterEvent("PLAYER_MONEY")
 	self:RegisterEvent("UNIT_PET")
 	self:RegisterEvent("UNIT_PET_EXPERIENCE")
+	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE")	
+	self:RegisterEvent("ADDON_LOADED")	
 
 	self:SetScript("OnEvent", self.Update)
 end
@@ -367,5 +419,13 @@ function Experience:Disable()
 		end
 	end
 end
-Experience:Enable()
+
+-- Force update after login
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:SetScript("OnEvent", function()
+	Experience:Enable()
+	Experience:Update()
+end)
+
 C.Experience = Experience
