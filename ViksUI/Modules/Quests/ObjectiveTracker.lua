@@ -123,11 +123,14 @@ ObjectiveTrackerFrame.HeaderMenu.Title:SetAlpha(0)
 
 function ObjectiveTracker:SkinScenario()
 	local StageBlock = _G["ScenarioStageBlock"]
+	StageBlock:CreateBackdrop("Overlay")
+	StageBlock.backdrop:SetPoint("TOPLEFT", ScenarioStageBlock.NormalBG, 3, 0)
+	StageBlock.backdrop:SetPoint("BOTTOMRIGHT", ScenarioStageBlock.NormalBG, 5, 5)
 
-	StageBlock.NormalBG:SetTexture("")
-	StageBlock.FinalBG:SetTexture("")
-	StageBlock.Stage:SetFont(C.media.pxfontHeader, 17)
+	StageBlock.NormalBG:SetAlpha(0)
+	StageBlock.FinalBG:SetAlpha(0)
 	StageBlock.GlowTexture:SetTexture("")
+	StageBlock.Stage:SetFont(C.media.pxfontHeader, 17)
 end
 
 function ObjectiveTracker:UpdateQuestItem(block)
