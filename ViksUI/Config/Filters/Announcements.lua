@@ -79,6 +79,7 @@ if C.announcements.portals == true then
 		[53142] = true,		-- Dalaran
 		[120146] = true,	-- Ancient Dalaran
 		[224871] = true,	-- Dalaran, Broken Isles
+		[344597] = true,	-- Oribos
 	}
 end
 
@@ -90,7 +91,6 @@ if C.announcements.bad_gear == true then
 			88710,	-- Nat's Hat
 			33820,	-- Weather-Beaten Fishing Hat
 			19972,	-- Lucky Fishing Hat
-			46349,	-- Chef's Hat
 		},
 		-- Neck
 		[2] = {
