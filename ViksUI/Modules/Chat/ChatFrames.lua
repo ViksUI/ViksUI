@@ -274,6 +274,10 @@ local function SetChatStyle(frame)
 	-- Hide edit box every time we click on a tab
 	_G[chat.."Tab"]:HookScript("OnClick", function() _G[chat.."EditBox"]:Hide() end)
 
+	-- Fix a editbox texture
+	ChatEdit_ActivateChat(ChatFrame1EditBox)
+	ChatEdit_DeactivateChat(ChatFrame1EditBox)
+	
 	-- Create our own texture for edit box
 	if C.chat.background == true and C.chat.tabs_mouseover ~= true then
 		local EditBoxBackground = CreateFrame("Frame", "ChatEditBoxBackground", _G[chat.."EditBox"])
