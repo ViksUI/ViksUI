@@ -12,7 +12,6 @@ local ST_SPECIAL = 3
 local bag_bars = 0
 local unusable
 
-StuffingDB = {}
 if T.class == "DEATHKNIGHT" then
 	unusable = { -- weapon, armor, dual-wield
 		{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_STAFF,LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_DAGGER, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
@@ -103,33 +102,6 @@ local function IsItemUnusable(...)
 	end
 end
 
-StaticPopupDialogs.BUY_BANK_SLOT = {
-	text = CONFIRM_BUY_BANK_SLOT,
-	button1 = YES,
-	button2 = NO,
-	OnAccept = function(self)
-		PurchaseSlot()
-	end,
-	OnShow = function(self)
-		MoneyFrame_Update(self.moneyFrame, GetBankSlotCost())
-	end,
-	hasMoneyFrame = 1,
-	timeout = 0,
-	hideOnEscape = 1,
-	preferredIndex = 5,
-}
-
-StaticPopupDialogs.CANNOT_BUY_BANK_SLOT = {
-	text = L_BAG_NO_SLOTS,
-	button1 = ACCEPT,
-	timeout = 0,
-	whileDead = 1,
-	preferredIndex = 5,
-}
-
--- Hide bags options in default interface
---InterfaceOptionsDisplayPanelShowFreeBagSpace:Hide()
-
 Stuffing = CreateFrame("Frame", nil, UIParent)
 Stuffing:RegisterEvent("ADDON_LOADED")
 Stuffing:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -146,10 +118,6 @@ Stuffing_DDMenu.HideMenu = function()
 	if UIDROPDOWNMENU_OPEN_MENU == Stuffing_DDMenu then
 		CloseDropDownMenus()
 	end
-end
-
-local function Print (x)
-	DEFAULT_CHAT_FRAME:AddMessage("|cFFFF6633ViksBags:|r " .. x)
 end
 
 local function Stuffing_OnShow()
@@ -199,32 +167,6 @@ local function Stuffing_Toggle()
 	else
 		Stuffing.frame:Show()
 	end
-end
-
-local function Stuffing_ToggleBag(id)
-	if id == -2 then
-		ToggleKeyRing()
-		return
-	end
-	Stuffing_Toggle()
-end
-
-
-
-local function StartMoving(self)
-	self:StartMoving()
-	local n = self:GetName()
-end
-
-
-local function StopMoving(self)
-	self:StopMovingOrSizing()
-	self:SetUserPlaced(false)
-
-	local n = self:GetName()
-	local x, y = self:GetCenter()
-	StuffingDB[n .. "PosX"] = x
-	StuffingDB[n .. "PosY"] = y
 end
 
 -- Bag slot stuff
@@ -808,6 +750,19 @@ function Stuffing:SearchReset()
 	end
 end
 
+local function DragFunction(self, mode)
+	for index = 1, select("#", self:GetChildren()) do
+		local frame = select(index, self:GetChildren())
+		if frame:GetName() and frame:GetName():match("StuffingBag") then
+			if mode then
+				frame:Hide()
+			else
+				frame:Show()
+			end
+		end
+	end
+end
+
 function Stuffing:CreateBagFrame(w)
 	local n = "StuffingFrame"..w
 	local f = CreateFrame("Frame", n, UIParent)
@@ -815,12 +770,23 @@ function Stuffing:CreateBagFrame(w)
 	f:SetMovable(true)
 	f:SetFrameStrata("MEDIUM")
 	f:SetFrameLevel(5)
-	f:SetScript("OnMouseDown", function(_, button)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", function(self)
 		if IsAltKeyDown() or IsShiftKeyDown() then
-			f:ClearAllPoints()
-			f:StartMoving()
-			DragFunction(f, true)
-		elseif IsControlKeyDown() and button == "RightButton" then
+			self:StartMoving()
+			DragFunction(self, true)
+		end
+	end)
+
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		DragFunction(self, false)
+		local ap, _, rp, x, y = f:GetPoint()
+		ViksUIPositions[f:GetName()] = {ap, "UIParent", rp, x, y}
+	end)
+
+	f:SetScript("OnMouseDown", function(_, button)
+		if IsControlKeyDown() and button == "RightButton" then
 			f:ClearAllPoints()
 			if w == "Bank" then
 				f:SetPoint(unpack(C.position.bank))
@@ -828,18 +794,18 @@ function Stuffing:CreateBagFrame(w)
 				f:SetPoint(unpack(C.position.bag))
 			end
 			f:SetUserPlaced(false)
+			ViksUIPositions[f:GetName()] = nil
 		end
 	end)
-	f:SetScript("OnMouseUp", f.StopMovingOrSizing)
 
-	if w == "Bank" then
-		f:SetPoint("BOTTOMLEFT", LChatTab, "BOTTOMLEFT", 20, 20)
-		f:SetScript("OnMouseDown", StartMoving)
-		f:SetScript("OnMouseUp", StopMoving)
+	if ViksUIPositions[f:GetName()] then
+		f:SetPoint(unpack(ViksUIPositions[f:GetName()]))
 	else
-		f:SetPoint("BOTTOMRIGHT", RChatTab, "BOTTOMRIGHT", -40, 20)
-		f:SetScript("OnMouseDown", StartMoving)
-		f:SetScript("OnMouseUp", StopMoving)
+		if w == "Bank" then
+			f:SetPoint(unpack(C.position.bank))
+		else
+			f:SetPoint(unpack(C.position.bag))
+		end
 	end
 
 	if w == "Bank" then
@@ -940,14 +906,6 @@ function Stuffing:InitBank()
 	self.bankFrame = f
 end
 
-local parent_startmoving = function(self)
-	StartMoving(self:GetParent())
-end
-
-local parent_stopmovingorsizing = function (self)
-	StopMoving(self:GetParent())
-end
-
 function Stuffing:InitBags()
 	if self.frame then return end
 
@@ -975,6 +933,12 @@ function Stuffing:InitBags()
 		editbox:SetText("")
 		Stuffing:SearchUpdate("")
 	end
+
+	-- local resetAndClear = function(self)
+		-- self:GetParent().detail:Show()
+		-- self:ClearFocus()
+		-- Stuffing:SearchReset()
+	-- end
 
 	local updateSearch = function(self, t)
 		if t == true then
