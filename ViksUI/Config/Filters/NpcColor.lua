@@ -65,6 +65,7 @@ T.PlateDangerous = {
 	["Spinemaw Staghorn"] = true,
 	["Shrine Templar"] = true,
 	["Stoneborn Reaver"] = true,
+	["Deadsoul Chorus"] = true,
 }
 
 T.PlateImportant = {
