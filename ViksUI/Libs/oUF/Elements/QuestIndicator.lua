@@ -22,7 +22,7 @@ local DisplayQuestIcon = function(self)
 	end
 end
 
-local FindPlateWithQuest = function(self, unit)
+local Scan = function(self, unit)
 	local QuestIcon = self.QuestIcon
 	
 	if QuestIcon then
@@ -44,7 +44,7 @@ local FindPlateWithQuest = function(self, unit)
 				for i = 3, NumLines do
 					local Line = _G[ScanTooltip:GetName().."TextLeft"..i]
 					local r, g, b = Line:GetTextColor()
-
+					
 					if (r > 0.99 and r <= 1) and (g > 0.82 and g < 0.83) and (b >= 0 and b < 0.01) then
 						Cache[ID] = "QUEST"
 						
@@ -58,33 +58,29 @@ local FindPlateWithQuest = function(self, unit)
 	end
 end
 
-local Update = function(self, event)
-	local InstanceType = select(2, IsInInstance())
-	
-	if InstanceType == "pvp" or InstanceType == "arena" then
-		return
-	end
-	
-	if event ~= "NAME_PLATE_UNIT_ADDED" then
-		Cache = {}
-	end
-	
-	local QuestIcon = self.QuestIcon
-	local Unit = self.unit
-	local NumPlates = C_NamePlate.GetNamePlates()
-	
-	if(QuestIcon.PreUpdate) then 
-		QuestIcon:PreUpdate()
-	end
-	
-	for i, Plate in pairs(NumPlates) do
-		FindPlateWithQuest(self, Unit)
+local Update = function(self, event, arg)
+	if (event == "UNIT_QUEST_LOG_CHANGED" and arg == "player") or (event == "NAME_PLATE_UNIT_ADDED") then
+		if InstanceType == "pvp" or InstanceType == "arena" then
+			return
+		end
 		
+		local QuestIcon = self.QuestIcon
+		local Unit = self.unit
+		
+		if(QuestIcon.PreUpdate) then 
+			QuestIcon:PreUpdate()
+		end
+		
+		if (event == "UNIT_QUEST_LOG_CHANGED") then
+			Cache = {}
+		end
+		
+		Scan(self, Unit)
 		DisplayQuestIcon(self)
-	end
-
-	if(QuestIcon.PostUpdate) then
-		return QuestIcon:PostUpdate()
+		
+		if(QuestIcon.PostUpdate) then
+			return QuestIcon:PostUpdate()
+		end
 	end
 end
 
@@ -93,7 +89,7 @@ local Path = function(self, ...)
 end
 
 local ForceUpdate = function(element)
-	return Path(element.__owner, 'ForceUpdate')
+	return Path(element.__owner, "ForceUpdate")
 end
 
 local function Enable(self)
@@ -110,9 +106,11 @@ local function Enable(self)
 		
 		QuestIcon:Hide()
 
-		self:RegisterEvent("QUEST_ACCEPTED", Path, true)
-		self:RegisterEvent("QUEST_REMOVED", Path, true)
+		self:RegisterEvent("UNIT_QUEST_LOG_CHANGED", Path, true)
 		self:RegisterEvent("NAME_PLATE_UNIT_ADDED", Path, true)
+		
+		--  Make sure showQuestTrackingTooltips is ON, this plugin rely on that
+		SetCVar("showQuestTrackingTooltips", 1)
 
 		return true
 	end
@@ -122,10 +120,9 @@ local function Disable(self)
 	local QuestIcon = self.QuestIcon
 	
 	if (QuestIcon) then
-		self:UnregisterEvent('QUEST_ACCEPTED', Path, true)
-		self:UnregisterEvent('QUEST_REMOVED', Path, true)
-		self:UnregisterEvent('NAME_PLATE_UNIT_ADDED', Path, true)
+		self:UnregisterEvent("UNIT_QUEST_LOG_CHANGED", Path, true)
+		self:UnregisterEvent("NAME_PLATE_UNIT_ADDED", Path, true)
 	end
 end
 
-oUF:AddElement('QuestIcon', Path, Enable, Disable)
+oUF:AddElement("QuestIcon", Path, Enable, Disable)
