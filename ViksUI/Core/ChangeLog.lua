@@ -16,6 +16,10 @@ local ChangeLogData = {
 		"• Friends datatext updated",
 		"• Bags updated Shift+Left click to drag, Ctrl+Right click reset move",
 		"• Quest Indicator on nameplates updated",
+		"#2: Update 9.16",
+		"• Settings not loaded in 9.15",
+		"• Adjusted some skins",
+		"• Skin Torghast buffs",
 		"• ",
 
 		--"• ",
