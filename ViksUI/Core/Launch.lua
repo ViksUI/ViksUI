@@ -3226,7 +3226,11 @@ OnLogon:SetScript("OnEvent", function(self)
 	if ViksUISettingsPerChar == nil then ViksUISettingsPerChar = {} end
 	if ViksUISettingsPerChar.RaidLayout == nil then ViksUISettingsPerChar.RaidLayout = "UNKNOWN" end
 	if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
-	if ViksUIOptionsPerChar.experiencebar == nil  then ViksUIOptionsPerChar.experiencebar = {} end
+	if ViksUISettingsPerChar.experiencebar == nil  then ViksUISettingsPerChar.experiencebar = {
+	["ViksUIExperienceBar1"] = "XP",
+	["ViksUIExperienceBar2"] = "HONOR",
+	}
+	end
 	if ViksUIOptions == nil then ViksUIOptions = {} end
 	if ViksUIOptionsPerChar.unitframe == nil then ViksUIOptionsPerChar.unitframe = {} end
 	if ViksUIOptions.unitframe == nil then ViksUIOptions.unitframe = {} end

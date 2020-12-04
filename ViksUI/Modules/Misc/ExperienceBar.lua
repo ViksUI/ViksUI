@@ -9,9 +9,6 @@ local Panels = CreateFrame("Frame")
 local BarSelected
 local Bars = 20
 local barTex = C.media.texture
-if ViksUIOptionsPerChar.experiencebar == nil  then ViksUIOptionsPerChar.experiencebar = {} end
-C["experiencebar"] = {
-}
 
 Experience.NumBars = 2
 Experience.RestedColor = {75 / 255, 175 / 255, 76 / 255}
@@ -28,7 +25,7 @@ Experience.Menu = {
 			
 			Experience:Update()
 			
-			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+			ViksUISettingsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true
 	},
@@ -38,7 +35,7 @@ Experience.Menu = {
 			BarSelected.BarType = "HONOR"
 			
 			Experience:Update()
-			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+			ViksUISettingsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true
 	},
@@ -48,7 +45,7 @@ Experience.Menu = {
 			BarSelected.BarType = "AZERITE"
 			
 			Experience:Update()
-			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+			ViksUISettingsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -59,7 +56,7 @@ Experience.Menu = {
 			BarSelected.BarType = "PETXP"
 			
 			Experience:Update()
-			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+			ViksUISettingsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -71,7 +68,7 @@ Experience.Menu = {
 			
 			Experience:Update()
 
-			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+			ViksUISettingsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -83,7 +80,7 @@ Experience.Menu = {
 			
 			Experience:Update()
 
-			ViksUIOptionsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
+			ViksUISettingsPerChar.experiencebar[BarSelected:GetName()] = BarSelected.BarType
 		end,
 		notCheckable = true,
 		disabled = true,
@@ -321,7 +318,7 @@ function Experience:Create()
 	for i = 1, self.NumBars do
 		local XPBar = CreateFrame("StatusBar", "ViksUIExperienceBar" .. i, UIParent)
 		local RestedBar = CreateFrame("StatusBar", nil, XPBar)
-		local Data = ViksUIOptionsPerChar
+		local Data = ViksUISettingsPerChar
 		XPBar:SetStatusBarTexture(barTex)
 		XPBar:EnableMouse()
 		XPBar:SetFrameStrata("MEDIUM")
@@ -350,11 +347,11 @@ function Experience:Create()
 		XPBar.backdrop:SetOutside()
 		XPBar:SetReverseFill(i == 2 and true)
 		-- Default settings
-		if ViksUIOptionsPerChar.experiencebar["ViksUIExperienceBar" .. i] then
+		if ViksUISettingsPerChar.experiencebar["ViksUIExperienceBar" .. i] ~= nil then
 			if i == 1 then
-				XPBar.BarType = ViksUIOptionsPerChar.experiencebar["ViksUIExperienceBar1"]
+				XPBar.BarType = ViksUISettingsPerChar.experiencebar["ViksUIExperienceBar1"]
 			else
-				XPBar.BarType = ViksUIOptionsPerChar.experiencebar["ViksUIExperienceBar2"]
+				XPBar.BarType = ViksUISettingsPerChar.experiencebar["ViksUIExperienceBar2"]
 			end
 		else
 			if i == 1 then
