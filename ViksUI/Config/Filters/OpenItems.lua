@@ -548,5 +548,8 @@ T.OpenItems = {
 	[174959] = true,	-- Cache of the Mantid Swarm
 	[174960] = true,	-- Cache of the Aqir Swarm
 	[174961] = true,	-- Cache of the Amathet
+	[181372] = true,	-- Tribute of the Ascended
+	[181556] = true,	-- Tribute of the Court
+	[181741] = true,	-- Tribute of the Paragon
 	[184522] = true,	-- Veiled Satchel of Cooperation
 }
