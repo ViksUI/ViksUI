@@ -99,7 +99,7 @@ function ObjectiveTracker:Skin()
 					
 
 					local HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
-					HeaderBar:Size(263, 2)
+					HeaderBar:Size(263, 3)
 					HeaderBar:SetPoint("CENTER", HeaderPanel, 0, -9)
 					HeaderBar:SetStatusBarTexture(C.media.blank)
 					HeaderBar:SetStatusBarColor(unpack(CustomClassColor))
@@ -110,7 +110,7 @@ function ObjectiveTracker:Skin()
 					Minimize.SetCollapsed = function() return end
 					Minimize:StripTextures()
 					Minimize:ClearAllPoints()
-					Minimize:SetAllPoints(HeaderBar)								 
+					Minimize:SetAllPoints(Header)								 
 
 					Modules.IsSkinned = true
 				end
