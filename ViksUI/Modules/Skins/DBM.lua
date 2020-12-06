@@ -138,7 +138,7 @@ DBMSkin:SetScript("OnEvent", function()
 					bar.ApplyPosition = function()
 						if C.unitframe.enable ~= true or C.skins.dbm_movable == true then return end
 						self.mainAnchor:ClearAllPoints()
-						self.mainAnchor:SetPoint("BOTTOMLEFT", RChatTab, "TOPLEFT", 122, 0)
+						self.mainAnchor:SetPoint("BOTTOMLEFT", RChatTab, "TOPLEFT", 122, 4)
 					end
 					bar:ApplyPosition()
 				end
@@ -248,15 +248,16 @@ function T.UploadDBM()
 		DBT_AllPersistentOptions["Default"]["DBM"].Scale = 1
 		DBT_AllPersistentOptions["Default"]["DBM"].HugeScale = 1
 		DBT_AllPersistentOptions["Default"]["DBM"].BarXOffset = 0
-		DBT_AllPersistentOptions["Default"]["DBM"].BarYOffset = 18
+		DBT_AllPersistentOptions["Default"]["DBM"].BarYOffset = 10
 		DBT_AllPersistentOptions["Default"]["DBM"].Font = C.font.stylization_font
 		DBT_AllPersistentOptions["Default"]["DBM"].FontSize = C.font.stylization_font_size
 		DBT_AllPersistentOptions["Default"]["DBM"].Width = 189
-		DBT_AllPersistentOptions["Default"]["DBM"].TimerX = 143
-		DBT_AllPersistentOptions["Default"]["DBM"].TimerPoint = "BOTTOMLEFT"
+		DBT_AllPersistentOptions["Default"]["DBM"].TimerX = -180
+		DBT_AllPersistentOptions["Default"]["DBM"].TimerPoint = "BOTTOMRIGHT"
 		DBT_AllPersistentOptions["Default"]["DBM"].FillUpBars = true
 		DBT_AllPersistentOptions["Default"]["DBM"].IconLeft = true
 		DBT_AllPersistentOptions["Default"]["DBM"].ExpandUpwardsLarge = true
+		DBT_AllPersistentOptions["Default"]["DBM"].ExpandUpwards = true
 		DBT_AllPersistentOptions["Default"]["DBM"].Texture = C.media.texture
 		DBT_AllPersistentOptions["Default"]["DBM"].IconRight = false
 		DBT_AllPersistentOptions["Default"]["DBM"].HugeBarXOffset = 0
@@ -264,12 +265,11 @@ function T.UploadDBM()
 		DBT_AllPersistentOptions["Default"]["DBM"].HugeWidth = 268
 		DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerX = 14
 		DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerPoint = "CENTER"
-		DBT_AllPersistentOptions["Default"]["DBM"].HugeBarYOffset = 27
-		
+		DBT_AllPersistentOptions["Default"]["DBM"].HugeBarYOffset = 12
 
 		DBM_AllSavedOptions["Default"].RangeFrameY = 101
-		DBT_AllPersistentOptions["Default"]["DBM"].TimerY = 139
-		DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -240
+		DBT_AllPersistentOptions["Default"]["DBM"].TimerY = 190
+		DBT_AllPersistentOptions["Default"]["DBM"].HugeTimerY = -226
 	end	
 		DBM_AllSavedOptions["Default"].InstalledBars = 2
 end
