@@ -103,7 +103,6 @@ LPSTAT_CONFIG = {
 			["Защитники Тол Барада"] = "Тол Барад",
 			["Гидраксианские Повелители Вод"] = "Повелители Вод",
 		},
-		artifact_fmt = "[curart]([curart%]%)"..class"AP", -- Artifact power format
 		anchor_frame = expanchor, anchor_to = "right", anchor_from = "right",
 		x_off = 0, y_off = 0, tip_frame = expanchor, tip_anchor = "BOTTOMRIGHT", tip_x = -30, tip_y = 20
 	},
