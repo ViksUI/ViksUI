@@ -98,7 +98,7 @@ C["font"] = {
 
 	-- Stylization font
 	["stylization_font"] = C.media.pixel_font,
-	["stylization_font_size"] = 8,
+	["stylization_font_size"] = 10,
 	["stylization_font_style"] = "MONOCHROMEOUTLINE",
 	["stylization_font_shadow"] = false,
 
