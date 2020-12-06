@@ -210,42 +210,34 @@ function T.UploadBW()
 	if bars then
 		bars.db.profile.barStyle = "ViksUI"
 		bars.db.profile.fontName = C.font.stylization_font
-		bars.db.profile.BigWigsAnchor_width = 185
-		bars.db.profile.BigWigsAnchor_x = 188 / UIParent:GetEffectiveScale()
-		bars.db.profile.BigWigsEmphasizeAnchor_width = 184
-		bars.db.profile.BigWigsEmphasizeAnchor_x = 620
+		bars.db.profile.BigWigsAnchor_width = 184.9999694824219
+		bars.db.profile.BigWigsAnchor_x = 1171
+		bars.db.profile.BigWigsEmphasizeAnchor_width = 262.0124206542969
+		bars.db.profile.BigWigsEmphasizeAnchor_x = 599.2888764651907
 		bars.db.profile.emphasizeGrowup = true
-		bars.db.profile.InstalledBars = C.actionbar.bottombars
-		if C.actionbar.bottombars == 1 then
-			bars.db.profile.BigWigsAnchor_y = 185 * UIParent:GetEffectiveScale()
-			bars.db.profile.BigWigsEmphasizeAnchor_y = 344 * UIParent:GetEffectiveScale()
-		elseif C.actionbar.bottombars == 2 then
-			bars.db.profile.BigWigsAnchor_y = 213 * UIParent:GetEffectiveScale()
-			bars.db.profile.BigWigsEmphasizeAnchor_y = 372 * UIParent:GetEffectiveScale()
-		elseif C.actionbar.bottombars == 3 then
-			bars.db.profile.BigWigsAnchor_y = 241 * UIParent:GetEffectiveScale()
-			bars.db.profile.BigWigsEmphasizeAnchor_y = 400 * UIParent:GetEffectiveScale()
-		end
+		bars.db.profile.InstalledBars = 2
+		bars.db.profile.BigWigsAnchor_y = 155
+		bars.db.profile.BigWigsEmphasizeAnchor_y = 248.6890313920976
 	end
 	local mess = BigWigs:GetPlugin("Messages")
 	if mess then
-		mess.db.profile.fontName = "Calibri"
+		mess.db.profile.fontName = C.font.stylization_font
 		mess.db.profile.fontSize = 20
-		mess.db.profile.BWMessageAnchor_x = 615
-		mess.db.profile.BWMessageAnchor_y = 440
-		mess.db.profile.BWEmphasizeMessageAnchor_x = 618
-		mess.db.profile.BWEmphasizeMessageAnchor_y = 495
-		mess.db.profile.BWEmphasizeCountdownMessageAnchor_x = 665
-		mess.db.profile.BWEmphasizeCountdownMessageAnchor_y = 477
+		mess.db.profile.BWMessageAnchor_x = 619
+		mess.db.profile.BWMessageAnchor_y = 702
+		mess.db.profile.BWEmphasizeMessageAnchor_x = 621
+		mess.db.profile.BWEmphasizeMessageAnchor_y = 745
+		mess.db.profile.BWEmphasizeCountdownMessageAnchor_x = 673
+		mess.db.profile.BWEmphasizeCountdownMessageAnchor_y = 642
 	end
 	local prox = BigWigs:GetPlugin("Proximity")
 	if prox then
-		prox.db.profile.fontName = "Calibri"
+		prox.db.profile.fontName = C.font.stylization_font
 		prox.db.profile.objects.ability = false
 	end
 	BigWigsIconDB.hide = true
-	BigWigs:GetPlugin("Super Emphasize").db.profile.fontName = "Calibri"
-	BigWigs:GetPlugin("Alt Power").db.profile.fontName = "Calibri"
+	BigWigs:GetPlugin("Super Emphasize").db.profile.fontName = C.font.stylization_font
+	BigWigs:GetPlugin("Alt Power").db.profile.fontName = C.font.stylization_font
 	if InCombatLockdown() then
 		print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r")
 		print("|cffffff00Reload your UI to apply skin.|r")
