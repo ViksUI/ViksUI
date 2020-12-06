@@ -288,6 +288,32 @@ local function LoadSkin()
 		end
 	end)
 
+	QuestModelScene:StripTextures()
+	QuestModelScene:CreateBackdrop("Overlay")
+	QuestModelScene.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+	QuestNPCModelNameTooltipFrame:CreateBackdrop("Overlay")
+	QuestNPCModelNameTooltipFrame.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("TOPLEFT", QuestModelScene.backdrop, "BOTTOMLEFT", 0, -3)
+	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("BOTTOMRIGHT", QuestNPCModelTextFrame, "BOTTOMRIGHT", 2, -1)
+	QuestNPCModelNameText:SetPoint("TOPLEFT", QuestNPCModelNameplate, 15, -20)
+	QuestNPCModelNameText:SetPoint("BOTTOMRIGHT", QuestNPCModelNameplate, -15, 7)
+	QuestNPCModelTextFrame:SetHeight(85)
+	QuestNPCModelTextFrame:StripTextures()
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, _, x, y)
+		if parentFrame == QuestLogPopupDetailFrame or parentFrame == QuestFrame then
+			x = x + 8
+			y = y + 40
+
+			QuestModelScene.backdrop.overlay:Hide()
+			QuestNPCModelNameTooltipFrame.backdrop.overlay:Hide()
+		else
+			QuestModelScene.backdrop.overlay:Show()
+			QuestNPCModelNameTooltipFrame.backdrop.overlay:Show()
+		end
+		QuestModelScene:ClearAllPoints()
+		QuestModelScene:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
+	end)
+
 	local function SkinExpandOrCollapse(f)
 		local bg = CreateFrame("Frame", nil, f)
 		bg:SetSize(13, 13)
@@ -357,7 +383,11 @@ local function LoadSkin()
 		Bastion = {0.45, 0.4, 0.4},
 		Maldraxxus = {0.1, 0.3, 0.15},
 		Ardenweald = {0.15, 0.25, 0.35},
-		Revendreth = {0.25, 0.1, 0.1}
+		Revendreth = {0.25, 0.1, 0.1},
+		Kyrian = {0.45, 0.4, 0.4},
+		Necrolord = {0.1, 0.3, 0.15},
+		Fey = {0.15, 0.25, 0.35},
+		Venthyr = {0.25, 0.1, 0.1}
 	}
 
 	hooksecurefunc("QuestLogQuests_Update", function()
@@ -391,6 +421,19 @@ local function LoadSkin()
 						campaignHeader.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
 					end
 				end
+			end
+		end
+		for callingHeader in QuestScrollFrame.covenantCallingsHeaderFramePool:EnumerateActive() do
+			if not callingHeader.backdrop then
+				callingHeader:CreateBackdrop("Overlay")
+				callingHeader.backdrop:SetPoint("TOPLEFT", callingHeader.Background, 7, -2)
+				callingHeader.backdrop:SetPoint("BOTTOMRIGHT", callingHeader.Background, -5, 10)
+				callingHeader.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
+
+				callingHeader.Background:SetAlpha(0)
+				callingHeader.HighlightBackground:SetAlpha(0)
+				callingHeader.SelectedTexture:SetAlpha(0)
+				callingHeader.Divider:SetAlpha(0)
 			end
 		end
 	end)
