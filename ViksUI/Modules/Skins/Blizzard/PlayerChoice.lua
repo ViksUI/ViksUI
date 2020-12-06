@@ -32,21 +32,25 @@ local function LoadSkin()
 			frame.IsSkinned = true
 		end
 
-		frame.backdrop:SetShown(not IsInJailersTower())
+		local IsInJailers = IsInJailersTower()
+		frame.backdrop:SetShown(not IsInJailers)
 
 		for i = 1, frame:GetNumOptions() do
 			local option = frame.Options[i]
+			local hasArtworkBorderArt = option.ArtworkBorder:IsShown()
 			option:CreateBackdrop("Overlay")
 			option.backdrop:SetPoint("TOPLEFT", -2, 20)
-			option.backdrop:SetShown(not IsInJailersTower())
+			option.backdrop:SetShown(not IsInJailers and hasArtworkBorderArt)
 
 			for i = 1, #option.OptionButtonsContainer.Buttons do
 				local button = option.OptionButtonsContainer.Buttons[i]
 				if not button.isSkinned then
-					if IsInJailersTower() then
-						option.OptionButtonsContainer.Buttons[i]:StripTextures(true)
+					if IsInJailers then
+						button:StripTextures(true)
 					end
-					option.OptionButtonsContainer.Buttons[i]:SkinButton()
+					if i == 1 or (hasArtworkBorderArt and i == 2) then
+						button:SkinButton()
+					end
 					button.isSkinned = true
 				end
 			end
@@ -54,17 +58,22 @@ local function LoadSkin()
 			option.Header.Text:SetTextColor(1, .8, 0)
 			option.OptionText:SetTextColor(1, 1, 1)
 
-			option.Background:SetAlpha(0)
+			option.Background:SetShown(not hasArtworkBorderArt)
+			if IsInJailers then
+				option.Background:Show()
+			end
 			option.Header.Ribbon:SetAlpha(0)
 
 			option.ArtworkBorder:SetAlpha(0)
 			option.ArtworkBorderDisabled:SetAlpha(0)
-			option.ArtBackdrop = CreateFrame("Frame", nil, option)
-			option.ArtBackdrop:SetFrameLevel(option:GetFrameLevel())
-			option.ArtBackdrop:SetPoint("TOPLEFT", option.Artwork, -2, 2)
-			option.ArtBackdrop:SetPoint("BOTTOMRIGHT", option.Artwork, 2, -2)
-			option.ArtBackdrop:SetTemplate("Default")
-			option.ArtBackdrop:SetShown(not IsInJailersTower())
+			if not option.ArtBackdrop then
+				option.ArtBackdrop = CreateFrame("Frame", nil, option)
+				option.ArtBackdrop:SetFrameLevel(option:GetFrameLevel())
+				option.ArtBackdrop:SetPoint("TOPLEFT", option.Artwork, -2, 2)
+				option.ArtBackdrop:SetPoint("BOTTOMRIGHT", option.Artwork, 2, -2)
+				option.ArtBackdrop:SetTemplate("Default")
+			end
+			option.ArtBackdrop:SetShown(not IsInJailers and hasArtworkBorderArtt)
 
 			for i = 1, option.WidgetContainer:GetNumChildren() do
 				local child = select(i, option.WidgetContainer:GetChildren())
