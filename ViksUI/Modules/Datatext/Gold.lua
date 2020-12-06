@@ -39,17 +39,17 @@ if not C.datatext.Gold or C.datatext.Gold == 0 then return end
 		return cash
 	end	
 
+local titleName
 local function Currency(id, weekly, capped)
-	local name, amount, tex, week, weekmax, maxed, discovered = C_CurrencyInfo.GetCurrencyInfo(id)
-
-	local r, g, b = 1, 1, 1
-	for i = 1, GetNumWatchedTokens() do
-		local _, _, _, itemID = C_CurrencyInfo.GetBackpackCurrencyInfo( i )
-		if id == itemID then r, g, b = .77, .12, .23 end
-	end
-
-	if (amount == 0 and r == 1) then return end
-	if weekly then
+		local info = C_CurrencyInfo.GetCurrencyInfo(id)
+		local name, amount, tex, week, weekmax, maxed, discovered = info.name, info.quantity, info.iconFileID, info.canEarnPerWeek, info.maxWeeklyQuantity, info.maxQuantity, info.discovered
+		if amount == 0 then return end
+		if titleName then
+			GameTooltip:AddLine(" ")
+			GameTooltip:AddLine(titleName, ttsubh.r, ttsubh.g, ttsubh.b)
+			titleName = nil
+		end
+		if weekly then
 		if discovered then GameTooltip:AddDoubleLine("\124T" .. tex .. ":12\124t " .. name, "Current: " .. amount .. " - " .. WEEKLY .. ": " .. week .. " / " .. weekmax, r, g, b, r, g, b) end
 	elseif capped  then
 		if id == 392 then maxed = 4000 end
@@ -179,25 +179,28 @@ Stat:SetScript("OnEnter", function(self)
 	if C.datatext.CurrPvP then
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(PVP_FLAG)
-		Currency(1587)				-- War Supplies
+		Currency(391) -- Tol Barad Commendation - Cataclysm
+		Currency(789) -- Bloody Coin - Mists of Pandria
+		Currency(944) -- Artifact Fragment - Warlords of Draenor
+		Currency(1268) -- Timeworn Artifact - Warlords of Draenor
+		Currency(1356) -- Echoes of Battle - Legion
+		Currency(1357) -- Echoes of Domination - Legion
+		Currency(1602) -- Conquest
+		Currency(1792) -- Honor
 	end
 
 	if C.datatext.CurrMiscellaneous then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(MISCELLANEOUS)
-		Currency(515)					-- Darkmoon Prize Ticket
-		Currency(1710)					-- Seafarer's Dubloon
-		Currency(1565)					-- Rich Azerite Fragment
-		GameTooltip:AddLine(" ")
-		Currency(1755)					-- Coalescing Visions
-		Currency(1719)					-- Corrupted Mementos
-		Currency(1803)					-- Echoes of Ny'alotha
-		Currency(1220)					-- Order Resources
-		Currency(1721)					-- Prismatic Manapearl
-		Currency(1560)					-- War Resources
-		Currency(1716)					-- Honorbound Service Medal
-		Currency(1717)					-- 7th Legion Service Medal
-		Currency(1718)					-- Titan Residuum
+		GameTooltip:AddLine(EXPANSION_NAME8)
+		Currency(1754) -- Argent Commendation - Shadowlands PreEvent
+		Currency(1767) -- Stygia
+		Currency(1810) -- Willing Soul
+		Currency(1813) -- Reservoir Anima
+		Currency(1816) -- Sinstone Fragments
+		Currency(1820) -- Infused Ruby
+		Currency(1822) -- Renown
+		Currency(1828) -- Soul Ash
+		Currency(1885) -- Grateful Offering
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
