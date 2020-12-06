@@ -575,6 +575,12 @@ do
 
 	local backdrop_color = ns.CreateColourPicker(parent, "backdrop_color", true)
 	backdrop_color:SetPoint("TOPLEFT", border_color, "BOTTOMLEFT", 0, -8)
+
+	local pxcolor1 = ns.CreateColourPicker(parent, "pxcolor1", true)
+	pxcolor1:SetPoint("TOPLEFT", border_color, "TOPRIGHT", 200, 0)
+	
+	local pxcolor2 = ns.CreateColourPicker(parent, "pxcolor2", true)
+	pxcolor2:SetPoint("TOPLEFT", pxcolor1, "BOTTOMLEFT", 0, -8)
 	
 	local classcolor_border = ns.CreateCheckBox(parent, "classcolor_border")
 	classcolor_border:SetPoint("TOPLEFT", backdrop_color, "BOTTOMLEFT", 0, 0)
