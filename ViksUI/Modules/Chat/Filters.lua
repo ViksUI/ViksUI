@@ -51,6 +51,7 @@ end
 ----------------------------------------------------------------------------------------
 --	Players spam filter(by Evl, Elv22 and Affli)
 ----------------------------------------------------------------------------------------
+--[[ FIXME (Blocks all chat
 if C.chat.spam == true then
 	-- Repeat spam filter
 	local lastMessage
@@ -87,3 +88,4 @@ if C.chat.spam == true then
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", tradeFilter)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", tradeFilter)
 end
+]]--
