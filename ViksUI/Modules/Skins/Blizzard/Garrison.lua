@@ -200,11 +200,15 @@ local function LoadSkin()
 			level:SetPoint("BOTTOM", 0, 1)
 			level:SetFontObject("SystemFont_Outline_Small")
 			if portrait.LevelCircle then portrait.LevelCircle:Hide() end
-			if portrait.LevelBorder then portrait.LevelBorder:SetScale(.0001) end
+			if portrait.LevelBorder then portrait.LevelBorder:SetScale(0.0001) end
 		end
 
 		if portrait.HealthBar then
 			portrait.HealthBar.Border:Hide()
+
+			local roleIcon = portrait.HealthBar.RoleIcon
+			roleIcon:ClearAllPoints()
+			roleIcon:SetPoint("TOPRIGHT", portrait.backdrop, "TOPRIGHT", 4, 4)
 
 			local background = portrait.HealthBar.Background
 			background:SetAlpha(0)
@@ -518,6 +522,16 @@ local function LoadSkin()
 						button.backdrop:SetPoint("BOTTOMRIGHT", button.Icon, "BOTTOMRIGHT", 2, -2)
 					end
 				end
+			end
+		end
+
+		-- AutoSpell buttons
+		for autoSpell in followerTab.autoSpellPool:EnumerateActive() do
+			if not autoSpell.backdrop then
+				autoSpell.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				autoSpell:CreateBackdrop("Default")
+				autoSpell.SpellBorder:SetTexture("")
+				autoSpell.IconMask:Hide()
 			end
 		end
 	end
@@ -937,8 +951,7 @@ local function LoadSkin()
 			button.backdrop:SetPoint("TOPLEFT", 0, 0)
 			button.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
 			button:StyleButton(nil, 2)
-			button.LocBG:SetHeight(75)
-			button.LocBG:SetPoint("RIGHT", 0, -1)
+			button.Overlay.Overlay:SetAllPoints(button.backdrop)
 		end
 	end
 
@@ -954,6 +967,8 @@ local function LoadSkin()
 	Follower.HealAllButton:SkinButton()
 	Follower.ElevatedFrame:Hide()
 
+	hooksecurefunc(Follower, "ShowFollower", onShowFollower)
+
 	local FollowerTab = CovenantMissionFrame.FollowerTab
 	FollowerTab:StripTextures()
 	FollowerTab:CreateBackdrop("Overlay")
@@ -964,9 +979,17 @@ local function LoadSkin()
 	FollowerTab.HealFollowerFrame.ButtonFrame:Hide()
 	HealFollowerButtonTemplate:SkinButton()
 
+	FollowerTab.HealFollowerFrame.CostFrame.CostLabel:SetFont(C.media.normal_font, 14)
+	FollowerTab.HealFollowerFrame.CostFrame.CostIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
 	-- Mission
 	T.SkinCloseButton(CovenantMissionFrame.MissionTab.MissionPage.CloseButton)
 	CovenantMissionFrame.MissionTab.MissionPage.StartMissionButton:SkinButton()
+
+	CovenantMissionFrame.MissionComplete.CompleteFrame.ContinueButton:SkinButton()
+	CovenantMissionFrame.MissionComplete.RewardsScreen.FinalRewardsPanel.ContinueButton:SkinButton()
+
+	HandleGarrisonPortrait(GarrisonLandingPage.FollowerTab.CovenantFollowerPortraitFrame)
 end
 
 T.SkinFuncs["Blizzard_GarrisonUI"] = LoadSkin

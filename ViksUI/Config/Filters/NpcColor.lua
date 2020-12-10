@@ -220,7 +220,6 @@ T.PlateT3Mobs = {
 	["Pallid Gorger"] = true,
 	["Mechanized Peacekeeper"] = true,
 	["Anodized Colibearer"] = true,
-	["Brittlebone Crossbowman"] = true,
 	["Phantom of Slaughter"] = true,
 	["Irontide Crusher"] = true,
 	["Marked Sister"] = true,

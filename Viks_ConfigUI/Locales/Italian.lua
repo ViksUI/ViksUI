@@ -48,6 +48,9 @@ L.font_subheader_aura = "Auras font" -- Need review
 L.font_subheader_filger = "Filger font" -- Need review
 L.font_subheader_style = "Stylization font" -- Need review
 L.font_subheader_bag = "Bags font" -- Need review
+L.font_subheader_blizzard = "System font size" -- Need review
+L.font_tooltip_header_font_size = "Tooltip header" -- Need review
+L.font_tooltip_font_size = "Tooltip text" -- Need review
 
 -- Skins options
 L_GUI_SKINS = "Stylization"
@@ -197,23 +200,86 @@ L.raidframe_plugins_auto_resurrection = "Auto cast resurrection" -- Need review
 L.raidframe_plugins_auto_resurrection_desc = "'Auto-lancia' resurrezione col tasto centrale quando l'unità è morta (non funziona con Clique attiva)"
 L.raidframe_plugins_auto_resurrection_desc = "Auto cast resurrection on middle-click (doesn't work with Clique)"
 
--- Announcements options
-L_GUI_ANNOUNCEMENTS = "Annunci"
-L_GUI_ANNOUNCEMENTS_SUBTEXT = "Settings that add chat announcements about spells or items." -- Need review
-L_GUI_ANNOUNCEMENTS_DRINKING = "Annuncia in chat quando un nemico in arena sta bevendo"
-L_GUI_ANNOUNCEMENTS_INTERRUPTS = "Annuncia in gruppo/incursione quando tu interrompi un incantesimo/abilità"
-L_GUI_ANNOUNCEMENTS_SPELLS = "Annuncia in gruppo/incursione quando usi alcuni incantesimi/abilità"
-L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL = "Controlla incantesimi/abilità lanciati da tutti i compagni di gruppo/incursione"
-L_GUI_ANNOUNCEMENTS_TOY_TRAIN = "Annuncia l'uso del Trenino Giocattolo o del Telecomando di Birranera"
-L_GUI_ANNOUNCEMENTS_SAYS_THANKS = "Ringrazia per alcuni incantesimi/abilità"
-L_GUI_ANNOUNCEMENTS_PULL_COUNTDOWN = "Annuncia il conto alla rovescia di avvio incontro '/pc #'"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD = "Annuncia l'uso di tonici e cibo"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD_AUTO = "Annuncia automaticamente l'uso di cibi e tonici all'appello"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD_RAID = "Annuncia l'uso di cibi e tonici nel canale incursione"
-L_GUI_ANNOUNCEMENTS_FEASTS = "Annuncia l'uso di tripudi/calderoni/anime/robots per le riparazioni"
-L_GUI_ANNOUNCEMENTS_PORTALS = "Annuncia l'uso di un portale/Rituale d'Evocazione"
-L_GUI_ANNOUNCEMENTS_BAD_GEAR = "Controlla l'equip. non idoneo in instance"
-L_GUI_ANNOUNCEMENTS_SAFARI_HAT = "Controlla se il Cappello da Safari sia indossato o meno"
+-- ActionBar options
+L_GUI_ACTIONBAR = "Barre delle azioni"
+L_GUI_ACTIONBAR_ENABLE = "Attiva le barre delle azioni"
+L_GUI_ACTIONBAR_HOTKEY = "Mostra i nomi dei tasti di scelta rapida sugli scomparti"
+L_GUI_ACTIONBAR_MACRO = "Mostra i nomi delle macro sugli scomparti"
+L_GUI_ACTIONBAR_GRID = "Mostra lo sfondo degli scomparti vuoti sulle barre delle azioni"
+L_GUI_ACTIONBAR_BUTTON_SIZE = "Dimensioni degli scomparti"
+L_GUI_ACTIONBAR_BUTTON_SPACE = "Spazio tra gli scomparti"
+L_GUI_ACTIONBAR_SPLIT_BARS = "Dividi la quinta barra in 2 barre da 6 scomparti ciascuna"
+L_GUI_ACTIONBAR_CLASSCOLOR_BORDER = "Colora i bordi degli scomparti con i colori delle classi"
+L.actionbar_toggle_mode = "Attiva la modalità a scomparsa"
+L.actionbar_toggle_mode_desc = "The quick change in the number of panels. For the lower panels, hover the mouse over the hidden area above the panels. For right panels, hover the mouse over the area below the panels." -- Need review
+L_GUI_ACTIONBAR_HIDE_HIGHLIGHT = "Nascondi il lumeggiare (highlight) di un proc."
+L_GUI_ACTIONBAR_BOTTOMBARS = "Numero delle barre delle azioni in basso"
+L_GUI_ACTIONBAR_RIGHTBARS = "Numero di barre delle azioni sulla destra"
+L.actionbar_bottombars_mouseover = "Bottom bars on mouseover" -- Needs review
+L_GUI_ACTIONBAR_RIGHTBARS_MOUSEOVER = "Barre sulla destra al passaggio del mouse"
+L_GUI_ACTIONBAR_PETBAR_HIDE = "Nascondi la barra famiglio"
+L_GUI_ACTIONBAR_PETBAR_HORIZONTAL = "Rendi orizzontale la barra famiglio"
+L_GUI_ACTIONBAR_PETBAR_MOUSEOVER = "Barra famiglio al passaggio del mouse (solo con la barra famiglio orizzontale)"
+L_GUI_ACTIONBAR_STANCEBAR_HIDE = "Nascondi barra postura"
+L_GUI_ACTIONBAR_STANCEBAR_HORIZONTAL = "Rendi orizzontale la barra postura"
+L.actionbar_stancebar_horizontal_desc = "Located below the player's frame" -- Needs review
+L_GUI_ACTIONBAR_STANCEBAR_MOUSEOVER = "Barra postura al passaggio del mouse"
+L_GUI_ACTIONBAR_MICROMENU = "Attiva il micromenu"
+L_GUI_ACTIONBAR_MICROMENU_MOUSEOVER = "Micromenu al passaggio del mouse"
+L.actionbar_editor = "Bars editor" -- Needs review
+L.actionbar_editor_desc = "Allow to move and change each panel individually" -- Needs review
+L.actionbar_bar1_num = "Number of buttons" -- Needs review
+L.actionbar_bar1_row = "Buttons per row" -- Needs review
+L.actionbar_bar1_mouseover = "Bar on mouseover" -- Needs review
+
+-- Tooltip options
+L.tooltip = "Suggerimenti"
+L.tooltip_subtext = "In this block, you can change the standard tips when mouseovering." -- Need review
+L.tooltip_enable = "Attiva i suggerimenti"
+L.tooltip_shift_modifer = "Mostra i suggerimenti quando è premuto il tasto Shift"
+L.tooltip_cursor = "Suggerimenti sopra il cursore"
+L.tooltip_item_icon = "Icone degli oggetti nei suggerimenti"
+L.tooltip_health_value = "Valore numerico della salute"
+L.tooltip_hidebuttons = "Nascondi i suggerimenti relativi alle barre delle azioni"
+L.tooltip_hide_combat = "Nascondi i suggerimenti in combattimento"
+L.tooltip_subheader = "Plugins" -- Need review
+L.tooltip_talents = "Mostra i talenti nei suggerimenti"
+L.tooltip_show_shift = "Show when Shift is pushed" -- Need review
+L.tooltip_show_shift_desc = "Show items level and spec when Shift is pushed" -- Need review
+L.tooltip_achievements = "Mostra il paragone delle imprese nei suggerimenti"
+L.tooltip_target = "Mostra nei suggerimenti chi ha il giocatore come bersaglio"
+L.tooltip_title = "Titolo del giocatore nei suggerimenti"
+L.tooltip_realm = "Reame del giocatore nei suggerimenti"
+L.tooltip_rank = "Rango in gilda nei suggerimenti"
+L.tooltip_spell_id = "ID Incantesimo/Abilità"
+L.tooltip_average_lvl_desc = "The average item level" -- Need review
+L.tooltip_raid_icon = "Visualizza i marchi d'incursione nei suggerimenti"
+L.tooltip_who_targetting = "Visualizza chi ha in bersaglio l'unità che è nel tuo gruppo/incursione"
+L.tooltip_item_count = "Conteggio oggetti"
+L.tooltip_unit_role = "Ruolo dell'unità"
+L.tooltip_instance_lock = "Info incursione nei suggerimenti"
+L.tooltip_mount = "Source of mount" -- Needs review
+
+-- Chat options
+L_GUI_CHAT_SUBTEXT = "Here you can change the settings of the chat window." -- Need review
+L_GUI_CHAT_ENABLE = "Attiva chat"
+L_GUI_CHAT_BACKGROUND = "Attiva lo sfondo della chat"
+L_GUI_CHAT_BACKGROUND_ALPHA = "Trasparenza sfondo della chat"
+L_GUI_CHAT_SPAM = "Rimozione di un po' di spam di sistema ('Giocatore1' sconfigge 'Giocatore2' in un duello.)"
+L_GUI_CHAT_GOLD = "Rimozione di un po' di spam degli altri giocatori"
+L_GUI_CHAT_WIDTH = "Larghezza chat"
+L_GUI_CHAT_HEIGHT = "Altezza chat"
+L_GUI_CHAT_BAR = "Barra con pulsanti per passare velocemente da un canale all'altro della chat"
+L_GUI_CHAT_BAR_MOUSEOVER = "Barra canali chat al passaggio del mouse"
+L_GUI_CHAT_WHISP = "Suono quando ricevi un sussurro"
+L_GUI_CHAT_SKIN_BUBBLE = "Restyling dei fumetti delle chats"
+L_GUI_CHAT_CL_TAB = "Mostra la linguetta del Registro di combattimento"
+L_GUI_CHAT_TABS_MOUSEOVER = "Linguette delle chats al passaggio del mouse"
+L_GUI_CHAT_STICKY = "Ricorda l'ultimo canale"
+L_GUI_CHAT_DAMAGE_METER_SPAM = "Riunisce lo spam di un contatore dei danni in un singolo link"
+L.chat_loot_icons = "Icons for loot" -- Needs review
+L.chat_custom_time_color = "Enable custom timestamp coloring" -- Needs review
+L.chat_time_color = "Colorazione orario dei messaggi"
 
 -- Automation options
 L_GUI_AUTOMATION = "Automation"

@@ -378,4 +378,3 @@ local MSQ = LibStub and LibStub("Masque", true)
 if MSQ then
 	MSQ:Group("ExtraActionButton1_"):AddButton(ExtraActionButton1)
 end
-

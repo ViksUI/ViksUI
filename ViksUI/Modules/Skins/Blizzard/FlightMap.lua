@@ -11,7 +11,7 @@ local function LoadSkin()
 	FlightMapFrame.ScrollContainer:ClearAllPoints()
 	FlightMapFrame.ScrollContainer:SetPoint("TOPLEFT")
 	FlightMapFrame.ScrollContainer:SetPoint("BOTTOMRIGHT")
-
+	FlightMapFramePortrait:Hide()
 	T.SkinCloseButton(FlightMapFrameCloseButton)
 end
 

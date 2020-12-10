@@ -95,4 +95,5 @@ collect:SetScript("OnEvent", function()
 		SkinButton(WIM3MinimapButton)
 		SkinButton(WIM3MinimapButton)
 	end
+	collect:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end)
