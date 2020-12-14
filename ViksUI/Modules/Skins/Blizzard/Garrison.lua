@@ -929,11 +929,14 @@ local function LoadSkin()
 	CovenantMissionFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
 	CovenantMissionFrame.OverlayElements:Hide()
 	CovenantMissionFrame.BackgroundTile:Hide()
-	CovenantMissionFrame.MapTab:Hide()
 	CovenantMissionFrame.RaisedBorder:Hide()
 	CovenantMissionFrame.MissionTab:StripTextures()
 	CovenantMissionFrame:DisableDrawLayer("BORDER")
 	T.SkinCloseButton(CovenantMissionFrame.CloseButton)
+
+	hooksecurefunc(CovenantMissionFrame, "SetupTabs", function(self)
+		self.MapTab:SetShown(not self.Tab2:IsShown())
+	end)
 
 	hooksecurefunc(CovenantMissionFrameFollowers, "UpdateData", UpdateData)
 
@@ -990,6 +993,9 @@ local function LoadSkin()
 	CovenantMissionFrame.MissionComplete.RewardsScreen.FinalRewardsPanel.ContinueButton:SkinButton()
 
 	HandleGarrisonPortrait(GarrisonLandingPage.FollowerTab.CovenantFollowerPortraitFrame)
+
+	CovenantMissionFrame.MissionTab.MissionPage.CostFrame.CostLabel:SetFont(C.media.normal_font, 14)
+	CovenantMissionFrame.MissionTab.MissionPage.CostFrame.CostIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 end
 
 T.SkinFuncs["Blizzard_GarrisonUI"] = LoadSkin

@@ -86,6 +86,6 @@
 	<Script file="Tutorial.lua"/>
 	<Script file="UIWidget.lua"/>
 	<Script file="VoidStorage.lua"/>
-	<Script file="Warboard.lua"/>
+	<Script file="WeeklyRewards.lua"/>
 	<Script file="WorldMap.lua"/>
 </Ui>
