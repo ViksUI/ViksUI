@@ -177,7 +177,7 @@ C["unitframe"] = {
 	["HealthcolorClass"] = false,														-- health color = class color
 	["HealthBarBackGround"] = { .1, .1, .1, 1},
 	["Powercolor"] = true,																-- power color = class color
-	["VuhDo"] = true, 																	-- Always Hide Raidframes if VuhDo is loaded.
+	["Autohide"] = true, 																-- Always Hide Raidframes if Vuhdo/Healbot/Grid is loaded.
 	["UFfont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",
 	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
 	["insideAlpha"] = 1,																-- Alpha when Unitframe is in range	

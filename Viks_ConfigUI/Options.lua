@@ -591,6 +591,21 @@ do
 	local texture = ns.CreateDropDown(parent, "texture", true, nil, TextureTable, LSM and true)
 	texture:SetPoint("TOPLEFT", backdrop_alpha, "BOTTOMLEFT", -20, -15)
 
+	local texturePreview = CreateFrame("Frame", nil, parent)
+	texturePreview:SetSize(100, 30)
+	texturePreview:SetPoint("LEFT", texture.label, "RIGHT", 10, 0)
+	texturePreview:Hide()
+
+	texturePreview.tex = texturePreview:CreateTexture(nil, "OVERLAY")
+	texturePreview.tex:SetPoint("CENTER")
+	texturePreview.tex:SetSize(100, 30)
+
+	hooksecurefunc(texture, "SetValue", function()
+		texturePreview:Show()
+		texturePreview.tex:SetTexture(C.options.media.texture)
+		texturePreview.tex:SetVertexColor(unpack(C.media.classborder_color))
+	end)
+
 	-- Normal Font
 	local subheader = ns.addSubCategory(parent, L.media_subheader_normal)
 	subheader:SetPoint("TOPLEFT", texture, "BOTTOMLEFT", 16, -10)
@@ -1017,11 +1032,11 @@ do
 	local Powercolor = ns.CreateCheckBox(parent, "Powercolor", L_GUI_UF_POWER_COLOR)
 	Powercolor:SetPoint("TOPLEFT", HealthBarBackGround, "BOTTOMLEFT", 0, -10)
 
-	local VuhDo = ns.CreateCheckBox(parent, "VuhDo", L_GUI_UF_VUHDO)
-	VuhDo:SetPoint("TOPLEFT", Powercolor, "BOTTOMLEFT", 0, 0)
+	local Autohide = ns.CreateCheckBox(parent, "Autohide", L_GUI_UF_AUTOHODE)
+	Autohide:SetPoint("TOPLEFT", Powercolor, "BOTTOMLEFT", 0, 0)
 	
 	local insideAlpha = ns.CreateNumberSlider(parent, "insideAlpha", nil, nil, 0, 1, 0.05, true)
-	insideAlpha:SetPoint("TOPLEFT", VuhDo, "BOTTOMLEFT", 0, -28)
+	insideAlpha:SetPoint("TOPLEFT", Autohide, "BOTTOMLEFT", 0, -28)
 	
 	local outsideAlpha = ns.CreateNumberSlider(parent, "outsideAlpha", nil, nil, 0, 1, 0.05, true)
 	outsideAlpha:SetPoint("TOPLEFT", insideAlpha, "BOTTOMLEFT", 0, -28)
@@ -1844,9 +1859,14 @@ do
 
 	local spam = ns.CreateCheckBox(parent, "spam", L_GUI_CHAT_GOLD)
 	spam:SetPoint("TOPLEFT", filter, "BOTTOMLEFT", 0, 0)
+	
+	local spam_list = ns.CreateEditBox(parent, "spam_list", true)
+	spam_list:SetPoint("TOPLEFT", spam, "BOTTOMLEFT", 6, -10)
+	spam_list:SetWidth(200)
+	spam_list:SetMaxLetters(40)
 
 	local width = ns.CreateNumberSlider(parent, "width", nil, nil, 0, 500, 1, true, L_GUI_CHAT_WIDTH)
-	width:SetPoint("TOPLEFT", spam, "BOTTOMLEFT", 0, -20)
+	width:SetPoint("TOPLEFT", spam_list, "BOTTOMLEFT", 0, -20)
 
 	local height = ns.CreateNumberSlider(parent, "height", nil, nil, 0, 200, 1, true, L_GUI_CHAT_HEIGHT)
 	height:SetPoint("TOPLEFT", width, "BOTTOMLEFT", 0, -20)
