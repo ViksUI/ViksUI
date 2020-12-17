@@ -309,8 +309,8 @@ local function LoadSkin()
 	EditStreamDialog.Cancel:SkinButton()
 
 	-- Communities Settings
-	local Settings = CommunitiesSettingsDialog
-	Settings:StripTextures()
+	local Settings = _G.CommunitiesSettingsDialog
+	Settings.BG:Hide()
 	Settings:SetTemplate("Transparent")
 
 	Settings.IconPreview:RemoveMaskTexture(Settings.CircleMask)
