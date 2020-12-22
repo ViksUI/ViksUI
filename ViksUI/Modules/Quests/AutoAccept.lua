@@ -75,6 +75,8 @@ local QuickQuestDB = {
 			[103792] = true, -- Griftah (his quests are scams)
 			[143925] = true, -- Dark Iron Mole Machine (Dark Iron Dwarf racial)
 			[168430] = true, -- Path of Ascension Crafter
+			[168485] = true, -- Apolon
+			[171816] = true, -- Paolone
 
 			-- Bodyguards
 			[86945] = true, -- Aeda Brightdawn (Horde)
