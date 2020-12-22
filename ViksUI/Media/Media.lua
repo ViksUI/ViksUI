@@ -4,27 +4,27 @@ local Locale = GetLocale()
 
 C["Medias"] = {
 	-- Fonts
-	["Font"] = [[Interface\AddOns\ViksUI\Medias\Fonts\normal_font.ttf]],
-	["UnitFrameFont"] = [[Interface\AddOns\ViksUI\Medias\Fonts\uf_font.ttf]],
-	["DamageFont"] = [[Interface\AddOns\ViksUI\Medias\Fonts\normal_font.ttf]],
-	["PixelFont"] = [=[Interface\AddOns\ViksUI\Medias\Fonts\pixel_font.ttf]=],
-	["ActionBarFont"] = [[Interface\AddOns\ViksUI\Medias\Fonts\actionbar_font.ttf]],
+	["Font"] = [[Interface\AddOns\ViksUI\Media\Font\normal_font.ttf]],
+	["UnitFrameFont"] = [[Interface\AddOns\ViksUI\Media\Font\uf_font.ttf]],
+	["DamageFont"] = [[Interface\AddOns\ViksUI\Media\Font\normal_font.ttf]],
+	["PixelFont"] = [=[Interface\AddOns\ViksUI\Media\Font\pixel_font.ttf]=],
+	["ActionBarFont"] = [[Interface\AddOns\ViksUI\Media\Font\actionbar_font.ttf]],
 
 	-- Textures
-	["Normal"] = [[Interface\AddOns\ViksUI\Medias\Textures\Status\ViksUI1]],
-	["Glow"] = [[Interface\AddOns\ViksUI\Medias\Textures\Others\Glow]],
-	["Bubble"] = [[Interface\AddOns\ViksUI\Medias\Textures\Others\Bubble]],
-	["Copy"] = [[Interface\AddOns\ViksUI\Medias\Textures\Others\Copy]],
-	["Blank"] = [[Interface\AddOns\ViksUI\Medias\Textures\Others\Blank]],
-	["Logo"] = [[Interface\AddOns\ViksUI\Medias\Textures\Others\Logo]],
+	["Normal"] = [[Interface\AddOns\ViksUI\Media\textures\Texture.tga]],
+	["Glow"] = [[Interface\AddOns\ViksUI\Media\textures\Glow]],
+	["Bubble"] = [[Interface\AddOns\ViksUI\Media\textures\bubbleTex]],
+	["Copy"] = [[Interface\AddOns\ViksUI\Media\textures\copy]],
+	["Blank"] = [[Interface\AddOns\ViksUI\Media\textures\Blank]],
+	["Logo"] = [[Interface\AddOns\ViksUI\Media\textures\logo]],
 
 	-- colors
 	["BorderColor"] = C.media.border_color or { .5, .5, .5 },
 	["backdrop_color"] = C.media.BackdropColor or { .1,.1,.1 },
 
 	-- sound
-	["Whisper"] = [[Interface\AddOns\ViksUI\Medias\Sounds\whisper.mp3]],
-	["Warning"] = [[Interface\AddOns\ViksUI\Medias\Sounds\warning.mp3]],
+	["Whisper"] = [[Interface\AddOns\ViksUI\Media\sounds\Whisper.ogg]],
+	["Warning"] = [[Interface\AddOns\ViksUI\Media\sounds\Warning.ogg]],
 }
 
 if (Locale == "esES" or Locale == "esMX" or Locale == "itIT" or Locale == "ptBR" or Locale == "ruRU") then
