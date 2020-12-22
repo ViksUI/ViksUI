@@ -412,6 +412,8 @@ C["filger_spells"] = {
 			{spellID = 170856, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Dash
 			{spellID = 1850, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Starfall
+			{spellID = 191034, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -437,6 +439,10 @@ C["filger_spells"] = {
 			{spellID = 69369, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Guardian of Elune
 			{spellID = 213680, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Eclipse (Solar)
+			{spellID = 48517, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Eclipse (Lunar)
+			{spellID = 48518, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -847,6 +853,8 @@ C["filger_spells"] = {
 			{spellID = 269651, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Clearcasting
 			{spellID = 263725, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Rune of Power
+			{spellID = 116011, filter = "ICD", trigger = "NONE", totem = true},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -2374,6 +2382,14 @@ C["filger_spells"] = {
 			{spellID = 130, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Levitate
 			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},
+			
+			-- Covenant Abilitys
+			-- Wild Mark - Night Fae Covenant Ability for Hunters
+			{spellID = 328275, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Resonating Arrow - Kyrian Covenant Ability for Hunters
+			{spellID = 308498, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Soul Rot - Night Fae Covenant Ability for Warlocks
+			{spellID = 331623, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",
@@ -2953,6 +2969,7 @@ C["filger_spells"] = {
 			{spellID = 107079, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- War Stomp (Tauren)
 			{spellID = 20549, unitID = "target", caster = "all", filter = "DEBUFF"},
+			{spellID = 328231, unitID = "target", caster = "player", filter = "DEBUFF"},
 
 			-- Professions
 			-- Shieldtronic Shield
