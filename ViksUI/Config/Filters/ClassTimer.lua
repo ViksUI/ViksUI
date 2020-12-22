@@ -807,7 +807,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(689), -- Drain Life
 			-- Affliction
 			CreateSpellEntry(172), -- Corruption
-			--CreateSpellEntry(980), -- Bane of Agony
+			CreateSpellEntry(980), -- Bane of Agony
 			CreateSpellEntry(5484), -- Howl of Terror
 			CreateSpellEntry(27243), -- Seed of Corruption
 			CreateSpellEntry(316099), -- Unstable Affliction
