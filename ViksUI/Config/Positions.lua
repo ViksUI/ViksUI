@@ -70,14 +70,14 @@ C["position"] = {
 	},
 	-- Filger positions
 	filger = {
-		["player_buff_icon"] = {"RIGHT", UIParent, "CENTER", -173, 23},			-- "P_BUFF_ICON"
-		["player_proc_icon"] = {"RIGHT", UIParent, "CENTER", -173, 80},			-- "P_PROC_ICON"
-		["special_proc_icon"] = {"RIGHT", UIParent, "CENTER", -173, -18},		-- "SPECIAL_P_BUFF_ICON"
-		["target_debuff_icon"] = {"LEFT", UIParent, "CENTER", 173, 80},			-- "T_DEBUFF_ICON"
-		["target_buff_icon"] = {"LEFT", UIParent, "CENTER", 173, 134},			-- "T_BUFF"
-		["pve_debuff"] = {"RIGHT", UIParent, "CENTER", -173, 134},				-- "PVE/PVP_DEBUFF"
-		["pve_cc"] = {"LEFT", UIParent, "CENTER", 173, 38},						-- "PVE/PVP_CC"
-		["cooldown"] = {"RIGHT", UIParent, "CENTER", -550, -230},				-- "COOLDOWN"
+		["player_buff_icon"] = {"RIGHT", UIParent, "CENTER", -300, 23},			-- "P_BUFF_ICON"
+		["player_proc_icon"] = {"RIGHT", UIParent, "CENTER", -300, 80},			-- "P_PROC_ICON"
+		["special_proc_icon"] = {"RIGHT", UIParent, "CENTER", -300, -18},		-- "SPECIAL_P_BUFF_ICON"
+		["target_debuff_icon"] = {"LEFT", UIParent, "CENTER", 300, 80},			-- "T_DEBUFF_ICON"
+		["target_buff_icon"] = {"LEFT", UIParent, "CENTER", 300, 134},			-- "T_BUFF"
+		["pve_debuff"] = {"RIGHT", UIParent, "CENTER", -300, 134},				-- "PVE/PVP_DEBUFF"
+		["pve_cc"] = {"LEFT", UIParent, "CENTER", 300, 38},						-- "PVE/PVP_CC"
+		["cooldown"] = {"RIGHT", UIParent, "CENTER", -416, -234},				-- "COOLDOWN"
 		["target_bar"] = {"LEFT", UIParent, "CENTER", 450, -114},				-- "T_DE/BUFF_BAR"
 	},
 }
