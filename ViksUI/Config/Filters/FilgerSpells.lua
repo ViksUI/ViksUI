@@ -732,7 +732,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
