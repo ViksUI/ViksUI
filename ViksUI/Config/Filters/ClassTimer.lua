@@ -286,6 +286,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(206755), -- Ranger's Net
 			CreateSpellEntry(212353), -- Harpoon
 			CreateSpellEntry(212638), -- Tracker's Net
+			CreateSpellEntry(336746), -- Soulforge Embers
 		},
 		player = {
 			-- Global
@@ -801,6 +802,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(702), -- Curse of Weakness
 			CreateSpellEntry(27243), -- Curse of Weakness
 			CreateSpellEntry(331623), -- Soul Rot - Night Fae Covenant Ability for Warlocks
+			CreateSpellEntry(325640), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			-- Shared
 			CreateSpellEntry(689), -- Drain Life
 			-- Affliction

@@ -707,6 +707,12 @@ C["filger_spells"] = {
 			{spellID = 13812, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Steel Trap
 			{spellID = 162487, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Wild Mark - Night Fae Covenant Ability for Hunters
+			{spellID = 328275, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Resonating Arrow - Kyrian Covenant Ability for Hunters
+			{spellID = 308498, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Soulforge Embers
+			{spellID = 336746, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
@@ -1998,6 +2004,8 @@ C["filger_spells"] = {
 			{spellID = 334315, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 			-- Unstable Affliction (PvP Talent)
 			{spellID = 342938, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Soul Rot - Night Fae Covenant Ability for Warlocks
+			{spellID = 331623, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
@@ -2040,6 +2048,8 @@ C["filger_spells"] = {
 			{spellID = 205181, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Eradication
 			{spellID = 196414, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Soul Rot - Night Fae Covenant Ability for Warlocks
+			{spellID = 331623, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
@@ -2383,13 +2393,6 @@ C["filger_spells"] = {
 			-- Levitate
 			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},
 			
-			-- Covenant Abilitys
-			-- Wild Mark - Night Fae Covenant Ability for Hunters
-			{spellID = 328275, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
-			-- Resonating Arrow - Kyrian Covenant Ability for Hunters
-			{spellID = 308498, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
-			-- Soul Rot - Night Fae Covenant Ability for Warlocks
-			{spellID = 331623, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",
