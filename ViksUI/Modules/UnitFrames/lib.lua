@@ -412,6 +412,7 @@ lib.gen_hpbar = function(f)
 		h:SetFrameStrata("MEDIUM")
 		h:SetFrameLevel(5)
 		frame1px2_2(h)
+		h:SetBackdropColor(unpack(C.unitframe.HealthBarBackGround))
 	elseif f.mystyle == "raid" then
 		h:SetFrameLevel(0)
 		h:SetPoint("BOTTOMRIGHT",5,-5)
