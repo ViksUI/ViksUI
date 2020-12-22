@@ -29,6 +29,7 @@
 	<Script file="Config\Filters\BadBuffs.lua"/>
 	<Script file="Config\Filters\ChannelingTicks.lua"/>
 	<Script file="Config\Filters\ChatSpam.lua"/>
+	<Script file="Config\Filters\ClassTimer.lua"/>
 	<Script file="Config\Filters\CombatText.lua"/>
 	<Script file="Config\Filters\Cooldowns.lua"/>
 	<Script file="Config\Filters\Diminishing.lua"/>
