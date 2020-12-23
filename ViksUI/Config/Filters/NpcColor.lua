@@ -131,6 +131,7 @@ T.PlateImportant = {
 	["Vicious Gargon"] = true,
 	["167892"] = true,
 	["Rotmarrow Slime"] = true,
+	["Coldheart Agent"] = true,
 }
 
 T.PlateNuke = {
