@@ -2063,6 +2063,6 @@ if cfg.plugins_healcomm then
 	self.ResurrectIndicator:SetSize(20, 20)
 	self.ResurrectIndicator:SetPoint("TOP", self.Health, 2, -7)
 end
-  
+
 --hand the lib to the namespace for further usage
 ns.lib = lib

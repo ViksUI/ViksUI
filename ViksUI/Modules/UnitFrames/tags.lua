@@ -20,7 +20,7 @@ end
 })
 
 --------------------------------------------------------
-oUF.Tags.Methods["Threat"] = function(unit)
+oUF.Tags.Methods["Threat"] = function()
 	local _, status, percent = UnitDetailedThreatSituation("player", "target")
 	if percent and percent > 0 then
 		return ("%s%d%%|r"):format(Hex(GetThreatStatusColor(status)), percent)
@@ -51,7 +51,7 @@ oUF.Tags.Methods["DiffColor"] = function(unit)
 end
 oUF.Tags.Events["DiffColor"] = "UNIT_LEVEL"
 
-oUF.Tags.Methods["PetNameColor"] = function(unit)
+oUF.Tags.Methods["PetNameColor"] = function()
 	return string.format("|cff%02x%02x%02x", T.color.r * 255, T.color.g * 255, T.color.b * 255)
 end
 oUF.Tags.Events["PetNameColor"] = "UNIT_POWER_UPDATE"
@@ -64,7 +64,7 @@ oUF.Tags.Methods["GetNameColor"] = function(unit)
 		local c = T.Colors.reaction[reaction]
 		return string.format("|cff%02x%02x%02x", c[1] * 255, c[2] * 255, c[3] * 255)
 	else
-		r, g, b = 0.33, 0.59, 0.33
+		local r, g, b = 0.33, 0.59, 0.33
 		return string.format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 	end
 end
@@ -99,7 +99,7 @@ oUF.Tags.Methods["NameLongAbbrev"] = function(unit)
 	local newname = (string.len(name) > 18) and string.gsub(name, "%s?(.[\128-\191]*)%S+%s", "%1. ") or name
 	return T.UTF(newname, 18, false)
 end
-oUF.Tags.Events["NameLong"] = "UNIT_NAME_UPDATE"
+oUF.Tags.Events["NameLongAbbrev"] = "UNIT_NAME_UPDATE"
 
 oUF.Tags.Methods["LFD"] = function(unit)
 	local role = UnitGroupRolesAssigned(unit)
@@ -150,16 +150,20 @@ oUF.Tags.Events["NameplateLevel"] = "UNIT_LEVEL PLAYER_LEVEL_UP"
 
 oUF.Tags.Methods["NameplateNameColor"] = function(unit)
 	local reaction = UnitReaction(unit, "player")
-	if not UnitIsUnit("player", unit) and UnitIsPlayer(unit) and reaction >= 5 then
-		local c = T.Colors.power["MANA"]
-		return string.format("|cff%02x%02x%02x", c[1] * 255, c[2] * 255, c[3] * 255)
+	if not UnitIsUnit("player", unit) and UnitIsPlayer(unit) and (reaction and reaction >= 5) then
+		if C.nameplate.only_name then
+			return _TAGS["raidcolor"](unit)
+		else
+			local c = T.Colors.power["MANA"]
+			return string.format("|cff%02x%02x%02x", c[1] * 255, c[2] * 255, c[3] * 255)
+		end
 	elseif UnitIsPlayer(unit) then
 		return _TAGS["raidcolor"](unit)
 	elseif reaction then
 		local c = T.Colors.reaction[reaction]
 		return string.format("|cff%02x%02x%02x", c[1] * 255, c[2] * 255, c[3] * 255)
 	else
-		r, g, b = 0.33, 0.59, 0.33
+		local r, g, b = 0.33, 0.59, 0.33
 		return string.format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 	end
 end
@@ -175,6 +179,14 @@ oUF.Tags.Methods["NameplateHealth"] = function(unit)
 	end
 end
 oUF.Tags.Events["NameplateHealth"] = "UNIT_HEALTH UNIT_MAXHEALTH NAME_PLATE_UNIT_ADDED"
+
+oUF.Tags.Methods["Absorbs"] = function(unit)
+    local absorb = UnitGetTotalAbsorbs(unit)
+    if absorb and absorb > 0 then
+        return T.ShortValue(absorb)
+    end
+end
+oUF.Tags.Events["Absorbs"] = "UNIT_ABSORB_AMOUNT_CHANGED"
 -----------------------------------------------------
 
 local SVal = function(val)
