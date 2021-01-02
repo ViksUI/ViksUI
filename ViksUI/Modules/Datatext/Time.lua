@@ -2,6 +2,11 @@ local T, C, L, _ = unpack(select(2, ...))
 local _, class = UnitClass("player")
 local r, g, b = unpack(C.media.pxcolor1)
 if not C.datatext.Wowtime and not C.datatext.Wowtime > 0 then return end
+local next, pairs, unpack = next, pairs, unpack
+local C_AreaPoiInfo_GetAreaPOIInfo = C_AreaPoiInfo.GetAreaPOIInfo
+local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
+local C_UIWidgetManager_GetTextWithStateWidgetVisualizationInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo
+local UNKNOWN = UNKNOWN
 
 pxfont = C.media.pixel_font 			-- main font in Viks UI
 pxfontsize = C.media.pixel_font_size
@@ -49,6 +54,20 @@ elseif region == "US" then
 elseif region == "CN" then
 	legionbase = 1565226000 -- CN time 8/8/2019 09:00 [1]
 	bfabase = 1546743600 -- CN time 1/6/2019 11:00 [1]
+end
+
+-- Torghast
+local TorghastWidgets, TorghastInfo = {
+	{nameID = 2925, levelID = 2930}, -- Fracture Chambers
+	{nameID = 2926, levelID = 2932}, -- Skoldus Hall
+	{nameID = 2924, levelID = 2934}, -- Soulforges
+	{nameID = 2927, levelID = 2936}, -- Coldheart Interstitia
+	{nameID = 2928, levelID = 2938}, -- Mort'regar
+	{nameID = 2929, levelID = 2940}, -- The Upper Reaches
+}
+
+local function CleanupLevelName(text)
+	return gsub(text, "|n", "")
 end
 
 -- Check Invasion Status
@@ -189,6 +208,32 @@ Stat:SetScript("OnEnter", function(self)
 	local c = 0
 	for i,q in ipairs({52840,52834,52835,52837,52839,52838}) do if (C_QuestLog.IsQuestFlaggedCompleted(q)) then c=c+1 end end
 	GameTooltip:AddDoubleLine( L_STATS_SEALS .. ": ", c)
+	
+		-- Torghast
+	if not TorghastInfo then
+		TorghastInfo = C_AreaPoiInfo_GetAreaPOIInfo(1543, 6640)
+	end
+
+	if TorghastInfo and C_QuestLog_IsQuestFlaggedCompleted(60136) then
+		local torghastHeader
+		for _, value in pairs(TorghastWidgets) do
+			local nameInfo = C_UIWidgetManager_GetTextWithStateWidgetVisualizationInfo(value.nameID)
+			if nameInfo and nameInfo.shownState == 1 then
+				if not torghastHeader then
+					if GameTooltip:NumLines() > 0 then
+						GameTooltip:AddLine(' ')
+					end
+					GameTooltip:AddLine(TorghastInfo.name)
+					torghastHeader = true
+				end
+				local nameText = CleanupLevelName(nameInfo.text)
+				local levelInfo = C_UIWidgetManager_GetTextWithStateWidgetVisualizationInfo(value.levelID)
+				local levelText = AVAILABLE
+				if levelInfo and levelInfo.shownState == 1 then levelText = CleanupLevelName(levelInfo.text) end
+				GameTooltip:AddDoubleLine(nameText, levelText)
+			end
+		end
+	end
 	
 	for index, value in ipairs(invIndex) do
 		title = false

@@ -266,6 +266,20 @@ if clock.enabled then
 		MONTH_NOVEMBER,
 		MONTH_DECEMBER,
 	}
+
+	-- Torghast
+	local TorghastWidgets, TorghastInfo = {
+		{nameID = 2925, levelID = 2930},	-- Fracture Chambers
+		{nameID = 2926, levelID = 2932},	-- Skoldus Hall
+		{nameID = 2924, levelID = 2934},	-- Soulforges
+		{nameID = 2927, levelID = 2936},	-- Coldheart Interstitia
+		{nameID = 2928, levelID = 2938},	-- Mort'regar
+		{nameID = 2929, levelID = 2940},	-- The Upper Reaches
+	}
+	local function CleanupLevelName(text)
+		return gsub(text, "|n", "")
+	end
+
 	Inject("Clock", {
 		text = {
 			string = function()
@@ -327,6 +341,33 @@ if clock.enabled then
 					GameTooltip:AddDoubleLine(name, fmttime(reset), 1, 1, 1, 1, 1, 1)
 				end
 			end
+
+			-- Torghast
+			if not TorghastInfo then
+				TorghastInfo = C_AreaPoiInfo.GetAreaPOIInfo(1543, 6640)
+			end
+
+			local TorghastTitle
+			if TorghastInfo and C_QuestLog.IsQuestFlaggedCompleted(60136) then
+				for _, value in pairs(TorghastWidgets) do
+					local nameInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(value.nameID)
+					if nameInfo and nameInfo.shownState == 1 then
+						if not TorghastTitle then
+							GameTooltip:AddLine(" ")
+							GameTooltip:AddLine(TorghastInfo.name, ttsubh.r, ttsubh.g, ttsubh.b)
+							TorghastTitle = true
+						end
+						local nameText = CleanupLevelName(nameInfo.text)
+						local levelInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(value.levelID)
+						local levelText = AVAILABLE
+						if levelInfo and levelInfo.shownState == 1 then
+							levelText = CleanupLevelName(levelInfo.text)
+						end
+						GameTooltip:AddDoubleLine(nameText, levelText)
+					end
+				end
+			end
+
 			-- In 9.0 seals not available
 			-- if T.level == MAX_PLAYER_LEVEL then
 				-- local c = 0
@@ -1371,8 +1412,16 @@ if location.enabled then
 		end,
 		OnClick = function(self)
 			if IsShiftKeyDown() then
+				local mapID = C_Map.GetBestMapForUnit("player")
+				if C_Map.CanSetUserWaypointOnMap(mapID) then
+					local pos = C_Map.GetPlayerMapPosition(mapID, "player")
+					local mapPoint = UiMapPoint.CreateFromVector2D(mapID, pos)
+					C_Map.SetUserWaypoint(mapPoint)
+				end
+				local hyperlink = C_Map.GetUserWaypointHyperlink() or ""
 				ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
-				ChatEdit_ChooseBoxForSend():Insert(format(" (%s: %s)", self.zone, Coords()))
+				ChatEdit_ChooseBoxForSend():Insert(format(" (%s: %s) %s", self.zone, Coords(), hyperlink))
+				C_Map.ClearUserWaypoint()
 			else
 				ToggleFrame(WorldMapFrame)
 			end
