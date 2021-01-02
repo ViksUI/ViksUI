@@ -547,6 +547,7 @@ C["combattext"] = {
 C["bag"] = {
 	["enable"] = true,							-- Enable bags
 	["ilvl"] = true,							-- Show item level
+	["new_items"] = false,						-- Show animation for new items
 	["BagBars"] = false,
 	["SortTop"] = true,							-- Sort from top down
 	["button_size"] = 27,						-- Buttons size
