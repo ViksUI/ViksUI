@@ -57,7 +57,11 @@ local function PositionAndStyle()
 				buttons[i]:SetPoint("TOP", button, "TOP", 0, -18)
 			end
 		elseif i == line then
-			buttons[i]:SetPoint("TOP", buttons[1], "BOTTOM", 0, -1)
+			if C.panels.NoPanels == true then 
+				buttons[i]:SetPoint("TOP", buttons[1], "BOTTOM", 0, -15)
+			else
+				buttons[i]:SetPoint("TOP", buttons[1], "BOTTOM", 0, -1)
+			end
 		else
 			buttons[i]:SetPoint("TOPLEFT", buttons[i-1], "TOPRIGHT", 1, 0)
 		end
