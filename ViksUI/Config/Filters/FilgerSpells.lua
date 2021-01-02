@@ -239,8 +239,6 @@ C["filger_spells"] = {
 			-- Buffs
 			-- Soul Fragments
 			{spellID = 203981, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Painbringer (Vengeance Artifact)
-			{spellID = 212988, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Momentum
 			{spellID = 208628, unitID = "player", caster = "player", filter = "BUFF"},
 		},
@@ -334,8 +332,6 @@ C["filger_spells"] = {
 			{spellID = 211053, filter = "CD"},
 			-- Vengeful Retreat
 			{spellID = 198793, filter = "CD", absID = true},
-			-- Soul Carver (Artifact)
-			{spellID = 207407, filter = "CD"},
 			-- Sigil of Silence
 			{spellID = 202137, filter = "CD"},
 			-- Sigil of Misery
@@ -360,8 +356,6 @@ C["filger_spells"] = {
 			{spellID = 236189, filter = "CD"},
 			-- Blur
 			{spellID = 198589, filter = "CD"},
-			-- Fury of the Illidari (Artifact)
-			{spellID = 201467, filter = "CD"},
 			-- Netherwalk
 			{spellID = 196555, filter = "CD"},
 			-- Nemesis
@@ -790,6 +784,10 @@ C["filger_spells"] = {
 			{spellID = 186257, filter = "CD"},
 			-- Spirit Mend (Pet)
 			{spellID = 90361, filter = "CD"},
+			-- Volley
+			{spellID = 260243, filter = "CD"},
+			-- Wild Spirits
+			{spellID = 328231, filter = "CD"},
 		},
 	},
 	["MAGE"] = {
@@ -829,7 +827,7 @@ C["filger_spells"] = {
 			-- Temporal Shield
 			{spellID = 198111, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Rune of Power
-			{spellID = 116011, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 116014, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Mirror Image
 			{spellID = 55342, filter = "ICD", trigger = "NONE", duration = 40},
 			-- Icicles
@@ -2270,14 +2268,9 @@ C["filger_spells"] = {
 			IconSize = C.filger.buffs_size,
 			Position = {"TOP", SPECIAL_P_BUFF_ICON_Anchor},
 
-			-- Ashjra'kamas, Shroud of Resolve
-			-- Draconic Empowerment
-			{spellID = 317859, unitID = "player", caster = "player", filter = "BUFF"},
-
-			-- Gift of the Titans
-			{spellID = 313698, unitID = "player", caster = "player", filter = "BUFF"},
-
 			-- Potions: Miscellaneous
+			-- Invisible [Potion of the Hidden Spirit]
+			{spellID = 307195, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 			-- Invisibility [Invisibility Potion]
 			{spellID = 11392, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 			-- Invisibility [Draenic Invisibility Potion]
@@ -2290,6 +2283,8 @@ C["filger_spells"] = {
 			{spellID = 105707, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Speed [Swiftness Potion]
 			{spellID = 2379, unitID = "player", caster = "player", filter = "BUFF", absID = true},
+			-- Potion of the Psychopomp's Speed
+			{spellID = 344314, unitID = "player", caster = "player", filter = "BUFF"},
 
 			-- Raid Amplifiers
 			-- Bloodlust
@@ -2300,14 +2295,8 @@ C["filger_spells"] = {
 			{spellID = 264667, unitID = "player", caster = "all", filter = "BUFF", absID = true},
 			-- Time Warp
 			{spellID = 80353, unitID = "player", caster = "all", filter = "BUFF"},
-			-- Drums of Fury
-			{spellID = 178207, unitID = "player", caster = "all", filter = "BUFF"},
-			-- Drums of Rage
-			{spellID = 146555, unitID = "player", caster = "all", filter = "BUFF"},
-			-- Drums of the Maelstrom
-			{spellID = 256740, unitID = "player", caster = "all", filter = "BUFF"},
-			-- Drums of the Mountain
-			{spellID = 230935, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Drums of Deathly Ferocity
+			{spellID = 309658, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Mallet of Thunderous Skins
 			{spellID = 292686, unitID = "player", caster = "all", filter = "BUFF"},
 
@@ -2320,8 +2309,6 @@ C["filger_spells"] = {
 			{spellID = 55001, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shieldtronic Shield
 			{spellID = 173260, unitID = "player", caster = "all", filter = "BUFF", absID = true},
-			-- Stealth Field [Stealthman 54]
-			{spellID = 156136, unitID = "player", caster = "all", filter = "BUFF", absID = true},
 
 			-- Racial
 			-- Berserking (Troll)
@@ -2392,7 +2379,6 @@ C["filger_spells"] = {
 			{spellID = 130, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Levitate
 			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},
-			
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",
