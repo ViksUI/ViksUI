@@ -143,11 +143,9 @@ local applystyle = function(bar)
 	bar.candyBarIconFrame:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 end
 
-local function registerStyle()
+local function registerStyle(myProfile)
 	if not BigWigs then return end
-	local bars = BigWigs:GetPlugin("Bars", true)
-	if not bars then return end
-	bars:RegisterBarStyle("ViksUI", {
+	BigWigsAPI:RegisterBarStyle("ViksUI", {
 		apiVersion = 1,
 		version = 1,
 		GetSpacing = function() return T.Scale(13) end,
