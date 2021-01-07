@@ -630,32 +630,45 @@ if ( LAYOUT == 4 ) then
 
 	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );
 	playerFrame:SetHiddenHeight( -yOffset );
-	if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "WARLOCK" or T.class == "MONK" or T.class == "PALADIN") then
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
-	elseif (T.class == "ROGUE" and C.unitframe_class_bar.combo_old ~= true) then
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
-	elseif ( T.class == "DRUID" and C.unitframe_class_bar.combo_old ~= true) then
-		local form = GetShapeshiftFormID()
-		if form == CAT_FORM then
-			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
-			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
-		end
-	elseif ( T.class == "MAGE") then
-		if GetSpecialization() == 1 and C.unitframe_class_bar.arcane then
-			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
-			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
-		else
-			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8);
-			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8);
-		end
-	else
-		playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
-		playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
-	end
-	playerFrame:Show();
 
+	local function Barmover()
+		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "WARLOCK" or T.class == "MONK" or T.class == "PALADIN") then
+			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
+			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
+		elseif (T.class == "ROGUE" and C.unitframe_class_bar.combo_old ~= true) then
+			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
+			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
+		elseif ( T.class == "DRUID" and C.unitframe_class_bar.combo_old ~= true) then
+			local form = GetShapeshiftFormID()
+			if form == CAT_FORM then
+				playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
+				playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
+			else
+				playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
+				playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
+			end
+		elseif ( T.class == "MAGE") then
+			if GetSpecialization() == 1 and C.unitframe_class_bar.arcane then
+				playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
+				playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
+			else
+				playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8);
+				playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8);
+			end
+		else
+			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
+			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
+		end
+	end
+	
+	local BarUpdater = CreateFrame("Frame")
+	BarUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
+	BarUpdater:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+	BarUpdater:RegisterEvent("PLAYER_TALENT_UPDATE")
+	BarUpdater:SetScript("OnEvent", Barmover)
+
+	playerFrame:Show();
+	
 	local trinketFrame = CreateAuraBarFrame( trinketDataSource,  oUF_Player);
 	trinketFrame:SetHiddenHeight( -yOffset );
 	trinketFrame:SetPoint( "BOTTOMLEFT", playerFrame, "TOPLEFT", 0, 10);
