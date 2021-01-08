@@ -428,10 +428,11 @@ local function SetupChatPosAndFont()
 			end
 		end
 	end
+end
 
 	-- Reposition Quick Join Toast and battle.net popup
 	QuickJoinToastButton:ClearAllPoints()
-	QuickJoinToastButton:SetPoint("TOPLEFT", 0, 90)
+	QuickJoinToastButton:SetPoint("TOPLEFT", 0, 190)
 	QuickJoinToastButton.ClearAllPoints = T.dummy
 	QuickJoinToastButton.SetPoint = T.dummy
 
@@ -446,16 +447,6 @@ local function SetupChatPosAndFont()
 	hooksecurefunc(QuickJoinToastButton, "ShowToast", function() QuickJoinToastButton.Toast.backdrop:Show() end)
 	hooksecurefunc(QuickJoinToastButton, "HideToast", function() QuickJoinToastButton.Toast.backdrop:Hide() end)
 
-	hooksecurefunc(BNToastFrame, "SetPoint", function(self, _, anchor)
-		if anchor == QuickJoinToastButton then
-			if C.panels.NoPanels then
-			self:SetPoint(unpack(C.position.bn_popup_line))
-			else
-			self:SetPoint(unpack(C.position.bn_popup))
-			end
-		end
-	end)
-
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)
 	hooksecurefunc(BNToastFrame, "ShowToast", function(self)
 		if not self.IsSkinned then
@@ -464,8 +455,13 @@ local function SetupChatPosAndFont()
 			self.IsSkinned = true
 		end
 	end)
-end
 
+function AddToast()
+	BNToastFrame:ClearAllPoints()
+	BNToastFrame:SetPoint(unpack(C.position.bn_popup))
+end
+hooksecurefunc(BNToastFrame, "AddToast", AddToast)
+	
 GeneralDockManagerOverflowButton:SetPoint("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, 5)
 hooksecurefunc(GeneralDockManagerScrollFrame, "SetPoint", function(self, point, anchor, attachTo, x, y)
 	if anchor == GeneralDockManagerOverflowButton and x == 0 and y == 0 then
