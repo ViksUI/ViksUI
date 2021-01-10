@@ -9122,7 +9122,7 @@ SlashCmdList.SETTINGS = function(msg)
 			print("|cffffff00Skada"..L_INFO_NOT_INSTALLED.."|r")
 		end
 	elseif msg == "chat" then
-			UploadChat()
+			T.ChatSetup()
 	elseif msg == "cvar" then
 			UploadCvar()
 	elseif msg == "details" then
