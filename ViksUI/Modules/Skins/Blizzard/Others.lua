@@ -311,7 +311,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 
 			-- NavBar Buttons (Used in EncounterJournal and HelpFrame)
 			local function SkinNavBarButtons(self)
-				if self:GetParent():GetName() == "WorldMapFrame" then return end
 				local navButton = self.navList[#self.navList]
 				if navButton and not navButton.isSkinned then
 					navButton:SkinButton(true)
