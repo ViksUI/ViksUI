@@ -3,24 +3,17 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.20",
-		"• [Bags]Show animation for new items",
-		"• Added Torghast info in clock",
-		"• [SlotItemLevel] Check enchant for main weapon",
-		"• [Skins] Added new skin for Auctionator.",
+		"Update 9.21",
+		"• [NPC Info] Tooltip now show note for special mobs in dungeon",
+		"• [NPC Info] Explains reason for it's color marking",
 		"• [Spells] Added to Autobutton, Flask&Food, EnemyCD & Diminishing",
 		"• [Spells] Added to Filger, Combattext, reminders & RaidAuraWatch",
-		"• [Skins] Added skin for weakly rewards icons.",
-		"• [Skins] Updated Garrison skin",
-		"• [Skins] Added Runeforge skin",
-		"• [Chat] Added skin for BNToastFrame.CloseButton.",
-		"• [Tooltip] Added skin for TomTom",
-		"• Updated oUF Tags for NamePlateColor",
+		"• [Skins] Updated BigWigs skin",
 		"• ",
 
 		--"• ",
 	--" ",
-	"Our newest Patreon is Mythras92! Big humble thanks from me",
+	"Our newest Patreon is Shaye! Big humble thanks from me",
 	"PATREON ARE KEEPING VIKSUI ALIVE: SO BIG THANKS FROM ALL UI USERS!",
 	"Give them a thumbs up on Discord chat",
 		"",
@@ -29,7 +22,7 @@ local ChangeLogData = {
 		"11 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
 		"",
-	"PATREON's: joelsoul, Wiggy, nAyu, Elewem, Bootleg Mix & Mythras92",
+	"PATREON's: joelsoul, Wiggy, nAyu, Elewem, Bootleg Mix, Mythras92 & Shaye",
 }
 
 --// TODO LIST
