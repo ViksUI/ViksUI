@@ -23,8 +23,12 @@ UIPARENT_MANAGED_FRAME_POSITIONS.ExtraAbilityContainer = nil
 
 -- Zone Ability button
 local zoneAnchor = CreateFrame("Frame", "ZoneButtonAnchor", UIParent)
-zoneAnchor:SetPoint(unpack(C.position.zone_button))
-zoneAnchor:SetSize(109, 53)
+if C.actionbar.split_bars then
+	zoneAnchor:SetPoint(C.position.zone_button[1], SplitBarLeft, C.position.zone_button[3], C.position.zone_button[4], C.position.zone_button[5])
+else
+	zoneAnchor:SetPoint(unpack(C.position.zone_button))
+end
+zoneAnchor:SetSize(109, size)
 zoneAnchor:SetFrameStrata("LOW")
 RegisterStateDriver(zoneAnchor, "visibility", "[petbattle] hide; show")
 
@@ -40,7 +44,11 @@ hooksecurefunc("ExtraActionBar_Update", function()
 	if HasExtraActionBar() then
 		zoneAnchor:SetPoint("BOTTOMRIGHT", ExtraActionBarFrame, "BOTTOMLEFT", -3, 0)
 	else
-		zoneAnchor:SetPoint(unpack(C.position.zone_button))
+		if C.actionbar.split_bars then
+			zoneAnchor:SetPoint(C.position.zone_button[1], SplitBarLeft, C.position.zone_button[3], C.position.zone_button[4], C.position.zone_button[5])
+		else
+			zoneAnchor:SetPoint(unpack(C.position.zone_button))
+		end
 	end
 end)
 
@@ -57,7 +65,7 @@ end
 button.style:SetTexture(nil)
 hooksecurefunc(texture, "SetTexture", disableTexture)
 
-button:SetSize(53, 53)
+button:SetSize(size, size)
 
 button.Count:SetFont(C.font.cooldown_timers_font, C.font.cooldown_timers_font_size, C.font.cooldown_timers_font_style)
 button.Count:SetShadowOffset(C.font.cooldown_timers_font_shadow and 1 or 0, C.font.cooldown_timers_font_shadow and -1 or 0)
@@ -74,7 +82,7 @@ local function SkinZoneAbilities()
 		if not button.IsSkinned then
 			button.NormalTexture:SetAlpha(0)
 			button:StyleButton()
-			button:SetSize(53, 53)
+			button:SetSize(size, size)
 			button:SetTemplate("Transparent")
 			if C.actionbar.classcolor_border == true then
 				button:SetBackdropBorderColor(unpack(C.media.classborder_color))
