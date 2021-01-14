@@ -231,6 +231,7 @@ T.RaidDebuffs = {
 	[SpellName(334748)] = 3,	-- Drain FLuids
 	[SpellName(333489)] = 3,	-- Necrotic Breath
 	[SpellName(320717)] = 3,	-- Blood Hunger
+	[SpellName(320788)] = 3,	-- Frozen Binds
 	-- Theater of Pain
 	[SpellName(333299)] = 3,	-- Curse of Desolation
 	[SpellName(319539)] = 3,	-- Soulless
@@ -257,6 +258,7 @@ T.RaidDebuffs = {
 	[SpellName(335306)] = 3,	-- Barbed Shackles
 	[SpellName(322429)] = 3,	-- Severing Slice
 	[SpellName(334653)] = 3,	-- Engorge
+	[SpellName(327814)] = 3,	-- Wicked Gash
 	-- Spires of Ascension
 	[SpellName(338729)] = 3,	-- Charged Stomp
 	[SpellName(323195)] = 3,	-- Purifying Blast

@@ -34,6 +34,7 @@ T.DebuffWhiteList = {
 	[SpellName(3355)] = true,	-- Freezing Trap
 	[SpellName(194279)] = true,	-- Caltrops
 	[SpellName(13812)] = true,	-- Explosive Trap
+	[SpellName(217200)] = true,	-- Barbed Shot
 	-- Mage
 	[SpellName(118)] = true,	-- Polymorph
 	[SpellName(31661)] = true,	-- Dragon's Breath
@@ -96,7 +97,7 @@ T.DebuffBlackList = {
 }
 
 T.BuffWhiteList = {
-	-- [SpellName(spellID)] = true,	-- Spell Name
+	[SpellName(226510)] = true,	-- Sanguine Ichor
 }
 
 for _, spell in pairs(C.nameplate.buffs_list) do
