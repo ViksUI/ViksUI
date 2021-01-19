@@ -1793,10 +1793,10 @@ do
 
 	-- Plugins
 	local subheader = ns.addSubCategory(parent)
-	subheader:SetPoint("TOPLEFT", hide_combat, "BOTTOMLEFT", 0, -16)
+	subheader:SetPoint("TOPLEFT", hide_combat, "BOTTOMLEFT", 0, 0)
 
 	local talents = ns.CreateCheckBox(parent, "talents")
-	talents:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -8)
+	talents:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -4)
 
 	local achievements = ns.CreateCheckBox(parent, "achievements")
 	achievements:SetPoint("TOPLEFT", talents, "BOTTOMLEFT", 0, 0)
@@ -1839,6 +1839,9 @@ do
 	
 	local npc_id = ns.CreateCheckBox(parent, "npc_id", "NPC id")
 	npc_id:SetPoint("TOPLEFT", mount, "BOTTOMLEFT", 0, 0)
+
+	local npc_tip = ns.CreateCheckBox(parent, "npc_tip")
+	npc_tip:SetPoint("TOPLEFT", npc_id, "BOTTOMLEFT", 0, 0)
 end
 
 -- Chat

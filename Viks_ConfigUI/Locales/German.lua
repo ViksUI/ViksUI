@@ -291,6 +291,8 @@ L.tooltip_item_count = "Gegenstandsanzahl"
 L.tooltip_unit_role = "Klassenrolle (Tank/Schaden/Heiler)"
 L.tooltip_instance_lock = "Deine abgeschlossenen Instanzen im Tooltip"
 L.tooltip_mount = "Source of mount" -- Needs review
+L.tooltip_npc_tip = "NPC Info"
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
 
 -- Chat options
 L_GUI_CHAT_SUBTEXT = "Hier Einstellungen des Chat-Fensters ändern."

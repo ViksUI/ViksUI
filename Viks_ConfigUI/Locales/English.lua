@@ -313,6 +313,8 @@ L.tooltip_item_count = "Item count in bags and bank"
 L.tooltip_unit_role = "Unit role"
 L.tooltip_instance_lock = "Your instance lock status in tooltip"
 L.tooltip_mount = "Source of mount"
+L.tooltip_npc_tip = "NPC Info"
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
 
 -- Chat options
 L_GUI_CHAT_SUBTEXT = "Here you can change the settings of the chat window."

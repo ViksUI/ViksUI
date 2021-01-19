@@ -294,6 +294,8 @@ L.tooltip_item_count = "物品的简易统计"
 L.tooltip_unit_role = "角色类型"
 L.tooltip_instance_lock = "副本进度比较"
 L.tooltip_mount = "坐骑来源"
+L.tooltip_npc_tip = "NPC Info"
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
 
 -- Chat options
 L_GUI_CHAT_SUBTEXT = "这里可以设置你的聊天框"

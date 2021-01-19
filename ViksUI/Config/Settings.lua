@@ -429,6 +429,7 @@ C["tooltip"] = {
 	["instance_lock"] = true,					-- Your instance lock status in tooltip
 	["mount"] = true,							-- Show source of mount
 	["npc_id"] = false,							-- Show npc id
+	["npc_tip"] = true,							-- Show Tips for important NPC in dungeons
 	--Ancher
 	["bottomleft"] = false, 					-- Anchor to BottomLeft
 	["bottomright"] = false, 					-- Anchor to Bottomright

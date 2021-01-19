@@ -256,6 +256,8 @@ L.tooltip_item_count = "Contador del objeto"
 L.tooltip_unit_role = "Unit role" -- Needs review
 L.tooltip_instance_lock = "Your instance lock status in tooltip" -- Needs review
 L.tooltip_mount = "Source of mount" -- Needs review
+L.tooltip_npc_tip = "NPC Info"
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
 
 -- Chat options
 L_GUI_CHAT_SUBTEXT = "Here you can change the settings of the chat window." -- Need review

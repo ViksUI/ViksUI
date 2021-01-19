@@ -442,24 +442,27 @@ GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
 ----------------------------------------------------------------------------------------
 --	Show tip for NPC
 ----------------------------------------------------------------------------------------
-local IDLine = '|cFFCA3C3C%s|r %d'
-GameTooltip:HookScript("OnTooltipSetUnit", function(self)
-    local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
-    -- NPC ID's
-    if unit then
-        local guid = UnitGUID(unit) or ""
-        local id = select(6, strsplit('-', guid))
-        if id then
-            --self:AddLine(format(IDLine, _G.ID, id))
-            if T.PlateDangerous[id] then
-                self:AddLine(T.PlateDangerous[id])
-            elseif T.PlateImportant[id] then
-                self:AddLine(T.PlateImportant[id])
-            end
-        end
-    end
-end)
-
+if C.tooltip.npc_tip == true then
+	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
+		-- NPC ID's
+		if unit then
+			local guid = UnitGUID(unit) or ""
+			local id = select(6, strsplit('-', guid))
+			if id then
+				if T.PlateDangerous[id] then
+					self:AddLine(T.PlateDangerous[id])
+				elseif T.PlateImportant[id] then
+					self:AddLine(T.PlateImportant[id])
+				elseif T.PlateNuke[id] then
+					self:AddLine(T.PlateNuke[id])
+				elseif T.PlateT3Mobs[id] then
+					self:AddLine(T.PlateT3Mobs[id])
+				end
+			end
+		end
+	end)
+end
 ----------------------------------------------------------------------------------------
 --	Hide tooltips in combat for action bars, pet bar and stance bar
 ----------------------------------------------------------------------------------------

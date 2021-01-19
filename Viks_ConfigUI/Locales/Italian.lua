@@ -263,6 +263,8 @@ L.tooltip_item_count = "Conteggio oggetti"
 L.tooltip_unit_role = "Ruolo dell'unità"
 L.tooltip_instance_lock = "Info incursione nei suggerimenti"
 L.tooltip_mount = "Source of mount" -- Needs review
+L.tooltip_npc_tip = "NPC Info"
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
 
 -- Chat options
 L_GUI_CHAT_SUBTEXT = "Here you can change the settings of the chat window." -- Need review

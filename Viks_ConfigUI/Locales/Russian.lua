@@ -295,6 +295,8 @@ L.tooltip_item_count = "Количество предметов в сумках 
 L.tooltip_unit_role = "Роль игрока"
 L.tooltip_instance_lock = "Ваш статус прохождения подземелий в подсказке"
 L.tooltip_mount = "Источник средства передвижения"
+L.tooltip_npc_tip = "NPC Info"
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
 
 -- Chat options
 L_GUI_CHAT_SUBTEXT = "Здесь можно изменить настройки окна чата."
