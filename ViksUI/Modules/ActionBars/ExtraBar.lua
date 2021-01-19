@@ -10,7 +10,8 @@ if C.actionbar.split_bars then
 else
 	anchor:SetPoint(unpack(C.position.extra_button))
 end
-anchor:SetSize(53, 53)
+local size = C.actionbar.button_size * 2 + C.actionbar.button_space
+anchor:SetSize(size, size)
 anchor:SetFrameStrata("LOW")
 RegisterStateDriver(anchor, "visibility", "[petbattle] hide; show")
 

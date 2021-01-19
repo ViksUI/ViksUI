@@ -368,9 +368,9 @@ end
 ----------------------------------------------------------------------------------------
 T.SetModifiedBackdrop = function(self)
 	if self:IsEnabled() then
-		self:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
+		self:SetBackdropBorderColor(unpack(C.media.classborder_color))
 		if self.overlay then
-			self.overlay:SetVertexColor(T.color.r * 0.3, T.color.g * 0.3, T.color.b * 0.3, 1)
+			self.overlay:SetVertexColor(C.media.classborder_color[1] * 0.3, C.media.classborder_color[2] * 0.3, C.media.classborder_color[3] * 0.3, 1)
 		end
 	end
 end
