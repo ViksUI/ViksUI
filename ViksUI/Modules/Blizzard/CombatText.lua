@@ -657,17 +657,17 @@ local placed = {
 -- Slash commands
 SlashCmdList.XCT = function(input)
 	input = string.lower(input)
-	if input == "unlock" then
+	if input == "move" then
 		if ct.locked then
 			StartConfigmode()
-		else
-			pr("|cffffff00"..L_COMBATTEXT_ALREADY_UNLOCKED.."|r")
-		end
-	elseif input == "lock" then
-		if ct.locked then
-			pr("|cffffff00"..L_COMBATTEXT_ALREADY_LOCKED.."|r")
+			if not ct.testmode then
+				StartTestMode()
+			end
 		else
 			StaticPopup_Show("XCT_LOCK")
+			if ct.testmode then
+				EndTestMode()
+			end
 		end
 	elseif input == "test" then
 		if ct.testmode then
@@ -880,6 +880,10 @@ if C.combattext.damage then
 						if bit.band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= COMBATLOG_OBJECT_AFFILIATION_MINE then
 							spellId = 6603
 						end
+						if (sourceGUID == UnitGUID("pet") or sourceFlags == gflags) and not T.aoespam[spellId] then
+							T.aoespam[spellId] = 3
+							SQ[spellId] = {queue = 0, msg = "", color = {}, count = 0, utime = 0, locked = false}
+						end
 						if T.aoespam[spellId] then
 							SQ[spellId]["locked"] = true
 							SQ[spellId]["queue"] = ct.SpamQueue(spellId, rawamount)
@@ -910,7 +914,7 @@ if C.combattext.damage then
 				xCT4:AddMessage(missType)
 			elseif eventType == "SPELL_MISSED" or eventType == "RANGE_MISSED" then
 				local spellId, _, _, missType = select(12, CombatLogGetCurrentEventInfo())
-				if missType == "IMMUNE" and spellId == 118895 then return end
+				if missType == "IMMUNE" and spellId == 204242 then return end -- Consecration slow
 				if C.combattext.icons then
 					icon = GetSpellTexture(spellId)
 					missType = misstypes[missType].." \124T"..icon..":"..C.combattext.icon_size..":"..C.combattext.icon_size..":0:0:64:64:5:59:5:59\124t"

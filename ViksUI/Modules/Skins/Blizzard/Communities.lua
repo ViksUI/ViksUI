@@ -309,7 +309,7 @@ local function LoadSkin()
 	EditStreamDialog.Cancel:SkinButton()
 
 	-- Communities Settings
-	local Settings = _G.CommunitiesSettingsDialog
+	local Settings = CommunitiesSettingsDialog
 	Settings.BG:Hide()
 	Settings:SetTemplate("Transparent")
 
@@ -326,6 +326,8 @@ local function LoadSkin()
 	Settings.Accept:SkinButton()
 	Settings.Delete:SkinButton()
 	Settings.Cancel:SkinButton()
+
+	T.SkinDropDownBox(ClubFinderLanguageDropdown)
 
 	-- Avatar Picker
 	local Avatar = CommunitiesAvatarPickerDialog

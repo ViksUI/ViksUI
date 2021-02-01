@@ -814,6 +814,8 @@ C["filger_spells"] = {
 			{spellID = 12042, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Combustion
 			{spellID = 190319, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Infernal Cascade
+			{spellID = 336832, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Blazing Barrier
 			{spellID = 235313, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Prismatic Barrier
@@ -827,7 +829,7 @@ C["filger_spells"] = {
 			-- Temporal Shield
 			{spellID = 198111, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Rune of Power
-			{spellID = 116014, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 116011, filter = "ICD", trigger = "NONE", totem = true},
 			-- Mirror Image
 			{spellID = 55342, filter = "ICD", trigger = "NONE", duration = 40},
 			-- Icicles
@@ -858,7 +860,7 @@ C["filger_spells"] = {
 			-- Clearcasting
 			{spellID = 263725, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Rune of Power
-			{spellID = 116011, filter = "ICD", trigger = "NONE", totem = true},
+			{spellID = 116014, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -2397,6 +2399,8 @@ C["filger_spells"] = {
 			{spellID = 91797, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Gnaw (Ghoul)
 			{spellID = 91800, unitID = "player", caster = "all", filter = "DEBUFF"},
+			-- Blinding Sleet
+			{spellID = 207167, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Demon Hunter
 			-- Imprison
@@ -2429,6 +2433,8 @@ C["filger_spells"] = {
 			{spellID = 117526, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Intimidation
 			{spellID = 24394, unitID = "player", caster = "all", filter = "DEBUFF"},
+			-- Scatter Shot
+			{spellID = 213691, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Mage
 			-- Polymorph
@@ -2463,6 +2469,10 @@ C["filger_spells"] = {
 			{spellID = 8122, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Sin and Punishment
 			{spellID = 87204, unitID = "player", caster = "all", filter = "DEBUFF"},
+			-- Holy Word: Chastise
+			{spellID = 88625, unitID = "player", caster = "all", filter = "DEBUFF"},
+			-- Mindgames
+			{spellID = 323673, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Rogue
 			-- Sap
@@ -2744,6 +2754,8 @@ C["filger_spells"] = {
 			{spellID = 117526, unitID = "target", caster = "all", filter = "DEBUFF", absID = true},
 			-- Intimidation
 			{spellID = 24394, unitID = "target", caster = "all", filter = "DEBUFF"},
+			-- Roar of Sacrifice
+			{spellID = 53480, unitID = "target", caster = "all", filter = "DEBUFF"},
 
 			-- Mage
 			-- Ice Block
@@ -2752,6 +2764,10 @@ C["filger_spells"] = {
 			{spellID = 66, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Greater Invisibility
 			{spellID = 113862, unitID = "target", caster = "all", filter = "BUFF"},
+			-- Combustion
+			{spellID = 190319, unitID = "target", caster = "all", filter = "BUFF"},
+			-- Alter Time
+			{spellID = 108978, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Temporal Shield
 			{spellID = 198111, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Evanesce

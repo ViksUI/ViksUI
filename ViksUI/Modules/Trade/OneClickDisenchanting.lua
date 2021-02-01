@@ -89,6 +89,11 @@ local herbs = {
 	[152505] = true,	-- Riverbud
 	[152510] = true,	-- Anchor Weed
 	[168487] = true,	-- Zin'anthid
+	[169701] = true,	-- Death Blossom 
+	[168586] = true,	-- Rising Glory
+	[168589] = true,	-- Marrowroot
+	[170554] = true,	-- Vigil's Torch
+	[168583] = true,	-- Widowbloom
 }
 
 local ores = {

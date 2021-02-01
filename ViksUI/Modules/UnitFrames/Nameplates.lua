@@ -245,11 +245,16 @@ local AurasCustomFilter = function(_, unit, button, name, _, _, _, _, _, _, isSt
 	return allow
 end
 
+local Mult = 1
+if T.screenHeight > 1200 then
+	Mult = T.mult
+end
+
 local AurasPostCreateIcon = function(element, button)
 	CreateVirtualFrame(button)
 	button:EnableMouse(false)
 
-	button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size * T.noscalemult, C.font.auras_font_style)
+	button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size * T.noscalemult / Mult, C.font.auras_font_style)
 	button.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 	button.remaining:SetPoint("CENTER", button, "CENTER", 1, 0)
 	button.remaining:SetJustifyH("CENTER")
@@ -260,7 +265,7 @@ local AurasPostCreateIcon = function(element, button)
 
 	button.count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
 	button.count:SetJustifyH("RIGHT")
-	button.count:SetFont(C.font.auras_font, C.font.auras_font_size * T.noscalemult, C.font.auras_font_style)
+	button.count:SetFont(C.font.auras_font, C.font.auras_font_size * T.noscalemult / Mult, C.font.auras_font_style)
 	button.count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 
 	if C.aura.show_spiral == true then
@@ -327,15 +332,14 @@ end
 
 local function threatColor(self, forced)
 	if UnitIsPlayer(self.unit) then return end
-	local combat = UnitAffectingCombat("player")
-	local threatStatus = UnitThreatSituation("player", self.unit)
 
 	if C.nameplate.enhance_threat ~= true then
 		SetVirtualBorder(self.Health, unpack(C.media.border_color))
 	end
 	if UnitIsTapDenied(self.unit) then
 		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
-	elseif combat then
+	elseif UnitAffectingCombat("player") then
+		local threatStatus = UnitThreatSituation("player", self.unit)
 		if self.npcID == "120651" then	-- Explosives affix
 			self.Health:SetStatusBarColor(unpack(C.nameplate.explosive_color))
 		elseif threatStatus == 3 then	-- securely tanking, highest threat
@@ -368,11 +372,11 @@ local function threatColor(self, forced)
 			if C.nameplate.enhance_threat == true then
 				if T.Role == "Tank" then
 					local offTank = false
-					if IsInGroup() or IsInRaid() then
+					if IsInRaid() then
 						for i = 1, GetNumGroupMembers() do
-							if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") then
+							if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
 								local isTanking = UnitDetailedThreatSituation("raid"..i, self.unit)
-								if isTanking and UnitGroupRolesAssigned("raid"..i) == "TANK" then
+								if isTanking then
 									offTank = true
 									break
 								end
