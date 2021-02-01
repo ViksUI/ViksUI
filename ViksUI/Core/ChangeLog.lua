@@ -3,12 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.21",
-		"• [NPC Info] Tooltip now show note for special mobs in dungeon",
-		"• [NPC Info] Explains reason for it's color marking",
-		"• [Spells] Added to Autobutton, Flask&Food, EnemyCD & Diminishing",
-		"• [Spells] Added to Filger, Combattext, reminders & RaidAuraWatch",
-		"• [Skins] Updated BigWigs skin",
+		"Update 9.22",
+		"• Many minor fixes and updates",
 		"• ",
 
 		--"• ",
