@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if C.chat.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -20,7 +20,10 @@ end
 
 -- Slash command
 SlashCmdList.TELLTARGET = function(msg)
-	SendChatMessage(msg, "WHISPER")
+	local name = GetUnitName("target", true)
+	if name then
+		SendChatMessage(msg, "WHISPER", nil, name)
+	end
 end
 SLASH_TELLTARGET1 = "/tt"
 SLASH_TELLTARGET2 = "/ее"
