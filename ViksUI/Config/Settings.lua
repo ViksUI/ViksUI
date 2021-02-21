@@ -461,6 +461,7 @@ C["chat"] = {
 	["damage_meter_spam"] = true,				-- Merge damage meter spam in one line-link
 	["smileys"] = true,							-- Insert smileys instead of symbols like xD
 	["loot_icons"] = false,						-- Icons for loot
+	["history"] = false,						-- Chat history
 	["custom_time_color"] = true,				-- Enable custom timestamp coloring
 	["time_color"] = {1, 1, 0},					-- Timestamp coloring (http://www.december.com/html/spec/colorcodescompact.html)
 }
