@@ -1884,9 +1884,12 @@ do
 
 	local time_color = ns.CreateColourPicker(parent, "time_color", true, L_GUI_CHAT_TIMESTAMP)
 	time_color:SetPoint("TOPLEFT", chat_bar_mouseover, "BOTTOMLEFT", -16, -10)
-
+	
+	local history = ns.CreateCheckBox(parent, "history", HISTORY)
+	history:SetPoint("TOPLEFT", time_color, "BOTTOMLEFT", 0, 0)
+	
 	local whisp_sound = ns.CreateCheckBox(parent, "whisp_sound", L_GUI_CHAT_WHISP)
-	whisp_sound:SetPoint("TOPLEFT", time_color, "BOTTOMLEFT", -4, -10)
+	whisp_sound:SetPoint("TOPLEFT", history, "BOTTOMLEFT", -4, -10)
 
 	local bubbles = ns.CreateCheckBox(parent, "bubbles", L_GUI_CHAT_SKIN_BUBBLE)
 	bubbles:SetPoint("TOPLEFT", whisp_sound, "BOTTOMLEFT", 0, 0)
