@@ -3,8 +3,9 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.22",
+		"Update C-19",
 		"• Many minor fixes and updates",
+		"• Stuck in hospital with covid 19 so check github log for more details",
 		"• ",
 
 		--"• ",
@@ -18,7 +19,7 @@ local ChangeLogData = {
 		"11 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
 		"",
-	"PATREON's: joelsoul, Wiggy, nAyu, Elewem, Bootleg Mix, Mythras92 & Shaye",
+	"PATREON's: joelsoul, Wiggy, nAyu, Elewem, Bootleg Mix & Shaye",
 }
 
 --// TODO LIST

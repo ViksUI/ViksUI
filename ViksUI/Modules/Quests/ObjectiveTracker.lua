@@ -416,38 +416,6 @@ end
 
 ObjectiveTracker:Enable()
 
--- WorldQuestsList button skin
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_LOGIN")
-frame:SetScript("OnEvent", function()
-	if not IsAddOnLoaded("WorldQuestsList") then return end
-
-	local orig = _G.WorldQuestList.ObjectiveTracker_Update_hook
-	local function orig_hook(...)
-		orig(...)
-		for _, b in pairs(WorldQuestList.LFG_objectiveTrackerButtons) do
-			if b and not b.skinned then
-				b:SetSize(20, 20)
-				b.texture:SetAtlas("socialqueuing-icon-eye")
-				b.texture:SetSize(12, 12)
-				b:SetHighlightTexture("")
-
-				local point, anchor, point2, x, y = b:GetPoint()
-				if x == -18 then
-					b:SetPoint(point, anchor, point2, -13, y)
-				end
-
-				b.b = CreateFrame("Frame", nil, b)
-				b.b:SetTemplate("Overlay")
-				b.b:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
-				b.b:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
-				b.b:SetFrameLevel(1)
-				b.skinned = true
-			end
-		end
-	end
-	_G.WorldQuestList.ObjectiveTracker_Update_hook = orig_hook
-end)
 ----------------------------------------------------------------------------------------
 --	Skin MawBuffsBlock
 ----------------------------------------------------------------------------------------
@@ -524,7 +492,98 @@ end
 hooksecurefunc(QUEST_TRACKER_MODULE, "AddProgressBar", SkinBar)
 hooksecurefunc(CAMPAIGN_QUEST_TRACKER_MODULE, "AddProgressBar", SkinBar)
 hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", SkinBar)
+----------------------------------------------------------------------------------------
+--	Skin ObjectiveTrackerFrame item buttons
+----------------------------------------------------------------------------------------
+local function HotkeyShow(self)
+	local item = self:GetParent()
+	if item.rangeOverlay then item.rangeOverlay:Show() end
+end
 
+local function HotkeyHide(self)
+	local item = self:GetParent()
+	if item.rangeOverlay then item.rangeOverlay:Hide() end
+end
+
+local function HotkeyColor(self, r)
+	local item = self:GetParent()
+	if item.rangeOverlay then
+		if r == 0.6 then
+			item.rangeOverlay:SetVertexColor(0, 0, 0, 0)
+		else
+			item.rangeOverlay:SetVertexColor(1, 0.3, 0.1, 0.6)
+		end
+	end
+end
+
+hooksecurefunc("QuestObjectiveSetupBlockButton_Item", function(block)
+	local item = block and block.itemButton
+
+	if item and not item.skinned then
+		item:SetSize(25, 25)
+		item:SetTemplate("Default")
+		item:StyleButton()
+
+		item:SetNormalTexture(nil)
+
+		item.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		item.icon:SetPoint("TOPLEFT", item, 2, -2)
+		item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+
+		item.Cooldown:SetAllPoints(item.icon)
+
+		item.Count:ClearAllPoints()
+		item.Count:SetPoint("TOPLEFT", 1, -1)
+		item.Count:SetFont(C.font.action_bars_font, C.font.action_bars_font_size, C.font.action_bars_font_style)
+		item.Count:SetShadowOffset(C.font.action_bars_font_shadow and 1 or 0, C.font.action_bars_font_shadow and -1 or 0)
+
+		local rangeOverlay = item:CreateTexture(nil, "OVERLAY")
+		rangeOverlay:SetTexture(C.media.texture)
+		rangeOverlay:SetInside()
+		item.rangeOverlay = rangeOverlay
+
+		hooksecurefunc(item.HotKey, "Show", HotkeyShow)
+		hooksecurefunc(item.HotKey, "Hide", HotkeyHide)
+		hooksecurefunc(item.HotKey, "SetVertexColor", HotkeyColor)
+		HotkeyColor(item.HotKey, item.HotKey:GetTextColor())
+		item.HotKey:SetAlpha(0)
+
+		item.skinned = true
+	end
+end)
+
+-- WorldQuestsList button skin
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:SetScript("OnEvent", function()
+	if not IsAddOnLoaded("WorldQuestsList") then return end
+
+	local orig = _G.WorldQuestList.ObjectiveTracker_Update_hook
+	local function orig_hook(...)
+		orig(...)
+		for _, b in pairs(WorldQuestList.LFG_objectiveTrackerButtons) do
+			if b and not b.skinned then
+				b:SetSize(20, 20)
+				b.texture:SetAtlas("socialqueuing-icon-eye")
+				b.texture:SetSize(12, 12)
+				b:SetHighlightTexture("")
+
+				local point, anchor, point2, x, y = b:GetPoint()
+				if x == -18 then
+					b:SetPoint(point, anchor, point2, -13, y)
+				end
+
+				b.b = CreateFrame("Frame", nil, b)
+				b.b:SetTemplate("Overlay")
+				b.b:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
+				b.b:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
+				b.b:SetFrameLevel(1)
+				b.skinned = true
+			end
+		end
+	end
+	_G.WorldQuestList.ObjectiveTracker_Update_hook = orig_hook
+end)
 ----------------------------------------------------------------------------------------
 --	Skin quest objective progress bar with icon
 ----------------------------------------------------------------------------------------
