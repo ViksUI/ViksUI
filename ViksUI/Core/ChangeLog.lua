@@ -3,8 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update C-19",
-		"• Many minor fixes and updates",
+		"Update 9.23",
+		"• Few error fixes from last version",
 		"• Stuck in hospital with covid 19 so check github log for more details",
 		"• ",
 
