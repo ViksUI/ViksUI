@@ -193,6 +193,7 @@ Stat:SetScript("OnEnter", function(self)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(EXPANSION_NAME8)
 		Currency(1754) -- Argent Commendation - Shadowlands PreEvent
+		Currency(1191) -- Valor
 		Currency(1767) -- Stygia
 		Currency(1810) -- Willing Soul
 		Currency(1813) -- Reservoir Anima

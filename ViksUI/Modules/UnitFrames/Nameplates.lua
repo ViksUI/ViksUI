@@ -531,6 +531,16 @@ local function castColor(self)
 		self:SetStatusBarColor(1, 0.8, 0)
 		self.bg:SetColorTexture(1, 0.8, 0, 0.2)
 	end
+
+	if C.nameplate.cast_color then
+		if T.InterruptCast[self.spellID] then
+			SetColorBorder(self, 1, 0.8, 0)
+		elseif T.ImportantCast[self.spellID] then
+			SetColorBorder(self, 1, 0, 0)
+		else
+			SetColorBorder(self, unpack(C.media.border_color))
+		end
+	end
 end
 
 local function HealthPostUpdate(self, unit, cur, max)
@@ -769,8 +779,8 @@ local function style(self, unit)
 		table.insert(self.__elements, UpdateTargetGlow)
 	end
 
-	-- Create Level
-	self.Level = self:CreateFontString(nil, "OVERLAY")
+	-- Level Text
+	self.Level = self:CreateFontString(nil, "ARTWORK")
 	self.Level:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult, C.font.nameplates_font_style)
 	self.Level:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
 	self.Level:SetPoint("RIGHT", self.Health, "LEFT", -2, 0)

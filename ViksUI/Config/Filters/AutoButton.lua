@@ -79,4 +79,7 @@ T.ABItems = {
 	[183045] = true,	-- Korinna's Allaying Crook
 	[178495] = true,	-- Shattered Helm
 	[180170] = true,	-- Pulsing Animacone
+	[180876] = true,	-- Aqueous Material Accumulator
+	[184622] = true,	-- Stygian Hammer
+	[180274] = true,	-- Torch
 }

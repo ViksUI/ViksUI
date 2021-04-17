@@ -1296,7 +1296,7 @@ function Stuffing:SetBagsForSorting(c)
 		bids = bids..i.." "
 	end
 
-	Print(bids)
+	--Print(bids)
 end
 
 -- Slash command handler
@@ -1781,7 +1781,7 @@ function Stuffing:Restack()
 		self:SetScript("OnUpdate", Stuffing.RestackOnUpdate)
 	else
 		self:SetScript("OnUpdate", nil)
-		Print(L_BAG_STACK_END)
+		--Print(L_BAG_STACK_END)
 	end
 end
 
