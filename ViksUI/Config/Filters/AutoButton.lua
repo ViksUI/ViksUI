@@ -78,8 +78,10 @@ T.ABItems = {
 	[180280] = true,	-- Soulforged Core
 	[183045] = true,	-- Korinna's Allaying Crook
 	[178495] = true,	-- Shattered Helm
+	[184313] = true,	-- Shattered Helm
 	[180170] = true,	-- Pulsing Animacone
 	[180876] = true,	-- Aqueous Material Accumulator
 	[184622] = true,	-- Stygian Hammer
 	[180274] = true,	-- Torch
+	[179921] = true,	-- Hydra Gutter
 }
