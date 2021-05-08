@@ -107,10 +107,10 @@ local Enable = function(self)
 		self:RegisterEvent("PLAYER_TARGET_CHANGED", Path, true)
 
 		if T.class == "DRUID" and C.unitframe_class_bar.combo_always ~= true and C.unitframe_class_bar.combo_old ~= true then
-			element.hadler = CreateFrame("Frame", nil, element)
-			element.hadler:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
-			element.hadler:RegisterEvent("PLAYER_ENTERING_WORLD")
-			element.hadler:SetScript("OnEvent", function() Visibility(self) end)
+			element.handler = CreateFrame("Frame", nil, element)
+			element.handler:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+			element.handler:RegisterEvent("PLAYER_ENTERING_WORLD")
+			element.handler:SetScript("OnEvent", function() Visibility(self) end)
 		end
 
 		for index = 1, MAX_COMBO_POINTS do
@@ -130,8 +130,8 @@ local Disable = function(self)
 	if(element) then
 		self:UnregisterEvent("UNIT_POWER_UPDATE", Path)
 		self:UnregisterEvent("UNIT_MAXPOWER", Path)
-		element.hadler:UnregisterEvent("UPDATE_SHAPESHIFT_FORM")
-		element.hadler:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		element.handler:UnregisterEvent("UPDATE_SHAPESHIFT_FORM")
+		element.handler:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end
 

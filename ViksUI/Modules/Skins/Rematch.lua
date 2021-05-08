@@ -178,12 +178,12 @@ skin.panels = {
 		self.Top.TypeBar:SetPoint("BOTTOM",0,-2)
 		for _,button in ipairs(self.Top.TypeBar.Tabs) do
 			button:SkinButton()
-			button:SetWidth(78)
+			button:SetWidth(button:GetWidth() - 7)
 		end
 		for _,button in ipairs(self.Top.TypeBar.Tabs) do
 		  button.Selected:ClearAllPoints()
-		  button.Selected:SetPoint("TOPLEFT",2,-2)
-		  button.Selected:SetPoint("BOTTOMRIGHT",-2,2)
+		  button.Selected:SetPoint("TOPLEFT", 0, -2)
+		  button.Selected:SetPoint("BOTTOMRIGHT", 0, 2)
 		  for _,texture in ipairs({"LeftSelected","RightSelected","MidSelected"}) do
 		        button.Selected[texture]:SetColorTexture(1, 1, 1, 0.25)
 		        button.Selected[texture]:SetHeight(20)
@@ -291,7 +291,7 @@ skin.panels = {
 			end
 		end
 		self.Flyout:SetTemplate("Transparent")
-		for i = 1, 2 do							
+		for i = 1, 2 do
 			self.Flyout.Abilities[i].IconBorder:Hide()
 
 			self.Flyout.Abilities[i]:StyleButton()
@@ -372,7 +372,7 @@ skin.panels = {
 	OptionPanel = function(self)
 		skin:HandleAutoScrollFrame(self.List)
 	end,
-	
+
 	TeamTabs = function(self)
 		hooksecurefunc(self,"Update",function(self)
 			if RematchSettings.TeamTabsToLeft and RematchSettings.AlwaysTeamTabs and self:GetParent()==Rematch.Frame then
@@ -404,6 +404,8 @@ skin.panels = {
 		self.Prompt:SetTemplate("Transparent")
 		T.SkinEditBox(self.EditBox)
 		self.EditBox:SetBackdrop({})
+		self.TabPicker:SkinButton()
+		self.TabPicker.Icon:SetDrawLayer("ARTWORK")
 		self.TeamTabIconPicker:StripTextures()
 		self.TeamTabIconPicker:SetTemplate("Transparent")
 		T.SkinScrollBar(self.TeamTabIconPicker.ScrollFrame.ScrollBar)
@@ -603,7 +605,7 @@ function skin:HandlePanelTab(tab)
 	else
 		tab:StripTextures()
 	end
-	tab.backdrop = CreateFrame("Frame", nil, tab)							 
+	tab.backdrop = CreateFrame("Frame", nil, tab)
 	tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
 	if bg then
 		tab.backdrop:SetTemplate("Overlay")

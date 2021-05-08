@@ -11,7 +11,7 @@ local function SpellName(id)
 	if name then
 		return name
 	else
-		print("|cffff0000WARNING: spell ID ["..tostring(id).."] in ArenaControl no longer exists! Report this to Viks.|r")
+		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists! Report this to Shestak.|r")
 		return "Empty"
 	end
 end
@@ -22,6 +22,12 @@ T.ArenaControl = {
 	[SpellName(91800)] = 5,		-- Gnaw (Ghoul)
 	[SpellName(91797)] = 5,		-- Monstrous Blow (Mutated Ghoul)
 	[SpellName(108194)] = 5,	-- Asphyxiate
+	-- Demon Hunter
+	[SpellName(217832)] = 5,	-- Imprison
+	[SpellName(211881)] = 5,	-- Fel Eruption
+	[SpellName(179057)] = 5,	-- Chaos Nova
+	[SpellName(205630)] = 5,	-- Illidan's Grasp
+	[SpellName(207685)] = 5,	-- Sigil of Misery
 	-- Druid
 	[SpellName(33786)] = 5,		-- Cyclone
 	[SpellName(5211)] = 5,		-- Mighty Bash
@@ -29,9 +35,8 @@ T.ArenaControl = {
 	[SpellName(99)] = 5,		-- Incapacitating Roar
 	-- Hunter
 	[SpellName(3355)] = 5,		-- Freezing Trap
-	[SpellName(19386)] = 5,		-- Wyvern Sting
-	[SpellName(117526)] = 5,	-- Binding Shot
 	[SpellName(24394)] = 5,		-- Intimidation
+	[SpellName(213691)] = 5,	-- Scatter Shot
 	-- Mage
 	[SpellName(118)] = 5,		-- Polymorph
 	[SpellName(82691)] = 5,		-- Ring of Frost
@@ -40,6 +45,7 @@ T.ArenaControl = {
 	[SpellName(115078)] = 5,	-- Paralysis
 	[SpellName(119381)] = 5,	-- Leg Sweep
 	[SpellName(120086)] = 5,	-- Fists of Fury
+	[SpellName(198909)] = 5,	-- Song of Chi-Ji
 	-- Paladin
 	[SpellName(853)] = 5,		-- Hammer of Justice
 	[SpellName(20066)] = 5,		-- Repentance
@@ -48,6 +54,8 @@ T.ArenaControl = {
 	[SpellName(605)] = 5,		-- Dominate Mind
 	[SpellName(8122)] = 5,		-- Psychic Scream
 	[SpellName(64044)] = 5,		-- Psychic Horror
+	[SpellName(205369)] = 5,	-- Mind Bomb
+	[SpellName(200196)] = 5,	-- Holy Word: Chastise
 	[SpellName(87204)] = 5,		-- Sin and Punishment
 	-- Rogue
 	[SpellName(6770)] = 5,		-- Sap
@@ -59,6 +67,7 @@ T.ArenaControl = {
 	[SpellName(51514)] = 5,		-- Hex
 	[SpellName(118905)] = 5,	-- Static Charge
 	[SpellName(118345)] = 5,	-- Pulverize (Earth Elemental)
+	[SpellName(305485)] = 5,	-- Lightning Lasso
 	-- Warlock
 	[SpellName(118699)] = 5,	-- Fear
 	[SpellName(30283)] = 5,		-- Shadowfury
@@ -72,12 +81,15 @@ T.ArenaControl = {
 	[SpellName(132169)] = 5,	-- Storm Bolt
 	[SpellName(132168)] = 5,	-- Shockwave
 	[SpellName(5246)] = 5,		-- Intimidating Shout
+	[SpellName(199085)] = 5,	-- Warpath
 	-- Racial
 	[SpellName(107079)] = 5,	-- Quaking Palm (Pandaren)
 	[SpellName(20549)] = 5,		-- War Stomp (Tauren)
+	[SpellName(287712)] = 5,	-- Haymaker (Kul Tiran)
 
 	-- Silences
 	[SpellName(47476)] = 4,		-- Strangulate
+	[SpellName(204490)] = 4,	-- Sigil of Silence
 	[SpellName(81261)] = 4,		-- Solar Beam
 	[SpellName(31935)] = 4,		-- Avenger's Shield
 	[SpellName(15487)] = 4,		-- Silence
@@ -88,14 +100,15 @@ T.ArenaControl = {
 	[SpellName(339)] = 3,		-- Entangling Roots
 	[SpellName(102359)] = 3,	-- Mass Entanglement
 	[SpellName(45334)] = 3,		-- Immobilized
-	[SpellName(135373)] = 3,	-- Entrapment
-	[SpellName(136634)] = 3,	-- Narrow Escape
+	[SpellName(117526)] = 3,	-- Binding Shot
+	[SpellName(212638)] = 3,	-- Tracker's Net
+	[SpellName(190925)] = 3,	-- Harpoon
 	[SpellName(122)] = 3,		-- Frost Nova
+	[SpellName(198121)] = 3,	-- Frostbite
 	[SpellName(33395)] = 3,		-- Freeze (Water Elemental)
 	[SpellName(116706)] = 3,	-- Disable
-	[SpellName(114404)] = 3,	-- Void Tendril's Grasp
 	[SpellName(64695)] = 3,		-- Earthgrab
-	[SpellName(170996)] = 3,	-- Debilitate (Terrorguard)
+	[SpellName(233582)] = 3,	-- Entrenched in Flame
 
 	-- Immunities
 	[SpellName(186265)] = 2,	-- Aspect of the Turtle
@@ -105,6 +118,7 @@ T.ArenaControl = {
 
 	-- Buffs
 	[SpellName(1022)] = 1,		-- Blessing of Protection
+	[SpellName(204018)] = 1,	-- Blessing of Spellwarding
 	[SpellName(6940)] = 1,		-- Blessing of Sacrifice
 	[SpellName(1044)] = 1,		-- Blessing of Freedom
 	[SpellName(31821)] = 1,		-- Aura Mastery

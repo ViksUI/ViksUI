@@ -124,8 +124,9 @@ T.InterruptCast = {
 	[325700] = true,	-- Collect Sins
 	[323552] = true,	-- Volley of Power
 	-- Mists of Tirna Scithe
-	[326046] = true,	-- Stimulate Resistance
 	[324914] = true,	-- Nourish the Forest
+	[321828] = true,	-- Patty Cake
+	[326046] = true,	-- Stimulate Resistance
 	-- Spires of Ascension
 	[327413] = true,	-- Rebellious Fist
 	[317936] = true,	-- Forsworn Doctrine
@@ -135,11 +136,11 @@ T.InterruptCast = {
 	[324293] = true,	-- Rasping Scream
 	[334748] = true,	-- Drain Fluids
 	[323190] = true,	-- Meat Shield
-	[333623] = true,	-- Frostbolt Volley
 	[320822] = true,	-- Final Bargain
 	[338353] = true,	-- Goresplatter
 	[327130] = true,	-- Repair Flesh
 	-- Theater of Pain
+	[342139] = true,	-- Battle Trance
 	[330562] = true,	-- Demoralizing Shout
 	[342675] = true,	-- Bone Spear
 	[341969] = true,	-- Withering Discharge
@@ -147,6 +148,8 @@ T.InterruptCast = {
 	[330868] = true,	-- Necrotic Bolt Volley
 	-- Plaguefall
 	[329239] = true,	-- Creepy Crawlers
+	-- Sanguine Depths
+	[322433] = true,	-- Stoneskin
 }
 
 T.ImportantCast = {

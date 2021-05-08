@@ -111,7 +111,7 @@ if C.nameplate.healer_icon == true then
 
 	local function CheckArenaHealers(_, elapsed)
 		lastCheck = lastCheck + elapsed
-		if lastCheck > 25 then
+		if lastCheck > 10 then
 			lastCheck = 0
 			healList = {}
 			for i = 1, 5 do
@@ -128,7 +128,7 @@ if C.nameplate.healer_icon == true then
 	end
 
 	local function CheckLoc(_, event)
-		if event == "PLAYER_ENTERING_WORLD" or event == "PLAYER_ENTERING_BATTLEGROUND" then
+		if event == "PLAYER_ENTERING_WORLD" then
 			local _, instanceType = IsInInstance()
 			if instanceType == "pvp" then
 				t:SetScript("OnUpdate", CheckHealers)
@@ -142,34 +142,25 @@ if C.nameplate.healer_icon == true then
 	end
 
 	t:RegisterEvent("PLAYER_ENTERING_WORLD")
-	t:RegisterEvent("PLAYER_ENTERING_BATTLEGROUND")
 	t:SetScript("OnEvent", CheckLoc)
 end
 
 local totemData = {
-	[GetSpellInfo(192058)] = "Interface\\Icons\\spell_nature_brilliance",			-- Capacitor Totem
-	[GetSpellInfo(98008)]  = "Interface\\Icons\\spell_shaman_spiritlink",			-- Spirit Link Totem
-	[GetSpellInfo(192077)] = "Interface\\Icons\\ability_shaman_windwalktotem",		-- Wind Rush Totem
-	[GetSpellInfo(204331)] = "Interface\\Icons\\spell_nature_wrathofair_totem",		-- Counterstrike Totem
-	[GetSpellInfo(204332)] = "Interface\\Icons\\spell_nature_windfury",				-- Windfury Totem
-	[GetSpellInfo(204336)] = "Interface\\Icons\\spell_nature_groundingtotem",		-- Grounding Totem
-	-- Water
-	[GetSpellInfo(157153)] = "Interface\\Icons\\ability_shaman_condensationtotem",	-- Cloudburst Totem
-	[GetSpellInfo(5394)]   = "Interface\\Icons\\INV_Spear_04",						-- Healing Stream Totem
-	[GetSpellInfo(108280)] = "Interface\\Icons\\ability_shaman_healingtide",		-- Healing Tide Totem
-	-- Earth
-	[GetSpellInfo(207399)] = "Interface\\Icons\\spell_nature_reincarnation",		-- Ancestral Protection Totem
-	[GetSpellInfo(198838)] = "Interface\\Icons\\spell_nature_stoneskintotem",		-- Earthen Wall Totem
-	[GetSpellInfo(51485)]  = "Interface\\Icons\\spell_nature_stranglevines",		-- Earthgrab Totem
-	[GetSpellInfo(196932)] = "Interface\\Icons\\spell_totem_wardofdraining",		-- Voodoo Totem
-	-- Fire
-	[GetSpellInfo(192222)] = "Interface\\Icons\\spell_shaman_spewlava",				-- Liquid Magma Totem
-	[GetSpellInfo(204330)] = "Interface\\Icons\\spell_fire_totemofwrath",			-- Skyfury Totem
-	-- Totem Mastery
-	[GetSpellInfo(202188)] = "Interface\\Icons\\spell_nature_stoneskintotem",		-- Resonance Totem
-	[GetSpellInfo(210651)] = "Interface\\Icons\\spell_shaman_stormtotem",			-- Storm Totem
-	[GetSpellInfo(210657)] = "Interface\\Icons\\spell_fire_searingtotem",			-- Ember Totem
-	[GetSpellInfo(210660)] = "Interface\\Icons\\spell_nature_invisibilitytotem",	-- Tailwind Totem
+	[GetSpellInfo(192058)] = 136013,	-- Capacitor Totem
+	[GetSpellInfo(98008)]  = 237586,	-- Spirit Link Totem
+	[GetSpellInfo(192077)] = 538576,	-- Wind Rush Totem
+	[GetSpellInfo(204331)] = 511726,	-- Counterstrike Totem
+	[GetSpellInfo(204332)] = 136114,	-- Windfury Totem
+	[GetSpellInfo(204336)] = 136039,	-- Grounding Totem
+	[GetSpellInfo(157153)] = 971076,	-- Cloudburst Totem
+	[GetSpellInfo(5394)]   = 135127,	-- Healing Stream Totem
+	[GetSpellInfo(108280)] = 538569,	-- Healing Tide Totem
+	[GetSpellInfo(207399)] = 136080,	-- Ancestral Protection Totem
+	[GetSpellInfo(198838)] = 136098,	-- Earthen Wall Totem
+	[GetSpellInfo(51485)]  = 136100,	-- Earthgrab Totem
+	[GetSpellInfo(196932)] = 136232,	-- Voodoo Totem
+	[GetSpellInfo(192222)] = 971079,	-- Liquid Magma Totem
+	[GetSpellInfo(204330)] = 135829,	-- Skyfury Totem
 }
 
 local function CreateVirtualFrame(frame, point)
@@ -523,13 +514,54 @@ local function UpdateName(self)
 	end
 end
 
+local kickID = 0
+if C.nameplate.kick_color then
+	if T.class == "DEATHKNIGHT" then
+		kickID = 47528
+	elseif T.class == "DEMONHUNTER" then
+		kickID = 183752
+	elseif T.class == "DRUID" then
+		kickID = 106839
+	elseif T.class == "HUNTER" then
+		kickID = GetSpecialization() == 3 and 187707 or 147362
+	elseif T.class == "MAGE" then
+		kickID = 2139
+	elseif T.class == "MONK" then
+		kickID = 116705
+	elseif T.class == "PALADIN" then
+		kickID = 96231
+	elseif T.class == "PRIEST" then
+		kickID = 15487
+	elseif T.class == "ROGUE" then
+		kickID = 1766
+	elseif T.class == "SHAMAN" then
+		kickID = 57994
+	elseif T.class == "WARLOCK" then
+		kickID = 119910
+	elseif T.class == "WARRIOR" then
+		kickID = 6552
+	end
+end
+
+-- Cast color
 local function castColor(self)
 	if self.notInterruptible then
 		self:SetStatusBarColor(0.78, 0.25, 0.25)
 		self.bg:SetColorTexture(0.78, 0.25, 0.25, 0.2)
 	else
-		self:SetStatusBarColor(1, 0.8, 0)
-		self.bg:SetColorTexture(1, 0.8, 0, 0.2)
+		if C.nameplate.kick_color then
+			local start = GetSpellCooldown(kickID)
+			if start ~= 0 then
+				self:SetStatusBarColor(1, 0.5, 0)
+				self.bg:SetColorTexture(1, 0.5, 0, 0.2)
+			else
+				self:SetStatusBarColor(1, 0.8, 0)
+				self.bg:SetColorTexture(1, 0.8, 0, 0.2)
+			end
+		else
+			self:SetStatusBarColor(1, 0.8, 0)
+			self.bg:SetColorTexture(1, 0.8, 0, 0.2)
+		end
 	end
 
 	if C.nameplate.cast_color then

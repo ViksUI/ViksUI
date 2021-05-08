@@ -109,15 +109,15 @@ LPSTAT_CONFIG = {
 -- Bottomright block
 	Coords = {
 		enabled = C.stats.coords,
-		fmt = "%d,%d",
+		fmt = "%.0f,%.0f",
 		anchor_frame = "UIParent", anchor_to = "right", anchor_from = "bottomright",
 		x_off = -17, y_off = 11
 	},
 	Location = {
 		enabled = C.stats.location,
-		subzone = true, -- Set to false to display the main zone's name instead of the subzone
-		truncate = 0, -- Max number of letters for location text, set to 0 to disable
-		coord_fmt = "%d,%d",
+		subzone = true,	-- Set to false to display the main zone's name instead of the subzone
+		truncate = 0,	-- Max number of letters for location text, set to 0 to disable
+		coord_fmt = "%.0f,%.0f",
 		anchor_frame = "Coords", anchor_to = "right", anchor_from = "left",
 		x_off = C.stats.coords and -3 or 0, y_off = 0, tip_frame = "UIParent", tip_anchor = "BOTTOMRIGHT", tip_x = -21, tip_y = 20
 	},

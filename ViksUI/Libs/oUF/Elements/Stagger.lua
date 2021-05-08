@@ -143,10 +143,10 @@ local function Enable(self)
 		self:RegisterEvent('UNIT_DISPLAYPOWER', VisibilityPath)
 		self:RegisterEvent('PLAYER_TALENT_UPDATE', VisibilityPath, true)
 
-		element.hadler = CreateFrame("Frame", nil, element)	-- ViksUI
-		element.hadler:RegisterEvent("PLAYER_TALENT_UPDATE")
-		element.hadler:RegisterEvent("PLAYER_ENTERING_WORLD")
-		element.hadler:SetScript("OnEvent", function() Visibility(self) end)
+		element.handler = CreateFrame("Frame", nil, element)	-- ViksUI
+		element.handler:RegisterEvent("PLAYER_TALENT_UPDATE")
+		element.handler:RegisterEvent("PLAYER_ENTERING_WORLD")
+		element.handler:SetScript("OnEvent", function() Visibility(self) end)
 
 		if(element:IsObjectType('StatusBar') and not element:GetStatusBarTexture()) then
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
@@ -162,6 +162,7 @@ local function Enable(self)
 		MonkStaggerBar:UnregisterEvent('UNIT_EXITED_VEHICLE')
 		MonkStaggerBar:UnregisterEvent('UPDATE_VEHICLE_ACTIONBAR')
 
+		-- do not change this without taking Visibility into account
 		element:Hide()
 
 		return true

@@ -19,12 +19,12 @@ switch.t:SetPoint("BOTTOMRIGHT", switch, -2, 2)
 switch:EnableMouse(true)
 switch:RegisterForClicks("AnyUp")
 switch:SetScript("OnClick", function(_, button)
-	if button == "LeftButton" then
+	if button == "LeftButton" and ViksUISettingsPerChar.RaidLayout ~= "HEAL" then
 		ViksUIOptionsPerChar.unitframe.HealFrames = true
 		ViksUIOptions.unitframe.HealFrames = true
 		ViksUISettingsPerChar.RaidLayout = "HEAL"
 		ReloadUI()
-	elseif button == "RightButton" then
+	elseif button == "RightButton" and ViksUISettingsPerChar.RaidLayout ~= "DPS" then
 		ViksUIOptionsPerChar.unitframe.HealFrames = false
 		ViksUIOptions.unitframe.HealFrames = false
 		ViksUISettingsPerChar.RaidLayout = "DPS"
