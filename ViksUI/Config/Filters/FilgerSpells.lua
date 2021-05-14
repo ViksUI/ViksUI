@@ -1245,6 +1245,22 @@ C["filger_spells"] = {
 			{spellID = 25771, unitID = "player", caster = "all", filter = "DEBUFF"},
 		},
 		{
+			Name = "PVE/PVP_CC",
+			Direction = "DOWN",
+			IconSide = "LEFT",
+			Mode = "BAR",
+			Interval = 3,
+			Alpha = 1,
+			IconSize = 25,
+			BarWidth = 189,
+			Position = {"LEFT", PVE_PVP_CC_Anchor},
+
+			-- Repentance
+			{spellID = 20066, unitID = "focus", caster = "player", filter = "DEBUFF"},
+			-- Turn Evil
+			{spellID = 10326, unitID = "focus", caster = "player", filter = "DEBUFF"},
+		},
+		{
 			Name = "COOLDOWN",
 			Direction = "RIGHT",
 			Mode = "ICON",
@@ -2362,6 +2378,8 @@ C["filger_spells"] = {
 			{spellID = 114030, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Rallying Cry
 			{spellID = 97463, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Darkness
+			{spellID = 209426, unitID = "player", caster = "all", filter = "BUFF"},
 
 			-- Other
 			-- Symbol of Hope
@@ -2861,6 +2879,8 @@ C["filger_spells"] = {
 			{spellID = 498, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Ardent Defender
 			{spellID = 31850, unitID = "target", caster = "all", filter = "BUFF"},
+			-- Avenging Wrath
+			{spellID = 31884, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Aura Mastery
 			{spellID = 31821, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Blessing of Spellwarding

@@ -38,8 +38,7 @@ if IsAddOnLoaded("Stuf") or IsAddOnLoaded("PitBull4") or IsAddOnLoaded("Shadowed
 end
 
 if C.unitframe.Autohide then
-	if IsAddOnLoaded("Grid") or IsAddOnLoaded("Grid2") or IsAddOnLoaded("HealBot") or IsAddOnLoaded("VuhDo") or IsAddOnLoaded("oUF_Freebgrid") then
-		C.unitframe.ShowParty = false
+	if IsAddOnLoaded("Grid") or IsAddOnLoaded("Grid2") or IsAddOnLoaded("HealBot") or IsAddOnLoaded("VuhDo") or IsAddOnLoaded("Cell") or IsAddOnLoaded("Aptechka") then
 		C.unitframe.ShowRaid = false
 	end
 end

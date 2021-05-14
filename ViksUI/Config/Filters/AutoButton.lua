@@ -84,4 +84,5 @@ T.ABItems = {
 	[184622] = true,	-- Stygian Hammer
 	[180274] = true,	-- Torch
 	[179921] = true,	-- Hydra Gutter
+	[182600] = true,	-- Gormling in a Bag
 }

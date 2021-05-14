@@ -37,6 +37,11 @@ T.PlateDangerous = {
 	["168318"] = "Interrupt (!!): Rebellious Fist (AoE)".. "\n".. "Burst mob during Recharge Anima to break shield.", -- Forsworn Goliath
 	["168681"] = "AoE DMG every 3".. "\n".. "drops void zones on the ground.", -- Forsworn Helion
 	["168418"] = "Interrupt: Dark Lash (tank dmg)".. "\n".. "Interrupt: Internal Strife (DoT on random players that AoEs", -- Forsworn Inquisitor
+	----- Torghast -----
+	["155828"] = "Interrupt (!!): Terrifying Roar (Fear)", -- Runecarved Colossus
+	["172005"] = "Interrupt (!!): Terrifying Roar (Fear)", -- Furrowed Colossus
+	["168098"] = "Interrupt (!!): Fear", -- Empowered Coldheart Agent
+	["156212"] = "Interrupt (!!): Fear", -- Coldheart Agent
 }
 
 T.PlateImportant = {
@@ -75,6 +80,9 @@ T.PlateImportant = {
 	["163458"] = "Interrupt (!): Burden of Knowledge (DoT)", -- Forsworn Castigator
 	["168718"] = "Interrupt (!!): Greater Mending (AoE Heal)".. "\n".. "Purge / Steal: Bless Weapon (Dmg + Heal on atk)", -- Forsworn Warden
 	["168420"] = "Interrupt (!!): Forsworn Doctrine (HoT)".. "\n".. "Purge: Infuse Weapon (Extra dmg to 5 melee attacks)", -- Forsworn Champion
+	----- Torghast -----
+	["157571"] = "Interrupt (!!): Inner Flames (AOE Heal)", -- Mawsworn Flametender
+	["152898"] = "Interrupt (!!): Death Blast (Hit hard and Dot)", -- Deadsoul Chorus
 }
 
 T.PlateNuke = {
@@ -130,6 +138,11 @@ T.PlateT3Mobs = {
 	["163619"] = "Stun Interrupt (!): Boneflay (reduces tank MaxHP)", -- Zolramus Bonecarver
 	----- Spires of Ascension -----
 	["163457"] = "FRONTAL CLEAVE", -- Forsworn Vanguard
+	----- Torghast -----
+	["168106"] = "Dodge (!!): Massive Strike (Frontal cone)", -- Empowered Mawsworn Guard
+	["150958"] = "Dodge (!!): Massive Strike (Frontal cone)", -- Mawsworn Guard
+	["151127"] = "Interrupt (!!): Wave of Suffering (Massive AOE)", -- Lord of Torment
+	["156241"] = "Don't Move them (!!): Enrage if enemy moving", -- Monstrous Guardians
 }
 
 T.PlateTides = {

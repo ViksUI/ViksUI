@@ -895,7 +895,8 @@ SlashCmdList.TEST_UF = function(msg)
 	else
 		for _, frames in pairs({"oUF_ViksTarget", "oUF_ViksTargetTarget", "oUF_ViksPet", "oUF_ViksFocus", "oUF_ViksFocusTarget"}) do
 			if _G[frames] then
-				_G[frames]:SetAttribute("unit", _G[frames].oldunit)
+				_G[frames].unit = _G[frames].oldunit
+				_G[frames]:SetAttribute("unit", _G[frames].unit)
 			end
 		end
 
@@ -909,3 +910,55 @@ SLASH_TEST_UF1 = "/testui"
 SLASH_TEST_UF2 = "/??????"
 SLASH_TEST_UF3 = "/testuf"
 SLASH_TEST_UF4 = "/??????"
+
+local frames = {}
+local moving = false
+SlashCmdList.TEST_RAID = function()
+	if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end
+	if not moving then
+		oUF_Raid25:Show()
+		local raid = {}
+		local raid_j = {}
+		if #frames == 0 then
+			for j = 1, 2 do
+				for i = 1, 10 do
+					local frame = CreateFrame("Frame", nil, UIParent)
+					frame:SetSize(cfg.unit_size.Raid25.w, cfg.unit_size.Raid25.h)
+					if j == 1 then
+						if i == 1 then
+							frame:SetPoint("BOTTOM", Anchorviksraid, 0, -55)
+							raid_j[j] = frame
+						else
+							frame:SetPoint("TOPLEFT", raid[i-1], "TOPRIGHT", 7, 0)
+						end
+					else
+						if i == 1 then
+							frame:SetPoint("TOPLEFT", raid_j[j-1], "TOPLEFT", 0, -cfg.unit_size.Raid25.h - 7)
+							raid_j[j] = frame
+						else
+							frame:SetPoint("TOPLEFT", raid[i-1], "TOPRIGHT", 7, 0)
+						end
+					end
+					frame:CreateBackdrop("Overlay")
+					frame.backdrop.overlay:SetVertexColor(0.1, 0.9 - (j * 0.08) , 0.1)
+					raid[i] = frame
+					table.insert(frames, frame)
+				end
+			end
+		else
+			for _, frame in pairs(frames) do
+				frame:Show()
+			end
+		end
+		moving = true
+	else
+		for _, frame in pairs(frames) do
+			frame:Hide()
+		end
+		moving = false
+	end
+end
+SLASH_TEST_RAID1 = "/testraid"
+SLASH_TEST_RAID2 = "/еуыекфшв"
+SLASH_TEST_RAID3 = "/raidtest"
+SLASH_TEST_RAID4 = "/кфшвеуые"
