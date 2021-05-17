@@ -260,7 +260,6 @@ end
 function frame12(f)
     if f.frame==nil then
       local frame = CreateFrame("Frame", nil, f)
-      frame = CreateFrame("Frame", nil, f)
       frame:SetFrameLevel(12)
       frame:SetFrameStrata(f:GetFrameStrata())
       frame:SetPoint("TOPLEFT", 4, -4)
@@ -278,10 +277,9 @@ function frame12(f)
       f.frame = frame
     end
 end 
-function frame(f)
+local function frame(f)
     if f.frame==nil then
       local frame = CreateFrame("Frame", nil, f)
-      frame = CreateFrame("Frame", nil, f)
       frame:SetFrameLevel(12)
       frame:SetFrameStrata(f:GetFrameStrata())
       frame:SetPoint("TOPLEFT", 4, -4)
@@ -302,7 +300,6 @@ end
 function frame123(f)
     if f.frame==nil then
       local frame = CreateFrame("Frame", nil, f)
-      frame = CreateFrame("Frame", nil, f)
       frame:SetFrameLevel(2)
       frame:SetFrameStrata(f:GetFrameStrata())
       frame:SetPoint("TOPLEFT", 9, -9)
@@ -323,7 +320,6 @@ end
 function CreateShadow1(f)
     if f.frameBD==nil then
       local frameBD = CreateFrame("Frame", nil, f)
-      frameBD = CreateFrame("Frame", nil, f)
       frameBD:SetFrameLevel(1)
       frameBD:SetFrameStrata(f:GetFrameStrata())
       frameBD:SetPoint("TOPLEFT", 0, 0)
@@ -343,7 +339,6 @@ end
 function CreateShadow2(f)
     if f.frameBD==nil then
       local frameBD = CreateFrame("Frame", nil, f)
-      frameBD = CreateFrame("Frame", nil, f)
       frameBD:SetFrameLevel(0)
       frameBD:SetFrameStrata(f:GetFrameStrata())
       frameBD:SetPoint("TOPLEFT", 5, -5)

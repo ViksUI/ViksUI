@@ -21,7 +21,12 @@ local function LoadSkin()
 
 			T.SkinCloseButton(frame.CloseButton)
 			frame.CloseButton.Border:SetAlpha(0)
-			frame.CloseButton.SetPoint = T.dummy
+
+			hooksecurefunc(frame.CloseButton, "SetPoint", function(self, point, anchor, attachTo, x, y)
+				if x ~= -4 then
+					self:SetPoint(point, anchor, attachTo, -4, -4)
+				end
+			end)
 
 			frame.IsSkinned = true
 		end

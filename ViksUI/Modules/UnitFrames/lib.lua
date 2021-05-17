@@ -114,10 +114,9 @@ function frame1px1(f)
 	f:SetBackdropBorderColor(unpack(cfg.bordercolor))
 end
 -- Creating Icon for the CastBar
-function frame(f)
+local function frame(f)
     if f.frame==nil then
       local frame = CreateFrame("Frame", nil, f, "BackdropTemplate")
-      frame = CreateFrame("Frame", nil, f, "BackdropTemplate")
       frame:SetFrameLevel(12)
       frame:SetFrameStrata(f:GetFrameStrata())
       frame:SetPoint("TOPLEFT", 4, -4)
@@ -138,7 +137,6 @@ end
 function CreateShadow1_1(f)
     if f.frameBD==nil then
       local frameBD = CreateFrame("Frame", nil, f, "BackdropTemplate")
-      frameBD = CreateFrame("Frame", nil, f, "BackdropTemplate")
       frameBD:SetFrameLevel(1)
       frameBD:SetFrameStrata(f:GetFrameStrata())
       frameBD:SetPoint("TOPLEFT", -0, 0)
