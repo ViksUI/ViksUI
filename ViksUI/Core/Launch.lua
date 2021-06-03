@@ -8409,6 +8409,1932 @@ _detalhes_global = {
 }
 end
 
+local UploadOpie = function()
+
+OneRing_Config = {
+	["CenterActions"] = {
+		["OPieTracking"] = "OPieBundleTracker3",
+		["OPieAutoQuest"] = "OPieBundleQuest180805",
+	},
+	["CharProfiles"] = {
+		["Quel'Thalas-Skytter"] = "default",
+	},
+	["_GameVersion"] = "9.0.5",
+	["_OPieVersion"] = "Xe 2a (3.104)",
+	["ProfileStorage"] = {
+		["default"] = {
+			["ClickActivation"] = true,
+			["Bindings"] = {
+				["RaidSymbols"] = false,
+				["Viks"] = "<",
+				["SpecMenu"] = false,
+				["CommonTrades"] = false,
+				["WorldMarkers"] = false,
+				["Hello"] = false,
+				["Emotes"] = false,
+			},
+			["CenterAction"] = true,
+			["RotationTokens"] = {
+				["ABuehyJB06S"] = "ABuekNAmcse",
+				["ABuejX/ZeFz"] = "ABuejX/ZeF4",
+				["ABuek7zNjkd"] = "ABuekG209/r",
+				["ABuekGtRAP1P"] = "ABuekGtRAP18",
+				["ABuezqzGGSt"] = "ABuezqzGGS1",
+				["ABuelBTLtNE"] = "ABuelBTLtNa",
+			},
+		},
+	},
+	["PersistentStorage"] = {
+		["RingKeeper"] = {
+			["Misc"] = {
+				{
+					"toy", -- [1]
+					88375, -- [2]
+					["sliceToken"] = "ABuezqzGGS1",
+				}, -- [1]
+				{
+					"macro", -- [1]
+					"Rarekill", -- [2]
+					["sliceToken"] = "ABuezqzGGSr",
+				}, -- [2]
+				{
+					"toy", -- [1]
+					113542, -- [2]
+					["sliceToken"] = "ABuezq5ITP1",
+				}, -- [3]
+				{
+					"toy", -- [1]
+					131811, -- [2]
+					["sliceToken"] = "ABuezq5ITPr",
+				}, -- [4]
+				["name"] = "Misc",
+				["save"] = true,
+			},
+			["munication"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPc",
+					["caption"] = "Agree",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionHappy",
+					["id"] = "/agree",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPx",
+					["caption"] = "No",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAngry",
+					["id"] = "/no",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAP5",
+					["caption"] = "Nod",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAfraid",
+					["id"] = "/nod",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPz",
+					["caption"] = "Shrug",
+					["icon"] = "Interface\\Icons\\SPELL_SHADOW_MINDSTEAL",
+					["id"] = "/shrug",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPl",
+					["caption"] = "Raise Hand",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_AnimateDead",
+					["id"] = "/raise",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPk",
+					["caption"] = "Ready",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_Readiness",
+					["id"] = "/ready",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPj",
+					["caption"] = "BRB",
+					["icon"] = "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME",
+					["id"] = "/brb",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAP4",
+					["id"] = "/confused",
+					["caption"] = "Confused",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPh",
+					["caption"] = "Lost",
+					["icon"] = "Interface\\Icons\\Ability_Spy",
+					["id"] = "/lost",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPg",
+					["caption"] = "Listen",
+					["icon"] = "Interface\\Icons\\INV_Misc_Ear_Human_01",
+					["id"] = "/listen",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuekGtRAPf",
+					["caption"] = "Beckon",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_BeastCall",
+					["id"] = "/beckon",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuekGtRAPd",
+					["caption"] = "Wait",
+					["icon"] = "Interface\\Icons\\Ability_Stealth",
+					["id"] = "/wait",
+				}, -- [12]
+				{
+					["sliceToken"] = "ABuekGtRAP3",
+					["caption"] = "Tap Foot",
+					["icon"] = "Interface\\Icons\\Ability_Kick",
+					["id"] = "/tap",
+				}, -- [13]
+				{
+					["sliceToken"] = "ABuekGtRAPs",
+					["caption"] = "Veto",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
+					["id"] = "/veto",
+				}, -- [14]
+				{
+					["sliceToken"] = "ABuekGtRAPa",
+					["caption"] = "Point",
+					["icon"] = "Interface\\Icons\\Spell_Holy_Stoicism",
+					["id"] = "/point",
+				}, -- [15]
+				["name"] = "General Communication",
+				["save"] = true,
+			},
+			["Buffs"] = {
+				{
+					"item", -- [1]
+					129192, -- [2]
+					["sliceToken"] = "ABuek7zNjk3",
+				}, -- [1]
+				{
+					"item", -- [1]
+					140587, -- [2]
+					["sliceToken"] = "ABuek7zNjks",
+				}, -- [2]
+				{
+					"item", -- [1]
+					132514, -- [2]
+					["sliceToken"] = "ABuek7zNjka",
+				}, -- [3]
+				{
+					"item", -- [1]
+					160053, -- [2]
+					["sliceToken"] = "ABuek7zNjkf",
+				}, -- [4]
+				{
+					"item", -- [1]
+					181468, -- [2]
+					["sliceToken"] = "ABuekGtRAP1j",
+				}, -- [5]
+				{
+					"item", -- [1]
+					171286, -- [2]
+					["sliceToken"] = "ABuekG209/1",
+				}, -- [6]
+				{
+					"item", -- [1]
+					171285, -- [2]
+					["sliceToken"] = "ABuekG209/r",
+				}, -- [7]
+				{
+					"item", -- [1]
+					172347, -- [2]
+					["sliceToken"] = "ABuek0gWpUe",
+				}, -- [8]
+				{
+					"item", -- [1]
+					171276, -- [2]
+					["sliceToken"] = "ABuelBGtuUt",
+				}, -- [9]
+				["name"] = "Buffs",
+				["save"] = true,
+			},
+			["Laughter"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPE",
+					["caption"] = "LOL",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionHappy",
+					["id"] = "/lol",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPW",
+					["caption"] = "Chuckle",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Dwarf_01",
+					["id"] = "/chuckle",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPQ",
+					["caption"] = "Giggle",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Dwarf_02",
+					["id"] = "/giggle",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPm",
+					["caption"] = "ROFL",
+					["icon"] = "Interface\\Icons\\Spell_Magic_PolymorphRabbit",
+					["id"] = "/rofl",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPn",
+					["caption"] = "Guffaw",
+					["icon"] = "Interface\\Icons\\Spell_Nature_Polymorph_Cow",
+					["id"] = "/guffaw",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAP6",
+					["caption"] = "Cackle",
+					["icon"] = "Interface\\Icons\\ability_hunter_murderofcrows",
+					["id"] = "/cackle",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPb",
+					["caption"] = "Snicker",
+					["icon"] = "Interface\\Icons\\ability_warlock_impoweredimp",
+					["id"] = "/snicker",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPv",
+					["caption"] = "JK",
+					["icon"] = "Interface\\Icons\\Spell_Shaman_Hex",
+					["id"] = "/jk",
+				}, -- [8]
+				["name"] = "Laughter",
+				["save"] = true,
+			},
+			["moNegative"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPee",
+					["caption"] = "Sad",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionSad",
+					["id"] = "/sad",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPew",
+					["caption"] = "Tired",
+					["icon"] = "Interface\\Icons\\Ability_Foundryraid_Dormant",
+					["id"] = "/tired",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPeq",
+					["caption"] = "Mourn",
+					["icon"] = "Interface\\Icons\\INV_Misc_Bone_DwarfSkull_01",
+					["id"] = "/mourn",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPwM",
+					["caption"] = "Whine",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAfraid",
+					["id"] = "/whine",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPwN",
+					["caption"] = "Bored",
+					["icon"] = "Interface\\Icons\\Ability_Racial_TimeIsMoney",
+					["id"] = "/bored",
+				}, -- [5]
+				["name"] = "Emo: Negative",
+				["save"] = true,
+			},
+			["yFunctions"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPwP",
+					["caption"] = "Belch",
+					["icon"] = "Interface\\Icons\\Ability_Mage_Burnout",
+					["id"] = "/belch",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPwO",
+					["caption"] = "Cough",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_PsychicHorrors",
+					["id"] = "/cough",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPwI",
+					["caption"] = "Yawn",
+					["icon"] = "Interface\\Icons\\Ability_Foundryraid_Dormant",
+					["id"] = "/yawn",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPw8",
+					["caption"] = "Spit",
+					["icon"] = "Interface\\Icons\\Spell_Fire_FelRainOfFire",
+					["id"] = "/spit",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPwU",
+					["caption"] = "Lick",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
+					["id"] = "/lick",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPwY",
+					["caption"] = "Bite",
+					["icon"] = "Interface\\Icons\\Spell_Holy_PainSupression",
+					["id"] = "/bite",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPwT",
+					["caption"] = "Drool",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_BeastTraining",
+					["id"] = "/drool",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPwR",
+					["caption"] = "Whistle",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_BeastCall",
+					["id"] = "/whistle",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPw7",
+					["caption"] = "Nose Pick",
+					["icon"] = "Interface\\Icons\\Ability_Creature_Poison_02",
+					["id"] = "/nosepick",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPwE",
+					["caption"] = "Sniff",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_FuriousResolve",
+					["id"] = "/sniff",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuekGtRAPwW",
+					["caption"] = "Eat",
+					["icon"] = "Interface\\Icons\\INV_Misc_Fork&Knife",
+					["id"] = "/eat",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuekGtRAPwQ",
+					["caption"] = "Drink",
+					["icon"] = "Interface\\Icons\\INV_Drink_20",
+					["id"] = "/drink",
+				}, -- [12]
+				{
+					["sliceToken"] = "ABuekGtRAPwm",
+					["caption"] = "Hungry",
+					["icon"] = "Interface\\Icons\\INV_Misc_Basket_01",
+					["id"] = "/hungry",
+				}, -- [13]
+				{
+					["sliceToken"] = "ABuekGtRAPwn",
+					["caption"] = "Thirsty",
+					["icon"] = "Interface\\Icons\\INV_Misc_Beer_09",
+					["id"] = "/thirsty",
+				}, -- [14]
+				{
+					["sliceToken"] = "ABuekGtRAPw6",
+					["caption"] = "Scratch",
+					["icon"] = "Interface\\Icons\\Ability_GhoulFrenzy",
+					["id"] = "/scratch",
+				}, -- [15]
+				{
+					["sliceToken"] = "ABuekGtRAPwb",
+					["caption"] = "Bleed",
+					["icon"] = "Interface\\Icons\\ability_deathwing_bloodcorruption_earth",
+					["id"] = "/bleed",
+				}, -- [16]
+				{
+					["sliceToken"] = "ABuekGtRAPwv",
+					["caption"] = "Cold",
+					["icon"] = "Interface\\Icons\\Spell_Frost_Glacier",
+					["id"] = "/cold",
+				}, -- [17]
+				{
+					["sliceToken"] = "ABuekGtRAPwc",
+					["caption"] = "Shiver",
+					["icon"] = "Interface\\Icons\\Spell_Misc_ConjureManaJewel",
+					["id"] = "/shiver",
+				}, -- [18]
+				{
+					["sliceToken"] = "ABuekGtRAPwx",
+					["caption"] = "Fart",
+					["icon"] = "Interface\\Icons\\Ability_DeathKnight_DeathSiphon2",
+					["id"] = "/fart",
+				}, -- [19]
+				["name"] = "Body Functions",
+				["save"] = true,
+			},
+			["Romantic"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPeI",
+					["caption"] = "Blow Kiss",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_SoothingKiss",
+					["id"] = "/blow",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPe8",
+					["caption"] = "Hug",
+					["icon"] = "Interface\\ICONS\\INV_Misc_Bomb_04",
+					["id"] = "/hug",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPeU",
+					["caption"] = "Flirt",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_SummonSuccubus",
+					["id"] = "/flirt",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPeY",
+					["caption"] = "Tease",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Gnome_02",
+					["id"] = "/tease",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPeT",
+					["caption"] = "Moan",
+					["icon"] = "Interface\\Icons\\Ability_Priest_HeavanlyVoice",
+					["id"] = "/moan",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPeR",
+					["caption"] = "Cuddle",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_Harass",
+					["id"] = "/cuddle",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPe7",
+					["caption"] = "Purr",
+					["icon"] = "Interface\\Icons\\Spell_Misc_PetHeal",
+					["id"] = "/purr",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPeE",
+					["caption"] = "Love",
+					["icon"] = "Interface\\Icons\\Ability_Paladin_BeaconsOfLight",
+					["id"] = "/love",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPeW",
+					["caption"] = "Sexy",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_Possession",
+					["id"] = "/sexy",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPeQ",
+					["caption"] = "Shimmy",
+					["icon"] = "Interface\\Icons\\Ability_Mage_ColdAsIce",
+					["id"] = "/shimmy",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuekGtRAPem",
+					["caption"] = "Massage",
+					["icon"] = "Interface\\Icons\\INV_Misc_Gift_02",
+					["id"] = "/massage",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuekGtRAPen",
+					["caption"] = "Silly",
+					["icon"] = "Interface\\Icons\\Ability_Monk_LeeroftheOx",
+					["id"] = "/silly",
+				}, -- [12]
+				["name"] = "Romantic",
+				["save"] = true,
+			},
+			["Toys"] = {
+				{
+					"toy", -- [1]
+					68806, -- [2]
+					["sliceToken"] = "ABuelBTLtNW",
+				}, -- [1]
+				{
+					"toy", -- [1]
+					68806, -- [2]
+					["sliceToken"] = "ABuelBTLtNQ",
+				}, -- [2]
+				{
+					"toy", -- [1]
+					54653, -- [2]
+					["sliceToken"] = "ABuelBTLtNm",
+				}, -- [3]
+				{
+					"toy", -- [1]
+					53057, -- [2]
+					["sliceToken"] = "ABuelBTLtNn",
+				}, -- [4]
+				{
+					"toy", -- [1]
+					43499, -- [2]
+					["sliceToken"] = "ABuelBTLtN6",
+				}, -- [5]
+				{
+					"toy", -- [1]
+					52201, -- [2]
+					["sliceToken"] = "ABuelBTLtNb",
+				}, -- [6]
+				{
+					"toy", -- [1]
+					134022, -- [2]
+					["sliceToken"] = "ABuelBTLtNv",
+				}, -- [7]
+				{
+					"toy", -- [1]
+					37254, -- [2]
+					["sliceToken"] = "ABuelBTLtNc",
+				}, -- [8]
+				{
+					"toy", -- [1]
+					35275, -- [2]
+					["sliceToken"] = "ABuelBTLtNx",
+				}, -- [9]
+				{
+					"toy", -- [1]
+					71259, -- [2]
+					["sliceToken"] = "ABuelBTLtN5",
+				}, -- [10]
+				{
+					"toy", -- [1]
+					122117, -- [2]
+					["sliceToken"] = "ABuelBTLtNz",
+				}, -- [11]
+				{
+					"toy", -- [1]
+					127668, -- [2]
+					["sliceToken"] = "ABuelBTLtNl",
+				}, -- [12]
+				{
+					"toy", -- [1]
+					104294, -- [2]
+					["sliceToken"] = "ABuelBTLtNk",
+				}, -- [13]
+				{
+					"toy", -- [1]
+					119215, -- [2]
+					["sliceToken"] = "ABuelBTLtNj",
+				}, -- [14]
+				{
+					"toy", -- [1]
+					179393, -- [2]
+					["sliceToken"] = "ABuelBTLtN4",
+				}, -- [15]
+				{
+					"toy", -- [1]
+					66888, -- [2]
+					["sliceToken"] = "ABuelBTLtNh",
+				}, -- [16]
+				{
+					"toy", -- [1]
+					69775, -- [2]
+					["sliceToken"] = "ABuelBTLtNg",
+				}, -- [17]
+				{
+					"toy", -- [1]
+					34686, -- [2]
+					["sliceToken"] = "ABuelBTLtNf",
+				}, -- [18]
+				{
+					"toy", -- [1]
+					128807, -- [2]
+					["sliceToken"] = "ABuelBTLtNd",
+				}, -- [19]
+				{
+					"toy", -- [1]
+					86589, -- [2]
+					["sliceToken"] = "ABuelBTLtN3",
+				}, -- [20]
+				{
+					"toy", -- [1]
+					184223, -- [2]
+					["sliceToken"] = "ABuelBTLtNs",
+				}, -- [21]
+				{
+					"toy", -- [1]
+					166779, -- [2]
+					["sliceToken"] = "ABuelBTLtNa",
+				}, -- [22]
+				{
+					"toy", -- [1]
+					86568, -- [2]
+					["sliceToken"] = "ABuelBTLtNp",
+				}, -- [23]
+				{
+					"toy", -- [1]
+					88566, -- [2]
+					["sliceToken"] = "ABuelBTLtNo",
+				}, -- [24]
+				{
+					"toy", -- [1]
+					1973, -- [2]
+					["sliceToken"] = "ABuelBTLtN2",
+				}, -- [25]
+				{
+					"toy", -- [1]
+					32782, -- [2]
+					["sliceToken"] = "ABuelBTLtNi",
+				}, -- [26]
+				{
+					"toy", -- [1]
+					86573, -- [2]
+					["sliceToken"] = "ABuelBTLtNu",
+				}, -- [27]
+				{
+					"toy", -- [1]
+					109183, -- [2]
+					["sliceToken"] = "ABuelBTLtNy",
+				}, -- [28]
+				{
+					"toy", -- [1]
+					97919, -- [2]
+					["sliceToken"] = "ABuelBTLtNt",
+				}, -- [29]
+				{
+					"toy", -- [1]
+					86571, -- [2]
+					["sliceToken"] = "ABuelBTLtN1",
+				}, -- [30]
+				{
+					"toy", -- [1]
+					116139, -- [2]
+					["sliceToken"] = "ABuelBTLtNr",
+				}, -- [31]
+				{
+					"toy", -- [1]
+					166790, -- [2]
+					["sliceToken"] = "ABuelBTLtNe",
+				}, -- [32]
+				{
+					"toy", -- [1]
+					118937, -- [2]
+					["sliceToken"] = "ABuelBTLtNwq",
+				}, -- [33]
+				["name"] = "Toys",
+				["save"] = true,
+			},
+			["xpressions"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPw5",
+					["caption"] = "Smile",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionHappy",
+					["id"] = "/smile",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPwz",
+					["caption"] = "Frown",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionSad",
+					["id"] = "/frown",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPwl",
+					["caption"] = "Smirk",
+					["icon"] = "INTERFACE\\ICONS\\ability_hunter_camouflage",
+					["id"] = "/smirk",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPwk",
+					["caption"] = "Grin Wickedly",
+					["icon"] = "Interface\\Icons\\Spell_Nature_RemoveDisease",
+					["id"] = "/grin",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPwj",
+					["caption"] = "Facepalm",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAfraid",
+					["id"] = "/facepalm",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPw4",
+					["caption"] = "Eye",
+					["icon"] = "Interface\\Icons\\Ability_CheapShot",
+					["id"] = "/eye",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPwh",
+					["caption"] = "Wink",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Human_01",
+					["id"] = "/wink",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPwg",
+					["caption"] = "Stare",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_AspectoftheViper",
+					["id"] = "/stare",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPwf",
+					["caption"] = "Gaze",
+					["icon"] = "Interface\\Icons\\Ability_EyeOfTheOwl",
+					["id"] = "/gaze",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPwd",
+					["caption"] = "Glare",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAngry",
+					["id"] = "/glare",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuekGtRAPw3",
+					["caption"] = "Roll Eyes",
+					["icon"] = "Interface\\Icons\\Ability_Rogue_BloodyEye",
+					["id"] = "/rolleyes",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuekGtRAPws",
+					["caption"] = "Peer",
+					["icon"] = "Interface\\Icons\\Ability_Druid_SupriseAttack",
+					["id"] = "/peer",
+				}, -- [12]
+				{
+					["sliceToken"] = "ABuekGtRAPwa",
+					["caption"] = "Blink",
+					["icon"] = "Interface\\Icons\\Spell_Arcane_Blink",
+					["id"] = "/blink",
+				}, -- [13]
+				{
+					["sliceToken"] = "ABuekGtRAPwp",
+					["caption"] = "Cry",
+					["icon"] = "Interface\\Icons\\Spell_BrokenHeart",
+					["id"] = "/cry",
+				}, -- [14]
+				{
+					["sliceToken"] = "ABuekGtRAPwo",
+					["caption"] = "Groan",
+					["icon"] = "Interface\\Icons\\Ability_Creature_Cursed_05",
+					["id"] = "/groan",
+				}, -- [15]
+				{
+					["sliceToken"] = "ABuekGtRAPw2",
+					["caption"] = "Sigh",
+					["icon"] = "Interface\\Icons\\Ability_Druid_HealingInstincts",
+					["id"] = "/sigh",
+				}, -- [16]
+				{
+					["sliceToken"] = "ABuekGtRAPwi",
+					["caption"] = "Blush",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_CommandingShout",
+					["id"] = "/blush",
+				}, -- [17]
+				{
+					["sliceToken"] = "ABuekGtRAPwu",
+					["caption"] = "Ponder",
+					["icon"] = "Interface\\Icons\\Ability_Hibernation",
+					["id"] = "/ponder",
+				}, -- [18]
+				["name"] = "Facial Expressions",
+				["save"] = true,
+			},
+			["HelloGB"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPp",
+					["caption"] = "Hello",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionHappy",
+					["id"] = "/hello",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPo",
+					["caption"] = "Greet",
+					["icon"] = "Interface\\Icons\\Ability_Priest_HeavanlyVoice",
+					["id"] = "/greet",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAP2",
+					["caption"] = "Welcome",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Elf_02",
+					["id"] = "/welcome",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPi",
+					["caption"] = "Introduce",
+					["icon"] = "Interface\\Icons\\Spell_Shaman_BlessingOfTheEternals",
+					["id"] = "/introduce",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPu",
+					["caption"] = "Hail",
+					["icon"] = "Interface\\Icons\\Spell_Holy_FlashHeal",
+					["id"] = "/hail",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPy",
+					["caption"] = "Salute",
+					["icon"] = "Interface\\Icons\\INV_Jewelry_TrinketPVP_01",
+					["id"] = "/salute",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPt",
+					["caption"] = "Bow",
+					["icon"] = "Interface\\Icons\\ability_monk_dpsstance",
+					["id"] = "/bow",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAP1",
+					["caption"] = "Wave",
+					["icon"] = "Interface\\Icons\\Spell_Holy_Chastise",
+					["id"] = "/wave",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPr",
+					["caption"] = "Curtsey",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Human_02",
+					["id"] = "/curtsey",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPe",
+					["caption"] = "Bye",
+					["icon"] = "Interface\\Icons\\Spell_Arcane_PortalDarnassus",
+					["id"] = "/bye",
+				}, -- [10]
+				["name"] = "Hello/GB",
+				["save"] = true,
+			},
+			["Emotes"] = {
+				{
+					"ring", -- [1]
+					"Hello", -- [2]
+					["sliceToken"] = "ABuekGtRAP1h",
+				}, -- [1]
+				{
+					"ring", -- [1]
+					"HelloGB", -- [2]
+					["sliceToken"] = "ABuekGtRAP1g",
+				}, -- [2]
+				{
+					"ring", -- [1]
+					"Laughter", -- [2]
+					["sliceToken"] = "ABuekGtRAP1f",
+				}, -- [3]
+				{
+					"ring", -- [1]
+					"munication2", -- [2]
+					["sliceToken"] = "ABuekGtRAP1d",
+				}, -- [4]
+				{
+					"ring", -- [1]
+					"xpressions", -- [2]
+					["sliceToken"] = "ABuekGtRAP13",
+				}, -- [5]
+				{
+					"ring", -- [1]
+					"Emotes", -- [2]
+					["sliceToken"] = "ABuekGtRAP1s",
+				}, -- [6]
+				{
+					"ring", -- [1]
+					"munication", -- [2]
+					["sliceToken"] = "ABuekGtRAP1a",
+				}, -- [7]
+				{
+					"ring", -- [1]
+					"TYYWCong", -- [2]
+					["sliceToken"] = "ABuekGtRAP1p",
+				}, -- [8]
+				{
+					"ring", -- [1]
+					"ttleTaunts", -- [2]
+					["sliceToken"] = "ABuekGtRAP1o",
+				}, -- [9]
+				{
+					"ring", -- [1]
+					"yFunctions", -- [2]
+					["sliceToken"] = "ABuekGtRAP12",
+				}, -- [10]
+				{
+					"ring", -- [1]
+					"EmoAngry", -- [2]
+					["sliceToken"] = "ABuekGtRAP1i",
+				}, -- [11]
+				{
+					"ring", -- [1]
+					"moPositive", -- [2]
+					["sliceToken"] = "ABuekGtRAP1u",
+				}, -- [12]
+				{
+					"ring", -- [1]
+					"Emotions", -- [2]
+					["sliceToken"] = "ABuekGtRAP1y",
+				}, -- [13]
+				{
+					"ring", -- [1]
+					"Romantic", -- [2]
+					["sliceToken"] = "ABuekGtRAP1t",
+				}, -- [14]
+				["name"] = "Emotes",
+				["save"] = true,
+			},
+			["Macros"] = {
+				{
+					"macro", -- [1]
+					"SoundNorm", -- [2]
+					["sliceToken"] = "ABuehyJB065",
+					["c"] = "95f09c",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuehyJB06z",
+					["c"] = "f0cac6",
+					["caption"] = "20y",
+					["id"] = "/run SetCVar(\"nameplateMaxDistance\", \"20\")\n",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuehyJB06P",
+					["c"] = "ff513e",
+					["caption"] = "40y",
+					["id"] = "/run SetCVar(\"nameplateMaxDistance\", \"40\")",
+				}, -- [3]
+				{
+					["c"] = "ff0b00",
+					["id"] = "/run SetCVar(\"nameplateMaxDistance\", \"60\")",
+					["fastClick"] = true,
+					["sliceToken"] = "ABuehyJB06O",
+					["caption"] = "60y",
+				}, -- [4]
+				["name"] = "Macros",
+				["save"] = true,
+			},
+			["Hello"] = {
+				{
+					["sliceToken"] = "ABuek4NgCIj",
+					["caption"] = "Belch",
+					["icon"] = "Interface\\Icons\\Ability_Mage_Burnout",
+					["id"] = "/belch",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuek4NgCI4",
+					["caption"] = "Cough",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_PsychicHorrors",
+					["id"] = "/cough",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuek4NgCIh",
+					["caption"] = "Yawn",
+					["icon"] = "Interface\\Icons\\Ability_Foundryraid_Dormant",
+					["id"] = "/yawn",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuek4NgCIg",
+					["caption"] = "Spit",
+					["icon"] = "Interface\\Icons\\Spell_Fire_FelRainOfFire",
+					["id"] = "/spit",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuek4NgCIf",
+					["caption"] = "Lick",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
+					["id"] = "/lick",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuek4NgCId",
+					["caption"] = "Bite",
+					["icon"] = "Interface\\Icons\\Spell_Holy_PainSupression",
+					["id"] = "/bite",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuek4NgCI3",
+					["caption"] = "Drool",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_BeastTraining",
+					["id"] = "/drool",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuek4NgCIs",
+					["caption"] = "Whistle",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_BeastCall",
+					["id"] = "/whistle",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuek4NgCIa",
+					["caption"] = "Nose Pick",
+					["icon"] = "Interface\\Icons\\Ability_Creature_Poison_02",
+					["id"] = "/nosepick",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuek4NgCIp",
+					["caption"] = "Sniff",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_FuriousResolve",
+					["id"] = "/sniff",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuek4NgCIo",
+					["caption"] = "Eat",
+					["icon"] = "Interface\\Icons\\INV_Misc_Fork&Knife",
+					["id"] = "/eat",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuek4NgCI2",
+					["caption"] = "Drink",
+					["icon"] = "Interface\\Icons\\INV_Drink_20",
+					["id"] = "/drink",
+				}, -- [12]
+				{
+					["sliceToken"] = "ABuek4NgCIi",
+					["caption"] = "Hungry",
+					["icon"] = "Interface\\Icons\\INV_Misc_Basket_01",
+					["id"] = "/hungry",
+				}, -- [13]
+				{
+					["sliceToken"] = "ABuek4NgCIu",
+					["caption"] = "Thirsty",
+					["icon"] = "Interface\\Icons\\INV_Misc_Beer_09",
+					["id"] = "/thirsty",
+				}, -- [14]
+				{
+					["sliceToken"] = "ABuek4NgCIy",
+					["caption"] = "Scratch",
+					["icon"] = "Interface\\Icons\\Ability_GhoulFrenzy",
+					["id"] = "/scratch",
+				}, -- [15]
+				{
+					["sliceToken"] = "ABuek4NgCIt",
+					["caption"] = "Bleed",
+					["icon"] = "Interface\\Icons\\ability_deathwing_bloodcorruption_earth",
+					["id"] = "/bleed",
+				}, -- [16]
+				{
+					["sliceToken"] = "ABuek4NgCI1",
+					["caption"] = "Cold",
+					["icon"] = "Interface\\Icons\\Spell_Frost_Glacier",
+					["id"] = "/cold",
+				}, -- [17]
+				{
+					["sliceToken"] = "ABuek4NgCIr",
+					["caption"] = "Shiver",
+					["icon"] = "Interface\\Icons\\Spell_Misc_ConjureManaJewel",
+					["id"] = "/shiver",
+				}, -- [18]
+				{
+					["sliceToken"] = "ABuek4NgCIe",
+					["caption"] = "Fart",
+					["icon"] = "Interface\\Icons\\Ability_DeathKnight_DeathSiphon2",
+					["id"] = "/fart",
+				}, -- [19]
+				["name"] = "Hello",
+				["save"] = true,
+			},
+			["ttleTaunts"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPwy",
+					["caption"] = "Roar",
+					["icon"] = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
+					["id"] = "/roar",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPwt",
+					["caption"] = "Growl",
+					["icon"] = "Interface\\Icons\\Ability_Druid_FerociousBite",
+					["id"] = "/growl",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPw1",
+					["caption"] = "Bark",
+					["icon"] = "Interface\\Icons\\Ability_Druid_PrimalTenacity",
+					["id"] = "/bark",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPwr",
+					["caption"] = "Snarl",
+					["icon"] = "Interface\\Icons\\Ability_Druid_Lacerate",
+					["id"] = "/snarl",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPwe",
+					["caption"] = "Brandish",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_Warbringer",
+					["id"] = "/brandish",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPww",
+					["caption"] = "Crack Knuckles",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_SecondWind",
+					["id"] = "/crack",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPwq",
+					["caption"] = "Rude",
+					["icon"] = "Interface\\Icons\\Ability_Creature_Poison_05",
+					["id"] = "/rude",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPM",
+					["caption"] = "Moon",
+					["icon"] = "Interface\\Icons\\Spell_Holy_ElunesGrace",
+					["id"] = "/moon",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPN",
+					["caption"] = "Shake Rear",
+					["icon"] = "Interface\\Icons\\Spell_Nature_HeavyPolymorph1",
+					["id"] = "/rear",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPB",
+					["caption"] = "Chicken",
+					["icon"] = "Interface\\Icons\\Spell_Magic_PolymorphChicken",
+					["id"] = "/chicken",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuekGtRAP/",
+					["caption"] = "Insult",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_Revenge",
+					["id"] = "/insult",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuekGtRAPV",
+					["caption"] = "Doom",
+					["icon"] = "Interface\\Icons\\Spell_Deathknight_BloodPresence",
+					["id"] = "/doom",
+				}, -- [12]
+				{
+					["sliceToken"] = "ABuekGtRAPC",
+					["caption"] = "Golf Clap",
+					["icon"] = "Interface\\Icons\\Spell_Holy_SealOfSalvation",
+					["id"] = "/golfclap",
+				}, -- [13]
+				{
+					["sliceToken"] = "ABuekGtRAPX",
+					["caption"] = "Mock",
+					["icon"] = "Interface\\Icons\\Ability_Rogue_Disguise",
+					["id"] = "/mock",
+				}, -- [14]
+				{
+					["sliceToken"] = "ABuekGtRAPZ",
+					["caption"] = "Pat",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_FelMending",
+					["id"] = "/pat",
+				}, -- [15]
+				{
+					["sliceToken"] = "ABuekGtRAP=",
+					["caption"] = "Taunt",
+					["icon"] = "Interface\\Icons\\Spell_Nature_UnyeildingStamina",
+					["id"] = "/taunt",
+				}, -- [16]
+				{
+					["sliceToken"] = "ABuekGtRAPL",
+					["caption"] = "Smell",
+					["icon"] = "Interface\\Icons\\Spell_Warlock_HarvestofLife",
+					["id"] = "/smell",
+				}, -- [17]
+				{
+					["sliceToken"] = "ABuekGtRAPK",
+					["caption"] = "Violin",
+					["icon"] = "Interface\\Icons\\Ability_Paladin_BeaconOfInsight",
+					["id"] = "/violin",
+				}, -- [18]
+				{
+					["sliceToken"] = "ABuekGtRAPJ",
+					["caption"] = "Pest",
+					["icon"] = "Interface\\Icons\\Spell_Holy_Dizzy",
+					["id"] = "/pest",
+				}, -- [19]
+				["name"] = "Battle Taunts",
+				["save"] = true,
+			},
+			["Food"] = {
+				{
+					"item", -- [1]
+					172069, -- [2]
+					["sliceToken"] = "ABuekGtRAP1k",
+				}, -- [1]
+				{
+					"item", -- [1]
+					172051, -- [2]
+					["sliceToken"] = "ABuekGtRAP1O",
+				}, -- [2]
+				{
+					"item", -- [1]
+					172045, -- [2]
+					["sliceToken"] = "ABuekGtRAP1I",
+				}, -- [3]
+				{
+					"item", -- [1]
+					172049, -- [2]
+					["sliceToken"] = "ABuekGtRAP18",
+				}, -- [4]
+				{
+					"item", -- [1]
+					172041, -- [2]
+					["sliceToken"] = "ABuekGtRAP1U",
+				}, -- [5]
+				{
+					"item", -- [1]
+					172062, -- [2]
+					["sliceToken"] = "ABuekGtRAP1Y",
+				}, -- [6]
+				{
+					"item", -- [1]
+					172061, -- [2]
+					["sliceToken"] = "ABuekGtRAP1T",
+				}, -- [7]
+				["name"] = "Food",
+				["save"] = true,
+			},
+			["Viks"] = {
+				{
+					"mount", -- [1]
+					460, -- [2]
+					["sliceToken"] = "ABuehyd=j6o",
+				}, -- [1]
+				{
+					"ring", -- [1]
+					"DKCombat", -- [2]
+					["sliceToken"] = "ABuehyd=j6f",
+				}, -- [2]
+				{
+					"ring", -- [1]
+					"Travel", -- [2]
+					["sliceToken"] = "ABuehyJB06e",
+				}, -- [3]
+				{
+					"ring", -- [1]
+					"Engeneer", -- [2]
+					["sliceToken"] = "ABuehyJB06S",
+				}, -- [4]
+				{
+					"ring", -- [1]
+					"Mounts", -- [2]
+					["sliceToken"] = "ABuejX/ZeFz",
+				}, -- [5]
+				{
+					"ring", -- [1]
+					"Buffs", -- [2]
+					["sliceToken"] = "ABuek7zNjkd",
+				}, -- [6]
+				{
+					"ring", -- [1]
+					"Food", -- [2]
+					["sliceToken"] = "ABuekGtRAP1P",
+				}, -- [7]
+				{
+					"ring", -- [1]
+					"Toys", -- [2]
+					["sliceToken"] = "ABuelBTLtNE",
+				}, -- [8]
+				{
+					"ring", -- [1]
+					"Misc", -- [2]
+					["sliceToken"] = "ABuezqzGGSt",
+				}, -- [9]
+				["name"] = "Viks",
+				["save"] = true,
+			},
+			["TYYWCong"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPI",
+					["caption"] = "Thanks",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionHappy",
+					["id"] = "/thanks\n",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAP8",
+					["caption"] = "You're Welcome",
+					["icon"] = "Interface\\Icons\\Spell_Holy_SpellWarding",
+					["id"] = "/yw",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPU",
+					["caption"] = "Congrats",
+					["icon"] = "Interface\\Icons\\Spell_Paladin_Inquisition",
+					["id"] = "/congrats",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPY",
+					["caption"] = "High Five",
+					["icon"] = "Interface\\Icons\\Spell_Holy_PrayerOfMendingtga",
+					["id"] = "/highfive",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPT",
+					["caption"] = "Cheer",
+					["icon"] = "Interface\\Icons\\Spell_DeathKnight_IceBoundFortitude",
+					["id"] = "/cheer",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPR",
+					["caption"] = "Applaud",
+					["icon"] = "Interface\\Icons\\Spell_Holy_GreaterBlessingofSalvation",
+					["id"] = "/applaud",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAP7",
+					["caption"] = "Commend",
+					["icon"] = "Interface\\Icons\\Spell_Holy_GreaterBlessingofKings",
+					["id"] = "/commend",
+				}, -- [7]
+				["name"] = "TY/YW/Cong",
+				["save"] = true,
+			},
+			["BuffHunter"] = {
+				["save"] = true,
+				["limit"] = "HUNTER",
+				["name"] = "BuffHunter",
+			},
+			["moPositive"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPe2",
+					["caption"] = "Happy",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionHappy",
+					["id"] = "/happy",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPei",
+					["caption"] = "Amaze",
+					["icon"] = "Interface\\Icons\\Spell_Holy_SpiritualGuidence",
+					["id"] = "/amaze",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPeu",
+					["caption"] = "Surprised",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_SpectralSight",
+					["id"] = "/surprised",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPey",
+					["caption"] = "Calm",
+					["icon"] = "Interface\\Icons\\Spell_Nature_Polymorph",
+					["id"] = "/calm",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPet",
+					["caption"] = "Comfort",
+					["icon"] = "Interface\\Icons\\Spell_Shaman_GiftEarthmother",
+					["id"] = "/comfort",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPe1",
+					["caption"] = "Soothe",
+					["icon"] = "Interface\\Icons\\INV_Holiday_BrewfestBuff_01",
+					["id"] = "/soothe",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPer",
+					["caption"] = "Glad",
+					["icon"] = "Interface\\Icons\\Spell_Holy_Heroism",
+					["id"] = "/glad",
+				}, -- [7]
+				["name"] = "Emo: Positive",
+				["save"] = true,
+			},
+			["Fishing"] = {
+				{
+					"item", -- [1]
+					133755, -- [2]
+					["forceShow"] = true,
+					["c"] = "ffffff",
+					["sliceToken"] = "ABuelBTLtN/",
+				}, -- [1]
+				{
+					"ring", -- [1]
+					"ingBobbers", -- [2]
+					["sliceToken"] = "ABuelBTLtNV",
+					["c"] = "ffffff",
+					["icon"] = 236576,
+				}, -- [2]
+				{
+					"toy", -- [1]
+					152556, -- [2]
+					["sliceToken"] = "ABuelBTLtNC",
+					["c"] = "ffffff",
+				}, -- [3]
+				{
+					"toy", -- [1]
+					85500, -- [2]
+					["sliceToken"] = "ABuelBTLtNX",
+					["c"] = "ffffff",
+					["icon"] = 774121,
+				}, -- [4]
+				{
+					"item", -- [1]
+					167698, -- [2]
+					["sliceToken"] = "ABuelBTLtNZ",
+					["c"] = "ffffff",
+				}, -- [5]
+				{
+					"toy", -- [1]
+					168016, -- [2]
+					["sliceToken"] = "ABuelBTLtN=",
+					["c"] = "ffffff",
+				}, -- [6]
+				["quarantineBind"] = "F5",
+				["name"] = "Fishing",
+				["save"] = true,
+			},
+			["Emotions"] = {
+				{
+					"ring", -- [1]
+					"moPositive", -- [2]
+					["sliceToken"] = "ABuekGtRAPek",
+				}, -- [1]
+				{
+					"ring", -- [1]
+					"moNegative", -- [2]
+					["sliceToken"] = "ABuekGtRAPej",
+				}, -- [2]
+				{
+					"ring", -- [1]
+					"EmoAngry", -- [2]
+					["sliceToken"] = "ABuekGtRAPe4",
+				}, -- [3]
+				{
+					"ring", -- [1]
+					"EmoUnsure", -- [2]
+					["sliceToken"] = "ABuekGtRAPeh",
+				}, -- [4]
+				["name"] = "Emotions",
+				["save"] = true,
+			},
+			["munication2"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPH",
+					["caption"] = "Charge!",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_KillCommand",
+					["id"] = "/charge",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAP0",
+					["caption"] = "Open Fire!",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_RapidRegeneration",
+					["id"] = "/openfire",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPG",
+					["caption"] = "Attack Target",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_SniperShot",
+					["id"] = "/attacktarget",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPF",
+					["caption"] = "Incoming",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
+					["id"] = "/incoming",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPD",
+					["caption"] = "Duck",
+					["icon"] = "Interface\\Icons\\Ability_Whirlwind",
+					["id"] = "/duck",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPS",
+					["caption"] = "Flee",
+					["icon"] = "Interface\\Icons\\ABILITY_HUNTER_POSTHASTE",
+					["id"] = "/flee",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAP9",
+					["caption"] = "Heal Me!",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_OneWithNature",
+					["id"] = "/healme",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPA",
+					["caption"] = "OOM",
+					["icon"] = "Interface\\Icons\\Spell_Holy_MagicalSentry",
+					["id"] = "/oom",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPP",
+					["caption"] = "Help Me!",
+					["icon"] = "Interface\\Icons\\Ability_Mage_TormentOfTheWeak",
+					["id"] = "/helpme",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPO",
+					["caption"] = "Follow Me!",
+					["icon"] = "Interface\\Icons\\Ability_Tracking",
+					["id"] = "/followme",
+				}, -- [10]
+				["name"] = "Battle Communication",
+				["save"] = true,
+			},
+			["OPieFlagStore"] = {
+				["StoreVersion"] = 2,
+			},
+			["Mounts"] = {
+				{
+					"mount", -- [1]
+					449, -- [2]
+					["sliceToken"] = "ABuejX/ZeFl",
+				}, -- [1]
+				{
+					"mount", -- [1]
+					416, -- [2]
+					["sliceToken"] = "ABuejX/ZeFk",
+				}, -- [2]
+				{
+					"mount", -- [1]
+					455, -- [2]
+					["sliceToken"] = "ABuejX/ZeFj",
+				}, -- [3]
+				{
+					"mount", -- [1]
+					522, -- [2]
+					["sliceToken"] = "ABuejX/ZeF4",
+				}, -- [4]
+				{
+					"mount", -- [1]
+					1025, -- [2]
+					["sliceToken"] = "ABuejX/ZeFh",
+				}, -- [5]
+				{
+					"mount", -- [1]
+					382, -- [2]
+					["sliceToken"] = "ABuejX/ZeFg",
+				}, -- [6]
+				{
+					"mount", -- [1]
+					751, -- [2]
+					["sliceToken"] = "ABuej/0MXFe",
+				}, -- [7]
+				["name"] = "Mounts",
+				["save"] = true,
+			},
+			["Consumable"] = {
+				{
+					"item", -- [1]
+					171285, -- [2]
+					["sliceToken"] = "ABuelBTLtNK",
+				}, -- [1]
+				{
+					"item", -- [1]
+					171286, -- [2]
+					["sliceToken"] = "ABuelBTLtNJ",
+				}, -- [2]
+				{
+					"item", -- [1]
+					171437, -- [2]
+					["sliceToken"] = "ABuelBTLtNH",
+				}, -- [3]
+				{
+					"item", -- [1]
+					171439, -- [2]
+					["sliceToken"] = "ABuelBTLtN0",
+				}, -- [4]
+				{
+					"item", -- [1]
+					171276, -- [2]
+					["sliceToken"] = "ABuelBTLtNG",
+				}, -- [5]
+				{
+					"item", -- [1]
+					171278, -- [2]
+					["sliceToken"] = "ABuelBTLtNF",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuelBTLtND",
+					["id"] = "#showtooltip Eternal Flask\n/use Eternal Flask",
+					["icon"] = 3566839,
+					["show"] = "[have:171280]",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuelBTLtNS",
+					["id"] = "#icon inv_leatherworking_armorpatch_heavy\n/use Heavy Desolate Armor Kit\n#skip\n/use 5",
+					["icon"] = 3528447,
+					["show"] = "[have:172347]",
+				}, -- [8]
+				{
+					"item", -- [1]
+					181468, -- [2]
+					["sliceToken"] = "ABuelBTLtN9",
+				}, -- [9]
+				{
+					"item", -- [1]
+					172051, -- [2]
+					["sliceToken"] = "ABuelBTLtNA",
+				}, -- [10]
+				{
+					"item", -- [1]
+					172045, -- [2]
+					["sliceToken"] = "ABuelBTLtNP",
+				}, -- [11]
+				{
+					"item", -- [1]
+					172049, -- [2]
+					["sliceToken"] = "ABuelBTLtNO",
+				}, -- [12]
+				{
+					"item", -- [1]
+					172041, -- [2]
+					["sliceToken"] = "ABuelBTLtNI",
+				}, -- [13]
+				{
+					"item", -- [1]
+					173049, -- [2]
+					["sliceToken"] = "ABuelBTLtN8",
+				}, -- [14]
+				{
+					"item", -- [1]
+					173859, -- [2]
+					["sliceToken"] = "ABuelBTLtNU",
+				}, -- [15]
+				{
+					"item", -- [1]
+					113509, -- [2]
+					["sliceToken"] = "ABuelBTLtNY",
+				}, -- [16]
+				{
+					"item", -- [1]
+					132514, -- [2]
+					["sliceToken"] = "ABuelBTLtNT",
+				}, -- [17]
+				{
+					"item", -- [1]
+					172042, -- [2]
+					["sliceToken"] = "ABuelBTLtNR",
+				}, -- [18]
+				{
+					"item", -- [1]
+					172043, -- [2]
+					["sliceToken"] = "ABuelBTLtN7",
+				}, -- [19]
+				["name"] = "Consumable",
+				["save"] = true,
+			},
+			["Movement"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPwC",
+					["caption"] = "Dance",
+					["icon"] = "Interface\\Icons\\Ability_TitanKeeper_Phasing",
+					["id"] = "/dance",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPwX",
+					["caption"] = "Bounce",
+					["icon"] = "Interface\\Icons\\Spell_Paladin_Clarityofpurpose",
+					["id"] = "/bounce",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPwZ",
+					["caption"] = "Fidget",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAfraid",
+					["id"] = "/fidget",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPw=",
+					["caption"] = "Flex",
+					["icon"] = "Interface\\Icons\\Spell_Shaman_AncestralAwakening",
+					["id"] = "/flex",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPwL",
+					["caption"] = "Flop",
+					["icon"] = "Interface\\Icons\\INV_Misc_Fish_27",
+					["id"] = "/flop",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPwK",
+					["caption"] = "Sleep",
+					["icon"] = "Interface\\Icons\\Ability_Foundryraid_Dormant",
+					["id"] = "/sleep",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPwJ",
+					["caption"] = "Train",
+					["icon"] = "Interface\\Icons\\Ability_IronMaidens_IronWill",
+					["id"] = "/train",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPwH",
+					["caption"] = "Read",
+					["icon"] = "Interface\\Icons\\INV_Misc_Book_11",
+					["id"] = "/read",
+				}, -- [8]
+				{
+					["sliceToken"] = "ABuekGtRAPw0",
+					["caption"] = "Bonk",
+					["icon"] = "Interface\\Icons\\Spell_Holy_FistOfJustice",
+					["id"] = "/bonk",
+				}, -- [9]
+				{
+					["sliceToken"] = "ABuekGtRAPwG",
+					["caption"] = "Pounce",
+					["icon"] = "Interface\\Icons\\Ability_Mount_WhiteTiger",
+					["id"] = "/pounce",
+				}, -- [10]
+				{
+					["sliceToken"] = "ABuekGtRAPwF",
+					["caption"] = "Punch",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_SecondWind",
+					["id"] = "/punch",
+				}, -- [11]
+				{
+					["sliceToken"] = "ABuekGtRAPwD",
+					["caption"] = "Poke",
+					["icon"] = "Interface\\Icons\\Spell_Holy_Stoicism",
+					["id"] = "/poke",
+				}, -- [12]
+				{
+					["sliceToken"] = "ABuekGtRAPwS",
+					["caption"] = "Slap",
+					["icon"] = "Interface\\Icons\\ability_deathknight_desolation",
+					["id"] = "/slap",
+				}, -- [13]
+				{
+					["sliceToken"] = "ABuekGtRAPw9",
+					["caption"] = "Tickle",
+					["icon"] = "Interface\\Icons\\INV_Feather_06",
+					["id"] = "/tickle",
+				}, -- [14]
+				{
+					["sliceToken"] = "ABuekGtRAPwA",
+					["caption"] = "Work",
+					["icon"] = "Interface\\Icons\\INV_Misc_Gear_05",
+					["id"] = "/work",
+				}, -- [15]
+				["name"] = "Movement",
+				["save"] = true,
+			},
+			["Engeneer"] = {
+				{
+					"toy", -- [1]
+					168808, -- [2]
+					["sliceToken"] = "ABuehyJB06g",
+				}, -- [1]
+				{
+					"toy", -- [1]
+					168807, -- [2]
+					["sliceToken"] = "ABuehyJB06f",
+				}, -- [2]
+				{
+					"toy", -- [1]
+					112059, -- [2]
+					["sliceToken"] = "ABuehyJB06d",
+				}, -- [3]
+				{
+					"toy", -- [1]
+					48933, -- [2]
+					["sliceToken"] = "ABuehyJB063",
+				}, -- [4]
+				{
+					"toy", -- [1]
+					40768, -- [2]
+					["sliceToken"] = "ABuehyJB06s",
+				}, -- [5]
+				{
+					"toy", -- [1]
+					87215, -- [2]
+					["sliceToken"] = "ABuejC0mw/e",
+				}, -- [6]
+				{
+					"item", -- [1]
+					87216, -- [2]
+					["sliceToken"] = "ABuekGtRAP14",
+				}, -- [7]
+				{
+					"toy", -- [1]
+					172924, -- [2]
+					["sliceToken"] = "ABuekNAmcse",
+				}, -- [8]
+				{
+					"item", -- [1]
+					49040, -- [2]
+					["sliceToken"] = "ABuelBFrlje",
+				}, -- [9]
+				["name"] = "Engeneer",
+				["save"] = true,
+			},
+			["bservience"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPe6",
+					["caption"] = "Surrender",
+					["icon"] = "Interface\\Icons\\ABILITY_MAGE_INVISIBILITY",
+					["id"] = "/surrender",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPeb",
+					["caption"] = "Grovel",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_PainAndSuffering",
+					["id"] = "/grovel",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPev",
+					["caption"] = "Plead",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_BeastSoothe",
+					["id"] = "/plead",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPec",
+					["caption"] = "Beg",
+					["icon"] = "Interface\\Icons\\inv_misc_coin_01",
+					["id"] = "/beg",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPex",
+					["caption"] = "Peon",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Centaur_01",
+					["id"] = "/peon",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPe5",
+					["caption"] = "Kneel",
+					["icon"] = "Interface\\Icons\\Ability_Druid_NaturalPerfection",
+					["id"] = "/kneel",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPez",
+					["caption"] = "Praise",
+					["icon"] = "Interface\\Icons\\Spell_Holy_SearingLightPriest",
+					["id"] = "/praise",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPel",
+					["caption"] = "Pray",
+					["icon"] = "Interface\\Icons\\Spell_Holy_HolyGuidance",
+					["id"] = "/pray",
+				}, -- [8]
+				["name"] = "Subservience",
+				["save"] = true,
+			},
+			["EmoAngry"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPwB",
+					["caption"] = "Angry",
+					["icon"] = "Interface\\Icons\\Spell_Misc_EmotionAngry",
+					["id"] = "/angry",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPw/",
+					["caption"] = "Snub",
+					["icon"] = "Interface\\Icons\\INV_Misc_Head_Elf_02",
+					["id"] = "/snub",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPwV",
+					["caption"] = "Gloat",
+					["icon"] = "Interface\\Icons\\Spell_Fire_TotemOfWrath",
+					["id"] = "/gloat",
+				}, -- [3]
+				["name"] = "Emo: Angry",
+				["save"] = true,
+			},
+			["Travel"] = {
+				{
+					"item", -- [1]
+					6948, -- [2]
+					["sliceToken"] = "ABuehyd=j6c",
+				}, -- [1]
+				{
+					"item", -- [1]
+					140192, -- [2]
+					["sliceToken"] = "ABuehyd=j6x",
+				}, -- [2]
+				{
+					"item", -- [1]
+					110560, -- [2]
+					["sliceToken"] = "ABuehyd=j65",
+				}, -- [3]
+				{
+					"item", -- [1]
+					141605, -- [2]
+					["sliceToken"] = "ABuehyd=j6z",
+				}, -- [4]
+				["name"] = "Travel",
+				["save"] = true,
+			},
+			["EmoUnsure"] = {
+				{
+					["sliceToken"] = "ABuekGtRAPeg",
+					["caption"] = "Cower",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_Skull",
+					["id"] = "/cower",
+				}, -- [1]
+				{
+					["sliceToken"] = "ABuekGtRAPef",
+					["caption"] = "Scared",
+					["icon"] = "Interface\\Icons\\Spell_Shadow_DeathCoil",
+					["id"] = "/scared",
+				}, -- [2]
+				{
+					["sliceToken"] = "ABuekGtRAPed",
+					["caption"] = "Panic",
+					["icon"] = "Interface\\Icons\\Ability_Warrior_Rampage",
+					["id"] = "/panic",
+				}, -- [3]
+				{
+					["sliceToken"] = "ABuekGtRAPe3",
+					["caption"] = "Bashful",
+					["icon"] = "Interface\\Icons\\Ability_Hunter_Pet_Turtle",
+					["id"] = "/bashful",
+				}, -- [4]
+				{
+					["sliceToken"] = "ABuekGtRAPes",
+					["caption"] = "Shy",
+					["icon"] = "Interface\\Icons\\Ability_Druid_PredatoryInstincts",
+					["id"] = "/shy",
+				}, -- [5]
+				{
+					["sliceToken"] = "ABuekGtRAPea",
+					["caption"] = "Curious",
+					["icon"] = "Interface\\Icons\\Ability_Fixated_State_Red",
+					["id"] = "/curious",
+				}, -- [6]
+				{
+					["sliceToken"] = "ABuekGtRAPep",
+					["id"] = "/boggle",
+					["caption"] = "Boggle",
+				}, -- [7]
+				{
+					["sliceToken"] = "ABuekGtRAPeo",
+					["caption"] = "Regret",
+					["icon"] = "Interface\\Icons\\INV_Mask_01",
+					["id"] = "/regret",
+				}, -- [8]
+				["name"] = "Emo: Unsure",
+				["save"] = true,
+			},
+		},
+	},
+	["_GameLocale"] = "enUS",
+}
+OPie_SavedData = nil
+
+end
 -- Create installui
 
 local OnLogon = CreateFrame("Frame")
@@ -9138,6 +11064,13 @@ SlashCmdList.SETTINGS = function(msg)
 			ReloadUI()
 		else
 			print("|cffffff00Bartender"..L_INFO_NOT_INSTALLED.."|r")
+		end
+	elseif msg == "OPie" then
+		if IsAddOnLoaded("OPie") then
+			UploadOpie()
+			ReloadUI()
+		else
+			print("|cffffff00OPie"..L_INFO_NOT_INSTALLED.."|r")
 		end
 	elseif msg == "all" then
 		StaticPopup_Show("SETTINGS_ALL")

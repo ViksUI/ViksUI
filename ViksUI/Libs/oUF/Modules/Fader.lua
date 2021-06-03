@@ -28,6 +28,7 @@ local events = setmetatable({
 	Stealth = "UPDATE_STEALTH",
 	PlayerNotMaxHealth = "UNIT_HEALTH",
 	PlayerNotMaxMana = "UNIT_POWER_UPDATE",
+	Casting = "UNIT_SPELLCAST_START:UNIT_SPELLCAST_FAILED:UNIT_SPELLCAST_STOP:UNIT_SPELLCAST_INTERRUPTED:UNIT_SPELLCAST_CHANNEL_START:UNIT_SPELLCAST_CHANNEL_STOP",
 	Arena = "ZONE_CHANGED_NEW_AREA",
 	Instance = "PLAYER_ENTERING_WORLD",
 }, {__index = function(events, k)
@@ -46,9 +47,9 @@ local conditions = setmetatable({
 	PlayerTaxi = function() return UnitOnTaxi("player") end,
 	UnitTaxi = function(_, unit) return unit and UnitOnTaxi(unit) end,
 	UnitMaxHealth = function(_, unit) return unit and not UnitIsDeadOrGhost(unit) and UnitHealth(unit) == UnitHealthMax(unit) end,
-	PlayerMaxHealth = function() return unit and not UnitIsDeadOrGhost("player") and UnitHealth("player") == UnitHealthMax("player") end,
+	PlayerMaxHealth = function(_, unit) return unit and not UnitIsDeadOrGhost("player") and UnitHealth("player") == UnitHealthMax("player") end,
 	UnitMaxMana = function(_, unit) return unit and not UnitIsDeadOrGhost(unit) and UnitPower(unit) == UnitPowerMax(unit) end,
-	PlayerMaxMana = function() return unit and not UnitIsDeadOrGhost("player") and UnitPower("player") == UnitPowerMax("player") end,
+	PlayerMaxMana = function(_, unit) return unit and not UnitIsDeadOrGhost("player") and UnitPower("player") == UnitPowerMax("player") end,
 	Stealth = IsStealthed,
 	Flying = IsFlying,
 	Resting = IsResting,
@@ -60,6 +61,7 @@ local conditions = setmetatable({
 			return unit and UnitPower("player") ~= UnitPowerMax("player")
 		end
 	end,
+	Casting = function(_, unit) return unit and (UnitCastingInfo(unit) or UnitChannelInfo(unit)) end,
 	Arena = function(_, unit) return unit and GetZonePVPInfo() == "arena" end,
 	Instance = function(_, unit) return unit and IsInInstance() == true end,
 }, {__index = function(t, k)

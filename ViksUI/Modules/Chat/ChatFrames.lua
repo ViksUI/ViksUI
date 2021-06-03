@@ -81,7 +81,7 @@ local smileyKeys = {
 	["%:p"] = "Tongue",
 	["%;p"] = "Tongue",
 	["%;P"] = "Tongue",
-	["%;%)"] = "Wink",
+	--["%;%)"] = "Wink",
 	--["%:S"] = "Hmm",
 	--["%:%-S"] = "Hmm",
 	["%;%("] = "Cry",
@@ -515,7 +515,7 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", RemoveRealmName)
 --	Save slash command typo
 ----------------------------------------------------------------------------------------
 local function TypoHistory_Posthook_AddMessage(chat, text)
-	if strfind(text, HELP_TEXT_SIMPLE) then
+	if text and strfind(text, HELP_TEXT_SIMPLE) then
 		ChatEdit_AddHistory(chat.editBox)
 	end
 end

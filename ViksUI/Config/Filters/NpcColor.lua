@@ -101,6 +101,7 @@ T.PlateNuke = {
 	["170882"] = "Stun Interrupt (!!): Bone Spear ".. "\n".. "Big bleed, will one shot on high keys", -- Bone Magus
 	----- Necrotic Wake -----
 	["163618"] = "Nearby minions die when he dies".. "\n".. "Grim Fate: Spread out", -- Zolramus Necromancer
+	["166302"] = "Interrupt (!!!!)".. "\n".. "Drain Fluids", -- Corpse Harvester
 	----- Spires of Ascension -----
 	["163520"] = "Nearby enemies take 75% reduced AoE dmg.", -- Forsworn Squad-Leader
 }

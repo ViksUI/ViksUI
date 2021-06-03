@@ -498,7 +498,7 @@ ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGI
 --ns.addCategory("raidframe", RAID_FRAMES_LABEL, L_GUI_UF_RAIDFRAMES_SUBTEXT, true)
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
 ns.addCategory("actionbar", L_GUI_ACTIONBAR, ACTIONBARS_SUBTEXT, 2)
-ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext)
+ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext, true)
 ns.addCategory("chat", SOCIALS, L_GUI_CHAT_SUBTEXT)
 ns.addCategory("nameplate", UNIT_NAMEPLATES, L_GUI_NAMEPLATE_SUBTEXT, true)
 ns.addCategory("combattext", L_GUI_COMBATTEXT, COMBATTEXT_SUBTEXT.." "..L_GUI_COMBATTEXT_SUBTEXT, true)
@@ -1843,6 +1843,21 @@ do
 
 	local npc_tip = ns.CreateCheckBox(parent, "npc_tip")
 	npc_tip:SetPoint("TOPLEFT", npc_id, "BOTTOMLEFT", 0, 0)
+	
+	-- Page 2
+	local parent = ViksUIOptionsPanel.tooltip2
+	
+	local bottomleft = ns.CreateCheckBox(parent, "bottomleft", "Tooltip Anchor from Bottom Left")
+	bottomleft:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
+	
+	local bottomright = ns.CreateCheckBox(parent, "bottomright", "Tooltip Anchor from Bottom Right")
+	bottomright:SetPoint("TOPLEFT", bottomleft, "BOTTOMLEFT", 0, 0)
+	
+	local topright = ns.CreateCheckBox(parent, "topright", "Tooltip Anchor from Top Right")
+	topright:SetPoint("TOPLEFT", bottomright, "BOTTOMLEFT", 0, 0)
+
+	local topleft = ns.CreateCheckBox(parent, "topleft", "Tooltip Anchor from Top Left")
+	topleft:SetPoint("TOPLEFT", topright, "BOTTOMLEFT", 0, 0)	
 end
 
 -- Chat
