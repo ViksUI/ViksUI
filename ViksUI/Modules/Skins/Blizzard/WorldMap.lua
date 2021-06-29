@@ -83,7 +83,9 @@ local function LoadSkin()
 	QuestMapFrame.DetailsFrame.TrackButton:SetFrameLevel(5)
 	QuestMapFrame.DetailsFrame.TrackButton:Width(95)
 	T:HandleButton(QuestMapFrame.DetailsFrame.CompleteQuestFrame.CompleteButton, true)
-
+	if T.newPatch then
+		QuestMapFrame.DetailsFrame.Bg:Hide()
+	end
 	local CampaignOverview = QuestMapFrame.CampaignOverview
 	CampaignOverview:StripTextures()
 	CampaignOverview.ScrollFrame:StripTextures()

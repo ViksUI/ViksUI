@@ -1,6 +1,9 @@
 ﻿local T, C, L, _ = unpack(select(2, ...))
 if C.tooltip.enable ~= true then return end
 
+local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
+local C_PlayerInfo_GetPlayerMythicPlusRatingSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary
+
 ----------------------------------------------------------------------------------------
 --	Based on aTooltip(by ALZA)
 ----------------------------------------------------------------------------------------
@@ -461,6 +464,24 @@ if C.tooltip.npc_tip == true then
 				elseif T.PlateT3Mobs[id] then
 					self:AddLine(T.PlateT3Mobs[id])
 				end
+			end
+		end
+	end)
+end
+
+----------------------------------------------------------------------------------------
+--	Show M+ Score
+----------------------------------------------------------------------------------------
+
+if C.tooltip.DungeonScore and T.newPatch then
+	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
+		-- NPC ID's
+		if unit then
+			local data = C_PlayerInfo_GetPlayerMythicPlusRatingSummary(unit)
+			if data and data.currentSeasonScore then
+				local color = C_ChallengeMode_GetDungeonScoreRarityColor(data.currentSeasonScore)
+				GameTooltip:AddDoubleLine("Mythic+ Score:", data.currentSeasonScore, nil, nil, nil, color.r or 1, color.g or 1, color.b or 1)
 			end
 		end
 	end)

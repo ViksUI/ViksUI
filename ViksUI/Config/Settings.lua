@@ -430,6 +430,7 @@ C["tooltip"] = {
 	["mount"] = true,							-- Show source of mount
 	["npc_id"] = false,							-- Show npc id
 	["npc_tip"] = true,							-- Show Tips for important NPC in dungeons
+	["DungeonScore"] = true,					-- Show Players Dungeon Score
 	--Ancher
 	["bottomleft"] = false, 					-- Anchor to BottomLeft
 	["bottomright"] = false, 					-- Anchor to Bottomright
@@ -447,7 +448,7 @@ C["chat"] = {
 	["filter"] = true,							-- Removing some systems spam("Player1" won duel "Player2")
 	["spam"] = false,							-- Removing some players spam(gold/portals/etc)
 	["width"] = C.panels.CPwidth - 4,			-- Chat width
-	["height"] = C.panels.CPTextheight - 4,		-- Chat height
+	["height"] = C.panels.CPTextheight,		-- Chat height
 	["chat_bar"] = false,						-- Lite Button Bar for switch chat channel
 	["chat_bar_mouseover"] = false,				-- Lite Button Bar on mouseover
 	["whisp_sound"] = true,						-- Sound when whisper

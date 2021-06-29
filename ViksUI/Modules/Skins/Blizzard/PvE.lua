@@ -561,6 +561,10 @@ local function LoadSecondarySkin()
 
 	ChallengesKeystoneFrame:DisableDrawLayer("BACKGROUND")
 	ChallengesKeystoneFrame:CreateBackdrop("Transparent")
+	
+	ChallengesKeystoneFrame:HookScript("OnShow", 
+		function() ChallengesKeystoneFrame:SetFrameStrata("DIALOG") end
+	)
 
 	local NoticeFrame = ChallengesFrame.SeasonChangeNoticeFrame
 	NoticeFrame:StripTextures()

@@ -45,7 +45,7 @@ local visionList = { 58151, 58155, 58156, 58167, 58168 }
 local QUESTS_LABEL
 
 local region = GetCVar("portal")
-if region == "EU" then
+if region == "EU" or region == "test" then
 	legionbase = 1565168400 -- CN-16
 	bfabase = 1546768800 -- CN+7
 elseif region == "US" then
@@ -106,12 +106,10 @@ local function CheckInvasion(index)
 end
 
 local function GetNextTime(baseTime, index)
-if T.beta ~= 90002 then
-	local currentTime = time()
-	local duration = invIndex[index].duration
-	local elapsed = mod(currentTime - baseTime, duration)
-	return duration - elapsed + currentTime
-end
+local currentTime = time()
+local duration = invIndex[index].duration
+local elapsed = mod(currentTime - baseTime, duration)
+return duration - elapsed + currentTime
 end
 
 local function GetNextLocation(nextTime, index)
@@ -247,12 +245,12 @@ Stat:SetScript("OnEnter", function(self)
 			else
 				r,g,b = 0, 1, 0
 			end
-			if T.beta ~= 90002 then GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b) end
+			GameTooltip:AddDoubleLine('Current Invasion '..zoneName, string.format('%.2d:%.2d', timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
 		end
 		if C['datatext']['Time24'] then
-			if T.beta ~= 90002 then GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1) end
+			GameTooltip:AddDoubleLine("Next Invasion "..GetNextLocation(nextTime, index), date("%d.%m / %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
 		else
-			if T.beta ~= 90002 then GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1) end
+			GameTooltip:AddDoubleLine('Next Invasion '..GetNextLocation(nextTime, index), date('%m/%d %H:%M', nextTime), 1, 1, 1, 1, 1, 1)
 		end
 	end
 

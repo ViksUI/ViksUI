@@ -1858,6 +1858,9 @@ do
 
 	local topleft = ns.CreateCheckBox(parent, "topleft", "Tooltip Anchor from Top Left")
 	topleft:SetPoint("TOPLEFT", topright, "BOTTOMLEFT", 0, 0)	
+	
+	local DungeonScore = ns.CreateCheckBox(parent, "DungeonScore", "Show Dungeon Score")
+	DungeonScore:SetPoint("TOPLEFT", topleft, "BOTTOMLEFT", 0, 0)
 end
 
 -- Chat

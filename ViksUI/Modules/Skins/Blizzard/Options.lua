@@ -120,6 +120,7 @@ local function LoadSkin()
 		"Graphics_SunshaftsDropDown",
 		"Graphics_ParticleDensityDropDown",
 		"Graphics_DepthEffectsDropDown",
+		"Graphics_ComputeEffectsDropDown",
 		"Graphics_LightingQualityDropDown",
 		"Graphics_OutlineModeDropDown",
 		"Advanced_BufferingDropDown",
@@ -158,13 +159,16 @@ local function LoadSkin()
 		"RaidGraphics_SSAODropDown",
 		"RaidGraphics_DepthEffectsDropDown",
 		"RaidGraphics_LightingQualityDropDown",
-		"RaidGraphics_OutlineModeDropDown"
+		"RaidGraphics_OutlineModeDropDown",
+		"RaidGraphics_ComputeEffectsDropDown"
 	}
 
 	for i = 1, getn(dropdown) do
 		local frame = _G[dropdown[i]]
 		if frame then
 			T.SkinDropDownBox(frame, 165)
+		else
+			-- print(dropdown[i]) -- TODO: Delete outdated frames later
 		end
 	end
 
