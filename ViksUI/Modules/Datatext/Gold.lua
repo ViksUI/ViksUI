@@ -202,6 +202,12 @@ Stat:SetScript("OnEnter", function(self)
 		Currency(1822) -- Renown
 		Currency(1828) -- Soul Ash
 		Currency(1885) -- Grateful Offering
+		if T.newPatch then
+		Currency(1906) -- Soul Cinders
+		Currency(1904) -- Tower Knowledge
+		Currency(1931) -- Cataloged Research
+		Currency(1977) -- Stygian Ember
+		end
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
