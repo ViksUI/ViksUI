@@ -3,12 +3,6 @@
 ----------------------------------------------------------------------------------------
 --	Temporary stuff
 ----------------------------------------------------------------------------------------
--- Keep Nameplaye stacked
-C_Timer.After(.1, function()
-	if not InCombatLockdown() then
-        SetCVar("nameplateMotion", 1)
-	end
-end)
 
 ----------------------------------------------------------------------------------------
 --	Talent Advisor
@@ -17,11 +11,11 @@ end)
 Builds = {
 	DEATHKNIGHT = {
 		["Leveling Blood"] = {1,false, {1,2,2,1,3,3,1}},
-		["Leveling Frost"] = {2,false, {3,1,2,1,2,1,2}},
-		["Leveling Unholy"] = {3,false, {2,3,3,3,2,2,3}},
+		["Leveling Frost"] = {2,false, {1,2,2,1,2,1,2}},
+		["Leveling Unholy"] = {3,false, {3,3,3,3,2,2,1}},
 	},
 	DEMONHUNTER = {
-		["Leveling Havoc"] = {1,false, {2,2,2,1,2,2,1}},
+		["Leveling Havoc"] = {1,false, {1,1,3,1,1,3,1}},
 		["Leveling Vengeance"] = {2, false, {1,2,3,3,3,2,1}},
 	},
 	DRUID = {

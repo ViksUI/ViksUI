@@ -473,7 +473,7 @@ end
 --	Show M+ Score
 ----------------------------------------------------------------------------------------
 
-if C.tooltip.DungeonScore and T.newPatch then
+if C.tooltip.DungeonScore then
 	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
 		-- NPC ID's

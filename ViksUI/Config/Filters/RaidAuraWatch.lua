@@ -71,9 +71,7 @@ local function SpellName(id)
 	if name then
 		return name
 	else
-		if T.newPatch then
-			print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists in RaidAurawatch! Report this to Viks.|r")
-		end
+		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists in RaidAurawatch! Report this to Viks.|r")
 		return "Empty"
 	end
 end

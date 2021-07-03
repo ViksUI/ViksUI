@@ -42,6 +42,8 @@ T.PlateDangerous = {
 	["172005"] = "Interrupt (!!): Terrifying Roar (Fear)", -- Furrowed Colossus
 	["168098"] = "Interrupt (!!): Fear", -- Empowered Coldheart Agent
 	["156212"] = "Interrupt (!!): Fear", -- Coldheart Agent
+	----- Tazavesh, the Veiled Market -----
+	["177816"] = "Interrupt (!!): Spark Burn Also: Glyph of Restraint places a dispellable DoT. Ticks very hard", -- Gatewarden Zo'mazz
 }
 
 T.PlateImportant = {
@@ -83,6 +85,8 @@ T.PlateImportant = {
 	----- Torghast -----
 	["157571"] = "Interrupt (!!): Inner Flames (AOE Heal)", -- Mawsworn Flametender
 	["152898"] = "Interrupt (!!): Death Blast (Hit hard and Dot)", -- Deadsoul Chorus
+	----- Tazavesh, the Veiled Market -----
+	["178392"] = "Priority (!!): Radiant Pulse, applying a DoT to everybody", -- Gatewarden Zo'mazz
 }
 
 T.PlateNuke = {
@@ -104,6 +108,7 @@ T.PlateNuke = {
 	["166302"] = "Interrupt (!!!!)".. "\n".. "Drain Fluids", -- Corpse Harvester
 	----- Spires of Ascension -----
 	["163520"] = "Nearby enemies take 75% reduced AoE dmg.", -- Forsworn Squad-Leader
+	----- Tazavesh, the Veiled Market -----
 }
 
 T.PlateT3Mobs = {
@@ -144,6 +149,9 @@ T.PlateT3Mobs = {
 	["150958"] = "Dodge (!!): Massive Strike (Frontal cone)", -- Mawsworn Guard
 	["151127"] = "Interrupt (!!): Wave of Suffering (Massive AOE)", -- Lord of Torment
 	["156241"] = "Don't Move them (!!): Enrage if enemy moving", -- Monstrous Guardians
+	----- Tazavesh, the Veiled Market -----
+	["177817"] = "Refraction Shield - Deals dmg to player when attacking. Spellstealable".. "\n".. "Interrupt (i) Hyperlight Bolt - Heavy damage to a random target".. "\n".. "Interrupt (!): Hard Light Barrier - large damage absorb shield", -- Support Officer
+	["177808"] = "Pull Solo into area with big space", -- Armored Overseer
 }
 
 T.PlateTides = {
