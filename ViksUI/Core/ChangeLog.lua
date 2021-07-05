@@ -3,13 +3,10 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.26 for Wow version 9.1",
+		"Update 9.27 for Wow version 9.1",
 		"• Few skin fixes and updates",
-		"• Sanctum of Domination debuffs added ",
-		"• Tazavesh, the Veiled Market debuffs added",
-		"• Removed outdated spells from Filger",
-		"• New Blizz M+ score added to tooltip",
-		"• Weapon Oils added to Raidbuff reminder",
+		"• Cleanup files for patch changes ",
+		"• Fog of war, map reveal update",
 
 	" ",
 	"EXTRA:",
@@ -21,7 +18,7 @@ local ChangeLogData = {
 		"12 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
 		"",
-	"PATREON's: joelsoul, Wiggy, nAyu, Elewem, Bootleg Mix & Shaye",
+	"PATREON's: joelsoul, Wiggy, nAyu, Elewem & Bootleg Mix",
 }
 
 --// TODO LIST
