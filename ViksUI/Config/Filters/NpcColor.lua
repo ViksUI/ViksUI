@@ -43,7 +43,11 @@ T.PlateDangerous = {
 	["168098"] = "Interrupt (!!): Fear", -- Empowered Coldheart Agent
 	["156212"] = "Interrupt (!!): Fear", -- Coldheart Agent
 	----- Tazavesh, the Veiled Market -----
-	["177816"] = "Interrupt (!!): Spark Burn Also: Glyph of Restraint places a dispellable DoT. Ticks very hard", -- Gatewarden Zo'mazz
+	["177816"] = "Interrupt (!!): Spark Burn".. "\n".. "Also: Glyph of Restraint places a dispellable DoT. Ticks very hard", -- Gatewarden Zo'mazz
+	["179841"] = "Interrupt (!!): Hyperlight Salvo (Big ST damage on random player)".. "\n".. "Tank can intercept it", -- Sparkcaster
+	["180429"] = "Summon a little star. Blow up your group. Kill it quickly".. "\n".. "Drifting Star: Circle behind mob", -- Adorned Starseer
+	["179386"] = "Dodge: Sword Toss. HEAVY, channeled AoE damage in a random direction.", -- Corsair Officer
+	["180431"] = "Interrupt (!!): Unstable Rift (big AoE damage)", -- Focused Ritualist
 }
 
 T.PlateImportant = {
@@ -87,9 +91,26 @@ T.PlateImportant = {
 	["152898"] = "Interrupt (!!): Death Blast (Hit hard and Dot)", -- Deadsoul Chorus
 	----- Tazavesh, the Veiled Market -----
 	["178392"] = "Priority (!!): Radiant Pulse, applying a DoT to everybody", -- Gatewarden Zo'mazz
+	["177816"] = "Interrupt / Dispel (!!!) Statis Beam (Stun / Heavy damage)".. "\n".. "Dispel (!): Glyph of Restraint (DoT)", -- Interrogation Specialist
+	["179334"] = "Important: Summon first boss on death".. "\n".. "Dispel (!): Glyph of Restraint (DoT) Party wide".. "\n".. "Dodge portals and lines", -- Portalmancer Zo'honn
+	["176396"] = "Will try and open the creature cages. CC/stun to interrupt the cast", -- Defective Sorter
+	["176395"] = "Interrupt / Purge (!): Spam Filter".. "\n".. "Throws Junk Mail at random players".. "\n".. "On death: Purple bubble gives +50% haste to players / enemies", -- Overloaded Mailemental
+	["175677"] = "Soothe: Feral (Damage increase)", -- Smuggled Creature
+	["179840"] = "STACK in mele or it charges".. "\n".. "Stun Interrupt: Phalanx Field (75% magic DR)", -- Market Peacekeeper
+	["179842"] = "BIG Tank knockback".. "\n".. "Soothe: Force Multiplier (AoE dmg inc)", -- Commerce Enforcer
+	["178141"] = "Stun Interrupt (!!): Invig Fish Stick (AoE healing totem)".. "\n".. "Burn down totem if missed stun", -- Murkbrine Scalebinder
+	["178142"] = "Dodge / Interrupt: Volatile Pufferfish (blue AoE swirl)".. "\n".. "Interrupt: Waterbolt (Medium ST dmg)", -- Murkbrine Fishmancer
+	["178139"] = "Stun Interrupt (!): Cry of Mrrggllrrgg (AoE Enrage, +50% dmg)", -- Murkbrine Shellcrusher
+	["178171"] = "Dodge: Charged Pulse (3s cast - blue AoE circle)", -- Stormforged Guardian
+	["180015"] = "Stun Interrupt: Disruptive Shout (AoE damage)".. "\n".. "Soothe: Super Saison (+100% dmg buff)", -- Burly Deckhand
 }
 
 T.PlateNuke = {
+	----- Tormented Seasonal Mythic+ Affix  -----
+	["179446"] = "Aura if Alive: Damage over Time Effect".. "\n".. "Avoid fire on floor".. "\n".. "Dispell: Melt Soul - Increases fire damage taken", -- Incinerator Arkolath
+	["179892"] = "Aura if Alive: 50% Movement Speed Reduction".. "\n".. "Dodge Frost lance".. "\n".. "Move away with biting cold", -- Oros Coldheart
+	["179890"] = "Aura if Alive: 50% Reduced Healing".. "\n".. "Interrupt?: Sever - High physical damage to tank + short bleed effect. ".. "\n".. "Carnage - High physical damage to target + all in 5yard", -- Executioner Varruth
+	["179891"] = "Aura if Alive: 50% increased physical damage".. "\n".. "Dodge Massive Smash", -- Soggodon the Breaker
 	----- Mists of Tirna Scithe -----
 	["166301"] = "Stun(!!) deal physical damage and a bleed. ".. "\n".. "Not kitable and Unlimited range", -- Mistveil Stalker
 	----- De Other Side -----
@@ -109,6 +130,9 @@ T.PlateNuke = {
 	----- Spires of Ascension -----
 	["163520"] = "Nearby enemies take 75% reduced AoE dmg.", -- Forsworn Squad-Leader
 	----- Tazavesh, the Veiled Market -----
+	["179821"] = "Big Tank knockback".. "\n".. "Stay spread when linked".. "\n".. "Dodge orbs", -- Commander Zo'far (Miniboss)
+	["178165"] = "Tidal Stomp: Big AoE damage, stacks. 50y range".. "\n".. "Dodge: Boulder Throw (brown swirl)".. "\n".. "Hard Burn or outrange", -- Coastwalker Goliath
+	["180432"] = "Interrupt (!!): Reinvigorate (Heal + haste buff)".. "\n".. "Stacks dmg taken increase on the tank".. "\n".. "Kill quickly or kite", -- Devoted Accomplice
 }
 
 T.PlateT3Mobs = {
@@ -151,7 +175,9 @@ T.PlateT3Mobs = {
 	["156241"] = "Don't Move them (!!): Enrage if enemy moving", -- Monstrous Guardians
 	----- Tazavesh, the Veiled Market -----
 	["177817"] = "Refraction Shield - Deals dmg to player when attacking. Spellstealable".. "\n".. "Interrupt (i) Hyperlight Bolt - Heavy damage to a random target".. "\n".. "Interrupt (!): Hard Light Barrier - large damage absorb shield", -- Support Officer
-	["177808"] = "Pull Solo into area with big space", -- Armored Overseer
+	["177808"] = "Pull Solo into area with big space".. "\n".. "Rotating beam. Big DoT if hit by it", -- Armored Overseer
+	["180348"] = "During his Chronolight Enhancer buff: kite.".. "\n".. "Massive damage but verry slow", -- Cartel Muscle
+	["178388"] = "Fixate whoever is carrying the event item".. "\n".. "Hits VERY hard. Kite and kill", -- Bazaar Strongarm
 }
 
 T.PlateTides = {
