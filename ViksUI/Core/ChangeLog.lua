@@ -3,10 +3,11 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.27 for Wow version 9.1",
-		"• Few skin fixes and updates",
-		"• Cleanup files for patch changes ",
-		"• Fog of war, map reveal update",
+		"Update 9.28 for Wow version 9.1",
+		"• Tazavesh trash and Tormented m+ added to NpcColor",
+		"• Autobutton updated ",
+		"• More spells added",
+		"• Minor updated to multiple stuff",
 
 	" ",
 	"EXTRA:",
