@@ -43,7 +43,7 @@ T.PlateDangerous = {
 	["168098"] = "Interrupt (!!): Fear", -- Empowered Coldheart Agent
 	["156212"] = "Interrupt (!!): Fear", -- Coldheart Agent
 	----- Tazavesh, the Veiled Market -----
-	["177816"] = "Interrupt (!!): Spark Burn".. "\n".. "Also: Glyph of Restraint places a dispellable DoT. Ticks very hard", -- Gatewarden Zo'mazz
+	["178392"] = "Interrupt (!!): Spark Burn".. "\n".. "Also: Glyph of Restraint places a dispellable DoT. Ticks very hard", -- Gatewarden Zo'mazz
 	["179841"] = "Interrupt (!!): Hyperlight Salvo (Big ST damage on random player)".. "\n".. "Tank can intercept it", -- Sparkcaster
 	["180429"] = "Summon a little star. Blow up your group. Kill it quickly".. "\n".. "Drifting Star: Circle behind mob", -- Adorned Starseer
 	["179386"] = "Dodge: Sword Toss. HEAVY, channeled AoE damage in a random direction.", -- Corsair Officer
