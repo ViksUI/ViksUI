@@ -86,4 +86,6 @@ T.ABItems = {
 	[179921] = true,	-- Hydra Gutter
 	[182600] = true,	-- Gormling in a Bag
 	[186089] = true,	-- Niya's Staff
+	[182303] = true,	-- Assassin's Soulcloak
+	[186448] = true,	-- Mikanikos' Restorative Contraption
 }
