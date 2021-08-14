@@ -272,7 +272,13 @@ T.RaidDebuffs = {
 	[SpellName(240559)] = 4,	-- Grievous Wound
 	[SpellName(240443)] = 5,	-- Burst
 	[SpellName(342494)] = 3, 	-- Belligerent Boast (Prideful)
+	[SpellName(356667)] = 3, 	-- Biting Cold 1
+	[SpellName(356666)] = 3,	-- Biting Cold 2
+	[SpellName(355732)] = 3, 	-- Melt Soul
+	[SpellName(356925)] = 3, 	-- Carnage
+	[SpellName(358777)] = 3, 	-- Bindings of Misery
 
+	
 -- Shadowlands Dungeons	
 	-- Tazavesh, the Veiled Market
 	[SpellName(350804)] = 3, -- Collapsing Energy
