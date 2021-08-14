@@ -60,13 +60,13 @@ end)
 ----------------------------------------------------------------------------------------
 --	Farm mode for minimap(by Elv22)
 ----------------------------------------------------------------------------------------
-local show = false
+T.FarmMode = false
 SlashCmdList.FARMMODE = function()
-	if show == false then
+	if T.FarmMode == false then
 		MinimapAnchor:SetSize(C.minimap.size * 1.65, C.minimap.size * 1.65)
 		Minimap:SetSize(C.minimap.size * 1.65, C.minimap.size * 1.65)
 		MinimapAnchor:SetPoint("CENTER", UIParent, "CENTER", -460, -46)
-		show = true
+		T.FarmMode = true
 	else
 		MinimapAnchor:SetSize(C.minimap.size, C.minimap.size)
 		Minimap:SetSize(C.minimap.size, C.minimap.size)
@@ -75,7 +75,7 @@ SlashCmdList.FARMMODE = function()
 		else
 		MinimapAnchor:SetPoint(unpack(C.position.minimap))
 		end
-		show = false
+		T.FarmMode = false
 	end
 end
 SLASH_FARMMODE1 = "/farmmode"
