@@ -81,6 +81,8 @@ cfg.indicatorsize = C.unitframe.indicatorsize					-- Size on Squares on Indicato
 cfg.symbolsize = C.unitframe.symbolsize							-- Size on Symbols on Indicator type 2
 cfg.fontsizeEdge = C.unitframe.fontsizeEdge
 cfg.Findoutline = C.unitframe.Findoutline
+cfg.show_target = true
+cfg.show_pet = true
 
 
 

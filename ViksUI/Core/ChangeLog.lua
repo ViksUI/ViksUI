@@ -3,11 +3,9 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.28 for Wow version 9.1",
-		"• Tazavesh trash and Tormented m+ added to NpcColor",
-		"• Autobutton updated ",
-		"• More spells added",
-		"• Minor updated to multiple stuff",
+		"Update 9.29 for Wow version 9.1 and 9.1.5",
+		"• Adjusting for changes in 9.1.5",
+		"• Skada will not longer be in collection",
 
 	" ",
 	"EXTRA:",
@@ -19,7 +17,7 @@ local ChangeLogData = {
 		"12 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
 		"",
-	"PATREON's: joelsoul, Wiggy, nAyu, Elewem & Bootleg Mix",
+	"PATREON's: joelsoul, Wiggy, nAyu, Elewem & Bucky",
 }
 
 --// TODO LIST

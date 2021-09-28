@@ -25,15 +25,19 @@ LoadTootlipSkin:SetScript("OnEvent", function(self, _, addon)
 		}
 
 		for _, tt in pairs(Tooltips) do
-			tt.Background:SetTexture(nil)
-			tt.BorderTop:SetTexture(nil)
-			tt.BorderTopLeft:SetTexture(nil)
-			tt.BorderTopRight:SetTexture(nil)
-			tt.BorderLeft:SetTexture(nil)
-			tt.BorderRight:SetTexture(nil)
-			tt.BorderBottom:SetTexture(nil)
-			tt.BorderBottomRight:SetTexture(nil)
-			tt.BorderBottomLeft:SetTexture(nil)
+			if T.newPatch then
+				tt.NineSlice:SetAlpha(0)
+			else
+				tt.Background:SetTexture(nil)
+				tt.BorderTop:SetTexture(nil)
+				tt.BorderTopLeft:SetTexture(nil)
+				tt.BorderTopRight:SetTexture(nil)
+				tt.BorderLeft:SetTexture(nil)
+				tt.BorderRight:SetTexture(nil)
+				tt.BorderBottom:SetTexture(nil)
+				tt.BorderBottomRight:SetTexture(nil)
+				tt.BorderBottomLeft:SetTexture(nil)
+			end
 			tt:SetTemplate("Transparent")
 		end
 		T.SkinCloseButton(FloatingGarrisonFollowerTooltip.CloseButton)
@@ -72,6 +76,7 @@ local function LoadSkin()
 	GarrisonBuildingFrame:StripTextures()
 	GarrisonBuildingFrame:SetTemplate("Transparent")
 	T.SkinCloseButton(GarrisonBuildingFrame.CloseButton)
+	GarrisonBuildingFrame.GarrCorners:Hide()
 
 	for _, button in pairs({GarrisonBuildingFrame.TownHallBox.UpgradeButton, GarrisonBuildingFrame.InfoBox.UpgradeButton}) do
 		button:StripTextures(true)

@@ -128,6 +128,9 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		-- Reskin Dropdown menu
 		hooksecurefunc("UIDropDownMenu_InitializeHelper", function()
 			for i = 1, UIDROPDOWNMENU_MAXLEVELS do
+				if T.newPatch then
+					_G["DropDownList"..i.."MenuBackdrop"].NineSlice:SetAlpha(0)
+				end
 				_G["DropDownList"..i]["Border"]:StripTextures()
 				_G["DropDownList"..i.."Backdrop"]:SetTemplate("Transparent")
 				_G["DropDownList"..i.."MenuBackdrop"]:SetTemplate("Transparent")
@@ -289,6 +292,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 
 			-- NavBar Buttons (Used in EncounterJournal and HelpFrame)
 			local function SkinNavBarButtons(self)
+				if self:GetParent():GetName() == "WorldMapFrame" then return end
 				local navButton = self.navList[#self.navList]
 				if navButton and not navButton.isSkinned then
 					navButton:SkinButton(true)

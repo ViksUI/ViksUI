@@ -88,4 +88,5 @@ T.ABItems = {
 	[186089] = true,	-- Niya's Staff
 	[182303] = true,	-- Assassin's Soulcloak
 	[186448] = true,	-- Mikanikos' Restorative Contraption
+	[186474] = true,	-- Korayn's Javelin
 }
