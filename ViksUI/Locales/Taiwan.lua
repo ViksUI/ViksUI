@@ -227,17 +227,14 @@ L_WELCOME_LINE_2_2 = "獲取更多信息"
 
 -- Combat text
 L_COMBATTEXT_KILLING_BLOW = "最後一擊"
-L_COMBATTEXT_ALREADY_UNLOCKED = "戰鬥信息已經解鎖."
-L_COMBATTEXT_ALREADY_LOCKED = "戰鬥信息已經鎖定."
-L_COMBATTEXT_TEST_DISABLED = "戰鬥信息測試模式已禁用."
-L_COMBATTEXT_TEST_ENABLED = "戰鬥信息測試模式已啟用."
-L_COMBATTEXT_TEST_USE_UNLOCK = "輸入 /xct unlock 來移動或調整戰鬥信息框架大小."
-L_COMBATTEXT_TEST_USE_LOCK = "輸入 /xct lock 來鎖定戰鬥信息框架."
-L_COMBATTEXT_TEST_USE_TEST = "輸入 /xct test 來啟用或禁用戰鬥信息測試模式."
-L_COMBATTEXT_TEST_USE_RESET = "Type /xct reset to restore default positions." -- Need review
-L_COMBATTEXT_POPUP = "要保存戰鬥信息窗口的位置你需要重新載入插件."
-L_COMBATTEXT_UNSAVED = "戰鬥信息窗口位置尚未保存,不要忘記重新載入插件."
-L_COMBATTEXT_UNLOCKED = "戰鬥信息已解鎖."
+L_COMBATTEXT_TEST_DISABLED = "戰鬥信息測試模式已禁用"
+L_COMBATTEXT_TEST_ENABLED = "戰鬥信息測試模式已啟用"
+L_COMBATTEXT_TEST_USE_MOVE = "鍵入 /xct move 移動/調整戰鬥信息框架大小"
+L_COMBATTEXT_TEST_USE_TEST = "鍵入 /xct test 啟用/禁用戰鬥信息測試模式"
+L_COMBATTEXT_TEST_USE_RESET = "鍵入 /xct reset 重置到初始位置"
+L_COMBATTEXT_POPUP = "保存戰鬥信息窗口的位置須重載插件"
+L_COMBATTEXT_UNSAVED = "戰鬥信息窗口位置尚未保存，不要忘記重新載入插件。"
+L_COMBATTEXT_UNLOCKED = "戰鬥信息已解鎖"
 
 -- LiteStats
 L_STATS_ACC_PLAYED = "帳號啟用總時間"

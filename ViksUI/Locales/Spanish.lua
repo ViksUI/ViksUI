@@ -226,8 +226,6 @@ L_WELCOME_LINE_2_2 = "para más información."
 
 -- Combat text
 L_COMBATTEXT_KILLING_BLOW = "Golpe de gracia"
-L_COMBATTEXT_ALREADY_UNLOCKED = "Texto de combate desbloqueado."
-L_COMBATTEXT_ALREADY_LOCKED = "Texto de combate bloqueado."
 L_COMBATTEXT_TEST_DISABLED = "Modo Texto de combate deshabilitado."
 L_COMBATTEXT_TEST_ENABLED = "Modo Texto de combate habilitado."
 L_COMBATTEXT_TEST_USE_MOVE = "Escribe /xct move para mover y cambiar el tamaño del marco de texto de combate."

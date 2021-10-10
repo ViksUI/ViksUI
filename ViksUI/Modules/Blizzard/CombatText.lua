@@ -9,7 +9,7 @@ local ct = {
 	["justify_1"] = "LEFT",			-- Incoming damage justify
 	["justify_2"] = "RIGHT",		-- Incoming healing justify
 	["justify_3"] = "CENTER",		-- Various messages justify
-	["justify_4"] = "RIGHT",		-- Outgoing damage/healing justify
+	["justify_4"] = "LEFT",		-- Outgoing damage/healing justify
 }
 
 -- Do not edit below unless you know what you are doing
@@ -685,8 +685,7 @@ SlashCmdList.XCT = function(input)
 		end
 		ReloadUI()
 	else
-		pr("|cffffff00"..L_COMBATTEXT_TEST_USE_UNLOCK.."|r")
-		pr("|cffffff00"..L_COMBATTEXT_TEST_USE_LOCK.."|r")
+		pr("|cffffff00"..L_COMBATTEXT_TEST_USE_MOVE.."|r")
 		pr("|cffffff00"..L_COMBATTEXT_TEST_USE_TEST.."|r")
 		pr("|cffffff00"..L_COMBATTEXT_TEST_USE_RESET.."|r")
 	end

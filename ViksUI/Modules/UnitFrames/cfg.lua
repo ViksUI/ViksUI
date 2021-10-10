@@ -151,7 +151,7 @@ cfg.showarena = false
 	          Party = { x=	  0, y=     0},
               Arena = { x= 	  0, y=     0},	
            PCastbar = { x= 	 32, y=    -2},
-           TCastbar = { x= 	 -6, y=    -2},
+           TCastbar = { x= 	 -4, y=    -2},
            FCastbar = { x= 	 -5, y=   -12},
            ACastbar = { x= 	 -6, y=   -2},		   
 }

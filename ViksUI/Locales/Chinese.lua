@@ -226,8 +226,6 @@ L_WELCOME_LINE_2_2 = "获取更多信息。"
 
 -- Combat text
 L_COMBATTEXT_KILLING_BLOW = "最后一击"
-L_COMBATTEXT_ALREADY_UNLOCKED = "战斗信息已解锁"
-L_COMBATTEXT_ALREADY_LOCKED = "战斗信息已锁定"
 L_COMBATTEXT_TEST_DISABLED = "战斗信息测试模式已禁用"
 L_COMBATTEXT_TEST_ENABLED = "战斗信息测试模式已启用"
 L_COMBATTEXT_TEST_USE_MOVE = "键入 /xct move 移动/调整战斗信息框架大小"
