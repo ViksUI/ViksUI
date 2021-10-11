@@ -2661,8 +2661,13 @@ do
 	local shift_marking = ns.CreateCheckBox(parent, "shift_marking")
 	shift_marking:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
+	local LFD_keyword = ns.CreateEditBox(parent, "LFD_keyword", true, "LFD Text Note")
+	LFD_keyword:SetPoint("TOPLEFT", shift_marking, "BOTTOMLEFT", 6, -10)
+	LFD_keyword:SetWidth(200)
+	LFD_keyword:SetMaxLetters(40)
+	
 	local invite_keyword = ns.CreateEditBox(parent, "invite_keyword", true, L_GUI_MISC_INVKEYWORD)
-	invite_keyword:SetPoint("TOPLEFT", shift_marking, "BOTTOMLEFT", 6, -10)
+	invite_keyword:SetPoint("TOPLEFT", LFD_keyword, "BOTTOMLEFT", 0, -10)
 
 	local afk_spin_camera = ns.CreateCheckBox(parent, "afk_spin_camera")
 	afk_spin_camera:SetPoint("TOPLEFT", invite_keyword, "BOTTOMLEFT", -6, -10)

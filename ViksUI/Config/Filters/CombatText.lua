@@ -24,6 +24,9 @@ if C.combattext.merge_aoe_spam then
 	T.aoespam[321519] = 5			-- Paralytic Poison (Covenant Night Fae)
 	T.aoespam[344155] = 1			-- Gluttonous Spike (Trinket)
 	T.aoespam[356320] = 10			-- Siphon Essence (Unholy Shard)
+	T.aoespam[345466] = 3			-- Liquefying Ooze (Trinket)
+	T.aoespam[355759] = 3			-- Frozen Heart (Trinket)
+	T.aoespam[333526] = 3			-- Spiked Burrs (Night Fae Soulbind)
 end
 
 -- Class config
@@ -131,6 +134,10 @@ elseif T.class == "DEMONHUNTER" then
 		T.aoespam[236237] = 2		-- Chaos Cleave
 		T.aoespam[203794] = 2		-- Consume Soul
 		T.aoespam[307046] = 0		-- Elysian Decree (Covenant Kyrian)
+		T.aoespam[345335] = 3		-- The Hunt (DoT)
+		T.aoespam[345423] = 6		-- The Hunt (Heal)
+		T.aoespam[342857] = 3		-- Glaive Tempest
+		T.aoespam[346278] = 3		-- Burning Wound (Legendary)
 	end
 elseif T.class == "DRUID" then
 	if C.combattext.merge_aoe_spam then
@@ -452,7 +459,7 @@ elseif T.class == "ROGUE" then
 		T.aoespam[1943] = 5			-- Rupture
 		T.aoespam[152150] = 3		-- Death from Above
 		T.aoespam[114014] = 3		-- Shuriken Toss
-		T.aoespam[114014] = 3		-- Shuriken Toss
+		T.aoespam[319175] = 3		-- Black Powder
 		T.merge[27576] = 5374		-- Mutilate Off-Hand
 		T.merge[113780] = 2818		-- Deadly Poison
 		T.merge[57842] = 57841		-- Killing Spree Off-Hand

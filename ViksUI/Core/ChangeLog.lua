@@ -3,7 +3,7 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.29 for Wow version 9.1 and 9.1.5",
+		"Update 9.30 for Wow version 9.1 and 9.1.5",
 		"• Adjusting for changes in 9.1.5",
 		"• Skada will not longer be in collection",
 

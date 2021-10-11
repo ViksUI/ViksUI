@@ -84,6 +84,7 @@ C["minimap"] = {
 C["misc"] = {
 	["shift_marking"] = true,					-- Marks target when you push "shift"
 	["invite_keyword"] = "inv",					-- Short keyword for invite(for enable - in game type /ainv)
+	["LFD_keyword"] = "none",					-- Description to change text in LFD note - none for disable
 	["afk_spin_camera"] = true,					-- Spin camera while afk
 	["afk_spin_camera_anim"] = 69,				-- Spin camera modell animation
 	["quest_auto_button"] = true,				-- Quest auto button

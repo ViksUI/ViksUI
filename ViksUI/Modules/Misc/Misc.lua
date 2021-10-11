@@ -409,3 +409,22 @@ UIErrorsFrame:SetFrameLevel(0)
 ----------------------------------------------------------------------------------------
 
 hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)
+
+
+if C.misc.LFD_keyword == "none" then
+else
+LFGListApplicationDialog:HookScript("OnShow", function(self) LFGListApplicationDialogDescription.EditBox.Instructions:SetText(C.misc.LFD_keyword) end)
+end
+
+local function OnDoubleClick(self, button)
+  	if IsInGroup() then
+    else
+    LFGListSearchPanel_SignUp(self:GetParent():GetParent():GetParent())
+    LFGListApplicationDialog.SignUpButton:Click()
+    end
+end
+
+for _, button in pairs(LFGListFrame.SearchPanel.ScrollFrame.buttons) do
+    button:SetScript("OnDoubleClick", OnDoubleClick)
+end
+--LFGListApplicationDialogDescription.EditBox.Instructions:SetText("Test")
