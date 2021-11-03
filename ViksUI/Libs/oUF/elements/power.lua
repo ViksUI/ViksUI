@@ -60,33 +60,14 @@ local function UpdateColor(element, unit, cur, min, max, displayType)
 		r, g, b = t[1], t[2], t[3]
 	end
 
-	t = parent.colors.power[ptoken or ptype]
+	if(b) then
+		element:SetStatusBarColor(r, g, b)
 
-	local atlas = element.atlas or (t and t.atlas)
-	if(element.useAtlas and atlas and displayType ~= ALTERNATE_POWER_INDEX) then
-		element:SetStatusBarAtlas(atlas)
-		element:SetStatusBarColor(1, 1, 1)
-
-		if(element.colorTapping or element.colorDisconnected) then
-			t = element.disconnected and parent.colors.disconnected or parent.colors.tapped
-			element:GetStatusBarTexture():SetDesaturated(element.disconnected or element.tapped)
+		local bg = element.bg
+		if(bg) then
+			local mu = bg.multiplier or 1
+			bg:SetVertexColor(r * mu, g * mu, b * mu)
 		end
-
-		if(t and (r or g or b)) then
-			r, g, b = t[1], t[2], t[3]
-		end
-	else
-		element:SetStatusBarTexture(element.texture)
-
-		if(r or g or b) then
-			element:SetStatusBarColor(r, g, b)
-		end
-	end
-
-	local bg = element.bg
-	if(bg and b) then
-		local mu = bg.multiplier or 1
-		bg:SetVertexColor(r * mu, g * mu, b * mu)
 	end
 end
 
@@ -205,9 +186,8 @@ local function Enable(self)
 		self:RegisterEvent('UNIT_FACTION', Path) -- For tapping
 		self:RegisterEvent('UNIT_FLAGS', Path) -- For selection
 
-		if(element:IsObjectType('StatusBar')) then
-			element.texture = element:GetStatusBarTexture() and element:GetStatusBarTexture():GetTexture() or [[Interface\TargetingFrame\UI-StatusBar]]
-			element:SetStatusBarTexture(element.texture)
+		if(element:IsObjectType('StatusBar') and not (element:GetStatusBarTexture() or element:GetStatusBarAtlas())) then
+			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 		end
 
 		if(not element.UpdateColor) then

@@ -69,10 +69,8 @@ local function LoadSkin()
 	bg:SetPoint("TOPLEFT", 10, -72)
 	bg:SetPoint("BOTTOMRIGHT", -8, 3)
 
-	CalendarContextMenu:SetTemplate("Transparent")
-	CalendarContextMenu.SetBackdropColor = T.dummy
-	CalendarContextMenu.SetBackdropBorderColor = T.dummy
-	CalendarInviteStatusContextMenu:SetTemplate("Transparent")
+	_G.CalendarContextMenu.NineSlice:SetTemplate('Transparent')
+	_G.CalendarInviteStatusContextMenu.NineSlice:SetTemplate('Transparent')
 
 	-- Boost frame levels
 	for i = 1, 42 do

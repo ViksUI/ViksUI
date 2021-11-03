@@ -581,4 +581,5 @@ T.OpenItems = {
 	[184647] = true,	-- Hero's Herbalism Cache
 	[184648] = true,	-- Hero's Enchanting Cache
 	[180974] = true,	-- Novice's Satchel
+	[183699] = true,	-- Exquisite Ingredients
 }

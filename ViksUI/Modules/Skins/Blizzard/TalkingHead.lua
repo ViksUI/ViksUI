@@ -7,7 +7,7 @@ if C.skins.blizzard_frames ~= true then return end
 local LoadSkin = CreateFrame("Frame")
 LoadSkin:RegisterEvent("ADDON_LOADED")
 LoadSkin:SetScript("OnEvent", function(_, _, addon)
-	if addon == "Blizzard_TalkingHeadUI" or (addon == "ShestakUI" and TalkingHeadFrame) then
+	if addon == "Blizzard_TalkingHeadUI" or (addon == "ViksUI" and TalkingHeadFrame) then
 		TalkingHeadFrame:StripTextures()
 		TalkingHeadFrame:CreateBackdrop("Transparent")
 		TalkingHeadFrame.backdrop:SetPoint("TOPLEFT", 13, -13)

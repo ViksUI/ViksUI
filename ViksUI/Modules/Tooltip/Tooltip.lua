@@ -93,8 +93,7 @@ end)
 if IsAddOnLoaded("RaiderIO") then
 	PVEFrame:HookScript("OnShow", function(self)
 		if not RaiderIO_ProfileTooltip.styled then
-			RaiderIO_ProfileTooltip:SetBackdrop(nil)
-			RaiderIO_ProfileTooltip.SetBackdrop = T.dummy
+			RaiderIO_ProfileTooltip.NineSlice:SetAlpha(0)
 			RaiderIO_ProfileTooltip:CreateBackdrop("Transparent")
 			RaiderIO_ProfileTooltip.backdrop:SetPoint("TOPLEFT", 3, 0)
 			RaiderIO_ProfileTooltip.backdrop:SetPoint("BOTTOMRIGHT", -2, 0)
