@@ -3,7 +3,7 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.31 for Wow 9.1.5",
+		"Update 9.32 for Wow 9.1.5",
 		"• Adjusting for changes in 9.1.5",
 
 	" ",
@@ -16,7 +16,7 @@ local ChangeLogData = {
 		"12 years with hundreds of hours on coding, ",
 		"and countless hours with support for free!",
 		"",
-	"PATREON's: joelsoul, Wiggy, nAyu, Elewem & Bucky",
+	"PATREON's: joelsoul, Wiggy, nAyu & Elewem",
 }
 
 --// TODO LIST

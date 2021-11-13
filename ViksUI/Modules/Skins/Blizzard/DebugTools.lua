@@ -5,13 +5,8 @@ if C.skins.blizzard_frames ~= true then return end
 --	DebugTools skin
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
-
 	FrameStackTooltip:HookScript("OnShow", function(self)
-		if T.newPatch then -- TODO: detete in new patch
-			self.NineSlice:SetTemplate("Transparent")
-		else
-			self:SetTemplate("Transparent")
-		end
+		self.NineSlice:SetTemplate("Transparent")
 	end)
 end
 
