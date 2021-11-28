@@ -305,8 +305,8 @@ local UploadBartender = function()
 							}, -- [6]
 							{
 								["position"] = {
-									["y"] = 144.5,
-									["x"] = 351.5,
+									["y"] = 120,
+									["x"] = 466,
 									["point"] = "CENTER",
 								},
 								["version"] = 3,

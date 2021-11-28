@@ -387,18 +387,10 @@ for i = 1, numf do
 	f:SetInsertMode(C.combattext.direction and 2 or 1)
 	if i == 1 then
 		f:SetJustifyH(ct.justify_1)
-		if C.unitframe.enable == true and _G.oUF_Player then
-			f:SetPoint("BOTTOMLEFT", "oUF_Player", "TOPLEFT", -3, 60)
-		else
-			f:SetPoint("CENTER", -600, 180)
-		end
+		f:SetPoint("CENTER", -600, 180)
 	elseif i == 2 then
 		f:SetJustifyH(ct.justify_2)
-		if C.unitframe.enable == true and _G.oUF_Player then
-			f:SetPoint("BOTTOMRIGHT", "oUF_Player", "TOPRIGHT", 5, 60)
-		else
-			f:SetPoint("CENTER", -460, 180)
-		end
+		f:SetPoint("CENTER", -460, 180)
 	elseif i == 3 then
 		f:SetJustifyH(ct.justify_3)
 		f:SetWidth(256)
@@ -409,11 +401,7 @@ for i = 1, numf do
 		if C.combattext.icons then
 			f:SetHeight(150)
 		end
-		if C.unitframe.enable == true and _G.oUF_Target then
-			f:SetPoint("BOTTOMRIGHT", "oUF_Target", "TOPRIGHT", -150, 150)
-		else
-			f:SetPoint("CENTER", 250, 90)
-		end
+		f:SetPoint("CENTER", 460, 180)
 		local a, _, c = f:GetFont()
 		if C.font.combat_text_font_size == "auto" then
 			if C.combattext.icons then
