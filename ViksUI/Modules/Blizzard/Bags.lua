@@ -792,14 +792,18 @@ function Stuffing:CreateBagFrame(w)
 		if IsAltKeyDown() or IsShiftKeyDown() then
 			self:StartMoving()
 			DragFunction(self, true)
+			f.moved = true
 		end
 	end)
 
 	f:SetScript("OnDragStop", function(self)
-		self:StopMovingOrSizing()
-		DragFunction(self, false)
-		local ap, _, rp, x, y = f:GetPoint()
-		ViksUIPositions[f:GetName()] = {ap, "UIParent", rp, x, y}
+		if f.moved then	-- prevent false register without modifier key
+			self:StopMovingOrSizing()
+			DragFunction(self, false)
+			local ap, _, rp, x, y = f:GetPoint()
+			ViksUIPositions[f:GetName()] = {ap, "UIParent", rp, x, y}
+			f.moved = nil
+		end
 	end)
 
 	f:SetScript("OnMouseDown", function(_, button)
@@ -1296,7 +1300,7 @@ function Stuffing:SetBagsForSorting(c)
 		bids = bids..i.." "
 	end
 
-	--Print(bids)
+	print(bids)
 end
 
 -- Slash command handler
@@ -1338,9 +1342,9 @@ local function StuffingSlashCmd(Cmd)
 			Print(L_BAG_OPEN_BANK)
 		end
 	else
-		Print("/bags sort - "..L_BAG_SORT)
-		Print("/bags stack - "..L_BAG_STACK)
-		Print("/bags purchase - "..L_BAG_BUY_BANKS_SLOT)
+		print("/bags sort - "..L_BAG_SORT)
+		print("/bags stack - "..L_BAG_STACK)
+		print("/bags purchase - "..L_BAG_BUY_BANKS_SLOT)
 	end
 end
 
