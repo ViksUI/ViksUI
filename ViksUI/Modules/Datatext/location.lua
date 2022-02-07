@@ -92,7 +92,7 @@ local function Update(self, t)
 		y = math.floor(100 * y) or 0
 		
 		local eventcount = 0
-		if (InCombatLockdown() and eventcount > 25000) or (not InCombatLockdown() and eventcount > 10000) or event == "PLAYER_ENTERING_WORLD" then
+		if (InCombatLockdown() and eventcount > 5000) or (not InCombatLockdown() and eventcount > 5000) or event == "PLAYER_ENTERING_WORLD" then
 			collectgarbage("collect")
 			eventcount = 0
 		end

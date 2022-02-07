@@ -57,6 +57,7 @@ C["general"] = {
 	["vehicle_mouseover"] = false,				-- Vehicle frame on mouseover
 	["hide_banner"] = false,					-- Hide Boss Banner Loot Frame
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
+	["hide_maw_buffs"] = false,					-- Hide Maw Buffs frame in instances
 }
 
 ----------------------------------------------------------------------------------------

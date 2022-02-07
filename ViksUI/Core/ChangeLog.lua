@@ -3,20 +3,23 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.32 for Wow 9.1.5",
-		"• Adjusting for changes in 9.1.5",
+		"Update 9.33 for Wow 9.1.5",
+		"• Added check spec for missing enchants",
+		"• Show Battle res on RaidCD in 5man",
+		"• Minor adjustments and functions",
 
 	" ",
 	"EXTRA:",
-	"Big thanks to the Patreon's that keep supporting me!",
-	"Helps me push myself to keep the addon alive",
+	"THIS IS LAST UPDATE!!!",
+	"I feel the time has come to stop publish this addon",
 		"",
 	"NOTE:",
-		"ALL support on Discord only",
-		"12 years with hundreds of hours on coding, ",
-		"and countless hours with support for free!",
+		"I don't keep supsctiption up all the time",
+		"due to little game time, so updating the addon ",
+		"will no longer be published. Takes to much time",
 		"",
-	"PATREON's: joelsoul, Wiggy, nAyu & Elewem",
+	"PATREON's: Wiggy has been with me a long time and currently only one!",
+	"But thanks to all who have used the addon and those supported my work",
 }
 
 --// TODO LIST
