@@ -1743,7 +1743,7 @@ C["filger_spells"] = {
 			-- Adrenaline Rush
 			{spellID = 13750, filter = "CD"},
 			-- Between the Eyes
-			{spellID = 199804, filter = "CD"},
+			{spellID = 315341, filter = "CD"},
 			-- Riposte
 			{spellID = 199754, filter = "CD"},
 			-- Cloak of Shadows

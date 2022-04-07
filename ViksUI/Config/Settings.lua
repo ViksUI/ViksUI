@@ -48,7 +48,7 @@ end
 ----------------------------------------------------------------------------------------
 C["general"] = {
 	["auto_scale"] = true,						-- Autoscale
-	["uiscale"] = 0.96,							-- Your value(between 0.64 and 1) if "auto_scale" is disable
+	["uiscale"] = 0.75,							-- Your value(between 0.64 and 1) if "auto_scale" is disable
 	["welcome_message"] = true,					-- Enable welcome message in chat
 	-- Blizzard UI
 	["error_filter"] = "BLACKLIST",				-- Filter Blizzard red errors (BLACKLIST, WHITELIST, COMBAT, NONE)
@@ -57,7 +57,13 @@ C["general"] = {
 	["vehicle_mouseover"] = false,				-- Vehicle frame on mouseover
 	["hide_banner"] = false,					-- Hide Boss Banner Loot Frame
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
+	["hide_maw_buffs"] = false,					-- Hide Maw Buffs frame in instances
 }
+
+if T.screenHeight == 1440 then
+	C.general.auto_scale = false
+	C.general.uiscale = 0.64
+end
 
 ----------------------------------------------------------------------------------------
 --	Minimap options
@@ -570,10 +576,10 @@ C["bag"] = {
 ----------------------------------------------------------------------------------------
 C["loot"] = {
 	["lootframe"] = true,                  
-	["rolllootframe"] = true,
+	["rolllootframe"] = false,
 	["icon_size"] = 22,							-- Icon size
 	["width"] = 221,							-- Loot window width
-	["auto_greed"] = true,						-- Push "greed" or "disenchant" button when an item roll
+	["auto_greed"] = false,						-- Push "greed" or "disenchant" button when an item roll
 	["auto_confirm_de"] = true,					-- Auto confirm disenchant
 	["faster_loot"] = true,						-- Faster auto looting
 }

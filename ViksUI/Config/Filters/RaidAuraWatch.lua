@@ -256,27 +256,104 @@ T.RaidDebuffs = {
 	[SpellName(351092)] = 3, -- Destabilize 1
 	[SpellName(351091)] = 3, -- Destabilize 2
 	[SpellName(348064)] = 3, -- Wailing Arrow
+	
+----------------------------------------------------------
+-------------- Sepulcher of the First Ones ---------------
+----------------------------------------------------------
+	-- Vigilant Guardian
+	[SpellName(364447)] = 3, -- Dissonance
+	[SpellName(364904)] = 6, -- Anti-Matter
+	[SpellName(364881)] = 5, -- Matter Disolution
+	[SpellName(360415)] = 5, -- Defenseless
+	[SpellName(360412)] = 4, -- Exposed Core
+	[SpellName(366393)] = 5, -- Searing Ablation
+	-- Skolex, the Insatiable Ravener
+	[SpellName(364522)] = 2, -- Devouring Blood
+	[SpellName(359976)] = 2, -- Riftmaw
+	[SpellName(359981)] = 2, -- Rend
+	[SpellName(360098)] = 3, -- Warp Sickness
+	[SpellName(366070)] = 3, -- Volatile Residue
+	-- Artificer Xy'mox
+	[SpellName(364030)] = 3, -- Debilitating Ray
+	[SpellName(365681)] = 2, -- System Shock
+	[SpellName(363413)] = 4, -- Forerunner Rings A
+	[SpellName(364604)] = 4, -- Forerunner Rings B
+	[SpellName(362615)] = 6, -- Interdimensional Wormhole Player 1
+	[SpellName(362614)] = 6, -- Interdimensional Wormhole Player 2
+	[SpellName(362803)] = 5, -- Glyph of Relocation
+	-- Dausegne, The Fallen Oracle
+	[SpellName(361751)] = 2, -- Disintegration Halo
+	[SpellName(364289)] = 2, -- Staggering Barrage
+	[SpellName(361018)] = 2, -- Staggering Barrage Mythic 1
+	[SpellName(360960)] = 2, -- Staggering Barrage Mythic 2
+	[SpellName(361225)] = 2, -- Encroaching Dominion
+	[SpellName(361966)] = 2, -- Infused Strikes
+	-- Prototype Pantheon
+	[SpellName(365306)] = 2, -- Invigorating Bloom
+	[SpellName(361689)] = 3, -- Wracking Pain
+	[SpellName(366232)] = 4, -- Animastorm
+	[SpellName(364839)] = 2, -- Sinful Projection
+	[SpellName(360259)] = 5, -- Gloom Bolt
+	[SpellName(362383)] = 5, -- Anima Bolt
+	[SpellName(362352)] = 6, -- Pinned
+	-- Lihuvim, Principle Architect
+	[SpellName(360159)] = 5, -- Unstable Protoform Energy
+	[SpellName(363681)] = 3, -- Deconstructing Blast
+	[SpellName(363676)] = 4, -- Deconstructing Energy Player 1
+	[SpellName(363795)] = 4, -- Deconstructing Energy Player 2
+	[SpellName(364312)] = 5, -- Ephemeral Barrier
+	-- Halondrus the Reclaimer
+	[SpellName(361309)] = 3, -- Lightshatter Beam
+	[SpellName(361002)] = 4, -- Ephemeral Fissure
+	[SpellName(360114)] = 4, -- Ephemeral Fissure II
+	-- Anduin Wrynn
+	[SpellName(365293)] = 2, -- Befouled Barrier
+	[SpellName(363020)] = 3, -- Necrotic Claws
+	[SpellName(365021)] = 5, -- Wicked Star (marked)
+	[SpellName(365024)] = 6, -- Wicked Star (hit)
+	[SpellName(365445)] = 3, -- Scarred Soul
+	[SpellName(365008)] = 4, -- Psychic Terror
+	[SpellName(366849)] = 6, -- Domination Word: Pain
+	-- Lords of Dread
+	[SpellName(360148)] = 5, -- Bursting Dread
+	[SpellName(360012)] = 4, -- Cloud of Carrion
+	[SpellName(360146)] = 4, -- Fearful Trepidation
+	[SpellName(360241)] = 6, -- Unsettling Dreams
+	-- Rygelon
+	[SpellName(362206)] = 6, -- Event Horizon
+	[SpellName(362137)] = 4, -- Corrupted Wound
+	[SpellName(361548)] = 5, -- Dark Eclipse
+	-- The Jailer
+	[SpellName(362075)] = 6, -- Domination
+	[SpellName(365150)] = 6, -- Rune of Domination
+	[SpellName(363893)] = 5, -- Martyrdom
+	[SpellName(363886)] = 5, -- Imprisonment
+	[SpellName(365219)] = 5, -- Chains of Anguish
+	[SpellName(366285)] = 6, -- Rune of Compulsion
+	[SpellName(363332)] = 5, -- Unbreaking Grasp
 -----------------------------------------------------------------
 -- Dungeons
 -----------------------------------------------------------------
-	-- Mythic+
-	[SpellName(209859)] = 3, 	-- Bolster
-	[SpellName(178658)] = 3, 	-- Raging
-	[SpellName(226510)] = 3, 	-- Sanguine
-	[SpellName(343502)] = 3, 	-- Inspiring
-	[SpellName(342332)] = 3,	-- Bursting With Pride (Prideful)
-	[SpellName(340880)] = 3, 	-- Prideful
-	[SpellName(226489)] = 5,	-- Sanguine Ichor
-	[SpellName(226512)] = 3, 	-- Sanguine
-	[SpellName(209858)] = 4,	-- Necrotic Wound
-	[SpellName(240559)] = 4,	-- Grievous Wound
-	[SpellName(240443)] = 5,	-- Burst
-	[SpellName(342494)] = 3, 	-- Belligerent Boast (Prideful)
-	[SpellName(356667)] = 3, 	-- Biting Cold 1
-	[SpellName(356666)] = 3,	-- Biting Cold 2
-	[SpellName(355732)] = 3, 	-- Melt Soul
-	[SpellName(356925)] = 3, 	-- Carnage
-	[SpellName(358777)] = 3, 	-- Bindings of Misery
+	
+-------------------- Mythic+ Specific --------------------
+-- General Affixes
+	[SpellName(209858)] = 3, -- Necrotic
+	[SpellName(226512)] = 3, -- Sanguine
+	[SpellName(240559)] = 3, -- Grievous
+	[SpellName(240443)] = 3, -- Bursting
+-- Shadowlands Season 2
+	[SpellName(356667)] = 6, -- Biting Cold 1
+	[SpellName(356666)] = 6, -- Biting Cold 2
+	[SpellName(355732)] = 6, -- Melt Soul
+	[SpellName(356925)] = 6, -- Carnage
+	[SpellName(358777)] = 6, -- Bindings of Misery
+-- Shadowlands Season 3
+	[SpellName(368241)] = 3, -- Decrypted Urh Cypher
+	[SpellName(368244)] = 4, -- Urh Cloaking Field
+	[SpellName(368240)] = 3, -- Decrypted Wo Cypher
+	[SpellName(368239)] = 3, -- Decrypted Vy Cypher
+	[SpellName(366297)] = 6, -- Deconstruct (Tank Debuff)
+	[SpellName(366288)] = 6, -- Force Slam (Stun)
 
 	
 -- Shadowlands Dungeons	

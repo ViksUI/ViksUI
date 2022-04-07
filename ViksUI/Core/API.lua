@@ -10,8 +10,11 @@ local floor = math.floor
 local class = select(2, UnitClass("player"))
 local Noop = function() return end
 
-T.Mult = T.mult
-T.Scale = T.Scale
+local Mult = T.mult
+if T.screenHeight > 1200 then
+	Mult = T.Scale(1)
+end
+
 ----------------------------------------------------------------------------------------
 --	Position functions
 ----------------------------------------------------------------------------------------
@@ -125,8 +128,7 @@ local function CreateOverlay(f)
 	if f.overlay then return end
 
 	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
-	overlay:SetPoint("TOPLEFT", 2, -2)
-	overlay:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlay:SetInside()
 	overlay:SetTexture(C.media.blank)
 	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
 	f.overlay = overlay
@@ -232,8 +234,7 @@ local function CreateBackdrop(f, t)
 	if not t then t = "Default" end
 
 	local b = CreateFrame("Frame", "$parentBackdrop", f)
-	b:SetPoint("TOPLEFT", -2, 2)
-	b:SetPoint("BOTTOMRIGHT", 2, -2)
+	b:SetOutside()
 	b:SetTemplate(t)
 
 	if f:GetFrameLevel() - 1 >= 0 then
@@ -421,16 +422,19 @@ local function SkinIcon(icon, t, parent)
 	if t then
 		icon.b = CreateFrame("Frame", nil, parent)
 		icon.b:SetTemplate("Default")
-		icon.b:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
-		icon.b:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
+		icon.b:SetOutside(icon)
 	else
 		parent:CreateBackdrop("Default")
-		parent.backdrop:SetPoint("TOPLEFT", icon, -2, 2)
-		parent.backdrop:SetPoint("BOTTOMRIGHT", icon, 2, -2)
+		parent.backdrop:SetOutside(icon)
 	end
 
 	icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	icon:SetParent(t and icon.b or parent)
+end
+
+local function CropIcon(icon)
+	icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	icon:SetInside()
 end
 
 ----------------------------------------------------------------------------------------
@@ -533,6 +537,7 @@ local function addAPI(object)
 	if not object.StyleButton then mt.StyleButton = StyleButton end
 	if not object.SkinButton then mt.SkinButton = SkinButton end
 	if not object.SkinIcon then mt.SkinIcon = SkinIcon end
+	if not object.CropIcon then mt.CropIcon = CropIcon end
 	if not object.FontString then mt.FontString = FontString end
 	if not object.FadeIn then mt.FadeIn = FadeIn end
 	if not object.FadeOut then mt.FadeOut = FadeOut end
