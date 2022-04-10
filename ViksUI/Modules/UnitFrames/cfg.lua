@@ -37,6 +37,7 @@ cfg.pixelfont = mediapath.."Font\\pixel.ttf"							-- Pixelfont, working on addi
 cfg.ShowRaid = C.unitframe.ShowRaid								-- Show Raid Frames
 cfg.portraitHPbar = C.unitframe.showPortraitHPbar				-- show portraits on Healthbar
 cfg.showPortrait = C.unitframe.showPortrait						-- show portraits Icon
+cfg.portrait_type = C.unitframe.portrait_type					-- Type of portraits (3D, 2D, ICONS, OVERLAY)
 cfg.HealFrames = C.unitframe.HealFrames							-- Healing layout/positions
 cfg.HealthcolorClass = C.unitframe.HealthcolorClass				-- health color = class color
 cfg.showLFDIcons = C.unitframe.showLFDIcons						-- Show LFD Icons, must be true to show the other 2 options. False on next 2 to show default icons.
@@ -94,33 +95,32 @@ cfg.showarena = false
 	-----------------------------
 	-- Frames Size and Positions
 	-----------------------------
-	
-
  cfg.unit_size = { 			
-             Portrait = { w=   56, 	h= 56},  
-               Player = { w=  245, 	h= 60},  
-               Target = { w=  245, 	h= 60},  
-         Targettarget = { w=  120, 	h= 27},  
-                Focus = { w=  200, 	h= 24},  
-          Focustarget = { w=  120, 	h= 27},  
-                  Pet = { w=  120, 	h= 27},
-            PetTarget = { w=   95, 	h= 24}, 				  
-                 Boss = { w=  150,	h= 20},  
-                 Tank = { w=  180, 	h= 20},
-                TankH = { w=  150, 	h= 20},				 
-              Raid10H = { w=  100, 	h= 40},
-              Raid25H = { w=   60, 	h= 30},		
-			   Raid25 = { w=   45, 	h= 30},
-              Raid40H = { w=   40, 	h= 30},
-               Raid40 = { w=   40, 	h= 30},				  
-	            Party = { w=  100,	h= 40},
-                Arena = { w=  245, 	h= 60},
-		CastbarPlayer = { w=   	0, 	h= 16},		--Only Hight	
-		CastbarTarget = { w=   	0, 	h= 16},		--Only Hight
-		 CastbarArena = { w=   	0, 	h= 16},		--Only Hight
-		  CastbarBoss = { w=   	0, 	h= 10},		--Only Hight
-		 CastbarFocus = { w=   	0, 	h= 13},		--Only Hight		  
+             Portrait = { w=   C.unitframe.Portrait_w, 	h= C.unitframe.Portrait_h},  
+               Player = { w=  C.unitframe.Player_w, 	h= C.unitframe.Player_h},  
+               Target = { w=  C.unitframe.Target_w, 	h= C.unitframe.Target_h},  
+         Targettarget = { w=  C.unitframe.Targettarget_w, 	h= C.unitframe.Targettarget_h},  
+                Focus = { w=  C.unitframe.Focus_w, 	h= C.unitframe.Focus_h},  
+          Focustarget = { w=  C.unitframe.Focustarget_w, 	h= C.unitframe.Focustarget_h},  
+                  Pet = { w=  C.unitframe.Pet_w, 	h= C.unitframe.Pet_h},
+            PetTarget = { w=   C.unitframe.PetTarget_w, 	h= C.unitframe.PetTarget_h}, 				  
+                 Boss = { w=  C.unitframe.Boss_w,	h= C.unitframe.Boss_h},  
+                 Tank = { w=  C.unitframe.Tank_w, 	h= C.unitframe.Tank_h},
+                TankH = { w=  C.unitframe.TankH_w, 	h= C.unitframe.TankH_h},				 
+              Raid10H = { w=  C.unitframe.Raid10H_w, 	h= C.unitframe.Raid10H_h},
+              Raid25H = { w=   C.unitframe.Raid25H_w, 	h= C.unitframe.Raid25H_h},		
+			   Raid25 = { w=   C.unitframe.Raid25_w, 	h= C.unitframe.Raid25_h},
+              Raid40H = { w=   C.unitframe.Raid40H_w, 	h= C.unitframe.Raid40H_h},
+               Raid40 = { w=   C.unitframe.Raid40_w, 	h= C.unitframe.Raid40_h},				  
+	            Party = { w=  C.unitframe.Party_w,	h= C.unitframe.Party_h},
+                Arena = { w=  C.unitframe.Arena_w, 	h= C.unitframe.Arena_h},
+		CastbarPlayer = { w=   	C.unitframe.CastbarPlayer_w, 	h= C.unitframe.CastbarPlayer_h},		--Only Hight	
+		CastbarTarget = { w=   	C.unitframe.CastbarTarget_w, 	h= C.unitframe.CastbarTarget_h},		--Only Hight
+		 CastbarArena = { w=   	C.unitframe.CastbarArena_w, 	h= C.unitframe.CastbarArena_h},		--Only Hight
+		  CastbarBoss = { w=   	C.unitframe.CastbarBoss_w, 	h= C.unitframe.CastbarBoss_h},		--Only Hight
+		 CastbarFocus = { w=   	C.unitframe.CastbarFocus_w, 	h= C.unitframe.CastbarFocus_h},		--Only Hight		  
 }
+
 --Position if healframes
  cfg.unit_positionsH = { 				
              Player = { x= -270, y=   305},  

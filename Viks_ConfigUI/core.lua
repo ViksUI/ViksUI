@@ -129,7 +129,7 @@ ns.CreateCheckBox = function(parent, option, text, textDesc)
 	else
 		f.Text:SetText(ns[parent.tag.."_"..option])
 	end
-	
+
 	f.Text:SetWidth(540)
 
 	f.tooltipText = ns[parent.tag.."_"..option.."_desc"] or textDesc or ns[parent.tag.."_"..option] or text
@@ -485,8 +485,14 @@ local DropDownText = {
 	["NONE"] = L.general_error_none,
 	["RAID"] = L.automation_auto_collapse_raid,
 	["RELOAD"] = L.automation_auto_collapse_reload,
+	["SCENARIO"] = L.automation_auto_collapse_scenario,
 	["DYNAMIC"] = L.raidframe_auto_position_dynamic,
 	["STATIC"] = L.raidframe_auto_position_static,
+	["HEAL"] = L.raidframe_heal_layout,
+	["DPS"] = L.raidframe_dps_layout,
+	["AUTO"] = L.raidframe_auto_layout,
+	["BLIZZARD"] = "Blizzard",
+	["ICONS"] = L.unitframe_portrait_type_icons,
 }
 
 ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, LSM, isFont)
@@ -570,15 +576,12 @@ local function setActiveTab(tab)
 
 	activeTab.panel:Show()
 
-	if activeTab.panel.second then
+	if activeTab.panel_2 then
 		activeTab.panel.PrevPageButton:Show()
 		activeTab.panel.PrevPageButton:Disable()
 		activeTab.panel.NextPageButton:Enable()
 		activeTab.panel.pageText:SetFormattedText(COLLECTION_PAGE_NUMBER, 1, activeTab.panel.maxPages)
 		activeTab.panel.currentPage = 1
-	end
-
-	if activeTab.panel_2 then
 		activeTab.panel_2:Hide()
 	end
 
@@ -590,16 +593,16 @@ local onTabClick = function(tab)
 
 	activeTab.panel.tab.Text:SetTextColor(1, 0.82, 0)
 
-	if activeTab.panel.second then
+	if activeTab.panel_2 then
 		activeTab.panel.PrevPageButton:Hide()
 		activeTab.panel_2:Hide()
 	end
 
-	if activeTab.panel.third then
+	if activeTab.panel_3 then
 		activeTab.panel_3:Hide()
 	end
 
-	if activeTab.panel.fourth then
+	if activeTab.panel_4 then
 		activeTab.panel_4:Hide()
 	end
 
@@ -629,7 +632,7 @@ local function CreateOptionPanel(name, text, subText)
 	return panel
 end
 
-ns.addCategory = function(name, text, subText, second, third, fourth)
+ns.addCategory = function(name, text, subText, num)
 	local tab = CreateFrame("Button", nil, ViksUIOptionsPanel)
 	tab:SetPoint("TOPLEFT", 11, -offset)
 	tab:SetSize(168, 22)
@@ -641,18 +644,34 @@ ns.addCategory = function(name, text, subText, second, third, fourth)
 	tab.Text:SetJustifyH("LEFT")
 
 	tab:SetScript("OnMouseUp", onTabClick)
+	offset = (offset + 24)
 
 	local tag = strlower(name)
-
-	local panel, panel_2, panel_3, panel_4 = CreateOptionPanel(baseName..name, text, subText)
+	local panel = CreateOptionPanel(baseName..name, text, subText)
 	panel[1] = panel
+	tinsert(panels, panel)
 
-	local numPages = fourth and 4 or third and 3 or second and 2 or 1
+	tab.panel = panel
+	panel.tab = tab
+	panel.tag = tag
+	ViksUIOptionsPanel[tag] = panel
+
+	local numPages = num or 1
 	if numPages > 1 then
 		local name2 = name.."2"
 		local tag2 = strlower(name2)
-		panel_2 = CreateOptionPanel(baseName..name2, text, subText)
+		local panel_2 = CreateOptionPanel(baseName..name2, text, subText)
 		panel[2] = panel_2
+		tinsert(panels, panel_2)
+
+		if name == "general" then
+			panel_2.tag = "media"
+		else
+			panel_2.tag = tag
+		end
+
+		ViksUIOptionsPanel[tag2] = panel_2
+		tab.panel_2 = panel_2
 
 		local PrevPageButton = CreateFrame("Button", baseName..name.."PrevButton", ViksUIOptionsPanel)
 		PrevPageButton:SetPoint("TOPRIGHT", -45, -44)
@@ -683,23 +702,23 @@ ns.addCategory = function(name, text, subText, second, third, fourth)
 			if panel.currentPage == 1 then
 				PrevPageButton:Disable()
 				NextPageButton:Enable()
-				panel:Show()
+				panel[1]:Show()
 			elseif panel.currentPage == 2 then
 				PrevPageButton:Enable()
-				if not third then
-					NextPageButton:Disable()
-				else
+				if numPages > 2 then
 					NextPageButton:Enable()
+				else
+					NextPageButton:Disable()
 				end
-				panel_2:Show()
+				panel[2]:Show()
 			elseif panel.currentPage == 3 then
 				PrevPageButton:Enable()
-				if not fourth then
-					NextPageButton:Disable()
-				else
+				if numPages > 3 then
 					NextPageButton:Enable()
+				else
+					NextPageButton:Disable()
 				end
-				panel_3:Show()
+				panel[3]:Show()
 			elseif panel.currentPage == 4 then
 				PrevPageButton:Enable()
 				NextPageButton:Disable()
@@ -715,21 +734,11 @@ ns.addCategory = function(name, text, subText, second, third, fourth)
 			SetPage(false)
 		end)
 
-		tinsert(panels, panel_2)
 		tinsert(ns.NextPrevButtons, PrevPageButton)
 		tinsert(ns.NextPrevButtons, NextPageButton)
 
-		panel.second = true
 		panel.PrevPageButton = PrevPageButton
 		panel.NextPageButton = NextPageButton
-
-		if name == "general" then
-			panel_2.tag = "media"
-		else
-			panel_2.tag = tag
-		end
-
-		ViksUIOptionsPanel[tag2] = panel_2
 
 		panel:SetScript("OnMouseWheel", function(_, delta)
 			if delta < 0 then
@@ -746,13 +755,11 @@ ns.addCategory = function(name, text, subText, second, third, fourth)
 		if numPages > 2 then
 			local name3 = name.."3"
 			local tag3 = strlower(name3)
-			panel_3 = CreateOptionPanel(baseName..name3, text, subText)
+			local panel_3 = CreateOptionPanel(baseName..name3, text, subText)
 			panel[3] = panel_3
-
 			tinsert(panels, panel_3)
 
-			panel.third = true
-
+			tab.panel_3 = panel_3
 			panel_3.tag = tag
 			ViksUIOptionsPanel[tag3] = panel_3
 
@@ -769,48 +776,34 @@ ns.addCategory = function(name, text, subText, second, third, fourth)
 					PrevPageButton:Click()
 				end
 			end)
-		end
-		
-		if numPages > 3 then
-			local name4 = name.."4"
-			local tag4 = strlower(name4)
-			panel_4 = CreateOptionPanel(baseName..name4, text, subText)
-			panel[4] = panel_4
 
-			tinsert(panels, panel_4)
+			if numPages > 3 then
+				local name4 = name.."4"
+				local tag4 = strlower(name4)
+				local panel_4 = CreateOptionPanel(baseName..name4, text, subText)
+				panel[4] = panel_4
+				tinsert(panels, panel_4)
 
-			panel.fourth = true
+				tab.panel_4 = panel_4
+				panel_4.tag = tag
+				ViksUIOptionsPanel[tag4] = panel_4
 
-			panel_3.tag = tag
-			ViksUIOptionsPanel[tag4] = panel_4
+				panel_3:SetScript("OnMouseWheel", function(_, delta)
+					if delta > 0 then
+						PrevPageButton:Click()
+					elseif delta < 0 then
+						NextPageButton:Click()
+					end
+				end)
 
-			panel_3:SetScript("OnMouseWheel", function(_, delta)
-				if delta > 0 then
-					PrevPageButton:Click()
-				elseif delta < 0 then
-					NextPageButton:Click()
-				end
-			end)
-
-			panel_4:SetScript("OnMouseWheel", function(_, delta)
-				if delta > 0 then
-					PrevPageButton:Click()
-				end
-			end)
+				panel_4:SetScript("OnMouseWheel", function(_, delta)
+					if delta > 0 then
+						PrevPageButton:Click()
+					end
+				end)
+			end
 		end
 	end
-
-	tab.panel = panel
-	tab.panel_2 = panel_2
-	tab.panel_3 = panel_3
-	panel.tab = tab
-	panel.tag = tag
-
-	ViksUIOptionsPanel[tag] = panel
-
-	tinsert(panels, panel)
-
-	offset = (offset + 24) * mult
 end
 
 ns.addSubCategory = function(category, name)
@@ -819,7 +812,7 @@ ns.addSubCategory = function(category, name)
 	header:SetTextColor(179/255, 211/255, 243/255)
 
 	local line = category:CreateTexture(nil, "ARTWORK")
-	line:SetSize(500 * mult, 1 * mult)
+	line:SetSize(500, 1)
 	line:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
 	line:SetColorTexture(0.37, 0.3, 0.3, 1)
 
@@ -934,7 +927,7 @@ init:SetScript("OnEvent", function()
 
 	local sunFrame = CreateFrame("Frame", nil, ViksUIOptionsPanel)
 	sunFrame:SetPoint("LEFT", 10, 9)
-	sunFrame:SetSize(175, 670 * mult)
+	sunFrame:SetSize(175, 670)
 	sunFrame:CreateBackdrop("Overlay")
 	sunFrame.backdrop:SetPoint("TOPLEFT", 0, 3)
 	sunFrame.backdrop:SetPoint("BOTTOMRIGHT", -2, -4)
@@ -946,7 +939,6 @@ init:SetScript("OnEvent", function()
 		panel.backdrop:SetPoint("TOPLEFT", -10, 2)
 		panel.backdrop:SetPoint("BOTTOMRIGHT", -10, -5)
 	end
-
 
 	for _, button in pairs(ns.buttons) do
 		button:SkinButton()
@@ -1003,5 +995,4 @@ ViksUIOptionsPanel:SetScript("OnMouseUp", function(self, button)
    self.isMoving = false;
   end
 end)
-
 end)

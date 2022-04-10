@@ -150,7 +150,21 @@ local ErrorTable = {
 local CollapseTable = {
 	"RAID",
 	"RELOAD",
-	"NONE",
+	"SCENARIO",
+	"NONE"
+}
+
+local RaidTable = {
+	"HEAL",
+	"DPS",
+	"AUTO",
+	"BLIZZARD"
+}
+
+local PortraitTable = {
+	"3D",
+	"2D",
+	"ICONS"
 }
 
 local TextureTable
@@ -237,9 +251,7 @@ SpellList.makeSpellsList = function(_, db, double)
 				bf.tex:SetSize(22, 22)
 				bf.tex:SetPoint("LEFT")
 				bf.tex:SetTexture(icon)
-				if IsAddOnLoaded("Aurora") or C.skins.blizzard_frames == true then
-					bf.tex:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-				end
+				bf.tex:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
 				bf.delete = bf.delete or CreateFrame("Button", "SpellList"..i.."_delete", bf)
 				bf.delete:SetSize(16, 16)
@@ -490,18 +502,18 @@ do
 	tinsert(ns.buttons, SaveButton)
 end
 -- Category
-ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, true)
-ns.addCategory("font", L.font, L.font_subtext, true, true)
+ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, 2)
+ns.addCategory("font", L.font, L.font_subtext, 3)
 ns.addCategory("skins", L_GUI_SKINS, L_GUI_SKINS_SUBTEXT)
-ns.addCategory("unitframe", UNITFRAME_LABEL, L_GUI_UF_SUBTEXT, true, true)
+ns.addCategory("unitframe", UNITFRAME_LABEL, L_GUI_UF_SUBTEXT, 4)
 ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT)
---ns.addCategory("raidframe", RAID_FRAMES_LABEL, L_GUI_UF_RAIDFRAMES_SUBTEXT, true)
+--ns.addCategory("raidframe", RAID_FRAMES_LABEL, L_GUI_UF_RAIDFRAMES_SUBTEXT, 2)
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
 ns.addCategory("actionbar", L_GUI_ACTIONBAR, ACTIONBARS_SUBTEXT, 2)
-ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext, true)
+ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext, 2)
 ns.addCategory("chat", SOCIALS, L_GUI_CHAT_SUBTEXT)
-ns.addCategory("nameplate", UNIT_NAMEPLATES, L_GUI_NAMEPLATE_SUBTEXT, true)
-ns.addCategory("combattext", L_GUI_COMBATTEXT, COMBATTEXT_SUBTEXT.." "..L_GUI_COMBATTEXT_SUBTEXT, true)
+ns.addCategory("nameplate", UNIT_NAMEPLATES, L_GUI_NAMEPLATE_SUBTEXT, 2)
+ns.addCategory("combattext", L_GUI_COMBATTEXT, COMBATTEXT_SUBTEXT.." "..L_GUI_COMBATTEXT_SUBTEXT, 2)
 
 ns.addCategory("bag", L_GUI_BAGS, L_GUI_BAGS_SUBTEXT)
 ns.addCategory("minimap", MINIMAP_LABEL, L_GUI_MINIMAP_SUBTEXT)
@@ -519,7 +531,7 @@ ns.addCategory("threat", L_GUI_THREAT, L_GUI_THREAT_SUBTEXT)
 ns.addCategory("datatext", L_GUI_DATATEXT, L_GUI_DATATEXT_SUBTEXT)
 ns.addCategory("panels", L_GUI_PANELS, L_GUI_PANELS_SUBTEXT)
 ns.addCategory("trade", L_GUI_TRADE, L_GUI_TRADE_SUBTEXT)
-ns.addCategory("misc", OTHER, L_GUI_MISC_SUBTEXT, true)
+ns.addCategory("misc", OTHER, L_GUI_MISC_SUBTEXT, 2)
 
 -- General
 do
@@ -920,91 +932,54 @@ do
 	local subheader = ns.addSubCategory(parent, L_GUI_SKINS_SUBHEADER)
 	subheader:SetPoint("TOPLEFT", minimap_buttons_mouseover, "BOTTOMLEFT", -20, -16)
 
-	local ace3 = ns.CreateCheckBox(parent, "ace3", L_GUI_SKINS_ACE3)
+	local ace3 = ns.CreateCheckBox(parent, "ace3")
 	ace3:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -8)
 
-	local atlasloot = ns.CreateCheckBox(parent, "atlasloot", L_GUI_SKINS_ATLASLOOT)
-	atlasloot:SetPoint("TOPLEFT", ace3, "BOTTOMLEFT", 0, 0)
+	local skinTable = {
+		{"atlasloot"},
+		{"bigwigs"},
+		{"blood_shield_tracker"},
+		{"capping"},
+		{"clique"},
+		{"cool_line"},
+		{"dbm"},
+		{"details"},
+		{"dominos"},
+		{"flyout_button"},
+		{"ls_toasts"},
+		{"mage_nuggets"},
+		{"my_role_play"},
+		{"npcscan"},
+		{"nug_running"},
+		{"omen"},
+		{"opie"},
+		{"ovale"},
+		{"postal"},
+		{"recount"},
+		{"rematch"},
+		{"skada"},
+		{"tiny_dps"},
+		{"vanaskos"},
+		{"weak_auras"},
+	}
 
-	local bigwigs = ns.CreateCheckBox(parent, "bigwigs", L_GUI_SKINS_BW)
-	bigwigs:SetPoint("LEFT", atlasloot, "RIGHT", 320, 0)
-
-	local blood_shield_tracker = ns.CreateCheckBox(parent, "blood_shield_tracker", L_GUI_SKINS_BLOOD_SHIELD_TRACKER)
-	blood_shield_tracker:SetPoint("TOPLEFT", atlasloot, "BOTTOMLEFT", 0, 0)
-
-	local capping = ns.CreateCheckBox(parent, "capping", L_GUI_SKINS_CAPPING)
-	capping:SetPoint("LEFT", blood_shield_tracker, "RIGHT", 320, 0)
-
-	local clique = ns.CreateCheckBox(parent, "clique", L_GUI_SKINS_CLIQUE)
-	clique:SetPoint("TOPLEFT", blood_shield_tracker, "BOTTOMLEFT", 0, 0)
-
-	local cool_line = ns.CreateCheckBox(parent, "cool_line", L_GUI_SKINS_COOL_LINE)
-	cool_line:SetPoint("LEFT", clique, "RIGHT", 320, 0)
-
-	local dbm = ns.CreateCheckBox(parent, "dbm", L_GUI_SKINS_DBM)
-	dbm:SetPoint("TOPLEFT", clique, "BOTTOMLEFT", 0, 0)
-
-	local dbm_movable = ns.CreateCheckBox(parent, "dbm_movable", L_GUI_SKINS_DBM_MOVABLE)
-	dbm_movable:SetPoint("TOPLEFT", dbm, "BOTTOMLEFT", 20, 0)
-
-	dbm.children = {dbm_movable}
-
-	local details = ns.CreateCheckBox(parent, "details", L_GUI_SKINS_DETAILS)
-	details:SetPoint("TOPLEFT", dbm_movable, "BOTTOMLEFT", -20, 0)
-
-	local dominos = ns.CreateCheckBox(parent, "dominos", L_GUI_SKINS_DOMINOS)
-	dominos:SetPoint("LEFT", details, "RIGHT", 320, 0)
-
-	local flyout_button = ns.CreateCheckBox(parent, "flyout_button", L_GUI_SKINS_FLYOUT_BUTTON)
-	flyout_button:SetPoint("TOPLEFT", details, "BOTTOMLEFT", 0, 0)
-
-	local ls_toasts = ns.CreateCheckBox(parent, "ls_toasts", L_GUI_SKINS_LS_TOASTS)
-	ls_toasts:SetPoint("LEFT", flyout_button, "RIGHT", 320, 0)
-
-	local mage_nuggets = ns.CreateCheckBox(parent, "mage_nuggets", L_GUI_SKINS_MAGE_NUGGETS)
-	mage_nuggets:SetPoint("TOPLEFT", flyout_button, "BOTTOMLEFT", 0, 0)
-
-	local my_role_play = ns.CreateCheckBox(parent, "my_role_play", L_GUI_SKINS_MY_ROLE_PLAY)
-	my_role_play:SetPoint("LEFT", mage_nuggets, "RIGHT", 320, 0)
-
-	local npcscan = ns.CreateCheckBox(parent, "npcscan", L_GUI_SKINS_NPCSCAN)
-	npcscan:SetPoint("TOPLEFT", mage_nuggets, "BOTTOMLEFT", 0, 0)
-
-	local nug_running = ns.CreateCheckBox(parent, "nug_running", L_GUI_SKINS_NUG_RUNNING)
-	nug_running:SetPoint("LEFT", npcscan, "RIGHT", 320, 0)
-
-	local omen = ns.CreateCheckBox(parent, "omen", L_GUI_SKINS_OMEN)
-	omen:SetPoint("TOPLEFT", npcscan, "BOTTOMLEFT", 0, 0)
-
-	local opie = ns.CreateCheckBox(parent, "opie", L_GUI_SKINS_OPIE)
-	opie:SetPoint("LEFT", omen, "RIGHT", 320, 0)
-
-	local ovale = ns.CreateCheckBox(parent, "ovale", L_GUI_SKINS_OVALE)
-	ovale:SetPoint("TOPLEFT", omen, "BOTTOMLEFT", 0, 0)
-
-	local pawn = ns.CreateCheckBox(parent, "pawn", L_GUI_SKINS_PAWN)
-	pawn:SetPoint("LEFT", ovale, "RIGHT", 320, 0)
-	
-	local postal = ns.CreateCheckBox(parent, "postal", L_GUI_SKINS_POSTAL)
-	postal:SetPoint("LEFT", pawn, "RIGHT", 320, 0)
-
-	local recount = ns.CreateCheckBox(parent, "recount", L_GUI_SKINS_RECOUNT)
-	recount:SetPoint("TOPLEFT", ovale, "BOTTOMLEFT", 0, 0)
-
-	local rematch = ns.CreateCheckBox(parent, "rematch", L_GUI_SKINS_REMATCH)
-	rematch:SetPoint("LEFT", recount, "RIGHT", 320, 0)
-
-	local skada = ns.CreateCheckBox(parent, "skada", L_GUI_SKINS_SKADA)
-	skada:SetPoint("TOPLEFT", recount, "BOTTOMLEFT", 0, 0)
-
-	local tiny_dps = ns.CreateCheckBox(parent, "tiny_dps", L_GUI_SKINS_TINY_DPS)
-	tiny_dps:SetPoint("LEFT", skada, "RIGHT", 320, 0)
-
-	local vanaskos = ns.CreateCheckBox(parent, "vanaskos", L_GUI_SKINS_VANASKOS)
-	vanaskos:SetPoint("TOPLEFT", skada, "BOTTOMLEFT", 0, 0)
-
-	local weak_auras = ns.CreateCheckBox(parent, "weak_auras", L_GUI_SKINS_WEAK_AURAS)
-	weak_auras:SetPoint("LEFT", vanaskos, "RIGHT", 320, 0)
+	local last
+	for i = 1, #skinTable do
+		local name = tostring(unpack(skinTable[i]))
+		local addon
+		if i == 1 then
+			addon = ns.CreateCheckBox(parent, name)
+			addon:SetPoint("LEFT", ace3, "RIGHT", 320, 0)
+			last = ace3
+		elseif i % 2 == 0 then
+			addon = ns.CreateCheckBox(parent, name)
+			addon:SetPoint("TOPLEFT", last, "BOTTOMLEFT", 0, 0)
+			last = addon
+		else
+			addon = ns.CreateCheckBox(parent, name)
+			addon:SetPoint("LEFT", last, "RIGHT", 320, 0)
+		end
+	end
 end
 
 -- Unit Frames
@@ -1056,6 +1031,9 @@ do
 
 	local castbar_ticks = ns.CreateCheckBox(parent, "castbar_ticks", L_GUI_UF_CASTBAR_TICKS)
 	castbar_ticks:SetPoint("TOPLEFT", Castbars, "BOTTOMLEFT", 0, 0)
+	
+	local castbar_icon = ns.CreateCheckBox(parent, "castbar_icon", L_GUI_UF_CASTBAR_ICON)
+	castbar_icon:SetPoint("LEFT", Castbars, "RIGHT", 170, 0)
 
 	-- Frames
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_FRAMES)
@@ -1109,10 +1087,13 @@ do
 
 	local showPortraitHPbar = ns.CreateCheckBox(parent, "showPortraitHPbar", L_GUI_UF_PORTRAIT_BARS)
 	showPortraitHPbar:SetPoint("TOPLEFT", showPortrait, "BOTTOMLEFT", 0, 0)
-
+	
+	local portrait_type = ns.CreateDropDown(parent, "portrait_type", true, nil, PortraitTable)
+	portrait_type:SetPoint("TOPLEFT", showPortraitHPbar, "BOTTOMLEFT", -16, -8)
+	
 	-- Plugins
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_PLUGINS)
-	subheader:SetPoint("TOPLEFT", showPortraitHPbar, "BOTTOMLEFT", 0, -16)
+	subheader:SetPoint("TOPLEFT", portrait_type, "BOTTOMLEFT", 16, -16)
 
 	local plugins_gcd = ns.CreateCheckBox(parent, "plugins_gcd", L_GUI_UF_PLUGINS_GCD)
 	plugins_gcd:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -8)
@@ -1139,7 +1120,7 @@ do
 	plugins_aura_watch:SetPoint("TOPLEFT", plugins_debuffhighlight_icon, "BOTTOMLEFT", 0, 0)
 
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", 20, 0)
+	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", -200, 0)
 	ListButton:SetSize(100, 23)
 	ListButton:SetText(ADD)
 	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
@@ -1185,6 +1166,132 @@ do
 		StaticPopup_Show("SWITCH_RAID")
 	end)
 	tinsert(ns.buttons, LayoutButton)
+	
+	-- Panel 3
+	local parent = ViksUIOptionsPanel.unitframe3
+	
+	local subheader = ns.addSubCategory(parent, "Unit frames size")
+	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
+	
+	local Portrait_w = ns.CreateNumberSlider(parent, "Portrait_w", nil, nil, 0, 150, 1, true)
+	Portrait_w:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
+	
+	local Player_w = ns.CreateNumberSlider(parent, "Player_w", nil, nil, 105, 400, 1, true)
+	Player_w:SetPoint("TOPLEFT", Portrait_w, "BOTTOMLEFT", 0, -28)
+	
+	local Target_w = ns.CreateNumberSlider(parent, "Target_w", nil, nil, 105, 400, 1, true)
+	Target_w:SetPoint("TOPLEFT", Player_w, "BOTTOMLEFT", 0, -28)
+	
+	local Targettarget_w = ns.CreateNumberSlider(parent, "Targettarget_w", nil, nil, 40, 250, 1, true)
+	Targettarget_w:SetPoint("TOPLEFT", Target_w, "BOTTOMLEFT", 0, -28)
+	
+	local Focus_w = ns.CreateNumberSlider(parent, "Focus_w", nil, nil, 40, 400, 1, true)
+	Focus_w:SetPoint("TOPLEFT", Targettarget_w, "BOTTOMLEFT", 0, -28)
+	
+	local Focustarget_w = ns.CreateNumberSlider(parent, "Focustarget_w", nil, nil, 40, 250, 1, true)
+	Focustarget_w:SetPoint("TOPLEFT", Focus_w, "BOTTOMLEFT", 0, -28)
+	
+	local Pet_w = ns.CreateNumberSlider(parent, "Pet_w", nil, nil, 40, 250, 1, true)
+	Pet_w:SetPoint("TOPLEFT", Focustarget_w, "BOTTOMLEFT", 0, -28)
+	
+	local Boss_w = ns.CreateNumberSlider(parent, "Boss_w", nil, nil, 40, 250, 1, true)
+	Boss_w:SetPoint("TOPLEFT", Pet_w, "BOTTOMLEFT", 0, -28)
+	
+	local Tank_w = ns.CreateNumberSlider(parent, "Tank_w", nil, nil, 40, 250, 1, true)
+	Tank_w:SetPoint("TOPLEFT", Boss_w, "BOTTOMLEFT", 0, -28)
+	
+	local TankH_w = ns.CreateNumberSlider(parent, "TankH_w", nil, nil, 40, 250, 1, true)
+	TankH_w:SetPoint("TOPLEFT", Tank_w, "BOTTOMLEFT", 0, -28)
+	
+	local Portrait_h = ns.CreateNumberSlider(parent, "Portrait_h", nil, nil, 0, 100, 1, true)
+	Portrait_h:SetPoint("LEFT", Portrait_w, "RIGHT", 150, 0)
+	
+	local Player_h = ns.CreateNumberSlider(parent, "Player_h", nil, nil, 0, 150, 1, true)
+	Player_h:SetPoint("TOPLEFT", Portrait_h, "BOTTOMLEFT", 0, -28)
+	
+	local Target_h = ns.CreateNumberSlider(parent, "Target_h", nil, nil, 0, 150, 1, true)
+	Target_h:SetPoint("TOPLEFT", Player_h, "BOTTOMLEFT", 0, -28)
+	
+	local Targettarget_h = ns.CreateNumberSlider(parent, "Targettarget_h", nil, nil, 0, 100, 1, true)
+	Targettarget_h:SetPoint("TOPLEFT", Target_h, "BOTTOMLEFT", 0, -28)
+	
+	local Focus_h = ns.CreateNumberSlider(parent, "Focus_h", nil, nil, 0, 150, 1, true)
+	Focus_h:SetPoint("TOPLEFT", Targettarget_h, "BOTTOMLEFT", 0, -28)
+	
+	local Focustarget_h = ns.CreateNumberSlider(parent, "Focustarget_h", nil, nil, 0, 150, 1, true)
+	Focustarget_h:SetPoint("TOPLEFT", Focus_h, "BOTTOMLEFT", 0, -28)
+	
+	local Pet_h = ns.CreateNumberSlider(parent, "Pet_h", nil, nil, 0, 150, 1, true)
+	Pet_h:SetPoint("TOPLEFT", Focustarget_h, "BOTTOMLEFT", 0, -28)
+	
+	local Boss_h = ns.CreateNumberSlider(parent, "Boss_h", nil, nil, 0, 150, 1, true)
+	Boss_h:SetPoint("TOPLEFT", Pet_h, "BOTTOMLEFT", 0, -28)
+	
+	local Tank_h = ns.CreateNumberSlider(parent, "Tank_h", nil, nil, 0, 150, 1, true)
+	Tank_h:SetPoint("TOPLEFT", Boss_h, "BOTTOMLEFT", 0, -28)
+	
+	local TankH_h = ns.CreateNumberSlider(parent, "TankH_h", nil, nil, 0, 150, 1, true)
+	TankH_h:SetPoint("TOPLEFT", Tank_h, "BOTTOMLEFT", 0, -28)
+	
+	-- Panel 4
+	local parent = ViksUIOptionsPanel.unitframe4
+	
+	local subheader = ns.addSubCategory(parent, "Normal Raid frames size")
+	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
+	
+	local Raid10H_w = ns.CreateNumberSlider(parent, "Raid10H_w", nil, nil, 0, 180, 1, true)
+	Raid10H_w:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
+	
+	local Raid10H_h = ns.CreateNumberSlider(parent, "Raid10H_h", nil, nil, 0, 100, 1, true)
+	Raid10H_h:SetPoint("LEFT", Raid10H_w, "RIGHT", 150, 0)
+	
+	local Raid25_w = ns.CreateNumberSlider(parent, "Raid25_w", nil, nil, 0, 180, 1, true)
+	Raid25_w:SetPoint("TOPLEFT", Raid10H_w, "BOTTOMLEFT", 0, -28)
+	
+	local Raid25_h = ns.CreateNumberSlider(parent, "Raid25_h", nil, nil, 0, 100, 1, true)
+	Raid25_h:SetPoint("LEFT", Raid25_w, "RIGHT", 150, 0)
+	
+	local Raid40_w = ns.CreateNumberSlider(parent, "Raid40_w", nil, nil, 0, 180, 1, true)
+	Raid40_w:SetPoint("TOPLEFT", Raid25_w, "BOTTOMLEFT", 0, -28)
+	
+	local Raid40_h = ns.CreateNumberSlider(parent, "Raid40_h", nil, nil, 0, 100, 1, true)
+	Raid40_h:SetPoint("LEFT", Raid40_w, "RIGHT", 150, 0)
+	
+	local Party_w = ns.CreateNumberSlider(parent, "Party_w", nil, nil, 0, 180, 1, true)
+	Party_w:SetPoint("TOPLEFT", Raid40_w, "BOTTOMLEFT", 0, -28)
+	
+	local Party_h = ns.CreateNumberSlider(parent, "Party_h", nil, nil, 0, 100, 1, true)
+	Party_h:SetPoint("LEFT", Party_w, "RIGHT", 150, 0)
+	
+	local subheader = ns.addSubCategory(parent, "Healer Layout Raid frames size")
+	subheader:SetPoint("TOPLEFT", Party_w, "BOTTOMLEFT", 0, -28)
+	
+	local Raid25H_w = ns.CreateNumberSlider(parent, "Raid25H_w", nil, nil, 0, 180, 1, true)
+	Raid25H_w:SetPoint("TOPLEFT", Party_w, "BOTTOMLEFT", 0, -80)
+	
+	local Raid25H_h = ns.CreateNumberSlider(parent, "Raid25H_h", nil, nil, 0, 100, 1, true)
+	Raid25H_h:SetPoint("LEFT", Raid25H_w, "RIGHT", 150, 0)
+	
+	local Raid40H_w = ns.CreateNumberSlider(parent, "Raid40H_w", nil, nil, 0, 180, 1, true)
+	Raid40H_w:SetPoint("TOPLEFT", Raid25H_w, "BOTTOMLEFT", 0, -28)
+	
+	local Raid40H_h = ns.CreateNumberSlider(parent, "Raid40H_h", nil, nil, 0, 100, 1, true)
+	Raid40H_h:SetPoint("LEFT", Raid40H_w, "RIGHT", 150, 0)
+	
+	local subheader = ns.addSubCategory(parent, "Castbars hights - Width is based on healtframe width")
+	subheader:SetPoint("TOPLEFT", Raid40H_w, "BOTTOMLEFT", 0, -28)
+	
+	local CastbarPlayer_h = ns.CreateNumberSlider(parent, "CastbarPlayer_h", nil, nil, 0, 100, 1, true)
+	CastbarPlayer_h:SetPoint("TOPLEFT", Raid40H_w, "BOTTOMLEFT", 0, -80)
+	
+	local CastbarTarget_h = ns.CreateNumberSlider(parent, "CastbarTarget_h", nil, nil, 0, 100, 1, true)
+	CastbarTarget_h:SetPoint("LEFT", CastbarPlayer_h, "RIGHT", 150, 0)
+	
+	local CastbarBoss_h = ns.CreateNumberSlider(parent, "CastbarBoss_h", nil, nil, 0, 100, 1, true)
+	CastbarBoss_h:SetPoint("TOPLEFT", CastbarPlayer_h, "BOTTOMLEFT", 0, -28)
+	
+	local CastbarFocus_h = ns.CreateNumberSlider(parent, "CastbarFocus_h", nil, nil, 0, 100, 1, true)
+	CastbarFocus_h:SetPoint("LEFT", CastbarBoss_h, "RIGHT", 150, 0)
 end
 
 -- Unit Frames Class bar

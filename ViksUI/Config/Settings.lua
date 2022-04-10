@@ -201,6 +201,7 @@ C["unitframe"] = {
 	-- Cast bars
 	["Castbars"] = true, 																-- Show castbars
 	["castbar_ticks"] = true,															-- Castbar ticks
+	["castbar_icon"] = true,															-- Show castbar icons
 	-- Frames
 	["showtot"] = true, 																-- show target of target frame
 	["showpet"] = true,																	-- show pet frame
@@ -222,7 +223,8 @@ C["unitframe"] = {
 	["RCheckIcon"] = true,																-- Show Ready Check Icons On Health Frames
 	-- Portrait
 	["showPortrait"] = true,															-- show portraits Icon
-	["showPortraitHPbar"] = false,														-- show portraits on Healthbar
+	["showPortraitHPbar"] = false,														-- show portraits on Healthbar, Icon must be turned off
+	["portrait_type"] = "3D",															-- Type of portraits (3D, 2D, ICONS)
 	-- Plugins
 	["plugins_gcd"] = false,					-- Global cooldown spark on player frame
 	["plugins_swing"] = false,					-- Swing bar
@@ -239,6 +241,53 @@ C["unitframe"] = {
 	["plugins_pvp_debuffs"] = false,			-- Show also PvP debuff icons (from the list)
 	["plugins_healcomm"] = true,				-- Show incoming heals in player and raid frames
 	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click(doesn't work with Clique)
+	-- Unit Size
+	["Portrait_w"] = 56,
+	["Portrait_h"] = 56,
+	["Player_w"] = 245,
+	["Player_h"] = 60,
+	["Target_w"] = 245,
+	["Target_h"] = 60,
+	["Targettarget_w"] = 120,
+	["Targettarget_h"] = 27,
+	["Focus_w"] = 200,
+	["Focus_h"] = 24,
+	["Focustarget_w"] = 120,
+	["Focustarget_h"] = 27,
+	["Pet_w"] = 120,
+	["Pet_h"] = 27,
+	["PetTarget_w"] = 95, -- Not in use
+	["PetTarget_h"] = 24, -- Not in use
+	["Boss_w"] = 150,
+	["Boss_h"] = 20,
+	["Tank_w"] = 180,
+	["Tank_h"] = 20,
+	["TankH_w"] = 150,
+	["TankH_h"] = 20,
+	["Raid10H_w"] = 100,
+	["Raid10H_h"] = 40,
+	["Raid25H_w"] = 60,
+	["Raid25H_h"] = 30,
+	["Raid25_w"] = 45,
+	["Raid25_h"] = 30,
+	["Raid40H_w"] = 40,
+	["Raid40H_h"] = 30,
+	["Raid40_w"] = 40,
+	["Raid40_h"] = 30,
+	["Party_w"] = 100,
+	["Party_h"] = 40,
+	["Arena_w"] = 245,
+	["Arena_h"] = 60,
+	["CastbarPlayer_w"] = 0, -- Not in use
+	["CastbarPlayer_h"] = 16,
+	["CastbarTarget_w"] = 0, -- Not in use
+	["CastbarTarget_h"] = 16,
+	["CastbarArena_w"] = 0, -- Not in use
+	["CastbarArena_h"] = 16,
+	["CastbarBoss_w"] = 0, -- Not in use
+	["CastbarBoss_h"] = 10,
+	["CastbarFocus_w"] = 0, -- Not in use
+	["CastbarFocus_h"] = 13,
 }
 
 ----------------------------------------------------------------------------------------

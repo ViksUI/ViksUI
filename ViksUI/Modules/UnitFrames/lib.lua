@@ -783,23 +783,70 @@ lib.gen_portrait = function(f)
 	f.Portrait = portrait
 	end
 	if cfg.showPortrait then
-	local p = CreateFrame("PlayerModel", nil, f, "BackdropTemplate")
-    p:SetFrameStrata("BACKGROUND")
-	p:SetFrameLevel(3)
-    p:SetWidth(cfg.unit_size.Portrait.w)
-    p:SetHeight(cfg.unit_size.Portrait.h)
-	if f.mystyle == 'player' then
-	p:SetPoint("LEFT", f, "RIGHT", 11, 4.5)
-	end
-	if f.mystyle == 'target' or f.mystyle == 'arena' then
-	p:SetPoint("RIGHT", f, "LEFT", -11, 4.5)
-	end
-    f.Portrait = p
-	local h = CreateFrame("Frame", nil, p, "BackdropTemplate")
-	h:SetFrameLevel(2)
-	h:SetPoint("TOPLEFT",-5,5)
-	h:SetPoint("BOTTOMRIGHT",5,-5)
-	frame1px2_2(h)
+		if C.unitframe.portrait_type == "2D" then
+			local p = CreateFrame("Frame", nil, f, "BackdropTemplate")
+			--local p = CreateFrame("PlayerModel", nil, f, "BackdropTemplate")
+			p.Icon = p:CreateTexture(nil, "ARTWORK")
+			p.Icon:SetAllPoints()
+			p:SetFrameStrata("BACKGROUND")
+			p:SetFrameLevel(3)
+			p:SetWidth(cfg.unit_size.Portrait.w)
+			p:SetHeight(cfg.unit_size.Portrait.h)
+			if f.mystyle == 'player' then
+			p:SetPoint("LEFT", f, "RIGHT", 11, 4.5)
+			end
+			if f.mystyle == 'target' or f.mystyle == 'arena' then
+			p:SetPoint("RIGHT", f, "LEFT", -11, 4.5)
+			end
+			f.Portrait = p
+			local h = CreateFrame("Frame", nil, p, "BackdropTemplate")
+			h:SetFrameLevel(2)
+			h:SetPoint("TOPLEFT",-5,5)
+			h:SetPoint("BOTTOMRIGHT",5,-5)
+			frame1px2_2(h)
+		elseif C.unitframe.portrait_type == "3D" then
+			--local p = CreateFrame("Frame", nil, f, "BackdropTemplate")
+			local p = CreateFrame("PlayerModel", nil, f, "BackdropTemplate")
+			p.Icon = p:CreateTexture(nil, "ARTWORK")
+			p.Icon:SetAllPoints()
+			p:SetFrameStrata("BACKGROUND")
+			p:SetFrameLevel(3)
+			p:SetWidth(cfg.unit_size.Portrait.w)
+			p:SetHeight(cfg.unit_size.Portrait.h)
+			if f.mystyle == 'player' then
+			p:SetPoint("LEFT", f, "RIGHT", 11, 4.5)
+			end
+			if f.mystyle == 'target' or f.mystyle == 'arena' then
+			p:SetPoint("RIGHT", f, "LEFT", -11, 4.5)
+			end
+			f.Portrait = p
+			local h = CreateFrame("Frame", nil, p, "BackdropTemplate")
+			h:SetFrameLevel(2)
+			h:SetPoint("TOPLEFT",-5,5)
+			h:SetPoint("BOTTOMRIGHT",5,-5)
+			frame1px2_2(h)
+		elseif C.unitframe.portrait_type == "ICONS" then
+			local p = CreateFrame("Frame", nil, f, "BackdropTemplate")
+			p.Icon = p:CreateTexture(nil, "ARTWORK")
+			p.Icon:SetAllPoints()
+			p:SetFrameStrata("BACKGROUND")
+			p:SetFrameLevel(3)
+			p:SetWidth(cfg.unit_size.Portrait.w)
+			p:SetHeight(cfg.unit_size.Portrait.h)
+			if f.mystyle == 'player' then
+			p:SetPoint("LEFT", f, "RIGHT", 11, 4.5)
+			end
+			if f.mystyle == 'target' or f.mystyle == 'arena' then
+			p:SetPoint("RIGHT", f, "LEFT", -11, 4.5)
+			end
+			p.classIcons = true
+			f.Portrait = p
+			local h = CreateFrame("Frame", nil, p, "BackdropTemplate")
+			h:SetFrameLevel(2)
+			h:SetPoint("TOPLEFT",-5,5)
+			h:SetPoint("BOTTOMRIGHT",5,-5)
+			frame1px2_2(h)
+		end
 	end	
 end
 
@@ -961,26 +1008,52 @@ lib.gen_castbar = function(f)
 	s:SetHeight(cfg.unit_size.CastbarFocus.h)
 	s:SetWidth(f:GetWidth()-22)
 	if f.mystyle == "focus" then
-		s:SetWidth(cfg.unit_size.Focus.w-26)
+		if C.unitframe.castbar_icon == true then
+			s:SetWidth(cfg.unit_size.Focus.w-26)
+		else
+			s:SetWidth(cfg.unit_size.Focus.w)
+		end
 	end
 	if f.mystyle == "player" then
 		s:SetHeight(cfg.unit_size.CastbarPlayer.h)
+		
+		
+		if C.unitframe.castbar_icon == true then
 		s:SetWidth(cfg.unit_size.Player.w+33)
-
-		if cfg.HealFrames then
+			if cfg.HealFrames then
 				s:SetPoint("BOTTOM", Anchorviksplayercastbar)
 			else
 				s:SetPoint("BOTTOM", AnchorviksplayercastbarDps)
 			end
+		else
+		s:SetWidth(cfg.unit_size.Player.w+60)
+			if cfg.HealFrames then
+				s:SetPoint("BOTTOM", Anchorviksplayercastbar,-14,0)
+			else
+				s:SetPoint("BOTTOM", AnchorviksplayercastbarDps,-14,0)
+			end
+		end
+
 	elseif f.mystyle == "target" then
 		s:SetHeight(cfg.unit_size.CastbarTarget.h)
-		s:SetWidth(cfg.unit_size.Target.w+33)
+		
 
-		if cfg.HealFrames then
+		if C.unitframe.castbar_icon == true then
+		s:SetWidth(cfg.unit_size.Target.w+33)
+			if cfg.HealFrames then
 				s:SetPoint("BOTTOM", Anchorvikstargetcastbar)
 			else
 				s:SetPoint("BOTTOM", AnchorvikstargetcastbarDps)
 			end
+		else
+		s:SetWidth(cfg.unit_size.Target.w+60)
+			if cfg.HealFrames then
+				s:SetPoint("BOTTOM", Anchorvikstargetcastbar,-10,0)
+			else
+				s:SetPoint("BOTTOM", AnchorvikstargetcastbarDps,-10,0)
+			end
+		end
+
 	elseif f.mystyle == "oUF_Arena" then
 		s:SetHeight(cfg.unit_size.CastbarArena.h)
 		s:SetWidth(cfg.unit_size.Arena.w+33)
@@ -993,12 +1066,19 @@ lib.gen_castbar = function(f)
 	elseif f.mystyle == "party" then
 		s:SetPoint("CENTER",UIParent,"CENTER",10,100)
 	elseif f.mystyle == "focus" then
-
-		if cfg.HealFrames then
-			s:SetPoint("BOTTOM", Anchorviksfocuscastbar)
+		if C.unitframe.castbar_icon == true then
+			if cfg.HealFrames then
+				s:SetPoint("BOTTOM", Anchorviksfocuscastbar)
 			else
-			s:SetPoint("BOTTOM", AnchorviksfocuscastbarDps)
+				s:SetPoint("BOTTOM", AnchorviksfocuscastbarDps)
 			end
+		else
+			if cfg.HealFrames then
+				s:SetPoint("BOTTOM", Anchorviksfocuscastbar,-10,0)
+			else
+				s:SetPoint("BOTTOM", AnchorviksfocuscastbarDps,-10,0)
+			end
+		end
 	end
 	if f.mystyle == "boss" then
 		s:SetHeight(cfg.unit_size.CastbarBoss.h)
@@ -1034,20 +1114,22 @@ lib.gen_castbar = function(f)
 	t:SetPoint("RIGHT", -2, 0)
 	txt:SetPoint("RIGHT", t, "LEFT", -5, 0)
 	--Icon
+	
 	local i = s:CreateTexture(nil, "ARTWORK")
 	i:SetSize(s:GetHeight()+2,s:GetHeight()+2)
 	if f.mystyle == "target" or f.mystyle == "oUF_Arena" then
 		i:SetSize(s:GetHeight()+2,s:GetHeight()+2)
 	end
 	i:SetPoint("RIGHT", s, "LEFT", -8, 0)
-	i:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	--Helper 2 For Icon
-	local h2 = CreateFrame("Frame", nil, s, "BackdropTemplate")
-	h2:SetFrameLevel(0)
-	h2:SetPoint("TOPLEFT",i,"TOPLEFT", 1, -1)
-	h2:SetPoint("BOTTOMRIGHT",i,"BOTTOMRIGHT", -1, 1)
-	h2:CreateBackdrop("Default")
-
+	i:SetTexCoord(0.1, 0.95, 0.1, 0.95)
+	if C.unitframe.castbar_icon == true then
+		--Helper 2 For Icon
+		local h2 = CreateFrame("Frame", nil, s, "BackdropTemplate")
+		h2:SetFrameLevel(0)
+		h2:SetPoint("TOPLEFT",i,"TOPLEFT", 1, -1)
+		h2:SetPoint("BOTTOMRIGHT",i,"BOTTOMRIGHT", -1, 1)
+		h2:CreateBackdrop("Default")
+	end
 	if f.mystyle == "player" then
 		--Latency (Only for Player Unit)
 		local z = s:CreateTexture(nil,"OVERLAY")
@@ -1076,7 +1158,11 @@ lib.gen_castbar = function(f)
 	f.Castbar = s
 	f.Castbar.Text = txt
 	f.Castbar.Time = t
-	f.Castbar.Icon = i
+	if C.unitframe.castbar_icon == true then
+		f.Castbar.Icon = i
+		else 
+		f.Castbar.Icon = nil
+	end
 	f.Castbar.Spark = sp
 end
 
