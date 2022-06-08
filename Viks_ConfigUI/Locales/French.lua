@@ -3,61 +3,63 @@ if GetLocale() ~= "frFR" then return end
 
 ----------------------------------------------------------------------------------------
 --	Localization for frFR client
---	Translation: Cranan, Puree, AlbertDuval
+--	Translation: Cranan, Puree, AlbertDuval, Skyzo-be
 ----------------------------------------------------------------------------------------
-L_GUI_SET_SAVED_SETTTINGS = "Sauvegarder la configuration par personnage"
-L_GUI_SET_SAVED_SETTTINGS_DESC = "Switch between a profile that applies to all characters and one that is unique to this character." -- Need review
-L_GUI_RESET_CHAR = "Réinitialiser les paramètres de votre personnage sur ViksUI ?"
-L_GUI_RESET_ALL = "Réinitialiser tous les paramètres de ViksUI ?"
+L_GUI_SET_SAVED_SETTTINGS = "Définir les paramètres par personnage"
+L_GUI_SET_SAVED_SETTTINGS_DESC = "Basculez entre un profil qui s’applique à tous les personnages et un profil qui est unique à ce personnage."
+L_GUI_RESET_CHAR = "Êtes-vous sûr de vouloir réinitialiser les paramètres de votre personnage pour ShestakUI ?"
+L_GUI_RESET_ALL = "Voulez-vous vraiment réinitialiser tous les paramètres de ShestakUI"
 L_GUI_PER_CHAR = "Modifier la configuration du personnage ?"
-L_GUI_RESET_CAT = "Are you sure you want to reset category's settings?" -- Need review
-L_GUI_RESET_CAT_DESC = "Reset category's settings. \nCTRL-click to reset all" -- Need review
+L_GUI_RESET_CAT = "Êtes-vous sûr de vouloir réinitialiser les paramètres de la catégorie ?"
+L_GUI_RESET_CAT_DESC = "Clique pour réinitialiser les paramètres de la catégorie ou \nCTRL+clique pour réinitialiser les paramètres de votre personnage."
 L_GUI_NEED_RELOAD = "Vous devez recharger l'Interface pour appliquer vos changements."
-L_GUI_LAYOUT = "Change layout" -- Need review
-L_GUI_SPELL_LIST = "List of spells" -- Need review
-L_GUI_SPELL_INPUT = "Spell ID" -- Need review
-L_GUI_TIME_INPUT = "Time" -- Need review
-L_GUI_EXPERT_MODE = "Expert mode" -- Need review
-L_GUI_EXPERT_MODE_DESC = "Custom editing of Lua profile" -- Need review
+L_GUI_LAYOUT = "Changé la disposition"
+L_GUI_SPELL_LIST = "Liste des sorts"
+L_GUI_SPELL_INPUT = "ID du sort"
+L_GUI_TIME_INPUT = "Temps"
+L_GUI_EXPERT_MODE = "Mode expert"
+L_GUI_EXPERT_MODE_DESC = "Modification personnalisée du profil Lua"
+L_GUI_RESET_SPELLS_DESC = "CTRL+Click pour réinitialiser la liste"
 
 -- General options
-L_GUI_GENERAL_SUBTEXT = "Ces paramètres controllent les rendus de l'interface utilisateur. Saisir '/uihelp' dans le chat pour plus d'information."
-L_GUI_GENERAL_WELCOME_MESSAGE = "Message de bienvenue dans la fenêtre de dialogue"
-L_GUI_GENERAL_AUTOSCALE = "Mise à l'échelle automatique"
-L_GUI_GENERAL_UISCALE = "Mettre l'interface à l'échelle (si 'Mise à l'échelle automatique' est désactivée)"
-L.general_subheader_blizzard = "Blizzard UI elements" -- Need review
-L.general_error_filter = "Error filtering" -- Need review
-L.general_error_blacklist = "Blacklist" -- Need review
-L.general_error_whitelist = "Whitelist" -- Need review
-L.general_error_combat = "In combat" -- Need review
-L.general_error_none = "None" -- Need review
-L.general_vehicle_mouseover = "Fenêtre de véhicule en mouseover"
+L_GUI_GENERAL_SUBTEXT = "Ces paramètres contrôlent les paramètres généraux de l’interface utilisateur. \nTapez '/uihelp' dans le chat pour obtenir de l’aide."
+L_GUI_GENERAL_WELCOME_MESSAGE = "Message de bienvenue dans le chat"
+L_GUI_GENERAL_AUTOSCALE = "Mise à l'échelle automatique de l’interface utilisateur"
+L_GUI_GENERAL_UISCALE = "Mettre l'interface à l'échelle \n(si 'Mise à l'échelle automatique de l’interface utilisateur' est désactivée)"
+L.general_subheader_blizzard = "Éléments de l’interface utilisateur Blizzard"
+L.general_error_filter = "Filtrage des erreurs"
+L.general_error_blacklist = "Liste noire"
+L.general_error_whitelist = "Liste blanche"
+L.general_error_combat = "En combat"
+L.general_error_none = "Aucun"
+L.general_vehicle_mouseover = "Cadre de véhicule au survol de la souris"
 L.general_move_blizzard = "Autorise le déplacement de certains fenêtres de l'interface Blizzard"
-L.general_color_picker = "Palette de couleurs améliorée"
-L.general_color_picker_desc = "Add copy/paste buttons and digit text entry for Blizzard color picker frame" -- Need review
-L.general_minimize_mouseover = "Survol par la souris pour réduire les quêtes"
-L.general_hide_banner = "Masquer la fenêtre/bannière de loot des Boss"
-L.general_hide_talking_head = "Masquer la fenêtre de discussion principale"
+L.general_color_picker = "Amélioration du sélecteur de couleurs"
+L.general_color_picker_desc = "Ajoute des boutons de copier/coller et une entrée de texte numérique pour le cadre du sélecteur de couleur Blizzard"
+L.general_minimize_mouseover = "Bouton pour réduire la fenêtre de quête au survol de la souris"
+L.general_hide_banner = "Masquer la bannière du cadre de butin de Boss"
+L.general_hide_talking_head = "Masquer la fenêtre de dialogue des PNJ's"
+L.general_hide_maw_buffs = "Masquer le cadre des buffs de l'antre en instance"
 
 -- Media options
-L.media_border_color = "Couleurs des bordures (fenêtres, barres, info-bulles, etc)"
-L.media_classborder_color = "Color for class borders" -- Need review
-L.media_backdrop_color = "Couleurs du remplissage des bordures (fenêtres, barres, info-bulles, etc)"
+L.media_border_color = "   Couleur des bordures"
+L.media_classborder_color = "   Couleur pour les bordures de classe"
+L.media_backdrop_color = "   Couleur pour le fond des bordures"
 L.media_backdrop_alpha = "Transparence du fond des bordures"
-L.media_texture = "Main texture" -- Need review
-L.media_subheader_normal = "Change general font" -- Need review
-L.media_subheader_pixel = "Modification de la Police Pixel" -- Need review
+L.media_texture = "Texture principale"
+L.media_subheader_normal = "Modifier la police principale"
+L.media_subheader_pixel = "Modifier la police secondaire"
 
 -- Font options
-L.font = "Polices" -- Need review
-L.font_subtext = "Personnalisation de la police pour chaque éléments." -- Need review
+L.font = "Polices"
+L.font_subtext = "Personnalisez la police pour chaque élément. \nAttention 'MONOCHROMEOUTLINE' ne fonctionne que pour 'Pixel Font'"
 L.font_stats_font = "Selectionner la police"
-L.font_stats_font_style = "Police de contour"
+L.font_stats_font_style = "Contour de la police"
 L.font_stats_font_shadow = "Activer l'ombre"
 L.font_subheader_stats = "Police des Statistiques"
 L.font_subheader_combat = "Police des Textes de Combat"
-L.font_subheader_chat = "Police de l'espace de discussions"
-L.font_subheader_chat_tabs = "Police des onglets de l'espace de discussions"
+L.font_subheader_chat = "Police du chat"
+L.font_subheader_chat_tabs = "Police des onglets du chat"
 L.font_subheader_action = "Police des Barres d'Actions"
 L.font_subheader_threat = "Police de l'indicateur de menace"
 L.font_subheader_raidcd = "Police des temps de recharde du Raid"
@@ -69,16 +71,18 @@ L.font_subheader_aura = "Police des Auras"
 L.font_subheader_filger = "Police de Filger"
 L.font_subheader_style = "Police de la stylisation"
 L.font_subheader_bag = "Police des Sacs"
-L.font_subheader_blizzard = "System font size" -- Need review
-L.font_tooltip_header_font_size = "Tooltip header" -- Need review
-L.font_tooltip_font_size = "Tooltip text" -- Need review
+L.font_subheader_blizzard = "Taille de la police de l’infobulle"
+L.font_tooltip_header_font_size = "En-tête de l’infobulle"
+L.font_tooltip_font_size = "Texte de l’infobulle"
+L.font_global_font = "Désactiver Pixel Font"
 
 -- Skins options
-L_GUI_SKINS = "Stylization"
-L_GUI_SKINS_SUBTEXT = "Change the appearance of the standard interface."
-L_GUI_SKINS_BLIZZARD = "Enable styling Blizzard frames"
-L_GUI_SKINS_MINIMAP_BUTTONS = "Enable styling addons icons on minimap"
-L_GUI_SKINS_SUBHEADER = "Stylization of addons"
+L_GUI_SKINS = "Personnalisation"
+L_GUI_SKINS_SUBTEXT = "Change l’apparence de l’interface standard."
+L_GUI_SKINS_BLIZZARD = "Activer la personnalisation des fenêtres Blizzard"
+L_GUI_SKINS_MINIMAP_BUTTONS = "Activer la personnalisation des icônes de la minimap"
+L_GUI_SKINS_SUBHEADER = "Change l’apparence des addons"
+L.skins_minimap_buttons_mouseover = "Icônes de la minimap au survol de la souris"
 L_GUI_SKINS_ACE3 = "Ace3"
 L_GUI_SKINS_ATLASLOOT = "AtlasLoot"
 L_GUI_SKINS_BLOOD_SHIELD_TRACKER = "BloodShieldTracker"
@@ -216,7 +220,7 @@ L.unitframe_CastbarFocus_h = "Castbar Height: Focus"  -- Need review
 
 -- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "Barres de classe"
-L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "Control of special class resources." -- Need review
+L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "Contrôle des ressources spéciales des classes."
 L_GUI_UF_PLUGINS_COMBO_BAR = "Afficher la barre des points de combo pour les Voleurs/Druides"
 L_GUI_UF_PLUGINS_COMBO_BAR_ALWAYS = "Toujours montrer la barre des points de combo pour la classe Druide"
 L_GUI_UF_PLUGINS_COMBO_BAR_OLD = "Activer les points de Combo sur la cible"
@@ -399,14 +403,15 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "Coloration de la menace du tank secondaire"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Texte de combat"
-L_GUI_COMBATTEXT_SUBTEXT = "For moving type in the chat '/xct'" -- Need review
+L_GUI_COMBATTEXT_SUBTEXT = "Pour déplacer écrivez /xct dans le chat"
 L_GUI_COMBATTEXT_ENABLE = "Activer les textes de combat"
-L.combattext_blizz_head_numbers = "Enable Blizzard combat text" -- Need review
-L.combattext_blizz_head_numbers_desc = "Utiliser les textes de combat de Blizzard"
-L.combattext_damage_style = "Change default combat font" -- Need review
+L.combattext_blizz_head_numbers = "Activer les textes de combat Blizzard"
+L.combattext_blizz_head_numbers_desc = "Utiliser la sortie des dégâts/soins Blizzard (au-dessus de la tête du mob/joueur)"
+L.combattext_damage_style = "Changer la police par défautt"
 L.combattext_damage_style_desc = "Change la police par défaut des dégâts/soins au dessus de la tête de la cible (Vous devez redémarrer WoW pour valider le changement)"
-L_GUI_COMBATTEXT_DAMAGE = "Afficher les dégâts dans une fenêtre dédiée"
-L_GUI_COMBATTEXT_HEALING = "Afficher les soins dans une fenêtre dédiée"
+L_GUI_COMBATTEXT_DAMAGE = "Montrer les dommages sortants"
+L_GUI_COMBATTEXT_HEALING = "Montrer les soins sortants"
+L.combattext_incoming = "Montrer les dommages et les soins entrants"
 L_GUI_COMBATTEXT_HOTS = "Afficher les effets des soins périodiques dans la fenêtre de soin"
 L_GUI_COMBATTEXT_OVERHEALING = "Afficher les excès de soins sortants"
 L_GUI_COMBATTEXT_PET_DAMAGE = "Afficher les dégâts du familier"
@@ -415,22 +420,23 @@ L_GUI_COMBATTEXT_DAMAGE_COLOR = "Afficher les dégâts en fonction de l'école d
 L_GUI_COMBATTEXT_CRIT_PREFIX = "Caractère à afficher avant le montant d'un critique"
 L_GUI_COMBATTEXT_CRIT_POSTFIX = "Caractère à afficher après le montant d'un critique"
 L_GUI_COMBATTEXT_ICONS = "Afficher l'icône du sort"
-L_GUI_COMBATTEXT_ICON_SIZE = "Icon size" -- Need review
+L_GUI_COMBATTEXT_ICON_SIZE = "Taille de l'icône"
 L_GUI_COMBATTEXT_ICON_SIZE_DESC = "Taille de l'icône du sort"
 L_GUI_COMBATTEXT_TRESHOLD = "Dégâts minimum pour afficher dans la fenêtre de dégâts"
 L_GUI_COMBATTEXT_HEAL_TRESHOLD = "Soins minimum pour afficher dans la fenêtre de dégâts"
 L_GUI_COMBATTEXT_SCROLLABLE = "Autoriser le défilement avec la molette dans la fenêtre de dégâts/soins"
-L_GUI_COMBATTEXT_MAX_LINES = "Max lines" -- Need review
+L_GUI_COMBATTEXT_MAX_LINES = "Lignes maximum"
 L_GUI_COMBATTEXT_MAX_LINES_DESC = "Nombre de lignes maximum à conserver si l'option de défilement est activée (plus de ligne = plus de mémoire utilisée)"
-L_GUI_COMBATTEXT_TIME_VISIBLE = "Time" -- Need review
+L_GUI_COMBATTEXT_TIME_VISIBLE = "Temps"
 L_GUI_COMBATTEXT_TIME_VISIBLE_DESC = "Temps en seconde durant lequel un message est affiché"
 L_GUI_COMBATTEXT_DK_RUNES = "Afficher le rechargement des runes du chevalier de la mort"
 L_GUI_COMBATTEXT_KILLINGBLOW = "Afficher les coups fatals"
-L_GUI_COMBATTEXT_MERGE_AOE_SPAM = "Rassembler tous les dégâts d'un aoe en un seul message"
+L.combattext_merge_aoe_spam = "Merges spell spam into single message" -- Needs review
+L.combattext_merge_aoe_spam_desc = "Rassembler tous les dégâts d'un aoe en un seul message"
 L_GUI_COMBATTEXT_MERGE_MELEE = "Rassemble les dégâts multiples en auto attaque"
 L_GUI_COMBATTEXT_DISPEL = "Affiche les sorts que vous avez dissipé"
 L_GUI_COMBATTEXT_INTERRUPT = "Affiche les sorts que vous avez interrompu"
-L_GUI_COMBATTEXT_DIRECTION = "Change scrolling direction from bottom to top" -- Need review
+L_GUI_COMBATTEXT_DIRECTION = "Changer la direction de défilement de bas en haut"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "Rendre plus lisible les nombres ('25.3k' au lieu de '25342')"
 
 -- Buffs reminder options

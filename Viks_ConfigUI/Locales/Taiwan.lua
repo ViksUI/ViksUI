@@ -5,12 +5,21 @@ if GetLocale() ~= "zhTW" then return end
 --	Localization for zhTW client
 --	Translation: Leg883, Mania, Tat2dawn, Tibles, Sakaras
 ----------------------------------------------------------------------------------------
-L_GUI_SET_SAVED_SETTTINGS = "為每個角色分別保存設定"
-L_GUI_SET_SAVED_SETTTINGS_DESC = "Switch between a profile that applies to all characters and one that is unique to this character." -- Need review
-L_GUI_RESET_CHAR = "確定要重置你所有角色的'ViksUI'設定?"
-L_GUI_RESET_ALL = "確定要重置全部'ViksUI'設定?"
-L_GUI_PER_CHAR = "確定要設定/取消'每個角色單獨設定'模式?"
-L_GUI_NEED_RELOAD = "|cffff2735You need to reload the UI to apply your changes.|r" -- Need review
+L_GUI_SET_SAVED_SETTTINGS = "角色專用設定"
+L_GUI_SET_SAVED_SETTTINGS_DESC = "在 一般設定 與 角色專用設定 之間切換。"
+L_GUI_RESET_CHAR = "確定要重置你所有角色的 ViksUI 設定?"
+L_GUI_RESET_ALL = "確定要重置全部 ViksUI 到預設值?"
+L_GUI_PER_CHAR = "確定要設定/取消 角色專用設定 模式?"
+L_GUI_RESET_CAT = "確定要重置當前分類到預設值?"
+L_GUI_RESET_CAT_DESC = "左鍵重置當前分類到預設值。\nCTRL+左鍵重置全部到預設值。"
+L_GUI_NEED_RELOAD = "請點擊套用以重載當前改動。"
+L_GUI_LAYOUT = "佈局切換"
+L_GUI_SPELL_LIST = "法術列表"
+L_GUI_SPELL_INPUT = "法術ID"
+L_GUI_TIME_INPUT = "時間"
+L_GUI_EXPERT_MODE = "專家模式"
+L_GUI_EXPERT_MODE_DESC = "編寫你的插件代碼"
+L_GUI_RESET_SPELLS_DESC = "Ctrl+左鍵重置列表"
 
 -- General options
 L_GUI_GENERAL_SUBTEXT = "These settings control the general user interface settings. Type in chat '/uihelp' for help."
@@ -352,14 +361,15 @@ L_GUI_AUTOMATION_REPAIR_GUILDF = "Automaticly repair with Guild Funds"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "戰鬥文字"
-L_GUI_COMBATTEXT_SUBTEXT = "For moving type in the chat '/xct'" -- Need review
+L_GUI_COMBATTEXT_SUBTEXT = "鍵入 /xct 獲取更多可用命令"
 L_GUI_COMBATTEXT_ENABLE = "開啟xCT戰鬥信息"
-L.combattext_blizz_head_numbers = "Enable Blizzard combat text" -- Need review
+L.combattext_blizz_head_numbers = "開啟暴雪默認戰鬥信息"
 L.combattext_blizz_head_numbers_desc = "暴雪默認傷害/治療模式(需關閉xCT戰鬥信息)"
-L.combattext_damage_style = "Change default combat font" -- Need review
+L.combattext_damage_style = "改變默認的顯示風格"
 L.combattext_damage_style_desc = "改變模型頂部/玩家頭像的傷害/治療字體"
 L_GUI_COMBATTEXT_DAMAGE = "獨立顯示傷害輸出"
 L_GUI_COMBATTEXT_HEALING = "獨立顯示治療輸出"
+L.combattext_incoming = "自己的戰鬥文字捲動"
 L_GUI_COMBATTEXT_HOTS = "Hot造成的治療"
 L_GUI_COMBATTEXT_OVERHEALING = "過量治療輸出"
 L_GUI_COMBATTEXT_PET_DAMAGE = "寵物傷害輸出"
@@ -367,23 +377,24 @@ L_GUI_COMBATTEXT_DOT_DAMAGE = "Dot造成的傷害"
 L_GUI_COMBATTEXT_DAMAGE_COLOR = "傷害文字按法術類型著色"
 L_GUI_COMBATTEXT_CRIT_PREFIX = "暴擊時文本左側修飾符號"
 L_GUI_COMBATTEXT_CRIT_POSTFIX = "暴擊時文本右側修飾符號"
-L_GUI_COMBATTEXT_ICONS = "傷害輸出技能圖示"
-L_GUI_COMBATTEXT_ICON_SIZE = "Icon size" -- Need review
-L_GUI_COMBATTEXT_ICON_SIZE_DESC = "傷害輸出圖示大小"
-L_GUI_COMBATTEXT_TRESHOLD = "傷害輸出最小閥值"
+L_GUI_COMBATTEXT_ICONS = "傷害輸出技能圖標"
+L_GUI_COMBATTEXT_ICON_SIZE = "圖標大小"
+L_GUI_COMBATTEXT_ICON_SIZE_DESC = "傷害輸出圖標大小"
+L_GUI_COMBATTEXT_TRESHOLD = "傷害輸出最小閾值"
 L_GUI_COMBATTEXT_HEAL_TRESHOLD = "承受/輸出治療最小閾值"
-L_GUI_COMBATTEXT_SCROLLABLE = "允許滑鼠調整滾動區域"
-L_GUI_COMBATTEXT_MAX_LINES = "Max lines" -- Need review
+L_GUI_COMBATTEXT_SCROLLABLE = "允許使用滑鼠滾輪滾動區域"
+L_GUI_COMBATTEXT_MAX_LINES = "最大行數"
 L_GUI_COMBATTEXT_MAX_LINES_DESC = "滾動區域顯示最大行數"
-L_GUI_COMBATTEXT_TIME_VISIBLE = "Time" -- Need review
+L_GUI_COMBATTEXT_TIME_VISIBLE = "時間"
 L_GUI_COMBATTEXT_TIME_VISIBLE_DESC = "信息保留時間(秒)"
 L_GUI_COMBATTEXT_DK_RUNES = "死亡騎士符文恢復"
 L_GUI_COMBATTEXT_KILLINGBLOW = "擊殺信息"
-L_GUI_COMBATTEXT_MERGE_AOE_SPAM = "將AOE傷害合併為一條信息"
+L.combattext_merge_aoe_spam = "將AOE傷害合併為一條信息"
+L.combattext_merge_aoe_spam_desc = "將AOE傷害合併為一條信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "將多個自動攻擊傷害合併為一條信息"
 L_GUI_COMBATTEXT_DISPEL = "當你驅散成功時提示"
 L_GUI_COMBATTEXT_INTERRUPT = "當你斷法成功時提示"
-L_GUI_COMBATTEXT_DIRECTION = "Change scrolling direction from bottom to top" -- Need review
+L_GUI_COMBATTEXT_DIRECTION = "滾動方向從下向上"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "數值以K為單位顯示"
 
 -- Buffs reminder options

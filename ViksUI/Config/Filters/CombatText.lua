@@ -39,6 +39,11 @@ if C.combattext.merge_aoe_spam then
 	T.aoespam[336463] = 5			-- Shadowcore Oil Blast
 	T.aoespam[353466] = 4			-- Sadistic Glee
 	T.aoespam[321937] = 4			-- Phantom Fire
+
+	-- GUI list
+	for _, spell in pairs(C.combattext.spells_list) do
+		T.aoespam[spell[1]] = spell[2]
+	end
 end
 
 -- Class config
@@ -194,6 +199,7 @@ elseif T.class == "DRUID" then
 		T.aoespam[124991] = 3		-- Nature's Vigil
 		T.aoespam[202347] = 3		-- Stellar Flare
 		T.aoespam[155625] = 3		-- Moonfire (Cat Form)
+		T.aoespam[365640] = 4		-- Fury of Elune
 	end
 	if C.combattext.healing then
 		T.healfilter[145109] = true	-- Ysera's Gift (Self)
@@ -372,6 +378,7 @@ elseif T.class == "PALADIN" then
 		T.aoespam[119952] = 3		-- Arcing Light
 		T.aoespam[183811] = 6		-- Judgment of Light
 		T.aoespam[225311] = 1		-- Light of Dawn
+		T.aoespam[339119] = 3		-- Golden Path
 		-- Damaging spells
 		T.aoespam[53600] = 0.5		-- Shield of the Righteous
 		T.aoespam[184689] = 1		-- Shield of Vengeance

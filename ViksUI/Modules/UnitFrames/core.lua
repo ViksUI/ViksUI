@@ -883,12 +883,12 @@ SlashCmdList.TEST_UF = function(msg)
 			end
 		end
 
+		if C.unitframe.show_boss == true then
 			for i = 1, MAX_BOSS_FRAMES do
-				_G["oUF_Boss"..i].Hide = function() end
-				_G["oUF_Boss"..i].unit = "player"
-				_G["oUF_Boss"..i]:Show()
-				--_G["oUF_Boss"..i]:UpdateAllElements()
+				_G["oUF_Boss"..i].oldunit = _G["oUF_Boss"..i].unit
+				_G["oUF_Boss"..i]:SetAttribute("unit", "player")
 			end
+		end
 
 		moving = true
 
@@ -900,9 +900,12 @@ SlashCmdList.TEST_UF = function(msg)
 			end
 		end
 
+		if C.unitframe.show_boss == true then
 			for i = 1, MAX_BOSS_FRAMES do
-				_G["oUF_Boss"..i].Hide = nil
+				_G["oUF_Boss"..i].unit = _G["oUF_Boss"..i].oldunit
+				_G["oUF_Boss"..i]:SetAttribute("unit", _G["oUF_Boss"..i].unit)
 			end
+		end
 		moving = false
 	end
 end

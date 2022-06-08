@@ -19,6 +19,7 @@ L_GUI_SPELL_INPUT = "Zauber ID"
 L_GUI_TIME_INPUT = "Zeit"
 L_GUI_EXPERT_MODE = "Expert mode" -- Need review
 L_GUI_EXPERT_MODE_DESC = "Custom editing of Lua profile" -- Need review
+L_GUI_RESET_SPELLS_DESC = "CTRL-click to reset list" -- Need review
 
 -- General options
 L_GUI_GENERAL_SUBTEXT = "Diese Einstellungen steuern die allgemeinen Einstellungen der Benutzeroberfläche. Geben Sie im Chat '/uihelp ein, um Hilfe zu erhalten."
@@ -413,6 +414,7 @@ L.combattext_damage_style = "Ändert die Standardkampfschriftart"
 L.combattext_damage_style_desc = "Standard Schaden/Heilung Schriftart über Kreaturen/Spieler Köpfen ändern (Neustart von WoW erforderlich um Änderungen zu sehen)"
 L_GUI_COMBATTEXT_DAMAGE = "Zeige ausgehenden Schaden in einem eigenen Fenster"
 L_GUI_COMBATTEXT_HEALING = "Zeige ausgehende Heilung in einem eigenen Fenster"
+L.combattext_incoming = "Show incoming damage and healing" -- Need review
 L_GUI_COMBATTEXT_HOTS = "Zeige peroidische Heilungseffekte im Heilungsfenster"
 L_GUI_COMBATTEXT_OVERHEALING = "Zeige ausgehende Überheilung an"
 L_GUI_COMBATTEXT_PET_DAMAGE = "Zeige Begleiterschaden"
@@ -432,7 +434,8 @@ L_GUI_COMBATTEXT_TIME_VISIBLE = "Zeit"
 L_GUI_COMBATTEXT_TIME_VISIBLE_DESC = "Zeit(Sekunden) wielange eine einzelne Nachricht angezeigt wird"
 L_GUI_COMBATTEXT_DK_RUNES = "Zeige Runenaufladung vom Todesritter"
 L_GUI_COMBATTEXT_KILLINGBLOW = "Teilt dir mit ob du den Todesstoß bei einer Kreatur/einem Spieler hattest"
-L_GUI_COMBATTEXT_MERGE_AOE_SPAM = "Vereint mehrfachen Flächenschaden in eine einzige Nachricht"
+L.combattext_merge_aoe_spam = "Merges spell spam into single message" -- Needs review
+L.combattext_merge_aoe_spam_desc = "Vereint mehrfachen Flächenschaden in eine einzige Nachricht"
 L_GUI_COMBATTEXT_MERGE_MELEE = "Fügt mehrfachen automatischen Angriffsschaden-Spam zusammen"
 L_GUI_COMBATTEXT_DISPEL = "Informiert dich über deine Bannungen"
 L_GUI_COMBATTEXT_INTERRUPT = "Informiert dich über deine Unterbrechungen"

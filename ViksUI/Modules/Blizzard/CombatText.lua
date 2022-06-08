@@ -9,7 +9,7 @@ local ct = {
 	["justify_1"] = "LEFT",			-- Incoming damage justify
 	["justify_2"] = "RIGHT",		-- Incoming healing justify
 	["justify_3"] = "CENTER",		-- Various messages justify
-	["justify_4"] = "LEFT",		-- Outgoing damage/healing justify
+	["justify_4"] = "LEFT",			-- Outgoing damage/healing justify
 }
 
 -- Do not edit below unless you know what you are doing

@@ -1120,7 +1120,7 @@ do
 	plugins_aura_watch:SetPoint("TOPLEFT", plugins_debuffhighlight_icon, "BOTTOMLEFT", 0, 0)
 
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", -200, 0)
+	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", 400, 0)
 	ListButton:SetSize(100, 23)
 	ListButton:SetText(ADD)
 	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
@@ -1466,7 +1466,7 @@ do
 	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
 
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	ListButton:SetPoint("LEFT", spells.Text, "RIGHT", 20, 0)
+	ListButton:SetPoint("LEFT", spells, "RIGHT", 400, 0)
 	ListButton:SetSize(100, 23)
 	ListButton:SetText(">>")
 	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
@@ -1613,50 +1613,81 @@ do
 	local damage = ns.CreateCheckBox(parent, "damage", L_GUI_COMBATTEXT_DAMAGE)
 	damage:SetPoint("TOPLEFT", damage_style, "BOTTOMLEFT", -20, 0)
 
-	local healing = ns.CreateCheckBox(parent, "healing", L_GUI_COMBATTEXT_HEALING)
-	healing:SetPoint("TOPLEFT", damage, "BOTTOMLEFT", 0, 0)
-
-	local show_hots = ns.CreateCheckBox(parent, "show_hots", L_GUI_COMBATTEXT_HOTS)
-	show_hots:SetPoint("TOPLEFT", healing, "BOTTOMLEFT", 0, 0)
-
-	local show_overhealing = ns.CreateCheckBox(parent, "show_overhealing", L_GUI_COMBATTEXT_OVERHEALING)
-	show_overhealing:SetPoint("TOPLEFT", show_hots, "BOTTOMLEFT", 0, 0)
-
 	local pet_damage = ns.CreateCheckBox(parent, "pet_damage", L_GUI_COMBATTEXT_PET_DAMAGE)
-	pet_damage:SetPoint("TOPLEFT", show_overhealing, "BOTTOMLEFT", 0, 0)
+	pet_damage:SetPoint("TOPLEFT", damage, "BOTTOMLEFT", 20, 0)
 
 	local dot_damage = ns.CreateCheckBox(parent, "dot_damage", L_GUI_COMBATTEXT_DOT_DAMAGE)
 	dot_damage:SetPoint("TOPLEFT", pet_damage, "BOTTOMLEFT", 0, 0)
 
+	local healing = ns.CreateCheckBox(parent, "healing", L_GUI_COMBATTEXT_HEALING)
+	healing:SetPoint("TOPLEFT", dot_damage, "BOTTOMLEFT", -20, 0)
+
+	local show_hots = ns.CreateCheckBox(parent, "show_hots", L_GUI_COMBATTEXT_HOTS)
+	show_hots:SetPoint("TOPLEFT", healing, "BOTTOMLEFT", 20, 0)
+
+	local show_overhealing = ns.CreateCheckBox(parent, "show_overhealing", L_GUI_COMBATTEXT_OVERHEALING)
+	show_overhealing:SetPoint("TOPLEFT", show_hots, "BOTTOMLEFT", 0, 0)
+
+	local incoming = ns.CreateCheckBox(parent, "incoming", L.combattext_incoming)
+	incoming:SetPoint("TOPLEFT", show_overhealing, "BOTTOMLEFT", -20, 0)
+
 	local damage_color = ns.CreateCheckBox(parent, "damage_color", L_GUI_COMBATTEXT_DAMAGE_COLOR)
-	damage_color:SetPoint("TOPLEFT", dot_damage, "BOTTOMLEFT", 0, 0)
+	damage_color:SetPoint("TOPLEFT", incoming, "BOTTOMLEFT", 0, 0)
 
-	local crit_prefix = ns.CreateEditBox(parent, "crit_prefix", true, L_GUI_COMBATTEXT_CRIT_PREFIX)
-	crit_prefix:SetPoint("TOPLEFT", damage_color, "BOTTOMLEFT", 6, -8)
+	local dispel = ns.CreateCheckBox(parent, "dispel", L_GUI_COMBATTEXT_DISPEL)
+	dispel:SetPoint("TOPLEFT", damage_color, "BOTTOMLEFT", 0, 0)
 
-	local crit_postfix = ns.CreateEditBox(parent, "crit_postfix", true, L_GUI_COMBATTEXT_CRIT_POSTFIX)
-	crit_postfix:SetPoint("TOPLEFT", crit_prefix, "BOTTOMLEFT", 0, -10)
+	local interrupt = ns.CreateCheckBox(parent, "interrupt", L_GUI_COMBATTEXT_INTERRUPT)
+	interrupt:SetPoint("TOPLEFT", dispel, "BOTTOMLEFT", 0, 0)
 
 	local icons = ns.CreateCheckBox(parent, "icons", L_GUI_COMBATTEXT_ICONS)
-	icons:SetPoint("TOPLEFT", crit_postfix, "BOTTOMLEFT", -6, -8)
+	icons:SetPoint("TOPLEFT", interrupt, "BOTTOMLEFT", 0, 0)
 
-	local icon_size = ns.CreateNumberSlider(parent, "icon_size", nil, nil, 0, 30, 1, true, L_GUI_COMBATTEXT_ICON_SIZE, L_GUI_COMBATTEXT_ICON_SIZE_DESC)
+	local icon_size = ns.CreateNumberSlider(parent, "icon_size", nil, nil, 0, 40, 1, true, L_GUI_COMBATTEXT_ICON_SIZE, L_GUI_COMBATTEXT_ICON_SIZE_DESC)
 	icon_size:SetPoint("TOPLEFT", icons, "BOTTOMLEFT", 0, -20)
 
-	local treshold = ns.CreateEditBox(parent, "treshold", true, L_GUI_COMBATTEXT_TRESHOLD, true)
-	treshold:SetPoint("TOPLEFT", icon_size, "BOTTOMLEFT", 6, -10)
-
-	local heal_treshold = ns.CreateEditBox(parent, "heal_treshold", true, L_GUI_COMBATTEXT_HEAL_TRESHOLD, true)
-	heal_treshold:SetPoint("TOPLEFT", treshold, "BOTTOMLEFT", 0, -10)
-
-	local scrollable = ns.CreateCheckBox(parent, "scrollable", L_GUI_COMBATTEXT_SCROLLABLE)
-	scrollable:SetPoint("TOPLEFT", heal_treshold, "BOTTOMLEFT", -6, -8)
-
 	local max_lines = ns.CreateNumberSlider(parent, "max_lines", nil, nil, 0, 30, 1, true, L_GUI_COMBATTEXT_MAX_LINES, L_GUI_COMBATTEXT_MAX_LINES_DESC)
-	max_lines:SetPoint("TOPLEFT", scrollable, "BOTTOMLEFT", 0, -20)
+	max_lines:SetPoint("TOPLEFT", icon_size, "BOTTOMLEFT", 0, -20)
 
 	local time_visible = ns.CreateNumberSlider(parent, "time_visible", nil, nil, 0, 10, 1, true, L_GUI_COMBATTEXT_TIME_VISIBLE, L_GUI_COMBATTEXT_TIME_VISIBLE_DESC)
-	time_visible:SetPoint("TOPLEFT", max_lines, "BOTTOMLEFT", 0, -20)
+	time_visible:SetPoint("LEFT", max_lines, "RIGHT", 120, 0)
+
+	local short_numbers = ns.CreateCheckBox(parent, "short_numbers", L_GUI_COMBATTEXT_SHORT_NUMBERS)
+	short_numbers:SetPoint("TOPLEFT", max_lines, "BOTTOMLEFT", 0, -8)
+
+	local merge_aoe_spam = ns.CreateCheckBox(parent, "merge_aoe_spam")
+	merge_aoe_spam:SetPoint("TOPLEFT", short_numbers, "BOTTOMLEFT", 0, 0)
+
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("LEFT", merge_aoe_spam, "RIGHT", 400, 0)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(ADD)
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton.tooltipText = "|cffFFD100"..L_GUI_RESET_SPELLS_DESC.."|r"
+	ListButton:SetScript("OnClick", function()
+		if not C.options["combattext"] then
+			C.options["combattext"] = {}
+		end
+		if not C.options["combattext"]["spells_list"] then
+			C.options["combattext"]["spells_list"] = {}
+		end
+		BuildSpellList(C.options["combattext"]["spells_list"], true)
+	end)
+	tinsert(ns.buttons, ListButton)
+
+	local function toggleListButton()
+		local shown = merge_aoe_spam:GetChecked()
+		ListButton:SetEnabled(shown)
+	end
+
+	merge_aoe_spam:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
+
+	local merge_melee = ns.CreateCheckBox(parent, "merge_melee", L_GUI_COMBATTEXT_MERGE_MELEE)
+	merge_melee:SetPoint("TOPLEFT", merge_aoe_spam, "BOTTOMLEFT", 20, 0)
+
+	local direction = ns.CreateCheckBox(parent, "direction", L_GUI_COMBATTEXT_DIRECTION)
+	direction:SetPoint("TOPLEFT", merge_melee, "BOTTOMLEFT", -20, 0)
 
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.combattext2
@@ -1667,23 +1698,20 @@ do
 	local killingblow = ns.CreateCheckBox(parent, "killingblow", L_GUI_COMBATTEXT_KILLINGBLOW)
 	killingblow:SetPoint("TOPLEFT", dk_runes, "BOTTOMLEFT", 0, 0)
 
-	local merge_aoe_spam = ns.CreateCheckBox(parent, "merge_aoe_spam", L_GUI_COMBATTEXT_MERGE_AOE_SPAM)
-	merge_aoe_spam:SetPoint("TOPLEFT", killingblow, "BOTTOMLEFT", 0, 0)
+	local scrollable = ns.CreateCheckBox(parent, "scrollable", L_GUI_COMBATTEXT_SCROLLABLE)
+	scrollable:SetPoint("TOPLEFT", killingblow, "BOTTOMLEFT", 0, 0)
 
-	local merge_melee = ns.CreateCheckBox(parent, "merge_melee", L_GUI_COMBATTEXT_MERGE_MELEE)
-	merge_melee:SetPoint("TOPLEFT", merge_aoe_spam, "BOTTOMLEFT", 0, 0)
+	local crit_prefix = ns.CreateEditBox(parent, "crit_prefix", true, L_GUI_COMBATTEXT_CRIT_PREFIX)
+	crit_prefix:SetPoint("TOPLEFT", scrollable, "BOTTOMLEFT", 6, -8)
 
-	local dispel = ns.CreateCheckBox(parent, "dispel", L_GUI_COMBATTEXT_DISPEL)
-	dispel:SetPoint("TOPLEFT", merge_melee, "BOTTOMLEFT", 0, 0)
+	local crit_postfix = ns.CreateEditBox(parent, "crit_postfix", true, L_GUI_COMBATTEXT_CRIT_POSTFIX)
+	crit_postfix:SetPoint("TOPLEFT", crit_prefix, "BOTTOMLEFT", 0, -10)
 
-	local interrupt = ns.CreateCheckBox(parent, "interrupt", L_GUI_COMBATTEXT_INTERRUPT)
-	interrupt:SetPoint("TOPLEFT", dispel, "BOTTOMLEFT", 0, 0)
+	local treshold = ns.CreateEditBox(parent, "treshold", true, L_GUI_COMBATTEXT_TRESHOLD, true)
+	treshold:SetPoint("TOPLEFT", crit_postfix, "BOTTOMLEFT", 0, -10)
 
-	local direction = ns.CreateCheckBox(parent, "direction", L_GUI_COMBATTEXT_DIRECTION)
-	direction:SetPoint("TOPLEFT", interrupt, "BOTTOMLEFT", 0, 0)
-
-	local short_numbers = ns.CreateCheckBox(parent, "short_numbers", L_GUI_COMBATTEXT_SHORT_NUMBERS)
-	short_numbers:SetPoint("TOPLEFT", direction, "BOTTOMLEFT", 0, 0)
+	local heal_treshold = ns.CreateEditBox(parent, "heal_treshold", true, L_GUI_COMBATTEXT_HEAL_TRESHOLD, true)
+	heal_treshold:SetPoint("TOPLEFT", treshold, "BOTTOMLEFT", 0, -10)
 end
 
 -- Reminder

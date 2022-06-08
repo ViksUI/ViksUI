@@ -81,6 +81,7 @@ T.ABItems = {
 	[184313] = true,	-- Shattered Helm
 	[180170] = true,	-- Pulsing Animacone
 	[180876] = true,	-- Aqueous Material Accumulator
+	[188697] = true,	-- Kinematic Micro-Life Recalibrator
 	[184622] = true,	-- Stygian Hammer
 	[180274] = true,	-- Torch
 	[179921] = true,	-- Hydra Gutter
