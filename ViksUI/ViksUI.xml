@@ -81,8 +81,6 @@
 	<Script file="Modules\Misc\SlotItemLevel.lua"/>
 	<Script file="Modules\Misc\Stats.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
-	<!--Script file="Modules\Misc\ReputationBar.lua"/-->
-	<!--Script file="Modules\Misc\Tools.lua"/-->
 	<Script file="Modules\Misc\RaidTools.lua"/>
 
 	<!--Script file="Modules\Trade\AlreadyKnown.lua"/-->

@@ -9,6 +9,7 @@ local Panels = CreateFrame("Frame")
 local BarSelected
 local Bars = 20
 local barTex = C.media.texture
+local MaxRenown = 80
 
 Experience.NumBars = 2
 Experience.RestedColor = {75 / 255, 175 / 255, 76 / 255}
@@ -87,6 +88,18 @@ Experience.Menu = {
 	},
 }
 
+Experience.Standing = {
+    [0] = UNKNOWN,
+    [1] = FACTION_STANDING_LABEL1,
+    [2] = FACTION_STANDING_LABEL2,
+    [3] = FACTION_STANDING_LABEL3,
+    [4] = FACTION_STANDING_LABEL4,
+    [5] = FACTION_STANDING_LABEL5,
+    [6] = FACTION_STANDING_LABEL6,
+    [7] = FACTION_STANDING_LABEL7,
+    [8] = FACTION_STANDING_LABEL8,
+}
+
 function Experience:SetTooltip()
 	local BarType = self.BarType
 	local Current, Max, Pts
@@ -107,10 +120,13 @@ function Experience:SetTooltip()
 			return
 		end
 
-		GameTooltip:AddLine("|cff0090FF"..XP..": " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "% - " .. floor(Bars - (Bars * (Max - Current) / Max)) .. "/" .. Bars .. ")|r")
-
+		GameTooltip:AddLine("Experience:")
+		GameTooltip:AddLine("Current experience and rested state", 1, 1, 1, 1, 1, 1)
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine("|cffA335EE"..XP..": " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "% - " .. floor(Bars - (Bars * (Max - Current) / Max)) .. "/" .. Bars .. ")|r")
+	
 		if (IsRested == 1 and Rested) then
-			GameTooltip:AddLine("|cff4BAF4C"..TUTORIAL_TITLE26..": +" .. Rested .." (" .. floor(Rested / Max * 100) .. "%)|r")
+			GameTooltip:AddLine("|cff0090FF"..TUTORIAL_TITLE26..": +" .. Rested .." (" .. floor(Rested / Max * 100) .. "%)|r")
 		end
 	elseif BarType == "ANIMA" then
 		Current, Max = Experience:GetAnima()
@@ -121,8 +137,8 @@ function Experience:SetTooltip()
 		
 		local Level = C_CovenantSanctumUI.GetRenownLevel()
 		
-		GameTooltip:AddLine("|cffFF3333"..COVENANT_SANCTUM_TAB_RENOWN.." "..LEVEL..": " .. Level)
-		GameTooltip:AddLine("|cff99CCFF"..ANIMA_DIVERSION_CURRENCY_TOOLTIP_TITLE..": " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "%)")
+		GameTooltip:AddDoubleLine("|cffFF3333"..COVENANT_SANCTUM_TAB_RENOWN.." "..LEVEL..": ", Level)
+		GameTooltip:AddDoubleLine("|cff99CCFF"..ANIMA_DIVERSION_CURRENCY_TOOLTIP_TITLE..": ", Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "%)")
 	elseif BarType == "PETXP" then
 		Current, Max = GetPetExperience()
 
@@ -130,7 +146,7 @@ function Experience:SetTooltip()
 			return
 		end
 
-		GameTooltip:AddLine("|cffFFFF66Pet XP: " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "% - " .. floor(Bars - (Bars * (Max - Current) / Max)) .. "/" .. Bars .. ")|r")
+		GameTooltip:AddDoubleLine("|cff0090FF"..PET.." "..XP..":|r", Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "%)")
 	elseif BarType == "AZERITE" then
 		Current, Max, Level, Items = Experience:GetAzerite()
 
@@ -146,14 +162,15 @@ function Experience:SetTooltip()
 		GameTooltip:AddLine(' ')
 		GameTooltip:AddLine(AZERITE_POWER_TOOLTIP_BODY:format(ItemName))
 
-		GameTooltip:Show()
 	elseif BarType == "REP" then
-		local Current, Max = Experience:GetReputation()
-		local Name, ID = GetWatchedFactionInfo()
+		local Current, Max, Standing = Experience:GetReputation()
+		local Name, ID, Min, Max, Value = GetWatchedFactionInfo()
 		local Colors = FACTION_BAR_COLORS
 		local Hex = T.RGBToHex(Colors[ID].r, Colors[ID].g, Colors[ID].b)
 		
-		GameTooltip:AddLine(Hex..Name..": " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "% - " .. floor(Bars - (Bars * (Max - Current) / Max)) .. "/" .. Bars .. ")|r")
+		GameTooltip:AddLine(Name)
+        GameTooltip:AddLine("|cffffffff" .. Current .. " / " .. Max .. " ( " .. floor((Current/Max)*100) .. "%)" .. "|r")
+        GameTooltip:AddLine(Hex .. Standing .. "|r")
 	else
 		local Level = UnitHonorLevel("player")
 
@@ -163,8 +180,8 @@ function Experience:SetTooltip()
 			GameTooltip:AddLine(PVP_HONOR_PRESTIGE_AVAILABLE)
 			GameTooltip:AddLine(PVP_HONOR_XP_BAR_CANNOT_PRESTIGE_HERE)
 		else
-			GameTooltip:AddLine("|cffee2222"..HONOR..": " .. Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "% - " .. floor(Bars - (Bars * (Max - Current) / Max)) .. "/" .. Bars .. ")|r")
-			GameTooltip:AddLine("|cffcccccc"..RANK..": " .. Level .. "|r")
+			GameTooltip:AddDoubleLine("|cffee2222"..HONOR..":|r", Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "%)")
+			GameTooltip:AddDoubleLine("|cffee2222"..RANK..":|r", Level)
 		end
 	end
 
@@ -177,9 +194,17 @@ end
 
 function Experience:GetAzerite()
 	local AzeriteItems = C_AzeriteItem.FindActiveAzeriteItem()
-	local XP, TotalXP = C_AzeriteItem.GetAzeriteItemXPInfo(AzeriteItems)
-	local Level = C_AzeriteItem.GetPowerLevel(AzeriteItems)
-
+	local InBank = AzeriteUtil.IsAzeriteItemLocationBankBag(AzeriteItems)
+	local XP, TotalXP, Level
+	
+	if InBank then
+		XP, TotalXP = 0, 0
+		Level = 0
+	else
+		XP, TotalXP = C_AzeriteItem.GetAzeriteItemXPInfo(AzeriteItems)
+		Level = C_AzeriteItem.GetPowerLevel(AzeriteItems)
+	end
+	
 	return XP, TotalXP, Level, AzeriteItems
 end
 
@@ -188,9 +213,13 @@ function Experience:GetHonor()
 end
 
 function Experience:GetReputation()
-	local Name, ID, Min, Max, Value = GetWatchedFactionInfo()
+	local Name, Standing, Min, Max, Value, Faction = GetWatchedFactionInfo()
+    
+    local BarMax = Max - Min
+    local BarValue = Value - Min
+    local BarStanding = Experience.Standing[Standing]
 	
-	return Value, Max
+	return BarValue, BarMax, BarStanding
 end
 
 function Experience:GetAnima()
@@ -204,6 +233,7 @@ end
 
 function Experience:VerifyMenu()
 	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
+	local Honor = UnitHonorLevel										  
 	local HavePetXP = select(2, HasPetUI())
 	local WatchedFaction = GetWatchedFactionInfo()
 	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
@@ -240,6 +270,7 @@ function Experience:Update()
 	local IsRested = GetRestState()
 	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
 	local AnimaCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
+	local RenownLevel = C_CovenantSanctumUI.GetRenownLevel()
 	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
 	local HavePetXP = select(2, HasPetUI())
 	local WatchedFaction = GetWatchedFactionInfo()
@@ -249,15 +280,7 @@ function Experience:Update()
 		local RestedBar = self["RestedBar"..i]
 		local R, G, B
 		
-		if (Bar.BarType == "AZERITE" and not AzeriteItem) or (Bar.BarType == "PETXP" and not HavePetXP) or (Bar.BarType == "REP" and not WatchedFaction) or (Bar.BarType == "ANIMA" and AnimaCurrencyInfo.quantity == 0 and AnimaCurrencyInfo.maxQuantity == 0) then
-			local MoreText = ""
-			
-			if Bar.BarType == "REP" then
-				MoreText = " Please select a reputation to track in your character panel!"
-			end
-			
-			print("[|CFFFFFF00" .. POWER_TYPE_EXPERIENCE .. "|r] You cannot track |CFFFF0000".. Bar.BarType .."|r at the moment, switching to |CFF00FF00XP|r"..MoreText)
-			
+		if (Bar.BarType == "AZERITE" and not AzeriteItem) or (Bar.BarType == "PETXP" and not HavePetXP) or (Bar.BarType == "REP" and not WatchedFaction) or (Bar.BarType == "ANIMA" and AnimaCurrency and AnimaCurrencyInfo.quantity == 0 and AnimaCurrencyInfo.maxQuantity == 0) then
 			Bar.BarType = "XP"
 		end
 
@@ -266,7 +289,8 @@ function Experience:Update()
 			
 			R, G, B = unpack(self.HNColor)
 		elseif Bar.BarType == "ANIMA" then
-			Current, Max = Experience:GetAnima()
+			Current = RenownLevel
+			Max = MaxRenown
 			
 			R, G, B = unpack(self.AnimaColor)
 		elseif Bar.BarType == "PETXP" then
@@ -365,7 +389,6 @@ function Experience:Create()
 		self["RestedBar"..i] = RestedBar
 	end
 	
-	self:RegisterEvent("ADDON_LOADED")	
 	self:RegisterEvent("PLAYER_XP_UPDATE")
 	self:RegisterEvent("UPDATE_FACTION")
 	self:RegisterEvent("PLAYER_LEVEL_UP")
@@ -379,6 +402,7 @@ function Experience:Create()
 	self:RegisterEvent("PLAYER_MONEY")
 	self:RegisterEvent("UNIT_PET")
 	self:RegisterEvent("UNIT_PET_EXPERIENCE")
+	self:RegisterEvent("BAG_UPDATE")								 
 	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE")	
 	self:RegisterEvent("ADDON_LOADED")	
 
