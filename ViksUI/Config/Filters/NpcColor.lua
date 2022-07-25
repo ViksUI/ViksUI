@@ -1,6 +1,6 @@
 local T, C, L, _ = unpack(select(2, ...))
 	
-T.PlateDangerous = {
+T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	----- Mists of Tirna Scithe -----
 	["167111"] = "Interrupt(!!): Stimulate Resistance (AoE absorb, purgeable)".. "\n".. "Interrupt(!!):Stiumlate Regeneration (large AoE heal)", -- Spinemaw Staghorn
 	["164920"] = "Dispel: Soul Split (Increased Damage Taken, DANGEROUS)", -- Drust Soulcleaver
@@ -48,9 +48,18 @@ T.PlateDangerous = {
 	["180429"] = "Summon a little star. Blow up your group. Kill it quickly".. "\n".. "Drifting Star: Circle behind mob", -- Adorned Starseer
 	["179386"] = "Dodge: Sword Toss. HEAVY, channeled AoE damage in a random direction.", -- Corsair Officer
 	["180431"] = "Interrupt (!!): Unstable Rift (big AoE damage)", -- Focused Ritualist
+	-- Lower Karazhan High Pri
+	["114627"] = "Interrupt: Terrifying Wail".. "\n".. "Dispel: Cursed Touch", -- Shrieking Terror (spirit)
+	["114796"] = "Interrupt: Banshee Wail".. "\n".. "Dispel anyone near 100 stacks to avoid MC", -- Wholesome Hostess
+	-- Grimrail Depot High Pri
+	["89064"] = "Kill to get Blackrock Grenades".. "\n".. "Deals heavy aoe dmg", -- Grom'kar Grenadier
+	["82590"] = "Avoid arcane pool".. "\n".. "Can stun Arcane Blitz", -- Grimrail Scout
+	-- Operation Mechagon: Junkyard High Pri
+	["150165"] = "Interrupt: Slimebolt", -- 
+	["150292"] = "DODGE: Rapid Fire cast after a Charge", -- Mechagon Cavalry 
 }
 
-T.PlateImportant = {
+T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
 	----- Mists of Tirna Scithe -----
 	["164921"] = "Interrupt(!): Harvest Essence ".. "\n".. "(AoE Channel + Heal", -- Drust Harvester
 	["166299"] = "Interrupt(!): Nourish the Forest ".. "\n".. "(large AoE HoT, can also be purged / spellstolen", -- Mistveil Tender
@@ -103,9 +112,25 @@ T.PlateImportant = {
 	["178139"] = "Stun Interrupt (!): Cry of Mrrggllrrgg (AoE Enrage, +50% dmg)", -- Murkbrine Shellcrusher
 	["178171"] = "Dodge: Charged Pulse (3s cast - blue AoE circle)", -- Stormforged Guardian
 	["180015"] = "Stun Interrupt: Disruptive Shout (AoE damage)".. "\n".. "Soothe: Super Saison (+100% dmg buff)", -- Burly Deckhand
+	-- Lower Karazhan Semi
+	["114626"] = "Interrupt: Soul Leech".. "\n".. "Dispel: Shadow Rend", -- Forlorn Spirit (spirit)
+	["114544"] = "Face away from the mobs during Flashlight!", -- Skeletal Usher 
+	["114632"] = "Interrupt: Shadow Rejuvenation (Heal)", -- Spectral Attendant
+	["114803"] = "Interrupt: Healing Touch", -- Spectral Stable Hand
+	-- Upper Karazhan Semi
+	["115765"] = "Soul always appears in the same place. Gives +100% damage to you", -- Abstract Nullifier
+	["115419"] = "Avoid pulling".. "\n".. "Interrupt: Consume Magic", -- Ancient Tome
+	-- Grimrail Depot Semi
+	["88165"] = "Spread: Lava Wreath silences player".. "\n".. "Refreshes if player stand within 10y", -- Grom'kar Cinderseer
+	["82579"] = "Cast Storm Shield".. "\n".. "Does Chainlightning when shield takes dmg", -- Grom'kar Far Seer
+	-- Operation Mechagon: Junkyard Semi
+	["150169"] = "Interrupt: Suffocating Smog".. "\n".. "Stunns a player for 10 sec", -- Toxic Lurker
+	["150146"] = "Interrupt: Stoneskin and Grasping Hex", -- Scrapbone Shamans
+	["150297"] = "Interrupt: Enlarge and Shrink".. "\n".. "Magic Dispel shrink", -- Mechagon Renormalizer
+	["150276"] = "Interrupt: Repair Protocol", -- Heavy Scrapbot
 }
 
-T.PlateNuke = {
+T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	----- Tormented Seasonal Mythic+ Affix  -----
 	["179446"] = "Aura if Alive: Damage over Time Effect".. "\n".. "Avoid fire on floor".. "\n".. "Dispell: Melt Soul - Increases fire damage taken", -- Incinerator Arkolath
 	["179892"] = "Aura if Alive: 50% Movement Speed Reduction".. "\n".. "Dodge Frost lance".. "\n".. "Move away with biting cold", -- Oros Coldheart
@@ -133,9 +158,27 @@ T.PlateNuke = {
 	["179821"] = "Big Tank knockback".. "\n".. "Stay spread when linked".. "\n".. "Dodge orbs", -- Commander Zo'far (Miniboss)
 	["178165"] = "Tidal Stomp: Big AoE damage, stacks. 50y range".. "\n".. "Dodge: Boulder Throw (brown swirl)".. "\n".. "Hard Burn or outrange", -- Coastwalker Goliath
 	["180432"] = "Interrupt (!!): Reinvigorate (Heal + haste buff)".. "\n".. "Stacks dmg taken increase on the tank".. "\n".. "Kill quickly or kite", -- Devoted Accomplice
+	-- Lower Karazhan Nuke
+	["116549"] = "Interrupt(!!): Firelands Portal".. "\n".. "Use AoE stuns. They HURT.", -- Backup Singer
+	["114629"] = "Dangerous mob. Pull with caution".. "\n".. "Interrupt: Oath of Fealty (MC)",-- Spectral Retainer
+	["114783"] = "Stun and focus at 50% to avoid Heartbreaker".. "\n".. "Dispel Flirt. Tank priority", -- Reformed Maiden
+	["114801"] = "Spreadout with Burning Brand. It hurts. A lot.", -- Spectral Apprentice
+	-- Grimrail Depot Nuke
+	["81236"] = "Interrupt: Activating ".. "\n".. "Stun/CC: 50,000 Volts! HURTS and Stuns", -- Grimrail Technician 
+	["80935"] = "Nuke to gain Blackrock Mortar Shells".. "\n".. "Loot and use Blackrock Turret", -- Grom'kar Boomer 
+	-- Iron Docks Nuke
+	["81603"] = "Buffs all close mobs".. "\n".. "Orders wall mobs to attack with heavy dmg", -- Champion Druna
+	["84520"] = "Very heavy tank damage".. "\n".. "Avoid Bladestorm", -- Pitwarden Gwarnok
+	["86526"] = "Iron Warcry buffs all mobs", -- Grom'kar Chainmaster
+	["80816"] = "STOP DPS if affected by Sanguine Sphere", -- Ahri'ok Dugru
+	-- Operation Mechagon: Junkyard Nuke
+	["150251"] = "Interrupt: Overclock & Repair (below 50%)".. "\n".. "Shield Bash does high physical damage on tank", -- Pistonhead Mechanic 
+	["150143"] = "Interrupt: Enrage or dispell it".. "\n".. "Skullcracker does high physical damage on tank", -- Scrapbone Grinder
+	-- Operation Mechagon: Workshop Nuke
+	["151657"] = "Interrupt: Detonate", -- Bomb Tonk
 }
 
-T.PlateT3Mobs = {
+T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
 	----- Mists of Tirna Scithe -----
 	["173655"] = "Puts down a large healing pool".. "\n".. "Has a large AoE frontal cone".. "\n".. "Dodge it after cast begins", -- Mistveil Matriarch
 	["173720"] = "Frontal attack!".. "\n".. "Run 12+ yards away during the Poisonous Secretions", -- Mistveil Gorgegullet
@@ -178,6 +221,31 @@ T.PlateT3Mobs = {
 	["177808"] = "Pull Solo into area with big space".. "\n".. "Rotating beam. Big DoT if hit by it", -- Armored Overseer
 	["180348"] = "During his Chronolight Enhancer buff: kite.".. "\n".. "Massive damage but verry slow", -- Cartel Muscle
 	["178388"] = "Fixate whoever is carrying the event item".. "\n".. "Hits VERY hard. Kite and kill", -- Bazaar Strongarm
+	-- Lower Karazhan T3
+	["114526"] = "Standing in the spotlights increases everyones damage by 50%".. "\n".. "Final Curtain, 5 y one shot",-- Ghostly Understudy
+	["114542"] = "Important, Dodge coins on the ground", -- Ghostly Philanthropist
+	["114636"] = "Frontal Cleave that 3sec stuns with Shield Slam".. "\n".. "TANK, dodge also",	-- Phantom Guardsman
+	["114794"] = "TANK, Defensive: Rotting Bite", -- Skeletal Hound
+	["114715"] = "Moderate frontal cleave. Stay at max range", -- Ghostly Chef
+	["114714"] = "Important", "Will stun the tank", -- Ghostly Steward
+	-- Upper Karazhan T3
+	["115488"] = "Soak the Fel Orbs by standing in them".. "\n".. "They explode if not soaked. Use defensive",-- Infused Pyromancer
+	["115484"] = "Cast Fel Breath is a 60-yard-long cone".. "\n".. "Tank should side-step out ", -- Fel Bat
+	["115757"] = "Nasty frontal cleave".. "\n".. "Kite him up into the tunnel to avoid flame floor", -- Wrathguard Flamebringer
+	-- Grimrail Depot T3
+	["80937"] = "Dodge: Shrapnel Blast", -- Grom'kar Gunner
+	-- Iron Docks T3
+	["83026"] = "Dodge Gatecrasher".. "\n".. "Shattering Strike hits all in 6y", -- Siegemaster Olugar 
+	["83775"] = "Flurry deal very heavy tank damage", -- Ogron Laborer
+	["86231"] = "Watch carefully for the  Flaming Slash ".. "\n".. "Pre-Cast:Dripping flame of sword, then move away", -- Makogg Emberblade
+	-- Operation Mechagon: Junkyard T3
+	["154758"] = "Must be killed for boss spwan", -- Toxic Monstrosity
+	["150249"] = "Sledgehammer: Massive armor reduction to your Tank", -- Pistonhead Scrapper
+	["150160"] = "DODGE Shockwave or die", -- Scrapbone Bully 
+	-- Operation Mechagon: Workshop T3
+	["144301"] = "Explode on death, dealing heavy dmg".. "\n".. "Carefull with to many (Can LOS)", -- Living Waste 
+	["151476"] = "Frontal: Sonic Pulse ".. "\n".. "DODGE: Capacitor Discharge", -- Blastatron X-80 
+	["144296"] = "Frontal: Sonic Pulse ".. "\n".. "DODGE: Launch High-Explosive Rockets.", -- Spider Tank
 }
 
 T.PlateTides = {
