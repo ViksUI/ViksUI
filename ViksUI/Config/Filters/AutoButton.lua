@@ -90,4 +90,5 @@ T.ABItems = {
 	[182303] = true,	-- Assassin's Soulcloak
 	[186448] = true,	-- Mikanikos' Restorative Contraption
 	[186474] = true,	-- Korayn's Javelin
+	[188788] = true,	-- Zephyreal Generator
 }
