@@ -354,8 +354,105 @@ T.RaidDebuffs = {
 	[SpellName(368239)] = 3, -- Decrypted Vy Cypher
 	[SpellName(366297)] = 6, -- Deconstruct (Tank Debuff)
 	[SpellName(366288)] = 6, -- Force Slam (Stun)
-
-	
+-- Shadowlands Season 4
+	[SpellName(373364)] = 6, -- Vampiric Claws
+	[SpellName(373429)] = 6, -- Carrion Swarm
+	[SpellName(373370)] = 6, -- Nightmare Cloud
+	[SpellName(373391)] = 6, -- Nightmare
+	[SpellName(373570)] = 6, -- Hypnosis
+	[SpellName(373607)] = 6, -- Shadowy Barrier (Hypnosis)
+	[SpellName(373509)] = 6, -- Shadow Claws (Stacking)
+----------------------------------------------------------
+---------------- Old Dungeons (Season 4) -----------------
+----------------------------------------------------------
+	-- Grimrail Depot
+	[SpellName(162057)] = 3, -- Spinning Spear
+	[SpellName(156357)] = 3, -- Blackrock Shrapnel
+	[SpellName(160702)] = 3, -- Blackrock Mortar Shells
+	[SpellName(160681)] = 3, -- Suppressive Fire
+	[SpellName(166570)] = 3, -- Slag Blast (Stacking)
+	[SpellName(164218)] = 3, -- Double Slash
+	[SpellName(162491)] = 3, -- Acquiring Targets 1
+	[SpellName(162507)] = 3, -- Acquiring Targets 2
+	[SpellName(161588)] = 3, -- Diffused Energy
+	[SpellName(162065)] = 3, -- Freezing Snare
+	-- Iron Docks
+	[SpellName(163276)] = 3, -- Shredded Tendons
+	[SpellName(162415)] = 3, -- Time to Feed
+	[SpellName(168398)] = 3, -- Rapid Fire Targeting
+	[SpellName(172889)] = 3, -- Charging Slash
+	[SpellName(164504)] = 3, -- Intimidated
+	[SpellName(172631)] = 3, -- Knocked Down
+	[SpellName(172636)] = 3, -- Slippery Grease
+	[SpellName(158341)] = 3, -- Gushing Wounds
+	[SpellName(167240)] = 3, -- Leg Shot
+	[SpellName(173105)] = 3, -- Whirling Chains
+	[SpellName(173324)] = 3, -- Jagged Caltrops
+	[SpellName(172771)] = 3, -- Incendiary Slug
+	[SpellName(173307)] = 3, -- Serrated Spear
+	[SpellName(169341)] = 3, -- Demoralizing Roar
+	-- Return to Karazhan: Upper
+	[SpellName(229248)] = 3, -- Fel Beam
+	[SpellName(227592)] = 3, -- Frostbite
+	[SpellName(228252)] = 3, -- Shadow Rend
+	[SpellName(227502)] = 3, -- Unstable Mana
+	[SpellName(228261)] = 3, -- Flame Wreath
+	[SpellName(229241)] = 3, -- Acquiring Target
+	[SpellName(230083)] = 3, -- Nullification
+	[SpellName(230221)] = 3, -- Absorbed Mana
+	[SpellName(228249)] = 5, -- Inferno Bolt 1
+	[SpellName(228958)] = 5, -- Inferno Bolt 2
+	[SpellName(229159)] = 3, -- Chaotic Shadows
+	[SpellName(227465)] = 3, -- Power Discharge
+	[SpellName(229083)] = 3, -- Burning Blast (Stacking)
+	-- Return to Karazhan: Lower
+	[SpellName(227917)] = 3, -- Poetry Slam
+	[SpellName(228164)] = 3, -- Hammer Down
+	[SpellName(228215)] = 3, -- Severe Dusting 1
+	[SpellName(228221)] = 3, -- Severe Dusting 2
+	[SpellName(29690)] = 3, -- Drunken Skull Crack
+	[SpellName(227493)] = 3, -- Mortal Strike
+	[SpellName(228280)] = 3, -- Oath of Fealty
+	[SpellName(29574)] = 3, -- Rend
+	[SpellName(230297)] = 3, -- Brittle Bones
+	[SpellName(228526)] = 3, -- Flirt
+	[SpellName(227851)] = 3, -- Coat Check 1
+	[SpellName(227832)] = 3, -- Coat Check 2
+	[SpellName(32752)] = 3, -- Summoning Disorientation
+	[SpellName(228559)] = 3, -- Charming Perfume
+	[SpellName(227508)] = 3, -- Mass Repentance
+	[SpellName(241774)] = 3, -- Shield Smash
+	[SpellName(227742)] = 3, -- Garrote (Stacking)
+	[SpellName(238606)] = 3, -- Arcane Eruption
+	[SpellName(227848)] = 3, -- Sacred Ground (Stacking)
+	[SpellName(227404)] = 3, -- Intangible Presence
+	[SpellName(228610)] = 3, -- Burning Brand
+	[SpellName(228576)] = 3, -- Allured
+	-- Operation Mechagon
+	[SpellName(291928)] = 3, -- Giga-Zap
+	[SpellName(292267)] = 3, -- Giga-Zap
+	[SpellName(302274)] = 3, -- Fulminating Zap
+	[SpellName(298669)] = 3, -- Taze
+	[SpellName(295445)] = 3, -- Wreck
+	[SpellName(294929)] = 3, -- Blazing Chomp
+	[SpellName(297257)] = 3, -- Electrical Charge
+	[SpellName(294855)] = 3, -- Blossom Blast
+	[SpellName(291972)] = 3, -- Explosive Leap
+	[SpellName(285443)] = 3, -- 'Hidden' Flame Cannon
+	[SpellName(291974)] = 3, -- Obnoxious Monologue
+	[SpellName(296150)] = 3, -- Vent Blast
+	[SpellName(298602)] = 3, -- Smoke Cloud
+	[SpellName(296560)] = 3, -- Clinging Static
+	[SpellName(297283)] = 3, -- Cave In
+	[SpellName(291914)] = 3, -- Cutting Beam
+	[SpellName(302384)] = 3, -- Static Discharge
+	[SpellName(294195)] = 3, -- Arcing Zap
+	[SpellName(299572)] = 3, -- Shrink
+	[SpellName(300659)] = 3, -- Consuming Slime
+	[SpellName(300650)] = 3, -- Suffocating Smog
+	[SpellName(301712)] = 3, -- Pounce
+	[SpellName(299475)] = 3, -- B.O.R.K
+	[SpellName(293670)] = 3, -- Chain Blade	
 -- Shadowlands Dungeons	
 	-- Tazavesh, the Veiled Market
 	[SpellName(350804)] = 3, -- Collapsing Energy
