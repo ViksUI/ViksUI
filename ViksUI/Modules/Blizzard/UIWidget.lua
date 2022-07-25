@@ -96,6 +96,14 @@ local atlasColors = {
 
 local function SkinStatusBar(widget)
 	local bar = widget.Bar
+
+	if widget:IsForbidden() then
+		if bar and bar.tooltip then
+			bar.tooltip = nil
+		end
+		return
+	end
+
 	local atlas = bar:GetStatusBarAtlas()
 	if atlasColors[atlas] then
 		bar:SetStatusBarTexture(C.media.texture)
@@ -103,11 +111,8 @@ local function SkinStatusBar(widget)
 	end
 
 	if widget:GetParent() == power then
-		-- power:ClearAllPoints()
-		-- power:SetPoint("TOP", powerAnchor)
-
 		-- Don't skin Cosmic Energy bar
-		if widget.widgetSetID == 283 then
+		if widget.widgetID == 3463 then
 			bar.styled = true
 		end
 	end

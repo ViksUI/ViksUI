@@ -1,5 +1,5 @@
 local T, C, L, _ = unpack(select(2, ...))
-if C.actionbar.enable ~= true then return end
+if C.actionbar.enable ~= true or addon == "bartender" then return end
 
 ----------------------------------------------------------------------------------------
 --	Hide Blizzard ActionBars stuff(by Tukz)
@@ -274,7 +274,7 @@ EventSpiral:SetScript("OnEvent", function()
 		PetBarMouseOver(0)
 	end
 
-	if C.actionbar.stancebar_mouseover == true and C.actionbar.stancebar_horizontal == true then
+	if C.actionbar.stancebar_mouseover == true and C.actionbar.stancebar_horizontal == true and C.actionbar.stancebar_hide ~= true then
 		StanceBarMouseOver(0)
 	end
 

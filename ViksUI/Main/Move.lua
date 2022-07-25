@@ -317,7 +317,7 @@ AnchorvikstankDps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 200, 320)
 CreateAnchor(AnchorvikstankDps, "Move tankDps", 80, 18)
 
 AnchorviksbossDps = CreateFrame("Frame","Move_boss_Dps",UIParent)
-AnchorviksbossDps:SetPoint("RIGHT", UIParent, "RIGHT", -100, -90)
+AnchorviksbossDps:SetPoint("RIGHT", UIParent, "RIGHT", -70, -120)
 CreateAnchor(AnchorviksbossDps, "Move boss_Dps", 150, 200)
 
 AnchorviksthreatbarDps = CreateFrame("Frame","Move_threatbar_Dps",UIParent)
