@@ -164,12 +164,12 @@ function Experience:SetTooltip()
 
 	elseif BarType == "REP" then
 		local Current, Max, Standing = Experience:GetReputation()
-		local Name, ID, Min, Max, Value = GetWatchedFactionInfo()
+		local Name, ID = GetWatchedFactionInfo()
 		local Colors = FACTION_BAR_COLORS
 		local Hex = T.RGBToHex(Colors[ID].r, Colors[ID].g, Colors[ID].b)
 		
 		GameTooltip:AddLine(Name)
-        GameTooltip:AddLine("|cffffffff" .. Current .. " / " .. Max .. " ( " .. floor((Current/Max)*100) .. "%)" .. "|r")
+        GameTooltip:AddLine("|cffffffff" .. Current .. " / " .. Max .. "|r")
         GameTooltip:AddLine(Hex .. Standing .. "|r")
 	else
 		local Level = UnitHonorLevel("player")

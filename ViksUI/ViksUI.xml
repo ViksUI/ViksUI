@@ -17,6 +17,7 @@
 	<Script file="Core\PixelPerfect.lua"/>
 	
 	<Include file="Libs\load_libs.xml" />
+	<Script file="Modules\Blizzard\LibShowUIPanel.lua"/>
 	<Script file="Config\LibSharedMedia.lua"/>
 	<Script file="Modules\Automation\AutoInvite.lua"/>
 	
@@ -99,6 +100,7 @@
 	<Script file="Modules\ActionBars\Bar3.lua"/>
 	<Script file="Modules\ActionBars\Bar4.lua"/>
 	<Script file="Modules\ActionBars\Bar5.lua"/>
+	<Script file="Modules\ActionBars\Bar6.lua"/>
 	<Script file="Modules\ActionBars\BarPet.lua"/>
 	<Script file="Modules\ActionBars\BarStance.lua"/>
 	<Script file="Modules\ActionBars\Toggle.lua"/>

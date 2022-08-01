@@ -73,6 +73,7 @@ T.MoverFrames = {
 	SpellActivationOverlayFrame,
 	SplitBarLeft,
 	SplitBarRight,
+	CustomBarAnchor,
 	ViksUIExperienceBar1,
 	ViksUIExperienceBar2,
 	LBottom,
