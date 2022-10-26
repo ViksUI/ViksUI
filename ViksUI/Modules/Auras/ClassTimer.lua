@@ -572,7 +572,7 @@ do
 		result.lines = { };		
 		result.dataSource = dataSource;
 		
-		local background = result:CreateTexture( nil, "BACKGROUND", nil , "BackdropTemplate");
+		local background = result:CreateTexture(nil, 'BORDER');
 		background:SetAlpha( BACKGROUND_ALPHA );
 		background:SetTexture( texture );
 		background:SetPoint( "TOPLEFT", result, "TOPLEFT", 0, 0 );

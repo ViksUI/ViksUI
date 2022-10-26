@@ -4,6 +4,7 @@ if C.actionbar.enable ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Style ActionBars buttons(by Tukz)
 ----------------------------------------------------------------------------------------
+local NUM_STANCE_SLOTS = NUM_STANCE_SLOTS or 10
 local function StyleNormalButton(button, size)
 	if not button.isSkinned then
 		local name = button:GetName()
@@ -27,9 +28,10 @@ local function StyleNormalButton(button, size)
 		if float then
 			float:SetTexture("")
 		end
+		-- if button.IconMask then button.IconMask:Hide() end
 
 		if border then
-			border:SetTexture("")
+			border:SetTexture()
 		end
 
 		if not isExtraAction then
@@ -69,7 +71,7 @@ local function StyleNormalButton(button, size)
 		end
 		button:SetTemplate("Transparent")
 		if C.actionbar.classcolor_border == true then
-			button:SetBackdropBorderColor(unpack(C.media.border_color))
+			button:SetBackdropBorderColor(unpack(C.media.classborder_color))
 		end
 
 		icon:CropIcon()
@@ -137,7 +139,7 @@ local function StyleSmallButton(normal, button, icon, name, pet)
 		button:SetSize(C.actionbar.button_size, C.actionbar.button_size)
 		button:SetTemplate("Transparent")
 		if C.actionbar.classcolor_border == true then
-			button:SetBackdropBorderColor(unpack(C.media.border_color))
+			button:SetBackdropBorderColor(unpack(C.media.classborder_color))
 		end
 
 		icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -147,10 +149,10 @@ local function StyleSmallButton(normal, button, icon, name, pet)
 		icon:SetDrawLayer("BACKGROUND", 7)
 
 		if pet then
-			local autocast = _G[name.."AutoCastable"]
-			autocast:SetSize((C.actionbar.button_size * 2) - 10, (C.actionbar.button_size * 2) - 10)
-			autocast:ClearAllPoints()
-			autocast:SetPoint("CENTER", button, 0, 0)
+			--BETA local autocast = _G[name.."AutoCastable"]
+			-- autocast:SetSize((C.actionbar.button_size * 2) - 10, (C.actionbar.button_size * 2) - 10)
+			-- autocast:ClearAllPoints()
+			-- autocast:SetPoint("CENTER", button, 0, 0)
 
 			local shine = _G[name.."Shine"]
 			shine:SetSize(C.actionbar.button_size, C.actionbar.button_size)
@@ -249,10 +251,10 @@ local function StyleFlyoutButton(self)
 end
 
 SpellFlyout:HookScript("OnShow", StyleFlyoutButton)
-hooksecurefunc("SpellButton_OnClick", StyleFlyoutButton)
-SpellFlyoutHorizontalBackground:SetAlpha(0)
-SpellFlyoutVerticalBackground:SetAlpha(0)
-SpellFlyoutBackgroundEnd:SetAlpha(0)
+--BETA hooksecurefunc("SpellButton_OnClick", StyleFlyoutButton)
+-- SpellFlyoutHorizontalBackground:SetAlpha(0)
+-- SpellFlyoutVerticalBackground:SetAlpha(0)
+-- SpellFlyoutBackgroundEnd:SetAlpha(0)
 
 if C.actionbar.hotkey == true then
 	local gsub = string.gsub

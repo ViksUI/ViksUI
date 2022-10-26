@@ -507,13 +507,13 @@ function Stuffing:BagFrameSlotNew(p, slot)
 			SetItemButtonTextureVertexColor(ret.frame, 1.0, 1.0, 1.0)
 		end
 	else
-		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "BagSlotButtonTemplate")
+		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "")
 		Mixin(ret.frame, BackdropTemplateMixin)
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
 				self:GetParent():SetBackdropBorderColor(r, g, b)
 			end
-			self:SetTexture("")
+			self:SetTexture()
 		end)
 
 		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
@@ -526,7 +526,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 
 	ret.frame:StyleButton()
 	ret.frame:SetTemplate("Default")
-	ret.frame:SetNormalTexture(nil)
+	ret.frame:SetNormalTexture("")
 
 	ret.icon = _G[ret.frame:GetName().."IconTexture"]
 	ret.icon:CropIcon()
@@ -577,7 +577,7 @@ function Stuffing:SlotNew(bag, slot)
 		ret.frame = CreateFrame("ItemButton", "StuffingBag"..bag.."_"..slot, self.bags[bag], tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		ret.frame:SetNormalTexture(nil)
+		ret.frame:SetNormalTexture("")
 
 		ret.icon = _G[ret.frame:GetName().."IconTexture"]
 		ret.icon:CropIcon()
@@ -1082,7 +1082,7 @@ function Stuffing:Layout(isBank)
 		cols = C.bag.bag_columns
 		f = self.frame
 
-		f.editbox:SetFont(C.media.normal_font, C.font.bags_font_size + 3)
+		f.editbox:SetFont(C.media.normal_font, C.font.bags_font_size + 3, "")
 		f.detail:SetFont(C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
 		f.detail:SetShadowOffset(C.font.bags_font_shadow and 1 or 0, C.font.bags_font_shadow and -1 or 0)
 
@@ -1358,7 +1358,7 @@ function Stuffing:ADDON_LOADED(addon)
 	self:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED")
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
-	self:RegisterEvent("SCRAPPING_MACHINE_SHOW")
+	--self:RegisterEvent("SCRAPPING_MACHINE_SHOW")
 	self:RegisterEvent("BAG_UPDATE_DELAYED")
 
 	SlashCmdList.STUFFING = StuffingSlashCmd
@@ -1524,9 +1524,9 @@ function Stuffing:BAG_CLOSED(id)
 end
 
 function Stuffing:BAG_UPDATE_COOLDOWN()
-	for _, v in pairs(self.buttons) do
-		self:UpdateCooldowns(v)
-	end
+	--for _, v in pairs(self.buttons) do
+		--self:UpdateCooldowns(v)
+	--end
 end
 
 function Stuffing:SCRAPPING_MACHINE_SHOW()

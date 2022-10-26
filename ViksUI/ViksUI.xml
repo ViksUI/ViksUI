@@ -7,7 +7,7 @@
 	<Include file="locales\load_locales.xml"/>
 	
 	<!-- core -->
-	<Include file="Modules\Misc\BaudErrorFrame.xml"/>
+	<!-- BETA Include file="Modules\Misc\BaudErrorFrame.xml"/-->
 	<Script file="Config\Settings.lua"/>
 	<Script file="Config\Positions.lua"/>
 	<Script file="Config\Fonts.lua"/>
@@ -67,7 +67,7 @@
 	<Include file="Modules\UnitFrames\Raid\load.xml"/>
 	<Script file="Main\Style.lua"/>
 	<!--Script file="Modules\Misc\ArmoryLink.lua"/-->
-	<Script file="Modules\Misc\CharsCurrency.lua"/>
+	<!--BETA Script file="Modules\Misc\CharsCurrency.lua"/-->
 	<Script file="Modules\Misc\ClickCast.lua"/>
 	<Script file="Modules\Misc\Combat.lua"/>
 	<Script file="Modules\Misc\HealerIconNameplate.lua"/>
@@ -78,7 +78,7 @@
 	<Script file="Modules\Misc\Misc.lua"/>
 	<Script file="Modules\Misc\Mounts.lua"/>
 	<Script file="Modules\Misc\PvPQueueTimer.lua"/>
-	<Script file="Modules\Misc\RaidUtility.lua"/>
+	<!--BETA Script file="Modules\Misc\RaidUtility.lua"/-->
 	<Script file="Modules\Misc\SlotItemLevel.lua"/>
 	<Script file="Modules\Misc\Stats.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
@@ -179,14 +179,14 @@
 	<Script file="Modules\Datatext\Quests.lua"/>
 
 	<Script file="Modules\Quests\AutoAccept.lua"/>
-	<Script file="Modules\Quests\AutoButton.lua"/>
+	<!-- BETA Script file="Modules\Quests\AutoButton.lua"/-->
 	<Script file="Modules\Quests\QuestLog.lua"/>
 	<Script file="Modules\Quests\ObjectiveTracker.lua"/>
 	<Script file="Modules\Quests\WowheadLink.lua"/>
 		
 	<Script file="Modules\Blizzard\AlertFrames.lua"/>
 	<Script file="Modules\Blizzard\AltPowerBar.lua"/>
-	<Script file="Modules\Blizzard\Bags.lua"/>
+	<!-- BETA Script file="Modules\Blizzard\Bags.lua"/-->
 	<Script file="Modules\Blizzard\CaptureBar.lua"/>
 	<Script file="Modules\Blizzard\ColorPicker.lua"/>
 	<Script file="Modules\Blizzard\CombatText.lua"/>
@@ -194,7 +194,7 @@
 	<Script file="Modules\Blizzard\Errors.lua"/>
 	<Script file="Modules\Blizzard\Fixes.lua"/>
 	<Script file="Modules\Blizzard\Fonts.lua"/>
-	<Script file="Modules\Blizzard\FriendList.lua"/>
+	<!-- BETA Script file="Modules\Blizzard\FriendList.lua"/-->
 	<Script file="Modules\Blizzard\Mail.lua"/>
 	<Script file="Modules\Blizzard\MirrorBars.lua"/>
 	<Script file="Modules\Blizzard\MoveBlizzFrames.lua"/>

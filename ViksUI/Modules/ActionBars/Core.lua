@@ -4,6 +4,7 @@ if C.actionbar.enable ~= true or addon == "bartender" then return end
 ----------------------------------------------------------------------------------------
 --	Hide Blizzard ActionBars stuff(by Tukz)
 ----------------------------------------------------------------------------------------
+local NUM_STANCE_SLOTS = NUM_STANCE_SLOTS or 10
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function()
@@ -11,8 +12,8 @@ frame:SetScript("OnEvent", function()
 	MainMenuBar:EnableMouse(false)
 	OverrideActionBar:SetScale(0.00001)
 	OverrideActionBar:EnableMouse(false)
-	PetActionBarFrame:EnableMouse(false)
-	StanceBarFrame:EnableMouse(false)
+	--BETA PetActionBarFrame:EnableMouse(false)
+	-- StanceBarFrame:EnableMouse(false)
 	MicroButtonAndBagsBar:SetScale(0.00001)
 	MicroButtonAndBagsBar:EnableMouse(false)
 	MicroButtonAndBagsBar:ClearAllPoints()
@@ -284,7 +285,7 @@ EventSpiral:SetScript("OnEvent", function()
 	end
 
 	if C.actionbar.stancebar_mouseover == true and C.actionbar.stancebar_horizontal == true and C.actionbar.stancebar_hide ~= true then
-		StanceBarMouseOver(0)
+		StanceBarMouseOver(0.3)
 	end
 
 	if C.actionbar.bottombars_mouseover then
@@ -342,31 +343,31 @@ frame:SetScript("OnEvent", function(self)
 			local button = _G[format("ActionButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			button:ShowGrid(reason)
+			--BETA button:ShowGrid(reason)
 			button:SetAttribute("statehidden", true)
 
 			button = _G[format("MultiBarRightButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			button:ShowGrid(reason)
+			-- button:ShowGrid(reason)
 			button:SetAttribute("statehidden", true)
 
 			button = _G[format("MultiBarBottomRightButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			button:ShowGrid(reason)
+			-- button:ShowGrid(reason)
 			button:SetAttribute("statehidden", true)
 
 			button = _G[format("MultiBarLeftButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			button:ShowGrid(reason)
+			-- button:ShowGrid(reason)
 			button:SetAttribute("statehidden", true)
 
 			button = _G[format("MultiBarBottomLeftButton%d", i)]
 			button.noGrid = nil
 			button:SetAttribute("showgrid", 1)
-			button:ShowGrid(reason)
+			-- button:ShowGrid(reason)
 			button:SetAttribute("statehidden", true)
 
 			if _G["VehicleMenuBarActionButton"..i] then
@@ -407,7 +408,7 @@ T.ShiftBarUpdate = function()
 			CooldownFrame_Set(cooldown, start, duration, enable)
 
 			if isActive then
-				StanceBarFrame.lastSelected = button:GetID()
+				--BETA StanceBarFrame.lastSelected = button:GetID()
 				button:SetChecked(true)
 			else
 				button:SetChecked(false)

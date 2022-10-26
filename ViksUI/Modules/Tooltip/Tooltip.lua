@@ -500,6 +500,7 @@ end
 ----------------------------------------------------------------------------------------
 --	Fix compare tooltips(by Blizzard)(../FrameXML/GameTooltip.lua)
 ----------------------------------------------------------------------------------------
+--[[ BETA 
 hooksecurefunc("GameTooltip_AnchorComparisonTooltips", function(_, anchorFrame, shoppingTooltip1, shoppingTooltip2, _, secondaryItemShown)
 	local point = shoppingTooltip1:GetPoint(2)
 	if secondaryItemShown then
@@ -524,7 +525,7 @@ hooksecurefunc("GameTooltip_AnchorComparisonTooltips", function(_, anchorFrame, 
 		end
 	end
 end)
-
+]]--
 ----------------------------------------------------------------------------------------
 --	Fix GameTooltipMoneyFrame font size
 ----------------------------------------------------------------------------------------

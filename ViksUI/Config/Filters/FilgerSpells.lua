@@ -2403,7 +2403,9 @@ C["filger_spells"] = {
 			-- Slow Fall
 			{spellID = 130, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Levitate
-			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},
+			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},	
+			-- Field of Blossoms (NF Dreamweaver buff)
+			{spellID = 319191, unitID = "player", caster = "all", filter = "BUFF"},
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",

@@ -96,8 +96,8 @@ local function Point(obj, arg1, arg2, arg3, arg4, arg5)
 end
 
 local function SetOutside(obj, anchor, xOffset, yOffset)
-	xOffset = xOffset or 2
-	yOffset = yOffset or 2
+	xOffset = xOffset and Mult * xOffset or Mult * 2
+	yOffset = yOffset and Mult * yOffset or Mult * 2
 	anchor = anchor or obj:GetParent()
 
 	if obj:GetPoint() then
@@ -109,8 +109,8 @@ local function SetOutside(obj, anchor, xOffset, yOffset)
 end
 
 local function SetInside(obj, anchor, xOffset, yOffset)
-	xOffset = xOffset or 2
-	yOffset = yOffset or 2
+	xOffset = xOffset and Mult * xOffset or Mult * 2
+	yOffset = yOffset and Mult * yOffset or Mult * 2
 	anchor = anchor or obj:GetParent()
 
 	if obj:GetPoint() then
@@ -127,7 +127,7 @@ end
 local function CreateOverlay(f)
 	if f.overlay then return end
 
-	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
+	local overlay = f:CreateTexture("$parentOverlay", "BORDER")
 	overlay:SetInside()
 	overlay:SetTexture(C.media.blank)
 	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
@@ -138,11 +138,11 @@ local function CreateBorder(f, i, o)
 	if i then
 		if f.iborder then return end
 		local border = CreateFrame("Frame", "$parentInnerBorder", f, "BackdropTemplate")
-		border:SetPoint("TOPLEFT", T.mult, -T.mult)
-		border:SetPoint("BOTTOMRIGHT", -T.mult, T.mult)
+		border:SetPoint("TOPLEFT", Mult, -Mult)
+		border:SetPoint("BOTTOMRIGHT", -Mult, Mult)
 		border:SetBackdrop({
-			edgeFile = C.media.blank, edgeSize = T.mult,
-			insets = {left = T.mult, right = T.mult, top = T.mult, bottom = T.mult}
+			edgeFile = C.media.blank, edgeSize = Mult,
+			insets = {left = Mult, right = Mult, top = Mult, bottom = Mult}
 		})
 		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
 		f.iborder = border
@@ -151,12 +151,12 @@ local function CreateBorder(f, i, o)
 	if o then
 		if f.oborder then return end
 		local border = CreateFrame("Frame", "$parentOuterBorder", f, "BackdropTemplate")
-		border:SetPoint("TOPLEFT", -T.mult, T.mult)
-		border:SetPoint("BOTTOMRIGHT", T.mult, -T.mult)
+		border:SetPoint("TOPLEFT", -Mult, Mult)
+		border:SetPoint("BOTTOMRIGHT", Mult, -Mult)
 		border:SetFrameLevel(f:GetFrameLevel() + 1)
 		border:SetBackdrop({
-			edgeFile = C.media.blank, edgeSize = T.mult,
-			insets = {left = T.mult, right = T.mult, top = T.mult, bottom = T.mult}
+			edgeFile = C.media.blank, edgeSize = Mult,
+			insets = {left = Mult, right = Mult, top = Mult, bottom = Mult}
 		})
 		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
 		f.oborder = border
@@ -180,8 +180,8 @@ local function SetTemplate(f, t)
 
 
 	f:SetBackdrop({
-		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
-		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
+		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.Scale(1),
+		insets = {left = -T.Scale(1), right = -T.Scale(1), top = -T.Scale(1), bottom = -T.Scale(1)}
 	})
 
 	if t == "Transparent" then
@@ -202,14 +202,14 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	Mixin(f, BackdropTemplateMixin) -- 9.0 to set backdrop
 	GetTemplate(t)
 
-	f:SetWidth(w)
-	f:SetHeight(h)
+	f:SetWidth(T.Scale(w))
+	f:SetHeight(T.Scale(h))
 	f:SetFrameLevel(3)
 	f:SetFrameStrata("BACKGROUND")
 	f:SetPoint(a1, p, a2, x, y)
 	f:SetBackdrop({
-		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
-		insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
+		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.Scale(1),
+		insets = {left = -T.Scale(1), right = -T.Scale(1), top = -T.Scale(1), bottom = -T.Scale(1)}
 	})
 
 	if t == "Transparent" then
@@ -244,6 +244,29 @@ local function CreateBackdrop(f, t)
 	end
 
 	f.backdrop = b
+	-- b:CreateShadow()
+end
+
+local function CreateShadow(frame, size, pass)
+	if not pass and frame.shadow then return end
+	if not size then size = 4 end
+
+	backdropr, backdropg, backdropb, borderr, borderg, borderb = 0, 0, 0, 0, 0, 0
+
+	local offset = size
+	local shadow = CreateFrame('Frame', nil, frame, 'BackdropTemplate')
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata(frame:GetFrameStrata())
+	shadow:SetOutside(frame, offset, offset, nil, true)
+	shadow:SetBackdrop({edgeFile = [[Interface\AddOns\ShestakUI\Media\Textures\Glow.tga]], edgeSize = size})
+	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.9)
+
+	if pass then
+		return shadow
+	else
+		frame.shadow = shadow
+	end
 end
 
 local StripTexturesBlizzFrames = {
@@ -328,7 +351,7 @@ end
 --	Style ActionBars/Bags buttons function(by Chiril & Karudon)
 ----------------------------------------------------------------------------------------
 local function StyleButton(button, t, size)
-	if not size then size = 2 end
+	if not size then size = T.Scale(2) end
 	if button.SetHighlightTexture and not button.hover then
 		local hover = button:CreateTexture()
 		hover:SetColorTexture(1, 1, 1, 0.3)
@@ -387,7 +410,7 @@ local function SkinButton(f, strip)
 	if strip then f:StripTextures() end
 
 	if f.SetNormalTexture then f:SetNormalTexture("") end
-	if f.SetHighlightTexture then f:SetHighlightTexture("") end
+	if f.SetHighlightTexture then f:SetHighlightTexture(C.media.empty) end
 	if f.SetPushedTexture then f:SetPushedTexture("") end
 	if f.SetDisabledTexture then f:SetDisabledTexture("") end
 
@@ -852,10 +875,11 @@ end
 
 function T.SkinCheckBox(frame, size)
 	if size then
+		size = T.Scale(size)
 		frame:SetSize(size, size)
 	end
-	frame:SetNormalTexture("")
-	frame:SetPushedTexture("")
+	frame:SetNormalTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\Blank.tga")
+	frame:SetPushedTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\Blank.tga")
 	frame:CreateBackdrop("Overlay")
 	frame:SetFrameLevel(frame:GetFrameLevel() + 2)
 	frame.backdrop:SetPoint("TOPLEFT", 4, -4)
@@ -864,24 +888,24 @@ function T.SkinCheckBox(frame, size)
 	if frame.SetHighlightTexture then
 		local highligh = frame:CreateTexture()
 		highligh:SetColorTexture(1, 1, 1, 0.3)
-		highligh:SetPoint("TOPLEFT", frame, 6, -6)
-		highligh:SetPoint("BOTTOMRIGHT", frame, -6, 6)
+		highligh:SetPoint("TOPLEFT", frame, T.Scale(6), -T.Scale(6))
+		highligh:SetPoint("BOTTOMRIGHT", frame, -T.Scale(6), T.Scale(6))
 		frame:SetHighlightTexture(highligh)
 	end
 
 	if frame.SetCheckedTexture then
 		local checked = frame:CreateTexture()
 		checked:SetColorTexture(1, 0.82, 0, 0.8)
-		checked:SetPoint("TOPLEFT", frame, 6, -6)
-		checked:SetPoint("BOTTOMRIGHT", frame, -6, 6)
+		checked:SetPoint("TOPLEFT", frame, T.Scale(6), -T.Scale(6))
+		checked:SetPoint("BOTTOMRIGHT", frame, -T.Scale(6), T.Scale(6))
 		frame:SetCheckedTexture(checked)
 	end
 
 	if frame.SetDisabledCheckedTexture then
 		local disabled = frame:CreateTexture()
 		disabled:SetColorTexture(0.6, 0.6, 0.6, 0.75)
-		disabled:SetPoint("TOPLEFT", frame, 6, -6)
-		disabled:SetPoint("BOTTOMRIGHT", frame, -6, 6)
+		disabled:SetPoint("TOPLEFT", frame, T.Scale(6), -T.Scale(6))
+		disabled:SetPoint("BOTTOMRIGHT", frame, -T.Scale(6), T.Scale(6))
 		frame:SetDisabledCheckedTexture(disabled)
 	end
 end
@@ -926,7 +950,7 @@ function T.SkinCloseButton(f, point, text, pixel)
 end
 
 function T.SkinSlider(f)
-	f:SetBackdrop(nil)
+	f:StripTextures()
 
 	local bd = CreateFrame("Frame", nil, f)
 	bd:SetTemplate("Overlay")

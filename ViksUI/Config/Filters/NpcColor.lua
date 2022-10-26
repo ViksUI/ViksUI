@@ -107,7 +107,6 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["175677"] = "Soothe: Feral (Damage increase)", -- Smuggled Creature
 	["179840"] = "STACK in mele or it charges".. "\n".. "Stun Interrupt: Phalanx Field (75% magic DR)", -- Market Peacekeeper
 	["179842"] = "BIG Tank knockback".. "\n".. "Soothe: Force Multiplier (AoE dmg inc)", -- Commerce Enforcer
-	["178141"] = "Stun Interrupt (!!): Invig Fish Stick (AoE healing totem)".. "\n".. "Burn down totem if missed stun", -- Murkbrine Scalebinder
 	["178142"] = "Dodge / Interrupt: Volatile Pufferfish (blue AoE swirl)".. "\n".. "Interrupt: Waterbolt (Medium ST dmg)", -- Murkbrine Fishmancer
 	["178139"] = "Stun Interrupt (!): Cry of Mrrggllrrgg (AoE Enrage, +50% dmg)", -- Murkbrine Shellcrusher
 	["178171"] = "Dodge: Charged Pulse (3s cast - blue AoE circle)", -- Stormforged Guardian
@@ -117,6 +116,7 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["114544"] = "Face away from the mobs during Flashlight!", -- Skeletal Usher 
 	["114632"] = "Interrupt: Shadow Rejuvenation (Heal)", -- Spectral Attendant
 	["114803"] = "Interrupt: Healing Touch", -- Spectral Stable Hand
+	["115440"] = "Interrupt: Mana Drain".. "\n".. "Chain-cast Arcane Blast at random players", -- Moroes: Baroness Dorothea Millstipe
 	-- Upper Karazhan Semi
 	["115765"] = "Soul always appears in the same place. Gives +100% damage to you", -- Abstract Nullifier
 	["115419"] = "Avoid pulling".. "\n".. "Interrupt: Consume Magic", -- Ancient Tome
@@ -125,7 +125,6 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["82579"] = "Cast Storm Shield".. "\n".. "Does Chainlightning when shield takes dmg", -- Grom'kar Far Seer
 	-- Operation Mechagon: Junkyard Semi
 	["150169"] = "Interrupt: Suffocating Smog".. "\n".. "Stunns a player for 10 sec", -- Toxic Lurker
-	["150146"] = "Interrupt: Stoneskin and Grasping Hex", -- Scrapbone Shamans
 	["150297"] = "Interrupt: Enlarge and Shrink".. "\n".. "Magic Dispel shrink", -- Mechagon Renormalizer
 	["150276"] = "Interrupt: Repair Protocol", -- Heavy Scrapbot
 }
@@ -158,11 +157,14 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["179821"] = "Big Tank knockback".. "\n".. "Stay spread when linked".. "\n".. "Dodge orbs", -- Commander Zo'far (Miniboss)
 	["178165"] = "Tidal Stomp: Big AoE damage, stacks. 50y range".. "\n".. "Dodge: Boulder Throw (brown swirl)".. "\n".. "Hard Burn or outrange", -- Coastwalker Goliath
 	["180432"] = "Interrupt (!!): Reinvigorate (Heal + haste buff)".. "\n".. "Stacks dmg taken increase on the tank".. "\n".. "Kill quickly or kite", -- Devoted Accomplice
+	["178141"] = "Stun Interrupt (!!): Invig Fish Stick (AoE healing totem)".. "\n".. "Burn down totem if missed stun", -- Murkbrine Scalebinder
 	-- Lower Karazhan Nuke
 	["116549"] = "Interrupt(!!): Firelands Portal".. "\n".. "Use AoE stuns. They HURT.", -- Backup Singer
 	["114629"] = "Dangerous mob. Pull with caution".. "\n".. "Interrupt: Oath of Fealty (MC)",-- Spectral Retainer
 	["114783"] = "Stun and focus at 50% to avoid Heartbreaker".. "\n".. "Dispel Flirt. Tank priority", -- Reformed Maiden
 	["114801"] = "Spreadout with Burning Brand. It hurts. A lot.", -- Spectral Apprentice
+	["17007"] = "Buffs Moroes with 100% dmg and 75% attack Speed".. "\n".. "Should be CC/Focused)", -- Moroes: Lady Keira Berrybuck 
+	["19872"] = "Heals Moroes and smite random target".. "\n".. "Should be CC/Focused)", -- Moroes: Lady Catriona Von'Indi
 	-- Grimrail Depot Nuke
 	["81236"] = "Interrupt: Activating ".. "\n".. "Stun/CC: 50,000 Volts! HURTS and Stuns", -- Grimrail Technician 
 	["80935"] = "Nuke to gain Blackrock Mortar Shells".. "\n".. "Loot and use Blackrock Turret", -- Grom'kar Boomer 
@@ -174,6 +176,7 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	-- Operation Mechagon: Junkyard Nuke
 	["150251"] = "Interrupt: Overclock & Repair (below 50%)".. "\n".. "Shield Bash does high physical damage on tank", -- Pistonhead Mechanic 
 	["150143"] = "Interrupt: Enrage or dispell it".. "\n".. "Skullcracker does high physical damage on tank", -- Scrapbone Grinder
+	["150146"] = "Interrupt: Stoneskin and Grasping Hex", -- Scrapbone Shamans
 	-- Operation Mechagon: Workshop Nuke
 	["151657"] = "Interrupt: Detonate", -- Bomb Tonk
 }
@@ -228,6 +231,8 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["114794"] = "TANK, Defensive: Rotting Bite", -- Skeletal Hound
 	["114715"] = "Moderate frontal cleave. Stay at max range", -- Ghostly Chef
 	["114714"] = "Important", "Will stun the tank", -- Ghostly Steward
+	["115441"] = "Dodge: Will Breaker, heavy dmg frontal".. "\n".. "Just dodge", -- Moroes: Lord Crispin Ference
+	["115439"] = "Avoid: Iron Whirlwind".. "\n".. " heavy damage to nearby players", -- Moroes: Baron Rafe Dreuger 
 	-- Upper Karazhan T3
 	["115488"] = "Soak the Fel Orbs by standing in them".. "\n".. "They explode if not soaked. Use defensive",-- Infused Pyromancer
 	["115484"] = "Cast Fel Breath is a 60-yard-long cone".. "\n".. "Tank should side-step out ", -- Fel Bat

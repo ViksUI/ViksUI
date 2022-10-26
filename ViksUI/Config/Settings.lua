@@ -24,6 +24,7 @@ C["media"] = {
 	["blank"] = "Interface\\Buttons\\WHITE8x8",
 	["blank_border"] = "Interface\\Buttons\\WHITE8x8",									-- Texture for borders			
 	["highlight"] = [[Interface\AddOns\ViksUI\Media\textures\Highlight]],				-- Texture for debuffs highlight
+	["empty"] = [[Interface\AddOns\ViksUI\Media\textures\Invisible.tga]],			-- Invisible texture
 	["pxcolor1"] = { .001,.38,.651,1 },													-- Color for Name on Datatext
 	["pxcolor2"] = { .41,.80,.94,1 },													-- Color for Value on Datatext if not dynamic color by value
 	["oUFfont"] = [=[Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf]=], 			-- DataText Font Normal
@@ -50,6 +51,7 @@ C["general"] = {
 	["auto_scale"] = true,						-- Autoscale
 	["uiscale"] = 0.75,							-- Your value(between 0.64 and 1) if "auto_scale" is disable
 	["welcome_message"] = true,					-- Enable welcome message in chat
+	["alt_scale"] = false,						-- Alternative way to scale
 	-- Blizzard UI
 	["error_filter"] = "BLACKLIST",				-- Filter Blizzard red errors (BLACKLIST, WHITELIST, COMBAT, NONE)
 	["move_blizzard"] = true,					-- Move some Blizzard frames
@@ -799,6 +801,7 @@ C["toppanel"] = {
 ----------------------------------------------------------------------------------------
 C["stats"] = {
 	["battleground"] = true,					-- BG Score
+	["damage"] = false,							-- Show damage per second
 	["clock"] = false,							-- Clock
 	["latency"] = false,						-- Latency
 	["memory"] = false,							-- Memory

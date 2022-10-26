@@ -26,7 +26,7 @@ local function LoadSkin()
 
 	for i = 1, MAX_ADDONS_DISPLAYED do
 		T.SkinCheckBox(_G["AddonListEntry"..i.."Enabled"])
-		_G["AddonListEntry"..i.."Load"]:SkinButton()
+		_G['AddonListEntry'..i].LoadAddonButton:SkinButton(nil, nil, true)
 	end
 
 	AddonListScrollFrame:StripTextures()

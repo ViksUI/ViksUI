@@ -20,9 +20,9 @@ local function SkinButton(f)
 		end
 	end
 
-	f:SetPushedTexture(nil)
-	f:SetHighlightTexture(nil)
-	f:SetDisabledTexture(nil)
+	f:SetPushedTexture(C.media.empty)
+	f:SetHighlightTexture(C.media.empty)
+	f:SetDisabledTexture(C.media.empty)
 	f:SetSize(16, 16)
 
 	for i = 1, f:GetNumRegions() do
@@ -31,7 +31,7 @@ local function SkinButton(f)
 			local tex = tostring(region:GetTexture())
 
 			if tex and (tex:find("Border") or tex:find("Background") or tex:find("AlphaMask")) then
-				region:SetTexture(nil)
+				region:SetTexture(C.media.empty)
 			else
 				region:ClearAllPoints()
 				region:SetPoint("TOPLEFT", f, "TOPLEFT", 2, -2)

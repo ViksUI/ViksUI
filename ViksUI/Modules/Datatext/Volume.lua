@@ -160,7 +160,7 @@ Stat:SetScript("OnMouseDown", function(self)
 	OnEvent(self, nil, nil)
 end)
 
-Stat:RegisterEvent("CVAR_UPDATE")
+--Stat:RegisterEvent("CVAR_UPDATE")
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
 Stat:SetScript("OnEvent", OnEvent)
 

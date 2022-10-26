@@ -424,7 +424,7 @@ local function OnDoubleClick(self, button)
     end
 end
 
-for _, button in pairs(LFGListFrame.SearchPanel.ScrollFrame.buttons) do
-    button:SetScript("OnDoubleClick", OnDoubleClick)
-end
+--for _, button in pairs(LFGListFrame.SearchPanel.ScrollFrame.buttons) do
+  --  button:SetScript("OnDoubleClick", OnDoubleClick)
+--end
 --LFGListApplicationDialogDescription.EditBox.Instructions:SetText("Test")

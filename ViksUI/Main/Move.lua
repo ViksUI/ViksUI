@@ -66,7 +66,7 @@ function CreateAnchor(f, text, width, height)
 	f:SetMovable(true)
 	f.dragtexture:SetAlpha(0)
 	f:EnableMouse(nil)
-	f:RegisterForDrag(nil)
+	f:RegisterForDrag('AnyUp', 'AnyDown')
 
 	f.text = f:CreateFontString(nil, "OVERLAY")
 	f.text:SetFont(C["media"].normal_font, 10)

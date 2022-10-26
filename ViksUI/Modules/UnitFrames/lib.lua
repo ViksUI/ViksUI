@@ -914,11 +914,11 @@ lib.gen_RaidMark = function(f)
 	h:SetAllPoints(f)
 	h:SetFrameLevel(10)
 	h:SetAlpha(0.8)
-	local ri = h:CreateTexture(nil,'HIGHLIGHT ',h)
-	ri:SetPoint("CENTER", f, "TOP", 0, 2)
+	--local ri = h:CreateTexture(nil,'HIGHLIGHT ',h)
+	--ri:SetPoint("CENTER", f, "TOP", 0, 2)
 	local size = retVal(f, 12, 11, 9)
-	ri:SetTexture(cfg.raidmarkicon)
-	ri:SetSize(size, size)
+	--ri:SetTexture(cfg.raidmarkicon)
+	--ri:SetSize(size, size)
 	f.RaidTargetIndicator = ri
 end
 
@@ -1340,6 +1340,7 @@ end
 
 -- Post Update Icon Function
 local postUpdateIcon = function(element, unit, button, index)
+--[[ BETA
 	local _, _, _, _, _, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, button.filter)
 	
 	if duration and duration > 0 then
@@ -1368,6 +1369,7 @@ local postUpdateIcon = function(element, unit, button, index)
 			CancelUnitBuff('player', index)
 	end end)
 	button.first = true
+]]--
 end
 
  --Create Auras

@@ -210,36 +210,28 @@ local function SetVirtualBorder(frame, r, g, b)
 end
 
 -- Auras functions
-local AurasCustomFilter = function(_, unit, button, name, _, _, _, _, _, _, isStealable, nameplateShowSelf, _, _, _, _, nameplateShowAll)
+local AurasCustomFilter = function(element, unit, data)
 	local allow = false
 
 	if not UnitIsFriend("player", unit) then
-		if button.isDebuff then
-			if button.isPlayer then
-				if ((nameplateShowAll or nameplateShowSelf) and not T.DebuffBlackList[name]) then
+		if element.isDebuff then
+			if element.isPlayer or element.caster == "pet" then
+				if ((data.nameplateShowAll or data.nameplateShowSelf) and not T.DebuffBlackList[data.name]) then
 					allow = true
-				elseif T.DebuffWhiteList[name] then
+				elseif T.DebuffWhiteList[data.name] then
 					allow = true
+				end
+				if C.nameplate.track_buffs then
+					SetColorBorder(element, unpack(C.media.border_color))
 				end
 			end
 		else
-			if T.BuffWhiteList[name] then
+			if T.BuffWhiteList[data.name] then
 				allow = true
-				button.bordertop:SetColorTexture(0, 0.5, 0)
-				button.borderbottom:SetColorTexture(0, 0.5, 0)
-				button.borderleft:SetColorTexture(0, 0.5, 0)
-				button.borderright:SetColorTexture(0, 0.5, 0)
-			elseif isStealable then
+				SetColorBorder(element, 0, 0.5, 0)
+			elseif data.isStealable then
 				allow = true
-				button.bordertop:SetColorTexture(1, 0.85, 0)
-				button.borderbottom:SetColorTexture(1, 0.85, 0)
-				button.borderleft:SetColorTexture(1, 0.85, 0)
-				button.borderright:SetColorTexture(1, 0.85, 0)
-			else
-				button.bordertop:SetColorTexture(unpack(C.media.border_color))
-				button.borderbottom:SetColorTexture(unpack(C.media.border_color))
-				button.borderleft:SetColorTexture(unpack(C.media.border_color))
-				button.borderright:SetColorTexture(unpack(C.media.border_color))
+				SetColorBorder(element, 1, 0.85, 0)
 			end
 		end
 	end
@@ -320,16 +312,16 @@ local CreateAuraTimer = function(self, elapsed)
 end
 
 local AurasPostUpdateIcon = function(_, _, icon, _, _, duration, expiration)
-	if duration and duration > 0 and C.aura.show_timer == true then
-		icon.remaining:Show()
-		icon.timeLeft = expiration
-		icon:SetScript("OnUpdate", CreateAuraTimer)
-	else
-		icon.remaining:Hide()
-		icon.timeLeft = math.huge
-		icon:SetScript("OnUpdate", nil)
-	end
-	icon.first = true
+--	if duration and duration > 0 and C.aura.show_timer == true then
+	--	icon.remaining:Show()
+		--icon.timeLeft = expiration
+		--icon:SetScript("OnUpdate", CreateAuraTimer)
+	--else
+	--	icon.remaining:Hide()
+		--icon.timeLeft = math.huge
+		--icon:SetScript("OnUpdate", nil)
+--	end
+	--icon.first = true
 end
 
 local function threatColor(self, forced)
@@ -940,7 +932,7 @@ local function style(self, unit)
 		self.Auras.spacing = 5 * T.noscalemult
 		self.Auras.size = C.nameplate.auras_size * T.noscalemult - 3
 
-		self.Auras.CustomFilter = AurasCustomFilter
+		self.Auras.FilterAura = AurasCustomFilter
 		self.Auras.PostCreateIcon = AurasPostCreateIcon
 		self.Auras.PostUpdateIcon = AurasPostUpdateIcon
 	end

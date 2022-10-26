@@ -4,8 +4,8 @@ local T, C, L, _ = unpack(select(2, ...))
 -- Default Size Values
 ----------------------------------------------------------------------------------------
 --//Using uiscale and Tw to calculate width on some panels
-local uiscale = min(2, max(.64, 768 / string.match(T.resolution, "%d+x(%d+)")))
-local Tw = WorldFrame:GetWidth()
+local uiscale = 0.69
+local Tw = 1920
 local classcolor = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
 
 CPwidth = C.panels.CPwidth 					-- Width for Left and RIght side panels that holds text. 
