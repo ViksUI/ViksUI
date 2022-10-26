@@ -263,7 +263,10 @@ function Stuffing:SlotUpdate(b)
 
 		-- Color slot according to item quality
 		if not b.frame.lock and quality and quality > 1 and not (isQuestItem or questId) then
-			b.frame:SetBackdropBorderColor(GetItemQualityColor(quality))
+			local R, G, B = GetItemQualityColor(quality)
+			if b.frame then
+				b.frame:SetBackdropBorderColor(R, G, B)
+			end
 		elseif questId and not isActiveQuest then
 			b.frame:SetBackdropBorderColor(1, 0.3, 0.3)
 		elseif questId or isQuestItem then
@@ -513,7 +516,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
 				self:GetParent():SetBackdropBorderColor(r, g, b)
 			end
-			self:SetTexture()
+			self:SetTexture("")
 		end)
 
 		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
@@ -526,7 +529,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 
 	ret.frame:StyleButton()
 	ret.frame:SetTemplate("Default")
-	ret.frame:SetNormalTexture("")
+	ret.frame:SetNormalTexture((C.media.empty))
 
 	ret.icon = _G[ret.frame:GetName().."IconTexture"]
 	ret.icon:CropIcon()
@@ -577,7 +580,7 @@ function Stuffing:SlotNew(bag, slot)
 		ret.frame = CreateFrame("ItemButton", "StuffingBag"..bag.."_"..slot, self.bags[bag], tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		ret.frame:SetNormalTexture("")
+		ret.frame:SetNormalTexture(C.media.empty)
 
 		ret.icon = _G[ret.frame:GetName().."IconTexture"]
 		ret.icon:CropIcon()
@@ -1524,9 +1527,9 @@ function Stuffing:BAG_CLOSED(id)
 end
 
 function Stuffing:BAG_UPDATE_COOLDOWN()
-	--for _, v in pairs(self.buttons) do
-		--self:UpdateCooldowns(v)
-	--end
+	for _, v in pairs(self.buttons) do
+		self:UpdateCooldowns(v)
+	end
 end
 
 function Stuffing:SCRAPPING_MACHINE_SHOW()

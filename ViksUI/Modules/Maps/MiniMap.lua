@@ -24,19 +24,17 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 	-- Parent Minimap into our frame
-Minimap:SetParent(MinimapAnchor)
-Minimap:ClearAllPoints()
-Minimap:SetPoint("TOPLEFT", MinimapAnchor, "TOPLEFT", 2, -2)
-Minimap:SetPoint("BOTTOMRIGHT", MinimapAnchor, "BOTTOMRIGHT", -2, 2)
-Minimap:SetSize(MinimapAnchor:GetWidth(), MinimapAnchor:GetWidth())
+	Minimap:SetParent(MinimapAnchor)
+	Minimap:ClearAllPoints()
+	Minimap:SetPoint("TOPLEFT", MinimapAnchor, "TOPLEFT", 2, -2)
+	Minimap:SetPoint("BOTTOMRIGHT", MinimapAnchor, "BOTTOMRIGHT", -2, 2)
+	Minimap:SetSize(MinimapAnchor:GetWidth(), MinimapAnchor:GetWidth())
 
-MinimapBackdrop:ClearAllPoints()
-MinimapBackdrop:SetPoint("TOPLEFT", MinimapAnchor, "TOPLEFT", 2, -2)
-MinimapBackdrop:SetPoint("BOTTOMRIGHT", MinimapAnchor, "BOTTOMRIGHT", -2, 2)
-MinimapBackdrop:SetSize(MinimapAnchor:GetWidth(), MinimapAnchor:GetWidth())
+	MinimapBackdrop:ClearAllPoints()
+	MinimapBackdrop:SetPoint("TOPLEFT", MinimapAnchor, "TOPLEFT", 2, -2)
+	MinimapBackdrop:SetPoint("BOTTOMRIGHT", MinimapAnchor, "BOTTOMRIGHT", -2, 2)
+	MinimapBackdrop:SetSize(MinimapAnchor:GetWidth(), MinimapAnchor:GetWidth())
 end)
-
-
 
 -- Adjusting for patch 9.0.1 Minimap.xml
 Minimap:SetFrameStrata("LOW")
@@ -46,6 +44,7 @@ Minimap:SetFrameLevel(2)
 --BETA MinimapBorder:Hide()
 -- MinimapBorderTop:Hide()
 MinimapCompassTexture:Hide()
+MinimapCluster.BorderTop:StripTextures()
 
 -- Hide Zoom Buttons
 Minimap.ZoomIn:Kill()
@@ -318,7 +317,7 @@ Minimap:SetScript("OnMouseUp", function(self, button)
 			ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", -160, 0, "MENU", 2)
 		end
 	elseif button == "LeftButton" then
-		Minimap_OnClick(self)
+		Minimap.OnClick(self)
 	end
 end)
 
@@ -351,20 +350,20 @@ end
 --	Tracking icon
 ----------------------------------------------------------------------------------------
 if C.minimap.tracking_icon then
-	MiniMapTrackingBackground:Hide()
-	MiniMapTracking:ClearAllPoints()
-	MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 0, -5)
-	MiniMapTrackingButton:SetHighlightTexture(nil)
-	MiniMapTrackingButtonBorder:Hide()
-	MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	MiniMapTrackingIcon:SetSize(16, 16)
-	MiniMapTrackingIcon.SetPoint = T.dummy
+	--BETA MiniMapTrackingBackground:Hide()
+	-- MiniMapTracking:ClearAllPoints()
+	-- MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 0, -4)
+	-- MiniMapTrackingButton:SetHighlightTexture(nil)
+	-- MiniMapTrackingButtonBorder:Hide()
+	-- MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	-- MiniMapTrackingIcon:SetSize(16, 16)
+	-- MiniMapTrackingIcon.SetPoint = T.dummy
 
-	MiniMapTracking:CreateBackdrop("Transparent")
-	MiniMapTracking.backdrop:SetPoint("TOPLEFT", MiniMapTrackingIcon, -2, 2)
-	MiniMapTracking.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
+	-- MiniMapTracking:CreateBackdrop("ClassColor")
+	-- MiniMapTracking.backdrop:SetPoint("TOPLEFT", MiniMapTrackingIcon, -2, 2)
+	-- MiniMapTracking.backdrop:SetPoint("BOTTOMRIGHT", MiniMapTrackingIcon, 2, -2)
 else
-	--BETA MiniMapTracking:Hide()
+	MinimapCluster.Tracking:Hide()
 end
 
 ------------------------------------------------------------------------------------------	

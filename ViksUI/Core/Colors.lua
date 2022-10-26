@@ -12,6 +12,7 @@ oUF.colors.runes = {
 	[1] = {0.69, 0.31, 0.31},
 	[2] = {0.41, 0.80, 1.00},
 	[3] = {0.65, 0.63, 0.35},
+	[5] = {0.55, 0.57, 0.61}, -- unspec, new char
 }
 
 oUF.colors.reaction = {
@@ -45,6 +46,7 @@ oUF.colors.power = {
 	["POWER_TYPE_STEAM"]  = {0.55, 0.57, 0.61},
 	["POWER_TYPE_PYRITE"] = {0.60, 0.09, 0.17},
 	["ALTPOWER"]          = {0.00, 1.00, 1.00},
+	["ANIMA"]             = {0.83, 0.83, 0.83},
 }
 
 oUF.colors.class = {
@@ -60,6 +62,7 @@ oUF.colors.class = {
 	["WARRIOR"]     = { 0.78, 0.61, 0.43 },
 	["MONK"]        = { 0.00, 1.00, 0.59 },
 	["DEMONHUNTER"] = { 0.64, 0.19, 0.79 },
+	["EVOKER"] 		= { 0.07, 0.40, 0.46 },
 }
 
 oUF.colors.totems = {
