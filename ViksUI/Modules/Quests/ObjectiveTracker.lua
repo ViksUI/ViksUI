@@ -13,6 +13,9 @@ ObjectiveTrackerFrame:ClearAllPoints()
 ObjectiveTrackerFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
 ObjectiveTrackerFrame:SetHeight(T.screenHeight / 1.6)
 ObjectiveTrackerFrame:SetWidth(180)
+ObjectiveTrackerFrame:SetClampedToScreen(false)
+ObjectiveTrackerFrame.ClearAllPoints = function() return end
+ObjectiveTrackerFrame.SetPoint = function() return end
 
 hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
 	if parent ~= frame then
@@ -552,38 +555,7 @@ hooksecurefunc("QuestObjectiveSetupBlockButton_Item", function(block)
 	end
 end)
 
--- WorldQuestsList button skin
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_LOGIN")
-frame:SetScript("OnEvent", function()
-	if not IsAddOnLoaded("WorldQuestsList") then return end
 
-	local orig = _G.WorldQuestList.ObjectiveTracker_Update_hook
-	local function orig_hook(...)
-		orig(...)
-		for _, b in pairs(WorldQuestList.LFG_objectiveTrackerButtons) do
-			if b and not b.skinned then
-				b:SetSize(20, 20)
-				b.texture:SetAtlas("socialqueuing-icon-eye")
-				b.texture:SetSize(12, 12)
-				b:SetHighlightTexture("")
-
-				local point, anchor, point2, x, y = b:GetPoint()
-				if x == -18 then
-					b:SetPoint(point, anchor, point2, -13, y)
-				end
-
-				b.b = CreateFrame("Frame", nil, b)
-				b.b:SetTemplate("Overlay")
-				b.b:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
-				b.b:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
-				b.b:SetFrameLevel(1)
-				b.skinned = true
-			end
-		end
-	end
-	_G.WorldQuestList.ObjectiveTracker_Update_hook = orig_hook
-end)
 ----------------------------------------------------------------------------------------
 --	Skin quest objective progress bar with icon
 ----------------------------------------------------------------------------------------

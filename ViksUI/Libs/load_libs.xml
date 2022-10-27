@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Include file="oUF\oUF.xml"/>
-	<Include file="oGlow\oGlow.xml"/>
+	<!--Include file="oGlow\oGlow.xml"/-->
 	<Include file="CallbackHandler-1.0\CallbackHandler-1.0.xml"/>
 	<Include file="LibSharedMedia-3.0\lib.xml"/>
 	<Script file="LitePanels\LitePanels.lua"/>

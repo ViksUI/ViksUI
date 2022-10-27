@@ -26,7 +26,8 @@ frame:SetScript("OnEvent", function()
 
 	local elements = {
 		MainMenuBar, MainMenuBarArtFrame, OverrideActionBar, PossessBarFrame, PetActionBarFrame, StanceBarFrame,
-		MultiBarBottomLeft.QuickKeybindGlow, MultiBarLeft.QuickKeybindGlow, MultiBarBottomRight.QuickKeybindGlow, MultiBarRight.QuickKeybindGlow
+		MultiBarBottomLeft.QuickKeybindGlow, MultiBarLeft.QuickKeybindGlow, MultiBarBottomRight.QuickKeybindGlow, MultiBarRight.QuickKeybindGlow,
+		StatusTrackingBarManager
 	}
 
 	if not C_ClassTrial.IsClassTrialCharacter() then
@@ -285,7 +286,7 @@ EventSpiral:SetScript("OnEvent", function()
 	end
 
 	if C.actionbar.stancebar_mouseover == true and C.actionbar.stancebar_horizontal == true and C.actionbar.stancebar_hide ~= true then
-		StanceBarMouseOver(0.3)
+		StanceBarMouseOver(0)
 	end
 
 	if C.actionbar.bottombars_mouseover then
@@ -338,45 +339,45 @@ frame:SetScript("OnEvent", function(self)
 	SetActionBarToggles(1, 1, 1, 1, 0)
 	if C.actionbar.show_grid == true then
 		SetCVar("alwaysShowActionBars", 1)
-		for i = 1, 12 do
-			local reason = ACTION_BUTTON_SHOW_GRID_REASON_EVENT
-			local button = _G[format("ActionButton%d", i)]
-			button.noGrid = nil
-			button:SetAttribute("showgrid", 1)
-			--BETA button:ShowGrid(reason)
-			button:SetAttribute("statehidden", true)
+		-- for i = 1, 12 do
+			-- local reason = ACTION_BUTTON_SHOW_GRID_REASON_CVAR
+			-- local button = _G[format("ActionButton%d", i)]
+			-- button.noGrid = nil
+			-- button:SetAttribute("showgrid", 1)
+			-- --BETA button:ShowGrid(reason)
+			-- button:SetAttribute("statehidden", true)
 
-			button = _G[format("MultiBarRightButton%d", i)]
-			button.noGrid = nil
-			button:SetAttribute("showgrid", 1)
-			-- button:ShowGrid(reason)
-			button:SetAttribute("statehidden", true)
+			-- button = _G[format("MultiBarRightButton%d", i)]
+			-- button.noGrid = nil
+			-- button:SetAttribute("showgrid", 1)
+			-- -- button:ShowGrid(reason)
+			-- button:SetAttribute("statehidden", true)
 
-			button = _G[format("MultiBarBottomRightButton%d", i)]
-			button.noGrid = nil
-			button:SetAttribute("showgrid", 1)
-			-- button:ShowGrid(reason)
-			button:SetAttribute("statehidden", true)
+			-- button = _G[format("MultiBarBottomRightButton%d", i)]
+			-- button.noGrid = nil
+			-- button:SetAttribute("showgrid", 1)
+			-- -- button:ShowGrid(reason)
+			-- button:SetAttribute("statehidden", true)
 
-			button = _G[format("MultiBarLeftButton%d", i)]
-			button.noGrid = nil
-			button:SetAttribute("showgrid", 1)
-			-- button:ShowGrid(reason)
-			button:SetAttribute("statehidden", true)
+			-- button = _G[format("MultiBarLeftButton%d", i)]
+			-- button.noGrid = nil
+			-- button:SetAttribute("showgrid", 1)
+			-- -- button:ShowGrid(reason)
+			-- button:SetAttribute("statehidden", true)
 
-			button = _G[format("MultiBarBottomLeftButton%d", i)]
-			button.noGrid = nil
-			button:SetAttribute("showgrid", 1)
-			-- button:ShowGrid(reason)
-			button:SetAttribute("statehidden", true)
+			-- button = _G[format("MultiBarBottomLeftButton%d", i)]
+			-- button.noGrid = nil
+			-- button:SetAttribute("showgrid", 1)
+			-- -- button:ShowGrid(reason)
+			-- button:SetAttribute("statehidden", true)
 
-			if _G["VehicleMenuBarActionButton"..i] then
-				_G["VehicleMenuBarActionButton"..i]:SetAttribute("statehidden", true)
-			end
+			-- if _G["VehicleMenuBarActionButton"..i] then
+				-- _G["VehicleMenuBarActionButton"..i]:SetAttribute("statehidden", true)
+			-- end
 
-			_G["MultiCastActionButton"..i]:SetAttribute("showgrid", 1)
-			_G["MultiCastActionButton"..i]:SetAttribute("statehidden", true)
-		end
+			-- _G["MultiCastActionButton"..i]:SetAttribute("showgrid", 1)
+			-- _G["MultiCastActionButton"..i]:SetAttribute("statehidden", true)
+		-- end
 	else
 		SetCVar("alwaysShowActionBars", 0)
 	end
@@ -455,11 +456,11 @@ T.PetBarUpdate = function()
 			end
 		end
 
-		if autoCastAllowed then
-			petAutoCastableTexture:Show()
-		else
-			petAutoCastableTexture:Hide()
-		end
+		--BETA if autoCastAllowed then
+			-- petAutoCastableTexture:Show()
+		-- else
+			-- petAutoCastableTexture:Hide()
+		-- end
 
 		if autoCastEnabled then
 			AutoCastShine_AutoCastStart(petAutoCastShine)

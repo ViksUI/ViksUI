@@ -1,33 +1,3 @@
---[[
-# Element: Threat Indicator
-
-Handles the visibility and updating of an indicator based on the unit's current threat level.
-
-## Widget
-
-ThreatIndicator - A `Texture` used to display the current threat level.
-The element works by changing the texture's vertex color.
-
-## Notes
-
-A default texture will be applied if the widget is a Texture and doesn't have a texture or a color set.
-
-## Options
-
-.feedbackUnit - The unit whose threat situation is being requested. If defined, it'll be passed as the first argument to
-                [GetThreatStatusColor](http://wowprogramming.com/docs/api/UnitThreatSituation.html).
-
-## Examples
-
-    -- Position and size
-    local ThreatIndicator = self:CreateTexture(nil, 'OVERLAY')
-    ThreatIndicator:SetSize(16, 16)
-    ThreatIndicator:SetPoint('TOPRIGHT', self)
-
-    -- Register it with oUF
-    self.ThreatIndicator = ThreatIndicator
---]]
-
 local _, ns = ...
 local oUF = ns.oUF
 local Private = oUF.Private
@@ -61,7 +31,8 @@ local function Update(self, event, unit)
 
 	local r, g, b
 	if(status and status > 0) then
-		r, g, b = unpack(self.colors.threat[status])
+		local color = self.colors.threat[status]
+		r, g, b = color[1], color[2], color[3]
 
 		if(element.SetVertexColor) then
 			element:SetVertexColor(r, g, b)

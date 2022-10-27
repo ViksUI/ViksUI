@@ -1340,7 +1340,6 @@ end
 
 -- Post Update Icon Function
 local postUpdateIcon = function(element, unit, button, index)
---[[ BETA
 	local _, _, _, _, _, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, button.filter)
 	
 	if duration and duration > 0 then
@@ -1369,7 +1368,6 @@ local postUpdateIcon = function(element, unit, button, index)
 			CancelUnitBuff('player', index)
 	end end)
 	button.first = true
-]]--
 end
 
  --Create Auras
@@ -1466,8 +1464,8 @@ lib.createBuffs = function(f)
 	else
 		b.num = 0
 	end
-	b.PostCreateIcon = postCreateIcon
-	b.PostUpdateIcon = postUpdateIcon
+	b.PostCreateButton = T.PostCreateIcon
+	b.PostUpdateButton = T.PostUpdateIcon
 	f.Buffs = b
 
 end
@@ -1523,8 +1521,8 @@ lib.createDebuffs = function(f)
 	else
 		b.num = 0
 	end
-	b.PostCreateIcon = postCreateIcon
-	b.PostUpdateIcon = postUpdateIcon
+	b.PostCreateButton = T.PostCreateIcon
+	b.PostUpdateButton = T.PostUpdateIcon
 	f.Debuffs = b
 end
 

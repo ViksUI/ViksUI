@@ -517,7 +517,7 @@ ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, LSM,
 
 			if isFont then
 				local fObject = CreateFont(info.text)
-				--fObject:SetFont(value, 12)
+				fObject:SetFont(value, 12, "")
 				info.fontObject = fObject
 			end
 

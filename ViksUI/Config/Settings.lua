@@ -857,6 +857,7 @@ C["datatext"] = {
 	["Power"] = 1,                          -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
 	["Regen"] = 0,  						-- show mana regeneration
 	["System"] = 7,                			-- show fps and ms on panels, and total addon memory in tooltip
+	["fps_ms"] = true,                		-- show fps and ms only
 	["Talents"] = 13,                       -- Show Your Talent's. Shift Click to change spec. 
 	["Profession"] = 17,  			  		-- Profession
 	["togglemenu"] = 0,  			  		-- minimenu

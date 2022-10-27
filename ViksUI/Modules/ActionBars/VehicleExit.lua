@@ -26,6 +26,8 @@ vehicle:RegisterForClicks("AnyUp")
 vehicle:SetFrameLevel(6)
 vehicle:SetFrameStrata("HIGH")
 
+vehicle:Hide() -- BETA
+
 --BETA hooksecurefunc("MainMenuBarVehicleLeaveButton_Update", function()
 	-- if CanExitVehicle() then
 		-- if UnitOnTaxi("player") then

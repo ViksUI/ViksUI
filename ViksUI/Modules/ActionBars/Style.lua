@@ -12,7 +12,7 @@ local function StyleNormalButton(button, size)
 		local count = _G[name.."Count"]
 		local flash = _G[name.."Flash"]
 		local hotkey = _G[name.."HotKey"]
-		local border = _G[name.."Border"]
+		local border = button.Border or _G[name..'Border']
 		local btname = _G[name.."Name"]
 		local normal = _G[name.."NormalTexture"]
 		local float = _G[name.."FloatingBG"]
@@ -22,16 +22,50 @@ local function StyleNormalButton(button, size)
 		local flyoutBorder = _G[name.."FlyoutBorder"]
 		local flyoutBorderShadow = _G[name.."FlyoutBorderShadow"]
 
+		local normal = button.NormalTexture or _G[name..'NormalTexture']
+		local normal2 = button:GetNormalTexture()
+
+		if button.IconMask then
+			button.IconMask:Hide()
+		end
+
+		if button.SlotArt then
+			button.SlotArt:SetAlpha(0)
+		end
+
+		if button.RightDivider then
+			button.RightDivider:Kill()
+		end
+
+		if button.SlotBackground then
+			button.SlotBackground:SetAlpha(0)
+		end
+
+		if button.NewActionTexture then
+			button.NewActionTexture:SetAlpha(0)
+		end
+
+		if normal then
+			normal:SetTexture()
+			normal:Hide()
+			normal:SetAlpha(0)
+		end
+
+		if normal2 then
+			normal2:SetTexture()
+			normal2:Hide()
+			normal2:SetAlpha(0)
+		end
+
 		flash:SetTexture("")
 		button:SetNormalTexture("")
 
 		if float then
 			float:SetTexture("")
 		end
-		-- if button.IconMask then button.IconMask:Hide() end
 
 		if border then
-			border:SetTexture()
+			border:Kill()
 		end
 
 		if not isExtraAction then
@@ -58,6 +92,7 @@ local function StyleNormalButton(button, size)
 		if C.actionbar.hotkey == true then
 			hotkey:ClearAllPoints()
 			hotkey:SetPoint("TOPRIGHT", 0, -1)
+			hotkey.SetPoint = T.dummy -- BETA It's bad way but work while I find better
 			hotkey:SetFont(C.font.action_bars_font, C.font.action_bars_font_size, C.font.action_bars_font_style)
 			hotkey:SetShadowOffset(C.font.action_bars_font_shadow and 1 or 0, C.font.action_bars_font_shadow and -1 or 0)
 			hotkey:SetWidth(C.actionbar.button_size - 1)
@@ -197,7 +232,9 @@ function T.StylePet()
 	end
 end
 
-do
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:SetScript("OnEvent", function(self, event)
 	for i = 1, 12 do
 		StyleNormalButton(_G["ActionButton"..i], C.actionbar.editor and C.actionbar.bar1_size)
 		StyleNormalButton(_G["MultiBarBottomLeftButton"..i], C.actionbar.editor and C.actionbar.bar2_size)
@@ -213,7 +250,7 @@ do
 	end
 
 	StyleNormalButton(ExtraActionButton1)
-end
+end)
 
 local function SetupFlyoutButton(button, self)
 	if button:GetHeight() ~= C.actionbar.button_size and not InCombatLockdown() then
@@ -255,6 +292,7 @@ SpellFlyout:HookScript("OnShow", StyleFlyoutButton)
 -- SpellFlyoutHorizontalBackground:SetAlpha(0)
 -- SpellFlyoutVerticalBackground:SetAlpha(0)
 -- SpellFlyoutBackgroundEnd:SetAlpha(0)
+SpellFlyout.Background:Hide()
 
 if C.actionbar.hotkey == true then
 	local gsub = string.gsub

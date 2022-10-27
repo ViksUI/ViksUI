@@ -3,20 +3,16 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 9.37 for Wow 9.2.7",
-		"• Added Affixes and Debuffs for S4 dungeons",
-		"• Updated NPC color information for S4 dungeons",
-		"• Custom nameplate for Plater updated at wago",
-		"• Experience/Rep and anima bar improved",
-		"• Actionbar now have 6 bars",
-		"• Updated some skins",
+		"Update 10.0 for Wow 10.0",
+		"• Initial update for DF Prepatch",
+		"• Some stuff missing like skinning & Buff frames",
+		"• Wow might override chat placement. Replace with wow edit mode",
 
 	" ",
 	"EXTRA:",
-	"Still updating.. Let's see how long",
 	"Patreon helps me keep subscription while not playing",
 		"",
-	"PATREON's: Wiggy has been with me a long time and currently only one!",
+	"PATREON's: Wiggy and Korallis",
 	"But thanks to all who have used the addon and those supported my work",
 }
 

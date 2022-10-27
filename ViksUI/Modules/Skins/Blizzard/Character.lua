@@ -156,27 +156,35 @@ local function LoadSkin()
 		T.SkinScrollBar(_G[scrollbar])
 	end
 
+	local function SkinStatsPane(frame)
+		frame:StripTextures()
 
-	
-	CharacterStatsPane.ItemLevelCategory:StripTextures()
-	CharacterStatsPane.ItemLevelCategory:SetTemplate("Overlay")
-	CharacterStatsPane.ItemLevelCategory:SetHeight(CharacterStatsPane.ItemLevelCategory:GetHeight() - 20)
-	CharacterStatsPane.ItemLevelCategory:SetWidth(CharacterStatsPane.ItemLevelCategory:GetWidth() - 20)
-	CharacterStatsPane.AttributesCategory:StripTextures()
-	CharacterStatsPane.AttributesCategory:SetTemplate("Overlay")
-	CharacterStatsPane.AttributesCategory:SetHeight(CharacterStatsPane.AttributesCategory:GetHeight() - 20)
-	CharacterStatsPane.AttributesCategory:SetWidth(CharacterStatsPane.AttributesCategory:GetWidth() - 20)
-	CharacterStatsPane.AttributesCategory.Title:ClearAllPoints()
-	CharacterStatsPane.AttributesCategory.Title:SetPoint("CENTER", 0, -1)
-	CharacterStatsPane.EnhancementsCategory:StripTextures()
-	CharacterStatsPane.EnhancementsCategory:SetTemplate("Overlay")
-	CharacterStatsPane.EnhancementsCategory:SetHeight(CharacterStatsPane.EnhancementsCategory:GetHeight() - 20)
-	CharacterStatsPane.EnhancementsCategory:SetWidth(CharacterStatsPane.EnhancementsCategory:GetWidth() - 20)
-	CharacterStatsPane.EnhancementsCategory.Title:ClearAllPoints()
-	CharacterStatsPane.EnhancementsCategory.Title:SetPoint("CENTER", 0, -1)
+		local bg = frame.Background
+		bg:SetTexture(C.media.blank)
+		bg:ClearAllPoints()
+		bg:SetPoint("CENTER", 0, -15)
+		bg:SetSize(165, 1)
+		bg:SetVertexColor(unpack(C.media.border_color))
 
-	CharacterFrame:SetTemplate("Overlay")
-	
+		local border = CreateFrame("Frame", "$parentOuterBorder", frame, "BackdropTemplate")
+		border:SetPoint("TOPLEFT", bg, "TOPLEFT", -T.mult, T.mult)
+		border:SetPoint("BOTTOMRIGHT", bg, "BOTTOMRIGHT", T.mult, -T.mult)
+		border:SetFrameLevel(frame:GetFrameLevel() + 1)
+		border:SetBackdrop({
+			edgeFile = C.media.blank, edgeSize = T.mult,
+			insets = {left = T.mult, right = T.mult, top = T.mult, bottom = T.mult}
+		})
+		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
+	end
+
+	CharacterStatsPane.ItemLevelFrame.Value:SetFont(C.media.normal_font, 18, "")
+	CharacterStatsPane.ItemLevelFrame.Value:SetShadowOffset(1, -1)
+	CharacterStatsPane.ItemLevelFrame.Background:Hide()
+
+	SkinStatsPane(CharacterStatsPane.ItemLevelCategory)
+	SkinStatsPane(CharacterStatsPane.AttributesCategory)
+	SkinStatsPane(CharacterStatsPane.EnhancementsCategory)
+
 	-- Titles
 	PaperDollTitlesPane:HookScript("OnShow", function()
 		for _, object in pairs(PaperDollTitlesPane.buttons) do

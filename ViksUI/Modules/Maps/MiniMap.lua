@@ -45,6 +45,7 @@ Minimap:SetFrameLevel(2)
 -- MinimapBorderTop:Hide()
 MinimapCompassTexture:Hide()
 MinimapCluster.BorderTop:StripTextures()
+ExpansionLandingPageMinimapButton:Kill()
 
 -- Hide Zoom Buttons
 Minimap.ZoomIn:Kill()
@@ -63,41 +64,47 @@ MinimapCluster.ZoneTextButton:Hide()
 -- Hide Game Time
 GameTimeFrame:Hide()
 
--- Move Mail icon
--- MiniMapMailFrame:ClearAllPoints()
--- MiniMapMailFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 8, -10)
--- MiniMapMailBorder:Hide()
--- MiniMapMailIcon:SetTexture("Interface\\AddOns\\ShestakUI\\Media\\Textures\\Mail.tga")
--- MiniMapMailIcon:SetSize(16, 16)
+-- Hide Mail Button
+if MiniMapMailFrame then
+	MiniMapMailFrame:ClearAllPoints()
+	MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
+	MiniMapMailBorder:Hide()
+	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\mail.tga")
+	MiniMapMailIcon:SetSize(16, 16)
+end
 
 -- Move QueueStatus icon
+if QueueStatusMinimapButton then
 QueueStatusFrame:SetClampedToScreen(true)
 QueueStatusFrame:SetFrameStrata("TOOLTIP")
--- QueueStatusMinimapButton:ClearAllPoints()
--- QueueStatusMinimapButton:SetPoint("TOP", Minimap, "TOP", 1, 6)
--- QueueStatusMinimapButton:SetHighlightTexture(nil)
--- QueueStatusMinimapButtonBorder:Hide()
+QueueStatusMinimapButton:ClearAllPoints()
+QueueStatusMinimapButton:SetPoint("TOP", Minimap, "TOP", 1, 6)
+QueueStatusMinimapButton:SetHighlightTexture(nil)
+QueueStatusMinimapButtonBorder:Hide()
+end
 
 -- Hide world map button
 -- MiniMapWorldMapButton:Hide()
 
 -- Garrison icon
 if C.minimap.garrison_icon == true then
-	GarrisonLandingPageMinimapButton:SetScale(0.75)
-	hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function(self)
-		self:ClearAllPoints()
-		self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
-	end)
+	--BETA GarrisonLandingPageMinimapButton:SetScale(0.75)
+	-- hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function(self)
+		-- self:ClearAllPoints()
+		-- self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
+	-- end)
 else
 	-- GarrisonLandingPageMinimapButton:SetScale(0.0001)
 	-- GarrisonLandingPageMinimapButton:SetAlpha(0)
 end
 
 -- Instance Difficulty icon
--- MiniMapInstanceDifficulty:SetParent(Minimap)
--- MiniMapInstanceDifficulty:ClearAllPoints()
--- MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 3, 2)
--- MiniMapInstanceDifficulty:SetScale(0.75)
+if MiniMapInstanceDifficulty then
+MiniMapInstanceDifficulty:SetParent(Minimap)
+MiniMapInstanceDifficulty:ClearAllPoints()
+MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 3, 2)
+MiniMapInstanceDifficulty:SetScale(0.75)
+end
 
 -- Guild Instance Difficulty icon
 -- GuildInstanceDifficulty:SetParent(Minimap)
@@ -312,9 +319,9 @@ Minimap:SetScript("OnMouseUp", function(self, button)
 		end
 	elseif button == "MiddleButton" then
 		if position:match("LEFT") then
-			ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", 0, 0, "MENU", 2)
+			ToggleDropDownMenu(1, nil, MinimapCluster.Tracking.DropDown, "cursor", 0, 0, "MENU", 2)
 		else
-			ToggleDropDownMenu(nil, nil, MiniMapTrackingDropDown, "cursor", -160, 0, "MENU", 2)
+			ToggleDropDownMenu(1, nil, MinimapCluster.Tracking.DropDown, "cursor", -160, 0, "MENU", 2)
 		end
 	elseif button == "LeftButton" then
 		Minimap.OnClick(self)

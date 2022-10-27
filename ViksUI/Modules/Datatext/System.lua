@@ -17,6 +17,7 @@ Text:SetTextColor(unpack(C.media.pxcolor1))
 Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 end
 	PP(C.datatext.System, Text)
+	
 	local colorme = string.format("%02x%02x%02x", 1*255, 1*255, 1*255)
 	
 	local function formatMem(memory, color)
@@ -64,7 +65,7 @@ end
 		end)
 		self:SetAllPoints(Text)
 	end
-	
+		
 	local int, int2 = 10, 1
 	local function Update(self, t)
 		int = int - t
@@ -72,14 +73,16 @@ end
 		local fpscolor
 		local latencycolor
 		
-		if int < 0 then
-			RefreshMem(self)
-			int = 10
+		if C.datatext.fps_ms == false then
+			if int < 0 then
+				RefreshMem(self)
+				int = 10
+			end
 		end
 		if int2 < 0 then
-			if select(3, GetNetStats()) < 300 then
+			if select(4, GetNetStats()) < 300 then
 				latencycolor = "|cff0CD809"
-			elseif (select(3, GetNetStats()) > 300 and select(3, GetNetStats()) < 500) then
+			elseif (select(4, GetNetStats()) > 300 and select(4, GetNetStats()) < 500) then
 				latencycolor = "|cffE8DA0F"
 			else
 				latencycolor = "|cffD80909"
@@ -91,8 +94,13 @@ end
 			else
 				fpscolor = "|cffD80909"
 			end
-			Text:SetText(fpscolor..floor(GetFramerate()).."|r".."fps "..latencycolor..select(3, GetNetStats()).."|r".."ms "..fpscolor..formatMem(Total).."|r".."mb")
-			int2 = 0.8
+			if C.datatext.fps_ms == false then
+				Text:SetText(fpscolor..floor(GetFramerate()).."|r".."fps "..latencycolor..select(4, GetNetStats()).."|r".."ms "..fpscolor..formatMem(Total).."|r".."mb")
+				int2 = 0.8
+			else
+				Text:SetText(fpscolor..floor(GetFramerate()).."|r".."fps "..latencycolor..select(4, GetNetStats()).."|r".."ms "..fpscolor)
+				int2 = 0.8
+			end
 		end
 	
 	end
@@ -108,13 +116,15 @@ end
 			local latency = format(MAINMENUBAR_LATENCY_LABEL, latencyHome, latencyWorld)
 			GameTooltip:AddLine(qColor..latency)
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddDoubleLine("Total Memory Usage:",formatMem(Total).."|r".."", 0, 0.6, 1, 1, 1, 1)
-			GameTooltip:AddLine(" ")
-			for i = 1, #Memory do
-				if Memory[i][3] then 
-					local red = Memory[i][2]/Total*2
-					local green = 1 - red
-					GameTooltip:AddDoubleLine(Memory[i][1], formatMem(Memory[i][2], false), 1, 1, 1, red, green+1, 0)						
+			if C.datatext.fps_ms == false then
+				GameTooltip:AddDoubleLine("Total Memory Usage:",formatMem(Total).."|r".."", 0, 0.6, 1, 1, 1, 1)
+				GameTooltip:AddLine(" ")
+				for i = 1, #Memory do
+					if Memory[i][3] then 
+						local red = Memory[i][2]/Total*2
+						local green = 1 - red
+						GameTooltip:AddDoubleLine(Memory[i][1], formatMem(Memory[i][2], false), 1, 1, 1, red, green+1, 0)						
+					end
 				end
 			end
 			GameTooltip:Show()
