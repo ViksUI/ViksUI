@@ -185,6 +185,7 @@ end
 
 function Stuffing:SlotUpdate(b)
 	local texture, count, locked, quality = GetContainerItemInfo(b.bag, b.slot)
+	texture = texture or C.media.empty
 	local clink = GetContainerItemLink(b.bag, b.slot)
 	local isQuestItem, questId, isActiveQuest = GetContainerItemQuestInfo(b.bag, b.slot)
 	local itemIsUpgrade
@@ -420,7 +421,7 @@ function Stuffing:CreateReagentContainer()
 
 		button:StyleButton()
 		button:SetTemplate("Default")
-		button:SetNormalTexture(nil)
+		button:SetNormalTexture(C.media.empty)
 		button.IconBorder:SetAlpha(0)
 
 		button:ClearAllPoints()
@@ -546,6 +547,7 @@ function Stuffing:SlotNew(bag, slot)
 	end
 
 	local tpl = "ContainerFrameItemButtonTemplate"
+	-- local tpl = "BankItemButtonGenericTemplate"
 
 	if bag == -1 then
 		tpl = "BankItemButtonGenericTemplate"

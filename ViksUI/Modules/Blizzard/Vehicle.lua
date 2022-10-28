@@ -6,7 +6,7 @@ local T, C, L, _ = unpack(select(2, ...))
 local AnchorVehicleAnchor = CreateFrame("Frame", "VehicleAnchor", UIParent)
 AnchorVehicleAnchor:SetPoint("BOTTOMRIGHT", RChatTab, "TOPRIGHT", 0, 4)
 AnchorVehicleAnchor:SetSize(VehicleSeatIndicator:GetWidth(), VehicleSeatIndicator:GetHeight())
-CreateAnchor(AnchorVehicleAnchor, "Move Vehicle Bar", VehicleSeatIndicator:GetWidth(), VehicleSeatIndicator:GetHeight())
+CreateAnchor2(AnchorVehicleAnchor, "Move Vehicle Bar", VehicleSeatIndicator:GetWidth(), VehicleSeatIndicator:GetHeight())
 
 hooksecurefunc(VehicleSeatIndicator, "SetPoint", function(_, _, parent)
 	if parent == "MinimapCluster" or parent == _G["MinimapCluster"] then

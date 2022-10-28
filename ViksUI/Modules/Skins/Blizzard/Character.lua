@@ -52,8 +52,8 @@ local function LoadSkin()
 		"SecondaryHandSlot"
 	}
 
-	select(17, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
-	select(17, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
+	--select(17, _G["CharacterMainHandSlot"]:GetRegions()):Hide()
+	--select(17, _G["CharacterSecondaryHandSlot"]:GetRegions()):Hide()
 
 	for _, i in pairs(slots) do
 		_G["Character"..i.."Frame"]:Hide()
@@ -63,7 +63,7 @@ local function LoadSkin()
 
 		border:Kill()
 		slot:StyleButton()
-		slot:SetNormalTexture("")
+		slot:SetNormalTexture(C.media.empty)
 		slot.SetHighlightTexture = T.dummy
 		slot:GetHighlightTexture().SetAllPoints = T.dummy
 		slot:SetFrameLevel(slot:GetFrameLevel() + 2)
@@ -86,13 +86,11 @@ local function LoadSkin()
 
 	-- Strip Textures
 	local charframe = {
-		"CharacterFrame",
-		"CharacterModelFrame",
+		"CharacterModelScene",
 		"CharacterFrameInset",
 		"CharacterStatsPane",
 		"CharacterFrameInsetRight",
 		"PaperDollSidebarTabs",
-		"PaperDollEquipmentManagerPane"
 	}
 
 	for _, object in pairs(charframe) do
@@ -140,20 +138,20 @@ local function LoadSkin()
 	-- Icon in upper right corner of character frame
 	CharacterFramePortrait:Kill()
 	CharacterModelFrameBackgroundOverlay:SetColorTexture(0, 0, 0)
-	CharacterModelFrame:CreateBackdrop("Default")
-	CharacterModelFrame.backdrop:SetPoint("TOPLEFT", -3, 4)
-	CharacterModelFrame.backdrop:SetPoint("BOTTOMRIGHT", 4, 0)
+	_G.CharacterModelScene:CreateBackdrop("Default")
+	_G.CharacterModelScene.backdrop:SetPoint("TOPLEFT", -3, 4)
+	_G.CharacterModelScene.backdrop:SetPoint("BOTTOMRIGHT", 4, 0)
 
 	local scrollbars = {
-		"PaperDollTitlesPaneScrollBar",
-		"PaperDollEquipmentManagerPaneScrollBar",
-		"TokenFrameContainerScrollBar",
-		"ReputationListScrollFrameScrollBar",
-		"GearManagerDialogPopupScrollFrameScrollBar"
+		--"PaperDollTitlesPaneScrollBar",
+		--"PaperDollEquipmentManagerPaneScrollBar",
+		--"TokenFrameContainerScrollBar",
+		--"ReputationListScrollFrameScrollBar",
+		--"GearManagerDialogPopupScrollFrameScrollBar"
 	}
 
 	for _, scrollbar in pairs(scrollbars) do
-		T.SkinScrollBar(_G[scrollbar])
+		T.SkinScrollBar(scrollbar)
 	end
 
 	local function SkinStatsPane(frame)
@@ -186,8 +184,8 @@ local function LoadSkin()
 	SkinStatsPane(CharacterStatsPane.EnhancementsCategory)
 
 	-- Titles
-	PaperDollTitlesPane:HookScript("OnShow", function()
-		for _, object in pairs(PaperDollTitlesPane.buttons) do
+	_G.PaperDollFrame.TitleManagerPane:HookScript("OnShow", function()
+		for _, object in pairs(_G.PaperDollFrame.TitleManagerPane.buttons) do
 			object.BgTop:SetTexture(nil)
 			object.BgBottom:SetTexture(nil)
 			object.BgMiddle:SetTexture(nil)
@@ -196,9 +194,9 @@ local function LoadSkin()
 	end)
 
 	-- Equipement Manager
-	PaperDollEquipmentManagerPaneEquipSet:SkinButton()
-	PaperDollEquipmentManagerPaneSaveSet:SkinButton()
-	PaperDollEquipmentManagerPaneEquipSet:SetWidth(PaperDollEquipmentManagerPaneEquipSet:GetWidth() - 8)
+	_G.PaperDollFrameEquipSet:SkinButton()
+	_G.PaperDollFrameSaveSet:SkinButton()
+	PaperDollFrame.EquipmentManagerPane.EquipSet:SetWidth(PaperDollEquipmentManagerPaneEquipSet:GetWidth() - 8)
 	PaperDollEquipmentManagerPaneSaveSet:SetWidth(PaperDollEquipmentManagerPaneSaveSet:GetWidth() - 8)
 	PaperDollEquipmentManagerPaneEquipSet:SetPoint("TOPLEFT", PaperDollEquipmentManagerPane, "TOPLEFT", 8, 0)
 	PaperDollEquipmentManagerPaneSaveSet:SetPoint("LEFT", PaperDollEquipmentManagerPaneEquipSet, "RIGHT", 4, 0)

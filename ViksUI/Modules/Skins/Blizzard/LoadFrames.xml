@@ -3,7 +3,7 @@
 	<!--Script file="Achievement.lua"/-->
 	<!--Script file="AddonList.lua"/-->
 	<!--Script file="AdventureMap.lua"/-->
-	<!--Script file="AlertFrames.lua"/-->
+	<Script file="AlertFrames.lua"/>
 	<!--Script file="AlliedRaces.lua"/-->
 	<!--Script file="AnimaDiversion.lua"/-->
 	<!--Script file="Archeology.lua"/-->
@@ -69,7 +69,7 @@
 	<!--Script file="PvE.lua"/-->
 	<!--Script file="PvP.lua"/-->
 	<!--Script file="PvPMatch.lua"/-->
-	<!--Script file="Quest.lua"/-->
+	<Script file="Quest.lua"/>
 	<!--Script file="Raid.lua"/-->
 	<!--Script file="RaidInfo.lua"/-->
 	<!--Script file="Runeforge.lua"/-->
@@ -88,5 +88,5 @@
 	<!--Script file="Trainer.lua"/-->
 	<!--Script file="Tutorial.lua"/-->
 	<!--Script file="VoidStorage.lua"/-->
-	<!--Script file="WorldMap.lua"/-->
+	<Script file="WorldMap.lua"/>
 </Ui>

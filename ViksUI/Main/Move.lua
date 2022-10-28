@@ -45,7 +45,7 @@ function framemove(f)
 	f:SetBackdropColor(.05,.05,.05,0.5)
 	f:SetBackdropBorderColor(.23,.45,.13, 1)	
 end
-function CreateAnchor(f, text, width, height)
+function CreateAnchor2(f, text, width, height)
 	f:SetScale(1)
 	f:SetFrameStrata("TOOLTIP")
 	f:SetScript("OnDragStart", OnDragStart)
@@ -216,112 +216,112 @@ else
 AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+2))
 AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size-(C.aura.player_buff_size*1.5)))
 end
-CreateAnchor(AnchorBuff, "Move Buff", 300, 70)
-CreateAnchor(AnchorDeBuff, "Move DeBuff", 300, 70)
+CreateAnchor2(AnchorBuff, "Move Buff", 300, 70)
+CreateAnchor2(AnchorDeBuff, "Move DeBuff", 300, 70)
 
 if C.unitframe.HealFrames then
 ---Frames
 ---Frames
 Anchorviksplayer = CreateFrame("Frame","Move_player",UIParent)
 Anchorviksplayer:SetPoint("TOPRIGHT", UIParent, "BOTTOM", -270, 305)
-CreateAnchor(Anchorviksplayer, "Move player", 200, 25)
+CreateAnchor2(Anchorviksplayer, "Move player", 200, 25)
 
 Anchorvikstarget = CreateFrame("Frame","Move_target",UIParent)
 Anchorvikstarget:SetPoint("TOPLEFT", UIParent, "BOTTOM", 270, 305)
-CreateAnchor(Anchorvikstarget, "Move target", 200, 25)
+CreateAnchor2(Anchorvikstarget, "Move target", 200, 25)
 
 Anchorviksraid = CreateFrame("Frame","Move_raid",UIParent)
 Anchorviksraid:SetPoint("BOTTOM", UIParent, "BOTTOM", -2, 190)
-CreateAnchor(Anchorviksraid, "Move raid", 530, 20)
+CreateAnchor2(Anchorviksraid, "Move raid", 530, 20)
 
 Anchorvikstot = CreateFrame("Frame","Move_tot",UIParent)
 Anchorvikstot:SetPoint("BOTTOM", UIParent, "BOTTOM", 552, 271) 
-CreateAnchor(Anchorvikstot, "Move tot", 100, 18)
+CreateAnchor2(Anchorvikstot, "Move tot", 100, 18)
 
 Anchorvikspet = CreateFrame("Frame","Move_pet",UIParent)
 Anchorvikspet:SetPoint("TOPRIGHT", UIParent, "BOTTOM", -540, 285) 
-CreateAnchor(Anchorvikspet, "Move pet", 100, 18)
+CreateAnchor2(Anchorvikspet, "Move pet", 100, 18)
 
 Anchorviksplayercastbar = CreateFrame("Frame","Move_playercastbar",UIParent)
 Anchorviksplayercastbar:SetPoint("TOPRIGHT", UIParent, "BOTTOM", -182, 282)
-CreateAnchor(Anchorviksplayercastbar, "Move playercastbar", 277, 18)
+CreateAnchor2(Anchorviksplayercastbar, "Move playercastbar", 277, 18)
 
 Anchorvikstargetcastbar = CreateFrame("Frame","Move_targetcastbar",UIParent)
 Anchorvikstargetcastbar:SetPoint("TOPLEFT", UIParent, "BOTTOM", 208, 282)
-CreateAnchor(Anchorvikstargetcastbar, "Move targetcastbar", 277, 18)
+CreateAnchor2(Anchorvikstargetcastbar, "Move targetcastbar", 277, 18)
 
 Anchorviksfocus = CreateFrame("Frame","Move_focus",UIParent)
 Anchorviksfocus:SetPoint("TOPLEFT", UIParent, "BOTTOM", 560, 490)
-CreateAnchor(Anchorviksfocus, "Move focus", 180, 25)
+CreateAnchor2(Anchorviksfocus, "Move focus", 180, 25)
 
 Anchorviksfocuscastbar = CreateFrame("Frame","Move_focuscastbar",UIParent)
 Anchorviksfocuscastbar:SetPoint("TOPLEFT", UIParent, "BOTTOM", 579, 450)
-CreateAnchor(Anchorviksfocuscastbar, "Move focuscastbar", 158, 13)
+CreateAnchor2(Anchorviksfocuscastbar, "Move focuscastbar", 158, 13)
 
 Anchorvikstank = CreateFrame("Frame","Move_tank",UIParent)
 Anchorvikstank:SetPoint("BOTTOM", UIParent, "BOTTOM", -80, 330)
-CreateAnchor(Anchorvikstank, "Move tank", 80, 18)
+CreateAnchor2(Anchorvikstank, "Move tank", 80, 18)
 
 Anchorviksboss = CreateFrame("Frame","Move_boss",UIParent)
 Anchorviksboss:SetPoint("RIGHT", UIParent, "RIGHT", -100, -90)
-CreateAnchor(Anchorviksboss, "Move boss", 150, 200)
+CreateAnchor2(Anchorviksboss, "Move boss", 150, 200)
 
 Anchorviksthreatbar = CreateFrame("Frame","Move_threatbar",UIParent)
 Anchorviksthreatbar:SetPoint("BOTTOM", UIParent,"BOTTOM", 300, 295)
-CreateAnchor(Anchorviksthreatbar, "Move threatbar", 200, 3)
+CreateAnchor2(Anchorviksthreatbar, "Move threatbar", 200, 3)
 
 else
 
 AnchorviksplayerDps = CreateFrame("Frame","Move_player_Dps",UIParent)
 AnchorviksplayerDps:SetPoint("TOPRIGHT", UIParent, "BOTTOM", -158, 320)
-CreateAnchor(AnchorviksplayerDps, "Move player_Dps", 245, 60)
+CreateAnchor2(AnchorviksplayerDps, "Move player_Dps", 245, 60)
 
 AnchorvikstargetDps = CreateFrame("Frame","Move_target_Dps",UIParent)
 AnchorvikstargetDps:SetPoint("TOPLEFT", UIParent, "BOTTOM", 158, 320)
-CreateAnchor(AnchorvikstargetDps, "Move target_Dps", 245, 60)
+CreateAnchor2(AnchorvikstargetDps, "Move target_Dps", 245, 60)
 
 Anchorviksraid = CreateFrame("Frame","Move_raid",UIParent)
 Anchorviksraid:SetPoint("BOTTOM", UIParent, "BOTTOM", -2, 190)
-CreateAnchor(Anchorviksraid, "Move raid", 530, 20)
+CreateAnchor2(Anchorviksraid, "Move raid", 530, 20)
 
 Anchorviksraid40dps = CreateFrame("Frame","Move_raid40dps",UIParent)
 Anchorviksraid40dps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -2, 190)
-CreateAnchor(Anchorviksraid40dps, "Move raid40dps", 530, 20)
+CreateAnchor2(Anchorviksraid40dps, "Move raid40dps", 530, 20)
 
 AnchorvikstotDps = CreateFrame("Frame","Move_tot_Dps",UIParent)
 AnchorvikstotDps:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 259) 
-CreateAnchor(AnchorvikstotDps, "Move tot_Dps", 120, 20)
+CreateAnchor2(AnchorvikstotDps, "Move tot_Dps", 120, 20)
 
 AnchorvikspetDps = CreateFrame("Frame","Move_pet_Dps",UIParent)
 AnchorvikspetDps:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 289) 
-CreateAnchor(AnchorvikspetDps, "Move pet_Dps", 120, 20)
+CreateAnchor2(AnchorvikspetDps, "Move pet_Dps", 120, 20)
 
 AnchorviksplayercastbarDps = CreateFrame("Frame","Move_playercastbar_Dps",UIParent)
 AnchorviksplayercastbarDps:SetPoint("TOPRIGHT", UIParent, "BOTTOM", -92, 261)
-CreateAnchor(AnchorviksplayercastbarDps, "Move playercastbar_Dps", 277, 18)
+CreateAnchor2(AnchorviksplayercastbarDps, "Move playercastbar_Dps", 277, 18)
 
 AnchorvikstargetcastbarDps = CreateFrame("Frame","Move_targetcastbar_Dps",UIParent)
 AnchorvikstargetcastbarDps:SetPoint("TOPLEFT", UIParent, "BOTTOM", 117, 261)
-CreateAnchor(AnchorvikstargetcastbarDps, "Move targetcastbar_Dps", 277, 18)
+CreateAnchor2(AnchorvikstargetcastbarDps, "Move targetcastbar_Dps", 277, 18)
 
 AnchorviksfocusDps = CreateFrame("Frame","Move_focus_Dps",UIParent)
 AnchorviksfocusDps:SetPoint("TOPLEFT", UIParent, "BOTTOM", 430, 382)
-CreateAnchor(AnchorviksfocusDps, "Move focus_Dps", 180, 25)
+CreateAnchor2(AnchorviksfocusDps, "Move focus_Dps", 180, 25)
 
 AnchorviksfocuscastbarDps = CreateFrame("Frame","Move_focuscastbar_Dps",UIParent)
 AnchorviksfocuscastbarDps:SetPoint("TOPLEFT", UIParent, "BOTTOM", 449, 344)
-CreateAnchor(AnchorviksfocuscastbarDps, "Move focuscastbar_Dps", 158, 13)
+CreateAnchor2(AnchorviksfocuscastbarDps, "Move focuscastbar_Dps", 158, 13)
 
 AnchorvikstankDps = CreateFrame("Frame","Move_tank_Dps",UIParent)
 AnchorvikstankDps:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 200, 320)
-CreateAnchor(AnchorvikstankDps, "Move tankDps", 80, 18)
+CreateAnchor2(AnchorvikstankDps, "Move tankDps", 80, 18)
 
 AnchorviksbossDps = CreateFrame("Frame","Move_boss_Dps",UIParent)
 AnchorviksbossDps:SetPoint("RIGHT", UIParent, "RIGHT", -70, -120)
-CreateAnchor(AnchorviksbossDps, "Move boss_Dps", 150, 200)
+CreateAnchor2(AnchorviksbossDps, "Move boss_Dps", 150, 200)
 
 AnchorviksthreatbarDps = CreateFrame("Frame","Move_threatbar_Dps",UIParent)
 AnchorviksthreatbarDps:SetPoint("BOTTOM", UIParent,"BOTTOM", 300, 295)
-CreateAnchor(AnchorviksthreatbarDps, "Move threatbar_Dps", 200, 3)
+CreateAnchor2(AnchorviksthreatbarDps, "Move threatbar_Dps", 200, 3)
 end
 

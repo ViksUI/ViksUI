@@ -1256,7 +1256,7 @@ if experience.enabled then
 			elseif (event == "UPDATE_FACTION" or event == "PLAYER_LOGIN") and conf.ExpMode == "rep" then
 				local standing, factionID
 				repname, standing, minrep, maxrep, currep, factionID = GetWatchedFactionInfo()
-				local friendID, _, _, _, _, _, standingText, _, nextThreshold = GetFriendshipReputation(factionID)
+				local friendID, _, _, _, _, _, standingText, _, nextThreshold = C_GossipInfo.GetFriendshipReputation(factionID)
 				if friendID then
 					if not nextThreshold then
 						minrep, maxrep, currep = 0, 1, 1
@@ -1376,6 +1376,183 @@ if experience.enabled then
 end
 
 ----------------------------------------------------------------------------------------
+--	Talents
+----------------------------------------------------------------------------------------
+if talents.enabled then
+	local lootSpecName, specName
+	local specList = {
+		{text = SPECIALIZATION, isTitle = true, notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true}
+	}
+	local lootList = {
+		{text = SELECT_LOOT_SPECIALIZATION, isTitle = true, notCheckable = true},
+		{notCheckable = true, func = function() SetLootSpecialization(0) end},
+		{notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true},
+		{notCheckable = true}
+	}
+	Inject("Talents", {
+		OnLoad = function(self)
+			self.text2 = self:CreateFontString(nil, "OVERLAY")
+			self.text2:SetFont(self.text:GetFont())
+			self.text2:SetPoint("LEFT", self.text, "RIGHT", 0, -1)
+
+			self.text3 = self:CreateFontString(nil, "OVERLAY")
+			self.text3:SetFont(self.text:GetFont())
+			self.text3:SetPoint("LEFT", self.text2, "RIGHT", 0, 1)
+
+			self.text4 = self:CreateFontString(nil, "OVERLAY")
+			self.text4:SetFont(self.text:GetFont())
+			self.text4:SetPoint("LEFT", self.text3, "RIGHT", 0, -1)
+
+			self.globalFrame = CreateFrame("Frame", self)
+			self.globalFrame:SetPoint("TOPLEFT", self.text)
+			self.globalFrame:SetPoint("BOTTOMRIGHT", self.text4)
+
+			self.globalFrame:SetScript("OnEnter", function()
+				self:GetScript("OnEnter")(self)
+			end)
+
+			self.globalFrame:SetScript("OnLeave", function()
+				self:GetScript("OnLeave")(self)
+			end)
+
+			self.globalFrame:SetScript("OnMouseUp", function(_, b)
+				self:GetScript("OnMouseUp")(self, b)
+			end)
+
+			RegEvents(self, "PLAYER_ENTERING_WORLD PLAYER_TALENT_UPDATE PLAYER_LOOT_SPEC_UPDATED")
+		end,
+		OnEvent = function(self)
+			if UnitLevel(P) < 10 then
+				self.text:SetText(format("%s %s", NO, SPECIALIZATION))
+				return
+			end
+
+			local lootSpec = GetLootSpecialization()
+			local spec = GetSpecialization()
+
+			lootSpecName = lootSpec and select(2, GetSpecializationInfoByID(lootSpec)) or NO
+			specName = spec and select(2, GetSpecializationInfo(spec)) or NO
+
+			local specIcon, lootIcon = "", ""
+			local lootText = LOOT..":"
+
+			local _, _, _, specTex = GetSpecializationInfo(spec)
+			local texSize = 14
+			if specTex then
+				specIcon = format("|T%s:"..texSize..":"..texSize..":0:0:64:64:5:59:5:59|t", specTex)
+			end
+
+			if lootSpec == 0 then
+				lootIcon = specIcon
+				lootText = "|cff55ff55"..lootText.."|r"
+				lootSpecName = "|cff55ff55"..specName.."|r"
+			else
+				local _, _, _, texture = GetSpecializationInfoByID(lootSpec)
+				if texture then
+					lootIcon = format("|T%s:"..texSize..":"..texSize..":0:0:64:64:5:59:5:59|t", texture)
+				end
+			end
+
+			self.text:SetText(L_STATS_SPEC..":")
+			self.text2:SetText(specIcon.." ")
+			self.text3:SetText(lootText)
+			self.text4:SetText(lootIcon)
+
+			if self.hovered then self:GetScript("OnEnter")(self) end
+		end,
+		OnEnter = function(self)
+			self.hovered = true
+			if UnitLevel(P) >= 10 then
+				GameTooltip:SetOwner(self, "ANCHOR_NONE")
+				GameTooltip:ClearAllPoints()
+				GameTooltip:SetPoint(modules.Talents.tip_anchor, modules.Talents.tip_frame, modules.Talents.tip_x, modules.Talents.tip_y)
+				GameTooltip:ClearLines()
+				GameTooltip:AddLine(SPECIALIZATION.." "..ENCHANT_CONDITION_AND..LOOT, tthead.r, tthead.g, tthead.b)
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddDoubleLine(SPECIALIZATION, specName, ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				GameTooltip:AddDoubleLine(LOOT, lootSpecName, ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				GameTooltip:Show()
+			end
+		end,
+		OnLeave = function(self)
+			self.hovered = false
+		end,
+		OnClick = function(self, b)
+			if UnitLevel(P) < 10 then
+				print("|cffffff00"..format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, 10).."|r")
+				return
+			end
+			if b == "LeftButton" then
+				if not PlayerTalentFrame then
+					LoadAddOn("Blizzard_TalentUI")
+				end
+				if IsShiftKeyDown() then
+					PlayerTalentFrame_Toggle()
+				else
+					for index = 1, 4 do
+						local id, name, _, texture = GetSpecializationInfo(index)
+						if id then
+							if GetSpecializationInfo(GetSpecialization()) == id then
+								name = "|cff55ff55"..name.."|r"
+							end
+							specList[index + 1].text = format("|T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59|t  %s", texture, name)
+							specList[index + 1].func = function() SetSpecialization(index) end
+						else
+							specList[index + 1] = nil
+						end
+					end
+					EasyMenu(specList, LSMenus, self, 0, 24, "MENU")
+				end
+			elseif b == "RightButton" and GetSpecialization() then
+				local lootSpec = GetLootSpecialization()
+				local _, specName = GetSpecializationInfo(GetSpecialization())
+				local specDefault = format(LOOT_SPECIALIZATION_DEFAULT, specName)
+				if lootSpec == 0 then
+					specDefault = "|cff55ff55"..format(LOOT_SPECIALIZATION_DEFAULT, specName).."|r"
+				end
+				lootList[2].text = specDefault
+				for index = 1, 4 do
+					local id, name, _, texture = GetSpecializationInfo(index)
+					if id then
+						if lootSpec == id then
+							name = "|cff55ff55"..name.."|r"
+						end
+						lootList[index + 2].text = format("|T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59|t  %s", texture, name)
+						lootList[index + 2].func = function() SetLootSpecialization(id) end
+					else
+						lootList[index + 2] = nil
+					end
+				end
+				EasyMenu(lootList, LSMenus, self, 0, 40, "MENU")
+			end
+		end
+	})
+end
+
+----------------------------------------------------------------------------------------
+--	Coordinates
+----------------------------------------------------------------------------------------
+if coords.enabled then
+	Inject("Coords", {
+		text = {string = Coords},
+		OnClick = function()
+			if IsShiftKeyDown() then
+				ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
+				ChatEdit_ChooseBoxForSend():Insert(format(" (%s: %s)", GetZoneText(), Coords()))
+			else
+				ToggleFrame(WorldMapFrame)
+			end
+		end
+	})
+end
+
+----------------------------------------------------------------------------------------
 --	Location
 ----------------------------------------------------------------------------------------
 if location.enabled then
@@ -1432,23 +1609,6 @@ if location.enabled then
 				ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
 				ChatEdit_ChooseBoxForSend():Insert(format(" (%s: %s) %s", self.zone, Coords(), hyperlink))
 				C_Map.ClearUserWaypoint()
-			else
-				ToggleFrame(WorldMapFrame)
-			end
-		end
-	})
-end
-
-----------------------------------------------------------------------------------------
---	Coordinates
-----------------------------------------------------------------------------------------
-if coords.enabled then
-	Inject("Coords", {
-		text = {string = Coords},
-		OnClick = function()
-			if IsShiftKeyDown() then
-				ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
-				ChatEdit_ChooseBoxForSend():Insert(format(" (%s: %s)", GetZoneText(), Coords()))
 			else
 				ToggleFrame(WorldMapFrame)
 			end

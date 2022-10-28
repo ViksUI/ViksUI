@@ -245,7 +245,7 @@ end
 -- Create Anchor
 RaidBuffsAnchor = CreateFrame("Frame","Move_RaidBuffsAnchor",UIParent)
 RaidBuffsAnchor:SetPoint("TOPLEFT", CPMinimb2, "BOTTOMLEFT", 0, -3)
-CreateAnchor(RaidBuffsAnchor, "Move Raid Buff Reminder", C.reminder.raid_buffs_size * 6.6, C.reminder.raid_buffs_size + 2)
+CreateAnchor2(RaidBuffsAnchor, "Move Raid Buff Reminder", C.reminder.raid_buffs_size * 6.6, C.reminder.raid_buffs_size + 2)
 
 -- Create Main bar
 local raidbuff_reminder = CreateFrame("Frame", "RaidBuffReminder", UIParent)

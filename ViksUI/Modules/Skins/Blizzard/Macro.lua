@@ -39,7 +39,7 @@ local function LoadSkin()
 	MacroFrameTextBackground.backdrop:SetPoint("TOPLEFT", 4, -3)
 	MacroFrameTextBackground.backdrop:SetPoint("BOTTOMRIGHT", -23, 0)
 
-	MacroButtonScrollFrame:CreateBackdrop("Overlay")
+	_G.MacroFrameScrollFrameScrollBar:CreateBackdrop("Overlay")
 
 	T.SkinCloseButton(MacroFrameCloseButton, MacroFrame.backdrop)
 
@@ -52,20 +52,20 @@ local function LoadSkin()
 	MacroNewButton:SetPoint("RIGHT", MacroExitButton, "LEFT", -3, 0)
 
 	-- Regular scroll bar
-	T.SkinScrollBar(MacroButtonScrollFrame)
-	T.SkinScrollBar(MacroButtonScrollFrameScrollBar)
-	T.SkinScrollBar(MacroFrameScrollFrameScrollBar)
-	T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
+	--T.SkinScrollBar(MacroButtonScrollFrame)
+	--T.SkinScrollBar(MacroButtonScrollFrameScrollBar)
+	--T.SkinScrollBar(MacroFrameScrollFrameScrollBar)
+	--T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
 
 	-- Big icon
 	MacroFrameSelectedMacroButton:StripTextures()
 	MacroFrameSelectedMacroButton:StyleButton(true)
 	MacroFrameSelectedMacroButton:GetNormalTexture():SetTexture(nil)
 	MacroFrameSelectedMacroButton:SetTemplate("Default")
-	MacroFrameSelectedMacroButtonIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	MacroFrameSelectedMacroButtonIcon:ClearAllPoints()
-	MacroFrameSelectedMacroButtonIcon:SetPoint("TOPLEFT", 2, -2)
-	MacroFrameSelectedMacroButtonIcon:SetPoint("BOTTOMRIGHT", -2, 2)
+	MacroFrameSelectedMacroButton.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	MacroFrameSelectedMacroButton.Icon:ClearAllPoints()
+	MacroFrameSelectedMacroButton.Icon:SetPoint("TOPLEFT", 2, -2)
+	MacroFrameSelectedMacroButton.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
 
 	-- Moving text
 	MacroFrameCharLimitText:ClearAllPoints()

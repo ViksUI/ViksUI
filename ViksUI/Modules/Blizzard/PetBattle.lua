@@ -286,7 +286,7 @@ end)
 
 -- Function to skin pet action buttons
 local function SkinPetButton(self)
-	self:SetNormalTexture("")
+	self:SetNormalTexture(C.media.empty)
 
 	self:CreateBackdrop("Transparent")
 	self.backdrop:SetAllPoints()
@@ -328,14 +328,14 @@ hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function()
 			b:SetPoint("BOTTOMLEFT", 0, 0)
 		else
 			local previous = bf.abilityButtons[i-1]
-			b:SetPoint("LEFT", previous, "RIGHT", C.actionbar.petbuttonspacing, 0)
+			b:SetPoint("LEFT", previous, "RIGHT", C.actionbar.button_space, 0)
 		end
 	end
 
 	bf.SwitchPetButton:SetParent(bar)
 	bf.SwitchPetButton:SetSize(C.actionbar.button_size * 1.5, C.actionbar.button_size * 1.5)
 	bf.SwitchPetButton:ClearAllPoints()
-	bf.SwitchPetButton:SetPoint("LEFT", bf.abilityButtons[3], "RIGHT", C.actionbar.petbuttonspacing, 0)
+	bf.SwitchPetButton:SetPoint("LEFT", bf.abilityButtons[3], "RIGHT", C.actionbar.button_space, 0)
 
 	bf.SwitchPetButton:SetScript("OnClick", function()
 		PetBattlePetSelectionFrame_Show(bf.PetSelectionFrame)
@@ -344,12 +344,12 @@ hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function()
 	bf.CatchButton:SetParent(bar)
 	bf.CatchButton:SetSize(C.actionbar.button_size * 1.5, C.actionbar.button_size * 1.5)
 	bf.CatchButton:ClearAllPoints()
-	bf.CatchButton:SetPoint("LEFT", bf.SwitchPetButton, "RIGHT", C.actionbar.petbuttonspacing, 0)
+	bf.CatchButton:SetPoint("LEFT", bf.SwitchPetButton, "RIGHT", C.actionbar.button_space, 0)
 
 	bf.ForfeitButton:SetParent(bar)
 	bf.ForfeitButton:ClearAllPoints()
 	bf.ForfeitButton:SetSize(C.actionbar.button_size * 1.5, C.actionbar.button_size * 1.5)
-	bf.ForfeitButton:SetPoint("LEFT", bf.CatchButton, "RIGHT", C.actionbar.petbuttonspacing, 0)
+	bf.ForfeitButton:SetPoint("LEFT", bf.CatchButton, "RIGHT", C.actionbar.button_space, 0)
 
 	SkinPetButton(bf.SwitchPetButton)
 	SkinPetButton(bf.CatchButton)

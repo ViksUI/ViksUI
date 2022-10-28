@@ -43,7 +43,7 @@ end
 -- Create anchor
 local AnchorAutoButtonAnchor = CreateFrame("Frame", "AutoButtonAnchor", UIParent)
 AnchorAutoButtonAnchor:SetPoint("BOTTOMLEFT", RChatTab, "TOPLEFT", 0, 13)
-CreateAnchor(AutoButtonAnchor, "Move AutoButton", 40, 40)
+CreateAnchor2(AutoButtonAnchor, "Move AutoButton", 40, 40)
 
 -- Create button
 local AutoButton = CreateFrame("Button", "AutoButton", UIParent, "SecureActionButtonTemplate")

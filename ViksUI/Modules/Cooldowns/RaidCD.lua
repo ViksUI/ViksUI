@@ -24,7 +24,7 @@ local bars = {}
 
 AnchorRaidCD = CreateFrame("Frame","Move_RaidCD",UIParent)
 AnchorRaidCD:SetPoint("TOPLEFT", 5, -230)
-CreateAnchor(AnchorRaidCD, "Move RaidCD", 186 + 32, 192)
+CreateAnchor2(AnchorRaidCD, "Move RaidCD", 186 + 32, 192)
 
 local RaidCDAnchor = CreateFrame("Frame", "RaidCDAnchor", UIParent)
 RaidCDAnchor:SetPoint("BOTTOM", AnchorRaidCD)

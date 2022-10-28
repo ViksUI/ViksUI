@@ -21,6 +21,7 @@ WorldMapFrame.Header = CreateFrame("Frame", nil, WorldMapFrame)
 local function LoadSkin()
 	local WorldMapFrame = _G["WorldMapFrame"]
 	WorldMapFrame:StripTextures()
+	WorldMapFramePortrait:SetAlpha(0)
 	WorldMapFrame.BorderFrame:StripTextures()
 	WorldMapFrame.BorderFrame:SetFrameStrata(WorldMapFrame:GetFrameStrata())
 	WorldMapFrame.BorderFrame.NineSlice:Hide()									   

@@ -6,7 +6,7 @@ if C.misc.raid_tools ~= true then return end
 ----------------------------------------------------------------------------------------
 AnchorRaidUtilityPanel = CreateFrame("Frame","Move_RaidUtilityPanel",UIParent)
 AnchorRaidUtilityPanel:SetPoint("TOPRIGHT", CPCool, "TOPLEFT", -8, 0)
-CreateAnchor(AnchorRaidUtilityPanel, "Move Raid Utility Panel", 125, 20)
+CreateAnchor2(AnchorRaidUtilityPanel, "Move Raid Utility Panel", 125, 20)
 
 -- Create main frame
 local RaidUtilityPanel = CreateFrame("Frame", "RaidUtilityPanel", T_PetBattleFrameHider)

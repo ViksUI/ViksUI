@@ -116,7 +116,7 @@ anchor:SetAlpha(0)
 
 AnchorTooltips = CreateFrame("Frame","Move_Tooltip",UIParent)
 AnchorTooltips:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 2, -20)
-CreateAnchor(AnchorTooltips, "Move tooltips", 120, 80)
+CreateAnchor2(AnchorTooltips, "Move tooltips", 120, 80)
 if C.tooltip.topleft then anchor:SetPoint("TOPLEFT", AnchorTooltips) end
 if C.tooltip.topright then anchor:SetPoint("TOPRIGHT", AnchorTooltips) end
 if C.tooltip.bottomleft then anchor:SetPoint("BOTTOMLEFT", AnchorTooltips) end

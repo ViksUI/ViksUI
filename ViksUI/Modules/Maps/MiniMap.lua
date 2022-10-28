@@ -45,7 +45,6 @@ Minimap:SetFrameLevel(2)
 -- MinimapBorderTop:Hide()
 MinimapCompassTexture:Hide()
 MinimapCluster.BorderTop:StripTextures()
-ExpansionLandingPageMinimapButton:Kill()
 
 -- Hide Zoom Buttons
 Minimap.ZoomIn:Kill()
@@ -65,46 +64,39 @@ MinimapCluster.ZoneTextButton:Hide()
 GameTimeFrame:Hide()
 
 -- Hide Mail Button
-if MiniMapMailFrame then
-	MiniMapMailFrame:ClearAllPoints()
-	MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
-	MiniMapMailBorder:Hide()
-	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\mail.tga")
-	MiniMapMailIcon:SetSize(16, 16)
-end
+MinimapCluster.MailFrame:ClearAllPoints()
+MinimapCluster.MailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
+--MiniMapMailBorder:Hide()
+MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\mail.tga")
+MiniMapMailIcon:SetSize(16, 16)
 
 -- Move QueueStatus icon
-if QueueStatusMinimapButton then
 QueueStatusFrame:SetClampedToScreen(true)
 QueueStatusFrame:SetFrameStrata("TOOLTIP")
-QueueStatusMinimapButton:ClearAllPoints()
-QueueStatusMinimapButton:SetPoint("TOP", Minimap, "TOP", 1, 6)
-QueueStatusMinimapButton:SetHighlightTexture(nil)
-QueueStatusMinimapButtonBorder:Hide()
-end
+-- QueueStatusMinimapButton:ClearAllPoints()
+-- QueueStatusMinimapButton:SetPoint("TOP", Minimap, "TOP", 1, 6)
+-- QueueStatusMinimapButton:SetHighlightTexture(C.media.empty)
+-- QueueStatusMinimapButtonBorder:Hide()
 
 -- Hide world map button
 -- MiniMapWorldMapButton:Hide()
 
 -- Garrison icon
 if C.minimap.garrison_icon == true then
-	--BETA GarrisonLandingPageMinimapButton:SetScale(0.75)
-	-- hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function(self)
-		-- self:ClearAllPoints()
-		-- self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
-	-- end)
+	ExpansionLandingPageMinimapButton:SetScale(0.75)
+	hooksecurefunc(ExpansionLandingPageMinimapButton, "UpdateIconForGarrison", function()
+		ExpansionLandingPageMinimapButton:ClearAllPoints()
+		ExpansionLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 2)
+	end)
 else
-	-- GarrisonLandingPageMinimapButton:SetScale(0.0001)
-	-- GarrisonLandingPageMinimapButton:SetAlpha(0)
+	ExpansionLandingPageMinimapButton:Kill()
 end
 
 -- Instance Difficulty icon
-if MiniMapInstanceDifficulty then
-MiniMapInstanceDifficulty:SetParent(Minimap)
-MiniMapInstanceDifficulty:ClearAllPoints()
-MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 3, 2)
-MiniMapInstanceDifficulty:SetScale(0.75)
-end
+-- MiniMapInstanceDifficulty:SetParent(Minimap)
+-- MiniMapInstanceDifficulty:ClearAllPoints()
+-- MiniMapInstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 3, 2)
+-- MiniMapInstanceDifficulty:SetScale(0.75)
 
 -- Guild Instance Difficulty icon
 -- GuildInstanceDifficulty:SetParent(Minimap)
@@ -360,7 +352,7 @@ if C.minimap.tracking_icon then
 	--BETA MiniMapTrackingBackground:Hide()
 	-- MiniMapTracking:ClearAllPoints()
 	-- MiniMapTracking:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 0, -4)
-	-- MiniMapTrackingButton:SetHighlightTexture(nil)
+	-- MiniMapTrackingButton:SetHighlightTexture(C.media.empty)
 	-- MiniMapTrackingButtonBorder:Hide()
 	-- MiniMapTrackingIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	-- MiniMapTrackingIcon:SetSize(16, 16)

@@ -3,10 +3,8 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 10.0 for Wow 10.0",
-		"• Initial update for DF Prepatch",
-		"• Some stuff missing like skinning & Buff frames",
-		"• Wow might override chat placement. Replace with wow edit mode",
+		"Update 10.1 for Wow 10.0",
+		"• More fixes",
 
 	" ",
 	"EXTRA:",
