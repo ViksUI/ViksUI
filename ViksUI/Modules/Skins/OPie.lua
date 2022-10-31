@@ -51,7 +51,7 @@ end
 
 function prototype:SetOverlayIcon(texture, w, h, ...) -- not entirely sure what this is for
 	if not texture then
-		self.OverlayIcon:Hide()
+		--self.OverlayIcon:Hide()
 	else
 		self.OverlayIcon:SetTexture(texture)
 		self.OverlayIcon:SetSize(w, h)
@@ -164,8 +164,8 @@ local function CreateIndicator(name, parent, size)
 	button.NormalTexture = _G[name .. "NormalTexture"] -- border
 
 	-- Overlay icon (???)
-	button.OverlayIcon = button:CreateTexture(nil, "BACKGROUND", 1)
-	button.OverlayIcon:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 4, 4)
+	--button.OverlayIcon = button:CreateTexture(nil, "BACKGROUND", 1)
+	--button.OverlayIcon:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 4, 4)
 
 	-- Outer glow (doesn't seem to do anything?)
 	button.GlowTextures = {}
@@ -177,7 +177,7 @@ local function CreateIndicator(name, parent, size)
 	-- ViksUI Skin
 
 	if not button.isSkinned then
-		button.NormalTexture:SetTexture(nil)
+		button.NormalTexture:SetTexture(0)
 		button:CreateBackdrop("Overlay")
 		button:StyleButton(nil, 4)
 		button:CreateBackdrop("Default")

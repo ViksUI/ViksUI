@@ -564,3 +564,29 @@ local function UpdateTabChannelSwitch(self)
 	end
 end
 hooksecurefunc("ChatEdit_CustomTabPressed", UpdateTabChannelSwitch)
+
+----------------------------------------------------------------------------------------
+--	Prevent reposition ChatFrame
+----------------------------------------------------------------------------------------
+hooksecurefunc(ChatFrame1, "SetPoint", function(self, _, _, _, x)
+	if x == 1 then
+		self:ClearAllPoints()
+		if C.chat.background == true then
+			self:SetPoint(C.position.chat[1], C.position.chat[2], C.position.chat[3], C.position.chat[4], C.position.chat[5] + 4)
+		else
+			self:SetPoint(C.position.chat[1], C.position.chat[2], C.position.chat[3], C.position.chat[4], C.position.chat[5])
+		end
+		if C.panels.NoPanels == true then
+			self:SetPoint(C.position.chat[1], C.position.chat[2], C.position.chat[3], C.position.chat[4]+10, C.position.chat[5] + 4)
+		end
+	elseif x == 4 then
+		self:ClearAllPoints()
+		if C.panels.NoPanels == true then
+			self:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
+			self:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-25)
+		else
+			self:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
+			self:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-2)
+		end
+	end
+end)

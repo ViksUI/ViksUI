@@ -408,10 +408,10 @@ function T:HandleNextPrevButton(btn, useVertical, inverseDirection)
 	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
 
 	btn:StripTextures()
-	btn:SetNormalTexture(C.media.empty)
-	btn:SetPushedTexture(C.media.empty)
-	btn:SetHighlightTexture(C.media.empty)
-	btn:SetDisabledTexture(C.media.empty)
+	btn:SetNormalTexture(0)
+	btn:SetPushedTexture(0)
+	btn:SetHighlightTexture(0)
+	btn:SetDisabledTexture(0)
 
 	if not btn.icon then
 		btn.icon = btn:CreateTexture(nil, 'ARTWORK')

@@ -24,7 +24,6 @@ C["media"] = {
 	["blank"] = "Interface\\Buttons\\WHITE8x8",
 	["blank_border"] = "Interface\\Buttons\\WHITE8x8",									-- Texture for borders			
 	["highlight"] = [[Interface\AddOns\ViksUI\Media\textures\Highlight]],				-- Texture for debuffs highlight
-	["empty"] = [[Interface\AddOns\ViksUI\Media\textures\Invisible.tga]],			-- Invisible texture
 	["pxcolor1"] = { .001,.38,.651,1 },													-- Color for Name on Datatext
 	["pxcolor2"] = { .41,.80,.94,1 },													-- Color for Value on Datatext if not dynamic color by value
 	["oUFfont"] = [=[Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf]=], 			-- DataText Font Normal

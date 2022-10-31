@@ -566,7 +566,7 @@ frame:SetScript("OnEvent", function()
 				b:SetSize(20, 20)
 				b.texture:SetAtlas("socialqueuing-icon-eye")
 				b.texture:SetSize(12, 12)
-				b:SetHighlightTexture(C.media.empty)
+				b:SetHighlightTexture(0)
 
 				local point, anchor, point2, x, y = b:GetPoint()
 				if x == -18 then

@@ -185,7 +185,7 @@ end
 
 function Stuffing:SlotUpdate(b)
 	local texture, count, locked, quality = GetContainerItemInfo(b.bag, b.slot)
-	texture = texture or C.media.empty
+	texture = texture or 0
 	local clink = GetContainerItemLink(b.bag, b.slot)
 	local isQuestItem, questId, isActiveQuest = GetContainerItemQuestInfo(b.bag, b.slot)
 	local itemIsUpgrade
@@ -421,7 +421,7 @@ function Stuffing:CreateReagentContainer()
 
 		button:StyleButton()
 		button:SetTemplate("Default")
-		button:SetNormalTexture(C.media.empty)
+		button:SetNormalTexture(0)
 		button.IconBorder:SetAlpha(0)
 
 		button:ClearAllPoints()
@@ -429,11 +429,11 @@ function Stuffing:CreateReagentContainer()
 
 		local _, _, _, quality = GetContainerItemInfo(-3, i)
 		local clink = GetContainerItemLink(-3, i)
-		if clink then
-			if quality and quality > 1 then
-				button:SetBackdropBorderColor(GetItemQualityColor(quality))
-			end
-		end
+		-- BETA if clink then
+			--if quality and quality > 1 then
+				--button:SetBackdropBorderColor(GetItemQualityColor(quality))
+			--end
+		--end
 
 		if i == 1 then
 			button:SetPoint("TOPLEFT", Reagent, "TOPLEFT", 10, -27)
@@ -530,7 +530,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 
 	ret.frame:StyleButton()
 	ret.frame:SetTemplate("Default")
-	ret.frame:SetNormalTexture((C.media.empty))
+	ret.frame:SetNormalTexture((0))
 
 	ret.icon = _G[ret.frame:GetName().."IconTexture"]
 	ret.icon:CropIcon()
@@ -582,7 +582,8 @@ function Stuffing:SlotNew(bag, slot)
 		ret.frame = CreateFrame("ItemButton", "StuffingBag"..bag.."_"..slot, self.bags[bag], tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		ret.frame:SetNormalTexture(C.media.empty)
+		ret.frame:SetNormalTexture(0)
+		ret.frame:SetFrameStrata("HIGH")
 
 		ret.icon = _G[ret.frame:GetName().."IconTexture"]
 		ret.icon:CropIcon()
