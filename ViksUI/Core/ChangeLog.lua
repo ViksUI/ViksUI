@@ -3,7 +3,7 @@
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 10.1 for Wow 10.0",
+		"Update 10.11 for Wow 10.0",
 		"• More fixes",
 
 	" ",
