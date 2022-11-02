@@ -263,7 +263,7 @@ CPTopp:SetAlpha(pAlpha)
 
 if C.panels.NoPanels ~= true then
 	--Background for Minimap
-	local CPMinim = CreateFrame("Frame", "CPMinim",oUF_PetBattleFrameHider)
+	local CPMinim = CreateFrame("Frame", "CPMinim",T_PetBattleFrameHider)
 	CPMinim:CreatePanel("Transparent", Pscale*CPMinimap, Pscale*CPMinimap, "TOPRIGHT", CPTopp, "BOTTOMRIGHT", 0, -(yoffset+1))
 	CPMinim:SetFrameLevel(2)
 	--If minimap is turned off hide the panel. We are anchoring stuff to this frame so it's needed!
@@ -274,7 +274,7 @@ if C.panels.NoPanels ~= true then
 	end
 
 	--Background for Minimap Button 1, Right
-	local CPMinimb1 = CreateFrame("Frame", "CPMinimb1",oUF_PetBattleFrameHider)
+	local CPMinimb1 = CreateFrame("Frame", "CPMinimb1",T_PetBattleFrameHider)
 	CPMinimb1:CreatePanel("Transparent", (.5*(Pscale*CPMinimap))-(xoffset/2), Pscale*CPbarsheight, "TOPRIGHT", UIParent, "TOPRIGHT", -3, -(((CPbarsheight+CPMinimap)*Pscale)+((2*yoffset)+2)))
 	CPMinimb1:SetFrameLevel(2)
 	if C.minimap.minimb1 == true then
@@ -284,7 +284,7 @@ if C.panels.NoPanels ~= true then
 	end
 
 	--Background for Minimap Button 1, LEFT
-	local CPMinimb2 = CreateFrame("Frame", "CPMinimb2",oUF_PetBattleFrameHider)
+	local CPMinimb2 = CreateFrame("Frame", "CPMinimb2",T_PetBattleFrameHider)
 	CPMinimb2:CreatePanel("Transparent", (.5*(Pscale*CPMinimap))-(xoffset/2), Pscale*CPbarsheight, "TOPRIGHT", CPMinimb1, "TOPLEFT", -xoffset, 0)
 	CPMinimb2:SetFrameLevel(2)
 	if C.minimap.minimb2 == true then

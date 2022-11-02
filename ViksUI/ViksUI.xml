@@ -78,13 +78,13 @@
 	<Script file="Modules\Misc\Misc.lua"/>
 	<Script file="Modules\Misc\Mounts.lua"/>
 	<Script file="Modules\Misc\PvPQueueTimer.lua"/>
-	<!--BETA Script file="Modules\Misc\RaidUtility.lua"/-->
+	<Script file="Modules\Misc\RaidUtility.lua"/>
 	<Script file="Modules\Misc\SlotItemLevel.lua"/>
 	<Script file="Modules\Misc\Stats.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
 	<Script file="Modules\Misc\RaidTools.lua"/>
 
-	<!--Script file="Modules\Trade\AlreadyKnown.lua"/-->
+	<Script file="Modules\Trade\AlreadyKnown.lua"/>
 	<Script file="Modules\Trade\Archaeology.lua"/>
 	<Script file="Modules\Trade\Merchant.lua"/>
 	<Script file="Modules\Trade\OneClickDisenchanting.lua"/>
@@ -196,7 +196,7 @@
 	<Script file="Modules\Blizzard\Errors.lua"/>
 	<Script file="Modules\Blizzard\Fixes.lua"/>
 	<Script file="Modules\Blizzard\Fonts.lua"/>
-	<!-- BETA Script file="Modules\Blizzard\FriendList.lua"/-->
+	<!--Script file="Modules\Blizzard\FriendList.lua"/-->
 	<Script file="Modules\Blizzard\Mail.lua"/>
 	<Script file="Modules\Blizzard\MirrorBars.lua"/>
 	<Script file="Modules\Blizzard\MoveBlizzFrames.lua"/>

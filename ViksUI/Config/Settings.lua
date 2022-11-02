@@ -381,7 +381,7 @@ C["raidframes"] = {
 ----------------------------------------------------------------------------------------
 C["aura"] = {
 	["player_buff_size"] = 30,					-- Player buffs size
-	["player_debuff_size"] = 25,				-- Player debuffs size
+	["player_debuff_size"] = 44,				-- Player debuffs size
 	["show_spiral"] = true,						-- Spiral on aura icons
 	["show_timer"] = true,						-- Show cooldown timer on aura icons
 	["player_auras"] = true,					-- Auras on player frame

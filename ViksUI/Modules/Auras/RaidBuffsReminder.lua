@@ -243,9 +243,14 @@ local function OnAuraChange(_, event, arg1)
 end
 
 -- Create Anchor
-RaidBuffsAnchor = CreateFrame("Frame","Move_RaidBuffsAnchor",UIParent)
-RaidBuffsAnchor:SetPoint("TOPLEFT", CPMinimb2, "BOTTOMLEFT", 0, -3)
-CreateAnchor2(RaidBuffsAnchor, "Move Raid Buff Reminder", C.reminder.raid_buffs_size * 6.6, C.reminder.raid_buffs_size + 2)
+local RaidBuffsAnchor = CreateFrame("Frame", "RaidBuffsAnchor", UIParent)
+RaidBuffsAnchor:SetWidth((C.reminder.raid_buffs_size * 6) + 15)
+RaidBuffsAnchor:SetHeight(C.reminder.raid_buffs_size)
+if C.panels.NoPanels == true then
+RaidBuffsAnchor:SetPoint(unpack(C.position.raid_buffs_line))
+else
+RaidBuffsAnchor:SetPoint(unpack(C.position.raid_buffs))
+end
 
 -- Create Main bar
 local raidbuff_reminder = CreateFrame("Frame", "RaidBuffReminder", UIParent)

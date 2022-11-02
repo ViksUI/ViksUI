@@ -638,9 +638,9 @@ end
 T.HideAuraFrame = function(self)
 	if self.unit == "player" then
 		if not C.aura.player_auras then
-			BuffFrame:UnregisterEvent("UNIT_AURA")
-			BuffFrame:Hide()
-			TemporaryEnchantFrame:Hide()
+			--BETA BuffFrame:UnregisterEvent("UNIT_AURA")
+			-- BuffFrame:Hide()
+			-- TemporaryEnchantFrame:Hide()
 			self.Debuffs:Hide()
 		end
 	elseif self.unit == "pet" and not C.aura.pet_debuffs or self.unit == "focus" and not C.aura.focus_debuffs
@@ -728,7 +728,7 @@ local playerUnits = {
 }
 
 T.PostUpdateIcon = function(_, button, unit, data)
-	if button.isDebuff then
+	if data.isHarmful then
 		if not UnitIsFriend("player", unit) and not playerUnits[button.caster] then
 			if not C.aura.player_aura_only then
 				button:SetBackdropBorderColor(unpack(C.media.border_color))

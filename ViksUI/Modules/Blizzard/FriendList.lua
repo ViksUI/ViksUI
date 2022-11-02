@@ -145,7 +145,7 @@ local function whoFrame()
 end
 
 hooksecurefunc("WhoList_Update", whoFrame)
-hooksecurefunc(WhoListScrollFrame, "update", whoFrame)
+--BETA hooksecurefunc(WhoListScrollFrame, "update", whoFrame)
 
 -- LFRBrowseList
 hooksecurefunc("LFRBrowseFrameListButton_SetData", function(button, index)
@@ -325,8 +325,8 @@ end)
 local FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%%d", "%%s")
 FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%$d", "%$s")
 local function friendsFrame()
-	local scrollFrame = FriendsListFrameScrollFrame
-	local buttons = scrollFrame.buttons
+	local scrollFrame = FriendsListFrame.ScrollBox
+	local buttons = scrollFrame.ScrollTarget
 
 	local playerArea = GetRealZoneText()
 
@@ -367,5 +367,5 @@ local function friendsFrame()
 		end
 	end
 end
-hooksecurefunc(FriendsListFrameScrollFrame, "update", friendsFrame)
-hooksecurefunc("FriendsFrame_UpdateFriends", friendsFrame)
+--hooksecurefunc("FriendsFrame_Update", "update", friendsFrame)
+hooksecurefunc("FriendsFrame_Update", friendsFrame)
