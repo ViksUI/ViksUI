@@ -2,4 +2,4 @@ package-as: ViksUI
 
 move-folders:
     ViksUI/ViksUI: ViksUI
-    Viks_ConfigUI/Viks_ConfigUI: Viks_ConfigUI
+    ViksUI/Viks_ConfigUI: Viks_ConfigUI
