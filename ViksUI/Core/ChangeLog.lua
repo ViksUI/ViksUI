@@ -3,9 +3,14 @@ local T, C, L, _ = unpack(select(2, ...))
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 10.12 for Wow 10.0",
+		"Update 10.13 for Wow 10.0",
 		"• More fixes",
-		"• Buffs & Debuffs working again",
+		"• Using oUF Debuffs as player debuff",
+		"• Using text instead of Dungeon Icon on minimap",
+		"• Curse will make Alpha version of Github version",
+		"• More skins enabled again, going slow..",
+		"• Nameplate Quest will show text instead of just quest icon",
+		"• Combo point can now be 7",
 
 	" ",
 	"EXTRA:",

@@ -353,5 +353,5 @@ local function friendsFrame()
 		end
 	end
 end
---hooksecurefunc("FriendsFrame_Update", "update", friendsFrame)
-hooksecurefunc("FriendsFrame_Update", friendsFrame)
+--BETA hooksecurefunc(FriendsListFrameScrollFrame, "update", friendsFrame)
+-- hooksecurefunc("FriendsFrame_UpdateFriends", friendsFrame)
