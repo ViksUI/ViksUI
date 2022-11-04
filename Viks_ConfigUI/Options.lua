@@ -2269,11 +2269,11 @@ do
 	local totem_icons = ns.CreateCheckBox(parent, "totem_icons", L_GUI_NAMEPLATE_TOTEM_ICONS)
 	totem_icons:SetPoint("TOPLEFT", healer_icon, "BOTTOMLEFT", 0, 0)
 	
-	local quest_icon = ns.CreateCheckBox(parent, "quest_icon", L_GUI_NAMEPLATE_QUEST_ICON)
-	quest_icon:SetPoint("TOPLEFT", totem_icons, "BOTTOMLEFT", 0, 0)
+	local quests = ns.CreateCheckBox(parent, "quests", L_GUI_NAMEPLATE_QUEST_ICON)
+	quests:SetPoint("TOPLEFT", totem_icons, "BOTTOMLEFT", 0, 0)
 	
 	local target_glow = ns.CreateCheckBox(parent, "target_glow")
-	target_glow:SetPoint("TOPLEFT", quest_icon, "BOTTOMLEFT", 0, 0)
+	target_glow:SetPoint("TOPLEFT", quests, "BOTTOMLEFT", 0, 0)
 	
 	local npc_colors = ns.CreateCheckBox(parent, "npc_colors")
 	npc_colors:SetPoint("TOPLEFT", target_glow, "BOTTOMLEFT", 0, 0)

@@ -8,7 +8,7 @@
 ----------------------------------------------------------------------------------------
 -- C["font"] = {
 --		-- Stats font
---		["stats_font"] = "Interface\\AddOns\\ViksUI\\Media\\Font\\Normal.ttf",
+--		["stats_font"] = "Interface\\AddOns\\ViksUI\\Media\\Font\\normal.ttf",
 --		["stats_font_size"] = 11,
 --		["stats_font_style"] = "",
 --		["stats_font_shadow"] = true,

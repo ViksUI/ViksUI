@@ -32,7 +32,7 @@ local function CreateButton(element, index)
 
 	local cd = CreateFrame('Cooldown', '$parentCooldown', button, 'CooldownFrameTemplate')
 	cd:SetAllPoints()
-	cd:SetDrawEdge(false) -- ShestakUI
+	cd:SetDrawEdge(false) -- ViksUI
 	button.Cooldown = cd
 
 	local icon = button:CreateTexture(nil, 'BORDER')
@@ -395,7 +395,7 @@ local function UpdateAuras(self, event, unit, updateInfo)
 				if(button.Count) then button.Count:SetText() end
 
 				button:EnableMouse(false)
-				button:Hide() -- ShestakUI
+				button:Hide() -- ViksUI
 
 				--[[ Callback: Auras:PostUpdateGapButton(unit, gapButton, offset)
 				Called after an invisible aura button has been created. Only used by Auras when the `gap` option is enabled.

@@ -7,8 +7,8 @@ if GetLocale() ~= "frFR" then return end
 ----------------------------------------------------------------------------------------
 L_GUI_SET_SAVED_SETTTINGS = "Définir les paramètres par personnage"
 L_GUI_SET_SAVED_SETTTINGS_DESC = "Basculez entre un profil qui s’applique à tous les personnages et un profil qui est unique à ce personnage."
-L_GUI_RESET_CHAR = "Êtes-vous sûr de vouloir réinitialiser les paramètres de votre personnage pour ShestakUI ?"
-L_GUI_RESET_ALL = "Voulez-vous vraiment réinitialiser tous les paramètres de ShestakUI"
+L_GUI_RESET_CHAR = "Êtes-vous sûr de vouloir réinitialiser les paramètres de votre personnage pour ViksUI ?"
+L_GUI_RESET_ALL = "Voulez-vous vraiment réinitialiser tous les paramètres de ViksUI"
 L_GUI_PER_CHAR = "Modifier la configuration du personnage ?"
 L_GUI_RESET_CAT = "Êtes-vous sûr de vouloir réinitialiser les paramètres de la catégorie ?"
 L_GUI_RESET_CAT_DESC = "Clique pour réinitialiser les paramètres de la catégorie ou \nCTRL+clique pour réinitialiser les paramètres de votre personnage."

@@ -258,7 +258,7 @@ local function CreateShadow(frame, size, pass)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(frame:GetFrameStrata())
 	shadow:SetOutside(frame, offset, offset, nil, true)
-	shadow:SetBackdrop({edgeFile = [[Interface\AddOns\ShestakUI\Media\Textures\Glow.tga]], edgeSize = size})
+	shadow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\textures\Glow.tga]], edgeSize = size})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.9)
 
@@ -596,36 +596,13 @@ function T.SkinScrollBar(frame)
 	frame:StripTextures()
 
 	local frameName = frame.GetName and frame:GetName()
-	if frameName then
-		if _G[frameName.."BG"] then
-			_G[frameName.."BG"]:SetTexture(nil)
-		end
-		if _G[frameName.."Track"] then
-			_G[frameName.."Track"]:SetTexture(nil)
-		end
-		if _G[frameName.."Top"] then
-			_G[frameName.."Top"]:SetTexture(nil)
-		end
-		if _G[frameName.."Bottom"] then
-			_G[frameName.."Bottom"]:SetTexture(nil)
-		end
-		if _G[frameName.."Middle"] then
-			_G[frameName.."Middle"]:SetTexture(nil)
-		end
-	end
-
-	if frame.Background then frame.Background:SetTexture(nil) end
-	if frame.trackBG then frame.trackBG:SetTexture(nil) end
-	if frame.Middle then frame.Middle:SetTexture(nil) end
-	if frame.Top then frame.Top:SetTexture(nil) end
-	if frame.Bottom then frame.Bottom:SetTexture(nil) end
-	if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
-	if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
-	if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
-
-	local UpButton = frame.ScrollUpButton or frame.ScrollUp or frame.UpButton or _G[frameName and frameName.."ScrollUpButton"] or frame:GetParent().scrollUp
-	local DownButton = frame.ScrollDownButton or frame.ScrollDown or frame.DownButton or _G[frameName and frameName.."ScrollDownButton"] or frame:GetParent().scrollDown
+	local UpButton = frame.ScrollUpButton or frame.ScrollUp or frame.UpButton or frame.Back or _G[frameName and frameName.."ScrollUpButton"] or frame:GetParent().scrollUp
+	local DownButton = frame.ScrollDownButton or frame.ScrollDown or frame.DownButton or frame.Forward or _G[frameName and frameName.."ScrollDownButton"] or frame:GetParent().scrollDown
 	local ThumbTexture = frame.ThumbTexture or frame.thumbTexture or _G[frameName and frameName.."ThumbTexture"]
+
+	if frame.Background then
+		frame.Background:Hide()
+	end
 
 	if UpButton and DownButton then
 		if not UpButton.icon then
@@ -802,8 +779,10 @@ function T.SkinNextPrevButton(btn, left, scroll)
 		if btn:GetPushedTexture() then
 			btn:GetPushedTexture():SetAllPoints(btn:GetNormalTexture())
 		end
-		btn:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.3)
-		btn:GetHighlightTexture():SetAllPoints(btn:GetNormalTexture())
+		if btn:GetHighlightTexture() then
+			btn:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.3)
+			btn:GetHighlightTexture():SetAllPoints(btn:GetNormalTexture())
+		end
 	end
 end
 

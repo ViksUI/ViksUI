@@ -982,22 +982,8 @@ function lib.CreateThreatBorder(self)
 	end
 	self.Thtborder:SetBackdrop(glowBorder)
 	self.Thtborder:SetFrameLevel(1)
-	self.Thtborder:Hide()	
-end
-
--- Raid Frames Threat Highlight
-function lib.UpdateThreat(self, event, unit)
-	if (self.unit ~= unit) then return end
-		local status = UnitThreatSituation(unit)
-		unit = unit or self.unit
-	if status and status > 1 then
-		local r, g, b = GetThreatStatusColor(status)
-		self.Thtborder:Show()
-		self.Thtborder:SetBackdropBorderColor(r, g, b, 1)
-	else
-		self.Thtborder:SetBackdropBorderColor(r, g, b, 0)
-		self.Thtborder:Hide()
-	end
+	self.Thtborder:Hide()
+	self.Thtborder.PostUpdate = T.UpdateThreat
 end
 
 ---- Castbar
@@ -1709,7 +1695,7 @@ lib.genCPoints = function(self)
 		self.CPoints:SetHeight(7)
 		self.CPoints:SetWidth(self:GetWidth()-2)
 
-		for i = 1, 6 do
+		for i = 1, 7 do
 			self.CPoints[i] = CreateFrame("StatusBar", self:GetName().."_ComboBar", self.CPoints, "BackdropTemplate")
 			self.CPoints[i]:SetSize(213 / 10, 7)
 			if i == 1 then
@@ -1726,6 +1712,7 @@ lib.genCPoints = function(self)
 		self.CPoints[4]:SetStatusBarColor(0.9, 0.9, 0.1)
 		self.CPoints[5]:SetStatusBarColor(0.1, 0.9, 0.1)
 		self.CPoints[6]:SetStatusBarColor(0.1, 0.9, 0.1)
+		self.CPoints[7]:SetStatusBarColor(0.1, 0.9, 0.1)
 	end
 end
 

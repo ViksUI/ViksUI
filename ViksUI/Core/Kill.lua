@@ -12,6 +12,10 @@ frame:SetScript("OnEvent", function(_, _, addon)
 		end
 	end
 
+	if ClassPowerBar then
+		ClassPowerBar.OnEvent = T.dummy -- Fix error with druid on logon
+	end
+	
 	if C.unitframe.enable and (ViksUISettingsPerChar and (ViksUISettingsPerChar.RaidLayout == "HEAL" or ViksUISettingsPerChar.RaidLayout == "DPS")) then
 		--InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
 		--InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)

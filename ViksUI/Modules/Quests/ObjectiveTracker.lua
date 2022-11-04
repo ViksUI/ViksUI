@@ -14,6 +14,8 @@ ObjectiveTrackerFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
 ObjectiveTrackerFrame:SetHeight(T.screenHeight / 1.6)
 ObjectiveTrackerFrame:SetWidth(180)
 
+ObjectiveTrackerFrame.IsUserPlaced = function() return true end
+
 hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
 	if parent ~= frame then
 		ObjectiveTrackerFrame:ClearAllPoints()
@@ -22,7 +24,22 @@ hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
 end)
 
 local ObjectiveTracker = CreateFrame("Frame", "ViksUIObjectiveTracker", UIParent)
+local headers = {
+	SCENARIO_CONTENT_TRACKER_MODULE,
+	BONUS_OBJECTIVE_TRACKER_MODULE,
+	UI_WIDGET_TRACKER_MODULE,
+	CAMPAIGN_QUEST_TRACKER_MODULE,
+	QUEST_TRACKER_MODULE,
+	ACHIEVEMENT_TRACKER_MODULE,
+	WORLD_QUEST_TRACKER_MODULE
+}
 
+for i = 1, #headers do
+	local header = headers[i].Header
+	if header then
+		header.Background:Hide()
+	end
+end
 
 -- Lib Globals
 local _G = _G
@@ -47,8 +64,6 @@ local qfont = C.media.fontcombat
 function ObjectiveTracker:Disable()
 	ObjectiveTrackerFrameHeaderMenuMinimizeButton:Hide()
 end
-BONUS_OBJECTIVE_TRACKER_MODULE.Header.Background:Hide()
-WORLD_QUEST_TRACKER_MODULE.Header.Background:Hide()
 ObjectiveTrackerBlocksFrame.UIWidgetsHeader.Background:Hide()
 
 ObjectiveTrackerFrame.HeaderMenu.Title:SetAlpha(0)
@@ -64,12 +79,8 @@ end
 function ObjectiveTracker:OnClick()
 	if (ObjectiveTrackerFrame:IsVisible()) then
 		ObjectiveTrackerFrame:Hide()
-
-		self.Toggle:SetText("<")
 	else
 		ObjectiveTrackerFrame:Show()
-
-		self.Toggle:SetText(">")
 	end
 end
 
@@ -97,7 +108,6 @@ function ObjectiveTracker:Skin()
 					HeaderPanel:SetFrameStrata("BACKGROUND")
 					HeaderPanel:SetOutside(Header, 1, 1)
 					
-
 					local HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
 					HeaderBar:Size(263, 3)
 					HeaderBar:SetPoint("CENTER", HeaderPanel, 0, -9)
@@ -106,11 +116,11 @@ function ObjectiveTracker:Skin()
 					HeaderBar:SetTemplate()
 
 					HeaderBar:CreateShadow()
-					local Minimize = Header.MinimizeButton
+					local Minimize = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
 					Minimize.SetCollapsed = function() return end
 					Minimize:StripTextures()
 					Minimize:ClearAllPoints()
-					Minimize:SetAllPoints(Header)								 
+					Minimize:SetAllPoints(HeaderBar)								 
 
 					Modules.IsSkinned = true
 				end
@@ -145,7 +155,7 @@ function ObjectiveTracker:UpdateQuestItem(block)
 			QuestItemButton:Size(C.actionbar.button_size, C.actionbar.button_size)
 			QuestItemButton:SetTemplate("Default")
 			QuestItemButton:StyleButton()
-			QuestItemButton:SetNormalTexture(nil)
+			QuestItemButton:SetNormalTexture(0)
 
 			if (Icon) then
 				Icon:SetInside()
@@ -273,8 +283,8 @@ function ObjectiveTracker:SkinPOI(questID, style, index)
 		local Button = ObjectiveTrackerBlocksFrame.poiTable["completed"][i]
 
 		if Button and not Button.IsSkinned then
-			Button:SetNormalTexture("C.media.texture")
-			Button:SetPushedTexture("C.media.texture")
+			Button:SetNormalTexture(0)
+			Button:SetPushedTexture(0)
 			Button.HighlightTexture:SetTexture("C.media.texture")
 			Button.Glow:SetAlpha(0)
 			Button:SetSize(20, 20)
@@ -375,7 +385,7 @@ function ObjectiveTracker:SkinWorldQuestsPOI(worldQuestType, rarity, isElite, tr
 	end
 	self:SetTemplate("Default")
 	self:StyleButton()
-	--self:SetNormalTexture(nil)
+	self:SetNormalTexture(0)
 
 	if PreviousPOI and PreviousPOI.IsSkinned then
 		PreviousPOI:SetBackdropColor(unpack(C.media.backdrop_color))
@@ -524,7 +534,7 @@ hooksecurefunc("QuestObjectiveSetupBlockButton_Item", function(block)
 		item:SetTemplate("Default")
 		item:StyleButton()
 
-		item:SetNormalTexture(nil)
+		item:SetNormalTexture(0)
 
 		item.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		item.icon:SetPoint("TOPLEFT", item, 2, -2)
@@ -600,8 +610,7 @@ local function SkinBarIcon(_, _, line)
 		bar.IconBG:Kill()
 		bar:SetSize(200, 20)
 		bar:SetStatusBarTexture(C.media.texture)
-		bar:SetTemplate("Transparent")
-		bar:SetBackdropColor(0, 0, 0, 0)
+		bar:CreateBackdrop("Transparent")
 
 		label:ClearAllPoints()
 		label:SetPoint("CENTER", 0, -1)
@@ -609,6 +618,7 @@ local function SkinBarIcon(_, _, line)
 
 		icon:SetPoint("RIGHT", 24, 0)
 		icon:SetSize(20, 20)
+		icon:SetMask("")
 
 		local border = CreateFrame("Frame", "$parentBorder", bar)
 		border:SetAllPoints(icon)

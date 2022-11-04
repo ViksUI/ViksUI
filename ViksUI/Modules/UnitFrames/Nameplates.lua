@@ -163,7 +163,7 @@ local totemData = {
 	[GetSpellInfo(204330)] = 135829,	-- Skyfury Totem
 }
 
-local function CreateVirtualFrame(frame, point)
+local function CreateBorderFrame(frame, point)
 	if point == nil then point = frame end
 	if point.backdrop then return end
 
@@ -202,7 +202,7 @@ local function CreateVirtualFrame(frame, point)
 	frame.borderright:SetDrawLayer("BORDER", -7)
 end
 
-local function SetVirtualBorder(frame, r, g, b)
+local function SetColorBorder(frame, r, g, b)
 	frame.bordertop:SetColorTexture(r, g, b)
 	frame.borderbottom:SetColorTexture(r, g, b)
 	frame.borderleft:SetColorTexture(r, g, b)
@@ -215,23 +215,18 @@ local AurasCustomFilter = function(element, unit, data)
 
 	if not UnitIsFriend("player", unit) then
 		if data.isHarmful then
-			if data.isPlayerAura or data.sourceUnit == "pet" then
+			if C.nameplate.track_debuffs and data.isPlayerAura or data.sourceUnit == "pet" then
 				if ((data.nameplateShowAll or data.nameplateShowPersonal) and not T.DebuffBlackList[data.name]) then
 					allow = true
 				elseif T.DebuffWhiteList[data.name] then
 					allow = true
 				end
-				if C.nameplate.track_buffs then
-					--BETA SetColorBorder(element, unpack(C.media.border_color))
-				end
 			end
 		else
 			if T.BuffWhiteList[data.name] then
 				allow = true
-				-- SetColorBorder(element, 0, 0.5, 0)
 			elseif data.isStealable then
 				allow = true
-				-- SetColorBorder(element, 1, 0.85, 0)
 			end
 		end
 	end
@@ -245,8 +240,7 @@ if T.screenHeight > 1200 then
 end
 
 local AurasPostCreateIcon = function(element, button)
-	CreateVirtualFrame(button)
-	button:EnableMouse(false)
+	CreateBorderFrame(button)
 
 	button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size * T.noscalemult / Mult, C.font.auras_font_style)
 	button.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
@@ -274,44 +268,23 @@ local AurasPostCreateIcon = function(element, button)
 	end
 end
 
-local FormatTime = function(s)
-	local day, hour, minute = 86400, 3600, 60
-	if s >= day then
-		return format("%dd", floor(s / day + 0.5)), s % day
-	elseif s >= hour then
-		return format("%dh", floor(s / hour + 0.5)), s % hour
-	elseif s >= minute then
-		return format("%dm", floor(s / minute + 0.5)), s % minute
-	elseif s >= minute / 12 then
-		return floor(s + 0.5), (s * 100 - floor(s * 100)) / 100
-	end
-	return format("%.1f", s), (s * 100 - floor(s * 100)) / 100
-end
-
-local CreateAuraTimer = function(self, elapsed)
-	if self.timeLeft then
-		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed >= 0.1 then
-			if not self.first then
-				self.timeLeft = self.timeLeft - self.elapsed
-			else
-				self.timeLeft = self.timeLeft - GetTime()
-				self.first = false
+local AurasPostUpdateIcon = function(_, button, unit, data)
+	if not UnitIsFriend("player", unit) then
+		if data.isHarmful then
+			if C.nameplate.track_debuffs and data.isPlayerAura or data.sourceUnit == "pet" then
+				if C.nameplate.track_buffs then
+					SetColorBorder(button, unpack(C.media.border_color))
+				end
 			end
-			if self.timeLeft > 0 then
-				local time = FormatTime(self.timeLeft)
-				self.remaining:SetText(time)
-				self.remaining:SetTextColor(1, 1, 1)
-			else
-				self.remaining:Hide()
-				self:SetScript("OnUpdate", nil)
+		else
+			if T.BuffWhiteList[data.name] then
+				SetColorBorder(button, 0, 0.5, 0)
+			elseif data.isStealable then
+				SetColorBorder(button, 1, 0.85, 0)
 			end
-			self.elapsed = 0
 		end
 	end
-end
 
-local AurasPostUpdateIcon = function(_, button, _, data)
 	if data.duration and data.duration > 0 and C.aura.show_timer == true then
 		button.remaining:Show()
 		button.timeLeft = data.expirationTime
@@ -324,84 +297,10 @@ local AurasPostUpdateIcon = function(_, button, _, data)
 	button.first = true
 end
 
-local function threatColor(self, forced)
-	if UnitIsPlayer(self.unit) then return end
-
-	if C.nameplate.enhance_threat ~= true then
-		SetVirtualBorder(self.Health, unpack(C.media.border_color))
-	end
-	if UnitIsTapDenied(self.unit) then
-		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
-	elseif UnitAffectingCombat("player") then
-		local threatStatus = UnitThreatSituation("player", self.unit)
-		if self.npcID == "120651" then	-- Explosives affix
-			self.Health:SetStatusBarColor(unpack(C.nameplate.explosive_color))
-		elseif self.npcID == "174773" then	-- Spiteful Shade affix
-			if threatStatus == 3 then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.explosive_color))
-			else
-				self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-			end
-		elseif threatStatus == 3 then	-- securely tanking, highest threat
-			if T.Role == "Tank" then
-				if C.nameplate.enhance_threat == true then
-					self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-				else
-					SetVirtualBorder(self.Health, unpack(C.nameplate.bad_color))
-				end
-			else
-				if C.nameplate.enhance_threat == true then
-					self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
-				else
-					SetVirtualBorder(self.Health, unpack(C.nameplate.bad_color))
-				end
-			end
-		elseif threatStatus == 2 then	-- insecurely tanking, another unit have higher threat but not tanking
-			if C.nameplate.enhance_threat == true then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
-			else
-				SetVirtualBorder(self.Health, unpack(C.nameplate.near_color))
-			end
-		elseif threatStatus == 1 then	-- not tanking, higher threat than tank
-			if C.nameplate.enhance_threat == true then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
-			else
-				SetVirtualBorder(self.Health, unpack(C.nameplate.near_color))
-			end
-		elseif threatStatus == 0 then	-- not tanking, lower threat than tank
-			if C.nameplate.enhance_threat == true then
-				if T.Role == "Tank" then
-					local offTank = false
-					if IsInRaid() then
-						for i = 1, GetNumGroupMembers() do
-							if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
-								local isTanking = UnitDetailedThreatSituation("raid"..i, self.unit)
-								if isTanking then
-									offTank = true
-									break
-								end
-							end
-						end
-					end
-					if offTank then
-						self.Health:SetStatusBarColor(unpack(C.nameplate.offtank_color))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
-					end
-				else
-					self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-				end
-			end
-		end
-	elseif not forced then
-		self.Health:ForceUpdate()
-	end
-end
-
 local function UpdateTarget(self)
 	local isTarget = UnitIsUnit(self.unit, "target")
 	local isMe = UnitIsUnit(self.unit, "player")
-	
+
 	if isTarget and not isMe then
 		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
 			if C.nameplate.target_arrow == true then
@@ -421,6 +320,10 @@ local function UpdateTarget(self)
 		self.ArrowR:Show()
 		self.ArrowL:Show()
 		self.Level:Hide()
+
+		if C.nameplate.target_glow then
+			self.Glow:Show()
+		end
 		self:SetAlpha(1)
 	else
 		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
@@ -438,6 +341,9 @@ local function UpdateTarget(self)
 				self.Class.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
 			end
 		end
+		if C.nameplate.target_glow then
+			self.Glow:Hide()
+		end
 		if not UnitExists("target") or isMe then
 			self:SetAlpha(1)
 		else
@@ -446,14 +352,6 @@ local function UpdateTarget(self)
 		self.ArrowR:Hide()
 		self.ArrowL:Hide()
 		self.Level:Show()
-	end
-
-	if C.nameplate.target_glow then
-		if UnitIsUnit(self.unit, "target") and not UnitIsUnit(self.unit, "player") then
-			self.highlight:Show()
-		else
-			self.highlight:Hide()
-		end
 	end
 end
 
@@ -497,7 +395,6 @@ local function UpdateName(self)
 		if name then
 			if totemData[name] then
 				self.Totem.Icon:SetTexture(totemData[name])
-				self.Totem.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 				self.Totem:Show()
 			else
 				self.Totem:Hide()
@@ -567,6 +464,89 @@ local function castColor(self)
 	end
 end
 
+-- Health color
+local function threatColor(self, forced)
+	if UnitIsPlayer(self.unit) then return end
+
+	if C.nameplate.enhance_threat ~= true then
+		SetColorBorder(self.Health, unpack(C.media.border_color))
+	end
+	if UnitIsTapDenied(self.unit) then
+		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
+	elseif UnitAffectingCombat("player") then
+		local threatStatus = UnitThreatSituation("player", self.unit)
+		if self.npcID == "120651" then	-- Explosives affix
+			self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
+		elseif self.npcID == "174773" then	-- Spiteful Shade affix
+			if threatStatus == 3 then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
+			else
+				self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+			end
+		elseif threatStatus == 3 then	-- securely tanking, highest threat
+			if T.Role == "Tank" then
+				if C.nameplate.enhance_threat == true then
+					if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
+						self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
+					else
+						self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+					end
+				else
+					SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
+				end
+			else
+				if C.nameplate.enhance_threat == true then
+					self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
+				else
+					SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
+				end
+			end
+		elseif threatStatus == 2 then	-- insecurely tanking, another unit have higher threat but not tanking
+			if C.nameplate.enhance_threat == true then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
+			else
+				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
+			end
+		elseif threatStatus == 1 then	-- not tanking, higher threat than tank
+			if C.nameplate.enhance_threat == true then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
+			else
+				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
+			end
+		elseif threatStatus == 0 then	-- not tanking, lower threat than tank
+			if C.nameplate.enhance_threat == true then
+				if T.Role == "Tank" then
+					local offTank = false
+					if IsInRaid() then
+						for i = 1, GetNumGroupMembers() do
+							if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
+								local isTanking = UnitDetailedThreatSituation("raid"..i, self.unit)
+								if isTanking then
+									offTank = true
+									break
+								end
+							end
+						end
+					end
+					if offTank then
+						self.Health:SetStatusBarColor(unpack(C.nameplate.offtank_color))
+					else
+						self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
+					end
+				else
+					if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
+						self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
+					else
+						self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+					end
+				end
+			end
+		end
+	elseif not forced then
+		self.Health:ForceUpdate()
+	end
+end
+
 local function HealthPostUpdate(self, unit, cur, max)
 	local main = self:GetParent()
 	local perc = 0
@@ -596,14 +576,14 @@ local function HealthPostUpdate(self, unit, cur, max)
 
 	if isPlayer then
 		if perc <= 0.5 and perc >= 0.2 then
-			SetVirtualBorder(self, 1, 1, 0)
+			SetColorBorder(self, 1, 1, 0)
 		elseif perc < 0.2 then
-			SetVirtualBorder(self, 1, 0, 0)
+			SetColorBorder(self, 1, 0, 0)
 		else
-			SetVirtualBorder(self, unpack(C.media.border_color))
+			SetColorBorder(self, unpack(C.media.border_color))
 		end
 	elseif not isPlayer and C.nameplate.enhance_threat == true then
-		SetVirtualBorder(self, unpack(C.media.border_color))
+		SetColorBorder(self, unpack(C.media.border_color))
 	end
 
 	threatColor(main, true)
@@ -723,25 +703,14 @@ local function style(self, unit)
 	self.Health.colorClass = true
 	self.Health.colorReaction = true
 	self.Health.colorHealth = true
-	CreateVirtualFrame(self.Health)
+	CreateBorderFrame(self.Health)
 
 	self.Health.bg = self.Health:CreateTexture(nil, "BORDER")
 	self.Health.bg:SetAllPoints()
 	self.Health.bg:SetTexture(C.media.texture)
 	self.Health.bg.multiplier = 0.2
-	
-	-- Create Quest Icon
-	if C.nameplate.quest_icon == true then
-		local QuestIcon = self:CreateTexture(nil, "OVERLAY")
-		QuestIcon:SetTexture([[Interface\AddOns\ViksUI\Media\microbar\quest.tga]])
-		QuestIcon:ClearAllPoints()
-		QuestIcon:SetSize(20, 20)
-		QuestIcon:SetPoint("LEFT", self, "RIGHT", 2, 0)
 
-		self.QuestIcon = QuestIcon
-	end
-	
-	-- Create Health Text
+	-- Health Text
 	if C.nameplate.health_value == true then
 		self.Health.value = self.Health:CreateFontString(nil, "OVERLAY")
 		self.Health.value:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult, C.font.nameplates_font_style)
@@ -750,7 +719,7 @@ local function style(self, unit)
 		self:Tag(self.Health.value, "[NameplateHealth]")
 	end
 
-	-- Create Player Power bar
+	-- Player Power Bar
 	self.Power = CreateFrame("StatusBar", nil, self)
 	self.Power:SetStatusBarTexture(C.media.texture)
 	self.Power:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -6)
@@ -758,7 +727,7 @@ local function style(self, unit)
 	self.Power.frequentUpdates = true
 	self.Power.colorPower = true
 	self.Power.PostUpdate = T.PreUpdatePower
-	CreateVirtualFrame(self.Power)
+	CreateBorderFrame(self.Power)
 
 	self.Power.bg = self.Power:CreateTexture(nil, "BORDER")
 	self.Power.bg:SetAllPoints()
@@ -776,7 +745,7 @@ local function style(self, unit)
 		end
 	end)
 
-	-- Create Name Text
+	-- Name Text
 	self.Name = self:CreateFontString(nil, "OVERLAY")
 	self.Name:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult, C.font.nameplates_font_style)
 	self.Name:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
@@ -784,23 +753,23 @@ local function style(self, unit)
 	self.Name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 3, 4)
 	self.Name:SetWordWrap(false)
 
-	if C.nameplate.name_abbrev == true then
+	if C.nameplate.name_abbrev then
 		self:Tag(self.Name, "[NameplateNameColor][NameLongAbbrev]")
+	elseif C.nameplate.short_name then
+		self:Tag(self.Name, "[NameplateNameColor][NameplateNameShort]")
 	else
 		self:Tag(self.Name, "[NameplateNameColor][NameLong]")
 	end
 
 	-- Target Glow
 	if C.nameplate.target_glow then
-		local highlight = self:CreateTexture(nil, "OVERLAY")
-		highlight:SetPoint("TOPLEFT", -7 * T.noscalemult, 5 * T.noscalemult)
-		highlight:SetPoint("BOTTOMRIGHT", 7 * T.noscalemult, -5 * T.noscalemult)
-		highlight:SetTexture([[Interface\AddOns\ViksUI\Media\textures\Highlight]])
-		highlight:SetVertexColor(unpack(C.nameplate.targetglow_color))
-		highlight:SetBlendMode("ADD")
-		highlight:Hide()
-		self.highlight = highlight
-		table.insert(self.__elements, UpdateTargetGlow)
+		self.Glow = CreateFrame("Frame", nil, self, "BackdropTemplate")
+		self.Glow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\textures\Glow.tga]], edgeSize = 4 * T.noscalemult})
+		self.Glow:SetPoint("TOPLEFT", -7 * T.noscalemult, 7 * T.noscalemult)
+		self.Glow:SetPoint("BOTTOMRIGHT", 7 * T.noscalemult, -7 * T.noscalemult)
+		self.Glow:SetBackdropBorderColor(0.8, 0.8, 0.8)
+		self.Glow:SetFrameLevel(0)
+		self.Glow:Hide()
 	end
 
 	-- Level Text
@@ -810,7 +779,7 @@ local function style(self, unit)
 	self.Level:SetPoint("RIGHT", self.Health, "LEFT", -2, 0)
 	self:Tag(self.Level, "[DiffColor][NameplateLevel][shortclassification]")
 
-	-- Create Cast Bar
+	-- Cast Bar
 	self.Castbar = CreateFrame("StatusBar", nil, self)
 	self.Castbar:SetFrameLevel(3)
 	self.Castbar:SetStatusBarTexture(C.media.texture)
@@ -821,7 +790,7 @@ local function style(self, unit)
 		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -8)
 	end
 	self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, -8-(C.nameplate.height * T.noscalemult))
-	CreateVirtualFrame(self.Castbar)
+	CreateBorderFrame(self.Castbar)
 
 	self.Castbar.bg = self.Castbar:CreateTexture(nil, "BORDER")
 	self.Castbar.bg:SetAllPoints()
@@ -831,7 +800,7 @@ local function style(self, unit)
 	self.Castbar.PostCastStart = castColor
 	self.Castbar.PostCastInterruptible = castColor
 
-	-- Create Cast Time Text
+	-- Cast Time Text
 	self.Castbar.Time = self.Castbar:CreateFontString(nil, "ARTWORK")
 	self.Castbar.Time:SetPoint("RIGHT", self.Castbar, "RIGHT", 0, 0)
 	self.Castbar.Time:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult, C.font.nameplates_font_style)
@@ -841,7 +810,7 @@ local function style(self, unit)
 		self.Time:SetText(("%.1f"):format(self.channeling and duration or self.max - duration))
 	end
 
-	-- Create Cast Name Text
+	-- Cast Name Text
 	if C.nameplate.show_castbar_name == true then
 		self.Castbar.Text = self.Castbar:CreateFontString(nil, "OVERLAY")
 		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 3, 0)
@@ -852,8 +821,9 @@ local function style(self, unit)
 		self.Castbar.Text:SetJustifyH("LEFT")
 	end
 
-	-- Create CastBar Icon
-	self.Castbar.Icon = self.Castbar:CreateTexture(nil, "OVERLAY")
+	-- Cast Bar Icon
+	self.CastbarIcon = CreateFrame("Frame", nil, self.Castbar)
+	self.Castbar.Icon = self.CastbarIcon:CreateTexture(nil, "OVERLAY")
 	self.Castbar.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	self.Castbar.Icon:SetDrawLayer("ARTWORK")
 	self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
@@ -862,14 +832,14 @@ local function style(self, unit)
 	else
 		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", 8, 0)
 	end
-	CreateVirtualFrame(self.Castbar, self.Castbar.Icon)
+	CreateBorderFrame(self.CastbarIcon, self.Castbar.Icon)
 
 	-- Raid Icon
 	self.RaidTargetIndicator = self:CreateTexture(nil, "OVERLAY", nil, 7)
 	self.RaidTargetIndicator:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
 	self.RaidTargetIndicator:SetPoint("BOTTOM", self.Health, "TOP", 0, C.nameplate.track_debuffs == true and 38 or 16)
 
-	-- Create Class Icon
+	-- Class Icon
 	if C.nameplate.class_icons == true then
 		self.Class = CreateFrame("Frame", nil, self)
 		self.Class.Icon = self.Class:CreateTexture(nil, "OVERLAY")
@@ -877,16 +847,17 @@ local function style(self, unit)
 		self.Class.Icon:SetPoint("TOPRIGHT", self.Health, "TOPLEFT", -8, 0)
 		self.Class.Icon:SetTexture("Interface\\WorldStateFrame\\Icons-Classes")
 		self.Class.Icon:SetTexCoord(0, 0, 0, 0)
-		CreateVirtualFrame(self.Class, self.Class.Icon)
+		CreateBorderFrame(self.Class, self.Class.Icon)
 	end
 
-	-- Create Totem Icon
+	-- Totem Icon
 	if C.nameplate.totem_icons == true then
 		self.Totem = CreateFrame("Frame", nil, self)
 		self.Totem.Icon = self.Totem:CreateTexture(nil, "OVERLAY")
 		self.Totem.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
 		self.Totem.Icon:SetPoint("BOTTOM", self.Health, "TOP", 0, 16)
-		CreateVirtualFrame(self.Totem, self.Totem.Icon)
+		self.Totem.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		CreateBorderFrame(self.Totem, self.Totem.Icon)
 	end
 
 	-- Arrow for important NPC
@@ -911,12 +882,27 @@ local function style(self, unit)
 	self.ArrowL:SetVertexColor(unpack(C.nameplate.targetarrow_color))
 	self.ArrowL:Hide()
 	
-	-- Create Healer Icon
+	-- Healer Icon
 	if C.nameplate.healer_icon == true then
 		self.HPHeal = self.Health:CreateFontString(nil, "OVERLAY")
 		self.HPHeal:SetFont(C.font.nameplates_font, 32, C.font.nameplates_font_style)
 		self.HPHeal:SetText("|cFFD53333+|r")
 		self.HPHeal:SetPoint("BOTTOM", self.Name, "TOP", 0, C.nameplate.track_debuffs == true and 13 or 0)
+	end
+
+	-- Quest Icon
+	if C.nameplate.quests then
+		self.QuestIcon = self:CreateTexture(nil, "OVERLAY", nil, 7)
+
+		self.QuestIcon.Text = self:CreateFontString(nil, "OVERLAY")
+		self.QuestIcon.Text:SetPoint("RIGHT", self.Health, "LEFT", -1, 0)
+		self.QuestIcon.Text:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult * 2, C.font.nameplates_font_style)
+		self.QuestIcon.Text:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
+
+		self.QuestIcon.Item = self:CreateTexture(nil, "OVERLAY")
+		self.QuestIcon.Item:SetSize((C.nameplate.height * 2 * T.noscalemult) - 2, (C.nameplate.height * 2 * T.noscalemult) - 2)
+		self.QuestIcon.Item:SetPoint("RIGHT", self.Health.Text, "LEFT", -2, 0)
+		self.QuestIcon.Item:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	end
 
 	-- Aura tracking
@@ -948,6 +934,16 @@ local function style(self, unit)
 	end)
 
 	self.Health.PostUpdate = HealthPostUpdate
+
+	-- Absorb
+	if C.unitframe.plugins_healcomm == true then
+		local ahpb = self.Health:CreateTexture(nil, "ARTWORK")
+		ahpb:SetTexture(C.media.texture)
+		ahpb:SetVertexColor(1, 1, 0, 1)
+		self.HealthPrediction = {
+			absorbBar = ahpb
+		}
+	end
 
 	-- Every event should be register with this
 	table.insert(self.__elements, UpdateName)

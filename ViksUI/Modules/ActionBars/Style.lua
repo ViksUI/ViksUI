@@ -21,6 +21,8 @@ local function StyleNormalButton(button, size)
 		local isFlyout = name:match("Flyout")
 		local flyoutBorder = _G[name.."FlyoutBorder"]
 		local flyoutBorderShadow = _G[name.."FlyoutBorderShadow"]
+		local autocast = button.AutoCastable
+		local shine = _G[name.."Shine"]
 
 		local normal = button.NormalTexture or _G[name..'NormalTexture']
 		local normal2 = button:GetNormalTexture()
@@ -138,6 +140,16 @@ local function StyleNormalButton(button, size)
 			flyoutBorderShadow:SetTexture("")
 		end
 
+		if autocast then
+			autocast:SetSize((C.actionbar.button_size * 2) - 10, (C.actionbar.button_size * 2) - 10)
+			autocast:ClearAllPoints()
+			autocast:SetPoint("CENTER", button, 0, 0)
+		end
+
+		if shine then
+			shine:SetSize(C.actionbar.button_size, C.actionbar.button_size)
+		end
+
 		button:StyleButton()
 
 		button.isSkinned = true
@@ -150,6 +162,10 @@ local function StyleSmallButton(normal, button, icon, name, pet)
 		local hotkey = _G[name.."HotKey"]
 
 		button:SetNormalTexture(0)
+
+		if button.IconMask then
+			button.IconMask:Hide()
+		end
 
 		hooksecurefunc(button, "SetNormalTexture", function(self, texture)
 			if texture and texture ~= "" then
@@ -177,10 +193,7 @@ local function StyleSmallButton(normal, button, icon, name, pet)
 			button:SetBackdropBorderColor(unpack(C.media.classborder_color))
 		end
 
-		icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		icon:ClearAllPoints()
-		icon:SetPoint("TOPLEFT", button, 2, -2)
-		icon:SetPoint("BOTTOMRIGHT", button, -2, 2)
+		icon:CropIcon()
 		icon:SetDrawLayer("BACKGROUND", 7)
 
 		if pet then
