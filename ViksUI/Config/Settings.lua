@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 local _, class = UnitClass("player")
 local rv, gv, bv = 0, .38, .651
 

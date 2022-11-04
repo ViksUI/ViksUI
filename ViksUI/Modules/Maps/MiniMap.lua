@@ -39,6 +39,7 @@ frame:SetScript("OnEvent", function(self, event)
 	MinimapCluster.InstanceDifficulty:SetParent(Minimap)
 	MinimapCluster.InstanceDifficulty:ClearAllPoints()
 	MinimapCluster.InstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 1, 3)
+	MinimapCluster.InstanceDifficulty:Hide()
 	MinimapCluster.InstanceDifficulty.Instance.Border:Hide()
 	MinimapCluster.InstanceDifficulty.Instance.Background:SetSize(28, 28)
 	MinimapCluster.InstanceDifficulty.Instance.Background:SetVertexColor(0.6, 0.3, 0)
@@ -382,3 +383,134 @@ function compass()
 end
 compass()
 end
+
+--======================================================--
+-----------------    [[ Difficulty ]]    -----------------
+--======================================================--
+CreateFS = function(parent, text, justify, anchor, x, y)
+	local fs = parent:CreateFontString(nil, "OVERLAY")
+	fs:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+	fs:SetTextColor(unpack(C.media.pxcolor1))
+	fs:SetText(text)
+	fs:SetShadowOffset(0, 0)
+	fs:SetWordWrap(false)
+	fs:SetJustifyH(justify)
+	if anchor and x and y then
+		fs:SetPoint(anchor, x, y)
+	else
+		fs:SetPoint("CENTER", 0, 0)
+	end
+	
+	return fs
+end
+
+local Diff = CreateFrame("Frame", "DungeonIcon", Minimap)
+	Diff:SetSize(36, 36)
+	Diff:SetFrameLevel(Minimap:GetFrameLevel()+2)
+	Diff.Text = CreateFS(Diff, "", "CENTER")
+	Diff:SetPoint("TOPLEFT", Minimap,  -5, 5)
+
+local function styleDifficulty(self)
+	local DiffText = self.Text
+
+	local inInstance, instanceType = IsInInstance()
+	local difficulty = select(3, GetInstanceInfo())
+	local num = select(9, GetInstanceInfo())
+	local mplus = select(1, C_ChallengeMode.GetActiveKeystoneInfo()) or ""
+			
+	if instanceType == "party" or instanceType == "raid" or instanceType == "scenario" then
+		if difficulty == 1 then
+		-- 1 = Normal Party
+			DiffText:SetText("5N")
+		elseif difficulty == 2 then
+		-- 2 = Heroic Party
+			DiffText:SetText("5H")
+		elseif difficulty == 3 then
+		-- 3 = 10 Player Raid Normal
+			DiffText:SetText("10N")
+		elseif difficulty == 4 then
+		-- 4 = 25 Player Raid Normal
+			DiffText:SetText("25N")
+		elseif difficulty == 5 then
+		-- 5 = 10 Player Raid Heroic
+			DiffText:SetText("10H")
+		elseif difficulty == 6 then
+		-- 6 = 25 Player Raid Heroic
+			DiffText:SetText("25H")
+		elseif difficulty == 7 then
+		-- 7 = Old LFR (before SOO)
+			DiffText:SetText("LFR")
+		elseif difficulty == 8 then
+		-- 8 = Challenge Mode and Mythic+
+			DiffText:SetText("M"..mplus)
+		elseif difficulty == 9 then
+		-- 9 = 40 Player Raid
+			DiffText:SetText("40R")
+		elseif difficulty == 11	or difficulty == 39 then
+		-- 11 & 39 = Heroic Scenario
+		DiffText:SetText("Sc H")
+		elseif difficulty == 12 and difficulty == 38 then 
+		-- 12 & 38 = Normal Scenario
+			DiffText:SetText("Sc N")
+		elseif difficulty == 40 then 
+		-- 40 = Mythic Scenario
+			DiffText:SetText("Sc M")	
+		elseif difficulty == 14	then
+		-- 14 = Flex normal raid
+			DiffText:SetText(num .. "N")
+		elseif difficulty == 15	then
+		-- 15 = Flex heroic raid
+			DiffText:SetText(num .. "H")
+		elseif difficulty == 16	then
+		-- 16 = Mythic raid since WOD
+			DiffText:SetText("M")
+		elseif difficulty == 17	then
+		-- 17 = Looking For Raid
+			DiffText:SetText(num .. "LFR")
+		elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then
+		-- 18: Event, 19: Event, 20: Event Scenario, 30: Event, 152: Visions of N'Zoth
+			DiffText:SetText("E")
+		elseif difficulty == 23	then
+		-- 23 = Mythic Party
+			DiffText:SetText("5M")
+		elseif difficulty == 24 or difficulty == 33 then
+		-- 24 = Timewalking Party, 33 = Timewalking raid, 151 Timewalking LFR
+			DiffText:SetText("T")
+		elseif difficulty == 25 or difficulty == 32 or difficulty == 34 or difficulty == 45 then
+		-- 25 = World PvP Scenario, 32 = World PvP Scenario, 34 = PVP, 45 = PVP
+			DiffText:SetText("PVP")
+		elseif difficulty == 29 then
+		-- 29 = PvEvP Scenario
+			DiffText:SetText("PvEvP")
+		elseif difficulty == 147 then
+		-- 147 = Warfronts Normal
+		DiffText:SetText("WF")
+		elseif difficulty == 149 then
+		-- 149 = Warfronts Heroic		
+			DiffText:SetText("HWF")
+		elseif difficulty == 167 then
+		-- 167 = Torghast
+			DiffText:SetText("TOR")
+		end
+	elseif instanceType == "pvp" or instanceType == "arena" then
+		DiffText:SetText("PVP")
+	else
+		-- just notice you are in dungeon
+		DiffText:SetText("D")
+	end
+
+	if not inInstance then
+		Diff:SetAlpha(0)
+	else
+		Diff:SetAlpha(1)
+	end
+end
+
+Diff:RegisterEvent("PLAYER_ENTERING_WORLD")
+Diff:RegisterEvent("PLAYER_DIFFICULTY_CHANGED")
+Diff:RegisterEvent("INSTANCE_GROUP_SIZE_CHANGED")
+Diff:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+Diff:RegisterEvent("CHALLENGE_MODE_START")
+Diff:RegisterEvent("CHALLENGE_MODE_COMPLETED")
+Diff:RegisterEvent("CHALLENGE_MODE_RESET")
+Diff:SetScript("OnEvent", styleDifficulty)

@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(select(2, ...))
+local T, C, L, _ = unpack(select(2, ...))
 if IsAddOnLoaded("DBM-Core") or IsAddOnLoaded("BigWigs") then return end
 
 ----------------------------------------------------------------------------------------

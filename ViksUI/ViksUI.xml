@@ -1,4 +1,4 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- engine -->
 	<Script file="Libs\LibStub\LibStub.lua" />
 	<Include file="Libs\LibSpellRange-1.0\lib.xml"/>
@@ -70,7 +70,6 @@
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
 	<Script file="Modules\Misc\Combat.lua"/>
-	<Script file="Modules\Misc\HealerIconNameplate.lua"/>
 	<Script file="Modules\Misc\LFGQueueTimer.lua"/>
 	<Script file="Modules\Misc\MagePortals.lua"/>
 	<Script file="Modules\Misc\Marking.lua"/>
@@ -196,7 +195,7 @@
 	<Script file="Modules\Blizzard\Errors.lua"/>
 	<Script file="Modules\Blizzard\Fixes.lua"/>
 	<Script file="Modules\Blizzard\Fonts.lua"/>
-	<!--Script file="Modules\Blizzard\FriendList.lua"/-->
+	<Script file="Modules\Blizzard\FriendList.lua"/>
 	<Script file="Modules\Blizzard\Mail.lua"/>
 	<Script file="Modules\Blizzard\MirrorBars.lua"/>
 	<Script file="Modules\Blizzard\MoveBlizzFrames.lua"/>
@@ -206,7 +205,7 @@
 	<Script file="Modules\Blizzard\UIWidget.lua"/>
 	<Script file="Modules\Blizzard\Vehicle.lua"/>
 	
-	<Script file="Modules\Cooldowns\DiminishingCD.lua"/>
+	<!--Script file="Modules\Cooldowns\DiminishingCD.lua"/-->
 	<Script file="Modules\Cooldowns\EnemyCD.lua"/>
 	<Script file="Modules\Cooldowns\PulseCD.lua"/>
 	<Script file="Modules\Cooldowns\RaidCD.lua"/>

@@ -1,4 +1,4 @@
-﻿local T, C, L, _ = unpack(ViksUI)
+local T, C, L, _ = unpack(ViksUI)
 if C.actionbar.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
