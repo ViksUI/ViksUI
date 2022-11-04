@@ -3,3 +3,5 @@ package-as: ViksUI
 move-folders:
     ViksUI/ViksUI: ViksUI
     ViksUI/Viks_ConfigUI: Viks_ConfigUI
+ignore:
+  - README.md
