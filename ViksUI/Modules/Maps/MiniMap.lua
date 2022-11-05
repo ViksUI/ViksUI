@@ -70,6 +70,12 @@ frame:SetScript("OnEvent", function(self, event)
 	GameTimeCalendarInvitesTexture:SetParent(Minimap)
 	GameTimeCalendarInvitesTexture:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", -1, -4)
 	GameTimeFrame:Hide() -- BETA Need another solution to keep showing calendar invites
+
+	-- Move Mail icon
+	MinimapCluster.MailFrame:ClearAllPoints()
+	MinimapCluster.MailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
+	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\mail.tga")
+	MiniMapMailIcon:SetSize(16, 16)
 end)
 
 -- Adjusting for patch 9.0.1 Minimap.xml
@@ -90,12 +96,6 @@ Minimap:SetQuestBlobRingScalar(0)
 
 -- Hide Zone Frame
 MinimapCluster.ZoneTextButton:Hide()
-
--- Move Mail icon
-MinimapCluster.MailFrame:ClearAllPoints()
-MinimapCluster.MailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
-MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\mail.tga")
-MiniMapMailIcon:SetSize(16, 16)
 
 -- Garrison icon
 if C.minimap.garrison_icon == true then

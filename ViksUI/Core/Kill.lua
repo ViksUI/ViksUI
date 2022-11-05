@@ -26,8 +26,8 @@ frame:SetScript("OnEvent", function(_, _, addon)
 		ShowPartyFrame = T.dummy
 		HidePartyFrame = T.dummy
 		CompactUnitFrameProfiles_ApplyProfile = T.dummy
-		CompactRaidFrameManager_UpdateShown = T.dummy
-		CompactRaidFrameManager_UpdateOptionsFlowContainer = T.dummy
+		-- CompactRaidFrameManager_UpdateShown = T.dummy
+		-- CompactRaidFrameManager_UpdateOptionsFlowContainer = T.dummy
 	end
 
 	--BETA Display_UseUIScale:Kill()
@@ -72,11 +72,17 @@ frame:SetScript("OnEvent", function(_, _, addon)
 
 	if C.minimap.enable then
 		--BETA InterfaceOptionsDisplayPanelRotateMinimap:Hide()
+		SetCVar("minimapTrackingShowAll", 1)
 	end
 
 	if C.bag.enable then
-		SetSortBagsRightToLeft(true)
-		SetInsertItemsLeftToRight(false)
+		if not T.newPatch then -- BETA
+			SetSortBagsRightToLeft(true)
+			SetInsertItemsLeftToRight(false)
+		else
+			C_Container.SetSortBagsRightToLeft(true)
+			C_Container.SetInsertItemsLeftToRight(false)
+		end
 	end
 
 	if C.combattext.enable then

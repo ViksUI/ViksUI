@@ -4,11 +4,18 @@ if C.tooltip.enable ~= true or C.tooltip.item_count ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Item count in bags and bank(by Tukz)
 ----------------------------------------------------------------------------------------
-GameTooltip:HookScript("OnTooltipSetItem", function(self)
-	local _, link = self:GetItem()
-	local num = GetItemCount(link, true)
+local function OnTooltipSetItem(self)
+	if not IsShiftKeyDown() then
+		local _, link = self:GetItem()
+		local num = GetItemCount(link, true)
 
-	if num > 1 then
-		self:AddLine("|cffffffff"..L_TOOLTIP_ITEM_COUNT.." "..num.."|r")
+		if num > 1 then
+			self:AddLine("|cffffffff"..L_TOOLTIP_ITEM_COUNT.." "..num.."|r")
+		end
 	end
-end)
+end
+if T.newPatch then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, OnTooltipSetItem)
+else
+	GameTooltip:HookScript("OnTooltipSetItem", OnTooltipSetItem)
+end

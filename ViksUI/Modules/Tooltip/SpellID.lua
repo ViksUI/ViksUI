@@ -20,10 +20,10 @@ local function addLine(self, id, isItem)
 	self:Show()
 end
 
-GameTooltip:HookScript("OnTooltipSetSpell", function(self)
+local function OnTooltipSetSpell(self)
 	local _, id = self:GetSpell()
 	if id then addLine(self, id) end
-end)
+end
 
 hooksecurefunc(GameTooltip, "SetUnitAura", function(self, ...)
 	local id = select(10, UnitAura(...))
@@ -47,18 +47,26 @@ hooksecurefunc("SetItemRef", function(link)
 end)
 
 local function attachItemTooltip(self)
-	local _, link = self:GetItem()
-	if not link then return end
-	local id = link:match("item:(%d+):")
-	if id then addLine(self, id, true) end
+	if not IsShiftKeyDown() then
+		local _, link = self:GetItem()
+		if not link then return end
+		local id = link:match("item:(%d+):")
+		if id then addLine(self, id, true) end
+	end
 end
 
-GameTooltip:HookScript("OnTooltipSetItem", attachItemTooltip)
-ItemRefTooltip:HookScript("OnTooltipSetItem", attachItemTooltip)
-ItemRefShoppingTooltip1:HookScript("OnTooltipSetItem", attachItemTooltip)
-ItemRefShoppingTooltip2:HookScript("OnTooltipSetItem", attachItemTooltip)
-ShoppingTooltip1:HookScript("OnTooltipSetItem", attachItemTooltip)
-ShoppingTooltip2:HookScript("OnTooltipSetItem", attachItemTooltip)
+if T.newPatch then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, OnTooltipSetSpell)
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, attachItemTooltip)
+else
+	GameTooltip:HookScript("OnTooltipSetSpell", OnTooltipSetSpell)
+	GameTooltip:HookScript("OnTooltipSetItem", attachItemTooltip)
+	ItemRefTooltip:HookScript("OnTooltipSetItem", attachItemTooltip)
+	ItemRefShoppingTooltip1:HookScript("OnTooltipSetItem", attachItemTooltip)
+	ItemRefShoppingTooltip2:HookScript("OnTooltipSetItem", attachItemTooltip)
+	ShoppingTooltip1:HookScript("OnTooltipSetItem", attachItemTooltip)
+	ShoppingTooltip2:HookScript("OnTooltipSetItem", attachItemTooltip)
+end
 
 SlashCmdList.SHOWSPELLID = function()
 	if not debuginfo then

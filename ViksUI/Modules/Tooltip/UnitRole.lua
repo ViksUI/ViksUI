@@ -18,11 +18,18 @@ local function GetLFDRole(unit)
 	end
 end
 
-GameTooltip:HookScript("OnTooltipSetUnit", function()
+local function OnTooltipSetUnit()
 	local _, instanceType = IsInInstance()
 	if instanceType == "scenario" then return end
 	local _, unit = GameTooltip:GetUnit()
 	if unit and UnitIsPlayer(unit) and ((UnitInParty(unit) or UnitInRaid(unit)) and GetNumGroupMembers() > 0) then
-		GameTooltip:AddLine(ROLE..": "..GetLFDRole(unit))
+		local leaderText = UnitIsGroupLeader(unit) and "|cfFFFFFFF - "..LEADER.."|r" or ""
+		GameTooltip:AddLine(ROLE..": "..GetLFDRole(unit)..leaderText)
 	end
-end)
+end
+
+if T.newPatch then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetUnit)
+else
+	GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
+end

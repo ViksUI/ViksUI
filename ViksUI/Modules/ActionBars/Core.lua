@@ -13,7 +13,9 @@ frame:SetScript("OnEvent", function()
 	OverrideActionBar:SetScale(0.00001)
 	OverrideActionBar:EnableMouse(false)
 	PetActionBar:EnableMouse(false)
+	PetActionBar:UnregisterAllEvents()
 	StanceBar:EnableMouse(false)
+	StanceBar:UnregisterAllEvents()
 	MicroButtonAndBagsBar:SetScale(0.00001)
 	MicroButtonAndBagsBar:EnableMouse(false)
 	MicroButtonAndBagsBar:ClearAllPoints()
@@ -25,7 +27,7 @@ frame:SetScript("OnEvent", function()
 	MainMenuBar:SetAttribute("ignoreFramePositionManager", true)
 
 	local elements = {
-		MainMenuBar, MainMenuBarArtFrame, OverrideActionBar, PossessBarFrame, PetActionBar, StanceBar,
+		MainMenuBar, MainMenuBarArtFrame, OverrideActionBar, PossessBarFrame,
 		MultiBarBottomLeft.QuickKeybindGlow, MultiBarLeft.QuickKeybindGlow, MultiBarBottomRight.QuickKeybindGlow, MultiBarRight.QuickKeybindGlow,
 		StatusTrackingBarManager
 	}

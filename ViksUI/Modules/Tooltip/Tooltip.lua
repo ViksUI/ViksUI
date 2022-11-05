@@ -438,13 +438,17 @@ local OnTooltipSetUnit = function(self)
 	end
 end
 
-GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
+if T.newPatch then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetUnit)
+else
+	GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
+end
 
 ----------------------------------------------------------------------------------------
 --	Show tip for NPC
 ----------------------------------------------------------------------------------------
 if C.tooltip.npc_tip == true then
-	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+	local function OnTooltipSetNpcTip(self)
 		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
 		-- NPC ID's
 		if unit then
@@ -462,7 +466,12 @@ if C.tooltip.npc_tip == true then
 				end
 			end
 		end
-	end)
+	end
+	if T.newPatch then
+		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetNpcTip)
+	else
+		GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetNpcTip)
+	end
 end
 
 ----------------------------------------------------------------------------------------
@@ -470,7 +479,7 @@ end
 ----------------------------------------------------------------------------------------
 
 if C.tooltip.DungeonScore then
-	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+	local function OnTooltipSetMScore(self)
 		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
 		-- NPC ID's
 		if unit then
@@ -480,7 +489,12 @@ if C.tooltip.DungeonScore then
 				GameTooltip:AddDoubleLine("Mythic+ Score:", data.currentSeasonScore, nil, nil, nil, color.r or 1, color.g or 1, color.b or 1)
 			end
 		end
-	end)
+	end
+	if T.newPatch then
+		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetMScore)
+	else
+		GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetMScore)
+	end
 end
 ----------------------------------------------------------------------------------------
 --	Hide tooltips in combat for action bars, pet bar and stance bar
@@ -500,32 +514,32 @@ end
 ----------------------------------------------------------------------------------------
 --	Fix compare tooltips(by Blizzard)(../FrameXML/GameTooltip.lua)
 ----------------------------------------------------------------------------------------
---[[ BETA 
-hooksecurefunc("GameTooltip_AnchorComparisonTooltips", function(_, anchorFrame, shoppingTooltip1, shoppingTooltip2, _, secondaryItemShown)
-	local point = shoppingTooltip1:GetPoint(2)
-	if secondaryItemShown then
-		if point == "TOP" then
-			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip2:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 3, -10)
-			shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 3, 0)
-		elseif point == "RIGHT" then
-			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip2:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -3, -10)
-			shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -3, 0)
+if not T.newPatch then
+	hooksecurefunc("GameTooltip_AnchorComparisonTooltips", function(_, anchorFrame, shoppingTooltip1, shoppingTooltip2, _, secondaryItemShown)
+		local point = shoppingTooltip1:GetPoint(2)
+		if secondaryItemShown then
+			if point == "TOP" then
+				shoppingTooltip1:ClearAllPoints()
+				shoppingTooltip2:ClearAllPoints()
+				shoppingTooltip1:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 3, -10)
+				shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 3, 0)
+			elseif point == "RIGHT" then
+				shoppingTooltip1:ClearAllPoints()
+				shoppingTooltip2:ClearAllPoints()
+				shoppingTooltip1:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -3, -10)
+				shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -3, 0)
+			end
+		else
+			if point == "LEFT" then
+				shoppingTooltip1:ClearAllPoints()
+				shoppingTooltip1:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 3, -10)
+			elseif point == "RIGHT" then
+				shoppingTooltip1:ClearAllPoints()
+				shoppingTooltip1:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -3, -10)
+			end
 		end
-	else
-		if point == "LEFT" then
-			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 3, -10)
-		elseif point == "RIGHT" then
-			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -3, -10)
-		end
-	end
-end)
-]]--
+	end)
+end
 ----------------------------------------------------------------------------------------
 --	Fix GameTooltipMoneyFrame font size
 ----------------------------------------------------------------------------------------
@@ -549,6 +563,7 @@ hooksecurefunc("SetTooltipMoney", function()
 		end
 	end
 end)
+
 ----------------------------------------------------------------------------------------
 --	Skin GameTooltip.ItemTooltip and EmbeddedItemTooltip
 ----------------------------------------------------------------------------------------

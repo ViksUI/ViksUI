@@ -153,7 +153,7 @@ function button:PLAYER_LOGIN()
 		rogue = ITEM_MIN_SKILL:gsub("%%s", (T.client == "ruRU" and "Взлом замков" or GetSpellInfo(1809))):gsub("%%d", "%(.*%)")
 	end
 
-	GameTooltip:HookScript("OnTooltipSetItem", function(self)
+	local function OnTooltipSetUnit(self)
 		local _, link = self:GetItem()
 
 		if link and not InCombatLockdown() and IsAltKeyDown() and not (AuctionHouseFrame and AuctionHouseFrame:IsShown()) then
@@ -166,7 +166,7 @@ function button:PLAYER_LOGIN()
 				spell, r, g, b = GetSpellInfo(31252), 1, 0.33, 0.33
 			elseif disenchanter then
 				local _, _, itemRarity, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(link)
-				if not (class == LE_ITEM_CLASS_WEAPON or class == LE_ITEM_CLASS_ARMOR or (class == 3 and subClass == 11)) or not (itemRarity and (itemRarity > 1 and (itemRarity < 5 or itemRarity == 6))) then return end
+				if not (itemRarity and (itemRarity > 1 and (itemRarity < 5 or itemRarity == 6))) then return end
 				spell, r, g, b = GetSpellInfo(13262), 0.5, 0.5, 1
 			elseif rogue then
 				for index = 1, self:NumLines() do
@@ -184,7 +184,13 @@ function button:PLAYER_LOGIN()
 				AutoCastShine_AutoCastStart(button, r, g, b)
 			end
 		end
-	end)
+	end
+
+	if T.newPatch then
+		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, OnTooltipSetUnit)
+	else
+		GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
+	end
 
 	self:SetFrameStrata("TOOLTIP")
 	self:SetAttribute("*type1", "macro")
