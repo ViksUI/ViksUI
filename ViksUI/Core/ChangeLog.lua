@@ -3,17 +3,18 @@ local T, C, L, _ = unpack(select(2, ...))
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"Update 10.13 for Wow 10.0",
+		"Update 10.14 for Wow 10.0.2",
 		"• More fixes",
-		"• Using oUF Debuffs as player debuff",
-		"• Using text instead of Dungeon Icon on minimap",
-		"• Curse will make Alpha version of Github version",
-		"• More skins enabled again, going slow..",
-		"• Nameplate Quest will show text instead of just quest icon",
-		"• Combo point can now be 7",
+		"• More skins enabled",
+		"• Support for wow 10.0.2 / PTR/BETA",
+		"• Bags are updated",
+		"• Evoker: Classbar, RaidDebuffs, Buff Reminder and Filger spells added",
 
 	" ",
 	"EXTRA:",
+	"This new patch requires a ton of work. 5-10h pr day. No time to play, just code :/",
+	"Hopefully most will be fixed before Dragonflight lands",
+	"New: Added Wow gift button and buymeacoffee button here on /changelog",
 	"Patreon helps me keep subscription while not playing",
 		"",
 	"PATREON's: Wiggy and Korallis",
@@ -45,8 +46,8 @@ local function GetChangeLogInfo(i)
 	end
 end
 
-_G.StaticPopupDialogs["BUGREPORT"] = {
-	text = "Bugreporting for ViksUI",
+_G.StaticPopupDialogs["WoW_Gift"] = {
+	text = "Send me a Gift in WoW. My BTag is:",
 	button1 = OKAY,
 	timeout = 0,
 	whileDead = true,
@@ -54,15 +55,15 @@ _G.StaticPopupDialogs["BUGREPORT"] = {
 	editBoxWidth = 325,
 	OnShow = function(self, ...) 
 		self.editBox:SetFocus()
-		self.editBox:SetText("https://discord.gg/Dhp5nHh")
+		self.editBox:SetText("VikingPower#2226")
 		self.editBox:HighlightText()
 	end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
 	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
 }
 
-_G.StaticPopupDialogs["TWITCH"] = {
-	text = "Twitch channel to ViksUI",
+_G.StaticPopupDialogs["BuyCoffee"] = {
+	text = "Help pay subscription to wow",
 	button1 = OKAY,
 	timeout = 0,
 	whileDead = true,
@@ -70,7 +71,7 @@ _G.StaticPopupDialogs["TWITCH"] = {
 	editBoxWidth = 325,
 	OnShow = function(self, ...) 
 		self.editBox:SetFocus()
-		self.editBox:SetText("https://www.twitch.tv/vikingpower")
+		self.editBox:SetText("https://www.buymeacoffee.com/ViksUI")
 		self.editBox:HighlightText()
 	end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
@@ -154,13 +155,13 @@ function ChangeLog:CreateChangelog()
 	close:SetPoint("BOTTOMRIGHT", frame, -5, 5)
 	close:SetScript("OnClick", function(self) frame:Hide() end)
 	
-	T["CreateBtn"]("bReport", frame, 65, 19, "Bugreport", "Bugreport", frame)
+	T["CreateBtn"]("bReport", frame, 65, 19, "Send me a gift on wow", "WoW Gift", frame)
 	bReport:SetPoint("BOTTOMLEFT", frame, 5, 5)
-	bReport:SetScript("OnClick", function(self) StaticPopup_Show("BUGREPORT") end)
+	bReport:SetScript("OnClick", function(self) StaticPopup_Show("WoW_Gift") end)
 	
-	T["CreateBtn"]("bTwitch", frame, 65, 19, "Twitch", "Twitch", frame)
+	T["CreateBtn"]("bTwitch", frame, 65, 19, "Help pay wow Sub", "BuyCoffee", frame)
 	bTwitch:SetPoint("BOTTOMLEFT", bReport, "BOTTOMRIGHT", 5, 0)
-	bTwitch:SetScript("OnClick", function(self) StaticPopup_Show("TWITCH") end)
+	bTwitch:SetScript("OnClick", function(self) StaticPopup_Show("BuyCoffee") end)
 	
 	T["CreateBtn"]("bDiscord", frame, 65, 19, "Discord", "Discord", frame)
 	bDiscord:SetPoint("BOTTOMLEFT", bTwitch, "BOTTOMRIGHT", 5, 0)
