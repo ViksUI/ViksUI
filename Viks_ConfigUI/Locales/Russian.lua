@@ -227,8 +227,9 @@ L_GUI_UF_PLUGINS_STAGGER_BAR = "Индикатор пошатывания (дл�
 L_GUI_UF_PLUGINS_HOLY_BAR = "Индикатор энергии света"
 L_GUI_UF_PLUGINS_SHARD_BAR = "Индикатор осколков душ"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Индикатор рун"
-L_GUI_UF_PLUGINS_TOTEM_BAR = "Индикатор тотемов"
-L_GUI_UF_PLUGINS_RANGE_BAR = "Индикатор досягаемости (для жрецов)"
+L_GUI_UF_PLUGINS_TOTEM_BAR = "Индикатор тотемов для шаманов"
+L.unitframe_class_bar_totem_other = "Индикатор 'тотемов' для других классов"
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Настройка внешнего вида рейдовых рамок."

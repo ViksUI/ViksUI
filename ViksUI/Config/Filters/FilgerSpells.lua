@@ -126,7 +126,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -300,7 +300,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -580,6 +580,126 @@ C["filger_spells"] = {
 			{spellID = 102558, filter = "CD"},
 			-- Incarnation: Tree of Life
 			{spellID = 33891, filter = "CD"},
+		},
+	},
+	["EVOKER"] = {
+		{
+			Name = "P_BUFF_ICON",
+			Direction = "LEFT",
+			Mode = "ICON",
+			Interval = C.filger.buffs_space,
+			Alpha = 1,
+			IconSize = C.filger.buffs_size,
+			Position = {"TOP", P_BUFF_ICON_Anchor},
+
+			-- Tip the scales
+			{spellID = 370553, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Living Flame Healing 
+			{spellID = 361509, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Obsidian Scales
+			{spellID = 363916, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Time Spiral
+			{spellID = 375234, unitID = "player", caster = "player", filter = "BUFF"},
+		},
+		{
+			Name = "P_PROC_ICON",
+			Direction = "LEFT",
+			Mode = "ICON",
+			Interval = C.filger.buffs_space,
+			Alpha = 1,
+			IconSize = C.filger.buffs_size,
+			Position = {"TOP", P_PROC_ICON_Anchor},
+
+			-- Buffs
+			-- Snapfire
+			{spellID = 370818, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Essence burst
+			{spellID = 359618, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Leaping Flames
+			{spellID = 370901, unitID = "player", caster = "player", filter = "BUFF"},
+		},
+		{
+			Name = "T_DEBUFF_ICON",
+			Direction = "RIGHT",
+			Mode = "ICON",
+			Interval = C.filger.buffs_space,
+			Alpha = 1,
+			IconSize = C.filger.buffs_size,
+			Position = {"TOP", T_DEBUFF_ICON_Anchor},
+
+			-- Living Flame Debuff
+			{spellID = 361500, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Leaping Flames Healing
+			{spellID = 361509, unitID = "target", caster = "player", filter = "BUFF"},
+			-- Fire Breath
+			{spellID = 357209, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Landslide
+			{spellID = 355689, unitID = "target", caster = "player", filter = "DEBUFF"},
+		},
+		{
+			Name = "T_DE/BUFF_BAR",
+			Direction = "UP",
+			IconSide = "LEFT",
+			Mode = "BAR",
+			Interval = 3,
+			Alpha = 1,
+			IconSize = 25,
+			BarWidth = 186,
+			Position = {"LEFT", T_DE_BUFF_BAR_Anchor},
+
+			-- Obsidian Scales
+			{spellID = 363916, unitID = "player", caster = "player", filter = "BUFF"},
+		},
+		{
+			Name = "PVE/PVP_CC",
+			Direction = "DOWN",
+			IconSide = "LEFT",
+			Mode = "BAR",
+			Interval = 3,
+			Alpha = 1,
+			IconSize = 25,
+			BarWidth = 150,
+			Position = {"LEFT", PVE_PVP_CC_Anchor},
+
+			-- Landslide
+			{spellID = 355689, unitID = "focus", caster = "all", filter = "DEBUFF"},
+		},
+		{
+			Name = "COOLDOWN",
+			Direction = "LEFT",
+			Mode = "ICON",
+			Interval = C.filger.cooldown_space,
+			Alpha = 1,
+			IconSize = C.filger.cooldown_size,
+			Position = {"TOP", COOLDOWN_Anchor},
+
+			-- Self
+			-- Tip the scales
+			{spellID = 370553, filter = "CD"},
+			-- Emerald Blossom
+			{spellID = 355913, filter = "CD"},
+			-- Deep Breath
+			{spellID = 357210, filter = "CD"},
+			-- Fire Storm
+			{spellID = 368847, filter = "CD"},
+			-- Time Spiral
+			{spellID = 374968, filter = "CD"},
+			-- Landslide
+			{spellID = 358385, filter = "CD"},
+			-- Oppressing Roar
+			{spellID = 372048, filter = "CD"},
+			-- Obsidian Scales
+			{spellID = 363916, filter = "CD"},
+			-- Eternity Surge
+			{spellID = 382411, filter = "CD"},
+			-- Dragonrage
+			{spellID = 375087, filter = "CD"},
+			-- Cauterizing Flame
+			{spellID = 374251, filter = "CD"},
+			-- Fire Breath
+			{spellID = 382266, filter = "CD"},
+			-- Time Spiral
+			{spellID = 374968, filter = "CD"},
 		},
 	},
 	["HUNTER"] = {
@@ -1090,7 +1210,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -1262,7 +1382,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -1484,7 +1604,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -1708,7 +1828,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -1876,7 +1996,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -2087,7 +2207,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,
@@ -2218,7 +2338,7 @@ C["filger_spells"] = {
 		},
 		{
 			Name = "COOLDOWN",
-			Direction = "RIGHT",
+			Direction = "LEFT",
 			Mode = "ICON",
 			Interval = C.filger.cooldown_space,
 			Alpha = 1,

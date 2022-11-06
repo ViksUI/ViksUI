@@ -1625,6 +1625,38 @@ lib.addArcaneCharges = function(self)
 	end
 end
 
+-- Essence Charges (Devastation Evoker)
+lib.addEssence = function(self)
+	if T.class == "EVOKER" then
+		-- Essence bar
+		if C.unitframe_class_bar.essence == true then
+			r, g, b = unpack(T.Colors.class["EVOKER"])
+			self.Essence = CreateFrame("Frame", self:GetName().."_Essence", self, "BackdropTemplate", "BackdropTemplate")
+			local maxEssence = UnitPowerMax(self.unit, Enum.PowerType.Essence)
+			self.Essence:CreateBackdrop("Default")
+			self.Essence:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1,7)
+			self.Essence:SetHeight(7)
+			self.Essence:SetWidth(self:GetWidth()-2)
+
+			for i = 1, 6 do
+				self.Essence[i] = CreateFrame("StatusBar", self:GetName().."_Essence"..i, self.Essence, "BackdropTemplate")
+				self.Essence[i]:SetSize(213 / 10, 7)
+				if i == 1 then
+					self.Essence[i]:SetPoint("LEFT", self.Essence)
+				else
+					self.Essence[i]:SetPoint("TOPLEFT", self.Essence[i-1], "TOPRIGHT", 1, 0)
+				end
+				self.Essence[i]:SetStatusBarTexture(C.media.texture)
+				self.Essence[i]:SetStatusBarColor(r, g, b)
+
+				self.Essence[i].bg = self.Essence[i]:CreateTexture(nil, "BORDER")
+				self.Essence[i].bg:SetAllPoints()
+				self.Essence[i].bg:SetTexture(C.media.texture)
+				self.Essence[i].bg:SetVertexColor(r, g, b, 0.2)
+			end
+		end
+	end
+end
 -- Paladins, HolyPowerbar
 lib.genHolyPower = function(self)
 	if playerClass ~= "PALADIN" then return end

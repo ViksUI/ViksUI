@@ -298,13 +298,15 @@ C["unitframe_class_bar"] = {
 	["combo"] = true,							-- Rogue/Druid Combo bar
 	["comboalways"] = false,					-- Always show Combo bar for Druid
 	["combo_old"] = false,						-- Show combo point on the target 
-	["chi"] = true,								-- Chi bar
-	["stagger"] = true,							-- Stagger bar (for Monk Tanks)
-	["holy"] = true,							-- Holy Power bar
-	["shard"] = true,							-- Shard/Burning bar
-	["rune"] = true,							-- Rune bar
-	["totem"] = true,							-- Totem bar
 	["arcane"] = true, 							-- show Mage Arcane Charges bar
+	["chi"] = true,								-- Chi bar
+	["essence"] = true,							-- Essence bar	
+	["holy"] = true,							-- Holy Power bar
+	["rune"] = true,							-- Rune bar
+	["shard"] = true,							-- Shard/Burning bar
+	["stagger"] = true,							-- Stagger bar (for Monk Tanks)
+	["totem"] = true,							-- Totem bar
+
 }	
 
 ----------------------------------------------------------------------------------------

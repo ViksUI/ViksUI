@@ -230,8 +230,9 @@ L_GUI_UF_PLUGINS_STAGGER_BAR = "Activer la barre de chancelement (pour les Tanks
 L_GUI_UF_PLUGINS_HOLY_BAR = "Activer la barre de Puissance sacrée"
 L_GUI_UF_PLUGINS_SHARD_BAR = "Activier la barre de Fragment d'âme"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Activer la barre de Rune"
-L_GUI_UF_PLUGINS_TOTEM_BAR = "Activer la barre de Totem"
-L_GUI_UF_PLUGINS_RANGE_BAR = "Active la barre de distance (pour la classe Prêtre)"
+L_GUI_UF_PLUGINS_TOTEM_BAR = "Activer la barre totem pour Shaman"
+L.unitframe_class_bar_totem_other = "Activer la barre totem pour les autres classes"
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Customize the appearance of the raid frames." -- Need review

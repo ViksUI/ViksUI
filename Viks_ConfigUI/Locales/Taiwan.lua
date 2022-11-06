@@ -216,7 +216,8 @@ L_GUI_UF_PLUGINS_HOLY_BAR = "聖光能量"
 L_GUI_UF_PLUGINS_SHARD_BAR = "靈魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "圖騰"
-L_GUI_UF_PLUGINS_RANGE_BAR = "距離顯示(僅牧師)"
+L.unitframe_class_bar_totem_other = "其他職業圖騰"
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Customize the appearance of the raid frames."

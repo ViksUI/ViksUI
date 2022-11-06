@@ -259,7 +259,7 @@
 	<!--Script file="Modules\Skins\TinyDPS.lua"/-->
 	<!--Script file="Modules\Skins\VanasKoS.lua"/-->
 	<!--Script file="Modules\Skins\WeakAuras.lua"/-->
-	<Script file="Modules\Skins\oPie.lua"/>
+	<!--Script file="Modules\Skins\oPie.lua"/-->
 	<!--Script file="Modules\Skins\pawn.lua"/-->
 	<!--Script file="Modules\Skins\Rematch.lua"/-->
 	<!--Script file="Modules\Skins\Postal.lua"/-->

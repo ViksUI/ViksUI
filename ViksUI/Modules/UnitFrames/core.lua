@@ -135,6 +135,7 @@ local UnitSpecific = {
 	if cfg.showRunebar then lib.genRunes(self) end
 	if cfg.showHolybar then lib.genHolyPower(self) end
 	if cfg.showShardbar then lib.genShards(self) end
+	lib.addEssence(self)
 	--if cfg.showEclipsebar then lib.addEclipseBar(self) end
 	--lib.addAdditionalPower(self)
 	if cfg.showArcaneChargesbar then lib.addArcaneCharges(self) end

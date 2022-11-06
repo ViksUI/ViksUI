@@ -10968,7 +10968,7 @@ SLASH_SET_BT1 = "/vbt"
 SlashCmdList.SET_BT = function() StaticPopup_Show("SET_BT") end
 
 SLASH_SET_BTLine1 = "/vbtline"
-SlashCmdList.SET_BTLine = function() StaticPopup_Show("SET_BT") end
+SlashCmdList.SET_BTLine = function() StaticPopup_Show("SET_BTLine") end
 
 SLASH_CONFIGURE1 = "/resetui"
 SlashCmdList.CONFIGURE = function() StaticPopup_Show("RESET_UI") end

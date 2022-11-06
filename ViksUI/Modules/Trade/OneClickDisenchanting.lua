@@ -154,6 +154,7 @@ function button:PLAYER_LOGIN()
 	end
 
 	local function OnTooltipSetUnit(self)
+	if not IsShiftKeyDown() then
 		local _, link = self:GetItem()
 
 		if link and not InCombatLockdown() and IsAltKeyDown() and not (AuctionHouseFrame and AuctionHouseFrame:IsShown()) then
@@ -184,6 +185,7 @@ function button:PLAYER_LOGIN()
 				AutoCastShine_AutoCastStart(button, r, g, b)
 			end
 		end
+	end
 	end
 
 	if T.newPatch then

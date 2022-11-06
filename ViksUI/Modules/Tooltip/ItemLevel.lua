@@ -1,6 +1,6 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.tooltip.enable ~= true or C.tooltip.average_lvl ~= true then return end
-
+if T.newPatch then return end -- BETA
 ----------------------------------------------------------------------------------------
 --	Equipped average item level(AverageItemLevel by Semlar)
 ----------------------------------------------------------------------------------------

@@ -514,7 +514,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 			SetItemButtonTextureVertexColor(ret.frame, 1.0, 1.0, 1.0)
 		end
 	else
-		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "BaseBagSlotButtonTemplate")
+		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..slot.."Slot", p, "")
 		Mixin(ret.frame, BackdropTemplateMixin)
 		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
 			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
@@ -527,19 +527,39 @@ function Stuffing:BagFrameSlotNew(p, slot)
 			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
 		end)
 
-		-- BETA for case if BaseBagSlotButtonTemplate will be bugged
-		-- local bag_tex = GetInventoryItemTexture("player", ContainerIDToInventoryID(slot + 1))
-		-- _G[ret.frame:GetName().."IconTexture"]:SetTexture(bag_tex)
+		ret.frame.ID = ContainerIDToInventoryID(slot + 1)
+		local bag_tex = GetInventoryItemTexture("player", ret.frame.ID)
+		_G[ret.frame:GetName().."IconTexture"]:SetTexture(bag_tex)
+		ret.frame:SetID(ret.frame.ID)
 
-		ret.frame.commandName = ""
+		ret.frame:RegisterForDrag('LeftButton')
+		ret.frame:SetScript('OnDragStart', function(self)
+			PickupBagFromSlot(self:GetID())
+		end)
+		ret.frame:SetScript('OnReceiveDrag', function(self)
+			PutItemInBag(self:GetID())
+		end)
 
-		local normal2 = ret.frame:GetNormalTexture()
-		if normal2 then
-			normal2:SetTexture()
-			normal2:Hide()
-			normal2:SetAlpha(0)
+		local tooltip_hide = function()
+			GameTooltip:Hide()
 		end
-		ret.frame.CircleMask:Hide()
+
+		local tooltip_show = function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_LEFT", 19, 7)
+			GameTooltip:ClearLines()
+			GameTooltip:SetInventoryItem('player', self:GetID())
+		end
+
+		ret.frame:HookScript("OnEnter", tooltip_show)
+		ret.frame:HookScript("OnLeave", tooltip_hide)
+
+		ret.frame:SetTemplate("Default")
+
+		local slotLink = GetInventoryItemLink("player", ret.frame.ID)
+		if slotLink then
+			local _, _, quality = GetItemInfo(slotLink)
+			ret.quality = quality
+		end
 
 		ret.slot = slot
 		table.insert(self.bagframe_buttons, ret)
@@ -551,6 +571,11 @@ function Stuffing:BagFrameSlotNew(p, slot)
 
 	ret.icon = _G[ret.frame:GetName().."IconTexture"]
 	ret.icon:CropIcon()
+
+	if ret.quality and ret.quality > 1 then
+		local r, g, b = GetItemQualityColor(ret.quality)
+		ret.frame:SetBackdropBorderColor(r, g, b)
+	end
 
 	return ret
 end
@@ -564,7 +589,6 @@ function Stuffing:SlotNew(bag, slot)
 	end
 
 	local tpl = "ContainerFrameItemButtonTemplate"
-	-- local tpl = "BankItemButtonGenericTemplate"
 
 	if bag == -1 then
 		tpl = "BankItemButtonGenericTemplate"
@@ -1260,19 +1284,6 @@ function Stuffing:Layout(isBank)
 	end
 end
 
-local function Stuffing_Sort(args)
-	if not args then
-		args = ""
-	end
-	if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
-		SortReagentBankBags()
-		return
-	end
-	Stuffing.itmax = 0
-	Stuffing:SetBagsForSorting(args)
-	Stuffing:SortBags()
-end
-
 function Stuffing:SetBagsForSorting(c)
 	Stuffing_Open()
 
@@ -1315,67 +1326,13 @@ function Stuffing:SetBagsForSorting(c)
 			table.insert(self.sortBags, tonumber(s))
 		end
 	end
-
-	local bids = L_BAG_BAGS_BIDS
-	for _, i in ipairs(self.sortBags) do
-		bids = bids..i.." "
-	end
-
-	print(bids)
 end
-
--- Slash command handler
-local function StuffingSlashCmd(Cmd)
-	local cmd, args = strsplit(" ", Cmd:lower(), 2)
-
-	if cmd == "config" then
-		Stuffing_OpenConfig()
-	elseif cmd == "sort" then
-		Stuffing_Sort(args)
-	elseif cmd == "psort" then
-		Stuffing_Sort("c/p")
-	elseif cmd == "stack" then
-
-		Stuffing:SetBagsForSorting(args)
-		Stuffing:Restack()
-	elseif cmd == "test" then
-		Stuffing:SetBagsForSorting(args)
-	elseif cmd == "purchase" then
-
-		if Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
-			local cnt, full = GetNumBankSlots()
-			if full then
-
-				Print(L_BAG_NO_SLOTS)
-				return
-			end
-
-			if args == "yes" then
-				PurchaseSlot()
-				return
-			end
-
-			Print(string.format(L_BAG_COSTS, GetBankSlotCost() / 10000))
-
-			Print(L_BAG_BUY_SLOTS)
-		else
-
-			Print(L_BAG_OPEN_BANK)
-		end
-	else
-		print("/bags sort - "..L_BAG_SORT)
-		print("/bags stack - "..L_BAG_STACK)
-		print("/bags purchase - "..L_BAG_BUY_BANKS_SLOT)
-	end
-end
-
 
 function Stuffing:ADDON_LOADED(addon)
 
 	if addon ~= "ViksUI" then return nil end
 	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("ITEM_LOCK_CHANGED")
-
 	self:RegisterEvent("BANKFRAME_OPENED")
 	self:RegisterEvent("BANKFRAME_CLOSED")
 	self:RegisterEvent("GUILDBANKFRAME_OPENED")
@@ -1385,12 +1342,10 @@ function Stuffing:ADDON_LOADED(addon)
 	self:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED")
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
-	--self:RegisterEvent("SCRAPPING_MACHINE_SHOW")
+	--BETA self:RegisterEvent("SCRAPPING_MACHINE_SHOW")
+	self:RegisterEvent("BAG_CONTAINER_UPDATE")
 	self:RegisterEvent("BAG_UPDATE_DELAYED")
 
-	SlashCmdList.STUFFING = StuffingSlashCmd
-	SLASH_STUFFING1 = "/bags"
-	SLASH_STUFFING2 = "/ифпы"
 	self:InitBags()
 
 	tinsert(UISpecialFrames, "StuffingFrameBags")
@@ -1560,6 +1515,27 @@ end
 function Stuffing:SCRAPPING_MACHINE_SHOW()
 	for i = 0, #BAGS_BACKPACK - 1 do
 		Stuffing:BAG_UPDATE(i)
+	end
+end
+
+function Stuffing:BAG_CONTAINER_UPDATE()
+	for _, v in ipairs(self.bagframe_buttons) do
+		if v.frame and v.slot < 4 then -- exclude bank
+			v.frame.ID = ContainerIDToInventoryID(v.slot + 1)
+
+			local slotLink = GetInventoryItemLink("player", v.frame.ID)
+			v.frame:SetBackdropBorderColor(unpack(C.media.border_color))
+			if slotLink then
+				local _, _, quality = GetItemInfo(slotLink)
+				if quality and quality > 1 then
+					local r, g, b = GetItemQualityColor(quality)
+					v.frame:SetBackdropBorderColor(r, g, b)
+				end
+			end
+
+			local bag_tex = GetInventoryItemTexture("player", v.frame.ID)
+			_G[v.frame:GetName().."IconTexture"]:SetTexture(bag_tex)
+		end
 	end
 end
 
@@ -1809,7 +1785,6 @@ function Stuffing:Restack()
 		self:SetScript("OnUpdate", Stuffing.RestackOnUpdate)
 	else
 		self:SetScript("OnUpdate", nil)
-		--Print(L_BAG_STACK_END)
 	end
 end
 
