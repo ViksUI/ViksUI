@@ -248,6 +248,33 @@ T.ClassTimer_Classes = {
 			-- Restoration
 		}
 	},
+	EVOKER = {
+		target = {
+			CreateSpellEntry(361500), -- Living Flame Debuff
+			CreateSpellEntry(361509), -- Leaping Flames Healing
+			CreateSpellEntry(357209), -- Fire Breath
+			CreateSpellEntry(355689), -- Landslide
+
+		},
+		player = {
+			-- Global
+			CreateSpellEntry(361509), 		-- Living Flame Healing
+			CreateSpellEntry(363916), 		-- Obsidian Scales
+			CreateSpellEntry(375234), 		-- Time Spiral
+			CreateSpellEntry(363916), 		-- Obsidian Scales
+			CreateSpellEntry(370818), 		-- Snapfire
+			CreateSpellEntry(359618), 		-- Essence burst
+			CreateSpellEntry(370901), 		-- Leaping Flames
+			-- Devastation
+
+		},
+		procs = {
+			-- Global
+			-- Devastation
+			-- Preservation
+
+		}
+	},
 	HUNTER = {
 		target = {
 			-- Global
