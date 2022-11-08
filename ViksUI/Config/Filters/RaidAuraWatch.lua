@@ -15,6 +15,13 @@ T.RaidBuffs = {
 		{102342, "LEFT", {0.45, 0.3, 0.2}, true},			-- Ironbark
 		{155777, "RIGHT", {0.4, 0.9, 0.4}},					-- Rejuvenation (Germination)
 	},
+	EVOKER = {
+		{355941, "TOPRIGHT", {0.20, 0.58, 0.50}},			-- Dream Breath
+		{363502, "BOTTOMLEFT", {0.26, 0.73, 0.63}},			-- Dream Flight
+		{366155, "RIGHT", {0.14, 1.00, 0.88}},				-- Reversion
+		{364343, "TOP", {0.13, 0.87, 0.50}},				-- Echo
+		{357170, "BOTTOM", {0.11, 0.57, 0.71}},				-- Time Dilation
+	},
 	MONK = {
 		{119611, "TOPRIGHT", {0.2, 0.7, 0.7}},				-- Renewing Mist
 		{124682, "BOTTOMLEFT", {0.4, 0.8, 0.2}},			-- Enveloping Mist
