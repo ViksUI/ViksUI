@@ -490,18 +490,13 @@ MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = 1
 hooksecurefunc("PaperDollFrame_SetItemLevel", function(self, unit)
 	if unit ~= "player" then return end
 
-	local total, equip, pvp = GetAverageItemLevel()
+	local total, equip = GetAverageItemLevel()
 	if total > 0 then total = string.format("%.1f", total) end
 	if equip > 0 then equip = string.format("%.1f", equip) end
-	if pvp > 0 then pvp = string.format("%.1f", pvp) end
 
 	local ilvl = equip
 	if equip ~= total then
-		if equip ~= pvp then
-			ilvl = equip.." / "..pvp.." / "..total
-		else
-			ilvl = equip.." / "..total
-		end
+		ilvl = equip.." / "..total
 	end
 
 	self.Value:SetText(ilvl)
