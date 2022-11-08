@@ -599,7 +599,29 @@ C["filger_spells"] = {
 			-- Obsidian Scales
 			{spellID = 363916, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Time Spiral
-			{spellID = 375234, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 375234, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Renewing Blaze
+			{spellID = 374348, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Dragonrage
+			{spellID = 375087, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Hover
+			{spellID = 358267, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Deep Breath
+			{spellID = 357210, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Recall
+			{spellID = 371807, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Time Dilation
+			{spellID = 357170, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Time Stop (PVP Talent)
+			{spellID = 378441, unitID = "player", caster = "player", filter = "BUFF"},	
+			-- Echo
+			{spellID = 364343, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Reversion
+			{spellID = 366155, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Dream Flight
+			{spellID = 363502, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Dream Breath
+			{spellID = 355941, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -635,6 +657,18 @@ C["filger_spells"] = {
 			{spellID = 357209, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Landslide
 			{spellID = 355689, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Permeating Chill
+			{spellID = 370898, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Disintegrate
+			{spellID = 356995, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Echo
+			{spellID = 364343, unitID = "target", caster = "player", filter = "BUFF"},
+			-- Reversion
+			{spellID = 366155, unitID = "target", caster = "player", filter = "BUFF"},
+			-- Dream Flight
+			{spellID = 363502, unitID = "target", caster = "player", filter = "BUFF"},
+			-- Dream Breath
+			{spellID = 355941, unitID = "target", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
@@ -648,7 +682,9 @@ C["filger_spells"] = {
 			Position = {"LEFT", T_DE_BUFF_BAR_Anchor},
 
 			-- Obsidian Scales
-			{spellID = 363916, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 363916, unitID = "player", caster = "player", filter = "BUFF"},			
+			-- Renewing Blaze
+			{spellID = 374348, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
@@ -663,6 +699,10 @@ C["filger_spells"] = {
 
 			-- Landslide
 			{spellID = 355689, unitID = "focus", caster = "all", filter = "DEBUFF"},
+			-- Sleep Walk
+			{spellID = 360806, unitID = "focus", caster = "all", filter = "DEBUFF"},			
+			-- Permeating Chill
+			{spellID = 370898, unitID = "focus", caster = "all", filter = "DEBUFF"},
 		},
 		{
 			Name = "COOLDOWN",
@@ -698,8 +738,14 @@ C["filger_spells"] = {
 			{spellID = 374251, filter = "CD"},
 			-- Fire Breath
 			{spellID = 382266, filter = "CD"},
-			-- Time Spiral
-			{spellID = 374968, filter = "CD"},
+			-- Time Dilation
+			{spellID = 357170, filter = "CD"},
+			-- Time Stop (PVP Talent)
+			{spellID = 378441, filter = "CD"},
+			-- Chrono Loop (PVP Talent)
+			{spellID = 383005, filter = "CD"},			
+			-- Emerald Communion
+			{spellID = 370960, filter = "CD"},
 		},
 	},
 	["HUNTER"] = {
@@ -2430,7 +2476,9 @@ C["filger_spells"] = {
 			-- Bloodlust
 			{spellID = 2825, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Heroism
-			{spellID = 32182, unitID = "player", caster = "all", filter = "BUFF"},
+			{spellID = 32182, unitID = "player", caster = "all", filter = "BUFF"},			
+			-- Fury of the Aspects (Evoker)
+			{spellID = 390386, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Primal Rage [Hunter's pet]
 			{spellID = 264667, unitID = "player", caster = "all", filter = "BUFF", absID = true},
 			-- Time Warp

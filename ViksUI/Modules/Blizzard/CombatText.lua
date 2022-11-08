@@ -1046,14 +1046,14 @@ if C.combattext.merge_aoe_spam then
 	for spell in pairs(T.aoespam) do
 		local name = GetSpellInfo(spell)
 		if not name then
-			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in combattext! Report this to Viks.|r")
+			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in combattext! Report this to Vik.|r")
 		end
 	end
 
 	for spell in pairs(T.merge) do
 		local name = GetSpellInfo(spell)
 		if not name then
-			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in combattext! Report this to Viks.|r")
+			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in combattext! Report this to Vik.|r")
 		end
 	end
 end
@@ -1062,7 +1062,7 @@ if C.combattext.healing then
 	for spell in pairs(T.healfilter) do
 		local name = GetSpellInfo(spell)
 		if not name then
-			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in combattext! Report this to Viks.|r")
+			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in combattext! Report this to Vik.|r")
 		end
 	end
 end
