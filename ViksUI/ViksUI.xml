@@ -47,6 +47,7 @@
 	<Script file="Main\move.lua"/>
 	<Script file="Main\Core.lua"/>
 	<Script file="Core\Functions.lua"/>
+	<Script file="Core\Panels.lua"/>
 	<Script file="Core\Launch.lua"/>
 	<Script file="Core\Disable.lua"/>
 	<Script file="Core\Commands.lua"/>
@@ -54,7 +55,6 @@
 	<Script file="Core\Kill.lua"/>
 	<Script file="Core\Temp.lua"/>
 	<Script file="Core\CheckVersion.lua"/>
-	<Script file="Core\Panels.lua"/>
 	<Script file="Core\ChangeLog.lua"/>
 	<Script file="Config\theme.lua"/>
 	<Script file="Config\Filters\FilgerSpells.lua"/>
