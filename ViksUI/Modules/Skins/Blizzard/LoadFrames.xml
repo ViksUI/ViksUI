@@ -23,7 +23,7 @@
 	<Script file="Character.lua"/>
 	<!--Script file="ChatConfig.lua"/-->
 	<!--Script file="ChromieTime.lua"/-->
-	<!--Script file="Collections.lua"/-->
+	<Script file="Collections.lua"/>
 	<!--Script file="Communities.lua"/-->
 	<Script file="Container.lua"/>
 	<!--Script file="Contribution.lua"/-->
@@ -56,7 +56,7 @@
 	<!--Script file="LossOfControl.lua"/-->
 	<!--Script file="MacClient.lua"/-->
 	<!--Script file="Macro.lua"/-->
-	<!--Script file="Mail.lua"/-->
+	<Script file="Mail.lua"/>
 	<Script file="Merchant.lua"/>
 	<Script file="MinimapButtons.lua"/>
 	<!--Script file="Obliterum.lua"/-->

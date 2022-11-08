@@ -16,7 +16,7 @@ skin.panels = {
 		self:StripTextures()
 		self:SetTemplate("Transparent")
 		self.TitleBar:StripTextures()
-		T.SkinCloseButton(self.TitleBar.CloseButton)
+		T.SkinCloseButton(RematchFrame.CloseButton)
 		self.TitleBar.LockButton:Kill()										   											  
 		skin:SetButtonIcon(self.TitleBar.LockButton,"Locked")
 		for _,tab in ipairs(self.PanelTabs.Tabs) do
@@ -27,6 +27,10 @@ skin.panels = {
 			skin:SetButtonIcon(titlebar.LockButton,RematchSettings.LockPosition and "Locked" or "Unlocked")
 			titlebar.SinglePanelButton:SetShown(not RematchSettings.Minimized)
 		end)
+		T.SkinCloseButton(RematchFrame.TitleBar.MinimizeButton, nil, "+")
+		RematchFrame.TitleBar.MinimizeButton:SetSize(18,18)
+		RematchFrame.TitleBar.MinimizeButton:SetPoint("TOPRIGHT", RematchFrame.CloseButton, "TOPLEFT", -3, 0)
+		T.SkinNextPrevButton(RematchFrame.TitleBar.SinglePanelButton, nil)
 	end,
 
 	Journal = function(self)
@@ -164,6 +168,7 @@ skin.panels = {
 		self.Top.Toggle:SkinButton()
 		T.SkinEditBox(self.Top.SearchBox)
 		self.Top.SearchBox:SetBackdrop({})
+		self.Top.SearchBox.NineSlice:Hide()
 		for _,region in ipairs({self.Top.SearchBox:GetRegions()}) do
 			if region:GetDrawLayer()=="BACKGROUND" then
 				region:Hide()
