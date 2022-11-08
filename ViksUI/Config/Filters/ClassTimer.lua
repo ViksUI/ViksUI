@@ -6,26 +6,51 @@ end
 
 T.ClassTimer_Trinkets = {
 	--[[Proccs & Racials]]--
-	CreateSpellEntry(2825, true), CreateSpellEntry(32182, true), CreateSpellEntry(80353, true), -- Bloodlust/Heroism/Timewarp
-	CreateSpellEntry(90355, true), -- Ancient Hysteria, bloodlust from hunters pet
-	CreateSpellEntry(26297), -- Berserking (troll racial)
-	CreateSpellEntry(33702), CreateSpellEntry(33697), CreateSpellEntry(20572), -- Blood Fury (orc racial)
-	CreateSpellEntry(57933), -- Tricks of Trade (15% dmg buff)
-	CreateSpellEntry(121279), -- Lifeblood
-	CreateSpellEntry(45861), -- Nitro Boost (Engeneering)
-	CreateSpellEntry(68992), -- Darkflight (Worgen Sprint Racial)
+	CreateSpellEntry(2825, true), 		-- [Shaman] Bloodlust
+	CreateSpellEntry(32182, true), 		-- [Shaman] Heroism
+	CreateSpellEntry(80353, true), 		-- [Mage] Time Warp
+	CreateSpellEntry(90355, true), 		-- [Hunter] Ancient Hysteria
+	CreateSpellEntry(390386, true), 	-- [Evoker] Fury of the Aspects
+	CreateSpellEntry(26297), 			-- Berserking (troll racial)
+	CreateSpellEntry(33702), 			-- Blood Fury +INT (orc racial) 
+	CreateSpellEntry(33697),  			-- Blood Fury +AP & INT (orc racial), Shamman
+	CreateSpellEntry(20572), 			-- Blood Fury +AP (orc racial)
+	CreateSpellEntry(55016),			-- Nitro Boost (Engeneering)
+	CreateSpellEntry(173260),			-- Shieldtronic Shield (Engeneering)
+	CreateSpellEntry(55001),			-- Parachute (Engeneering)
+	CreateSpellEntry(126389),			-- Goblin Glider
+	CreateSpellEntry(68992), 			-- Darkflight (Worgen Sprint Racial)
+	CreateSpellEntry(273104), 			-- Fireblood (Dark Iron Dwarf)
+	CreateSpellEntry(65116), 			-- Stoneform (Dwarf)
+	CreateSpellEntry(58984), 			-- Shadowmeld (Night Elf)
+	CreateSpellEntry(28880), 			-- Gift of the Naaru (Draenei)
 
-	--[[Darkmoon-Trinkets]]--
+	--[[Damage Reduction]]--
+	CreateSpellEntry(116849, true), 		-- [Monk] Life Cocoon
+	CreateSpellEntry(47788, true), 			-- [Priest] Guardian Spirit
+	CreateSpellEntry(33206, true), 			-- [Priest] Pain Suppression
+	CreateSpellEntry(102342, true), 		-- [Druid] Ironbark
+	CreateSpellEntry(31821, true), 			-- [Paladin] Aura Mastery
+	CreateSpellEntry(1022, true), 			-- [Paladin] Blessing of Protection
+	CreateSpellEntry(6940, true), 			-- [Paladin] Blessing of Sacrifice
+	CreateSpellEntry(204018, true), 		-- [Paladin] Blessing of Spellwarding
+	CreateSpellEntry(114030, true), 		-- [Warrior] Vigilance
+	CreateSpellEntry(97463, true), 			-- [Warrior] Rallying Cry
+	CreateSpellEntry(209426, true), 		-- [Demon Hunter] Darkness
+	
+	--[[Trinkets]]--
 	CreateSpellEntry(162915), -- Spirit of the Warlords (Skull of War)
 	CreateSpellEntry(162913), -- Visions of the Future (Winged Hourglass)
 	CreateSpellEntry(162919), -- Nightmare Fire (Sandman's Pouch)
 	CreateSpellEntry(162917), -- Strength of Steel (Knight's Badge)
+	CreateSpellEntry(123456), -- Strength of Steel (Knight's Badge)
+	CreateSpellEntry(345231), -- Gladiator's Eternal Aegis
+	CreateSpellEntry(345231), -- Gladiator's Emblem
+}
+	
+T.ClassTimer_CommonTarget = {
 }
 
-T.ClassTimer_CommonTarget = {
-CreateSpellEntry(980), -- Hunters Mark
-CreateSpellEntry(328275), -- Hunters Mark
-}
 T.ClassTimer_Classes = {
 	DEATHKNIGHT = {
 		target = {
@@ -36,7 +61,6 @@ T.ClassTimer_Classes = {
 			-- Frost
 			CreateSpellEntry(55095), -- Frost Fever
 			-- Unholy
-			CreateSpellEntry(130736), -- Soul Reaper
 			CreateSpellEntry(191587), -- Virulent Plague
 			CreateSpellEntry(194310), -- Festering Wounds
 			CreateSpellEntry(196782), -- Outbreak
@@ -49,6 +73,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(49039), -- Lichborne
 			CreateSpellEntry(115018), -- Desecrated Ground
 			CreateSpellEntry(115989), -- Unholy Blight
+			CreateSpellEntry(145629), -- Anti-Magic Zone
 			-- Blood
 			CreateSpellEntry(55233), -- Vampiric Blood
 			CreateSpellEntry(81141), -- Crimson Scourge
@@ -84,7 +109,6 @@ T.ClassTimer_Classes = {
 			-- Unholy
 			CreateSpellEntry(51460), -- Runic Corruption
 			CreateSpellEntry(81340), -- Sudden Doom
-			CreateSpellEntry(207290), -- Unholy Frenzy
 		}
 	},
 	DEMONHUNTER = {
@@ -115,20 +139,19 @@ T.ClassTimer_Classes = {
 		player = {
 			-- Global
 			CreateSpellEntry(163073), -- Demon Soul
+			CreateSpellEntry(206804), -- Rain from Above
 			-- Havoc
 			CreateSpellEntry(162264), -- Metamorphosis (Havoc)
 			CreateSpellEntry(188501), -- Spectral Sight
 			CreateSpellEntry(196555), -- Netherwalk
 			CreateSpellEntry(209426), -- Darkness
-			CreateSpellEntry(211048), -- Chaos Blades
 			CreateSpellEntry(212800), -- Blur
 			-- Vengeance
-			CreateSpellEntry(178740), -- Immolation Aura
 			CreateSpellEntry(187827), -- Metamorphosis (Vengeance)
 			CreateSpellEntry(203819), -- Demon Spikes
 			CreateSpellEntry(207693), -- Feast of Souls
 			CreateSpellEntry(207810), -- Netherbond
-			CreateSpellEntry(218256), -- Empower Wards
+			CreateSpellEntry(263648), -- Soul Barrier
 		},
 		procs = {
 			-- Havoc
@@ -148,10 +171,10 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(102359), -- Mass Entanglement
 			CreateSpellEntry(137452), -- Displacer Beast
 			CreateSpellEntry(164812), -- Moonfire
+			CreateSpellEntry(203554), -- Focused Growth
 			-- Balance
 			CreateSpellEntry(81261), -- Solar Beam
 			CreateSpellEntry(164815), -- Sunfire
-			CreateSpellEntry(197637), -- Stellar Empowerment
 			CreateSpellEntry(202347), -- Stellar Flare
 			CreateSpellEntry(205644), -- Force of Nature
 			-- Feral
@@ -174,9 +197,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(774), -- Rejuvenation
 			CreateSpellEntry(8936), -- Regrowth
 			CreateSpellEntry(33763), -- Lifebloom
-			CreateSpellEntry(42231), -- Hurricane
 			CreateSpellEntry(48438), -- Wild Growth
-			CreateSpellEntry(48504), -- Living Seed
 			CreateSpellEntry(102342), -- Ironbark
 			CreateSpellEntry(102351), -- Cenarion Ward
 			CreateSpellEntry(127797), -- Ursol's Vortex
@@ -190,9 +211,9 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(5215), -- Prowl
 			CreateSpellEntry(22812), -- Barkskin
 			CreateSpellEntry(61336), -- Survival Instincts
+			CreateSpellEntry(362486), -- Tranquility (Druid PVP)
 			-- Balance
 			CreateSpellEntry(102560), -- Incarnation: Chosen of Elune
-			CreateSpellEntry(164545), -- Solar Empowerment
 			CreateSpellEntry(165547), -- Lunar Empowerment
 			CreateSpellEntry(191034), -- Starfall
 			CreateSpellEntry(194223), -- Celestial Alignment
@@ -216,9 +237,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(93622), -- Mangle!
 			CreateSpellEntry(102558), -- Incarnation: Son of Ursoc
 			CreateSpellEntry(155835), -- Bristling Fur
-			CreateSpellEntry(158792), -- Pulverize
 			CreateSpellEntry(192081), -- Ironfur
-			CreateSpellEntry(192083), -- Mark of Ursol
 			CreateSpellEntry(200851), -- Rage of the Sleeper
 			CreateSpellEntry(201671), -- Gory Fur
 			CreateSpellEntry(203975), -- Earthwarden
@@ -229,7 +248,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(8936), -- Regrowth
 			CreateSpellEntry(16870), -- Clearcasting
 			CreateSpellEntry(33763), -- Lifebloom
-			CreateSpellEntry(48504), -- Living Seed
 			CreateSpellEntry(48438), -- Wild Growth
 			CreateSpellEntry(102342), -- Ironbark
 			CreateSpellEntry(102351), -- Cenarion Ward
@@ -250,10 +268,18 @@ T.ClassTimer_Classes = {
 	},
 	EVOKER = {
 		target = {
-			CreateSpellEntry(361500), -- Living Flame Debuff
-			CreateSpellEntry(361509), -- Leaping Flames Healing
-			CreateSpellEntry(357209), -- Fire Breath
-			CreateSpellEntry(355689), -- Landslide
+			CreateSpellEntry(361500), 		-- Living Flame Debuff
+			CreateSpellEntry(361509), 		-- Leaping Flames Healing
+			CreateSpellEntry(357209), 		-- Fire Breath
+			CreateSpellEntry(355689),		-- Landslide
+			CreateSpellEntry(357170), 		-- Time Dilation
+			CreateSpellEntry(378441), 		-- Time Stop (PVP Talent)
+			CreateSpellEntry(383005), 		-- Chrono Loop (PVP Talent)
+			CreateSpellEntry(360806), 		-- Sleep Walk
+			CreateSpellEntry(355941), 		-- Dream Breath
+			CreateSpellEntry(363502), 		-- Dream Flight
+			CreateSpellEntry(366155), 		-- Reversion
+			CreateSpellEntry(364343), 		-- Echo
 
 		},
 		player = {
@@ -261,11 +287,21 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(361509), 		-- Living Flame Healing
 			CreateSpellEntry(363916), 		-- Obsidian Scales
 			CreateSpellEntry(375234), 		-- Time Spiral
-			CreateSpellEntry(363916), 		-- Obsidian Scales
 			CreateSpellEntry(370818), 		-- Snapfire
 			CreateSpellEntry(359618), 		-- Essence burst
 			CreateSpellEntry(370901), 		-- Leaping Flames
-			-- Devastation
+			CreateSpellEntry(374348), 		-- Renewing Blaze
+			CreateSpellEntry(375087), 		-- Dragonrage
+			CreateSpellEntry(358267), 		-- Hover
+			CreateSpellEntry(357210), 		-- Deep Breath
+			CreateSpellEntry(371807), 		-- Recall
+			CreateSpellEntry(357170), 		-- Time Dilation
+			CreateSpellEntry(378441), 		-- Time Stop (PVP Talent)
+			CreateSpellEntry(370960), 		-- Emerald Communion
+			CreateSpellEntry(355941), 		-- Dream Breath
+			CreateSpellEntry(363502), 		-- Dream Flight
+			CreateSpellEntry(366155), 		-- Reversion
+			CreateSpellEntry(364343), 		-- Echo
 
 		},
 		procs = {
@@ -285,7 +321,6 @@ T.ClassTimer_Classes = {
 			-- Shared
 			CreateSpellEntry(5116), -- Concussive Shot
 			CreateSpellEntry(24335), -- Wyvern Sting
-			CreateSpellEntry(34490), -- Silencing Shot
 			CreateSpellEntry(117405), -- Binding Shot
 			CreateSpellEntry(202797), -- Viper Sting
 			CreateSpellEntry(202900), -- Scorpid Sting
@@ -294,7 +329,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(202933), -- Spider Sting
 			CreateSpellEntry(207094), -- Titan's Thunder
 			-- Marksmanship
-			CreateSpellEntry(187131), -- Vulnerable
 			CreateSpellEntry(190533), -- Marked for Death
 			CreateSpellEntry(194599), -- Black Arrow
 			CreateSpellEntry(199803), -- True Aim
@@ -321,21 +355,24 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(109215), -- Posthaste (Disengage/Harpoon speed burst)
 			CreateSpellEntry(186258), -- Aspect of the Cheetah
 			CreateSpellEntry(189949), -- Aspect of the Turtle
+			CreateSpellEntry(186265), -- Aspect of the Turtle
+			CreateSpellEntry(53480), -- Roar of Sacrifice (PVP Talent)
 			-- Shared
 			CreateSpellEntry(120360), -- Barrage
 			CreateSpellEntry(199483), -- Camouflage
 			CreateSpellEntry(202627), -- Catlike Reflexes
 			CreateSpellEntry(202748), -- Survival Tactics
+			CreateSpellEntry(264735), -- Survival of the Fittest (Pet Ability)
+			CreateSpellEntry(281195), -- Survival of the Fittest (Lone Wolf)
+			CreateSpellEntry(281195), -- Survival of the Fittest (Lone Wolf)
 			-- Beast Mastery
 			CreateSpellEntry(19574), -- Bestial Wrath
 			CreateSpellEntry(193530), -- Aspect of the Wild
 			-- Marksmanship
 			CreateSpellEntry(82921), -- Bombardment
 			CreateSpellEntry(190515), -- Survival of the Fittest
-			CreateSpellEntry(193526), -- Trueshot
 			CreateSpellEntry(193534), -- Steady Focus
 			CreateSpellEntry(203155), -- Sniper Shot
-			CreateSpellEntry(227272), -- Trick Shot
 			-- Survival
 			CreateSpellEntry(62305), -- Master's Call
 			CreateSpellEntry(186289), -- Aspect of the Eagle
@@ -344,7 +381,6 @@ T.ClassTimer_Classes = {
 		},
 		procs = {
 			CreateSpellEntry(164857), -- Survivalist
-			CreateSpellEntry(185987), -- Hunter's Mark
 		},
 	},
 	MAGE = {
@@ -385,9 +421,15 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(116014), -- Rune of Power
 			CreateSpellEntry(116267), -- Incanter's Flow
 			-- Shared
+			CreateSpellEntry(66), -- Invisibility
 			CreateSpellEntry(32612), -- Invisibility
+			CreateSpellEntry(198158), -- Mass Invisibility (PVP Talent)
+			CreateSpellEntry(198111), -- Temporal Shield (PVP Talent)
 			CreateSpellEntry(205025), -- Presence of Mind
 			CreateSpellEntry(210126), -- Arcane Familiar
+			CreateSpellEntry(342246), -- Alter Time
+			CreateSpellEntry(110909), -- Alter Time
+			CreateSpellEntry(108978), -- Alter Time
 			-- Arcane
 			CreateSpellEntry(12042), -- Arcane Power
 			CreateSpellEntry(12051), -- Evocation
@@ -402,8 +444,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(195418), -- Chain Reaction
 		},
 		procs = {
-			-- Arcane
-			CreateSpellEntry(79683), -- Arcane Missiles!								   
+			-- Arcane							   
 			CreateSpellEntry(198924), -- Quickening
 			CreateSpellEntry(263725), -- Clearcasting
 			CreateSpellEntry(276743), -- Clearcasting
@@ -422,7 +463,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(116189), -- Provoke
 			CreateSpellEntry(117952), -- Crackling Jade Lightning
 			CreateSpellEntry(119381), -- Leg Sweep
-			CreateSpellEntry(140023), -- Ring of Peace
+			CreateSpellEntry(115176), -- Zen Meditation
 			-- Brewmaster
 			CreateSpellEntry(121253), -- Keg Smash
 			CreateSpellEntry(196727), -- Provoke
@@ -431,6 +472,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(214326), -- Exploding Keg
 			-- Mistweaver
 			CreateSpellEntry(116849), -- Life Cocoon
+			CreateSpellEntry(202577), -- Dome of Mist
 			CreateSpellEntry(198909), -- Song of Chi-Ji
 			-- Windwalker
 			CreateSpellEntry(115080), -- Touch of Death
@@ -446,6 +488,8 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(122783), -- Diffuse Magic
 			-- Shared
 			CreateSpellEntry(116847), -- Rushing Jade Wind
+			CreateSpellEntry(353319), -- Peaceweaver (PVP Talent)
+			CreateSpellEntry(115176), -- Zen Meditation
 			-- Brewmaster
 			CreateSpellEntry(120954), -- Fortifying Brew
 			CreateSpellEntry(213177), -- Swift as a Coursing River
@@ -456,9 +500,9 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(115175), -- Soothing Mist
 			CreateSpellEntry(116680), -- Thunder Focus Tea
 			CreateSpellEntry(116849), -- Life Cocoon
+			CreateSpellEntry(202577), -- Dome of Mist
 			CreateSpellEntry(119611), -- Renewing Mist
 			CreateSpellEntry(191840), -- Essence Font
-			CreateSpellEntry(197206), -- Uplifting Trance
 			CreateSpellEntry(197908), -- Mana Tea
 			CreateSpellEntry(199888), -- The Mists of Shellum
 			CreateSpellEntry(214478), -- Shroud of Mist
@@ -488,6 +532,10 @@ T.ClassTimer_Classes = {
 			-- Global
 			CreateSpellEntry(853), -- Hammer of Justice
 			CreateSpellEntry(62124), -- Hand of Reckoning
+			CreateSpellEntry(1022), -- Blessing of Protection
+			CreateSpellEntry(1044), -- Blessing of Freedom
+			CreateSpellEntry(6940), -- Hand of Sacrifice
+			CreateSpellEntry(199448), -- Blessing of Ultimate Sacrifice
 			-- Holy
 			CreateSpellEntry(214222), -- Judgement
 			CreateSpellEntry(223306), -- Bestow Faith
@@ -495,12 +543,11 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(31935), -- Avenger's Shield
 			CreateSpellEntry(204242), -- Consecration
 			CreateSpellEntry(204301), -- Blessed Hammer
+			CreateSpellEntry(228049), -- Guardian of the Forgotten Queen (PVP Talent)
 			-- Retribution
 			CreateSpellEntry(183218), -- Hand of Hindrance
 			CreateSpellEntry(197277), -- Judgement
-			CreateSpellEntry(202270), -- Blade of Wrath
 			CreateSpellEntry(205273), -- Wake of Ashes
-			CreateSpellEntry(213757), -- Execution Sentence
 		},
 		player = {
 			-- Global
@@ -510,15 +557,13 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(221887), -- Devine Steed
 			-- Shared
 			CreateSpellEntry(6940), -- Hand of Sacrifice
+			CreateSpellEntry(199448), -- Blessing of Ultimate Sacrifice
 			CreateSpellEntry(31884), -- Avenging Wrath
 			-- Holy
 			CreateSpellEntry(498), -- Devine Protection
 			CreateSpellEntry(31821), -- Aura Mastery
-			CreateSpellEntry(31842), -- Avenging Wrath
 			CreateSpellEntry(53563), -- Beacon of Light
 			CreateSpellEntry(105809), -- Holy Avenger
-			CreateSpellEntry(183415), -- Aura of Mercy
-			CreateSpellEntry(183416), -- Aura of Sacrifice
 			CreateSpellEntry(200025), -- Beacon of Virtue
 			CreateSpellEntry(200376), -- Vindicator
 			CreateSpellEntry(200654), -- Tyr's Deliverance
@@ -537,16 +582,13 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(209388), -- Bulwark of Order
 			CreateSpellEntry(209540), -- Light of the Titans
 			CreateSpellEntry(204242), -- Consecration
+			CreateSpellEntry(327193), -- Moment of Glory
+			CreateSpellEntry(205273), -- Guardian of the Forgotten Queen (PVP Talent)
 			
 			-- Retribution
 			CreateSpellEntry(184662), -- Shield of Vengeance
-			CreateSpellEntry(202273), -- Seal of Light
-			--CreateSpellEntry(203528), -- Greater Blessing of Might
-			--CreateSpellEntry(203538), -- Greater Blessing of Kings
-			--CreateSpellEntry(203539), -- Greater Blessing of Wisdom
 			CreateSpellEntry(205191), -- Eye for an Eye
 			CreateSpellEntry(217020), -- Zeal
-			CreateSpellEntry(224668), -- Crusade
 		},
 		procs = {
 			-- Holy
@@ -566,7 +608,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(8122), -- Psychic Scream
 			CreateSpellEntry(65081), -- Body and Soul
 			CreateSpellEntry(109142), -- Twist of Fate
-			CreateSpellEntry(186263), -- Shadow Mend
 			-- Holy
 			CreateSpellEntry(139), -- Renew					
 			CreateSpellEntry(33076), -- Prayer of Mending			
@@ -577,7 +618,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(208065), -- Light of T'uure
 			CreateSpellEntry(210980), -- Focus in the Light
 			CreateSpellEntry(213610), -- Holy Ward
-			CreateSpellEntry(214121), -- Body and Mind
 			CreateSpellEntry(221660), -- Holy Concentration
 			-- Discipline
 			CreateSpellEntry(33206), -- Pain Suppression
@@ -588,68 +628,63 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(204197), -- Purge the Wicked (should replace Shadow Word: Pain when talented)
 			CreateSpellEntry(204263), -- Shining Force
 			CreateSpellEntry(214621), -- Schism
-			CreateSpellEntry(219521), -- Shadow Covenant
+			CreateSpellEntry(81782), -- Power Word: Barrier
+			CreateSpellEntry(271466), -- Luminous Barrier
 			-- Shadow
 			CreateSpellEntry(15407), -- Mind Flay
 			CreateSpellEntry(34914, false, nil, nil, 34914), -- Vampiric Touch
 			CreateSpellEntry(199683), -- Last Word
-			CreateSpellEntry(217676), -- Mind Spike
 			CreateSpellEntry(226943), -- Mind Bomb
 			CreateSpellEntry(335467), -- Devouring Plague
 		},
 		player = {
 			--Global
-			CreateSpellEntry(586), -- Fade
-			CreateSpellEntry(2096), --Mind Vision
+			CreateSpellEntry(586), 		-- Fade
+			CreateSpellEntry(2096), 	--Mind Vision
 			-- Shared
-			CreateSpellEntry(17), -- Power Word: Shield
-			CreateSpellEntry(10060), -- Power Infusion			
-			CreateSpellEntry(121536), -- Angelic Feather
-			CreateSpellEntry(186263), -- Shadow Mend
+			CreateSpellEntry(17), 		-- Power Word: Shield
+			CreateSpellEntry(10060), 	-- Power Infusion			
+			CreateSpellEntry(121536), 	-- Angelic Feather
+			CreateSpellEntry(19236), 	-- Desperate Prayer
 			-- Holy
-			CreateSpellEntry(139), -- Renew			
-			CreateSpellEntry(33076), -- Prayer of Mending
-			CreateSpellEntry(63735), -- Serendipity
-			CreateSpellEntry(64843), -- Divine Hymn
-			CreateSpellEntry(64901), -- Symbol of Hope
-			CreateSpellEntry(196644), -- Blessing of T'uure
-			CreateSpellEntry(196773), -- Inner Focus
-			CreateSpellEntry(197341), -- Ray of Hope
-			CreateSpellEntry(200183), -- Apotheosis
-			CreateSpellEntry(208065), -- Light of T'uure
-			CreateSpellEntry(210980), -- Focus in the Light
-			CreateSpellEntry(213610), -- Holy Ward
-			CreateSpellEntry(214121), -- Body and Mind
-			CreateSpellEntry(217941), -- Spirit of the Redeemer
+			CreateSpellEntry(139), 		-- Renew			
+			CreateSpellEntry(33076), 	-- Prayer of Mending
+			CreateSpellEntry(64843),	-- Divine Hymn
+			CreateSpellEntry(64901),	-- Symbol of Hope
+			CreateSpellEntry(196644),	-- Blessing of T'uure
+			CreateSpellEntry(196773),	-- Inner Focus
+			CreateSpellEntry(197341), 	-- Ray of Hope
+			CreateSpellEntry(200183), 	-- Apotheosis
+			CreateSpellEntry(208065), 	-- Light of T'uure
+			CreateSpellEntry(210980), 	-- Focus in the Light
+			CreateSpellEntry(213610), 	-- Holy Ward
+			CreateSpellEntry(217941), 	-- Spirit of the Redeemer
+			CreateSpellEntry(20711), 	-- Spirit of Redemption
 			-- Discipline
-			CreateSpellEntry(33206), -- Pain Suppression
-			CreateSpellEntry(47536), -- Rapture
-			CreateSpellEntry(81700), -- Archangel
-			CreateSpellEntry(194384), -- Atonement			
-			CreateSpellEntry(152118), -- Clarity of Will
-			CreateSpellEntry(197763), -- Borrowed Time
-			CreateSpellEntry(197871), -- Dark Archangel
-			CreateSpellEntry(198069), -- Power of the Dark Side
-			CreateSpellEntry(210027), -- Share in the Light
-			CreateSpellEntry(211681), -- Power Word: Fortitude
-			CreateSpellEntry(219521), -- Shadow Covenant
+			CreateSpellEntry(33206), 	-- Pain Suppression
+			CreateSpellEntry(47536), 	-- Rapture
+			CreateSpellEntry(194384), 	-- Atonement			
+			CreateSpellEntry(152118), 	-- Clarity of Will
+			CreateSpellEntry(197763), 	-- Borrowed Time
+			CreateSpellEntry(197871), 	-- Dark Archangel
+			CreateSpellEntry(198069), 	-- Power of the Dark Side
+			CreateSpellEntry(210027), 	-- Share in the Light
+			CreateSpellEntry(211681), 	-- Power Word: Fortitude
+			CreateSpellEntry(219521), 	-- Shadow Covenant
+			CreateSpellEntry(81782), 	-- Power Word: Barrier
+			CreateSpellEntry(271466),	-- Luminous Barrier
 			-- Shadow
 			CreateSpellEntry(47585), -- Dispersion
 			CreateSpellEntry(193173), -- Mania
 			CreateSpellEntry(194249), -- Voidform
-			CreateSpellEntry(195455), -- Surrender to Madness
-			CreateSpellEntry(197937), -- Lingering Insanity
 			CreateSpellEntry(199131), -- Pure Shadow
-			CreateSpellEntry(199413), -- Edge of Insanity
 			CreateSpellEntry(204778), -- Void Shield
 			CreateSpellEntry(205065), -- Void Torrent
-			CreateSpellEntry(205372), -- Void Ray
 
 		},
 		procs = {
 			CreateSpellEntry(45243), -- Focused Will
 			CreateSpellEntry(341207), -- Dark Thoughts
-			CreateSpellEntry(88690), -- Surge of Light
 			CreateSpellEntry(124430), -- Shadowy Insight
 			CreateSpellEntry(195329), -- Defender of the Weak
 			CreateSpellEntry(196684), -- Invoke the Naaru (Holy Priest Artifact)
@@ -678,9 +713,7 @@ T.ClassTimer_Classes = {
 			-- Outlaw
 			CreateSpellEntry(1776), -- Gouge
 			CreateSpellEntry(1943), -- Rupture
-			CreateSpellEntry(185778), -- Shellshocked
 			CreateSpellEntry(196937), -- Ghostly Strike
-			CreateSpellEntry(199804), -- Between the Eyes
 			-- Subtlety
 			CreateSpellEntry(195452), -- Nightblade
 			CreateSpellEntry(196958), -- Strike from the Shadows
@@ -695,6 +728,8 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(11327), -- Vanish
 			CreateSpellEntry(31224), -- Cloak of Shadows
 			CreateSpellEntry(185311), -- Crimson Vial
+			CreateSpellEntry(114018), -- Shroud of Concealment
+			CreateSpellEntry(115834), -- Shroud of Concealment
 			-- Shared
 			CreateSpellEntry(36554), -- Shadowstep
 			-- Assassination
@@ -715,7 +750,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(121471), -- Shadow Blades
 			CreateSpellEntry(185422), -- Shadow Dance
 			CreateSpellEntry(197603), -- Embrace the Darkness
-			CreateSpellEntry(206237), -- Enveloping Shadows
 			CreateSpellEntry(212283), -- Symbols of Death
 			CreateSpellEntry(220901), -- Goremaw's Bite
 			CreateSpellEntry(227151), -- Death
@@ -737,27 +771,31 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(64695), -- Earthgrab
 			CreateSpellEntry(116947), -- Earthbind
 			CreateSpellEntry(118905), -- Static Charge
+			CreateSpellEntry(383018), -- Stoneskin Totem
+			CreateSpellEntry(325174), -- Spirit Link Totem
+			CreateSpellEntry(207498), -- Ancestral Protection Totem
 			-- Elemental
-			CreateSpellEntry(182387), -- Earthquake
 			CreateSpellEntry(188389), -- Flame Shock
 			CreateSpellEntry(196840), -- Frost Shock
 			CreateSpellEntry(197209), -- Lightning Rod
 			-- Enhancer
 			CreateSpellEntry(147732), -- Frostbrand Attack
-			CreateSpellEntry(188089), -- Earthen Spike
 			CreateSpellEntry(197214), -- Sundering
-			CreateSpellEntry(197385), -- Fury of Air
 			CreateSpellEntry(224125), -- Fiery Jaws
 			CreateSpellEntry(224126), -- Frozen Bite
 			-- Restoration
 			CreateSpellEntry(61295), -- Riptide
-			CreateSpellEntry(188838), -- Flame Shock
 			CreateSpellEntry(207400), -- Ancestral Vigor
 		},
 		player = {
 			-- Global
 			CreateSpellEntry(108271), -- Astral Shift
 			CreateSpellEntry(192082), -- Wind Rush
+			CreateSpellEntry(210918), -- Ethereal Form (PVP Talent)
+			CreateSpellEntry(118337), -- Harden Skin
+			CreateSpellEntry(383018), -- Stoneskin Totem
+			CreateSpellEntry(325174), -- Spirit Link Totem
+			CreateSpellEntry(207498), -- Ancestral Protection Totem
 			-- Elemental
 			CreateSpellEntry(16166), -- Elemental Mastery
 			CreateSpellEntry(108281), -- Ancestral Guidance
@@ -776,15 +814,12 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(192106), -- Lightning Shield
 			CreateSpellEntry(194084), -- Flametongue
 			CreateSpellEntry(195222), -- Stormlash
-			CreateSpellEntry(196834), -- Frostbrand
 			CreateSpellEntry(197211), -- Fury of Air
 			CreateSpellEntry(198249), -- Elemental Healing
 			CreateSpellEntry(198293), -- Wind Strikes
 			CreateSpellEntry(198300), -- Gathering Storm
 			CreateSpellEntry(201846), -- Stormbringer
 			CreateSpellEntry(204945), -- Doom Winds
-			CreateSpellEntry(215864), -- Rainfall
-			CreateSpellEntry(218825), -- Boulderfist
 			-- Restoration
 			CreateSpellEntry(53390), 	-- Tidal Waves
 			CreateSpellEntry(61295),	-- Riptide
@@ -806,7 +841,6 @@ T.ClassTimer_Classes = {
 			-- Shared
 			CreateSpellEntry(77762), -- Lava Surge
 			-- Elemental
-			CreateSpellEntry(16246), -- Elemental Focus
 			-- Enhancer
 			CreateSpellEntry(199055), -- Unleash Doom
 			CreateSpellEntry(202004), -- Landslide
@@ -831,7 +865,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(331623), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			CreateSpellEntry(325640), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			-- Shared
-			CreateSpellEntry(689), -- Drain Life
+			CreateSpellEntry(212295), -- Nether Ward (PVP Talent)
 			-- Affliction
 			CreateSpellEntry(172), -- Corruption
 			CreateSpellEntry(980), -- Bane of Agony
@@ -847,7 +881,12 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(198590), -- Drain Soul
 			CreateSpellEntry(205178), -- Soul Effigy
 			CreateSpellEntry(205179), -- Phantom Singularity
-			CreateSpellEntry( 233496 ), CreateSpellEntry( 233497 ), CreateSpellEntry( 233498 ),	CreateSpellEntry( 251502 ), CreateSpellEntry( 233490 ), CreateSpellEntry( 205179 ), -- Phantom Singularity
+			CreateSpellEntry(233496), --Unstable Affliction
+			CreateSpellEntry(233497), --Unstable Affliction
+			CreateSpellEntry(233498), --Unstable Affliction
+			CreateSpellEntry(251502), --Unstable Affliction
+			CreateSpellEntry(233490), --Unstable Affliction
+			CreateSpellEntry(205179), -- Phantom Singularity
 			-- Demonology
 			CreateSpellEntry(603), -- Bane of Doom
 			CreateSpellEntry(30213), -- Legion Strike
@@ -868,7 +907,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(108416), -- Dark Pact
 			CreateSpellEntry(196098), -- Soul Harvest
 			CreateSpellEntry(196099), -- Demonic Power
-			CreateSpellEntry(196104), -- Mana Tap
+			CreateSpellEntry(212295), -- Nether Ward (PVP Talent)
 			-- Affliction
 			CreateSpellEntry(216695), -- Tormented Souls
 			CreateSpellEntry(216708), -- Deadwind Harvester
@@ -897,10 +936,10 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(105771), -- Charge
 			CreateSpellEntry(132168), -- Shockwave
 			CreateSpellEntry(132169), -- Stormbolt
+			CreateSpellEntry(147833), -- Intervene
 			-- Shared
 			CreateSpellEntry(5246), -- Intimidating Shout
 			-- Arms
-			CreateSpellEntry(722), -- Rend
 			CreateSpellEntry(115804), -- Mortal Wounds
 			CreateSpellEntry(208086), -- Colossus Smash
 			CreateSpellEntry(215537), -- Trauma
@@ -910,24 +949,24 @@ T.ClassTimer_Classes = {
 			-- Protection
 			CreateSpellEntry(1160), -- Demoralizing Shout
 			CreateSpellEntry(6343), -- Thunderclap
-			CreateSpellEntry(7922), -- Warbringer
 			CreateSpellEntry(115767), -- Deep Wounds
+			CreateSpellEntry(23920), -- Spell Reflection
+			CreateSpellEntry(213871), -- Bodyguard
 		},
 		player = {
 			-- Global
 			CreateSpellEntry(1719), -- Battle Cry
 			CreateSpellEntry(18499), -- Berserker Rage
 			CreateSpellEntry(97463), -- Commanding Shout
+			CreateSpellEntry(147833), -- Intervene
 			-- Shared
 			CreateSpellEntry(107574), -- Avatar
 			-- Arms
 			CreateSpellEntry(118038), -- Die by the Sword
-			CreateSpellEntry(188923), -- Cleave
 			CreateSpellEntry(207982), -- Focused Rage
 			CreateSpellEntry(209706), -- Shattered Defense
 			CreateSpellEntry(227847), -- Bladestorm
 			-- Fury
-			CreateSpellEntry(12292), -- Bloodbath
 			CreateSpellEntry(46924), -- Bladestorm
 			CreateSpellEntry(118000), -- Dragon Roar
 			CreateSpellEntry(184362), -- Enrage
@@ -940,14 +979,12 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(190456), -- Ignore Pain
 			CreateSpellEntry(202602), -- Into the Fray
 			CreateSpellEntry(203524), -- Neltharion's Fury
-			CreateSpellEntry(204488), -- Focused Rage
 			CreateSpellEntry(227744), -- Ravager
 		},
 		procs = {
 			-- Shared
 			CreateSpellEntry(202164), -- Bounding Stride
 			-- Arms
-			CreateSpellEntry(60503), -- Overpower
 			CreateSpellEntry(209567), -- Corrupted Blood of Zakajz
 			-- Fury
 			CreateSpellEntry(200953), -- Berserking
