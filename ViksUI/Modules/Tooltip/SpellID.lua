@@ -47,15 +47,19 @@ hooksecurefunc("SetItemRef", function(link)
 end)
 
 local function attachItemTooltip(self)
-	if not IsShiftKeyDown() then
-		local _, link = self:GetItem()
+	local _, link = self:GetItem()
+	if not link then return end
+	local id = link:match("item:(%d+):")
+	if id then addLine(self, id, true) end
+end
+
+if T.newPatch then
+	local function attachItemTooltip(self)
+		local _, link = TooltipUtil.GetDisplayedItem(self)
 		if not link then return end
 		local id = link:match("item:(%d+):")
 		if id then addLine(self, id, true) end
 	end
-end
-
-if T.newPatch then
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, OnTooltipSetSpell)
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, attachItemTooltip)
 else
