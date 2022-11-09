@@ -47,7 +47,6 @@
 	<Script file="Main\move.lua"/>
 	<Script file="Main\Core.lua"/>
 	<Script file="Core\Functions.lua"/>
-	<Script file="Core\Panels.lua"/>
 	<Script file="Core\Launch.lua"/>
 	<Script file="Core\Disable.lua"/>
 	<Script file="Core\Commands.lua"/>
@@ -55,6 +54,7 @@
 	<Script file="Core\Kill.lua"/>
 	<Script file="Core\Temp.lua"/>
 	<Script file="Core\CheckVersion.lua"/>
+	<Script file="Core\Panels.lua"/>
 	<Script file="Core\ChangeLog.lua"/>
 	<Script file="Config\theme.lua"/>
 	<Script file="Config\Filters\FilgerSpells.lua"/>
@@ -189,13 +189,13 @@
 	<Script file="Modules\Blizzard\AltPowerBar.lua"/>
 	<Script file="Modules\Blizzard\Bags.lua"/>
 	<Script file="Modules\Blizzard\CaptureBar.lua"/>
+	<Script file="Modules\Blizzard\ClassColorNames.lua"/>
 	<Script file="Modules\Blizzard\ColorPicker.lua"/>
 	<Script file="Modules\Blizzard\CombatText.lua"/>
 	<Script file="Modules\Blizzard\Durability.lua"/>
 	<Script file="Modules\Blizzard\Errors.lua"/>
 	<Script file="Modules\Blizzard\Fixes.lua"/>
 	<Script file="Modules\Blizzard\Fonts.lua"/>
-	<Script file="Modules\Blizzard\FriendList.lua"/>
 	<Script file="Modules\Blizzard\Mail.lua"/>
 	<Script file="Modules\Blizzard\MirrorBars.lua"/>
 	<Script file="Modules\Blizzard\MoveBlizzFrames.lua"/>

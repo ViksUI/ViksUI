@@ -791,7 +791,7 @@ C["threat"] = {
 --	Panel options (The datatext that is hidden on top with mouseover)
 ----------------------------------------------------------------------------------------
 C["toppanel"] = {
-	["enable"] = true,							-- Enable top panel
+	["enable"] = false,							-- Enable top panel
 	["mouseover"] = true,						-- Top panel on mouseover
 	["height"] = 35,							-- Panel height
 	["width"] = 250,							-- Panel width
