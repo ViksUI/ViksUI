@@ -221,6 +221,12 @@ LPSTAT_PROFILES = {
 			spec4fmt = class"Power: ".."[power]"..class" Haste: ".."[haste]%"..class" Mastery: ".."[mastery]%",			-- Restoration 		-> Intellect > Haste > Mastery > Crit > Versatility > Spirit
 		}
 	},
+	EVOKER = {
+		Stats = {
+			spec1fmt = class"Power: ".."[power]"..class" Mastery: ".."[mastery]%"..class" Crit: ".."[crit]%",			-- Devistation
+			spec2fmt = class"Armor: ".."[armor]"..class" Haste: ".."[haste]%"..class" Crit: ".."[crit]%",				-- Preservation
+		}
+	},
 	HUNTER = {
 		Stats = {
 			spec1fmt = class"Power: ".."[power]"..class" Mastery: ".."[mastery]%"..class"  Haste: ".."[haste]%",		-- Beast Mastery	-> Agility > Haste = Mastery > Crit > Versatility
