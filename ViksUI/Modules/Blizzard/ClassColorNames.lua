@@ -1,4 +1,4 @@
-if IsAddOnLoaded("yClassColor") then return end
+﻿if IsAddOnLoaded("yClassColor") then return end
 
 ----------------------------------------------------------------------------------------
 --	Class color guild/friends/etc list(yClassColor by Yleaf)
@@ -111,23 +111,25 @@ local function whoFrame(self)
 		local variableText = button.Variable
 
 		local info = C_FriendList.GetWhoInfo(button.index)
-		local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
-		if zone == playerZone then
-			zone = "|cff00ff00"..zone
-		end
-		if guild == playerGuild then
-			guild = "|cff00ff00"..guild
-		end
-		if race == playerRace then
-			race = "|cff00ff00"..race
-		end
+		if info then
+			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
+			if zone == playerZone then
+				zone = "|cff00ff00"..zone
+			end
+			if guild == playerGuild then
+				guild = "|cff00ff00"..guild
+			end
+			if race == playerRace then
+				race = "|cff00ff00"..race
+			end
 
-		local columnTable = {zone, guild, race}
+			local columnTable = {zone, guild, race}
 
-		local c = classColorRaw[class]
-		nameText:SetTextColor(c.r, c.g, c.b)
-		levelText:SetText(diffColor[level]..level)
-		variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
+			local c = classColorRaw[class]
+			nameText:SetTextColor(c.r, c.g, c.b)
+			levelText:SetText(diffColor[level]..level)
+			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
+		end
 	end
 end
 
