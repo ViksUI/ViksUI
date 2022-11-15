@@ -1961,7 +1961,7 @@ C["filger_spells"] = {
 			-- Fury of Air
 			{spellID = 197211, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Windsong
-			{spellID = 201898, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 201898, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -1986,7 +1986,7 @@ C["filger_spells"] = {
 			-- Crash Lightning
 			{spellID = 187878, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Frostbrand
-			{spellID = 196834, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 196834, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Flametongue
 			{spellID = 194084, unitID = "player", caster = "player", filter = "BUFF"},
 		},
@@ -2008,7 +2008,7 @@ C["filger_spells"] = {
 			-- Earthgrab
 			{spellID = 64695, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Earthen Spike
-			{spellID = 188089, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 188089, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
@@ -2069,7 +2069,7 @@ C["filger_spells"] = {
 			-- Elemental Blast
 			{spellID = 117014, filter = "CD"},
 			-- Flametongue
-			{spellID = 193796, filter = "CD"},
+			--BETA {spellID = 193796, filter = "CD"},
 			-- Feral Lunge
 			{spellID = 196884, filter = "CD"},
 			-- Cloudburst Totem
@@ -2079,7 +2079,7 @@ C["filger_spells"] = {
 			-- Thunderstorm
 			{spellID = 51490, filter = "CD"},
 			-- Windsong
-			{spellID = 201898, filter = "CD"},
+			--BETA {spellID = 201898, filter = "CD"},
 			-- Stone Bulwark Totem
 			{spellID = 108270, filter = "CD"},
 			-- Capacitor Totem
@@ -2136,6 +2136,10 @@ C["filger_spells"] = {
 			{spellID = 333889, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Nightfall
 			{spellID = 264571, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Impending Ruin
+			{spellID = 387158, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Flashpoint
+			{spellID = 387263, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -2151,6 +2155,14 @@ C["filger_spells"] = {
 			{spellID = 117828, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Grimore of Synergy
 			{spellID = 171982, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Demonic Core
+			{spellID = 264173, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Dread Calling
+			{spellID = 387393, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Demonic Calling
+			{spellID = 205146, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Reverse Entropy
+			{spellID = 266030, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -2295,6 +2307,8 @@ C["filger_spells"] = {
 			{spellID = 108416, filter = "CD"},
 			-- Nether Ward (PvP)
 			{spellID = 212295, filter = "CD"},
+			-- Call Dreadstalkers
+			{spellID = 104316, filter = "CD"},
 		},
 	},
 	["WARRIOR"] = {

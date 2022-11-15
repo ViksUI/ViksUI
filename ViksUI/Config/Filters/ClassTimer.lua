@@ -892,6 +892,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(30213), -- Legion Strike
 			CreateSpellEntry(30283), -- Shadowfury
 			CreateSpellEntry(205181), -- Shadowflame
+			CreateSpellEntry(270569), -- From the Shadows
 			-- Destruction
 			CreateSpellEntry(80240), -- Bane of Havoc
 			CreateSpellEntry(157736), -- Immolate
@@ -915,11 +916,15 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(333889), -- Fel Domination
 			-- Demonology
 			CreateSpellEntry(171982), -- Demonic Synergy
+			CreateSpellEntry(264173), -- Demonic Core
 			CreateSpellEntry(193440), -- Demonwrath
 			CreateSpellEntry(196606), -- Shadowy Inspiration
 			CreateSpellEntry(205146), -- Demonic Calling
+			CreateSpellEntry(387393), -- Dread Calling
 			-- Destruction
 			CreateSpellEntry(196546), -- Conflagration of Chaos
+			CreateSpellEntry(387263), -- Flashpoint
+			CreateSpellEntry(266030), -- Reverse Entropy
 		},
 		procs = {
 			-- Affliction
