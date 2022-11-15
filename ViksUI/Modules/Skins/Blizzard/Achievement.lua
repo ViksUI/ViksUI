@@ -307,7 +307,7 @@ local function LoadSkin()
 				-- _G[frame.."Description"].SetTextColor = T.dummy
 			-- end
 
-			Initiate method of creating a backdrop
+			--Initiate method of creating a backdrop
 			-- _G[frame].bg1 = _G[frame]:CreateTexture(nil, "BACKGROUND")
 			-- _G[frame].bg1:SetDrawLayer("BACKGROUND", 4)
 			-- _G[frame].bg1:SetTexture(C.media.blank)
