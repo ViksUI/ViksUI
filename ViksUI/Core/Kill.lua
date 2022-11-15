@@ -15,19 +15,36 @@ frame:SetScript("OnEvent", function(_, _, addon)
 	if ClassPowerBar then
 		ClassPowerBar.OnEvent = T.dummy -- Fix error with druid on logon
 	end
-	
+
 	if C.unitframe.enable and (ViksUISettingsPerChar and (ViksUISettingsPerChar.RaidLayout == "HEAL" or ViksUISettingsPerChar.RaidLayout == "DPS")) then
-		--InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
-		--InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)
-		if not InCombatLockdown() then
-			CompactRaidFrameManager:Kill()
-			CompactRaidFrameContainer:Kill()
+		--BETA InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
+		-- InterfaceOptionsFrameCategoriesButton10:SetAlpha(0)
+		-- if not InCombatLockdown() then
+			-- CompactRaidFrameManager:Kill()
+			-- CompactRaidFrameContainer:Kill()
+		-- end
+		-- ShowPartyFrame = T.dummy
+		-- HidePartyFrame = T.dummy
+		-- CompactUnitFrameProfiles_ApplyProfile = T.dummy
+		if CompactRaidFrameManager then
+			local function HideFrames()
+				CompactRaidFrameManager:UnregisterAllEvents()
+				CompactRaidFrameContainer:UnregisterAllEvents()
+				if not InCombatLockdown() then
+					CompactRaidFrameManager:Hide()
+					local shown = CompactRaidFrameManager_GetSetting("IsShown")
+					if shown and shown ~= "0" then
+						CompactRaidFrameManager_SetSetting("IsShown", "0")
+					end
+				end
+			end
+			local hiddenFrame = CreateFrame("Frame")
+			hiddenFrame:Hide()
+			hooksecurefunc("CompactRaidFrameManager_UpdateShown", HideFrames)
+			CompactRaidFrameManager:HookScript("OnShow", HideFrames)
+			CompactRaidFrameContainer:HookScript("OnShow", HideFrames)
+			HideFrames()
 		end
-		ShowPartyFrame = T.dummy
-		HidePartyFrame = T.dummy
-		CompactUnitFrameProfiles_ApplyProfile = T.dummy
-		-- CompactRaidFrameManager_UpdateShown = T.dummy
-		-- CompactRaidFrameManager_UpdateOptionsFlowContainer = T.dummy
 	end
 
 	--BETA Display_UseUIScale:Kill()
@@ -94,7 +111,7 @@ frame:SetScript("OnEvent", function(_, _, addon)
 		end
 	end
 
-	SetCVar('ActionButtonUseKeyDown', 0) -- BETA
+	SetCVar("ActionButtonUseKeyDown", 0) -- BETA
 end)
 
 local function AcknowledgeTips()
