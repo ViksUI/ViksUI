@@ -111,6 +111,7 @@ C["misc"] = {
 	["armory_link"] = true,						-- Add the Armory link in the chat menu and target (It breaks set focus)
 	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
 	["meters"] = true,							-- Show button for toggle dps meters and move chat (only in line layout)
+	["InfoPanel_Stats"] = true,					-- Stats Panel with info from https://www.icy-veins.com
 }
 
 ----------------------------------------------------------------------------------------

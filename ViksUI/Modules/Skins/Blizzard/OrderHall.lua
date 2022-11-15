@@ -16,6 +16,7 @@ local function LoadSkin()
 	OrderHallCommandBar.AreaName:SetPoint("LEFT", OrderHallCommandBar.CurrencyIcon, "RIGHT", 25, 0)
 	OrderHallCommandBar.AreaName:SetVertexColor(T.color.r, T.color.g, T.color.b)
 	OrderHallCommandBar.WorldMapButton:Kill()
+	OrderHallTalentFramePortrait:SetAlpha(0)
 
 	hooksecurefunc(OrderHallCommandBar, "RefreshCategories", function(self)
 		local index = 0
@@ -111,7 +112,6 @@ local function LoadSkin()
 		self.choiceTexturePool:ReleaseAll()
 		hooksecurefunc(self, "RefreshAllData", function(frame)
 			frame.choiceTexturePool:ReleaseAll()
-
 			for i = 1, frame:GetNumChildren() do
 				local child = select(i, frame:GetChildren())
 				if child and child.Icon and child.Border and child.backdrop then
