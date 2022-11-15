@@ -12,7 +12,7 @@
 			</Anchor>
 			<Anchor point="RIGHT">
 				<Offset>
-					<AbsDimension x="-24"/>
+					<AbsDimension x="-13"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -23,24 +23,17 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				BaudErrorFrameEntry_OnClick(self)
+				BaudErrorFrameEntry_OnClick(self);
 			</OnClick>
 		</Scripts>
 	</Button>
-	<Button name="BaudErrorFrameMinimapButton" frameStrata="MEDIUM" parent="UIParent" movable="true" hidden="false">
+	<Button name="BaudErrorFrameMinimapButton" frameStrata="DIALOG" parent="UIParent" movable="true" hidden="true">
 		<Size>
-			<AbsDimension x="25" y="25"/>
+			<AbsDimension x="21" y="21"/>
 		</Size>
-		<Anchors>
-			<Anchor point="BOTTOMRIGHT" relativeTo="Minimap">
-				<Offset>
-					<AbsDimension x="-7" y="6"/>
-				</Offset>
-			</Anchor>
-		</Anchors>
 		<Layers>
 			<Layer level="BACKGROUND">
-				<Texture name="$parentTop">
+				<Texture name="$parentIcon">
 					<Size>
 						<AbsDimension x="20" y="20"/>
 					</Size>
@@ -54,15 +47,15 @@
 				</Texture>
 			</Layer>
 			<Layer level="BORDER">
-				<FontString name="BaudErrorFrameMinimapCount" font="Interface\AddOns\ViksUI\Media\font\pixel.ttf" outline="NORMAL" monochrome="true" text="">
-					<Color r="1" g="0" b="0" a="1"/>
+				<FontString name="BaudErrorFrameMinimapCount" inherits="ChatFontNormal">
+					<Color r="1" g="0" b="0" a="0.8"/>
 					<FontHeight>
-						<AbsValue val="16"/>
+						<AbsValue val="18"/>
 					</FontHeight>
 					<Anchors>
-						<Anchor point="CENTER">
+						<Anchor point="CENTER" relativeTo="$parentIcon">
 							<Offset>
-								<AbsDimension x="-1" y="2"/>
+								<AbsDimension y="1"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -71,51 +64,50 @@
 		</Layers>
 		<Scripts>
 			<OnLoad>
-				self:RegisterForClicks("LeftButtonUp")
-				self:SetFrameLevel(self:GetFrameLevel() + 1)
+				self:RegisterForClicks("LeftButtonUp");
+				self:SetFrameLevel(self:GetFrameLevel()+1);
 			</OnLoad>
 			<OnEnter>
-				BaudErrorFrameMinimapButton_OnEnter(self)
+				BaudErrorFrameMinimapButton_OnEnter(self);
 			</OnEnter>
 			<OnLeave>
-				BaudErrorFrameMinimapButton_OnLeave(self)
+				BaudErrorFrameMinimapButton_OnLeave(self);
 			</OnLeave>
 			<OnClick>
-				if BaudErrorFrame:IsShown() then
-					BaudErrorFrame:Hide()
-				else
-					BaudErrorFrame:Show()
-				end
+				BaudErrorFrame:Show();
 			</OnClick>
 			<OnUpdate>
-				BaudErrorFrameMinimapButton_OnUpdate(self)
+				BaudErrorFrameMinimapButton_OnUpdate(self);
 			</OnUpdate>
 		</Scripts>
 	</Button>
-	<Frame name="BaudErrorFrame" toplevel="true" frameStrata="DIALOG" enableMouse="true" parent="UIParent" inherits="BackdropTemplate" hidden="true" movable="true">
+	<Frame name="BaudErrorFrame" toplevel="true" frameStrata="DIALOG" enableMouse="true" parent="UIParent" hidden="true">
 		<Size>
 			<AbsDimension x="600" y="500"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
 		</Anchors>
-		<Backdrop bgFile="Interface\AddOns\ViksUI\Media\textures\White.tga" edgeFile="Interface\AddOns\ViksUI\Media\textures\White.tga" tile="false">
-			<Color r="0" g="0" b="0" a="0.8"/>
-			<BackgroundInsets>
-				<AbsInset left="-1" right="-1" top="-1" bottom="-1"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="0"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="1"/>
-			</EdgeSize>
-		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
+				<Texture name="$parentBackground" setAllPoints="true" file="Interface\ChatFrame\ChatFrameBackground">
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+				<Texture name="$parentHeader" alpha="0">
+					<Size>
+						<AbsDimension x="300" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension y="5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
 				<FontString inherits="GameFontNormal" text="SHOW_LUA_ERRORS">
 					<Anchors>
-						<Anchor point="TOP" relativeTo="$parent">
+						<Anchor point="TOP" relativeTo="$parentHeader">
 							<Offset>
 								<AbsDimension y="-14"/>
 							</Offset>
@@ -125,30 +117,22 @@
 			</Layer>
 		</Layers>
 		<Frames>
-			<Frame name="$parentListScrollBox" inherits="BackdropTemplate">
+			<Frame name="$parentListScrollBox">
 				<Size>
 					<AbsDimension x="1" y="148"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="20" y="-40"/>
+							<AbsDimension x="40" y="-40"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="RIGHT">
 						<Offset>
-							<AbsDimension x="-20"/>
+							<AbsDimension x="-40" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop edgeFile="Interface\AddOns\ViksUI\Media\textures\White.tga" tile="false">
-					<EdgeSize>
-						<AbsValue val="1"/>
-					</EdgeSize>
-					<BackgroundInsets>
-						<AbsInset left="-1" right="-1" top="-1" bottom="-1"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer level="BACKGROUND">
 						<FontString name="$parentTitle" inherits="GameFontNormal" text="ERRORS">
@@ -178,7 +162,7 @@
 						</Anchors>
 						<Scripts>
 							<OnVerticalScroll>
-								FauxScrollFrame_OnVerticalScroll(self, offset, 16, BaudErrorFrameScrollBar_Update)
+								FauxScrollFrame_OnVerticalScroll(self, offset, 16, BaudErrorFrameScrollBar_Update);
 							</OnVerticalScroll>
 						</Scripts>
 					</ScrollFrame>
@@ -189,62 +173,57 @@
 						<Anchors>
 							<Anchor point="LEFT">
 								<Offset>
-									<AbsDimension x="8"/>
+									<AbsDimension x="8" y="0"/>
 								</Offset>
 							</Anchor>
 							<Anchor point="RIGHT">
 								<Offset>
-									<AbsDimension x="-24"/>
+									<AbsDimension x="-8" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
 						<Layers>
 							<Layer level="BACKGROUND">
-								<Texture name="$parentTexture" file="Interface\Buttons\UI-Listbox-Highlight2"/>
+								<Texture name="$parentTexture" file="Interface\ChatFrame\ChatFrameBackground"/>
 							</Layer>
 						</Layers>
 						<Scripts>
 							<OnLoad>
-								getglobal(self:GetName().."Texture"):SetVertexColor(0.5, 0.5, 0)
+								getglobal(self:GetName().."Texture"):SetVertexColor(1,.8,0,.25);
 							</OnLoad>
 						</Scripts>
 					</Frame>
 				</Frames>
 				<Scripts>
 					<OnLoad>
-						self.Entries = 8
+						self.Entries = 8;
 						for Index = 1, self.Entries do
-							CreateFrame("Button", self:GetName().."Entry"..Index, self, "BaudErrorFrameEntryTemplate"):SetPoint("TOP", 0, 6-16*Index)
+							CreateFrame("Button",self:GetName().."Entry"..Index,self,"BaudErrorFrameEntryTemplate"):SetPoint("TOP",0,6-16*Index);
 						end
 					</OnLoad>
 				</Scripts>
 			</Frame>
-			<Frame name="$parentDetailScrollBox" inherits="BackdropTemplate">
+			<Frame name="$parentDetailScrollBox">
 				<Size>
-					<AbsDimension x="550" y="250"/>
+					<AbsDimension x="500" y="258"/>
 				</Size>
 				<Anchors>
 					<Anchor point="BOTTOMLEFT">
 						<Offset>
-							<AbsDimension x="20" y="40"/>
+							<AbsDimension x="40" y="40"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="RIGHT">
 						<Offset>
-							<AbsDimension x="-20"/>
+							<AbsDimension x="-40" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop edgeFile="Interface\AddOns\ViksUI\Media\textures\White.tga" tile="false">
-					<EdgeSize>
-						<AbsValue val="1"/>
-					</EdgeSize>
-					<BackgroundInsets>
-						<AbsInset left="-1" right="-1" top="-1" bottom="-1"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer level="BACKGROUND">
+						<Texture name="$parentBackground" setAllPoints="true" file="Interface\ChatFrame\ChatFrameBackground">
+							<Color r="0" g="0" b="0" a="0.25"/>
+						</Texture>
 						<FontString name="$parentTitle" inherits="GameFontNormal" text="QUEST_DESCRIPTION">
 							<Anchors>
 								<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
@@ -276,35 +255,52 @@
 						<ScrollChild>
 							<EditBox name="BaudErrorFrameEditBox" autoFocus="false" multiLine="true">
 								<Size>
-									<AbsDimension x="550" y="250"/>
+									<AbsDimension x="466" y="250"/>
 								</Size>
 								<TextInsets>
-									<AbsInset left="4" right="24" top="4" bottom="4"/>
+									<AbsInset left="4" right="4" top="4" bottom="4"/>
 								</TextInsets>
 								<FontString inherits="ChatFontNormal"/>
 								<Scripts>
 									<OnTextChanged>
-										BaudErrorFrameEditBox_OnTextChanged(self)
+										BaudErrorFrameEditBox_OnTextChanged(self);
 									</OnTextChanged>
 									<OnTextSet>
-										BaudErrorFrameEditBox_OnTextSet()
+										BaudErrorFrameEditBox_OnTextSet();
 									</OnTextSet>
 									<OnEscapePressed>
-										self:ClearFocus()
+										self:ClearFocus();
 									</OnEscapePressed>
 								</Scripts>
 							</EditBox>
 						</ScrollChild>
 						<Scripts>
 							<OnLoad>
-								ScrollFrame_OnLoad(self)
-								self.scrollBarHideable = 1
-								getglobal(self:GetName().."ScrollBar"):Hide()
+								ScrollFrame_OnLoad(self);
+								self.scrollBarHideable = 1;
+								getglobal(self:GetName().."ScrollBar"):Hide();
 							</OnLoad>
 						</Scripts>
 					</ScrollFrame>
 				</Frames>
 			</Frame>
+			<Button name="$parentReloadUIButton" inherits="GameMenuButtonTemplate" text="RELOADUI">
+				<Size>
+					<AbsDimension x="120" y="21"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="50" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						ReloadUI();
+					</OnClick>
+				</Scripts>
+			</Button>
 			<Button name="$parentCloseButton" inherits="GameMenuButtonTemplate" text="CLOSE">
 				<Size>
 					<AbsDimension x="100" y="21"/>
@@ -312,13 +308,13 @@
 				<Anchors>
 					<Anchor point="BOTTOMRIGHT">
 						<Offset>
-							<AbsDimension x="-20" y="10"/>
+							<AbsDimension x="-50" y="16"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						self:GetParent():Hide()
+						self:GetParent():Hide();
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -329,38 +325,28 @@
 				<Anchors>
 					<Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT">
 						<Offset>
-							<AbsDimension x="-5"/>
+							<AbsDimension x="-5" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						BaudErrorFrameClearButton_OnClick(self)
+						BaudErrorFrameClearButton_OnClick(self);
 					</OnClick>
 				</Scripts>
 			</Button>
 		</Frames>
 		<Scripts>
 			<OnLoad>
-				BaudErrorFrame_OnLoad(self)
-				self:SetClampedToScreen(true)
+				BaudErrorFrame_OnLoad(self);
 			</OnLoad>
-			<OnEvent>
-				BaudErrorFrame_OnEvent(self, event, ...)
-			</OnEvent>
+			<OnEvent function="BaudErrorFrame_OnEvent"/>
 			<OnShow>
-				BaudErrorFrame_OnShow()
+				BaudErrorFrame_OnShow();
 			</OnShow>
 			<OnHide>
-				BaudErrorFrame_OnHide()
+				BaudErrorFrame_OnHide();
 			</OnHide>
-			<OnMouseDown>
-				self:StartMoving()
-			</OnMouseDown>
-			<OnMouseUp>
-				self:StopMovingOrSizing()
-				self:SetUserPlaced(false)
-			</OnMouseUp>
 		</Scripts>
 	</Frame>
 </Ui>
