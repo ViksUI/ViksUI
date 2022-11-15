@@ -466,13 +466,14 @@ end)
 local UIChat = CreateFrame("Frame")
 UIChat:RegisterEvent("ADDON_LOADED")
 UIChat:RegisterEvent("PLAYER_ENTERING_WORLD")
+UIChat:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 UIChat:SetScript("OnEvent", function(self, event, addon)
 	if event == "ADDON_LOADED" then
 		if addon == "Blizzard_CombatLog" then
 			self:UnregisterEvent("ADDON_LOADED")
 			SetupChat(self)
 		end
-	elseif event == "PLAYER_ENTERING_WORLD" then
+	elseif event == "PLAYER_ENTERING_WORLD" or "PLAYER_SPECIALIZATION_CHANGED" then
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		if C.chat.reset_pos == true then
 			SetupChatPosAndFont(self)
