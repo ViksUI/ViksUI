@@ -1613,13 +1613,14 @@ lib.addArcaneCharges = function(self)
 				else
 					self.ArcaneCharge[i]:SetPoint("TOPLEFT", self.ArcaneCharge[i-1], "TOPRIGHT", 1, 0)
 				end
-				self.ArcaneCharge[i]:SetStatusBarTexture(C.media.texture)
-				self.ArcaneCharge[i]:SetStatusBarColor(0.4, 0.8, 1)
+				r, g, b = unpack(T.Colors.power["ARCANE_CHARGES"])
+				self.ArcaneCharge[i]:SetStatusBarTexture(cfg.statusbar_texture)
+				self.ArcaneCharge[i]:SetStatusBarColor(r, g, b)
 
 				self.ArcaneCharge[i].bg = self.ArcaneCharge[i]:CreateTexture(nil, "BORDER")
 				self.ArcaneCharge[i].bg:SetAllPoints()
-				self.ArcaneCharge[i].bg:SetTexture(C.media.texture)
-				self.ArcaneCharge[i].bg:SetVertexColor(0.4, 0.8, 1, 0.2)
+				self.ArcaneCharge[i].bg:SetTexture(cfg.statusbar_texture)
+				self.ArcaneCharge[i].bg:SetVertexColor(r, g, b, 0.2)
 			end
 		end
 	end
@@ -1646,12 +1647,12 @@ lib.addEssence = function(self)
 				else
 					self.Essence[i]:SetPoint("TOPLEFT", self.Essence[i-1], "TOPRIGHT", 1, 0)
 				end
-				self.Essence[i]:SetStatusBarTexture(C.media.texture)
+				self.Essence[i]:SetStatusBarTexture(cfg.statusbar_texture)
 				self.Essence[i]:SetStatusBarColor(r, g, b)
 
 				self.Essence[i].bg = self.Essence[i]:CreateTexture(nil, "BORDER")
 				self.Essence[i].bg:SetAllPoints()
-				self.Essence[i].bg:SetTexture(C.media.texture)
+				self.Essence[i].bg:SetTexture(cfg.statusbar_texture)
 				self.Essence[i].bg:SetVertexColor(r, g, b, 0.2)
 			end
 		end
@@ -1673,13 +1674,14 @@ lib.genHolyPower = function(self)
 				else
 					self.HolyPower[i]:SetPoint("TOPLEFT", self.HolyPower[i-1], "TOPRIGHT", 1, 0)
 				end
-				self.HolyPower[i]:SetStatusBarTexture(C.media.texture)
-				self.HolyPower[i]:SetStatusBarColor(0.89, 0.88, 0.1)
+				r, g, b = unpack(T.Colors.power["HOLY_POWER"])
+				self.HolyPower[i]:SetStatusBarTexture(cfg.statusbar_texture)
+				self.HolyPower[i]:SetStatusBarColor(r, g, b)
 
 				self.HolyPower[i].bg = self.HolyPower[i]:CreateTexture(nil, "BORDER")
 				self.HolyPower[i].bg:SetAllPoints()
-				self.HolyPower[i].bg:SetTexture(C.media.texture)
-				self.HolyPower[i].bg:SetVertexColor(0.89, 0.88, 0.1, 0.2)
+				self.HolyPower[i].bg:SetTexture(cfg.statusbar_texture)
+				self.HolyPower[i].bg:SetVertexColor(r, g, b, 0.2)
 
 				self.HolyPower[i].width = self.HolyPower[i]:GetWidth()
 			end
@@ -1689,32 +1691,28 @@ end
 -- Deathknight, runebar
 lib.genRunes = function(self)
 	if playerClass ~= "DEATHKNIGHT" then return end
-	local runes = CreateFrame("Frame", nil, self, "BackdropTemplate")
-	runes:SetPoint("BOTTOMLEFT", self, "TOPLEFT",1,7)
-	runes:SetWidth(cfg.unit_size.Player.w - 2)
-	runes:SetHeight(6)
+	self.Runes = CreateFrame("Frame", self:GetName().."_RuneBar", self)
+	self.Runes:CreateBackdrop("Default")
+	self.Runes:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+	self.Runes:SetSize(self:GetWidth()-2, 7)
+	self.Runes.colorSpec = true
+	self.Runes.sortOrder = "asc"
+
 	for i = 1, 6 do
-		runes[i] = CreateFrame("StatusBar", self:GetName().."Runes"..i, runes, "BackdropTemplate")
-		runes[i]:SetHeight(runes:GetHeight())
-		runes[i]:SetWidth((runes:GetWidth() - 5) / 6)
-		if (i == 1) then
-			runes[i]:SetPoint("LEFT", runes)
+		self.Runes[i] = CreateFrame("StatusBar", self:GetName().."_Rune"..i, self.Runes)
+		self.Runes[i]:SetSize((self:GetWidth()-2 - 5) / 6, 7)
+		if i == 1 then
+			self.Runes[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 		else
-			runes[i]:SetPoint("LEFT", runes[i-1], "RIGHT", 1, 0)
+			self.Runes[i]:SetPoint("TOPLEFT", self.Runes[i-1], "TOPRIGHT", 1, 0)
 		end
-		runes[i]:SetStatusBarTexture(cfg.statusbar_texture)
-		runes[i]:SetStatusBarColor(0.69, 0.31, 0.31)
-		runes[i]:GetStatusBarTexture():SetHorizTile(false)
+		self.Runes[i]:SetStatusBarTexture(C.media.texture)
+
+		self.Runes[i].bg = self.Runes[i]:CreateTexture(nil, "BORDER")
+		self.Runes[i].bg:SetAllPoints()
+		self.Runes[i].bg:SetTexture(C.media.texture)
+		self.Runes[i].bg.multiplier = 0.2
 	end
-				
-	runes.backdrop = CreateFrame("Frame", nil, runes, "BackdropTemplate")
-	frame11px_1(runes.backdrop)
-	runes.backdrop:SetBackdropBorderColor(unpack(cfg.bordercolor))
-	runes.backdrop:SetPoint("TOPLEFT", -2, 2)
-	runes.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
-	runes.backdrop:SetFrameLevel(runes:GetFrameLevel() - 1)
-	self.Runes = runes
-	self.Runes.UpdateColor = T.dummy
 end
 
 -- Combo Points
@@ -1735,7 +1733,7 @@ lib.genCPoints = function(self)
 			else
 				self.CPoints[i]:SetPoint("LEFT", self.CPoints[i-1], "RIGHT", 1, 0)
 			end
-			self.CPoints[i]:SetStatusBarTexture(C.media.texture)
+			self.CPoints[i]:SetStatusBarTexture(cfg.statusbar_texture)
 		end
 
 		self.CPoints[1]:SetStatusBarColor(0.9, 0.1, 0.1)
@@ -1764,12 +1762,12 @@ lib.genHarmony = function(self)
 		else
 			self.HarmonyBar[i]:SetPoint("TOPLEFT", self.HarmonyBar[i-1], "TOPRIGHT", 1, 0)
 		end
-		self.HarmonyBar[i]:SetStatusBarTexture(C.media.texture)
+		self.HarmonyBar[i]:SetStatusBarTexture(cfg.statusbar_texture)
 		self.HarmonyBar[i]:SetStatusBarColor(0.33, 0.63, 0.33)
 
 		self.HarmonyBar[i].bg = self.HarmonyBar[i]:CreateTexture(nil, "BORDER")
 		self.HarmonyBar[i].bg:SetAllPoints()
-		self.HarmonyBar[i].bg:SetTexture(C.media.texture)
+		self.HarmonyBar[i].bg:SetTexture(cfg.statusbar_texture)
 		self.HarmonyBar[i].bg:SetVertexColor(0.33, 0.63, 0.33, 0.2)
 	end
 	-- Statue bar
@@ -1784,13 +1782,13 @@ lib.genHarmony = function(self)
 			self.TotemBar[i] = CreateFrame("StatusBar", self:GetName().."_TotemBar", self.TotemBar, "BackdropTemplate")
 			self.TotemBar[i]:SetSize(53, 7)
 			self.TotemBar[i]:SetPoint("BOTTOM", self.Health, "BOTTOM", 0, 1)
-			self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
+			self.TotemBar[i]:SetStatusBarTexture(cfg.statusbar_texture)
 			self.TotemBar[i]:SetMinMaxValues(0, 1)
 			self.TotemBar[i]:CreateBorder(false, true)
 
 			self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 			self.TotemBar[i].bg:SetAllPoints()
-			self.TotemBar[i].bg:SetTexture(C.media.texture)
+			self.TotemBar[i].bg:SetTexture(cfg.statusbar_texture)
 			self.TotemBar[i].bg.multiplier = 0.2
 		end
 	end
@@ -1801,7 +1799,7 @@ lib.genHarmony = function(self)
 		self.Stagger:CreateBackdrop("Default")
 		self.Stagger:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
 		self.Stagger:SetSize((self:GetWidth()-2), 7)
-		self.Stagger:SetStatusBarTexture(C.media.texture)
+		self.Stagger:SetStatusBarTexture(cfg.statusbar_texture)
 
 		self.Stagger.Text = T.SetFontString(self.Stagger, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 		self.Stagger.Text:SetPoint("CENTER", self.Stagger, "CENTER", 0, 0)
@@ -1813,7 +1811,7 @@ lib.AltPowerBar = function(self)
 	self.AlternativePower = CreateFrame("StatusBar", nil, self.Health, "BackdropTemplate")
 	self.AlternativePower:SetFrameLevel(self.Health:GetFrameLevel() + 1)
 	self.AlternativePower:SetHeight(4)
-	self.AlternativePower:SetStatusBarTexture(C.media.texture)
+	self.AlternativePower:SetStatusBarTexture(cfg.statusbar_texture)
 	self.AlternativePower:SetStatusBarColor(1, 0, 0)
 	self.AlternativePower:SetPoint("LEFT")
 	self.AlternativePower:SetPoint("RIGHT")
@@ -1855,12 +1853,12 @@ if C.unitframe_class_bar.totem == true and T.class == "SHAMAN" then
 			if i == 3 then fixpos = i-1 end
 			self.TotemBar[i]:SetPoint("TOPLEFT", self.TotemBar[fixpos-1], "TOPRIGHT", 1, 0)
 		end
-		self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
+		self.TotemBar[i]:SetStatusBarTexture(cfg.statusbar_texture)
 		self.TotemBar[i]:SetMinMaxValues(0, 1)
 
 		self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 		self.TotemBar[i].bg:SetAllPoints()
-		self.TotemBar[i].bg:SetTexture(C.media.texture)
+		self.TotemBar[i].bg:SetTexture(cfg.statusbar_texture)
 		self.TotemBar[i].bg.multiplier = 0.2
 	end
 end
@@ -2065,7 +2063,7 @@ lib.Swing_bar = function(self, unit)
 	self.Swing:CreateBackdrop("Default")
 	self.Swing:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -2, 7)
 	self.Swing:SetSize(cfg.unit_size.Player.w-4, 5)
-	self.Swing:SetStatusBarTexture(C.media.texture)
+	self.Swing:SetStatusBarTexture(cfg.statusbar_texture)
 	if C.unitframe.own_color == true then
 		self.Swing:SetStatusBarColor(unpack(C.unitframe.uf_color))
 	else
@@ -2074,7 +2072,7 @@ lib.Swing_bar = function(self, unit)
 
 	self.Swing.bg = self.Swing:CreateTexture(nil, "BORDER")
 	self.Swing.bg:SetAllPoints(self.Swing)
-	self.Swing.bg:SetTexture(C.media.texture)
+	self.Swing.bg:SetTexture(cfg.statusbar_texture)
 	if C.unitframe.own_color == true then
 		self.Swing.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
 	else
