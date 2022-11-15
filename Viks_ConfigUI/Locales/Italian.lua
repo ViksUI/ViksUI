@@ -751,6 +751,8 @@ L_GUI_MISC_WATCHFRAME = "Use custom Quest watch frame"
 L_GUI_MISC_BT4BARS = "Panels behind Sidebar & Small bars for Bartender 4"
 L_GUI_MISC_PSCALE = "Scale ViksUI Panels"
 L_GUI_MISC_PANELSH = "Set UI Panels to hidden"
+L.misc_InfoPanel_Stats = "Show Icy Veins Stats Priorities" -- Needs review
+L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with default stats from Icy Veins. Usefull when leveling" -- Needs review
 
 -- DataText options
 L_GUI_DATATEXT = "DataText"

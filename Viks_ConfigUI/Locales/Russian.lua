@@ -229,7 +229,7 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "Индикатор осколков душ"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Индикатор рун"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "Индикатор тотемов для шаманов"
 L.unitframe_class_bar_totem_other = "Индикатор 'тотемов' для других классов"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
+L.unitframe_class_bar_essence = "Индикатор сущности"
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Настройка внешнего вида рейдовых рамок."
@@ -918,6 +918,8 @@ L_GUI_MISC_WATCHFRAME = "Use custom Quest watch frame"
 L_GUI_MISC_BT4BARS = "Panels behind Sidebar & Small bars for Bartender 4"
 L_GUI_MISC_PSCALE = "Scale ViksUI Panels"
 L_GUI_MISC_PANELSH = "Set UI Panels to hidden"
+L.misc_InfoPanel_Stats = "Show Icy Veins Stats Priorities" -- Needs review
+L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with default stats from Icy Veins. Usefull when leveling" -- Needs review
 
 -- DataText options
 L_GUI_DATATEXT = "DataText"

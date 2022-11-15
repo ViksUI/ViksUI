@@ -64,6 +64,7 @@ StaticPopupDialogs.VIKSUI_RESET_PERCHAR = {
 	end,
 	whileDead = true,
 	hideOnEscape = true,
+	showAlert = true,
 }
 
 StaticPopupDialogs.VIKSUI_RESET = {
@@ -110,7 +111,7 @@ ResetButton:SetScript("OnClick", function()
 			StaticPopup_Show("VIKSUI_RESET")
 		end
 	else
-		StaticPopup_Show("VIKSUI_RESET")
+		StaticPopup_Show("VIKSUI_RESET_CATEGORY")
 	end
 end)
 tinsert(ns.buttons, ResetButton)
@@ -164,7 +165,8 @@ local RaidTable = {
 local PortraitTable = {
 	"3D",
 	"2D",
-	"ICONS"
+	"ICONS",
+	"OVERLAY"
 }
 
 local TextureTable
@@ -195,12 +197,13 @@ local FilgerDropDownText = {
 	[IGNORE] = "ignore_spells_list",
 }
 
+-- Spell list frame
 local SpellList = CreateFrame("Frame", "SpellList", ViksUIOptionsPanel, "ButtonFrameTemplate")
 SpellList:SetPoint("TOPLEFT", ViksUIOptionsPanel, "TOPRIGHT", 22, 0)
 SpellList:SetSize(290, 420)
 SpellList:Hide()
 
-_G["SpellListPortrait"]:SetTexture("Interface\\Spellbook\\Spellbook-Icon")
+SpellListPortrait:SetAlpha(0)
 
 SpellList.title = _G["SpellListTitle"] or SpellList:CreateFontString("SpellListTitle", "OVERLAY", "GameFontNormal")
 SpellList.title:SetPoint("TOP", _G["SpellList"], "TOP", 0, -5)
@@ -501,6 +504,7 @@ do
 
 	tinsert(ns.buttons, SaveButton)
 end
+
 -- Category
 ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, 2)
 ns.addCategory("font", L.font, L.font_subtext, 3)
@@ -2893,6 +2897,9 @@ do
 	
 	local XPBar = ns.CreateCheckBox(parent, "XPBar", "Enable XP/REP/HONOR Bars above chat windows")
 	XPBar:SetPoint("TOPLEFT", Pscale, "BOTTOMLEFT", 0, 0)
+	
+	local InfoPanel_Stats = ns.CreateCheckBox(parent, "InfoPanel_Stats")
+	InfoPanel_Stats:SetPoint("TOPLEFT", XPBar, "BOTTOMLEFT", 0, 0)
 end
 
 -- datatext

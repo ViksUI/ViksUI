@@ -727,6 +727,8 @@ L.misc_chars_currency = "追踪所有角色的货币"
 L.misc_chars_currency_desc = "在货币界面中追踪所有角色的货币"
 L.misc_hide_raid_button = "DPS团队框架最小化按钮"
 L.misc_hide_raid_button_desc = "按钮在DPS团队框架左上方鼠标悬停显示"
+L.misc_InfoPanel_Stats = "Show Icy Veins Stats Priorities" -- Needs review
+L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with default stats from Icy Veins. Usefull when leveling" -- Needs review
 
 -- DataText options
 L_GUI_DATATEXT = "DataText"
