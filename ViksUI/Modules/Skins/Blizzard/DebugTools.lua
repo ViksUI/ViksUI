@@ -14,7 +14,7 @@ T.SkinFuncs["Blizzard_DebugTools"] = LoadSkin
 
 local function LoadSecondarySkin()
 	ScriptErrorsFrame:SetParent(UIParent)
-	ScriptErrorsFrame:SetSize(400, 280)
+	--ScriptErrorsFrame:SetSize(600, 280)
 	ScriptErrorsFrame:StripTextures()
 	ScriptErrorsFrame:SetTemplate("Transparent")
 	ScriptErrorsFrame.Reload:SkinButton()
