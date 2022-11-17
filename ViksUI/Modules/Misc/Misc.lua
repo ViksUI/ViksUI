@@ -400,16 +400,20 @@ if C.misc.hide_raid_button == true then
 end
 
 ----------------------------------------------------------------------------------------
+--	Easy delete good items
+----------------------------------------------------------------------------------------
+hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"], "OnShow", function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) s.editBox:SetAutoFocus(false) s.editBox:ClearFocus() end)
+
+----------------------------------------------------------------------------------------
 --	Change UIErrorsFrame strata
 ----------------------------------------------------------------------------------------
 UIErrorsFrame:SetFrameLevel(0)
 
 ----------------------------------------------------------------------------------------
---	Insert DELETE Text into Autoconfirm box when deleting some objects
+--	Increase speed for AddonList scroll
 ----------------------------------------------------------------------------------------
-
-hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)
-
+AddonList.ScrollBox.wheelPanScalar = 6
+AddonList.ScrollBar.wheelPanScalar = 6
 
 if C.misc.LFD_keyword == "none" then
 else
