@@ -193,7 +193,7 @@ C["unitframe"] = {
 	["outsideAlpha"] = 0.6,																-- Alpha when Unitframe is out of range
 	["uf_color"] = {0.4, 0.4, 0.4},														-- Color for UF if ["own_color"] = true
 	-- misc
-	["showPlayerAuras"] = false, 														-- use a custom player buffs/debuffs frame instead of blizzard's default.
+	["showPlayerAuras"] = true, 														-- use a custom player buffs/debuffs frame instead of blizzard's default.
 	["IndicatorIcons2"] = false,														-- Ø Toggles different Indicator types.
 	["aurasize"] = 18,																	-- Ø Aura Size for indicator type 2
 	["indicatorsize"] = 6,																-- Ø Size on Squares on Indicator type 2

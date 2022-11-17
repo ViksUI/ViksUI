@@ -21,10 +21,6 @@ local BuffsAnchor = CreateFrame("Frame", "BuffsAnchor", UIParent)
 BuffsAnchor:SetPoint(unpack(C.position.player_buffs))
 BuffsAnchor:SetSize((15 * C.aura.player_buff_size) + 42, (C.aura.player_buff_size * 2) + 3)
 
-local DebuffsAnchor = CreateFrame("Frame", "DebuffsAnchor", UIParent)
-DebuffsAnchor:SetPoint(unpack(C.position.player_debuffs))
-DebuffsAnchor:SetSize((15 * C.aura.player_buff_size) + 42, (C.aura.player_buff_size * 2) + 3)
-
 local function UpdateDuration(aura, timeLeft)
 	if timeLeft and C.aura.show_timer == true then
 		aura.duration:SetVertexColor(1, 1, 1)
@@ -81,55 +77,13 @@ hooksecurefunc(BuffFrame.AuraContainer, "UpdateGridLayout", function(self, auras
 		aura.duration:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
 		aura.duration:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 
-		aura.count:ClearAllPoints()
-		aura.count:SetPoint("BOTTOMRIGHT", 2, 0)
-		aura.count:SetDrawLayer("ARTWORK")
-		aura.count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-		aura.count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-	end
-end)
-
-hooksecurefunc(DebuffFrame.AuraContainer, "UpdateGridLayout", function(self, auras)
-	local previousDebuffs, aboveDebuffs
-	for index, aura in ipairs(auras) do
-		aura:SetSize(C.aura.player_debuff_size, C.aura.player_debuff_size)
-		aura:SetTemplate("Default")
-
-		if aura.Border then
-			local Color = DebuffTypeColor[DType or "none"] -- Fix Me to color border by debuff color
-			aura.Border:SetAlpha(0)
-			aura:SetBackdropBorderColor(Color.r * 3/5, Color.g * 3/5, Color.b * 3/5)
-		else
-			aura:SetBackdropBorderColor(Color.r * 3/5, Color.g * 3/5, Color.b * 3/5)
+		if aura.count then -- fix error in EditMode
+			aura.count:ClearAllPoints()
+			aura.count:SetPoint("BOTTOMRIGHT", 2, 0)
+			aura.count:SetDrawLayer("ARTWORK")
+			aura.count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
+			aura.count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 		end
-
-		aura:ClearAllPoints()
-		if (index > 1) and (mod(index, rowbuffs) == 1) then
-			aura:SetPoint("TOP", aboveDebuffs, "BOTTOM", 0, -3)
-			aboveBuff = aura
-		elseif index == 1 then
-			aura:SetPoint("TOPRIGHT", DebuffsAnchor, "TOPRIGHT", 0, C.aura.player_debuff_size)
-			aboveBuff = aura
-		else
-			aura:SetPoint("RIGHT", previousDebuffs, "LEFT", -3, 0)
-		end
-
-		previousDebuffs = aura
-
-		aura.Icon:CropIcon()
-		aura.Icon:SetDrawLayer("BORDER")
-
-		aura.duration:ClearAllPoints()
-		aura.duration:SetPoint("CENTER", 2, 1)
-		aura.duration:SetDrawLayer("ARTWORK")
-		aura.duration:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-		aura.duration:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-
-		aura.count:ClearAllPoints()
-		aura.count:SetPoint("BOTTOMRIGHT", 2, 0)
-		aura.count:SetDrawLayer("ARTWORK")
-		aura.count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-		aura.count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 	end
 end)
 
@@ -137,4 +91,4 @@ end)
 BuffFrame.CollapseAndExpandButton:Kill()
 
 -- Hide debuffs
---DebuffFrame.AuraContainer:Hide()
+DebuffFrame.AuraContainer:Hide()
