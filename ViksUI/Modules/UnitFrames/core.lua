@@ -842,7 +842,11 @@ oUF:Factory(function(self)
 		self:SetWidth(%d)
 		self:SetHeight(%d)
 		]]):format(cfg.unit_size.Raid40.w,cfg.unit_size.Raid40.h))
-		raid40:SetPoint("BOTTOM", Anchorviksraid40dps, -30, 4)
+		if C.panels.NoPanels == true then
+			raid40:SetPoint("BOTTOM", Anchorviksraid40dps, -30, 20)
+		else
+			raid40:SetPoint("BOTTOM", Anchorviksraid40dps, -30, 4)
+		end
 	end
 	
 	
