@@ -215,7 +215,7 @@ local function LoadSkin()
 			else
 				tab:SetPoint("LEFT", _G["CombatConfigTab"..i-1], "RIGHT", 1, 0)
 			end
-			-- BETA _G["CombatConfigTab"..i.."Text"]:SetPoint("BOTTOM", 0, 7)
+			_G["CombatConfigTab"..i.."Text"]:SetPoint("BOTTOM", 0, 7)
 		end
 	end
 
