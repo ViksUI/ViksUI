@@ -1474,7 +1474,7 @@ lib.createDebuffs = function(f)
 		b.spacing = 6
 	elseif f.mystyle == "player" then
 		b.size = 40
-		b:SetPoint("TOPRIGHT", CPMinimb2, -76, 27)
+		b:SetPoint("TOPRIGHT", CPMinimb2, -76, 42)
 		b.initialAnchor = "TOPRIGHT"
 		b["growth-x"] = "LEFT"
 		b["growth-y"] = "DOWN"
@@ -1632,7 +1632,7 @@ lib.addEssence = function(self)
 		-- Essence bar
 		if C.unitframe_class_bar.essence == true then
 			r, g, b = unpack(T.Colors.class["EVOKER"])
-			self.Essence = CreateFrame("Frame", self:GetName().."_Essence", self, "BackdropTemplate", "BackdropTemplate")
+			self.Essence = CreateFrame("Frame", self:GetName().."_Essence", self, "BackdropTemplate")
 			local maxEssence = UnitPowerMax(self.unit, Enum.PowerType.Essence)
 			self.Essence:CreateBackdrop("Default")
 			self.Essence:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1,7)
@@ -1640,7 +1640,7 @@ lib.addEssence = function(self)
 			self.Essence:SetWidth(self:GetWidth()-2)
 
 			for i = 1, 6 do
-				self.Essence[i] = CreateFrame("StatusBar", self:GetName().."_Essence"..i, self.Essence, "BackdropTemplate")
+				self.Essence[i] = CreateFrame("StatusBar", self:GetName().."EssenceBar"..i, self.Essence, "BackdropTemplate")
 				self.Essence[i]:SetSize(213 / 10, 7)
 				if i == 1 then
 					self.Essence[i]:SetPoint("LEFT", self.Essence)
