@@ -1474,7 +1474,11 @@ lib.createDebuffs = function(f)
 		b.spacing = 6
 	elseif f.mystyle == "player" then
 		b.size = 40
-		b:SetPoint("TOPRIGHT", CPMinimb2, -76, 42)
+		if C.panels.NoPanels == true then
+			b:SetPoint("TOPRIGHT", TopHorizontalRightline, "LEFT", -8, 62)
+		else
+			b:SetPoint("TOPRIGHT", CPMinimb2, -76, 42)
+		end
 		b.initialAnchor = "TOPRIGHT"
 		b["growth-x"] = "LEFT"
 		b["growth-y"] = "DOWN"
