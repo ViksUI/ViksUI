@@ -216,7 +216,7 @@ function T.UploadBW()
 		bars.db.profile.BigWigsEmphasizeAnchor_x = 599.2888764651907
 		bars.db.profile.emphasizeGrowup = true
 		bars.db.profile.InstalledBars = 2
-		bars.db.profile.BigWigsAnchor_y = 155
+		bars.db.profile.BigWigsAnchor_y = 165
 		bars.db.profile.BigWigsEmphasizeAnchor_y = 248.6890313920976
 	end
 	local mess = BigWigs:GetPlugin("Messages")
@@ -236,8 +236,8 @@ function T.UploadBW()
 		prox.db.profile.objects.ability = false
 	end
 	BigWigsIconDB.hide = true
-	BigWigs:GetPlugin("Super Emphasize").db.profile.fontName = C.font.stylization_font
-	BigWigs:GetPlugin("Alt Power").db.profile.fontName = C.font.stylization_font
+	--BigWigs:GetPlugin("Super Emphasize").db.profile.fontName = C.font.stylization_font
+	--BigWigs:GetPlugin("Alt Power").db.profile.fontName = C.font.stylization_font
 	if InCombatLockdown() then
 		print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r")
 		print("|cffffff00Reload your UI to apply skin.|r")
