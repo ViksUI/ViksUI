@@ -26,6 +26,8 @@ local function LoadSkin()
 	end
 	MacroFrameTab1:SetPoint("TOPLEFT", MacroFrame, "TOPLEFT", 10, -39)
 	MacroFrameTab2:SetPoint("LEFT", MacroFrameTab1, "RIGHT", 4, 0)
+	MacroFrameTab1.Text:SetAllPoints(MacroFrameTab1)
+	MacroFrameTab2.Text:SetAllPoints(MacroFrameTab2)
 
 	-- General
 	MacroFrame:StripTextures()
@@ -39,8 +41,6 @@ local function LoadSkin()
 	MacroFrameTextBackground.backdrop:SetPoint("TOPLEFT", 4, -3)
 	MacroFrameTextBackground.backdrop:SetPoint("BOTTOMRIGHT", -23, 0)
 
-	_G.MacroFrameScrollFrameScrollBar:CreateBackdrop("Overlay")
-
 	T.SkinCloseButton(MacroFrameCloseButton, MacroFrame.backdrop)
 
 	-- Reposition buttons
@@ -52,10 +52,8 @@ local function LoadSkin()
 	MacroNewButton:SetPoint("RIGHT", MacroExitButton, "LEFT", -3, 0)
 
 	-- Regular scroll bar
-	--T.SkinScrollBar(MacroButtonScrollFrame)
-	--T.SkinScrollBar(MacroButtonScrollFrameScrollBar)
-	--T.SkinScrollBar(MacroFrameScrollFrameScrollBar)
-	--T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
+	T.SkinScrollBar(MacroFrame.MacroSelector.ScrollBar)
+	T.SkinScrollBar(MacroFrameScrollFrameScrollBar)
 
 	-- Big icon
 	MacroFrameSelectedMacroButton:StripTextures()
@@ -72,45 +70,28 @@ local function LoadSkin()
 	MacroFrameCharLimitText:SetPoint("BOTTOM", MacroFrameTextBackground, 0, -12)
 
 	-- Skin all buttons
-	for i = 1, MAX_ACCOUNT_MACROS do
-		local b = _G["MacroButton"..i]
-		local t = _G["MacroButton"..i.."Icon"]
-		if b then
-			b:StripTextures()
-			b:StyleButton(true)
-			b:SetTemplate("Default")
+	hooksecurefunc(MacroFrame.MacroSelector.ScrollBox, "Update", function()
+		for _, button in next, {MacroFrame.MacroSelector.ScrollBox.ScrollTarget:GetChildren()} do
+			if button.Icon and not button.isSkinned then
+				button:StripTextures()
+				button:StyleButton(true)
+				button:SetTemplate("Default")
+				button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				button.Icon:ClearAllPoints()
+				button.Icon:SetPoint("TOPLEFT", 2, -2)
+				button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+				button.isSkinned = true
+			end
 		end
-
-		if t then
-			t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			t:ClearAllPoints()
-			t:SetPoint("TOPLEFT", 2, -2)
-			t:SetPoint("BOTTOMRIGHT", -2, 2)
-		end
-	end
-
-	--Icon selection frame
-	ShowUIPanel(MacroFrame); --Toggle frame to create necessary variables needed for popup frame
-	HideUIPanel(MacroFrame);
-	MacroPopupFrame:Show() --Toggle the frame in order to create the necessary button elements
-	MacroPopupFrame:Hide()
-
-	-- Popout Frame
-	T:HandleButton(MacroPopupFrame.BorderBox.OkayButton)
-	T:HandleButton(MacroPopupFrame.BorderBox.CancelButton)
-	T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
-	T.SkinEditBox(MacroPopupEditBox)
-	MacroPopupNameLeft:SetTexture(nil)
-	MacroPopupNameMiddle:SetTexture(nil)
-	MacroPopupNameRight:SetTexture(nil)
-
-	T.SkinIconSelectionFrame(MacroPopupFrame, NUM_MACRO_ICONS_SHOWN, "MacroPopupButton", "MacroPopup")
-
-	MacroPopupFrame:HookScript("OnShow", function(self)
-		self:ClearAllPoints()
-		self:Point("TOPLEFT", MacroFrame, "TOPRIGHT", 2, 0)
 	end)
 
+	-- Icon selection frame
+	MacroPopupFrame:HookScript("OnShow", function(frame)
+		if not frame.isSkinned then
+			T.SkinIconSelectionFrame(frame, nil, nil, "MacroPopup")
+			frame.isSkinned = true
+		end
+	end)
 end
 
 T.SkinFuncs["Blizzard_MacroUI"] = LoadSkin
