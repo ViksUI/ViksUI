@@ -102,6 +102,38 @@ if C.actionbar.editor then
 	tremove(T.MoverFrames, 4)	-- ActionBarAnchor
 end
 
+local unitFrames = {
+	oUF_Player,
+	oUF_Target,
+	oUF_Pet,
+	oUF_Focus,
+	oUF_FocusTarget,
+	oUF_TargetTarget,
+	oUF_Player_Castbar,
+	oUF_Target_Castbar,
+	oUF_Player_Portrait,
+	oUF_Target_Portrait,
+	PartyAnchor,
+	PartyTargetAnchor,
+	PartyPetAnchor,
+	RaidTankAnchor,
+	PartyDPSAnchor,
+	PartyTargetDPSAnchor,
+	PartyPetDPSAnchor,
+	RaidTankDPSAnchor
+}
+
+for i = 1, 5 do
+	tinsert(unitFrames,_G["oUF_Boss"..i])
+	tinsert(unitFrames,_G["oUF_Arena"..i])
+	tinsert(unitFrames,_G["oUF_Arena"..i.."Target"])
+end
+
+--for i = 1, C.raidframe.raid_groups do
+	--tinsert(unitFrames, _G["RaidAnchor"..i])
+	--tinsert(unitFrames, _G["RaidDPSAnchor"..i])
+--end
+
 local moving = false
 local movers = {}
 local placed = {
@@ -389,9 +421,19 @@ local CreateMover = function(frame, unit)
 	mover:RegisterForDrag("LeftButton")
 	mover:SetScript("OnDragStart", OnDragStart)
 	mover:SetScript("OnDragStop", OnDragStop)
-	mover:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b) ShowControls(self) end)
-	mover:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(1, 0, 0) if not MouseIsOver(controls) then controls:Hide() end end)
+	mover:SetScript("OnEnter", function(self)
+		self.backdrop:SetBackdropColor(0.4, 0.4, 0.4, C.media.backdrop_alpha)
+		self.backdrop:SetBackdropBorderColor(unpack(C.media.classborder_color))
+		ShowControls(self)
+		title:SetText(mover.name:GetText())
+	end)
+	mover:SetScript("OnLeave", function(self)
+		self.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+		self.backdrop:SetBackdropBorderColor(0, 0.6, 0.6)
+		if not MouseIsOver(controls) then controls:Hide() end
+	end)
 	mover:SetScript("OnMouseUp", RestoreDefaults)
+	mover:SetScript("OnMouseWheel", OnMouseWheel)
 	mover.frame = frame
 
 	mover.name = mover:CreateFontString(nil, "OVERLAY")
@@ -401,16 +443,18 @@ local CreateMover = function(frame, unit)
 	local text = frame:GetName()
 	text = text:gsub("_Anchor", "")
 	text = text:gsub("Anchor", "")
+	text = text:gsub("oUF_", "")
 	mover.name:SetText(text)
 	mover.name:SetWidth(frame:GetWidth() - 4)
 	movers[frame:GetName()] = mover
+	index = index - 2
 end
 
-local GetMover = function(frame)
+local GetMover = function(frame, unit)
 	if movers[frame:GetName()] then
 		return movers[frame:GetName()]
 	else
-		return CreateMover(frame)
+		return CreateMover(frame, unit)
 	end
 end
 
