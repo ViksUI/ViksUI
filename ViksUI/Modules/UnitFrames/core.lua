@@ -88,8 +88,8 @@ local UnitSpecific = {
 	lib.gen_textbar(self)
 	lib.gen_textstrings(self)
 	if cfg.showPlayerAuras then
-		BuffFrame:Hide()
-		lib.createBuffs(self)
+		--BuffFrame:Hide()
+		--lib.createBuffs(self)
 		lib.createDebuffs(self)
 	end
 	self.Health.frequentUpdates = true
