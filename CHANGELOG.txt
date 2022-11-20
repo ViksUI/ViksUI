@@ -1,1 +1,23 @@
 Allways check https://github.com/ViksUI/ViksUI/commits/master
+
+	Update 10.15 for Wow 10.0.2
+	• Evoker Classtimer/filger spells added
+	• More skins enabled
+	• MagePortals working again
+	• Bags are updated with improved search
+	• Bags now support regentbag
+	• Tooltip: Mountsource Itemlevel SpellID Itemcount talents fixed
+	• One Click Disenchant/Milling/Prospect fixed
+	• FogOfWar updated for Dragonflight
+	• Overhaul of classtimer spells
+	• Added Debuffs for DF Season 1 & Vault of the Incarnates Raid
+	• Updated NpC Color marking for DF M+ S1
+	• Aura frames updated. Debuffs now showing throu oUF with debuff type border
+	• Adjusted new Class and power colors
+	• Added back info panel with updated stat priority for all classes
+	• Colorizes recipes/mounts/pets/toys that is already known fixed + Learn all function
+	• Faster auto looting updated
+	• Added Evokers Soar bar paging added to built in Actionbars (None Bartender bars)
+	• Keep position for TalkingHeadFrame.
+	• Upgrade icon in bags only show with using Pawn addon. Blizzard have removed IsContainerItemAnUpgrade function
+	• Plus alot of minor stuff. Check github for full log
