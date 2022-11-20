@@ -144,7 +144,7 @@ _G.StaticPopupDialogs["PATRON"] = {
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("TOP",0,-50)
-	frame:SetSize(445, 500)
+	frame:SetSize(445, 650)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	
