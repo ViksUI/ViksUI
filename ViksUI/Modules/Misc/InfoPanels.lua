@@ -13,11 +13,11 @@ IcyVeinStats["DRUID-103"] = "Agil > Crit > Mast > Vers > Haste" --// Feral Druid
 IcyVeinStats["DRUID-104"] = "|cFFFFFF00Surv:|r iLvL > Armor = Agil = Stam > Haste > Vers > Mast |cFFFFFF00Dmg:|r Vers = Haste > Crit = Mast" --// Bear Druid
 IcyVeinStats["DRUID-105"] = "|cFFFFFF00Raid:|r Int > Haste > Mast > Crit = Vers|cFFFFFF00Dung+dmg:|r Int > Haste > Vers > Crit > Mast" --// Restro Druid
 
-IcyVeinStats["EVOKER-1467"] = "Int/iLvL > Mast = Crit > Haste > Vers" --// Devastation
-IcyVeinStats["EVOKER-1468"] = "Int > Crit > Mast > Vers > Haste" --// Preservation
+IcyVeinStats["EVOKER-1467"] = "Int/iLvL > Mast > Haste > Crit > Vers" --// Devastation
+IcyVeinStats["EVOKER-1468"] = "|cFFFFFF00Raid:|r Int > Crit > Mast > Vers > Haste |cFFFFFF00Dung:|r Int > Crit > Vers > Haste > Mast" --// Preservation
 
 IcyVeinStats["HUNTER-253"] = "Mast > Crit > Haste > Vers" --// Beast Master Hunter
-IcyVeinStats["HUNTER-254"] = "Mast = Crit > Vers > Haste" --// Marksman Hunter
+IcyVeinStats["HUNTER-254"] = "Mast > Crit > Vers > Haste" --// Marksman Hunter
 IcyVeinStats["HUNTER-255"] = "Haste > Mast > Crit > Vers" --// Survival Hunter
 
 IcyVeinStats["MAGE-62"] = "Int > Crit > Mast > Vers > Haste" --// Arcane Mage
@@ -30,7 +30,7 @@ IcyVeinStats["MONK-270"] = "|cFFFFFF00Raid:|r Int > Crit > Vers > Haste > Mast |
 
 IcyVeinStats["PALADIN-65"] = "|cFFFFFF00Raid:|r Int > Haste > Mast > Vers > Crit |cFFFFFF00Dung:|r Int > Haste > Vers > Crit > Mast" --// Holy Paladin
 IcyVeinStats["PALADIN-66"] = "Haste ≈ Mast ≈ Vers > Crit" --// Protection Paladin
-IcyVeinStats["PALADIN-70"] = "Str > Haste ≈ Mast ≈ Vers ≈ Crit" --// Retribution Paladin
+IcyVeinStats["PALADIN-70"] = "Str > Haste ≈ Mast ~ Vers ≈ Crit" --// Retribution Paladin
 
 IcyVeinStats["PRIEST-256"] = "Int > Haste > Crit > Vers > Mast" --// Disc Priest
 IcyVeinStats["PRIEST-257"] = "|cFFFFFF00Raid:|r Int > Mast = Crit > Vers > Haste |cFFFFFF00Dung:|r Int > Crit = Haste > Vers > Mast" --// Holy Priest
@@ -45,7 +45,7 @@ IcyVeinStats["SHAMAN-263"] = "Agil > Haste > Mast > Vers > Crit" --// Enhancemen
 IcyVeinStats["SHAMAN-264"] = "Int > Vers = Crit > Haste = Mast"  --// Restro Shaman
 
 IcyVeinStats["WARLOCK-265"] = "Int > Mast > Haste > Crit > Vers" --// Affliction Warlock
-IcyVeinStats["WARLOCK-266"] = "Int > Mast > Haste > Crit > Vers" --// Demonology Warlock
+IcyVeinStats["WARLOCK-266"] = "Int > Haste > Mast > Crit ~ Vers" --// Demonology Warlock
 IcyVeinStats["WARLOCK-267"] = "Int > Haste ≥ Mast > Crit > Vers" --// Destruction Warlock
 
 IcyVeinStats["WARRIOR-71"] = "Str > Crit > Haste > Mast > Vers" --// Arms Warrior
