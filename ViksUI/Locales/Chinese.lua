@@ -206,6 +206,10 @@ L_INFO_NOT_INSTALLED = " 没有安装"
 L_INFO_SKIN_DISABLED1 = "界面美化启用"
 L_INFO_SKIN_DISABLED2 = " 已禁用"
 
+-- Moving elements
+L_MOVE_RIGHT_CLICK = "右键重置位置"
+L_MOVE_MIDDLE_CLICK = "中键临时隐藏"
+
 -- Popups
 L_POPUP_INSTALLUI = "该角色首次使用ViksUI，你必须重新加载UI来配置。"
 L_POPUP_RESETUI = "你确定要重新加载ViksUI?"

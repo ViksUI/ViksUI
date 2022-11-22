@@ -64,9 +64,7 @@
 	<Script file="Modules\UnitFrames\Nameplates.lua"/>
 	<Include file="Modules\UnitFrames\uf.xml"/>
 	<Include file="Modules\UnitFrames\template.xml"/>
-	<Include file="Modules\UnitFrames\Raid\load.xml"/>
 	<Script file="Main\Style.lua"/>
-	<!--Script file="Modules\Misc\ArmoryLink.lua"/-->
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
 	<Script file="Modules\Misc\Combat.lua"/>
@@ -80,7 +78,6 @@
 	<Script file="Modules\Misc\PvPQueueTimer.lua"/>
 	<Script file="Modules\Misc\RaidUtility.lua"/>
 	<Script file="Modules\Misc\SlotItemLevel.lua"/>
-	<!--DELETE ME?? Script file="Modules\Misc\Stats.lua"/-->
 	<Script file="Modules\Misc\Threat.lua"/>
 	<Script file="Modules\Misc\RaidTools.lua"/>
 

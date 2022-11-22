@@ -75,7 +75,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 					self:SetScript("OnHide", nil)
 				end)
 			elseif spellmacro == "MACRO" then
-				self.button.id = self.button:GetID()
+				self.button.id = self.button.selectionIndex or self.button:GetID()
 
 				if localmacros == 1 then self.button.id = self.button.id + MAX_ACCOUNT_MACROS end
 
@@ -314,7 +314,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 			end
 		end
 
-		for i = 1, NUM_STANCE_SLOTS do
+		for i = 1, 10 do
 			local b = _G["StanceButton"..i]
 			b:HookScript("OnEnter", function(self) bind:Update(self, "STANCE") end)
 		end
@@ -332,10 +332,14 @@ SlashCmdList.MOUSEOVERBIND = function()
 		ExtraActionButton1:HookScript("OnEnter", function(self) bind:Update(self) end)
 
 		local function registermacro()
-			for i = 1, MAX_ACCOUNT_MACROS do
-				local b = _G["MacroButton"..i]
-				b:HookScript("OnEnter", function(self) bind:Update(self, "MACRO") end)
-			end
+			hooksecurefunc(MacroFrame, "Update", function(frame)
+				for _, button in next, {frame.MacroSelector.ScrollBox.ScrollTarget:GetChildren()} do
+					if button and not button.hook then
+						button:HookScript("OnEnter", function(self) bind:Update(button, "MACRO") end)
+						button.hook = true
+					end
+				end
+			end)
 			MacroFrameTab1:HookScript("OnMouseUp", function() localmacros = 0 end)
 			MacroFrameTab2:HookScript("OnMouseUp", function() localmacros = 1 end)
 		end

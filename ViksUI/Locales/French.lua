@@ -206,6 +206,10 @@ L_INFO_NOT_INSTALLED = " n'est pas installé."
 L_INFO_SKIN_DISABLED1 = "Personnalisation pour "
 L_INFO_SKIN_DISABLED2 = " est désactivé."
 
+-- Moving elements
+L_MOVE_RIGHT_CLICK = "Clique droit de la souris pour réinitialiser la position"
+L_MOVE_MIDDLE_CLICK = "Clique du milieu de la souris pour cacher temporairement"
+
 -- Popups
 L_POPUP_INSTALLUI = "Première utilisation de ViksUI avec ce personnage. Vous devez recharger l'interface utilisateur pour le configurer."
 L_POPUP_RESETUI = "Etes-vous sûr de vouloir réinitialiser ViksUI ?"

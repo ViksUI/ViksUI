@@ -200,6 +200,18 @@ T.CalculateMoverPoints = function(mover)
 	return x, y, point
 end
 
+T.IsFramePositionedLeft = function(frame)
+	local x = frame:GetCenter()
+	local screenWidth = GetScreenWidth()
+	local positionedLeft = false
+
+	if x and x < (screenWidth / 2) then
+		positionedLeft = true
+	end
+
+	return positionedLeft
+end
+
 ------------------------------------------------------------------------------------------
 -- Overlay Function (Buttons) --Different then in API
 ------------------------------------------------------------------------------------------

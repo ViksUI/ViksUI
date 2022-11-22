@@ -363,9 +363,13 @@ end
 
 local chatInfo = CreateFrame("Frame", nil, UIParent)
 chatInfo:SetFrameStrata("TOOLTIP")
-chatInfo:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", -3, 1)
+chatInfo:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -3, 50)
 chatInfo:SetSize(C.chat.width + 7, C.chat.height + 4)
 chatInfo:SetTemplate("Overlay")
+chatInfo:SetMovable(true)
+chatInfo:EnableMouse(true)
+chatInfo:SetScript("OnMouseDown", chatInfo.StartMoving)
+chatInfo:SetScript("OnMouseUp", chatInfo.StopMovingOrSizing)
 chatInfo:Hide()
 
 local title = chatInfo:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
@@ -475,15 +479,21 @@ local InitMove = function(msg)
 			local mover = GetMover(v)
 			if mover then mover:Show() end
 		end
+		for _, v in pairs(unitFrames) do
+			local mover = GetMover(v, true)
+			if mover then mover:Show() end
+		end
 		moving = true
-		Grid_Show()
+		SlashCmdList.GRIDONSCREEN()
+		chatInfo:Show()
 	else
 		for _, v in pairs(movers) do
 			v:Hide()
 		end
 		moving = false
-		Grid_Hide()
+		SlashCmdList.GRIDONSCREEN("hide")
 		controls:Hide()
+		chatInfo:Hide()
 	end
 	if T.MoveUnitFrames then T.MoveUnitFrames() end
 end
@@ -521,3 +531,45 @@ SLASH_MOVING1 = "/moveui"
 SLASH_MOVING2 = "/ьщмугш"
 SLASH_MOVING3 = "/ui"
 SLASH_MOVING4 = "/гш"
+
+StaticPopupDialogs.RESET_UF = {
+	text = L_POPUP_RESETUI,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") else
+		for _, frame in pairs(unitFrames) do
+			if frame:GetName() then
+				ViksUIPositions[frame:GetName()] = nil
+			end
+		end
+		ReloadUI()
+		end
+	end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
+
+SlashCmdList.RESETUF = function() StaticPopup_Show("RESET_UF") end
+SLASH_RESETUF1 = "/resetuf"
+
+StaticPopupDialogs.MOVEUI_RESET = {
+	text = L_POPUP_RESETUI,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") else
+		ViksUIPositions = {}
+		for _, v in pairs(placed) do
+			if _G[v] then
+				_G[v]:SetUserPlaced(false)
+			end
+		end
+		ReloadUI()
+		end
+	end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+	preferredIndex = 5,
+}
