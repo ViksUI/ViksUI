@@ -4,7 +4,7 @@
 	<Include file="Libs\LibSpellRange-1.0\lib.xml"/>
 	<Script file="Core\Init.lua"/>
 	<Script file="Core\Constants.lua"/>
-	<Include file="locales\load_locales.xml"/>
+	<Include file="Locales\load_locales.xml"/>
 	
 	<!-- core -->
 	<Include file="Modules\Misc\BaudErrorFrame.xml"/>
@@ -44,7 +44,7 @@
 	<Script file="Config\Filters\Reminders.lua"/>
 		
 	<Script file="Core\API.lua"/>
-	<Script file="Main\move.lua"/>
+	<Script file="Main\Move.lua"/>
 	<Script file="Main\Core.lua"/>
 	<Script file="Core\Functions.lua"/>
 	<Script file="Core\Launch.lua"/>
@@ -56,14 +56,14 @@
 	<Script file="Core\CheckVersion.lua"/>
 	<Script file="Core\Panels.lua"/>
 	<Script file="Core\ChangeLog.lua"/>
-	<Script file="Config\theme.lua"/>
+	<Script file="Config\Theme.lua"/>
 	<Script file="Config\Filters\FilgerSpells.lua"/>
 	<Script file="Core\Colors.lua"/>
 	
 	<Script file="Modules\UnitFrames\Functions.lua"/>
 	<Script file="Modules\UnitFrames\Nameplates.lua"/>
-	<Include file="Modules\UnitFrames\uf.xml"/>
-	<Include file="Modules\UnitFrames\template.xml"/>
+	<Include file="Modules\UnitFrames\UF.xml"/>
+	<Include file="Modules\UnitFrames\Template.xml"/>
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
@@ -164,7 +164,7 @@
 	<Script file="Modules\Datatext\Avoidance.lua"/>
 	<Script file="Modules\Datatext\Crit.lua"/>
 	<Script file="Modules\Datatext\Haste.lua"/>
-	<Script file="Modules\Datatext\versatility.lua"/>
+	<Script file="Modules\Datatext\Versatility.lua"/>
 	<Script file="Modules\Datatext\Volume.lua"/>
 	<Script file="Modules\Datatext\Mastery.lua"/>
 	<Script file="Modules\Datatext\Power.lua"/>
@@ -172,7 +172,7 @@
 	<Script file="Modules\Datatext\Talent.lua"/>
 	<Script file="Modules\Datatext\Battleground.lua"/>
 	<Script file="Modules\Datatext\Professions.lua"/>
-	<Script file="Modules\Datatext\location.lua"/>
+	<Script file="Modules\Datatext\Location.lua"/>
 	<Script file="Modules\Quests\AutoCollapse.lua"/>
 	<Script file="Modules\Datatext\Quests.lua"/>
 
@@ -258,7 +258,7 @@
 	<Script file="Modules\Skins\WeakAuras.lua"/>
 	<Script file="Modules\Skins\oPie.lua"/>
 	<Script file="Modules\Skins\pawn.lua"/>
-	<!--Script file="Modules\Skins\Rematch.lua"/-->
+	<Script file="Modules\Skins\Rematch.lua"/>
 	<Script file="Modules\Skins\Postal.lua"/>
 	<Script file="Modules\Skins\lsToasts.lua"/>
 	
