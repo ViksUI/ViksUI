@@ -1098,7 +1098,14 @@ function Stuffing:InitBags()
 			elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
 				SortBankBags()
 			else
-				SortBags()
+				if btn == "RightButton" then
+					Stuffing:SetBagsForSorting("d")
+					Stuffing:SortBags()
+				else
+					SetSortBagsRightToLeft(true)
+					SortBags()
+				end
+				--SortBags()
 			end
 		end)
 	end
@@ -1643,7 +1650,7 @@ function Stuffing:SortBags()
 
 					local n, _, q, iL, rL, c1, c2, _, Sl = GetItemInfo(itemLink)
 					-- Hearthstone
-					if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) then
+					if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) or n == GetItemInfo(141605) then
 						q = 9
 					end
 					-- Fix for battle pets
@@ -1655,6 +1662,11 @@ function Stuffing:SortBags()
 						c1 = "Pet"
 						c2 = "Pet"
 						Sl = ""
+					end
+					-- Keystone
+					local ks = strmatch(itemLink, "keystone:(%d+)")
+					if ks then
+						q = 9
 					end
 
 					newItem.sort = q..c1..c2..rL..n..iL..Sl
