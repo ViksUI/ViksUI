@@ -327,7 +327,7 @@ function CreateShadow1(f)
       frameBD:SetPoint("TOPRIGHT", 0, 0)
       frameBD:SetPoint("BOTTOMRIGHT", 0, 0)
       frameBD:SetBackdrop( { 
-         edgeFile = "Interface\\AddOns\\ViksUI\\media\\Other\\glowTex", edgeSize = 4,
+         edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", edgeSize = 4,
          insets = {left = 3, right = 3, top = 3, bottom = 3},
          tile = false, tileSize = 0,
       })
@@ -346,7 +346,7 @@ function CreateShadow2(f)
       frameBD:SetPoint("TOPRIGHT", -5, -5)
       frameBD:SetPoint("BOTTOMRIGHT", -5, 5)
       frameBD:SetBackdrop( { 
-         edgeFile = "Interface\\AddOns\\ViksUI\\media\\Other\\glowTex", edgeSize = 4,
+         edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", edgeSize = 4,
          insets = {left = 3, right = 3, top = 3, bottom = 3},
          tile = false, tileSize = 0,
       })

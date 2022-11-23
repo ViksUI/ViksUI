@@ -764,7 +764,7 @@ local function style(self, unit)
 	-- Target Glow
 	if C.nameplate.target_glow then
 		self.Glow = CreateFrame("Frame", nil, self, "BackdropTemplate")
-		self.Glow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\textures\Glow.tga]], edgeSize = 4 * T.noscalemult})
+		self.Glow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\Textures\Glow.tga]], edgeSize = 4 * T.noscalemult})
 		self.Glow:SetPoint("TOPLEFT", -7 * T.noscalemult, 7 * T.noscalemult)
 		self.Glow:SetPoint("BOTTOMRIGHT", 7 * T.noscalemult, -7 * T.noscalemult)
 		self.Glow:SetBackdropBorderColor(0.8, 0.8, 0.8)

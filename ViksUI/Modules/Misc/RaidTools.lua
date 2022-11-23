@@ -103,7 +103,7 @@ RaidToolsText:SetText("RAID TOOLS")
 --RIGHTChatline.iconmiddle = RIGHTChatline:CreateTexture(nil, "OVERLAY")
 --RIGHTChatline.iconmiddle:SetSize(17, 17)
 --RIGHTChatline.iconmiddle:SetPoint("RIGHT", RaidToolsText, "LEFT", -4, -2)
---RIGHTChatline.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+--RIGHTChatline.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\skull.blp]])
 --RIGHTChatline.iconmiddle:SetVertexColor(unpack(C.media.pxcolor1))
 
 ShowHideRaid:SetScript("OnEnter", function(self)
@@ -131,49 +131,49 @@ clearraidmarker:SetAttribute("macrotext1", "/tm 0")
 CreateBtn("mbbutton08", Line01, 19, 19, "Set Raid Marker |cffFFFF00STAR|r", "", RaidToolsTooltipAnchor)
 mbbutton08:SetPoint("RIGHT", clearraidmarker, "LEFT", -5, 0)
 mbbutton08:SetAttribute("macrotext1", "/tm 1")
-mbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\star.blp]])
+mbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\star.blp]])
 
 -- Button 7 - Orange/Circle
 CreateBtn("mbbutton07", Line01, 19, 19, "Set Raid Marker |cffFF8000CIRCLE|r", "", RaidToolsTooltipAnchor)
 mbbutton07:SetPoint("RIGHT", mbbutton08, "LEFT", -5, 0)
 mbbutton07:SetAttribute("macrotext1", "/tm 2")
-mbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\circle.blp]])
+mbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\circle.blp]])
 
 -- Button 6 - Purple/Diamond
 CreateBtn("mbbutton06", Line01, 19, 19, "Set Raid Marker |cffFF00FFDIAMOND|r", "", RaidToolsTooltipAnchor)
 mbbutton06:SetPoint("RIGHT", mbbutton07, "LEFT", -5, 0)
 mbbutton06:SetAttribute("macrotext1", "/tm 3")
-mbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\diamond.blp]])
+mbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\diamond.blp]])
 
 -- Button 5 - Green/Triangle
 CreateBtn("mbbutton05", Line01, 19, 19, "Set Raid Marker |cff33FF33TRIANGLE|r", "", RaidToolsTooltipAnchor)
 mbbutton05:SetPoint("RIGHT", mbbutton06, "LEFT", -5, 0)
 mbbutton05:SetAttribute("macrotext1", "/tm 4")
-mbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\triangle.blp]])
+mbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\triangle.blp]])
 
 -- Button 4 - Grey/Moon
 CreateBtn("mbbutton04", Line01, 19, 19, "Set Raid Marker |cffCCCCFFMOON|r", "", RaidToolsTooltipAnchor)
 mbbutton04:SetPoint("RIGHT", mbbutton05, "LEFT", -5, 0)
 mbbutton04:SetAttribute("macrotext1", "/tm 5")
-mbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\moon.blp]])
+mbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\moon.blp]])
 
 -- Button 3 - Blue/Square
 CreateBtn("mbbutton03", Line01, 19, 19, "Set Raid Marker |cff0080FFSQUARE|r", "", RaidToolsTooltipAnchor)
 mbbutton03:SetPoint("RIGHT", mbbutton04, "LEFT", -5, 0)
 mbbutton03:SetAttribute("macrotext1", "/tm 6")
-mbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\square.blp]])
+mbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\square.blp]])
 
 -- Button 2 - Red/Cross
 CreateBtn("mbbutton02", Line01, 19, 19, "Set Raid Marker |cffFF0000CROSS|r", "", RaidToolsTooltipAnchor)
 mbbutton02:SetPoint("RIGHT", mbbutton03, "LEFT", -5, 0)
 mbbutton02:SetAttribute("macrotext1", "/tm 7")
-mbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\cross.blp]])
+mbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\cross.blp]])
 
 -- Button 1 - White/Skull
 CreateBtn("mbbutton01", Line01, 19, 19, "Set Raid Marker |cffFFFFFFSKULL|r", "", RaidToolsTooltipAnchor)
 mbbutton01:SetPoint("RIGHT", mbbutton02, "LEFT", -5, 0)
 mbbutton01:SetAttribute("macrotext1", "/tm 8")
-mbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+mbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\skull.blp]])
 
 ------------------------------------------------------------------------------------------
 -- World Markers / flares
@@ -187,49 +187,49 @@ clearworldmarkers:SetAttribute("macrotext1", "/cwm 0")
 CreateBtn("wbbutton08", Line02, 19, 19, "Set World Marker |cffFFFF00STAR|r", "", RaidToolsTooltipAnchor)
 wbbutton08:SetPoint("RIGHT", clearworldmarkers, "LEFT", -5, 0)
 wbbutton08:SetAttribute("macrotext1", "/wm 5")
-wbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\yellow.tga]])
+wbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\yellow.tga]])
 
 -- Button 7 - orange/circle
 CreateBtn("wbbutton07", Line02, 19, 19, "Set World Marker |cffFF8000CIRCLE|r", "", RaidToolsTooltipAnchor)
 wbbutton07:SetPoint("RIGHT", wbbutton08, "LEFT", -5, 0)
 wbbutton07:SetAttribute("macrotext1", "/wm 6")
-wbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\orange.tga]])
+wbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\orange.tga]])
 
 -- Button 6 - purple/diamond
 CreateBtn("wbbutton06", Line02, 19, 19, "Set World Marker |cffFF00FFDIAMOND|r", "", RaidToolsTooltipAnchor)
 wbbutton06:SetPoint("RIGHT", wbbutton07, "LEFT", -5, 0)
 wbbutton06:SetAttribute("macrotext1", "/wm 3")
-wbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\purple.tga]])
+wbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\purple.tga]])
 
 -- Button 5 - green/triangle
 CreateBtn("wbbutton05", Line02, 19, 19, "Set World Marker |cff33FF33TRIANGLE|r", "", RaidToolsTooltipAnchor)
 wbbutton05:SetPoint("RIGHT", wbbutton06, "LEFT", -5, 0)
 wbbutton05:SetAttribute("macrotext1", "/wm 2")
-wbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\green.tga]])
+wbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\green.tga]])
 
 -- Button 4 - gray/moon
 CreateBtn("wbbutton04", Line02, 19, 19, "Set World Marker |cffCCCCFFMOON|r", "", RaidToolsTooltipAnchor)
 wbbutton04:SetPoint("RIGHT", wbbutton05, "LEFT", -5, 0)
 wbbutton04:SetAttribute("macrotext1", "/wm 7")
-wbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\grey.tga]])
+wbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\grey.tga]])
 
 -- Button 3 - blue/square
 CreateBtn("wbbutton03", Line02, 19, 19, "Set World Marker |cff0080FFSQUARE|r", "", RaidToolsTooltipAnchor)
 wbbutton03:SetPoint("RIGHT", wbbutton04, "LEFT", -5, 0)
 wbbutton03:SetAttribute("macrotext1", "/wm 1")
-wbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\blue.tga]])
+wbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\blue.tga]])
 
 -- Button 2 - Red/Cross
 CreateBtn("wbbutton02", Line02, 19, 19, "Set World Marker |cffFF0000CROSS|r", "", RaidToolsTooltipAnchor)
 wbbutton02:SetPoint("RIGHT", wbbutton03, "LEFT", -5, 0)
 wbbutton02:SetAttribute("macrotext1", "/wm 4")
-wbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\red.tga]])
+wbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\red.tga]])
 
 -- Button 1 - White/Skull
 CreateBtn("wbbutton01", Line02, 19, 19, "Set World Marker |cffFFFFFFSKULL|r", "", RaidToolsTooltipAnchor)
 wbbutton01:SetPoint("RIGHT", wbbutton02, "LEFT", -5, 0)
 wbbutton01:SetAttribute("macrotext1", "/wm 8")
-wbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\white.tga]])
+wbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\white.tga]])
 		
 ------------------------------------------------------------------------------------------
 -- Raid Commands
@@ -243,20 +243,20 @@ pulltimer:SetAttribute("macrotext1", "/dbm pull 10")
 CreateBtn("mainassistbutton", Line03, RaidToolsWidth/6, 19, "Set Main Assist", "", RaidToolsTooltipAnchor)
 mainassistbutton:SetPoint("RIGHT", pulltimer, "LEFT", -5, 0)
 mainassistbutton:SetAttribute("macrotext1", "/ma")
-	mainassistbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\mainassist.tga]])
+	mainassistbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Roleicons\mainassist.tga]])
 
 -- Button Set Main Tank
 CreateBtn("maintankbutton", Line03, RaidToolsWidth/6, 19, "Set Main Tank", "", RaidToolsTooltipAnchor)
 maintankbutton:SetPoint("RIGHT", mainassistbutton, "LEFT", -5, 0)
 maintankbutton:SetAttribute("macrotext1", "/mt")
-	maintankbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\tank2.tga]])
+	maintankbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Roleicons\tank2.tga]])
 
 -- Button Readycheck
 CreateBtn("rcbutton", Line03, RaidToolsWidth/6, 19, "Start a readycheck", "", RaidToolsTooltipAnchor)
 rcbutton:SetPoint("RIGHT", maintankbutton, "LEFT", -5, 0)
 rcbutton:SetAttribute("macrotext1", "/readycheck")
 rcbutton.icon:SetSize(34, 17)
-rcbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\readycheck.tga]])
+rcbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Roleicons\readycheck.tga]])
 
 ------------------------------------------------------------------------------------------
 -- SHOW HIDE FUNCTIONALITY 
@@ -294,7 +294,7 @@ ToolsText:SetText("UI TOOLS")
 --RIGHTChatline.iconright = RIGHTChatline:CreateTexture(nil, "OVERLAY")
 --RIGHTChatline.iconright:SetSize(17, 17)
 --RIGHTChatline.iconright:SetPoint("RIGHT", RIGHTChatline, "RIGHT", -12, -2)
---RIGHTChatline.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\acp.tga]])
+--RIGHTChatline.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\acp.tga]])
 
 ShowHideTools:SetScript("OnEnter", function(self)
 	ToolsText:SetTextColor(class.r, class.g, class.b)
@@ -395,7 +395,7 @@ RaidToolsText:SetText("Raid Tools")
 --RChatTab.iconmiddle = RChatTab:CreateTexture(nil, "OVERLAY")
 --RChatTab.iconmiddle:SetSize(17, 17)
 --RChatTab.iconmiddle:SetPoint("RIGHT", RaidToolsText, "LEFT", -4, 0)
---RChatTab.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+--RChatTab.iconmiddle:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\skull.blp]])
 
 ShowHideRaid:SetScript("OnEnter", function(self)
 RaidToolsText:SetTextColor(class.r, class.g, class.b)
@@ -422,49 +422,49 @@ clearraidmarker:SetAttribute("macrotext1", "/tm 0")
 CreateBtn("mbbutton08", Line01, 19, 19, "Set Raid Marker |cffFFFF00STAR|r", "", RaidToolsTooltipAnchor)
 mbbutton08:SetPoint("RIGHT", clearraidmarker, "LEFT", -5, 0)
 mbbutton08:SetAttribute("macrotext1", "/tm 1")
-mbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\star.blp]])
+mbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\star.blp]])
 
 -- Button 7 - Orange/Circle
 CreateBtn("mbbutton07", Line01, 19, 19, "Set Raid Marker |cffFF8000CIRCLE|r", "", RaidToolsTooltipAnchor)
 mbbutton07:SetPoint("RIGHT", mbbutton08, "LEFT", -5, 0)
 mbbutton07:SetAttribute("macrotext1", "/tm 2")
-mbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\circle.blp]])
+mbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\circle.blp]])
 
 -- Button 6 - Purple/Diamond
 CreateBtn("mbbutton06", Line01, 19, 19, "Set Raid Marker |cffFF00FFDIAMOND|r", "", RaidToolsTooltipAnchor)
 mbbutton06:SetPoint("RIGHT", mbbutton07, "LEFT", -5, 0)
 mbbutton06:SetAttribute("macrotext1", "/tm 3")
-mbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\diamond.blp]])
+mbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\diamond.blp]])
 
 -- Button 5 - Green/Triangle
 CreateBtn("mbbutton05", Line01, 19, 19, "Set Raid Marker |cff33FF33TRIANGLE|r", "", RaidToolsTooltipAnchor)
 mbbutton05:SetPoint("RIGHT", mbbutton06, "LEFT", -5, 0)
 mbbutton05:SetAttribute("macrotext1", "/tm 4")
-mbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\triangle.blp]])
+mbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\triangle.blp]])
 
 -- Button 4 - Grey/Moon
 CreateBtn("mbbutton04", Line01, 19, 19, "Set Raid Marker |cffCCCCFFMOON|r", "", RaidToolsTooltipAnchor)
 mbbutton04:SetPoint("RIGHT", mbbutton05, "LEFT", -5, 0)
 mbbutton04:SetAttribute("macrotext1", "/tm 5")
-mbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\moon.blp]])
+mbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\moon.blp]])
 
 -- Button 3 - Blue/Square
 CreateBtn("mbbutton03", Line01, 19, 19, "Set Raid Marker |cff0080FFSQUARE|r", "", RaidToolsTooltipAnchor)
 mbbutton03:SetPoint("RIGHT", mbbutton04, "LEFT", -5, 0)
 mbbutton03:SetAttribute("macrotext1", "/tm 6")
-mbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\square.blp]])
+mbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\square.blp]])
 
 -- Button 2 - Red/Cross
 CreateBtn("mbbutton02", Line01, 19, 19, "Set Raid Marker |cffFF0000CROSS|r", "", RaidToolsTooltipAnchor)
 mbbutton02:SetPoint("RIGHT", mbbutton03, "LEFT", -5, 0)
 mbbutton02:SetAttribute("macrotext1", "/tm 7")
-mbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\cross.blp]])
+mbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\cross.blp]])
 
 -- Button 1 - White/Skull
 CreateBtn("mbbutton01", Line01, 19, 19, "Set Raid Marker |cffFFFFFFSKULL|r", "", RaidToolsTooltipAnchor)
 mbbutton01:SetPoint("RIGHT", mbbutton02, "LEFT", -5, 0)
 mbbutton01:SetAttribute("macrotext1", "/tm 8")
-mbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\markers\skull.blp]])
+mbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Markers\skull.blp]])
 
 ------------------------------------------------------------------------------------------
 -- World Markers / flares
@@ -478,49 +478,49 @@ clearworldmarkers:SetAttribute("macrotext1", "/cwm 0")
 CreateBtn("wbbutton08", Line02, 19, 19, "Set World Marker |cffFFFF00STAR|r", "", RaidToolsTooltipAnchor)
 wbbutton08:SetPoint("RIGHT", clearworldmarkers, "LEFT", -5, 0)
 wbbutton08:SetAttribute("macrotext1", "/wm 5")
-wbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\yellow.tga]])
+wbbutton08.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\yellow.tga]])
 
 -- Button 7 - orange/circle
 CreateBtn("wbbutton07", Line02, 19, 19, "Set World Marker |cffFF8000CIRCLE|r", "", RaidToolsTooltipAnchor)
 wbbutton07:SetPoint("RIGHT", wbbutton08, "LEFT", -5, 0)
 wbbutton07:SetAttribute("macrotext1", "/wm 6")
-wbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\orange.tga]])
+wbbutton07.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\orange.tga]])
 
 -- Button 6 - purple/diamond
 CreateBtn("wbbutton06", Line02, 19, 19, "Set World Marker |cffFF00FFDIAMOND|r", "", RaidToolsTooltipAnchor)
 wbbutton06:SetPoint("RIGHT", wbbutton07, "LEFT", -5, 0)
 wbbutton06:SetAttribute("macrotext1", "/wm 3")
-wbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\purple.tga]])
+wbbutton06.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\purple.tga]])
 
 -- Button 5 - green/triangle
 CreateBtn("wbbutton05", Line02, 19, 19, "Set World Marker |cff33FF33TRIANGLE|r", "", RaidToolsTooltipAnchor)
 wbbutton05:SetPoint("RIGHT", wbbutton06, "LEFT", -5, 0)
 wbbutton05:SetAttribute("macrotext1", "/wm 2")
-wbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\green.tga]])
+wbbutton05.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\green.tga]])
 
 -- Button 4 - gray/moon
 CreateBtn("wbbutton04", Line02, 19, 19, "Set World Marker |cffCCCCFFMOON|r", "", RaidToolsTooltipAnchor)
 wbbutton04:SetPoint("RIGHT", wbbutton05, "LEFT", -5, 0)
 wbbutton04:SetAttribute("macrotext1", "/wm 7")
-wbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\grey.tga]])
+wbbutton04.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\grey.tga]])
 
 -- Button 3 - blue/square
 CreateBtn("wbbutton03", Line02, 19, 19, "Set World Marker |cff0080FFSQUARE|r", "", RaidToolsTooltipAnchor)
 wbbutton03:SetPoint("RIGHT", wbbutton04, "LEFT", -5, 0)
 wbbutton03:SetAttribute("macrotext1", "/wm 1")
-wbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\blue.tga]])
+wbbutton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\blue.tga]])
 
 -- Button 2 - Red/Cross
 CreateBtn("wbbutton02", Line02, 19, 19, "Set World Marker |cffFF0000CROSS|r", "", RaidToolsTooltipAnchor)
 wbbutton02:SetPoint("RIGHT", wbbutton03, "LEFT", -5, 0)
 wbbutton02:SetAttribute("macrotext1", "/wm 4")
-wbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\red.tga]])
+wbbutton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\red.tga]])
 
 -- Button 1 - White/Skull
 CreateBtn("wbbutton01", Line02, 19, 19, "Set World Marker |cffFFFFFFSKULL|r", "", RaidToolsTooltipAnchor)
 wbbutton01:SetPoint("RIGHT", wbbutton02, "LEFT", -5, 0)
 wbbutton01:SetAttribute("macrotext1", "/wm 8")
-wbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\flares\white.tga]])
+wbbutton01.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Flares\white.tga]])
 		
 ------------------------------------------------------------------------------------------
 -- Raid Commands
@@ -534,20 +534,20 @@ pulltimer:SetAttribute("macrotext1", "/dbm pull 10")
 CreateBtn("mainassistbutton", Line03, RaidToolsWidth/6, 19, "Set Main Assist", "", RaidToolsTooltipAnchor)
 mainassistbutton:SetPoint("RIGHT", pulltimer, "LEFT", -5, 0)
 mainassistbutton:SetAttribute("macrotext1", "/ma")
-mainassistbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\mainassist.tga]])
+mainassistbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Roleicons\mainassist.tga]])
 
 -- Button Set Main Tank
 CreateBtn("maintankbutton", Line03, RaidToolsWidth/6, 19, "Set Main Tank", "", RaidToolsTooltipAnchor)
 maintankbutton:SetPoint("RIGHT", mainassistbutton, "LEFT", -5, 0)
 maintankbutton:SetAttribute("macrotext1", "/mt")
-maintankbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\tank2.tga]])
+maintankbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Roleicons\tank2.tga]])
 
 -- Button Readycheck
 CreateBtn("rcbutton", Line03, RaidToolsWidth/6, 19, "Start a readycheck", "", RaidToolsTooltipAnchor)
 rcbutton:SetPoint("RIGHT", maintankbutton, "LEFT", -5, 0)
 rcbutton:SetAttribute("macrotext1", "/readycheck")
 rcbutton.icon:SetSize(34, 17)
-rcbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\roleicons\readycheck.tga]])
+rcbutton.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Roleicons\readycheck.tga]])
 
 ------------------------------------------------------------------------------------------
 -- SHOW HIDE FUNCTIONALITY 
@@ -586,7 +586,7 @@ ToolsText:SetText("UI TOOLS")
 --RChatTab.iconright = RChatTab:CreateTexture(nil, "OVERLAY")
 --RChatTab.iconright:SetSize(17, 17)
 --RChatTab.iconright:SetPoint("RIGHT", RChatTab, "RIGHT", -12, 0)
---RChatTab.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\acp.tga]])
+--RChatTab.iconright:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\acp.tga]])
 
 ShowHideTools:SetScript("OnEnter", function(self)
 	ToolsText:SetTextColor(class.r, class.g, class.b)

@@ -19,7 +19,7 @@ local OnDragStop = function(self)
 end
 
 local shadows = {
-	edgeFile = "Interface\\AddOns\\ViksUI\\media\\Other\\glowTex", 
+	edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", 
 	edgeSize = 4,
 	insets = { left = 3, right = 3, top = 3, bottom = 3 }
 }

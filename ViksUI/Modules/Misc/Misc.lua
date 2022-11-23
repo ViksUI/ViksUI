@@ -168,7 +168,7 @@ ViksUIAFKPanelIcon:SetTemplate("Default")
 ViksUIAFKPanelIcon.Texture = ViksUIAFKPanelIcon:CreateTexture(nil, "ARTWORK")
 ViksUIAFKPanelIcon.Texture:SetPoint("TOPLEFT", 2, -2)
 ViksUIAFKPanelIcon.Texture:SetPoint("BOTTOMRIGHT", -2, 2)
-ViksUIAFKPanelIcon.Texture:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\viksicon.blp")
+ViksUIAFKPanelIcon.Texture:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\viksicon.blp")
 
 ViksUIAFKPanel.ViksUIText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.ViksUIText:SetPoint("CENTER", ViksUIAFKPanel, "CENTER", 0, -10)

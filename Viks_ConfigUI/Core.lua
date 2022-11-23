@@ -482,7 +482,7 @@ end
 
 -- DropDown
 local DropDownText = {
-	["Interface\\AddOns\\ViksUI\\Media\\textures\\Texture.tga"] = "Normal texture",
+	["Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga"] = "Normal texture",
 	["Interface\\AddOns\\ViksUI\\Media\\Font\\normal_font.ttf"] = "Normal font",
 	["Interface\\AddOns\\ViksUI\\Media\\Font\\pixel.ttf"] = "Pixel Font",
 	[STANDARD_TEXT_FONT] = "Blizzard font",

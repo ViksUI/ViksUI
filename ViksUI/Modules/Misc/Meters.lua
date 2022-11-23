@@ -37,7 +37,7 @@ if IsAddOnLoaded('Skada') or IsAddOnLoaded('Details') or IsAddOnLoaded('Recount'
 	RIGHTChatline.iconleft = RIGHTChatline:CreateTexture(nil, "OVERLAY")
 	RIGHTChatline.iconleft:Size(14, 14)
 	RIGHTChatline.iconleft:SetPoint("LEFT", DamageMeterText, "LEFT", -20, -2)
-	RIGHTChatline.iconleft:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\damagemeter.tga]])
+	RIGHTChatline.iconleft:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\damagemeter.tga]])
 	RIGHTChatline.iconleft:SetVertexColor(class.r, class.g, class.b)
 	if C.panels.CPwidth <= 300 then
 		RIGHTChatline.iconleft:SetPoint("LEFT", RIGHTChatline, "LEFT", C.panels.CPwidth/6, 0)

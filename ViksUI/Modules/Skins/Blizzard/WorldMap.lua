@@ -156,10 +156,10 @@ local function LoadSkin()
 		button.Background:Hide()
 		button.IconOverlay:SetAlpha(0)
 		button.Border:Hide()
-		button.Icon:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\trackingmap.tga]])
+		button.Icon:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\trackingmap.tga]])
 
 		local tex = button:GetHighlightTexture()
-		tex:SetAtlas([[Interface\AddOns\ViksUI\Media\menuicons\trackingmap.tga]])
+		tex:SetAtlas([[Interface\AddOns\ViksUI\Media\Menuicons\trackingmap.tga]])
 		tex:SetAllPoints(button.Icon)
 	end
 	

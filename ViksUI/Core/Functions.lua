@@ -222,7 +222,7 @@ local function CreateOverlayButton(f)
 	overlaybutton:ClearAllPoints()
 	overlaybutton:SetPoint("TOPLEFT", 2, -2)
 	overlaybutton:SetPoint("BOTTOMRIGHT", -2, 2)
-	overlaybutton:SetTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\Minimalist.tga")
+	overlaybutton:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\Minimalist.tga")
 	overlaybutton:SetAlpha(1)
 	overlaybutton:SetVertexColor(0.22, 0.22, 0.22)
 	f.overlaybutton = overlaybutton
@@ -238,7 +238,7 @@ T.CreateBtn = function(buttonname, buttonparent, buttonwidth, buttonheight, tool
 
 	-- button text
 	button.text = button:CreateFontString(nil, "OVERLAY")
-	--button.text:SetFont("Interface\\AddOns\\ViksUI\\media\\Fonts\\Movavi.ttf", 12, "OUTLINE")
+	--button.text:SetFont("Interface\\AddOns\\ViksUI\\Media\\Fonts\\Movavi.ttf", 12, "OUTLINE")
 	button.text:SetFontObject(CombatLogFont)
 	button.text:SetText(buttontext)
 	button.text:SetTextColor(1, 1, 1)
@@ -304,7 +304,7 @@ function T:HandleButton(f, strip, isDeclineButton)
 		if f.Icon then f.Icon:Hide() end
 		if not f.text then
 			f.text = f:CreateFontString(nil, 'OVERLAY')
-			f.text:SetFont([[Interface\AddOns\ViksUI\media\fonts\LinkinPark.ttf]], 16, 'OUTLINE')
+			f.text:SetFont([[Interface\AddOns\ViksUI\Media\Fonts\LinkinPark.ttf]], 16, 'OUTLINE')
 			f.text:SetText('x')
 			f.text:SetJustifyH('CENTER')
 			f.text:SetPoint('CENTER', f, 'CENTER')
@@ -488,9 +488,9 @@ function T:HandleMaxMinFrame(frame)
 			button:ClearAllPoints()
 			button:SetPoint("CENTER", -6 ,0)
 
-			button:SetNormalTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\vehicleexit")
-			button:SetPushedTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\vehicleexit")
-			button:SetHighlightTexture("Interface\\AddOns\\ViksUI\\Media\\textures\\vehicleexit")
+			button:SetNormalTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\vehicleexit")
+			button:SetPushedTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\vehicleexit")
+			button:SetHighlightTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\vehicleexit")
 
 			if not button.backdrop then
 				Mixin(button, BackdropTemplateMixin)

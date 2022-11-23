@@ -210,4 +210,3 @@ if locale_font then
 	C["font"].tooltip_font_size = 12
 	C["font"].bubble_font_size = 14
 end
-

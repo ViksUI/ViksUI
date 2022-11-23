@@ -748,7 +748,7 @@ if C.combattext.damage then
 		ct.dmgcolor[64] = {1, 0.5, 1}	-- Arcane
 	end
 	if C.combattext.icons then
-		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\textures\\Blank"
+		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Blank"
 	end
 	local misstypes = {ABSORB = ABSORB, BLOCK = BLOCK, DEFLECT = DEFLECT, DODGE = DODGE, EVADE = EVADE, IMMUNE = IMMUNE, MISS = MISS, MISFIRE = MISS, PARRY = PARRY, REFLECT = REFLECT, RESIST = RESIST}
 	local dmg = function()
@@ -972,7 +972,7 @@ end
 if C.combattext.healing then
 	local xCTh = CreateFrame("Frame")
 	if C.combattext.icons then
-		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\textures\\Blank"
+		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Blank"
 	end
 	local heal = function()
 		local msg, icon

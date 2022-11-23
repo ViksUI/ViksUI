@@ -6,7 +6,7 @@ local LSM = LibStub("LibSharedMedia-3.0")
 if LSM == nil then return end
 
 LSM:Register("statusbar", "ViksGloss", [[Interface\Buttons\WHITE8x8]])
-LSM:Register("statusbar", "ViksBar", [[Interface\AddOns\ViksUI\Media\textures\Texture.tga]])
+LSM:Register("statusbar", "ViksBar", [[Interface\AddOns\ViksUI\Media\Textures\Texture.tga]])
 LSM:Register("background", "ViksBlank", [[Interface\BUTTONS\WHITE8X8]])
 LSM:Register("border", "ViksGlowBorder", [[Interface\AddOns\ViksUI\Media\Other\glowTex]])
 LSM:Register("font", "ViksFont", [[Interface\AddOns\ViksUI\Media\Font\1.ttf]])

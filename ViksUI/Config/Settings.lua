@@ -20,18 +20,18 @@ C["media"] = {
 	["backdrop_color"] = {.06,.06,.06, 1}, 												-- background color of Viks UI panels
 	["backdrop_alpha"] = 0.7,															-- Alpha for transparent backdrop
 	["overlay_color"] = {0, 0, 0, 0.9},													-- Color for action bars overlay
-	["texture"] = [[Interface\AddOns\ViksUI\Media\textures\Texture.tga]],				-- Texture for status bars
+	["texture"] = [[Interface\AddOns\ViksUI\Media\Textures\Texture.tga]],				-- Texture for status bars
 	["blank"] = "Interface\\Buttons\\WHITE8x8",
 	["blank_border"] = "Interface\\Buttons\\WHITE8x8",									-- Texture for borders			
-	["highlight"] = [[Interface\AddOns\ViksUI\Media\textures\Highlight]],				-- Texture for debuffs highlight
+	["highlight"] = [[Interface\AddOns\ViksUI\Media\Textures\Highlight]],				-- Texture for debuffs highlight
 	["pxcolor1"] = { .001,.38,.651,1 },													-- Color for Name on Datatext
 	["pxcolor2"] = { .41,.80,.94,1 },													-- Color for Value on Datatext if not dynamic color by value
 	["oUFfont"] = [=[Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf]=], 			-- DataText Font Normal
 	["oUFfontsize"] = 12, 																-- Size of font Datatext
 	["oUFfontcolor"] = { .07, .7, .3, 1}, 												-- Font color used when class colored bars
-	["whisp_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Whisper.ogg]],				-- Sound for wispers
-	["warning_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Warning.ogg]],			-- Sound for warning
-	["proc_sound"] = [[Interface\AddOns\ViksUI\Media\sounds\Proc.ogg]],					-- Sound for procs
+	["whisp_sound"] = [[Interface\AddOns\ViksUI\Media\Sounds\Whisper.ogg]],				-- Sound for wispers
+	["warning_sound"] = [[Interface\AddOns\ViksUI\Media\Sounds\Warning.ogg]],			-- Sound for warning
+	["proc_sound"] = [[Interface\AddOns\ViksUI\Media\Sounds\Proc.ogg]],					-- Sound for procs
 	["yoffsetTop"] = -2,																-- Used to offset text in top panel on font change												
 	["classcolor_border"] = false,														-- Use class color for border color		
 	["classborder_color"] = {T.color.r, T.color.g, T.color.b, 1},					-- Color for class borders	
@@ -901,13 +901,13 @@ C["togglemenu"] = {
 ----------------------------------------------------------------------------------------
 
 -- pet action icons
-PET_DEFENSIVE_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_defensive]]
-PET_ASSIST_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_aggressive]]
-PET_PASSIVE_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_passive]]
-PET_ATTACK_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_attack]]
-PET_FOLLOW_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_follow]]
-PET_WAIT_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_wait]]
-PET_MOVE_TO_TEXTURE = [[Interface\Addons\ViksUI\Media\textures\icon_moveto]]
+PET_DEFENSIVE_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_defensive]]
+PET_ASSIST_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_aggressive]]
+PET_PASSIVE_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_passive]]
+PET_ATTACK_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_attack]]
+PET_FOLLOW_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_follow]]
+PET_WAIT_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_wait]]
+PET_MOVE_TO_TEXTURE = [[Interface\AddOns\ViksUI\Media\Textures\icon_moveto]]
 
 SLASH_RELOADUI1 = "/rl"
 SLASH_RELOADUI2 = "/reloadui"

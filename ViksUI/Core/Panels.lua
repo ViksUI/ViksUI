@@ -421,7 +421,7 @@ if C.panels.NoPanels == true then
 	LEFTChatline.icon = LEFTChatline:CreateTexture(nil, "OVERLAY")
 	LEFTChatline.icon:SetSize(14, 14)
 	LEFTChatline.icon:SetPoint("RIGHT", LEFTChatline, "RIGHT", -60, -20)
-	LEFTChatline.icon:SetTexture([[Interface\AddOns\ViksUI\Media\menuicons\chat.tga]])
+	LEFTChatline.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\chat.tga]])
 
 	local LEFTChatlinetext = LEFTChatline:CreateFontString(nil, "OVERLAY")
 	LEFTChatlinetext:SetFont(C["media"].pixel_font, C["media"].pixel_font_size-2, C["media"].pixel_font_style)

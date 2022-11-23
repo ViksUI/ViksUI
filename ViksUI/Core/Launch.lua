@@ -3693,7 +3693,7 @@ _detalhes_global = {
 						},
 						["textL_translit_text"] = true,
 						["texture_custom_file"] = "Interface\\",
-						["texture_file"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\Texture.tga",
+						["texture_file"] = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga",
 						["textR_bracket"] = "(",
 						["font_size"] = 14,
 						["icon_file"] = "",
@@ -4448,7 +4448,7 @@ _detalhes_global = {
 						},
 						["textL_translit_text"] = true,
 						["texture_custom_file"] = "Interface\\",
-						["texture_file"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\Texture.tga",
+						["texture_file"] = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga",
 						["textR_bracket"] = "(",
 						["font_size"] = 14,
 						["icon_file"] = "",
@@ -4616,7 +4616,7 @@ _detalhes_global = {
 						},
 						["textL_translit_text"] = true,
 						["texture_custom_file"] = "Interface\\",
-						["texture_file"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\Texture.tga",
+						["texture_file"] = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Texture.tga",
 						["textR_bracket"] = "(",
 						["font_size"] = 14,
 						["icon_file"] = "",
@@ -10382,7 +10382,7 @@ f.bg = f:CreateTexture(nil, "BACKGROUND")
 --f.bg:Point("BOTTOMRIGHT", -2, 2)
 --f.bg:Size()
 f.bg:SetPoint("CENTER", f, "CENTER", 0, 0)
-f.bg:SetTexture([[Interface\AddOns\ViksUI\Media\textures\logosk]])
+f.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\logosk]])
 f.bg:SetAlpha(0.2)
 
 local viconl = CreateFrame("Frame", "ViksUIVersion", f)
@@ -10394,7 +10394,7 @@ viconl:SetFrameStrata("HIGH")
 viconl.bg = viconl:CreateTexture(nil, "ARTWORK")
 viconl.bg:Point("TOPLEFT", 2, -2)
 viconl.bg:Point("BOTTOMRIGHT", -2, 2)
-viconl.bg:SetTexture([[Interface\AddOns\ViksUI\Media\textures\viksicon]])
+viconl.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\viksicon]])
 
 local title = CreateFrame("Frame", "ViksUIInstallTitle", f)
 title:SetTemplate("Transparent")
@@ -10411,7 +10411,7 @@ logo:SetFrameLevel(6)
 logo.bg = logo:CreateTexture(nil, "ARTWORK")
 logo.bg:Point("TOPLEFT", 2, -2)
 logo.bg:Point("BOTTOMRIGHT", -2, 2)
-logo.bg:SetTexture([[Interface\AddOns\ViksUI\Media\textures\logo]])
+logo.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\logo]])
 
 local name = title:CreateFontString(nil, "OVERLAY")
 name:SetFont(C["media"].normal_font, 16)
@@ -10419,7 +10419,7 @@ name:SetPoint("LEFT", title, 7, -1)
 name:SetText(T.version)
 
 local sb = CreateFrame("StatusBar", nil, f)
-sb:SetStatusBarTexture("\\Interface\\AddOns\\ViksUI\\Media\\textures\\normTex.tga")
+sb:SetStatusBarTexture("\\Interface\\AddOns\\ViksUI\\Media\\Textures\\normTex.tga")
 sb:SetPoint("BOTTOM", f, "BOTTOM", 0, 35)
 sb:SetHeight(15)
 sb:SetWidth(f:GetWidth() - 44)

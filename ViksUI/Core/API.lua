@@ -258,7 +258,7 @@ local function CreateShadow(frame, size, pass)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(frame:GetFrameStrata())
 	shadow:SetOutside(frame, offset, offset, nil, true)
-	shadow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\textures\Glow.tga]], edgeSize = size})
+	shadow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\Textures\Glow.tga]], edgeSize = size})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.9)
 
