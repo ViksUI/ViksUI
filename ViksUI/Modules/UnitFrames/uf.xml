@@ -1,9 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="cfg.lua"/>
-	<Script file="castbar.lua"/>
-	<Script file="tags.lua"/>
-	<Script file="Elements\Indicators.lua"/>
-	<Script file="Elements\Indicators2.lua"/>
-	<Script file="lib.lua"/>
-	<Script file="core.lua"/>
-</Ui>
