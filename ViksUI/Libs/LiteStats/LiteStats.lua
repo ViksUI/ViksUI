@@ -32,22 +32,22 @@ local gsub = gsub
 
 -- Config
 local modules = LPSTAT_CONFIG
+local clock = modules.Clock
 local latency = modules.Latency
 local fps = modules.FPS
+local friends = modules.Friends
+local guild = modules.Guild
 local durability = modules.Durability
-local gold = modules.Gold
-local gold2 = modules.Gold2
-local clock = modules.Clock
+local experience = modules.Experience
+local talents = modules.Talents
 local location = modules.Location
 local damage = modules.Damage
 local coords = modules.Coords
 local ping = modules.Ping
-local guild = modules.Guild
-local friends = modules.Friends
-local bags = modules.Bags
-local talents = modules.Talents
+local gold = modules.Gold
 local stats = modules.Stats
-local experience = modules.Experience
+local stat = modules.Stat
+local bags = modules.Bags
 local loot = modules.Loot
 local nameplates = modules.Nameplates
 
@@ -66,12 +66,9 @@ ls:SetScript("OnEvent", function(_, event, addon)
 		conf = ViksUIStats[realm][char]
 
 		-- true/false defaults for autosell and autorepair
-		if conf.AutoSell == nil then conf.AutoSell = false end
-		if conf.AutoRepair == nil then conf.AutoRepair = false end
-		if conf.AutoGuildRepair == nil then conf.AutoGuildRepair = false end
-		if conf.AutoSell == true then conf.AutoSell = false end
-		if conf.AutoRepair == true then conf.AutoRepair = false end
-		if conf.AutoGuildRepair == true then conf.AutoGuildRepair = false end
+		if conf.AutoSell == nil then conf.AutoSell = true end
+		if conf.AutoRepair == nil then conf.AutoRepair = true end
+		if conf.AutoGuildRepair == nil then conf.AutoGuildRepair = true end
 	end
 end)
 
@@ -85,9 +82,10 @@ local function GetPlayerMapPos(mapID)
 
 	local mapRect = mapRects[mapID]
 	if not mapRect then
-		mapRect = {
-			select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(0, 0))),
-			select(2, C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(1, 1)))}
+		local _, pos1 = C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(0, 0))
+		local _, pos2 = C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(1, 1))
+		if not pos1 or not pos2 then return end
+		mapRect = {pos1, pos2}
 		mapRect[2]:Subtract(mapRect[1])
 		mapRects[mapID] = mapRect
 	end
@@ -242,7 +240,7 @@ function SlashCmdList.LSTATS()
 		slprint(L_STATS_LOCATION, L_STATS_WORLD_MAP, L_STATS_INSERTS_COORDS)
 	end
 	if gold.enabled then
-		slprint(strtrim(gsub(MONEY, "%%d", "")), L_STATS_OPEN_CURRENCY, L_STATS_RC_AUTO_SELLING, L_STATS_NOT_TO_SELL, L_STATS_WATCH_CURRENCY)
+		slprint(strtrim(gsub(MONEY, "%%d", "")), L_STATS_OPEN_CURRENCY, L_STATS_RC_AUTO_SELLING, L_STATS_NEED_TO_SELL, L_STATS_WATCH_CURRENCY)
 	end
 	print("|cffBCEE68", format(L_STATS_OTHER_OPTIONS, "|cff66C6FFViksUI\\Config\\DataText.lua").."|r")
 end
@@ -311,7 +309,7 @@ if clock.enabled then
 					local tr, tg, tb, diff
 					if not titleName then
 						GameTooltip:AddLine(" ")
-						GameTooltip:AddLine(CALENDAR_FILTER_RAID_LOCKOUTS.." / "..DUNGEONS, ttsubh.r, ttsubh.g, ttsubh.b)
+						GameTooltip:AddLine(GROUP_FINDER, ttsubh.r, ttsubh.g, ttsubh.b)
 						titleName = true
 					end
 					if extended then tr, tg, tb = 0.3, 1, 0.3 else tr, tg, tb = 1, 1, 1 end
@@ -879,6 +877,7 @@ end
 --	Guild
 ----------------------------------------------------------------------------------------
 if guild.enabled then
+	local CURRENT_GUILD_SORTING
 	local guildTable = {}
 	local function BuildGuildTable()
 		wipe(guildTable)
@@ -894,7 +893,6 @@ if guild.enabled then
 			end
 		end)
 	end
-	hooksecurefunc("SortGuildRoster", function(type) CURRENT_GUILD_SORTING = type end)
 	Inject("Guild", {
 		text = {
 			string = function()
@@ -908,6 +906,7 @@ if guild.enabled then
 			C_GuildInfo.GuildRoster()
 			SortGuildRoster(guild.sorting == "note" and "rank" or "note")
 			SortGuildRoster(guild.sorting)
+			CURRENT_GUILD_SORTING = guild.sorting
 			self:RegisterEvent("GROUP_ROSTER_UPDATE")
 			self:RegisterEvent("GUILD_ROSTER_UPDATE")
 		end,
@@ -1732,6 +1731,7 @@ if gold.enabled then
 			if event == "MERCHANT_SHOW" then
 				if conf.AutoSell and not (IsAltKeyDown() or IsShiftKeyDown()) then
 					local profit = 0
+					local numItem = 0
 					for bag = 0, NUM_BAG_SLOTS do for slot = 0, GetContainerNumSlots(bag) do
 						local link = GetContainerItemLink(bag, slot)
 						if link then
@@ -1762,6 +1762,7 @@ if gold.enabled then
 		end,
 		OnEnter = function(self)
 			local curgold = GetMoney()
+			local _, _, archaeology, _, cooking = GetProfessions()
 			conf.Gold = curgold
 			GameTooltip:SetOwner(self, "ANCHOR_NONE")
 			GameTooltip:ClearAllPoints()
@@ -1801,16 +1802,58 @@ if gold.enabled then
 
 			local currencies = 0
 			for i = 1, C_CurrencyInfo.GetCurrencyListSize() do
-				local name, _, _, _, watched, count, icon = C_CurrencyInfo.GetCurrencyListInfo(i)
-				if watched then
-					if currencies == 0 then GameTooltip:AddLine(format("%s %s", STATUS_TEXT_PLAYER, CURRENCY), ttsubh.r, ttsubh.g, ttsubh.b) end
+				local info = C_CurrencyInfo.GetCurrencyListInfo(i)
+				if info and info.isShowInBackpack then
+					if currencies == 0 then GameTooltip:AddLine(TRACKING, ttsubh.r, ttsubh.g, ttsubh.b) end
 					local r, g, b
-					if count > 0 then r, g, b = 1, 1, 1 else r, g, b = 0.5, 0.5, 0.5 end
-					GameTooltip:AddDoubleLine(name, format("%d |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", count, icon, t_icon), r, g, b, r, g, b)
+					if info.quantity > 0 then r, g, b = 1, 1, 1 else r, g, b = 0.5, 0.5, 0.5 end
+					GameTooltip:AddDoubleLine(info.name, format("%d |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", info.quantity, info.iconFileID, t_icon), r, g, b, r, g, b)
 					currencies = currencies + 1
 				end
 			end
-			if currencies > 0 then GameTooltip:AddLine(" ") end
+			if archaeology and C.stats.currency_archaeology then
+				titleName = PROFESSIONS_ARCHAEOLOGY
+				Currency(384)	-- Dwarf Archaeology Fragment
+				Currency(385)	-- Troll
+				Currency(393)	-- Fossil
+				Currency(394)	-- Night Elf
+				Currency(397)	-- Orc
+				Currency(398)	-- Draenei
+				Currency(399)	-- Vrykul
+				Currency(400)	-- Nerubian
+				Currency(401)	-- Tol'vir
+				Currency(676)	-- Pandaren
+				Currency(677)	-- Mogu
+				Currency(754)	-- Mantid
+				Currency(821)	-- Draenor Clans
+				Currency(828)	-- Ogre
+				Currency(829)	-- Arakkoa
+				Currency(1172)	-- Highborne
+				Currency(1173)	-- Highmountain Tauren
+				Currency(1174)	-- Demonic
+				Currency(1534)	-- Zandalari
+				Currency(1535)	-- Drust
+			end
+
+			if cooking and C.stats.currency_cooking then
+				titleName = PROFESSIONS_COOKING
+				Currency(81)	-- Epicurean's Award
+				Currency(402)	-- Ironpaw Token
+			end
+
+			-- if C.stats.currency_raid and T.level == MAX_PLAYER_LEVEL then
+				-- titleName = L_STATS_CURRENCY_RAID
+				-- Currency(1580, false, true)	-- Seal of Wartorn Fate
+			-- end
+
+			if C.stats.currency_misc then
+				titleName = EXPANSION_NAME8
+				Currency(1813)	-- Reservoir Anima
+				Currency(1828)	-- Soul Ash
+				Currency(1767)	-- Stygia
+			end
+
+			GameTooltip:AddLine(" ")
 			GameTooltip:AddDoubleLine(" ", L_STATS_AUTO_SELL..": "..(conf.AutoSell and "|cff55ff55"..L_STATS_ON or "|cffff5555"..strupper(OFF)), 1, 1, 1, ttsubh.r, ttsubh.g, ttsubh.b)
 			GameTooltip:Show()
 		end,
@@ -1822,45 +1865,60 @@ if gold.enabled then
 				self:GetScript("OnEnter")(self)
 			end
 		end
-
 	})
 	SLASH_KJUNK1 = "/junk"
 	function SlashCmdList.KJUNK(s)
 		local action = strsplit(" ", s)
 		if action == "list" then
-			print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_EXCEPTIONS, (#ViksUIStats.JunkIgnore == 0 and NONE or "")))
+			print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_ADDITIONS, (#ViksUIStats.JunkIgnore == 0 and NONE or "")))
 			for i, id in pairs(ViksUIStats.JunkIgnore) do
 				local _, link = GetItemInfo(id)
 				print("- ["..i.."]", link)
 			end
 		elseif action == "clear" then
 			ViksUIStats.JunkIgnore = {}
-			print("|cff66C6FF"..L_STATS_CLEARED_JUNK)
+			print("|cff66C6FF"..L_STATS_JUNK_CLEARED.."|r")
 		elseif action == "add" or strfind(action, "^del") or strfind(action, "^rem") then
+			local _, mouselink = GameTooltip:GetItem()
 			for id in s:gmatch("|Hitem:(%d-):") do
-				local _, link, rarity = GetItemInfo(id)
+				mouselink = nil
+				local _, link = GetItemInfo(id)
 				if action == "add" then
-					if rarity == 0 then
-						if not tContains(ViksUIStats.JunkIgnore,id) then
-							tinsert(ViksUIStats.JunkIgnore, id)
-							print(format("|cff66C6FF%s:|r %s", L_STATS_ADDED_JUNK, link))
-						else
-							print(format("%s |cff66C6FF%s", link, L_STATS_ALREADY_EXCEPTIONS))
-						end
-					else print(format("|cff66C6FF", link, L_STATS_NOT_JUNK)) end
+					if not tContains(ViksUIStats.JunkIgnore,id) then
+						tinsert(ViksUIStats.JunkIgnore, id)
+						print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_ADDED, link))
+					else
+						print(format("%s |cff66C6FF%s|r", link, L_STATS_JUNK_ALREADY_ADDITIONS))
+					end
 				elseif strfind(action, "^del") or strfind(action, "^rem") then
 					tDeleteItem(ViksUIStats.JunkIgnore, id)
-					print(format("|cff66C6FF%s:|r %s", L_STATS_REMOVED_JUNK, link))
+					print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_REMOVED, link))
+				end
+			end
+			if mouselink then
+				for id in mouselink:gmatch("|Hitem:(%d-):") do
+					if action == "add" then
+						if not tContains(ViksUIStats.JunkIgnore,id) then
+							tinsert(ViksUIStats.JunkIgnore, id)
+							print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_ADDED, mouselink))
+						else
+							print(format("%s |cff66C6FF%s|r", mouselink, L_STATS_JUNK_ALREADY_ADDITIONS))
+						end
+					elseif strfind(action, "^del") or strfind(action, "^rem") then
+						tDeleteItem(ViksUIStats.JunkIgnore, id)
+						print(format("|cff66C6FF%s:|r %s", L_STATS_JUNK_REMOVED, mouselink))
+					end
 				end
 			end
 		else
-			print("|cffffffffLite|cff66C6FFStats|r: "..L_STATS_JUNK_LIST)
-			print(format("/junk <add||rem(ove)> [%s] - %s", L_STATS_ITEMLINK, L_STATS_REMOVE_EXCEPTION))
-			print("/junk list - "..L_STATS_IGNORED_ITEMS)
-			print("/junk clear - "..L_STATS_CLEAR_EXCEPTIONS)
+			print("Lite|cff66C6FFStats|r: "..L_STATS_JUNK_LIST)
+			print(format("/junk <add||rem(ove)> [%s] - %s", L_STATS_JUNK_ITEMLINK, L_STATS_JUNK_ADD_ITEM))
+			print("/junk list - "..L_STATS_JUNK_ITEMS_LIST)
+			print("/junk clear - "..L_STATS_JUNK_CLEAR_ADDITIONS)
 		end
 	end
 end
+
 ----------------------------------------------------------------------------------------
 --	Character Stats
 ----------------------------------------------------------------------------------------
@@ -1919,7 +1977,9 @@ if stats.enabled then
 		elseif sub == "versatility" then
 			string = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_DONE) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_DONE)
 		elseif sub == "leech" then
-			string = GetCombatRating(17)
+			string = GetLifesteal()
+		elseif sub == "reduceaoe" then
+			string = GetAvoidance()
 		else
 			string, percent = format("[%s]", sub)
 		end
@@ -1934,10 +1994,63 @@ if stats.enabled then
 		OnUpdate = function(self, u)
 			self.elapsed = self.elapsed + u
 			if self.fired and self.elapsed > 2.5 then
-				self.text:SetText(gsub(stats[format("spec%dfmt", GetSpecialization() and GetSpecialization() or 1)], "%[(%w-)%]", tags))
+				self.text:SetText(gsub(stats.fmt, "%[(%w-)%]", tags))
+				LP_Stat.text:SetText(gsub(stat[format("spec%dfmt", GetSpecialization() and GetSpecialization() or 1)], "%[(%w-)%]", tags))
 				self.elapsed, self.fired = 0, false
+				if self.hovered then self:GetScript("OnEnter")(self) end
 			end
-		end
+		end,
+		OnClick = function() ToggleCharacter("PaperDollFrame") end,
+		OnEnter = function(self)
+			self.hovered = true
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", -3, 26)
+			GameTooltip:ClearLines()
+			GameTooltip:AddLine(PAPERDOLL_SIDEBAR_STATS, tthead.r, tthead.g, tthead.b)
+			GameTooltip:AddLine(" ")
+			local spec = GetSpecialization()
+			if spec then
+				local primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+				local value = UnitStat("player", primaryStat)
+				local statName = _G["SPELL_STAT"..primaryStat.."_NAME"]
+				GameTooltip:AddDoubleLine(statName, value, ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+			end
+			local leech = tonumber(tags"leech")
+			if leech > 0 then
+				GameTooltip:AddDoubleLine(STAT_LIFESTEAL, leech.."%", ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+			end
+			local reduceaoe = tonumber(tags"reduceaoe")
+			if reduceaoe > 0 then
+				GameTooltip:AddDoubleLine(STAT_AVOIDANCE, reduceaoe.."%", ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+			end
+			if T.Role == "Tank" then
+				GameTooltip:AddDoubleLine(STAT_DODGE, tags"dodge".."%", ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				GameTooltip:AddDoubleLine(STAT_PARRY, tags"parry".."%", ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				local block = tonumber(tags"block")
+				if block > 0 then
+					GameTooltip:AddDoubleLine(STAT_BLOCK, block.."%", ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
+				end
+			end
+			GameTooltip:Show()
+			if C.toppanel.enable == true and C.toppanel.mouseover == true then
+				TopPanel:SetAlpha(1)
+			end
+		end,
+		OnLeave = function()
+			if C.toppanel.enable == true and C.toppanel.mouseover == true then
+				TopPanel:SetAlpha(0)
+			end
+		end,
+	})
+
+	Inject("Stat", {
+		OnClick = function() ToggleCharacter("PaperDollFrame") end,
+		OnEnter = function() LP_Stats:GetScript("OnEnter")(LP_Stats) end,
+		OnLeave = function()
+			LP_Stats.hovered = false
+			if C.toppanel.enable == true and C.toppanel.mouseover == true then
+				TopPanel:SetAlpha(0)
+			end
+		end,
 	})
 end
 
@@ -2065,190 +2178,6 @@ if nameplates.enabled then
 				TopPanel:SetAlpha(0)
 			end
 		end,
-	})
-end
-
-----------------------------------------------------------------------------------------
---	Gold2
-----------------------------------------------------------------------------------------
-if gold.enabled then
-	local function Currency(id, weekly, capped)
-		local name, amount, tex, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
-		if amount == 0 then return end
-		if weekly then
-			if discovered then GameTooltip:AddDoubleLine(name, format("%s |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", REFORGE_CURRENT..": ".. amount.." - "..WEEKLY..": "..week.." / "..weekmax, tex, t_icon), 1, 1, 1, 1, 1, 1) end
-		elseif capped then
-			if id == 392 then maxed = 4000 end
-			if discovered then GameTooltip:AddDoubleLine(name, format("%s |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", amount.." / "..maxed, tex, t_icon), 1, 1, 1, 1, 1, 1) end
-		else
-			if discovered then GameTooltip:AddDoubleLine(name, format("%s |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", amount, tex, t_icon), 1, 1, 1, 1, 1, 1) end
-		end
-	end
-
-	Inject("Gold2", {
-		OnLoad = function(self)
-			self.started = GetMoney()
-			RegEvents(self, "PLAYER_LOGIN PLAYER_MONEY MERCHANT_SHOW")
-			if not ViksUIStats.JunkIgnore then ViksUIStats.JunkIgnore = {} end
-		end,
-		OnEvent = function(self, event)
-
-			conf.Gold2 = GetMoney()
-			if event == "MERCHANT_SHOW" then
-				if conf.AutoSell and not (IsAltKeyDown() or IsShiftKeyDown()) then
-					local profit = 0
-					for bag = 0, NUM_BAG_SLOTS do for slot = 0, GetContainerNumSlots(bag) do
-						local link = GetContainerItemLink(bag, slot)
-						if link then
-							local itemstring, ignore = strmatch(link, "|Hitem:(%d-):"), false
-							for _, exception in pairs(ViksUIStats.JunkIgnore) do
-								if exception == itemstring then ignore = true break end
-							end
-							if (select(3, GetItemInfo(link)) == 0 and not ignore) or (ignore and select(3, GetItemInfo(link)) ~= 0) then
-								profit = profit + select(11, GetItemInfo(link)) * select(2, GetContainerItemInfo(bag, slot))
-								UseContainerItem(bag, slot)
-							end
-						end
-					end end
-					if profit > 0 then print(format("|cff66C6FF%s: |cffFFFFFF%s", L_STATS_JUNK_PROFIT, formatgold(1, profit))) end
-				end
-				return
-			end
-
-			self.text:SetText(formatgold(2, conf.Gold2))
-		end,
-		OnEnter = function(self)
-			local curgold = GetMoney()
-			local _, _, archaeology, _, cooking = GetProfessions()
-
-			conf.Gold2 = curgold
-			GameTooltip:SetOwner(self, "ANCHOR_NONE")
-			GameTooltip:ClearAllPoints()
-
-			GameTooltip:SetPoint(gold2.tip_anchor, gold2.tip_frame, gold2.tip_x, gold2.tip_y)
-			GameTooltip:ClearLines()
-			GameTooltip:AddLine(CURRENCY, tthead.r, tthead.g, tthead.b)
-			GameTooltip:AddLine(" ")
-			if self.started ~= curgold then
-				local gained = curgold > self.started
-				local color = gained and "|cff55ff55" or "|cffff5555"
-				GameTooltip:AddDoubleLine(L_STATS_SESSION_GAIN, format("%s$|r %s %s$|r", color, formatgold(1, abs(self.started - curgold)), color), 1, 1, 1, 1, 1, 1)
-				GameTooltip:AddLine(" ")
-			end
-			GameTooltip:AddLine(L_STATS_SERVER_GOLD, ttsubh.r, ttsubh.g, ttsubh.b)
-			local total = 0
-			for char, conf in pairs(ViksUIStats[realm]) do
-
-
-
-				if conf.Gold2 and conf.Gold2 > 99 then
-					GameTooltip:AddDoubleLine(char, formatgold(1, conf.Gold2), 1, 1, 1, 1, 1, 1)
-					total = total + conf.Gold2
-				end
-			end
-			GameTooltip:AddDoubleLine(" ", "-----------------", 1, 1, 1, 0.5, 0.5, 0.5)
-			GameTooltip:AddDoubleLine(TOTAL, formatgold(1, total), ttsubh.r, ttsubh.g, ttsubh.b, 1, 1, 1)
-			GameTooltip:AddLine(" ")
-
-			local currencies = 0
-			for i = 1, GetCurrencyListSize() do
-				local name, _, _, _, watched, count, icon = GetCurrencyListInfo(i)
-				if watched then
-					if currencies == 0 then GameTooltip:AddLine(TRACKING, ttsubh.r, ttsubh.g, ttsubh.b) end
-					local r, g, b
-					if count > 0 then r, g, b = 1, 1, 1 else r, g, b = 0.5, 0.5, 0.5 end
-					GameTooltip:AddDoubleLine(name, format("%d |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", count, icon, t_icon), r, g, b, r, g, b)
-					currencies = currencies + 1
-				end
-			end
-			if archaeology and C.stats.CurrArchaeology then
-
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(PROFESSIONS_ARCHAEOLOGY, ttsubh.r, ttsubh.g, ttsubh.b)
-				Currency(384)	-- Dwarf Archaeology Fragment
-				Currency(385)	-- Troll Archaeology Fragment
-				Currency(393)	-- Fossil Archaeology Fragment
-				Currency(394)	-- Night Elf Archaeology Fragment
-				Currency(397)	-- Orc Archaeology Fragment
-				Currency(398)	-- Draenei Archaeology Fragment
-				Currency(399)	-- Vrykul Archaeology Fragment
-				Currency(400)	-- Nerubian Archaeology Fragment
-				Currency(401)	-- Tol'vir Archaeology Fragment
-				Currency(676)	-- Pandaren Archaeology Fragment
-				Currency(677)	-- Mogu Archaeology Fragment
-				Currency(754)	-- Mantid Archaeology Fragment
-				Currency(821)	-- Draenor Clans Archaeology Fragment
-				Currency(828)	-- Ogre Archaeology Fragment
-				Currency(829)	-- Arakkoa Archaeology Fragment
-				Currency(1172)	-- Highborne Archaeology Fragment
-				Currency(1173)	-- Highmountain Tauren Archaeology Fragment
-				Currency(1174)	-- Demonic Archaeology Fragment
-			end
-
-			if cooking and C.stats.CurrCooking then
-
-
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(PROFESSIONS_COOKING, ttsubh.r, ttsubh.g, ttsubh.b)	
-				Currency(81)
-				Currency(402)
-			end
-
-			if C.stats.CurrProfessions then
-
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(TRADE_SKILLS, ttsubh.r, ttsubh.g, ttsubh.b)
-				Currency(910)	-- Secret of Draenor Alchemy
-				Currency(1020)	-- Secret of Draenor Blacksmithing
-				Currency(1008)	-- Secret of Draenor Jewelcrafting
-				Currency(1017)	-- Secret of Draenor Leatherworking
-				Currency(999)	-- Secret of Draenor Tailoring
-			end
-
-			if C.stats.CurrRaid and T.level == MAX_PLAYER_LEVEL then
-
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(L_STATS_CURRENCY_RAID, ttsubh.r, ttsubh.g, ttsubh.b)
-				Currency(1273, false, true)	-- Seal of Broken Fate
-				Currency(1580, false, true)	-- Seal of Wartorn Fate
-			end
-
-			if C.stats.CurrPvP then
-
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(PVP_FLAG, ttsubh.r, ttsubh.g, ttsubh.b)
-				Currency(1587)				-- War Supplies
-			end
-
-			if C.stats.CurrMiscellaneous then
-
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(MISCELLANEOUS, ttsubh.r, ttsubh.g, ttsubh.b)
-				Currency(1560)					-- War Resources
-				Currency(1710)					-- Seafarer's Dubloon
-				Currency(1716)					-- Honorbound Service Medal
-				Currency(1717)					-- 7th Legion Service Medal		
-				Currency(1721)					-- Prismatic Manapearl
-				Currency(515)					-- Darkmoon Prize Ticket
-				Currency(1710)					-- Seafarer's Dubloon
-				Currency(1565)					-- Rich Azerite Fragment
-				GameTooltip:AddLine(" ")
-				Currency(1560)					-- War Resources
-				Currency(1718)					-- Titan Residuum
-			end
-
-			GameTooltip:AddLine(" ")
-			GameTooltip:AddDoubleLine(" ", L_STATS_AUTO_SELL..": "..(conf.AutoSell and "|cff55ff55"..L_STATS_ON or "|cffff5555"..strupper(OFF)), 1, 1, 1, ttsubh.r, ttsubh.g, ttsubh.b)
-			GameTooltip:Show()
-		end,
-		OnClick = function(self, button)
-			if button == "LeftButton" then
-				ToggleCharacter("TokenFrame")
-			elseif button == "RightButton" then
-				conf.AutoSell = not conf.AutoSell
-				self:GetScript("OnEnter")(self)
-			end
-		end
 	})
 end
 
