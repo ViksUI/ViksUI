@@ -755,5 +755,5 @@ L_GUI_DATATEXT_CurrRaid = "Raid Seals under gold"
 L_GUI_DATATEXT_Quests = "Quest position"
 L.datatext_Profession = "Professions"
 L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault."
-L_GUI_DATATEXT_Bfamissions = "BFA Missions"
+
 L.chat_smileys = "Insert smileys instead of symbols like xD"

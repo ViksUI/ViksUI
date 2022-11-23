@@ -2972,9 +2972,6 @@ do
 	local Quests = ns.CreateNumberSlider(parent, "Quests", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Quests)
 	Quests:SetPoint("TOPLEFT", Volume, "BOTTOMLEFT", 0, -15)
 	
-	local Bfamissions = ns.CreateNumberSlider(parent, "Bfamissions", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Bfamissions)
-	Bfamissions:SetPoint("TOPLEFT", Quests, "BOTTOMLEFT", 0, -15)
-	
 	-- CheckBoxes
 	local currency = ns.addSubCategory(parent, L_GUI_DATATEXT_SUBHEADER_CURRENCY)
 	currency:SetPoint("TOPLEFT", Haste, "BOTTOMLEFT", 0, -27)

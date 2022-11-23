@@ -853,7 +853,7 @@ L_GUI_DATATEXT_CurrMiscellaneous = "Miscellaneous Currency under gold"
 L_GUI_DATATEXT_CurrPvP = "PVP Currency under gold"
 L_GUI_DATATEXT_CurrRaid = "Raid Seals under gold"
 L_GUI_DATATEXT_Quests = "Quest position"
-L_GUI_DATATEXT_Bfamissions = "BFA Missions"
+
 L.datatext_fps_ms = "Only show FPS & MS, Not addonusage"
 L.datatext_Profession = "Professions"
 L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault."

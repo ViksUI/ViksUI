@@ -170,7 +170,6 @@
 	<Script file="Modules\Datatext\Power.lua"/>
 	<Script file="Modules\Datatext\Regen.lua"/>
 	<Script file="Modules\Datatext\Talent.lua"/>
-	<!--Script file="Modules\Datatext\Bfamissions.lua"/--> 
 	<Script file="Modules\Datatext\Battleground.lua"/>
 	<Script file="Modules\Datatext\Professions.lua"/>
 	<Script file="Modules\Datatext\location.lua"/>
