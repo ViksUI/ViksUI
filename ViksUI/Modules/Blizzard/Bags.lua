@@ -1105,7 +1105,6 @@ function Stuffing:InitBags()
 					SetSortBagsRightToLeft(true)
 					SortBags()
 				end
-				--SortBags()
 			end
 		end)
 	end
@@ -1334,20 +1333,19 @@ function Stuffing:SetBagsForSorting(c)
 end
 
 function Stuffing:ADDON_LOADED(addon)
-
 	if addon ~= "ViksUI" then return nil end
+
 	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("ITEM_LOCK_CHANGED")
 	self:RegisterEvent("BANKFRAME_OPENED")
 	self:RegisterEvent("BANKFRAME_CLOSED")
-	self:RegisterEvent("GUILDBANKFRAME_OPENED")
-	self:RegisterEvent("GUILDBANKFRAME_CLOSED")
+	self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
+	self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
 	self:RegisterEvent("PLAYERBANKSLOTS_CHANGED")
 	self:RegisterEvent("PLAYERBANKBAGSLOTS_CHANGED")
 	self:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED")
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
-	--BETA self:RegisterEvent("SCRAPPING_MACHINE_SHOW")
 	self:RegisterEvent("BAG_CONTAINER_UPDATE")
 	self:RegisterEvent("BAG_UPDATE_DELAYED")
 
@@ -1469,12 +1467,22 @@ function Stuffing:BANKFRAME_CLOSED()
 	end
 end
 
-function Stuffing:GUILDBANKFRAME_OPENED()
-	Stuffing_Open()
+function Stuffing:PLAYER_INTERACTION_MANAGER_FRAME_SHOW(...)
+	local type = ...
+	if type == 10 then	-- Guild bank
+		Stuffing_Open()
+	elseif type == 40 then	-- ScrappingMachine
+		for i = 0, #BAGS_BACKPACK - 1 do
+			Stuffing:BAG_UPDATE(i)
+		end
+	end
 end
 
-function Stuffing:GUILDBANKFRAME_CLOSED()
-	Stuffing_Close()
+function Stuffing:PLAYER_INTERACTION_MANAGER_FRAME_HIDE(...)
+	local type = ...
+	if type == 10 then	-- Guild bank
+		Stuffing_Close()
+	end
 end
 
 function Stuffing:BAG_CLOSED(id)
@@ -1514,12 +1522,6 @@ end
 function Stuffing:BAG_UPDATE_COOLDOWN()
 	for _, v in pairs(self.buttons) do
 		self:UpdateCooldowns(v)
-	end
-end
-
-function Stuffing:SCRAPPING_MACHINE_SHOW()
-	for i = 0, #BAGS_BACKPACK - 1 do
-		Stuffing:BAG_UPDATE(i)
 	end
 end
 
@@ -1581,14 +1583,8 @@ function Stuffing:SortOnUpdate(elapsed)
 		for slotIndex in pairs(BS_itemSwapGrid[bagIndex]) do
 			local destinationBag = BS_itemSwapGrid[bagIndex][slotIndex].destinationBag
 			local destinationSlot = BS_itemSwapGrid[bagIndex][slotIndex].destinationSlot
-		if T.newPatch then
 			local _, _, locked1 = C_Container.GetContainerItemInfo(bagIndex, slotIndex)
 			local _, _, locked2 = C_Container.GetContainerItemInfo(destinationBag, destinationSlot)
-		else
-			local _, _, locked1 = GetContainerItemInfo(bagIndex, slotIndex)
-			local _, _, locked2 = GetContainerItemInfo(destinationBag, destinationSlot)
-		end
-
 			if locked1 or locked2 then
 				blocked = true
 			elseif bagIndex ~= destinationBag or slotIndex ~= destinationSlot then
@@ -1648,28 +1644,32 @@ function Stuffing:SortBags()
 
 					local newItem = {}
 
-					local n, _, q, iL, rL, c1, c2, _, Sl = GetItemInfo(itemLink)
-					-- Hearthstone
-					if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) or n == GetItemInfo(141605) then
-						q = 9
-					end
-					-- Fix for battle pets
-					if not n then
-						n = itemLink
-						q = select(4, GetContainerItemInfo(bagSlot, itemSlot))
-						iL = 1
-						rL = 1
-						c1 = "Pet"
-						c2 = "Pet"
-						Sl = ""
-					end
-					-- Keystone
-					local ks = strmatch(itemLink, "keystone:(%d+)")
-					if ks then
-						q = 9
-					end
+				local n, _, q, iL, rL, c1, c2, _, Sl, _, _, classID = GetItemInfo(itemLink)
+                    local p = 1
+                    -- Hearthstone
+                    if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) then
+                        p = 99
+                    elseif n == GetItemInfo(141605) then
+                        p = 98
+                    end
+                    -- Fix for battle pets
+                    if not n then
+                        n = itemLink
+                        q = select(4, GetContainerItemInfo(bagSlot, itemSlot))
+                        iL = 1
+                        rL = 1
+                        c1 = "Pet"
+                        c2 = "Pet"
+                        Sl = ""
+                    end
 
-					newItem.sort = q..c1..c2..rL..n..iL..Sl
+                    if classID == 0 then
+                        p = 9
+                    elseif classID == 2 or classID == 4 then
+                        p = 8
+                    end
+
+                    newItem.sort = p..q..c1..c2..rL..n..iL..Sl	
 
 					tinsert(group.itemList, newItem)
 
@@ -1910,5 +1910,4 @@ StaticPopupDialogs.BUY_BANK_SLOT = {
 -- Kill Blizzard functions
 LootWonAlertFrame_OnClick = T.dummy
 LootUpgradeFrame_OnClick = T.dummy
-StorePurchaseAlertFrame_OnClick = T.dummy
 LegendaryItemAlertFrame_OnClick = T.dummy
