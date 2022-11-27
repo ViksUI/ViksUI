@@ -42,7 +42,7 @@ local function CreateButton(b, l, r, m)
 	end
 
 	b.t = b:CreateTexture(nil, "ARTWORK")
-	b.t:SetTexture(C.media.blank_border)
+	b.t:SetTexture(C.media.blank)
 	b.t:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
 	b.t:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
 end

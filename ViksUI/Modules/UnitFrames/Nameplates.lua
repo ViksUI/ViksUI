@@ -895,7 +895,7 @@ local function style(self, unit)
 		self.QuestIcon = self:CreateTexture(nil, "OVERLAY", nil, 7)
 
 		self.QuestIcon.Text = self:CreateFontString(nil, "OVERLAY")
-		self.QuestIcon.Text:SetPoint("RIGHT", self.Health, "LEFT", -1, 0)
+		self.QuestIcon.Text:SetPoint("RIGHT", self.Health, "LEFT", -1, 10)
 		self.QuestIcon.Text:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * T.noscalemult * 2, C.font.nameplates_font_style)
 		self.QuestIcon.Text:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
 

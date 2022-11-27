@@ -1492,13 +1492,13 @@ lib.createDebuffs = function(f)
 		b.spacing = 4
 		b.num = 4
 	elseif f.mystyle == "tank" then
-		b.size = 16
-		b:SetPoint("LEFT", f, "LEFT", 0, 0)
+		b.size = C.unitframe.tankdebuff
+		b:SetPoint("LEFT", f, "LEFT", -2, 0)
 		b.initialAnchor = "RIGHT"
 		b["growth-x"] = "LEFT"
 		b["growth-y"] = "DOWN"
 		b.spacing = 1
-		b.num = 4
+		b.num = 5
 		b:SetFrameLevel(8)
 	elseif f.mystyle == "raid25" then
 		b.size = 10

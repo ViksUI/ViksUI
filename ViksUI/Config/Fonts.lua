@@ -86,7 +86,7 @@ C["font"] = {
 
 	-- Auras font
 	["auras_font"] = C.media.pixel_font,
-	["auras_font_size"] = 8,
+	["auras_font_size"] = 10,
 	["auras_font_style"] = "MONOCHROMEOUTLINE",
 	["auras_font_shadow"] = false,
 

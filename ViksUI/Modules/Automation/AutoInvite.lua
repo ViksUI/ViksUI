@@ -38,11 +38,11 @@ end
 --	Auto invite by whisper(by Tukz)
 ----------------------------------------------------------------------------------------
 if T.client == "ruRU" then
-	C.misc.invite_keyword = "инв inv +"
+	C.automation.invite_keyword = "инв inv +"
 end
 
 local list_keyword = {}
-for word in gmatch(C.misc.invite_keyword, "%S+") do
+for word in gmatch(C.automation.invite_keyword, "%S+") do
 	list_keyword[word] = true
 end
 
@@ -50,7 +50,7 @@ local autoinvite = CreateFrame("Frame")
 autoinvite:RegisterEvent("CHAT_MSG_WHISPER")
 autoinvite:RegisterEvent("CHAT_MSG_BN_WHISPER")
 autoinvite:SetScript("OnEvent", function(_, event, arg1, arg2, ...)
-	if not C.misc.whisper_invite then return end
+	if not C.automation.whisper_invite then return end
 	if ((not UnitExists("party1") or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player"))) and not QueueStatusButton:IsShown() then
 		for word in pairs(list_keyword) do
 			if arg1:lower():match(word) then
@@ -65,22 +65,3 @@ autoinvite:SetScript("OnEvent", function(_, event, arg1, arg2, ...)
 		end
 	end
 end)
-
-SlashCmdList.AUTOINVITE = function(msg)
-	if msg == "" then
-		if ViksUISettingsPerChar.AutoInvite == true then
-			ViksUISettingsPerChar.AutoInvite = false
-			print("|cffffff00"..L_INVITE_DISABLE..".|r")
-		else
-			ViksUISettingsPerChar.AutoInvite = true
-			print("|cffffff00"..L_INVITE_ENABLE..C.misc.invite_keyword..".|r")
-			C.misc.invite_keyword = C.misc.invite_keyword
-		end
-	else
-		ViksUISettingsPerChar.AutoInvite = true
-		print("|cffffff00"..L_INVITE_ENABLE..msg..".|r")
-		C.misc.invite_keyword = msg
-	end
-end
-SLASH_AUTOINVITE1 = "/ainv"
-SLASH_AUTOINVITE2 = "/фштм"

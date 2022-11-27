@@ -108,7 +108,6 @@ C["misc"] = {
 	["panelsh"] = true,							-- Set UI Panels to hidden
 	["combatanimation"] = true,					-- Text animation when entering/exiting combat
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
-	["armory_link"] = true,						-- Add the Armory link in the chat menu and target (It breaks set focus)
 	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
 	["meters"] = true,							-- Show button for toggle dps meters and move chat (only in line layout)
 	["InfoPanel_Stats"] = true,					-- Stats Panel with info from https://www.icy-veins.com
@@ -199,6 +198,7 @@ C["unitframe"] = {
 	["indicatorsize"] = 6,																-- Ø Size on Squares on Indicator type 2
 	["symbolsize"] = 11,																-- Ø Size on Symbols on Indicator type 2
 	["fontsizeEdge"] = 12,																-- Ø
+	["tankdebuff"] = 22,																-- Size on debuffs on MT frames
 	["Findoutline"] = "OUTLINE",														-- Ø
 	-- Cast bars
 	["Castbars"] = true, 																-- Show castbars
@@ -297,18 +297,18 @@ C["unitframe"] = {
 ----------------------------------------------------------------------------------------
 C["unitframe_class_bar"] = {
 	["combo"] = true,							-- Rogue/Druid Combo bar
-	["comboalways"] = false,					-- Always show Combo bar for Druid
-	["combo_old"] = false,						-- Show combo point on the target 
-	["arcane"] = true, 							-- show Mage Arcane Charges bar
+	["combo_always"] = false,					-- Always show Combo bar for Druid
+	["combo_old"] = false,						-- Show combo point on the target
+	["arcane"] = true,							-- Arcane Charge bar
 	["chi"] = true,								-- Chi bar
 	["essence"] = true,							-- Essence bar	
-	["holy"] = true,							-- Holy Power bar
-	["rune"] = true,							-- Rune bar
-	["shard"] = true,							-- Shard/Burning bar
 	["stagger"] = true,							-- Stagger bar (for Monk Tanks)
-	["totem"] = true,							-- Totem bar
-
-}	
+	["holy"] = true,							-- Holy Power bar
+	["shard"] = true,							-- Shard/Burning bar
+	["rune"] = true,							-- Rune bar
+	["totem"] = true,							-- Totem bar for Shaman
+	["totem_other"] = true,						-- Totem bar for other classes
+}
 
 ----------------------------------------------------------------------------------------
 --	Raid Frames options
@@ -518,7 +518,6 @@ C["chat"] = {
 	["chat_bar"] = false,						-- Lite Button Bar for switch chat channel
 	["chat_bar_mouseover"] = false,				-- Lite Button Bar on mouseover
 	["whisp_sound"] = true,						-- Sound when whisper
-	["bubbles"] = true,							-- Skin Blizzard chat bubbles
 	["transp_bubbles"] = true,					-- Transparent Chat Bubbles.
 	["transp_bubbles_a"] = 0.35,				-- Alpha for Transparent Chat Bubbles.
 	["combatlog"] = true,						-- Show CombatLog tab(need two reloads when false)
@@ -555,7 +554,7 @@ C["nameplate"] = {
 	["auras_size"] = 25,						-- Auras size
 	["healer_icon"] = false,					-- Show icon above enemy healers nameplate in battlegrounds
 	["totem_icons"] = false,					-- Show icon above enemy totems nameplate
-	["quests"] = true,						-- Show quest icon next to nameplate (Lags with many nameplates visible)
+	["quests"] = true,							-- Show quest icon next to nameplate (Lags with many nameplates visible)
 	["npc_colors"] = true,						-- Show Custom colored icon for important NPC in dungeons and raid
 	["target_glow"] = true,						-- Show glow texture for target
 	["target_arrow"] = true,					-- Show target Arrow
@@ -621,7 +620,8 @@ C["combattext"] = {
 C["bag"] = {
 	["enable"] = true,							-- Enable bags
 	["ilvl"] = true,							-- Show item level
-	["new_items"] = false,						-- Show animation for new items
+	["new_items"] = true,						-- Show animation for new items
+	["filter"] = true,							-- Always show filter buttons
 	["BagBars"] = false,
 	["SortTop"] = true,							-- Sort from top down
 	["button_size"] = 27,						-- Buttons size
@@ -701,9 +701,10 @@ C["automation"] = {
 	["accept_invite"] = false,					-- Auto accept invite
 	["decline_duel"] = true,					-- Auto decline duel (/disduel to temporarily disable)
 	["accept_quest"] = true,					-- Auto accept quests(if hold shift or alt, auto accept is disable)
-	["auto_collapse"] = true,					-- Auto collapse WatchFrame in instance
-	["auto_collapse_login"] = true,				-- Auto collapse WatchFrame on login
-	["auto_collapse_reload"] = true,			-- Auto collapse WatchFrame on reloads
+	["auto_collapse"] = "NONE",					-- Auto collapse Objective Tracker (RAID, RELOAD, SCENARIO, NONE)
+	--["auto_collapse"] = true,					-- Auto collapse WatchFrame in instance
+	--["auto_collapse_login"] = true,				-- Auto collapse WatchFrame on login
+	--["auto_collapse_reload"] = true,			-- Auto collapse WatchFrame on reloads
 	["skip_cinematic"] = false,					-- Auto skip cinematics/movies
 	["auto_role"] = false,						-- Auto set your role
 	["cancel_bad_buffs"] = false,				-- Auto cancel various buffs
@@ -718,6 +719,8 @@ C["automation"] = {
 	["open_items"] = true,						-- Auto opening of items in bag
 	["resurrection"] = false,					-- Auto confirm resurrection
 	["summon"] = false,							-- Auto confirm summon after 10 sec
+	["whisper_invite"] = false,					-- Auto invite when whisper keyword
+	["invite_keyword"] = "inv +",				-- List of keyword (separated by space)
 }
 
 ----------------------------------------------------------------------------------------
