@@ -187,7 +187,8 @@ function Stuffing:SlotUpdate(b)
 	local texture, count, locked, quality = GetContainerItemInfo(b.bag, b.slot)
 	texture = texture or 0
 	local clink = GetContainerItemLink(b.bag, b.slot)
-	local isQuestItem, questId, isActiveQuest = GetContainerItemQuestInfo(b.bag, b.slot)
+	local questData = C_Container.GetContainerItemQuestInfo(b.bag, b.slot)
+	local isQuestItem, questId, isActiveQuest = questData.isQuestItem, questData.questID, questData.isActive
 	local itemIsUpgrade
 	local color = .1, .1, .1
 
@@ -519,7 +520,7 @@ function Stuffing:BagFrameSlotNew(p, slot)
 			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
 		end)
 
-		ret.frame.ID = ContainerIDToInventoryID(slot + 1)
+		ret.frame.ID = C_Container.ContainerIDToInventoryID(slot + 1)
 		local bag_tex = GetInventoryItemTexture("player", ret.frame.ID)
 		_G[ret.frame:GetName().."IconTexture"]:SetTexture(bag_tex)
 		ret.frame:SetID(ret.frame.ID)
@@ -742,12 +743,12 @@ function Stuffing:SearchUpdate(str)
 		if b.name then
 			local ilink = GetContainerItemLink(b.bag, b.slot)
 			if ilink then
-				local _, setName = GetContainerItemEquipmentSetInfo(b.bag, b.slot)
+				local _, setName = C_Container.GetContainerItemEquipmentSetInfo(b.bag, b.slot)
 				setName = setName or ""
 				local _, _, _, _, minLevel, class, subclass, _, equipSlot, _, _, _, _, bindType = GetItemInfo(ilink)
-				class = _G[class] or ""
-				subclass = _G[subclass] or ""
-				equipSlot = _G[equipSlot] or ""
+				class = class or ""
+				subclass = subclass or ""
+				equipSlot = equipSlot or ""
 				bindType = bind[bindType] or ""
 				minLevel = minLevel or 1
 				if not string.find(string.lower(b.name), str) and not string.find(string.lower(setName), str) and not string.find(string.lower(class), str) and not string.find(string.lower(subclass), str) and not string.find(string.lower(equipSlot), str) and not string.find(string.lower(bindType), str) then
@@ -799,9 +800,14 @@ function Stuffing:SearchReset()
 		if IsItemUnusable(b.name) or (b.level and b.level > T.level) then
 			_G[b.frame:GetName().."IconTexture"]:SetVertexColor(1, 0.1, 0.1)
 		end
-		b.frame:SetAlpha(1)
+		b.frame.searchOverlay:Hide()
 		SetItemButtonDesaturated(b.frame, false)
 	end
+
+	self.frame.editbox:SetText("")
+	self.frame.editbox:Hide()
+	self.frame.editbox:ClearFocus()
+	self.frame.detail:Show()
 end
 
 local function DragFunction(self, mode)
@@ -979,24 +985,24 @@ function Stuffing:InitBags()
 	-- Search editbox (tekKonfigAboutPanel.lua)
 	local editbox = CreateFrame("EditBox", nil, f)
 	editbox:Hide()
-	editbox:SetAutoFocus(true)
+	editbox:SetAutoFocus(false)
 	editbox:SetHeight(32)
-	editbox:CreateBackdrop("Default")
+	editbox:CreateBackdrop("Overlay")
 	editbox.backdrop:SetPoint("TOPLEFT", -2, 1)
 	editbox.backdrop:SetPoint("BOTTOMRIGHT", 2, -1)
 
 	local fullReset = function(self)
-		self:GetParent().detail:Show()
-		self:ClearFocus()
-		editbox:SetText("")
-		Stuffing:SearchUpdate("")
+		Stuffing:SearchReset()
 	end
 
-	-- local resetAndClear = function(self)
-		-- self:GetParent().detail:Show()
-		-- self:ClearFocus()
-		-- Stuffing:SearchReset()
-	-- end
+	local clearFocus = function(self)
+		self:HighlightText(0, 0)
+		self:ClearFocus()
+	end
+
+	local gainFocus = function(self)
+		self:HighlightText()
+	end
 
 	local updateSearch = function(self, t)
 		if t == true then
@@ -1004,26 +1010,73 @@ function Stuffing:InitBags()
 		end
 	end
 
-	local hideSearch = function(self)
-		self:Hide()
-		self:GetParent().detail:Show()
-	end
-
 	editbox:SetScript("OnEscapePressed", fullReset)
-	editbox:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
-	editbox:SetScript("OnEditFocusLost", hideSearch)
-	editbox:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+	editbox:SetScript("OnEnterPressed", clearFocus)
+	editbox:SetScript("OnEditFocusLost", clearFocus)
+	editbox:SetScript("OnEditFocusGained", gainFocus)
 	editbox:SetScript("OnTextChanged", updateSearch)
-	editbox:SetText(SEARCH)
+	-- editbox:SetText(SEARCH)
 
 	local detail = f:CreateFontString(nil, "ARTWORK", "GameFontHighlightLarge")
-	detail:SetPoint("TOPLEFT", f, 11, -10)
-	detail:SetPoint("RIGHT", f, -140, -10)
+	detail:SetPoint("TOPLEFT", f, 12, -8)
+	detail:SetPoint("RIGHT", f, -150, -8)
 	detail:SetHeight(13)
 	detail:SetShadowColor(0, 0, 0, 0)
 	detail:SetJustifyH("LEFT")
 	detail:SetText("|cff9999ff"..SEARCH.."|r")
 	editbox:SetAllPoints(detail)
+
+	local buttons = {}
+	local filterTable = {
+		[1] = {3566860, GetItemClassInfo(0)},	-- Consumable
+		[2] = {135280, GetItemClassInfo(2)},	-- Weapon
+		[3] = {132341, GetItemClassInfo(4)},	-- Armor
+		[4] = {132281, GetItemClassInfo(7)},	-- Tradeskill
+		[5] = {236667, ITEM_BIND_QUEST},		-- Quest
+		[6] = {133784, ITEM_BIND_ON_EQUIP},		-- BoE
+	}
+	for i = 1, #filterTable do
+		local button = CreateFrame("Button", "BagsFilterButton"..i, C.bag.filter and f or editbox)
+		button:SetSize(25, 25)
+		button:SetTemplate("Overlay")
+		button:EnableMouse(true)
+		button:RegisterForClicks("AnyUp")
+		if i == 1 then
+			button:SetPoint("TOPRIGHT", f, "TOPLEFT", -1, 0)
+		else
+			button:SetPoint("TOP", buttons[i-1], "BOTTOM", 0, -1)
+		end
+		buttons[i] = button
+		local icon, text = unpack(filterTable[i])
+		button.Icon = button:CreateTexture(nil, "OVERLAY")
+		button.Icon:SetTexture(icon)
+		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		button.Icon:SetPoint("TOPLEFT", button, 2, -2)
+		button.Icon:SetPoint("BOTTOMRIGHT", button, -2, 2)
+		button:SetScript("OnClick", function(self)
+			if editbox:GetText() == text then
+				Stuffing:SearchReset()
+			else
+				detail:Hide()
+				editbox:Show()
+				editbox:SetText(text)
+				Stuffing:SearchUpdate(text)
+			end
+		end)
+
+		local tooltip_hide = function()
+			GameTooltip:Hide()
+		end
+
+		local tooltip_show = function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", -5, 5)
+			GameTooltip:ClearLines()
+			GameTooltip:SetText(text)
+		end
+
+		button:SetScript("OnEnter", tooltip_show)
+		button:SetScript("OnLeave", tooltip_hide)
+	end
 
 	local button = CreateFrame("Button", nil, f)
 	button:EnableMouse(true)
@@ -1035,11 +1088,9 @@ function Stuffing:InitBags()
 			self:GetParent().detail:Hide()
 			self:GetParent().editbox:Show()
 			self:GetParent().editbox:HighlightText()
+			self:GetParent().editbox:SetFocus()
 		else
 			if self:GetParent().editbox:IsShown() then
-				self:GetParent().editbox:Hide()
-				self:GetParent().editbox:ClearFocus()
-				self:GetParent().detail:Show()
 				Stuffing:SearchReset()
 			end
 		end
@@ -1092,18 +1143,18 @@ function Stuffing:InitBags()
 		f.sortButton:SetScript("OnEnter", tooltip_show)
 		f.sortButton:SetScript("OnLeave", tooltip_hide)
 		f.sortButton:SetScript("OnMouseUp", function(self, btn)
-			SetSortBagsRightToLeft(true)
+			C_Container.SetSortBagsRightToLeft(true)
 			if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
-				SortReagentBankBags()
+				C_Container.SortReagentBankBags()
 			elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
-				SortBankBags()
+				C_Container.SortBankBags()
 			else
 				if btn == "RightButton" then
 					Stuffing:SetBagsForSorting("d")
 					Stuffing:SortBags()
 				else
-					SetSortBagsRightToLeft(true)
-					SortBags()
+					C_Container.SetSortBagsRightToLeft(true)
+					C_Container.SortBags()
 				end
 			end
 		end)
@@ -1134,10 +1185,6 @@ function Stuffing:Layout(isBank)
 		f.editbox:SetFont(C.media.normal_font, C.font.bags_font_size + 3, "")
 		f.detail:SetFont(C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
 		f.detail:SetShadowOffset(C.font.bags_font_shadow and 1 or 0, C.font.bags_font_shadow and -1 or 0)
-
-		f.detail:ClearAllPoints()
-		f.detail:SetPoint("TOPLEFT", f, 12, -8)
-		f.detail:SetPoint("RIGHT", f, -140, 0)
 	end
 
 	f:SetClampedToScreen(1)
@@ -1528,7 +1575,7 @@ end
 function Stuffing:BAG_CONTAINER_UPDATE()
 	for _, v in ipairs(self.bagframe_buttons) do
 		if v.frame and v.slot < 5 then -- exclude bank
-			v.frame.ID = ContainerIDToInventoryID(v.slot + 1)
+			v.frame.ID = C_Container.ContainerIDToInventoryID(v.slot + 1)
 
 			local slotLink = GetInventoryItemLink("player", v.frame.ID)
 			v.frame:SetBackdropBorderColor(unpack(C.media.border_color))
@@ -1583,13 +1630,15 @@ function Stuffing:SortOnUpdate(elapsed)
 		for slotIndex in pairs(BS_itemSwapGrid[bagIndex]) do
 			local destinationBag = BS_itemSwapGrid[bagIndex][slotIndex].destinationBag
 			local destinationSlot = BS_itemSwapGrid[bagIndex][slotIndex].destinationSlot
-			local _, _, locked1 = C_Container.GetContainerItemInfo(bagIndex, slotIndex)
-			local _, _, locked2 = C_Container.GetContainerItemInfo(destinationBag, destinationSlot)
+
+			local _, _, locked1 = GetContainerItemInfo(bagIndex, slotIndex)
+			local _, _, locked2 = GetContainerItemInfo(destinationBag, destinationSlot)
+
 			if locked1 or locked2 then
 				blocked = true
 			elseif bagIndex ~= destinationBag or slotIndex ~= destinationSlot then
-				PickupContainerItem(bagIndex, slotIndex)
-				PickupContainerItem(destinationBag, destinationSlot)
+				C_Container.PickupContainerItem(bagIndex, slotIndex)
+				C_Container.PickupContainerItem(destinationBag, destinationSlot)
 
 				local tempItem = BS_itemSwapGrid[destinationBag][destinationSlot]
 				BS_itemSwapGrid[destinationBag][destinationSlot] = BS_itemSwapGrid[bagIndex][slotIndex]
@@ -1638,38 +1687,44 @@ function Stuffing:SortBags()
 		group.itemList = {}
 		for _, bagSlot in pairs(group.bagSlotNumbers) do
 			for itemSlot = 1, GetContainerNumSlots(bagSlot) do
-
 				local itemLink = GetContainerItemLink(bagSlot, itemSlot)
 				if itemLink ~= nil then
-
 					local newItem = {}
 
-				local n, _, q, iL, rL, c1, c2, _, Sl, _, _, classID = GetItemInfo(itemLink)
-                    local p = 1
-                    -- Hearthstone
-                    if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) then
-                        p = 99
-                    elseif n == GetItemInfo(141605) then
-                        p = 98
-                    end
-                    -- Fix for battle pets
-                    if not n then
-                        n = itemLink
-                        q = select(4, GetContainerItemInfo(bagSlot, itemSlot))
-                        iL = 1
-                        rL = 1
-                        c1 = "Pet"
-                        c2 = "Pet"
-                        Sl = ""
-                    end
+					local n, _, q, iL, rL, c1, c2, _, Sl, _, _, classID = GetItemInfo(itemLink)
+					local p = 1
+					-- Hearthstone
+					if n == GetItemInfo(6948) or n == GetItemInfo(110560) or n == GetItemInfo(140192) then
+						p = 99
+					elseif n == GetItemInfo(141605) then -- Flight Master's Whistle
+						p = 98
+					elseif n == GetItemInfo(128353) then -- Admiral's Compass
+						p = 97
+					end
+					-- Fix for battle pets
+					if not n then
+						n = itemLink
+						q = select(4, GetContainerItemInfo(bagSlot, itemSlot))
+						iL = 1
+						rL = 1
+						c1 = "Pet"
+						c2 = "Pet"
+						Sl = ""
+					end
 
-                    if classID == 0 then
-                        p = 9
-                    elseif classID == 2 or classID == 4 then
-                        p = 8
-                    end
+					-- Keystone
+					local ks = strmatch(itemLink, "keystone:(%d+)")
+					if ks then
+						p = 10
+					end
 
-                    newItem.sort = p..q..c1..c2..rL..n..iL..Sl	
+					if classID == 0 then	-- Consumable
+						p = 9
+					elseif classID == 2 or classID == 4 then	-- Weapon and Armor
+						p = 8
+					end
+
+					newItem.sort = p..q..c1..c2..rL..n..iL..Sl
 
 					tinsert(group.itemList, newItem)
 
@@ -1748,8 +1803,8 @@ function Stuffing:Restack()
 					if l1 or l2 then
 						did_restack = true
 					else
-						PickupContainerItem(-3, a.item)
-						PickupContainerItem(-3, b.item)
+						C_Container.PickupContainerItem(-3, a.item)
+						C_Container.PickupContainerItem(-3, b.item)
 						did_restack = true
 					end
 				end
@@ -1782,8 +1837,8 @@ function Stuffing:Restack()
 					if l1 or l2 then
 						did_restack = true
 					else
-						PickupContainerItem(a.item.bag, a.item.slot)
-						PickupContainerItem(b.item.bag, b.item.slot)
+						C_Container.PickupContainerItem(a.item.bag, a.item.slot)
+						C_Container.PickupContainerItem(b.item.bag, b.item.slot)
 						did_restack = true
 					end
 				end
@@ -1834,11 +1889,11 @@ function Stuffing.Menu(self, level)
 	info.notCheckable = 1
 	info.func = function()
 		if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
-			SortReagentBankBags()
+			C_Container.SortReagentBankBags()
 		elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
-			SortBankBags()
+			C_Container.SortBankBags()
 		else
-			SortBags()
+			C_Container.SortBags()
 		end
 	end
 	UIDropDownMenu_AddButton(info, level)
