@@ -18,5 +18,4 @@
 ## X-Curse-Project-ID: 83550
 ## X-WoWI-ID: 21462
 
-TaintLess.xml
 ViksUI.xml

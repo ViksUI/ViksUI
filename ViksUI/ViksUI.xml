@@ -181,7 +181,8 @@
 	<Script file="Modules\Quests\QuestLog.lua"/>
 	<Script file="Modules\Quests\ObjectiveTracker.lua"/>
 	<Script file="Modules\Quests\WowheadLink.lua"/>
-		
+	
+	<Include file="Modules\Blizzard\TaintLess.xml"/>	
 	<Script file="Modules\Blizzard\AlertFrames.lua"/>
 	<Script file="Modules\Blizzard\AltPowerBar.lua"/>
 	<Script file="Modules\Blizzard\Bags.lua"/>
