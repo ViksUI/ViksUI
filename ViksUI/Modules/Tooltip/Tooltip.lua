@@ -451,8 +451,8 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetU
 ----------------------------------------------------------------------------------------
 if C.tooltip.npc_tip == true then
 	local function OnTooltipSetNpcTip(self)
+	if self ~= GameTooltip then return end
 		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
-		-- NPC ID's
 		if unit then
 			local guid = UnitGUID(unit) or ""
 			local id = select(6, strsplit('-', guid))
@@ -469,11 +469,7 @@ if C.tooltip.npc_tip == true then
 			end
 		end
 	end
-	if T.newPatch then
-		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetNpcTip)
-	else
-		GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetNpcTip)
-	end
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetNpcTip)
 end
 
 ----------------------------------------------------------------------------------------
@@ -482,8 +478,9 @@ end
 
 if C.tooltip.DungeonScore then
 	local function OnTooltipSetMScore(self)
+	if self ~= GameTooltip then return end
 		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
-		-- NPC ID's
+		local isPlayer = UnitIsPlayer(unit)
 		if unit then
 			local data = C_PlayerInfo_GetPlayerMythicPlusRatingSummary(unit)
 			if data and data.currentSeasonScore then
