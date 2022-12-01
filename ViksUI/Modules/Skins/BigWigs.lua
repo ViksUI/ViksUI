@@ -223,6 +223,7 @@ function T.UploadBW()
 	if mess then
 		mess.db.profile.fontName = C.font.stylization_font
 		mess.db.profile.fontSize = 20
+		mess.db.profile.emphFontName = "Calibri"
 		mess.db.profile.BWMessageAnchor_x = 619
 		mess.db.profile.BWMessageAnchor_y = 702
 		mess.db.profile.BWEmphasizeMessageAnchor_x = 621
@@ -235,9 +236,8 @@ function T.UploadBW()
 		prox.db.profile.fontName = C.font.stylization_font
 		prox.db.profile.objects.ability = false
 	end
+	BigWigs:GetPlugin("AltPower").db.profile.fontName = "Calibri"
 	BigWigsIconDB.hide = true
-	--BigWigs:GetPlugin("Super Emphasize").db.profile.fontName = C.font.stylization_font
-	--BigWigs:GetPlugin("Alt Power").db.profile.fontName = C.font.stylization_font
 	if InCombatLockdown() then
 		print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r")
 		print("|cffffff00Reload your UI to apply skin.|r")
