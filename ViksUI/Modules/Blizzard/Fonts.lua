@@ -1,4 +1,3 @@
-
 local T, C, L, _ = unpack(select(2, ...))
 
 ----------------------------------------------------------------------------------------
@@ -82,6 +81,7 @@ frame:SetScript("OnEvent", function(_, _, addon)
 	SetFont(CoreAbilityFont, NORMAL, 32, nil, 1, 0.82, 0, 0, 0, 0, 1, -1)
 	SetFont(ChatBubbleFont, NORMAL, C.font.bubble_font_size)
 	SetFont(Game13FontShadow, NORMAL, 14)
+	SetFont(Game32Font_Shadow2, NORMAL, 32)
 	SetFont(Game15Font_o1, NORMAL, 15)
 	SetFont(Fancy14Font, NORMAL, 14)
 	SetFont(Game18Font, NORMAL, 18)
@@ -106,7 +106,6 @@ frame:SetScript("OnEvent", function(_, _, addon)
 	SetFont(QuestFontNormalSmall, NORMAL, 13, nil, nil, nil, nil, 0.54, 0.4, 0.1)
 	SetFont(WorldMapTextFont, NORMAL, 32, "OUTLINE")
 	SetFont(SubZoneTextFont, NORMAL, 30, "OUTLINE")
-	SetFont(HelpFrameKnowledgebaseNavBarHomeButtonText, NORMAL, 13, nil, nil, nil, nil, 0, 0, 0, 1, -1)
 	SetFont(WhiteNormalNumberFont, NORMAL, 11)
 	SetFont(ZoneTextString, NORMAL, 32, "OUTLINE")
 	SetFont(SubZoneTextString, NORMAL, 25, "OUTLINE")
