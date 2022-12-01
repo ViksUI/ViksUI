@@ -58,10 +58,9 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["150165"] = "Interrupt: Slimebolt", -- 
 	["150292"] = "DODGE: Rapid Fire cast after a Charge", -- Mechagon Cavalry 
 	-- Court of Stars
-	["104295"] = "ToDo", -- Blazing Imp
-	["104247"] = "ToDo", -- Duskwatch Arcanist
-	["104300"] = "ToDo", -- Shadow Mistress
-	["104300"] = "ToDo", -- Shadow Mistress
+	["104295"] = "Interrupt: All casts. Use AoE stuns and kill quickly", -- Blazing Imp
+	["104247"] = "Interrupt: Nightfall Orb", -- Duskwatch Arcanist
+	["104300"] = "Dispel: Bewitch", -- Shadow Mistress
 	-- Shadowmoon Burial Ground
 	["75713"] = "ToDo", -- Shadowmoon Bone-Mender
 	["76446"] = "ToDo", -- Shadowmoon Enslaver
@@ -70,13 +69,13 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["195842"] = "ToDo", -- Ukhel Corruptor
 	["195851"] = "ToDo", -- Ukhel Deathspeaker
 	-- Halls of Valor
-	["95834"] = "ToDo", -- Valarjar Mystic
-	["96664"] = "ToDo", -- Valarjar Runecarver
+	["95834"] = "Interrupts: Holy Radiance > Rune of Healing", -- Valarjar Mystic
+	["96664"] = "Interrupts: Etch > Shattered Rune", -- Valarjar Runecarver
 	-- Algeth'ar Academy
 	["196798"] = "ToDo", -- Corrupted Manafiend
 	-- The Azure Vault
-	["187154"] = "ToDo", -- Unstable Curator
-	["187155"] = "ToDo", -- Rune Seal Keeper
+	["187154"] = "Interrupt: Heavy Tome (tank damage)", -- Unstable Curator
+	["187155"] = "Interrupt: Icy Bindings to avoid the groupwide root", -- Rune Seal Keeper
 	-- Ruby Life Pools
 	["197985"] = "ToDo", -- Flame Channeler
 	["188067"] = "ToDo", -- Flashfrost Chillweaver
@@ -86,6 +85,9 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["195119"] = "ToDo", -- Primalist Shockcaster
 	-- Halls of Infusion
 	["190368"] = "ToDo", -- Flamecaller Aymi
+	-- Brackenhide Hollow
+	["185656"] = "Interrupt Decay Surge".. "\n".. "Dodge the Rotting Surge puddles", -- Filth Caller
+	["187224"] = "Spread at least 5 yards".. "\n".. "To avoid spreading Withering Contagion".. "\n".. "Run away from Siphon Decay", -- Vile Rothexer
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -157,9 +159,9 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["150297"] = "Interrupt: Enlarge and Shrink".. "\n".. "Magic Dispel shrink", -- Mechagon Renormalizer
 	["150276"] = "Interrupt: Repair Protocol", -- Heavy Scrapbot
 	-- Court of Stars
-	["105704"] = "ToDo", -- Arcane Manifestation
-	["104274"] = "ToDo", -- Baalgar the Watchful
-	["105715"] = "ToDo", -- Watchful Inquisitor
+	["105704"] = "Interrupt: Drain Magic", -- Arcane Manifestation
+	["104274"] = "Interrupt: Nightfall Orb", -- Baalgar the Watchful
+	["105715"] = "Stun / Knockback Interrupt: Eye Storm", -- Watchful Inquisitor
 	-- Temple of the Jade Serpent
 	["200137"] = "ToDo", -- Depraved Mistweaver
 	["200126"] = "ToDo", -- Fallen Waterspeaker
@@ -178,7 +180,7 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["194315"] = "ToDo", -- Stormcaller Solongo
 	["194316"] = "ToDo", -- Stormcaller Zarii
 	-- Halls of Valor
-	["97197"] = "ToDo", -- Valarjar Purifier
+	["97197"] = "Interrupt: Cleansing Flame", -- Valarjar Purifier
 	-- Algeth'ar Academy
 	["196202"] = "ToDo", -- Algeth'ar Educator
 	["192333"] = "ToDo", -- Alpha Eagle
@@ -195,15 +197,12 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["196200"] = "ToDo", -- Algeth'ar Enforcer
 	["196576"] = "ToDo", -- Spellbound Scepter
 	-- The Azure Vault
-	["186741"] = "ToDo", -- Arcane Elemental
-	["196102"] = "ToDo", -- Conjured Lasher
-	["191164"] = "ToDo", -- Arcane Tender
-	["187160"] = "ToDo", -- Crystal Fury
-	["196116"] = "ToDo", -- Crystal Fury
-	["187246"] = "ToDo", -- Nullmagic Hornswog
-	["190510"] = "ToDo", -- Vault Guard
-	["189555"] = "ToDo", -- Astral Attendant
-	["187159"] = "ToDo", -- Shrieking Whelp
+	["186741"] = "Interrupt: Waking Bane to prevent this sleep cast from going off".. "\n".. "If dispelled, else dispel", -- Arcane Elemental
+	["196102"] = "Interrupt: Interrupt Mystic Vapors to avoid stacking DoT", -- Conjured Lasher
+	["191164"] = "Interrupt: Erratic Growth to avoid turning player into sapling".. "\n".. "If dispelled, spreads sapling debuff to nearby players", -- Arcane Tender
+	["187246"] = "Important: Frogs will jump to a random ranged player's location".. "\n".. "Stack to keep them grouped/CCed", -- Nullmagic Hornswog
+	["189555"] = "Dodge: The dark blue swirlies from Unstable Power casts.", -- Astral Attendant
+	["187159"] = "Important: CC the Shriek cast or nearby mobs will be called", -- Shrieking Whelp
 	-- Ruby Life Pools
 	["189893"] = "ToDo", -- Infused Whelp
 	["187894"] = "ToDo", -- Infused Whelp
@@ -211,6 +210,11 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["188011"] = "ToDo", -- Primal Terrasentry
 	["197982"] = "ToDo", -- Storm Warrior
 	["187969"] = "ToDo", -- Flashfrost Earthshaper
+	-- Brackenhide Hollow
+	["186246"] = "Interrupt Screech.", -- Fleshripper Vulture
+	["186220"] = "Interrupt Touch of Decay", -- Brackenhide Shaper
+	["189531"] = "Summons Infected Lashers", -- Decayed Elder
+	["186229"] = "Deals aoe damage and summons Infected Lashers.", -- Wilted Oak
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -269,15 +273,21 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["194896"] = "ToDo", -- Primal Stormshield
 	-- Halls of Valor
 	["102019"] = "ToDo", -- Stormforged Obliterator
-	["95842"] = "ToDo", -- Valarjar Thundercaller
+	["95842"] = "Interrupts: Thunderous Bolt - Dispel: Thunderstrike", -- Valarjar Thundercaller
 	-- Algeth'ar Academy
 	["196482"] = "ToDo", -- Overgrown Ancient
 	["197219"] = "ToDo", -- Vile Lasher
 	-- The Azure Vault
-	["187240"] = "ToDo", -- Drakonid Breaker
+	["187240"] = "Important: Shoulder Slam is a knock back".. "\n".. "Position to avoid triggering runes", -- Drakonid Breaker
 	-- Ruby Life Pools
 	["190034"] = "ToDo", -- Blazebound Destroyer
 	["187897"] = "ToDo", -- Defier Draghar
+	-- Brackenhide Hollow
+	["195135"] = "INTERRUPT(!!): Hideous Cackle, Mass-fear".. "\n".. "Do not pull the Warscourge with other mobs".. "\n".. "as it will empower them".. "\n".. "Interrupt: Hideous Cackle or get mass-feared", -- Bracken Warscourge
+	["186191"] = "Kill it immediately, else it will stack up Withering Burst", -- Decay Speaker
+	["189363"] = "Kill them quickly before the bleeds stack up", -- Infected Lasher
+	["193799"] = "Kill them quickly. Empowers Trickclaw Mystics with dangerous spell", -- Rotchanting Totem
+	
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -351,33 +361,47 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["151476"] = "Frontal: Sonic Pulse ".. "\n".. "DODGE: Capacitor Discharge", -- Blastatron X-80 
 	["144296"] = "Frontal: Sonic Pulse ".. "\n".. "DODGE: Launch High-Explosive Rockets.", -- Spider Tank
 	-- Court of Stars
-	["104246"] = "ToDo", -- Duskwatch Guard
-	["111563"] = "ToDo", -- Duskwatch Guard
-	["104270"] = "ToDo", -- Guardian Construct
-	["105705"] = "ToDo", -- Bound Energy
-	["104273"] = "ToDo", -- Jazshariu
-	["104251"] = "ToDo", -- Duskwatch Sentry
+	["104246"] = "Cone frontal cleave (visible)", -- Duskwatch Guard
+	["111563"] = "Cone frontal cleave (visible)", -- Duskwatch Guard
+	["104270"] = "Interrupt: Charging Station".. "\n".. "Interrupt: Suppress (Can also be dispelled)", -- Guardian Construct
+	["105705"] = "Interrupt: Charged Blast", -- Bound Energy
+	["104273"] = "Dodge: Shockwave (frontal cleave)", -- Jazshariu
+	["104251"] = "Carrion Swarm is a frontal cone".. "\n".. "Fortified Shadowbolt Volley REALLY hurts", -- Duskwatch Sentry
 	-- The Nokhud Offensive
 	["192789"] = "ToDo", -- Nokhud Longbow
 	["192791"] = "ToDo", -- Nokhud Warspear
 	["199320"] = "ToDo", -- Nokhud Warspear
 	["199321"] = "ToDo", -- Nokhud Warspear
 	-- Halls of Valor
-	["97068"] = "ToDo", -- Storm Drake
-	["97788"] = "ToDo", -- Storm Drake
-	["99891"] = "ToDo", -- Storm Drake
+	["97068"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
+	["97788"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
+	["99891"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
 	["96640"] = "ToDo", -- Valarjar Marksman
 	["97087"] = "ToDo", -- Valarjar Champion
 	-- Algeth'ar Academy
 	["196671"] = "ToDo", -- Arcane Ravager
 	-- The Azure Vault
-	["186740"] = "ToDo", -- Arcane Construct
+	["186740"] = "DODGE: Frontal cone aimed at tank.", -- Arcane Construct
 	["196115"] = "ToDo", -- Arcane Tender
-	["191739"] = "ToDo", -- Scalebane Lieutenant
+	["187160"] = "DODGE: Frontal cone aimed at tank.", -- Crystal Fury
+	["191739"] = "Frontal: Aimed at tank ".. "\n".. "Defensive: Ice Cutter", -- Scalebane Lieutenant
+	["190510"] = "TANK, Defensive: Ice Cutter", -- Vault Guard
 	-- Ruby Life Pools
 	["190206"] = "ToDo", -- Primalist Flamedancer
 	["197697"] = "ToDo", -- Flamegullet
 	["197698"] = "ToDo", -- Thunderhead
+	-- Brackenhide Hollow
+	["185508"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.".. "\n".. "On fixate run away or use Shadowmeld/Vanish/etc", -- Claw Fighter
+	["186206"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.", -- Cruel Bonecrusher
+	["197857"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.", -- Gutstabber
+	["187315"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.", -- Disease Slasher
+	["187231"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.", -- Wither Biter
+	["185534"] = "Casts high damage on random players".. "\n".. "Dodge the Toxic Traps", -- Bonebolt Hunter
+	["186284"] = "Deals high tank damage with Maul", -- Gutchewer Bear
+	["186208"] = "Do not pull the Warscourge with other mobs".. "\n".. "as it will empower them".. "\n".. "Casts high damage on random players", -- Rotbow Stalker
+	["186226"] = "Do not pull the Warscourge with other mobs".. "\n".. "as it will empower them".. "\n".. "Interrupt Burst of Decay", -- Fetid Rotsinger
+	["187033"] = "Dodge the frontal cone".. "\n".. "Run away from Violent Whirlwind", -- Stinkbreath
+	["185691"] = "Infected Bite reduce the tank's healing taken", -- Vicious Hyena
 
 }
 
