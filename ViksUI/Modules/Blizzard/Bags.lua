@@ -1030,10 +1030,11 @@ function Stuffing:InitBags()
 	local filterTable = {
 		[1] = {3566860, GetItemClassInfo(0)},	-- Consumable
 		[2] = {135280, GetItemClassInfo(2)},	-- Weapon
-		[3] = {132341, GetItemClassInfo(4)},	-- Armor
-		[4] = {132281, GetItemClassInfo(7)},	-- Tradeskill
-		[5] = {236667, ITEM_BIND_QUEST},		-- Quest
-		[6] = {133784, ITEM_BIND_ON_EQUIP},		-- BoE
+		[3] = {628559, GetItemClassInfo(3)},	-- Gem
+		[4] = {132341, GetItemClassInfo(4)},	-- Armor
+		[5] = {132281, GetItemClassInfo(7)},	-- Tradeskill
+		[6] = {236667, ITEM_BIND_QUEST},		-- Quest
+		[7] = {133784, ITEM_BIND_ON_EQUIP},		-- BoE
 	}
 	for i = 1, #filterTable do
 		local button = CreateFrame("Button", "BagsFilterButton"..i, C.bag.filter and f or editbox)
