@@ -20,8 +20,10 @@ L_GUI_TIME_INPUT = "时间"
 L_GUI_EXPERT_MODE = "专家模式"
 L_GUI_EXPERT_MODE_DESC = "编写你的插件代码"
 L_GUI_RESET_SPELLS_DESC = "Ctrl+左键重置列表"
-
--- General options
+L_GUI_INFO = "Info & Help -- Need review"
+L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
+			
+-- General options			
 L_GUI_GENERAL_SUBTEXT = "一般用戶界面设置，键入 /uihelp 获取更多可用命令。"
 L_GUI_GENERAL_WELCOME_MESSAGE = "欢迎信息"
 L_GUI_GENERAL_AUTOSCALE = "自动UI缩放"
@@ -39,8 +41,9 @@ L.general_color_picker_desc = "增加按鈕：复制/粘上/职业 输入框：R
 L.general_minimize_mouseover = "任务栏最小化按钮鼠标悬停显示"
 L.general_hide_banner = "自动隐藏Boss额外拾取提示"
 L.general_hide_talking_head = "自动隐藏任务对话框"
-
--- Media options
+L.general_hide_maw_buffs = "隐藏心能之力框架"
+			
+-- Media options			
 L.media_border_color = "背景颜色"
 L.media_classborder_color = "边框按职业着色"
 L.media_backdrop_color = "边框背景颜色"
@@ -48,8 +51,8 @@ L.media_backdrop_alpha = "透明背景"
 L.media_texture = "主要材质"
 L.media_subheader_normal = "通用字体"
 L.media_subheader_pixel = "像素字体"
-
--- Font options
+			
+-- Font options			
 L.font = "字体设置"
 L.font_subtext = "自定义字体格式"
 L.font_stats_font = "字体"
@@ -73,48 +76,50 @@ L.font_subheader_bag = "背包"
 L.font_subheader_blizzard = "系统"
 L.font_tooltip_header_font_size = "鼠标提示标题"
 L.font_tooltip_font_size = "鼠标提示信息"
-
--- Skins options
+L.font_global_font = "禁用像素字体"
+			
+-- Skins options			
 L_GUI_SKINS = "界面美化"
 L_GUI_SKINS_SUBTEXT = "对游戏默认界面和单体插件界面进行美化"
 L_GUI_SKINS_BLIZZARD = "美化暴雪默认界面"
 L_GUI_SKINS_MINIMAP_BUTTONS = "小地图插件图标"
 L_GUI_SKINS_SUBHEADER = "单体插件"
-L_GUI_SKINS_DBM_MOVABLE = "允许移动DBM计时条"
+L.skins_ace3 = "Ace3"
+L.skins_atlasloot = "AtlasLoot"
+L.skins_bigwigs = "BigWigs"
+L.skins_blood_shield_tracker = "BloodShieldTracker"
+L.skins_capping = "Capping"
+L.skins_clique = "Clique"
+L.skins_cool_line = "CoolLine"
+L.skins_dbm = "DBM"
+L.skins_details = "Details"
+L.skins_dominos = "Dominos"
+L.skins_flyout_button = "FlyoutButtonCustom"
+L.skins_ls_toasts = "ls: Toasts"
+L.skins_mage_nuggets = "MageNuggets"
+L.skins_my_role_play = "MyRolePlay"
+L.skins_npcscan = "NPCScan"
+L.skins_nug_running = "NugRunning"
+L.skins_omen = "Omen"
+L.skins_opie = "OPie"
+L.skins_ovale = "OvaleSpellPriority"
+L.skins_postal = "Postal"
+L.skins_recount = "Recount"
+L.skins_rematch = "Rematch"
+L.skins_skada = "Skada"
+L.skins_tiny_dps = "TinyDPS"
+L.skins_vanaskos = "VanasKoS"
+L.skins_weak_auras = "WeakAuras"
 L.skins_minimap_buttons_mouseover = "鼠标悬停显示插件图标"
-L_GUI_SKINS_BLOOD_SHIELD_TRACKER = "BloodShieldTracker"
-L_GUI_SKINS_BW = "BigWigs"
-L_GUI_SKINS_CAPPING = "Capping"
-L_GUI_SKINS_CLIQUE = "Clique"
-L_GUI_SKINS_COOL_LINE = "CoolLine"
-L_GUI_SKINS_DBM = "DBM"
-L_GUI_SKINS_DBM_MOVABLE = "Allow to move DBM bars"
-L_GUI_SKINS_DOMINOS = "Dominos"
-L_GUI_SKINS_FLYOUT_BUTTON = "FlyoutButtonCustom"
-L_GUI_SKINS_LS_TOASTS = "ls: Toasts"
-L_GUI_SKINS_MAGE_NUGGETS = "MageNuggets"
-L_GUI_SKINS_MY_ROLE_PLAY = "MyRolePlay"
-L_GUI_SKINS_NPCSCAN = "NPCScan"
-L_GUI_SKINS_NUG_RUNNING = "NugRunning"
-L_GUI_SKINS_OMEN = "Omen"
-L_GUI_SKINS_OPIE = "OPie"
-L_GUI_SKINS_OVALE = "OvaleSpellPriority"
-L_GUI_SKINS_PAWN = "Pawn"
-L_GUI_SKINS_POSTAL = "Postal"
-L_GUI_SKINS_RECOUNT = "Recount"
-L_GUI_SKINS_REMATCH = "Rematch"
-L_GUI_SKINS_SKADA = "Skada"
-L_GUI_SKINS_TINY_DPS = "TinyDPS"
-L_GUI_SKINS_VANASKOS = "VanasKoS"
-L_GUI_SKINS_WEAK_AURAS = "WeakAuras"
-
--- Unit Frames options
+			
+-- Unit Frames options			
 L_GUI_UF_SUBTEXT = "定制玩家/目标框架/其他框架"
 L_GUI_UF_ENABLE = "单位框架增强"
 L_GUI_UF_OWN_COLOR = "自定义颜色"
 L_GUI_UF_UF_COLOR = "生命条颜色"
 L.unitframe_uf_color_bg = "背景颜色"
-L_GUI_UF_ENEMY_HEALTH_COLOR = "敌对目标生命条以红色着色"
+L.unitframe_enemy_health_color = "敌对目标生命条以红色着色"
+L.unitframe_enemy_health_color_desc = "Color an enemy player's health bar red" -- Needs review
 L_GUI_UF_TOTAL_VALUE = "玩家/目标框架显示详细的文字变化"
 L_GUI_UF_COLOR_VALUE = "生命值/魔法值按职业着色"
 L_GUI_UF_BAR_COLOR_VALUE = "生命值按剩余血量着色"
@@ -136,7 +141,6 @@ L_GUI_UF_BOSS_DEBUFFS = "DeBuff数量"
 L_GUI_UF_BOSS_DEBUFFS_DESC = "Boss框架DeBuff数量"
 L_GUI_UF_BOSS_BUFFS = "Buff数量"
 L_GUI_UF_BOSS_BUFFS_DESC = "Boss框架Buff数量"
-L.unitframe_tankdebuff = "Size of debuff on tankframes"
 L.unitframe_icons_pvp = "PvP状态"
 L.unitframe_icons_pvp_desc = "PvP状态(鼠标悬停显示)"
 L_GUI_UF_ICONS_COMBAT = "战斗标记"
@@ -144,6 +148,9 @@ L_GUI_UF_ICONS_RESTING = "休息标记"
 L_GUI_UF_SUBHEADER_PORTRAIT = "3D头像"
 L_GUI_UF_PORTRAIT_ENABLE = "玩家/目标头像"
 L_GUI_UF_PORTRAIT_CLASSCOLOR_BORDER = "头像边框按职业着色"
+L.unitframe_portrait_type = "头像类型"
+L.unitframe_portrait_type_icons = "职业图标"
+L.unitframe_portrait_type_overlay = "生命条显示"
 L_GUI_UF_PORTRAIT_HEIGHT = "头像高度"
 L_GUI_UF_PORTRAIT_WIDTH = "头像宽度"
 L_GUI_UF_SUBHEADER_PLUGINS = "辅助功能"
@@ -153,8 +160,6 @@ L.unitframe_plugins_reputation_bar = "声望条"
 L.unitframe_plugins_reputation_bar_desc = "在玩家框架左侧鼠标悬停显示，中键锁定显示。"
 L.unitframe_plugins_experience_bar = "经验条"
 L.unitframe_plugins_experience_bar_desc = "在玩家框架左侧鼠标悬停显示，中键锁定显示。"
-L.unitframe_plugins_artifact_bar = "神器能量条"
-L.unitframe_plugins_artifact_bar_desc = "在玩家框架左侧鼠标悬停显示，中键锁定显示。"
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "平滑条"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "敌对玩家天赋"
 L_GUI_UF_PLUGINS_COMBAT_FEEDBACK = "玩家/目标框架显示战斗文字"
@@ -169,54 +174,10 @@ L.unitframe_extra_height_auto = "血量/能量框架自动增高"
 L.unitframe_extra_height_auto_desc = "按字体大小智能调节框架高度"
 L.unitframe_extra_health_height = "血量框架额外增高"
 L.unitframe_extra_power_height = "能量框架额外增高"
-L.unitframe_Portrait_w = "Width of Portrait frame"  -- Need review
-L.unitframe_Portrait_h = "Height of Portrait frame"  -- Need review
-L.unitframe_Player_w = "Width of Player frame"  -- Need review
-L.unitframe_Player_h = "Height of Player frame"  -- Need review
-L.unitframe_Target_w = "Width of Target frame"  -- Need review
-L.unitframe_Target_h = "Height of Target frame"  -- Need review
-L.unitframe_Targettarget_w = "Width of ToT frame"  -- Need review
-L.unitframe_Targettarget_h = "Height of ToT frame"  -- Need review
-L.unitframe_Focus_w = "Width of Focus frame"  -- Need review
-L.unitframe_Focus_h = "Height of Focus frame"  -- Need review
-L.unitframe_Focustarget_w = "Width of Focus Target frame"  -- Need review
-L.unitframe_Focustarget_h = "Height of Focus Target frame"  -- Need review
-L.unitframe_Pet_w = "Width of Pet frame"  -- Need review
-L.unitframe_Pet_h = "Height of Pet frame"  -- Need review
-L.unitframe_PetTarget_w = "Width of Pet Target frame"  -- Need review
-L.unitframe_PetTarget_h = "Height of Pet Target frame"  -- Need review
-L.unitframe_Boss_w = "Width of Boss frame"  -- Need review
-L.unitframe_Boss_h = "Height of Boss frame"  -- Need review
-L.unitframe_Tank_w = "Width of Tank frame"  -- Need review
-L.unitframe_Tank_h = "Height of Tank frame"  -- Need review
-L.unitframe_TankH_w = "HF: Width of Tank frame"  -- Need review
-L.unitframe_TankH_h = "HF: Height of Tank frame"  -- Need review
-L.unitframe_Raid10H_w = "Width of Raid 10 man frame"  -- Need review
-L.unitframe_Raid10H_h = "Height of Raid 10 man frame"  -- Need review
-L.unitframe_Raid25H_w = "HF: Width of Raid 25 man frame"  -- Need review
-L.unitframe_Raid25H_h = "HF: Height of Raid 25 man frame"  -- Need review
-L.unitframe_Raid25_w = "Width of Raid 25 man frame"  -- Need review
-L.unitframe_Raid25_h = "Height of Raid 25 man frame"  -- Need review
-L.unitframe_Raid40H_w = "HF: Width of Raid 40 man frame"  -- Need review
-L.unitframe_Raid40H_h = "HF: Height of Raid 40 man frame"  -- Need review
-L.unitframe_Raid40_w = "Width of Raid 40 man frame"  -- Need review
-L.unitframe_Raid40_h = "Height of Raid 40 man frame"  -- Need review
-L.unitframe_Party_w = "Width of Party frame"  -- Need review
-L.unitframe_Party_h = "Height of Party frame"  -- Need review
-L.unitframe_Arena_w = "Width of Arena frame"  -- Need review
-L.unitframe_Arena_h = "Height of Arena frame"  -- Need review
-L.unitframe_CastbarPlayer_w = "Castbar Width: Player"  -- Need review
-L.unitframe_CastbarPlayer_h = "Castbar Height: Player"  -- Need review
-L.unitframe_CastbarTarget_w = "Castbar Width: Target"  -- Need review
-L.unitframe_CastbarTarget_h = "Castbar Height: Target"  -- Need review
-L.unitframe_CastbarArena_w = "Castbar Width: Arena"  -- Need review
-L.unitframe_CastbarArena_h = "Castbar Height: Arena"  -- Need review
-L.unitframe_CastbarBoss_w = "Castbar Width: Boss"  -- Need review
-L.unitframe_CastbarBoss_h = "Castbar Height: Boss"  -- Need review
-L.unitframe_CastbarFocus_w = "Castbar Width: Focus"  -- Need review
-L.unitframe_CastbarFocus_h = "Castbar Height: Focus"  -- Need review
-
--- Unit Frames Class bar options
+L.unitframe_subheader_castbar = "玩家/目标施法条大小"
+L.unitframe_castbar_height = "高度"
+			
+-- Unit Frames Class bar options			
 L_GUI_UF_PLUGINS_CLASS_BAR = "职业资源栏"
 L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "显示职业的特殊资源"
 L_GUI_UF_PLUGINS_COMBO_BAR = "连击点"
@@ -230,17 +191,23 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "灵魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "图腾"
 L.unitframe_class_bar_totem_other = "其他职业图腾"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
-
--- Raid Frames options
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker '-- Need review"
+			
+-- Raid Frames options			
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "定制队伍/团队框架"
 L_GUI_UF_BY_ROLE = "按职责排序"
 L_GUI_UF_AGGRO_BORDER = "边框按仇恨值着色"
 L_GUI_UF_DEFICIT_HEALTH = "团队生命值亏减模式"
 L_GUI_UF_SHOW_PARTY = "队伍框架"
 L_GUI_UF_SHOW_RAID = "团队框架"
+L.raidframe_layout = "团队布局"
+L.raidframe_heal_layout = "治疗"
+L.raidframe_dps_layout = "输出"
+L.raidframe_auto_layout = "自动"
+L.raidframe_show_target = "目标框架"
+L.raidframe_show_pet = "宠物框架"
 L.raidframe_vertical_health = "垂直显示团队框架生命值"
-L.raidframe_vertical_health_desc = "仅在HPS布局中生效"
+L.raidframe_vertical_health_desc = "仅限治疗布局中生效"
 L_GUI_UF_ALPHA_HEALTH = "满血时淡化单位框架"
 L_GUI_UF_SHOW_RANGE = "单位框架按距离变化设定透明度"
 L_GUI_UF_RANGE_ALPHA = "透明度"
@@ -251,9 +218,9 @@ L_GUI_UF_PLAYER_PARTY = "队伍中显示玩家框架"
 L_GUI_UF_SHOW_TANK = "团队主坦克框架"
 L_GUI_UF_SHOW_TANK_TT = "坦克目标的目标"
 L_GUI_UF_RAID_GROUP = "小队数目"
-L.raidframe_raid_groups_vertical = "Vertical party frames" -- Needs review
+L.raidframe_party_vertical = "竖向排列队伍"
 L.raidframe_raid_groups_vertical = "竖向排列团队队伍"
-L.raidframe_raid_groups_vertical_desc = "仅在HPS布局中生效"
+L.raidframe_raid_groups_vertical_desc = "仅限治疗布局中生效"
 L_GUI_UF_SUBHEADER_ICONS = "标记"
 L_GUI_UF_ICONS_ROLE = "角色类型标记"
 L_GUI_UF_ICONS_RAID_MARK = "团队标记"
@@ -261,31 +228,33 @@ L_GUI_UF_ICONS_READY_CHECK = "就绪确认标记"
 L_GUI_UF_ICONS_LEADER = "队长/助手标记"
 L_GUI_UF_ICONS_SUMON = "召唤标记"
 L.raidframe_icons_phase = "相位标记"
-L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "高亮DeBuff图标"
-L_GUI_UF_PLUGINS_AURA_WATCH = "团队法术监视"
-L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "团队减益时间"
-L_GUI_UF_PLUGINS_PVP_DEBUFFS = "PvP DeBuff图标"
+L.raidframe_plugins_debuffhighlight_icon = "高亮DeBuff图标"
+L.raidframe_plugins_aura_watch = "团队法术监视"
+L.raidframe_plugins_aura_watch_timer = "团队减益时间"
+L.raidframe_plugins_pvp_debuffs = "PvP DeBuff图标"
 L_GUI_UF_PLUGINS_HEALCOMM = "即将受到的治疗"
+L.raidframe_plugins_over_absorb = "显示吸收条"
+L.raidframe_plugins_over_heal_absorb = "显示过量治疗吸收条"
 L.raidframe_plugins_auto_resurrection = "中键施放复活技能"
 L.raidframe_plugins_auto_resurrection_desc = "鼠标中键点击已死亡角色时施放复活技能(Clique启用时无效)"
 L.raidframe_hide_health_value = "隐藏血量"
 L.raidframe_auto_position = "玩家/目标框架自动定位"
-L.raidframe_auto_position_desc = "动态: 当小队数目大于5，框架位置按小队数目调整\n仅在HPS布局非竖向排列时生效"
+L.raidframe_auto_position_desc = "动态: 当小队数目大于5，框架位置按小队数目调整\n仅限治疗布局非竖向排列时生效"
 L.raidframe_auto_position_dynamic = "动态"
 L.raidframe_auto_position_static = "静态"
-L.raidframe_subheader_heal_size = "HPS布局框架大小"
+L.raidframe_subheader_heal_size = "治疗布局框架大小"
 L.raidframe_heal_width = "框架宽度"
 L.raidframe_heal_height = "框架高度"
 L.raidframe_heal_power_height = "能量框架高度"
-L.raidframe_subheader_dps_size = "DPS布局框架大小"
+L.raidframe_subheader_dps_size = "输出布局框架大小"
 L.raidframe_dps_party_width = "队伍框架宽度"
 L.raidframe_dps_party_height = "队伍框架高度"
 L.raidframe_dps_raid_width = "框架宽度"
 L.raidframe_dps_raid_height = "框架高度"
 L.raidframe_dps_party_power_height = "队伍能量框架高度"
 L.raidframe_dps_raid_power_height = "能量框架高度"
-
--- ActionBar options
+			
+-- ActionBar options			
 L_GUI_ACTIONBAR = "动作条"
 L_GUI_ACTIONBAR_ENABLE = "动作条增强"
 L_GUI_ACTIONBAR_HOTKEY = "按键键名"
@@ -293,7 +262,7 @@ L_GUI_ACTIONBAR_MACRO = "宏名称"
 L_GUI_ACTIONBAR_GRID = "动作条显示空白快捷键"
 L_GUI_ACTIONBAR_BUTTON_SIZE = "快捷键大小"
 L_GUI_ACTIONBAR_BUTTON_SPACE = "快捷键间距"
-L_GUI_ACTIONBAR_SPLIT_BARS = "#5动作条分段(2*6; 该选项开启后将激活所有动作条)"
+L_GUI_ACTIONBAR_SPLIT_BARS = "#5动作条分段(2*6"
 L_GUI_ACTIONBAR_CLASSCOLOR_BORDER = "动作条边框按职业着色"
 L.actionbar_toggle_mode = "自由折叠"
 L.actionbar_toggle_mode_desc = "可随时调节动作条显示数目。按钮位于底部动作条上方及右側动作条下方，鼠标悬停显示。"
@@ -316,8 +285,8 @@ L.actionbar_editor_desc = "允许动作条独立移动和更改"
 L.actionbar_bar1_num = "快捷键数"
 L.actionbar_bar1_row = "每行快捷键数"
 L.actionbar_bar1_mouseover = "鼠标悬停显示"
-
--- Tooltip options
+			
+-- Tooltip options			
 L.tooltip = "鼠标提示"
 L.tooltip_subtext = "设置鼠标提示"
 L.tooltip_enable = "鼠标提示增强"
@@ -344,18 +313,17 @@ L.tooltip_item_count = "物品的简易统计"
 L.tooltip_unit_role = "角色类型"
 L.tooltip_instance_lock = "副本进度比较"
 L.tooltip_mount = "坐骑来源"
-L.tooltip_npc_tip = "NPC Info"
-L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
-
--- Chat options
+			
+-- Chat options			
 L_GUI_CHAT_SUBTEXT = "这里可以设置你的聊天框"
 L_GUI_CHAT_ENABLE = "聊天框增强"
 L_GUI_CHAT_BACKGROUND = "聊天框背景"
 L_GUI_CHAT_BACKGROUND_ALPHA = "聊天框背景透明度"
-L_GUI_CHAT_SPAM = "屏蔽无用系统信息(玩家1 在决斗中战胜了 玩家2)"
-L_GUI_CHAT_GOLD = "屏蔽玩家垃圾信息"
-L.chat_spam_list = "Black list" -- Need review
-L.chat_spam_list_desc = "List of words (separated by space, lowercase letters) to hide messages" -- Need review
+L.chat_filter = "屏蔽无用系统信息"
+L.chat_filter_desc = "决斗, 切换专精, 城中NPC对话"
+L.chat_spam = "屏蔽玩家垃圾信息"
+L.chat_spam_list = "过滤词列表"
+L.chat_spam_list_desc = "添加过滤词 (中文词用空格分隔，英文词用小写分隔)"
 L_GUI_CHAT_WIDTH = "聊天框宽度"
 L_GUI_CHAT_HEIGHT = "聊天框高度"
 L_GUI_CHAT_BAR = "聊天频道快捷键"
@@ -367,15 +335,15 @@ L_GUI_CHAT_TABS_MOUSEOVER = "鼠标悬停显示频道标签"
 L_GUI_CHAT_STICKY = "记住上一次使用的频道"
 L_GUI_CHAT_DAMAGE_METER_SPAM = "在链接中合并垃圾邮件"
 L.chat_loot_icons = "拾取信息带图标"
+L.chat_hide_combat = "战斗中隐藏"
 L.chat_custom_time_color = "自定义时间标签颜色"
 L.chat_time_color = "时间标签颜色"
-
--- Nameplate options
+			
+-- Nameplate options			
 L_GUI_NAMEPLATE_SUBTEXT = "单位姓名板设置"
 L_GUI_NAMEPLATE_ENABLE = "单位姓名板增强"
 L_GUI_NAMEPLATE_COMBAT = "战斗中自动显示单位姓名板"
 L_GUI_NAMEPLATE_HEALTH = "生命值以百分比显示"
-L_GUI_NAMEPLATE_DISTANCE = "显示单位姓名板的最远距离"
 L_GUI_NAMEPLATE_HEIGHT = "高度"
 L_GUI_NAMEPLATE_WIDTH = "宽度"
 L.nameplate_alpha = "透明度"
@@ -384,36 +352,34 @@ L.nameplate_ad_height = "额外高度"
 L.nameplate_ad_width = "额外宽度"
 L.nameplate_ad_height_desc = "目标的单位姓名板额外高度"
 L.nameplate_ad_width_desc = "目标的单位姓名板额外宽度"
-L_GUI_NAMEPLATE_TARGET_ARROW = "Show arrow for target"
 L_GUI_NAMEPLATE_CASTBAR_NAME = "法术名称"
 L_GUI_NAMEPLATE_CLASS_ICON = "PvP时显示职业图标"
 L_GUI_NAMEPLATE_NAME_ABBREV = "名字缩写"
-L_GUI_NAMEPLATE_CLAMP = "当单位姓名板超出屏幕时仍贴边显示"
+L.nameplate_short_name = "替换名称"
+L.nameplate_clamp = "贴边显示"
+L.nameplate_clamp_desc = "当单位姓名板超出屏幕时仍贴边显示"
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "显示DeBuff(需要关闭名字缩写)"
-L_GUI_NAMEPLATE_SHOW_BUFFS = "Show dispellable enemy buffs and buffs from the list" -- Need review
-L_GUI_NAMEPLATE_DEBUFFS_SIZE = "DeBuff大小" -- Need review
-L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
+L_GUI_NAMEPLATE_SHOW_BUFFS = "显示可进攻驱散"
+L_GUI_NAMEPLATE_DEBUFFS_SIZE = "图标大小"
 L_GUI_NAMEPLATE_HEALER_ICON = "战场中显示治疗职业图标"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "显示敌对图腾图标"
 L.nameplate_target_glow = "目标边框高亮"
-L.nameplate_npc_colors = "Show different color for priority targets"
 L.nameplate_only_name = "友方玩家只显示名称"
+L.nameplate_quests = "任务图标"
+L.nameplate_cast_color = "重要法术施法条边框高亮"
+L.nameplate_kick_color = "当断法技能冷却中则施法条变色"
+L.nameplate_low_health_value = "斩杀线阈值"
+L.nameplate_low_health = "斩杀边框高亮"
 L_GUI_NAMEPLATE_THREAT = "仇恨情况"
 L_GUI_NAMEPLATE_GOOD_COLOR = "安全仇恨颜色"
 L_GUI_NAMEPLATE_NEAR_COLOR = "临界仇恨颜色"
 L_GUI_NAMEPLATE_BAD_COLOR = "危险仇恨颜色"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "副坦仇恨颜色"
-L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
-L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
-L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
-L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
-L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
-L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
-L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
-L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
-L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
-
--- Combat text options
+L.nameplate_extra_color = "易爆/怨毒词缀颜色"
+L.nameplate_mob_color_enable = "副本中重要小怪着色"
+L.nameplate_mob_color = "小怪颜色"
+			
+-- Combat text options			
 L_GUI_COMBATTEXT = "战斗文字"
 L_GUI_COMBATTEXT_SUBTEXT = "键入 /xct 获取更多可用命令"
 L_GUI_COMBATTEXT_ENABLE = "启用xCT战斗信息"
@@ -450,11 +416,11 @@ L_GUI_COMBATTEXT_DISPEL = "当你驱散成功时提示"
 L_GUI_COMBATTEXT_INTERRUPT = "当你打断成功时提示"
 L_GUI_COMBATTEXT_DIRECTION = "滚动方向从下向上"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "数值以K为单位显示"
-
--- Auras/Buffs/Debuffs
+			
+-- Auras/Buffs/Debuffs			
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Buff大小"
 L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "玩家Buff图标大小"
-L.aura_player_debuff_size = "DeBuffs大小"
+L.aura_debuff_size = "DeBuffs大小"
 L_GUI_AURA_SHOW_SPIRAL = "漩涡冷却样式"
 L_GUI_AURA_SHOW_TIMER = "层数堆叠"
 L_GUI_AURA_PLAYER_AURAS = "玩家显示法术效果"
@@ -463,27 +429,30 @@ L_GUI_AURA_FOCUS_DEBUFFS = "焦点显示DeBuff"
 L_GUI_AURA_FOT_DEBUFFS = "焦点的目标显示DeBuff"
 L_GUI_AURA_PET_DEBUFFS = "宠物显示DeBuff"
 L_GUI_AURA_TOT_DEBUFFS = "目标的目标显示DeBuff"
-L.aura_boss_buffs = "Boss显示Buff/DeBuff"
+L.aura_subheader_boss = "Boss显示Buff/DeBuff"
 L_GUI_AURA_PLAYER_AURA_ONLY = "目标只显示自身施放的DeBuff"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "DeBuff按法术类型着色"
 L_GUI_AURA_CAST_BY = "提示Buff/DeBuff提供者"
 L_GUI_AURA_CLASSCOLOR_BORDER = "自身Buff图标边框按职业着色"
-
--- Bag options
+L.aura_subheader_buffs = "玩家Buff"
+L.aura_subheader_debuffs = "Debuffs"
+			
+-- Bag options			
 L_GUI_BAGS = "背包"
 L_GUI_BAGS_SUBTEXT = "背包的关闭按钮另有菜单按右键开启。按住Shift+左键可拖动。"
 L_GUI_BAGS_ENABLE = "背包增强"
 L_GUI_BAGS_ILVL = "显示物品等级"
-L.bag_new_items = "Show animation for new items" -- Need review
-L.bag_filter = "Always show filter buttons" -- Need review
+L.bag_new_items = "新物品闪动显示"
+L.bag_filter = "Always show filter buttons '-- Need review"
 L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子间距"
 L_GUI_BAGS_BANK = "银行每行格数"
 L_GUI_BAGS_BAG = "背包每行格数"
-
--- Minimap options
+			
+-- Minimap options			
 L_GUI_MINIMAP_SUBTEXT = "小地图设置"
 L_GUI_MINIMAP_ENABLE = "小地图增强"
+L.minimap_on_top = "小地图定位到右上角"
 L_GUI_MINIMAP_ICON = "追踪菜单"
 L_GUI_GARRISON_ICON = "圣所报告图标"
 L_GUI_MINIMAP_SIZE = "小地图大小"
@@ -491,9 +460,8 @@ L_GUI_MINIMAP_HIDE_COMBAT = "战斗中隐藏小地图"
 L_GUI_MINIMAP_TOGGLE_MENU = "小地图顶部快捷菜单"
 L.minimap_bg_map_stylization = "战场地图增强"
 L.minimap_fog_of_war = "地图全亮"
-L.minimap_fog_of_war_desc = "可在世界地图关闭按钮的菜单上选择开关"
-
--- Loot options
+			
+-- Loot options			
 L_GUI_LOOT_SUBTEXT = "拾取框架设置"
 L_GUI_LOOT_ENABLE = "拾取增强"
 L_GUI_LOOT_ROLL_ENABLE = "团队拾取框架增强"
@@ -503,8 +471,8 @@ L_GUI_LOOT_AUTOGREED = "满级后自动贪婪绿色物品"
 L_GUI_LOOT_AUTODE = "自动选择分解"
 L.loot_faster_loot = "快速拾取"
 L.loot_faster_loot_desc = "仅在自动拾取模式中生效"
-
--- Filger
+			
+-- Filger			
 L_GUI_FILGER = "法术监视"
 L_GUI_FILGER_SUBTEXT = "Filger - 类似WeakAuras，更简单易用，可选择图标和计时条形式显示你的增益减益和计时。"
 L_GUI_FILGER_ENABLE = "法术监视"
@@ -531,26 +499,33 @@ L.filger_pvp_space = "图标间距"
 L.filger_cooldown_space = "图标间距"
 L.filger_subheader_spells = "添加法术"
 L.filger_category_list = "分组"
-
--- Announcements options
+			
+-- Announcements options			
 L_GUI_ANNOUNCEMENTS = "通告预警"
 L_GUI_ANNOUNCEMENTS_SUBTEXT = "添加特定事件進行通报"
-L_GUI_ANNOUNCEMENTS_DRINKING = "当敌人进食时在聊天框进行通告"
-L_GUI_ANNOUNCEMENTS_INTERRUPTS = "当你打断成功时在队伍/团队中进行通告"
-L_GUI_ANNOUNCEMENTS_SPELLS = "当你施放指定法术时在队伍/团队中进行通告"
-L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL = "包括所有队员"
-L_GUI_ANNOUNCEMENTS_TOY_TRAIN = "使用玩具火车/烈酒的遥控器时进行通告"
-L_GUI_ANNOUNCEMENTS_PULL_COUNTDOWN = "倒计时通告(/pc #)"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD = "通告食物和合剂的使用情況(/ffcheck)"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD_RAID = "在团队频道通告"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD_AUTO = "当团队检查就绪时进行通告"
-L_GUI_ANNOUNCEMENTS_FEASTS = "放置食物/大锅/灵魂井/修理机器人时进行通告"
-L_GUI_ANNOUNCEMENTS_PORTALS = "开启传送门/召唤仪式时进行通告"
+L.announcements_drinking = "当敌人进食时在聊天框进行通告"
+L.announcements_interrupts = "断法"
+L.announcements_interrupts_desc = "当你打断成功时在队伍/团队中进行通告"
+L.announcements_spells = "施法"
+L.announcements_spells_desc = "当你施放指定法术时在队伍/团队中进行通告"
+L.announcements_spells_from_all = "检查所有队员"
+L.announcements_spells_from_all_desc = "检查来源包括所有队员"
+L.announcements_toys = "使用玩具火车/烈酒的遥控器时进行通告"
+L.announcements_pull_countdown = "倒计时通告"
+L.announcements_pull_countdown_desc = "倒计时通告(/pc #)"
+L.announcements_flask_food = "食物和合剂"
+L.announcements_flask_food_desc = "通告食物和合剂的使用情況(/ffcheck)"
+L.announcements_flask_food_raid = "在团队频道通告"
+L.announcements_flask_food_auto = "当团队就位确认时进行检查"
+L.announcements_feasts = "放置食物/大锅/灵魂井/修理机器人时进行通告"
+L.announcements_portals = "开启传送门/召唤仪式时进行通告"
+L.announcements_subheader_self = "个人通告"
 L.announcements_bad_gear = "检查装备"
 L.announcements_bad_gear_desc = "进入副本时提醒非副本装备(鱼竿等装备)"
-L_GUI_ANNOUNCEMENTS_SAFARI_HAT = "检查'狩猎帽'使用情况"
-
--- Automation options
+L.announcements_safari_hat = "狩猎帽"
+L.announcements_safari_hat_desc = "检查'狩猎帽'使用情况"
+			
+-- Automation options			
 L_GUI_AUTOMATION = "自动设定"
 L_GUI_AUTOMATION_SUBTEXT = "一些自动化的设置"
 L.automation_release = "战场中自动释放灵魂"
@@ -563,6 +538,7 @@ L.automation_accept_quest = "自动交接任务(按住Shift临时停用)"
 L.automation_auto_collapse = "自动折叠任务追踪框架"
 L.automation_auto_collapse_raid = "副本中"
 L.automation_auto_collapse_reload = "重载后"
+L.automation_auto_collapse_scenario = "场景战役"
 L.automation_skip_cinematic = "自动跳过过场动画(按住Ctrl临时停用)"
 L.automation_auto_role = "自动设定角色类型"
 L.automation_cancel_bad_buffs = "自动取消非增益性质的Buff"
@@ -574,11 +550,12 @@ L.automation_buff_on_scroll_desc = "指定Buff缺失时使用鼠标滚轮施放"
 L.automation_open_items = "自动打开背包中的封装物品"
 L.automation_resurrection = "自动确认复活"
 L.automation_summon = "自动确认召唤"
+L.automation_summon_desc = "Summon from players -- Need Review"
 L.automation_whisper_invite = "密语自动邀请"
 L.automation_invite_keyword = "添加关键词(需加空隔键)"
 L.automation_invite_keyword_desc = "通过关键词自动邀请对方进组"
-
--- Buffs reminder options
+			
+-- Buffs reminder options			
 L_GUI_REMINDER = "Buff提示"
 L_GUI_REMINDER_SUBTEXT = "提示缺失的Buff"
 L_GUI_REMINDER_SOLO_ENABLE = "自身Buff缺失时图标提示"
@@ -592,8 +569,8 @@ L_GUI_REMINDER_RAID_SIZE = "图标大小"
 L_GUI_REMINDER_RAID_SIZE_DESC = "团队Buff提示图标大小"
 L_GUI_REMINDER_RAID_ALPHA = "透明度"
 L_GUI_REMINDER_RAID_ALPHA_DESC = "当团队Buff存在时图标透明度"
-
--- Raid cooldowns options
+			
+-- Raid cooldowns options			
 L_GUI_COOLDOWN_RAID = "团队技能冷却"
 L_GUI_COOLDOWN_RAID_SUBTEXT = "显示在屏幕左上方"
 L_GUI_COOLDOWN_RAID_ENABLE = "团队技能冷却"
@@ -606,8 +583,8 @@ L_GUI_COOLDOWN_RAID_ICONS = "团队技能冷却图标"
 L_GUI_COOLDOWN_RAID_IN_RAID = "团队中显示团队技能冷却"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "队伍中显示团队技能冷却"
 L_GUI_COOLDOWN_RAID_IN_ARENA = "竞技场中显示团队技能冷却"
-
--- Enemy cooldowns options
+			
+-- Enemy cooldowns options			
 L_GUI_COOLDOWN_ENEMY = "敌对技能冷却"
 L_GUI_COOLDOWN_ENEMY_SUBTEXT = "显示在你的施法条上方"
 L_GUI_COOLDOWN_ENEMY_ENABLE = "敌对技能冷却"
@@ -618,8 +595,8 @@ L_GUI_COOLDOWN_ENEMY_IN_BG = "战场中显示敌对技能冷却"
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "竞技场中显示敌对技能冷却"
 L.enemycooldown_show_inparty = "组队时显示敌对技能冷却"
 L.enemycooldown_class_color = "按职业着色"
-
--- Pulse cooldowns options
+			
+-- Pulse cooldowns options			
 L_GUI_COOLDOWN_PULSE = "技能冷却闪烁"
 L_GUI_COOLDOWN_PULSE_SUBTEXT = "显示在屏幕中央"
 L_GUI_COOLDOWN_PULSE_ENABLE = "技能冷却闪烁提示"
@@ -629,8 +606,8 @@ L_GUI_COOLDOWN_PULSE_ANIM_SCALE = "动画缩放"
 L_GUI_COOLDOWN_PULSE_HOLD_TIME = "持续时间"
 L_GUI_COOLDOWN_PULSE_THRESHOLD = "持续时间最小阈值"
 L_GUI_COOLDOWN_PULSE_THRESHOLD_DESC = "持续时间最小阈值"
-
--- Threat options
+			
+-- Threat options			
 L_GUI_THREAT = "仇恨栏"
 L_GUI_THREAT_SUBTEXT = "仇恨威胁值统计(类似Omen)"
 L_GUI_THREAT_ENABLE = "仇恨栏"
@@ -638,16 +615,16 @@ L_GUI_THREAT_HEIGHT = "仇恨栏高度"
 L_GUI_THREAT_WIDTH = "仇恨栏宽度"
 L_GUI_THREAT_ROWS = "仇恨栏数目"
 L_GUI_THREAT_HIDE_SOLO = "仅在队伍/团队中开启"
-
--- Top panel options
+			
+-- Top panel options			
 L_GUI_TOP_PANEL = "顶部信息条"
 L_GUI_TOP_PANEL_SUBTEXT = "管理顶部信息条"
 L_GUI_TOP_PANEL_ENABLE = "顶部信息条"
 L_GUI_TOP_PANEL_MOUSE = "鼠标悬停时显示顶部信息条"
 L_GUI_TOP_PANEL_WIDTH = "信息条宽度"
 L_GUI_TOP_PANEL_HEIGHT = "信息条高度"
-
--- Stats options
+			
+-- Stats options			
 L_GUI_STATS = "信息条"
 L_GUI_STATS_SUBTEXT = "位于屏幕底部的信息条，键入 /ls 获取更多资讯。"
 L_GUI_STATS_CLOCK = "时钟"
@@ -663,8 +640,8 @@ L_GUI_STATS_SUBHEADER_CURRENCY = "货币(金币信息中显示)"
 L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "考古"
 L_GUI_STATS_CURRENCY_COOKING = "烹饪"
 L_GUI_STATS_CURRENCY_RAID = "副本徽记"
-
--- Trade options
+			
+-- Trade options			
 L_GUI_TRADE = "商业"
 L_GUI_TRADE_SUBTEXT = "专业和商业设罝"
 L.trade_profession_tabs = "专业介面快捷按鈕"
@@ -680,46 +657,16 @@ L.trade_archaeology = "考古学小助手"
 L.trade_archaeology_desc = "显示考古学各类文物的进度及符文石数量(键入 /arch 或点击小地图隐藏按键打开界面)"
 L.trade_merchant_itemlevel = "商人界面显示物品等级"
 L.trade_merchant_itemlevel_desc = "在商人界面显示武器装备的物品等级"
-
--- Miscellaneous options
+			
+-- Miscellaneous options			
 L_GUI_MISC_SUBTEXT = "一些便捷的功能设置"
 L.misc_shift_marking = "鼠标目标标记"
 L.misc_shift_marking_desc = "鼠标指向目标Shift+左键显示团队标记菜单(仅限队伍/团队)"
-L_GUI_MISC_INVKEYWORD = "Short keyword for invite (/ainv)"
-L_GUI_MISC_VEHICLE_MOUSEOVER = "Vehicle frame on mouseover"
 L.misc_afk_spin_camera = "AFK时旋转镜头"
 L.misc_quest_auto_button = "任务/道具自动按钮"
 L.misc_quest_auto_button_desc = "任务/道具自动按钮"
 L.misc_raid_tools = "团队工具"
 L.misc_raid_tools_desc = "团队管理便捷功能: 右键就位确认，中键角色检查，左键展开更多功能(仅限队长/助手)"
-L_GUI_MISC_PROFESSION_TABS = "Professions tabs on tradeskill/trade frames"
-L_GUI_MISC_HIDE_BG_SPAM = "Remove Boss Emote spam during BG"
-L.misc_hide_bg_spam_desc = "Remove Boss Emote spam about capture/losing node during BG Arathi and Gilneas"
-L_GUI_MISC_ITEM_LEVEL = "Item level on character slot buttons"
-L_GUI_MISC_ALREADY_KNOWN = "Colorizes recipes/mounts/pets/toys that is already known"
-L_GUI_MISC_DISENCHANTING = "Milling, Prospecting and Disenchanting by Alt + click"
-L_GUI_MISC_SUM_BUYOUTS = "Sum up all current auctions"
-L_GUI_MISC_CLICK_CAST = "Simple click2cast spell binder"
-L_GUI_MISC_CLICK_CAST_FILTER = "Ignore Player and Target frames"
-L_GUI_MISC_MOVE_BLIZZARD = "Move some Blizzard frames"
-L_GUI_MISC_COLOR_PICKER = "Improved ColorPicker"
-L_GUI_MISC_ENCHANTMENT_SCROLL = "Enchantment scroll on TradeSkill frame"
-L_GUI_MISC_ARCHAEOLOGY = "Archaeology artifacts and cooldown"
-L_GUI_MISC_CHARS_CURRENCY = "Tracks your currency tokens across multiple characters"
-L.misc_armory_link = "Add Armory link"
-L.misc_armory_link_desc = "Add the Armory link in the chat menu and target (but it will not be possible to set the focus through the target menu)"
-L_GUI_MISC_MERCHANT_ITEMLEVEL = "Show item level for weapons and armor in merchant"
-L_GUI_MISC_MINIMIZE_MOUSEOVER = "Mouseover for quest minimize button"
-L_GUI_MISC_HIDE_BANNER = "Hide Boss Banner Loot Frame"
-L_GUI_MISC_HIDE_TALKING_HEAD = "Hide Talking Head Frame"
-L_GUI_MISC_HIDE_RAID_BUTTON = "Hide button for oUF_RaidDPS (top left corner)"
-L_GUI_MISC_LAG_TOLERANCE = "Automatically update the Blizzard Custom Lag Tolerance option to your latency"
-L_GUI_MISC_MARKBAR = "Markbar for Raid Icons and flares"
-L_GUI_MISC_CLASSTIMER = "Shows buff/debuffs/procs as bar on player/target frame"
-L_GUI_MISC_WATCHFRAME = "Use custom Quest watch frame"
-L_GUI_MISC_BT4BARS = "Panels behind Sidebar & Small bars for Bartender 4"
-L_GUI_MISC_PSCALE = "Scale ViksUI Panels"
-L_GUI_MISC_PANELSH = "Set UI Panels to hidden"
 L.misc_item_level = "角色界面显示物品等级"
 L.misc_item_level_desc = "角色界面显示武器装备的物品等级"
 L.misc_click_cast = "简单的点击施法绑定"
@@ -727,50 +674,204 @@ L.misc_click_cast_desc = "开启后法术书有鼠标绑定界面可以进行设
 L.misc_click_cast_filter = "忽略玩家/目标框架点击施法"
 L.misc_chars_currency = "追踪所有角色的货币"
 L.misc_chars_currency_desc = "在货币界面中追踪所有角色的货币"
-L.misc_hide_raid_button = "DPS团队框架最小化按钮"
-L.misc_hide_raid_button_desc = "按钮在DPS团队框架左上方鼠标悬停显示"
+L.misc_hide_raid_button = "输出布局最小化按钮"
+L.misc_hide_raid_button_desc = "按钮在团队框架左上方鼠标悬停显示"
+			
+-- My Extra			
+L.media_overlay_color = "Color for action bars overlay" -- Needs review
+L.media_pxcolor1 = "Color for Name on Datatex" -- Needs review
+L.media_pxcolor2 = "Color for Value on Datatext if not dynamic by value" -- Needs review
+L.media_subheader_pixel = "Change Pixel font" -- Needs review
+L.media_subheader_pixel2 = "Change Pixel font for Headers" -- Needs review
+L.media_subheader_Dcolor = "Change color for DataTexts" -- Needs review
+L.media_classcolor_border = "Use Class color for borders" -- Needs review
+L_GUI_UF_HEALFRAMES = "Use healer layout" -- Needs review
+L_GUI_UF_CLASS_COLOR = "Use Class Color on healthbars" -- Needs review
+L_GUI_UF_POWER_COLOR = "Use Class color for power bar" -- Needs review
+L_GUI_UF_AUTOHODE = "Always Hide Raidframes if Vuhdo/Healbot/Grid is loaded" -- Needs review
+L_GUI_UF_SHOW_FOCUST = "Target of focus" -- Needs review
+L_GUI_UF_SHOW_TANKS = "Main tanks" -- Needs review
+L.unitframe_tankdebuff = "Size of debuff on tankframes" -- Needs review
+L_GUI_UF_PORTRAIT_BARS = "Show portraits on Healthbar (Disable above)" -- Needs review
+L_GUI_UF_RAID_ALLGROUP = "Show all 8 raid groups" -- Needs review
+L.unitframe_insideAlpha = "Alpha when Unitframe is in range" -- Needs review
+L.unitframe_outsideAlpha = "Alpha when Unitframe is out of range" -- Needs review
+L.unitframe_UFfont = "Unitframe font" -- Needs review
+L.unitframe_UFNamefont = "Font to use on Names" -- Needs review
+L.unitframe_plugins_artifact_bar = "Azerite Power bar" -- Needs review
+L.unitframe_plugins_artifact_bar_desc = "Enable Azerite Power bar (left from player frame by mouseover)" -- Needs review
+L.unitframe_plugins_auto_resurrection = "Auto cast resurrection" -- Needs review
+L.unitframe_plugins_auto_resurrection_desc = "Auto cast resurrection on middle-click (doesn't work with Clique)" -- Needs review
+L.unitframe_Portrait_w = "Width of Portrait frame" -- Needs review
+L.unitframe_Portrait_h = "Height of Portrait frame" -- Needs review
+L.unitframe_Player_w = "Width of Player frame" -- Needs review
+L.unitframe_Player_h = "Height of Player frame" -- Needs review
+L.unitframe_Target_w = "Width of Target frame" -- Needs review
+L.unitframe_Target_h = "Height of Target frame" -- Needs review
+L.unitframe_Targettarget_w = "Width of ToT frame" -- Needs review
+L.unitframe_Targettarget_h = "Height of ToT frame" -- Needs review
+L.unitframe_Focus_w = "Width of Focus frame" -- Needs review
+L.unitframe_Focus_h = "Height of Focus frame" -- Needs review
+L.unitframe_Focustarget_w = "Width of Focus Target frame" -- Needs review
+L.unitframe_Focustarget_h = "Height of Focus Target frame" -- Needs review
+L.unitframe_Pet_w = "Width of Pet frame" -- Needs review
+L.unitframe_Pet_h = "Height of Pet frame" -- Needs review
+L.unitframe_PetTarget_w = "Width of Pet Target frame" -- Needs review
+L.unitframe_PetTarget_h = "Height of Pet Target frame" -- Needs review
+L.unitframe_Boss_w = "Width of Boss frame" -- Needs review
+L.unitframe_Boss_h = "Height of Boss frame" -- Needs review
+L.unitframe_Tank_w = "Width of Tank frame" -- Needs review
+L.unitframe_Tank_h = "Height of Tank frame" -- Needs review
+L.unitframe_TankH_w = "HF: Width of Tank frame" -- Needs review
+L.unitframe_TankH_h = "HF: Height of Tank frame" -- Needs review
+L.unitframe_Raid10H_w = "Width of Raid 10 man frame" -- Needs review
+L.unitframe_Raid10H_h = "Height of Raid 10 man frame" -- Needs review
+L.unitframe_Raid25H_w = "HF: Width of Raid 25 man frame" -- Needs review
+L.unitframe_Raid25H_h = "HF: Height of Raid 25 man frame" -- Needs review
+L.unitframe_Raid25_w = "Width of Raid 25 man frame" -- Needs review
+L.unitframe_Raid25_h = "Height of Raid 25 man frame" -- Needs review
+L.unitframe_Raid40H_w = "HF: Width of Raid 40 man frame" -- Needs review
+L.unitframe_Raid40H_h = "HF: Height of Raid 40 man frame" -- Needs review
+L.unitframe_Raid40_w = "Width of Raid 40 man frame" -- Needs review
+L.unitframe_Raid40_h = "Height of Raid 40 man frame" -- Needs review
+L.unitframe_Party_w = "Width of Party frame" -- Needs review
+L.unitframe_Party_h = "Height of Party frame" -- Needs review
+L.unitframe_Arena_w = "Width of Arena frame" -- Needs review
+L.unitframe_Arena_h = "Height of Arena frame" -- Needs review
+L.unitframe_CastbarPlayer_w = "Castbar Width: Player" -- Needs review
+L.unitframe_CastbarPlayer_h = "Castbar Height: Player" -- Needs review
+L.unitframe_CastbarTarget_w = "Castbar Width: Target" -- Needs review
+L.unitframe_CastbarTarget_h = "Castbar Height: Target" -- Needs review
+L.unitframe_CastbarArena_w = "Castbar Width: Arena" -- Needs review
+L.unitframe_CastbarArena_h = "Castbar Height: Arena" -- Needs review
+L.unitframe_CastbarBoss_w = "Castbar Width: Boss" -- Needs review
+L.unitframe_CastbarBoss_h = "Castbar Height: Boss" -- Needs review
+L.unitframe_CastbarFocus_w = "Castbar Width: Focus" -- Needs review
+L.unitframe_CastbarFocus_h = "Castbar Height: Focus" -- Needs review
+L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "Debuff highlight texture + icon" -- Needs review
+L_GUI_UF_PLUGINS_AURA_WATCH = "Raid debuff icons (from the list)" -- Needs review
+L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "Timer on raid debuff icons" -- Needs review
+L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Show also PvP debuff icons (from the list)" -- Needs review
+L.tooltip_npc_tip = "NPC Info" -- Needs review
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons" -- Needs review
+L.tooltip_npc_id = "NPC ID Number" -- Needs review
+L.chat_reset_pos = "Automatically position chat windows" -- Needs review
+L.chat_smileys = "Insert smileys instead of symbols like xD" -- Needs review
+L_GUI_NAMEPLATE_DISTANCE = "Display range" -- Needs review
+L.nameplate_npc_colors = "Show different colored icon for priority targets" -- Needs review
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Needs review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Needs review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Needs review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Needs review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Needs review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR = "Pvp stuff" -- Need review		
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Needs review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Needs review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Needs review
+L.aura_player_debuff_size = "Debuffs size" -- Needs review
+L_GUI_MINIMAP_COMPASS = "Show N/S/E/W" -- Needs review
+L_GUI_MINIMAP_MINIBT_1 = "Background for Minimap bottom right" -- Needs review
+L_GUI_MINIMAP_MINIBT_2 = "Background for Minimap bottom left" -- Needs review
+L.minimap_fog_of_war_desc = "Right click on the close button of World Map to activate the option to hide fog of war" -- Needs review
+L.minimap_zoneMapMultilplier = "zoneMap Multiplier" -- Needs review
+L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything" -- Needs review
+L.minimap_zoneMapScale = "ZoneMap Scale" -- Needs review
+L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame." -- Needs review
+-- Panel options			
+L_GUI_TOP_PANEL = "Top Panel" -- Needs review
+L_GUI_TOP_PANEL_SUBTEXT = "Manage built-in top panel with information." -- Needs review
+L_GUI_TOP_PANEL_ENABLE = "Enable top panel" -- Needs review
+L_GUI_TOP_PANEL_MOUSE = "Top panel on mouseover" -- Needs review
+L_GUI_TOP_PANEL_WIDTH = "Panel width" -- Needs review
+L_GUI_TOP_PANEL_HEIGHT = "Panel height" -- Needs review
+-- Panels options			
+L_GUI_PANELS = "Panels" -- Needs review
+L_GUI_PANELS_SUBTEXT = "Manage all the panels on screen." -- Needs review
+L.panels_CPwidth = "Chat Width" -- Needs review
+L.panels_CPwidth_desc = "Width for Left and Right side panels that holds text" -- Needs review
+L.panels_CPLwidth = "Chat Lines." -- Needs review
+L.panels_CPLwidth_desc = "Width for Left and Right Chat lines." -- Needs review
+L.panels_CPTextheight = "Chat Hight" -- Needs review
+L.panels_CPTextheight_desc = "Hight for the panel that chat window is inside" -- Needs review
+L.panels_CPbarsheight = "Chat Bar Hight" -- Needs review
+L.panels_CPbarsheight_desc = "Hight for panels that shows under and above chat window. And Top Panel" -- Needs review
+L.panels_CPABarSide = "Side Action Bar" -- Needs review
+L.panels_CPABarSide_desc = "Width for Action Bars next to chat windows" -- Needs review
+L.panels_CPXPBa_r = "Xp Bar" -- Needs review
+L.panels_CPXPBa_r_desc = "Hight for the XP bar above Left Chat" -- Needs review
+L.panels_xoffset = "X Offset" -- Needs review
+L.panels_xoffset_desc = "Horisontal spacing between panels" -- Needs review
+L.panels_yoffset = "Y Offset" -- Needs review
+L.panels_yoffset_desc = "Vertical spacing between panels" -- Needs review
+L.panels_CPSidesWidth = "Addon Panels" -- Needs review
+L.panels_CPSidesWidth_desc = "Width of panels that is used to hold dmg meter and threathbar (Recount & Omen)" -- Needs review
+L.panels_CPMABwidth = "Width Main Actionbar" -- Needs review
+L.panels_CPMABwidth_desc = "Width for panel behind main action bar" -- Needs review
+L.panels_CPMABheight = "Hight For Main Actionbar" -- Needs review
+L.panels_CPMABheight_desc = "Hight for panel behind main action bar" -- Needs review
+L.panels_CPMAByoffset = "Y Offset Actionbar" -- Needs review
+L.panels_CPMAByoffset_desc = "Main action bar panel placement distance from bottom of screen" -- Needs review
+L.panels_CPCooldheight = "Cooldown Bar" -- Needs review
+L.panels_CPCooldheight_desc = "Hight For Cooldown Panel under main action bar panel" -- Needs review
+L.panels_CPTop = "Top Panels" -- Needs review
+L.panels_CPTop_desc = "Width For Top Panel" -- Needs review
+L.panels_Pscale = "Can Be Used To Resize All Panels. It Does Not Change X Y Values" -- Needs review
+L.panels_Pscale_desc = "Can Be Used To Resize All Panels. It Does Not Change X Y Values" -- Needs review
+L.panels_NoPanels = "Will Set All Panels To Hidden And Show Lines Instead. On Test Stage Still!" -- Needs review
+L.panels_NoPanels_desc = "Will Set All Panels To Hidden And Show Lines Instead. On Test Stage Still!" -- Needs review
+L.panels_HideABPanels = "Hides Actionbars Panels" -- Needs review
+L.panels_HideABPanels_desc = "Hides All Panels Behind Actionbars!" -- Needs review
+L.misc_markbar = "Markbar for Raid Icons and flares" -- Needs review
+L.misc_classtimer = "Shows buff/debuffs/procs as bar on player/target frame" -- Needs review
+L.misc_WatchFrame = "Use custom Quest watch frame" -- Needs review
+L.misc_BT4Bars = "Panels behind Sidebar & Small bars for Bartender 4" -- Needs review
+L.misc_Pscale = "Scale ViksUI Panels" -- Needs review
+L.misc_panelsh = "Set UI Panels to hidden" -- Needs review
 L.misc_InfoPanel_Stats = "Show Icy Veins Stats Priorities" -- Needs review
 L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with default stats from Icy Veins. Usefull when leveling" -- Needs review
-
--- DataText options
-L_GUI_DATATEXT = "DataText"
-L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13."
-L_GUI_DATATEXT_Arena = "Arena Score" 
-L_GUI_DATATEXT_Armor = "Armor Value"
-L_GUI_DATATEXT_RunSpeed = "Run Speed"
-L_GUI_DATATEXT_Avd = "Avoidance"
-L_GUI_DATATEXT_Bags = "Bag Space"
-L_GUI_DATATEXT_Battleground = "Enable 3 stats in battleground only that replace stat1,stat2,stat3"
-L_GUI_DATATEXT_Crit = "Crit"
-L_GUI_DATATEXT_Durability = "Durability"
-L_GUI_DATATEXT_Friends = "Friends List"
-L_GUI_DATATEXT_Gold = "Gold"
-L_GUI_DATATEXT_Guild = "Guild"
-L_GUI_DATATEXT_Haste = "Haste"
-L_GUI_DATATEXT_Versatility = "Versatility"
-L_GUI_DATATEXT_location = "Location"
-L_GUI_DATATEXT_showcoords = "Coordinates on location"
-L_GUI_DATATEXT_Mastery = "Mastery"
-L_GUI_DATATEXT_Power = "Power"
-L_GUI_DATATEXT_Regen = "Mana regeneration"
-L_GUI_DATATEXT_System = "Fps and MS"
-L_GUI_DATATEXT_Talents = "Talent"
-L_GUI_DATATEXT_togglemenu = "Minimenu"
-L_GUI_DATATEXT_Volume = "Volume"
-L_GUI_DATATEXT_Wowtime = "THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!"
-L_GUI_DATATEXT_Time24 = "Set time to 24h format"
-L_GUI_DATATEXT_Localtime = "Show Local time instead of server time"
-L_GUI_DATATEXT_classcolor = "Use Class Color in text"
-L_GUI_DATATEXT_color = "Color to use it not Class color"
-L_GUI_DATATEXT_SUBHEADER_CURRENCY = "Options"
-L_GUI_DATATEXT_CurrArchaeology = "Archaeology Fragments under gold"
-L_GUI_DATATEXT_CurrCooking = "Cooking Awards under gold"
-L_GUI_DATATEXT_CurrProfessions = "Profession Tokens under gold"
-L_GUI_DATATEXT_CurrMiscellaneous = "Miscellaneous Currency under gold"
-L_GUI_DATATEXT_CurrPvP = "PVP Currency under gold"
-L_GUI_DATATEXT_CurrRaid = "Raid Seals under gold"
-L_GUI_DATATEXT_Quests = "Quest position"
-
-L.datatext_Profession = "Professions"
-L.chat_smileys = "Insert smileys instead of symbols like xD"
-L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault."
+L.misc_XPBar = "Enable XP/REP/HONOR Bars above chat windows" -- Needs review
+L.misc_meters = "Skada/Details Toggle & Chat Move for NoPanel" -- Needs review
+L.misc_meters_desc = "For double chat and NoPanel Layout. Will swap bethween Chat and Dmg meters on right side" -- Needs review
+-- Extra			
+L_GUI_DATATEXT = "DataText" -- Needs review
+L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13." -- Needs review
+L.datatext_Arena = "Arena Score" -- Needs review
+L.datatext_Armor = "Armor Value" -- Needs review
+L.datatext_RunSpeed = "Run Speed" -- Needs review
+L.datatext_Avd = "Avoidance" -- Needs review
+L.datatext_Bags = "Bag Space" -- Needs review
+L.datatext_Battleground = "Enable 3 stats in battleground only that replace stat1,stat2,stat3" -- Needs review
+L.datatext_Crit = "Crit" -- Needs review
+L.datatext_Durability = "Durability" -- Needs review
+L.datatext_Friends = "Friends List" -- Needs review
+L.datatext_Gold = "Gold" -- Needs review
+L.datatext_Guild = "Guild" -- Needs review
+L.datatext_Haste = "Haste" -- Needs review
+L.datatext_Versatility = "Versatility" -- Needs review
+L.datatext_location = "Location" -- Needs review
+L.datatext_showcoords = "Coordinates on location" -- Needs review
+L.datatext_Mastery = "Mastery" -- Needs review
+L.datatext_Power = "Power" -- Needs review
+L.datatext_Regen = "Mana regeneration" -- Needs review
+L.datatext_System = "Fps and MS" -- Needs review
+L.datatext_Talents = "Talent" -- Needs review
+L.datatext_togglemenu = "Minimenu" -- Needs review
+L.datatext_Volume = "Volume" -- Needs review
+L.datatext_Wowtime = "THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!" -- Needs review
+L.datatext_Time24 = "Set time to 24h format" -- Needs review
+L.datatext_Localtime = "Show Local time instead of server time" -- Needs review
+L.datatext_classcolor = "Use Class Color in text" -- Needs review
+L.datatext_color = "Color to use it not Class color" -- Needs review
+L_GUI_DATATEXT_SUBHEADER_CURRENCY = "Options" -- Needs review
+L.datatext_CurrArchaeology = "Archaeology Fragments under gold" -- Needs review
+L.datatext_CurrCooking = "Cooking Awards under gold" -- Needs review
+L.datatext_CurrProfessions = "Profession Tokens under gold" -- Needs review
+L.datatext_CurrMiscellaneous = "Miscellaneous Currency under gold" -- Needs review
+L.datatext_CurrPvP = "PVP Currency under gold" -- Needs review
+L.datatext_CurrRaid = "Raid Seals under gold" -- Needs review
+L.datatext_Quests = "Quest position" -- Needs review
+L.datatext_fps_ms = "Only show FPS & MS, Not addonusage" -- Needs review
+L.datatext_Profession = "Professions" -- Needs review
+L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault." -- Needs review
+L.automation_AutoRepair = "Auto Repair at vendor" -- Needs review
+L.automation_AutoRepairG = "Auto Repair at vendor, GuildFund" -- Needs review

@@ -20,8 +20,10 @@ L_GUI_TIME_INPUT = "Время"
 L_GUI_EXPERT_MODE = "Режим эксперта"
 L_GUI_EXPERT_MODE_DESC = "Редактирование профиля Lua"
 L_GUI_RESET_SPELLS_DESC = "CTRL-клик, чтобы сбросить список"
-
--- General options
+L_GUI_INFO = "Помощь"
+L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
+			
+-- General options			
 L_GUI_GENERAL_SUBTEXT = "Эти настройки контролируют общие параметры UI. Наберите в чат '/uihelp' для помощи."
 L_GUI_GENERAL_WELCOME_MESSAGE = "Приветственное сообщение в чате"
 L_GUI_GENERAL_AUTOSCALE = "Автоматически масштабировать интерфейс"
@@ -39,8 +41,9 @@ L.general_color_picker_desc = "В стандартное окно подбора
 L.general_minimize_mouseover = "Кнопка сворачивания квестов по наведению курсора"
 L.general_hide_banner = "Скрыть подсказку добычи после победы над боссом"
 L.general_hide_talking_head = "Скрыть рамку говорящей головы"
-
--- Media options
+L.general_hide_maw_buffs = "Скрыть Силу Анимы в подземельях"
+			
+-- Media options			
 L.media_border_color = "Цвет для окантовки"
 L.media_classborder_color = "Цвет для классовых окантовок"
 L.media_backdrop_color = "Цвет для фона"
@@ -48,8 +51,8 @@ L.media_backdrop_alpha = "Прозрачность фона"
 L.media_texture = "Основная текстура"
 L.media_subheader_normal = "Изменение основного шрифта"
 L.media_subheader_pixel = "Изменение дополнительного шрифта"
-
--- Font options
+			
+-- Font options			
 L.font = "Шрифты"
 L.font_subtext = "Настройка шрифтов для элементов. 'MONOCHROMEOUTLINE' только для пиксельных шрифтов."
 L.font_stats_font = "Выбор шрифта"
@@ -73,48 +76,50 @@ L.font_subheader_bag = "Шрифт сумок"
 L.font_subheader_blizzard = "Размер системных шрифтов"
 L.font_tooltip_header_font_size = "Заголовок подсказки"
 L.font_tooltip_font_size = "Текст подсказки"
-
--- Skins options
-L_GUI_SKINS = "Stylization"
-L_GUI_SKINS_SUBTEXT = "Change the appearance of the standard interface."
-L_GUI_SKINS_BLIZZARD = "Enable styling Blizzard frames"
-L_GUI_SKINS_MINIMAP_BUTTONS = "Enable styling addons icons on minimap"
-L_GUI_SKINS_SUBHEADER = "Stylization of addons"
-L_GUI_SKINS_ACE3 = "Ace3"
-L_GUI_SKINS_ATLASLOOT = "AtlasLoot"
-L_GUI_SKINS_BLOOD_SHIELD_TRACKER = "BloodShieldTracker"
-L_GUI_SKINS_BW = "BigWigs"
-L_GUI_SKINS_CAPPING = "Capping"
-L_GUI_SKINS_CLIQUE = "Clique"
-L_GUI_SKINS_COOL_LINE = "CoolLine"
-L_GUI_SKINS_DBM = "DBM"
-L_GUI_SKINS_DBM_MOVABLE = "Allow to move DBM bars"
-L_GUI_SKINS_DOMINOS = "Dominos"
-L_GUI_SKINS_FLYOUT_BUTTON = "FlyoutButtonCustom"
-L_GUI_SKINS_LS_TOASTS = "ls: Toasts"
-L_GUI_SKINS_MAGE_NUGGETS = "MageNuggets"
-L_GUI_SKINS_MY_ROLE_PLAY = "MyRolePlay"
-L_GUI_SKINS_NPCSCAN = "NPCScan"
-L_GUI_SKINS_NUG_RUNNING = "NugRunning"
-L_GUI_SKINS_OMEN = "Omen"
-L_GUI_SKINS_OPIE = "OPie"
-L_GUI_SKINS_OVALE = "OvaleSpellPriority"
-L_GUI_SKINS_PAWN = "Pawn"
-L_GUI_SKINS_POSTAL = "Postal"
-L_GUI_SKINS_RECOUNT = "Recount"
-L_GUI_SKINS_REMATCH = "Rematch"
-L_GUI_SKINS_SKADA = "Skada"
-L_GUI_SKINS_TINY_DPS = "TinyDPS"
-L_GUI_SKINS_VANASKOS = "VanasKoS"
-L_GUI_SKINS_WEAK_AURAS = "WeakAuras"
-
--- Unit Frames options
+L.font_global_font = "Отключить пиксельный шрифт"
+			
+-- Skins options			
+L_GUI_SKINS = "Стилизация"
+L_GUI_SKINS_SUBTEXT = "Изменение внешнего вида стандартного интерфейса."
+L_GUI_SKINS_BLIZZARD = "Стилизация элементов интерфейса Blizzard"
+L_GUI_SKINS_MINIMAP_BUTTONS = "Стилизация кнопок модификаций у миникарты"
+L_GUI_SKINS_SUBHEADER = "Стилизация сторонних модификаций"
+L.skins_ace3 = "Ace3"
+L.skins_atlasloot = "AtlasLoot"
+L.skins_bigwigs = "BigWigs"
+L.skins_blood_shield_tracker = "BloodShieldTracker"
+L.skins_capping = "Capping"
+L.skins_clique = "Clique"
+L.skins_cool_line = "CoolLine"
+L.skins_dbm = "DBM"
+L.skins_details = "Details"
+L.skins_dominos = "Dominos"
+L.skins_flyout_button = "FlyoutButtonCustom"
+L.skins_ls_toasts = "ls: Toasts"
+L.skins_mage_nuggets = "MageNuggets"
+L.skins_my_role_play = "MyRolePlay"
+L.skins_npcscan = "NPCScan"
+L.skins_nug_running = "NugRunning"
+L.skins_omen = "Omen"
+L.skins_opie = "OPie"
+L.skins_ovale = "OvaleSpellPriority"
+L.skins_postal = "Postal"
+L.skins_recount = "Recount"
+L.skins_rematch = "Rematch"
+L.skins_skada = "Skada"
+L.skins_tiny_dps = "TinyDPS"
+L.skins_vanaskos = "VanasKoS"
+L.skins_weak_auras = "WeakAuras"
+L.skins_minimap_buttons_mouseover = "Кнопки по наведению курсора"
+			
+-- Unit Frames options			
 L_GUI_UF_SUBTEXT = "Настройка рамок игрока, цели и т.д."
 L_GUI_UF_ENABLE = "Включить рамки портретов"
 L_GUI_UF_OWN_COLOR = "Использовать свой цвет для полос здоровья"
 L_GUI_UF_UF_COLOR = "Цвет полос здоровья"
 L.unitframe_uf_color_bg = "Цвет фона"
-L_GUI_UF_ENEMY_HEALTH_COLOR = "Окрашивать полосу здоровья вражеского игрока в красный"
+L.unitframe_enemy_health_color = "Красный цвет для врагов"
+L.unitframe_enemy_health_color_desc = "Окрашивать полосу здоровья вражеского игрока в красный"
 L_GUI_UF_TOTAL_VALUE = "Отображать общее здоровье/энергию"
 L_GUI_UF_COLOR_VALUE = "Цветное значение здоровья/энергии"
 L_GUI_UF_BAR_COLOR_VALUE = "Цвет полосы здоровья по его значению"
@@ -136,7 +141,6 @@ L_GUI_UF_BOSS_DEBUFFS = "Количество дебаффов"
 L_GUI_UF_BOSS_DEBUFFS_DESC = "Количество дебаффов на рамке босса"
 L_GUI_UF_BOSS_BUFFS = "Количество баффов"
 L_GUI_UF_BOSS_BUFFS_DESC = "Количество баффов на рамке босса"
-L.unitframe_tankdebuff = "Size of debuff on tankframes"
 L.unitframe_icons_pvp = "PvP статус"
 L.unitframe_icons_pvp_desc = "Отображается при наведении курсора на рамки игрока и цели"
 L_GUI_UF_ICONS_COMBAT = "Отображать иконку боя на рамке игрока"
@@ -144,6 +148,9 @@ L_GUI_UF_ICONS_RESTING = "Отображать иконку отдыха на р
 L_GUI_UF_SUBHEADER_PORTRAIT = "3D Портреты"
 L_GUI_UF_PORTRAIT_ENABLE = "Отображать 3D портреты игрока и цели"
 L_GUI_UF_PORTRAIT_CLASSCOLOR_BORDER = "Окрашивать края портретов по цвету класса"
+L.unitframe_portrait_type = "Тип портретов"
+L.unitframe_portrait_type_icons = "Иконка класса"
+L.unitframe_portrait_type_overlay = "Наложение"
 L_GUI_UF_PORTRAIT_HEIGHT = "Высота портретов"
 L_GUI_UF_PORTRAIT_WIDTH = "Ширина портретов"
 L_GUI_UF_SUBHEADER_PLUGINS = "Плагины"
@@ -153,8 +160,6 @@ L.unitframe_plugins_reputation_bar = "Индикатор репутации"
 L.unitframe_plugins_reputation_bar_desc = "Включить индикатор репутации (слева от игрока по наведению курсора, СКМ - фиксация видимости)"
 L.unitframe_plugins_experience_bar = "Индикатор опыта"
 L.unitframe_plugins_experience_bar_desc = "Включить индикатор опыта (слева от игрока по наведению курсора, СКМ - фиксация видимости)"
-L.unitframe_plugins_artifact_bar = "Индикатор Азерита"
-L.unitframe_plugins_artifact_bar_desc = "Включить индикатор Азерита (слева от игрока по наведению курсора, СКМ - фиксация видимости)"
 L_GUI_UF_PLUGINS_SMOOTH_BAR = "Плавное изменение полос"
 L_GUI_UF_PLUGINS_ENEMY_SPEC = "Специализация врага на полях боя и Арене"
 L_GUI_UF_PLUGINS_COMBAT_FEEDBACK = "Текст боя на рамках игрока и цели"
@@ -169,54 +174,10 @@ L.unitframe_extra_height_auto = "Авто высота здоровья и эн�
 L.unitframe_extra_height_auto_desc = "Умное увеличение в зависимости от размера шрифта"
 L.unitframe_extra_health_height = "Доп. высота для здоровья"
 L.unitframe_extra_power_height = "Доп. высота для энергии"
-L.unitframe_Portrait_w = "Width of Portrait frame"  -- Need review
-L.unitframe_Portrait_h = "Height of Portrait frame"  -- Need review
-L.unitframe_Player_w = "Width of Player frame"  -- Need review
-L.unitframe_Player_h = "Height of Player frame"  -- Need review
-L.unitframe_Target_w = "Width of Target frame"  -- Need review
-L.unitframe_Target_h = "Height of Target frame"  -- Need review
-L.unitframe_Targettarget_w = "Width of ToT frame"  -- Need review
-L.unitframe_Targettarget_h = "Height of ToT frame"  -- Need review
-L.unitframe_Focus_w = "Width of Focus frame"  -- Need review
-L.unitframe_Focus_h = "Height of Focus frame"  -- Need review
-L.unitframe_Focustarget_w = "Width of Focus Target frame"  -- Need review
-L.unitframe_Focustarget_h = "Height of Focus Target frame"  -- Need review
-L.unitframe_Pet_w = "Width of Pet frame"  -- Need review
-L.unitframe_Pet_h = "Height of Pet frame"  -- Need review
-L.unitframe_PetTarget_w = "Width of Pet Target frame"  -- Need review
-L.unitframe_PetTarget_h = "Height of Pet Target frame"  -- Need review
-L.unitframe_Boss_w = "Width of Boss frame"  -- Need review
-L.unitframe_Boss_h = "Height of Boss frame"  -- Need review
-L.unitframe_Tank_w = "Width of Tank frame"  -- Need review
-L.unitframe_Tank_h = "Height of Tank frame"  -- Need review
-L.unitframe_TankH_w = "HF: Width of Tank frame"  -- Need review
-L.unitframe_TankH_h = "HF: Height of Tank frame"  -- Need review
-L.unitframe_Raid10H_w = "Width of Raid 10 man frame"  -- Need review
-L.unitframe_Raid10H_h = "Height of Raid 10 man frame"  -- Need review
-L.unitframe_Raid25H_w = "HF: Width of Raid 25 man frame"  -- Need review
-L.unitframe_Raid25H_h = "HF: Height of Raid 25 man frame"  -- Need review
-L.unitframe_Raid25_w = "Width of Raid 25 man frame"  -- Need review
-L.unitframe_Raid25_h = "Height of Raid 25 man frame"  -- Need review
-L.unitframe_Raid40H_w = "HF: Width of Raid 40 man frame"  -- Need review
-L.unitframe_Raid40H_h = "HF: Height of Raid 40 man frame"  -- Need review
-L.unitframe_Raid40_w = "Width of Raid 40 man frame"  -- Need review
-L.unitframe_Raid40_h = "Height of Raid 40 man frame"  -- Need review
-L.unitframe_Party_w = "Width of Party frame"  -- Need review
-L.unitframe_Party_h = "Height of Party frame"  -- Need review
-L.unitframe_Arena_w = "Width of Arena frame"  -- Need review
-L.unitframe_Arena_h = "Height of Arena frame"  -- Need review
-L.unitframe_CastbarPlayer_w = "Castbar Width: Player"  -- Need review
-L.unitframe_CastbarPlayer_h = "Castbar Height: Player"  -- Need review
-L.unitframe_CastbarTarget_w = "Castbar Width: Target"  -- Need review
-L.unitframe_CastbarTarget_h = "Castbar Height: Target"  -- Need review
-L.unitframe_CastbarArena_w = "Castbar Width: Arena"  -- Need review
-L.unitframe_CastbarArena_h = "Castbar Height: Arena"  -- Need review
-L.unitframe_CastbarBoss_w = "Castbar Width: Boss"  -- Need review
-L.unitframe_CastbarBoss_h = "Castbar Height: Boss"  -- Need review
-L.unitframe_CastbarFocus_w = "Castbar Width: Focus"  -- Need review
-L.unitframe_CastbarFocus_h = "Castbar Height: Focus"  -- Need review
-
--- Unit Frames Class bar options
+L.unitframe_subheader_castbar = "Размер кастбара игрока и цели"
+L.unitframe_castbar_height = "Высота"
+			
+-- Unit Frames Class bar options			
 L_GUI_UF_PLUGINS_CLASS_BAR = "Классовые панели"
 L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "Управление особыми классовые ресурсами."
 L_GUI_UF_PLUGINS_COMBO_BAR = "Индикатор серии приемов"
@@ -229,15 +190,22 @@ L_GUI_UF_PLUGINS_HOLY_BAR = "Индикатор энергии света"
 L_GUI_UF_PLUGINS_SHARD_BAR = "Индикатор осколков душ"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Индикатор рун"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "Индикатор тотемов для шаманов"
-L_GUI_UF_PLUGINS_RANGE_BAR = "Индикатор досягаемости (для жрецов)"
 L.unitframe_class_bar_totem_other = "Индикатор 'тотемов' для других классов"
 L.unitframe_class_bar_essence = "Индикатор сущности"
-
--- Raid Frames options
+			
+-- Raid Frames options			
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Настройка внешнего вида рейдовых рамок."
 L_GUI_UF_BY_ROLE = "Сортировка игроков в группе по ролям"
 L_GUI_UF_AGGRO_BORDER = "Отображение угрозы"
 L_GUI_UF_DEFICIT_HEALTH = "Значение здоровья по дефициту"
+L_GUI_UF_SHOW_PARTY = "Рамки группы"
+L_GUI_UF_SHOW_RAID = "Рамки рейда"
+L.raidframe_layout = "Рейдовая раскладка"
+L.raidframe_heal_layout = "Лекарь"
+L.raidframe_dps_layout = "Боец"
+L.raidframe_auto_layout = "Авто"
+L.raidframe_show_target = "Рамки целей"
+L.raidframe_show_pet = "Рамки питомцев"
 L.raidframe_vertical_health = "Вертикальное направление полосы здоровья"
 L.raidframe_vertical_health_desc = "Только для раскладки 'Лекарь'"
 L_GUI_UF_ALPHA_HEALTH = "Прозрачность рамок при полном здоровье"
@@ -245,8 +213,6 @@ L_GUI_UF_SHOW_RANGE = "Прозрачность рамок вне зоны до�
 L_GUI_UF_RANGE_ALPHA = "Прозрачность"
 L_GUI_UF_RANGE_ALPHA_DESC = "Значение для прозрачности рамок вне зоны досягаемости"
 L_GUI_UF_SUBHEADER_RAIDFRAMES = "Рамки"
-L_GUI_UF_SHOW_PARTY = "Рамки группы"
-L_GUI_UF_SHOW_RAID = "Рамки рейда"
 L_GUI_UF_SOLO_MODE = "Отображать в соло"
 L_GUI_UF_PLAYER_PARTY = "Отображать рамку игрока в группе"
 L_GUI_UF_SHOW_TANK = "Рамки танков рейда"
@@ -262,16 +228,18 @@ L_GUI_UF_ICONS_READY_CHECK = "Готовность"
 L_GUI_UF_ICONS_LEADER = "Лидер и помощник"
 L_GUI_UF_ICONS_SUMON = "Призыв"
 L.raidframe_icons_phase = "Фаза"
-L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "Иконка + текстура снимаемых отрицательных эффектов"
-L_GUI_UF_PLUGINS_AURA_WATCH = "Отображать рейдовые отрицательные эффекты (из списка)"
-L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "Таймер на отрицательных эффектах"
-L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Отображать PvP дебаффы (из списка)"
+L.raidframe_plugins_debuffhighlight_icon = "Отображать снимаемые дебаффы"
+L.raidframe_plugins_aura_watch = "Отображать рейдовые дебаффы (из списка)"
+L.raidframe_plugins_aura_watch_timer = "Включить цифровой таймер"
+L.raidframe_plugins_pvp_debuffs = "Отображать PvP дебаффы (из списка)"
 L_GUI_UF_PLUGINS_HEALCOMM = "Отображать поступающее лечение"
+L.raidframe_plugins_over_absorb = "Избыточное поглощение"
+L.raidframe_plugins_over_heal_absorb = "Избыточное поглощение исцеления"
 L.raidframe_plugins_auto_resurrection = "Автокаст воскрешения"
 L.raidframe_plugins_auto_resurrection_desc = "Автокаст воскрешения средней кнопкой мыши (не работает с Clique)"
 L.raidframe_hide_health_value = "Скрыть значение здоровья для рейда"
 L.raidframe_auto_position = "Авто крепление рейда"
-L.raidframe_auto_position_desc = "Если групп больше 5 - меняются крепления рамок. \nТолько для раскладки 'Лекарь' "
+L.raidframe_auto_position_desc = "Если групп больше 5 - меняются крепления рамок. \nТолько для раскладки 'Лекарь'"
 L.raidframe_auto_position_dynamic = "Динамическое"
 L.raidframe_auto_position_static = "Статическое"
 L.raidframe_subheader_heal_size = "Размеры для раскладки 'Лекарь'"
@@ -285,8 +253,8 @@ L.raidframe_dps_raid_width = "Ширина рейда"
 L.raidframe_dps_raid_height = "Высота рейда"
 L.raidframe_dps_party_power_height = "Высота энергии группы"
 L.raidframe_dps_raid_power_height = "Высота энергии рейда"
-
--- ActionBar options
+			
+-- ActionBar options			
 L_GUI_ACTIONBAR = "Панели команд"
 L_GUI_ACTIONBAR_ENABLE = "Включить панели команд"
 L_GUI_ACTIONBAR_HOTKEY = "Отображать назначения клавиш"
@@ -316,9 +284,9 @@ L.actionbar_editor = "Редактор панелей"
 L.actionbar_editor_desc = "Разблокировать настройку и перемещение каждой панели в отдельности"
 L.actionbar_bar1_num = "Количество кнопок"
 L.actionbar_bar1_row = "Кнопок в ряду"
-L.actionbar_bar1_mouseover = "По наведениею курсора"
-
--- Tooltip options
+L.actionbar_bar1_mouseover = "По наведению курсора"
+			
+-- Tooltip options			
 L.tooltip = "Подсказки"
 L.tooltip_subtext = "В этом блоке можно изменить стандартные подсказки при наведении курсора."
 L.tooltip_enable = "Включить подсказки"
@@ -336,7 +304,7 @@ L.tooltip_achievements = "Сравнивать достижения в чате 
 L.tooltip_target = "Цель цели в подсказке"
 L.tooltip_title = "Звание игрока"
 L.tooltip_realm = "Игровой мир игрока"
-L.tooltip_rank = "Ранг цели в гильдии"
+L.tooltip_rank = "Ранг в гильдии"
 L.tooltip_spell_id = "Номер заклинания/предмета"
 L.tooltip_average_lvl_desc = "Средний уровень предметов игроков"
 L.tooltip_raid_icon = "Рейдовые метки"
@@ -345,22 +313,21 @@ L.tooltip_item_count = "Количество предметов в сумках 
 L.tooltip_unit_role = "Роль игрока"
 L.tooltip_instance_lock = "Ваш статус прохождения подземелий в подсказке"
 L.tooltip_mount = "Источник средства передвижения"
-L.tooltip_npc_tip = "NPC Info"
-L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons"
-
--- Chat options
+			
+-- Chat options			
 L_GUI_CHAT_SUBTEXT = "Здесь можно изменить настройки окна чата."
 L_GUI_CHAT_ENABLE = "Включить чат"
 L_GUI_CHAT_BACKGROUND = "Включить фон чата"
 L_GUI_CHAT_BACKGROUND_ALPHA = "Прозрачность фона"
-L_GUI_CHAT_SPAM = "Удаление системного спама в чате ('Игрок1' выиграл дуэль у 'Игрока2')"
-L_GUI_CHAT_GOLD = "Удаление спама от игроков в чате"
+L.chat_filter = "Удаление системных сообщений"
+L.chat_filter_desc = "Дуэли, смена талантов, диалоги NPC в городах"
+L.chat_spam = "Удаление спама от игроков"
 L.chat_spam_list = "Черный список"
 L.chat_spam_list_desc = "Список слов (через пробел, строчными буквами) для скрытия сообщений"
 L_GUI_CHAT_WIDTH = "Ширина чата"
 L_GUI_CHAT_HEIGHT = "Высота чата"
 L_GUI_CHAT_BAR = "Панель кнопок каналов"
-L_GUI_CHAT_BAR_MOUSEOVER = "Панель кнопок каналов по наведению курсора"
+L_GUI_CHAT_BAR_MOUSEOVER = "Панель по наведению курсора"
 L_GUI_CHAT_WHISP = "Звуковое оповещение во время шепота"
 L_GUI_CHAT_SKIN_BUBBLE = "Стилизация облачков чата"
 L_GUI_CHAT_CL_TAB = "Показывать вкладку журнала боя"
@@ -368,10 +335,11 @@ L_GUI_CHAT_TABS_MOUSEOVER = "Вкладки чата по наведению к�
 L_GUI_CHAT_STICKY = "Запоминать последний канал чата"
 L_GUI_CHAT_DAMAGE_METER_SPAM = "Объединять спам измерителей урона в одну строку"
 L.chat_loot_icons = "Иконки для добычи"
+L.chat_hide_combat = "Скрывать чат в бою"
 L.chat_custom_time_color = "Задать свой цвет времени"
 L.chat_time_color = "Цвет времени чата"
-
--- Nameplate options
+			
+-- Nameplate options			
 L_GUI_NAMEPLATE_SUBTEXT = "Изменение индикаторов здоровья."
 L_GUI_NAMEPLATE_ENABLE = "Включить индикаторы здоровья"
 L_GUI_NAMEPLATE_COMBAT = "Автоматически показывать индикаторы во время боя"
@@ -387,21 +355,31 @@ L.nameplate_ad_width_desc = "Дополнительная ширина выбр�
 L_GUI_NAMEPLATE_CASTBAR_NAME = "Название заклинания"
 L_GUI_NAMEPLATE_CLASS_ICON = "Иконки классов в PvP"
 L_GUI_NAMEPLATE_NAME_ABBREV = "Сокращение имен"
-L_GUI_NAMEPLATE_CLAMP = "Прикреплять к верху экрана, когда цели пропадают из прямой видимости"
+L.nameplate_short_name = "Заменить имена на короткие"
+L.nameplate_clamp = "Прикреплять индикаторы"
+L.nameplate_clamp_desc = "Прикреплять к верху экрана, когда цели пропадают из прямой видимости"
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Отображать ваши отрицательные эффекты (из списка)"
 L_GUI_NAMEPLATE_SHOW_BUFFS = "Отображать снимаемые баффы + из списка"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Размер иконок аур"
-L_GUI_NAMEPLATE_HEALER_ICON = "Отображать иконку над вражескими целителями на полях боя"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Отображать иконку над вражескими тотемами"
+L_GUI_NAMEPLATE_HEALER_ICON = "Иконка над вражескими целителями"
+L_GUI_NAMEPLATE_TOTEM_ICONS = "Иконка тотемов"
 L.nameplate_target_glow = "Выделять текущую цель"
 L.nameplate_only_name = "Отображать только имя для союзников"
+L.nameplate_quests = "Иконка квестов"
+L.nameplate_cast_color = "Выделить цветом чтение важных заклинаний"
+L.nameplate_kick_color = "Изменить цвет чтения заклинания, если ваше прерывание на кд"
+L.nameplate_low_health_value = "Уровень здоровья"
+L.nameplate_low_health = "Подсветка низкого здоровья"
 L_GUI_NAMEPLATE_THREAT = "Цветовое обозначение угрозы (зависит от роли)"
 L_GUI_NAMEPLATE_GOOD_COLOR = "Цвет наименьшей угрозы (для танка наивысшей)"
 L_GUI_NAMEPLATE_NEAR_COLOR = "Цвет получения/сброса угрозы"
 L_GUI_NAMEPLATE_BAD_COLOR = "Цвет наивысшей угрозы (для танка наименьшей)"
 L_GUI_NAMEPLATE_OFFTANK_COLOR = "Цвет угрозы для оффтанка (если вы танк)"
-
--- Combat text options
+L.nameplate_extra_color = "Цвет сфер и теней (аффиксы)"
+L.nameplate_mob_color_enable = "Изменить цвет важных противников в подземельях"
+L.nameplate_mob_color = "Цвет для противников"
+			
+-- Combat text options			
 L_GUI_COMBATTEXT = "Текст боя"
 L_GUI_COMBATTEXT_SUBTEXT = "Для перемещения набрать в чате '/xct'"
 L_GUI_COMBATTEXT_ENABLE = "Включить текст боя"
@@ -426,7 +404,7 @@ L_GUI_COMBATTEXT_TRESHOLD = "Минимально отображаемое зн�
 L_GUI_COMBATTEXT_HEAL_TRESHOLD = "Минимально отображаемое значение лечения"
 L_GUI_COMBATTEXT_SCROLLABLE = "Включить прокручивание текста в блоках колесом мыши"
 L_GUI_COMBATTEXT_MAX_LINES = "Количество линий"
-L_GUI_COMBATTEXT_MAX_LINES_DESC = "Максимальное количество строк (больше строк = больше памяти)"
+L_GUI_COMBATTEXT_MAX_LINES_DESC = "Максимальное количество строк (больше строк"
 L_GUI_COMBATTEXT_TIME_VISIBLE = "Время"
 L_GUI_COMBATTEXT_TIME_VISIBLE_DESC = "Время (в секундах) до исчезновения текста"
 L_GUI_COMBATTEXT_DK_RUNES = "Отображать перезарядку рун Рыцарей Смерти"
@@ -438,26 +416,28 @@ L_GUI_COMBATTEXT_DISPEL = "Отображать ваши рассеивания"
 L_GUI_COMBATTEXT_INTERRUPT = "Отображать ваши прерывания"
 L_GUI_COMBATTEXT_DIRECTION = "Сменить направление прокрутки текста боя"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "Сокращать цифры ('25.3k' вместо '25342')"
-
--- Auras/Buffs/Debuffs
+			
+-- Auras/Buffs/Debuffs			
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Размер аур"
 L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "Размер положительных эффектов игрока"
-L.aura_player_debuff_size = "Размер дебаффов"
+L.aura_debuff_size = "Размер дебаффов"
 L_GUI_AURA_SHOW_SPIRAL = "Спираль перезарядки на аурах"
 L_GUI_AURA_SHOW_TIMER = "Отображать таймер перезарядки аур"
 L_GUI_AURA_PLAYER_AURAS = "Ауры игрока"
-L_GUI_AURA_TARGET_AURAS = "Ауры цели"
-L_GUI_AURA_FOCUS_DEBUFFS = "Отрицательные эффекты фокуса"
-L_GUI_AURA_FOT_DEBUFFS = "Отрицательные эффекты цели фокуса"
-L_GUI_AURA_PET_DEBUFFS = "Отрицательные эффекты питомца"
-L_GUI_AURA_TOT_DEBUFFS = "Отрицательные эффекты цели цели"
-L.aura_boss_buffs = "Ауры босса"
+L_GUI_AURA_TARGET_AURAS = "Цель"
+L_GUI_AURA_FOCUS_DEBUFFS = "Фокус"
+L_GUI_AURA_FOT_DEBUFFS = "Цель фокуса"
+L_GUI_AURA_PET_DEBUFFS = "Питомец"
+L_GUI_AURA_TOT_DEBUFFS = "Цель цели"
+L.aura_subheader_boss = "Ауры босса"
 L_GUI_AURA_PLAYER_AURA_ONLY = "Только ваши отрицательные эффекты на цели"
-L_GUI_AURA_DEBUFF_COLOR_TYPE = "Цвета краёв отрицательных эффектов по их типу"
+L_GUI_AURA_DEBUFF_COLOR_TYPE = "Окрашивать края по их типу"
 L_GUI_AURA_CAST_BY = "Отображать имя того, кто применил эффект"
-L_GUI_AURA_CLASSCOLOR_BORDER = "Окрашивать края положительных эффектов игрока в цвет класса"
-
--- Bag options
+L_GUI_AURA_CLASSCOLOR_BORDER = "Окрашивать края в цвет класса"
+L.aura_subheader_buffs = "Положительные эффекты игрока"
+L.aura_subheader_debuffs = "Отрцательные эффекты"
+			
+-- Bag options			
 L_GUI_BAGS = "Сумки"
 L_GUI_BAGS_SUBTEXT = "Правый клик по кнопке закрытия, чтобы открыть меню. Для перемещения сумок зажать Shift - клик."
 L_GUI_BAGS_ENABLE = "Включить сумки"
@@ -468,10 +448,11 @@ L_GUI_BAGS_BUTTON_SIZE = "Размер ячеек"
 L_GUI_BAGS_BUTTON_SPACE = "Промежуток"
 L_GUI_BAGS_BANK = "Cтолбцов в банке"
 L_GUI_BAGS_BAG = "Cтолбцов в сумках"
-
--- Minimap options
+			
+-- Minimap options			
 L_GUI_MINIMAP_SUBTEXT = "Настройка миникарты."
 L_GUI_MINIMAP_ENABLE = "Включить миникарту"
+L.minimap_on_top = "Переместить в правый верхний угол"
 L_GUI_MINIMAP_ICON = "Иконка отслеживания объектов"
 L_GUI_GARRISON_ICON = "Иконка ковенанта"
 L_GUI_MINIMAP_SIZE = "Размер миникарты"
@@ -479,9 +460,8 @@ L_GUI_MINIMAP_HIDE_COMBAT = "Скрыть миникарту в бою"
 L_GUI_MINIMAP_TOGGLE_MENU = "Отображать меню над миникартой"
 L.minimap_bg_map_stylization = "Стилизация карты полей боя"
 L.minimap_fog_of_war = "Убрать туман войны с глобальной карты"
-L.minimap_fog_of_war_desc = "Нажмите правой кнопкой по кнопке закрытия карты, чтобы активировать опцию скрытия тумана"
-
--- Loot options
+			
+-- Loot options			
 L_GUI_LOOT_SUBTEXT = "Настройка окна добычи."
 L_GUI_LOOT_ENABLE = "Включить окно добычи"
 L_GUI_LOOT_ROLL_ENABLE = "Включить групповое окно добычи"
@@ -491,8 +471,8 @@ L_GUI_LOOT_AUTOGREED = "Авто не откажусь/распылить для
 L_GUI_LOOT_AUTODE = "Убрать запрос о распылении предмета"
 L.loot_faster_loot = "Ускорить взятие добычи"
 L.loot_faster_loot_desc = "Работает, если включен автоматический сбор добычи"
-
--- Filger
+			
+-- Filger			
 L_GUI_FILGER = "Таймеры (Filger)"
 L_GUI_FILGER_SUBTEXT = "Filger - аналог WeakAuras, но более простой и легкий. Позволяет выводить в виде иконок и полос ваши ауры и таймеры."
 L_GUI_FILGER_ENABLE = "Включить Filger"
@@ -519,26 +499,33 @@ L.filger_pvp_space = "Промежуток"
 L.filger_cooldown_space = "Промежуток"
 L.filger_subheader_spells = "Добавление новых заклинаний"
 L.filger_category_list = "Выбор списка"
-
--- Announcements options
+			
+-- Announcements options			
 L_GUI_ANNOUNCEMENTS = "Объявления"
 L_GUI_ANNOUNCEMENTS_SUBTEXT = "Здесь можно включить оповещения в чат о заклинаниях и предметах."
-L_GUI_ANNOUNCEMENTS_DRINKING = "Сообщать в чат, когда враг начинает пить на арене"
-L_GUI_ANNOUNCEMENTS_INTERRUPTS = "Сообщать в чат о вашем прерывании заклинания"
-L_GUI_ANNOUNCEMENTS_SPELLS = "Сообщать в чат, когда вы применили заклинание (из списка)"
-L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL = "Сообщать, когда применил участник группы/рейда"
-L_GUI_ANNOUNCEMENTS_TOY_TRAIN = "Сообщать в чат о применении назойливых игрушек"
-L_GUI_ANNOUNCEMENTS_PULL_COUNTDOWN = "Команда для отсчета времени до атаки (/pc #)"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD = "Сообщать об отсутствующих настоях и еде (/ffcheck)"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD_RAID = "Сообщать в рейдовый канал"
-L_GUI_ANNOUNCEMENTS_FLASK_FOOD_AUTO = "Сообщать в чат при проверке готовности"
-L_GUI_ANNOUNCEMENTS_FEASTS = "Сообщать, когда ставят пир/почту/ремонт"
-L_GUI_ANNOUNCEMENTS_PORTALS = "Сообщать, когда создают порталы/ритуал призыва"
-L.announcements_bad_gear = "'Плохое' снаряжение"
+L.announcements_drinking = "Враг пьет на арене"
+L.announcements_interrupts = "Прерывание заклинания"
+L.announcements_interrupts_desc = "Сообщать о вашем прерывании заклинания"
+L.announcements_spells = "Использование заклинаний"
+L.announcements_spells_desc = "Сообщать, когда вы применили заклинание (из списка)"
+L.announcements_spells_from_all = "Включая других игроков"
+L.announcements_spells_from_all_desc = "Сообщать, когда применил участник группы/рейда"
+L.announcements_toys = "Применение назойливых игрушек"
+L.announcements_pull_countdown = "Отсчёт до атаки"
+L.announcements_pull_countdown_desc = "Команда для отсчета времени до атаки (/pc #)"
+L.announcements_flask_food = "Отсутствующие настои и еда"
+L.announcements_flask_food_desc = "Сообщать об отсутствующих настоях и еде (/ffcheck)"
+L.announcements_flask_food_raid = "Сообщать в рейдовый канал"
+L.announcements_flask_food_auto = "Сообщать при проверке готовности"
+L.announcements_feasts = "Пир, почта, ремонт и кодекс"
+L.announcements_portals = "Порталы и ритуал призыва"
+L.announcements_subheader_self = "Локальное оповещение"
+L.announcements_bad_gear = "Плохое' снаряжение"
 L.announcements_bad_gear_desc = "Проверять ваше 'плохое' снаряжение в подземельях (удочки и прочее из списка)"
-L_GUI_ANNOUNCEMENTS_SAFARI_HAT = "Проверять Шляпу для сафари в начале битвы петов"
-
--- Automation options
+L.announcements_safari_hat = "Шляпа для сафари"
+L.announcements_safari_hat_desc = "Проверять Шляпу для сафари в начале битвы петов"
+			
+-- Automation options			
 L_GUI_AUTOMATION = "Автоматизация"
 L_GUI_AUTOMATION_SUBTEXT = "В этом блоке расположены настройки, которые облегчают рутину."
 L.automation_release = "Покидать тело на полях боя"
@@ -551,6 +538,7 @@ L.automation_accept_quest = "Принятие заданий (если зажа�
 L.automation_auto_collapse = "Сворачивать отслеживание заданий"
 L.automation_auto_collapse_raid = "В подземельях"
 L.automation_auto_collapse_reload = "При загрузке"
+L.automation_auto_collapse_scenario = "Частично"
 L.automation_skip_cinematic = "Пропуск видеороликов (если зажат Ctrl - не работает)"
 L.automation_auto_role = "Выбор вашей роли (в группе/рейде)"
 L.automation_cancel_bad_buffs = "Снимать назойливые праздничные баффы (из списка)"
@@ -562,11 +550,12 @@ L.automation_buff_on_scroll_desc = "Если бафф из списка не в�
 L.automation_open_items = "Открывать сундуки и ящики в вашей сумке"
 L.automation_resurrection = "Принятие воскрешений"
 L.automation_summon = "Принятие призыва"
+L.automation_summon_desc = "Суммон от игроков"
 L.automation_whisper_invite = "Авто приглашение по ключевым словам"
 L.automation_invite_keyword = "Список слов (через пробел)"
 L.automation_invite_keyword_desc = "Если вам напишут в личку ключевое слово, то сработает приглашение в группу"
-
--- Buffs reminder options
+			
+-- Buffs reminder options			
 L_GUI_REMINDER = "Напоминания"
 L_GUI_REMINDER_SUBTEXT = "Отображение пропущенных аур."
 L_GUI_REMINDER_SOLO_ENABLE = "Показать пропущенные ауры игрока"
@@ -580,8 +569,8 @@ L_GUI_REMINDER_RAID_SIZE = "Размер иконок"
 L_GUI_REMINDER_RAID_SIZE_DESC = "Размер иконок рейдовых аур"
 L_GUI_REMINDER_RAID_ALPHA = "Прозрачность"
 L_GUI_REMINDER_RAID_ALPHA_DESC = "Прозрачность иконок рейдовых аур"
-
--- Raid cooldowns options
+			
+-- Raid cooldowns options			
 L_GUI_COOLDOWN_RAID = "Перезарядки рейда"
 L_GUI_COOLDOWN_RAID_SUBTEXT = "Отслеживание рейдовых способностей в виде полос в левом верхнем углу."
 L_GUI_COOLDOWN_RAID_ENABLE = "Включить рейдовые перезарядки"
@@ -594,8 +583,8 @@ L_GUI_COOLDOWN_RAID_ICONS = "Отображать иконки рейдовых 
 L_GUI_COOLDOWN_RAID_IN_RAID = "Отображать в рейде"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "Отображать в группе"
 L_GUI_COOLDOWN_RAID_IN_ARENA = "Отображать на арене"
-
--- Enemy cooldowns options
+			
+-- Enemy cooldowns options			
 L_GUI_COOLDOWN_ENEMY = "Перезарядки врагов"
 L_GUI_COOLDOWN_ENEMY_SUBTEXT = "Отслеживание способностей врагов в виде иконок над вашей полосой чтения заклинаний."
 L_GUI_COOLDOWN_ENEMY_ENABLE = "Включить вражеские перезарядки"
@@ -606,8 +595,8 @@ L_GUI_COOLDOWN_ENEMY_IN_BG = "Отображать на полях боя"
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "Отображать на арене"
 L.enemycooldown_show_inparty = "Отображать в группе для союзников"
 L.enemycooldown_class_color = "Окрашивать края в цвет класса"
-
--- Pulse cooldowns options
+			
+-- Pulse cooldowns options			
 L_GUI_COOLDOWN_PULSE = "Свои перезарядки"
 L_GUI_COOLDOWN_PULSE_SUBTEXT = "Отслеживание ваших перезарядок с помощью всплывающей иконки в центре экрана."
 L_GUI_COOLDOWN_PULSE_ENABLE = "Отображать иконку окончания перезарядки"
@@ -617,8 +606,8 @@ L_GUI_COOLDOWN_PULSE_ANIM_SCALE = "Масштаб анимации"
 L_GUI_COOLDOWN_PULSE_HOLD_TIME = "Время до исчезновения"
 L_GUI_COOLDOWN_PULSE_THRESHOLD = "Порог времени"
 L_GUI_COOLDOWN_PULSE_THRESHOLD_DESC = "Минимальный порог времени"
-
--- Threat options
+			
+-- Threat options			
 L_GUI_THREAT = "Список угрозы"
 L_GUI_THREAT_SUBTEXT = "Отображение списка угрозы в виде полос (простой аналог Omen)."
 L_GUI_THREAT_ENABLE = "Включить список угрозы"
@@ -626,219 +615,176 @@ L_GUI_THREAT_HEIGHT = "Высота полос"
 L_GUI_THREAT_WIDTH = "Ширина полос"
 L_GUI_THREAT_ROWS = "Количество полос"
 L_GUI_THREAT_HIDE_SOLO = "Отображать только в группе/рейде"
-
--- Tooltip options
-L_GUI_TOOLTIP = "Подсказки"
-L_GUI_TOOLTIP_SUBTEXT = "В этом блоке можно изменить стандартные подсказки при наведение."
-L_GUI_TOOLTIP_ENABLE = "Включить подсказки"
-L_GUI_TOOLTIP_SHIFT = "Показывать подсказку при зажатой кнопке Shift"
-L_GUI_TOOLTIP_CURSOR = "Подсказка над указателем мыши"
-L_GUI_TOOLTIP_ICON = "Иконка заклинания/предмета в подсказке"
-L_GUI_TOOLTIP_HEALTH = "Цифровое значение здоровья в подсказке"
-L_GUI_TOOLTIP_HIDE = "Прятать подсказку для кнопок панели команд"
-L_GUI_TOOLTIP_HIDE_COMBAT = "Прятать подсказку в бою"
-L_GUI_TOOLTIP_SUBHEADER_PLUGINS = "Плагины"
-L_GUI_TOOLTIP_TALENTS = "Специализация цели в подсказке"
-L_GUI_TOOLTIP_ACHIEVEMENTS = "Сравнивать достижения в чате с вашими"
-L_GUI_TOOLTIP_TARGET = "Цель цели в подсказке"
-L_GUI_TOOLTIP_TITLE = "Звание игрока"
-L_GUI_TOOLTIP_REALM = "Игровой мир игрока"
-L_GUI_TOOLTIP_RANK = "Ранг цели в гильдии"
-L_GUI_TOOLTIP_SPELL_ID = "Номер заклинания/предмета"
-L_GUI_TOOLTIP_AVERAGE_LVL_DESC = "Средний уровень предметов игроков"
-L_GUI_TOOLTIP_RAID_ICON = "Рейдовые метки"
-L_GUI_TOOLTIP_WHO_TARGETTING = "Показать, кто выбрал целью данного персонажа"
-L_GUI_TOOLTIP_ITEM_COUNT = "Количество предметов"
-L_GUI_TOOLTIP_UNIT_ROLE = "Роль игрока"
-L_GUI_TOOLTIP_INSTANCE_LOCK = "Ваш статус прохождения подземелий в подсказке"
-
--- Chat options
-L_GUI_CHAT_SUBTEXT = "Здесь можно изменить настройки окна чата."
-L_GUI_CHAT_ENABLE = "Включить чат"
-L_GUI_CHAT_BACKGROUND = "Включить фон чата"
-L_GUI_CHAT_BACKGROUND_ALPHA = "Прозрачность фона"
-L_GUI_CHAT_SPAM = "Удаление системного спама в чате ('Игрок1' выиграл дуэль у 'Игрока2')"
-L_GUI_CHAT_GOLD = "Удаление спама от игроков в чате"
-L_GUI_CHAT_WIDTH = "Ширина чата"
-L_GUI_CHAT_HEIGHT = "Высота чата"
-L_GUI_CHAT_BAR = "Панель кнопок каналов"
-L_GUI_CHAT_BAR_MOUSEOVER = "Панель кнопок каналов по наведению курсора"
-L_GUI_CHAT_TIMESTAMP = "Цвет времени чата"
-L_GUI_CHAT_WHISP = "Звуковое оповещение во время шепота"
-L_GUI_CHAT_SKIN_BUBBLE = "Стилизация облачков чата"
-L_GUI_CHAT_CL_TAB = "Показывать вкладку журнала боя"
-L_GUI_CHAT_TABS_MOUSEOVER = "Вкладки чата по наведению курсора"
-L_GUI_CHAT_STICKY = "Запоминать последний канал чата"
-L_GUI_CHAT_DAMAGE_METER_SPAM = "Объединять спам измерителей урона в одну строку"
-
--- Bag options
-L_GUI_BAGS = "Сумки"
-L_GUI_BAGS_SUBTEXT = "Изменение встроенных в сборку сумок."
-L_GUI_BAGS_ENABLE = "Включить сумки"
-L_GUI_BAGS_ILVL = "Показывать уровень предметов для оружия и брони"
-L_GUI_BAGS_BUTTON_SIZE = "Размер ячеек"
-L_GUI_BAGS_BUTTON_SPACE = "Расстояние между ячейками"
-L_GUI_BAGS_BANK = "Количество столбцов в банке"
-L_GUI_BAGS_BAG = "Количество столбцов в сумках"
-
--- Minimap options
-L_GUI_MINIMAP_SUBTEXT = "Minimap settings."
-L_GUI_MINIMAP_ENABLE = "Enable minimap"
-L_GUI_MINIMAP_ICON = "Tracking icon"
-L_GUI_GARRISON_ICON = "Garrison icon"
-L_GUI_MINIMAP_SIZE = "Map size"
-L_GUI_MINIMAP_HIDE_COMBAT = "Hide minimap in combat"
-L_GUI_MINIMAP_TOGGLE_MENU = "Show toggle menu"
-L_GUI_MINIMAP_COMPASS = "Show N/S/E/W"
-L_GUI_MINIMAP_MINIBT_1 = "Background for Minimap bottom right"
-L_GUI_MINIMAP_MINIBT_2 = "Background for Minimap bottom left"
-L.minimap_bg_map_stylization = "BG map stylization"
-L.minimap_fog_of_war = "Remove fog of war on World Map"
-L.minimap_fog_of_war_desc = "Right click on the close button of World Map to activate the option to hide fog of war"
-L.minimap_zoneMapMultilplier = "zoneMap Multiplier"
-L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything"
-L.minimap_zoneMapScale = "ZoneMap Scale"
-L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame."
-
--- Loot options
-L_GUI_LOOT_SUBTEXT = "Настройка окна добычи."
-L_GUI_LOOT_ENABLE = "Включить окно добычи"
-L_GUI_LOOT_ROLL_ENABLE = "Включить групповое окно добычи"
-L_GUI_LOOT_ICON_SIZE = "Размер иконки"
-L_GUI_LOOT_WIDTH = "Ширина окна добычи"
-L_GUI_LOOT_AUTOGREED = "Авто не откажусь/распылить для зеленых предметов на макс. уровне"
-L_GUI_LOOT_AUTODE = "Убрать запрос о распылении предмета"
-L.loot_faster_loot = "Ускорить взятие добычи"
-L.loot_faster_loot_desc = "Работает, если включен автоматический сбор добычи"
-
--- Nameplate options
-L_GUI_NAMEPLATE_SUBTEXT = "Изменение индикаторов здоровья."
-L_GUI_NAMEPLATE_ENABLE = "Включить индикаторы здоровья"
-L_GUI_NAMEPLATE_COMBAT = "Автоматически показывать индикаторы во время боя"
-L_GUI_NAMEPLATE_HEALTH = "Цифровое значение здоровья"
-L_GUI_NAMEPLATE_HEIGHT = "Высота индикатора"
-L_GUI_NAMEPLATE_WIDTH = "Ширина индикатора"
-L_GUI_NAMEPLATE_DISTANCE = "Дальность отображения"
-L_GUI_NAMEPLATE_AD_HEIGHT = "Дополнительная высота"
-L_GUI_NAMEPLATE_AD_WIDTH = "Дополнительная ширина"
-L_GUI_NAMEPLATE_CASTBAR_NAME = "Название заклинания"
-L.nameplate_alpha = "Alpha"
-L.nameplate_alpha_desc = "Non-target nameplate alpha"
-L.nameplate_ad_height = "Additional height"
-L.nameplate_ad_width = "Additional width"
-L.nameplate_ad_height_desc = "Additional height for selected nameplate"
-L.nameplate_ad_width_desc = "Additional width for selected nameplate"
-L_GUI_NAMEPLATE_TARGET_ARROW = "Show arrow for target"
-L_GUI_NAMEPLATE_CLASS_ICON = "Иконки классов в PvP"
-L_GUI_NAMEPLATE_NAME_ABBREV = "Сокращение имен"
-L_GUI_NAMEPLATE_CLAMP = "Прикреплять к верху экрана, когда цели пропадают из прямой видимости"
-L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Отображать отрицательные эффекты (из списка)"
-L_GUI_NAMEPLATE_SHOW_BUFFS = "Отображать баффы над полосой игрока (из списка)"
-L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Размер иконок аур"
-L_GUI_NAMEPLATE_QUEST_ICON = "Show quest icon next to Questmobs" -- Need review
-L_GUI_NAMEPLATE_HEALER_ICON = "Отображать иконку над вражескими целителями на полях боя"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Отображать иконку над вражескими тотемами"L.nameplate_target_glow = "Show glow texture for target"
-L.nameplate_npc_colors = "Show different color for priority targets"
-L_GUI_NAMEPLATE_THREAT = "Цветовое обозначение угрозы (зависит от роли)"
-L_GUI_NAMEPLATE_GOOD_COLOR = "Цвет наименьшей угрозы (для танка наивысшей)"
-L_GUI_NAMEPLATE_NEAR_COLOR = "Цвет получения/сброса угрозы"
-L_GUI_NAMEPLATE_BAD_COLOR = "Цвет наивысшей угрозы (для танка наименьшей)"
-L_GUI_NAMEPLATE_OFFTANK_COLOR = "Цвет угрозы для оффтанка (если вы танк)"
-L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Need review
-L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Need review
-L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Need review
-L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Need review
-L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Need review
-L_GUI_NAMEPLATE_PVPSTUFF_COLOR	= "Pvp stuff" -- Need review
-L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Need review
-L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Need review
-L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Need review
-
--- ActionBar options
-L_GUI_ACTIONBAR = "Панели команд"
-L_GUI_ACTIONBAR_ENABLE = "Включить панели команд"
-L_GUI_ACTIONBAR_HOTKEY = "Отображать назначения клавиш"
-L_GUI_ACTIONBAR_MACRO = "Отображать имена макросов"
-L_GUI_ACTIONBAR_GRID = "Отображать пустые кнопки панелей команд"
-L_GUI_ACTIONBAR_BUTTON_SIZE = "Размер кнопок"
-L_GUI_ACTIONBAR_BUTTON_SPACE = "Расстояние между кнопками"
-L_GUI_ACTIONBAR_SPLIT_BARS = "Разделить пятую панель на две панели по 6 кнопок"
-L_GUI_ACTIONBAR_CLASSCOLOR_BORDER = "Окрашивать края кнопок в цвет класса"
-L_GUI_ACTIONBAR_TOGGLE_MODE = "Включить режим переключения панелей"
-L_GUI_ACTIONBAR_HIDE_HIGHLIGHT = "Скрывать подсветку кнопок"
-L_GUI_ACTIONBAR_BOTTOMBARS = "Количество нижних панелей"
-L_GUI_ACTIONBAR_RIGHTBARS = "Количество правых панелей"
-L_GUI_ACTIONBAR_RIGHTBARS_MOUSEOVER = "Правые панели команд по наведению курсора"
-L_GUI_ACTIONBAR_PETBAR_HIDE = "Скрыть панель питомца"
-L_GUI_ACTIONBAR_PETBAR_HORIZONTAL = "Переключиться на горизонтальную панель питомца"
-L_GUI_ACTIONBAR_PETBAR_MOUSEOVER = "Горизонтальная панель питомца по наведению курсора"
-L_GUI_ACTIONBAR_STANCEBAR_HIDE = "Скрыть панель стоек"
-L_GUI_ACTIONBAR_STANCEBAR_HORIZONTAL = "Переключиться на горизонтальную панель стоек"
-L_GUI_ACTIONBAR_STANCEBAR_MOUSEOVER = "Горизонтальная панель стоек по наведению курсора"
-L_GUI_ACTIONBAR_MICROMENU = "Включить микроменю"
-L_GUI_ACTIONBAR_MICROMENU_MOUSEOVER = "Микроменю по наведению курсора"
-
--- Auras/Buffs/Debuffs
-L_GUI_AURA_PLAYER_BUFF_SIZE = "Размер аур"
-L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "Размер положительных эффектов игрока"
-L_GUI_AURA_SHOW_SPIRAL = "Спираль перезарядки на аурах"
-L_GUI_AURA_SHOW_TIMER = "Отображать таймер перезарядки аур"
-L_GUI_AURA_PLAYER_AURAS = "Ауры игрока"
-L_GUI_AURA_TARGET_AURAS = "Ауры цели"
-L_GUI_AURA_FOCUS_DEBUFFS = "Отрицательные эффекты фокуса"
-L_GUI_AURA_FOT_DEBUFFS = "Отрицательные эффекты цели фокуса"
-L_GUI_AURA_PET_DEBUFFS = "Отрицательные эффекты питомца"
-L_GUI_AURA_TOT_DEBUFFS = "Отрицательные эффекты цели цели"
-L_GUI_AURA_BOSS_BUFFS = "Положительные эффекты босса"
-L_GUI_AURA_PLAYER_AURA_ONLY = "Только ваши отрицательные эффекты на цели"
-L_GUI_AURA_DEBUFF_COLOR_TYPE = "Цвета краёв отрицательных эффектов по их типу"
-L_GUI_AURA_CAST_BY = "Отображать имя того, кто применил эффект"
-L_GUI_AURA_CLASSCOLOR_BORDER = "Окрашивать края положительных эффектов игрока в цвет класса"
-
--- Filger
-L_GUI_FILGER = "Timers (Filger)"
-L_GUI_FILGER_SUBTEXT = "Filger - analogue WeakAuras, but more simple and easy. Allows you to display in the form of icons and bars your auras and timers."
-L_GUI_FILGER_ENABLE = "Enable Filger"
-L_GUI_FILGER_TEST_MODE = "Test icon mode"
-L_GUI_FILGER_MAX_TEST_ICON = "The number of icons to the test"
-L_GUI_FILGER_SHOW_TOOLTIP = "Show tooltip"
-L_GUI_FILGER_DISABLE_CD = "Disable cooldowns"
-L_GUI_FILGER_DISABLE_PVP = "Disable PvP debuffs on Player and Target"
-L_GUI_FILGER_EXPIRATION = "Sort cooldowns by expiration time"
-L_GUI_FILGER_BUFFS_SIZE = "Buffs size"
-L_GUI_FILGER_COOLDOWN_SIZE = "Cooldowns size"
-L_GUI_FILGER_PVP_SIZE = "Debuffs size"
-L_GUI_FILGER_PROC_SIZE = "Proc icon size"
-L_GUI_FILGER_BARICON_SIZE = "Bar icon size"
-
--- Panel options
+			
+-- Top panel options			
 L_GUI_TOP_PANEL = "Верхняя панель"
 L_GUI_TOP_PANEL_SUBTEXT = "Управление встроенной верхней панелью с информацией."
 L_GUI_TOP_PANEL_ENABLE = "Включить верхнюю панель"
 L_GUI_TOP_PANEL_MOUSE = "Панель по наведению курсора"
-L_GUI_TOP_PANEL_HEIGHT = "Высота панели"
 L_GUI_TOP_PANEL_WIDTH = "Ширина панели"
-
--- Stats options
+L_GUI_TOP_PANEL_HEIGHT = "Высота панели"
+			
+-- Stats options			
 L_GUI_STATS = "Статистика"
 L_GUI_STATS_SUBTEXT = "Блоки статистики, которые расположены внизу экрана. Набрать в чате '/ls' для полезной информации"
 L_GUI_STATS_CLOCK = "Часы"
 L_GUI_STATS_LATENCY = "Задержка"
-L_GUI_STATS_MEMORY = "Память"
 L_GUI_STATS_FPS = "Кадры в секунду"
 L_GUI_STATS_EXPERIENCE = "Опыт"
 L_GUI_STATS_TALENTS_DESC = "Дата-текст позволяет менять спек и лут по клику"
 L_GUI_STATS_COORDS = "Координаты"
 L_GUI_STATS_LOCATION = "Зона"
 L_GUI_STATS_BG = "Поле боя"
+L.stats_bottom_line = "Цветная полоса снизу"
 L_GUI_STATS_SUBHEADER_CURRENCY = "Валюта (отображается в дата-тексте золота)"
 L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Фрагменты археологии"
 L_GUI_STATS_CURRENCY_COOKING = "Кулинарные награды"
-L_GUI_STATS_CURRENCY_PROFESSIONS = "Жетоны профессий"
 L_GUI_STATS_CURRENCY_RAID = "Рейдовые печати"
-L_GUI_STATS_CURRENCY_MISCELLANEOUS = "Прочие вещи"
-
--- Panels options
+			
+-- Trade options			
+L_GUI_TRADE = "Торговля"
+L_GUI_TRADE_SUBTEXT = "Настройки связанные с профессиями и торговлей"
+L.trade_profession_tabs = "Вкладки профессий"
+L.trade_profession_tabs_desc = "Вкладки ваших профессий у окна торговли/профессии"
+L.trade_already_known = "Изученные предметы"
+L.trade_already_known_desc = "Помечать цветом известные рецепты/спутников/игрушки"
+L.trade_disenchanting = "Быстрое распыление"
+L.trade_disenchanting_desc = "Распылять, просеивать и т.д. предметы, нажимая Alt + кнопка мыши"
+L.trade_sum_buyouts = "Отображать сумму ваших аукционов"
+L.trade_sum_buyouts_desc = "Во вкладе лоты аукциона будет выводиться сумма ваших аукционов"
+L.trade_enchantment_scroll = "Свиток наложения чар в окне профессии"
+L.trade_archaeology = "Панель археологии"
+L.trade_archaeology_desc = "Отслеживание раскопок артефактов (для показа нажмите скрытую кнопку справа от миникарты или введите '/arch')"
+L.trade_merchant_itemlevel = "Уровень предметов у торговца"
+L.trade_merchant_itemlevel_desc = "Отображать уровень предметов для оружия и брони в окне торговца"
+			
+-- Miscellaneous options			
+L_GUI_MISC_SUBTEXT = "Прочие настройки, которые добавляют интересные возможности."
+L.misc_shift_marking = "Меню с метками цели"
+L.misc_shift_marking_desc = "Shift-клик по врагу вызывает меню с метками (работает только в группе)"
+L.misc_afk_spin_camera = "Вращать камеру во время афк"
+L.misc_quest_auto_button = "Кнопка квестовых предметов"
+L.misc_quest_auto_button_desc = "Кнопка квестовых предметов над миникартой (берется из списка)"
+L.misc_raid_tools = "Инструменты рейда"
+L.misc_raid_tools_desc = "Кнопка вверху экрана для проверки готовности (ПКМ), проверки ролей (СКМ), установки меток и прочее (для лидера и помощников)"
+L.misc_item_level = "Уровень предметов"
+L.misc_item_level_desc = "Отображать уровень предметов на экранах персонажа и осмотра"
+L.misc_click_cast = "Назначение клавиш мыши"
+L.misc_click_cast_desc = "Позволяет назначить на клавиши мыши заклинания (аналог Clique). Настройка через боковую вкладку в книге заклинаний"
+L.misc_click_cast_filter = "Игнорировать рамки игрока и цели"
+L.misc_chars_currency = "Отслеживать валюту на других персонажах"
+L.misc_chars_currency_desc = "Наведите на иконку необходимой валюты в окне персонажа для вывода информации в подсказке"
+L.misc_hide_raid_button = "Кнопка для скрытия рейда в раскладке 'Боец'"
+L.misc_hide_raid_button_desc = "Кнопка отображается по наведению мыши в верхнем левом углу"
+			
+-- My Extra			
+L.media_overlay_color = "Color for action bars overlay" -- Needs review
+L.media_pxcolor1 = "Color for Name on Datatex" -- Needs review
+L.media_pxcolor2 = "Color for Value on Datatext if not dynamic by value" -- Needs review
+L.media_subheader_pixel = "Change Pixel font" -- Needs review
+L.media_subheader_pixel2 = "Change Pixel font for Headers" -- Needs review
+L.media_subheader_Dcolor = "Change color for DataTexts" -- Needs review
+L.media_classcolor_border = "Use Class color for borders" -- Needs review
+L_GUI_UF_HEALFRAMES = "Use healer layout" -- Needs review
+L_GUI_UF_CLASS_COLOR = "Use Class Color on healthbars" -- Needs review
+L_GUI_UF_POWER_COLOR = "Use Class color for power bar" -- Needs review
+L_GUI_UF_AUTOHODE = "Always Hide Raidframes if Vuhdo/Healbot/Grid is loaded" -- Needs review
+L_GUI_UF_SHOW_FOCUST = "Target of focus" -- Needs review
+L_GUI_UF_SHOW_TANKS = "Main tanks" -- Needs review
+L.unitframe_tankdebuff = "Size of debuff on tankframes" -- Needs review
+L_GUI_UF_PORTRAIT_BARS = "Show portraits on Healthbar (Disable above)" -- Needs review
+L_GUI_UF_RAID_ALLGROUP = "Show all 8 raid groups" -- Needs review
+L.unitframe_insideAlpha = "Alpha when Unitframe is in range" -- Needs review
+L.unitframe_outsideAlpha = "Alpha when Unitframe is out of range" -- Needs review
+L.unitframe_UFfont = "Unitframe font" -- Needs review
+L.unitframe_UFNamefont = "Font to use on Names" -- Needs review
+L.unitframe_plugins_artifact_bar = "Azerite Power bar" -- Needs review
+L.unitframe_plugins_artifact_bar_desc = "Enable Azerite Power bar (left from player frame by mouseover)" -- Needs review
+L.unitframe_plugins_auto_resurrection = "Auto cast resurrection" -- Needs review
+L.unitframe_plugins_auto_resurrection_desc = "Auto cast resurrection on middle-click (doesn't work with Clique)" -- Needs review
+L.unitframe_Portrait_w = "Width of Portrait frame" -- Needs review
+L.unitframe_Portrait_h = "Height of Portrait frame" -- Needs review
+L.unitframe_Player_w = "Width of Player frame" -- Needs review
+L.unitframe_Player_h = "Height of Player frame" -- Needs review
+L.unitframe_Target_w = "Width of Target frame" -- Needs review
+L.unitframe_Target_h = "Height of Target frame" -- Needs review
+L.unitframe_Targettarget_w = "Width of ToT frame" -- Needs review
+L.unitframe_Targettarget_h = "Height of ToT frame" -- Needs review
+L.unitframe_Focus_w = "Width of Focus frame" -- Needs review
+L.unitframe_Focus_h = "Height of Focus frame" -- Needs review
+L.unitframe_Focustarget_w = "Width of Focus Target frame" -- Needs review
+L.unitframe_Focustarget_h = "Height of Focus Target frame" -- Needs review
+L.unitframe_Pet_w = "Width of Pet frame" -- Needs review
+L.unitframe_Pet_h = "Height of Pet frame" -- Needs review
+L.unitframe_PetTarget_w = "Width of Pet Target frame" -- Needs review
+L.unitframe_PetTarget_h = "Height of Pet Target frame" -- Needs review
+L.unitframe_Boss_w = "Width of Boss frame" -- Needs review
+L.unitframe_Boss_h = "Height of Boss frame" -- Needs review
+L.unitframe_Tank_w = "Width of Tank frame" -- Needs review
+L.unitframe_Tank_h = "Height of Tank frame" -- Needs review
+L.unitframe_TankH_w = "HF: Width of Tank frame" -- Needs review
+L.unitframe_TankH_h = "HF: Height of Tank frame" -- Needs review
+L.unitframe_Raid10H_w = "Width of Raid 10 man frame" -- Needs review
+L.unitframe_Raid10H_h = "Height of Raid 10 man frame" -- Needs review
+L.unitframe_Raid25H_w = "HF: Width of Raid 25 man frame" -- Needs review
+L.unitframe_Raid25H_h = "HF: Height of Raid 25 man frame" -- Needs review
+L.unitframe_Raid25_w = "Width of Raid 25 man frame" -- Needs review
+L.unitframe_Raid25_h = "Height of Raid 25 man frame" -- Needs review
+L.unitframe_Raid40H_w = "HF: Width of Raid 40 man frame" -- Needs review
+L.unitframe_Raid40H_h = "HF: Height of Raid 40 man frame" -- Needs review
+L.unitframe_Raid40_w = "Width of Raid 40 man frame" -- Needs review
+L.unitframe_Raid40_h = "Height of Raid 40 man frame" -- Needs review
+L.unitframe_Party_w = "Width of Party frame" -- Needs review
+L.unitframe_Party_h = "Height of Party frame" -- Needs review
+L.unitframe_Arena_w = "Width of Arena frame" -- Needs review
+L.unitframe_Arena_h = "Height of Arena frame" -- Needs review
+L.unitframe_CastbarPlayer_w = "Castbar Width: Player" -- Needs review
+L.unitframe_CastbarPlayer_h = "Castbar Height: Player" -- Needs review
+L.unitframe_CastbarTarget_w = "Castbar Width: Target" -- Needs review
+L.unitframe_CastbarTarget_h = "Castbar Height: Target" -- Needs review
+L.unitframe_CastbarArena_w = "Castbar Width: Arena" -- Needs review
+L.unitframe_CastbarArena_h = "Castbar Height: Arena" -- Needs review
+L.unitframe_CastbarBoss_w = "Castbar Width: Boss" -- Needs review
+L.unitframe_CastbarBoss_h = "Castbar Height: Boss" -- Needs review
+L.unitframe_CastbarFocus_w = "Castbar Width: Focus" -- Needs review
+L.unitframe_CastbarFocus_h = "Castbar Height: Focus" -- Needs review
+L_GUI_UF_PLUGINS_DEBUFFHIGHLIGHT_ICON = "Debuff highlight texture + icon" -- Needs review
+L_GUI_UF_PLUGINS_AURA_WATCH = "Raid debuff icons (from the list)" -- Needs review
+L_GUI_UF_PLUGINS_AURA_WATCH_TIMER = "Timer on raid debuff icons" -- Needs review
+L_GUI_UF_PLUGINS_PVP_DEBUFFS = "Show also PvP debuff icons (from the list)" -- Needs review
+L.tooltip_npc_tip = "NPC Info" -- Needs review
+L.tooltip_npc_tip_desc = "Show information about dangerous/marked NPC in dungeons" -- Needs review
+L.tooltip_npc_id = "NPC ID Number" -- Needs review
+L.chat_reset_pos = "Automatically position chat windows" -- Needs review
+L.chat_smileys = "Insert smileys instead of symbols like xD" -- Needs review
+L_GUI_NAMEPLATE_DISTANCE = "Display range" -- Needs review
+L.nameplate_npc_colors = "Show different colored icon for priority targets" -- Needs review
+L_GUI_NAMEPLATE_PRIORITY_COLOR = "Color for High priority Targets" -- Needs review
+L_GUI_NAMEPLATE_SEMIPRI_COLOR = "Color for Semi priority Targets" -- Needs review
+L_GUI_NAMEPLATE_NUKE_COLOR = "Color for Nuke targets" -- Needs review
+L_GUI_NAMEPLATE_T3MOBS_COLOR = "T3 Mobs/Miniboss/Hard Hitting" -- Needs review
+L_GUI_NAMEPLATE_TIDES_COLOR = "Void Touched Mobs (affix)" -- Needs review
+L_GUI_NAMEPLATE_PVPSTUFF_COLOR = "Pvp stuff" -- Need review		
+L_GUI_NAMEPLATE_EXPLOSIVE_COLOR = "Explosive Color" -- Needs review
+L_GUI_NAMEPLATE_TARGETARROW_COLOR = "Color for target Arrow" -- Needs review
+L_GUI_NAMEPLATE_TARGETGLOW_COLOR = "Color for target glow" -- Needs review
+L.aura_player_debuff_size = "Debuffs size" -- Needs review
+L_GUI_MINIMAP_COMPASS = "Show N/S/E/W" -- Needs review
+L_GUI_MINIMAP_MINIBT_1 = "Background for Minimap bottom right" -- Needs review
+L_GUI_MINIMAP_MINIBT_2 = "Background for Minimap bottom left" -- Needs review
+L.minimap_fog_of_war_desc = "Right click on the close button of World Map to activate the option to hide fog of war" -- Needs review
+L.minimap_zoneMapMultilplier = "zoneMap Multiplier" -- Needs review
+L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything" -- Needs review
+L.minimap_zoneMapScale = "ZoneMap Scale" -- Needs review
+L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame." -- Needs review
+-- Panel options			
+L_GUI_TOP_PANEL = "Top Panel" -- Needs review
+L_GUI_TOP_PANEL_SUBTEXT = "Manage built-in top panel with information." -- Needs review
+L_GUI_TOP_PANEL_ENABLE = "Enable top panel" -- Needs review
+L_GUI_TOP_PANEL_MOUSE = "Top panel on mouseover" -- Needs review
+L_GUI_TOP_PANEL_WIDTH = "Panel width" -- Needs review
+L_GUI_TOP_PANEL_HEIGHT = "Panel height" -- Needs review
+-- Panels options			
 L_GUI_PANELS = "Panels" -- Needs review
 L_GUI_PANELS_SUBTEXT = "Manage all the panels on screen." -- Needs review
 L.panels_CPwidth = "Chat Width" -- Needs review
@@ -875,94 +821,57 @@ L.panels_NoPanels = "Will Set All Panels To Hidden And Show Lines Instead. On Te
 L.panels_NoPanels_desc = "Will Set All Panels To Hidden And Show Lines Instead. On Test Stage Still!" -- Needs review
 L.panels_HideABPanels = "Hides Actionbars Panels" -- Needs review
 L.panels_HideABPanels_desc = "Hides All Panels Behind Actionbars!" -- Needs review
-
--- Error options
-L_GUI_ERROR = "Ошибки боя"
-L_GUI_ERROR_SUBTEXT = "Фильтрация стандартного текста вверху экрана от Blizzard."
-L_GUI_ERROR_BLACK = "Спрятать ошибки из 'черного' списка"
-L_GUI_ERROR_WHITE = "Показывать ошибки из 'белого' списка"
-L_GUI_ERROR_HIDE_COMBAT = "Спрятать все ошибки во время боя"
-
--- Miscellaneous options
-L_GUI_MISC_SUBTEXT = "Other settings that add interesting features."
-L.misc_shift_marking = "Marks mouseover target"
-L.misc_shift_marking_desc = "Marks mouseover target when you push Shift (only in group)"
-L_GUI_MISC_INVKEYWORD = "Short keyword for invite (/ainv)"
-L_GUI_MISC_SPIN_CAMERA = "Spin camera while afk"
-L_GUI_MISC_VEHICLE_MOUSEOVER = "Vehicle frame on mouseover"
-L_GUI_MISC_QUEST_AUTOBUTTON = "Quest/item auto button (from the list)"
-L.misc_raid_tools = "Raid tools"
-L.misc_raid_tools_desc = "Button at the top of the screen for ready check (Left-click), checking roles (Middle-click), setting marks, etc. (for leader and assistants)"
-L_GUI_MISC_PROFESSION_TABS = "Professions tabs on tradeskill/trade frames"
-L_GUI_MISC_HIDE_BG_SPAM = "Remove Boss Emote spam during BG"
-L.misc_hide_bg_spam_desc = "Remove Boss Emote spam about capture/losing node during BG Arathi and Gilneas"
-L_GUI_MISC_ITEM_LEVEL = "Item level on character slot buttons"
-L_GUI_MISC_ALREADY_KNOWN = "Colorizes recipes/mounts/pets/toys that is already known"
-L_GUI_MISC_DISENCHANTING = "Milling, Prospecting and Disenchanting by Alt + click"
-L_GUI_MISC_SUM_BUYOUTS = "Sum up all current auctions"
-L_GUI_MISC_CLICK_CAST = "Simple click2cast spell binder"
-L_GUI_MISC_CLICK_CAST_FILTER = "Ignore Player and Target frames"
-L_GUI_MISC_MOVE_BLIZZARD = "Move some Blizzard frames"
-L_GUI_MISC_COLOR_PICKER = "Improved ColorPicker"
-L_GUI_MISC_ENCHANTMENT_SCROLL = "Enchantment scroll on TradeSkill frame"
-L_GUI_MISC_ARCHAEOLOGY = "Archaeology artifacts and cooldown"
-L_GUI_MISC_CHARS_CURRENCY = "Tracks your currency tokens across multiple characters"
-L.misc_armory_link = "Add Armory link"
-L.misc_armory_link_desc = "Add the Armory link in the chat menu and target (but it will not be possible to set the focus through the target menu)"
-L_GUI_MISC_MERCHANT_ITEMLEVEL = "Show item level for weapons and armor in merchant"
-L_GUI_MISC_MINIMIZE_MOUSEOVER = "Mouseover for quest minimize button"
-L_GUI_MISC_HIDE_BANNER = "Hide Boss Banner Loot Frame"
-L_GUI_MISC_HIDE_TALKING_HEAD = "Hide Talking Head Frame"
-L_GUI_MISC_HIDE_RAID_BUTTON = "Hide button for oUF_RaidDPS (top left corner)"
-L_GUI_MISC_LAG_TOLERANCE = "Automatically update the Blizzard Custom Lag Tolerance option to your latency"
-L_GUI_MISC_MARKBAR = "Markbar for Raid Icons and flares"
-L_GUI_MISC_CLASSTIMER = "Shows buff/debuffs/procs as bar on player/target frame"
-L_GUI_MISC_WATCHFRAME = "Use custom Quest watch frame"
-L_GUI_MISC_BT4BARS = "Panels behind Sidebar & Small bars for Bartender 4"
-L_GUI_MISC_PSCALE = "Scale ViksUI Panels"
-L_GUI_MISC_PANELSH = "Set UI Panels to hidden"
+L.misc_markbar = "Markbar for Raid Icons and flares" -- Needs review
+L.misc_classtimer = "Shows buff/debuffs/procs as bar on player/target frame" -- Needs review
+L.misc_WatchFrame = "Use custom Quest watch frame" -- Needs review
+L.misc_BT4Bars = "Panels behind Sidebar & Small bars for Bartender 4" -- Needs review
+L.misc_Pscale = "Scale ViksUI Panels" -- Needs review
+L.misc_panelsh = "Set UI Panels to hidden" -- Needs review
 L.misc_InfoPanel_Stats = "Show Icy Veins Stats Priorities" -- Needs review
 L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with default stats from Icy Veins. Usefull when leveling" -- Needs review
-
--- DataText options
-L_GUI_DATATEXT = "DataText"
-L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13."
-L_GUI_DATATEXT_Arena = "Arena Score" 
-L_GUI_DATATEXT_Armor = "Armor Value"
-L_GUI_DATATEXT_RunSpeed = "Run Speed"
-L_GUI_DATATEXT_Avd = "Avoidance"
-L_GUI_DATATEXT_Bags = "Bag Space"
-L_GUI_DATATEXT_Battleground = "Enable 3 stats in battleground only that replace stat1,stat2,stat3"
-L_GUI_DATATEXT_Crit = "Crit"
-L_GUI_DATATEXT_Durability = "Durability"
-L_GUI_DATATEXT_Friends = "Friends List"
-L_GUI_DATATEXT_Gold = "Gold"
-L_GUI_DATATEXT_Guild = "Guild"
-L_GUI_DATATEXT_Haste = "Haste"
-L_GUI_DATATEXT_Versatility = "Versatility"
-L_GUI_DATATEXT_location = "Location"
-L_GUI_DATATEXT_showcoords = "Coordinates on location"
-L_GUI_DATATEXT_Mastery = "Mastery"
-L_GUI_DATATEXT_Power = "Power"
-L_GUI_DATATEXT_Regen = "Mana regeneration"
-L_GUI_DATATEXT_System = "Fps and MS"
-L_GUI_DATATEXT_Talents = "Talent"
-L_GUI_DATATEXT_togglemenu = "Minimenu"
-L_GUI_DATATEXT_Volume = "Volume"
-L_GUI_DATATEXT_Wowtime = "THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!"
-L_GUI_DATATEXT_Time24 = "Set time to 24h format"
-L_GUI_DATATEXT_Localtime = "Show Local time instead of server time"
-L_GUI_DATATEXT_classcolor = "Use Class Color in text"
-L_GUI_DATATEXT_color = "Color to use it not Class color"
-L_GUI_DATATEXT_SUBHEADER_CURRENCY = "Options"
-L_GUI_DATATEXT_CurrArchaeology = "Archaeology Fragments under gold"
-L_GUI_DATATEXT_CurrCooking = "Cooking Awards under gold"
-L_GUI_DATATEXT_CurrProfessions = "Profession Tokens under gold"
-L_GUI_DATATEXT_CurrMiscellaneous = "Miscellaneous Currency under gold"
-L_GUI_DATATEXT_CurrPvP = "PVP Currency under gold"
-L_GUI_DATATEXT_CurrRaid = "Raid Seals under gold"
-L_GUI_DATATEXT_Quests = "Quest position"
-
-L.datatext_Profession = "Professions"
-L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault."
-L.chat_smileys = "Insert smileys instead of symbols like xD"
+L.misc_XPBar = "Enable XP/REP/HONOR Bars above chat windows" -- Needs review
+L.misc_meters = "Skada/Details Toggle & Chat Move for NoPanel" -- Needs review
+L.misc_meters_desc = "For double chat and NoPanel Layout. Will swap bethween Chat and Dmg meters on right side" -- Needs review
+-- Extra			
+L_GUI_DATATEXT = "DataText" -- Needs review
+L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13." -- Needs review
+L.datatext_Arena = "Arena Score" -- Needs review
+L.datatext_Armor = "Armor Value" -- Needs review
+L.datatext_RunSpeed = "Run Speed" -- Needs review
+L.datatext_Avd = "Avoidance" -- Needs review
+L.datatext_Bags = "Bag Space" -- Needs review
+L.datatext_Battleground = "Enable 3 stats in battleground only that replace stat1,stat2,stat3" -- Needs review
+L.datatext_Crit = "Crit" -- Needs review
+L.datatext_Durability = "Durability" -- Needs review
+L.datatext_Friends = "Friends List" -- Needs review
+L.datatext_Gold = "Gold" -- Needs review
+L.datatext_Guild = "Guild" -- Needs review
+L.datatext_Haste = "Haste" -- Needs review
+L.datatext_Versatility = "Versatility" -- Needs review
+L.datatext_location = "Location" -- Needs review
+L.datatext_showcoords = "Coordinates on location" -- Needs review
+L.datatext_Mastery = "Mastery" -- Needs review
+L.datatext_Power = "Power" -- Needs review
+L.datatext_Regen = "Mana regeneration" -- Needs review
+L.datatext_System = "Fps and MS" -- Needs review
+L.datatext_Talents = "Talent" -- Needs review
+L.datatext_togglemenu = "Minimenu" -- Needs review
+L.datatext_Volume = "Volume" -- Needs review
+L.datatext_Wowtime = "THIS IS BLOCKED TO FIXED POSITION! SO CAN'T BE CHANGED HERE! NUMBER MUST BE > 0, BUT DOESN'T USE UP A SPOT!" -- Needs review
+L.datatext_Time24 = "Set time to 24h format" -- Needs review
+L.datatext_Localtime = "Show Local time instead of server time" -- Needs review
+L.datatext_classcolor = "Use Class Color in text" -- Needs review
+L.datatext_color = "Color to use it not Class color" -- Needs review
+L_GUI_DATATEXT_SUBHEADER_CURRENCY = "Options" -- Needs review
+L.datatext_CurrArchaeology = "Archaeology Fragments under gold" -- Needs review
+L.datatext_CurrCooking = "Cooking Awards under gold" -- Needs review
+L.datatext_CurrProfessions = "Profession Tokens under gold" -- Needs review
+L.datatext_CurrMiscellaneous = "Miscellaneous Currency under gold" -- Needs review
+L.datatext_CurrPvP = "PVP Currency under gold" -- Needs review
+L.datatext_CurrRaid = "Raid Seals under gold" -- Needs review
+L.datatext_Quests = "Quest position" -- Needs review
+L.datatext_fps_ms = "Only show FPS & MS, Not addonusage" -- Needs review
+L.datatext_Profession = "Professions" -- Needs review
+L.datatext_Profession_desc = "Shows a menu with Professions. Bug known about blocked action. Blizz fault." -- Needs review
+L.automation_AutoRepair = "Auto Repair at vendor" -- Needs review
+L.automation_AutoRepairG = "Auto Repair at vendor, GuildFund" -- Needs review

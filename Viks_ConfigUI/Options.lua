@@ -1156,7 +1156,7 @@ do
 	local uf_color = ns.CreateColourPicker(parent, "uf_color", true, L_GUI_UF_UF_COLOR)
 	uf_color:SetPoint("TOPLEFT", HealthcolorClass, "BOTTOMLEFT", 0, -10)
 	
-	local HealthBarBackGround = ns.CreateColourPicker(parent, "HealthBarBackGround", true, L_GUI_UF_BG_COLOR)
+	local HealthBarBackGround = ns.CreateColourPicker(parent, "HealthBarBackGround", true, L.unitframe_uf_color_bg)
 	HealthBarBackGround:SetPoint("TOPLEFT", uf_color, "BOTTOMLEFT", 0, -10)
 
 	local Powercolor = ns.CreateCheckBox(parent, "Powercolor", L_GUI_UF_POWER_COLOR)
@@ -1652,7 +1652,7 @@ do
 	local tot_debuffs = ns.CreateCheckBox(parent, "tot_debuffs", L_GUI_AURA_TOT_DEBUFFS)
 	tot_debuffs:SetPoint("TOPLEFT", pet_debuffs, "BOTTOMLEFT", 0, 0)
 
-	local boss_buffs = ns.CreateCheckBox(parent, "boss_buffs", L_GUI_AURA_BOSS_BUFFS)
+	local boss_buffs = ns.CreateCheckBox(parent, "boss_buffs", L.aura_subheader_boss)
 	boss_buffs:SetPoint("TOPLEFT", tot_debuffs, "BOTTOMLEFT", 0, 0)
 
 	local player_aura_only = ns.CreateCheckBox(parent, "player_aura_only", L_GUI_AURA_PLAYER_AURA_ONLY)
@@ -2132,7 +2132,7 @@ do
 	local totem_icons = ns.CreateCheckBox(parent, "totem_icons", L_GUI_NAMEPLATE_TOTEM_ICONS)
 	totem_icons:SetPoint("TOPLEFT", healer_icon, "BOTTOMLEFT", 0, 0)
 	
-	local quests = ns.CreateCheckBox(parent, "quests", L_GUI_NAMEPLATE_QUEST_ICON)
+	local quests = ns.CreateCheckBox(parent, "quests", L.nameplate_quests)
 	quests:SetPoint("TOPLEFT", totem_icons, "BOTTOMLEFT", 0, 0)
 	
 	local target_glow = ns.CreateCheckBox(parent, "target_glow")
@@ -2522,13 +2522,13 @@ end
 do
 	local parent = ViksUIOptionsPanel.announcements
 
-	local drinking = ns.CreateCheckBox(parent, "drinking", L_GUI_ANNOUNCEMENTS_DRINKING)
+	local drinking = ns.CreateCheckBox(parent, "drinking", L.announcements_drinking)
 	drinking:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
-	local interrupts = ns.CreateCheckBox(parent, "interrupts", L_GUI_ANNOUNCEMENTS_INTERRUPTS)
+	local interrupts = ns.CreateCheckBox(parent, "interrupts", L.announcements_interrupts)
 	interrupts:SetPoint("TOPLEFT", drinking, "BOTTOMLEFT", 0, 0)
 	
-	local spells = ns.CreateCheckBox(parent, "spells", L_GUI_ANNOUNCEMENTS_SPELLS)
+	local spells = ns.CreateCheckBox(parent, "spells", L.announcements_spells)
 	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
 
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
@@ -2556,41 +2556,41 @@ do
 	spells:HookScript("OnClick", toggleListButton)
 	ListButton:HookScript("OnShow", toggleListButton)
 
-	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL)
+	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L.announcements_spells_from_all)
 	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
 
-	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L_GUI_ANNOUNCEMENTS_SPELLS_FROM_ALL)
+	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L.announcements_spells_from_all)
 	spells_from_all:SetPoint("TOPLEFT", spells, "BOTTOMLEFT", 20, 0)
 
 	spells.children = {spells_from_all}
 
-	local toys = ns.CreateCheckBox(parent, "toys", L_GUI_ANNOUNCEMENTS_TOY_TRAIN)
+	local toys = ns.CreateCheckBox(parent, "toys", L.announcements_toys)
 	toys:SetPoint("TOPLEFT", spells_from_all, "BOTTOMLEFT", -20, 0)
 
-	local pull_countdown = ns.CreateCheckBox(parent, "pull_countdown", L_GUI_ANNOUNCEMENTS_PULL_COUNTDOWN)
+	local pull_countdown = ns.CreateCheckBox(parent, "pull_countdown", L.announcements_pull_countdown)
 	pull_countdown:SetPoint("TOPLEFT", toys, "BOTTOMLEFT", 0, 0)
 
-	local flask_food = ns.CreateCheckBox(parent, "flask_food", L_GUI_ANNOUNCEMENTS_FLASK_FOOD)
+	local flask_food = ns.CreateCheckBox(parent, "flask_food", L.announcements_flask_food)
 	flask_food:SetPoint("TOPLEFT", pull_countdown, "BOTTOMLEFT", 0, 0)
 
-	local flask_food_auto = ns.CreateCheckBox(parent, "flask_food_auto", L_GUI_ANNOUNCEMENTS_FLASK_FOOD_AUTO)
+	local flask_food_auto = ns.CreateCheckBox(parent, "flask_food_auto", L.announcements_flask_food_auto)
 	flask_food_auto:SetPoint("TOPLEFT", flask_food, "BOTTOMLEFT", 20, 0)
 
-	local flask_food_raid = ns.CreateCheckBox(parent, "flask_food_raid", L_GUI_ANNOUNCEMENTS_FLASK_FOOD_RAID)
+	local flask_food_raid = ns.CreateCheckBox(parent, "flask_food_raid", L.announcements_flask_food_raid)
 	flask_food_raid:SetPoint("TOPLEFT", flask_food_auto, "BOTTOMLEFT", 0, 0)
 
 	flask_food.children = {flask_food_auto, flask_food_raid}
 
-	local feasts = ns.CreateCheckBox(parent, "feasts", L_GUI_ANNOUNCEMENTS_FEASTS)
+	local feasts = ns.CreateCheckBox(parent, "feasts", L.announcements_feasts)
 	feasts:SetPoint("TOPLEFT", flask_food_raid, "BOTTOMLEFT", -20, 0)
 
-	local portals = ns.CreateCheckBox(parent, "portals", L_GUI_ANNOUNCEMENTS_PORTALS)
+	local portals = ns.CreateCheckBox(parent, "portals", L.announcements_portals)
 	portals:SetPoint("TOPLEFT", feasts, "BOTTOMLEFT", 0, 0)
 
 	local bad_gear = ns.CreateCheckBox(parent, "bad_gear")
 	bad_gear:SetPoint("TOPLEFT", portals, "BOTTOMLEFT", 0, 0)
 
-	local safari_hat = ns.CreateCheckBox(parent, "safari_hat", L_GUI_ANNOUNCEMENTS_SAFARI_HAT)
+	local safari_hat = ns.CreateCheckBox(parent, "safari_hat", L.announcements_safari_hat)
 	safari_hat:SetPoint("TOPLEFT", bad_gear, "BOTTOMLEFT", 0, 0)
 end
 
@@ -2746,7 +2746,7 @@ do
 		end
 		if not C.options["raidcooldown"]["spells_list"] then
 			C.options["raidcooldown"]["spells_list"] = T.raid_spells
-			C.options.raidcooldown.spells_list_ver = 2
+			C.options.raidcooldown.spells_list_ver = 3
 		end
 		if IsControlKeyDown() then
 			C.options["raidcooldown"]["spells_list"] = nil
@@ -3043,57 +3043,51 @@ do
 	local afk_spin_camera = ns.CreateCheckBox(parent, "afk_spin_camera")
 	afk_spin_camera:SetPoint("TOPLEFT", LFD_keyword, "BOTTOMLEFT", -6, -10)
 
-	local vehicle_mouseover = ns.CreateCheckBox(parent, "vehicle_mouseover", L_GUI_MISC_VEHICLE_MOUSEOVER)
-	vehicle_mouseover:SetPoint("TOPLEFT", afk_spin_camera, "BOTTOMLEFT", 0, 0)
-
 	local quest_auto_button = ns.CreateCheckBox(parent, "quest_auto_button")
-	quest_auto_button:SetPoint("TOPLEFT", vehicle_mouseover, "BOTTOMLEFT", 0, 0)
+	quest_auto_button:SetPoint("TOPLEFT", afk_spin_camera, "BOTTOMLEFT", 0, 0)
 
 	local raid_tools = ns.CreateCheckBox(parent, "raid_tools")
 	raid_tools:SetPoint("TOPLEFT", quest_auto_button, "BOTTOMLEFT", 0, 0)
 
-	local item_level = ns.CreateCheckBox(parent, "item_level", L_GUI_MISC_ITEM_LEVEL)
+	local item_level = ns.CreateCheckBox(parent, "item_level")
 	item_level:SetPoint("TOPLEFT", raid_tools, "BOTTOMLEFT", 0, 0)
 
-	local click_cast = ns.CreateCheckBox(parent, "click_cast", L_GUI_MISC_CLICK_CAST)
+	local click_cast = ns.CreateCheckBox(parent, "click_cast")
 	click_cast:SetPoint("TOPLEFT", item_level, "BOTTOMLEFT", 0, 0)
 
-	local click_cast_filter = ns.CreateCheckBox(parent, "click_cast_filter", L_GUI_MISC_CLICK_CAST_FILTER)
+	local click_cast_filter = ns.CreateCheckBox(parent, "click_cast_filter")
 	click_cast_filter:SetPoint("TOPLEFT", click_cast, "BOTTOMLEFT", 20, 0)
 
 	click_cast.children = {click_cast_filter}
 
-	local move_blizzard = ns.CreateCheckBox(parent, "move_blizzard", L_GUI_MISC_MOVE_BLIZZARD)
-	move_blizzard:SetPoint("TOPLEFT", click_cast_filter, "BOTTOMLEFT", -20, 0)
-
-	local chars_currency = ns.CreateCheckBox(parent, "chars_currency", L_GUI_MISC_CHARS_CURRENCY)
-	chars_currency:SetPoint("TOPLEFT", move_blizzard, "BOTTOMLEFT", 0, 0)
+	local chars_currency = ns.CreateCheckBox(parent, "chars_currency")
+	chars_currency:SetPoint("TOPLEFT", click_cast_filter, "BOTTOMLEFT", -20, 0)
 
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.misc2
 	
-	local markbar = ns.CreateCheckBox(parent, "markbar", L_GUI_MISC_MARKBAR)
+	local markbar = ns.CreateCheckBox(parent, "markbar")
 	markbar:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
-	local meters = ns.CreateCheckBox(parent, "meters", "Skada/Details Toggle & Chat Move for NoPanel")
+	local meters = ns.CreateCheckBox(parent, "meters")
 	meters:SetPoint("TOPLEFT", markbar, "BOTTOMLEFT", 0, 0)
 	
-	local classtimer = ns.CreateCheckBox(parent, "classtimer", L_GUI_MISC_CLASSTIMER)
+	local classtimer = ns.CreateCheckBox(parent, "classtimer")
 	classtimer:SetPoint("TOPLEFT", meters, "BOTTOMLEFT", 0, 0)
 	
-	local WatchFrame = ns.CreateCheckBox(parent, "WatchFrame", L_GUI_MISC_WATCHFRAME)
+	local WatchFrame = ns.CreateCheckBox(parent, "WatchFrame")
 	WatchFrame:SetPoint("TOPLEFT", classtimer, "BOTTOMLEFT", 0, 0)
 	
-	local BT4Bars = ns.CreateCheckBox(parent, "BT4Bars", L_GUI_MISC_BT4BARS)
+	local BT4Bars = ns.CreateCheckBox(parent, "BT4Bars")
 	BT4Bars:SetPoint("TOPLEFT", WatchFrame, "BOTTOMLEFT", 0, 0)
 	
-	local panelsh = ns.CreateCheckBox(parent, "panelsh", L_GUI_MISC_PANELSH)
+	local panelsh = ns.CreateCheckBox(parent, "panelsh")
 	panelsh:SetPoint("TOPLEFT", BT4Bars, "BOTTOMLEFT", 0, 0)
 	
-	local Pscale = ns.CreateNumberSlider(parent, "Pscale", nil, nil, 0.4, 1.1, 0.01, true, L_GUI_MISC_PSCALE)
+	local Pscale = ns.CreateNumberSlider(parent, "Pscale", nil, nil, 0.4, 1.1, 0.01, true)
 	Pscale:SetPoint("TOPLEFT", panelsh, "BOTTOMLEFT", 0, -20)
 	
-	local XPBar = ns.CreateCheckBox(parent, "XPBar", "Enable XP/REP/HONOR Bars above chat windows")
+	local XPBar = ns.CreateCheckBox(parent, "XPBar")
 	XPBar:SetPoint("TOPLEFT", Pscale, "BOTTOMLEFT", 0, 0)
 	
 	local InfoPanel_Stats = ns.CreateCheckBox(parent, "InfoPanel_Stats")
@@ -3104,110 +3098,110 @@ end
 do
 	local parent = ViksUIOptionsPanel.datatext
 
-	local Arena = ns.CreateNumberSlider(parent, "Arena", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Arena)
+	local Arena = ns.CreateNumberSlider(parent, "Arena", nil, nil, 0, 18, 1, true)
 	Arena:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -5)
 
-	local Armor = ns.CreateNumberSlider(parent, "Armor", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Armor)
+	local Armor = ns.CreateNumberSlider(parent, "Armor", nil, nil, 0, 18, 1, true)
 	Armor:SetPoint("TOPLEFT", Arena, "BOTTOMLEFT", 0, -15)
 
-	local RunSpeed = ns.CreateNumberSlider(parent, "RunSpeed", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_RunSpeed)
+	local RunSpeed = ns.CreateNumberSlider(parent, "RunSpeed", nil, nil, 0, 18, 1, true)
 	RunSpeed:SetPoint("TOPLEFT", Armor, "BOTTOMLEFT", 0, -15)
 
-	local Avd = ns.CreateNumberSlider(parent, "Avd", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Avd)
+	local Avd = ns.CreateNumberSlider(parent, "Avd", nil, nil, 0, 18, 1, true)
 	Avd:SetPoint("TOPLEFT", RunSpeed, "BOTTOMLEFT", 0, -15)
 
-	local Bags = ns.CreateNumberSlider(parent, "Bags", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Bags)
+	local Bags = ns.CreateNumberSlider(parent, "Bags", nil, nil, 0, 18, 1, true)
 	Bags:SetPoint("TOPLEFT", Avd, "BOTTOMLEFT", 0, -15)
 
-	local Crit = ns.CreateNumberSlider(parent, "Crit", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Crit)
+	local Crit = ns.CreateNumberSlider(parent, "Crit", nil, nil, 0, 18, 1, true)
 	Crit:SetPoint("TOPLEFT", Bags, "BOTTOMLEFT", 0, -15)
 
-	local Durability = ns.CreateNumberSlider(parent, "Durability", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Durability)
+	local Durability = ns.CreateNumberSlider(parent, "Durability", nil, nil, 0, 18, 1, true)
 	Durability:SetPoint("TOPLEFT", Crit, "BOTTOMLEFT", 0, -15)
 
-	local Friends = ns.CreateNumberSlider(parent, "Friends", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Friends)
+	local Friends = ns.CreateNumberSlider(parent, "Friends", nil, nil, 0, 18, 1, true)
 	Friends:SetPoint("TOPLEFT", Durability, "BOTTOMLEFT", 0, -15)
 
-	local Gold = ns.CreateNumberSlider(parent, "Gold", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Gold)
+	local Gold = ns.CreateNumberSlider(parent, "Gold", nil, nil, 0, 18, 1, true)
 	Gold:SetPoint("TOPLEFT", Friends, "BOTTOMLEFT", 0, -15)
 
-	local Guild = ns.CreateNumberSlider(parent, "Guild", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Guild)
+	local Guild = ns.CreateNumberSlider(parent, "Guild", nil, nil, 0, 18, 1, true)
 	Guild:SetPoint("TOPLEFT", Gold, "BOTTOMLEFT", 0, -15)
 
-	local Haste = ns.CreateNumberSlider(parent, "Haste", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Haste)
+	local Haste = ns.CreateNumberSlider(parent, "Haste", nil, nil, 0, 18, 1, true)
 	Haste:SetPoint("TOPLEFT", Guild, "BOTTOMLEFT", 0, -15)
 
-	local Versatility = ns.CreateNumberSlider(parent, "Versatility", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Versatility)
+	local Versatility = ns.CreateNumberSlider(parent, "Versatility", nil, nil, 0, 18, 1, true)
 	Versatility:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 280, -5)
 	
-	local location = ns.CreateNumberSlider(parent, "location", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_location)
+	local location = ns.CreateNumberSlider(parent, "location", nil, nil, 0, 18, 1, true)
 	location:SetPoint("TOPLEFT", Versatility, "BOTTOMLEFT", 0, -15)
 	
-	local Mastery = ns.CreateNumberSlider(parent, "Mastery", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Mastery)
+	local Mastery = ns.CreateNumberSlider(parent, "Mastery", nil, nil, 0, 18, 1, true)
 	Mastery:SetPoint("TOPLEFT", location, "BOTTOMLEFT", 0, -15)
 	
-	local Power = ns.CreateNumberSlider(parent, "Power", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Power)
+	local Power = ns.CreateNumberSlider(parent, "Power", nil, nil, 0, 18, 1, true)
 	Power:SetPoint("TOPLEFT", Mastery, "BOTTOMLEFT", 0, -15)
 	
 	local Profession = ns.CreateNumberSlider(parent, "Profession", nil, nil, 0, 18, 1, true)
 	Profession:SetPoint("TOPLEFT", Power, "BOTTOMLEFT", 0, -15)
 	
-	local Regen = ns.CreateNumberSlider(parent, "Regen", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Regen)
+	local Regen = ns.CreateNumberSlider(parent, "Regen", nil, nil, 0, 18, 1, true)
 	Regen:SetPoint("TOPLEFT", Profession, "BOTTOMLEFT", 0, -15)
 	
-	local System = ns.CreateNumberSlider(parent, "System", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_System)
+	local System = ns.CreateNumberSlider(parent, "System", nil, nil, 0, 18, 1, true)
 	System:SetPoint("TOPLEFT", Regen, "BOTTOMLEFT", 0, -15)
 	
-	local Talents = ns.CreateNumberSlider(parent, "Talents", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Talents)
+	local Talents = ns.CreateNumberSlider(parent, "Talents", nil, nil, 0, 18, 1, true)
 	Talents:SetPoint("TOPLEFT", System, "BOTTOMLEFT", 0, -15)
 	
-	local togglemenu = ns.CreateNumberSlider(parent, "togglemenu", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_togglemenu)
+	local togglemenu = ns.CreateNumberSlider(parent, "togglemenu", nil, nil, 0, 18, 1, true)
 	togglemenu:SetPoint("TOPLEFT", Talents, "BOTTOMLEFT", 0, -15)
 	
-	local Volume = ns.CreateNumberSlider(parent, "Volume", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Volume)
+	local Volume = ns.CreateNumberSlider(parent, "Volume", nil, nil, 0, 18, 1, true)
 	Volume:SetPoint("TOPLEFT", togglemenu, "BOTTOMLEFT", 0, -15)
 	
-	local Quests = ns.CreateNumberSlider(parent, "Quests", nil, nil, 0, 18, 1, true, L_GUI_DATATEXT_Quests)
+	local Quests = ns.CreateNumberSlider(parent, "Quests", nil, nil, 0, 18, 1, true)
 	Quests:SetPoint("TOPLEFT", Volume, "BOTTOMLEFT", 0, -15)
 	
 	-- CheckBoxes
 	local currency = ns.addSubCategory(parent, L_GUI_DATATEXT_SUBHEADER_CURRENCY)
 	currency:SetPoint("TOPLEFT", Haste, "BOTTOMLEFT", 0, -27)
 
-	local showcoords = ns.CreateCheckBox(parent, "showcoords", L_GUI_DATATEXT_showcoords)
+	local showcoords = ns.CreateCheckBox(parent, "showcoords")
 	showcoords:SetPoint("TOPLEFT", currency, "BOTTOMLEFT", 0, -8)
 
-	local Time24 = ns.CreateCheckBox(parent, "Time24", L_GUI_DATATEXT_Time24)
+	local Time24 = ns.CreateCheckBox(parent, "Time24")
 	Time24:SetPoint("TOPLEFT", showcoords, "BOTTOMLEFT", 0, 0)
 
-	local Localtime = ns.CreateCheckBox(parent, "Localtime", L_GUI_DATATEXT_Localtime)
+	local Localtime = ns.CreateCheckBox(parent, "Localtime")
 	Localtime:SetPoint("TOPLEFT", Time24, "BOTTOMLEFT", 0, 0)
 
-	local classcolor = ns.CreateCheckBox(parent, "classcolor", L_GUI_DATATEXT_classcolor)
+	local classcolor = ns.CreateCheckBox(parent, "classcolor")
 	classcolor:SetPoint("TOPLEFT", Localtime, "BOTTOMLEFT", 0, 0)
 	
-	local color = ns.CreateColourPicker(parent, "color", true, L_GUI_DATATEXT_color)
+	local color = ns.CreateColourPicker(parent, "color", true)
 	color:SetPoint("TOPLEFT", classcolor, "BOTTOMLEFT", 25, -5)
 	
-	local CurrArchaeology = ns.CreateCheckBox(parent, "CurrArchaeology", L_GUI_DATATEXT_CurrArchaeology)
+	local CurrArchaeology = ns.CreateCheckBox(parent, "CurrArchaeology")
 	CurrArchaeology:SetPoint("TOPLEFT", currency, "BOTTOMLEFT", 280, -8)
 	
-	local CurrCooking = ns.CreateCheckBox(parent, "CurrCooking", L_GUI_DATATEXT_CurrCooking)
+	local CurrCooking = ns.CreateCheckBox(parent, "CurrCooking")
 	CurrCooking:SetPoint("TOPLEFT", CurrArchaeology, "BOTTOMLEFT", 0, 0)
 	
-	local CurrProfessions = ns.CreateCheckBox(parent, "CurrProfessions", L_GUI_DATATEXT_CurrProfessions)
+	local CurrProfessions = ns.CreateCheckBox(parent, "CurrProfessions")
 	CurrProfessions:SetPoint("TOPLEFT", CurrCooking, "BOTTOMLEFT", 0, 0)
 	
-	local CurrMiscellaneous = ns.CreateCheckBox(parent, "CurrMiscellaneous", L_GUI_DATATEXT_CurrMiscellaneous)
+	local CurrMiscellaneous = ns.CreateCheckBox(parent, "CurrMiscellaneous")
 	CurrMiscellaneous:SetPoint("TOPLEFT", CurrProfessions, "BOTTOMLEFT", 0, 0)
 	
-	local CurrPvP = ns.CreateCheckBox(parent, "CurrPvP", L_GUI_DATATEXT_CurrPvP)
+	local CurrPvP = ns.CreateCheckBox(parent, "CurrPvP")
 	CurrPvP:SetPoint("TOPLEFT", CurrMiscellaneous, "BOTTOMLEFT", 0, 0)
 	
-	local CurrRaid = ns.CreateCheckBox(parent, "CurrRaid", L_GUI_DATATEXT_CurrRaid)
+	local CurrRaid = ns.CreateCheckBox(parent, "CurrRaid")
 	CurrRaid:SetPoint("TOPLEFT", CurrPvP, "BOTTOMLEFT", 0, 0)
 
-	local fps_ms = ns.CreateCheckBox(parent, "fps_ms", L.datatext_fps_ms)
+	local fps_ms = ns.CreateCheckBox(parent, "fps_ms")
 	fps_ms:SetPoint("TOPLEFT", CurrRaid, "BOTTOMLEFT", 0, 0)
 end
 
