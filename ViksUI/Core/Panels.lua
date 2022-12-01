@@ -262,16 +262,7 @@ CPTopp:SetFrameLevel(2)
 CPTopp:SetAlpha(pAlpha)
 
 if C.panels.NoPanels ~= true then
-	--Background for Minimap
-	local CPMinim = CreateFrame("Frame", "CPMinim",T_PetBattleFrameHider)
-	CPMinim:CreatePanel("Transparent", Pscale*CPMinimap, Pscale*CPMinimap, "TOPRIGHT", CPTopp, "BOTTOMRIGHT", 0, -(yoffset+1))
-	CPMinim:SetFrameLevel(2)
-	--If minimap is turned off hide the panel. We are anchoring stuff to this frame so it's needed!
-	if C.minimap.enable == true then
-	CPMinim:SetAlpha(pAlpha)
-	else
-	CPMinim:SetAlpha(0)
-	end
+
 
 	--Background for Minimap Button 1, Right
 	local CPMinimb1 = CreateFrame("Frame", "CPMinimb1",T_PetBattleFrameHider)
