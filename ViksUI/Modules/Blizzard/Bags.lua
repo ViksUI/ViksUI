@@ -1045,6 +1045,8 @@ function Stuffing:InitBags()
 		[5] = {132281, GetItemClassInfo(7)},	-- Tradeskill
 		[6] = {236667, ITEM_BIND_QUEST},		-- Quest
 		[7] = {133784, ITEM_BIND_ON_EQUIP},		-- BoE
+		[8] = {1500871, GetItemClassInfo(8)},	-- Item Enhancement
+		[9] = {648841, GetItemSubClassInfo(15,4)},	-- Miscellaneous Other
 	}
 	for i = 1, #filterTable do
 		local button = CreateFrame("Button", "BagsFilterButton"..i, C.bag.filter and f or editbox)
