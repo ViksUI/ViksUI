@@ -1456,6 +1456,10 @@ lib.createBuffs = function(f)
 
 end
 
+local DeBuffsAnchor = CreateFrame("Frame", "DeBuffsAnchor", UIParent)
+DeBuffsAnchor:SetPoint(unpack(C.position.player_debuffs))
+DeBuffsAnchor:SetSize((C.aura.player_debuff_size + 8) * 6, C.aura.player_debuff_size + 4)
+
 -- Generates the Debuffs
 lib.createDebuffs = function(f)
 	b = CreateFrame("Frame", nil, f, "BackdropTemplate")
@@ -1473,16 +1477,12 @@ lib.createDebuffs = function(f)
 		b["growth-y"] = "DOWN"
 		b.spacing = 6
 	elseif f.mystyle == "player" then
-		b.size = 40
-		if C.panels.NoPanels == true then
-			b:SetPoint("TOPRIGHT", TopHorizontalRightline, "LEFT", -8, 62)
-		else
-			b:SetPoint("TOPRIGHT", CPMinimb2, -76, 42)
-		end
-		b.initialAnchor = "TOPRIGHT"
+		b.size = C.aura.player_debuff_size
+		b:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)
+		b.initialAnchor = "BOTTOMRIGHT"
 		b["growth-x"] = "LEFT"
 		b["growth-y"] = "DOWN"
-		b.spacing = 7.4
+		b.spacing = 8
 	elseif f.mystyle == "raid" then
 		b.size = 14
 		b:SetPoint("LEFT", f, "LEFT", 0, -5)

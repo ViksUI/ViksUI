@@ -205,20 +205,6 @@ end)
 SlashCmdList["uiold"] = SlashCmd;
 SLASH_uiold1 = "/uiold";
 
-AnchorBuff = CreateFrame("Frame","Move_Buff",UIParent)
-AnchorDeBuff = CreateFrame("Frame","Move_DeBuff",UIParent)
-
-
-if C.panels.NoPanels == true then
-AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+18), -(C.panels.yoffset+C.panels.CPbarsheight+2))
-AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+18), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size-(C.aura.player_buff_size*1.5)))
-else
-AnchorBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+2))
-AnchorDeBuff:SetPoint("TOPRIGHT", UIParent, -(C.minimap.size+7), -(C.panels.yoffset+C.panels.CPbarsheight+C.minimap.size-(C.aura.player_buff_size*1.5)))
-end
-CreateAnchor2(AnchorBuff, "Move Buff", 300, 70)
-CreateAnchor2(AnchorDeBuff, "Move DeBuff", 300, 70)
-
 if C.unitframe.HealFrames then
 ---Frames
 ---Frames
