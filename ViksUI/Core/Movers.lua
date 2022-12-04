@@ -89,7 +89,8 @@ T.MoverFrames = {
 	R1_Details,
 	R2_Details,
 	CPTopp,
-	CPMinim
+	CPMinim,
+	VigorBar
 }
 
 if C.actionbar.editor then
