@@ -41,8 +41,12 @@ local powerAnchor = CreateFrame("Frame", "UIWidgetPowerBarAnchor", UIParent)
 powerAnchor:SetSize(210, 30)
 powerAnchor:SetPoint(unpack(C.position.uiwidget_below))
 
-power:ClearAllPoints()
-power:SetPoint("TOP", powerAnchor)
+hooksecurefunc(power, "SetPoint", function(self, _, anchor)
+	if anchor and anchor ~= powerAnchor then
+		self:ClearAllPoints()
+		self:SetPoint("TOP", powerAnchor)
+	end
+end)
 
 -- Maw Buff Widget
 local mawAnchor = CreateFrame("Frame", "UIWidgetMawAnchor", UIParent)
@@ -199,6 +203,12 @@ frame:SetScript("OnEvent", function()
 	for _, widget in pairs(UIWidgetBelowMinimapContainerFrame.widgetFrames) do
 		if widget.widgetType == Enum.UIWidgetVisualizationType.CaptureBar then
 			SkinCaptureBar(widget)
+		end
+	end
+	
+	for _, widget in pairs(UIWidgetPowerBarContainerFrame.widgetFrames) do
+		if widget.widgetID == 4460 then
+			widget:SetScale(0.8)
 		end
 	end
 end)

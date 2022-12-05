@@ -11,7 +11,7 @@ C["position"] = {
 	["bag"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -40, 200},					-- Bag
 	["bank"] = {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", 20, 200},						-- Bank
 	["bn_popup"] = {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, (C.panels.CPTextheight+(C.panels.CPbarsheight*2))+40},					-- Battle.net popup
-	["bn_popup_line"] = {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", 40, 280},				-- Battle.net popup with line style
+	["bn_popup_line"] = {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", 40, 280},			-- Battle.net popup with line style
 	["achievement"] = {"TOP", UIParent, "TOP", 0, -21},								-- Achievements frame
 	["tooltip"] = {"TOPLEFT", UIParent, "TOPLEFT", 2, -20},							-- Tooltip
 	["uiwidget"] = {"TOP", UIParent, "TOP", 0, -55},								-- UIWidget frame
@@ -31,7 +31,7 @@ C["position"] = {
 	["player_debuffs"] = {"BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6, -2},			-- Player debuffs
 	["self_buffs"] = {"CENTER", UIParent, "CENTER", 0, 0},							-- Self buff reminder
 	["raid_buffs"] = {"TOPLEFT", Minimap, "BOTTOMLEFT", 0, -25},					-- Raid buff reminder
-	["raid_buffs_line"] = {"TOPLEFT", Minimap, "BOTTOMLEFT", 0, -35},					-- Raid buff reminder
+	["raid_buffs_line"] = {"TOPLEFT", Minimap, "BOTTOMLEFT", 0, -35},				-- Raid buff reminder
 	["top_panel"] = {"TOP", UIParent, "TOP", 0, -30},								-- Top panel
 	["raid_utility"] = {"TOP", UIParent, "TOP", -280, -20},							-- Raid utility
 	["archaeology"] = {"RIGHT", CPMinimb2, "RIGHT", -40, 1},						-- Archaeology frame
@@ -41,7 +41,7 @@ C["position"] = {
 	["alt_power_bar"] = {"TOP", UIWidgetTopCenterContainerFrame, "BOTTOM", 0, -7},	-- Alt power bar
 	["talking_head"] = {"TOP", UIParent, "TOP", 0, -25},							-- Talking Head
 	["uiwidget_top"] = {"TOP", UIParent, "TOP", 0, -25},							-- Top Widget
-	["uiwidget_below"] = {"TOP", UIParent, "TOP", 0, -45},							-- Below Widget
+	["uiwidget_below"] = {"BOTTOM", UIParent, "BOTTOM", 0, 216},					-- Below Widget
 	-- ActionBar positions
 	["bottom_bars"] = {"BOTTOM", UIParent, "BOTTOM", 0, 40},						-- Bottom bars
 	["right_bars"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -21, 330},			-- Right bars
@@ -82,14 +82,14 @@ C["position"] = {
 	},
 	-- Filger positions
 	filger = {
-		["player_buff_icon"] = {"RIGHT", UIParent, "CENTER", -280, 23},			-- "P_BUFF_ICON"
-		["player_proc_icon"] = {"RIGHT", UIParent, "CENTER", -280, 80},			-- "P_PROC_ICON"
-		["special_proc_icon"] = {"RIGHT", UIParent, "CENTER", -280, -18},		-- "SPECIAL_P_BUFF_ICON"
-		["target_debuff_icon"] = {"LEFT", UIParent, "CENTER", 280, 80},			-- "T_DEBUFF_ICON"
-		["target_buff_icon"] = {"LEFT", UIParent, "CENTER", 280, 134},			-- "T_BUFF"
-		["pve_debuff"] = {"RIGHT", UIParent, "CENTER", -280, 134},				-- "PVE/PVP_DEBUFF"
-		["pve_cc"] = {"LEFT", UIParent, "CENTER", 280, 38},						-- "PVE/PVP_CC"
-		["cooldown"] = {"RIGHT", UIParent, "CENTER", -416, -234},				-- "COOLDOWN"
-		["target_bar"] = {"LEFT", UIParent, "CENTER", 556, -140},				-- "T_DE/BUFF_BAR"
+		["player_buff_icon"] = {"RIGHT", UIParent, "CENTER", -280, 23},				-- "P_BUFF_ICON"
+		["player_proc_icon"] = {"RIGHT", UIParent, "CENTER", -280, 80},				-- "P_PROC_ICON"
+		["special_proc_icon"] = {"RIGHT", UIParent, "CENTER", -280, -18},			-- "SPECIAL_P_BUFF_ICON"
+		["target_debuff_icon"] = {"LEFT", UIParent, "CENTER", 280, 80},				-- "T_DEBUFF_ICON"
+		["target_buff_icon"] = {"LEFT", UIParent, "CENTER", 280, 134},				-- "T_BUFF"
+		["pve_debuff"] = {"RIGHT", UIParent, "CENTER", -280, 134},					-- "PVE/PVP_DEBUFF"
+		["pve_cc"] = {"LEFT", UIParent, "CENTER", 280, 38},							-- "PVE/PVP_CC"
+		["cooldown"] = {"RIGHT", UIParent, "CENTER", -416, -234},					-- "COOLDOWN"
+		["target_bar"] = {"LEFT", UIParent, "CENTER", 556, -140},					-- "T_DE/BUFF_BAR"
 	},
 }

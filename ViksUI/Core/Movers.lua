@@ -90,7 +90,9 @@ T.MoverFrames = {
 	R2_Details,
 	CPTopp,
 	CPMinim,
-	VigorBar
+	Bar7Holder,
+	Bar8Holder,
+	UIWidgetPowerBarAnchor
 }
 
 if C.actionbar.editor then
