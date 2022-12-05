@@ -36,6 +36,22 @@ SlashCmdList.MOUSEOVERBIND = function()
 
 		hooksecurefunc(GameTooltip, "Hide", function(self) for _, tt in pairs(self.shoppingTooltips) do tt:Hide() end end)
 
+		bind:SetScript("OnEnter", function()
+			GameTooltip:SetOwner(bind, "ANCHOR_NONE")
+			GameTooltip:SetPoint("BOTTOM", bind, "TOP", 0, 2)
+			GameTooltip:AddLine(bind.button.name, 1, 1, 1)
+
+			if #bind.button.bindings == 0 then
+				GameTooltip:AddLine(L_BIND_NO_SET, 0.6, 0.6, 0.6)
+			else
+				GameTooltip:AddDoubleLine(L_BIND_BINDING, L_BIND_KEY, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6)
+				for i = 1, #bind.button.bindings do
+					GameTooltip:AddDoubleLine(i, bind.button.bindings[i])
+				end
+			end
+			GameTooltip:Show()
+		end)
+
 		bind:SetScript("OnEvent", function(self) self:Deactivate(false) end)
 		bind:SetScript("OnLeave", function(self) self:HideFrame() end)
 		bind:SetScript("OnKeyDown", function(self, key) self:Listener(key) end)
@@ -151,24 +167,8 @@ SlashCmdList.MOUSEOVERBIND = function()
 					end
 				end
 
-				GameTooltip:AddLine(bind.button.name)
-				GameTooltip:Show()
 				bind.button.bindings = {GetBindingKey(bind.button.bindstring)}
-				GameTooltip:SetScript("OnHide", function(self)
-					self:SetOwner(bind, "ANCHOR_NONE")
-					self:SetPoint("BOTTOM", bind, "TOP", 0, 1)
-					self:AddLine(bind.button.name, 1, 1, 1)
-					if #bind.button.bindings == 0 then
-						self:AddLine(L_BIND_NO_SET, 0.6, 0.6, 0.6)
-					else
-						self:AddDoubleLine(L_BIND_BINDING, L_BIND_KEY, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6)
-						for i = 1, #bind.button.bindings do
-							self:AddDoubleLine(i, bind.button.bindings[i])
-						end
-					end
-					self:Show()
-					self:SetScript("OnHide", nil)
-				end)
+				bind:GetScript("OnEnter")()
 			end
 		end
 
@@ -242,6 +242,12 @@ SlashCmdList.MOUSEOVERBIND = function()
 				if C.actionbar.custom_bar_enable and C.actionbar.custom_bar_mouseover then
 					CustomBarMouseOver(1)
 				end
+				if C.actionbar.bar7_enable and C.actionbar.bar7_mouseover then
+					Bar7MouseOver(1)
+				end
+				if C.actionbar.bar8_enable and C.actionbar.bar8_mouseover then
+					Bar8MouseOver(1)
+				end
 			end
 		end
 
@@ -273,6 +279,12 @@ SlashCmdList.MOUSEOVERBIND = function()
 				end
 				if C.actionbar.custom_bar_enable and C.actionbar.custom_bar_mouseover then
 					CustomBarMouseOver(0)
+				end
+				if C.actionbar.bar7_enable and C.actionbar.bar7_mouseover then
+					Bar7MouseOver(0)
+				end
+				if C.actionbar.bar8_enable and C.actionbar.bar8_mouseover then
+					Bar8MouseOver(0)
 				end
 			end
 		end
@@ -310,6 +322,20 @@ SlashCmdList.MOUSEOVERBIND = function()
 		if C.actionbar.custom_bar_enable then
 			for i = 1, 12 do
 				local b = _G["CustomBarButton"..i]
+				b:HookScript("OnEnter", function(self) bind:Update(self) end)
+			end
+		end
+
+		if C.actionbar.bar7_enable then
+			for i = 1, 12 do
+				local b = _G["MultiBar6Button"..i]
+				b:HookScript("OnEnter", function(self) bind:Update(self) end)
+			end
+		end
+
+		if C.actionbar.bar8_enable then
+			for i = 1, 12 do
+				local b = _G["MultiBar7Button"..i]
 				b:HookScript("OnEnter", function(self) bind:Update(self) end)
 			end
 		end
