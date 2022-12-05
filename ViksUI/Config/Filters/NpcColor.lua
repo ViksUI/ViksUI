@@ -88,6 +88,8 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	-- Brackenhide Hollow
 	["185656"] = "Interrupt Decay Surge".. "\n".. "Dodge the Rotting Surge puddles", -- Filth Caller
 	["187224"] = "Spread at least 5 yards".. "\n".. "To avoid spreading Withering Contagion".. "\n".. "Run away from Siphon Decay", -- Vile Rothexer
+	-- Neltharus
+	["193944"] = "Interrupt: Lava Bolt".. "\n".. "ALL: Break Molten Barrier ASAP to stop Lava Spawns and to interupt again", -- Qalashi Lavamancer
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -215,6 +217,11 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["186220"] = "Interrupt Touch of Decay", -- Brackenhide Shaper
 	["189531"] = "Summons Infected Lashers", -- Decayed Elder
 	["186229"] = "Deals aoe damage and summons Infected Lashers.", -- Wilted Oak
+	-- Neltharus
+	["189247"] = "Interrupt: Ember Reach".. "\n".. "", -- Tamed Phoenix
+	["189227"] = "Dodge: Binding Spear".. "\n".. "Stuns and root player if hit", -- Qalashi Hunter
+	["189470"] = "Interrupt: Melt - Hits random player".. "\n".. "", -- Lava Flare
+	["189466"] = "Scorching Fusillade: Spread out ".. "\n".. "Dodge: Conflagrant Battery swirls", -- Irontorch Commander
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -287,7 +294,14 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["186191"] = "Kill it immediately, else it will stack up Withering Burst", -- Decay Speaker
 	["189363"] = "Kill them quickly before the bleeds stack up", -- Infected Lasher
 	["193799"] = "Kill them quickly. Empowers Trickclaw Mystics with dangerous spell", -- Rotchanting Totem
-	
+	-- Neltharus
+	["192788"] = "Interrupt (!!!!) : Molten Core".. "\n".. "", -- Qalashi Thaumaturge
+	["192782"] = "Pulse a ramping DoT onto your team with  Molten Core".. "\n".. "", -- Molten Elementals
+	["189235"] = "Interrupt: Burning Roar".. "\n".. "Tank: Dmg from Imbued Magma (healer dispell dot)".. "\n".. "Dodge: Eruptive Crush, 6y aoe	", -- 	Overseer Lahar
+	["189464"] = "Interrupt: Mote of Combustion cast on random".. "\n".. "Healer: Dispell Mote of Combustion".. "\n".. "Frontal: Scorching Breath	", -- 	Qalashi Irontorch
+	["189467"] = "Pierce Marrow: Charges a target, decent dmg".. "\n".. "Dragonbone Axe:  Massive bleed on a random target", -- Qalashi Bonesplitter
+	["194816"] = "Healers: Heavy aoe dmg every 2sec".. "\n".. "", -- Forgewrought Monstrosity
+	["193291"] = "Tank: Scalding Chomp hit's hard".. "\n".. "ALL: Pushback from Candescent Tempest", -- Apex Blazewing
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -402,7 +416,11 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["186226"] = "Do not pull the Warscourge with other mobs".. "\n".. "as it will empower them".. "\n".. "Interrupt Burst of Decay", -- Fetid Rotsinger
 	["187033"] = "Dodge the frontal cone".. "\n".. "Run away from Violent Whirlwind", -- Stinkbreath
 	["185691"] = "Infected Bite reduce the tank's healing taken", -- Vicious Hyena
-
+	-- Neltharus
+	["193293"] = "Frontal: Volcanic Guard".. "\n".. "Tank Dmg: Blazing Slash", -- Qalashi Warden
+	["192787"] = "Frontal knockback".. "\n".. "", -- Qalashi Spinecrusher
+	["189266"] = "Deadly Frontal: Magma Fist! DODGE".. "\n".. "Dispell/Sooth: Fired Up", -- Qalashi Trainee
+	["189471"] = "Tank: Reverberating Slam, hit hard and leave a DoT".. "\n".. "Stop Cast: Forgestomp", -- Qalashi Blacksmith
 }
 
 T.PlateTides = {
