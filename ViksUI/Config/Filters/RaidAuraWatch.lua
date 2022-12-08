@@ -510,6 +510,8 @@ T.RaidDebuffs = {
 	[SpellName(388984)] = 3,	-- Vicious Ambush
 	[SpellName(388544)] = 3,	-- Barkbreaker
 	[SpellName(377008)] = 3,	-- Deafening Screech
+	-- For some lols
+	[SpellName(374389)] = 3,	-- Gulp Swog Toxin - Kills player on 10 stacks
 
 -----------------------------------------------------------------
 -- Dragonflight (Season 2)
