@@ -550,7 +550,13 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		local tooltip_show = function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_LEFT", 19, 7)
 			GameTooltip:ClearLines()
-			GameTooltip:SetInventoryItem('player', self:GetID())
+			if ret.quality then
+				GameTooltip:SetInventoryItem('player', self:GetID())
+			else
+				local text = ret.slot == 4 and EQUIP_CONTAINER_REAGENT or EQUIP_CONTAINER
+				GameTooltip:AddLine(text)
+				GameTooltip:Show()
+			end
 		end
 
 		ret.frame:HookScript("OnEnter", tooltip_show)
@@ -1040,12 +1046,12 @@ function Stuffing:InitBags()
 	local filterTable = {
 		[1] = {3566860, GetItemClassInfo(0)},	-- Consumable
 		[2] = {135280, GetItemClassInfo(2)},	-- Weapon
-		[3] = {628559, GetItemClassInfo(3)},	-- Gem
-		[4] = {132341, GetItemClassInfo(4)},	-- Armor
-		[5] = {132281, GetItemClassInfo(7)},	-- Tradeskill
-		[6] = {236667, ITEM_BIND_QUEST},		-- Quest
-		[7] = {133784, ITEM_BIND_ON_EQUIP},		-- BoE
-		[8] = {1500871, GetItemClassInfo(8)},	-- Item Enhancement
+		[3] = {132341, GetItemClassInfo(4)},	-- Armor
+		[4] = {132281, GetItemClassInfo(7)},	-- Tradeskill
+		[5] = {236667, ITEM_BIND_QUEST},		-- Quest
+		[6] = {133784, ITEM_BIND_ON_EQUIP},		-- BoE
+		[7] = {1500871, GetItemClassInfo(8)},	-- Item Enhancement
+		[8] = {628559, GetItemClassInfo(3)},	-- Gem
 		[9] = {648841, GetItemSubClassInfo(15,4)},	-- Miscellaneous Other
 	}
 	for i = 1, #filterTable do
