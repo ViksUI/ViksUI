@@ -77,12 +77,12 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["187154"] = "Interrupt: Heavy Tome (tank damage)", -- Unstable Curator
 	["187155"] = "Interrupt: Icy Bindings to avoid the groupwide root", -- Rune Seal Keeper
 	-- Ruby Life Pools
-	["197985"] = "ToDo", -- Flame Channeler
-	["188067"] = "ToDo", -- Flashfrost Chillweaver
-	["190207"] = "ToDo", -- Primalist Cinderweaver
-	["198047"] = "ToDo", -- Tempest Channeler
-	["197535"] = "ToDo", -- High Channeler Ryvati
-	["195119"] = "ToDo", -- Primalist Shockcaster
+	["197985"] = "Interrupt: Flashfire at all cost, dmg + Heals", -- Flame Channeler
+	["188067"] = "Interrupt: Ice Shield, will make immune to cc/interupt".. "\n".. "Interrupt: Icebolt, but no priority int", -- Flashfrost Chillweaver
+	["190207"] = "Interrupt: Cinderbolt, targets random".. "\n".. "Burning Ambition is 50% haste increase, but also 25% extra dmg taken", -- Primalist Cinderweaver
+	["198047"] = "Interrupt: Thunderbolt", -- Tempest Channeler
+	["197535"] = "Interrupt: Shock Blast Icon Shock Blast at all cost".. "\n".. "Use defensives during Lightning Storm", -- High Channeler Ryvati
+	["195119"] = "Interrupt: Unlucky Strike", -- Primalist Shockcaster
 	-- Halls of Infusion
 	["190368"] = "ToDo", -- Flamecaller Aymi
 	-- Brackenhide Hollow
@@ -215,12 +215,10 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["189555"] = "Dodge: The dark blue swirlies from Unstable Power casts.", -- Astral Attendant
 	["187159"] = "Important: CC the Shriek cast or nearby mobs will be called", -- Shrieking Whelp
 	-- Ruby Life Pools
-	["189893"] = "ToDo", -- Infused Whelp
-	["187894"] = "ToDo", -- Infused Whelp
-	["190205"] = "ToDo", -- Scorchling
-	["188011"] = "ToDo", -- Primal Terrasentry
-	["197982"] = "ToDo", -- Storm Warrior
-	["187969"] = "ToDo", -- Flashfrost Earthshaper
+	["189893"] = "Cast Cold Claws on their primary target".. "\n".. "At 8 stacks ur frosen solid", -- Infused Whelp
+	["187894"] = "Cast Cold Claws on their primary target".. "\n".. "At 8 stacks ur frosen solid", -- Infused Whelp
+	["188011"] = "Dodge: Stone Missile on ground, massive dmg", -- Primal Terrasentry
+	["197982"] = "Cast Thunderclap, dmg + 10% haste reduction".. "\n".. "Also 20% slow. 5yard range", -- Storm Warrior
 	-- Brackenhide Hollow
 	["186246"] = "Interrupt Screech.", -- Fleshripper Vulture
 	["186220"] = "Interrupt Touch of Decay", -- Brackenhide Shaper
@@ -300,8 +298,9 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	-- The Azure Vault
 	["187240"] = "Important: Shoulder Slam is a knock back".. "\n".. "Position to avoid triggering runes", -- Drakonid Breaker
 	-- Ruby Life Pools
-	["190034"] = "ToDo", -- Blazebound Destroyer
-	["187897"] = "ToDo", -- Defier Draghar
+	["187969"] = "Stun/Disturb Tectonic Slam 40yard AOE", -- Flashfrost Earthshaper
+	["190034"] = "Run away with Living Bomb - Healer focus".. "\n".. "Get out of explosion when dying", -- Blazebound Destroyer
+	["187897"] = "Dodge: Bait Blazing Rush into wall", -- Defier Draghar
 	-- Brackenhide Hollow
 	["195135"] = "INTERRUPT(!!): Hideous Cackle, Mass-fear".. "\n".. "Do not pull the Warscourge with other mobs".. "\n".. "as it will empower them".. "\n".. "Interrupt: Hideous Cackle or get mass-feared", -- Bracken Warscourge
 	["186191"] = "Kill it immediately, else it will stack up Withering Burst", -- Decay Speaker
@@ -416,9 +415,9 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["191739"] = "Frontal: Aimed at tank ".. "\n".. "Defensive: Ice Cutter", -- Scalebane Lieutenant
 	["190510"] = "TANK, Defensive: Ice Cutter", -- Vault Guard
 	-- Ruby Life Pools
-	["190206"] = "ToDo", -- Primalist Flamedancer
-	["197697"] = "ToDo", -- Flamegullet
-	["197698"] = "ToDo", -- Thunderhead
+	["190206"] = "High Pri: Stun/Disturb Flame Dance", -- Primalist Flamedancer
+	["197697"] = "Dodge: Flame Breath frontal cast".. "\n".. "DPS: Use cooldowns when below 50%", -- Flamegullet
+	["197698"] = "Dodge: Storm Breath at all cost!!!".. "\n".. "Tank: Defensives for Thunder Jaw".. "\n".. "Healer: Dispell first Rolling tunder fast", -- 	Thunderhead
 	-- Brackenhide Hollow
 	["185508"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.".. "\n".. "On fixate run away or use Shadowmeld/Vanish/etc", -- Claw Fighter
 	["186206"] = "Tank buster, applies stacking bleed".. "\n".. "HEALER: Heal above 90% to remove stack.", -- Cruel Bonecrusher
