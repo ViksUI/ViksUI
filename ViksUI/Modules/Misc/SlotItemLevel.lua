@@ -4,7 +4,7 @@ if C.misc.item_level ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Item level on slot buttons in Character/InspectFrame(iLevel by Sanex)
 ----------------------------------------------------------------------------------------
-local minItemLevel = 197 -- For missing enchant and gems checking
+local minItemLevel = 370 -- For missing enchant and gems checking
 local _G = getfenv(0)
 local equiped = {} -- Table to store equiped items
 
@@ -52,9 +52,7 @@ local function checkSpecID(unit)
 	end
 
 	if specID then
-		if specID == 250 or specID == 251 or specID == 252 or specID == 66 or specID == 70 or specID == 71 or specID == 72 or specID == 73 then
-			i = INVSLOT_HAND
-		elseif specID == 577 or specID == 581 or specID == 103 or specID == 104 or specID == 253 or specID == 254 or specID == 255
+		if specID == 577 or specID == 581 or specID == 103 or specID == 104 or specID == 253 or specID == 254 or specID == 255
 			or specID == 268 or specID == 269 or specID == 259 or specID == 260 or specID == 261 or specID == 263 then
 			i = INVSLOT_FEET
 		else
