@@ -90,6 +90,15 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["187224"] = "Spread at least 5 yards".. "\n".. "To avoid spreading Withering Contagion".. "\n".. "Run away from Siphon Decay", -- Vile Rothexer
 	-- Neltharus
 	["193944"] = "Interrupt: Lava Bolt".. "\n".. "ALL: Break Molten Barrier ASAP to stop Lava Spawns and to interupt again", -- Qalashi Lavamancer
+	-- Halls of Infusion
+	["190345"] = "Interrupt: Earth Shield, healing random npc", -- Primalist Geomancer
+	["190348"] = "Interrupt: Blasting Gust, 40y AOE ".. "\n".. "Note: Tailwind aura. buffs other none boss npc", -- Primalist Ravager
+	["199037"] = "Interrupt: Elemental Focus ".. "\n".. "Will cast Chain Lighning if fail to interrupt", -- Primalist Shocktrooper
+	["190368"] = "Interrupt: Pyretic Burst ".. "\n".. "Cauterize, selfheals ".. "\n".. "Dodge: Molten Subduction", -- Flamecaller Aymi
+	["190371"] = "Interrupt: Rumbling Earth, AOE dmg and stun 8yard", -- Primalist Earthshaker
+	["190373"] = "Interrupt: Thunderstorm ".. "\n".. "Note: Primal Affinity lets Gusting Proto-Dragon cast stun", -- Primalist Galesinger
+	["190407"] = "At 20% Interrupt: Tidal Divergence ".. "\n".. "", -- Aqua Rager
+	["190405"] = "Interrupt: Aqueous Barrier (absorb shield) ".. "\n".. "Dodge: Flash Flood, AOE", -- Infuser Sariya
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -222,6 +231,10 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["189227"] = "Dodge: Binding Spear".. "\n".. "Stuns and root player if hit", -- Qalashi Hunter
 	["189470"] = "Interrupt: Melt - Hits random player".. "\n".. "", -- Lava Flare
 	["189466"] = "Scorching Fusillade: Spread out ".. "\n".. "Dodge: Conflagrant Battery swirls", -- Irontorch Commander
+	-- Halls of Infusion
+	["190362"] = "Interrupt: Dazzle frontal disorientation ".. "\n".. "Can sidestep or outrange 10y", -- Dazzling Dragonfly
+	["195399"] = "Harmless, BUT: At 10 stacks it instantly kills you ".. "\n".. "Avoid been meled by them", -- Curious Swoglet
+	["190377"] = "Interrupt: Ice Shards ".. "\n".. "Note: Primal Affinity lets Glacial Proto-Dragon  cast slow", -- Primalist Icecaller
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -302,6 +315,8 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["189467"] = "Pierce Marrow: Charges a target, decent dmg".. "\n".. "Dragonbone Axe:  Massive bleed on a random target", -- Qalashi Bonesplitter
 	["194816"] = "Healers: Heavy aoe dmg every 2sec".. "\n".. "", -- Forgewrought Monstrosity
 	["193291"] = "Tank: Scalding Chomp hit's hard".. "\n".. "ALL: Pushback from Candescent Tempest", -- Apex Blazewing
+	-- Halls of Infusion
+	["190342"] = "Interrupt: Expulse, heavy AOE dmg ".. "\n".. "Containment Beam, deal high damage and immobilize", -- Containment Apparatus
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -421,6 +436,11 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["192787"] = "Frontal knockback".. "\n".. "", -- Qalashi Spinecrusher
 	["189266"] = "Deadly Frontal: Magma Fist! DODGE".. "\n".. "Dispell/Sooth: Fired Up", -- Qalashi Trainee
 	["189471"] = "Tank: Reverberating Slam, hit hard and leave a DoT".. "\n".. "Stop Cast: Forgestomp", -- Qalashi Blacksmith
+	-- Halls of Infusion
+	["190340"] = "Interrupt: Demoralizing Shout ".. "\n".. "Tank: Both bleed and Spear Flurry hurts", -- Refti Defender
+	["190359"] = "Increasing dmg the longer they live ".. "\n".. "Only important for ramp-up dmg (Fortify)", -- Skulking Zealot
+	["190401"] = "Dispell: Binding Winds if pulled with Primalist Galesinger ".. "\n".. "Note: Only priority if buffed with Affinity. Else they are equal", -- Gusting Proto-DragonLight
+	["190404"] = "DODGE!! : Tectonic Breath, frontal ".. "\n".. "Beware of its  Creeping Mold, as it stacks", -- Subterranean Proto-DragonLight
 }
 
 T.PlateTides = {
