@@ -52,10 +52,10 @@ local function Update(self, _, unit, powerType)
 
 	if UnitHasVehicleUI("player") then
 		element:Hide()
-		--if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end
+		--if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end  --Not changing as its on own anchor
 	else
 		element:Show()
-		--if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
+		--if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end  --Not changing as its on own anchor
 	end
 
 	local cur = UnitPower("player", SPELL_POWER_ESSENCE)
@@ -112,7 +112,7 @@ local function Visibility(self)
 
 	if not UnitHasVehicleUI("player") then
 		element:Show()
-		--if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
+		--if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end  --Not changing as its on own anchor
 	end
 	self:RegisterEvent("UNIT_POWER_UPDATE", Path)
 end

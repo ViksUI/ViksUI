@@ -38,6 +38,10 @@ else
 pAlpha = 1
 end
 
+local DeBuffsAnchor = CreateFrame("Frame", "DeBuffsAnchor", UIParent)
+DeBuffsAnchor:SetPoint(unpack(C.position.player_debuffs))
+DeBuffsAnchor:SetSize((C.aura.player_debuff_size + 8) * 6, C.aura.player_debuff_size + 4)
+
 ----------------------------------------------------------------------------------------
 --	Bottom bars anchor
 ----------------------------------------------------------------------------------------

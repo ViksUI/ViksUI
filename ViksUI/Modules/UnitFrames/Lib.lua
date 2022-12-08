@@ -914,11 +914,11 @@ lib.gen_RaidMark = function(f)
 	h:SetAllPoints(f)
 	h:SetFrameLevel(10)
 	h:SetAlpha(0.8)
-	--local ri = h:CreateTexture(nil,'HIGHLIGHT ',h)
-	--ri:SetPoint("CENTER", f, "TOP", 0, 2)
+	local ri = h:CreateTexture(nil, "OVERLAY")
+	ri:SetPoint("CENTER", f, "TOP", 0, 2)
 	local size = retVal(f, 12, 11, 9)
-	--ri:SetTexture(cfg.raidmarkicon)
-	--ri:SetSize(size, size)
+	ri:SetTexture(cfg.raidmarkicon)
+	ri:SetSize(size, size)
 	f.RaidTargetIndicator = ri
 end
 
@@ -1455,10 +1455,6 @@ lib.createBuffs = function(f)
 	f.Buffs = b
 
 end
-
-local DeBuffsAnchor = CreateFrame("Frame", "DeBuffsAnchor", UIParent)
-DeBuffsAnchor:SetPoint(unpack(C.position.player_debuffs))
-DeBuffsAnchor:SetSize((C.aura.player_debuff_size + 8) * 6, C.aura.player_debuff_size + 4)
 
 -- Generates the Debuffs
 lib.createDebuffs = function(f)
