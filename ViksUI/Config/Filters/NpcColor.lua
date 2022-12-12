@@ -65,14 +65,19 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["75713"] = "ToDo", -- Shadowmoon Bone-Mender
 	["76446"] = "ToDo", -- Shadowmoon Enslaver
 	-- The Nokhud Offensive
-	["195878"] = "ToDo", -- Ukhel Beastcaller
-	["195842"] = "ToDo", -- Ukhel Corruptor
-	["195851"] = "ToDo", -- Ukhel Deathspeaker
+	["195878"] = "Stun/Disturb: Desecrating Roar ".. "\n".. "Tank: Defensives for Heavy Slash", -- Ukhel Beastcaller
+	["195842"] = "Dodge: Necrotic Eruption", -- Ukhel Corruptor
+	["195851"] = "Interrupt: Chant of the Dead ".. "\n".. "Dispell: Grasp of the Dead", -- Ukhel Deathspeaker
+	["195847"] = "Interrupt: Dominate or get MC", -- Ukhel Willcrusher
 	-- Halls of Valor
 	["95834"] = "Interrupts: Holy Radiance > Rune of Healing", -- Valarjar Mystic
 	["96664"] = "Interrupts: Etch > Shattered Rune", -- Valarjar Runecarver
 	-- Algeth'ar Academy
-	["196798"] = "ToDo", -- Corrupted Manafiend
+	["196798"] = "Interrupt: Mana Void if spare interruptShattered Psyche stacks so priority", -- Corrupted Manafiend
+	["196044"] = "Interrupt: Monotonous Lecture, long sleep cc", -- Unruly Textbook
+	["197905"] = "Mystic Blast is AoE Dmg ".. "\n".. "Dodge! : Arcane Rain", -- Spellbound Scepter
+	["196203"] = "Interrupt: Celestial Shield absorb + 50% haste", -- Ethereal Restorer
+	["196576"] = "Mystic Blast is AoE Dmg ".. "\n".. "Dodge! : Arcane Rain", -- Spellbound Scepter
 	-- The Azure Vault
 	["187154"] = "Interrupt: Heavy Tome (tank damage)", -- Unstable Curator
 	["187155"] = "Interrupt: Icy Bindings to avoid the groupwide root", -- Rune Seal Keeper
@@ -186,27 +191,20 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["77700"] = "ToDo", -- Shadowmoon Exhumer
 	["75506"] = "ToDo", -- Shadowmoon Loyalist
 	-- The Nokhud Offensive
-	["195265"] = "ToDo", -- Stormcaller Arynga
-	["194317"] = "ToDo", -- Stormcaller Boroo
-	["194315"] = "ToDo", -- Stormcaller Solongo
-	["194316"] = "ToDo", -- Stormcaller Zarii
+	["195265"] = "Interrupt: Totemic Overload", -- Stormcaller Arynga
+	["194317"] = "Interrupt: Totemic Overload", -- Stormcaller Boroo
+	["194315"] = "Interrupt: Totemic Overload", -- Stormcaller Solongo
+	["194316"] = "Interrupt: Totemic Overload", -- Stormcaller Zarii
 	-- Halls of Valor
 	["97197"] = "Interrupt: Cleansing Flame", -- Valarjar Purifier
 	-- Algeth'ar Academy
-	["196202"] = "ToDo", -- Algeth'ar Educator
-	["192333"] = "ToDo", -- Alpha Eagle
-	["196548"] = "ToDo", -- Ancient Branch
-	["196045"] = "ToDo", -- Corrupted Manafiend
-	["196044"] = "ToDo", -- Unruly Textbook
-	["197406"] = "ToDo", -- Aggravated Skitterfly
-	["196198"] = "ToDo", -- Algeth'ar Security
-	["196694"] = "ToDo", -- Arcane Forager
-	["196577"] = "ToDo", -- Spellbound Battleaxe
-	["197904"] = "ToDo", -- Spellbound Battleaxe
-	["196203"] = "ToDo", -- Algeth'ar Nurse
-	["197905"] = "ToDo", -- Spellbound Scepter
-	["196200"] = "ToDo", -- Algeth'ar Enforcer
-	["196576"] = "ToDo", -- Spellbound Scepter
+	["196202"] = "Note: Astral Bomb hit's enemy as well", -- Algeth'ar Educator
+	["192333"] = "Interrupt: Call of the Flock Buff ".. "\n".. "Dodge: Gust frontal cone", -- Alpha Eagle
+	["196548"] = "Interrupt: Healing Touch ".. "\n".. "On death, heals all inside circle", -- Ancient Branch
+	["196045"] = "Interrupt: Mana Void if spare interrupt", -- Corrupted Manafiend
+	["196198"] = "Can Los dmg from Distrupting Pulse ".. "\n".. "Will instantly recast if interupted", -- Algeth'ar Security
+	["196203"] = "Interrupt: Celestial Shield", -- Algeth'ar Nurse
+	["196200"] = "Dodge: Astral Whirlwind", -- Algeth'ar Enforcer
 	-- The Azure Vault
 	["186741"] = "Interrupt: Waking Bane to prevent this sleep cast from going off".. "\n".. "If dispelled, else dispel", -- Arcane Elemental
 	["196102"] = "Interrupt: Interrupt Mystic Vapors to avoid stacking DoT", -- Conjured Lasher
@@ -286,15 +284,16 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	-- Operation Mechagon: Workshop Nuke
 	["151657"] = "Interrupt: Detonate", -- Bomb Tonk
 	-- The Nokhud Offensive
-	["195876"] = "ToDo", -- Desecrated Ohuna
-	["192796"] = "ToDo", -- Nokhud Hornsounder
-	["194896"] = "ToDo", -- Primal Stormshield
+	["195876"] = "Dodge: Necrotic Eruption ".. "\n".. "Shattered Psyche stacks, hence kill pri", -- Desecrated Ohuna
+	["192796"] = "Stun/Disturb: Rally the Clan (50% dmg done buff)", -- Nokhud Hornsounder
+	["194896"] = "Purge: Stormshield ".. "\n".. "Casters: Be 15yard away too avoid Shield Bash", -- Primal Stormshield
+	["199717"] = "Interrupt: Bloodcurdling Shout, AOE Fear!!!!", -- Nokhud Defender
 	-- Halls of Valor
 	["102019"] = "ToDo", -- Stormforged Obliterator
 	["95842"] = "Interrupts: Thunderous Bolt - Dispel: Thunderstrike", -- Valarjar Thundercaller
 	-- Algeth'ar Academy
-	["196482"] = "ToDo", -- Overgrown Ancient
-	["197219"] = "ToDo", -- Vile Lasher
+	["197406"] = "High dmg from Darting Stings, random charge ".. "\n".. "Cast's - Agitation, a stackable Enrage", -- Aggravated Skitterfly
+	["197219"] = "Dodge: Detonation Seeds ground effect.", -- Vile Lasher
 	-- The Azure Vault
 	["187240"] = "Important: Shoulder Slam is a knock back".. "\n".. "Position to avoid triggering runes", -- Drakonid Breaker
 	-- Ruby Life Pools
@@ -396,10 +395,10 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["104273"] = "Dodge: Shockwave (frontal cleave)", -- Jazshariu
 	["104251"] = "Carrion Swarm is a frontal cone".. "\n".. "Fortified Shadowbolt Volley REALLY hurts", -- Duskwatch Sentry
 	-- The Nokhud Offensive
-	["192789"] = "ToDo", -- Nokhud Longbow
-	["192791"] = "ToDo", -- Nokhud Warspear
-	["199320"] = "ToDo", -- Nokhud Warspear
-	["199321"] = "ToDo", -- Nokhud Warspear
+	["192789"] = "Dodge: Rain of Arrows (ground) and Multi-Shot frontal cone", -- Nokhud Longbow
+	["192791"] = "Tank: Pierce stacks bleed on you ".. "\n".. "Priority kill due to stacking bleed", -- Nokhud Warspear
+	["199320"] = "Tank: Pierce stacks bleed on you ".. "\n".. "Priority kill due to stacking bleed", -- Nokhud Warspear
+	["199321"] = "Tank: Pierce stacks bleed on you ".. "\n".. "Priority kill due to stacking bleed", -- Nokhud Warspear
 	-- Halls of Valor
 	["97068"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
 	["97788"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
@@ -407,7 +406,9 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["96640"] = "ToDo", -- Valarjar Marksman
 	["97087"] = "ToDo", -- Valarjar Champion
 	-- Algeth'ar Academy
-	["196671"] = "ToDo", -- Arcane Ravager
+	["196577"] = "Tank: Heavy dmg from Severing Slash ".. "\n".. "Also bad bleed effect", -- Spellbound Battleaxe
+	["197904"] = "Tank: Heavy dmg from Severing Slash ".. "\n".. "Also bad bleed effect", -- Spellbound Battleaxe
+	["196671"] = "Dodge: Riftbreath !!! ".. "\n".. "Charges furthest target with Vicious Ambush", -- Arcane Ravager
 	-- The Azure Vault
 	["186740"] = "DODGE: Frontal cone aimed at tank.", -- Arcane Construct
 	["196115"] = "ToDo", -- Arcane Tender
