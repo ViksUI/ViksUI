@@ -163,14 +163,32 @@ function Experience:SetTooltip()
 		GameTooltip:AddLine(AZERITE_POWER_TOOLTIP_BODY:format(ItemName))
 
 	elseif BarType == "REP" then
+		local Name, Standing, Min, Max, Value, Faction = GetWatchedFactionInfo()
 		local Current, Max, Standing = Experience:GetReputation()
 		local Name, ID = GetWatchedFactionInfo()
 		local Colors = FACTION_BAR_COLORS
 		local Hex = T.RGBToHex(Colors[ID].r, Colors[ID].g, Colors[ID].b)
+		local majorFactionData = C_MajorFactions.GetMajorFactionData(Faction)
 		
 		GameTooltip:AddLine(Name)
         GameTooltip:AddLine("|cffffffff" .. Current .. " / " .. Max .. "|r")
-        GameTooltip:AddLine(Hex .. Standing .. "|r")
+		
+		if C_Reputation.IsFactionParagon(Faction) then
+			local cur, nextThreshold, _, hasRewardPending = C_Reputation.GetFactionParagonInfo(Faction)
+			if(cur) then
+				Value = cur % nextThreshold
+				Min = 0
+				Max = nextThreshold
+				pendingReward = hasRewardPending
+				Standing = MAX_REPUTATION_REACTION + 1 -- force paragon's color
+				standingText = PARAGON
+			end
+			GameTooltip:AddLine(Hex .. Value .. " / " .. Max .. "|r")
+		elseif C_Reputation.IsMajorFaction(Faction) then
+			GameTooltip:AddLine(RENOWN_LEVEL_LABEL .. majorFactionData.renownLevel .. "|r")
+		else
+			GameTooltip:AddLine(Hex .. Standing .. "|r")
+		end
 	else
 		local Level = UnitHonorLevel("player")
 
@@ -212,13 +230,59 @@ function Experience:GetHonor()
 	return UnitHonor("player"), UnitHonorMax("player")
 end
 
+local paragonStrings = {
+	deDE = 'Huldigend',
+	esES = 'Baluarte',
+	frFR = 'Parangon',
+	itIT = 'Eccellenza',
+	ptBR = 'Parag\195\163o',
+	ruRU = '\208\152\208\180\208\181\208\176\208\187',
+	koKR = '\235\182\136\235\169\184\236\157\152 \235\143\153\235\167\185',
+	zhCN = '\229\183\133\229\179\176',
+}
+
+paragonStrings.esMX = paragonStrings.esES
+paragonStrings.zhTW = paragonStrings.zhCN
+
+_G.PARAGON = paragonStrings[GetLocale()] or 'Paragon'
+
 function Experience:GetReputation()
+	local pendingReward, standingText
 	local Name, Standing, Min, Max, Value, Faction = GetWatchedFactionInfo()
+	
+	local reputationInfo = C_GossipInfo.GetFriendshipReputation(Faction)
+	local friendshipID = reputationInfo and reputationInfo.friendshipFactionID
     
-    local BarMax = Max - Min
+	if C_Reputation.IsFactionParagon(Faction) then
+		local cur, nextThreshold, _, hasRewardPending = C_Reputation.GetFactionParagonInfo(Faction)
+		if(cur) then
+			Value = cur % nextThreshold
+			Min = 0
+			Max = nextThreshold
+			pendingReward = hasRewardPending
+			Standing = MAX_REPUTATION_REACTION + 1 -- force paragon's color
+			standingText = PARAGON
+		end
+	elseif C_Reputation.IsMajorFaction(Faction) then
+		local majorFactionData = C_MajorFactions.GetMajorFactionData(Faction)
+		Min, Max = 0, majorFactionData.renownLevelThreshold
+		Value = C_MajorFactions.HasMaximumRenown(Faction) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+	elseif friendshipID and friendshipID > 0 then
+		local repInfo = C_GossipInfo.GetFriendshipReputation(Faction)
+		standingText = repInfo.reaction
+		if repInfo.nextThreshold then
+			Min, Max, Value = repInfo.reactionThreshold, repInfo.nextThreshold, repInfo.standing
+		else
+			Min, Max, Value = 0, 1, 1 -- force a full bar when maxed out
+		end
+		Standing = 5 -- force friends' color
+	end
+	
+	local BarMax = Max - Min
     local BarValue = Value - Min
     local BarStanding = Experience.Standing[Standing]
 	
+	standingText = standingText or GetText('FACTION_STANDING_LABEL' .. Standing, UnitSex('player'))
 	return BarValue, BarMax, BarStanding
 end
 
