@@ -124,6 +124,7 @@ end
 local function UpdateTab(object, name, rank, texture, hat)
 	local index = tabs[object].index + 1
 	local tab = tabs[object][index] or CreateFrame("CheckButton", "ProTabs"..tabs[object].index, object, "SpellBookSkillLineTabTemplate, SecureActionButtonTemplate")
+	tab:RegisterForClicks("LeftButtonUp", "LeftButtonDown")
 
 	tab:ClearAllPoints()
 
@@ -254,7 +255,7 @@ function handler:TRADE_SKILL_SHOW(event)
 		self:UnregisterEvent(event)
 	else
 		HandleTabs(owner)
-		self[event] = function() for object in next, tabs do UpdateSelectedTabs(object) end end
+		UpdateSelectedTabs(owner)
 	end
 end
 
