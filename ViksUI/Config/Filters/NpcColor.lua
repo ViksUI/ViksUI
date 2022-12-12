@@ -62,6 +62,8 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["104247"] = "Interrupt: Nightfall Orb", -- Duskwatch Arcanist
 	["104300"] = "Dispel: Bewitch", -- Shadow Mistress
 	-- Shadowmoon Burial Ground
+	["75459"] = "ToDo", -- Plagued Bat
+	["75652"] = "ToDo", -- Void Spawn
 	["75713"] = "ToDo", -- Shadowmoon Bone-Mender
 	["76446"] = "ToDo", -- Shadowmoon Enslaver
 	-- The Nokhud Offensive
@@ -70,8 +72,13 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["195851"] = "Interrupt: Chant of the Dead ".. "\n".. "Dispell: Grasp of the Dead", -- Ukhel Deathspeaker
 	["195847"] = "Interrupt: Dominate or get MC", -- Ukhel Willcrusher
 	-- Halls of Valor
-	["95834"] = "Interrupts: Holy Radiance > Rune of Healing", -- Valarjar Mystic
-	["96664"] = "Interrupts: Etch > Shattered Rune", -- Valarjar Runecarver
+	["96640"] = "ToDo", -- Valarjar Marksman
+	["96934"] = "ToDo", -- Valarjar Trapper
+	-- Temple of the Jade Serpent
+	["59555"] = "ToDo", -- Haunting Sha
+	["58856"] = "ToDo", -- Haunting Sha
+	["200131"] = "ToDo", -- Sha-Touched Guardian
+	["56511"] = "ToDo", -- Corrupt Living Water
 	-- Algeth'ar Academy
 	["196798"] = "Interrupt: Mana Void if spare interruptShattered Psyche stacks so priority", -- Corrupted Manafiend
 	["196044"] = "Interrupt: Monotonous Lecture, long sleep cc", -- Unruly Textbook
@@ -88,8 +95,6 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["198047"] = "Interrupt: Thunderbolt", -- Tempest Channeler
 	["197535"] = "Interrupt: Shock Blast Icon Shock Blast at all cost".. "\n".. "Use defensives during Lightning Storm", -- High Channeler Ryvati
 	["195119"] = "Interrupt: Unlucky Strike", -- Primalist Shockcaster
-	-- Halls of Infusion
-	["190368"] = "ToDo", -- Flamecaller Aymi
 	-- Brackenhide Hollow
 	["185656"] = "Interrupt Decay Surge".. "\n".. "Dodge the Rotting Surge puddles", -- Filth Caller
 	["187224"] = "Spread at least 5 yards".. "\n".. "To avoid spreading Withering Contagion".. "\n".. "Run away from Siphon Decay", -- Vile Rothexer
@@ -180,16 +185,13 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["105715"] = "Stun / Knockback Interrupt: Eye Storm", -- Watchful Inquisitor
 	-- Temple of the Jade Serpent
 	["200137"] = "ToDo", -- Depraved Mistweaver
-	["200126"] = "ToDo", -- Fallen Waterspeaker
-	["59555"] = "ToDo", -- Haunting Sha
-	["59552"] = "ToDo", -- The Crybaby Hozen
-	["59544"] = "ToDo", -- The Nodding Tiger
 	["59546"] = "ToDo", -- The Talking Fish
 	-- Shadowmoon Burial Ground
 	["76104"] = "ToDo", -- Monstrous Corpse Spider
 	["75459"] = "ToDo", -- Plagued Bat
 	["77700"] = "ToDo", -- Shadowmoon Exhumer
 	["75506"] = "ToDo", -- Shadowmoon Loyalist
+	["75979"] = "ToDo", -- Exhumed Spirit
 	-- The Nokhud Offensive
 	["195265"] = "Interrupt: Totemic Overload", -- Stormcaller Arynga
 	["194317"] = "Interrupt: Totemic Overload", -- Stormcaller Boroo
@@ -197,6 +199,7 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["194316"] = "Interrupt: Totemic Overload", -- Stormcaller Zarii
 	-- Halls of Valor
 	["97197"] = "Interrupt: Cleansing Flame", -- Valarjar Purifier
+	["95842"] = "Interrupts: Thunderous Bolt - Dispel: Thunderstrike", -- Valarjar Thundercaller
 	-- Algeth'ar Academy
 	["196202"] = "Note: Astral Bomb hit's enemy as well", -- Algeth'ar Educator
 	["192333"] = "Interrupt: Call of the Flock Buff ".. "\n".. "Dodge: Gust frontal cone", -- Alpha Eagle
@@ -289,8 +292,30 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["194896"] = "Purge: Stormshield ".. "\n".. "Casters: Be 15yard away too avoid Shield Bash", -- Primal Stormshield
 	["199717"] = "Interrupt: Bloodcurdling Shout, AOE Fear!!!!", -- Nokhud Defender
 	-- Halls of Valor
+	["96677"] = "ToDo", -- Steeljaw Grizzly
+	["97081"] = "ToDo", -- King Bjorn
+	["95843"] = "ToDo", -- King Haldor
+	["97083"] = "ToDo", -- King Ranulf
+	["97084"] = "ToDo", -- King Tor
+	["97202"] = "ToDo", -- Olmyr the Enlightened
+	["97219"] = "ToDo", -- Solsten
+	["99891"] = "ToDo", -- Storm Drake
+	["97788"] = "ToDo", -- Storm Drake
+	["97068"] = "ToDo", -- Storm Drake
+	["96608"] = "ToDo", -- Ebonclaw Worg
+	["95834"] = "Interrupts: Holy Radiance > Rune of Healing", -- Valarjar Mystic
+	["96664"] = "Interrupts: Etch > Shattered Rune", -- Valarjar Runecarver
 	["102019"] = "ToDo", -- Stormforged Obliterator
-	["95842"] = "Interrupts: Thunderous Bolt - Dispel: Thunderstrike", -- Valarjar Thundercaller
+	-- Shadowmoon Burial Ground
+	["76104"] = "ToDo", -- Monstrous Corpse Spider
+	["76518"] = "ToDo", -- Ritual of Bones
+	-- Temple of the Jade Serpent
+	["59545"] = "ToDo", -- The Golden Beetle
+	["59547"] = "ToDo", -- Jiang
+	["200387"] = "ToDo", -- Shambling Infester
+	["65317"] = "ToDo", -- Xiang
+	["56792"] = "ToDo", -- Figment of Doubt
+	["59552"] = "ToDo", -- The Crybaby Hozen
 	-- Algeth'ar Academy
 	["197406"] = "High dmg from Darting Stings, random charge ".. "\n".. "Cast's - Agitation, a stackable Enrage", -- Aggravated Skitterfly
 	["197219"] = "Dodge: Detonation Seeds ground effect.", -- Vile Lasher
@@ -405,6 +430,22 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["99891"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
 	["96640"] = "ToDo", -- Valarjar Marksman
 	["97087"] = "ToDo", -- Valarjar Champion
+	["96611"] = "ToDo", -- Angerhoof Bull
+	["96574"] = "ToDo", -- Stormforged Sentinel
+	["101637"] = "ToDo", -- Valarjar Aspirant
+	["99804"] = "ToDo", -- Valarjar Falconer
+	["95832"] = "ToDo", -- Valarjar Shieldmaiden
+	["101639"] = "ToDo", -- Valarjar Shieldmaiden
+	-- Shadowmoon Burial Ground
+	["75451"] = "ToDo", -- Defiled Spirit
+	["75966"] = "ToDo", -- Defiled Spirit
+	["76057"] = "ToDo", -- Carrion Worm
+	-- Temple of the Jade Serpent
+	["57109"] = "ToDo", -- Minion of Doubt
+	["65362"] = "ToDo", -- Minion of Doubt
+	["59553"] = "ToDo", -- The Songbird Queen
+	["200126"] = "ToDo", -- Fallen Waterspeaker
+	["59544"] = "ToDo", -- The Nodding Tiger
 	-- Algeth'ar Academy
 	["196577"] = "Tank: Heavy dmg from Severing Slash ".. "\n".. "Also bad bleed effect", -- Spellbound Battleaxe
 	["197904"] = "Tank: Heavy dmg from Severing Slash ".. "\n".. "Also bad bleed effect", -- Spellbound Battleaxe
