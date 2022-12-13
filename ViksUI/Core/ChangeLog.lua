@@ -3,20 +3,28 @@ local T, C, L, _ = unpack(select(2, ...))
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.17 for Wow 10.0.2",
-	"• More spells added to Cooldowns, Filger, BuffOnScroll",
-	"• [Reminders] Added some new flask.",
-	"• [Bags] Added Gems to filter",
-	"• [SlotItemLevel] Added check for missing gems.",
-	"• [NpcColor] More descriptions and few priority change",
-	"• Some Skins updated and fixed",
+	"Update 10.18 for Wow 10.0.2",
+	"• [OneClickDisenchanting] Updated checking items.",
+	"• [DeBuffs] Cleanup positioning",
+	"• [UIWidget] Added skin for dragonriding bar.",
+	"• [ReputationBar] Added support for Majorfaction's Renownlevel",
+	"• [NpcColor] More Npc added, all S1 dungeon is added.",
+	"• [EasyDelete] Added check for StaticPopupDialogs",
+	"• [ActionBars] Added Bar7 and Bar8. (Not Bartender4)",
+	"• [Bags] Added 2 more filters for items",
+	"• [Bags] Fixed unusable item color",
+	"• [Tooltip] Avoid trigger on false source for NpcTip and M+ Score",
+	"• [Skins] Fix LFDQueueFrameTypeDropDown.",
+	"• [Skins] Rework buttons backdrop in Trainer skin.",
+	"• [TrainAll] Fixed style scripts",
+	"• [RaidBuffsReminder] Added Blessing of the Bronze buff and more phials.",
 	"• Plus alot of minor stuff. Check github for full log",
 
 " ",
 "EXTRA:",
-"This new patch requires a ton of work. 5-10h pr day. No time to play, just code :/",
-"Hopefully most will be fixed before Dragonflight lands",
-"New: Added Wow gift button and buymeacoffee button here on /changelog",
+"Slowely getting this expansion covered",
+"I will still adjust and tweak Npc tips as i progress in m+",
+"Added Wow gift button and buymeacoffee button here on /changelog",
 "Patreon helps me keep subscription while not playing",
 	"",
 "PATREON's: Wiggy and Korallis",
@@ -132,7 +140,7 @@ _G.StaticPopupDialogs["PATRON"] = {
 function ChangeLog:CreateChangelog()
 	local frame = CreateFrame("Frame", "ViksUIChangeLog", UIParent)
 	frame:SetPoint("TOP",0,-50)
-	frame:SetSize(445, 650)
+	frame:SetSize(445, 550)
 	frame:SetTemplate("Transparent")
 	frame:SetFrameLevel(4)
 	
