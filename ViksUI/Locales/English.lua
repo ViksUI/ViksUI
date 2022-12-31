@@ -55,6 +55,7 @@ L_MISC_GROCERY_BUY = "Buy"
 L_MISC_GROCERY_DESC = "Automatically buy grocery bags"
 L_MISC_SCROLL = "Scroll"
 L_MISC_COLLAPSE = "The Collapse"
+L_MISC_HEADER_QUEST = "Auto quest button"
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Disband Group"

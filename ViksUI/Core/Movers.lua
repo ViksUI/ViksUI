@@ -90,10 +90,16 @@ T.MoverFrames = {
 	R2_Details,
 	CPTopp,
 	CPMinim,
-	Bar7Holder,
-	Bar8Holder,
 	UIWidgetPowerBarAnchor
 }
+
+if C.actionbar.bar7_enable then
+	tinsert(T.MoverFrames, Bar7Holder)
+end
+
+if C.actionbar.bar8_enable then
+	tinsert(T.MoverFrames, Bar8Holder)
+end
 
 if C.actionbar.editor then
 	tinsert(T.MoverFrames, Bar1Holder)
@@ -101,6 +107,7 @@ if C.actionbar.editor then
 	tinsert(T.MoverFrames, Bar3Holder)
 	tinsert(T.MoverFrames, Bar4Holder)
 	tinsert(T.MoverFrames, Bar5Holder)
+	tinsert(T.MoverFrames, Bar6Holder)
 	tremove(T.MoverFrames, 5)	-- RightActionBarAnchor
 	tremove(T.MoverFrames, 4)	-- ActionBarAnchor
 end

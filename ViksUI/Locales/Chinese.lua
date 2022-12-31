@@ -57,6 +57,7 @@ L_MISC_GROCERY_BUY = "购买"
 L_MISC_GROCERY_DESC = "杂货商自动购买"
 L_MISC_SCROLL = "附魔羊皮纸"
 L_MISC_COLLAPSE = "The Collapse" -- Need review
+L_MISC_HEADER_QUEST = "Auto quest button" -- Needs review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "解散团队"

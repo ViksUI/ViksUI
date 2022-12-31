@@ -57,6 +57,7 @@ L_MISC_GROCERY_BUY = "Achat"
 L_MISC_GROCERY_DESC = "Achat automatique de sacs d'épicerie"
 L_MISC_SCROLL = "Parchemin"
 L_MISC_COLLAPSE = "The Collapse" -- Need review
+L_MISC_HEADER_QUEST = "Auto quest button" -- Needs review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Dissoudre le raid"

@@ -57,6 +57,7 @@ L_MISC_GROCERY_BUY = "Kaufen"
 L_MISC_GROCERY_DESC = "Kaufe Lebensmittelaschen automatisch"
 L_MISC_SCROLL = "Rolle"
 L_MISC_COLLAPSE = "The Collapse" -- Need review
+L_MISC_HEADER_QUEST = "Auto quest button" -- Needs review
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Gruppe auflösen"
