@@ -64,9 +64,10 @@ function frame:PLAYER_LOGIN()
 end
 
 local healList, exClass, healerSpecs = {}, {}, {}
-local testing = false
 
 exClass.DEATHKNIGHT = true
+exClass.DEMONHUNTER = true
+exClass.HUNTER = true
 exClass.MAGE = true
 exClass.ROGUE = true
 exClass.WARLOCK = true
@@ -79,6 +80,7 @@ if C.nameplate.healer_icon == true then
 	}
 	local healerSpecIDs = {
 		105,	-- Druid Restoration
+		1468,	-- Evoker Preservation
 		270,	-- Monk Mistweaver
 		65,		-- Paladin Holy
 		256,	-- Priest Discipline
@@ -121,6 +123,10 @@ if C.nameplate.healer_icon == true then
 					local _, talentSpec = GetSpecializationInfoByID(specID)
 					if name and healerSpecs[talentSpec] then
 						healList[name] = talentSpec
+						local nameplate = C_NamePlate.GetNamePlateForUnit(format("arena%d", i))
+						if nameplate then
+							nameplate.unitFrame:UpdateAllElements("UNIT_NAME_UPDATE")
+						end
 					end
 				end
 			end
@@ -359,18 +365,14 @@ local function UpdateName(self)
 	if C.nameplate.healer_icon == true then
 		local name = self.unitName
 		if name then
-			if testing then
-				self.HPHeal:Show()
-			else
-				if healList[name] then
-					if exClass[healList[name]] then
-						self.HPHeal:Hide()
-					else
-						self.HPHeal:Show()
-					end
+			if healList[name] then
+				if exClass[healList[name]] then
+					self.HealerIcon:Hide()
 				else
-					self.HPHeal:Hide()
+					self.HealerIcon:Show()
 				end
+			else
+				self.HealerIcon:Hide()
 			end
 		end
 	end
@@ -411,6 +413,8 @@ if C.nameplate.kick_color then
 		kickID = 183752
 	elseif T.class == "DRUID" then
 		kickID = 106839
+	elseif T.class == "EVOKER" then
+		kickID = 351338
 	elseif T.class == "HUNTER" then
 		kickID = GetSpecialization() == 3 and 187707 or 147362
 	elseif T.class == "MAGE" then
@@ -884,10 +888,10 @@ local function style(self, unit)
 	
 	-- Healer Icon
 	if C.nameplate.healer_icon == true then
-		self.HPHeal = self.Health:CreateFontString(nil, "OVERLAY")
-		self.HPHeal:SetFont(C.font.nameplates_font, 32, C.font.nameplates_font_style)
-		self.HPHeal:SetText("|cFFD53333+|r")
-		self.HPHeal:SetPoint("BOTTOM", self.Name, "TOP", 0, C.nameplate.track_debuffs == true and 13 or 0)
+		self.HealerIcon = self.Health:CreateFontString(nil, "OVERLAY")
+		self.HealerIcon:SetFont(C.font.nameplates_font, 32, C.font.nameplates_font_style)
+		self.HealerIcon:SetText("|cFFD53333+|r")
+		self.HealerIcon:SetPoint("BOTTOM", self.Name, "TOP", 0, C.nameplate.track_debuffs == true and 13 or 0)
 	end
 
 	-- Quest Icon
