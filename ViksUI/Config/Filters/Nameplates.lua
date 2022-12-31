@@ -30,6 +30,8 @@ T.DebuffWhiteList = {
 	[SpellName(58180)] = true,	-- Infected Wounds
 	[SpellName(155722)] = true,	-- Rake
 	[SpellName(1079)] = true,	-- Rip
+	-- Evoker
+	[SpellName(360806)] = true,	-- Sleep Walk
 	-- Hunter
 	[SpellName(3355)] = true,	-- Freezing Trap
 	[SpellName(194279)] = true,	-- Caltrops
@@ -116,47 +118,69 @@ T.PlateBlacklist = {
 }
 
 T.InterruptCast = {
-	-- De Other Side
-	[332612] = true,	-- Healing Wave
-	[332706] = true,	-- Heal
-	[332084] = true,	-- Self-Cleaning Cycle
-	-- Halls of Atonement
-	[325700] = true,	-- Collect Sins
-	[323552] = true,	-- Volley of Power
-	-- Mists of Tirna Scithe
-	[324914] = true,	-- Nourish the Forest
-	[321828] = true,	-- Patty Cake
-	[326046] = true,	-- Stimulate Resistance
-	-- Spires of Ascension
-	[327413] = true,	-- Rebellious Fist
-	[317936] = true,	-- Forsworn Doctrine
-	[327648] = true,	-- Internal Strife
-	[328295] = true,	-- Greater Mending
-	-- The Necrotic Wake
-	[324293] = true,	-- Rasping Scream
-	[334748] = true,	-- Drain Fluids
-	[323190] = true,	-- Meat Shield
-	[320822] = true,	-- Final Bargain
-	[338353] = true,	-- Goresplatter
-	[327130] = true,	-- Repair Flesh
-	-- Theater of Pain
-	[342139] = true,	-- Battle Trance
-	[330562] = true,	-- Demoralizing Shout
-	[342675] = true,	-- Bone Spear
-	[341969] = true,	-- Withering Discharge
-	[341977] = true,	-- Meat Shield
-	[330868] = true,	-- Necrotic Bolt Volley
-	-- Plaguefall
-	[329239] = true,	-- Creepy Crawlers
-	-- Sanguine Depths
-	[322433] = true,	-- Stoneskin
+	-- Algeth'ar Academy
+	[396812] = true,	-- Mystic Blast
+	[332612] = true,	-- Healing Touch
+	[377389] = true,	-- Call of the Flock
+	[387843] = true,	-- Astral Bomb
+	-- The Azure Vault
+	[370225] = true,	-- Shriek
+	-- The Nokhud Offensive
+	[386024] = true,	-- Tempest
+	[373395] = true,	-- Bloodcurdling Shout
+	-- Halls of Valor
+	[215433] = true,	-- Holy Radiance
+	-- Shadowmoon Burial Grounds
+	[152818] = true,	-- Shadow Mend
+	-- Temple of the Jade Serpent
+	[395859] = true,	-- Haunting Scream
 }
 
 T.ImportantCast = {
-	-- Halls of Atonement
-	[326450] = true,	-- Loyal Beasts
-	-- Theater of Pain
-	[330586] = true,	-- Devour Flesh
-	-- Plaguefall
-	[328177] = true,	-- Fungistorm
+	-- The Nokhud Offensive
+	[383823] = true,	-- Rally the Clan
+	-- Ruby Life Pools
+	[372743] = true,	-- Ice Shield
+	-- Court of Stars
+	[210261] = true,	-- Sound Alarm
+}
+
+local color = C.nameplate.mob_color
+local color_alt = {0, 0.7, 0.6}
+T.ColorPlate = {
+	-- Algeth'ar Academy
+	["196548"] = color,		-- Ancient Branch
+	-- The Azure Vault
+	["187159"] = color_alt,	-- Shrieking Whelp
+	-- Temple of the Jade Serpent
+	["59555"] = color,		-- Haunting Sha
+	-- Court of Stars
+	["104251"] = color_alt,	-- Duskwatch Sentry
+	-- PvP
+	["5925"] = color,		-- Grounding Totem
+}
+
+T.ShortNames = {
+	-- Академия Алгет'ар
+	["Рассерженная стрекотуха"] = "Cтрекотуха",
+	["Мерзкий плеточник"] = "Плеточник",
+	["Алгет'арский охранник"] = "Охранник",
+	["Алгет'арский рыцарь эха"] = "Рыцарь",
+	["Алгет'арская заклинательница"] = "Заклинательница",
+	["Алгет'арский целитель"] = "Целитель",
+	-- Наступление клана Нокхуд
+	["Мастер копья из клана Нокхуд"] = "Мастер копья",
+	["Лучница из клана Нокхуд"] = "Лучница",
+	["Боевое копье клана Нокхуд"] = "Копье",
+	["Трубач из клана Нокхуд"] = "Трубач",
+	["Нокхудский копейщик"] = "Копейщик",
+	["Громовой кулак из клана Нокхуд"] = "Кулак",
+	["Псарь из клана Нокхуд"] = "Псарь",
+	["Заступник из клана Нокхуд"] = "Заступник",
+	-- Квартал Звезд
+	["Караульный из Сумеречной стражи"] = "Караульный",
+	["Часовой из Сумеречной стражи"] = "Часовой",
+	["Бдительный инквизитор"] = "Инквизитор",
+	["Пылающий бес"] = "Бес",
+	["Порабощенная Скверной карательница"] = "Карательница",
 }

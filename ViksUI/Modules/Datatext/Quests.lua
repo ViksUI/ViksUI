@@ -28,7 +28,7 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 
 	local function OnEvent(self, event, ...)
 		local numEntries, numQuests = C_QuestLog.GetNumQuestLogEntries()
-		Text:SetText("Q|r:"..qColor.. numQuests.. "/25")
+		Text:SetText("Q|r:"..qColor.. numQuests.. "/35")
 		self:SetAllPoints(Text)
 		self:SetScript("OnEnter", function()
 			if not InCombatLockdown() then

@@ -22,8 +22,8 @@ L_GUI_EXPERT_MODE_DESC = "编写你的插件代码"
 L_GUI_RESET_SPELLS_DESC = "Ctrl+左键重置列表"
 L_GUI_INFO = "Info & Help -- Need review"
 L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
-			
--- General options			
+
+-- General options
 L_GUI_GENERAL_SUBTEXT = "一般用戶界面设置，键入 /uihelp 获取更多可用命令。"
 L_GUI_GENERAL_WELCOME_MESSAGE = "欢迎信息"
 L_GUI_GENERAL_AUTOSCALE = "自动UI缩放"
@@ -42,8 +42,8 @@ L.general_minimize_mouseover = "任务栏最小化按钮鼠标悬停显示"
 L.general_hide_banner = "自动隐藏Boss额外拾取提示"
 L.general_hide_talking_head = "自动隐藏任务对话框"
 L.general_hide_maw_buffs = "隐藏心能之力框架"
-			
--- Media options			
+
+-- Media options
 L.media_border_color = "背景颜色"
 L.media_classborder_color = "边框按职业着色"
 L.media_backdrop_color = "边框背景颜色"
@@ -51,8 +51,8 @@ L.media_backdrop_alpha = "透明背景"
 L.media_texture = "主要材质"
 L.media_subheader_normal = "通用字体"
 L.media_subheader_pixel = "像素字体"
-			
--- Font options			
+
+-- Font options
 L.font = "字体设置"
 L.font_subtext = "自定义字体格式"
 L.font_stats_font = "字体"
@@ -77,8 +77,8 @@ L.font_subheader_blizzard = "系统"
 L.font_tooltip_header_font_size = "鼠标提示标题"
 L.font_tooltip_font_size = "鼠标提示信息"
 L.font_global_font = "禁用像素字体"
-			
--- Skins options			
+
+-- Skins options
 L_GUI_SKINS = "界面美化"
 L_GUI_SKINS_SUBTEXT = "对游戏默认界面和单体插件界面进行美化"
 L_GUI_SKINS_BLIZZARD = "美化暴雪默认界面"
@@ -111,8 +111,8 @@ L.skins_tiny_dps = "TinyDPS"
 L.skins_vanaskos = "VanasKoS"
 L.skins_weak_auras = "WeakAuras"
 L.skins_minimap_buttons_mouseover = "鼠标悬停显示插件图标"
-			
--- Unit Frames options			
+
+-- Unit Frames options
 L_GUI_UF_SUBTEXT = "定制玩家/目标框架/其他框架"
 L_GUI_UF_ENABLE = "单位框架增强"
 L_GUI_UF_OWN_COLOR = "自定义颜色"
@@ -176,8 +176,8 @@ L.unitframe_extra_health_height = "血量框架额外增高"
 L.unitframe_extra_power_height = "能量框架额外增高"
 L.unitframe_subheader_castbar = "玩家/目标施法条大小"
 L.unitframe_castbar_height = "高度"
-			
--- Unit Frames Class bar options			
+
+-- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "职业资源栏"
 L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "显示职业的特殊资源"
 L_GUI_UF_PLUGINS_COMBO_BAR = "连击点"
@@ -191,9 +191,9 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "灵魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "图腾"
 L.unitframe_class_bar_totem_other = "其他职业图腾"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker '-- Need review"
-			
--- Raid Frames options			
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
+
+-- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "定制队伍/团队框架"
 L_GUI_UF_BY_ROLE = "按职责排序"
 L_GUI_UF_AGGRO_BORDER = "边框按仇恨值着色"
@@ -253,8 +253,8 @@ L.raidframe_dps_raid_width = "框架宽度"
 L.raidframe_dps_raid_height = "框架高度"
 L.raidframe_dps_party_power_height = "队伍能量框架高度"
 L.raidframe_dps_raid_power_height = "能量框架高度"
-			
--- ActionBar options			
+
+-- ActionBar options
 L_GUI_ACTIONBAR = "动作条"
 L_GUI_ACTIONBAR_ENABLE = "动作条增强"
 L_GUI_ACTIONBAR_HOTKEY = "按键键名"
@@ -262,7 +262,7 @@ L_GUI_ACTIONBAR_MACRO = "宏名称"
 L_GUI_ACTIONBAR_GRID = "动作条显示空白快捷键"
 L_GUI_ACTIONBAR_BUTTON_SIZE = "快捷键大小"
 L_GUI_ACTIONBAR_BUTTON_SPACE = "快捷键间距"
-L_GUI_ACTIONBAR_SPLIT_BARS = "#5动作条分段(2*6"
+L_GUI_ACTIONBAR_SPLIT_BARS = "#5动作条分段(2*6; 该选项开启后将激活所有动作条)"
 L_GUI_ACTIONBAR_CLASSCOLOR_BORDER = "动作条边框按职业着色"
 L.actionbar_toggle_mode = "自由折叠"
 L.actionbar_toggle_mode_desc = "可随时调节动作条显示数目。按钮位于底部动作条上方及右側动作条下方，鼠标悬停显示。"
@@ -285,8 +285,8 @@ L.actionbar_editor_desc = "允许动作条独立移动和更改"
 L.actionbar_bar1_num = "快捷键数"
 L.actionbar_bar1_row = "每行快捷键数"
 L.actionbar_bar1_mouseover = "鼠标悬停显示"
-			
--- Tooltip options			
+
+-- Tooltip options
 L.tooltip = "鼠标提示"
 L.tooltip_subtext = "设置鼠标提示"
 L.tooltip_enable = "鼠标提示增强"
@@ -313,8 +313,8 @@ L.tooltip_item_count = "物品的简易统计"
 L.tooltip_unit_role = "角色类型"
 L.tooltip_instance_lock = "副本进度比较"
 L.tooltip_mount = "坐骑来源"
-			
--- Chat options			
+
+-- Chat options
 L_GUI_CHAT_SUBTEXT = "这里可以设置你的聊天框"
 L_GUI_CHAT_ENABLE = "聊天框增强"
 L_GUI_CHAT_BACKGROUND = "聊天框背景"
@@ -338,8 +338,8 @@ L.chat_loot_icons = "拾取信息带图标"
 L.chat_hide_combat = "战斗中隐藏"
 L.chat_custom_time_color = "自定义时间标签颜色"
 L.chat_time_color = "时间标签颜色"
-			
--- Nameplate options			
+
+-- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "单位姓名板设置"
 L_GUI_NAMEPLATE_ENABLE = "单位姓名板增强"
 L_GUI_NAMEPLATE_COMBAT = "战斗中自动显示单位姓名板"
@@ -378,8 +378,8 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "副坦仇恨颜色"
 L.nameplate_extra_color = "易爆/怨毒词缀颜色"
 L.nameplate_mob_color_enable = "副本中重要小怪着色"
 L.nameplate_mob_color = "小怪颜色"
-			
--- Combat text options			
+
+-- Combat text options
 L_GUI_COMBATTEXT = "战斗文字"
 L_GUI_COMBATTEXT_SUBTEXT = "键入 /xct 获取更多可用命令"
 L_GUI_COMBATTEXT_ENABLE = "启用xCT战斗信息"
@@ -412,12 +412,13 @@ L_GUI_COMBATTEXT_KILLINGBLOW = "击杀信息"
 L.combattext_merge_aoe_spam = "将AOE伤害合并为一条信息"
 L.combattext_merge_aoe_spam_desc = "将AOE伤害合并为一条信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "将多个自动攻击伤害合并为一条信息"
+L.combattext_merge_all = "Merges all spells" -- Needs review
 L_GUI_COMBATTEXT_DISPEL = "当你驱散成功时提示"
 L_GUI_COMBATTEXT_INTERRUPT = "当你打断成功时提示"
 L_GUI_COMBATTEXT_DIRECTION = "滚动方向从下向上"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "数值以K为单位显示"
-			
--- Auras/Buffs/Debuffs			
+
+-- Auras/Buffs/Debuffs
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Buff大小"
 L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "玩家Buff图标大小"
 L.aura_debuff_size = "DeBuffs大小"
@@ -436,20 +437,20 @@ L_GUI_AURA_CAST_BY = "提示Buff/DeBuff提供者"
 L_GUI_AURA_CLASSCOLOR_BORDER = "自身Buff图标边框按职业着色"
 L.aura_subheader_buffs = "玩家Buff"
 L.aura_subheader_debuffs = "Debuffs"
-			
--- Bag options			
+
+-- Bag options
 L_GUI_BAGS = "背包"
 L_GUI_BAGS_SUBTEXT = "背包的关闭按钮另有菜单按右键开启。按住Shift+左键可拖动。"
 L_GUI_BAGS_ENABLE = "背包增强"
 L_GUI_BAGS_ILVL = "显示物品等级"
 L.bag_new_items = "新物品闪动显示"
-L.bag_filter = "Always show filter buttons '-- Need review"
+L.bag_filter = "Always show filter buttons" -- Need review
 L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子间距"
 L_GUI_BAGS_BANK = "银行每行格数"
 L_GUI_BAGS_BAG = "背包每行格数"
-			
--- Minimap options			
+
+-- Minimap options
 L_GUI_MINIMAP_SUBTEXT = "小地图设置"
 L_GUI_MINIMAP_ENABLE = "小地图增强"
 L.minimap_on_top = "小地图定位到右上角"
@@ -460,8 +461,8 @@ L_GUI_MINIMAP_HIDE_COMBAT = "战斗中隐藏小地图"
 L_GUI_MINIMAP_TOGGLE_MENU = "小地图顶部快捷菜单"
 L.minimap_bg_map_stylization = "战场地图增强"
 L.minimap_fog_of_war = "地图全亮"
-			
--- Loot options			
+
+-- Loot options
 L_GUI_LOOT_SUBTEXT = "拾取框架设置"
 L_GUI_LOOT_ENABLE = "拾取增强"
 L_GUI_LOOT_ROLL_ENABLE = "团队拾取框架增强"
@@ -471,8 +472,8 @@ L_GUI_LOOT_AUTOGREED = "满级后自动贪婪绿色物品"
 L_GUI_LOOT_AUTODE = "自动选择分解"
 L.loot_faster_loot = "快速拾取"
 L.loot_faster_loot_desc = "仅在自动拾取模式中生效"
-			
--- Filger			
+
+-- Filger
 L_GUI_FILGER = "法术监视"
 L_GUI_FILGER_SUBTEXT = "Filger - 类似WeakAuras，更简单易用，可选择图标和计时条形式显示你的增益减益和计时。"
 L_GUI_FILGER_ENABLE = "法术监视"
@@ -499,8 +500,8 @@ L.filger_pvp_space = "图标间距"
 L.filger_cooldown_space = "图标间距"
 L.filger_subheader_spells = "添加法术"
 L.filger_category_list = "分组"
-			
--- Announcements options			
+
+-- Announcements options
 L_GUI_ANNOUNCEMENTS = "通告预警"
 L_GUI_ANNOUNCEMENTS_SUBTEXT = "添加特定事件進行通报"
 L.announcements_drinking = "当敌人进食时在聊天框进行通告"
@@ -524,8 +525,8 @@ L.announcements_bad_gear = "检查装备"
 L.announcements_bad_gear_desc = "进入副本时提醒非副本装备(鱼竿等装备)"
 L.announcements_safari_hat = "狩猎帽"
 L.announcements_safari_hat_desc = "检查'狩猎帽'使用情况"
-			
--- Automation options			
+
+-- Automation options
 L_GUI_AUTOMATION = "自动设定"
 L_GUI_AUTOMATION_SUBTEXT = "一些自动化的设置"
 L.automation_release = "战场中自动释放灵魂"
@@ -550,12 +551,11 @@ L.automation_buff_on_scroll_desc = "指定Buff缺失时使用鼠标滚轮施放"
 L.automation_open_items = "自动打开背包中的封装物品"
 L.automation_resurrection = "自动确认复活"
 L.automation_summon = "自动确认召唤"
-L.automation_summon_desc = "Summon from players -- Need Review"
 L.automation_whisper_invite = "密语自动邀请"
 L.automation_invite_keyword = "添加关键词(需加空隔键)"
 L.automation_invite_keyword_desc = "通过关键词自动邀请对方进组"
-			
--- Buffs reminder options			
+
+-- Buffs reminder options
 L_GUI_REMINDER = "Buff提示"
 L_GUI_REMINDER_SUBTEXT = "提示缺失的Buff"
 L_GUI_REMINDER_SOLO_ENABLE = "自身Buff缺失时图标提示"
@@ -569,8 +569,8 @@ L_GUI_REMINDER_RAID_SIZE = "图标大小"
 L_GUI_REMINDER_RAID_SIZE_DESC = "团队Buff提示图标大小"
 L_GUI_REMINDER_RAID_ALPHA = "透明度"
 L_GUI_REMINDER_RAID_ALPHA_DESC = "当团队Buff存在时图标透明度"
-			
--- Raid cooldowns options			
+
+-- Raid cooldowns options
 L_GUI_COOLDOWN_RAID = "团队技能冷却"
 L_GUI_COOLDOWN_RAID_SUBTEXT = "显示在屏幕左上方"
 L_GUI_COOLDOWN_RAID_ENABLE = "团队技能冷却"
@@ -583,8 +583,8 @@ L_GUI_COOLDOWN_RAID_ICONS = "团队技能冷却图标"
 L_GUI_COOLDOWN_RAID_IN_RAID = "团队中显示团队技能冷却"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "队伍中显示团队技能冷却"
 L_GUI_COOLDOWN_RAID_IN_ARENA = "竞技场中显示团队技能冷却"
-			
--- Enemy cooldowns options			
+
+-- Enemy cooldowns options
 L_GUI_COOLDOWN_ENEMY = "敌对技能冷却"
 L_GUI_COOLDOWN_ENEMY_SUBTEXT = "显示在你的施法条上方"
 L_GUI_COOLDOWN_ENEMY_ENABLE = "敌对技能冷却"
@@ -595,8 +595,8 @@ L_GUI_COOLDOWN_ENEMY_IN_BG = "战场中显示敌对技能冷却"
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "竞技场中显示敌对技能冷却"
 L.enemycooldown_show_inparty = "组队时显示敌对技能冷却"
 L.enemycooldown_class_color = "按职业着色"
-			
--- Pulse cooldowns options			
+
+-- Pulse cooldowns options
 L_GUI_COOLDOWN_PULSE = "技能冷却闪烁"
 L_GUI_COOLDOWN_PULSE_SUBTEXT = "显示在屏幕中央"
 L_GUI_COOLDOWN_PULSE_ENABLE = "技能冷却闪烁提示"
@@ -606,8 +606,8 @@ L_GUI_COOLDOWN_PULSE_ANIM_SCALE = "动画缩放"
 L_GUI_COOLDOWN_PULSE_HOLD_TIME = "持续时间"
 L_GUI_COOLDOWN_PULSE_THRESHOLD = "持续时间最小阈值"
 L_GUI_COOLDOWN_PULSE_THRESHOLD_DESC = "持续时间最小阈值"
-			
--- Threat options			
+
+-- Threat options
 L_GUI_THREAT = "仇恨栏"
 L_GUI_THREAT_SUBTEXT = "仇恨威胁值统计(类似Omen)"
 L_GUI_THREAT_ENABLE = "仇恨栏"
@@ -615,16 +615,16 @@ L_GUI_THREAT_HEIGHT = "仇恨栏高度"
 L_GUI_THREAT_WIDTH = "仇恨栏宽度"
 L_GUI_THREAT_ROWS = "仇恨栏数目"
 L_GUI_THREAT_HIDE_SOLO = "仅在队伍/团队中开启"
-			
--- Top panel options			
+
+-- Top panel options
 L_GUI_TOP_PANEL = "顶部信息条"
 L_GUI_TOP_PANEL_SUBTEXT = "管理顶部信息条"
 L_GUI_TOP_PANEL_ENABLE = "顶部信息条"
 L_GUI_TOP_PANEL_MOUSE = "鼠标悬停时显示顶部信息条"
 L_GUI_TOP_PANEL_WIDTH = "信息条宽度"
 L_GUI_TOP_PANEL_HEIGHT = "信息条高度"
-			
--- Stats options			
+
+-- Stats options
 L_GUI_STATS = "信息条"
 L_GUI_STATS_SUBTEXT = "位于屏幕底部的信息条，键入 /ls 获取更多资讯。"
 L_GUI_STATS_CLOCK = "时钟"
@@ -640,8 +640,8 @@ L_GUI_STATS_SUBHEADER_CURRENCY = "货币(金币信息中显示)"
 L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "考古"
 L_GUI_STATS_CURRENCY_COOKING = "烹饪"
 L_GUI_STATS_CURRENCY_RAID = "副本徽记"
-			
--- Trade options			
+
+-- Trade options
 L_GUI_TRADE = "商业"
 L_GUI_TRADE_SUBTEXT = "专业和商业设罝"
 L.trade_profession_tabs = "专业介面快捷按鈕"
@@ -657,8 +657,8 @@ L.trade_archaeology = "考古学小助手"
 L.trade_archaeology_desc = "显示考古学各类文物的进度及符文石数量(键入 /arch 或点击小地图隐藏按键打开界面)"
 L.trade_merchant_itemlevel = "商人界面显示物品等级"
 L.trade_merchant_itemlevel_desc = "在商人界面显示武器装备的物品等级"
-			
--- Miscellaneous options			
+
+-- Miscellaneous options
 L_GUI_MISC_SUBTEXT = "一些便捷的功能设置"
 L.misc_shift_marking = "鼠标目标标记"
 L.misc_shift_marking_desc = "鼠标指向目标Shift+左键显示团队标记菜单(仅限队伍/团队)"
@@ -676,8 +676,8 @@ L.misc_chars_currency = "追踪所有角色的货币"
 L.misc_chars_currency_desc = "在货币界面中追踪所有角色的货币"
 L.misc_hide_raid_button = "输出布局最小化按钮"
 L.misc_hide_raid_button_desc = "按钮在团队框架左上方鼠标悬停显示"
-			
--- My Extra			
+
+-- My Extra
 L.media_overlay_color = "Color for action bars overlay" -- Needs review
 L.media_pxcolor1 = "Color for Name on Datatex" -- Needs review
 L.media_pxcolor2 = "Color for Value on Datatext if not dynamic by value" -- Needs review
@@ -777,14 +777,14 @@ L.minimap_zoneMapMultilplier = "zoneMap Multiplier" -- Needs review
 L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything" -- Needs review
 L.minimap_zoneMapScale = "ZoneMap Scale" -- Needs review
 L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame." -- Needs review
--- Panel options			
+-- Panel options
 L_GUI_TOP_PANEL = "Top Panel" -- Needs review
 L_GUI_TOP_PANEL_SUBTEXT = "Manage built-in top panel with information." -- Needs review
 L_GUI_TOP_PANEL_ENABLE = "Enable top panel" -- Needs review
 L_GUI_TOP_PANEL_MOUSE = "Top panel on mouseover" -- Needs review
 L_GUI_TOP_PANEL_WIDTH = "Panel width" -- Needs review
 L_GUI_TOP_PANEL_HEIGHT = "Panel height" -- Needs review
--- Panels options			
+-- Panels options
 L_GUI_PANELS = "Panels" -- Needs review
 L_GUI_PANELS_SUBTEXT = "Manage all the panels on screen." -- Needs review
 L.panels_CPwidth = "Chat Width" -- Needs review
@@ -832,7 +832,7 @@ L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with 
 L.misc_XPBar = "Enable XP/REP/HONOR Bars above chat windows" -- Needs review
 L.misc_meters = "Skada/Details Toggle & Chat Move for NoPanel" -- Needs review
 L.misc_meters_desc = "For double chat and NoPanel Layout. Will swap bethween Chat and Dmg meters on right side" -- Needs review
--- Extra			
+-- Extra
 L_GUI_DATATEXT = "DataText" -- Needs review
 L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13." -- Needs review
 L.datatext_Arena = "Arena Score" -- Needs review

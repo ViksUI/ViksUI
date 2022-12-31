@@ -22,8 +22,8 @@ L_GUI_EXPERT_MODE_DESC = "Modification personnalisée du profil Lua"
 L_GUI_RESET_SPELLS_DESC = "CTRL+Click pour réinitialiser la liste"
 L_GUI_INFO = "Info & Help -- Need review"
 L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
-			
--- General options			
+
+-- General options
 L_GUI_GENERAL_SUBTEXT = "Ces paramètres contrôlent les paramètres généraux de l’interface utilisateur. \nTapez '/uihelp' dans le chat pour obtenir de l’aide."
 L_GUI_GENERAL_WELCOME_MESSAGE = "Message de bienvenue dans le chat"
 L_GUI_GENERAL_AUTOSCALE = "Mise à l'échelle automatique de l’interface utilisateur"
@@ -42,8 +42,8 @@ L.general_minimize_mouseover = "Bouton pour réduire la fenêtre de quête au su
 L.general_hide_banner = "Masquer la bannière du cadre de butin de Boss"
 L.general_hide_talking_head = "Masquer la fenêtre de dialogue des PNJ's"
 L.general_hide_maw_buffs = "Masquer le cadre des buffs de l'antre en instance"
-			
--- Media options			
+
+-- Media options
 L.media_border_color = "Couleur des bordures"
 L.media_classborder_color = "Couleur pour les bordures de classe"
 L.media_backdrop_color = "Couleur pour le fond des bordures"
@@ -51,8 +51,8 @@ L.media_backdrop_alpha = "Transparence du fond des bordures"
 L.media_texture = "Texture principale"
 L.media_subheader_normal = "Modifier la police principale"
 L.media_subheader_pixel = "Modifier la police secondaire"
-			
--- Font options			
+
+-- Font options
 L.font = "Polices"
 L.font_subtext = "Personnalisez la police pour chaque élément. \nAttention 'MONOCHROMEOUTLINE' ne fonctionne que pour 'Pixel Font'"
 L.font_stats_font = "Selectionner la police"
@@ -77,8 +77,8 @@ L.font_subheader_blizzard = "Taille de la police de l’infobulle"
 L.font_tooltip_header_font_size = "En-tête de l’infobulle"
 L.font_tooltip_font_size = "Texte de l’infobulle"
 L.font_global_font = "Désactiver Pixel Font"
-			
--- Skins options			
+
+-- Skins options
 L_GUI_SKINS = "Personnalisation"
 L_GUI_SKINS_SUBTEXT = "Change l’apparence de l’interface standard."
 L_GUI_SKINS_BLIZZARD = "Activer la personnalisation des fenêtres Blizzard"
@@ -111,8 +111,8 @@ L.skins_tiny_dps = "TinyDPS"
 L.skins_vanaskos = "VanasKoS"
 L.skins_weak_auras = "WeakAuras"
 L.skins_minimap_buttons_mouseover = "Icônes de la minimap au survol de la souris"
-			
--- Unit Frames options			
+
+-- Unit Frames options
 L_GUI_UF_SUBTEXT = "Personnalisez le cadre du joueur, de la cible, etc..."
 L_GUI_UF_ENABLE = "Activer les cadres d'unité"
 L_GUI_UF_OWN_COLOR = "Définissez votre couleur pour les barres de santé"
@@ -176,8 +176,8 @@ L.unitframe_extra_health_height = "Hauteur supplémentaire pour la santé"
 L.unitframe_extra_power_height = "Hauteur supplémentaire pour la puissance"
 L.unitframe_subheader_castbar = "Taille de la barre d'incantation du joueur et de la cible"
 L.unitframe_castbar_height = "Hauteur"
-			
--- Unit Frames Class bar options			
+
+-- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "Barres de classe"
 L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "Contrôle des ressources spéciales des classes."
 L_GUI_UF_PLUGINS_COMBO_BAR = "Afficher la barre des points de combo pour les Voleurs/Druides"
@@ -191,9 +191,9 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "Activier la barre de Fragment d'âme"
 L_GUI_UF_PLUGINS_RUNE_BAR = "Activer la barre de Rune"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "Activer la barre totem pour Shaman"
 L.unitframe_class_bar_totem_other = "Activer la barre totem pour les autres classes"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker '-- Need review"
-			
--- Raid Frames options			
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
+
+-- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Personnalisez l’apparence des cadres de raid."
 L_GUI_UF_BY_ROLE = "Trier les joueurs par rôle dans les groupes"
 L_GUI_UF_AGGRO_BORDER = "Aggro signalée en bordure"
@@ -253,8 +253,8 @@ L.raidframe_dps_raid_width = "Largeur du raid"
 L.raidframe_dps_raid_height = "Hauteur du raid"
 L.raidframe_dps_party_power_height = "Hauteur de la barre de puissance du groupe"
 L.raidframe_dps_raid_power_height = "Hauteur de la barre de puissance du raid"
-			
--- ActionBar options			
+
+-- ActionBar options
 L_GUI_ACTIONBAR = "Barres d'action"
 L_GUI_ACTIONBAR_ENABLE = "Activer les barres d'action"
 L_GUI_ACTIONBAR_HOTKEY = "Afficher les raccourcis clavier sur les boutons"
@@ -285,8 +285,8 @@ L.actionbar_editor_desc = "Permettre de déplacer et de changer chaque panneau i
 L.actionbar_bar1_num = "Nombre de boutons"
 L.actionbar_bar1_row = "Boutons par ligne"
 L.actionbar_bar1_mouseover = "Afficher au survol de la souris"
-			
--- Tooltip options			
+
+-- Tooltip options
 L.tooltip = "Tooltip"
 L.tooltip_subtext = "Dans ce bloc, vous pouvez changer les informations du tooltip."
 L.tooltip_enable = "Activer le tooltip"
@@ -313,8 +313,8 @@ L.tooltip_item_count = "Afficher le nombre d'objets possédés dans les sacs et 
 L.tooltip_unit_role = "Afficher les rôles"
 L.tooltip_instance_lock = "Afficher le verrouillage de votre instance"
 L.tooltip_mount = "Source de la monture"
-			
--- Chat options			
+
+-- Chat options
 L_GUI_CHAT_SUBTEXT = "Ici vous pouvez modifier les paramètres de la fenêtre de chat."
 L_GUI_CHAT_ENABLE = "Activer le chat"
 L_GUI_CHAT_BACKGROUND = "Activer l'arrière plan"
@@ -338,8 +338,8 @@ L.chat_loot_icons = "Affiche une icône à côté du butin dans le chat"
 L.chat_hide_combat = "Cacher le chat en combat"
 L.chat_custom_time_color = "Activer la coloration personnalisée de l'heure"
 L.chat_time_color = "Couleur de l'heure"
-			
--- Nameplate options			
+
+-- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "Paramètres des barres de noms"
 L_GUI_NAMEPLATE_ENABLE = "Activer les barres de noms"
 L_GUI_NAMEPLATE_COMBAT = "Afficher automatiquement les barres de noms en combat"
@@ -378,8 +378,8 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "Coloration de la menace du tank secondaire"
 L.nameplate_extra_color = "Couleur d'affix pour explosif et méchant"
 L.nameplate_mob_color_enable = "Changer de couleur pour les mobs importants dans les donjons"
 L.nameplate_mob_color = "Couleur pour les mobs"
-			
--- Combat text options			
+
+-- Combat text options
 L_GUI_COMBATTEXT = "Texte de combat"
 L_GUI_COMBATTEXT_SUBTEXT = "Pour déplacer écrivez /xct dans le chat"
 L_GUI_COMBATTEXT_ENABLE = "Activer les textes de combat"
@@ -404,20 +404,21 @@ L_GUI_COMBATTEXT_TRESHOLD = "Dégâts minimum pour afficher dans la fenêtre de 
 L_GUI_COMBATTEXT_HEAL_TRESHOLD = "Soins minimum pour afficher dans la fenêtre de dégâts"
 L_GUI_COMBATTEXT_SCROLLABLE = "Autoriser le défilement avec la molette dans la fenêtre de dégâts/soins"
 L_GUI_COMBATTEXT_MAX_LINES = "Lignes maximum"
-L_GUI_COMBATTEXT_MAX_LINES_DESC = "Nombre de lignes maximum à conserver si l'option de défilement est activée (plus de ligne"
+L_GUI_COMBATTEXT_MAX_LINES_DESC = "Nombre de lignes maximum à conserver si l'option de défilement est activée (plus de ligne = plus de mémoire utilisée)"
 L_GUI_COMBATTEXT_TIME_VISIBLE = "Temps"
 L_GUI_COMBATTEXT_TIME_VISIBLE_DESC = "Temps en seconde durant lequel un message est affiché"
 L_GUI_COMBATTEXT_DK_RUNES = "Afficher le rechargement des runes du chevalier de la mort"
 L_GUI_COMBATTEXT_KILLINGBLOW = "Afficher les coups fatals"
-L.combattext_merge_aoe_spam = "Merges spell spam into single message '-- Needs review"
+L.combattext_merge_aoe_spam = "Merges spell spam into single message" -- Needs review
 L.combattext_merge_aoe_spam_desc = "Rassembler tous les dégâts d'un aoe en un seul message"
 L_GUI_COMBATTEXT_MERGE_MELEE = "Rassemble les dégâts multiples en auto attaque"
+L.combattext_merge_all = "Merges all spells" -- Needs review
 L_GUI_COMBATTEXT_DISPEL = "Affiche les sorts que vous avez dissipé"
 L_GUI_COMBATTEXT_INTERRUPT = "Affiche les sorts que vous avez interrompu"
 L_GUI_COMBATTEXT_DIRECTION = "Changer la direction de défilement de bas en haut"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "Rendre plus lisible les nombres ('25.3k' au lieu de '25342')"
-			
--- Auras/Buffs/Debuffs			
+
+-- Auras/Buffs/Debuffs
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Taille des buffs"
 L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "Taille des buffs du joueur"
 L.aura_debuff_size = "Taille des debuffs"
@@ -436,23 +437,23 @@ L_GUI_AURA_CAST_BY = "Montrer qui a lancé un buff/debuff dans son tooltip"
 L_GUI_AURA_CLASSCOLOR_BORDER = "Activer la couleur de votre classe pour la bordure de vos buffs"
 L.aura_subheader_buffs = "Les buffs des joueurs"
 L.aura_subheader_debuffs = "Les Débuffs des joueurs"
-			
--- Bag options			
+
+-- Bag options
 L_GUI_BAGS = "Sacs"
 L_GUI_BAGS_SUBTEXT = "Cliquez avec le bouton droit de la souris sur le bouton de fermeture pour ouvrir le menu. Pour déplacer les sacs, maintenez la touche Maj enfoncée - cliquez."
 L_GUI_BAGS_ENABLE = "Activer les sacs"
 L_GUI_BAGS_ILVL = "Afficher le niveau d'objet des armes et armures"
 L.bag_new_items = "Afficher l’animation pour les nouveaux objets"
-L.bag_filter = "Always show filter buttons '-- Need review"
+L.bag_filter = "Always show filter buttons" -- Need review
 L_GUI_BAGS_BUTTON_SIZE = "Taille des boutons"
 L_GUI_BAGS_BUTTON_SPACE = "Espacement des boutons"
 L_GUI_BAGS_BANK = "Nombre de colonne pour la banque"
 L_GUI_BAGS_BAG = "Nombre de colonne pour les sacs"
-			
--- Minimap options			
+
+-- Minimap options
 L_GUI_MINIMAP_SUBTEXT = "Paramètres de la minimap"
 L_GUI_MINIMAP_ENABLE = "Activer minimap"
-L.minimap_on_top = "Move minimap on top right corner '-- Need review"
+L.minimap_on_top = "Move minimap on top right corner" -- Need review
 L_GUI_MINIMAP_ICON = "Icone de pistage"
 L_GUI_GARRISON_ICON = "Icône de Covenant"
 L_GUI_MINIMAP_SIZE = "Taille de la minicarte"
@@ -460,8 +461,8 @@ L_GUI_MINIMAP_HIDE_COMBAT = "Cacher la minimap en combat"
 L_GUI_MINIMAP_TOGGLE_MENU = "Montre le menu déroulant"
 L.minimap_bg_map_stylization = "Personnalisation de l'arrière plan de la carte du monde"
 L.minimap_fog_of_war = "Retire le brouillard des zones non explorées sur la carte du monde"
-			
--- Loot options			
+
+-- Loot options
 L_GUI_LOOT_SUBTEXT = "Paramètres pour le cadre de butin."
 L_GUI_LOOT_ENABLE = "Activer le cadre de butin"
 L_GUI_LOOT_ROLL_ENABLE = "Activer le cadre de butin de groupe"
@@ -471,8 +472,8 @@ L_GUI_LOOT_AUTOGREED = "Activer désenchantement automatique pour les objets ver
 L_GUI_LOOT_AUTODE = "Confirmation automatique pour le désenchantement"
 L.loot_faster_loot = "Pillage plus rapide"
 L.loot_faster_loot_desc = "Fonctionne uniquement si le butin automatique est activé"
-			
--- Filger			
+
+-- Filger
 L_GUI_FILGER = "Temps de recharge (Filger)"
 L_GUI_FILGER_SUBTEXT = "Filger - Un analogue de WeakAuras, mais plus simple à utiliser. Vous permet d’afficher sous la forme d’icônes et de barres vos auras et chronomètres."
 L_GUI_FILGER_ENABLE = "Activer Filger"
@@ -499,8 +500,8 @@ L.filger_pvp_space = "Espacements des auras JcJ"
 L.filger_cooldown_space = "Espacement des temps de recharge"
 L.filger_subheader_spells = "Ajout de nouveaux sorts"
 L.filger_category_list = "Catégorie de la liste de sorts"
-			
--- Announcements options			
+
+-- Announcements options
 L_GUI_ANNOUNCEMENTS = "Annonces"
 L_GUI_ANNOUNCEMENTS_SUBTEXT = "Paramètres qui ajoutent des annonces de chat pour les sorts ou les objets."
 L.announcements_drinking = "Un ennemi de l’arène est entrain de boire"
@@ -524,8 +525,8 @@ L.announcements_bad_gear = "Vérifiez le mauvais équipement"
 L.announcements_bad_gear_desc = "Vérifie si un mauvais équipement est porté en instance (dans la liste)"
 L.announcements_safari_hat = "Chapeau de safari"
 L.announcements_safari_hat_desc = "Vérifie si le chapeau de safari est activé lors du démarrage d'un combat de pet"
-			
--- Automation options			
+
+-- Automation options
 L_GUI_AUTOMATION = "Automatisation"
 L_GUI_AUTOMATION_SUBTEXT = "Ce bloc contient des paramètres qui facilitent la routine."
 L.automation_release = "Libération automatique de l'esprit dans les champs de bataille"
@@ -554,8 +555,8 @@ L.automation_summon_desc = "Summon from players -- Need Review"
 L.automation_whisper_invite = "Invitation automatique par mot-clé"
 L.automation_invite_keyword = "Liste des mots-clés (séparés par un espace)"
 L.automation_invite_keyword_desc = "Lorsque le joueur vous chuchote un des mot-clés, il sera invité dans votre groupe"
-			
--- Buffs reminder options			
+
+-- Buffs reminder options
 L_GUI_REMINDER = "Contrôle des buffs"
 L_GUI_REMINDER_SUBTEXT = "Affichage des buffs manquants."
 L_GUI_REMINDER_SOLO_ENABLE = "Afficher les buffs personnelles manquants"
@@ -569,8 +570,8 @@ L_GUI_REMINDER_RAID_SIZE = "Taille de l'icône"
 L_GUI_REMINDER_RAID_SIZE_DESC = "Taille de l'icône pour les buffs de raid"
 L_GUI_REMINDER_RAID_ALPHA = "Opacité"
 L_GUI_REMINDER_RAID_ALPHA_DESC = "Icônes transparentes lorsque les buffs sont présents"
-			
--- Raid cooldowns options			
+
+-- Raid cooldowns options
 L_GUI_COOLDOWN_RAID = "Temps de recharge du raid"
 L_GUI_COOLDOWN_RAID_SUBTEXT = "Suivi des temps de recharge du raid dans le coin supérieur gauche."
 L_GUI_COOLDOWN_RAID_ENABLE = "Activer les CD de raid"
@@ -583,8 +584,8 @@ L_GUI_COOLDOWN_RAID_ICONS = "Icônes des temps de recharge de raid"
 L_GUI_COOLDOWN_RAID_IN_RAID = "Voir les temps de recharge alliés en raid"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "Voir les temps de recharge alliés en groupe"
 L_GUI_COOLDOWN_RAID_IN_ARENA = "Voir les temps de recharge alliés en arène"
-			
--- Enemy cooldowns options			
+
+-- Enemy cooldowns options
 L_GUI_COOLDOWN_ENEMY = "Temps de recharge des ennemis"
 L_GUI_COOLDOWN_ENEMY_SUBTEXT = "Afficher les capacités ennemies en tant qu’icônes au-dessus de votre barre d'incantation."
 L_GUI_COOLDOWN_ENEMY_ENABLE = "Activer les temps de recharge ennemis"
@@ -595,8 +596,8 @@ L_GUI_COOLDOWN_ENEMY_IN_BG = "Voir les temps de recharge ennemis dans les champs
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "Voir les temps de recharge ennemis en arène"
 L.enemycooldown_show_inparty = "Afficher sur le cadre du groupe pour les alliés"
 L.enemycooldown_class_color = "Active la couleur de classe pour la bordure des icônes"
-			
--- Pulse cooldowns options			
+
+-- Pulse cooldowns options
 L_GUI_COOLDOWN_PULSE = "Temps de recharge par îcone d'impulsion"
 L_GUI_COOLDOWN_PULSE_SUBTEXT = "Suivez vos temp de recharge à l’aide d’une icône d’impulsion au centre de l’écran."
 L_GUI_COOLDOWN_PULSE_ENABLE = "Activation de l'îcone d'impulsion"
@@ -606,8 +607,8 @@ L_GUI_COOLDOWN_PULSE_ANIM_SCALE = "Mise à l'échelle des animations"
 L_GUI_COOLDOWN_PULSE_HOLD_TIME = "Temps maximum pour la rémanence de l'îcone"
 L_GUI_COOLDOWN_PULSE_THRESHOLD = "Temps de déclenchement"
 L_GUI_COOLDOWN_PULSE_THRESHOLD_DESC = "Temps minimum de déclenchement"
-			
--- Threat options			
+
+-- Threat options
 L_GUI_THREAT = "Barre de menace"
 L_GUI_THREAT_SUBTEXT = "Affichage de la liste des menaces (un simple analogue d’Omen)."
 L_GUI_THREAT_ENABLE = "Activer les barres de menace"
@@ -615,16 +616,16 @@ L_GUI_THREAT_HEIGHT = "Hauteur des barres de menace"
 L_GUI_THREAT_WIDTH = "Largeur des barres de menace"
 L_GUI_THREAT_ROWS = "Nombre de barres de menace"
 L_GUI_THREAT_HIDE_SOLO = "Afficher uniquement en groupe/raid"
-			
--- Top panel options			
+
+-- Top panel options
 L_GUI_TOP_PANEL = "Panneau supérieur"
 L_GUI_TOP_PANEL_SUBTEXT = "Gérer les options du panneau supérieur."
 L_GUI_TOP_PANEL_ENABLE = "Activer le panneau supérieur"
 L_GUI_TOP_PANEL_MOUSE = "Panneau supérieur au survol de la souris"
 L_GUI_TOP_PANEL_WIDTH = "Largeur du panneau"
 L_GUI_TOP_PANEL_HEIGHT = "Hauteur du panneau"
-			
--- Stats options			
+
+-- Stats options
 L_GUI_STATS = "Statistiques"
 L_GUI_STATS_SUBTEXT = "Blocs statistiques situés au bas de l’écran. Tapez '/ls' dans le chat pour info."
 L_GUI_STATS_CLOCK = "Horloge"
@@ -640,8 +641,8 @@ L_GUI_STATS_SUBHEADER_CURRENCY = "Devise (afficher au survol de la souris du tex
 L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Fragments archéologiques dans devise"
 L_GUI_STATS_CURRENCY_COOKING = "Prix de cuisine dans devise"
 L_GUI_STATS_CURRENCY_RAID = "Sceaux de raid dans devise"
-			
--- Trade options			
+
+-- Trade options
 L_GUI_TRADE = "Métier"
 L_GUI_TRADE_SUBTEXT = "Paramètres liés aux professions et aux métiers"
 L.trade_profession_tabs = "Onglet des Professions"
@@ -657,8 +658,8 @@ L.trade_archaeology = "Traqueur d’archéologie"
 L.trade_archaeology_desc = "Traqueur d’archéologie ('/arch' ou bouton à droite de la minimap au survol de la souris"
 L.trade_merchant_itemlevel = "Niveau d’objet chez le marchand"
 L.trade_merchant_itemlevel_desc = "Montrer le niveau d'objet des armes et amures chez le marchand"
-			
--- Miscellaneous options			
+
+-- Miscellaneous options
 L_GUI_MISC_SUBTEXT = "Paramètres qui ajoutent des fonctionnalités intéressantes."
 L.misc_shift_marking = "Marques de raid au survol de la souris"
 L.misc_shift_marking_desc = "Menu de marques de raid quand vous faite un Shift+Clique sur la cible (Fonctionne uniquement en groupe)"
@@ -676,8 +677,8 @@ L.misc_chars_currency = "Affiche les jetons et autres monnaies de vos différent
 L.misc_chars_currency_desc = "Passez la souris sur l’icône de la devise requise dans la fenêtre de caractères pour afficher des informations dans l’infobulle"
 L.misc_hide_raid_button = "Bouton pour masquer les cadres de raid dans la disposition 'DPS'"
 L.misc_hide_raid_button_desc = "Le bouton s’affiche en plaçant la souris dans le coin en haut à gauche"
-			
--- My Extra			
+
+-- My Extra
 L.media_overlay_color = "Color for action bars overlay" -- Needs review
 L.media_pxcolor1 = "Color for Name on Datatex" -- Needs review
 L.media_pxcolor2 = "Color for Value on Datatext if not dynamic by value" -- Needs review
@@ -777,14 +778,14 @@ L.minimap_zoneMapMultilplier = "zoneMap Multiplier" -- Needs review
 L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything" -- Needs review
 L.minimap_zoneMapScale = "ZoneMap Scale" -- Needs review
 L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame." -- Needs review
--- Panel options			
+-- Panel options
 L_GUI_TOP_PANEL = "Top Panel" -- Needs review
 L_GUI_TOP_PANEL_SUBTEXT = "Manage built-in top panel with information." -- Needs review
 L_GUI_TOP_PANEL_ENABLE = "Enable top panel" -- Needs review
 L_GUI_TOP_PANEL_MOUSE = "Top panel on mouseover" -- Needs review
 L_GUI_TOP_PANEL_WIDTH = "Panel width" -- Needs review
 L_GUI_TOP_PANEL_HEIGHT = "Panel height" -- Needs review
--- Panels options			
+-- Panels options
 L_GUI_PANELS = "Panels" -- Needs review
 L_GUI_PANELS_SUBTEXT = "Manage all the panels on screen." -- Needs review
 L.panels_CPwidth = "Chat Width" -- Needs review
@@ -832,7 +833,7 @@ L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with 
 L.misc_XPBar = "Enable XP/REP/HONOR Bars above chat windows" -- Needs review
 L.misc_meters = "Skada/Details Toggle & Chat Move for NoPanel" -- Needs review
 L.misc_meters_desc = "For double chat and NoPanel Layout. Will swap bethween Chat and Dmg meters on right side" -- Needs review
--- Extra			
+-- Extra
 L_GUI_DATATEXT = "DataText" -- Needs review
 L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13." -- Needs review
 L.datatext_Arena = "Arena Score" -- Needs review

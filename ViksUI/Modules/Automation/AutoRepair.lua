@@ -1,5 +1,8 @@
 local T, C, L, _ = unpack(select(2, ...))
-
+GetContainerNumSlots = _G.GetContainerNumSlots or C_Container.GetContainerNumSlots
+GetContainerItemLink = _G.GetContainerItemLink or C_Container.GetContainerItemLink
+UseContainerItem = _G.UseContainerItem or C_Container.UseContainerItem
+GetContainerItemID = _G.GetContainerItemID or C_Container.GetContainerItemID
 ----------------------------------------------------------------------------------------
 -- Vendor Crap and Auto Repair
 ----------------------------------------------------------------------------------------

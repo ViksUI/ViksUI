@@ -22,8 +22,8 @@ L_GUI_EXPERT_MODE_DESC = "Редактирование профиля Lua"
 L_GUI_RESET_SPELLS_DESC = "CTRL-клик, чтобы сбросить список"
 L_GUI_INFO = "Помощь"
 L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
-			
--- General options			
+
+-- General options
 L_GUI_GENERAL_SUBTEXT = "Эти настройки контролируют общие параметры UI. Наберите в чат '/uihelp' для помощи."
 L_GUI_GENERAL_WELCOME_MESSAGE = "Приветственное сообщение в чате"
 L_GUI_GENERAL_AUTOSCALE = "Автоматически масштабировать интерфейс"
@@ -42,8 +42,8 @@ L.general_minimize_mouseover = "Кнопка сворачивания квест
 L.general_hide_banner = "Скрыть подсказку добычи после победы над боссом"
 L.general_hide_talking_head = "Скрыть рамку говорящей головы"
 L.general_hide_maw_buffs = "Скрыть Силу Анимы в подземельях"
-			
--- Media options			
+
+-- Media options
 L.media_border_color = "Цвет для окантовки"
 L.media_classborder_color = "Цвет для классовых окантовок"
 L.media_backdrop_color = "Цвет для фона"
@@ -51,8 +51,8 @@ L.media_backdrop_alpha = "Прозрачность фона"
 L.media_texture = "Основная текстура"
 L.media_subheader_normal = "Изменение основного шрифта"
 L.media_subheader_pixel = "Изменение дополнительного шрифта"
-			
--- Font options			
+
+-- Font options
 L.font = "Шрифты"
 L.font_subtext = "Настройка шрифтов для элементов. 'MONOCHROMEOUTLINE' только для пиксельных шрифтов."
 L.font_stats_font = "Выбор шрифта"
@@ -77,8 +77,8 @@ L.font_subheader_blizzard = "Размер системных шрифтов"
 L.font_tooltip_header_font_size = "Заголовок подсказки"
 L.font_tooltip_font_size = "Текст подсказки"
 L.font_global_font = "Отключить пиксельный шрифт"
-			
--- Skins options			
+
+-- Skins options
 L_GUI_SKINS = "Стилизация"
 L_GUI_SKINS_SUBTEXT = "Изменение внешнего вида стандартного интерфейса."
 L_GUI_SKINS_BLIZZARD = "Стилизация элементов интерфейса Blizzard"
@@ -111,8 +111,8 @@ L.skins_tiny_dps = "TinyDPS"
 L.skins_vanaskos = "VanasKoS"
 L.skins_weak_auras = "WeakAuras"
 L.skins_minimap_buttons_mouseover = "Кнопки по наведению курсора"
-			
--- Unit Frames options			
+
+-- Unit Frames options
 L_GUI_UF_SUBTEXT = "Настройка рамок игрока, цели и т.д."
 L_GUI_UF_ENABLE = "Включить рамки портретов"
 L_GUI_UF_OWN_COLOR = "Использовать свой цвет для полос здоровья"
@@ -176,8 +176,8 @@ L.unitframe_extra_health_height = "Доп. высота для здоровья"
 L.unitframe_extra_power_height = "Доп. высота для энергии"
 L.unitframe_subheader_castbar = "Размер кастбара игрока и цели"
 L.unitframe_castbar_height = "Высота"
-			
--- Unit Frames Class bar options			
+
+-- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "Классовые панели"
 L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "Управление особыми классовые ресурсами."
 L_GUI_UF_PLUGINS_COMBO_BAR = "Индикатор серии приемов"
@@ -192,12 +192,19 @@ L_GUI_UF_PLUGINS_RUNE_BAR = "Индикатор рун"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "Индикатор тотемов для шаманов"
 L.unitframe_class_bar_totem_other = "Индикатор 'тотемов' для других классов"
 L.unitframe_class_bar_essence = "Индикатор сущности"
-			
--- Raid Frames options			
+
+-- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Настройка внешнего вида рейдовых рамок."
 L_GUI_UF_BY_ROLE = "Сортировка игроков в группе по ролям"
 L_GUI_UF_AGGRO_BORDER = "Отображение угрозы"
 L_GUI_UF_DEFICIT_HEALTH = "Значение здоровья по дефициту"
+L.raidframe_vertical_health = "Вертикальное направление полосы здоровья"
+L.raidframe_vertical_health_desc = "Только для раскладки 'Лекарь'"
+L_GUI_UF_ALPHA_HEALTH = "Прозрачность рамок при полном здоровье"
+L_GUI_UF_SHOW_RANGE = "Прозрачность рамок вне зоны досягаемости"
+L_GUI_UF_RANGE_ALPHA = "Прозрачность"
+L_GUI_UF_RANGE_ALPHA_DESC = "Значение для прозрачности рамок вне зоны досягаемости"
+L_GUI_UF_SUBHEADER_RAIDFRAMES = "Рамки"
 L_GUI_UF_SHOW_PARTY = "Рамки группы"
 L_GUI_UF_SHOW_RAID = "Рамки рейда"
 L.raidframe_layout = "Рейдовая раскладка"
@@ -206,13 +213,6 @@ L.raidframe_dps_layout = "Боец"
 L.raidframe_auto_layout = "Авто"
 L.raidframe_show_target = "Рамки целей"
 L.raidframe_show_pet = "Рамки питомцев"
-L.raidframe_vertical_health = "Вертикальное направление полосы здоровья"
-L.raidframe_vertical_health_desc = "Только для раскладки 'Лекарь'"
-L_GUI_UF_ALPHA_HEALTH = "Прозрачность рамок при полном здоровье"
-L_GUI_UF_SHOW_RANGE = "Прозрачность рамок вне зоны досягаемости"
-L_GUI_UF_RANGE_ALPHA = "Прозрачность"
-L_GUI_UF_RANGE_ALPHA_DESC = "Значение для прозрачности рамок вне зоны досягаемости"
-L_GUI_UF_SUBHEADER_RAIDFRAMES = "Рамки"
 L_GUI_UF_SOLO_MODE = "Отображать в соло"
 L_GUI_UF_PLAYER_PARTY = "Отображать рамку игрока в группе"
 L_GUI_UF_SHOW_TANK = "Рамки танков рейда"
@@ -239,7 +239,7 @@ L.raidframe_plugins_auto_resurrection = "Автокаст воскрешения
 L.raidframe_plugins_auto_resurrection_desc = "Автокаст воскрешения средней кнопкой мыши (не работает с Clique)"
 L.raidframe_hide_health_value = "Скрыть значение здоровья для рейда"
 L.raidframe_auto_position = "Авто крепление рейда"
-L.raidframe_auto_position_desc = "Если групп больше 5 - меняются крепления рамок. \nТолько для раскладки 'Лекарь'"
+L.raidframe_auto_position_desc = "Если групп больше 5 - меняются крепления рамок. \nТолько для раскладки 'Лекарь' "
 L.raidframe_auto_position_dynamic = "Динамическое"
 L.raidframe_auto_position_static = "Статическое"
 L.raidframe_subheader_heal_size = "Размеры для раскладки 'Лекарь'"
@@ -253,8 +253,8 @@ L.raidframe_dps_raid_width = "Ширина рейда"
 L.raidframe_dps_raid_height = "Высота рейда"
 L.raidframe_dps_party_power_height = "Высота энергии группы"
 L.raidframe_dps_raid_power_height = "Высота энергии рейда"
-			
--- ActionBar options			
+
+-- ActionBar options
 L_GUI_ACTIONBAR = "Панели команд"
 L_GUI_ACTIONBAR_ENABLE = "Включить панели команд"
 L_GUI_ACTIONBAR_HOTKEY = "Отображать назначения клавиш"
@@ -285,8 +285,8 @@ L.actionbar_editor_desc = "Разблокировать настройку и п
 L.actionbar_bar1_num = "Количество кнопок"
 L.actionbar_bar1_row = "Кнопок в ряду"
 L.actionbar_bar1_mouseover = "По наведению курсора"
-			
--- Tooltip options			
+
+-- Tooltip options
 L.tooltip = "Подсказки"
 L.tooltip_subtext = "В этом блоке можно изменить стандартные подсказки при наведении курсора."
 L.tooltip_enable = "Включить подсказки"
@@ -313,8 +313,8 @@ L.tooltip_item_count = "Количество предметов в сумках 
 L.tooltip_unit_role = "Роль игрока"
 L.tooltip_instance_lock = "Ваш статус прохождения подземелий в подсказке"
 L.tooltip_mount = "Источник средства передвижения"
-			
--- Chat options			
+
+-- Chat options
 L_GUI_CHAT_SUBTEXT = "Здесь можно изменить настройки окна чата."
 L_GUI_CHAT_ENABLE = "Включить чат"
 L_GUI_CHAT_BACKGROUND = "Включить фон чата"
@@ -338,8 +338,8 @@ L.chat_loot_icons = "Иконки для добычи"
 L.chat_hide_combat = "Скрывать чат в бою"
 L.chat_custom_time_color = "Задать свой цвет времени"
 L.chat_time_color = "Цвет времени чата"
-			
--- Nameplate options			
+
+-- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "Изменение индикаторов здоровья."
 L_GUI_NAMEPLATE_ENABLE = "Включить индикаторы здоровья"
 L_GUI_NAMEPLATE_COMBAT = "Автоматически показывать индикаторы во время боя"
@@ -378,8 +378,8 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "Цвет угрозы для оффтанка (
 L.nameplate_extra_color = "Цвет сфер и теней (аффиксы)"
 L.nameplate_mob_color_enable = "Изменить цвет важных противников в подземельях"
 L.nameplate_mob_color = "Цвет для противников"
-			
--- Combat text options			
+
+-- Combat text options
 L_GUI_COMBATTEXT = "Текст боя"
 L_GUI_COMBATTEXT_SUBTEXT = "Для перемещения набрать в чате '/xct'"
 L_GUI_COMBATTEXT_ENABLE = "Включить текст боя"
@@ -404,7 +404,7 @@ L_GUI_COMBATTEXT_TRESHOLD = "Минимально отображаемое зн�
 L_GUI_COMBATTEXT_HEAL_TRESHOLD = "Минимально отображаемое значение лечения"
 L_GUI_COMBATTEXT_SCROLLABLE = "Включить прокручивание текста в блоках колесом мыши"
 L_GUI_COMBATTEXT_MAX_LINES = "Количество линий"
-L_GUI_COMBATTEXT_MAX_LINES_DESC = "Максимальное количество строк (больше строк"
+L_GUI_COMBATTEXT_MAX_LINES_DESC = "Максимальное количество строк (больше строк = больше памяти)"
 L_GUI_COMBATTEXT_TIME_VISIBLE = "Время"
 L_GUI_COMBATTEXT_TIME_VISIBLE_DESC = "Время (в секундах) до исчезновения текста"
 L_GUI_COMBATTEXT_DK_RUNES = "Отображать перезарядку рун Рыцарей Смерти"
@@ -412,12 +412,13 @@ L_GUI_COMBATTEXT_KILLINGBLOW = "Отображать Победный удар"
 L.combattext_merge_aoe_spam = "Объединять заклинания в одно сообщение"
 L.combattext_merge_aoe_spam_desc = "Объединять многократные значения урона и лечения в одно сообщение"
 L_GUI_COMBATTEXT_MERGE_MELEE = "Объединять автоатаки"
+L.combattext_merge_all = "Объединять все способности"
 L_GUI_COMBATTEXT_DISPEL = "Отображать ваши рассеивания"
 L_GUI_COMBATTEXT_INTERRUPT = "Отображать ваши прерывания"
 L_GUI_COMBATTEXT_DIRECTION = "Сменить направление прокрутки текста боя"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "Сокращать цифры ('25.3k' вместо '25342')"
-			
--- Auras/Buffs/Debuffs			
+
+-- Auras/Buffs/Debuffs
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Размер аур"
 L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "Размер положительных эффектов игрока"
 L.aura_debuff_size = "Размер дебаффов"
@@ -429,15 +430,15 @@ L_GUI_AURA_FOCUS_DEBUFFS = "Фокус"
 L_GUI_AURA_FOT_DEBUFFS = "Цель фокуса"
 L_GUI_AURA_PET_DEBUFFS = "Питомец"
 L_GUI_AURA_TOT_DEBUFFS = "Цель цели"
-L.aura_subheader_boss = "Ауры босса"
 L_GUI_AURA_PLAYER_AURA_ONLY = "Только ваши отрицательные эффекты на цели"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "Окрашивать края по их типу"
 L_GUI_AURA_CAST_BY = "Отображать имя того, кто применил эффект"
 L_GUI_AURA_CLASSCOLOR_BORDER = "Окрашивать края в цвет класса"
 L.aura_subheader_buffs = "Положительные эффекты игрока"
 L.aura_subheader_debuffs = "Отрцательные эффекты"
-			
--- Bag options			
+L.aura_subheader_boss = "Ауры босса"
+
+-- Bag options
 L_GUI_BAGS = "Сумки"
 L_GUI_BAGS_SUBTEXT = "Правый клик по кнопке закрытия, чтобы открыть меню. Для перемещения сумок зажать Shift - клик."
 L_GUI_BAGS_ENABLE = "Включить сумки"
@@ -448,8 +449,8 @@ L_GUI_BAGS_BUTTON_SIZE = "Размер ячеек"
 L_GUI_BAGS_BUTTON_SPACE = "Промежуток"
 L_GUI_BAGS_BANK = "Cтолбцов в банке"
 L_GUI_BAGS_BAG = "Cтолбцов в сумках"
-			
--- Minimap options			
+
+-- Minimap options
 L_GUI_MINIMAP_SUBTEXT = "Настройка миникарты."
 L_GUI_MINIMAP_ENABLE = "Включить миникарту"
 L.minimap_on_top = "Переместить в правый верхний угол"
@@ -460,8 +461,8 @@ L_GUI_MINIMAP_HIDE_COMBAT = "Скрыть миникарту в бою"
 L_GUI_MINIMAP_TOGGLE_MENU = "Отображать меню над миникартой"
 L.minimap_bg_map_stylization = "Стилизация карты полей боя"
 L.minimap_fog_of_war = "Убрать туман войны с глобальной карты"
-			
--- Loot options			
+
+-- Loot options
 L_GUI_LOOT_SUBTEXT = "Настройка окна добычи."
 L_GUI_LOOT_ENABLE = "Включить окно добычи"
 L_GUI_LOOT_ROLL_ENABLE = "Включить групповое окно добычи"
@@ -471,8 +472,8 @@ L_GUI_LOOT_AUTOGREED = "Авто не откажусь/распылить для
 L_GUI_LOOT_AUTODE = "Убрать запрос о распылении предмета"
 L.loot_faster_loot = "Ускорить взятие добычи"
 L.loot_faster_loot_desc = "Работает, если включен автоматический сбор добычи"
-			
--- Filger			
+
+-- Filger
 L_GUI_FILGER = "Таймеры (Filger)"
 L_GUI_FILGER_SUBTEXT = "Filger - аналог WeakAuras, но более простой и легкий. Позволяет выводить в виде иконок и полос ваши ауры и таймеры."
 L_GUI_FILGER_ENABLE = "Включить Filger"
@@ -499,8 +500,8 @@ L.filger_pvp_space = "Промежуток"
 L.filger_cooldown_space = "Промежуток"
 L.filger_subheader_spells = "Добавление новых заклинаний"
 L.filger_category_list = "Выбор списка"
-			
--- Announcements options			
+
+-- Announcements options
 L_GUI_ANNOUNCEMENTS = "Объявления"
 L_GUI_ANNOUNCEMENTS_SUBTEXT = "Здесь можно включить оповещения в чат о заклинаниях и предметах."
 L.announcements_drinking = "Враг пьет на арене"
@@ -520,12 +521,12 @@ L.announcements_flask_food_auto = "Сообщать при проверке го
 L.announcements_feasts = "Пир, почта, ремонт и кодекс"
 L.announcements_portals = "Порталы и ритуал призыва"
 L.announcements_subheader_self = "Локальное оповещение"
-L.announcements_bad_gear = "Плохое' снаряжение"
+L.announcements_bad_gear = "'Плохое' снаряжение"
 L.announcements_bad_gear_desc = "Проверять ваше 'плохое' снаряжение в подземельях (удочки и прочее из списка)"
 L.announcements_safari_hat = "Шляпа для сафари"
 L.announcements_safari_hat_desc = "Проверять Шляпу для сафари в начале битвы петов"
-			
--- Automation options			
+
+-- Automation options
 L_GUI_AUTOMATION = "Автоматизация"
 L_GUI_AUTOMATION_SUBTEXT = "В этом блоке расположены настройки, которые облегчают рутину."
 L.automation_release = "Покидать тело на полях боя"
@@ -554,8 +555,8 @@ L.automation_summon_desc = "Суммон от игроков"
 L.automation_whisper_invite = "Авто приглашение по ключевым словам"
 L.automation_invite_keyword = "Список слов (через пробел)"
 L.automation_invite_keyword_desc = "Если вам напишут в личку ключевое слово, то сработает приглашение в группу"
-			
--- Buffs reminder options			
+
+-- Buffs reminder options
 L_GUI_REMINDER = "Напоминания"
 L_GUI_REMINDER_SUBTEXT = "Отображение пропущенных аур."
 L_GUI_REMINDER_SOLO_ENABLE = "Показать пропущенные ауры игрока"
@@ -569,8 +570,8 @@ L_GUI_REMINDER_RAID_SIZE = "Размер иконок"
 L_GUI_REMINDER_RAID_SIZE_DESC = "Размер иконок рейдовых аур"
 L_GUI_REMINDER_RAID_ALPHA = "Прозрачность"
 L_GUI_REMINDER_RAID_ALPHA_DESC = "Прозрачность иконок рейдовых аур"
-			
--- Raid cooldowns options			
+
+-- Raid cooldowns options
 L_GUI_COOLDOWN_RAID = "Перезарядки рейда"
 L_GUI_COOLDOWN_RAID_SUBTEXT = "Отслеживание рейдовых способностей в виде полос в левом верхнем углу."
 L_GUI_COOLDOWN_RAID_ENABLE = "Включить рейдовые перезарядки"
@@ -583,8 +584,8 @@ L_GUI_COOLDOWN_RAID_ICONS = "Отображать иконки рейдовых 
 L_GUI_COOLDOWN_RAID_IN_RAID = "Отображать в рейде"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "Отображать в группе"
 L_GUI_COOLDOWN_RAID_IN_ARENA = "Отображать на арене"
-			
--- Enemy cooldowns options			
+
+-- Enemy cooldowns options
 L_GUI_COOLDOWN_ENEMY = "Перезарядки врагов"
 L_GUI_COOLDOWN_ENEMY_SUBTEXT = "Отслеживание способностей врагов в виде иконок над вашей полосой чтения заклинаний."
 L_GUI_COOLDOWN_ENEMY_ENABLE = "Включить вражеские перезарядки"
@@ -595,8 +596,8 @@ L_GUI_COOLDOWN_ENEMY_IN_BG = "Отображать на полях боя"
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "Отображать на арене"
 L.enemycooldown_show_inparty = "Отображать в группе для союзников"
 L.enemycooldown_class_color = "Окрашивать края в цвет класса"
-			
--- Pulse cooldowns options			
+
+-- Pulse cooldowns options
 L_GUI_COOLDOWN_PULSE = "Свои перезарядки"
 L_GUI_COOLDOWN_PULSE_SUBTEXT = "Отслеживание ваших перезарядок с помощью всплывающей иконки в центре экрана."
 L_GUI_COOLDOWN_PULSE_ENABLE = "Отображать иконку окончания перезарядки"
@@ -606,8 +607,8 @@ L_GUI_COOLDOWN_PULSE_ANIM_SCALE = "Масштаб анимации"
 L_GUI_COOLDOWN_PULSE_HOLD_TIME = "Время до исчезновения"
 L_GUI_COOLDOWN_PULSE_THRESHOLD = "Порог времени"
 L_GUI_COOLDOWN_PULSE_THRESHOLD_DESC = "Минимальный порог времени"
-			
--- Threat options			
+
+-- Threat options
 L_GUI_THREAT = "Список угрозы"
 L_GUI_THREAT_SUBTEXT = "Отображение списка угрозы в виде полос (простой аналог Omen)."
 L_GUI_THREAT_ENABLE = "Включить список угрозы"
@@ -615,16 +616,16 @@ L_GUI_THREAT_HEIGHT = "Высота полос"
 L_GUI_THREAT_WIDTH = "Ширина полос"
 L_GUI_THREAT_ROWS = "Количество полос"
 L_GUI_THREAT_HIDE_SOLO = "Отображать только в группе/рейде"
-			
--- Top panel options			
+
+-- Top panel options
 L_GUI_TOP_PANEL = "Верхняя панель"
 L_GUI_TOP_PANEL_SUBTEXT = "Управление встроенной верхней панелью с информацией."
 L_GUI_TOP_PANEL_ENABLE = "Включить верхнюю панель"
 L_GUI_TOP_PANEL_MOUSE = "Панель по наведению курсора"
-L_GUI_TOP_PANEL_WIDTH = "Ширина панели"
 L_GUI_TOP_PANEL_HEIGHT = "Высота панели"
-			
--- Stats options			
+L_GUI_TOP_PANEL_WIDTH = "Ширина панели"
+
+-- Stats options
 L_GUI_STATS = "Статистика"
 L_GUI_STATS_SUBTEXT = "Блоки статистики, которые расположены внизу экрана. Набрать в чате '/ls' для полезной информации"
 L_GUI_STATS_CLOCK = "Часы"
@@ -640,8 +641,8 @@ L_GUI_STATS_SUBHEADER_CURRENCY = "Валюта (отображается в да
 L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "Фрагменты археологии"
 L_GUI_STATS_CURRENCY_COOKING = "Кулинарные награды"
 L_GUI_STATS_CURRENCY_RAID = "Рейдовые печати"
-			
--- Trade options			
+
+-- Trade options
 L_GUI_TRADE = "Торговля"
 L_GUI_TRADE_SUBTEXT = "Настройки связанные с профессиями и торговлей"
 L.trade_profession_tabs = "Вкладки профессий"
@@ -657,18 +658,18 @@ L.trade_archaeology = "Панель археологии"
 L.trade_archaeology_desc = "Отслеживание раскопок артефактов (для показа нажмите скрытую кнопку справа от миникарты или введите '/arch')"
 L.trade_merchant_itemlevel = "Уровень предметов у торговца"
 L.trade_merchant_itemlevel_desc = "Отображать уровень предметов для оружия и брони в окне торговца"
-			
--- Miscellaneous options			
+
+-- Miscellaneous options
 L_GUI_MISC_SUBTEXT = "Прочие настройки, которые добавляют интересные возможности."
 L.misc_shift_marking = "Меню с метками цели"
 L.misc_shift_marking_desc = "Shift-клик по врагу вызывает меню с метками (работает только в группе)"
 L.misc_afk_spin_camera = "Вращать камеру во время афк"
 L.misc_quest_auto_button = "Кнопка квестовых предметов"
 L.misc_quest_auto_button_desc = "Кнопка квестовых предметов над миникартой (берется из списка)"
-L.misc_raid_tools = "Инструменты рейда"
-L.misc_raid_tools_desc = "Кнопка вверху экрана для проверки готовности (ПКМ), проверки ролей (СКМ), установки меток и прочее (для лидера и помощников)"
 L.misc_item_level = "Уровень предметов"
 L.misc_item_level_desc = "Отображать уровень предметов на экранах персонажа и осмотра"
+L.misc_raid_tools = "Инструменты рейда"
+L.misc_raid_tools_desc = "Кнопка вверху экрана для проверки готовности (ПКМ), проверки ролей (СКМ), установки меток и прочее (для лидера и помощников)"
 L.misc_click_cast = "Назначение клавиш мыши"
 L.misc_click_cast_desc = "Позволяет назначить на клавиши мыши заклинания (аналог Clique). Настройка через боковую вкладку в книге заклинаний"
 L.misc_click_cast_filter = "Игнорировать рамки игрока и цели"
@@ -676,8 +677,8 @@ L.misc_chars_currency = "Отслеживать валюту на других �
 L.misc_chars_currency_desc = "Наведите на иконку необходимой валюты в окне персонажа для вывода информации в подсказке"
 L.misc_hide_raid_button = "Кнопка для скрытия рейда в раскладке 'Боец'"
 L.misc_hide_raid_button_desc = "Кнопка отображается по наведению мыши в верхнем левом углу"
-			
--- My Extra			
+
+-- My Extra
 L.media_overlay_color = "Color for action bars overlay" -- Needs review
 L.media_pxcolor1 = "Color for Name on Datatex" -- Needs review
 L.media_pxcolor2 = "Color for Value on Datatext if not dynamic by value" -- Needs review
@@ -777,14 +778,14 @@ L.minimap_zoneMapMultilplier = "zoneMap Multiplier" -- Needs review
 L.minimap_zoneMapMultilplier_desc = "Multiplier for zoneMap. It will take current size and multipli by x instead of scaling everything" -- Needs review
 L.minimap_zoneMapScale = "ZoneMap Scale" -- Needs review
 L.minimap_zoneMapScale_desc = "Scale zoneMap. This will also increase icons, map, frame." -- Needs review
--- Panel options			
+-- Panel options
 L_GUI_TOP_PANEL = "Top Panel" -- Needs review
 L_GUI_TOP_PANEL_SUBTEXT = "Manage built-in top panel with information." -- Needs review
 L_GUI_TOP_PANEL_ENABLE = "Enable top panel" -- Needs review
 L_GUI_TOP_PANEL_MOUSE = "Top panel on mouseover" -- Needs review
 L_GUI_TOP_PANEL_WIDTH = "Panel width" -- Needs review
 L_GUI_TOP_PANEL_HEIGHT = "Panel height" -- Needs review
--- Panels options			
+-- Panels options
 L_GUI_PANELS = "Panels" -- Needs review
 L_GUI_PANELS_SUBTEXT = "Manage all the panels on screen." -- Needs review
 L.panels_CPwidth = "Chat Width" -- Needs review
@@ -832,7 +833,7 @@ L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with 
 L.misc_XPBar = "Enable XP/REP/HONOR Bars above chat windows" -- Needs review
 L.misc_meters = "Skada/Details Toggle & Chat Move for NoPanel" -- Needs review
 L.misc_meters_desc = "For double chat and NoPanel Layout. Will swap bethween Chat and Dmg meters on right side" -- Needs review
--- Extra			
+-- Extra
 L_GUI_DATATEXT = "DataText" -- Needs review
 L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13." -- Needs review
 L.datatext_Arena = "Arena Score" -- Needs review

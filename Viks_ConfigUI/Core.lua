@@ -253,8 +253,6 @@ local function createSlider(parent, option, lowText, highText, low, high, step, 
 	local sliderName = parent:GetName()..option
 	local f = CreateFrame("Slider", sliderName, parent, "OptionsSliderTemplate")
 
-	--BlizzardOptionsPanel_Slider_Enable(f)
-
 	f.group = parent.tag
 	f.option = option
 

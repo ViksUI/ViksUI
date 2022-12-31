@@ -3,7 +3,7 @@ if GetLocale() ~= "zhTW" then return end
 
 ----------------------------------------------------------------------------------------
 --	Localization for zhTW client
---	Translation: Leg883, Mania, Tat2dawn, Tibles, Sakaras
+--	Translation: Leg883, Mania, Tat2dawn, Tibles, Sakaras, Joe
 ----------------------------------------------------------------------------------------
 L_GUI_SET_SAVED_SETTTINGS = "角色專用設定"
 L_GUI_SET_SAVED_SETTTINGS_DESC = "在 一般設定 與 角色專用設定 之間切換。"
@@ -23,7 +23,7 @@ L_GUI_RESET_SPELLS_DESC = "Ctrl+左鍵重置列表"
 L_GUI_INFO = "Info & Help -- Need review"
 L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
 			
--- General options			
+-- General options
 L_GUI_GENERAL_SUBTEXT = "一般用戶界面設置，鍵入 /uihelp 獲取更多可用命令。"
 L_GUI_GENERAL_WELCOME_MESSAGE = "歡迎信息"
 L_GUI_GENERAL_AUTOSCALE = "自動UI縮放"
@@ -42,8 +42,8 @@ L.general_minimize_mouseover = "任務欄最小化按鈕滑鼠懸停顯示"
 L.general_hide_banner = "自動隱藏Boss額外拾取提示"
 L.general_hide_talking_head = "自動隱藏任務對話框"
 L.general_hide_maw_buffs = "隱藏靈魄能力框架"
-			
--- Media options			
+
+-- Media options
 L.media_border_color = "背景顏色"
 L.media_classborder_color = "邊框按職業著色"
 L.media_backdrop_color = "邊框背景顏色"
@@ -51,8 +51,8 @@ L.media_backdrop_alpha = "透明背景"
 L.media_texture = "主要材質"
 L.media_subheader_normal = "通用字體"
 L.media_subheader_pixel = "像素字體"
-			
--- Font options			
+
+-- Font options
 L.font = "字體設置"
 L.font_subtext = "自定義字體格式"
 L.font_stats_font = "字體"
@@ -77,8 +77,8 @@ L.font_subheader_blizzard = "系統"
 L.font_tooltip_header_font_size = "滑鼠提示標題"
 L.font_tooltip_font_size = "滑鼠提示信息"
 L.font_global_font = "禁用像素字體"
-			
--- Skins options			
+
+-- Skins options
 L_GUI_SKINS = "界面美化"
 L_GUI_SKINS_SUBTEXT = "對遊戲默認界面和單體插件界面進行美化"
 L_GUI_SKINS_BLIZZARD = "美化暴雪默認界面"
@@ -111,8 +111,8 @@ L.skins_tiny_dps = "TinyDPS"
 L.skins_vanaskos = "VanasKoS"
 L.skins_weak_auras = "WeakAuras"
 L.skins_minimap_buttons_mouseover = "滑鼠懸停顯示"
-			
--- Unit Frames options			
+
+-- Unit Frames options
 L_GUI_UF_SUBTEXT = "定制玩家/目標框架/其他框架"
 L_GUI_UF_ENABLE = "單位框架增強"
 L_GUI_UF_OWN_COLOR = "自定義顏色"
@@ -176,8 +176,8 @@ L.unitframe_extra_health_height = "血量框架額外增高"
 L.unitframe_extra_power_height = "能量框架額外增高"
 L.unitframe_subheader_castbar = "玩家/目標施法條大小"
 L.unitframe_castbar_height = "高度"
-			
--- Unit Frames Class bar options			
+
+-- Unit Frames Class bar options
 L_GUI_UF_PLUGINS_CLASS_BAR = "職業資源欄"
 L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT = "顯示職業的特殊資源"
 L_GUI_UF_PLUGINS_COMBO_BAR = "連擊點"
@@ -191,9 +191,9 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "靈魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "圖騰"
 L.unitframe_class_bar_totem_other = "其他職業圖騰"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker '-- Need review"
-			
--- Raid Frames options			
+L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
+
+-- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "定制隊伍/團隊框架"
 L_GUI_UF_BY_ROLE = "按職責排序"
 L_GUI_UF_AGGRO_BORDER = "邊框按仇恨值著色"
@@ -253,8 +253,8 @@ L.raidframe_dps_raid_width = "框架寬度"
 L.raidframe_dps_raid_height = "框架高度"
 L.raidframe_dps_party_power_height = "隊伍能量框架高度"
 L.raidframe_dps_raid_power_height = "能量框架高度"
-			
--- ActionBar options			
+
+-- ActionBar options
 L_GUI_ACTIONBAR = "快捷列"
 L_GUI_ACTIONBAR_ENABLE = "快捷列增強"
 L_GUI_ACTIONBAR_HOTKEY = "按鍵鍵名"
@@ -262,7 +262,7 @@ L_GUI_ACTIONBAR_MACRO = "巨集名稱"
 L_GUI_ACTIONBAR_GRID = "快捷列顯示空白快捷鍵"
 L_GUI_ACTIONBAR_BUTTON_SIZE = "快捷鍵大小"
 L_GUI_ACTIONBAR_BUTTON_SPACE = "快捷鍵間隔"
-L_GUI_ACTIONBAR_SPLIT_BARS = "#5快捷列分段(2*6"
+L_GUI_ACTIONBAR_SPLIT_BARS = "#5快捷列分段(2*6; 該選項開啟後將激活所有快捷列)"
 L_GUI_ACTIONBAR_CLASSCOLOR_BORDER = "快捷列邊框按職業著色"
 L.actionbar_toggle_mode = "自由折疊"
 L.actionbar_toggle_mode_desc = "可隨時調節快捷列顯示數目。按鈕位於底部快捷列上方及右側快捷列下方，滑鼠懸停顯示。"
@@ -285,8 +285,8 @@ L.actionbar_editor_desc = "允許快捷列獨立移動和更改"
 L.actionbar_bar1_num = "快捷鍵數"
 L.actionbar_bar1_row = "每行快捷鍵數"
 L.actionbar_bar1_mouseover = "滑鼠懸停顯示"
-			
--- Tooltip options			
+
+-- Tooltip options
 L.tooltip = "滑鼠提示"
 L.tooltip_subtext = "設置滑鼠提示"
 L.tooltip_enable = "滑鼠提示增強"
@@ -313,8 +313,8 @@ L.tooltip_item_count = "物品的簡易統計"
 L.tooltip_unit_role = "角色類型"
 L.tooltip_instance_lock = "副本進度比較"
 L.tooltip_mount = "坐騎來源"
-			
--- Chat options			
+
+-- Chat options
 L_GUI_CHAT_SUBTEXT = "這裡可以設置你的聊天框"
 L_GUI_CHAT_ENABLE = "聊天框增強"
 L_GUI_CHAT_BACKGROUND = "聊天框背景"
@@ -338,8 +338,8 @@ L.chat_loot_icons = "拾取信息帶圖標"
 L.chat_hide_combat = "戰鬥中隱藏"
 L.chat_custom_time_color = "自定義時間標籤顏色"
 L.chat_time_color = "時間標籤顏色"
-			
--- Nameplate options			
+
+-- Nameplate options
 L_GUI_NAMEPLATE_SUBTEXT = "單位名條設置"
 L_GUI_NAMEPLATE_ENABLE = "單位名條增強"
 L_GUI_NAMEPLATE_COMBAT = "戰鬥中自動顯示單位名條"
@@ -378,8 +378,8 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "副坦仇恨顏色"
 L.nameplate_extra_color = "炸藥/惡意詞綴顏色"
 L.nameplate_mob_color_enable = "副本中重要小怪著色"
 L.nameplate_mob_color = "小怪顏色"
-			
--- Combat text options			
+
+-- Combat text options
 L_GUI_COMBATTEXT = "戰鬥文字"
 L_GUI_COMBATTEXT_SUBTEXT = "鍵入 /xct 獲取更多可用命令"
 L_GUI_COMBATTEXT_ENABLE = "開啟xCT戰鬥信息"
@@ -412,12 +412,13 @@ L_GUI_COMBATTEXT_KILLINGBLOW = "擊殺信息"
 L.combattext_merge_aoe_spam = "將AOE傷害合併為一條信息"
 L.combattext_merge_aoe_spam_desc = "將AOE傷害合併為一條信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "將多個自動攻擊傷害合併為一條信息"
+L.combattext_merge_all = "Merges all spells" -- Needs review
 L_GUI_COMBATTEXT_DISPEL = "當你驅散成功時提示"
 L_GUI_COMBATTEXT_INTERRUPT = "當你斷法成功時提示"
 L_GUI_COMBATTEXT_DIRECTION = "滾動方向從下向上"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "數值以K為單位顯示"
-			
--- Auras/Buffs/Debuffs			
+
+-- Auras/Buffs/Debuffs
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Buff大小"
 L_GUI_AURA_PLAYER_BUFF_SIZE_DESC = "玩家Buff圖標大小"
 L.aura_debuff_size = "DeBuffs大小"
@@ -436,20 +437,20 @@ L_GUI_AURA_CAST_BY = "提示Buff/DeBuff提供者"
 L_GUI_AURA_CLASSCOLOR_BORDER = "自身Buff圖標邊框按職業著色"
 L.aura_subheader_buffs = "玩家Buff"
 L.aura_subheader_debuffs = "DeBuff"
-			
--- Bag options			
+
+-- Bag options
 L_GUI_BAGS = "背包"
 L_GUI_BAGS_SUBTEXT = "背包的關閉按鈕另有菜單按右鍵開啓。按住Shift+左鍵可拖動。"
 L_GUI_BAGS_ENABLE = "背包增強"
 L_GUI_BAGS_ILVL = "顯示物品等級"
 L.bag_new_items = "新物品閃動顯示"
-L.bag_filter = "Always show filter buttons '-- Need review"
+L.bag_filter = "Always show filter buttons" -- Need review
 L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子間隔"
 L_GUI_BAGS_BANK = "銀行每行格數"
 L_GUI_BAGS_BAG = "背包每行格數"
-			
--- Minimap options			
+
+-- Minimap options
 L_GUI_MINIMAP_SUBTEXT = "小地圖設置"
 L_GUI_MINIMAP_ENABLE = "小地圖增強"
 L.minimap_on_top = "小地圖定位到右上角"
@@ -460,8 +461,8 @@ L_GUI_MINIMAP_HIDE_COMBAT = "戰鬥中隱藏小地圖"
 L_GUI_MINIMAP_TOGGLE_MENU = "小地圖頂部快捷菜單"
 L.minimap_bg_map_stylization = "戰場地圖增強"
 L.minimap_fog_of_war = "地圖全亮"
-			
--- Loot options			
+
+-- Loot options
 L_GUI_LOOT_SUBTEXT = "拾取框架設置"
 L_GUI_LOOT_ENABLE = "拾取增強"
 L_GUI_LOOT_ROLL_ENABLE = "團隊拾取框架增強"
@@ -471,8 +472,8 @@ L_GUI_LOOT_AUTOGREED = "滿級後自動貪婪綠色物品"
 L_GUI_LOOT_AUTODE = "自動選擇分解"
 L.loot_faster_loot = "快速拾取"
 L.loot_faster_loot_desc = "僅在自動拾取模式中生效"
-			
--- Filger			
+
+-- Filger
 L_GUI_FILGER = "法術監視"
 L_GUI_FILGER_SUBTEXT = "Filger - 類似WeakAuras，更簡單易用，可選擇圖標和計時條形式顯示你的增益減益和計時。"
 L_GUI_FILGER_ENABLE = "法術監視"
@@ -499,8 +500,8 @@ L.filger_pvp_space = "圖標間距"
 L.filger_cooldown_space = "圖標間距"
 L.filger_subheader_spells = "添加法術"
 L.filger_category_list = "分組"
-			
--- Announcements options			
+
+-- Announcements options
 L_GUI_ANNOUNCEMENTS = "通告預警"
 L_GUI_ANNOUNCEMENTS_SUBTEXT = "添加特定事件進行通報"
 L.announcements_drinking = "當敵人進食時在聊天框進行通告"
@@ -524,8 +525,8 @@ L.announcements_bad_gear = "檢查裝備"
 L.announcements_bad_gear_desc = "進入副本時提醒非副本裝備(魚竿等裝備)"
 L.announcements_safari_hat = "狩旅團之帽"
 L.announcements_safari_hat_desc = "檢查'狩旅團之帽'使用情況"
-			
--- Automation options			
+
+-- Automation options
 L_GUI_AUTOMATION = "自動設定"
 L_GUI_AUTOMATION_SUBTEXT = "一些自動化的設置"
 L.automation_release = "戰場中自動釋放靈魂"
@@ -554,8 +555,8 @@ L.automation_summon_desc = "Summon from players -- Need Review"
 L.automation_whisper_invite = "密語自動邀請"
 L.automation_invite_keyword = "添加關鍵詞(需加空隔鍵)"
 L.automation_invite_keyword_desc = "通過關鍵詞自動邀請對方進組"
-			
--- Buffs reminder options			
+
+-- Buffs reminder options
 L_GUI_REMINDER = "Buff提示"
 L_GUI_REMINDER_SUBTEXT = "提示缺失的Buff"
 L_GUI_REMINDER_SOLO_ENABLE = "自身Buff缺失時圖標提示"
@@ -569,8 +570,8 @@ L_GUI_REMINDER_RAID_SIZE = "圖標大小"
 L_GUI_REMINDER_RAID_SIZE_DESC = "團隊Buff提示圖標大小"
 L_GUI_REMINDER_RAID_ALPHA = "透明度"
 L_GUI_REMINDER_RAID_ALPHA_DESC = "當團隊Buff存在時圖標透明度"
-			
--- Raid cooldowns options			
+
+-- Raid cooldowns options
 L_GUI_COOLDOWN_RAID = "團隊技能冷卻"
 L_GUI_COOLDOWN_RAID_SUBTEXT = "顯示在屏幕左上方"
 L_GUI_COOLDOWN_RAID_ENABLE = "團隊技能冷卻"
@@ -583,8 +584,8 @@ L_GUI_COOLDOWN_RAID_ICONS = "團隊技能冷卻圖標"
 L_GUI_COOLDOWN_RAID_IN_RAID = "團隊中顯示團隊技能冷卻"
 L_GUI_COOLDOWN_RAID_IN_PARTY = "隊伍中顯示團隊技能冷卻"
 L_GUI_COOLDOWN_RAID_IN_ARENA = "競技場中顯示團隊技能冷卻"
-			
--- Enemy cooldowns options			
+
+-- Enemy cooldowns options
 L_GUI_COOLDOWN_ENEMY = "敵對技能冷卻"
 L_GUI_COOLDOWN_ENEMY_SUBTEXT = "顯示在你的施法條上方"
 L_GUI_COOLDOWN_ENEMY_ENABLE = "敵對技能冷卻"
@@ -595,8 +596,8 @@ L_GUI_COOLDOWN_ENEMY_IN_BG = "戰場中顯示敵對技能冷卻"
 L_GUI_COOLDOWN_ENEMY_IN_ARENA = "競技場中顯示敵對技能冷卻"
 L.enemycooldown_show_inparty = "組隊時顯示敵對技能冷卻"
 L.enemycooldown_class_color = "按職業著色"
-			
--- Pulse cooldowns options			
+
+-- Pulse cooldowns options
 L_GUI_COOLDOWN_PULSE = "技能冷卻閃爍"
 L_GUI_COOLDOWN_PULSE_SUBTEXT = "顯示在屏幕中央"
 L_GUI_COOLDOWN_PULSE_ENABLE = "技能冷卻閃爍提示"
@@ -606,8 +607,8 @@ L_GUI_COOLDOWN_PULSE_ANIM_SCALE = "動畫縮放"
 L_GUI_COOLDOWN_PULSE_HOLD_TIME = "持續時間"
 L_GUI_COOLDOWN_PULSE_THRESHOLD = "持續時間最小閾值"
 L_GUI_COOLDOWN_PULSE_THRESHOLD_DESC = "持續時間最小閾值"
-			
--- Threat options			
+
+-- Threat options
 L_GUI_THREAT = "仇恨欄"
 L_GUI_THREAT_SUBTEXT = "仇恨威脅值統計(類似Omen)"
 L_GUI_THREAT_ENABLE = "仇恨欄"
@@ -615,8 +616,8 @@ L_GUI_THREAT_HEIGHT = "仇恨欄高度"
 L_GUI_THREAT_WIDTH = "仇恨欄寬度"
 L_GUI_THREAT_ROWS = "仇恨欄數目"
 L_GUI_THREAT_HIDE_SOLO = "僅在隊伍/團隊中開啟"
-			
--- Top panel options			
+
+-- Top panel options
 L_GUI_TOP_PANEL = "頂部信息條"
 L_GUI_TOP_PANEL_SUBTEXT = "管理頂部信息條"
 L_GUI_TOP_PANEL_ENABLE = "頂部信息條"
@@ -640,8 +641,8 @@ L_GUI_STATS_SUBHEADER_CURRENCY = "兌換通貨(金幣信息中顯示)"
 L_GUI_STATS_CURRENCY_ARCHAEOLOGY = "考古學"
 L_GUI_STATS_CURRENCY_COOKING = "烹飪"
 L_GUI_STATS_CURRENCY_RAID = "副本徽印"
-			
--- Trade options			
+
+-- Trade options
 L_GUI_TRADE = "商業"
 L_GUI_TRADE_SUBTEXT = "專業和商業設置"
 L.trade_profession_tabs = "專業界面快捷按鈕"
@@ -657,8 +658,8 @@ L.trade_archaeology = "考古學小助手"
 L.trade_archaeology_desc = "顯示考古學各類文物的進度及符文石數量(鍵入 /arch 或點擊小地圖隱藏按鈕打開界面)"
 L.trade_merchant_itemlevel = "商人界面顯示物品等級"
 L.trade_merchant_itemlevel_desc = "在商人界面顯示武器裝備的物品等級"
-			
--- Miscellaneous options			
+
+-- Miscellaneous options
 L_GUI_MISC_SUBTEXT = "一些便捷的功能設置"
 L.misc_shift_marking = "滑鼠目標標記"
 L.misc_shift_marking_desc = "滑鼠指向目標Shift+左鍵顯示團隊標記菜單(僅限隊伍/團隊)"

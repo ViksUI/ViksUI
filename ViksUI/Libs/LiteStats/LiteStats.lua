@@ -266,19 +266,6 @@ if clock.enabled then
 		MONTH_DECEMBER,
 	}
 
-	-- Torghast
-	-- local TorghastWidgets, TorghastInfo = {
-		-- {nameID = 2925, levelID = 2930},	-- Fracture Chambers
-		-- {nameID = 2926, levelID = 2932},	-- Skoldus Hall
-		-- {nameID = 2924, levelID = 2934},	-- Soulforges
-		-- {nameID = 2927, levelID = 2936},	-- Coldheart Interstitia
-		-- {nameID = 2928, levelID = 2938},	-- Mort'regar
-		-- {nameID = 2929, levelID = 2940},	-- The Upper Reaches
-	-- }
-	-- local function CleanupLevelName(text)
-		-- return gsub(text, "|n", "")
-	-- end
-
 	Inject("Clock", {
 		text = {
 			string = function()
@@ -340,32 +327,6 @@ if clock.enabled then
 					GameTooltip:AddDoubleLine(name, fmttime(reset), 1, 1, 1, 1, 1, 1)
 				end
 			end
-
-			-- Torghast
-			-- if not TorghastInfo then
-				-- TorghastInfo = C_AreaPoiInfo.GetAreaPOIInfo(1543, 6640)
-			-- end
-
-			-- local TorghastTitle
-			-- if TorghastInfo and C_QuestLog.IsQuestFlaggedCompleted(60136) then
-				-- for _, value in pairs(TorghastWidgets) do
-					-- local nameInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(value.nameID)
-					-- if nameInfo and nameInfo.shownState == 1 then
-						-- if not TorghastTitle then
-							-- GameTooltip:AddLine(" ")
-							-- GameTooltip:AddLine(TorghastInfo.name, ttsubh.r, ttsubh.g, ttsubh.b)
-							-- TorghastTitle = true
-						-- end
-						-- local nameText = CleanupLevelName(nameInfo.text)
-						-- local levelInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(value.levelID)
-						-- local levelText = AVAILABLE
-						-- if levelInfo and levelInfo.shownState == 1 then
-							-- levelText = CleanupLevelName(levelInfo.text)
-						-- end
-						-- GameTooltip:AddDoubleLine(nameText, levelText)
-					-- end
-				-- end
-			-- end
 
 			-- In 9.0 seals not available
 			-- if T.level == MAX_PLAYER_LEVEL then
@@ -1737,31 +1698,31 @@ if gold.enabled then
 			conf.Gold = GetMoney()
 			if event == "MERCHANT_SHOW" then
 				if conf.AutoSell and not (IsAltKeyDown() or IsShiftKeyDown()) then
-					local profit = 0
+					-- local profit = 0
 					local numItem = 0
-					for bag = 0, NUM_BAG_SLOTS do for slot = 0, GetContainerNumSlots(bag) do
-						local link = GetContainerItemLink(bag, slot)
+					for bag = 0, NUM_BAG_SLOTS do for slot = 0, C_Container.GetContainerNumSlots(bag) do
+						local link = C_Container.GetContainerItemLink(bag, slot)
 						if link then
 							local itemstring, ignore = strmatch(link, "|Hitem:(%d-):"), false
 							for _, exception in pairs(ViksUIStats.JunkIgnore) do
 								if exception == itemstring then ignore = true break end
 							end
 							local _, _, itemRarity, _, _, _, _, _, _, _, itemSellPrice = GetItemInfo(link)
-							local _, itemCount = GetContainerItemInfo(bag, slot)
+							-- local _, itemCount = GetContainerItemInfo(bag, slot)
 							if itemSellPrice and itemSellPrice > 0 and ((itemRarity == 0 and not ignore) or (ignore and itemRarity ~= 0)) then
-								profit = profit + (itemSellPrice * itemCount)
+								-- profit = profit + (itemSellPrice * itemCount)
 								numItem = numItem + 1
 								if numItem < 12 then
-									UseContainerItem(bag, slot)
+									C_Container.UseContainerItem(bag, slot)
 								else
 									C_Timer.After(numItem/8, function()
-										UseContainerItem(bag, slot)
+										C_Container.UseContainerItem(bag, slot)
 									end)
 								end
 							end
 						end
 					end end
-					if profit > 0 then print(format("|cff66C6FF%s: |cffFFFFFF%s", L_STATS_JUNK_PROFIT, formatgold(1, profit))) end
+					-- if profit > 0 then print(format("|cff66C6FF%s: |cffFFFFFF%s", L_STATS_JUNK_PROFIT, formatgold(1, profit))) end
 				end
 				return
 			end
@@ -1854,10 +1815,10 @@ if gold.enabled then
 			-- end
 
 			if C.stats.currency_misc then
-				titleName = EXPANSION_NAME8
-				Currency(1813)	-- Reservoir Anima
-				Currency(1828)	-- Soul Ash
-				Currency(1767)	-- Stygia
+				titleName = EXPANSION_NAME9
+				Currency(2122)	-- Storm Sigil
+				Currency(2118)	-- Elemental Overflow
+				Currency(2003)	-- Dragon Isles Supplies
 			end
 
 			GameTooltip:AddLine(" ")
@@ -2070,7 +2031,7 @@ if bags.enabled then
 		OnEvent = function(self)
 			local free, total = 0, 0
 			for i = 0, NUM_BAG_SLOTS do
-				free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
+				free, total = free + C_Container.GetContainerNumFreeSlots(i), total + C_Container.GetContainerNumSlots(i)
 			end
 			self.text:SetText(format(bags.fmt, free, total))
 		end,
@@ -2078,7 +2039,7 @@ if bags.enabled then
 		OnEnter = function(self)
 			local free, total = 0, 0
 			for i = 0, NUM_BAG_SLOTS do
-				free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
+				free, total = free + C_Container.GetContainerNumFreeSlots(i), total + C_Container.GetContainerNumSlots(i)
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", -3, 26)
 			GameTooltip:ClearLines()
