@@ -2469,44 +2469,31 @@ C["filger_spells"] = {
 			IconSize = C.filger.buffs_size,
 			Position = {"TOP", SPECIAL_P_BUFF_ICON_Anchor},
 
+			-- Potions: Power
+			-- Elemental Potion of Power
+			{spellID = 371024, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Elemental Potion of Ultimate Power
+			{spellID = 371028, unitID = "player", caster = "player", filter = "BUFF"},
+
 			-- Potions: Miscellaneous
-			-- Invisible [Potion of the Hidden Spirit]
-			{spellID = 307195, unitID = "player", caster = "player", filter = "BUFF", absID = true},
-			-- Invisibility [Invisibility Potion]
-			{spellID = 11392, unitID = "player", caster = "player", filter = "BUFF", absID = true},
-			-- Invisibility [Draenic Invisibility Potion]
-			{spellID = 175833, unitID = "player", caster = "player", filter = "BUFF", absID = true},
-			-- Spirit Realm [Skaggldrynk]
-			{spellID = 188023, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Draenic Swiftness Potion
-			{spellID = 175790, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Darkwater Potion
-			{spellID = 105707, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Speed [Swiftness Potion]
-			{spellID = 2379, unitID = "player", caster = "player", filter = "BUFF", absID = true},
-			-- Potion of the Psychopomp's Speed
-			{spellID = 344314, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Invisible [Potion of the Hushed Zephyr]
+			{spellID = 371124, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 
 			-- Raid Amplifiers
 			-- Bloodlust
 			{spellID = 2825, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Heroism
-			{spellID = 32182, unitID = "player", caster = "all", filter = "BUFF"},			
-			-- Fury of the Aspects (Evoker)
-			{spellID = 390386, unitID = "player", caster = "all", filter = "BUFF"},
+			{spellID = 32182, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Primal Rage [Hunter's pet]
 			{spellID = 264667, unitID = "player", caster = "all", filter = "BUFF", absID = true},
 			-- Time Warp
 			{spellID = 80353, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Fury of the Aspects
 			{spellID = 390386, unitID = "player", caster = "all", filter = "BUFF"},
-			-- Drums of Deathly Ferocity
-			{spellID = 309658, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Feral Hide Drums
+			{spellID = 381301, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Mallet of Thunderous Skins
 			{spellID = 292686, unitID = "player", caster = "all", filter = "BUFF"},
-
-			-- Prideful (Seasonal Affix)
-			{spellID = 340880, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Engineering
 			-- Goblin Glider [Goblin Glider Kit]
@@ -2639,6 +2626,10 @@ C["filger_spells"] = {
 			{spellID = 22570, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Rake
 			{spellID = 163505, unitID = "player", caster = "all", filter = "DEBUFF", absID = true},
+
+			-- Evoker
+			-- Sleep Walk
+			{spellID = 360806, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Hunter
 			-- Freezing Trap
@@ -2985,6 +2976,11 @@ C["filger_spells"] = {
 			{spellID = 78675, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Entangling Roots
 			{spellID = 339, unitID = "target", caster = "all", filter = "DEBUFF"},
+
+			-- Evoker
+			-- Debuffs
+			-- Sleep Walk
+			{spellID = 360806, unitID = "target", caster = "all", filter = "DEBUFF"},
 
 			-- Hunter
 			-- Aspect of the Turtle
@@ -3347,38 +3343,50 @@ do
 	tinsert(T.CustomFilgerSpell, {"COOLDOWN", {slotID = 13, filter = "CD"}})
 	tinsert(T.CustomFilgerSpell, {"COOLDOWN", {slotID = 14, filter = "CD"}})
 
-	local strengthClass = {
-		["DEATHKNIGHT"] = true,
-		["PALADIN"] = true,
-		["WARRIOR"] = true,
-	}
-
-	local agilityClass = {
-		["DEMONHUNTER"] = true,
-		["DRUID"] = true,
-		["HUNTER"] = true,
-		["MONK"] = true,
-		["ROGUE"] = true,
-		["SHAMAN"] = true,
-	}
-
-	local intellectClass = {
-		["DRUID"] = true,
-		["EVOKER"] = true,
-		["MAGE"] = true,
-		["MONK"] = true,
-		["PALADIN"] = true,
-		["PRIEST"] = true,
-		["SHAMAN"] = true,
-		["WARLOCK"] = true,
-	}
+	local isTank = {["DEATHKNIGHT"] = true, ["DEMONHUNTER"] = true, ["DRUID"] = true, ["MONK"] = true, ["PALADIN"] = true, ["WARRIOR"] = true}
+	local isHealer = {["DRUID"] = true, ["EVOKER"] = true, ["MONK"] = true, ["PALADIN"] = true, ["PRIEST"] = true, ["SHAMAN"] = true}
+	local strengthClass = {["DEATHKNIGHT"] = true, ["PALADIN"] = true, ["WARRIOR"] = true}
+	local agilityClass = {["DEMONHUNTER"] = true, ["DRUID"] = true, ["HUNTER"] = true, ["MONK"] = true, ["ROGUE"] = true, ["SHAMAN"] = true}
+	local intellectClass = {["DRUID"] = true, ["EVOKER"] = true, ["MAGE"] = true, ["MONK"] = true, ["PALADIN"] = true, ["PRIEST"] = true, ["SHAMAN"] = true, ["WARLOCK"] = true}
 
 	-- Trinkets
-	-- Strength classes
 	if strengthClass[T.class] then
 		-- Bound by Fire and Blaze [Blazebinder's Hoof]
 		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 383926, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
-		-- Bonemaw's Big Toe [Bonemaw's Big Toe]
+		-- Bonemaw's Big Toe
 		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 397400, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
 	end
+
+	if agilityClass[T.class] then
+		-- Bottle of Spiraling Winds
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 383751, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+		-- Windswept Pages
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 126483, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+	end
+
+	if agilityClass[T.class] or strengthClass[T.class] then
+		-- Scent of Blood [Hunger of the Pack]
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 213888, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+		-- Algeth'ar Puzzle
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 383781, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+	end
+
+	if intellectClass[T.class] then
+		-- Power Theft
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 382126, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+	end
+
+	if isHealer[T.class] then
+		-- Broodkeeper's Promise
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 377462, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+		-- Voidmender's Shadowgem
+		tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 397399, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+	end
+
+	-- Crumbling Power [Irideus Fragment]
+	tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 383941, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+	-- Whispering Incarnate Icon
+	tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 377452, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
+	-- Valarjar's Path [Horn of Valor]
+	tinsert(T.CustomFilgerSpell, {"P_PROC_ICON", {spellID = 215956, unitID = "player", caster = "all", filter = "BUFF", absID = true}})
 end
