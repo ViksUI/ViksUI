@@ -73,15 +73,23 @@ local function LoadSkin()
 		EncounterJournalLootJournalTab
 	}
 
+	if T.newPatch then
+		tinsert(mainTabs, 1, EncounterJournalMonthlyActivitiesTab)
+	end
+
 	for _, tab in pairs(mainTabs) do
 		T.SkinTab(tab)
 	end
 
-	EncounterJournalSuggestTab:SetPoint("TOPLEFT", EncounterJournal, "BOTTOMLEFT", 11, 0)
+	mainTabs[1]:SetPoint("TOPLEFT", EncounterJournal, "BOTTOMLEFT", 11, 0)
 
 	T.SkinEditBox(EncounterJournalSearchBox)
 	T.SkinCloseButton(EncounterJournalCloseButton)
 	T.SkinDropDownBox(EncounterJournalInstanceSelectTierDropDown)
+
+	if T.newPatch then
+		EncounterJournalInstanceSelectBG:SetAlpha(0)
+	end
 
 	EncounterJournalInstanceSelect.bg:Kill()
 	EncounterJournalEncounterFrameInfoBG:Kill()

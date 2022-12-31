@@ -127,25 +127,23 @@ local function LoadSkin()
 	hooksecurefunc(WorldMapFrame, 'AddOverlayFrame', T.WorldMapMixin_AddOverlayFrame)
 	
 	-- Floor Dropdown
-	local function WorldMapFloorNavigationDropDown(Frame)
-		Frame:SetFrameLevel(WorldMapFrame:GetFrameLevel()+3)
-		T:HandleWorldMapDropDownMenu(Frame)
+	local function WorldMapFloorNavigationDropDown(frame)
+		T.SkinDropDownBox(frame)
+		frame:SetPoint("TOPLEFT", -15, -67)
 	end
 
 	-- Tracking Button
-	local function WorldMapTrackingOptionsButton(Button)
-		local shadow = Button:GetRegions()
+	local function WorldMapTrackingOptionsButton(button)
+		local shadow = button:GetRegions()
 		shadow:Hide()
 
-		Button.Background:Hide()
-		Button.IconOverlay:SetAlpha(0)
-		Button.Border:Hide()
+		button.Background:Hide()
+		button.IconOverlay:SetAlpha(0)
+		button.Border:Hide()
 
-		Button:SetFrameLevel(WorldMapFrame:GetFrameLevel()+2)
-
-		local tex = Button:GetHighlightTexture()
+		local tex = button:GetHighlightTexture()
 		tex:SetTexture([[Interface\Minimap\Tracking\None]], "ADD")
-		tex:SetAllPoints(Button.Icon)
+		tex:SetAllPoints(button.Icon)
 	end
 
 	-- Tracking Pin
@@ -156,15 +154,24 @@ local function LoadSkin()
 		button.Background:Hide()
 		button.IconOverlay:SetAlpha(0)
 		button.Border:Hide()
-		button.Icon:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\trackingmap.tga]])
 
 		local tex = button:GetHighlightTexture()
-		tex:SetAtlas([[Interface\AddOns\ViksUI\Media\Menuicons\trackingmap.tga]])
+		tex:SetAtlas("Waypoint-MapPin-Untracked")
 		tex:SetAllPoints(button.Icon)
 	end
-	
-	-- Add a hook to adjust the OverlayFrames
-	hooksecurefunc(WorldMapFrame, "AddOverlayFrame", T.WorldMapMixin_AddOverlayFrame)
+
+	local function HandyNotesButton(button)
+		local shadow = button:GetRegions()
+		shadow:Hide()
+
+		button.Background:Hide()
+		button.IconOverlay:SetAlpha(0)
+		button.Border:Hide()
+
+		local tex = button:GetHighlightTexture()
+		tex:SetAtlas(button.Icon:GetTexture())
+		tex:SetAllPoints(button.Icon)
+	end
 
 	-- Elements
 	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1])
@@ -175,12 +182,27 @@ local function LoadSkin()
 	WorldMapFrame.overlayFrames[2].Icon:SetTexture([[Interface\Minimap\Tracking\None]])
 	WorldMapFrame.overlayFrames[2]:SetHighlightTexture([[Interface\Minimap\Tracking\None]], 'ADD')
 	WorldMapFrame.overlayFrames[2]:GetHighlightTexture():SetAllPoints(WorldMapFrame.overlayFrames[2].Icon)
-	
-	-- 8.2.5 Party Sync | Credits Aurora/Shestak
+
+	for i = 1, 10 do
+		local button = _G["Krowi_WorldMapButtons"..i]
+		if button then
+			HandyNotesButton(button)
+		end
+	end
+
+	for i = 3, #WorldMapFrame.overlayFrames do
+		local frame = WorldMapFrame.overlayFrames[i]
+		if frame.BountyDropdownButton then
+			T.SkinNextPrevButton(frame.BountyDropdownButton)
+			break
+		end
+	end
+
+	-- QuestSessionManagement skin (based on skin from Aurora)
 	QuestMapFrame.QuestSessionManagement:StripTextures()
 
 	local ExecuteSessionCommand = QuestMapFrame.QuestSessionManagement.ExecuteSessionCommand
-	ExecuteSessionCommand:CreateBackdrop()
+	ExecuteSessionCommand:SetTemplate("Default")
 	ExecuteSessionCommand:StyleButton()
 
 	local icon = ExecuteSessionCommand:CreateTexture(nil, "ARTWORK")
@@ -194,9 +216,9 @@ local function LoadSkin()
 	}
 
 	hooksecurefunc(QuestMapFrame.QuestSessionManagement, "UpdateExecuteCommandAtlases", function(self, command)
-		self.ExecuteSessionCommand:SetNormalTexture("")
-		self.ExecuteSessionCommand:SetPushedTexture("")
-		self.ExecuteSessionCommand:SetDisabledTexture("")
+		self.ExecuteSessionCommand:SetNormalTexture(0)
+		self.ExecuteSessionCommand:SetPushedTexture(0)
+		self.ExecuteSessionCommand:SetDisabledTexture(0)
 
 		local atlas = sessionCommandToButtonAtlas[command]
 		if atlas then

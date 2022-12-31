@@ -59,6 +59,7 @@ local function LoadSkin()
 	SchematicForm.Background:SetInside(SchematicForm, 4, 4)
 
 	T.SkinCheckBox(SchematicForm.TrackRecipeCheckBox, 24)
+	T.SkinCheckBox(SchematicForm.AllocateBestQualityCheckBox, 24)
 
 	local OutputIcon = SchematicForm.OutputIcon
 	if OutputIcon then
@@ -67,6 +68,7 @@ local function LoadSkin()
 		OutputIcon.IconBorder:SetAlpha(0)
 		OutputIcon:GetHighlightTexture():Hide()
 		OutputIcon.CircleMask:Hide()
+		if OutputIcon.CountShadow then OutputIcon.CountShadow:SetAlpha(0) end
 	end
 
 	local function skinReagentIcon(button)

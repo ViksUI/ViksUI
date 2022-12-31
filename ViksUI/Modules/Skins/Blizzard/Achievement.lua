@@ -89,8 +89,11 @@ local function LoadSkin()
 
 	-- Tabs
 	for i = 1, 3 do
-		T.SkinTab(_G["AchievementFrameTab"..i])
-		_G["AchievementFrameTab"..i]:SetFrameLevel(_G["AchievementFrameTab"..i]:GetFrameLevel() + 2)
+		local tab = _G["AchievementFrameTab"..i]
+		if tab then
+			T.SkinTab(tab)
+			tab:SetFrameLevel(tab:GetFrameLevel() + 2)
+		end
 	end
 
 	local function SkinStatusBar(bar, comparison)
@@ -185,6 +188,10 @@ local function LoadSkin()
 				T.SkinCheckBox(child.Tracked)
 				child.Tracked:SetSize(20, 20)
 				child.Check:SetAlpha(0)
+				child.Tracked:ClearAllPoints()
+				child.Tracked:SetPoint("BOTTOMLEFT", child, "BOTTOMLEFT", 7, 2)
+				child.Tracked.ClearAllPoints = T.dummy
+				child.Tracked.SetPoint = T.dummy
 
 				hooksecurefunc(child, "UpdatePlusMinusTexture", function (button)
 					if button.DateCompleted:IsShown() then
@@ -223,23 +230,12 @@ local function LoadSkin()
 		end
 	end)
 
-	local numTab = 0
 	AchievementFrame:HookScript("OnShow", function()
-		if IsAddOnLoaded("Krowi_AchievementFilter") then
-			local tab = _G["AchievementFrameTab4"]
+		for i = 3, 8 do
+			local tab = _G["AchievementFrameTab"..i]
 			if tab and not tab.isSkinned then
 				T.SkinTab(tab)
 				tab.isSkinned = true
-				numTab = 1
-			end
-		end
-		if IsAddOnLoaded("Overachiever_Tabs") then
-			for i = 4 + numTab, 6 + numTab do
-				local tab = _G["AchievementFrameTab"..i]
-				if tab and not tab.isSkinned then
-					T.SkinTab(tab)
-					tab.isSkinned = true
-				end
 			end
 		end
 		AchievementFrameTab1:SetPoint("TOPLEFT", AchievementFrame, "BOTTOMLEFT", 17, 2)

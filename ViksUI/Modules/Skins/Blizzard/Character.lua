@@ -309,6 +309,9 @@ local function LoadSkin()
 	T.SkinCheckBox(ReputationDetailMainScreenCheckBox)
 	T.SkinCheckBox(ReputationDetailInactiveCheckBox)
 	T.SkinCheckBox(ReputationDetailAtWarCheckBox)
+	ReputationDetailViewRenownButton:StripTextures()
+	ReputationDetailViewRenownButton:StyleButton(true)
+	ReputationDetailViewRenownButton:SetTemplate("Overlay")
 
 	-- Currency
 	TokenFramePopup:StripTextures()
