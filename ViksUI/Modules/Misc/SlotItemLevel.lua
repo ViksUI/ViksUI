@@ -4,7 +4,7 @@ if C.misc.item_level ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Item level on slot buttons in Character/InspectFrame(iLevel by Sanex)
 ----------------------------------------------------------------------------------------
-local minItemLevel = 370 -- For missing enchant and gems checking
+local minItemLevel = 375 -- For missing enchant and gems checking
 local _G = getfenv(0)
 local equiped = {} -- Table to store equiped items
 
@@ -42,28 +42,30 @@ local function _getRealItemLevel(slotId, unit)
 	return realItemLevel
 end
 
-local function checkSpecID(unit)
-	local i = 0
-	local specID
-	if unit == "player" then
-		specID = GetSpecializationInfo(GetSpecialization())
-	else
-		specID = GetInspectSpecialization("target")
-	end
+-- local function checkSpecID(unit)
+	-- local i = 0
+	-- local specID
+	-- if unit == "player" then
+		-- specID = GetSpecializationInfo(GetSpecialization())
+	-- else
+		-- specID = GetInspectSpecialization("target")
+	-- end
 
-	if specID then
-		if specID == 577 or specID == 581 or specID == 103 or specID == 104 or specID == 253 or specID == 254 or specID == 255
-			or specID == 268 or specID == 269 or specID == 259 or specID == 260 or specID == 261 or specID == 263 then
-			i = INVSLOT_FEET
-		else
-			i = INVSLOT_WRIST
-		end
-	end
-	return i
-end
+	-- if specID then
+		-- if specID == 250 or specID == 251 or specID == 252 or specID == 66 or specID == 70 or specID == 71 or specID == 72 or specID == 73 then
+			-- i = INVSLOT_HAND
+		-- elseif specID == 577 or specID == 581 or specID == 103 or specID == 104 or specID == 253 or specID == 254 or specID == 255
+			-- or specID == 268 or specID == 269 or specID == 259 or specID == 260 or specID == 261 or specID == 263 then
+			-- i = INVSLOT_FEET
+		-- else
+			-- i = INVSLOT_WRIST
+		-- end
+	-- end
+	-- return i
+-- end
 
 local function _updateItems(unit, frame)
-	local itemSlot = checkSpecID(unit)
+	-- local itemSlot = checkSpecID(unit)
 	for i = 1, 17 do -- Only check changed player items or items without ilvl text, skip the shirt (4) and always update Inspects
 		local itemLink = GetInventoryItemLink(unit, i)
 		if i ~= 4 and ((frame == f and (equiped[i] ~= itemLink or frame[i]:GetText() == nil or itemLink == nil and frame[i]:GetText() ~= "")) or frame == g) then
@@ -82,7 +84,7 @@ local function _updateItems(unit, frame)
 			-- Check missing enchants and gems
 			if itemLink and (realItemLevel ~= "" and tonumber(realItemLevel) > minItemLevel) then
 				local _, _, enchant, gem1, gem2, gem3 = strsplit(":", itemLink)
-				if i == 15 or i == 5 or i == 16 or i == 11 or i == 12 or i == itemSlot then
+				if i == INVSLOT_BACK or i == INVSLOT_CHEST or i == INVSLOT_MAINHAND or i == INVSLOT_FINGER1 or i == INVSLOT_FINGER2 or i == INVSLOT_WRIST or i == INVSLOT_FEET or i == INVSLOT_LEGS then
 					if enchant and enchant == "" then
 						color = "|cffFF0000"
 					end
@@ -94,9 +96,11 @@ local function _updateItems(unit, frame)
 
 				if gem1 and gem1 ~= "" then
 					numGem = numGem + 1
-				elseif gem2 and gem2 ~= "" then
+				end
+				if gem2 and gem2 ~= "" then
 					numGem = numGem + 1
-				elseif gem3 and gem3 ~= "" then
+				end
+				if gem3 and gem3 ~= "" then
 					numGem = numGem + 1
 				end
 				if numGem < numSocket then
@@ -271,7 +275,7 @@ local function SetupFlyoutLevel(button, bag, slot)
 
 	local link, level
 	if bag then
-		link = GetContainerItemLink(bag, slot)
+		link = C_Container.GetContainerItemLink(bag, slot)
 		level = _getRealItemLevel(link, bag, slot)
 	else
 		link = GetInventoryItemLink("player", slot)
