@@ -6,6 +6,7 @@ local T, C, L, _ = unpack(select(2, ...))
 if C.unitframe.enable ~= true then return end
 local _, ns = ...
 local oUF = ns.oUF
+T.oUF = oUF
 
 T.UpdateAllElements = function(frame)
 	for _, v in ipairs(frame.__elements) do
@@ -388,7 +389,7 @@ T.UpdateManaLevel = function(self, elapsed)
 	if UnitPowerType("player") == 0 then
 		local cur = UnitPower("player", 0)
 		local max = UnitPowerMax("player", 0)
-		local percMana = max > 0 and (cur / max * 100) or 0
+		local percMana = max > 0 and (cur / max * 100) or 100
 		if percMana <= 20 and not UnitIsDeadOrGhost("player") then
 			self.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
 			Flash(self)
@@ -408,7 +409,7 @@ T.UpdateClassMana = function(self)
 	if UnitPowerType("player") ~= 0 then
 		local min = UnitPower("player", 0)
 		local max = UnitPowerMax("player", 0)
-		local percMana = max > 0 and (min / max * 100) or 0
+		local percMana = max > 0 and (min / max * 100) or 100
 		if percMana <= 20 and not UnitIsDeadOrGhost("player") then
 			self.FlashInfo.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
 			Flash(self.FlashInfo)
@@ -452,7 +453,6 @@ T.UpdatePvPStatus = function(self)
 end
 
 local ticks = {}
-
 local setBarTicks = function(Castbar, numTicks)
 	for _, v in pairs(ticks) do
 		v:Hide()
@@ -798,14 +798,14 @@ T.UpdateThreat = function(self, unit, status, r, g, b)
 end
 
 local CountOffSets = {
-	TOPLEFT = {9, 0},
-	TOPRIGHT = {-8, 0},
-	BOTTOMLEFT = {9, 0},
-	BOTTOMRIGHT = {-8, 0},
-	LEFT = {9, 0},
-	RIGHT = {-8, 0},
-	TOP = {0, 0},
-	BOTTOM = {0, 0},
+	TOPLEFT = {"LEFT", "RIGHT", 1, 0},
+	TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
+	BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
+	BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
+	LEFT = {"LEFT", "RIGHT", 1, 0},
+	RIGHT = {"RIGHT", "LEFT", 2, 0},
+	TOP = {"RIGHT", "LEFT", 2, 0},
+	BOTTOM = {"RIGHT", "LEFT", 2, 0},
 }
 
 T.CreateAuraWatchIcon = function(_, icon)
@@ -817,7 +817,6 @@ T.CreateAuraWatchIcon = function(_, icon)
 	if icon.cd then
 		icon.cd:SetReverse(true)
 	end
-	icon.overlay:SetTexture()
 end
 
 T.CreateAuraWatch = function(self)
@@ -825,7 +824,7 @@ T.CreateAuraWatch = function(self)
 	auras:SetPoint("TOPLEFT", self.Health, 0, 0)
 	auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)
 	auras.icons = {}
-	auras.PostCreateButton = T.CreateAuraWatchIcon
+	auras.PostCreateIcon = T.CreateAuraWatchIcon
 
 	if not C.aura.show_timer then
 		auras.hideCooldown = true
@@ -863,9 +862,11 @@ T.CreateAuraWatch = function(self)
 			else
 				tex:SetVertexColor(0.8, 0.8, 0.8)
 			end
+			icon.icon = tex
 
 			local count = T.SetFontString(icon, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-			count:SetPoint("CENTER", unpack(CountOffSets[spell[2]]))
+			local point, anchorPoint, x, y = unpack(CountOffSets[spell[2]])
+			count:SetPoint(point, icon, anchorPoint, x, y)
 			icon.count = count
 
 			auras.icons[spell[1]] = icon
@@ -873,6 +874,49 @@ T.CreateAuraWatch = function(self)
 	end
 
 	self.AuraWatch = auras
+end
+
+T.CreateHealthPrediction = function(self)
+	local mhpb = self.Health:CreateTexture(nil, "ARTWORK")
+	mhpb:SetTexture(C.media.texture)
+	mhpb:SetVertexColor(0, 1, 0.5, 0.2)
+
+	local ohpb = self.Health:CreateTexture(nil, "ARTWORK")
+	ohpb:SetTexture(C.media.texture)
+	ohpb:SetVertexColor(0, 1, 0, 0.2)
+
+	local ahpb = self.Health:CreateTexture(nil, "ARTWORK")
+	ahpb:SetTexture(C.media.texture)
+	ahpb:SetVertexColor(1, 1, 0, 0.2)
+
+	local hab = self.Health:CreateTexture(nil, "ARTWORK")
+	hab:SetTexture(C.media.texture)
+	hab:SetVertexColor(1, 0, 0, 0.4)
+
+	local oa = self.Health:CreateTexture(nil, "ARTWORK")
+	oa:SetTexture([[Interface\AddOns\ShestakUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
+	oa:SetVertexColor(0.5, 0.5, 1)
+	oa:SetHorizTile(true)
+	oa:SetVertTile(true)
+	oa:SetAlpha(0.4)
+	oa:SetBlendMode("ADD")
+
+	local oha = self.Health:CreateTexture(nil, "ARTWORK")
+	oha:SetTexture([[Interface\AddOns\ShestakUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
+	oha:SetVertexColor(1, 0, 0)
+	oha:SetHorizTile(true)
+	oha:SetVertTile(true)
+	oha:SetAlpha(0.4)
+	oha:SetBlendMode("ADD")
+
+	self.HealthPrediction = {
+		myBar = mhpb,
+		otherBar = ohpb,
+		absorbBar = ahpb,
+		healAbsorbBar = hab,
+		overAbsorb = C.raidframe.plugins_over_absorb and oa,
+		overHealAbsorb = C.raidframe.plugins_over_heal_absorb and oha
+	}
 end
 
 T.CheckPlayerBuff = function(spell)

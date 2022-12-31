@@ -355,6 +355,9 @@ local UnitSpecific = {
 		lib.SummonIndicator(self)
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
+		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
+		self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)
+		self:RegisterEvent("PLAYER_LEAVE_COMBAT", lib.UpdateThreat)													 
 	end,
 
 	party = function(self, ...)
@@ -392,6 +395,9 @@ local UnitSpecific = {
 		lib.PhaseIndicatord(self)
 		lib.SummonIndicator(self)
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
+		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
+		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
+		self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)															  
 		
 	end,
 
@@ -612,6 +618,9 @@ local function CreatePartyPetStyle(self)
 	lib.CreateTargetBorder(self)
 
 	self.Health.PostUpdate = lib.PostUpdateRaidFrame
+	self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
+	self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
+	self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)														 
 end
   -----------------------------
   -- SPAWN UNITS

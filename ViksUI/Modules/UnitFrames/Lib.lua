@@ -982,8 +982,23 @@ function lib.CreateThreatBorder(self)
 	end
 	self.Thtborder:SetBackdrop(glowBorder)
 	self.Thtborder:SetFrameLevel(1)
-	self.Thtborder:Hide()
-	self.Thtborder.PostUpdate = T.UpdateThreat
+	self.Thtborder:Hide()	
+end
+
+-- Raid Frames Threat Highlight
+function lib.UpdateThreat(self, event, unit)
+	if (self.unit ~= unit) then return end
+		local status = UnitThreatSituation(unit)
+		unit = unit or self.unit
+	if status and status > 1 then
+		local r, g, b = GetThreatStatusColor(status)
+		if GetThreatStatusColor(status) == nil then r, g, b = 1, 0, 0 end
+		self.Thtborder:Show()
+		self.Thtborder:SetBackdropBorderColor(r, g, b, 1)
+	else
+		self.Thtborder:SetBackdropBorderColor(0.69, 0.69, 0.69, 0)
+		self.Thtborder:Hide()
+	end
 end
 
 ---- Castbar
