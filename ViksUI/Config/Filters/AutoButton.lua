@@ -92,3 +92,7 @@ T.ABItems = {
 	[186474] = true,	-- Korayn's Javelin
 	[188788] = true,	-- Zephyreal Generator
 }
+
+T.ABItemsIgnore = {
+	-- [itemID] = true,	-- Item name to ignore
+}
