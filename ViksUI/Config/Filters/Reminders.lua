@@ -149,6 +149,7 @@ if C.reminder.solo_buffs_enable == true then
 					SpellName(2823),	-- Deadly Poison
 					SpellName(315584),	-- Instant Poison
 					SpellName(8679),	-- Wound Poison
+					SpellName(381664),	-- Amplifying Poison
 				},
 				["combat"] = true,
 				["instance"] = true,
@@ -158,7 +159,7 @@ if C.reminder.solo_buffs_enable == true then
 				["spells"] = {
 					SpellName(3408),	-- Crippling Poison
 					SpellName(5761),	-- Numbing Poison
-					SpellName(108211),	-- Leeching Poison
+					SpellName(381637),	-- Atrophic Poison
 				},
 				["combat"] = true,
 				["instance"] = true,
@@ -166,10 +167,11 @@ if C.reminder.solo_buffs_enable == true then
 			},
 		},
 		SHAMAN = {
-			[1] = {	-- Water/Earth Shield
+			[1] = {	-- Shields group
 				["spells"] = {
 					SpellName(52127),	-- Water Shield
-					SpellName(974),	-- Earth Shield
+					SpellName(974),		-- Earth Shield
+					SpellName(192106),	-- Lightning Shield
 				},
 				["combat"] = true,
 				["instance"] = true,
