@@ -20,7 +20,6 @@ for i = 1, 12 do
 	local b = _G["ActionButton"..i]
 	b:SetSize(C.actionbar.button_size, C.actionbar.button_size)
 	b:ClearAllPoints()
-	-- b:SetParent(Bar1Holder)
 	if C.actionbar.editor then
 		if i <= C.actionbar.bar1_num then
 			if i == 1 then
@@ -50,7 +49,7 @@ local Page = {
 	["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 8; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10;",
 	["EVOKER"] = "[bonusbar:1] 7;",
 	["ROGUE"] = "[bonusbar:1] 7;",
-	["DEFAULT"] = "[possessbar] 16; [shapeshift] 17; [overridebar] 18; [vehicleui] 16; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6; [bonusbar: 5] 11;",
+	["DEFAULT"] = "[possessbar] 16; [shapeshift] 17; [overridebar] 18; [vehicleui] 16; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6; [bonusbar:5] 11;",
 }
 
 local function GetBar()
@@ -67,6 +66,8 @@ end
 bar:RegisterEvent("PLAYER_LOGIN")
 bar:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR")
 bar:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR")
+bar:RegisterEvent("UNIT_ENTERED_VEHICLE")
+bar:RegisterEvent("UNIT_EXITED_VEHICLE")
 bar:SetScript("OnEvent", function(self, event)
 	if event == "PLAYER_LOGIN" then
 		for i = 1, NUM_ACTIONBAR_BUTTONS do
@@ -107,6 +108,18 @@ bar:SetScript("OnEvent", function(self, event)
 					end
 				end
 			end
+		end
+	elseif event == "UNIT_ENTERED_VEHICLE" then
+		if UnitHasVehicleUI("player") then
+			for i = 1, NUM_ACTIONBAR_BUTTONS do
+				local button = _G["ActionButton"..i]
+				button:GetCheckedTexture():SetAlpha(0)
+			end
+		end
+	elseif event == "UNIT_EXITED_VEHICLE" then
+		for i = 1, NUM_ACTIONBAR_BUTTONS do
+			local button = _G["ActionButton"..i]
+			button:GetCheckedTexture():SetAlpha(1)
 		end
 	end
 end)
