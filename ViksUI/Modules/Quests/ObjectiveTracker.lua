@@ -34,6 +34,9 @@ local headers = {
 	WORLD_QUEST_TRACKER_MODULE,
 	PROFESSION_RECIPE_TRACKER_MODULE
 }
+if T.newPatch then
+	tinsert(headers, MONTHLY_ACTIVITIES_TRACKER_MODULE)
+end
 
 for i = 1, #headers do
 	local header = headers[i].Header
