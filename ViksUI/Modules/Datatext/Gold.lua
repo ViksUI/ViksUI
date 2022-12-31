@@ -191,21 +191,10 @@ Stat:SetScript("OnEnter", function(self)
 
 	if C.datatext.CurrMiscellaneous then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(EXPANSION_NAME8)
-		Currency(1754) -- Argent Commendation - Shadowlands PreEvent
-		Currency(1191) -- Valor
-		Currency(1767) -- Stygia
-		Currency(1810) -- Willing Soul
-		Currency(1813) -- Reservoir Anima
-		Currency(1816) -- Sinstone Fragments
-		Currency(1820) -- Infused Ruby
-		Currency(1822) -- Renown
-		Currency(1828) -- Soul Ash
-		Currency(1885) -- Grateful Offering
-		Currency(1906) -- Soul Cinders
-		Currency(1904) -- Tower Knowledge
-		Currency(1931) -- Cataloged Research
-		Currency(1977) -- Stygian Ember
+		GameTooltip:AddLine(EXPANSION_NAME9)
+		Currency(2122)	-- Storm Sigil
+		Currency(2118)	-- Elemental Overflow
+		Currency(2003)	-- Dragon Isles Supplies
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
