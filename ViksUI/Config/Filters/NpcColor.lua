@@ -61,24 +61,11 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["104295"] = "Interrupt: All casts. Use AoE stuns and kill quickly", -- Blazing Imp
 	["104247"] = "Interrupt: Nightfall Orb", -- Duskwatch Arcanist
 	["104300"] = "Dispel: Bewitch", -- Shadow Mistress
-	-- Shadowmoon Burial Ground
-	["75459"] = "ToDo", -- Plagued Bat
-	["75652"] = "ToDo", -- Void Spawn
-	["75713"] = "ToDo", -- Shadowmoon Bone-Mender
-	["76446"] = "ToDo", -- Shadowmoon Enslaver
 	-- The Nokhud Offensive
 	["195878"] = "Stun/Disturb: Desecrating Roar ".. "\n".. "Tank: Defensives for Heavy Slash", -- Ukhel Beastcaller
 	["195842"] = "Dodge: Necrotic Eruption", -- Ukhel Corruptor
 	["195851"] = "Interrupt: Chant of the Dead ".. "\n".. "Dispell: Grasp of the Dead", -- Ukhel Deathspeaker
 	["195847"] = "Interrupt: Dominate or get MC", -- Ukhel Willcrusher
-	-- Halls of Valor
-	["96640"] = "ToDo", -- Valarjar Marksman
-	["96934"] = "ToDo", -- Valarjar Trapper
-	-- Temple of the Jade Serpent
-	["59555"] = "ToDo", -- Haunting Sha
-	["58856"] = "ToDo", -- Haunting Sha
-	["200131"] = "ToDo", -- Sha-Touched Guardian
-	["56511"] = "ToDo", -- Corrupt Living Water
 	-- Algeth'ar Academy
 	["196798"] = "Interrupt: Mana Void if spare interruptShattered Psyche stacks so priority", -- Corrupted Manafiend
 	["196044"] = "Interrupt: Monotonous Lecture, long sleep cc", -- Unruly Textbook
@@ -109,6 +96,18 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["190373"] = "Interrupt: Thunderstorm ".. "\n".. "Note: Primal Affinity lets Gusting Proto-Dragon cast stun", -- Primalist Galesinger
 	["190407"] = "At 20% Interrupt: Tidal Divergence ".. "\n".. "", -- Aqua Rager
 	["190405"] = "Interrupt: Aqueous Barrier (absorb shield) ".. "\n".. "Dodge: Flash Flood, AOE", -- Infuser Sariya
+	-- Shadowmoon Burial Ground
+	["75459"] = "Interrupt: Plague Spit", -- Plagued Bat
+	["75652"] = "Dodge: Void Eruptions, Swirl on ground ".. "\n".. "Corner LOS Void Pulse", -- Void Spawn
+	["75713"] = "Interrupt (!!!): Shadow Mend  ".. "\n".. "Interrupt: Shadow Bolts", -- Shadowmoon Bone-Mender
+	-- Temple of the Jade Serpent
+	["59555"] = "Interrupt: Haunting Scream ".. "\n".. "Frontal: Haunting Gaze. Heavy dmg", -- Haunting Sha
+	["58856"] = "Interrupt: Haunting Scream ".. "\n".. "Frontal: Haunting Gaze. Heavy dmg", -- Haunting Sha
+	["200131"] = "Leg Sweep: stuns and do dmg to anyone close ".. "\n".. "Tank: Setting sun kick do heavy dmg and debuff", -- Sha-Touched Guardian
+	["56511"] = "Dodge: Surging Deluge on the floor ".. "\n".. "ALL: Corner LoS Tainted Ripple", -- Corrupt Living Water
+	-- Halls of Valor
+	["96640"] = "Dodge: Penetrating Shot, frontal cone ".. "\n".. "Dodge: Leap to Safety, gains 25% dmg reduct if fail", -- Valarjar Marksman
+	["96934"] = "Dodge: Bear Trap ".. "\n".. "Tank: On Fortify Quick Chop hurts", -- Valarjar Trapper
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -183,15 +182,14 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["105704"] = "Interrupt: Drain Magic", -- Arcane Manifestation
 	["104274"] = "Interrupt: Nightfall Orb", -- Baalgar the Watchful
 	["105715"] = "Stun / Knockback Interrupt: Eye Storm", -- Watchful Inquisitor
-	-- Temple of the Jade Serpent
-	["200137"] = "ToDo", -- Depraved Mistweaver
-	["59546"] = "ToDo", -- The Talking Fish
 	-- Shadowmoon Burial Ground
-	["76104"] = "ToDo", -- Monstrous Corpse Spider
-	["75459"] = "ToDo", -- Plagued Bat
-	["77700"] = "ToDo", -- Shadowmoon Exhumer
-	["75506"] = "ToDo", -- Shadowmoon Loyalist
-	["75979"] = "ToDo", -- Exhumed Spirit
+	["75506"] = "Purge: Sinister Focus", -- Shadowmoon Loyalist
+	["75979"] = "Purge/Dispell: ShieldInterrupt (!!): Death Blast", -- Exhumed Spirit
+	["77700"] = "Interrupt (!!): Void Bolt, high dmg on random", -- Shadowmoon Exhumer
+	["76446"] = "Don't interrupt! Fairly harmless channeling", -- Shadowmoon Enslaver
+	-- Temple of the Jade Serpent
+	["200137"] = "Interrupt: Defiling Mist ".. "\n".. "Healer: Touch of Ruin is healing absorb. Detonates", -- Depraved Mistweaver
+	["59546"] = "Dispell: Sleepy Soliloquy", -- The Talking Fish
 	-- The Nokhud Offensive
 	["195265"] = "Interrupt: Totemic Overload", -- Stormcaller Arynga
 	["194317"] = "Interrupt: Totemic Overload", -- Stormcaller Boroo
@@ -291,31 +289,29 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["192796"] = "Stun/Disturb: Rally the Clan (50% dmg done buff)", -- Nokhud Hornsounder
 	["194896"] = "Purge: Stormshield ".. "\n".. "Casters: Be 15yard away too avoid Shield Bash", -- Primal Stormshield
 	["199717"] = "Interrupt: Bloodcurdling Shout, AOE Fear!!!!", -- Nokhud Defender
-	-- Halls of Valor
-	["96677"] = "ToDo", -- Steeljaw Grizzly
-	["97081"] = "ToDo", -- King Bjorn
-	["95843"] = "ToDo", -- King Haldor
-	["97083"] = "ToDo", -- King Ranulf
-	["97084"] = "ToDo", -- King Tor
-	["97202"] = "ToDo", -- Olmyr the Enlightened
-	["97219"] = "ToDo", -- Solsten
-	["99891"] = "ToDo", -- Storm Drake
-	["97788"] = "ToDo", -- Storm Drake
-	["97068"] = "ToDo", -- Storm Drake
-	["96608"] = "ToDo", -- Ebonclaw Worg
-	["95834"] = "Interrupts: Holy Radiance > Rune of Healing", -- Valarjar Mystic
-	["96664"] = "Interrupts: Etch > Shattered Rune", -- Valarjar Runecarver
-	["102019"] = "ToDo", -- Stormforged Obliterator
 	-- Shadowmoon Burial Ground
-	["76104"] = "ToDo", -- Monstrous Corpse Spider
-	["76518"] = "ToDo", -- Ritual of Bones
+	["76104"] = "Interrupt (!!!): Necrotic Burst. Disease spreads", -- Monstrous Corpse Spider
+	["76518"] = "Note: Debuff from hitting wall, goes away ".. "\n".. "when they despawn. So cross at last second if not kill", -- Ritual of Bones
 	-- Temple of the Jade Serpent
-	["59545"] = "ToDo", -- The Golden Beetle
-	["59547"] = "ToDo", -- Jiang
-	["200387"] = "ToDo", -- Shambling Infester
-	["65317"] = "ToDo", -- Xiang
-	["56792"] = "ToDo", -- Figment of Doubt
-	["59552"] = "ToDo", -- The Crybaby Hozen
+	["59545"] = "Tank: Staggering Blow hurts alot and stack debuff ".. "\n".. "ALL: Golden Barrier explodes when breakes", -- The Golden Beetle
+	["59547"] = "Healer: Dispell Throw Torch debuff on random", -- Jiang
+	["200387"] = "Frontal: Flames of Doubt ".. "\n".. "ALL: Lesser Sha adds explodes on death", -- Shambling Infester
+	["65317"] = "Healer: Dispell Throw Torch debuff on random", -- Xiang
+	["56792"] = "Kill ASAP before Gathering Doubt finish", -- Figment of Doubt
+	["59552"] = "Sooth: Fit of Rage ".. "\n".. "Dodge: Tears of Pain swirls on floor", -- The Crybaby Hozen
+	-- Halls of Valor
+	["97081"] = "Do last! Due to Wicked Dagger, 50% heal reduce", -- King Bjorn
+	["95843"] = "Do as nr 2. Only deals tank dmg", -- King Haldor
+	["97083"] = "Do as nr 1. ", -- King Ranulf
+	["97084"] = "Do last! Due to add spawn", -- King Tor
+	["97202"] = "Interrupt: Searing Light ".. "\n".. "Dodge: Sanctify orbs", -- Olmyr the Enlightened
+	["97219"] = "Spread to avoid Arcane Bolt jumping ".. "\n".. "Stack inside Lightning Shield during Eye of the Storm", -- Solsten
+	["99891"] = "Dodge: Frontal, Lightning Breath ".. "\n".. "Dodge: Crackling Storm pools on ground", -- Storm Drake
+	["97788"] = "Dodge: Frontal, Lightning Breath ".. "\n".. "Dodge: Crackling Storm pools on ground", -- Storm Drake
+	["97068"] = "Dodge: Frontal, Lightning Breath ".. "\n".. "Dodge: Crackling Storm pools on ground", -- Storm Drake
+	["96608"] = "Healer: Dispell Throw Torch debuff on random ".. "\n".. "All: Stack losely, but spread more then 3y", -- Ebonclaw Worg
+	["96664"] = "Interrupt: Etch", -- Valarjar Runecarver
+	["95834"] = "Interrupt(!!!): Holy Radiance, AoE Heal ".. "\n".. "Stand in Rune of Healing for free heal! Move npc out", -- Valarjar Mystic
 	-- Algeth'ar Academy
 	["197406"] = "High dmg from Darting Stings, random charge ".. "\n".. "Cast's - Agitation, a stackable Enrage", -- Aggravated Skitterfly
 	["197219"] = "Dodge: Detonation Seeds ground effect.", -- Vile Lasher
@@ -424,28 +420,22 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["192791"] = "Tank: Pierce stacks bleed on you ".. "\n".. "Priority kill due to stacking bleed", -- Nokhud Warspear
 	["199320"] = "Tank: Pierce stacks bleed on you ".. "\n".. "Priority kill due to stacking bleed", -- Nokhud Warspear
 	["199321"] = "Tank: Pierce stacks bleed on you ".. "\n".. "Priority kill due to stacking bleed", -- Nokhud Warspear
-	-- Halls of Valor
-	["97068"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
-	["97788"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
-	["99891"] = "Heavy Frontal dmg from Lightning Breath", -- Storm Drake
-	["96640"] = "ToDo", -- Valarjar Marksman
-	["97087"] = "ToDo", -- Valarjar Champion
-	["96611"] = "ToDo", -- Angerhoof Bull
-	["96574"] = "ToDo", -- Stormforged Sentinel
-	["101637"] = "ToDo", -- Valarjar Aspirant
-	["99804"] = "ToDo", -- Valarjar Falconer
-	["95832"] = "ToDo", -- Valarjar Shieldmaiden
-	["101639"] = "ToDo", -- Valarjar Shieldmaiden
 	-- Shadowmoon Burial Ground
-	["75451"] = "ToDo", -- Defiled Spirit
-	["75966"] = "ToDo", -- Defiled Spirit
-	["76057"] = "ToDo", -- Carrion Worm
+	["75451"] = "Dodge: Cry of Anguish! 6y aoe", -- Defiled Spirit
+	["75966"] = "Dodge: Cry of Anguish! 6y aoe", -- Defiled Spirit
+	["76057"] = "Dodge: Body Slam (cast on tank)", -- Carrion Worm
 	-- Temple of the Jade Serpent
-	["57109"] = "ToDo", -- Minion of Doubt
-	["65362"] = "ToDo", -- Minion of Doubt
-	["59553"] = "ToDo", -- The Songbird Queen
-	["200126"] = "ToDo", -- Fallen Waterspeaker
-	["59544"] = "ToDo", -- The Nodding Tiger
+	["57109"] = "Tank: Dark Claw deals Shadow dmg", -- Minion of Doubt
+	["65362"] = "Tank: Dark Claw deals Shadow dmg", -- Minion of Doubt
+	["59553"] = "Dodge: Territorial Display, circle around itself ".. "\n".. "Tank: Vicious Peck stacking bleed", -- The Songbird Queen
+	["200126"] = "Interrupt: Hydrolance, cast on random ".. "\n".. "Interrupt: Tidal Burst, aoe dmg", -- Fallen Waterspeaker
+	["59544"] = "Interrupt: Cat Nap, Healing spell ".. "\n".. "Healer: Savage Leap, cast on random and leaves bleed", -- The Nodding Tiger
+	-- Halls of Valor
+	["96611"] = "Dodge: Rumbling Stomp  ".. "\n".. "Dispell: Enrage", -- Angerhoof Bull
+	["96574"] = "Dodge: Charged Pulse & Crackles ".. "\n".. "Purge or Dispell at 30%: Protective Light (Shield)", -- Stormforged Sentinel
+	["101637"] = "Dodge: Blast of Light, 1 shot frontal ".. "\n".. "Valkyra's Advance is leap on random", -- Valarjar Aspirant
+	["95832"] = "Tank: Dodge Mortal Hew, Frontal ".. "\n".. "Tank: Watch Breach Armor debuff, stacks", -- Valarjar Shieldmaiden
+	["101639"] = "Tank: Dodge Mortal Hew, Frontal ".. "\n".. "Tank: Watch Breach Armor debuff, stacks", -- Valarjar Shieldmaiden
 	-- Algeth'ar Academy
 	["196577"] = "Tank: Heavy dmg from Severing Slash ".. "\n".. "Also bad bleed effect", -- Spellbound Battleaxe
 	["197904"] = "Tank: Heavy dmg from Severing Slash ".. "\n".. "Also bad bleed effect", -- Spellbound Battleaxe
