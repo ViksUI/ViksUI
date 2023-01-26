@@ -75,7 +75,9 @@ frame:SetScript("OnEvent", function(self, event)
 	-- Create button to show invite tooltip and allow open calendar
 	local button = CreateFrame("Button", nil, Minimap)
 	button:SetAllPoints(InviteTexture)
-	button:Hide()
+	if not GameTimeCalendarInvitesTexture:IsShown() then
+		button:Hide()
+	end
 
 	button:SetScript("OnEnter", function()
 		if InCombatLockdown() then return end
@@ -108,9 +110,19 @@ frame:SetScript("OnEvent", function(self, event)
 	end)
 
 	-- Move Mail icon
-	MinimapCluster.MailFrame:ClearAllPoints()
-	MinimapCluster.MailFrame:SetPoint("TOPRIGHT", Minimap, 0, 0)
-	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\mail.tga")
+	local MailFrame = T.newPatch and MinimapCluster.IndicatorFrame.MailFrame or MinimapCluster.MailFrame
+	if T.newPatch then
+		hooksecurefunc(MailFrame, "SetPoint", function(self, _, anchor)
+			if anchor ~= Minimap then
+				self:ClearAllPoints()
+				self:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
+			end
+		end)
+	else
+		MailFrame:ClearAllPoints()
+		MailFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
+	end
+	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ShestakUI\\Media\\Textures\\Mail.tga")
 	MiniMapMailIcon:SetSize(16, 16)
 	
 	ExpansionLandingPageMinimapButton:ClearAllPoints()

@@ -50,7 +50,7 @@ local AutoButton = CreateFrame("Button", "AutoButton", UIParent, "SecureActionBu
 AutoButton:SetSize(40, 40)
 AutoButton:SetPoint("CENTER", AutoButtonAnchor, "CENTER", 0, 0)
 AutoButton:SetTemplate("Default")
-AutoButton:StyleButton()
+AutoButton:StyleButton(true)
 AutoButton:RegisterForClicks("AnyUp", "AnyDown")
 AutoButton:SetAttribute("type1", "item")
 AutoButton:SetAttribute("type2", "item")
@@ -91,7 +91,7 @@ frame:SetScript("OnEvent", function()
 		bind = gsub(bind, "(CTRL%-)", "C")
 		bind = gsub(bind, "(SHIFT%-)", "S")
 		bind = gsub(bind, "(Mouse Button )", "M")
-		bind = gsub(bind, "(?????? ???? )", "M")
+		bind = gsub(bind, "(Кнопка мыши )", "M")
 		bind = gsub(bind, KEY_BUTTON3, "M3")
 		bind = gsub(bind, KEY_PAGEUP, "PU")
 		bind = gsub(bind, KEY_PAGEDOWN, "PD")
@@ -152,7 +152,7 @@ local function startScanningBags()
 				end)
 
 				AutoButton:SetScript("OnLeave", GameTooltip_Hide)
-				AutoButton:SetID(itemID)
+				AutoButton.id = itemID
 
 				AutoButtonShow(itemName)
 			end
@@ -181,5 +181,5 @@ end)
 -- Temp hide quest item by middle-click
 T.startScanningBags = startScanningBags
 
-local macro = "/run local T = unpack(ViksUI) T.ABItemsIgnore[AutoButton:GetID()] = true T.startScanningBags() C_Timer.After(0.05, function() AutoButton:SetButtonState('NORMAL') end)"
+local macro = "/run local T = unpack(ViksUI) T.ABItemsIgnore[AutoButton.id] = true T.startScanningBags() C_Timer.After(0.05, function() AutoButton:SetButtonState('NORMAL') end)"
 AutoButton:SetAttribute("macrotext3", macro)

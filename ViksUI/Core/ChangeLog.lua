@@ -3,14 +3,8 @@ local T, C, L, _ = unpack(select(2, ...))
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.19 for Wow 10.0.2",
-	"• [Nameplate] Added check for Evoker's kick spell",
-	"• [Nameplate] Added Evoker Preservation for Healer icon",
-	"• [UnitFrames] Show agro border again",
-	"• [OpenItems] Added more items.",
-	"• [AutoButton] Added keybind for Auto quest button",
-	"• [AutoButton] Added temp hide quest item by middle-click",
-	"• Plus alot of minor stuff. Check github for full log",
+	"Update 10.20 for Wow 10.0.5",
+	"• Im out traveling so please check Github for details",
 
 " ",
 "EXTRA:",
@@ -19,7 +13,7 @@ local ChangeLogData = {
 "Added Wow gift button and buymeacoffee button here on /changelog",
 "Patreon helps me keep subscription while not playing",
 	"",
-"PATREON's: Wiggy and Korallis",
+"PATREON's: Wiggy, Korallis and nAyu",
 "But thanks to all who have used the addon and those supported my work",
 
 }

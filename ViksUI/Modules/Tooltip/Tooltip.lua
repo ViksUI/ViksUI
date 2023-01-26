@@ -235,6 +235,11 @@ local function GameTooltipDefault(tooltip, parent)
 		end
 		tooltip.default = 1
 	end
+	if not C.tooltip.shift_modifer then
+		if InCombatLockdown() and C.tooltip.hide_combat and not IsShiftKeyDown() then
+			tooltip:Hide()
+		end
+	end
 end
 hooksecurefunc("GameTooltip_SetDefaultAnchor", GameTooltipDefault)
 
@@ -248,37 +253,6 @@ if C.tooltip.shift_modifer == true then
 			end
 		end
 	end)
-else
-	if C.tooltip.cursor == true then
-		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self, parent)
-			if InCombatLockdown() and C.tooltip.hide_combat and not IsShiftKeyDown() then
-				self:Hide()
-			else
-				self:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", 20, 20)
-			end
-		end)
-	else
-		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self)
-			if InCombatLockdown() and C.tooltip.hide_combat and not IsShiftKeyDown() then
-				self:Hide()
-			else
-			if C.tooltip.topleft then
-			self:ClearAllPoints()
-			self:SetPoint("TOPLEFT",TooltipAnchor, "TOPLEFT", 0, 0)				
-			elseif C.tooltip.topright then
-			self:ClearAllPoints()
-			self:SetPoint("TOPRIGHT", TooltipAnchor, "TOPRIGHT", 0, 0)		
-			elseif C.tooltip.bottomleft then
-			self:ClearAllPoints()
-			self:SetPoint("BOTTOMLEFT", TooltipAnchor, "BOTTOMLEFT", 0, 0)		
-			elseif C.tooltip.bottomright then
-			self:ClearAllPoints()
-			self:SetPoint("BOTTOMRIGHT", TooltipAnchor, "BOTTOMRIGHT", 0, 0)
-			end
-				--self:SetPoint("TOPLEFT", TooltipAnchor, "TOPLEFT", 0, 0)
-			end
-		end)
-	end
 end
 
 if C.tooltip.health_value == true then
@@ -351,7 +325,7 @@ local OnTooltipSetUnit = function(self)
 			self:AppendText((" %s"):format("|cffFF0000"..L_CHAT_DND.."|r"))
 		end
 
-		if isPlayer and englishRace == "Pandaren" and faction ~= nil and faction ~= playerFaction then
+		if isPlayer and (englishRace == "Pandaren" or englishRace == "Dracthyr") and faction ~= nil and faction ~= playerFaction then
 			local hex = "cffff3333"
 			if faction == "Alliance" then
 				hex = "cff69ccf0"

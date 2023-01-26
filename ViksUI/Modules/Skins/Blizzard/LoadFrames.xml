@@ -32,11 +32,14 @@
 	<Script file="DebugTools.lua"/>
 	<Script file="DeathRecap.lua"/>
 	<Script file="DressUp.lua"/>
+	<Script file="EditorManager.lua"/>
 	<Script file="EncounterJournal.lua"/>
 	<Script file="EventTrace.lua"/>
+	<Script file="ExpansionLandingPage.lua"/>
 	<Script file="FlightMap.lua"/>
 	<Script file="Friends.lua"/>
 	<Script file="Garrison.lua"/>
+	<Script file="GenericTrait.lua"/>
 	<Script file="Gossip.lua"/>
 	<Script file="Guide.lua"/>
 	<Script file="GuildBank.lua"/>
@@ -62,10 +65,12 @@
 	<Script file="PetStable.lua"/>
 	<Script file="PlayerChoice.lua"/>
 	<Script file="Professions.lua"/>
+	<Script file="ProfessionsOrders.lua"/>
 	<Script file="PvE.lua"/>
 	<Script file="PvP.lua"/>
 	<Script file="PvPMatch.lua"/>
 	<Script file="Quest.lua"/>
+	<Script file="QuickKeybind.lua"/>
 	<Script file="Raid.lua"/>
 	<Script file="RaidInfo.lua"/>
 	<Script file="Runeforge.lua"/>

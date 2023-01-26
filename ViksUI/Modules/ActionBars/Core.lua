@@ -19,15 +19,11 @@ frame:SetScript("OnEvent", function()
 	MicroButtonAndBagsBar:EnableMouse(false)
 	MicroButtonAndBagsBar:ClearAllPoints()
 	MicroButtonAndBagsBar:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, -99) -- Prevent scaling for right panels
+	BagsBar:Hide()
+	BagsBar:UnregisterAllEvents()
 
-	if T.newPatch then
-		if not C.actionbar.micromenu then
-			MicroMenu:Hide()
-		end
-
-		if C.bag.enable then
-			BagsBar:Hide()
-		end
+	if not C.actionbar.micromenu then
+		MicroMenu:Hide()
 	end
 
 	MainMenuBar:SetMovable(true)
@@ -176,7 +172,7 @@ function BottomBarMouseOver(alpha)
 		end
 	end
 
-	if C.actionbar.rightbars < 2 and MultiBarBottomRight:IsShown() then
+	if C.actionbar.bottombars > 2 and MultiBarBottomRight:IsShown() then
 		if C.actionbar.toggle_mode == true and ViksUISettingsPerChar.BottomBars == 1 then
 			for i = 4, 6 do
 				local b = _G["MultiBarBottomRightButton"..i]

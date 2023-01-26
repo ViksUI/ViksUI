@@ -1,14 +1,8 @@
 Allways check https://github.com/ViksUI/ViksUI/commits/master
 
 Changes:
-	Update 10.19 for Wow 10.0.2
-	• [Nameplate] Added check for Evoker's kick spell
-	• [Nameplate] Added Evoker Preservation for Healer icon
-	• [UnitFrames] Show agro border again
-	• [OpenItems] Added more items
-	• [AutoButton] Added keybind for Auto quest button
-	• [AutoButton] Added temp hide quest item by middle-click
-	• Plus alot of minor stuff. Check github for full log
+	Update 10.20 for Wow 10.0.2
+	• Out Traveling so pls check Github for log
 
  
 EXTRA:
@@ -17,5 +11,5 @@ I will still adjust and tweak Npc tips as i progress in m+
 Added Wow gift button and buymeacoffee button here on /changelog
 Patreon helps me keep subscription while not playing
 	
-PATREON's: Wiggy and Korallis
+PATREON's: Wiggy, Korallis and nAyu
 Big thanks to all who supported my work

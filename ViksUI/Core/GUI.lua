@@ -19,6 +19,8 @@ C.combattext.spells_list = {}
 C.chat.spam_list = ""
 C.font.global_font = false
 C.media.profile = "-- Insert Your code here\n"
+C.general.choose_profile = 1
+C.general.profile_name = "1"
 C.options = {}
 
 if not IsAddOnLoaded("Viks_ConfigUI") then return end
@@ -26,23 +28,46 @@ if not IsAddOnLoaded("Viks_ConfigUI") then return end
 ----------------------------------------------------------------------------------------
 --	This Module loads new user settings if Viks_ConfigUI is loaded
 ----------------------------------------------------------------------------------------
--- Сreate the profile boolean
+-- Create the profile boolean
 if not ViksUIOptionsGlobal then ViksUIOptionsGlobal = {} end
 if ViksUIOptionsGlobal[T.realm] == nil then ViksUIOptionsGlobal[T.realm] = {} end
 if ViksUIOptionsGlobal[T.realm][T.name] == nil then ViksUIOptionsGlobal[T.realm][T.name] = false end
+if ViksUIOptionsGlobal[T.realm]["Current_Profile"] == nil then ViksUIOptionsGlobal[T.realm]["Current_Profile"] = {} end
 
--- Сreate the main options table
+-- Create the main options table
 if ViksUIOptions == nil then ViksUIOptions = {} end
 
 -- Determine which settings to use
 local profile
 if ViksUIOptionsGlobal[T.realm][T.name] == true then
 	if ViksUIOptionsPerChar == nil then
-		ViksUIOptionsPerChar = {}
+		ViksUIOptionsPerChar = ViksUIOptions
+		ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] = ViksUIOptionsGlobal["Current_Profile"] or 1
 	end
-	profile = ViksUIOptionsPerChar
+
+	if not ViksUIOptionsPerChar.merged and not ViksUIOptionsPerChar["1"] then	-- TODO delete after while
+		local backup = ViksUIOptionsPerChar
+		ViksUIOptionsPerChar = {}
+		ViksUIOptionsPerChar["1"] = backup
+		ViksUIOptionsPerChar.merged = true
+	end
+
+	ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] = ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] or 1
+	local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+	ViksUIOptionsPerChar[i] = ViksUIOptionsPerChar[i] or {}
+	profile = ViksUIOptionsPerChar[i]
 else
-	profile = ViksUIOptions
+	if not ViksUIOptions.merged and not ViksUIOptions["1"] then	-- TODO delete after while
+		local backup = ViksUIOptions
+		ViksUIOptions = {}
+		ViksUIOptions["1"] = backup
+		ViksUIOptions.merged = true
+	end
+
+	ViksUIOptionsGlobal["Current_Profile"] = ViksUIOptionsGlobal["Current_Profile"] or 1
+	local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+	ViksUIOptions[i] = ViksUIOptions[i] or {}
+	profile = ViksUIOptions[i]
 end
 
 -- Apply or remove saved settings as needed
@@ -57,7 +82,7 @@ for group, options in pairs(profile) do
 			end
 		end
 	else
-		profile[group] = nil
+		-- profile[group] = nil
 	end
 end
 

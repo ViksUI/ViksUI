@@ -1186,7 +1186,7 @@ if experience.enabled then
 			or sub == "playedlevel" and fmttime(playedlevel + GetTime() - playedmsg, t)
 			or sub == "playedsession" and fmttime(GetTime() - logintime,t)
 			-- rep tags
-			or sub == "repname" and (t.faction_subs[repname] or repname)
+			or sub == "repname" and (t.faction_subs[repname] or T.UTF(repname, 25, true))
 			or sub == "repcolor" and "|cff"..repcolor
 			or sub == "standing" and standingname
 			or sub == "currep" and (currep ~= maxrep and abs(currep - minrep) or currep > 0 and 1 or 0)
@@ -1240,14 +1240,27 @@ if experience.enabled then
 				local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
 				local friendshipID = reputationInfo and reputationInfo.friendshipFactionID
 				if friendshipID and friendshipID > 0 then
+					local rankInfo = C_GossipInfo.GetFriendshipReputationRanks(factionID)
+					local currentRank = rankInfo and rankInfo.currentLevel
+					local maxRank = rankInfo and rankInfo.maxLevel
+					local rankText
+					if currentRank and maxRank and currentRank > 0 and maxRank > 0 then
+						rankText = (' %s / %s'):format(currentRank, maxRank)
+					end
 					local repInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-					standingText = repInfo.reaction
+					standingText = repInfo.reaction..rankText
 					if repInfo.nextThreshold then
 						minrep, maxrep, currep = repInfo.reactionThreshold, repInfo.nextThreshold, repInfo.standing
 					else
 						minrep, maxrep, currep = 0, 1, 1
 					end
 					standing = 5
+				elseif C_Reputation.IsMajorFaction(factionID) then
+					local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+					minrep, maxrep = 0, majorFactionData.renownLevelThreshold
+					currep = C_MajorFactions.HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+					standing = 7
+					standingText = RENOWN_LEVEL_LABEL..majorFactionData.renownLevel
 				else
 					local value, nextThreshold = C_Reputation.GetFactionParagonInfo(factionID)
 					if value then
@@ -1426,6 +1439,7 @@ if talents.enabled then
 			lootSpecName = lootSpec and select(2, GetSpecializationInfoByID(lootSpec)) or NO
 			specName = spec and select(2, GetSpecializationInfo(spec)) or NO
 
+			local specText = L_STATS_SPEC..":"
 			local specIcon, lootIcon = "", ""
 			local lootText = LOOT..":"
 
@@ -1436,8 +1450,8 @@ if talents.enabled then
 			end
 
 			if lootSpec == 0 then
-				lootIcon = specIcon
-				lootText = "|cff55ff55"..lootText.."|r"
+				specText = "|cff55ff55"..specText.."|r"
+				lootText = ""
 				lootSpecName = "|cff55ff55"..specName.."|r"
 			else
 				local _, _, _, texture = GetSpecializationInfoByID(lootSpec)
@@ -1446,7 +1460,7 @@ if talents.enabled then
 				end
 			end
 
-			self.text:SetText(L_STATS_SPEC..":")
+			self.text:SetText(specText)
 			self.text2:SetText(specIcon.." ")
 			self.text3:SetText(lootText)
 			self.text4:SetText(lootIcon)

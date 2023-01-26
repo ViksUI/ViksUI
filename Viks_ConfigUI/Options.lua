@@ -37,16 +37,6 @@ OkayButton:Disable()
 tinsert(ns.buttons, CloseButton)
 tinsert(ns.buttons, OkayButton)
 
-local ProfileBox = CreateFrame("CheckButton", nil, options, "InterfaceOptionsCheckButtonTemplate")
-ProfileBox:SetPoint("TOPRIGHT", -6, -6)
-
-local label = ProfileBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-label:SetText(L_GUI_SET_SAVED_SETTTINGS)
-label:SetPoint("RIGHT", ProfileBox, "LEFT")
-
-ProfileBox.tooltipText = L_GUI_SET_SAVED_SETTTINGS_DESC
-options.ProfileBox = ProfileBox
-
 local reloadText = options:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 reloadText:SetPoint("BOTTOM", 0, 11)
 reloadText:SetText("|cffff2735"..L_GUI_NEED_RELOAD.."|r")
@@ -58,8 +48,9 @@ StaticPopupDialogs.VIKSUI_RESET_PERCHAR = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function()
-		ViksUIOptionsPerChar = {}
-		C.options = ViksUIOptionsPerChar
+		local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+		ViksUIOptionsPerChar[i] = {}
+		C.options = ViksUIOptionsPerChar[i]
 		ReloadUI()
 	end,
 	whileDead = true,
@@ -72,8 +63,9 @@ StaticPopupDialogs.VIKSUI_RESET = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function()
-		ViksUIOptions = {}
-		C.options = ViksUIOptions
+		local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+		ViksUIOptions[i] = {}
+		C.options = ViksUIOptions[i]
 		ReloadUI()
 	end,
 	whileDead = true,
@@ -302,6 +294,12 @@ SpellList.makeSpellsList = function(_, db, double)
 				bf:Show()
 				oldb = bf
 				i = i + 1
+
+				-- Remove outdated spells
+				if not name then
+					tremove(db, k)
+					SpellList:makeSpellsList(db, double)
+				end
 			end
 		end
 	end
@@ -395,6 +393,7 @@ InputArg:Hide()
 
 local curOption
 local function BuildSpellList(option, double, hiding)
+	if ProfileList:IsVisible() then ProfileList:Hide() end
 	if not hiding and SpellList:IsVisible() then SpellList:Hide() return end
 	curOption = option
 	doubleInput = double
@@ -632,7 +631,7 @@ ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGI
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
 ns.addCategory("actionbar", L_GUI_ACTIONBAR, ACTIONBARS_SUBTEXT, 3)
 ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext, 2)
-ns.addCategory("chat", SOCIALS, L_GUI_CHAT_SUBTEXT)
+ns.addCategory("chat", SOCIALS, L.chat_subtext)
 ns.addCategory("nameplate", UNIT_NAMEPLATES, L_GUI_NAMEPLATE_SUBTEXT, 2)
 ns.addCategory("combattext", L_GUI_COMBATTEXT, COMBATTEXT_SUBTEXT.." "..L_GUI_COMBATTEXT_SUBTEXT, 2)
 
@@ -814,6 +813,414 @@ do
 	end)
 
 	tinsert(ns.buttons, LuaButton)
+
+	-- Profile list frame
+	local ProfileList = CreateFrame("Frame", "ProfileList", ViksUIOptionsPanel, "ButtonFrameTemplate")
+	ProfileList:SetPoint("TOPLEFT", ViksUIOptionsPanel, "TOPRIGHT", 22, 0)
+	ProfileList:SetSize(290, 420)
+	ProfileList:Hide()
+	ProfileListPortrait:SetAlpha(0)
+
+	ProfileList.title = ProfileList:CreateFontString("ProfileListTitle", "OVERLAY", "GameFontNormal")
+	ProfileList.title:SetPoint("TOP", _G["ProfileList"], "TOP", 0, -5)
+	ProfileList.title:SetText(L.profile_title)
+
+	local ProfileButton = CreateFrame("Button", "ViksUIOptionsPanelProfileButton", options, "UIPanelButtonTemplate")
+	ProfileButton:SetPoint("TOPRIGHT", -10, -8)
+	ProfileButton:SetSize(100, 23)
+	ProfileButton:SetText(L.profile)
+	ProfileButton:SetScript("OnClick", function()
+		if SpellList:IsVisible() then SpellList:Hide() end
+		if ProfileList:IsVisible() then ProfileList:Hide() return end
+		ProfileList:Show()
+	end)
+
+	tinsert(ns.buttons, ProfileButton)
+
+	local ProfileListPanel = CreateFrame("Frame", "ProfileListPanel", _G["ProfileListInset"])
+	ProfileListPanel:SetPoint("TOPLEFT", _G["ProfileListInset"], "TOPLEFT", -10, 20)
+	ProfileListPanel:SetPoint("BOTTOMRIGHT", _G["ProfileListInset"], "BOTTOMRIGHT", -6, -5)
+
+	local ProfileBox = CreateFrame("CheckButton", nil, ProfileList, "InterfaceOptionsCheckButtonTemplate")
+	ProfileBox:SetPoint("TOPLEFT", ProfileList, "TOPLEFT", 1, -78)
+	ProfileBox.tooltipText = L_GUI_SET_SAVED_SETTTINGS_DESC
+	ProfileBox:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0)
+		GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true)
+	end)
+
+	ProfileBox:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	options.ProfileBox = ProfileBox
+
+	local label = ProfileBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	label:SetText(L_GUI_SET_SAVED_SETTTINGS)
+	label:SetTextColor(1, 1, 1)
+	label:SetPoint("LEFT", ProfileBox, "RIGHT", 10, 0)
+
+	local profileName
+	StaticPopupDialogs.SHESTAKUI_RENAME_PROFILE = {
+		text = PET_RENAME.." "..strlower(L.profile),
+		button1 = ACCEPT,
+		button2 = CANCEL,
+		hasEditBox = true,
+		editBoxWidth = 350,
+		OnShow = function(self, text)
+			self.editBox:SetMaxLetters(0)
+			self.editBox:SetText(text)
+			self.editBox:HighlightText()
+			profileName = text
+		end,
+		EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+		EditBoxOnTextChanged = function(self)
+			profileName = self:GetText()
+		end,
+		OnAccept = function()
+			if not profileName or profileName == "" then return end
+			if ViksUIOptionsGlobal[realm][name] then
+				local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+				if ViksUIOptionsPerChar[i] then
+					if not ViksUIOptionsPerChar[i]["general"] then
+						ViksUIOptionsPerChar[i]["general"] = {}
+					end
+					ViksUIOptionsPerChar[i]["general"]["profile_name"] = profileName
+				end
+			else
+				local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+				if ViksUIOptions[i] then
+					if not ViksUIOptions[i]["general"] then
+						ViksUIOptions[i]["general"] = {}
+					end
+					ViksUIOptions[i]["general"]["profile_name"] = profileName
+				end
+			end
+			UIDropDownMenu_SetText(ViksUIOptionsPanelgeneralchoose_profileDropDown, profileName)
+		end,
+		whileDead = true,
+		hideOnEscape = true,
+	}
+
+	local RenameButton = CreateFrame("Button", "ProfileListPaneRenameButton", ProfileList, "UIPanelButtonTemplate")
+	RenameButton:SetPoint("TOPLEFT", ProfileBox, "TOPLEFT", 4, -34)
+	RenameButton:SetSize(100, 23)
+	RenameButton:SetText(PET_RENAME)
+	RenameButton:SetWidth(RenameButton.Text:GetWidth() + 15)
+	RenameButton:SetScript("OnClick", function()
+		if ViksUIOptionsGlobal then
+			if ViksUIOptionsGlobal[realm][name] then
+				local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+				profileName = ViksUIOptionsPerChar[i] and ViksUIOptionsPerChar[i]["general"] and ViksUIOptionsPerChar[i]["general"]["profile_name"] or i
+			else
+				local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+				profileName = ViksUIOptions[i] and ViksUIOptions[i]["general"] and ViksUIOptions[i]["general"]["profile_name"] or i
+			end
+			StaticPopup_Show("SHESTAKUI_RENAME_PROFILE", _, _, profileName)
+		end
+	end)
+	tinsert(ns.buttons, RenameButton)
+
+	local status = ProfileListPanel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+	status:SetPoint("BOTTOM", ProfileListPanel, "BOTTOM", 0, 35)
+	status:SetWidth(200)
+	status:SetTextColor(0.8, 0.2, 0)
+
+	local selfTextExport
+	StaticPopupDialogs.VIKSUI_EXPORT_PROFILE = {
+		text = L.profile_export,
+		button1 = OKAY,
+		timeout = 0,
+		whileDead = true,
+		hasEditBox = true,
+		editBoxWidth = 350,
+		OnShow = function(self, text)
+			self.editBox:SetMaxLetters(0)
+			self.editBox:SetText(text)
+			self.editBox:HighlightText()
+			selfTextExport = text
+		end,
+		EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
+		EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+		EditBoxOnTextChanged = function(self)
+			if self:GetText():len() < 1 then
+				self:GetParent():Hide()
+			else
+				self:SetText(selfTextExport)
+				self:HighlightText()
+			end
+		end,
+		preferredIndex = 5,
+	}
+
+	local profileVar = "General"
+	local function startExport()
+		local Prefix = "ViksUI:Profile:"
+		local LibDeflate = LibStub:GetLibrary("LibDeflate")
+		local LibSerialize = LibStub("LibSerialize")
+
+		local Serialized
+		if profileVar == "General" then
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			Serialized = LibSerialize:Serialize(ViksUIOptions[i])
+		elseif profileVar == "Personal" then
+			local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+			Serialized = LibSerialize:Serialize(ViksUIOptionsPerChar[i])
+		elseif profileVar == "Mover" then
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			Serialized = LibSerialize:Serialize(ViksUIPositions[i])
+		elseif profileVar == "Mover_Personal" then
+			local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+			Serialized = LibSerialize:Serialize(ViksUIPositionsPerChar[i])
+		end
+
+		local Compressed = LibDeflate:CompressDeflate(Serialized)
+		local Encoded = LibDeflate:EncodeForPrint(Compressed)
+		local Result = Prefix..Encoded
+		StaticPopup_Show("VIKSUI_EXPORT_PROFILE", _, _, Result)
+	end
+
+	local selfTextImport
+	local importVar = "General"
+	StaticPopupDialogs.VIKSUI_IMPORT_PROFILE = {
+		text = L.profile_import,
+		button1 = ACCEPT,
+		button2 = CANCEL,
+		timeout = 0,
+		whileDead = true,
+		hasEditBox = true,
+		editBoxWidth = 350,
+		EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+		EditBoxOnTextChanged = function(self)
+			selfTextImport = self:GetText()
+		end,
+		OnAccept = function(self)
+			local Code = selfTextImport
+			local Prefix = "ViksUI:Profile:"
+			local LibDeflate = LibStub:GetLibrary("LibDeflate")
+			local LibSerialize = LibStub("LibSerialize")
+
+			local LibCode = string.gsub(Code, Prefix, "")
+			local Decoded = LibDeflate:DecodeForPrint(LibCode)
+
+			if Decoded then
+				local Decompressed = LibDeflate:DecompressDeflate(Decoded)
+				local Success, Table = LibSerialize:Deserialize(Decompressed)
+				if Success then
+					if profileVar == "General" then
+						local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+						ViksUIOptions[i] = Table
+					elseif profileVar == "Personal" then
+						local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+						ViksUIOptionsPerChar[i] = Table
+					elseif profileVar == "Mover" then
+						local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+						ViksUIPositions[i] = Table
+					elseif profileVar == "Mover_Personal" then
+						local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+						ViksUIPositionsPerChar[i] = Table
+					end
+					ReloadUI()
+				else
+					status:SetText(L.profile_error_code)
+				end
+			else
+				status:SetText(L.profile_error_code)
+			end
+		end,
+		preferredIndex = 5,
+	}
+
+	local subheader = ProfileListPanel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+	subheader:SetPoint("TOPLEFT", RenameButton, 15, -40)
+	subheader:SetText(L.profile_options)
+	subheader:SetTextColor(179/255, 211/255, 243/255)
+
+	local ExportButton = CreateFrame("Button", "ProfileListPanelExportButton", ProfileList, "UIPanelButtonTemplate")
+	ExportButton:SetPoint("TOPLEFT", subheader, 10, -20)
+	ExportButton:SetSize(100, 23)
+	ExportButton:SetText(L.profile_export)
+	ExportButton:SetScript("OnClick", function()
+		profileVar = ViksUIOptionsGlobal[realm][name] and "Personal" or "General"
+		startExport()
+	end)
+
+	tinsert(ns.buttons, ExportButton)
+
+	local ImportButton = CreateFrame("Button", "ProfileListPaneImportButton", ProfileList, "UIPanelButtonTemplate")
+	ImportButton:SetPoint("LEFT", ExportButton, "RIGHT", 10, 0)
+	ImportButton:SetSize(100, 23)
+	ImportButton:SetText(L.profile_import)
+	ImportButton:SetScript("OnClick", function()
+		profileVar = ViksUIOptionsGlobal[realm][name] and "Personal" or "General"
+		StaticPopup_Show("VIKSUI_IMPORT_PROFILE")
+	end)
+
+	tinsert(ns.buttons, ImportButton)
+
+	local subheader = ProfileListPanel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+	subheader:SetPoint("TOPLEFT", ExportButton, -10, -35)
+	subheader:SetText(L.profile_movers)
+	subheader:SetTextColor(179/255, 211/255, 243/255)
+
+	local ExportMoveButton = CreateFrame("Button", "ProfileListPanelExportMoveButton", ProfileList, "UIPanelButtonTemplate")
+	ExportMoveButton:SetPoint("TOPLEFT", subheader, 10, -20)
+	ExportMoveButton:SetSize(100, 23)
+	ExportMoveButton:SetText(L.profile_export)
+	ExportMoveButton:SetScript("OnClick", function()
+		profileVar = ViksUIOptionsGlobal[realm][name] and "Mover_Personal" or "Mover"
+		startExport()
+	end)
+
+	tinsert(ns.buttons, ExportMoveButton)
+
+	local ImportMoveButton = CreateFrame("Button", "ProfileListPaneImportMoveButton", ProfileList, "UIPanelButtonTemplate")
+	ImportMoveButton:SetPoint("LEFT", ExportMoveButton, "RIGHT", 10, 0)
+	ImportMoveButton:SetSize(100, 23)
+	ImportMoveButton:SetText(L.profile_import)
+	ImportMoveButton:SetScript("OnClick", function()
+		profileVar = ViksUIOptionsGlobal[realm][name] and "Mover_Personal" or "Mover"
+		StaticPopup_Show("VIKSUI_IMPORT_PROFILE")
+	end)
+
+	tinsert(ns.buttons, ImportMoveButton)
+
+	C_Timer.After(0.3, function() -- need to grab SavedVariables and loaded libraries
+		local LibDeflate = LibStub and LibStub:GetLibrary("LibDeflate", true)
+		local LibSerialize = LibStub and LibStub:GetLibrary("LibSerialize", true)
+		local LibsExist = LibDeflate and LibSerialize
+
+		if not LibsExist then
+			ExportButton:Disable()
+			ImportButton:Disable()
+			ExportMoveButton:Disable()
+			ImportMoveButton:Disable()
+			status:SetText(L.profile_error_lib)
+		end
+
+		-- Use existing function in Core.lua to create dropdown with name via SavedVariables
+		local function SaveValue(f, value)
+			if not C.options[f.group] then C.options[f.group] = {} end
+			if not C.options[f.group][f.option] then C.options[f.group][f.option] = {} end
+
+			C.options[f.group][f.option] = value -- these are the saved variables
+			C[f.group][f.option] = value -- and this is from the lua options
+		end
+
+		local old = {}
+		local function checkIsReloadNeeded()
+			for frame, value in pairs(old) do
+				if C[frame.group][frame.option] ~= value then
+					ns.setReloadNeeded(true)
+					return
+				end
+			end
+
+			ns.setReloadNeeded(false)
+		end
+
+		local function GetProfileName(key)
+			if ViksUIOptionsGlobal[realm][name] then
+				local i = tostring(key)
+				if ViksUIOptionsPerChar[i] and ViksUIOptionsPerChar[i]["general"] and ViksUIOptionsPerChar[i]["general"]["profile_name"] then
+					return ViksUIOptionsPerChar[i]["general"]["profile_name"]
+				end
+			else
+				local i = tostring(key)
+				if ViksUIOptions[i] and ViksUIOptions[i]["general"] and ViksUIOptions[i]["general"]["profile_name"] then
+					return ViksUIOptions[i]["general"]["profile_name"]
+				end
+			end
+		end
+
+		local CreateDropDown = function(parent, option, needsReload, text, tableValue)
+			local f = CreateFrame("Frame", parent:GetName()..option.."DropDown", parent, "UIDropDownMenuTemplate")
+			UIDropDownMenu_SetWidth(f, 110)
+
+			UIDropDownMenu_Initialize(f, function(self)
+				local info = UIDropDownMenu_CreateInfo()
+				info.func = self.SetValue
+				for key, value in pairs(tableValue) do
+					info.text = GetProfileName(key) or value
+					info.arg1 = value
+					info.arg2 = key
+					info.checked = value == f.selectedValue
+
+					if isFont then
+						local fObject = CreateFont(info.text)
+						fObject:SetFont(value, 12, "")
+						info.fontObject = fObject
+					end
+					UIDropDownMenu_AddButton(info)
+				end
+			end)
+
+			function f:SetValue(newValue, newkey)
+				f.selectedValue = newValue
+				local text = GetProfileName(newkey) or newValue
+				UIDropDownMenu_SetText(f, text)
+				if ViksUIOptionsGlobal[realm][name] then
+					ViksUIOptionsGlobal[realm]["Current_Profile"][name] = newValue
+				else
+					ViksUIOptionsGlobal["Current_Profile"] = newValue
+				end
+				SaveValue(f, newValue)
+				old[f] = f.oldValue
+				checkIsReloadNeeded()
+				CloseDropDownMenus()
+			end
+
+			local label = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+			if text then
+				label:SetText(text)
+			else
+				label:SetText(ns[parent.tag.."_"..option])
+			end
+			label:SetHeight(20)
+			label:SetJustifyH("LEFT")
+			label:SetPoint("LEFT", 160, 4)
+			f.label = label
+
+			f.tooltipText = ns[parent.tag.."_"..option.."_desc"]
+			if f.tooltipText then
+				f:SetScript("OnEnter", function()
+					GameTooltip:SetOwner(f, "ANCHOR_RIGHT", 0, 0)
+					GameTooltip:SetText(f.tooltipText, nil, nil, nil, nil, true)
+				end)
+
+				f:SetScript("OnLeave", function()
+					GameTooltip:Hide()
+				end)
+			end
+
+			f.group = parent.tag
+			f.option = option
+
+			f.needsReload = needsReload
+
+			parent[option] = f
+
+			return f
+		end
+
+		local choose_profile = CreateDropDown(ViksUIOptionsPanel.general, "choose_profile", true, L.profile_choose, {1, 2, 3})
+		choose_profile:SetPoint("TOPLEFT", ProfileList, "TOPLEFT", -15, -46)
+		choose_profile:SetParent(ProfileListPanel)
+
+		local value = ViksUIOptionsGlobal[realm][name] and ViksUIOptionsGlobal[realm]["Current_Profile"][name] or ViksUIOptionsGlobal["Current_Profile"]
+		choose_profile.selectedValue = value
+		choose_profile.oldValue = value
+
+		local text
+		if ViksUIOptionsGlobal[realm][name] then
+			local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
+			text = ViksUIOptionsPerChar[i] and ViksUIOptionsPerChar[i]["general"] and ViksUIOptionsPerChar[i]["general"]["profile_name"]
+		else
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			text = ViksUIOptions[i] and ViksUIOptions[i]["general"] and ViksUIOptions[i]["general"]["profile_name"]
+		end
+		text = text or value
+		UIDropDownMenu_SetText(choose_profile, text)
+	end)
 end
 
 -- Font
@@ -1074,7 +1481,7 @@ do
 	local blizzard_frames = ns.CreateCheckBox(parent, "blizzard_frames", L_GUI_SKINS_BLIZZARD)
 	blizzard_frames:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
-	local bubbles = ns.CreateCheckBox(parent, "bubbles", L_GUI_CHAT_SKIN_BUBBLE)
+	local bubbles = ns.CreateCheckBox(parent, "bubbles")
 	bubbles:SetPoint("TOPLEFT", blizzard_frames, "BOTTOMLEFT", 0, 0)
 
 	local minimap_buttons = ns.CreateCheckBox(parent, "minimap_buttons", L_GUI_SKINS_MINIMAP_BUTTONS)
@@ -1988,25 +2395,25 @@ end
 do
 	local parent = ViksUIOptionsPanel.chat
 
-	local enable = ns.CreateCheckBox(parent, "enable", L_GUI_CHAT_ENABLE)
+	local enable = ns.CreateCheckBox(parent, "enable")
 	enable:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
-	local width = ns.CreateNumberSlider(parent, "width", nil, nil, 0, 750, 1, true, L_GUI_CHAT_WIDTH)
+	local width = ns.CreateNumberSlider(parent, "width", nil, nil, 0, 750, 1, true)
 	width:SetPoint("TOPLEFT", enable, "BOTTOMLEFT", 0, -20)
 
-	local height = ns.CreateNumberSlider(parent, "height", nil, nil, 0, 300, 1, true, L_GUI_CHAT_HEIGHT)
+	local height = ns.CreateNumberSlider(parent, "height", nil, nil, 0, 300, 1, true)
 	height:SetPoint("LEFT", width, "RIGHT", 120, 0)
 
-	local background = ns.CreateCheckBox(parent, "background", L_GUI_CHAT_BACKGROUND)
+	local background = ns.CreateCheckBox(parent, "background")
 	background:SetPoint("TOPLEFT", width, "BOTTOMLEFT", 0, -10)
 
-	local background_alpha = ns.CreateNumberSlider(parent, "background_alpha", nil, nil, 0, 1, 0.05, true, L_GUI_CHAT_BACKGROUND_ALPHA)
+	local background_alpha = ns.CreateNumberSlider(parent, "background_alpha", nil, nil, 0, 1, 0.05, true)
 	background_alpha:SetPoint("TOPLEFT", background, "BOTTOMLEFT", 0, -20)
 
-	local filter = ns.CreateCheckBox(parent, "filter", L_GUI_CHAT_SPAM)
+	local filter = ns.CreateCheckBox(parent, "filter")
 	filter:SetPoint("TOPLEFT", background_alpha, "BOTTOMLEFT", 0, -10)
 
-	local spam = ns.CreateCheckBox(parent, "spam", L_GUI_CHAT_GOLD)
+	local spam = ns.CreateCheckBox(parent, "spam")
 	spam:SetPoint("TOPLEFT", filter, "BOTTOMLEFT", 0, 0)
 
 	local spam_list = ns.CreateEditBox(parent, "spam_list", true)
@@ -2014,27 +2421,27 @@ do
 	spam_list:SetWidth(200)
 	spam_list:SetMaxLetters(40)
 
-	local chat_bar = ns.CreateCheckBox(parent, "chat_bar", L_GUI_CHAT_BAR)
+	local chat_bar = ns.CreateCheckBox(parent, "chat_bar")
 	chat_bar:SetPoint("TOPLEFT", spam_list, "BOTTOMLEFT", -6, -10)
 
-	local chat_bar_mouseover = ns.CreateCheckBox(parent, "chat_bar_mouseover", L_GUI_CHAT_BAR_MOUSEOVER)
+	local chat_bar_mouseover = ns.CreateCheckBox(parent, "chat_bar_mouseover")
 	chat_bar_mouseover:SetPoint("TOPLEFT", chat_bar, "BOTTOMLEFT", 20, 0)
 
 	chat_bar.children = {chat_bar_mouseover}
-	
-	local whisp_sound = ns.CreateCheckBox(parent, "whisp_sound", L_GUI_CHAT_WHISP)
+
+	local whisp_sound = ns.CreateCheckBox(parent, "whisp_sound")
 	whisp_sound:SetPoint("TOPLEFT", chat_bar_mouseover, "BOTTOMLEFT", -20, 0)
 
-	local combatlog = ns.CreateCheckBox(parent, "combatlog", L_GUI_CHAT_CL_TAB)
+	local combatlog = ns.CreateCheckBox(parent, "combatlog")
 	combatlog:SetPoint("TOPLEFT", whisp_sound, "BOTTOMLEFT", 0, 0)
 
-	local tabs_mouseover = ns.CreateCheckBox(parent, "tabs_mouseover", L_GUI_CHAT_TABS_MOUSEOVER)
+	local tabs_mouseover = ns.CreateCheckBox(parent, "tabs_mouseover")
 	tabs_mouseover:SetPoint("TOPLEFT", combatlog, "BOTTOMLEFT", 0, 0)
 
-	local sticky = ns.CreateCheckBox(parent, "sticky", L_GUI_CHAT_STICKY)
+	local sticky = ns.CreateCheckBox(parent, "sticky")
 	sticky:SetPoint("TOPLEFT", tabs_mouseover, "BOTTOMLEFT", 0, 0)
 
-	local damage_meter_spam = ns.CreateCheckBox(parent, "damage_meter_spam", L_GUI_CHAT_DAMAGE_METER_SPAM)
+	local damage_meter_spam = ns.CreateCheckBox(parent, "damage_meter_spam")
 	damage_meter_spam:SetPoint("TOPLEFT", sticky, "BOTTOMLEFT", 0, 0)
 
 	local loot_icons = ns.CreateCheckBox(parent, "loot_icons")
@@ -2311,7 +2718,6 @@ do
 	ListButton:SetSize(100, 23)
 	ListButton:SetText(ADD)
 	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
-	ListButton.tooltipText = "|cffFFD100"..L_GUI_RESET_SPELLS_DESC.."|r"
 	ListButton:SetScript("OnClick", function()
 		if not C.options["combattext"] then
 			C.options["combattext"] = {}
@@ -2572,7 +2978,7 @@ do
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	ListButton:SetPoint("LEFT", spells, "RIGHT", 400, 0)
 	ListButton:SetSize(100, 23)
-	ListButton:SetText(">>")
+	ListButton:SetText(ADD)
 	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
 	ListButton:SetScript("OnClick", function()
 		if not C.options["announcements"] then
@@ -2588,16 +2994,16 @@ do
 	local function toggleListButton()
 		local shown = spells:GetChecked()
 		ListButton:SetEnabled(shown)
-		if not T.announce_spells then ListButton:Disable() return end
+		if not T.announce_spells then
+			ListButton.tooltipText = "|cffFFD100"..REQUIRES_RELOAD.."|r"
+			ListButton:SetScript("OnClick", nil)
+		end
 	end
 
 	spells:HookScript("OnClick", toggleListButton)
 	ListButton:HookScript("OnShow", toggleListButton)
 
-	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L.announcements_spells_from_all)
-	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
-
-	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all", L.announcements_spells_from_all)
+	local spells_from_all = ns.CreateCheckBox(parent, "spells_from_all")
 	spells_from_all:SetPoint("TOPLEFT", spells, "BOTTOMLEFT", 20, 0)
 
 	spells.children = {spells_from_all}
@@ -2789,6 +3195,10 @@ do
 		if IsControlKeyDown() then
 			C.options["raidcooldown"]["spells_list"] = nil
 			ns.setReloadNeeded(true)
+			ListButton.tooltipText = "|cffFFD100"..REQUIRES_RELOAD.."|r"
+			ListButton:SetScript("OnClick", nil)
+			GameTooltip:Hide()
+			SpellList:Hide()
 			return
 		end
 		BuildSpellList(C.options["raidcooldown"]["spells_list"], true)
@@ -2850,6 +3260,10 @@ do
 		if IsControlKeyDown() then
 			C.options["enemycooldown"]["spells_list"] = nil
 			ns.setReloadNeeded(true)
+			ListButton.tooltipText = "|cffFFD100"..REQUIRES_RELOAD.."|r"
+			ListButton:SetScript("OnClick", nil)
+			GameTooltip:Hide()
+			SpellList:Hide()
 			return
 		end
 		BuildSpellList(C.options["enemycooldown"]["spells_list"], true)
@@ -2982,7 +3396,7 @@ do
 	local currency_raid = ns.CreateCheckBox(parent, "currency_raid", L_GUI_STATS_CURRENCY_RAID)
 	currency_raid:SetPoint("TOPLEFT", currency_cooking, "BOTTOMLEFT", 0, 0)
 
-	local currency_misc = ns.CreateCheckBox(parent, "currency_misc", CURRENCY.. " "..EXPANSION_NAME8)
+	local currency_misc = ns.CreateCheckBox(parent, "currency_misc", CURRENCY.. " "..EXPANSION_NAME9)
 	currency_misc:SetPoint("TOPLEFT", currency_raid, "BOTTOMLEFT", 0, 0)
 end
 ]]
@@ -3270,6 +3684,14 @@ f:SetScript("OnEvent", function()
 	T.SkinEditBox(SpellListTextInput)
 	T.SkinEditBox(SpellListTextInput2)
 
+	ProfileList:StripTextures()
+	ProfileList:CreateBackdrop("Transparent")
+	ProfileList.backdrop:SetPoint("TOPLEFT", -18, 0)
+	ProfileList.backdrop:SetPoint("BOTTOMRIGHT", 0, 9)
+	T.SkinCloseButton(ProfileListCloseButton)
+
+	ProfileListPanel:CreateBackdrop("Overlay")
+
 	ViksUIInfoFrame:SetTemplate("Overlay")
 
 	ViksUIProfileFrame:SetTemplate("Transparent")
@@ -3277,6 +3699,13 @@ f:SetScript("OnEvent", function()
 	ViksUIProfileFrameScroll:CreateBackdrop("Overlay")
 	ViksUIProfileFrameScroll.backdrop:SetPoint("TOPLEFT", -4, 4)
 	ViksUIProfileFrameScroll.backdrop:SetPoint("BOTTOMRIGHT", 4, -4)
+
+	C_Timer.After(3, function()
+		local dropdown = ViksUIOptionsPanelgeneralchoose_profileDropDown
+		if dropdown then
+			T.SkinDropDownBox(dropdown)
+		end
+	end)
 end)
 
 ----------------------------------------------------------------------------------------

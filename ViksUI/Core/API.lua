@@ -230,6 +230,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 end
 
 local function CreateBackdrop(f, t)
+	local f = (f.IsObjectType and f:IsObjectType("Texture") and f:GetParent()) or f
 	if f.backdrop then return end
 	if not t then t = "Default" end
 
@@ -609,7 +610,7 @@ addAPI(scrollFrame)
 T.SkinFuncs = {}
 T.SkinFuncs["ViksUI"] = {}
 
-function T.SkinScrollBar(frame)
+function T.SkinScrollBar(frame, minimal)
 	frame:StripTextures()
 
 	local frameName = frame.GetName and frame:GetName()
@@ -684,6 +685,12 @@ function T.SkinScrollBar(frame)
 				hooksecurefunc(newThumb, "Show", function(self)
 					frame:SetAlpha(1)
 				end)
+			end
+
+			if minimal then
+				UpButton:SetSize(17, 15)
+				DownButton:SetSize(17, 15)
+				newThumb:SetWidth(17)
 			end
 		end
 	end
@@ -933,6 +940,29 @@ function T.SkinCheckBox(frame, size)
 	end
 end
 
+function T.SkinCheckBoxAtlas(checkbox, size)
+	if size then
+		checkbox:SetSize(size, size)
+	end
+
+	checkbox:CreateBackdrop("Overlay")
+	checkbox.backdrop:SetInside(nil, 4, 4)
+
+	for _, region in next, { checkbox:GetRegions() } do
+		if region:IsObjectType("Texture") then
+			if region:GetAtlas() == "checkmark-minimal" or region:GetTexture() == 130751 then
+				region:SetTexture(C.media.texture)
+
+				local checkedTexture = checkbox:GetCheckedTexture()
+				checkedTexture:SetColorTexture(1, 0.82, 0, 0.8)
+				checkedTexture:SetInside(checkbox.backdrop)
+			else
+				region:SetTexture("")
+			end
+		end
+	end
+end
+
 function T.SkinCloseButton(f, point, text, pixel)
 	f:StripTextures()
 	f:SetTemplate("Overlay")
@@ -989,6 +1019,38 @@ function T.SkinSlider(f)
 
 	f:SetThumbTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 	f:GetThumbTexture():SetBlendMode("ADD")
+end
+
+function T.SkinSliderStep(frame, minimal)
+	frame:StripTextures()
+
+	local slider = frame.Slider
+	if not slider then return end
+
+	slider:DisableDrawLayer("ARTWORK")
+
+	local thumb = slider.Thumb
+	if thumb then
+		thumb:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+		thumb:SetBlendMode("ADD")
+		thumb:SetSize(20, 30)
+	end
+
+	local offset = minimal and 10 or 13
+	slider:CreateBackdrop("Overlay")
+	slider.backdrop:SetPoint("TOPLEFT", 10, -offset)
+	slider.backdrop:SetPoint("BOTTOMRIGHT", -10, offset)
+
+	if not slider.barStep then
+		local step = CreateFrame("StatusBar", nil, slider.backdrop)
+		step:SetStatusBarTexture(C.media.texture)
+		step:SetStatusBarColor(1, 0.82, 0, 1)
+		step:SetPoint("TOPLEFT", slider.backdrop, T.mult * 2, -T.mult * 2)
+		step:SetPoint("BOTTOMLEFT", slider.backdrop, T.mult * 2, T.mult * 2)
+		step:SetPoint("RIGHT", thumb, "CENTER")
+
+		slider.barStep = step
+	end
 end
 
 function T.SkinIconSelectionFrame(frame, numIcons, buttonNameTemplate, frameNameOverride)
@@ -1182,35 +1244,33 @@ local iconColors = {
 	["auctionhouse-itemicon-border-account"]	= BAG_ITEM_QUALITY_COLORS[7]
 }
 
-function T.SkinIconBorder(frame, border)
-	local backdrop = border or frame:GetParent().backdrop
+function T.SkinIconBorder(frame, parent)
+	local border = parent or frame:GetParent().backdrop
 	frame:SetAlpha(0)
 	hooksecurefunc(frame, "SetVertexColor", function(self, r, g, b)
 		if r ~= BAG_ITEM_QUALITY_COLORS[1].r ~= r and g ~= BAG_ITEM_QUALITY_COLORS[1].g then
-			backdrop:SetBackdropBorderColor(r, g, b)
+			border:SetBackdropBorderColor(r, g, b)
 		else
-			backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+			border:SetBackdropBorderColor(unpack(C.media.border_color))
 		end
-		-- frame:SetAlpha(0)
 	end)
 
 	hooksecurefunc(frame, "SetAtlas", function(self, atlas)
 		local color = iconColors[atlas]
-		-- frame:SetAlpha(0)
 		if color then
-			backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
+			border:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
-			-- backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+			-- border:SetBackdropBorderColor(unpack(C.media.border_color))
 		end
 	end)
 
 	hooksecurefunc(frame, "Hide", function(self)
-		backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+		border:SetBackdropBorderColor(unpack(C.media.border_color))
 	end)
 
 	hooksecurefunc(frame, "SetShown", function(self, show)
 		if not show then
-			backdrop:SetBackdropBorderColor(unpack(C.media.border_color))
+			border:SetBackdropBorderColor(unpack(C.media.border_color))
 		end
 	end)
 end

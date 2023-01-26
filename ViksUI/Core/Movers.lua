@@ -26,7 +26,7 @@ T.MoverFrames = {
 	ThreatMeterAnchor,
 	LootRollAnchor,
 	RaidBuffsAnchor,
-	DCPAnchor,
+	PulseCDAnchor,
 	AutoButtonAnchor,
 	AnchorMarkBar,
 	TooltipAnchor,
@@ -158,14 +158,38 @@ local placed = {
 	"UIWidgetBelowAnchor"
 }
 
+local function MergeOldPositions()	-- TODO delete after while
+	if ViksUIOptionsGlobal[T.realm][T.name] then
+		if not ViksUIPositionsPerChar then
+			ViksUIPositionsPerChar = ViksUIPositions
+		end
+		if not ViksUIPositionsPerChar.merged then
+			local backup = ViksUIPositions
+			ViksUIPositionsPerChar = {}
+			ViksUIPositionsPerChar["1"] = backup
+			ViksUIPositionsPerChar.merged = true
+			ViksUIPositionsPerChar["1"]["1"] = nil -- T.CurrentProfile calls early and create empty table so remove this
+		end
+	else
+		if not ViksUIPositions.merged then
+			local backup = ViksUIPositions
+			ViksUIPositions = {}
+			ViksUIPositions["1"] = backup
+			ViksUIPositions.merged = true
+			ViksUIPositions["1"]["1"] = nil
+		end
+	end
+end
+
 local SaveDefaultPosition = function(mover)
 	local ap, p, rp, x, y = mover.frame:GetPoint()
-	ViksUIPositions.Default = ViksUIPositions.Default or {}
-	if not ViksUIPositions.Default[mover.frame:GetName()] then
+	local positionTable = T.CurrentProfile()
+	positionTable.Default = positionTable.Default or {}
+	if not positionTable.Default[mover.frame:GetName()] then
 		if not p then
 			p = UIParent
 		end
-		ViksUIPositions.Default[mover.frame:GetName()] = {ap, p:GetName(), rp, x, y}
+		positionTable.Default[mover.frame:GetName()] = {ap, p:GetName(), rp, x, y}
 	end
 end
 
@@ -173,7 +197,8 @@ local SetPosition = function(mover)
 	local x, y, ap = T.CalculateMoverPoints(mover)
 	mover.frame:ClearAllPoints()
 	mover.frame:SetPoint(ap, "UIParent", ap, x, y)
-	ViksUIPositions[mover.frame:GetName()] = {ap, "UIParent", ap, x, y}
+	local positionTable = T.CurrentProfile()
+	positionTable[mover.frame:GetName()] = {ap, "UIParent", ap, x, y}
 end
 
 -- Controls
@@ -233,7 +258,8 @@ local function CreateArrow(moveX, moveY, callback)
 		if not relativeTo then
 			relativeTo = UIParent
 		end
-		ViksUIPositions[frame.frame:GetName()] = {point, relativeTo:GetName(), relativePoint, xOfs, yOfs}
+		local positionTable = T.CurrentProfile()
+		positionTable[frame.frame:GetName()] = {point, relativeTo:GetName(), relativePoint, xOfs, yOfs}
 		frame:SetAllPoints(frame.frame)
 		controls.x:SetText(T.Round(xOfs))
 		controls.y:SetText(T.Round(yOfs))
@@ -331,14 +357,15 @@ end
 
 local RestoreDefaults = function(self, button)
 	if button == "RightButton" then
-		local data = ViksUIPositions.Default and ViksUIPositions.Default[self.frame:GetName()]
+		local positionTable = T.CurrentProfile()
+		local data = positionTable.Default and positionTable.Default[self.frame:GetName()]
 		if data then
 			self.frame:ClearAllPoints()
 			self.frame:SetPoint(unpack(data))
 			self:ClearAllPoints()
 			self:SetAllPoints(self.frame)
-			ViksUIPositions.Default[self.frame:GetName()] = nil
-			ViksUIPositions[self.frame:GetName()] = nil
+			positionTable.Default[self.frame:GetName()] = nil
+			positionTable[self.frame:GetName()] = nil
 		end
 	elseif button == "MiddleButton" then
 		self:Hide()
@@ -357,7 +384,8 @@ local UpdatePosition = function(moveX, moveY)
 	if not relativeTo then
 		relativeTo = UIParent
 	end
-	ViksUIPositions[frame.frame:GetName()] = {point, relativeTo:GetName(), relativePoint, xOfs, yOfs}
+	local positionTable = T.CurrentProfile()
+	positionTable[frame.frame:GetName()] = {point, relativeTo:GetName(), relativePoint, xOfs, yOfs}
 	frame:SetAllPoints(frame.frame)
 	controls.x:SetText(T.Round(xOfs))
 	controls.y:SetText(T.Round(yOfs))
@@ -475,7 +503,7 @@ end
 local InitMove = function(msg)
 	if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end
 	if msg and (msg == "reset" or msg == "куыуе") then
-		ViksUIPositions = {}
+		T.CurrentProfile(true)
 		for _, v in pairs(placed) do
 			if _G[v] then
 				_G[v]:SetUserPlaced(false)
@@ -505,7 +533,6 @@ local InitMove = function(msg)
 		controls:Hide()
 		chatInfo:Hide()
 	end
-	if T.MoveUnitFrames then T.MoveUnitFrames() end
 end
 
 local RestoreUI = function(self)
@@ -519,8 +546,10 @@ local RestoreUI = function(self)
 		end)
 		return
 	end
-	if ViksUIPositions then
-		for frame_name, point in pairs(ViksUIPositions) do
+	MergeOldPositions()	-- TODO delete after while
+	local positionTable = T.CurrentProfile()
+	if positionTable then
+		for frame_name, point in pairs(positionTable) do
 			if _G[frame_name] then
 				_G[frame_name]:ClearAllPoints()
 				_G[frame_name]:SetPoint(unpack(point))
@@ -547,9 +576,10 @@ StaticPopupDialogs.RESET_UF = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") else
+		local positionTable = T.CurrentProfile()
 		for _, frame in pairs(unitFrames) do
 			if frame:GetName() then
-				ViksUIPositions[frame:GetName()] = nil
+				positionTable[frame:GetName()] = nil
 			end
 		end
 		ReloadUI()
@@ -569,7 +599,7 @@ StaticPopupDialogs.MOVEUI_RESET = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function() if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") else
-		ViksUIPositions = {}
+		T.CurrentProfile(true)
 		for _, v in pairs(placed) do
 			if _G[v] then
 				_G[v]:SetUserPlaced(false)

@@ -107,6 +107,18 @@ RoleUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
 RoleUpdater:RegisterEvent("PLAYER_TALENT_UPDATE")
 RoleUpdater:SetScript("OnEvent", CheckRole)
 
+T.IsHealerSpec = function()
+	local healer = false
+	local spec = GetSpecialization()
+
+	if (T.class == "EVOKER" and spec == 2) or (T.class == "DRUID" and spec == 4) or (T.class == "MONK" and spec == 2) or
+	(T.class == "PALADIN" and spec == 1) or (T.class == "PRIEST" and spec ~= 3) or (T.class == "SHAMAN" and spec == 3) then
+		healer = true
+	end
+
+	return healer
+end
+
 ----------------------------------------------------------------------------------------
 --	Player's buff check
 ----------------------------------------------------------------------------------------
@@ -212,6 +224,30 @@ T.IsFramePositionedLeft = function(frame)
 	return positionedLeft
 end
 
+T.CurrentProfile = function(reset)
+	if ViksUIOptionsGlobal[T.realm][T.name] then
+		if ViksUIPositionsPerChar == nil then
+			ViksUIPositionsPerChar = ViksUIPositions
+		end
+		if not ViksUIPositionsPerChar then return {} end
+		local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+		ViksUIPositionsPerChar[i] = ViksUIPositionsPerChar[i] or {}
+		if reset then
+			ViksUIPositionsPerChar[i] = {}
+		else
+			return ViksUIPositionsPerChar[i]
+		end
+	else
+		if not ViksUIPositions then return {} end
+		local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+		ViksUIPositions[i] = ViksUIPositions[i] or {}
+		if reset then
+			ViksUIPositions[i] = {}
+		else
+			return ViksUIPositions[i]
+		end
+	end
+end
 ------------------------------------------------------------------------------------------
 -- Overlay Function (Buttons) --Different then in API
 ------------------------------------------------------------------------------------------

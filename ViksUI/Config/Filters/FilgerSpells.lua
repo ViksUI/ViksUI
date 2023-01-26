@@ -634,7 +634,7 @@ C["filger_spells"] = {
 			-- Buffs
 			-- Snapfire
 			{spellID = 370818, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Essence burst
+			-- Essence Burst
 			{spellID = 359618, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Leaping Flames
 			{spellID = 370901, unitID = "player", caster = "player", filter = "BUFF"},
@@ -648,16 +648,12 @@ C["filger_spells"] = {
 			IconSize = C.filger.buffs_size,
 			Position = {"TOP", T_DEBUFF_ICON_Anchor},
 
-			-- Living Flame Debuff
+			-- Living Flame [Damage]
 			{spellID = 361500, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Leaping Flames Healing
+			-- Living Flame [Healing]
 			{spellID = 361509, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Fire Breath
 			{spellID = 357209, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Landslide
-			{spellID = 355689, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Permeating Chill
-			{spellID = 370898, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Disintegrate
 			{spellID = 356995, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Echo
@@ -747,6 +743,14 @@ C["filger_spells"] = {
 			{spellID = 383005, filter = "CD"},
 			-- Emerald Communion
 			{spellID = 370960, filter = "CD"},
+			-- Dream Breath
+			{spellID = 355941, filter = "CD"},
+			-- Spiritbloom
+			{spellID = 382731, filter = "CD"},
+			-- Rewind
+			{spellID = 363534, filter = "CD"},
+			-- Verdant Embrace
+			{spellID = 360995, filter = "CD"},
 		},
 	},
 	["HUNTER"] = {
@@ -844,10 +848,6 @@ C["filger_spells"] = {
 			{spellID = 131894, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hunter's Mark
 			{spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Narrow Escape
-			{spellID = 136634, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Entrapment
-			{spellID = 135373, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Caltrops
 			{spellID = 194279, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Warp Time (Warp Stalker)
@@ -870,12 +870,6 @@ C["filger_spells"] = {
 			{spellID = 13812, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Steel Trap
 			{spellID = 162487, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
-			-- Wild Mark - Night Fae Covenant Ability for Hunters
-			{spellID = 328275, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Resonating Arrow - Kyrian Covenant Ability for Hunters
-			{spellID = 308498, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Soulforge Embers
-			{spellID = 336746, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
@@ -888,8 +882,6 @@ C["filger_spells"] = {
 			BarWidth = 150,
 			Position = {"LEFT", PVE_PVP_CC_Anchor},
 
-			-- Wyvern Sting
-			{spellID = 19386, unitID = "focus", caster = "player", filter = "DEBUFF"},
 			-- Freezing Trap
 			{spellID = 3355, unitID = "focus", caster = "player", filter = "DEBUFF"},
 		},
@@ -935,8 +927,6 @@ C["filger_spells"] = {
 			{spellID = 117526, filter = "CD"},
 			-- Master's Call
 			{spellID = 53271, filter = "CD"},
-			-- Wyvern Sting
-			{spellID = 19386, filter = "CD"},
 			-- Intimidation
 			{spellID = 19577, filter = "CD"},
 			-- Bestial Wrath
@@ -953,10 +943,6 @@ C["filger_spells"] = {
 			{spellID = 186257, filter = "CD"},
 			-- Spirit Mend (Pet)
 			{spellID = 90361, filter = "CD"},
-			-- Volley
-			{spellID = 260243, filter = "CD"},
-			-- Wild Spirits
-			{spellID = 328231, filter = "CD"},
 		},
 	},
 	["MAGE"] = {
@@ -1529,8 +1515,6 @@ C["filger_spells"] = {
 			{spellID = 194249, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Dispersion
 			{spellID = 47585, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Power Infusion
-			{spellID = 10060, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Apotheosis
 			{spellID = 200183, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Blessing of T'uure
@@ -1580,8 +1564,6 @@ C["filger_spells"] = {
 			{spellID = 87160, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Twist of Fate
 			{spellID = 123254, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Dark Thoughts
-			{spellID = 341207, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -1596,12 +1578,6 @@ C["filger_spells"] = {
 			{spellID = 214621, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Weakened Soul
 			{spellID = 6788, unitID = "player", caster = "player", filter = "DEBUFF"},
-			-- Vampiric Touch
-			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Shadow Word: Pain
-			{spellID = 589, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Devouring Plague
-			{spellID = 335467, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
@@ -1822,6 +1798,10 @@ C["filger_spells"] = {
 			{spellID = 193356, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shark Infested Waters
 			{spellID = 193357, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Opportunity
+			{spellID = 195627, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Audacity
+			{spellID = 386270, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -2245,8 +2225,6 @@ C["filger_spells"] = {
 			{spellID = 205181, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Eradication
 			{spellID = 196414, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Soul Rot - Night Fae Covenant Ability for Warlocks
-			{spellID = 331623, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
@@ -2494,6 +2472,8 @@ C["filger_spells"] = {
 			{spellID = 381301, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Mallet of Thunderous Skins
 			{spellID = 292686, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Power Infusion
+			{spellID = 10060, unitID = "player", caster = "all", filter = "BUFF"},
 
 			-- Engineering
 			-- Goblin Glider [Goblin Glider Kit]
@@ -2572,14 +2552,14 @@ C["filger_spells"] = {
 			{spellID = 77764, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Blessing of Freedom
 			{spellID = 1044, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Time Spiral
+			{spellID = 375226, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Tricks of the Trade
 			{spellID = 57934, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Slow Fall
 			{spellID = 130, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Levitate
-			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},	
-			-- Field of Blossoms (NF Dreamweaver buff)
-			{spellID = 319191, unitID = "player", caster = "all", filter = "BUFF"},
+			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",
@@ -2706,9 +2686,9 @@ C["filger_spells"] = {
 			{spellID = 118345, unitID = "player", caster = "all", filter = "DEBUFF", absID = true},
 			-- Sundering
 			{spellID = 197214, unitID = "player", caster = "all", filter = "DEBUFF"},
-			-- Lightning Lasso
+			-- Lightning Lasso (PvP Talent)
 			{spellID = 204437, unitID = "player", caster = "all", filter = "DEBUFF"},
-			-- Earthfury
+			-- Earthfury (PvP Talent)
 			{spellID = 204399, unitID = "player", caster = "all", filter = "DEBUFF"},
 
 			-- Warlock
@@ -2776,6 +2756,8 @@ C["filger_spells"] = {
 			{spellID = 31117, unitID = "player", caster = "all", filter = "DEBUFF", absID = true},
 
 			-- Roots
+			-- Landslide
+			{spellID = 355689, unitID = "player", caster = "all", filter = "DEBUFF", absID = true},
 			-- Chains of Ice
 			{spellID = 45524, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Entangling Roots
@@ -2816,6 +2798,8 @@ C["filger_spells"] = {
 			{spellID = 58180, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Typhoon
 			{spellID = 61391, unitID = "player", caster = "all", filter = "DEBUFF"},
+			-- Permeating Chill
+			{spellID = 370898, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Concussive Shot
 			{spellID = 5116, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Frost Breath (Chimaera)
@@ -2981,6 +2965,8 @@ C["filger_spells"] = {
 			-- Debuffs
 			-- Sleep Walk
 			{spellID = 360806, unitID = "target", caster = "all", filter = "DEBUFF"},
+			-- Landslide
+			{spellID = 355689, unitID = "target", caster = "all", filter = "DEBUFF", absID = true},
 
 			-- Hunter
 			-- Aspect of the Turtle

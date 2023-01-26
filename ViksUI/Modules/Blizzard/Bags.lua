@@ -12,6 +12,7 @@ local ST_SPECIAL = 3
 local bag_bars = 0
 local unusable
 
+-- Unfit-1.0 Library
 if T.class == "DEATHKNIGHT" then
 	unusable = { -- weapon, armor, dual-wield
 		{Enum.ItemWeaponSubclass.Bows, Enum.ItemWeaponSubclass.Guns, Enum.ItemWeaponSubclass.Warglaive, Enum.ItemWeaponSubclass.Staff, Enum.ItemWeaponSubclass.Unarmed, Enum.ItemWeaponSubclass.Dagger, Enum.ItemWeaponSubclass.Thrown, Enum.ItemWeaponSubclass.Crossbow, Enum.ItemWeaponSubclass.Wand},
@@ -97,7 +98,7 @@ end
 
 local function IsClassUnusable(class, subclass, slot)
 	if class and subclass and _unusable[class] then
-		return slot ~= '' and _unusable[class][subclass] or slot == 'INVTYPE_WEAPONOFFHAND' and unusable[3]
+		return slot ~= "" and _unusable[class][subclass] or slot == "INVTYPE_WEAPONOFFHAND" and unusable[3]
 	end
 end
 
@@ -240,7 +241,7 @@ function Stuffing:SlotUpdate(b)
 	if clink then
 		b.name, _, _, b.itemlevel, b.level, _, _, _, _, _, _, b.itemClassID, b.itemSubClassID = GetItemInfo(clink)
 		if not b.name then	-- Keystone bug
-			b.name = clink:match('%[(.-)%]') or ""
+			b.name = clink:match("%[(.-)%]") or ""
 		end
 
 		if C.bag.ilvl == true and b.itemlevel and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4 or (b.itemClassID == 3 and b.itemSubClassID == 11)) then
@@ -513,10 +514,15 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		table.insert(self.bagframe_buttons, ret)
 
 		BankFrameItemButton_Update(ret.frame)
-		BankFrameItemButton_UpdateLocked(ret.frame)
 
 		if not ret.frame.tooltipText then
 			ret.frame.tooltipText = ""
+		end
+
+		ret.frame.ID = ret.frame:GetInventorySlot()
+		local quality = GetInventoryItemQuality("player", ret.frame.ID)
+		if quality then
+			ret.frame.quality = quality
 		end
 
 		if slot > GetNumBankSlots() then
@@ -527,27 +533,17 @@ function Stuffing:BagFrameSlotNew(p, slot)
 	else
 		ret.frame = CreateFrame("ItemButton", "StuffingFBag"..(slot + 1).."Slot", p, "")
 		Mixin(ret.frame, BackdropTemplateMixin)
-		hooksecurefunc(ret.frame.IconBorder, "SetVertexColor", function(self, r, g, b)
-			if r ~= 0.65882 and g ~= 0.65882 and b ~= 0.65882 then
-				self:GetParent():SetBackdropBorderColor(r, g, b)
-			end
-			self:SetTexture("")
-		end)
-
-		hooksecurefunc(ret.frame.IconBorder, "Hide", function(self)
-			self:GetParent():SetBackdropBorderColor(unpack(C.media.border_color))
-		end)
 
 		ret.frame.ID = C_Container.ContainerIDToInventoryID(slot + 1)
 		local bag_tex = GetInventoryItemTexture("player", ret.frame.ID)
 		_G[ret.frame:GetName().."IconTexture"]:SetTexture(bag_tex)
 		ret.frame:SetID(ret.frame.ID)
 
-		ret.frame:RegisterForDrag('LeftButton')
-		ret.frame:SetScript('OnDragStart', function(self)
+		ret.frame:RegisterForDrag("LeftButton")
+		ret.frame:SetScript("OnDragStart", function(self)
 			PickupBagFromSlot(self:GetID())
 		end)
-		ret.frame:SetScript('OnReceiveDrag', function(self)
+		ret.frame:SetScript("OnReceiveDrag", function(self)
 			PutItemInBag(self:GetID())
 		end)
 
@@ -558,8 +554,8 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		local tooltip_show = function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_LEFT", 19, 7)
 			GameTooltip:ClearLines()
-			if ret.quality then
-				GameTooltip:SetInventoryItem('player', self:GetID())
+			if GetInventoryItemLink("player", ret.frame.ID) then
+				GameTooltip:SetInventoryItem("player", self:GetID())
 			else
 				local text = ret.slot == 4 and EQUIP_CONTAINER_REAGENT or EQUIP_CONTAINER
 				GameTooltip:AddLine(text)
@@ -570,12 +566,13 @@ function Stuffing:BagFrameSlotNew(p, slot)
 		ret.frame:HookScript("OnEnter", tooltip_show)
 		ret.frame:HookScript("OnLeave", tooltip_hide)
 
-		ret.frame:SetTemplate("Default")
-
-		local slotLink = GetInventoryItemLink("player", ret.frame.ID)
-		if slotLink then
-			local _, _, quality = GetItemInfo(slotLink)
-			ret.quality = quality
+		local quality = GetInventoryItemQuality("player", ret.frame.ID)
+		if quality then
+			ret.frame.quality = quality
+		-- else
+			-- C_Timer.After(1, function() -- TODO: Test it if quality not returned after first open
+				-- ret.frame.quality = GetInventoryItemQuality("player", ret.frame.ID)
+			-- end)
 		end
 
 		ret.slot = slot
@@ -589,10 +586,12 @@ function Stuffing:BagFrameSlotNew(p, slot)
 	ret.icon = _G[ret.frame:GetName().."IconTexture"]
 	ret.icon:CropIcon()
 
-	if ret.quality and ret.quality > 1 then
-		local r, g, b = GetItemQualityColor(ret.quality)
+	-- C_Timer.After(2, function()
+	if ret.frame.quality and ret.frame.quality > 1 then
+		local r, g, b = GetItemQualityColor(ret.frame.quality)
 		ret.frame:SetBackdropBorderColor(r, g, b)
 	end
+	-- end)
 
 	return ret
 end
@@ -757,6 +756,12 @@ local bind = {
 	[4] = ITEM_BIND_QUEST
 }
 
+local bindAccount = {
+	[ITEM_ACCOUNTBOUND] = true,
+	[ITEM_BIND_TO_ACCOUNT] = true,
+	[ITEM_BNETACCOUNTBOUND] = true,
+}
+
 function Stuffing:SearchUpdate(str)
 	str = string.lower(str)
 
@@ -779,7 +784,27 @@ function Stuffing:SearchUpdate(str)
 				equipSlot = equipSlot or ""
 				bindType = bind[bindType] or ""
 				minLevel = minLevel or 1
-				if not string.find(string.lower(b.name), str) and not string.find(string.lower(setName), str) and not string.find(string.lower(class), str) and not string.find(string.lower(subclass), str) and not string.find(string.lower(equipSlot), str) and not string.find(string.lower(bindType), str) then
+				local isBoA = false
+				if str and str == "boa" then
+					local data = C_TooltipInfo.GetBagItem(b.bag, b.slot)
+					if data then
+						for j = 2, 5 do
+							local lineData = data.lines[j]
+							if not lineData then break end
+							local argVal = lineData.args
+							if argVal then
+								local lineText = argVal[2] and argVal[2].stringVal
+								local bindOn = lineText and bindAccount[lineText]
+								if bindOn then
+									isBoA = true
+									break
+								end
+							end
+						end
+					end
+				end
+
+				if not isBoA and not string.find(string.lower(b.name), str) and not string.find(string.lower(setName), str) and not string.find(string.lower(class), str) and not string.find(string.lower(subclass), str) and not string.find(string.lower(equipSlot), str) and not string.find(string.lower(bindType), str) then
 					if IsItemUnusable(b.name) or minLevel > T.level then
 						_G[b.frame:GetName().."IconTexture"]:SetVertexColor(0.5, 0.5, 0.5)
 					end
@@ -802,8 +827,8 @@ function Stuffing:SearchUpdate(str)
 			local button = _G["ReagentBankFrameItem"..slotID]
 			if ilink then
 				local name, _, _, _, minLevel, class, subclass = GetItemInfo(ilink)
-				class = _G[class] or ""
-				subclass = _G[subclass] or ""
+				class = class or ""
+				subclass = subclass or ""
 				minLevel = minLevel or 1
 				if not string.find(string.lower(name), str) and not string.find(string.lower(class), str) and not string.find(string.lower(subclass), str) then
 					if IsItemUnusable(name) or minLevel > T.level then
@@ -871,8 +896,10 @@ function Stuffing:CreateBagFrame(w)
 		if f.moved then	-- prevent false register without modifier key
 			self:StopMovingOrSizing()
 			DragFunction(self, false)
-			local ap, _, rp, x, y = f:GetPoint()
-			ViksUIPositions[f:GetName()] = {ap, "UIParent", rp, x, y}
+			local ap, p, rp, x, y = f:GetPoint()
+			if not p then p = UIParent end
+			local positionTable = T.CurrentProfile()
+			positionTable[f:GetName()] = {ap, p:GetName(), rp, x, y}
 			f.moved = nil
 		end
 	end)
@@ -886,12 +913,14 @@ function Stuffing:CreateBagFrame(w)
 				f:SetPoint(unpack(C.position.bag))
 			end
 			f:SetUserPlaced(false)
-			ViksUIPositions[f:GetName()] = nil
+			local positionTable = T.CurrentProfile()
+			positionTable[f:GetName()] = nil
 		end
 	end)
 
-	if ViksUIPositions[f:GetName()] then
-		f:SetPoint(unpack(ViksUIPositions[f:GetName()]))
+	local positionTable = T.CurrentProfile()
+	if positionTable[f:GetName()] then
+		f:SetPoint(unpack(positionTable[f:GetName()]))
 	else
 		if w == "Bank" then
 			f:SetPoint(unpack(C.position.bank))
@@ -1261,10 +1290,8 @@ function Stuffing:Layout(isBank)
 
 				for _, val in ipairs(btns) do
 					if val.bag == bag then
-						-- val.frame:SetAlpha(1)
 						val.frame.searchOverlay:Hide()
 					else
-						-- val.frame:SetAlpha(0.2)
 						val.frame.searchOverlay:Show()
 					end
 				end
@@ -1272,7 +1299,6 @@ function Stuffing:Layout(isBank)
 
 			b.frame:HookScript("OnLeave", function()
 				for _, btn in ipairs(btns) do
-					-- btn.frame:SetAlpha(1)
 					btn.frame.searchOverlay:Hide()
 				end
 			end)
@@ -1464,20 +1490,6 @@ function Stuffing:PLAYER_ENTERING_WORLD()
 end
 
 function Stuffing:PLAYERBANKSLOTS_CHANGED(id)
-	if id > 28 then
-		for _, v in ipairs(self.bagframe_buttons) do
-			if v.frame and v.frame.GetInventorySlot then
-
-				BankFrameItemButton_Update(v.frame)
-				BankFrameItemButton_UpdateLocked(v.frame)
-
-				if not v.frame.tooltipText then
-					v.frame.tooltipText = ""
-				end
-			end
-		end
-	end
-
 	if self.bankFrame and self.bankFrame:IsShown() then
 		self:BagSlotUpdate(-1)
 	end
@@ -1534,6 +1546,17 @@ function Stuffing:BANKFRAME_OPENED()
 
 	self.bankFrame:Show()
 	Stuffing_Open()
+
+	for _, v in ipairs(self.bagframe_buttons) do
+		if v.frame and v.frame.GetInventorySlot then
+			v.frame:SetBackdropBorderColor(unpack(C.media.border_color))
+			BankFrameItemButton_Update(v.frame)
+
+			if not v.frame.tooltipText then
+				v.frame.tooltipText = ""
+			end
+		end
+	end
 end
 
 function Stuffing:BANKFRAME_CLOSED()

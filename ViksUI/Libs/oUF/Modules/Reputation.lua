@@ -28,8 +28,8 @@ local function GetReputation()
 	local pendingReward, standingText
 	local name, standingID, min, max, cur, factionID = GetWatchedFactionInfo()
 
-	local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-	local friendshipID = reputationInfo and reputationInfo.friendshipFactionID
+	local repInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+	local friendshipID = repInfo and repInfo.friendshipFactionID
 
 	if C_Reputation.IsFactionParagon(factionID) then
 		local value, nextThreshold, _, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
@@ -45,9 +45,17 @@ local function GetReputation()
 		local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
 		min, max = 0, majorFactionData.renownLevelThreshold
 		cur = C_MajorFactions.HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+		standingID = MAX_REPUTATION_REACTION + 2
+		standingText = RENOWN_LEVEL_LABEL..majorFactionData.renownLevel
 	elseif friendshipID and friendshipID > 0 then
-		local repInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-		standingText = repInfo.reaction
+		local rankInfo = C_GossipInfo.GetFriendshipReputationRanks(factionID)
+		local currentRank = rankInfo and rankInfo.currentLevel
+		local maxRank = rankInfo and rankInfo.maxLevel
+		local rankText
+		if currentRank and maxRank and currentRank > 0 and maxRank > 0 then
+			rankText = (' %s / %s'):format(currentRank, maxRank)
+		end
+		standingText = repInfo.reaction..rankText
 		if repInfo.nextThreshold then
 			min, max, cur = repInfo.reactionThreshold, repInfo.nextThreshold, repInfo.standing
 		else
@@ -67,18 +75,19 @@ local function GetReputation()
 	return cur, max, name, factionID, standingID, standingText, pendingReward
 end
 
-oUF.colors.reaction[MAX_REPUTATION_REACTION + 1] = {0, 0.5, 0.9} -- paragon color
+oUF.colors.reaction[MAX_REPUTATION_REACTION + 1] = {0.64, 0.2, 0.93}	-- paragon color
+oUF.colors.reaction[MAX_REPUTATION_REACTION + 2] = {0, 0.5, 0.9}		-- major faction color
 
 local function UpdateTooltip(element)
 	local cur, max, name, _, standingID, standingText, pendingReward = GetReputation()
 	local rewardAtlas = pendingReward and "|A:ParagonReputation_Bag:0:0:0:0|a" or ""
 	local color = element.__owner.colors.reaction[standingID]
+	if not name then element:Hide() return end
 
 	GameTooltip:SetText(format("%s (%s)", name, standingText), color[1], color[2], color[3])
 	if(cur ~= max) then
 		GameTooltip:AddLine(format("%s / %s (%d%%) %s", BreakUpLargeNumbers(cur), BreakUpLargeNumbers(max), (cur) / (max) * 100, rewardAtlas), 0.75, 0.9, 1)
 	end
-
 	GameTooltip:Show()
 end
 
