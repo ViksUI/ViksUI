@@ -143,7 +143,7 @@ local function Enable(self)
 		self:RegisterEvent('UNIT_DISPLAYPOWER', VisibilityPath)
 		self:RegisterEvent('PLAYER_TALENT_UPDATE', VisibilityPath, true)
 
-		element.handler = CreateFrame("Frame", nil, element)	-- ShestakUI
+		element.handler = CreateFrame("Frame", nil, element)	-- ViksUI
 		element.handler:RegisterEvent("PLAYER_TALENT_UPDATE")
 		element.handler:RegisterEvent("PLAYER_ENTERING_WORLD")
 		element.handler:SetScript("OnEvent", function() Visibility(self) end)

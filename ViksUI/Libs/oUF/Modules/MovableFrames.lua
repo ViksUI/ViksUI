@@ -288,6 +288,7 @@ do
 		"pet",
 		"party",
 		"maintank",
+		"tank",
 		"mainassist",
 		"arena",
 	}

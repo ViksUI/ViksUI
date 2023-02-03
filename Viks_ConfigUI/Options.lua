@@ -860,7 +860,7 @@ do
 	label:SetPoint("LEFT", ProfileBox, "RIGHT", 10, 0)
 
 	local profileName
-	StaticPopupDialogs.SHESTAKUI_RENAME_PROFILE = {
+	StaticPopupDialogs.VIKSUI_RENAME_PROFILE = {
 		text = PET_RENAME.." "..strlower(L.profile),
 		button1 = ACCEPT,
 		button2 = CANCEL,
@@ -915,7 +915,7 @@ do
 				local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
 				profileName = ViksUIOptions[i] and ViksUIOptions[i]["general"] and ViksUIOptions[i]["general"]["profile_name"] or i
 			end
-			StaticPopup_Show("SHESTAKUI_RENAME_PROFILE", _, _, profileName)
+			StaticPopup_Show("VIKSUI_RENAME_PROFILE", _, _, profileName)
 		end
 	end)
 	tinsert(ns.buttons, RenameButton)
@@ -2592,15 +2592,18 @@ do
 	local low_health_value = ns.CreateNumberSlider(parent, "low_health_value", nil, nil, 0.1, 1, 0.05, true)
 	low_health_value:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -20)
 
+	local low_health_color = ns.CreateColourPicker(parent, "low_health_color", true)
+	low_health_color:SetPoint("LEFT", low_health_value, "RIGHT", 85, 0)
+
 	local low_health = ns.CreateCheckBox(parent, "low_health")
-	low_health:SetPoint("LEFT", low_health_value, "RIGHT", 70, 0)
+	low_health:SetPoint("LEFT", low_health_color, "RIGHT", 70, 0)
 
 	local cast_color = ns.CreateCheckBox(parent, "cast_color")
 	cast_color:SetPoint("TOPLEFT", low_health_value, "BOTTOMLEFT", 0, -8)
 
 	local kick_color = ns.CreateCheckBox(parent, "kick_color")
 	kick_color:SetPoint("TOPLEFT", cast_color, "BOTTOMLEFT", 0, 0)
-	
+
 	local enhance_threat = ns.CreateCheckBox(parent, "enhance_threat", L_GUI_NAMEPLATE_THREAT)
 	enhance_threat:SetPoint("TOPLEFT", kick_color, "BOTTOMLEFT", 0, 0)
 

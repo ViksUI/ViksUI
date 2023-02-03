@@ -26,12 +26,13 @@ T.MoverFrames = {
 	ThreatMeterAnchor,
 	LootRollAnchor,
 	RaidBuffsAnchor,
-	PulseCDAnchor,
+	DCPAnchor,
 	AutoButtonAnchor,
 	AnchorMarkBar,
 	TooltipAnchor,
 	ChatBar,
 	PulseCDAnchor,
+	oUF_Player,
 	oUF_Player_Castbar,
 	oUF_Target_Castbar,
 	oUF_Player_Portrait,
@@ -533,6 +534,7 @@ local InitMove = function(msg)
 		controls:Hide()
 		chatInfo:Hide()
 	end
+	if T.MoveUnitFrames then T.MoveUnitFrames() end												
 end
 
 local RestoreUI = function(self)

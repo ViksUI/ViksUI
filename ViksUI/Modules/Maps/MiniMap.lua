@@ -122,7 +122,7 @@ frame:SetScript("OnEvent", function(self, event)
 		MailFrame:ClearAllPoints()
 		MailFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
 	end
-	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ShestakUI\\Media\\Textures\\Mail.tga")
+	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\Mail.tga")
 	MiniMapMailIcon:SetSize(16, 16)
 	
 	ExpansionLandingPageMinimapButton:ClearAllPoints()
@@ -522,7 +522,7 @@ local function styleDifficulty(self)
 			DiffText:SetText("M")
 		elseif difficulty == 17	then
 		-- 17 = Looking For Raid
-			DiffText:SetText(num .. "LFR")
+			DiffText:SetText("LFR")
 		elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then
 		-- 18: Event, 19: Event, 20: Event Scenario, 30: Event, 152: Visions of N'Zoth
 			DiffText:SetText("E")
