@@ -187,7 +187,7 @@ local function SkinCaptureBar(widget)
 	end
 end
 
-local VigorBar = CreateFrame("Frame", "VigotBar", UIParent)
+local VigorBar = CreateFrame("Frame", "VigorBar", UIParent)
 VigorBar:CreateBackdrop("Default")
 VigorBar:SetPoint("TOP", powerAnchor, "TOP", 0, -2)
 VigorBar:SetSize(250, 12)
@@ -232,8 +232,9 @@ local function SkinVigorBar(widget)
 		VigorBar[i]:SetValue(value)
 	end
 
-	if total ~= 6 then
-		if IsPlayerSpell(377922) then total = 6 end
+	if total < 6 and IsPlayerSpell(377922) then total = 6 end -- sometimes it return 5
+
+	if total < 6 then
 		for i = total + 1, 6 do
 			VigorBar[i]:Hide()
 			VigorBar[i]:SetValue(0)

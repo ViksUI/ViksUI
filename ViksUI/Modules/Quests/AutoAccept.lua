@@ -74,9 +74,6 @@ local QuickQuestDB = {
 			-- misc
 			[103792] = true, -- Griftah (his quests are scams)
 			[143925] = true, -- Dark Iron Mole Machine (Dark Iron Dwarf racial)
-			[168430] = true, -- Path of Ascension Crafter
-			[168485] = true, -- Apolon
-			[171816] = true, -- Paolone
 
 			-- Bodyguards
 			[86945] = true, -- Aeda Brightdawn (Horde)
@@ -167,6 +164,10 @@ local QuickQuestDB = {
 			[70192] = true, -- Specialized Secrets: Mining (Khadin)
 			[70193] = true, -- Specialized Secrets: Skinning (Khadin)
 			[70194] = true, -- Specialized Secrets: Tailoring (Khadin)
+			[75164] = true, -- In Need of Primal Foci
+			[75165] = true, -- In Need of Concentrated Primal Foci
+			[75166] = true, -- In Need of Many Primal Foci
+			[75167] = true, -- In Need of Many Concentrated Primal Foci
 		},
 	},
 }
@@ -473,13 +474,11 @@ EventHandler:Register('QUEST_PROGRESS', function()
 		if itemLink then
 			-- check to see if the item is blocked
 			local questItemID = GetItemInfoFromHyperlink(itemLink)
-			for itemID in next, QuickQuestDB.blocklist.items do
-				if itemID == questItemID then
-					-- item is blocked, prevent this quest from opening again and close it
-					ignoredQuests[GetQuestID()] = true
-					CloseQuest()
-					return
-				end
+			if QuickQuestDB.blocklist.items[questItemID] then
+				-- item is blocked, prevent this quest from opening again and close it
+				ignoredQuests[GetQuestID()] = true
+				CloseQuest()
+				return
 			end
 		else
 			-- item is not cached yet, trigger the item and wait for the cache to populate

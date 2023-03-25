@@ -106,7 +106,7 @@ farm:SetScript("OnEnter", function()
 
 	farm:FadeIn()
 	GameTooltip:SetOwner(switch, "ANCHOR_LEFT")
-	GameTooltip:AddLine(L_MINIMAP_FARM)
+	GameTooltip:AddLine(L_MINIMAP_FARM, 0.40, 0.78, 1)
 	GameTooltip:Show()
 end)
 

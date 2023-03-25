@@ -331,12 +331,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		StackSplitFrame.CancelButton:SkinButton()
 
 		if C.skins.blizzard_frames == true then
-			-- Social Browser frame
-			SocialBrowserFrame:StripTextures()
-			SocialBrowserFrame:SetTemplate("Transparent")
-			T.SkinCloseButton(SocialBrowserFrame.CloseButton)
-			SocialBrowserFrame.CloseButton:SetSize(16, 16)
-
 			-- What's new frame
 			SplashFrame:CreateBackdrop("Transparent")
 			SplashFrame.BottomCloseButton:SkinButton()
@@ -344,6 +338,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 
 			-- NavBar Buttons (Used in EncounterJournal and HelpFrame)
 			local function SkinNavBarButtons(self)
+				if self:GetParent():GetName() == "WorldMapFrame" then return end
 				local navButton = self.navList[#self.navList]
 				if navButton and not navButton.isSkinned then
 					navButton:SkinButton(true)

@@ -152,8 +152,11 @@ T.ColorPlate = {
 	["196548"] = color,		-- Ancient Branch
 	-- The Azure Vault
 	["187159"] = color_alt,	-- Shrieking Whelp
+	-- The Nokhud Offensive
+	["194894"] = color,		-- Primalist Stormspeaker
 	-- Temple of the Jade Serpent
 	["59555"] = color,		-- Haunting Sha
+	["59545"] = color,		-- The Golden Beetle
 	-- Court of Stars
 	["104251"] = color_alt,	-- Duskwatch Sentry
 	-- PvP
