@@ -58,7 +58,6 @@ C["general"] = {
 	["vehicle_mouseover"] = false,				-- Vehicle frame on mouseover
 	["hide_banner"] = false,					-- Hide Boss Banner Loot Frame
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
-	["hide_maw_buffs"] = false,					-- Hide Maw Buffs frame in instances
 }
 
 if T.screenHeight == 1440 then
@@ -166,6 +165,7 @@ C["skins"] = {
 	["omen"] = false,							-- Omen skin
 	["opie"] = false,							-- OPie skin
 	["ovale"] = false,							-- OvaleSpellPriority skin
+	["plater"] = false,							-- Plater skin
 	["postal"] = false,							-- Postal skin
 	["recount"] = false,						-- Recount skin
 	["rematch"] = false,						-- Rematch skin

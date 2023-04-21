@@ -33,7 +33,7 @@ local function LoadSkin()
 	}
 
 	for i = 1, #scrollbars do
-		T.SkinScrollBar(scrollbars[i], true)
+		T.SkinScrollBar(scrollbars[i])
 	end
 
 	local tabs = {
@@ -206,6 +206,12 @@ local function LoadSkin()
 
 				T.SkinCheckBox(slot.Checkbox)
 				button.styled = true
+			end
+
+			if button and T.newPatch then
+				button:SetNormalTexture(0)
+				button:SetPushedTexture(0)
+				button:GetHighlightTexture():Hide()
 			end
 		end
 	end)

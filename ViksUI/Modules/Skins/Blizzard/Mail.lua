@@ -53,7 +53,11 @@ local function LoadSkin()
 	SendMailScrollFrame.backdrop:SetPoint("TOPLEFT", 12, 0)
 	SendMailScrollFrame.backdrop:SetPoint("BOTTOMRIGHT", 2, 0)
 
-	T.SkinScrollBar(SendMailScrollFrameScrollBar)
+	if T.newPatch then
+		T.SkinScrollBar(SendMailScrollFrame.ScrollBar)
+	else
+		T.SkinScrollBar(SendMailScrollFrameScrollBar)
+	end
 
 	select(3, SendMailNameEditBox:GetRegions()):SetDrawLayer("OVERLAY")
 	select(3, SendMailSubjectEditBox:GetRegions()):SetDrawLayer("OVERLAY")
@@ -123,7 +127,11 @@ local function LoadSkin()
 	OpenMailScrollFrame.backdrop:SetPoint("TOPLEFT", 5, 5)
 	OpenMailScrollFrame.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
 
-	T.SkinScrollBar(OpenMailScrollFrameScrollBar)
+	if T.newPatch then
+		T.SkinScrollBar(OpenMailScrollFrame.ScrollBar)
+	else
+		T.SkinScrollBar(OpenMailScrollFrameScrollBar)
+	end
 
 	SendMailBodyEditBox:SetTextColor(1, 1, 1)
 	MailTextFontNormal:SetTextColor(1, 1, 1)

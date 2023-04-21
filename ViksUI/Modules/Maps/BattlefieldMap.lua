@@ -25,7 +25,6 @@ tinymap:SetScript("OnEvent", function(self, event, addon)
 	BattlefieldMapFrame.BorderFrame:DisableDrawLayer("ARTWORK")
 
 	BattlefieldMapFrame.BorderFrame.CloseButton:Hide()
-	BattlefieldMapFrame.BorderFrame.CloseButtonBorder:Hide()
 	BattlefieldMapFrame:SetResizable(true)
 
 	BattlefieldMapTab:SetParent(tinymap)

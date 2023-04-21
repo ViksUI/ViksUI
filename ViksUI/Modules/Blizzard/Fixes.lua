@@ -46,12 +46,14 @@ end
 ----------------------------------------------------------------------------------------
 --	Fix SearchLFGLeave() taint
 ----------------------------------------------------------------------------------------
-local TaintFix = CreateFrame("Frame")
-TaintFix:SetScript("OnUpdate", function()
-	if LFRBrowseFrame.timeToClear then
-		LFRBrowseFrame.timeToClear = nil
-	end
-end)
+if not T.newPatch then
+	local TaintFix = CreateFrame("Frame")
+	TaintFix:SetScript("OnUpdate", function()
+		if LFRBrowseFrame.timeToClear then
+			LFRBrowseFrame.timeToClear = nil
+		end
+	end)
+end
 
 ----------------------------------------------------------------------------------------
 --	Fix Keybind taint
@@ -61,13 +63,13 @@ _G.SettingsPanel.TransitionBackOpeningPanel = _G.HideUIPanel
 ----------------------------------------------------------------------------------------
 --	Allow to show ProfessionsFrame and AuctionHouseFrame together
 ----------------------------------------------------------------------------------------
-function GetMaxUIPanelsWidth()
-	if UIParent:GetRight() < 1925 and UIParent:GetRight() > 1915 then
-		return UIParent:GetRight() - UIParent:GetAttribute("RIGHT_OFFSET_BUFFER") + 110
-	else
-		return UIParent:GetRight() - UIParent:GetAttribute("RIGHT_OFFSET_BUFFER")
-	end
-end
+--BETA function GetMaxUIPanelsWidth()
+	-- if UIParent:GetRight() < 1925 and UIParent:GetRight() > 1915 then
+		-- return UIParent:GetRight() - UIParent:GetAttribute("RIGHT_OFFSET_BUFFER") + 110
+	-- else
+		-- return UIParent:GetRight() - UIParent:GetAttribute("RIGHT_OFFSET_BUFFER")
+	-- end
+-- end
 
 ------------------------------------------------------------------------
 -- !!NoTaint2, first-aid addon for Dragon Flight action bars taint.
@@ -175,7 +177,7 @@ if not NoTaint2_CleanStaticPopups then
         local stack = debugstack(4)
         --call from UIParent.lua if ( not frame or frame:IsShown() ) then
         --different when hooked
-        if stack:find('[string "=[C]"]: in function `ShowUIPanel\'\n', 1, true) then
+        if stack and stack:find('[string "=[C]"]: in function `ShowUIPanel\'\n', 1, true) then
             cleanAll()
         end
     end)

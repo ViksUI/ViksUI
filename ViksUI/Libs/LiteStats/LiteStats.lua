@@ -1170,7 +1170,7 @@ if experience.enabled then
 			or sub == "curxp" and short(UnitXP(P),tt)
 			or sub == "remainingxp" and short(UnitXPMax(P) - UnitXP(P), tt)
 			or sub == "totalxp" and short(UnitXPMax(P), tt)
-			or sub == "cur%" and floor(UnitXP(P) / UnitXPMax(P) * 100)
+			or sub == "cur%" and floor(UnitXPMax(P) ~= 0 and UnitXP(P) / UnitXPMax(P) * 100 or 0)
 			or sub == "remaining%" and 100 - floor(UnitXP(P) / UnitXPMax(P) * 100)
 			or sub == "restxp" and short(GetXPExhaustion() or 0,tt)
 			or sub == "rest%" and min(150, floor((GetXPExhaustion() or 0) / UnitXPMax(P) * 100))
@@ -1565,13 +1565,29 @@ if location.enabled then
 			self.combat = {COMBAT_ZONE, {1, 0.1, 0.1}}
 			self.neutral = {"", {1, 0.93, 0.76}}
 		end,
-		OnEvent = function(self)
+		OnEvent = function(self, event)
 			self.subzone, self.zone, self.pvp = GetSubZoneText(), GetZoneText(), {GetZonePVPInfo()}
 			if not self.pvp[1] then self.pvp[1] = "neutral" end
 			local label = (self.subzone ~= "" and location.subzone) and self.subzone or self.zone
 			local r, g, b = unpack(self.pvp[1] and (self[self.pvp[1]][2] or self.other) or self.other)
 			self.text:SetText(location.truncate == 0 and label or strtrim(strsub(label, 1, location.truncate)))
 			self.text:SetTextColor(r, g, b, font.alpha)
+			if coords.enabled and event == "PLAYER_ENTERING_WORLD" then -- Hide null coords and reposition location
+				local _, instanceType = IsInInstance()
+				if instanceType == "raid" or instanceType == "party" then
+					LP_Coords.text:SetAlpha(0)
+					self:ClearAllPoints()
+					if C.minimap.enable and C.minimap.on_top then
+						self:SetPoint("BOTTOMRIGHT", MinimapAnchor, "TOPRIGHT", 4, 5)
+					else
+						self:SetPoint("RIGHT", UIParent, "BOTTOMRIGHT", -17, 11)
+					end
+				else
+					LP_Coords.text:SetAlpha(1)
+					self:ClearAllPoints()
+					self:SetPoint("RIGHT", LP_Coords, "LEFT", -3, 0)
+				end
+			end
 		end,
 		OnUpdate = function(self, u)
 			if self.hovered then

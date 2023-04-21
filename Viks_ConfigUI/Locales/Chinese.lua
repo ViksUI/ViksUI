@@ -52,7 +52,6 @@ L.general_color_picker_desc = "增加按鈕：复制/粘上/职业 输入框：R
 L.general_minimize_mouseover = "任务栏最小化按钮鼠标悬停显示"
 L.general_hide_banner = "自动隐藏Boss额外拾取提示"
 L.general_hide_talking_head = "自动隐藏任务对话框"
-L.general_hide_maw_buffs = "隐藏心能之力框架"
 
 -- Media options
 L.media_border_color = "背景颜色"
@@ -203,7 +202,7 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "灵魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "图腾"
 L.unitframe_class_bar_totem_other = "其他职业图腾"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
+L.unitframe_class_bar_essence = "精华"
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "定制队伍/团队框架"
@@ -423,7 +422,7 @@ L_GUI_COMBATTEXT_KILLINGBLOW = "击杀信息"
 L.combattext_merge_aoe_spam = "将AOE伤害合并为一条信息"
 L.combattext_merge_aoe_spam_desc = "将AOE伤害合并为一条信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "将多个自动攻击伤害合并为一条信息"
-L.combattext_merge_all = "Merges all spells" -- Needs review
+L.combattext_merge_all = "合并所有法术"
 L_GUI_COMBATTEXT_DISPEL = "当你驱散成功时提示"
 L_GUI_COMBATTEXT_INTERRUPT = "当你打断成功时提示"
 L_GUI_COMBATTEXT_DIRECTION = "滚动方向从下向上"
@@ -455,7 +454,7 @@ L_GUI_BAGS_SUBTEXT = "背包的关闭按钮另有菜单按右键开启。按住S
 L_GUI_BAGS_ENABLE = "背包增强"
 L_GUI_BAGS_ILVL = "显示物品等级"
 L.bag_new_items = "新物品闪动显示"
-L.bag_filter = "Always show filter buttons" -- Need review
+L.bag_filter = "显示过滤标签"
 L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子间距"
 L_GUI_BAGS_BANK = "银行每行格数"

@@ -32,11 +32,9 @@ local headers = {
 	QUEST_TRACKER_MODULE,
 	ACHIEVEMENT_TRACKER_MODULE,
 	WORLD_QUEST_TRACKER_MODULE,
-	PROFESSION_RECIPE_TRACKER_MODULE
+	PROFESSION_RECIPE_TRACKER_MODULE,
+	MONTHLY_ACTIVITIES_TRACKER_MODULE
 }
-if T.newPatch then
-	tinsert(headers, MONTHLY_ACTIVITIES_TRACKER_MODULE)
-end
 
 for i = 1, #headers do
 	local header = headers[i].Header
@@ -567,6 +565,43 @@ hooksecurefunc("QuestObjectiveSetupBlockButton_Item", function(block)
 	end
 end)
 
+hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", function(block)
+	if block.groupFinderButton and not block.groupFinderButton.styled then
+		local icon = block.groupFinderButton
+		icon:SetSize(26, 26)
+		icon:SetNormalTexture(0)
+		icon:SetHighlightTexture(0)
+		icon:SetPushedTexture(0)
+		icon.b = CreateFrame("Frame", nil, icon)
+		icon.b:SetTemplate("Overlay")
+		icon.b:SetPoint("TOPLEFT", icon, "TOPLEFT", 2, -3)
+		icon.b:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", -4, 3)
+		icon.b:SetFrameLevel(1)
+
+		icon:HookScript("OnEnter", function(self)
+			if self:IsEnabled() then
+				self.b:SetBackdropBorderColor(unpack(C.media.classborder_color))
+				if self.b.overlay then
+					self.b.overlay:SetVertexColor(C.media.classborder_color[1] * 0.3, C.media.classborder_color[2] * 0.3, C.media.classborder_color[3] * 0.3, 1)
+				end
+			end
+		end)
+
+		icon:HookScript("OnLeave", function(self)
+			self.b:SetBackdropBorderColor(unpack(C.media.border_color))
+			if self.b.overlay then
+				self.b.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+			end
+		end)
+
+		hooksecurefunc(icon, "Show", function(self)
+			self.b:SetFrameLevel(1)
+		end)
+
+		icon.styled = true
+	end
+end)
+
 -- WorldQuestsList button skin
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
@@ -599,6 +634,41 @@ frame:SetScript("OnEvent", function()
 	end
 	_G.WorldQuestList.ObjectiveTracker_Update_hook = orig_hook
 end)
+----------------------------------------------------------------------------------------
+--	Skin simple quest objective progress bar
+----------------------------------------------------------------------------------------
+local function SkinBar(_, _, line)
+	local progressBar = line.ProgressBar
+	local bar = progressBar.Bar
+	local label = bar.Label
+
+	if not progressBar.styled then
+		if bar.BarFrame then bar.BarFrame:Hide() end
+		if bar.BarFrame2 then bar.BarFrame2:Hide() end
+		if bar.BarFrame3 then bar.BarFrame3:Hide() end
+		if bar.BarGlow then bar.BarGlow:Hide() end
+		if bar.Sheen then bar.Sheen:Hide() end
+		if bar.IconBG then bar.IconBG:SetAlpha(0) end
+		if bar.BorderLeft then bar.BorderLeft:SetAlpha(0) end
+		if bar.BorderRight then bar.BorderRight:SetAlpha(0) end
+		if bar.BorderMid then bar.BorderMid:SetAlpha(0) end
+
+		bar:SetSize(200, 16)
+		bar:SetStatusBarTexture(C.media.texture)
+		bar:CreateBackdrop("Transparent")
+
+		label:ClearAllPoints()
+		label:SetPoint("CENTER", 0, -1)
+		label:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+		label:SetDrawLayer("OVERLAY")
+
+		progressBar.styled = true
+	end
+end
+
+hooksecurefunc(QUEST_TRACKER_MODULE, "AddProgressBar", SkinBar)
+hooksecurefunc(CAMPAIGN_QUEST_TRACKER_MODULE, "AddProgressBar", SkinBar)
+hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", SkinBar)
 ----------------------------------------------------------------------------------------
 --	Skin quest objective progress bar with icon
 ----------------------------------------------------------------------------------------

@@ -699,9 +699,6 @@ do
 	local hide_talking_head = ns.CreateCheckBox(parent, "hide_talking_head")
 	hide_talking_head:SetPoint("TOPLEFT", hide_banner, "BOTTOMLEFT", 0, 0)
 
-	local hide_maw_buffs = ns.CreateCheckBox(parent, "hide_maw_buffs")
-	hide_maw_buffs:SetPoint("TOPLEFT", hide_talking_head, "BOTTOMLEFT", 0, 0)
-
 	local InfoButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	InfoButton:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -20, 5)
 	InfoButton:SetSize(100, 23)
@@ -1516,6 +1513,7 @@ do
 		{"omen"},
 		{"opie"},
 		{"ovale"},
+		{"plater"},
 		{"postal"},
 		{"recount"},
 		{"rematch"},
@@ -2058,6 +2056,7 @@ do
 
 	local tot_debuffs = ns.CreateCheckBox(parent, "tot_debuffs", L_GUI_AURA_TOT_DEBUFFS)
 	tot_debuffs:SetPoint("TOPLEFT", pet_debuffs, "BOTTOMLEFT", 0, 0)
+	tot_debuffs.Text:SetWidth(200)
 
 	local boss_buffs = ns.CreateCheckBox(parent, "boss_buffs", L.aura_subheader_boss)
 	boss_buffs:SetPoint("TOPLEFT", tot_debuffs, "BOTTOMLEFT", 0, 0)
@@ -2329,12 +2328,14 @@ do
 	
 	local target = ns.CreateCheckBox(parent, "target")
 	target:SetPoint("LEFT", talents, "RIGHT", 320, 0)
-
+	target.Text:SetWidth(300)
+	
 	local title = ns.CreateCheckBox(parent, "title")
 	title:SetPoint("TOPLEFT", target, "BOTTOMLEFT", 0, 0)
 
 	local realm = ns.CreateCheckBox(parent, "realm")
 	realm:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, 0)
+	realm.Text:SetWidth(200)
 
 	local rank = ns.CreateCheckBox(parent, "rank")
 	rank:SetPoint("TOPLEFT", realm, "BOTTOMLEFT", 0, 0)
@@ -2513,6 +2514,7 @@ do
 
 	local track_debuffs = ns.CreateCheckBox(parent, "track_debuffs", L_GUI_NAMEPLATE_SHOW_DEBUFFS)
 	track_debuffs:SetPoint("TOPLEFT", clamp, "BOTTOMLEFT", 0, 0)
+	track_debuffs.Text:SetWidth(350)
 
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	ListButton:SetPoint("LEFT", track_debuffs, "RIGHT", 400, 0)
@@ -3193,7 +3195,7 @@ do
 		end
 		if not C.options["raidcooldown"]["spells_list"] then
 			C.options["raidcooldown"]["spells_list"] = T.raid_spells
-			C.options.raidcooldown.spells_list_ver = 3
+			C.options.raidcooldown.spells_list_ver = 4
 		end
 		if IsControlKeyDown() then
 			C.options["raidcooldown"]["spells_list"] = nil

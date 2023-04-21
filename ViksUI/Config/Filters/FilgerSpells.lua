@@ -784,7 +784,7 @@ C["filger_spells"] = {
 			-- Posthaste
 			{spellID = 118922, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Volley
-			{spellID = 194386, unitID = "player", caster = "player", filter = "BUFF"},
+			-- {spellID = 194386, unitID = "player", caster = "player", filter = "BUFF"}, -- Delete after while
 			-- Misdirection
 			{spellID = 35079, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Survivalist
@@ -795,6 +795,8 @@ C["filger_spells"] = {
 			{spellID = 194407, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Trueshot
 			{spellID = 288613, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Survival of the Fittest
+			{spellID = 264735, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -812,14 +814,16 @@ C["filger_spells"] = {
 			{spellID = 257622, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Lethal Shots
 			{spellID = 260395, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Lock and Load
+			{spellID = 194594, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Deathblow
+			{spellID = 378770, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Precise Shots
 			{spellID = 260242, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Frenzy
 			{spellID = 272790, unitID = "pet", caster = "player", filter = "BUFF"},
 			-- Steady Focus
 			{spellID = 193533, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Lock and Load
-			{spellID = 194594, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Mok'Nathal Tactics
 			{spellID = 201081, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Mongoose Fury
@@ -909,6 +913,8 @@ C["filger_spells"] = {
 			{spellID = 53209, filter = "CD"},
 			-- Barrage
 			{spellID = 120360, filter = "CD"},
+			-- Rapid Fire
+			{spellID = 257044, filter = "CD", absID = true},
 			-- Disengage
 			{spellID = 781, filter = "CD"},
 			-- Dire Beast
@@ -988,7 +994,7 @@ C["filger_spells"] = {
 			-- Mirror Image
 			{spellID = 55342, filter = "ICD", trigger = "NONE", duration = 40},
 			-- Icicles
-			{spellID = 205473, unitID = "player", caster = "player", filter = "BUFF", talentID = 21634},
+			{spellID = 205473, unitID = "player", caster = "player", filter = "BUFF", requireSpell = 199786},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -2532,6 +2538,12 @@ C["filger_spells"] = {
 			{spellID = 97463, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Darkness
 			{spellID = 209426, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Anti-Magic Zone
+			{spellID = 145629, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Zephyr
+			{spellID = 374227, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Rewind
+			{spellID = 363534, unitID = "player", caster = "all", filter = "BUFF"},
 
 			-- Other
 			-- Symbol of Hope

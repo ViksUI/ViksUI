@@ -1,6 +1,7 @@
 local T, C
 local _, ns = ...
 local L = ns
+GetAddOnMetadata = GetAddOnMetadata or C_AddOns.GetAddOnMetadata -- FIXME
 
 ----------------------------------------------------------------------------------------
 --	GUI for ViksUI(by Haleth, Solor)
@@ -138,6 +139,7 @@ ns.CreateCheckBox = function(parent, option, text, textDesc)
 	end
 
 	f.Text:SetWidth(540)
+	f.Text:SetWordWrap(false)
 
 	f.tooltipText = ns[parent.tag.."_"..option.."_desc"] or textDesc or ns[parent.tag.."_"..option] or text
 
@@ -545,6 +547,23 @@ ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, LSM,
 	function f:SetValue(newValue, newkey)
 		f.selectedValue = newValue
 		local text = LSM and (DropDownText[newValue] or newkey) or DropDownText[newValue] or newValue
+		if isFont then
+			local style = _G[parent:GetName()..option.."_styleDropDown"]
+			if style then
+				if text == "Pixel Font" then
+					style.selectedValue = "MONOCHROMEOUTLINE"
+					UIDropDownMenu_SetText(style, "MONOCHROMEOUTLINE")
+					SaveValue(style, "MONOCHROMEOUTLINE")
+					old[style] = style.oldValue
+				else
+					local new_style = style.oldValue == "MONOCHROMEOUTLINE" and "OUTLINE" or style.oldValue
+					style.selectedValue = new_style
+					UIDropDownMenu_SetText(style, new_style)
+					SaveValue(style, new_style)
+					old[style] = style.oldValue
+				end
+			end
+		end
 		UIDropDownMenu_SetText(f, text)
 		SaveValue(f, newValue)
 		old[f] = f.oldValue
@@ -558,7 +577,7 @@ ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, LSM,
 	else
 		label:SetText(ns[parent.tag.."_"..option])
 	end
-	-- label:SetWidth(440)
+
 	label:SetHeight(20)
 	label:SetJustifyH("LEFT")
 	label:SetPoint("LEFT", 160, 4)

@@ -49,7 +49,6 @@ L.general_color_picker_desc = "Add copy/paste buttons and digit text entry for B
 L.general_minimize_mouseover = "Mouseover for quest minimize button"
 L.general_hide_banner = "Hide Boss Banner Loot Frame"
 L.general_hide_talking_head = "Hide Talking Head Frame"
-L.general_hide_maw_buffs = "Hide Maw Buffs frame in instances"
 
 -- Media options
 L.media_border_color = "Color for borders"
@@ -111,6 +110,7 @@ L.skins_nug_running = "NugRunning"
 L.skins_omen = "Omen"
 L.skins_opie = "OPie"
 L.skins_ovale = "OvaleSpellPriority"
+L.skins_plater = "Plater"
 L.skins_postal = "Postal"
 L.skins_recount = "Recount"
 L.skins_rematch = "Rematch"

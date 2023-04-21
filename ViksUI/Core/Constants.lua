@@ -3,6 +3,8 @@ local T, C, L, _ = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 --	ViksUI variables
 ----------------------------------------------------------------------------------------
+GetAddOnMetadata = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
+
 T.dummy = function() return end
 T.name = UnitName("player")
 T.class = select(2, UnitClass("player"))
@@ -13,7 +15,7 @@ T.color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 T.TexCoords = {.1, .9, .1, .9}
 T.version = GetAddOnMetadata("ViksUI", "Version")
 T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
-T.newPatch = select(4, GetBuildInfo()) >= 100005
+T.newPatch = select(4, GetBuildInfo()) >= 100100
 
 -- BETA
 GetContainerItemInfo = function(bagIndex, slotIndex)

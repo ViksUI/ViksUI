@@ -34,11 +34,13 @@ local function LoadSkin()
 	QuestFrameCompleteQuestButton:SkinButton(true)
 
 	T.SkinCloseButton(QuestFrameCloseButton, QuestFrame.backdrop)
-	T.SkinScrollBar(QuestDetailScrollFrameScrollBar)
-	T.SkinScrollBar(QuestProgressScrollFrameScrollBar)
-	T.SkinScrollBar(QuestRewardScrollFrameScrollBar)
-	T.SkinScrollBar(QuestGreetingScrollFrameScrollBar)
-	T.SkinScrollBar(QuestNPCModelTextScrollFrameScrollBar)
+	if not T.newPatch then
+		T.SkinScrollBar(QuestDetailScrollFrameScrollBar)
+		T.SkinScrollBar(QuestProgressScrollFrameScrollBar)
+		T.SkinScrollBar(QuestRewardScrollFrameScrollBar)
+		T.SkinScrollBar(QuestGreetingScrollFrameScrollBar)
+		T.SkinScrollBar(QuestNPCModelTextScrollFrameScrollBar)
+	end
 
 	for i = 1, 6 do
 		local button = _G["QuestProgressItem"..i]
@@ -95,7 +97,11 @@ local function LoadSkin()
 
 	QuestLogPopupDetailFrameScrollFrame:StripTextures()
 	QuestLogPopupDetailFrameScrollFrame:SetPoint("TOPLEFT", 13, -65)
-	T.SkinScrollBar(QuestLogPopupDetailFrameScrollFrameScrollBar)
+	if T.newPatch then
+		T.SkinScrollBar(QuestLogPopupDetailFrameScrollFrame.ScrollBar)
+	else
+		T.SkinScrollBar(QuestLogPopupDetailFrameScrollFrameScrollBar)
+	end
 
 	QuestLogPopupDetailFrame.ShowMapButton:SkinButton(true)
 	QuestLogPopupDetailFrame.ShowMapButton.Text:ClearAllPoints()
@@ -253,7 +259,14 @@ local function LoadSkin()
 		local isQuestLog = QuestInfoFrame.questLog ~= nil
 		local isMapQuest = rewardsFrame == MapQuestInfoRewardsFrame
 
-		local numSpellRewards = isQuestLog and GetNumQuestLogRewardSpells() or GetNumRewardSpells()
+		local numSpellRewards = 0
+		if T.newPatch then
+			local questID = isQuestLog and C_QuestLog.GetSelectedQuest() or GetQuestID()
+			local spellRewards = C_QuestInfoSystem.GetQuestRewardSpells(questID) or {}
+			numSpellRewards = #spellRewards
+		else
+			numSpellRewards = isQuestLog and GetNumQuestLogRewardSpells() or GetNumRewardSpells()
+		end
 		if numSpellRewards > 0 then
 			-- Spell Headers
 			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do

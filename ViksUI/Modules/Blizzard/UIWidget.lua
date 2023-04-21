@@ -53,12 +53,14 @@ local mawAnchor = CreateFrame("Frame", "UIWidgetMawAnchor", UIParent)
 mawAnchor:SetSize(210, 30)
 mawAnchor:SetPoint("TOPRIGHT", BuffsAnchor, "BOTTOMRIGHT", 0, -3)
 
-hooksecurefunc(maw, "SetPoint", function(self, _, anchor)
-	if anchor and anchor ~= mawAnchor then
-		self:ClearAllPoints()
-		self:SetPoint("TOPRIGHT", mawAnchor)
-	end
-end)
+if not T.newPatch then
+	hooksecurefunc(maw, "SetPoint", function(self, _, anchor)
+		if anchor and anchor ~= mawAnchor then
+			self:ClearAllPoints()
+			self:SetPoint("TOPRIGHT", mawAnchor)
+		end
+	end)
+end
 
 -- Mover for all widgets
 for _, frame in pairs({top, below, maw}) do
@@ -217,6 +219,8 @@ end
 local function SkinVigorBar(widget)
 	local widgetInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(4460)
 	if not widgetInfo then return end
+	if not widget:IsShown() then return end -- Hide our bar if Blizzard's not shown
+
 	VigorBar:Show()
 	local total = widgetInfo.numTotalFrames
 	for i = 1, total do
@@ -302,33 +306,29 @@ hooksecurefunc(UIWidgetTemplateStatusBarMixin, "Setup", function(widget)
 	SkinStatusBar(widget)
 end)
 
--- Maw Buffs skin
-maw:SetSize(210, 40)
-maw.Container:SkinButton()
-maw.Container:SetSize(200, 30)
+if not T.newPatch then
+	-- Maw Buffs skin
+	maw:SetSize(210, 40)
+	maw.Container:SkinButton()
+	maw.Container:SetSize(200, 30)
 
-maw.Container.List:StripTextures()
-maw.Container.List:SetTemplate("Overlay")
-maw.Container.List:ClearAllPoints()
-maw.Container.List:SetPoint("TOPRIGHT", maw.Container, "TOPLEFT", -15, 0)
+	maw.Container.List:StripTextures()
+	maw.Container.List:SetTemplate("Overlay")
+	maw.Container.List:ClearAllPoints()
+	maw.Container.List:SetPoint("TOPRIGHT", maw.Container, "TOPLEFT", -15, 0)
 
-maw.Container.List:HookScript("OnShow", function(self)
-	self.button:SetPushedTexture(0)
-	self.button:SetHighlightTexture(0)
-	self.button:SetWidth(200)
-	self.button:SetButtonState("NORMAL")
-	self.button:SetPushedTextOffset(0, 0)
-	self.button:SetButtonState("PUSHED", true)
-end)
+	maw.Container.List:HookScript("OnShow", function(self)
+		self.button:SetPushedTexture(0)
+		self.button:SetHighlightTexture(0)
+		self.button:SetWidth(200)
+		self.button:SetButtonState("NORMAL")
+		self.button:SetPushedTextOffset(0, 0)
+		self.button:SetButtonState("PUSHED", true)
+	end)
 
-maw.Container.List:HookScript("OnHide", function(self)
-	self.button:SetPushedTexture(0)
-	self.button:SetHighlightTexture(0)
-	self.button:SetWidth(200)
-end)
-
--- Hide Maw Buffs
-if C.general.hide_maw_buffs then
-	maw:SetAlpha(0)
-	maw:SetScale(0.001)
+	maw.Container.List:HookScript("OnHide", function(self)
+		self.button:SetPushedTexture(0)
+		self.button:SetHighlightTexture(0)
+		self.button:SetWidth(200)
+	end)
 end

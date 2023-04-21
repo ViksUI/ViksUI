@@ -8,6 +8,11 @@ local function LoadSkin()
 	local frame = ProfessionsFrame
 	T.SkinFrame(frame)
 
+	if T.newPatch then
+		T.SkinMaxMinFrame(frame.MaximizeMinimize, frame.CloseButton)
+		T.SkinEditBox(frame.CraftingPage.MinimizedSearchBox, nil, 16)
+	end
+
 	ProfessionsFrame.CraftingPage.TutorialButton.Ring:Hide()
 	ProfessionsFrame.CraftingPage.TutorialButton:SetPoint("TOPLEFT", frame, "TOPLEFT", -5, 10)
 
@@ -46,13 +51,21 @@ local function LoadSkin()
 	local RecipeList = frame.CraftingPage.RecipeList
 	RecipeList:StripTextures()
 	RecipeList.BackgroundNineSlice:Hide()
-	T.SkinScrollBar(RecipeList.ScrollBar, true)
+	T.SkinScrollBar(RecipeList.ScrollBar)
 
 	local SchematicForm = frame.CraftingPage.SchematicForm
 	SchematicForm:StripTextures()
 	SchematicForm:CreateBackdrop("Overlay")
-	SchematicForm.backdrop:SetInside()
-	SchematicForm.Background:SetInside(SchematicForm, 4, 4)
+	SchematicForm.backdrop:SetInside(nil, 5, 5)
+
+	SchematicForm.backdrop:SetPoint("TOPLEFT", 3, -6)
+	SchematicForm.backdrop:SetPoint("BOTTOMRIGHT", -3, 5)
+
+	SchematicForm.Background:SetInside(SchematicForm.backdrop, 1, 1)
+
+	if T.newPatch then
+		SchematicForm.MinimalBackground:SetAlpha(0)
+	end
 
 	T.SkinCheckBox(SchematicForm.TrackRecipeCheckBox, 24)
 	T.SkinCheckBox(SchematicForm.AllocateBestQualityCheckBox, 24)
@@ -121,6 +134,12 @@ local function LoadSkin()
 				button.SlotBackground:Hide()
 			end
 			button.styled = true
+		end
+
+		if button and T.newPatch then
+			button:SetNormalTexture(0)
+			button:SetPushedTexture(0)
+			button:GetHighlightTexture():Hide()
 		end
 	end
 
@@ -228,7 +247,7 @@ local function LoadSkin()
 		frame:SetTemplate("Transparent")
 
 		T.SkinCloseButton(frame.ClosePanelButton)
-		T.SkinScrollBar(frame.ScrollBar, true)
+		T.SkinScrollBar(frame.ScrollBar)
 
 		hooksecurefunc(frame.ScrollBox, "Update", HandleOutputButtons)
 	end
@@ -245,11 +264,27 @@ local function LoadSkin()
 
 	-- Spec page
 	local specPage = frame.SpecPage
-	specPage.UnlockTabButton:SkinButton()
-	specPage.ApplyButton:SkinButton()
 	specPage.TreeView:StripTextures()
 	specPage.TreeView.Background:Hide()
 	specPage.PanelFooter:StripTextures()
+	specPage.TopDivider:Hide()
+	specPage.VerticalDivider:Hide()
+
+	local specPageButtons = {
+		specPage.ApplyButton,
+		specPage.UnlockTabButton,
+		specPage.ViewTreeButton,
+		specPage.BackToPreviewButton,
+		specPage.ViewPreviewButton,
+		specPage.BackToFullTreeButton
+	}
+
+	for i = 1, #specPageButtons do
+		local button = specPageButtons[i]
+		if button then
+			button:SkinButton()
+		end
+	end
 
 	hooksecurefunc(specPage, "UpdateTabs", function(self)
 		for tab in self.tabsPool:EnumerateActive() do
@@ -303,7 +338,7 @@ local function LoadSkin()
 
 	local BrowseList = Orders.BrowseFrame.RecipeList
 	BrowseList:StripTextures()
-	T.SkinScrollBar(BrowseList.ScrollBar, true)
+	T.SkinScrollBar(BrowseList.ScrollBar)
 	T.SkinEditBox(BrowseList.SearchBox, nil, 16)
 	T.SkinCloseButton(BrowseList.FilterButton.ResetButton)
 	BrowseList.FilterButton.ResetButton:ClearAllPoints()
@@ -314,7 +349,7 @@ local function LoadSkin()
 
 	local OrderList = Orders.BrowseFrame.OrderList
 	OrderList:StripTextures()
-	T.SkinScrollBar(OrderList.ScrollBar, true)
+	T.SkinScrollBar(OrderList.ScrollBar)
 
 	hooksecurefunc(Orders, "SetupTable", function()
 		local maxHeaders = OrderList.HeaderContainer:GetNumChildren()

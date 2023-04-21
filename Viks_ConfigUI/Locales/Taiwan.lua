@@ -51,7 +51,6 @@ L.general_color_picker_desc = "增加按鈕：複製/貼上/職業 輸入框：R
 L.general_minimize_mouseover = "任務欄最小化按鈕滑鼠懸停顯示"
 L.general_hide_banner = "自動隱藏Boss額外拾取提示"
 L.general_hide_talking_head = "自動隱藏任務對話框"
-L.general_hide_maw_buffs = "隱藏靈魄能力框架"
 
 -- Media options
 L.media_border_color = "背景顏色"
@@ -202,7 +201,7 @@ L_GUI_UF_PLUGINS_SHARD_BAR = "靈魂碎片"
 L_GUI_UF_PLUGINS_RUNE_BAR = "符文"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "圖騰"
 L.unitframe_class_bar_totem_other = "其他職業圖騰"
-L.unitframe_class_bar_essence = "Enable Essence bar for Evoker" -- Need review
+L.unitframe_class_bar_essence = "龍能"
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "定制隊伍/團隊框架"
@@ -369,7 +368,7 @@ L.nameplate_short_name = "替換名稱"
 L.nameplate_clamp = "貼邊顯示"
 L.nameplate_clamp_desc = "當單位名條超出屏幕時仍貼邊顯示"
 L_GUI_NAMEPLATE_SHOW_DEBUFFS = "顯示DeBuff(需要關閉名字縮寫)"
-L_GUI_NAMEPLATE_SHOW_BUFFS = "顯示可進攻駆散"
+L_GUI_NAMEPLATE_SHOW_BUFFS = "顯示可進攻驅散"
 L_GUI_NAMEPLATE_DEBUFFS_SIZE = "圖標大小"
 L_GUI_NAMEPLATE_HEALER_ICON = "戰場中顯示治療職業圖標"
 L_GUI_NAMEPLATE_TOTEM_ICONS = "顯示敵對圖騰圖標"
@@ -422,7 +421,7 @@ L_GUI_COMBATTEXT_KILLINGBLOW = "擊殺信息"
 L.combattext_merge_aoe_spam = "將AOE傷害合併為一條信息"
 L.combattext_merge_aoe_spam_desc = "將AOE傷害合併為一條信息"
 L_GUI_COMBATTEXT_MERGE_MELEE = "將多個自動攻擊傷害合併為一條信息"
-L.combattext_merge_all = "Merges all spells" -- Needs review
+L.combattext_merge_all = "合併所有法術"
 L_GUI_COMBATTEXT_DISPEL = "當你驅散成功時提示"
 L_GUI_COMBATTEXT_INTERRUPT = "當你斷法成功時提示"
 L_GUI_COMBATTEXT_DIRECTION = "滾動方向從下向上"
@@ -454,7 +453,7 @@ L_GUI_BAGS_SUBTEXT = "背包的關閉按鈕另有菜單按右鍵開啓。按住S
 L_GUI_BAGS_ENABLE = "背包增強"
 L_GUI_BAGS_ILVL = "顯示物品等級"
 L.bag_new_items = "新物品閃動顯示"
-L.bag_filter = "Always show filter buttons" -- Need review
+L.bag_filter = "顯示過濾標籤"
 L_GUI_BAGS_BUTTON_SIZE = "格子大小"
 L_GUI_BAGS_BUTTON_SPACE = "格子間隔"
 L_GUI_BAGS_BANK = "銀行每行格數"
