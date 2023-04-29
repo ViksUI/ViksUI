@@ -22,12 +22,15 @@ T.RaidBuffs = {
 		{363502, "BOTTOMLEFT", {0.26, 0.73, 0.63}},			-- Dream Flight
 		{366155, "RIGHT", {0.14, 1.00, 0.88}},				-- Reversion
 		{364343, "TOP", {0.13, 0.87, 0.50}},				-- Echo
+		{373267, "TOPLEFT", {0.82, 0.29, 0.24}},			-- Life Bind (Verdant Embrace)
 		{357170, "BOTTOM", {0.11, 0.57, 0.71}},				-- Time Dilation
 	},
 	MONK = {
 		{119611, "TOPRIGHT", {0.2, 0.7, 0.7}},				-- Renewing Mist
+		{116841, "RIGHT", {0.12, 1.00, 0.53}},				-- Tiger's Lust (Freedom)
 		{115175, "BOTTOMRIGHT", {0.7, 0.4, 0}},				-- Soothing Mist
 		{124682, "BOTTOMLEFT", {0.4, 0.8, 0.2}},			-- Enveloping Mist
+		{325209, "BOTTOM", {0.3, 0.6, 0.6}},				-- Enveloping Breath
 		{191840, "TOPLEFT", {0.1, 0.4, 0.9}},				-- Essence Font
 		{116849, "LEFT", {0.81, 0.85, 0.1}, true},			-- Life Cocoon
 	},
@@ -35,6 +38,9 @@ T.RaidBuffs = {
 		{53563, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Light
 		{156910, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Faith
 		{200025, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Virtue
+		{157047, "TOP", {0.15, 0.58, 0.84}},				-- Saved by the Light (T25 Talent)
+		{148039, "BOTTOM", {0.98, 0.50, 0.11}},				-- Barrier of Faith (accumulation)
+		{395180, "BOTTOM", {0.93, 0.80, 0.36}},				-- Barrier of Faith (absorbtion)
 		{1022, "BOTTOMRIGHT", {0.2, 0.2, 1}, true},			-- Blessing of Protection
 		{1044, "BOTTOMRIGHT", {0.89, 0.45, 0}, true},		-- Blessing of Freedom
 		{6940, "BOTTOMRIGHT", {0.89, 0.1, 0.1}, true},		-- Blessing of Sacrifice
@@ -44,7 +50,8 @@ T.RaidBuffs = {
 	},
 	PRIEST = {
 		{194384, "TOPRIGHT", {0.8, 0.4, 0.2}},				-- Atonement
-		{139, "TOPRIGHT", {0.4, 0.7, 0.2}},					-- Renew
+		{214206, "TOPRIGHT", {0.8, 0.4, 0.2}},				-- Atonement (PvP)
+		{139, "TOP", {0.4, 0.7, 0.2}},						-- Renew
 		{41635, "BOTTOMRIGHT", {0.2, 0.7, 0.2}},			-- Prayer of Mending
 		{6788, "BOTTOMLEFT", {1, 0, 0}},					-- Weakened Soul
 		{17, "TOPLEFT", {0.81, 0.85, 0.1}},					-- Power Word: Shield
@@ -53,13 +60,18 @@ T.RaidBuffs = {
 	},
 	SHAMAN = {
 		{61295, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Riptide
-		{204288, "BOTTOMRIGHT", {0.2, 0.7, 0.2}},			-- Earth Shield
+		{974, "BOTTOMRIGHT", {0.91, 0.80, 0.44}},			-- Earth Shield
+		{383648, "BOTTOMRIGHT", {0.91, 0.80, 0.44}},		-- Earth Shield (Elemental Orbit)
 	},
 	HUNTER = {
 		{35079, "TOPRIGHT", {0.2, 0.2, 1}},					-- Misdirection
+		{90361, "TOP", {0.34, 0.47, 0.31}},					-- Spirit Mend (HoT)
 	},
 	ROGUE = {
 		{57934, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Tricks of the Trade
+	},
+	WARRIOR  = {
+		{3411, "TOPRIGHT", {0.89, 0.1, 0.1}},				-- Intervene
 	},
 	WARLOCK = {
 		{20707, "TOPRIGHT", {0.7, 0.32, 0.75}},				-- Soulstone
@@ -86,6 +98,75 @@ local function SpellName(id)
 end
 
 T.RaidDebuffs = {
+--[[ 10.1
+	---------------------------------------------------------
+	-- Aberrus, the Shadowed Crucible
+	---------------------------------------------------------
+	-- Kazzara
+	[SpellName(406530)] = 3,	-- Riftburn
+	[SpellName(402420)] = 3,	-- Molten Scar
+	[SpellName(402253)] = 3,	-- Ray of Anguish
+	[SpellName(406525)] = 3,	-- Dread Rift
+	[SpellName(404743)] = 3,	-- Terror Claws
+	-- Molgoth
+	[SpellName(405084)] = 3,	-- Lingering Umbra
+	[SpellName(405645)] = 3,	-- Engulfing Heat
+	[SpellName(405642)] = 3,	-- Blistering Twilight
+	[SpellName(402617)] = 3,	-- Blazing Heat
+	[SpellName(401809)] = 3,	-- Corrupting Shadow
+	[SpellName(405394)] = 3,	-- Shadowflame
+	-- Experimentation of Dracthyr
+	[SpellName(406317)] = 3,	-- Mutilation 1
+	[SpellName(406365)] = 3,	-- Mutilation 2
+	[SpellName(405392)] = 3,	-- Disintegrate 1
+	[SpellName(405423)] = 3,	-- Disintegrate 2
+	[SpellName(406233)] = 3,	-- Deep Breath
+	[SpellName(407327)] = 3,	-- Unstable Essence
+	[SpellName(406313)] = 3,	-- Infused Strikes
+	[SpellName(407302)] = 3,	-- Infused Explosion
+	-- Zaqali Invasion
+	[SpellName(408873)] = 3,	-- Heavy Cudgel
+	[SpellName(410353)] = 3,	-- Flaming Cudgel
+	[SpellName(407017)] = 3,	-- Vigorous Gale
+	[SpellName(401407)] = 3,	-- Blazing Spear 1
+	[SpellName(401452)] = 3,	-- Blazing Spear 2
+	[SpellName(409275)] = 3,	-- Magma Flow
+	-- Rashok
+	[SpellName(407547)] = 3,	-- Flaming Upsurge
+	[SpellName(407597)] = 3,	-- Earthen Crush
+	[SpellName(405819)] = 3,	-- Searing Slam
+	[SpellName(408857)] = 3,	-- Doom Flame
+	-- Zskarn
+	[SpellName(404955)] = 3,	-- Shrapnel Bomb
+	[SpellName(404010)] = 3,	-- Unstable Embers
+	[SpellName(404942)] = 3,	-- Searing Claws
+	[SpellName(403978)] = 3,	-- Blast Wave
+	[SpellName(405592)] = 3,	-- Salvage Parts
+	[SpellName(405462)] = 3,	-- Dragonfire Traps
+	[SpellName(409942)] = 3,	-- Elimination Protocol
+	-- Magmorax
+	[SpellName(404846)] = 3,	-- Incinerating Maws 1
+	[SpellName(408955)] = 3,	-- Incinerating Maws 2
+	[SpellName(402994)] = 3,	-- Molten Spittle
+	[SpellName(403747)] = 3,	-- Igniting Roar
+	-- Echo of Neltharion
+	[SpellName(409373)] = 3,	-- Disrupt Earth
+	[SpellName(407220)] = 3,	-- Rushing Shadows 1
+	[SpellName(407182)] = 3,	-- Rushing Shadows 2
+	[SpellName(405484)] = 3,	-- Surrendering to Corruption
+	[SpellName(409058)] = 3,	-- Seeping Lava
+	[SpellName(402120)] = 3,	-- Collapsed Earth
+	[SpellName(407728)] = 3,	-- Sundered Shadow
+	[SpellName(401998)] = 3,	-- Calamitous Strike
+	[SpellName(408160)] = 3,	-- Shadow Strike
+	[SpellName(403846)] = 3,	-- Sweeping Shadows
+	[SpellName(401133)] = 3,	-- Wildshift (Druid)
+	[SpellName(401131)] = 3,	-- Wild Summoning (Warlock)
+	[SpellName(401130)] = 3,	-- Wild Magic (Mage)
+	[SpellName(401135)] = 3,	-- Wild Breath (Evoker)
+	[SpellName(408071)] = 3,	-- Shapeshifter's Fervor
+	-- Scalecommander Sarkareth
+]]
 -----------------------------------------------------------------
 -- Vault of the Incarnates
 -----------------------------------------------------------------
@@ -281,15 +362,62 @@ T.RaidDebuffs = {
 	[SpellName(377008)] = 3,	-- Deafening Screech
 	-- For some lols
 	[SpellName(374389)] = 3,	-- Gulp Swog Toxin - Kills player on 10 stacks
-
+--[[ 10.1
 -----------------------------------------------------------------
 -- Dragonflight (Season 2)
 -----------------------------------------------------------------
-	-- Brackenhide Hollow
-	-- Halls of Infusion
-	-- Neltharus
-	-- Uldaman: Legacy of Tyr
-
+	-- Freehold
+	[SpellName(258323)] = 3,	-- Infected Wound
+	[SpellName(257775)] = 3,	-- Plague Step
+	[SpellName(257908)] = 3,	-- Oiled Blade
+	[SpellName(257436)] = 3,	-- Poisoning Strike
+	[SpellName(274389)] = 3,	-- Rat Traps
+	[SpellName(274555)] = 3,	-- Scabrous Bites
+	[SpellName(258875)] = 4,	-- Blackout Barrel
+	[SpellName(256363)] = 3,	-- Ripper Punch
+	-- Neltharion's Lair
+	[SpellName(199705)] = 3,	-- Devouring
+	[SpellName(199178)] = 3,	-- Spiked Tongue
+	[SpellName(210166)] = 3,	-- Toxic Retch 1
+	[SpellName(217851)] = 3,	-- Toxic Retch 2
+	[SpellName(193941)] = 3,	-- Impaling Shard
+	[SpellName(183465)] = 3,	-- Viscid Bile
+	[SpellName(226296)] = 3,	-- Piercing Shards
+	[SpellName(226388)] = 3,	-- Rancid Ooze
+	[SpellName(200154)] = 3,	-- Burning Hatred
+	[SpellName(183407)] = 3,	-- Acid Splatter
+	[SpellName(215898)] = 3,	-- Crystalline Ground
+	[SpellName(188494)] = 3,	-- Rancid Maw
+	[SpellName(192800)] = 3,	-- Choking Dust
+	-- Underrot
+	[SpellName(265468)] = 3,	-- Withering Curse
+	[SpellName(278961)] = 3,	-- Decaying Mind
+	[SpellName(259714)] = 3,	-- Decaying Spores
+	[SpellName(272180)] = 3,	-- Death Bolt
+	[SpellName(272609)] = 3,	-- Maddening Gaze
+	[SpellName(269301)] = 3,	-- Putrid Blood
+	[SpellName(265533)] = 3,	-- Blood Maw
+	[SpellName(265019)] = 3,	-- Savage Cleave
+	[SpellName(265377)] = 3,	-- Hooked Snare
+	[SpellName(265625)] = 3,	-- Dark Omen
+	[SpellName(260685)] = 3,	-- Taint of G'huun
+	[SpellName(266107)] = 3,	-- Thirst for Blood
+	[SpellName(260455)] = 3,	-- Serrated Fangs
+	-- Vortex Pinnacle
+	[SpellName(87618)] = 3,		-- Static Cling
+	[SpellName(410870)] = 3,	-- Cyclone
+	[SpellName(86292)] = 3,		-- Cyclone Shield
+	[SpellName(88282)] = 3,		-- Upwind of Altairus
+	[SpellName(88286)] = 3,		-- Downwind of Altairus
+	[SpellName(410997)] = 3,	-- Rushing Wind
+	[SpellName(411003)] = 3,	-- Turbulence
+	[SpellName(87771)] = 3,		-- Crusader Strike
+	[SpellName(87759)] = 3,		-- Shockwave
+	[SpellName(88314)] = 3,		-- Twisting Winds
+	[SpellName(76622)] = 3,		-- Sunder Armor
+	[SpellName(88171)] = 3,		-- Hurricane
+	[SpellName(88182)] = 3,		-- Lethargic Poison
+	]]
 -----------------------------------------------------------------
 -- Other
 -----------------------------------------------------------------
