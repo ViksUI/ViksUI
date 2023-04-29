@@ -94,7 +94,7 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["190368"] = "Interrupt: Pyretic Burst ".. "\n".. "Cauterize, selfheals ".. "\n".. "Dodge: Molten Subduction", -- Flamecaller Aymi
 	["190371"] = "Interrupt: Rumbling Earth, AOE dmg and stun 8yard", -- Primalist Earthshaker
 	["190373"] = "Interrupt: Thunderstorm ".. "\n".. "Note: Primal Affinity lets Gusting Proto-Dragon cast stun", -- Primalist Galesinger
-	["190407"] = "At 20% Interrupt: Tidal Divergence ".. "\n".. "", -- Aqua Rager
+	["190407"] = "At 20% Interrupt: Tidal Divergence", -- Aqua Rager
 	["190405"] = "Interrupt: Aqueous Barrier (absorb shield) ".. "\n".. "Dodge: Flash Flood, AOE", -- Infuser Sariya
 	-- Shadowmoon Burial Ground
 	["75459"] = "Interrupt: Plague Spit", -- Plagued Bat
@@ -108,6 +108,27 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	-- Halls of Valor
 	["96640"] = "Dodge: Penetrating Shot, frontal cone ".. "\n".. "Dodge: Leap to Safety, gains 25% dmg reduct if fail", -- Valarjar Marksman
 	["96934"] = "Dodge: Bear Trap ".. "\n".. "Tank: On Fortify Quick Chop hurts", -- Valarjar Trapper
+	-- Brackenhide Hollow
+	["186226"] = "Interrupt: -  Burst of Decay ".. "\n".. "Nuke: Decay Totem", -- Fetid Rotsinger
+	["186246"] = "Interrupt: -  Screech, 40y aoe dmg", -- Fleshripper Vulture
+	["186125"] = "Interrupt: Greater Healing Rapids at all costs ".. "\n".. "Nuke Hextrick Totem when casted ".. "\n".. "Bloodfrenzy – When ally's drops below 15%", -- Tricktotem
+	-- Freehold
+	["127111"] = "Interrupt or Dodge: Sea Spout", -- Irontide Oarsman
+	["129547"] = "Interrupt(!): Shattering Bellow, dmg & interrupts ".. "\n".. "Bellow only has a 30 yard range", -- Blacktooth Knuckleduster
+	["129788"] = "Interrupt (or purge): Healing Balm (medium HoT) ".. "\n".. "Dispel: Infected Wound", -- Irontide Bonesaw
+	["126919"] = "Interrupt: Thundering Squall (moderate 12s 10yrd AoE)", -- Irontide Stormcaller
+	["130012"] = "Painful Motivation (45% dmg buff) ".. "\n".. "The buff also deals heavy damage to the mobs", -- Irontide Ravager
+	-- The Underrot
+	["133685"] = "Interrupt(!!!): Harrowing Despair (BIG AoE) ".. "\n".. "Spread a little so you don't share the channeling damage ".. "\n".. "Healer: Dark Omen is big dmg", -- Befouled Spirit
+	["133835"] = "Will fixate a random player. Kite, CC, don't get hit ".. "\n".. "Interrupt: Sonic Screech (AoE damage, interrupts spells)", -- Feral Bloodswarmer
+	["138187"] = "Interrupt(!!): Death Bolt (AoE dmg + DoT) ".. "\n".. "You really need to interrupt every Death Bolt here", -- Grotesque Horror
+	["134284"] = "Interrupt: Raise Dead (summons a Guardian) ".. "\n".. "Interrupt or Soothe: Wicked Frenzy (+100% haste)", -- Fallen Deathspeaker
+	["133912"] = "Interrupt(!!): Withering Curse (+dmg taken, -dmg done) ".. "\n".. "Interrupt(!): Shadowbolt Volley (Medium AoE) ".. "\n".. "Summons a totem: Kill or move 6yard away", -- Bloodsworn Defiler
+	-- Uldaman: Legacy of Tyr
+	["186658"] = "Interrupt: Chain Lightning ".. "\n".. "Interrupt, low pri: Stone Spile", -- Stonevault Geomancer
+	["186420"] = "Interrupt: Stone Bolt ".. "\n".. "Stun/Disturb: Hail of Stone, channeled on random", -- Earthen Weaver
+	["184132"] = "Interrupt or Purge: Earth Ward, put on random npc ".. "\n".. "Interrupt: Curse of Stone. Decurse of fail", -- Earthen Warder
+	["184301"] = "Interrupt: Sonic Burst, 10y aoe silence ", -- Cavern Seeker
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -224,14 +245,29 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["189531"] = "Summons Infected Lashers", -- Decayed Elder
 	["186229"] = "Deals aoe damage and summons Infected Lashers.", -- Wilted Oak
 	-- Neltharus
-	["189247"] = "Interrupt: Ember Reach".. "\n".. "", -- Tamed Phoenix
+	["189247"] = "Interrupt: Ember Reach", -- Tamed Phoenix
 	["189227"] = "Dodge: Binding Spear".. "\n".. "Stuns and root player if hit", -- Qalashi Hunter
-	["189470"] = "Interrupt: Melt - Hits random player".. "\n".. "", -- Lava Flare
+	["189470"] = "Interrupt: Melt - Hits random player", -- Lava Flare
 	["189466"] = "Scorching Fusillade: Spread out ".. "\n".. "Dodge: Conflagrant Battery swirls", -- Irontorch Commander
 	-- Halls of Infusion
 	["190362"] = "Interrupt: Dazzle frontal disorientation ".. "\n".. "Can sidestep or outrange 10y", -- Dazzling Dragonfly
 	["195399"] = "Harmless, BUT: At 10 stacks it instantly kills you ".. "\n".. "Avoid been meled by them", -- Curious Swoglet
 	["190377"] = "Interrupt: Ice Shards ".. "\n".. "Note: Primal Affinity lets Glacial Proto-Dragon  cast slow", -- Primalist Icecaller
+	-- Brackenhide Hollow
+	["186220"] = "Interrupt: Touch of Decay", -- Brackenhide Shaper
+	["185528"] = "NOTE: Kill Rotchanting Totem ".. "\n".. "Totem empowers and unlocks Witherbolt", -- Trickclaw Mystic
+	["186124"] = "Healer: Heal above 90% to remove Gash Frenzy bleed ".. "\n".. "Healer: Dispell Decayed Senses to remove cc", -- Gashtooth
+	-- Freehold
+	["129529"] = "Fixates random allies ".. "\n".. "DRUID - Soothe: Blind Rage or TQ Shot", -- Blacktooth Scrapper
+	["129559"] = "Cast Duelist Dash on random player ".. "\n".. "Stuns all between mob and targeted player", -- Cutwater Duelist
+	["129600"] = "Interupt Water Bolt to help stack", -- Bilge Rat Brinescale
+	["128551"] = "Moderate tank damage ".. "\n".. "Soothe or Tranq shot: Beastial Wrath +50%dmg", -- Irontide Mastiff
+	["129599"] = "Spread 8y to minimize bouncing blade dmg", -- Cutwater Knife Juggler
+	-- The Underrot
+	["133663"] = "Will pelt random allies ".. "\n".. "Hooked Snare is a DoT", -- Fanatical Headhunter
+	-- The Vortex Pinnacle
+	["45924"] = "Dodge: Hurricane. Dmg attack speed reduction", -- Turbulent Squall
+	["45930"] = "Note: Lightning Nova is 10y knockback", -- Minister of Air
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -327,15 +363,42 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["189363"] = "Kill them quickly before the bleeds stack up", -- Infected Lasher
 	["193799"] = "Kill them quickly. Empowers Trickclaw Mystics with dangerous spell", -- Rotchanting Totem
 	-- Neltharus
-	["192788"] = "Interrupt (!!!!) : Molten Core".. "\n".. "", -- Qalashi Thaumaturge
-	["192782"] = "Pulse a ramping DoT onto your team with  Molten Core".. "\n".. "", -- Molten Elementals
+	["192788"] = "Interrupt (!!!!) : Molten Core", -- Qalashi Thaumaturge
+	["192782"] = "Pulse a ramping DoT onto your team with  Molten Core", -- Molten Elementals
 	["189235"] = "Interrupt: Burning Roar".. "\n".. "Tank: Dmg from Imbued Magma (healer dispell dot)".. "\n".. "Dodge: Eruptive Crush, 6y aoe	", -- 	Overseer Lahar
 	["189464"] = "Interrupt: Mote of Combustion cast on random".. "\n".. "Healer: Dispell Mote of Combustion".. "\n".. "Frontal: Scorching Breath	", -- 	Qalashi Irontorch
 	["189467"] = "Pierce Marrow: Charges a target, decent dmg".. "\n".. "Dragonbone Axe:  Massive bleed on a random target", -- Qalashi Bonesplitter
-	["194816"] = "Healers: Heavy aoe dmg every 2sec".. "\n".. "", -- Forgewrought Monstrosity
+	["194816"] = "Healers: Heavy aoe dmg every 2sec", -- Forgewrought Monstrosity
 	["193291"] = "Tank: Scalding Chomp hit's hard".. "\n".. "ALL: Pushback from Candescent Tempest", -- Apex Blazewing
 	-- Halls of Infusion
 	["190342"] = "Interrupt: Expulse, heavy AOE dmg ".. "\n".. "Containment Beam, deal high damage and immobilize", -- Containment Apparatus
+	-- Brackenhide Hollow
+	["185534"] = "Dodge: Toxic Trap at all costs ".. "\n".. "Healer: Bone Bolt deals heavy dmg and leave bleed. Random", -- Bonebolt Hunter
+	["185508"] = "Tank: Bloody Bite leaves Bleed dmg", -- Claw Fighter
+	["185529"] = "Interrupt: Hideous Cackle at all costs, mass-fear ".. "\n".. "Kill asap due to Pack Tactics, buffing all nearby mobs", -- Bracken Warscourge
+	["195135"] = "Interrupt: Hideous Cackle at all costs, mass-fear ".. "\n".. "Kill asap due to Pack Tactics, buffing all nearby mobs", -- Bracken Warscourge
+	["186229"] = "Summons Lashers every 12s ".. "\n".. "Stomp is aoe dmg", -- Wilted Oak
+	["193352"] = "NUKE! It CC random", -- Hextrick Totem
+	["194745"] = "Nuke! ".. "\n".. "Kite: With Meat Toss on you, kite over traps", -- Rotfang Hyena
+	["189363"] = "Nuke!", -- Infected Lasher
+	["190426"] = "Nuke! ".. "\n".. "Group Dmg: Withering Disease effect.", -- Decay Totem
+	["186191"] = "High dmg from Decay Surge & Withering Burst ".. "\n".. "Spawns Rotchanting Totem", -- Decay Speaker
+	["186208"] = "Dodge: Bone Bolt Volley frontal damage ".. "\n".. "Dmg to random players, and empower Vulture & Hyena", -- Rotbow Stalker
+	-- Freehold
+	["130404"] = "lay traps around the area ".. "\n".. "roots you and deals very heavy damage", -- Vermin Trapper
+	-- The Underrot
+	["131436"] = "Frontal Cleave (Savage Cleave, heavy damage + DoT) ".. "\n".. "Warcry heavily buffs all nearby enemies", -- Chosen Blood Matron
+	["131492"] = "Interrupt(!!): Dark Reconstitution (big heal) ".. "\n".. "Interrupt or Purge(!): Gift of G'huun (+100% damage, unkillable)", -- Devout Blood Priest
+	["133870"] = "Interrupt(!!): Decaying Mind (Long CC) ".. "\n".. "cleansed by healing through the healing absorb", -- Diseased Lasher
+	["133836"] = "Bone Shield, a big absorb on themselves ".. "\n".. "Try and AoE CC them and burn", -- Reanimated Guardian
+	["138338"] = "Bone Shield, a big absorb on themselves ".. "\n".. "Try and AoE CC them and burn", -- Reanimated Guardian
+	-- Uldaman: Legacy of Tyr
+	["184300"] = "Healer: Thunderous Clap is 30y heavy aoe dmg ".. "\n".. "Ranged: Stay 30y away", -- Ebonstone Golem
+	["184331"] = "Applies Stolen Time debuff (Dispellable) to all ".. "\n".. "Does not apply when stunned ".. "\n".. "Be careful how many of them you pull", -- Infinite Timereaver
+	-- The Vortex Pinnacle
+	["45915"] = "Rising Winds stacks over time increasing buff", -- Armored Mistral
+	["45919"] = "Kite out of healing circle. Party can get free heal ".. "\n".. "Party: Help splitt dmg from Brutal StrikesDodge: Chilling Blast beside tank", -- Young Storm Dragon
+	["45935"] = "Interrupt: Greater healing (30% health) ".. "\n".. "Desperate Speed: Increases casting speed by 50%", -- Temple Adept
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -464,7 +527,7 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["185691"] = "Infected Bite reduce the tank's healing taken", -- Vicious Hyena
 	-- Neltharus
 	["193293"] = "Frontal: Volcanic Guard".. "\n".. "Tank Dmg: Blazing Slash", -- Qalashi Warden
-	["192787"] = "Frontal knockback".. "\n".. "", -- Qalashi Spinecrusher
+	["192787"] = "Frontal knockback", -- Qalashi Spinecrusher
 	["189266"] = "Deadly Frontal: Magma Fist! DODGE".. "\n".. "Dispell/Sooth: Fired Up", -- Qalashi Trainee
 	["189471"] = "Tank: Reverberating Slam, hit hard and leave a DoT".. "\n".. "Stop Cast: Forgestomp", -- Qalashi Blacksmith
 	-- Halls of Infusion
@@ -472,6 +535,31 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["190359"] = "Increasing dmg the longer they live ".. "\n".. "Only important for ramp-up dmg (Fortify)", -- Skulking Zealot
 	["190401"] = "Dispell: Binding Winds if pulled with Primalist Galesinger ".. "\n".. "Note: Only priority if buffed with Affinity. Else they are equal", -- Gusting Proto-DragonLight
 	["190404"] = "DODGE!! : Tectonic Breath, frontal ".. "\n".. "Beware of its  Creeping Mold, as it stacks", -- Subterranean Proto-DragonLight
+	-- Brackenhide Hollow
+	["186122"] = "Tank: Cleave is 8y frontal dmg ".. "\n".. "Tank: Soak Savage Charge cast on random player", -- Rira Hackclaw
+	["186116"] = "Tank: Gut Shot ability, high damage and knocks you back. ", -- Gutshot
+	-- Freehold
+	["130400"] = "Dodge: Boulder toss & Ground Shatter", -- Irontide Crusher
+	["129602"] = "Frontal cleave (tank can dodge after cast starts) ".. "\n".. "Pull one at a time if possible", -- Irontide Enforcer
+	["127106"] = "Heavy tank damage ".. "\n".. "Dispel(!): Oiled Blade", -- Irontide Officer
+	["129527"] = "Goin' Bananas is 5y aoe", -- Bilge Rat Buccaneer
+	["130011"] = "Frontal cleave (tank can dodge after cast starts)", -- Irontide Buccaneer
+	["126928"] = "Moderate tank damage ".. "\n".. "Healer: Dispell Poisoning Strike at 2 stacks", -- Irontide Corsair
+	["129601"] = "Will drag random ranged players into him ".. "\n".. "Carefull when close to Crusher's Ground shatter", -- Cutwater Harpooner
+	-- The Underrot
+	["131402"] = "Stacks HEAVY DoT on the tank ".. "\n".. "explodes on death", -- Underrot Tick
+	["130909"] = "Frontal breath on random. Dodge after cast starts", -- Fetid Maggot
+	["138281"] = "Dodge: Maddening Gaze (Long fear, Frontal) ".. "\n".. "Dodge tentacles that spawns", -- Faceless Corruptor
+	-- Uldaman: Legacy of Tyr
+	["184023"] = "Tank: Chomp & it's bleed deals alot of dmg", -- Vicious Basilisk
+	["184020"] = "Dodge: Brutal Slam or get stunned ".. "\n".. "Buffs everyone when below 40%", -- Hulking Berserker
+	["184130"] = "Frontal Cleave ".. "\n".. "Apply Rending Slash bleed on mele attack", -- Earthen Custodian
+	["184107"] = "Dodge: Fissuring Slam pools ".. "\n".. "Use personals during Earthquake", -- Runic Protector
+	["184303"] = "Healer: Pounce on random target is heavy dmg ".. "\n".. "Auto attack leaves poison debuff. Can be dispelled", -- Skittering Crawler
+	["184131"] = "Tank: Kite mobs out of Blessing of Tyr bubble ".. "\n".. "Tank: Bulwark Slam hit's hard", -- Earthen Guardian 
+	-- The Vortex Pinnacle
+	["45477"] = "Charge stunns player ".. "\n".. "Air Nova: Knock back when killed ".. "\n".. "Frontal: Wind Blast, reduce 75% attack speed", -- Gust Soldier
+	["45928"] = "Tank: Shockwave is frontal stun, 10y", -- Executor of the Caliph
 }
 
 T.PlateTides = {
