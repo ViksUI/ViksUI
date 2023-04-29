@@ -60,6 +60,7 @@ local int = 0
 local function Update(self, t)
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = _G.GetRealZoneText() or _G.UNKNOWN;
+	local _, instanceType = IsInInstance()
 
 	if C.datatext.location and C.datatext.location > 0 then
 		if (subZoneText ~= "") and (subZoneText ~= zoneText) then
@@ -72,28 +73,33 @@ local function Update(self, t)
 	end
 		
 	local r, g, b = LocMopColoring()
-	int = int + 1
-	if int >= 3 then
-		local unitMap = C_Map.GetBestMapForUnit("player")
-		--local x, y = 0, 0
+	if instanceType == "raid" or instanceType == "party" then
+		x = 0
+		y = 0
+		Text:SetText(string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine))
+	else
+		int = int + 1
+		if int >= 3 then
+			local unitMap = C_Map.GetBestMapForUnit("player")
+			--local x, y = 0, 0
 
-		if unitMap then
-			x, y = GetPlayerMapPos(unitMap)
+			if unitMap then
+				x, y = GetPlayerMapPos(unitMap)
+			end
+			if (not x) and (not y) then
+				x = 0
+				y = 0
+			end
+			
+			x = math.floor(100 * x) or 0
+			y = math.floor(100 * y) or 0	
+			if C.datatext.showcoords == true then
+				Text:SetText(qColor..x.." ".. string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine)..qColor.." "..y)
+			else
+				Text:SetText(string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine))
+			end
+			int = 0
 		end
-		if (not x) and (not y) then
-			x = 0
-			y = 0
-		end
-		
-		x = math.floor(100 * x) or 0
-		y = math.floor(100 * y) or 0
-		
-		if C.datatext.showcoords == true then
-			Text:SetText(qColor..x.." ".. string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine)..qColor.." "..y)
-		else
-			Text:SetText(string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, displayLine))
-		end
-		int = 0
 	end
 end
 

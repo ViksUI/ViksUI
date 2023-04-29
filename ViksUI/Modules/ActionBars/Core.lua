@@ -62,6 +62,10 @@ frame:SetScript("OnEvent", function()
 	hooksecurefunc("TalentFrame_LoadUI", function()
 		PlayerTalentFrame:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	end)
+
+	-- Fixed SetPointBase and ShowBase taints after finish Pet Battle, entering new combat and summon Hunter pet.
+	ActionBarController:UnregisterEvent("UPDATE_VEHICLE_ACTIONBAR")
+	ActionBarController:UnregisterEvent("UPDATE_OVERRIDE_ACTIONBAR")
 end)
 
 ----------------------------------------------------------------------------------------
