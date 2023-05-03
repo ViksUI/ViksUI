@@ -1,13 +1,11 @@
 Allways check https://github.com/ViksUI/ViksUI/commits/master
 
 Changes:
-	Update 10.20 for Wow 10.0.2
+	Update 10.22 for Wow 10.1
 	• Out Traveling so pls check Github for log
 
  
 EXTRA:
-Slowely getting this expansion covered
-I will still adjust and tweak Npc tips as i progress in m+
 Added Wow gift button and buymeacoffee button here on /changelog
 Patreon helps me keep subscription while not playing
 	

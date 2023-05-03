@@ -39,8 +39,6 @@ T.RaidBuffs = {
 		{156910, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Faith
 		{200025, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Virtue
 		{157047, "TOP", {0.15, 0.58, 0.84}},				-- Saved by the Light (T25 Talent)
-		{148039, "BOTTOM", {0.98, 0.50, 0.11}},				-- Barrier of Faith (accumulation)
-		{395180, "BOTTOM", {0.93, 0.80, 0.36}},				-- Barrier of Faith (absorbtion)
 		{1022, "BOTTOMRIGHT", {0.2, 0.2, 1}, true},			-- Blessing of Protection
 		{1044, "BOTTOMRIGHT", {0.89, 0.45, 0}, true},		-- Blessing of Freedom
 		{6940, "BOTTOMRIGHT", {0.89, 0.1, 0.1}, true},		-- Blessing of Sacrifice
@@ -98,7 +96,6 @@ local function SpellName(id)
 end
 
 T.RaidDebuffs = {
---[[ 10.1
 	---------------------------------------------------------
 	-- Aberrus, the Shadowed Crucible
 	---------------------------------------------------------
@@ -166,7 +163,6 @@ T.RaidDebuffs = {
 	[SpellName(401135)] = 3,	-- Wild Breath (Evoker)
 	[SpellName(408071)] = 3,	-- Shapeshifter's Fervor
 	-- Scalecommander Sarkareth
-]]
 -----------------------------------------------------------------
 -- Vault of the Incarnates
 -----------------------------------------------------------------
@@ -218,10 +214,8 @@ T.RaidDebuffs = {
 	[SpellName(226512)] = 3,	-- Sanguine
 	[SpellName(240559)] = 3,	-- Grievous
 	[SpellName(240443)] = 3,	-- Bursting
-	-- Dragonflight Season 1
-	[SpellName(396369)] = 6,	-- Mark of Lightning (-)
-	[SpellName(396364)] = 6,	-- Mark of Wind (+)
-	[SpellName(396411)] = 6,	-- Primal Overload (Failt to clear, 5sec Stunn + heavy dot)
+	-- Dragonflight Season 2
+	[SpellName(408556)] = 6,	-- Entangling Debuff
 
 -----------------------------------------------------------------
 -- Dragonflight (Season 1)
@@ -362,7 +356,7 @@ T.RaidDebuffs = {
 	[SpellName(377008)] = 3,	-- Deafening Screech
 	-- For some lols
 	[SpellName(374389)] = 3,	-- Gulp Swog Toxin - Kills player on 10 stacks
---[[ 10.1
+
 -----------------------------------------------------------------
 -- Dragonflight (Season 2)
 -----------------------------------------------------------------
@@ -417,7 +411,6 @@ T.RaidDebuffs = {
 	[SpellName(76622)] = 3,		-- Sunder Armor
 	[SpellName(88171)] = 3,		-- Hurricane
 	[SpellName(88182)] = 3,		-- Lethargic Poison
-	]]
 -----------------------------------------------------------------
 -- Other
 -----------------------------------------------------------------
@@ -432,77 +425,161 @@ T.RaidDebuffs = {
 -----------------------------------------------------------------
 if C.unitframe.plugins_pvp_debuffs == true then
 	local PvPDebuffs = {
-		-- Death Knight
-		[SpellName(108194)] = 4,	-- Asphyxiate
-		[SpellName(91797)] = 4,		-- Monstrous Blow (Mutated Ghoul)
-		[SpellName(91800)] = 4,		-- Gnaw (Ghoul)
-		[SpellName(287254)] = 4,	-- Dead of Winter
-		[SpellName(47476)] = 3,		-- Strangulate
-		-- Demon Hunter
-		[SpellName(217832)] = 4,	-- Imprison
-		[SpellName(211881)] = 4,	-- Fel Eruption
-		[SpellName(179057)] = 4,	-- Chaos Nova
-		[SpellName(205630)] = 4,	-- Illidan's Grasp
-		[SpellName(207685)] = 4,	-- Sigil of Misery
-		[SpellName(204490)] = 3,	-- Sigil of Silence
-		-- Druid
-		[SpellName(33786)] = 4,		-- Cyclone
-		[SpellName(5211)] = 4,		-- Mighty Bash
-		[SpellName(22570)] = 4,		-- Maim
-		[SpellName(78675)] = 3,		-- Solar Beam
-		[SpellName(339)] = 2,		-- Entangling Roots
-		-- Evoker
-		[SpellName(360806)] = 4,	-- Sleep Walk
-		-- Hunter
-		[SpellName(3355)] = 4,		-- Freezing Trap
-		[SpellName(24394)] = 4,		-- Intimidation
-		[SpellName(213691)] = 4,	-- Scatter Shot
-		[SpellName(117526)] = 2,	-- Binding Shot
-		-- Mage
-		[SpellName(61305)] = 4,		-- Polymorph
-		[SpellName(82691)] = 4,		-- Ring of Frost
-		[SpellName(31661)] = 4,		-- Dragon's Breath
-		[SpellName(122)] = 2,		-- Frost Nova
-		-- Monk
-		[SpellName(115078)] = 4,	-- Paralysis
-		[SpellName(119381)] = 4,	-- Leg Sweep
-		[SpellName(120086)] = 4,	-- Fists of Fury
-		[SpellName(198898)] = 4,	-- Song of Chi-Ji
-		-- Paladin
-		[SpellName(20066)] = 4,		-- Repentance
-		[SpellName(853)] = 4,		-- Hammer of Justice
-		[SpellName(105421)] = 4,	-- Blinding Light
-		-- Priest
-		[SpellName(605)] = 4,		-- Dominate Mind
-		[SpellName(8122)] = 4,		-- Psychic Scream
-		[SpellName(64044)] = 4,		-- Psychic Horror
-		[SpellName(205369)] = 4,	-- Mind Bomb
-		[SpellName(87204)] = 4,		-- Sin and Punishment
-		[SpellName(200196)] = 4,	-- Holy Word: Chastise
-		[SpellName(15487)] = 3,		-- Silence
-		[SpellName(284402)] = 3,	-- Vampiric Touch (Don't dispel)
-		-- Rogue
-		[SpellName(6770)] = 4,		-- Sap
-		[SpellName(2094)] = 4,		-- Blind
-		[SpellName(1833)] = 4,		-- Cheap Shot
-		[SpellName(408)] = 4,		-- Kidney Shot
-		[SpellName(1776)] = 4,		-- Gouge
-		[SpellName(1330)] = 3,		-- Garrote - Silence
-		-- Shaman
-		[SpellName(51514)] = 4,		-- Hex
-		[SpellName(118905)] = 4,	-- Static Charge
-		[SpellName(305485)] = 4,	-- Lightning Lasso
-		-- Warlock
-		[SpellName(118699)] = 4,	-- Fear
-		[SpellName(6789)] = 4,		-- Mortal Coil
-		[SpellName(5484)] = 4,		-- Howl of Terror
-		[SpellName(6358)] = 4,		-- Seduction (Succubus)
-		[SpellName(115268)] = 4,	-- Mesmerize (Shivarra)
-		[SpellName(30283)] = 4,		-- Shadowfury
-		-- Warrior
-		[SpellName(46968)] = 4,		-- Shockwave
-		[SpellName(132169)] = 4,	-- Storm Bolt
-		[SpellName(194958)] = 4,	-- Intimidating Shout
+	-- Evoker
+	[SpellName(355689)] = 4,	-- Landslide
+	[SpellName(370898)] = 1,	-- Permeating Chill
+	[SpellName(360806)] = 3,	-- Sleep Walk
+	-- Death Knight
+	[SpellName(47476)] = 2,		-- Strangulate
+	[SpellName(108194)] = 4,	-- Asphyxiate UH
+	[SpellName(221562)] = 4,	-- Asphyxiate Blood
+	[SpellName(207171)] = 4,	-- Winter is Coming
+	[SpellName(206961)] = 3,	-- Tremble Before Me
+	[SpellName(207167)] = 4,	-- Blinding Sleet
+	[SpellName(212540)] = 1,	-- Flesh Hook (Pet)
+	[SpellName(91807)] = 1,		-- Shambling Rush (Pet)
+	[SpellName(204085)] = 1,	-- Deathchill
+	[SpellName(233395)] = 1,	-- Frozen Center
+	[SpellName(212332)] = 4,	-- Smash (Pet)
+	[SpellName(212337)] = 4,	-- Powerful Smash (Pet)
+	[SpellName(91800)] = 4,		-- Gnaw (Pet)
+	[SpellName(91797)] = 4,		-- Monstrous Blow (Pet)
+	[SpellName(210141)] = 3,	-- Zombie Explosion
+	-- Demon Hunter
+	[SpellName(207685)] = 4,	-- Sigil of Misery
+	[SpellName(217832)] = 3,	-- Imprison
+	[SpellName(221527)] = 5,	-- Imprison (Banished version)
+	[SpellName(204490)] = 4,	-- Sigil of Silence
+	[SpellName(179057)] = 3,	-- Chaos Nova
+	[SpellName(211881)] = 4,	-- Fel Eruption
+	[SpellName(205630)] = 3,	-- Illidan's Grasp
+	[SpellName(208618)] = 3,	-- Illidan's Grasp (Afterward)
+	[SpellName(213491)] = 4,	-- Demonic Trample 1
+	[SpellName(208645)] = 4,	-- Demonic Trample 2
+	-- Druid
+	[SpellName(81261)] = 2,		-- Solar Beam
+	[SpellName(5211)] = 4,		-- Mighty Bash
+	[SpellName(163505)] = 4,	-- Rake
+	[SpellName(203123)] = 4,	-- Maim
+	[SpellName(202244)] = 4,	-- Overrun
+	[SpellName(99)] = 4,		-- Incapacitating Roar
+	[SpellName(33786)] = 5,		-- Cyclone
+	[SpellName(45334)] = 1,		-- Immobilized
+	[SpellName(102359)] = 1,	-- Mass Entanglement
+	[SpellName(339)] = 1,		-- Entangling Roots
+	[SpellName(2637)] = 1,		-- Hibernate
+	[SpellName(102793)] = 1,	-- Ursol's Vortex
+	-- Hunter
+	[SpellName(202933)] = 4,	-- Spider Sting 1
+	[SpellName(233022)] = 4,	-- Spider Sting 2
+	[SpellName(213691)] = 4,	-- Scatter Shot
+	[SpellName(19386)] = 3,		-- Wyvern Sting
+	[SpellName(3355)] = 3,		-- Freezing Trap
+	[SpellName(203337)] = 5,	-- Freezing Trap (PvP Talent)
+	[SpellName(209790)] = 3,	-- Freezing Arrow
+	[SpellName(24394)] = 4,		-- Intimidation
+	[SpellName(117526)] = 4,	-- Binding Shot
+	[SpellName(190927)] = 1,	-- Harpoon
+	[SpellName(201158)] = 1,	-- Super Sticky Tar
+	[SpellName(162480)] = 1,	-- Steel Trap
+	[SpellName(212638)] = 1,	-- Tracker's Net
+	[SpellName(200108)] = 1,	-- Ranger's Net
+	-- Mage
+	[SpellName(61721)] = 3,		-- Rabbit
+	[SpellName(61305)] = 3,		-- Black Cat
+	[SpellName(28272)] = 3,		-- Pig
+	[SpellName(28271)] = 3,		-- Turtle
+	[SpellName(126819)] = 3,	-- Porcupine
+	[SpellName(161354)] = 3,	-- Monkey
+	[SpellName(161353)] = 3,	-- Polar Bear
+	[SpellName(61780)] = 3,		-- Turkey
+	[SpellName(161355)] = 3,	-- Penguin
+	[SpellName(161372)] = 3,	-- Peacock
+	[SpellName(277787)] = 3,	-- Direhorn
+	[SpellName(277792)] = 3,	-- Bumblebee
+	[SpellName(118)] = 3,		-- Polymorph
+	[SpellName(82691)] = 3,		-- Ring of Frost
+	[SpellName(31661)] = 3,		-- Dragon's Breath
+	[SpellName(122)] = 1,		-- Frost Nova
+	[SpellName(33395)] = 1,		-- Freeze
+	[SpellName(157997)] = 1,	-- Ice Nova
+	[SpellName(228600)] = 1,	-- Glacial Spike
+	[SpellName(198121)] = 1,	-- Frostbite
+	-- Monk
+	[SpellName(119381)] = 4,	-- Leg Sweep
+	[SpellName(202346)] = 4,	-- Double Barrel
+	[SpellName(115078)] = 4,	-- Paralysis
+	[SpellName(198909)] = 3,	-- Song of Chi-Ji
+	[SpellName(202274)] = 3,	-- Incendiary Brew
+	[SpellName(233759)] = 4,	-- Grapple Weapon
+	[SpellName(123407)] = 1,	-- Spinning Fire Blossom
+	[SpellName(116706)] = 1,	-- Disable
+	[SpellName(232055)] = 4,	-- Fists of Fury
+	-- Paladin
+	[SpellName(853)] = 3,		-- Hammer of Justice
+	[SpellName(20066)] = 3,		-- Repentance
+	[SpellName(105421)] = 3,	-- Blinding Light
+	[SpellName(31935)] = 2,		-- Avenger's Shield
+	[SpellName(217824)] = 4,	-- Shield of Virtue
+	[SpellName(205290)] = 3,	-- Wake of Ashes
+	-- Priest
+	[SpellName(9484)] = 3,		-- Shackle Undead
+	[SpellName(200196)] = 4,	-- Holy Word: Chastise
+	[SpellName(200200)] = 4,	-- Holy Word: Chastise
+	[SpellName(226943)] = 3,	-- Mind Bomb
+	[SpellName(605)] = 5,		-- Mind Control
+	[SpellName(8122)] = 3,		-- Psychic Scream
+	[SpellName(15487)] = 2,		-- Silence
+	[SpellName(64044)] = 1,		-- Psychic Horror
+	[SpellName(453)] = 5,		-- Mind Soothe
+	-- Rogue
+	[SpellName(2094)] = 4,		-- Blind
+	[SpellName(6770)] = 4,		-- Sap
+	[SpellName(1776)] = 4,		-- Gouge
+	[SpellName(1330)] = 2,		-- Garrote - Silence
+	[SpellName(207777)] = 4,	-- Dismantle
+	[SpellName(408)] = 4,		-- Kidney Shot
+	[SpellName(1833)] = 4,		-- Cheap Shot
+	[SpellName(207736)] = 5,	-- Shadowy Duel (Smoke effect)
+	[SpellName(212182)] = 5,	-- Smoke Bomb
+	-- Shaman
+	[SpellName(51514)] = 3,		-- Hex
+	[SpellName(211015)] = 3,	-- Hex (Cockroach)
+	[SpellName(211010)] = 3,	-- Hex (Snake)
+	[SpellName(211004)] = 3,	-- Hex (Spider)
+	[SpellName(210873)] = 3,	-- Hex (Compy)
+	[SpellName(196942)] = 3,	-- Hex (Voodoo Totem)
+	[SpellName(269352)] = 3,	-- Hex (Skeletal Hatchling)
+	[SpellName(277778)] = 3,	-- Hex (Zandalari Tendonripper)
+	[SpellName(277784)] = 3,	-- Hex (Wicker Mongrel)
+	[SpellName(118905)] = 3,	-- Static Charge
+	[SpellName(77505)] = 4,		-- Earthquake (Knocking down)
+	[SpellName(118345)] = 4,	-- Pulverize (Pet)
+	[SpellName(204399)] = 3,	-- Earthfury
+	[SpellName(204437)] = 3,	-- Lightning Lasso
+	[SpellName(157375)] = 4,	-- Gale Force
+	[SpellName(64695)] = 1,		-- Earthgrab
+	-- Warlock
+	[SpellName(710)] = 5,		-- Banish
+	[SpellName(6789)] = 3,		-- Mortal Coil
+	[SpellName(118699)] = 3,	-- Fear
+	[SpellName(6358)] = 3,		-- Seduction (Succub)
+	[SpellName(171017)] = 4,	-- Meteor Strike (Infernal)
+	[SpellName(22703)] = 4,		-- Infernal Awakening (Infernal CD)
+	[SpellName(30283)] = 3,		-- Shadowfury
+	[SpellName(89766)] = 4,		-- Axe Toss
+	[SpellName(233582)] = 1,	-- Entrenched in Flame
+	-- Warrior
+	[SpellName(5246)] = 4,		-- Intimidating Shout
+	[SpellName(132169)] = 4,	-- Storm Bolt
+	[SpellName(132168)] = 4,	-- Shockwave
+	[SpellName(199085)] = 4,	-- Warpath
+	[SpellName(105771)] = 1,	-- Charge
+	[SpellName(199042)] = 1,	-- Thunderstruck
+	[SpellName(236077)] = 4,	-- Disarm
+	-- Racial
+	[SpellName(20549)] = 4,		-- War Stomp
+	[SpellName(107079)] = 4,	-- Quaking Palm
 	}
 
 	tinsert(T.RaidBuffs["ALL"], {284402, "RIGHT", {1, 0, 0}, true})	-- Vampiric Touch (Don't dispel)

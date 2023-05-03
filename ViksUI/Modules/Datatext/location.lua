@@ -105,17 +105,3 @@ end
 
 Stat:SetScript("OnUpdate", Update)
 Update(Stat, 10)
-
--- Collect memory garbage
-local eventcount = 0
-local VikInGame = CreateFrame("Frame")
-VikInGame:RegisterAllEvents()
-VikInGame:SetScript("OnEvent", function(self, event)
-	eventcount = eventcount + 1
-	if InCombatLockdown() then return end
-
-	if eventcount > 6000 then
-		collectgarbage("collect")
-		eventcount = 0
-	end
-end)

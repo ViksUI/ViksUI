@@ -11,7 +11,7 @@ local function SpellName(id)
 	if name then
 		return name
 	else
-		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists! Report this to Viks.|r")
+		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists (ChannelingTicks)! Report this to Viks.|r")
 		return "Empty"
 	end
 end
@@ -30,7 +30,6 @@ T.CastBarTicks = {
 	[SpellName(117952)] = 4,	-- Crackling Jade Lightning
 	-- Priest
 	[SpellName(15407)] = 6,		-- Mind Flay
-	[SpellName(48045)] = 6,		-- Mind Sear
 	[SpellName(47540)] = 3,		-- Penance
 	[SpellName(64843)] = 4,		-- Divine Hymn
 	[SpellName(64902)] = 5,		-- Symbol of Hope (Mana Hymn)

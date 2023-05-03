@@ -3,17 +3,17 @@ local T, C, L, _ = unpack(select(2, ...))
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.20 for Wow 10.0.5",
+	"Update 10.22 for Wow 10.1",
+	"• Season 2 - NpcColor & Tips updated",
+	"• Season 2 - Dungeon & Raid debuffs added",
 	"• Im out traveling so please check Github for details",
 
 " ",
 "EXTRA:",
-"Slowely getting this expansion covered",
-"I will still adjust and tweak Npc tips as i progress in m+",
 "Added Wow gift button and buymeacoffee button here on /changelog",
 "Patreon helps me keep subscription while not playing",
 	"",
-"PATREON's: Wiggy, Korallis and nAyu",
+"PATREON's: Wiggy, LeeBarry and nAyu",
 "But thanks to all who have used the addon and those supported my work",
 
 }

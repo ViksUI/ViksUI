@@ -3153,8 +3153,6 @@ C["filger_spells"] = {
 			{spellID = 108271, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Ascendance
 			{spellID = 114052, unitID = "target", caster = "all", filter = "BUFF"},
-			-- Ethereal Form
-			{spellID = 210918, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Spirit Link
 			--{spellID = 204293, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Debuffs
