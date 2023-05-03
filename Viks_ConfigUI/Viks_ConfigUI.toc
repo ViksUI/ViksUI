@@ -7,7 +7,7 @@
 ## RequiredDeps: ViksUI
 ## SavedVariables: ViksUIOptionsGlobal, ViksUIOptions
 ## SavedVariablesPerCharacter: ViksUIOptionsPerChar
-## IconTexture: Interface\AddOns\ViksUI\Media\Textures\Healer.tga
+## IconTexture: Interface\AddOns\ViksUI\Media\Textures\viksicon.blp
 
 ## X-Curse-Packaged-Version: 10.22
 ## X-Curse-Project-Name: ViksUI
