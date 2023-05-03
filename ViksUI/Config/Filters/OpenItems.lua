@@ -633,4 +633,6 @@ T.OpenItems = {
 	[202052] = true,	-- Timewatcher's Patience
 	[202142] = true,	-- Dragonbane Keep Strongbox
 	[202097] = true,	-- Bulging Box of Skins and Scales
+	[205423] = true,	-- Shadowflame Residue Sack
+	[205423] = true,	-- Scentsational Niffen Treasures
 }
