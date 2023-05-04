@@ -129,6 +129,10 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["186420"] = "Interrupt: Stone Bolt ".. "\n".. "Stun/Disturb: Hail of Stone, channeled on random", -- Earthen Weaver
 	["184132"] = "Interrupt or Purge: Earth Ward, put on random npc ".. "\n".. "Interrupt: Curse of Stone. Decurse of fail", -- Earthen Warder
 	["184301"] = "Interrupt: Sonic Burst, 10y aoe silence ", -- Cavern Seeker
+	-- Neltharion's Lair
+	["92610"] = "Interrupt his cast to stop the drumming ".. "\n".. "Animation still plays but harmless", -- Understone Drummer
+	["92351"] = "Interrupt his cast to stop the drumming ".. "\n".. "Animation still plays but harmless", -- Understone Drummer
+	["91008"] = "Attacks allies at random. ".. "\n".. "Won't cast if tank is 40 yards+ away", -- Rockbound Pelter
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -268,6 +272,10 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	-- The Vortex Pinnacle
 	["45924"] = "Dodge: Hurricane. Dmg attack speed reduction", -- Turbulent Squall
 	["45930"] = "Note: Lightning Nova is 10y knockback", -- Minister of Air
+	-- Neltharion's Lair
+	["91001"] = "Submerges ".. "\n".. "Dodge: Viscid Bile damage when come up", -- Tarspitter Lurker
+	["90998"] = "Interrupt: Stone Bolt (Heavy ST nuke)", -- Blightshard Shaper
+	["102232"] = "Interrupt: Bound (Long stun on random player) ".. "\n".. "Pelts random players. ".. "\n".. "Consider CC'ing while you kill the scorpion", -- Rockbound Trapper
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -399,6 +407,13 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["45915"] = "Rising Winds stacks over time increasing buff", -- Armored Mistral
 	["45919"] = "Kite out of healing circle. Party can get free heal ".. "\n".. "Party: Help splitt dmg from Brutal StrikesDodge: Chilling Blast beside tank", -- Young Storm Dragon
 	["45935"] = "Interrupt: Greater healing (30% health) ".. "\n".. "Desperate Speed: Increases casting speed by 50%", -- Temple Adept
+	-- Neltharion's Lair
+	["102404"] = "Stoneshatter is an AoE targeted on tank ".. "\n".. "Grubs MUST be CC'd or immediately killed or they'll transform", -- Stoneclaw Grubmaster
+	["113537"] = "Frontal cleave. Face away from the party ".. "\n".. "Stun Interrupt: Frenzy (Huge damage buff) ".. "\n".. "Defensives: throughout and stay grouped", -- Emberhusk Dominator
+	["102287"] = "Frontal cleave. Face away from the party ".. "\n".. "Stun Interrupt: Frenzy (Huge damage buff) ".. "\n".. "Defensives: throughout and stay grouped", -- Emberhusk Dominator
+	["102295"] = "Frontal cleave. Face away from the party ".. "\n".. "Stun Interrupt: Frenzy (Huge damage buff) ".. "\n".. "Defensives: throughout and stay grouped", -- Emberhusk Dominator
+	["98406"] = "Minor tank dmg from Impaling Shard", -- Embershard Scorpion
+	["92538"] = "KILL ASAP! ".. "\n".. "CC can be used to interupt cast", -- Tarspitter Grub
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -560,6 +575,12 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	-- The Vortex Pinnacle
 	["45477"] = "Charge stunns player ".. "\n".. "Air Nova: Knock back when killed ".. "\n".. "Frontal: Wind Blast, reduce 75% attack speed", -- Gust Soldier
 	["45928"] = "Tank: Shockwave is frontal stun, 10y", -- Executor of the Caliph
+	-- Neltharion's Lair
+	["91006"] = "Moderate tank damage ".. "\n".. "Easily kited", -- Rockback Gnasher
+	["92612"] = "Dodge: Avalanche cast ".. "\n".. "Watch where party players was standing", -- Mightstone Breaker
+	["90997"] = "Dodge: Avalanche cast ".. "\n".. "Watch where party players was standing", -- Mightstone Breaker
+	["113998"] = "Dodge: Avalanche cast ".. "\n".. "Watch where party players was standing", -- Mightstone Breaker
+	["91000"] = "Stun interrupt: Piercing Shards (Huge cone AoE damage) ".. "\n".. "Face mob away from the party to minimize damage ".. "\n".. "Shards ALWAYS follow Fracture knock back", -- Vileshard Hulk
 }
 
 T.PlateTides = {
