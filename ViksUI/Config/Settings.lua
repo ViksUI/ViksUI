@@ -648,13 +648,13 @@ C["bag"] = {
 --	Loot and Roll Frames
 ----------------------------------------------------------------------------------------
 C["loot"] = {
-	["lootframe"] = true,                  
-	["rolllootframe"] = false,
+	["lootframe"] = true,						-- Enable loot frame
+	["rolllootframe"] = true,					-- Enable group roll frame
 	["icon_size"] = 22,							-- Icon size
 	["width"] = 221,							-- Loot window width
-	["auto_greed"] = false,						-- Push "greed" or "disenchant" button when an item roll
-	["auto_confirm_de"] = true,					-- Auto confirm disenchant
-	["faster_loot"] = true,						-- Faster auto looting
+	["auto_greed"] = false,						-- Push "greed" or "disenchant" button for green item roll at max level
+	["auto_confirm_de"] = true,					-- Auto confirm disenchant and take BoP loot
+	["faster_loot"] = false,					-- Faster auto looting
 }
 
 ----------------------------------------------------------------------------------------
