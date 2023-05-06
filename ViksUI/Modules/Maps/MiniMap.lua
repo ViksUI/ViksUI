@@ -72,6 +72,12 @@ frame:SetScript("OnEvent", function(self, event)
 		end
 	end)
 
+	hooksecurefunc(QueueStatusButton, "SetScale", function(self, scale)
+		if scale ~= 0.5 then
+			self:SetScale(0.5)
+		end
+	end)
+
 	-- Invites icon
 	local InviteTexture = GameTimeCalendarInvitesTexture
 	InviteTexture:ClearAllPoints()
