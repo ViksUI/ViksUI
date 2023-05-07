@@ -278,6 +278,7 @@ local StripTexturesBlizzFrames = {
 	"RightInset",
 	"NineSlice",
 	"BG",
+	"Bg",
 	"border",
 	"Border",
 	"BorderFrame",
@@ -681,6 +682,10 @@ function T.SkinScrollBar(frame)
 				frame.thumbbg:SetPoint("TOPLEFT", newThumb, "TOPLEFT", 0, -3)
 				frame.thumbbg:SetPoint("BOTTOMRIGHT", newThumb, "BOTTOMRIGHT", 0, 3)
 				frame.thumbbg:SetTemplate("Overlay")
+
+				if not newThumb:IsShown() then
+					frame:SetAlpha(0)
+				end
 
 				hooksecurefunc(newThumb, "Hide", function(self)
 					frame:SetAlpha(0)
