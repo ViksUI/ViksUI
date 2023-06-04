@@ -135,11 +135,6 @@ frame:SetScript("OnEvent", function(self, event)
 	
 	ExpansionLandingPageMinimapButton:ClearAllPoints()
 	ExpansionLandingPageMinimapButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
-
-	local Crafting = MinimapCluster.IndicatorFrame.CraftingOrderFrame
-	Crafting:ClearAllPoints()
-	Crafting:SetParent(Minimap)
-	Crafting:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 4)
 end)
 
 -- Adjusting for patch 9.0.1 Minimap.xml
