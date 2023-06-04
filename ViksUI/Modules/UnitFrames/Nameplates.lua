@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.nameplate.enable ~= true or IsAddOnLoaded("Plater") or IsAddOnLoaded("Threat Plates") or IsAddOnLoaded("TidyPlates") then return end
 
 ----------------------------------------------------------------------------------------

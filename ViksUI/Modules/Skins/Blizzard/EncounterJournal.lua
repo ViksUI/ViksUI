@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 
 ----------------------------------------------------------------------------------------
 --	EncounterJournal skin
@@ -75,17 +75,18 @@ local function LoadSkin()
 	end
 
 	local mainTabs = {
+		EncounterJournalMonthlyActivitiesTab,
 		EncounterJournalSuggestTab,
 		EncounterJournalDungeonTab,
 		EncounterJournalRaidTab,
 		EncounterJournalLootJournalTab,
-		EncounterJournalMonthlyActivitiesTab
 	}
 
 	for _, tab in pairs(mainTabs) do
 		T.SkinTab(tab)
 	end
 
+	mainTabs[1]:ClearAllPoints()
 	mainTabs[1]:SetPoint("TOPLEFT", EncounterJournal, "BOTTOMLEFT", 11, 0)
 
 	T.SkinEditBox(EncounterJournalSearchBox)
@@ -126,11 +127,15 @@ local function LoadSkin()
 		tab.backdrop:SetPoint("BOTTOMRIGHT", 0, 2)
 		tab:SetNormalTexture(0)
 		tab:SetPushedTexture(0)
-		tab:SetDisabledTexture(0)
+		tab:SetDisabledTexture(C.media.blank)
 
 		local hl = tab:GetHighlightTexture()
 		hl:SetColorTexture(1, 1, 1, 0.2)
-		hl:SetAllPoints(tab.backdrop)
+		hl:SetInside(tab.backdrop)
+
+		local d = tab:GetDisabledTexture()
+		d:SetVertexColor(0.8, 0, 0, 0.1)
+		d:SetInside(tab.backdrop)
 	end
 
 	EncounterJournalEncounterFrameInfoOverviewTab:SetPoint("TOPLEFT", EncounterJournalEncounterFrameInfo, "TOPRIGHT", 8, -40)
@@ -332,23 +337,11 @@ local function LoadSkin()
 				header.button.title.SetTextColor = T.dummy
 				header.button.expandedIcon:SetTextColor(1, 1, 1)
 				header.button.expandedIcon.SetTextColor = T.dummy
-				header.button:SkinButton(true)
-				header.button.bg = CreateFrame("Frame", nil, header.button)
-				header.button.bg:SetTemplate("Default")
-				header.button.bg:SetFrameLevel(header.button.bg:GetFrameLevel() - 1)
-				header.button.abilityIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-				if header.button.abilityIcon:IsShown() then
-					header.button.bg:Show()
-				else
-					header.button.bg:Hide()
-				end
-				header.isSkinned = true
-			end
 
-			if header.button.abilityIcon:IsShown() then
-				header.button.bg:Show()
-			else
-				header.button.bg:Hide()
+				header.button:SkinButton()
+				header.button.abilityIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+				header.isSkinned = true
 			end
 
 			index = index + 1

@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.skins.blizzard_frames ~= true or C.skins.pawn ~= true or IsAddOnLoaded('Pawn') ~= true then return end
 
 local function LoadSkin()

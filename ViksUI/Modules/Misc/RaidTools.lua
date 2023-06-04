@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.misc.markbar ~= true then return end
 ------------------------------------------------------------------------------------------
 -- Credit to MaxUI
@@ -8,7 +8,7 @@ if C.misc.markbar ~= true then return end
 
 ------------------------------------------------------------------------------------------
 -- LOCALS/VARIABLES/FUNCTIONS
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 local class = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
 local thickness = 1
 local CreateBtn = T.CreateBtn

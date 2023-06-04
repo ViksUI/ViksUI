@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 	
 T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	----- Mists of Tirna Scithe -----

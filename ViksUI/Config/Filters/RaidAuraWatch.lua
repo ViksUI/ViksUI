@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.unitframe.plugins_aura_watch ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -155,7 +155,13 @@ T.RaidDebuffs = {
 	[SpellName(401130)] = 3,	-- Wild Magic (Mage)
 	[SpellName(401135)] = 3,	-- Wild Breath (Evoker)
 	[SpellName(408071)] = 3,	-- Shapeshifter's Fervor
+	[SpellName(410953)] = 3,	-- Volcanic Heart
 	-- Scalecommander Sarkareth
+	[SpellName(403520)] = 3,	-- Embrace of Nothingness
+	[SpellName(401383)] = 3,	-- Oppressing Howl
+	[SpellName(401951)] = 3,	-- Oblivion
+	[SpellName(407496)] = 3,	-- Infinite Duress
+	[SpellName(401680)] = 3,	-- Mass Disintegrate
 
 	-----------------------------------------------------------------
 	-- Vault of the Incarnates
@@ -352,6 +358,8 @@ T.RaidDebuffs = {
 	[SpellName(274555)] = 3,	-- Scabrous Bites
 	[SpellName(258875)] = 4,	-- Blackout Barrel
 	[SpellName(256363)] = 3,	-- Ripper Punch
+	[SpellName(258352)] = 3,	-- Grapeshot
+	[SpellName(413136)] = 3,	-- Whirling Dagger
 	-- Neltharion's Lair
 	[SpellName(199705)] = 3,	-- Devouring
 	[SpellName(199178)] = 3,	-- Spiked Tongue
@@ -472,6 +480,7 @@ T.RaidDebuffs = {
 	[SpellName(372570)] = 3,	-- Bold Ambush
 	[SpellName(372459)] = 3,	-- Burning
 	[SpellName(372208)] = 3,	-- Djaradin Lava
+	[SpellName(414585)] = 3,	-- Fiery Demise
 	-- Uldaman: Legacy of Tyr
 	[SpellName(368996)] = 3,	-- Purging Flames
 	[SpellName(369792)] = 3,	-- Skullcracker

@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 local MSQ = LibStub("Masque", true)
 if not MSQ then return end
 

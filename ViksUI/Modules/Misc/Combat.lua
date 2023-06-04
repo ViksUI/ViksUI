@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if not C["misc"].combatanimation then return end
 
 local speed = .041 -- how fast the text appears

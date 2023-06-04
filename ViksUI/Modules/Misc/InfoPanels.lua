@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.misc.InfoPanel_Stats ~= true then return end
 ----------------------------------------------------------------------------------------
 -- Stats Panel with info from https://www.icy-veins.com - Credit to Wyr3d and Papasol for the idea

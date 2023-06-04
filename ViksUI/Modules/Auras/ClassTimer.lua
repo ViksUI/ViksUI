@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if not C.misc.classtimer == true then return end
 
 local mediaPath = "Interface\\AddOns\\ViksUI\\Media\\Other\\"

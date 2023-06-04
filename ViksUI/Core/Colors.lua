@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 
 local Framework = select(2, ...)
 local oUF = oUF or Framework.oUF

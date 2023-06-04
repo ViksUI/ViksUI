@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 local _, class = UnitClass("player")
 local r, g, b = unpack(C.media.pxcolor1)
 if not C.datatext.Wowtime and not C.datatext.Wowtime > 0 then return end

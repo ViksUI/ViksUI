@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if not C.datatext.Regen and not C.datatext.Regen > 0 then return end
 
 local regen

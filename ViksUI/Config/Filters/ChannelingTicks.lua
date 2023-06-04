@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true or C.unitframe.castbar_ticks ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ local function SpellName(id)
 	if name then
 		return name
 	else
-		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists (ChannelingTicks)! Report this to Viks.|r")
+		print("|cffff0000ViksUI: ChannelingTicks spell ID ["..tostring(id).."] no longer exists!|r")
 		return "Empty"
 	end
 end

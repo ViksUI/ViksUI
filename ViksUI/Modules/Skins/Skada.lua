@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.skins.skada ~= true then return end
 if not IsAddOnLoaded("Skada") then return end
 local Skada = Skada

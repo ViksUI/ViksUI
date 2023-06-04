@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if not C.datatext.Talents or C.datatext.Talents == 0 then return end
 
 local Stat = CreateFrame("Frame", "ViksUIStatTalent", UIParent)

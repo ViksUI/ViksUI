@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 
 ----------------------------------------------------------------------------------------
 --	Accept invites from guild members or friend list(by ALZA)

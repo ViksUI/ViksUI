@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 GetContainerNumSlots = _G.GetContainerNumSlots or C_Container.GetContainerNumSlots
 GetContainerItemLink = _G.GetContainerItemLink or C_Container.GetContainerItemLink
 UseContainerItem = _G.UseContainerItem or C_Container.UseContainerItem

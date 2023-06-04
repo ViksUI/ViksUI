@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if IsAddOnLoaded("DBM-Core") or IsAddOnLoaded("BigWigs") then return end
 
 ----------------------------------------------------------------------------------------

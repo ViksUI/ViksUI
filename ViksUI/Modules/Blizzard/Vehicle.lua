@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 
 ----------------------------------------------------------------------------------------
 --	Move vehicle indicator
@@ -8,7 +8,7 @@ VehicleAnchor:SetPoint(unpack(C.position.vehicle))
 VehicleAnchor:SetSize(130, 130)
 
 hooksecurefunc(VehicleSeatIndicator, "SetPoint", function(_, _, parent)
-	if parent == "MinimapCluster" or parent == _G["MinimapCluster"] then
+	if parent and parent ~= VehicleAnchor then
 		VehicleSeatIndicator:ClearAllPoints()
 		VehicleSeatIndicator:SetPoint("BOTTOM", VehicleAnchor, "BOTTOM", 0, 24)
 		VehicleSeatIndicator:SetFrameStrata("LOW")

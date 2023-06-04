@@ -1,4 +1,4 @@
-local T, C, L, _ = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.datatext.Arena and C.datatext.Arena > 0 then
 
 
