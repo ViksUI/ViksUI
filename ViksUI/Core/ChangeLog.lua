@@ -3,9 +3,7 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.22 for Wow 10.1",
-	"• Season 2 - NpcColor & Tips updated",
-	"• Season 2 - Dungeon & Raid debuffs added",
+	"Update 10.23 for Wow 10.1",
 	"• Im out traveling so please check Github for details",
 
 " ",
