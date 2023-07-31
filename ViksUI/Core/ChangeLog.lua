@@ -3,7 +3,7 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.23 for Wow 10.1",
+	"Update 10.24 for Wow 10.1.5",
 	"• Im out traveling so please check Github for details",
 
 " ",
@@ -11,7 +11,7 @@ local ChangeLogData = {
 "Added Wow gift button and buymeacoffee button here on /changelog",
 "Patreon helps me keep subscription while not playing",
 	"",
-"PATREON's: Wiggy, LeeBarry and nAyu",
+"PATREON's: Wiggy, Korallis and nAyu",
 "But thanks to all who have used the addon and those supported my work",
 
 }

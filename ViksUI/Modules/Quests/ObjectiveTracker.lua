@@ -412,7 +412,7 @@ function ObjectiveTracker:AddHooks()
 	hooksecurefunc("QuestObjectiveSetupBlockButton_AddRightButton", UpdatePositions)																			 
 	--hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	--hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
-	hooksecurefunc("BonusObjectiveTracker_AnimateReward", self.SkinRewards)																	
+	--hooksecurefunc("BonusObjectiveTracker_AnimateReward", self.SkinRewards)																	
 	hooksecurefunc(QuestUtil, "SetupWorldQuestButton", self.SkinWorldQuestsPOI)					   
 end
 
@@ -835,10 +835,10 @@ end
 ObjectiveTrackerScenarioRewardsFrame.Show = T.dummy
 BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
 
-hooksecurefunc("BonusObjectiveTracker_AnimateReward", function()
-	ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
-	ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
-end)
+--BETA hooksecurefunc("BonusObjectiveTracker_AnimateReward", function()
+	-- ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
+	-- ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
+-- end)
 
 ----------------------------------------------------------------------------------------
 --	Skin ScenarioStageBlock

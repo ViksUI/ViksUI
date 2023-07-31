@@ -494,7 +494,6 @@ C["tooltip"] = {
 	["realm"] = true,							-- Player realm name in tooltip
 	["rank"] = true,							-- Player guild-rank in tooltip
 	["target"] = true,							-- Target player in tooltip
-	["talents"] = true,							-- Show specialization
 	["average_lvl"] = true,						-- Average items level
 	["show_shift"] = false,						-- Show items level and spec when Shift is pushed
 	["raid_icon"] = false,						-- Raid icon
@@ -791,6 +790,7 @@ C["pulsecooldown"] = {
 	["anim_scale"] = 1.5,						-- Animation scaling
 	["hold_time"] = 0,							-- Max opacity hold time
 	["threshold"] = 3,							-- Minimal threshold time
+	["whitelist"] = false,						-- Use whitelist instead of ignore list
 }
 
 ----------------------------------------------------------------------------------------

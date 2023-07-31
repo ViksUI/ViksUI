@@ -13,7 +13,7 @@ T.color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 T.TexCoords = {.1, .9, .1, .9}
 T.version = C_AddOns.GetAddOnMetadata("ViksUI", "Version")
 T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
-T.newPatch = select(4, GetBuildInfo()) >= 100100
+T.newPatch = select(4, GetBuildInfo()) >= 100105
 
 -- BETA
 GetContainerItemInfo = function(bagIndex, slotIndex)

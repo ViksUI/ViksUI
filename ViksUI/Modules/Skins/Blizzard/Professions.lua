@@ -434,4 +434,4 @@ local function LoadSkin()
 	end
 end
 
-tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
+T.SkinFuncs["Blizzard_Professions"] = LoadSkin

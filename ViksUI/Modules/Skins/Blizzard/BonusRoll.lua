@@ -60,8 +60,8 @@ local function LoadSkin()
 	end)
 
 	-- Group loot roll
-	hooksecurefunc("GroupLootFrame_OpenNewFrame", function()
-		for i = 1, NUM_GROUP_LOOT_FRAMES do
+	hooksecurefunc("GroupLootContainer_OpenNewFrame", function()
+		for i = 1, 4 do
 			local frame = _G["GroupLootFrame"..i]
 			if not frame.styled then
 				frame:StripTextures()

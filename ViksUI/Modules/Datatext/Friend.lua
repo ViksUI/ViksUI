@@ -490,8 +490,20 @@ Stat:SetScript("OnEnter", function(self)
 								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Battle.net")
 							end
 
+							if BNTable[i][6] == "Fen" then
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo 4")
+							end								
+							
 							if BNTable[i][6] == "D3" then
 								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo 3")
+							end							
+							
+							if BNTable[i][6] == "OSI" then
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo 2: Resurrected")
+							end							
+							
+							if BNTable[i][6] == "ANBS" then
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo Immortal")
 							end
 
 							if BNTable[i][6] == "Hero" then
@@ -519,11 +531,23 @@ Stat:SetScript("OnEnter", function(self)
 							end
 
 							if BNTable[i][6] == "VIPR" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Call of Duty: Black Ops 4")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Black Ops 4")
 							end
 
 							if BNTable[i][6] == "ODIN" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Call of Duty: Modern Warfare")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Modern Warfare")
+							end							
+							
+							if BNTable[i][6] == "LAZR" then
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Modern Warfare 2")
+							end							
+							
+							if BNTable[i][6] == "ZEUS" then
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Cold War")
+							end							
+							
+							if BNTable[i][6] == "GRY" then
+								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Warcraft Arclight Rumble")
 							end
 
 							count = count + 1
