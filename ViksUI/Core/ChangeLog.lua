@@ -3,8 +3,9 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.24 for Wow 10.1.5",
-	"• Im out traveling so please check Github for details",
+	"Update 10.25 for Wow 10.1.7",
+	"• Fixed stable skin",
+	"• Toc update",
 
 " ",
 "EXTRA:",
