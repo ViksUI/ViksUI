@@ -10,10 +10,11 @@ local function LoadSkin()
 
 	PetStableFrameInset:SetTemplate("Overlay")
 
-	T.SkinRotateButton(PetStableModelRotateLeftButton)
-	T.SkinRotateButton(PetStableModelRotateRightButton)
-	PetStableModelRotateRightButton:ClearAllPoints()
-	PetStableModelRotateRightButton:SetPoint("LEFT", PetStableModelRotateLeftButton, "RIGHT", 3, 0)
+	_G.PetStableLeftInset:Hide()
+	_G.PetStableBottomInset:Hide()
+	PetStableFrameModelBg:Hide()
+	PetStableDietTexture:SetTexture(132165)
+	PetStableDietTexture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
 	T.SkinNextPrevButton(PetStablePrevPageButton, nil, "Any")
 	T.SkinNextPrevButton(PetStableNextPageButton, nil, "Any")
