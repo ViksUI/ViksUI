@@ -3,8 +3,14 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.25 for Wow 10.1.7",
-	"• Fixed stable skin",
+	"Update 10.26 for Wow 10.2",
+	"• Fixed oPie skin",
+	"• Fixed oUF Color",
+	"• Fixed some skins",
+	"• Added Raid Debuffs for Amirdrassil",
+	"• Added Debuffs for Season 3 Dungeons",
+	"• Added NpC Colors for Season 3 dungeon",
+	"• Started NpC Description for Season 3 dungeon",
 	"• Toc update",
 
 " ",
