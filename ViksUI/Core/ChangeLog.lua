@@ -3,14 +3,12 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.26 for Wow 10.2",
-	"• Fixed oPie skin",
-	"• Fixed oUF Color",
-	"• Fixed some skins",
-	"• Added Raid Debuffs for Amirdrassil",
-	"• Added Debuffs for Season 3 Dungeons",
-	"• Added NpC Colors for Season 3 dungeon",
-	"• Started NpC Description for Season 3 dungeon",
+	"Update 10.27 for Wow 10.2 Season 3",
+	"• Color tags for Important trash in S3 Dungeon added",
+	"• Information added to tooltip for S3 trash",
+	"• Fixed skin for Premade Group Filter",
+	"• Styled missing Sell Junk button",
+	"• Plater profile updated: https://wago.io/N4r_enjza",
 	"• Toc update",
 
 " ",
