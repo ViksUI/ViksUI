@@ -1723,8 +1723,6 @@ C["filger_spells"] = {
 			{spellID = 207946, filter = "CD"},
 			-- Vampiric Embrace
 			{spellID = 15286, filter = "CD"},
-			-- Power Word: Solace
-			{spellID = 129250, filter = "CD"},
 			-- Power Word: Radiance
 			{spellID = 194509, filter = "CD"},
 			-- Schism

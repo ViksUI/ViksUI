@@ -564,6 +564,8 @@ if IsAddOnLoaded("PremadeGroupsFilter") then
 	PremadeGroupsFilterDialog.RefreshButton:SkinButton()
 	T.SkinCloseButton(PremadeGroupsFilterDialog.CloseButton)
 
+	PremadeGroupsFilterDialog.ResetButton:SetPoint("BOTTOMLEFT", PremadeGroupsFilterDialog, "BOTTOMLEFT", 8, 4)
+
 	T.SkinCloseButton(PremadeGroupsFilterDialog.MaxMinButtonFrame.MinimizeButton, nil, "-")
 	PremadeGroupsFilterDialog.MaxMinButtonFrame.MinimizeButton:SetHitRectInsets(0, 0, 0, 0)
 	PremadeGroupsFilterDialog.MaxMinButtonFrame.MinimizeButton:ClearAllPoints()
@@ -583,7 +585,7 @@ if IsAddOnLoaded("PremadeGroupsFilter") then
 	local MiniPanel = _G.PremadeGroupsFilterMiniPanel
 	local PGFDialog = _G.PremadeGroupsFilterDialog
 
-	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit", "Defeated", "MatchingId", "PvPRating" }
+	local names = {"Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit", "Defeated", "MatchingId", "PvPRating"}
 
 	local function handleGroup(panel)
 		for _, name in pairs(names) do
@@ -599,6 +601,7 @@ if IsAddOnLoaded("PremadeGroupsFilter") then
 				if input then
 					T.SkinEditBox(input)
 					T.SkinEditBox(frame.Max)
+
 				end
 				if frame.DropDown then
 					T.SkinDropDownBox(frame.DropDown)
@@ -607,13 +610,21 @@ if IsAddOnLoaded("PremadeGroupsFilter") then
 		end
 
 		T.SkinEditBox(panel.Advanced.Expression)
+		if panel.Advanced.Expression.EditBox then
+			panel.Advanced.Expression.EditBox:SetFont(C.media.normal_font, 12, "")
+		end
 	end
-	
+
 	handleGroup(RaidPanel)
 	handleGroup(DungeonPanel)
 	handleGroup(ArenaPanel)
 	handleGroup(RBGPanel)
 	handleGroup(RolePanel)
+
+	T.SkinEditBox(MiniPanel.Advanced.Expression)
+	T.SkinEditBox(MiniPanel.Sorting.Expression)
+	MiniPanel.Advanced.Expression.EditBox:SetFont(C.media.normal_font, 12, "")
+	MiniPanel.Sorting.Expression:SetFont(C.media.normal_font, 12, "")
 
 	for i = 1, 8 do
 		local dungeon = PremadeGroupsFilterDungeonPanel.Dungeons["Dungeon" .. i]
@@ -624,7 +635,16 @@ if IsAddOnLoaded("PremadeGroupsFilter") then
 			T.SkinCheckBox(check)
 		end
 	end
-		
+
+	local popup = PremadeGroupsFilterStaticPopup
+	if popup then
+		popup:StripTextures()
+		popup:SetTemplate("Transparent")
+		T.SkinEditBox(popup.EditBox, nil, 18)
+		popup.Button1:SkinButton()
+		popup.Button2:SkinButton()
+	end
+
 	local button = UsePFGButton or UsePGFButton
 	if button then
 		T.SkinCheckBox(button)

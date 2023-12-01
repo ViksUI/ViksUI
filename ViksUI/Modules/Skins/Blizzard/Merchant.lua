@@ -94,17 +94,20 @@ local function LoadSkin()
 	MerchantRepairAllButton:GetRegions():SetInside()
 	MerchantRepairAllButton.Icon:CropIcon()
 
-	MerchantSellAllJunkButton:StyleButton()
-	MerchantSellAllJunkButton:SetTemplate("Default")
-	MerchantSellAllJunkButton:GetRegions():SetTexCoord(0.61, 0.82, 0.1, 0.52)
-	MerchantSellAllJunkButton:GetRegions():SetInside()
-	MerchantSellAllJunkButton.Icon:CropIcon()
-	
 	MerchantGuildBankRepairButton:StyleButton()
 	MerchantGuildBankRepairButton:SetTemplate("Default")
 	MerchantGuildBankRepairButton:GetRegions():SetTexCoord(0.61, 0.82, 0.1, 0.52)
 	MerchantGuildBankRepairButton:GetRegions():SetInside()
 	MerchantGuildBankRepairButton.Icon:CropIcon()
+
+	local junk = MerchantSellAllJunkButton
+	if junk then
+		junk:StyleButton()
+		junk:SetTemplate("Default")
+		junk:GetRegions():SetTexCoord(0.61, 0.82, 0.1, 0.52)
+		junk:GetRegions():SetInside()
+		junk.Icon:CropIcon()
+	end
 
 	-- Misc frames
 	T.SkinCloseButton(MerchantFrameCloseButton, MerchantFrame.backdrop)

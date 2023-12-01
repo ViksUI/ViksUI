@@ -84,6 +84,7 @@ L.font_subheader_bag = "Bags font" -- Need review
 L.font_subheader_blizzard = "System font size" -- Need review
 L.font_tooltip_header_font_size = "Tooltip header" -- Need review
 L.font_tooltip_font_size = "Tooltip text" -- Need review
+L.font_quest_tracker_font_mult = "Quest text scale" -- Need review
 L.font_global_font = "Disable Pixel font" -- Need review
 
 -- Skins options
@@ -138,6 +139,9 @@ L_GUI_UF_UNIT_CASTBAR = "Mostrar barras de lanzamiento"
 L_GUI_UF_CASTBAR_ICON = "Mostrar iconos en las barras de lanzamiento"
 L_GUI_UF_CASTBAR_LATENCY = "Latencia en la barra de lanzamiento"
 L_GUI_UF_CASTBAR_TICKS = "Castbar ticks" -- Needs review
+L.unitframe_castbar_focus_type = "Icon for focus castbar" -- Needs review
+L.unitframe_castbar_focus_type_icon = "Icon" -- Needs review
+L.unitframe_castbar_focus_type_bar = "Icon with bar" -- Needs review
 L_GUI_UF_SUBHEADER_FRAMES = "Frames" -- Need review
 L_GUI_UF_SHOW_PET = "Mostrar marco de la mascota"
 L_GUI_UF_SHOW_FOCUS = "Mostrar marco del foco"
@@ -443,6 +447,7 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "Solo tus perjuicios en el marco del objetivo"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "Color de los perjuicios por tipo"
 L_GUI_AURA_CAST_BY = "Mostrar quién lanza un beneficio/perjuicio en su descripción"
 L_GUI_AURA_CLASSCOLOR_BORDER = "Activar borde por color de clase para los beneficios del jugador"
+L.aura_player_buff_mouseover = "On mouseover" -- Needs review
 L.aura_subheader_buffs = "Player buffs" -- Need review
 L.aura_subheader_debuffs = "Debuffs" -- Need review
 
@@ -494,7 +499,7 @@ L.filger_show_proc = "Player procs" -- Need review
 L.filger_show_debuff = "Debuffs on target" -- Need review
 L.filger_show_aura_bar = "Aura bars on target" -- Need review
 L.filger_show_special = "Special buffs on player" -- Need review
-L.filger_show_pvp_player = "SPvP debuffs on player" -- Need review
+L.filger_show_pvp_player = "PvP debuffs on player" -- Need review
 L.filger_show_pvp_target = "PvP auras on target" -- Need review
 L.filger_show_cd = "Cooldowns" -- Need review
 L.filger_subheader_size = "Icons size" -- Need review

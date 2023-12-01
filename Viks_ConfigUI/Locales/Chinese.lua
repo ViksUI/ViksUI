@@ -24,15 +24,15 @@ L_GUI_INFO = "Info & Help -- Need review"
 L_GUI_WIKI_URL = "https://discord.gg/pDEnZSV"
 
 -- Profile
-L.profile = "Profile" -- Need review
-L.profile_title = "Profile options" -- Need review
-L.profile_choose = "Choose profile" -- Need review
-L.profile_options = "Settings" -- Need review
-L.profile_movers = "Moving elements" -- Need review
-L.profile_export = "Export" -- Need review
-L.profile_import = "Import" -- Need review
-L.profile_error_lib = "To enable export and import - install WeakAuras" -- Need review
-L.profile_error_code = "Error in imported code!" -- Need review
+L.profile = "设定档"
+L.profile_title = "设置面板"
+L.profile_choose = "选择设定档"
+L.profile_options = "设置"
+L.profile_movers = "框架移动"
+L.profile_export = "导出"
+L.profile_import = "导入"
+L.profile_error_lib = "要启用导入和导出，请安装WeakAuras"
+L.profile_error_code = "导入的代码有错误!"
 
 -- General options
 L_GUI_GENERAL_SUBTEXT = "一般用戶界面设置，键入 /uihelp 获取更多可用命令。"
@@ -86,6 +86,7 @@ L.font_subheader_bag = "背包"
 L.font_subheader_blizzard = "系统"
 L.font_tooltip_header_font_size = "鼠标提示标题"
 L.font_tooltip_font_size = "鼠标提示信息"
+L.font_quest_tracker_font_mult = "任务字体缩放"
 L.font_global_font = "禁用像素字体"
 
 -- Skins options
@@ -140,6 +141,9 @@ L_GUI_UF_UNIT_CASTBAR = "施法条增强"
 L_GUI_UF_CASTBAR_ICON = "法术图标"
 L_GUI_UF_CASTBAR_LATENCY = "施法延迟"
 L_GUI_UF_CASTBAR_TICKS = "施法跳数"
+L.unitframe_castbar_focus_type = "焦点施法条"
+L.unitframe_castbar_focus_type_icon = "图标"
+L.unitframe_castbar_focus_type_bar = "图标和施法条"
 L_GUI_UF_SUBHEADER_FRAMES = "其他框架"
 L_GUI_UF_SHOW_PET = "宠物框架"
 L_GUI_UF_SHOW_FOCUS = "焦点框架"
@@ -445,6 +449,7 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "目标只显示自身施放的DeBuff"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "DeBuff按法术类型着色"
 L_GUI_AURA_CAST_BY = "提示Buff/DeBuff提供者"
 L_GUI_AURA_CLASSCOLOR_BORDER = "自身Buff图标边框按职业着色"
+L.aura_player_buff_mouseover = "On mouseover" -- Needs review
 L.aura_subheader_buffs = "玩家Buff"
 L.aura_subheader_debuffs = "Debuffs"
 

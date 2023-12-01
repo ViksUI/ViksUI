@@ -86,6 +86,7 @@ L.font_subheader_bag = "Taschen Schriftart"
 L.font_subheader_blizzard = "System font size" -- Need review
 L.font_tooltip_header_font_size = "Tooltip header" -- Need review
 L.font_tooltip_font_size = "Tooltip text" -- Need review
+L.font_quest_tracker_font_mult = "Quest text scale" -- Need review
 L.font_global_font = "Disable Pixel font" -- Need review
 
 -- Skins options
@@ -140,6 +141,9 @@ L_GUI_UF_UNIT_CASTBAR = "Zeige Zauberleisten"
 L_GUI_UF_CASTBAR_ICON = "Zeige Symbole der Zauberleisten an"
 L_GUI_UF_CASTBAR_LATENCY = "Latenz in Zauberleiste anzeigen"
 L_GUI_UF_CASTBAR_TICKS = "Castbar Ticks"
+L.unitframe_castbar_focus_type = "Icon for focus castbar" -- Needs review
+L.unitframe_castbar_focus_type_icon = "Icon" -- Needs review
+L.unitframe_castbar_focus_type_bar = "Icon with bar" -- Needs review
 L_GUI_UF_SUBHEADER_FRAMES = "Frames/Einheitenfenster"
 L_GUI_UF_SHOW_PET = "Zeige Begleiterfenster an"
 L_GUI_UF_SHOW_FOCUS = "Zeige Fokusfenster an"
@@ -445,6 +449,7 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "Nur eigenen Debuffs bei dem Zielfenster anzeigen"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "Debuffs nach Art einfärben"
 L_GUI_AURA_CAST_BY = "Zeige im Tooltip an von wem ein Buff- bzw. Debuff gewirkt wurde"
 L_GUI_AURA_CLASSCOLOR_BORDER = "Aktiviere Klassenfarbe für Spielerbuffs"
+L.aura_player_buff_mouseover = "On mouseover" -- Needs review
 L.aura_subheader_buffs = "Player buffs" -- Need review
 L.aura_subheader_debuffs = "Debuffs" -- Need review
 

@@ -85,6 +85,7 @@ L.font_subheader_bag = "Bags font" -- Need review
 L.font_subheader_blizzard = "System font size" -- Need review
 L.font_tooltip_header_font_size = "Tooltip header" -- Need review
 L.font_tooltip_font_size = "Tooltip text" -- Need review
+L.font_quest_tracker_font_mult = "Quest text scale" -- Need review
 L.font_global_font = "Disable Pixel font" -- Need review
 
 -- Skins options
@@ -139,6 +140,9 @@ L_GUI_UF_UNIT_CASTBAR = "Mostra le barre incantesimi"
 L_GUI_UF_CASTBAR_ICON = "Mostra le icone della barra incantesimi"
 L_GUI_UF_CASTBAR_LATENCY = "Latenza della barra incantesimi"
 L_GUI_UF_CASTBAR_TICKS = "Mostra le tacchette (ticks) sulla barra incantesimi"
+L.unitframe_castbar_focus_type = "Icon for focus castbar" -- Needs review
+L.unitframe_castbar_focus_type_icon = "Icon" -- Needs review
+L.unitframe_castbar_focus_type_bar = "Icon with bar" -- Needs review
 L_GUI_UF_SUBHEADER_FRAMES = "Frames" -- Need review
 L_GUI_UF_SHOW_PET = "Mostra il riquadro per il famiglio"
 L_GUI_UF_SHOW_FOCUS = "Mostra il riquadro per il focus"
@@ -444,6 +448,7 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "Mostra solo le tue penalità sul riquadro del ber
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "Colora le penalità a seconda del tipo"
 L_GUI_AURA_CAST_BY = "Mostra chi ha lanciato un beneficio o una penalità nei suggerimenti"
 L_GUI_AURA_CLASSCOLOR_BORDER = "Colora i bordi dei benefici del giocatore in base al colore della classi"
+L.aura_player_buff_mouseover = "On mouseover" -- Need review
 L.aura_subheader_buffs = "Player buffs" -- Need review
 L.aura_subheader_debuffs = "Debuffs" -- Need review
 

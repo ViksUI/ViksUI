@@ -334,6 +334,7 @@ end)
 ----------------------------------------------------------------------------------------
 if C.general.hide_banner == true then
 	BossBanner.PlayBanner = function() end
+	BossBanner:UnregisterAllEvents()
 end
 
 ----------------------------------------------------------------------------------------
@@ -427,7 +428,7 @@ end
 local function OnDoubleClick(self, button)
   	if IsInGroup() then
     else
-    LFGListSearchPanel_SignUp(self:GetParent():GetParent():GetParent())
+    LFGListFrame.SearchPanel_SignUpButton(self:GetParent():GetParent():GetParent())
     LFGListApplicationDialog.SignUpButton:Click()
     end
 end
