@@ -518,6 +518,12 @@ local DropDownText = {
 	["BLIZZARD"] = "Blizzard",
 	["ICONS"] = L.unitframe_portrait_type_icons,
 	["OVERLAY"] = L.unitframe_portrait_type_overlay,
+	["ICON"] = L.unitframe_castbar_focus_type_icon,
+	["BAR"] = L.unitframe_castbar_focus_type_bar,
+	["DOWN"] = L.enemycooldown_down,
+	["LEFT"] = L.enemycooldown_left,
+	["RIGHT"] = L.enemycooldown_right,
+	["UP"] = L.enemycooldown_up,
 }
 
 ns.CreateDropDown = function(parent, option, needsReload, text, tableValue, LSM, isFont)

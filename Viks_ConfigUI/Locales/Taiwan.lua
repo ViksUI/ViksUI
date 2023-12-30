@@ -400,6 +400,7 @@ L.combattext_blizz_head_numbers = "開啟暴雪默認戰鬥信息"
 L.combattext_blizz_head_numbers_desc = "暴雪默認傷害/治療模式(需關閉xCT戰鬥信息)"
 L.combattext_damage_style = "改變默認的顯示風格"
 L.combattext_damage_style_desc = "改變模型頂部/玩家頭像的傷害/治療字體"
+L.combattext_subheader_damage = "傷害與治療"
 L_GUI_COMBATTEXT_DAMAGE = "獨立顯示傷害輸出"
 L_GUI_COMBATTEXT_HEALING = "獨立顯示治療輸出"
 L.combattext_incoming = "自己的戰鬥文字捲動"
@@ -428,8 +429,10 @@ L_GUI_COMBATTEXT_MERGE_MELEE = "將多個自動攻擊傷害合併為一條信息
 L.combattext_merge_all = "合併所有法術"
 L_GUI_COMBATTEXT_DISPEL = "當你驅散成功時提示"
 L_GUI_COMBATTEXT_INTERRUPT = "當你斷法成功時提示"
-L_GUI_COMBATTEXT_DIRECTION = "滾動方向從下向上"
+L.combattext_direction = "從上向下反向滾動"
 L_GUI_COMBATTEXT_SHORT_NUMBERS = "數值以K為單位顯示"
+L.combattext_subheader_combat_module_top = "信息提示"
+L.combattext_subheader_combat_module_top_extra = "額外的信息提示設置, 請安裝插件 AdvancedInterfaceOptions"
 
 -- Auras/Buffs/Debuffs
 L_GUI_AURA_PLAYER_BUFF_SIZE = "Buff大小"
@@ -448,7 +451,7 @@ L_GUI_AURA_PLAYER_AURA_ONLY = "目標只顯示自身施放的DeBuff"
 L_GUI_AURA_DEBUFF_COLOR_TYPE = "DeBuff按法術類型著色"
 L_GUI_AURA_CAST_BY = "提示Buff/DeBuff提供者"
 L_GUI_AURA_CLASSCOLOR_BORDER = "自身Buff圖標邊框按職業著色"
-L.aura_player_buff_mouseover = "On mouseover" -- Needs review
+L.aura_player_buff_mouseover = "滑鼠懸停顯示"
 L.aura_subheader_buffs = "玩家Buff"
 L.aura_subheader_debuffs = "DeBuff"
 

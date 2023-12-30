@@ -254,7 +254,12 @@ local function OnEvent(_, event, subevent, powerType)
 							xCT3:AddMessage("+"..arg2.." ".._G[arg3], PowerBarColor[arg3].r, PowerBarColor[arg3].g, PowerBarColor[arg3].b)
 						elseif arg3 == "HOLY_POWER" or arg3 == "SOUL_SHARDS" or arg3 == "CHI" or arg3 == "ARCANE_CHARGES" then
 							local numPower = UnitPower("player", GetPowerEnumFromEnergizeString(arg3))
-							xCT3:AddMessage("<"..numPower.." ".._G[arg3]..">", PowerBarColor[arg3].r, PowerBarColor[arg3].g, PowerBarColor[arg3].b)
+							numPower = numPower + tonumber(arg2)
+							if numPower == UnitPowerMax("player", GetPowerEnumFromEnergizeString(arg3)) then
+								xCT3:AddMessage("<"..numPower.." ".._G[arg3]..">", 0, 0.82, 1)
+							else
+								xCT3:AddMessage("<"..numPower.." ".._G[arg3]..">", PowerBarColor[arg3].r, PowerBarColor[arg3].g, PowerBarColor[arg3].b)
+							end
 						end
 					end
 				end
@@ -383,7 +388,7 @@ for i = 1, numf do
 	f:SetResizeBounds(128, 128, 768, 768)
 	f:SetClampedToScreen(true)
 	f:SetClampRectInsets(0, 0, C.font.combat_text_font_size, 0)
-	f:SetInsertMode(C.combattext.direction and 2 or 1)
+	f:SetInsertMode(C.combattext.direction and 1 or 2)
 	if i == 1 then
 		f:SetJustifyH(ct.justify_1)
 		f:SetPoint("CENTER", -600, 180)
