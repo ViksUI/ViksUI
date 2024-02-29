@@ -203,7 +203,7 @@ for i = 1, 6 do
 end
 
 local function SkinVigorBar(widget)
-	local widgetInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(4460)
+	local widgetInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
 	if not widgetInfo then return end
 	if not widget:IsShown() then return end -- Hide our bar if Blizzard's not shown
 
@@ -275,7 +275,7 @@ frame:SetScript("OnEvent", function()
 	end
 
 	for _, widget in pairs(UIWidgetPowerBarContainerFrame.widgetFrames) do
-		if widget.widgetID == 4460 then
+		if widget.widgetType == Enum.UIWidgetVisualizationType.FillUpFrames then
 			SkinVigorBar(widget)
 		end
 	end

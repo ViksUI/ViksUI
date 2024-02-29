@@ -73,12 +73,14 @@ local function LoadSkin()
 			button.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
 
 			item.IconBorder:SetAlpha(0)
-			button.NameFrame:Hide()
 
 			item.styled = true
 		end
 
-		button.BorderFrame:SetAlpha(0)
+		if button.BackgroundArtFrame then
+			button.BackgroundArtFrame.NameFrame:SetAlpha(0)
+			button.BackgroundArtFrame.BorderFrame:SetAlpha(0)
+		end
 	end)
 
 	-- FIXME local function UpdateLoots(self)
