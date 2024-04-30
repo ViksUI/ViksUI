@@ -45,7 +45,7 @@ local UnitInRaid = UnitInRaid
 local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
 local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
 local displayString = join("", GUILD, ": ", qColor, "%d|r")
-local noGuildString = join("", qColor, "No Guild")
+local noGuildString = join("", qColor, "Find a Guild")
 local guildInfoString = "%s [%d]"
 local guildInfoString2 = join("", GUILD, ": %d/%d")
 local guildMotDString = "%s |cffaaaaaa- |cffffffff%s"
@@ -168,15 +168,8 @@ local function whisperClick(self,arg1,arg2,checked)
 	SetItemRef( "player:"..arg1, ("|Hplayer:%1$s|h[%1$s]|h"):format(arg1), "LeftButton" )
 end
 
-local function ToggleGuildFrame()
-	if IsInGuild() then
-		if not GuildFrame then LoadAddOn("Blizzard_GuildUI") end
-		GuildFrame_Toggle()
-		GuildFrame_TabClicked(GuildFrameTab2)
-	else
-		if not LookingForGuildFrame then LoadAddOn("Blizzard_LookingForGuildUI") end
-		if LookingForGuildFrame then LookingForGuildFrame_Toggle() end
-	end
+local function ToggleGuild()
+	ToggleGuildFrame()
 end
 
 Stat:SetScript("OnMouseUp", function(self, btn)
@@ -215,7 +208,7 @@ end)
 
 Stat:SetScript("OnMouseDown", function(self, btn)
 	if btn ~= "LeftButton" then return end
-	ToggleGuildFrame()
+	ToggleGuild()
 end)
 
 Stat:SetScript("OnEnter", function(self)
