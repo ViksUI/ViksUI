@@ -3,12 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.27 for Wow 10.2 Season 3",
-	"• Color tags for Important trash in S3 Dungeon added",
-	"• Information added to tooltip for S3 trash",
-	"• Fixed skin for Premade Group Filter",
-	"• Styled missing Sell Junk button",
-	"• Plater profile updated: https://wago.io/N4r_enjza",
+	"Update 10.28 for Wow 10.2.6 Season 4",
+	"• Added skin for Rare Scanner",
+	"• Updated oUF",
+	"• Updated Taintless",
+	"• Updated Guild Datatext",
 	"• Toc update",
 
 " ",
