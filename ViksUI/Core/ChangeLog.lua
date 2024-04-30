@@ -16,7 +16,7 @@ local ChangeLogData = {
 "Added Wow gift button and buymeacoffee button here on /changelog",
 "Patreon helps me keep subscription while not playing",
 	"",
-"PATREON's: Wiggy, Korallis and nAyu",
+"PATREON's: Wiggy and nAyu",
 "But thanks to all who have used the addon and those supported my work",
 
 }
