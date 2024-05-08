@@ -157,7 +157,7 @@ local function registerStyle(myProfile)
 	if BigWigsLoader and myProfile and myProfile.barStyle == "ViksUI" then
 		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
 			BigWigsProximityAnchor:SetTemplate("Transparent")
-			BigWigsInfoBox:SetTemplate("Transparent")
+			--BigWigsInfoBox:SetTemplate("Transparent")
 		end)
 
 		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_BarEmphasized", function(_, _, bar)
