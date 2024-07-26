@@ -39,10 +39,9 @@ frame:SetScript("OnEvent", function(self, event)
 	MinimapCluster.InstanceDifficulty:SetParent(Minimap)
 	MinimapCluster.InstanceDifficulty:ClearAllPoints()
 	MinimapCluster.InstanceDifficulty:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 1, 3)
-	MinimapCluster.InstanceDifficulty:Hide()
-	MinimapCluster.InstanceDifficulty.Instance.Border:Hide()
-	MinimapCluster.InstanceDifficulty.Instance.Background:SetSize(28, 28)
-	MinimapCluster.InstanceDifficulty.Instance.Background:SetVertexColor(0.6, 0.3, 0)
+	--FIXME MinimapCluster.InstanceDifficulty.Instance.Border:Hide()
+	-- MinimapCluster.InstanceDifficulty.Instance.Background:SetSize(28, 28)
+	-- MinimapCluster.InstanceDifficulty.Instance.Background:SetVertexColor(0.6, 0.3, 0)
 
 	-- Guild Instance Difficulty icon
 	MinimapCluster.InstanceDifficulty.Guild.Border:Hide()
@@ -237,11 +236,11 @@ local micromenu = {
 		if InCombatLockdown() then
 			print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
 		end
-		ToggleFrame(SpellBookFrame)
+		PlayerSpellsUtil.ToggleSpellBookFrame()
 	end},
 	{text = TALENTS_BUTTON, notCheckable = 1, func = function()
 		if T.level >= 10 then
-			ToggleTalentFrame()
+			PlayerSpellsUtil.ToggleClassTalentOrSpecFrame()
 		else
 			if C.general.error_filter ~= "WHITELIST" then
 				UIErrorsFrame:AddMessage(format(FEATURE_BECOMES_AVAILABLE_AT_LEVEL, 10), 1, 0.1, 0.1)
@@ -363,10 +362,12 @@ Minimap:SetScript("OnMouseUp", function(self, button)
 			EasyMenu(micromenu, menuFrame, "cursor", -160, 0, "MENU")
 		end
 	elseif button == "MiddleButton" then
+		MinimapCluster.Tracking.Button:OpenMenu()
+		MinimapCluster.Tracking.Button.menu:ClearAllPoints()
 		if position:match("LEFT") then
-			ToggleDropDownMenu(1, nil, MinimapCluster.TrackingFrame.DropDown, "cursor", 0, 0, "MENU", 2)
+			MinimapCluster.Tracking.Button.menu:SetPoint("TOPLEFT", Minimap, "RIGHT", 4, 0)
 		else
-			ToggleDropDownMenu(1, nil, MinimapCluster.TrackingFrame.DropDown, "cursor", -160, 0, "MENU", 2)
+			MinimapCluster.Tracking.Button.menu:SetPoint("TOPRIGHT", Minimap, "LEFT", -4, 0)
 		end
 	elseif button == "LeftButton" then
 		Minimap.OnClick(self)
@@ -401,22 +402,21 @@ end
 ----------------------------------------------------------------------------------------
 --	Tracking icon
 ----------------------------------------------------------------------------------------
+local trackButton = MinimapCluster.Tracking.Button
+trackButton:ClearAllPoints()
+trackButton:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 5, 6)
+MinimapCluster.Tracking.Background:Hide()
+
 if C.minimap.tracking_icon then
-	MinimapCluster.TrackingFrame.Background:Hide()
-	MinimapCluster.TrackingFrame.Button:ClearAllPoints()
-	MinimapCluster.TrackingFrame.Button:SetPoint("BOTTOMLEFT", MinimapAnchor, "BOTTOMLEFT", 5, 6)
-	MinimapCluster.TrackingFrame.Button:SetHighlightTexture(0)
-	MinimapCluster.TrackingFrame.Button:SetSize(16, 16)
+	trackButton:SetHighlightTexture(0)
+	trackButton:SetSize(16, 16)
 
-	MinimapCluster.TrackingFrame.Button:SetScript("OnMouseDown", function(self, button)
-		Minimap:GetScript("OnMouseUp")(self, "MiddleButton")
-	end)
-
-	MinimapCluster.TrackingFrame:CreateBackdrop("ClassColor")
-	MinimapCluster.TrackingFrame.backdrop:SetPoint("TOPLEFT", MinimapCluster.TrackingFrame.Button, -2, 2)
-	MinimapCluster.TrackingFrame.backdrop:SetPoint("BOTTOMRIGHT", MinimapCluster.TrackingFrame.Button, 2, -2)
+	MinimapCluster.Tracking:CreateBackdrop("ClassColor")
+	MinimapCluster.Tracking.backdrop:SetPoint("TOPLEFT", trackButton, -2, 2)
+	MinimapCluster.Tracking.backdrop:SetPoint("BOTTOMRIGHT", trackButton, 2, -2)
 else
-	MinimapCluster.TrackingFrame:Hide()
+	trackButton:ClearAllPoints()
+	trackButton:SetPoint("TOP", UIParent, "BOTTOM")
 end
 
 ------------------------------------------------------------------------------------------	

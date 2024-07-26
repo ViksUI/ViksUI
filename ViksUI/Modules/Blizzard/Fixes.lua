@@ -49,20 +49,8 @@ end
 _G.SettingsPanel.TransitionBackOpeningPanel = _G.HideUIPanel
 
 ----------------------------------------------------------------------------------------
---	Allow to show ProfessionsFrame and AuctionHouseFrame together
+-- !!NoTaint2 (Code by warbaby 2022-11 http://abyui.top https://github.com/aby-ui)
 ----------------------------------------------------------------------------------------
---BETA function GetMaxUIPanelsWidth()
-	-- if UIParent:GetRight() < 1925 and UIParent:GetRight() > 1915 then
-		-- return UIParent:GetRight() - UIParent:GetAttribute("RIGHT_OFFSET_BUFFER") + 110
-	-- else
-		-- return UIParent:GetRight() - UIParent:GetAttribute("RIGHT_OFFSET_BUFFER")
-	-- end
--- end
-
-------------------------------------------------------------------------
--- !!NoTaint2, first-aid addon for Dragon Flight action bars taint.
--- Code by warbaby 2022-11 http://abyui.top https://github.com/aby-ui
--------------------------------------------------------------------------
 if IsAddOnLoaded("!!NoTaint2") then return end
 if not NoTaint2_Proc_ResetActionButtonAction then
     NoTaint2_Proc_ResetActionButtonAction = 1
@@ -172,7 +160,7 @@ if not NoTaint2_CleanStaticPopups then
 
     -- In case the stack check is failed, assure the game menu entrance.
     -- Running cleanAll() multi times has no side effects.
-    GameMenuButtonEditMode:HookScript("PreClick", cleanAll)
+    --FIXME GameMenuButtonEditMode:HookScript("PreClick", cleanAll)
 end
 
 if not NoTaint2_Proc_StopEnterWorldLayout then

@@ -850,8 +850,6 @@ C["filger_spells"] = {
 			{spellID = 131894, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hunter's Mark
 			{spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Caltrops
-			{spellID = 194279, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Warp Time (Warp Stalker)
 			{spellID = 35346, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Ankle Crack (Crocolisk)
@@ -2322,8 +2320,6 @@ C["filger_spells"] = {
 			{spellID = 2565, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Spell Reflection
 			{spellID = 23920, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Ravager
-			{spellID = 152277, unitID = "player", caster = "player", filter = "BUFF", spec = 3},
 			-- Die by the Sword
 			{spellID = 118038, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Berserker Rage
@@ -2415,8 +2411,6 @@ C["filger_spells"] = {
 			{spellID = 1160, filter = "CD"},
 			-- Enraged Regeneration
 			{spellID = 184364, filter = "CD"},
-			-- Ravager
-			{spellID = 152277, filter = "CD"},
 			-- Intimidating Shout
 			{spellID = 5246, filter = "CD"},
 			-- Last Stand
@@ -2666,8 +2660,6 @@ C["filger_spells"] = {
 			{spellID = 64044, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Psychic Scream
 			{spellID = 8122, unitID = "player", caster = "all", filter = "DEBUFF"},
-			-- Mind Bomb
-			{spellID = 205369, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Sin and Punishment
 			{spellID = 87204, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Holy Word: Chastise
@@ -2820,8 +2812,6 @@ C["filger_spells"] = {
 			{spellID = 135299, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Frozen Ammo
 			{spellID = 162546, unitID = "player", caster = "all", filter = "DEBUFF"},
-			-- Caltrops
-			{spellID = 194279, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Pistol Shot
 			{spellID = 185763, unitID = "player", caster = "all", filter = "DEBUFF"},
 			-- Warp Time (Warp Stalker)
@@ -3098,8 +3088,6 @@ C["filger_spells"] = {
 			{spellID = 64044, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Psychic Scream
 			{spellID = 8122, unitID = "target", caster = "all", filter = "DEBUFF"},
-			-- Mind Bomb
-			{spellID = 205369, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Silence
 			{spellID = 15487, unitID = "target", caster = "all", filter = "DEBUFF"},
 

@@ -3,12 +3,8 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 10.28 for Wow 10.2.6 Season 4",
-	"• Added skin for Rare Scanner",
-	"• Updated oUF",
-	"• Updated Taintless",
-	"• Updated Guild Datatext",
-	"• Toc update",
+	"Update 11.01 for Wow 11 TWW ",
+	"• Working state for TWW",
 
 " ",
 "EXTRA:",

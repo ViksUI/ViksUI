@@ -53,6 +53,20 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			end
 		end
 
+		hooksecurefunc(GameMenuFrame, "InitButtons", function(self)
+			if not self.buttonPool then return end
+
+			for button in self.buttonPool:EnumerateActive() do
+				if not button.styled then
+					button:SkinButton()
+					-- button:SetSize(150, 26)
+					button.styled = true
+				end
+				button:HookScript("OnEnter", T.SetModifiedBackdrop)
+				button:HookScript("OnLeave", T.SetOriginalBackdrop)
+			end
+		end)
+
 		-- Reskin popups
 		for i = 1, 4 do
 			for j = 1, 4 do
@@ -360,16 +374,18 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 					_G["DeclensionFrameDeclension"..i.."Edit"]:SetTextInsets(3, 0, 0, 0)
 				end
 			end
-			if C.skins.clique ~= true and IsAddOnLoaded("Clique") then
-				CliqueSpellTab:GetRegions():SetSize(0.1, 0.1)
-				CliqueSpellTab:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-				CliqueSpellTab:GetNormalTexture():ClearAllPoints()
-				CliqueSpellTab:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
-				CliqueSpellTab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-				CliqueSpellTab:CreateBackdrop("Default")
-				CliqueSpellTab.backdrop:SetAllPoints()
-				CliqueSpellTab:StyleButton()
-			end
+			-- if C.skins.clique ~= true and IsAddOnLoaded("Clique") then
+				-- if CliqueSpellbookTabButton then
+					-- CliqueSpellbookTabButton:GetRegions():SetSize(0.1, 0.1)
+					-- CliqueSpellbookTabButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
+					-- CliqueSpellbookTabButton:GetNormalTexture():ClearAllPoints()
+					-- CliqueSpellbookTabButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
+					-- CliqueSpellbookTabButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
+					-- CliqueSpellbookTabButton:CreateBackdrop("Default")
+					-- CliqueSpellbookTabButton.backdrop:SetAllPoints()
+					-- CliqueSpellbookTabButton:StyleButton()
+				-- end
+			-- end
 
 			local function SkinIconArray(baseName, numIcons)
 				for i = 1, numIcons do

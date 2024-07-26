@@ -112,25 +112,27 @@ local function LoadSkin()
 	_G.GroupFinderFrame.groupButton2.icon:SetTexture("Interface\\LFGFrame\\UI-LFR-PORTRAIT")
 	_G.GroupFinderFrame.groupButton3.icon:SetTexture("Interface\\Icons\\Achievement_General_StayClassy")
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local button = GroupFinderFrame["groupButton"..i]
 
-		button.ring:Hide()
-		button:CreateBackdrop("Overlay")
-		button.backdrop:SetAllPoints()
-		button:StyleButton()
+		if button then
+			button.ring:Hide()
+			button:CreateBackdrop("Overlay")
+			button.backdrop:SetAllPoints()
+			button:StyleButton()
 
-		button.bg:SetTexture("")
+			button.bg:SetTexture("")
 
-		button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		button.icon:SetPoint("LEFT", button, "LEFT", 10, 0)
-		button.icon:SetDrawLayer("OVERLAY")
-		button.icon:SetSize(40, 40)
+			button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			button.icon:SetPoint("LEFT", button, "LEFT", 10, 0)
+			button.icon:SetDrawLayer("OVERLAY")
+			button.icon:SetSize(40, 40)
 
-		button.border = CreateFrame("Frame", nil, button)
-		button.border:CreateBackdrop("Default")
-		button.border.backdrop:SetPoint("TOPLEFT", button.icon, -2, 2)
-		button.border.backdrop:SetPoint("BOTTOMRIGHT", button.icon, 2, -2)
+			button.border = CreateFrame("Frame", nil, button)
+			button.border:CreateBackdrop("Default")
+			button.border.backdrop:SetPoint("TOPLEFT", button.icon, -2, 2)
+			button.border.backdrop:SetPoint("BOTTOMRIGHT", button.icon, 2, -2)
+		end
 	end
 
 	hooksecurefunc("GroupFinderFrame_SelectGroupButton", function(index)
@@ -244,12 +246,12 @@ local function LoadSkin()
 	RaidFinderQueueFramePartyBackfill.backdrop:SetPoint("TOPLEFT", 2, 6)
 	RaidFinderQueueFramePartyBackfill.backdrop:SetPoint("BOTTOMRIGHT", 0, 8)
 
-	T.SkinDropDownBox(LFDQueueFrameTypeDropDown, 300)
-	LFDQueueFrameTypeDropDown.backdrop:SetParent(LFDQueueFrame) -- fixed SetFrameLevel raise to 10000
-	LFDQueueFrameTypeDropDown:SetPoint("RIGHT", -10, 0)
+	--FIXME T.SkinDropDownBox(LFDQueueFrameTypeDropDown, 300)
+	-- LFDQueueFrameTypeDropDown.backdrop:SetParent(LFDQueueFrame) -- fixed SetFrameLevel raise to 10000
+	-- LFDQueueFrameTypeDropDown:SetPoint("RIGHT", -10, 0)
 
-	T.SkinDropDownBox(RaidFinderQueueFrameSelectionDropDown, 300)
-	RaidFinderQueueFrameSelectionDropDown:SetPoint("RIGHT", -10, 0)
+	-- T.SkinDropDownBox(RaidFinderQueueFrameSelectionDropDown, 300)
+	-- RaidFinderQueueFrameSelectionDropDown:SetPoint("RIGHT", -10, 0)
 
 	LFGListFrame.SearchPanel.ResultsInset:StripTextures()
 	LFGListFrame.NothingAvailable:StripTextures()
@@ -393,8 +395,8 @@ local function LoadSkin()
 	T.SkinEditBox(LFGListFrame.EntryCreation.ItemLevel.EditBox, nil, 17)
 	T.SkinEditBox(LFGListFrame.EntryCreation.VoiceChat.EditBox, nil, 17)
 	T.SkinEditBox(LFGListFrame.EntryCreation.Description)
-	T.SkinDropDownBox(LFGListFrame.EntryCreation.GroupDropDown)
-	T.SkinDropDownBox(LFGListFrame.EntryCreation.ActivityDropDown)
+	--FIXME T.SkinDropDownBox(LFGListFrame.EntryCreation.GroupDropDown)
+	-- T.SkinDropDownBox(LFGListFrame.EntryCreation.ActivityDropDown)
 	T.SkinCheckBox(LFGListFrame.EntryCreation.VoiceChat.CheckButton)
 	T.SkinCheckBox(LFGListFrame.EntryCreation.ItemLevel.CheckButton)
 	T.SkinCheckBox(LFGListFrame.EntryCreation.PrivateGroup.CheckButton)
@@ -402,7 +404,7 @@ local function LoadSkin()
 	LFGListFrame.EntryCreation.ListGroupButton:SkinButton()
 	LFGListFrame.EntryCreation.CancelButton:SkinButton()
 
-	T.SkinDropDownBox(LFGListEntryCreationPlayStyleDropdown)
+	-- T.SkinDropDownBox(LFGListEntryCreationPlayStyleDropdown)
 	T.SkinCheckBox(LFGListFrame.EntryCreation.MythicPlusRating.CheckButton)
 	T.SkinEditBox(LFGListFrame.EntryCreation.MythicPlusRating.EditBox, nil, 17)
 

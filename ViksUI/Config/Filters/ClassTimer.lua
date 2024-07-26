@@ -634,7 +634,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(15407), -- Mind Flay
 			CreateSpellEntry(34914, false, nil, nil, 34914), -- Vampiric Touch
 			CreateSpellEntry(199683), -- Last Word
-			CreateSpellEntry(226943), -- Mind Bomb
 			CreateSpellEntry(335467), -- Devouring Plague
 		},
 		player = {

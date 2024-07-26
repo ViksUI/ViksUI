@@ -822,7 +822,6 @@ if C.unitframe.plugins_pvp_debuffs == true then
 	-- Priest
 	[SpellName(9484)] = 3,		-- Shackle Undead
 	[SpellName(200196)] = 4,	-- Holy Word: Chastise
-	[SpellName(226943)] = 3,	-- Mind Bomb
 	[SpellName(605)] = 5,		-- Mind Control
 	[SpellName(8122)] = 3,		-- Psychic Scream
 	[SpellName(15487)] = 2,		-- Silence

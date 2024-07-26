@@ -424,9 +424,9 @@ local function SetupChatPosAndFont()
 	end
 end
 
-	-- Reposition Quick Join Toast and battle.net popup
+	-- Reposition Quick Join Toast
 	QuickJoinToastButton:ClearAllPoints()
-	QuickJoinToastButton:SetPoint("TOPLEFT", 0, 190)
+	QuickJoinToastButton:SetPoint("TOPLEFT", 0, 90)
 	QuickJoinToastButton.ClearAllPoints = T.dummy
 	QuickJoinToastButton.SetPoint = T.dummy
 
@@ -442,6 +442,17 @@ end
 
 	hooksecurefunc(QuickJoinToastButton, "ShowToast", function() QuickJoinToastButton.Toast.backdrop:Show() end)
 	hooksecurefunc(QuickJoinToastButton, "HideToast", function() QuickJoinToastButton.Toast.backdrop:Hide() end)
+
+	-- Reposition Battle.net popup
+	BNToastFrame:ClearAllPoints()
+	BNToastFrame:SetPoint(unpack(C.position.bn_popup))
+
+	hooksecurefunc(BNToastFrame, "SetPoint", function(self, _, anchor) -- not sure if it still needed
+		if anchor ~= C.position.bn_popup[2] then
+			self:ClearAllPoints()
+			self:SetPoint(unpack(C.position.bn_popup))
+		end
+	end)
 
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)
 	hooksecurefunc(BNToastFrame, "ShowToast", function(self)

@@ -65,8 +65,8 @@
 	<Include file="Modules\UnitFrames\UF.xml"/>
 	<Include file="Modules\UnitFrames\Template.xml"/>
 	<Script file="Main\Style.lua"/>
-	<Script file="Modules\Misc\CharsCurrency.lua"/>
-	<Script file="Modules\Misc\ClickCast.lua"/>
+	<!--Script file="Modules\Misc\CharsCurrency.lua"/ -->
+	<!-- <Script file="Modules\Misc\ClickCast.lua"/> -->
 	<Script file="Modules\Misc\Combat.lua"/>
 	<Script file="Modules\Misc\InfoPanels.lua"/>
 	<Script file="Modules\Misc\LFGQueueTimer.lua"/>
@@ -84,7 +84,7 @@
 	<Script file="Modules\Trade\AlreadyKnown.lua"/>
 	<Script file="Modules\Trade\Archaeology.lua"/>
 	<Script file="Modules\Trade\Merchant.lua"/>
-	<Script file="Modules\Trade\OneClickDisenchanting.lua"/>
+	<!-- <Script file="Modules\Trade\OneClickDisenchanting.lua"/> -->
 	<Script file="Modules\Trade\OneClickEnchantScroll.lua"/>
 	<Script file="Modules\Trade\ProfessionTabs.lua"/>
 	<Script file="Modules\Trade\SumAucBuyouts.lua"/>
@@ -148,7 +148,7 @@
 	<Script file="Modules\Loot\FasterLoot.lua"/>
 	<Script file="Modules\Loot\GroupLoot.lua"/>
 	<Script file="Modules\Loot\Loot.lua"/>
-	<Script file="Modules\Loot\MasterLoot.lua"/>
+	<!-- <Script file="Modules\Loot\MasterLoot.lua"/> -->
 
 	<Script file="Modules\Datatext\Positions.lua"/>
 	<Script file="Modules\Datatext\Durability.lua"/>
@@ -178,7 +178,6 @@
 
 	<Script file="Modules\Quests\AutoAccept.lua"/>
 	<Script file="Modules\Quests\AutoButton.lua"/>
-	<Script file="Modules\Quests\QuestLog.lua"/>
 	<Script file="Modules\Quests\ObjectiveTracker.lua"/>
 	<Script file="Modules\Quests\WowheadLink.lua"/>
 	

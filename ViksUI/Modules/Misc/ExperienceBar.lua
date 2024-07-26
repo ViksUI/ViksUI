@@ -163,9 +163,9 @@ function Experience:SetTooltip()
 		GameTooltip:AddLine(AZERITE_POWER_TOOLTIP_BODY:format(ItemName))
 
 	elseif BarType == "REP" then
-		local Name, Standing, Min, Max, Value, Faction = GetWatchedFactionInfo()
+		local Name, Standing, Min, Max, Value, Faction = C_Reputation.GetWatchedFactionData()
 		local Current, Max, Standing = Experience:GetReputation()
-		local Name, ID = GetWatchedFactionInfo()
+		local Name, ID = C_Reputation.GetWatchedFactionData()
 		local Colors = FACTION_BAR_COLORS
 		local Hex = T.RGBToHex(Colors[ID].r, Colors[ID].g, Colors[ID].b)
 		local majorFactionData = C_MajorFactions.GetMajorFactionData(Faction)
@@ -248,7 +248,7 @@ _G.PARAGON = paragonStrings[GetLocale()] or 'Paragon'
 
 function Experience:GetReputation()
 	local pendingReward, standingText
-	local Name, Standing, Min, Max, Value, Faction = GetWatchedFactionInfo()
+	local Name, Standing, Min, Max, Value, Faction = C_Reputation.GetWatchedFactionData()
 	
 	local reputationInfo = C_GossipInfo.GetFriendshipReputation(Faction)
 	local friendshipID = reputationInfo and reputationInfo.friendshipFactionID
@@ -299,7 +299,7 @@ function Experience:VerifyMenu()
 	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
 	local Honor = UnitHonorLevel										  
 	local HavePetXP = select(2, HasPetUI())
-	local WatchedFaction = GetWatchedFactionInfo()
+	local WatchedFaction = C_Reputation.GetWatchedFactionData()
 	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
 	local AnimaCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
 	
@@ -337,7 +337,7 @@ function Experience:Update()
 	local RenownLevel = C_CovenantSanctumUI.GetRenownLevel()
 	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
 	local HavePetXP = select(2, HasPetUI())
-	local WatchedFaction = GetWatchedFactionInfo()
+	local WatchedFaction = C_Reputation.GetWatchedFactionData()
 
 	for i = 1, self.NumBars do
 		local Bar = self["XPBar"..i]
@@ -369,7 +369,7 @@ function Experience:Update()
 			Current, Max = self:GetReputation()
 			
 			local Colors = FACTION_BAR_COLORS
-			local ID = select(2, GetWatchedFactionInfo())
+			local ID = select(2, C_Reputation.GetWatchedFactionData())
 			
 			R, G, B = Colors[ID].r, Colors[ID].g, Colors[ID].b
 		else
