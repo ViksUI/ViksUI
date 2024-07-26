@@ -1,59 +1,146 @@
 local T, C, L = unpack(ViksUI)
 if C.skins.blizzard_frames ~= true then return end
 
-----------------------------------------------------------------------------------------
---	WorldMap skin
-----------------------------------------------------------------------------------------
+
+local _G = _G
+local hooksecurefunc = hooksecurefunc
+
+local function SkinHeaders(header, isCalling)
+	if header.IsSkinned then return end
+
+	if header.Background then header.Background:SetAlpha(.7) end
+	if header.TopFiligree then header.TopFiligree:Hide() end
+	if header.Divider then header.Divider:Hide() end
+
+	header.HighlightTexture:SetAllPoints(header.Background)
+	header.HighlightTexture:SetAlpha(0)
+
+	local collapseButton = isCalling and header or header.CollapseButton
+	if collapseButton then
+		collapseButton:GetPushedTexture():SetAlpha(0)
+		collapseButton:GetHighlightTexture():SetAlpha(0)
+		T.SkinExpandOrCollapse(collapseButton, true)
+	end
+
+	header.IsSkinned = true
+end
+
+local function QuestLogQuests()
+	for button in _G.QuestScrollFrame.headerFramePool:EnumerateActive() do
+		if button.ButtonText and not button.IsSkinned then
+			button:StripTextures()
+			button.ButtonText:SetFont(C.media.normal_font, 16)
+			button.IsSkinned = true
+		end
+	end
+
+	for button in _G.QuestScrollFrame.titleFramePool:EnumerateActive() do
+		if not button.IsSkinned then
+			--FIX ME 11.0
+			if button.Checkbox then
+				button.Checkbox:DisableDrawLayer('BACKGROUND')
+				button.Checkbox:CreateBackdrop()
+			end
+
+			button.IsSkinned = true
+		end
+	end
+
+	for header in _G.QuestScrollFrame.campaignHeaderFramePool:EnumerateActive() do
+		if header.Text and not header.IsSkinned then
+			header.Text:SetFont(C.media.normal_font, 16)
+			header.Progress:SetFont(C.media.normal_font, 16)
+
+			header.IsSkinned = true
+		end
+	end
+
+	for header in _G.QuestScrollFrame.campaignHeaderMinimalFramePool:EnumerateActive() do
+		if header.CollapseButton and not header.IsSkinned then
+			header:StripTextures()
+			header.Background:CreateBackdrop('Transparent')
+
+			local r, g, b = unpack(C.media.border_color)
+			header.Highlight:SetColorTexture(0, .38, .651, 1)
+
+			header.IsSkinned = true
+		end
+	end
+end
+
+WorldMapFrame.Header = CreateFrame("Frame", nil, WorldMapFrame)
+
 local function LoadSkin()
-	if IsAddOnLoaded("Mapster") then return end
-
-	local frame = CreateFrame("Frame")
-	frame:RegisterEvent("VARIABLES_LOADED")
-	frame:SetScript("OnEvent", function()
-		SetCVar("miniWorldMap", 1)
-	end)
-
+	local WorldMapFrame = _G["WorldMapFrame"]
 	WorldMapFrame:StripTextures()
 	WorldMapFramePortrait:SetAlpha(0)
-	WorldMapFrame:CreateBackdrop("Default")
-	WorldMapFrame.backdrop:ClearAllPoints()
-	WorldMapFrame.backdrop:SetPoint("TOPLEFT", 1, -66)
-	WorldMapFrame.backdrop:SetSize(700, 468)
-	WorldMapFrame.Header = CreateFrame("Frame", nil, WorldMapFrame)
-	WorldMapFrame.Header:SetSize(WorldMapFrame.backdrop:GetWidth(), 23)
-	WorldMapFrame.Header:SetPoint("BOTTOMLEFT", WorldMapFrame.backdrop, "TOPLEFT", 0, 2)
-	WorldMapFrame.Header:SetTemplate("Overlay")
-
 	WorldMapFrame.BorderFrame:StripTextures()
-	WorldMapFrame.BorderFrame.NineSlice:Hide()
-	WorldMapFrame.BorderFrame.Tutorial:Kill()
+	WorldMapFrame.BorderFrame:SetFrameStrata(WorldMapFrame:GetFrameStrata())
+	WorldMapFrame.BorderFrame.NineSlice:Hide()									   
+	WorldMapFrame.NavBar:StripTextures()
+	WorldMapFrame.NavBar.overlay:StripTextures()
 
-	QuestMapFrame:StripTextures()
-	QuestMapFrame:CreateBackdrop("Overlay")
-	QuestMapFrame.backdrop:ClearAllPoints()
-	QuestMapFrame.backdrop:SetPoint("LEFT", WorldMapFrame.backdrop, "RIGHT", 2, 0)
-	QuestMapFrame.backdrop:SetSize(326, 468)
+	WorldMapFrame.ScrollContainer:CreateBackdrop()
+	WorldMapFrame:CreateBackdrop("Transparent")
+	WorldMapFrame.backdrop:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", -2, 0)
+	WorldMapFrame.backdrop:SetPoint("BOTTOMRIGHT", WorldMapFrame, "BOTTOMRIGHT", 0, -9)	
+	
+	WorldMapFrameHomeButton:SkinButton(true)
+	WorldMapFrame.NavBar.homeButton.xoffset = 1	
+	WorldMapFrame.NavBar.homeButton.text:SetFont(C.media.normal_font, 14)
 
-	QuestMapFrame.SettingsDropdown:ClearAllPoints()
-	QuestMapFrame.SettingsDropdown:SetPoint("TOPRIGHT", QuestMapFrameBackdrop, "TOPRIGHT", -5, -3)
+	-- Quest Frames
+	local QuestMapFrame = _G.QuestMapFrame
+	QuestMapFrame.VerticalSeparator:Hide()
+	QuestMapFrame:SetScript('OnHide', T.WorldMap_QuestMapHide)
+	
+	local DetailsFrame = QuestMapFrame.DetailsFrame
+	T:HandleButton(DetailsFrame.BackFrame.BackButton, true)
+	T:HandleButton(DetailsFrame.AbandonButton, true)
+	DetailsFrame.ShareButton:StripTextures() -- strip the Blizz Art around from it
+	T:HandleButton(DetailsFrame.ShareButton, true)
+	T:HandleButton(DetailsFrame.TrackButton, true)
+	
+	DetailsFrame:StripTextures()
+	DetailsFrame.BackFrame:StripTextures()
+	DetailsFrame.BackFrame.BackButton:SetFrameLevel(5)
+	DetailsFrame.AbandonButton:SetFrameLevel(5)
+	DetailsFrame.ShareButton:SetFrameLevel(5)
+	DetailsFrame.TrackButton:SetFrameLevel(5)
+	DetailsFrame.TrackButton:Width(95)
 
-	QuestScrollFrame:ClearAllPoints()
-	QuestScrollFrame:SetPoint("TOP", WorldMapFrame.backdrop, "TOP", 0, -3)
-	QuestScrollFrame:SetPoint("LEFT", WorldMapFrame.backdrop, "RIGHT", 4, 0)
+	QuestMapFrame.DetailsFrame:StripTextures()
+	QuestMapFrame.DetailsFrame.RewardsFrameContainer.RewardsFrame:StripTextures()
+	QuestMapFrame.DetailsFrame.Bg:Hide()
+	
+	if QuestMapFrame.Background then
+		QuestMapFrame.Background:SetAlpha(0)
+	end
 
+	if QuestMapFrame.DetailsFrame.SealMaterialBG then
+		QuestMapFrame.DetailsFrame.SealMaterialBG:SetAlpha(0)
+	end
+		
+	local QuestScrollFrame = _G.QuestScrollFrame
+	QuestScrollFrame.Edge:SetAlpha(0)
+	QuestScrollFrame.BorderFrame:SetAlpha(0)
+	QuestScrollFrame.Background:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator.Divider:Hide()
-	QuestScrollFrame:SetSize(259, 463)
-	QuestScrollFrame.Edge:Hide()
-	QuestScrollFrame.Background:Hide()
+	SkinHeaders(QuestScrollFrame.Contents.StoryHeader)
+	T.SkinEditBox(QuestScrollFrame.SearchBox)
 
-	QuestScrollFrame.SearchBox:DisableDrawLayer("BACKGROUND")
-
+	local QuestScrollBar = _G.QuestScrollFrame.ScrollBar
+	T.SkinScrollBar(QuestScrollBar)
+	QuestScrollBar:SetPoint('TOPLEFT', _G.QuestDetailFrame, 'TOPRIGHT', 4, -15)
+	QuestScrollBar:SetPoint('BOTTOMLEFT', _G.QuestDetailFrame, 'BOTTOMRIGHT', 9, 10)
+	
 	local CampaignOverview = QuestMapFrame.CampaignOverview
+	SkinHeaders(CampaignOverview.Header)
 	CampaignOverview:StripTextures()
 	CampaignOverview.ScrollFrame:StripTextures()
 	T.SkinScrollBar(CampaignOverview.ScrollFrame.ScrollBar)
 	CampaignOverview:CreateBackdrop("Overlay")
-	CampaignOverview.backdrop:SetPoint("TOPLEFT", CampaignOverview.Header, "TOPLEFT",  8, -2)
+	CampaignOverview.backdrop:SetPoint("TOPLEFT", CampaignOverview.Header, "TOPLEFT",  8, -5)
 	CampaignOverview.backdrop:SetPoint("BOTTOMRIGHT", CampaignOverview.Header, "BOTTOMRIGHT", -4, 10)
 	CampaignOverview.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
 	CampaignOverview.Header.Background:SetAlpha(0)
@@ -69,131 +156,56 @@ local function LoadSkin()
 		frame.Divider:SetAlpha(0)
 		frame.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
 	end
+	
+	QuestMapFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')									 
 
-	QuestScrollFrame.ScrollBar:SetPoint("TOPLEFT", QuestScrollFrame, "TOPRIGHT", 2, -18)
-	QuestScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", QuestScrollFrame, "BOTTOMRIGHT", 2, 15)
-	T.SkinScrollBar(QuestScrollFrame.ScrollBar)
+	QuestMapFrame.QuestsFrame.StoryTooltip:SetTemplate('Transparent')
+	
+	T.SkinScrollBar(_G.QuestMapDetailsScrollFrame.ScrollBar)
 
-	local QuestScrollFrameTopBorder = CreateFrame("Frame", "$parentBorder", QuestScrollFrame)
-	QuestScrollFrameTopBorder:CreateBackdrop("Overlay")
-	QuestScrollFrameTopBorder.backdrop:ClearAllPoints()
-	QuestScrollFrameTopBorder.backdrop:SetSize(326, 23)
-	QuestScrollFrameTopBorder.backdrop:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
-
-	local QuestScrollFrameTopBorder = CreateFrame("Frame", "$parentBorder", QuestMapFrame.CampaignOverview)
-	QuestScrollFrameTopBorder:CreateBackdrop("Overlay")
-	QuestScrollFrameTopBorder.backdrop:ClearAllPoints()
-	QuestScrollFrameTopBorder.backdrop:SetSize(326, 23)
-	QuestScrollFrameTopBorder.backdrop:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
-
-	QuestMapFrame.DetailsFrame:ClearAllPoints()
-	QuestMapFrame.DetailsFrame:SetPoint("TOPRIGHT", QuestMapFrame, "TOPRIGHT", -12, -1)
-	QuestMapDetailsScrollFrame.ScrollBar:SetPoint("TOPLEFT", QuestMapDetailsScrollFrame, "TOPRIGHT", 1, -26)
-	QuestMapDetailsScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", QuestMapDetailsScrollFrame, "BOTTOMLEFT", 13, 27)
-	T.SkinScrollBar(QuestMapDetailsScrollFrame.ScrollBar)
-
-	QuestScrollFrame.BorderFrame:StripTextures()
-
-	QuestMapDetailsScrollFrame:SetHeight(463)
-	QuestMapDetailsScrollFrame:SetPoint("TOPLEFT", QuestMapFrame.DetailsFrame, "TOPLEFT", 1, -35)
-
-	QuestMapFrame.DetailsFrame:StripTextures()
-	QuestMapFrame.DetailsFrame.RewardsFrameContainer.RewardsFrame:StripTextures()
-	QuestMapFrame.DetailsFrame.Bg:Hide()
-
-	QuestMapFrame.DetailsFrame.BackFrame:StripTextures()
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SkinButton()
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:ClearAllPoints()
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetSize(326, 23)
-
-	local AbandonButton = QuestMapFrame.DetailsFrame.AbandonButton
-	AbandonButton:SkinButton()
-	AbandonButton:ClearAllPoints()
-	AbandonButton:SetPoint("BOTTOMLEFT", QuestMapFrame.backdrop, "BOTTOMLEFT", 4, 4)
-
-	local TrackButton = QuestMapFrame.DetailsFrame.TrackButton
-	TrackButton:SkinButton()
-	TrackButton:SetSize(90, 22)
-	TrackButton:ClearAllPoints()
-	TrackButton:SetPoint("BOTTOMRIGHT", QuestMapFrame.backdrop, "BOTTOMRIGHT", -4, 4)
-
-	local ShareButton = QuestMapFrame.DetailsFrame.ShareButton
-	ShareButton:SkinButton(true)
-	ShareButton:ClearAllPoints()
-	ShareButton:SetPoint("LEFT", AbandonButton, "RIGHT", 3, 0)
-	ShareButton:SetPoint("RIGHT", TrackButton, "LEFT", -3, 0)
-
-	--FIXME QuestMapFrame.DetailsFrame.CompleteQuestFrame:StripTextures()
-	-- QuestMapFrame.DetailsFrame.CompleteQuestFrame.CompleteButton:SkinButton(true)
-	-- QuestMapFrame.DetailsFrame.CompleteQuestFrame.CompleteButton:SetPoint("TOP", 0, 4)
-
-	-- Quests Buttons
-	for i = 1, 2 do
-		local button = i == 1 and WorldMapFrame.SidePanelToggle.CloseButton or WorldMapFrame.SidePanelToggle.OpenButton
-		local texture = i == 1 and "Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up" or "Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up"
-
-		button:ClearAllPoints()
-		button:SetPoint("BOTTOMRIGHT", -2, 2)
-		button:SetSize(20, 20)
-		button:StripTextures()
-		button:SetTemplate("Default")
-		button:StyleButton()
-
-		button.icon = button:CreateTexture(nil, "BORDER")
-		button.icon:SetTexture(texture)
-		button.icon:SetTexCoord(0.3, 0.29, 0.3, 0.79, 0.65, 0.29, 0.65, 0.79)
-		button.icon:ClearAllPoints()
-		button.icon:SetPoint("TOPLEFT", 2, -2)
-		button.icon:SetPoint("BOTTOMRIGHT", -2, 2)
-	end
-
-	WorldMapFrame.NavBar:Hide()
-	WorldMapFrame.BorderFrame.TitleContainer.TitleText:ClearAllPoints()
-	WorldMapFrame.BorderFrame.TitleContainer.TitleText:SetPoint("CENTER", WorldMapFrame.Header)
+	T:HandleNextPrevButton(WorldMapFrame.SidePanelToggle.CloseButton, nil, true)
+	T:HandleNextPrevButton(WorldMapFrame.SidePanelToggle.OpenButton)
 
 	T.SkinCloseButton(WorldMapFrameCloseButton)
-	WorldMapFrameCloseButton:ClearAllPoints()
-	WorldMapFrameCloseButton:SetPoint("RIGHT", WorldMapFrame.Header, "RIGHT", -4, 0)
-	WorldMapFrameCloseButton:SetSize(15, 15)
+	T:HandleMaxMinFrame(WorldMapFrame.BorderFrame.MaximizeMinimizeFrame)
+	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:ClearAllPoints()
+	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:Point('RIGHT', WorldMapFrame.BorderFrame.CloseButton, 'LEFT', 12, 0)															 
 
-	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame.MaximizeButton:Kill()
-	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame.MinimizeButton:Kill()
+	WorldMapFrame.BorderFrame.Tutorial:Kill()
 
-	-- Floor Dropdown
-	local function WorldMapFloorNavigationDropDown(frame)
-		-- T.SkinDropDownBox(frame)
-		frame:SetPoint("TOPLEFT", -15, -67)
+	do -- Add a hook to adjust the OverlayFrames
+		hooksecurefunc(WorldMapFrame, 'AddOverlayFrame', T.WorldMapMixin_AddOverlayFrame)
+
+		local Dropdown, Tracking, Pin = unpack(WorldMapFrame.overlayFrames)
+		T.SkinDropDownBox(Dropdown)
+
+		Tracking:StripTextures()
+		Tracking.Icon:SetTexture(136460) -- Interface\Minimap\Tracking/None
+		Tracking:SetHighlightTexture(136460, 'ADD')
+
+		local TrackingHighlight = Tracking:GetHighlightTexture()
+		TrackingHighlight:SetAllPoints(Tracking.Icon)
+
+		Pin:StripTextures()
+		Pin.Icon:SetAtlas('Waypoint-MapPin-Untracked')
+		Pin.ActiveTexture:SetAtlas('Waypoint-MapPin-Tracked')
+		Pin.ActiveTexture:SetAllPoints(Pin.Icon)
+		Pin:SetHighlightTexture(3500068, 'ADD') -- Interface\Waypoint\WaypoinMapPinUI
+
+		local PinHighlight = Pin:GetHighlightTexture()
+		PinHighlight:SetAllPoints(Pin.Icon)
+		PinHighlight:SetTexCoord(0.3203125, 0.5546875, 0.015625, 0.484375)
 	end
+	
+	local MapLegend = QuestMapFrame.MapLegend
+	T:HandleButton(MapLegend.BackButton)
+	MapLegend.BorderFrame:SetAlpha(0)
 
-	-- Tracking Button
-	local function WorldMapTrackingOptionsButton(button)
-		local shadow = button:GetRegions()
-		shadow:Hide()
-
-		button.Background:Hide()
-		-- button.IconOverlay:SetAlpha(0)
-		button.Border:Hide()
-
-		local tex = button:GetHighlightTexture()
-		tex:SetTexture([[Interface\Minimap\Tracking\None]], "ADD")
-		tex:SetAllPoints(button.Icon)
-	end
-
-	-- Tracking Pin
-	local function WorldMapTrackingPinButton(button)
-		local shadow = button:GetRegions()
-		shadow:Hide()
-
-		button.Background:Hide()
-		button.IconOverlay:SetAlpha(0)
-		button.Border:Hide()
-
-		local tex = button:GetHighlightTexture()
-		tex:SetAtlas("Waypoint-MapPin-Untracked")
-		tex:SetAllPoints(button.Icon)
-	end
-
+	local MapLegendScroll = MapLegend.ScrollFrame
+	MapLegendScroll:StripTextures()
+	MapLegendScroll:SetTemplate()
+	T.SkinScrollBar(MapLegendScroll.ScrollBar)
+	
 	local function HandyNotesButton(button)
 		local shadow = button:GetRegions()
 		shadow:Hide()
@@ -207,10 +219,11 @@ local function LoadSkin()
 		tex:SetAllPoints(button.Icon)
 	end
 
-	-- Elements
-	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1])
-	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2])
-	WorldMapTrackingPinButton(WorldMapFrame.overlayFrames[3])
+
+	WorldMapFrame.overlayFrames[2]:StripTextures()
+	WorldMapFrame.overlayFrames[2].Icon:SetTexture([[Interface\Minimap\Tracking\None]])
+	WorldMapFrame.overlayFrames[2]:SetHighlightTexture([[Interface\Minimap\Tracking\None]], 'ADD')
+	WorldMapFrame.overlayFrames[2]:GetHighlightTexture():SetAllPoints(WorldMapFrame.overlayFrames[2].Icon)
 
 	for i = 1, 10 do
 		local button = _G["Krowi_WorldMapButtons"..i]
@@ -267,6 +280,13 @@ local function LoadSkin()
 			dialog.isSkinned = true
 		end
 	end)
+	
+		hooksecurefunc('QuestLogQuests_Update', function()
+		for header in QuestScrollFrame.campaignHeaderFramePool:EnumerateActive() do
+			SkinHeaders(header)
+		end
+	end)
+	hooksecurefunc('QuestLogQuests_Update', QuestLogQuests)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
