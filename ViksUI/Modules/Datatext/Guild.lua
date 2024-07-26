@@ -233,12 +233,17 @@ Stat:SetScript("OnEnter", function(self)
 	local col = RGBToHex(ttsubh.r, ttsubh.g, ttsubh.b)
 	GameTooltip:AddLine(' ')
 	
-	local _, _, standingID, barMin, barMax, barValue = GetGuildFactionInfo()
-	if standingID ~= 8 then -- Not Max Rep
-		barMax = barMax - barMin
-		barValue = barValue - barMin
-		barMin = 0
-		GameTooltip:AddLine(format(standingString, COMBAT_FACTION_CHANGE, ShortValue(barValue), ShortValue(barMax), ceil((barValue / barMax) * 100)))
+	local factionTemp = {}
+	local GetGuildFactionInfo = (C_Reputation and C_Reputation.GetGuildFactionData) or function()
+		factionTemp.name, factionTemp.description, factionTemp.reaction, factionTemp.currentReactionThreshold, factionTemp.nextReactionThreshold, factionTemp.currentStanding = _G.GetGuildFactionInfo()
+		return factionTemp
+	end
+
+	local info = C_Reputation.GetGuildFactionData()
+	if info and info.reaction ~= 8 then -- Not Max Rep
+			local nextReactionThreshold = info.nextReactionThreshold - info.currentReactionThreshold
+			local currentStanding = info.currentStanding - info.currentReactionThreshold
+		GameTooltip:AddLine(format(standingString, COMBAT_FACTION_CHANGE, ShortValue(currentStanding), ShortValue(nextReactionThreshold), ceil((currentStanding / nextReactionThreshold) * 100)))
 	end
 	
 	local zonec, classc, levelc, info
