@@ -3816,6 +3816,33 @@ local function openGUI()
 	options:Show()
 end
 
-hooksecurefunc(GameMenuFrame, "InitButtons", function(self)
-	self:AddButton("ViksUI", openGUI)
-end)
+local button = CreateFrame("Button", "ViksUI_GameMenuButton", GameMenuFrame, "MainMenuFrameButtonTemplate")
+button:SetScript("OnClick", openGUI)
+button:SetSize(200, 35)
+button:SetText("ViksUI")
+
+GameMenuFrame.ViksUI = button
+
+local gameMenuLastButtons = {
+	[_G.GAMEMENU_OPTIONS] = 1,
+	[_G.BLIZZARD_STORE] = 2
+}
+
+local function PositionGameMenuButton()
+	local anchorIndex = (StoreEnabled and StoreEnabled() and 2) or 1
+	for button in GameMenuFrame.buttonPool:EnumerateActive() do
+		local text = button:GetText()
+
+		local lastIndex = gameMenuLastButtons[text]
+		if lastIndex == anchorIndex and GameMenuFrame.ViksUI then
+			GameMenuFrame.ViksUI:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -46)
+		elseif not lastIndex then
+			local point, anchor, point2, x, y = button:GetPoint()
+			button:SetPoint(point, anchor, point2, x, y - 35)
+		end
+	end
+
+	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + 35)
+end
+
+hooksecurefunc(GameMenuFrame, "Layout", PositionGameMenuButton)
