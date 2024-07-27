@@ -1,8 +1,2 @@
 Changes:
-	Update 10.27 for Wow 10.2 Season 3
-	• Color tags for Important trash in S3 Dungeon added
-	• Information added to tooltip for S3 trash
-	• Fixed skin for Premade Group Filter
-	• Styled missing Sell Junk button
-	• Plater profile updated: https://wago.io/N4r_enjza
-	• Toc update
+	Changelog: https://github.com/ViksUI/ViksUI/commits/master/
