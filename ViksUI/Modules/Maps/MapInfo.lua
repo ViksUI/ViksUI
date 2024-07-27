@@ -1,17 +1,7 @@
-
-----------------------------------------------------------------------
--- 	This is taken from Leatrix Maps, and recoded for ViksUI
---  All credit goes to Leatrix
-----------------------------------------------------------------------
--- Create locale structure
-
-----------------------------------------------------------------------
--- Leatrix Maps
-----------------------------------------------------------------------
+local T, C, L = unpack(ViksUI)
 
 -- Hide the map frame title text
 WorldMapFrameTitleText:Hide()
-
 
 ----------------------------------------------------------------------
 -- Reveal unexplored areas
@@ -712,133 +702,92 @@ revBtn:HookScript("OnClick", function()
 	SetRevBtn()
 end)
 
-----------------------------------------------------------------------
--- Character coordinates
-----------------------------------------------------------------------
 
--- Create character coordinates frame
-local cChar = CreateFrame("Frame", nil, WorldMapFrame.BorderFrame)
-cChar:SetWidth(38); cChar:SetHeight(16)
-cChar:SetPoint("TOPRIGHT", revBtn, "TOPLEFT", -7, -4)
+----------------------------------------------------------------------------------------
+--	Count of quests
+----------------------------------------------------------------------------------------
+local maxQuest = 35
+local numQuest = CreateFrame("Frame", nil, QuestMapFrame)
+numQuest.text = numQuest:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+if C.skins.blizzard_frames then
+	numQuest.text:SetPoint("TOP", QuestMapFrame, "TOP", 100, -20)
+else
+	numQuest.text:SetPoint("TOP", QuestMapFrame, "TOP", 0, -17)
+end
+numQuest.text:SetJustifyH("LEFT")
+numQuest.text:SetText(select(2, C_QuestLog.GetNumQuestLogEntries()).."/"..maxQuest)
 
-cChar.x = cChar:CreateFontString(nil, "ARTWORK", "GameFontNormal") 
-cChar.x:SetAllPoints(); cChar.x:SetJustifyH"LEFT"
+----------------------------------------------------------------------------------------
+--	Creating coordinate
+----------------------------------------------------------------------------------------
+local coords = CreateFrame("Frame", "CoordsFrame", WorldMapFrame.BorderFrame)
+coords:SetFrameLevel(WorldMapFrame.BorderFrame:GetFrameLevel() + 2)
+coords:SetFrameStrata(WorldMapFrame.BorderFrame:GetFrameStrata())
 
-cChar.y = cChar:CreateFontString(nil, "ARTWORK", "GameFontNormal") 
-cChar.y:SetPoint("LEFT", cChar.x, "RIGHT", 0, 0)
-cChar.y:SetJustifyH"LEFT"
+coords.PlayerText = coords:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+coords.PlayerText:SetPoint("TOPRIGHT", revBtn, "TOPLEFT", -7, -8)
+coords.PlayerText:SetJustifyH("LEFT")
+coords.PlayerText:SetText(UnitName("player")..": 0,0")
 
--- Initialisation
-local mapRects = {}
-local tempVec2D = CreateVector2D(0, 0)
-local cMapID, void
+coords.MouseText = coords:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+coords.MouseText:SetJustifyH("LEFT")
+coords.MouseText:SetPoint("TOPRIGHT", coords.PlayerText, "TOPLEFT", -14, 0)
+coords.MouseText:SetText(L_MAP_CURSOR..": 0,0")
 
--- Function to get player map position
-local function GetPlayerMapPos(cMapID)
-	tempVec2D.x, tempVec2D.y = UnitPosition('player')
+local mapRects, tempVec2D = {}, CreateVector2D(0, 0)
+local function GetPlayerMapPos(mapID)
+	tempVec2D.x, tempVec2D.y = UnitPosition("player")
 	if not tempVec2D.x then return end
 
-	local mapRect = mapRects[cMapID]
+	local mapRect = mapRects[mapID]
 	if not mapRect then
-		local _, pos1 = C_Map.GetWorldPosFromMapPos(cMapID, CreateVector2D(0, 0))
-		local _, pos2 = C_Map.GetWorldPosFromMapPos(cMapID, CreateVector2D(1, 1))
+		local _, pos1 = C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(0, 0))
+		local _, pos2 = C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(1, 1))
 		if not pos1 or not pos2 then return end
-
 		mapRect = {pos1, pos2}
 		mapRect[2]:Subtract(mapRect[1])
-		mapRects[cMapID] = mapRect
+		mapRects[mapID] = mapRect
 	end
 	tempVec2D:Subtract(mapRect[1])
 
 	return (tempVec2D.y/mapRect[2].y), (tempVec2D.x/mapRect[2].x)
-
 end
 
--- Set MapID on zone changes and hide coordinates frame if player zone is different to map
-hooksecurefunc(WorldMapFrame, "OnMapChanged", function(self)
-	if WorldMapFrame.mapID == C_Map.GetBestMapForUnit("player") then
-		cMapID = self:GetMapID()
-		cChar:Show()
-	else
-		cMapID = nil
-		cChar:Hide()
-	end
-end)
+local int = 0
+WorldMapFrame:HookScript("OnUpdate", function()
+	int = int + 1
+	if int >= 3 then
+		local unitMap = C_Map.GetBestMapForUnit("player")
+		local x, y = 0, 0
 
--- Function to update coordinates
-local cx, cy
-local stimer = 0
-local function UpdateCoords(self, elapsed)
-	stimer = stimer + elapsed
-	if stimer > 0.2 then
-		if not cMapID then
-			cChar.x:SetText("") 
-			cChar.y:SetText("")
+		if unitMap then
+			x, y = GetPlayerMapPos(unitMap)
+		end
+
+		if x and y and x >= 0 and y >= 0 then
+			coords.PlayerText:SetFormattedText("%s: %.0f,%.0f", T.name, x * 100, y * 100)
 		else
-			cx, cy = GetPlayerMapPos(cMapID)
-			if not cx or (cx == 0 and cy == 0) then
-				cChar.x:SetText("") 
-				cChar.y:SetText("")
+			coords.PlayerText:SetText(UnitName("player")..": ".."|cffff0000"..L_MAP_BOUNDS.."|r")
+		end
+
+		if WorldMapFrame.ScrollContainer:IsMouseOver() then
+			local mouseX, mouseY = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
+			if mouseX and mouseY and mouseX >= 0 and mouseY >= 0 then
+				coords.MouseText:SetFormattedText("%s %.0f,%.0f", L_MAP_CURSOR, mouseX * 100, mouseY * 100)
 			else
-				cChar.x:SetFormattedText("%0.1f", 100 * cx) 
-				cChar.y:SetFormattedText("%0.1f", 100 * cy)
+				coords.MouseText:SetText(L_MAP_CURSOR.."|cffff0000"..L_MAP_BOUNDS.."|r")
 			end
+		else
+			coords.MouseText:SetText(L_MAP_CURSOR.."|cffff0000"..L_MAP_BOUNDS.."|r")
 		end
-		stimer = 0
-	end
-end
 
--- Update coordinates when the frame is being shown and on startup
-cChar:SetScript("OnUpdate", UpdateCoords)
-UpdateCoords(self, 1)
+		numQuest.text:SetText(select(2, C_QuestLog.GetNumQuestLogEntries()).."/"..maxQuest)
 
--- Hide coordinates frame when player zone is different to world map
-cChar:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-cChar:RegisterEvent("ZONE_CHANGED")
-cChar:RegisterEvent("ZONE_CHANGED_INDOORS")
-cChar:RegisterEvent("NEW_WMO_CHUNK")
-cChar:SetScript("OnEvent", function()
-	if WorldMapFrame.mapID == C_Map.GetBestMapForUnit("player") then
-		cMapID = WorldMapFrame.mapID
-		cChar:Show()
-	else
-		cMapID = nil
-		cChar:Hide()
+		int = 0
 	end
 end)
 
-----------------------------------------------------------------------
--- Cursor coordinates
-----------------------------------------------------------------------
-
--- Create cursor coordinates frame
-local cCursor = CreateFrame("FRAME", nil, WorldMapFrame.BorderFrame)
-cCursor:SetWidth(38); cCursor:SetHeight(16)
-cCursor:SetPoint("TOPRIGHT", cChar, "TOPLEFT", -50, 0)
-
-cCursor.x = cCursor:CreateFontString(nil, "ARTWORK", "GameFontNormal") 
-cCursor.x:SetAllPoints(); cCursor.x:SetJustifyH"LEFT"
-
-cCursor.y = cCursor:CreateFontString(nil, "ARTWORK", "GameFontNormal") 
-cCursor.y:SetPoint("LEFT", cCursor.x, "RIGHT", 0, 0)
-cCursor.y:SetJustifyH"LEFT"
-
--- Initialise timer
-local mTimer = 0
-
--- Cursor coordinates update function
-local function UpdateCursorCoords(self, elapsed)
-	mTimer = mTimer + elapsed
-	if mTimer > 0.1 then
-		local x, y = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
-		if x and y and MouseIsOver(WorldMapFrame.ScrollContainer) then
-			cCursor.x:SetFormattedText("%0.1f", (floor(x * 1000 + 0.5)) / 10)
-			cCursor.y:SetFormattedText("%0.1f", (floor(y * 1000 + 0.5)) / 10)
-		else
-			cCursor.x:SetText("")
-			cCursor.y:SetText("")
-		end
-		mTimer = 0
-	end
-end
-cCursor:SetScript("OnUpdate", UpdateCursorCoords)
+coords:RegisterEvent("PLAYER_ENTERING_WORLD")
+coords:SetScript("OnEvent", function(self, event)
+	self:UnregisterEvent(event)
+end)

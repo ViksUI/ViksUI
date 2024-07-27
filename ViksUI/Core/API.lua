@@ -1149,7 +1149,7 @@ function T.SkinIconSelectionFrame(frame, numIcons, buttonNameTemplate, frameName
 		end
 	end
 
-	local dropdown = frame.BorderBox.IconTypeDropDown and frame.BorderBox.IconTypeDropDown.DropDownMenu
+	local dropdown = frame.BorderBox.IconTypeDropdown
 	if dropdown then
 		T.SkinDropDownBox(dropdown)
 	end

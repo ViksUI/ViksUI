@@ -1,6 +1,6 @@
 local T, C, L = unpack(ViksUI)
 if C.skins.blizzard_frames ~= true then return end
-		
+
 ----------------------------------------------------------------------------------------
 --	WorldMap skin
 ----------------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ local function LoadSkin()
 
 	WorldMapFrame:StripTextures()
 	WorldMapFramePortrait:SetAlpha(0)
-	WorldMapFrame:CreateBackdrop("Default")
+	WorldMapFrame:CreateBackdrop("Transparent")
 	WorldMapFrame.backdrop:ClearAllPoints()
 	WorldMapFrame.ScrollContainer:CreateBackdrop()
 	
@@ -30,7 +30,7 @@ local function LoadSkin()
 	WorldMapFrame.BorderFrame:SetFrameStrata(WorldMapFrame:GetFrameStrata())
 
 	QuestMapFrame:StripTextures()
-	QuestMapFrame:CreateBackdrop("Overlay")
+	QuestMapFrame:CreateBackdrop("Transparent")
 	QuestMapFrame.backdrop:ClearAllPoints()
 	QuestMapFrame.backdrop:SetPoint("BOTTOMLEFT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", 4, -2)
 	QuestMapFrame.backdrop:SetSize(326, 469)
@@ -74,13 +74,13 @@ local function LoadSkin()
 	T.SkinScrollBar(QuestScrollFrame.ScrollBar)
 
 	local QuestScrollFrameTopBorder = CreateFrame("Frame", "$parentBorder", QuestScrollFrame)
-	QuestScrollFrameTopBorder:CreateBackdrop("Overlay")
+	QuestScrollFrameTopBorder:CreateBackdrop("Transparent")
 	QuestScrollFrameTopBorder.backdrop:ClearAllPoints()
 	QuestScrollFrameTopBorder.backdrop:SetSize(326, 23)
 	QuestScrollFrameTopBorder.backdrop:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
 
 	local QuestScrollFrameTopBorder = CreateFrame("Frame", "$parentBorder", QuestMapFrame.CampaignOverview)
-	QuestScrollFrameTopBorder:CreateBackdrop("Overlay")
+	QuestScrollFrameTopBorder:CreateBackdrop("Transparent")
 	QuestScrollFrameTopBorder.backdrop:ClearAllPoints()
 	QuestScrollFrameTopBorder.backdrop:SetSize(326, 23)
 	QuestScrollFrameTopBorder.backdrop:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
@@ -161,15 +161,17 @@ local function LoadSkin()
 	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:ClearAllPoints()
 	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:SetPoint('RIGHT', WorldMapFrame.BorderFrame.CloseButton, 'LEFT', 6, 0)															 
 
-	local MapLegend = QuestMapFrame.MapLegend
-	MapLegend.BackButton:SkinButton()
-	MapLegend.BorderFrame:SetAlpha(0)
+	QuestMapFrame.MapLegend.BorderFrame:StripTextures()
+	QuestMapFrame.MapLegend.BackButton:SkinButton()
+	QuestMapFrame.MapLegend.BackButton:ClearAllPoints()
+	QuestMapFrame.MapLegend.BackButton:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
+	QuestMapFrame.MapLegend.BackButton:SetSize(326, 23)
 
-	local MapLegendScroll = MapLegend.ScrollFrame
-	MapLegendScroll:StripTextures()
-	MapLegendScroll:SetTemplate()
-	T.SkinScrollBar(MapLegendScroll.ScrollBar)
-	
+	MapLegendScrollFrame.Background:Hide()
+	MapLegendScrollFrame.ScrollBar:SetPoint("TOPLEFT", MapLegendScrollFrame, "TOPRIGHT", 2, -18)
+	MapLegendScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", MapLegendScrollFrame, "BOTTOMRIGHT", 2, 15)
+	T.SkinScrollBar(MapLegendScrollFrame.ScrollBar)
+
 	-- Floor Dropdown
 	local function WorldMapFloorNavigationDropDown(frame)
 		T.SkinDropDownBox(frame)
@@ -184,8 +186,13 @@ local function LoadSkin()
 		button.Background:Hide()
 		button.Border:Hide()
 
+		T.SkinCloseButton(button.ResetButton, nil, nil, true)
+		button.ResetButton:SetSize(15, 15)
+		button.ResetButton:ClearAllPoints()
+		button.ResetButton:SetPoint("CENTER", button, "TOPRIGHT", -4, -4)
+
 		local tex = button:GetHighlightTexture()
-		tex:SetTexture([[Interface\Minimap\Tracking\None]], "ADD")
+		tex:SetAtlas("Map-Filter-Button")
 		tex:SetAllPoints(button.Icon)
 	end
 
@@ -200,6 +207,20 @@ local function LoadSkin()
 
 		local tex = button:GetHighlightTexture()
 		tex:SetAtlas("Waypoint-MapPin-Untracked")
+		tex:SetAllPoints(button.Icon)
+	end
+
+	-- Legend
+	local function WorldMapLegendButton(button)
+		local shadow = button:GetRegions()
+		shadow:Hide()
+
+		button.Background:Hide()
+		button.IconOverlay:SetAlpha(0)
+		button.Border:Hide()
+
+		local tex = button:GetHighlightTexture()
+		tex:SetAtlas("QuestNormal")
 		tex:SetAllPoints(button.Icon)
 	end
 
@@ -220,6 +241,7 @@ local function LoadSkin()
 	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1])
 	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2])
 	WorldMapTrackingPinButton(WorldMapFrame.overlayFrames[3])
+	WorldMapLegendButton(WorldMapFrame.overlayFrames[4])
 
 	for i = 1, 10 do
 		local button = _G["Krowi_WorldMapButtons"..i]
