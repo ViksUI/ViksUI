@@ -98,7 +98,7 @@ local function Click(self, button)
 		local name, _, _, _, _, _, _, _ = GetProfessionInfo(IsShiftKeyDown() and archy)
 		CastSpellByName(name == "Mining" and "Smelting" or name)
 		elseif prof1 == nil then return end
-		securecall(ToggleSpellBook, BOOKTYPE_PROFESSION)
+		ToggleProfessionsBook()
 	elseif button == "RightButton" then
 		if IsShiftKeyDown() and cooking == nil then return
 		elseif not IsShiftKeyDown() and prof2 == nil then return end
