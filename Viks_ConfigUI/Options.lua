@@ -3818,7 +3818,7 @@ end
 
 local button = CreateFrame("Button", "ViksUI_GameMenuButton", GameMenuFrame, "MainMenuFrameButtonTemplate")
 button:SetScript("OnClick", openGUI)
-button:SetSize(200, 35)
+button:SetSize(150, 28)
 button:SetText("ViksUI")
 
 GameMenuFrame.ViksUI = button
@@ -3838,11 +3838,23 @@ local function PositionGameMenuButton()
 			GameMenuFrame.ViksUI:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -46)
 		elseif not lastIndex then
 			local point, anchor, point2, x, y = button:GetPoint()
-			button:SetPoint(point, anchor, point2, x, y - 35)
+			button:SetPoint(point, anchor, point2, x, y - 28)
 		end
+
+		-- Replace EditMode with our moving system
+		if text and text == HUD_EDIT_MODE_MENU then
+			button:SetScript("OnClick", function()
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
+				SlashCmdList.MOVING()
+				HideUIPanel(GameMenuFrame)
+			end)
+		end
+
+		local fstring = button:GetFontString()
+		fstring:SetFont(C.media.normal_font, 14)
 	end
 
-	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + 35)
+	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + 14)
 end
 
 hooksecurefunc(GameMenuFrame, "Layout", PositionGameMenuButton)

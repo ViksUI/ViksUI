@@ -104,6 +104,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 
 			for button in self.buttonPool:EnumerateActive() do
 				if not button.styled then
+					button:SetSize(150, 28)
 					SkinButton(button)
 					button.backdrop:SetInside(button, 2, 2)
 					button.styled = true
@@ -115,6 +116,8 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		if GameMenuFrame.ViksUI then
 			SkinButton(GameMenuFrame.ViksUI)
 			GameMenuFrame.ViksUI.backdrop:SetInside(button, 2, 2)
+			local fstring = GameMenuFrame.ViksUI:GetFontString()
+			fstring:SetFont(C.media.normal_font, 14)
 		end
 
 		-- Reskin popups
