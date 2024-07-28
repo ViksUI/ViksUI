@@ -3829,13 +3829,13 @@ local gameMenuLastButtons = {
 }
 
 local function PositionGameMenuButton()
-	local anchorIndex = (StoreEnabled and StoreEnabled() and 2) or 1
+	local anchorIndex = (C_StorePublic.IsEnabled and C_StorePublic.IsEnabled() and 2) or 1
 	for button in GameMenuFrame.buttonPool:EnumerateActive() do
 		local text = button:GetText()
 
 		local lastIndex = gameMenuLastButtons[text]
 		if lastIndex == anchorIndex and GameMenuFrame.ViksUI then
-			GameMenuFrame.ViksUI:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -46)
+			GameMenuFrame.ViksUI:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -14)
 		elseif not lastIndex then
 			local point, anchor, point2, x, y = button:GetPoint()
 			button:SetPoint(point, anchor, point2, x, y - 28)
