@@ -1,31 +1,25 @@
 local T, C, L = unpack(ViksUI)
 
-if C.misc.WatchFrame then
 ----------------------------------------------------------------------------------------
---	Move ObjectiveTrackerFrame
+--	Move ObjectiveTrackerFrame and hide background
 ----------------------------------------------------------------------------------------
-local frame = CreateFrame("Frame", "WatchFrameAnchor", T_PetBattleFrameHider)
-frame:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, 10)
-frame:SetHeight(150)
-frame:SetWidth(224)
-
-ObjectiveTrackerFrame:ClearAllPoints()
-ObjectiveTrackerFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
-ObjectiveTrackerFrame:SetHeight(T.screenHeight / 1.6)
-ObjectiveTrackerFrame:SetWidth(180)
+local anchor = CreateFrame("Frame", "ObjectiveTrackerAnchor", UIParent)
+anchor:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, 10)
+anchor:SetSize(224, 150)
 
 ObjectiveTrackerFrame.IsUserPlaced = function() return true end
+ObjectiveTrackerFrame:SetClampedToScreen(false)
 
 hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
-	if parent ~= frame then
+	if parent ~= anchor then
 		ObjectiveTrackerFrame:ClearAllPoints()
-		ObjectiveTrackerFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 20, -20)
+		ObjectiveTrackerFrame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, -20)
 	end
 end)
 
-local ObjectiveTracker = CreateFrame("Frame", "ViksUIObjectiveTracker", UIParent)
 local headers = {
 	ScenarioObjectiveTracker,
+	BonusObjectiveTracker,
 	UIWidgetObjectiveTracker,
 	CampaignQuestObjectiveTracker,
 	QuestObjectiveTracker,
@@ -33,16 +27,8 @@ local headers = {
 	AchievementObjectiveTracker,
 	MonthlyActivitiesObjectiveTracker,
 	ProfessionsRecipeTracker,
-	BonusObjectiveTracker,
 	WorldQuestObjectiveTracker,
 }
-
-for i = 1, #headers do
-	local header = headers[i].Header
-	if header then
-		header.Background:SetTexture(nil)
-	end
-end
 
 ObjectiveTrackerFrame.Header.Background:SetTexture(nil)
 
@@ -70,42 +56,42 @@ local function HotkeyColor(self, r)
 	end
 end
 
---FIXME hooksecurefunc("QuestObjectiveSetupBlockButton_Item", function(block)
-	-- local item = block and block.itemButton
+local function SkinQuestIcons(_, block)
+	local item = block and block.ItemButton
 
-	-- if item and not item.skinned then
-		-- item:SetSize(25, 25)
-		-- item:SetTemplate("Default")
-		-- item:StyleButton()
+	if item and not item.skinned then
+		item:SetSize(25, 25)
+		item:SetTemplate("Default")
+		item:StyleButton()
 
-		-- item:SetNormalTexture(0)
+		item:SetNormalTexture(0)
 
-		-- item.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		-- item.icon:SetPoint("TOPLEFT", item, 2, -2)
-		-- item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+		item.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		item.icon:SetPoint("TOPLEFT", item, 2, -2)
+		item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
 
-		-- item.Cooldown:SetAllPoints(item.icon)
+		item.Cooldown:SetAllPoints(item.icon)
 
-		-- item.Count:ClearAllPoints()
-		-- item.Count:SetPoint("TOPLEFT", 1, -1)
-		-- item.Count:SetFont(C.font.action_bars_font, C.font.action_bars_font_size, C.font.action_bars_font_style)
-		-- item.Count:SetShadowOffset(C.font.action_bars_font_shadow and 1 or 0, C.font.action_bars_font_shadow and -1 or 0)
+		item.Count:ClearAllPoints()
+		item.Count:SetPoint("BOTTOMRIGHT", 0, 2)
+		item.Count:SetFont(C.font.action_bars_font, C.font.action_bars_font_size, C.font.action_bars_font_style)
+		item.Count:SetShadowOffset(C.font.action_bars_font_shadow and 1 or 0, C.font.action_bars_font_shadow and -1 or 0)
 
-		-- local rangeOverlay = item:CreateTexture(nil, "OVERLAY")
-		-- rangeOverlay:SetTexture(C.media.texture)
-		-- rangeOverlay:SetInside()
-		-- rangeOverlay:SetVertexColor(1, 0.3, 0.1, 0.6)
-		-- item.rangeOverlay = rangeOverlay
+		local rangeOverlay = item:CreateTexture(nil, "OVERLAY")
+		rangeOverlay:SetTexture(C.media.texture)
+		rangeOverlay:SetInside()
+		rangeOverlay:SetVertexColor(1, 0.3, 0.1, 0.6)
+		item.rangeOverlay = rangeOverlay
 
-		-- hooksecurefunc(item.HotKey, "Show", HotkeyShow)
-		-- hooksecurefunc(item.HotKey, "Hide", HotkeyHide)
-		-- hooksecurefunc(item.HotKey, "SetVertexColor", HotkeyColor)
-		-- HotkeyColor(item.HotKey, item.HotKey:GetTextColor())
-		-- item.HotKey:SetAlpha(0)
+		hooksecurefunc(item.HotKey, "Show", HotkeyShow)
+		hooksecurefunc(item.HotKey, "Hide", HotkeyHide)
+		hooksecurefunc(item.HotKey, "SetVertexColor", HotkeyColor)
+		HotkeyColor(item.HotKey, item.HotKey:GetTextColor())
+		item.HotKey:SetAlpha(0)
 
-		-- item.skinned = true
-	-- end
--- end)
+		item.skinned = true
+	end
+end
 
 -- hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", function(block)
 	-- if block.groupFinderButton and not block.groupFinderButton.styled then
@@ -232,65 +218,26 @@ if C.skins.blizzard_frames == true then
 	button:HookScript("OnLeave", T.SetOriginalBackdrop)
 
 	button.plus:Hide()
-	-- hooksecurefunc("ObjectiveTracker_Collapse", function()
-		-- button.plus:Show()
-		-- button:SetNormalTexture(0)
-		-- button:SetPushedTexture(0)
-		-- if C.general.minimize_mouseover then
-			-- button:SetAlpha(0)
-			-- button:HookScript("OnEnter", function() button:SetAlpha(1) end)
-			-- button:HookScript("OnLeave", function() button:SetAlpha(0) end)
-		-- end
-	-- end)
 
-	-- hooksecurefunc("ObjectiveTracker_Expand", function()
-		-- button.plus:Hide()
-		-- button:SetNormalTexture(0)
-		-- button:SetPushedTexture(0)
-		-- if C.general.minimize_mouseover then
-			-- button:SetAlpha(1)
-			-- button:HookScript("OnEnter", function() button:SetAlpha(1) end)
-			-- button:HookScript("OnLeave", function() button:SetAlpha(1) end)
-		-- end
-	-- end)
-
-	local function SkinSmallMinimizeButton(button)
-		button:SetSize(15, 15)
-		button:StripTextures()
-		button:SetTemplate("Overlay")
-
-		button.minus = button:CreateTexture(nil, "OVERLAY")
-		button.minus:SetSize(5, 1)
-		button.minus:SetPoint("CENTER")
-		button.minus:SetTexture(C.media.blank)
-
-		button.plus = button:CreateTexture(nil, "OVERLAY")
-		button.plus:SetSize(1, 5)
-		button.plus:SetPoint("CENTER")
-		button.plus:SetTexture(C.media.blank)
-
-		button:HookScript("OnEnter", T.SetModifiedBackdrop)
-		button:HookScript("OnLeave", T.SetOriginalBackdrop)
-
-		button.plus:Hide()
-
-		-- hooksecurefunc(button, "SetCollapsed", function(self, collapsed)
-			-- if collapsed then
-				-- button.plus:Show()
-			-- else
-				-- button.plus:Hide()
-			-- end
-			-- button:SetNormalTexture(0)
-			-- button:SetPushedTexture(0)
-		-- end)
-	end
-
-	for i = 1, #headers do
-		local button = headers[i].Header.MinimizeButton
-		if button then
-			--FIXME SkinSmallMinimizeButton(button)
+	hooksecurefunc(ObjectiveTrackerFrame, "SetCollapsed", function(self, collapsed)
+		if collapsed then
+			button.plus:Show()
+			if C.general.minimize_mouseover then
+				button:SetAlpha(0)
+				button:HookScript("OnEnter", function() button:SetAlpha(1) end)
+				button:HookScript("OnLeave", function() button:SetAlpha(0) end)
+			end
+		else
+			button.plus:Hide()
+			if C.general.minimize_mouseover then
+				button:SetAlpha(1)
+				button:HookScript("OnEnter", function() button:SetAlpha(1) end)
+				button:HookScript("OnLeave", function() button:SetAlpha(1) end)
+			end
 		end
-	end
+		button:SetNormalTexture(0)
+		button:SetPushedTexture(0)
+	end)
 end
 
 ----------------------------------------------------------------------------------------
@@ -303,44 +250,36 @@ if C.automation.auto_collapse ~= "NONE" then
 		if C.automation.auto_collapse == "RAID" then
 			if IsInInstance() then
 				C_Timer.After(0.1, function()
-					--FIXME ObjectiveTracker_Collapse()
+					ObjectiveTrackerFrame:SetCollapsed(true)
 				end)
-			elseif ObjectiveTrackerFrame.collapsed and not InCombatLockdown() then
-				-- ObjectiveTracker_Expand()
+			elseif not InCombatLockdown() then
+				ObjectiveTrackerFrame:SetCollapsed(false)
 			end
 		elseif C.automation.auto_collapse == "SCENARIO" then
 			local inInstance, instanceType = IsInInstance()
 			if inInstance then
 				if instanceType == "party" or instanceType == "scenario" then
-					-- C_Timer.After(0.1, function() -- for some reason it got error after reload in instance
-						-- for i = 3, #headers do
-							-- local button = headers[i].Header.MinimizeButton
-							-- if button and not headers[i].collapsed then
-								-- button:Click()
-							-- end
-						-- end
-					-- end)
+					C_Timer.After(0.1, function() -- for some reason it got error after reload in instance
+						for i = 3, #headers do
+							headers[i]:SetCollapsed(true)
+						end
+					end)
 				else
 					C_Timer.After(0.1, function()
-						-- ObjectiveTracker_Collapse()
+						ObjectiveTrackerFrame:SetCollapsed(true)
 					end)
 				end
 			else
 				if not InCombatLockdown() then
-					-- for i = 3, #headers do
-						-- local button = headers[i].Header.MinimizeButton
-						-- if button and headers[i].collapsed then
-							-- button:Click()
-						-- end
-					-- end
-					if ObjectiveTrackerFrame.collapsed then
-						-- ObjectiveTracker_Expand()
+					for i = 3, #headers do
+						headers[i]:SetCollapsed(false)
 					end
+					ObjectiveTrackerFrame:SetCollapsed(false)
 				end
 			end
 		elseif C.automation.auto_collapse == "RELOAD" then
 			C_Timer.After(0.1, function()
-				-- ObjectiveTracker_Collapse()
+				ObjectiveTrackerFrame:SetCollapsed(true)
 			end)
 		end
 	end)
@@ -349,11 +288,11 @@ end
 ----------------------------------------------------------------------------------------
 --	Skin quest objective progress bar
 ----------------------------------------------------------------------------------------
-local function SkinProgressBar(_, _, line)
-	local progressBar = line.ProgressBar
-	local bar = progressBar.Bar
-	local label = bar.Label
-	local icon = bar.Icon
+local function SkinProgressBar(tracker, key)
+	local progressBar = tracker.usedProgressBars[key]
+	local bar = progressBar and progressBar.Bar
+	local label = bar and bar.Label
+	local icon = bar and bar.Icon
 
 	if not progressBar.styled then
 		if bar.BarFrame then bar.BarFrame:Hide() end
@@ -397,18 +336,12 @@ local function SkinProgressBar(_, _, line)
 	if bar.newIconBg then bar.newIconBg:SetShown(icon:IsShown()) end
 end
 
---FIXME hooksecurefunc(QUEST_TRACKER_MODULE, "AddProgressBar", SkinProgressBar)
--- hooksecurefunc(CAMPAIGN_QUEST_TRACKER_MODULE, "AddProgressBar", SkinProgressBar)
--- hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", SkinProgressBar)
--- hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", SkinProgressBar)
--- hooksecurefunc(WORLD_QUEST_TRACKER_MODULE, "AddProgressBar", SkinProgressBar)
-
 ----------------------------------------------------------------------------------------
 --	Skin Timer bar
 ----------------------------------------------------------------------------------------
-local function SkinTimer(_, _, line)
-	local timerBar = line.TimerBar
-	local bar = timerBar.Bar
+local function SkinTimer(tracker, key)
+	local timerBar = tracker.usedTimerBars[key]
+	local bar = timerBar and timerBar.Bar
 
 	if not timerBar.styled then
 		if bar.BorderLeft then bar.BorderLeft:SetAlpha(0) end
@@ -421,10 +354,18 @@ local function SkinTimer(_, _, line)
 	end
 end
 
--- hooksecurefunc(QUEST_TRACKER_MODULE, "AddTimerBar", SkinTimer)
--- hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddTimerBar", SkinTimer)
--- hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimer)
--- hooksecurefunc(ACHIEVEMENT_TRACKER_MODULE, "AddTimerBar", SkinTimer)
+for i = 1, #headers do
+	local header = headers[i].Header
+	if header then
+		header.Background:SetTexture(nil)
+	end
+
+	local tracker = headers[i]
+	if tracker then
+		hooksecurefunc(tracker, "AddBlock", SkinQuestIcons)
+		hooksecurefunc(tracker, "GetProgressBar", SkinProgressBar)
+		hooksecurefunc(tracker, "GetTimerBar", SkinTimer)
+	end
 end
 ----------------------------------------------------------------------------------------
 --	Kill reward animation when finished dungeon or bonus objectives
@@ -440,54 +381,59 @@ end
 ----------------------------------------------------------------------------------------
 --	Skin ScenarioStageBlock
 ----------------------------------------------------------------------------------------
---FIXME local StageBlock = _G["ScenarioStageBlock"]
--- StageBlock:CreateBackdrop("Overlay")
--- StageBlock.backdrop:SetPoint("TOPLEFT", ScenarioStageBlock.NormalBG, 3, -3)
--- StageBlock.backdrop:SetPoint("BOTTOMRIGHT", ScenarioStageBlock.NormalBG, -6, 5)
+hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
+	if not block.backdrop then
+		block:CreateBackdrop("Overlay")
+		block.backdrop:SetPoint("TOPLEFT", block.NormalBG, 3, -3)
+		block.backdrop:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 5)
 
--- StageBlock.NormalBG:SetAlpha(0)
--- StageBlock.FinalBG:SetAlpha(0)
--- StageBlock.GlowTexture:SetTexture("")
+		block.NormalBG:SetAlpha(0)
+		block.FinalBG:SetAlpha(0)
+		block.GlowTexture:SetTexture("")
+	end
+end)
 
 ----------------------------------------------------------------------------------------
 --	Skin ScenarioStageBlock
 ----------------------------------------------------------------------------------------
---FIXME local ChallengeBlock = _G["ScenarioChallengeModeBlock"]
--- ChallengeBlock:CreateBackdrop("Overlay")
--- ChallengeBlock.backdrop:SetPoint("TOPLEFT", ChallengeBlock, 3, -3)
--- ChallengeBlock.backdrop:SetPoint("BOTTOMRIGHT", ChallengeBlock, -6, 3)
--- ChallengeBlock.backdrop.overlay:SetVertexColor(0.12, 0.12, 0.12, 1)
+hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "Activate", function(block)
+	if not block.backdrop then
+		block:CreateBackdrop("Overlay")
+		block.backdrop:SetPoint("TOPLEFT", block, 3, -3)
+		block.backdrop:SetPoint("BOTTOMRIGHT", block, -6, 3)
+		block.backdrop.overlay:SetVertexColor(0.12, 0.12, 0.12, 1)
 
--- local bg = select(3, ChallengeBlock:GetRegions())
--- bg:SetAlpha(0)
+		local bg = select(3, block:GetRegions())
+		bg:SetAlpha(0)
 
--- ChallengeBlock.TimerBGBack:SetAlpha(0)
--- ChallengeBlock.TimerBG:SetAlpha(0)
+		block.TimerBGBack:SetAlpha(0)
+		block.TimerBG:SetAlpha(0)
 
--- ChallengeBlock.StatusBar:SetStatusBarTexture(C.media.texture)
--- ChallengeBlock.StatusBar:CreateBackdrop("Overlay")
--- ChallengeBlock.StatusBar.backdrop:SetFrameLevel(ChallengeBlock.backdrop:GetFrameLevel() + 1)
--- ChallengeBlock.StatusBar:SetStatusBarColor(0, 0.6, 1)
--- ChallengeBlock.StatusBar:SetFrameLevel(ChallengeBlock.StatusBar:GetFrameLevel() + 3)
+		block.StatusBar:SetStatusBarTexture(C.media.texture)
+		block.StatusBar:CreateBackdrop("Overlay")
+		block.StatusBar.backdrop:SetFrameLevel(block.backdrop:GetFrameLevel() + 1)
+		block.StatusBar:SetStatusBarColor(0, 0.6, 1)
+		block.StatusBar:SetFrameLevel(block.StatusBar:GetFrameLevel() + 3)
+	end
+end)
 
--- Not tested TODO
--- hooksecurefunc("Scenario_ChallengeMode_SetUpAffixes", function(self)
-	-- for _, frame in ipairs(self.Affixes) do
-		-- frame.Border:SetTexture(nil)
-		-- frame.Portrait:SetTexture(nil)
-		-- if not frame.styled then
-			-- frame.Portrait:SkinIcon()
-			-- frame.styled = true
-		-- end
+hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "SetUpAffixes", function(self)
+	for frame in self.affixPool:EnumerateActive() do
+		frame.Border:SetTexture(nil)
+		frame.Portrait:SetTexture(nil)
+		if not frame.styled then
+			frame.Portrait:SkinIcon()
+			frame.styled = true
+		end
 
-		-- if frame.info then
-			-- frame.Portrait:SetTexture(_G.CHALLENGE_MODE_EXTRA_AFFIX_INFO[frame.info.key].texture)
-		-- elseif frame.affixID then
-			-- local _, _, filedataid = C_ChallengeMode.GetAffixInfo(frame.affixID)
-			-- frame.Portrait:SetTexture(filedataid)
-		-- end
-	-- end
--- end)
+		if frame.info then
+			frame.Portrait:SetTexture(CHALLENGE_MODE_EXTRA_AFFIX_INFO[frame.info.key].texture)
+		elseif frame.affixID then
+			local _, _, filedataid = C_ChallengeMode.GetAffixInfo(frame.affixID)
+			frame.Portrait:SetTexture(filedataid)
+		end
+	end
+end)
 
 ----------------------------------------------------------------------------------------
 --	Skin MawBuffsBlock
