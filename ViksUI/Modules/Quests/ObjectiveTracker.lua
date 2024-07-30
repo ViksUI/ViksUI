@@ -220,64 +220,8 @@ if C.skins.blizzard_frames == true then
 	button.plus:Hide()
 
 	ObjectiveTrackerFrame.Header.MinimizeButton:Hide()
-	CampaignQuestObjectiveTracker.Header.MinimizeButton:Hide()
-	QuestObjectiveTracker.Header.MinimizeButton:Hide()
-	WorldQuestObjectiveTracker.Header.MinimizeButton:Hide()
-	AchievementObjectiveTracker.Header.MinimizeButton:Hide()
 
 	ObjectiveTrackerFrame.Header.Text:Hide()
-
-	local function SkinHeader(frame)
-			frame.Text:SetFont(C.media.pxfontHeader, 14, "THINOUTLINE")
-			frame.Text:SetJustifyH("CENTER")
-			frame.Text:SetTextColor(unpack(C.media.border_color))
-			frame.Text:SetDrawLayer("OVERLAY", 7)
-			HeaderPanel = CreateFrame("Frame", nil, frame)
-			HeaderPanel:SetFrameLevel(frame:GetFrameLevel() - 1)
-			HeaderPanel:SetFrameStrata("BACKGROUND")
-			HeaderPanel:SetOutside(frame, 1, 1)
-
-			local HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
-			HeaderBar:Size(254, 3)
-			HeaderBar:SetPoint("CENTER", HeaderPanel, 0, -10)
-			HeaderBar:SetStatusBarTexture(C.media.blank)
-			HeaderBar:SetStatusBarColor(unpack(C.media.classborder_color))
-			HeaderBar:SetTemplate()
-			HeaderBar:CreateShadow()
-	end
-	SkinHeader(QuestObjectiveTracker.Header)
-	SkinHeader(CampaignQuestObjectiveTracker.Header)
-	SkinHeader(WorldQuestObjectiveTracker.Header)
-	SkinHeader(AchievementObjectiveTracker.Header)
-
-	CampaignQuestObjectiveTracker.Header:SetScript("OnMouseDown", function()
-			if CampaignQuestObjectiveTracker:IsCollapsed() then
-			CampaignQuestObjectiveTracker:SetCollapsed(false);
-			else
-			CampaignQuestObjectiveTracker:SetCollapsed(true);
-			end
-	end)
-	QuestObjectiveTracker.Header:SetScript("OnMouseDown", function()
-			if QuestObjectiveTracker:IsCollapsed() then
-			QuestObjectiveTracker:SetCollapsed(false);
-			else
-			QuestObjectiveTracker:SetCollapsed(true);
-			end
-	end)
-	WorldQuestObjectiveTracker.Header:SetScript("OnMouseDown", function()
-			if WorldQuestObjectiveTracker:IsCollapsed() then
-			WorldQuestObjectiveTracker:SetCollapsed(false);
-			else
-			WorldQuestObjectiveTracker:SetCollapsed(true);
-			end
-	end)
-	AchievementObjectiveTracker.Header:SetScript("OnMouseDown", function()
-			if AchievementObjectiveTracker:IsCollapsed() then
-			AchievementObjectiveTracker:SetCollapsed(false);
-			else
-			AchievementObjectiveTracker:SetCollapsed(true);
-			end
-	end)
 
 	hooksecurefunc(ObjectiveTrackerFrame, "SetCollapsed", function(self, collapsed)
 		if collapsed then
@@ -418,6 +362,24 @@ for i = 1, #headers do
 	local header = headers[i].Header
 	if header then
 		header.Background:SetTexture(nil)
+		header.MinimizeButton:Hide()
+		header.Text:SetFont(C.media.pxfontHeader, 14, "THINOUTLINE")
+		header.Text:SetJustifyH("RIGHT")
+		header.Text:SetTextColor(unpack(C.media.border_color))
+		header.Text:SetDrawLayer("OVERLAY", 7)
+		header.Text:SetPoint("BOTTOMRIGHT", 0, 8)
+		HeaderPanel = CreateFrame("Frame", nil, header)
+		HeaderPanel:SetFrameLevel(header:GetFrameLevel() - 1)
+		HeaderPanel:SetFrameStrata("BACKGROUND")
+		HeaderPanel:SetOutside(header, 1, 1)
+
+		HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
+		HeaderBar:Size(header.Text:GetStringWidth(), 2)
+		HeaderBar:SetPoint("RIGHT", HeaderPanel, 0, -10)
+		HeaderBar:SetStatusBarTexture(C.media.blank)
+		HeaderBar:SetStatusBarColor(unpack(C.media.classborder_color))
+		HeaderBar:SetTemplate()
+		HeaderBar:CreateShadow()
 	end
 
 	local tracker = headers[i]
@@ -425,6 +387,27 @@ for i = 1, #headers do
 		hooksecurefunc(tracker, "AddBlock", SkinQuestIcons)
 		hooksecurefunc(tracker, "GetProgressBar", SkinProgressBar)
 		hooksecurefunc(tracker, "GetTimerBar", SkinTimer)
+		tracker.Header:SetScript("OnMouseDown", function()
+			if IsAltKeyDown() or IsShiftKeyDown() then
+				QuestObjectiveTracker:SetCollapsed(true)
+				WorldQuestObjectiveTracker:SetCollapsed(true)
+				CampaignQuestObjectiveTracker:SetCollapsed(true)
+				WorldQuestObjectiveTracker:SetCollapsed(true)
+				AchievementObjectiveTracker:SetCollapsed(true)
+			elseif IsControlKeyDown() then
+				QuestObjectiveTracker:SetCollapsed(false)
+				WorldQuestObjectiveTracker:SetCollapsed(false)
+				CampaignQuestObjectiveTracker:SetCollapsed(false)
+				WorldQuestObjectiveTracker:SetCollapsed(false)
+				AchievementObjectiveTracker:SetCollapsed(false)
+			else
+				if tracker:IsCollapsed() then
+				tracker:SetCollapsed(false);
+				else
+				tracker:SetCollapsed(true);
+				end
+			end
+		end)
 	end
 end
 
