@@ -7,6 +7,32 @@ if C.skins.blizzard_frames ~= true then return end
 local function LoadSkin()
 	if C.bag.enable == true or T.anotherBags then return end
 
+	local function SkinBagSlots(self)
+		for button in self.itemButtonPool:EnumerateActive() do
+			if not button.styled then
+				local icon = button.icon
+
+				button.IconBorder:SetAlpha(0)
+
+				button:SetNormalTexture(0)
+				button:StyleButton()
+				button:SetTemplate("Default")
+
+				icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				icon:ClearAllPoints()
+				icon:SetPoint("TOPLEFT", 2, -2)
+				icon:SetPoint("BOTTOMRIGHT", -2, 2)
+
+				button.IconQuestTexture:SetAlpha(0)
+				if button.Background then
+					button.Background:SetAlpha(0)
+				end
+
+				button.styled = true
+			end
+		end
+	end
+
 	-- Container Frame
 	BagItemSearchBox:StripTextures(true)
 	BagItemSearchBox:CreateBackdrop("Overlay")
@@ -60,6 +86,9 @@ local function LoadSkin()
 		end
 	end
 
+	hooksecurefunc(ContainerFrameCombinedBags, "UpdateItemSlots", SkinBagSlots)
+	hooksecurefunc(ContainerFrameCombinedBags, "UpdateItems", updateQuestItems)
+
 	for i = 1, NUM_CONTAINER_FRAMES do
 		local frame = _G["ContainerFrame"..i]
 		local close = _G["ContainerFrame"..i].CloseButton
@@ -84,30 +113,8 @@ local function LoadSkin()
 
 		T.SkinCloseButton(close, frame.backdrop)
 
-		for j = 1, 36 do
-			local item = _G["ContainerFrame"..i.."Item"..j]
-			local icon = _G["ContainerFrame"..i.."Item"..j.."IconTexture"]
-			local quest = _G["ContainerFrame"..i.."Item"..j.."IconQuestTexture"]
-			local border = _G["ContainerFrame"..i.."Item"..j].IconBorder
-
-			border:SetAlpha(0)
-
-			item:SetNormalTexture(0)
-			item:StyleButton()
-			item:SetTemplate("Default")
-
-			icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			icon:ClearAllPoints()
-			icon:SetPoint("TOPLEFT", 2, -2)
-			icon:SetPoint("BOTTOMRIGHT", -2, 2)
-
-			quest:SetAlpha(0)
-		end
-
-		-- Color QuestItem
-		hooksecurefunc(frame, "UpdateItems", function(self)
-			updateQuestItems(self)
-		end)
+		hooksecurefunc(frame, "UpdateItemSlots", SkinBagSlots)
+		hooksecurefunc(frame, "UpdateItems", updateQuestItems)
 	end
 
 	BackpackTokenFrame:StripTextures(true)
@@ -143,8 +150,7 @@ local function LoadSkin()
 	BankItemAutoSortButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
 	BankItemAutoSortButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
 
-	BankFrameMoneyFrameInset:StripTextures()
-	BankFrameMoneyFrameBorder:StripTextures()
+	BankFrameMoneyFrameBorder:Hide()
 
 	BankFramePurchaseButton:SkinButton()
 	T.SkinCloseButton(BankFrameCloseButton, BankFrame.backdrop)
@@ -190,7 +196,7 @@ local function LoadSkin()
 	end
 
 	-- Tabs
-	for i = 1, 2 do
+	for i = 1, 3 do
 		T.SkinTab(_G["BankFrameTab"..i])
 	end
 
@@ -228,10 +234,6 @@ local function LoadSkin()
 		end
 	end)
 
-	-- Color QuestItem
-	hooksecurefunc(ContainerFrameCombinedBags, "UpdateItems", function(self)
-		updateQuestItems(self)
-	end)
 
 	hooksecurefunc("BankFrameItemButton_Update", function(frame)
 		if not frame.isBag and frame.IconQuestTexture:IsShown() then
@@ -315,6 +317,59 @@ local function LoadSkin()
 			-- freeScreenHeight = freeScreenHeight - frame:GetHeight() - 3
 		-- end
 	end)
+
+	-- Warband
+	AccountBankPanel:StripTextures()
+
+	hooksecurefunc(AccountBankPanel, "GenerateItemSlotsForSelectedTab", SkinBagSlots)
+
+	local function SkinBankTab(button)
+		if not button.styled then
+			button.Border:SetAlpha(0)
+
+			if button.Background then
+				button.Background:SetAlpha(0)
+			end
+
+			button:SetTemplate("Default")
+			button:StyleButton()
+
+			button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+			button.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
+			button.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
+
+			button.Icon:ClearAllPoints()
+			button.Icon:SetPoint("TOPLEFT", 2, -2)
+			button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+			button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+			button.styled = true
+		end
+	end
+
+	hooksecurefunc(AccountBankPanel, "RefreshBankTabs", function(self)
+		for tab in self.bankTabPool:EnumerateActive() do
+			SkinBankTab(tab)
+		end
+	end)
+	SkinBankTab(AccountBankPanel.PurchaseTab)
+
+	AccountBankPanel.ItemDepositFrame.DepositButton:SkinButton()
+	T.SkinCheckBox(AccountBankPanel.ItemDepositFrame.IncludeReagentsCheckbox)
+	AccountBankPanel.MoneyFrame.Border:Hide()
+	AccountBankPanel.MoneyFrame.WithdrawButton:SkinButton()
+	AccountBankPanel.MoneyFrame.DepositButton:SkinButton()
+
+	AccountBankPanel.PurchasePrompt:StripTextures()
+	AccountBankPanel.PurchasePrompt:CreateBackdrop("Overlay")
+	AccountBankPanel.PurchasePrompt.backdrop:SetPoint("TOPLEFT", 4, -2)
+	AccountBankPanel.PurchasePrompt.backdrop:SetPoint("BOTTOMRIGHT", -4, 2)
+	AccountBankPanel.PurchasePrompt.backdrop:SetFrameLevel(AccountBankPanel.PurchasePrompt.backdrop:GetFrameLevel() + 1)
+
+	AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton:SkinButton()
+	AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton:SetFrameLevel(AccountBankPanel.PurchasePrompt:GetFrameLevel() + 3)
+
+	T.SkinIconSelectionFrame(AccountBankPanel.TabSettingsMenu)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)
