@@ -46,11 +46,7 @@ local function LoadSkin()
 	}
 
 	for i = 1, #filterButtons do
-		filterButtons[i]:SkinButton()
-		T.SkinCloseButton(filterButtons[i].ResetButton)
-		filterButtons[i].ResetButton:ClearAllPoints()
-		filterButtons[i].ResetButton:SetPoint("CENTER", filterButtons[i], "TOPRIGHT", 0, 0)
-		filterButtons[i]:SetHeight(22)
+		T.SkinFilter(filterButtons[i], true)
 	end
 
 	for i = 1, 3 do
@@ -476,14 +472,18 @@ local function LoadSkin()
 	-- Wardrobe
 	T.SkinFrame(WardrobeFrame)
 	T.SkinDropDownBox(WardrobeCollectionFrame.ClassDropdown)
-	-- WardrobeOutfitDropDown:SetSize(221, 34)
-	-- WardrobeOutfitDropDown.SaveButton:SkinButton()
-	-- WardrobeOutfitDropDown.SaveButton:SetPoint("TOPLEFT", WardrobeOutfitDropDown, "TOPRIGHT", -2, -2)
+
+	T.SkinDropDownBox(WardrobeTransmogFrame.OutfitDropdown)
+	WardrobeTransmogFrame.OutfitDropdown:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 5, 28)
+	WardrobeTransmogFrame.OutfitDropdown:SetWidth(195)
+	WardrobeTransmogFrame.OutfitDropdown.SaveButton:SkinButton()
+	WardrobeTransmogFrame.OutfitDropdown.SaveButton:SetHeight(23)
+	WardrobeTransmogFrame.OutfitDropdown.SaveButton:SetPoint("TOPLEFT", WardrobeTransmogFrame.OutfitDropdown, "TOPRIGHT", 3, -1)
 	WardrobeTransmogFrame:StripTextures()
 	WardrobeTransmogFrame.Inset:StripTextures()
-	-- WardrobeTransmogFrame.SpecButton:SkinButton()
 	WardrobeTransmogFrame.ApplyButton:SkinButton()
-	-- WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -2, 0)
+	WardrobeTransmogFrame.SpecDropdown:SkinButton()
+	WardrobeTransmogFrame.SpecDropdown:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -2, 0)
 	WardrobeTransmogFrame.ModelScene.ClearAllPendingButton:SkinButton()
 	T.SkinCheckBox(WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox)
 
