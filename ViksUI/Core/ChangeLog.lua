@@ -3,7 +3,9 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 11.03 for Wow 11 TWW ",
+	"Update 11.04 for Wow 11 TWW ",
+	"• More skins updated",
+	"• ObjectiveTrackerFrame adjusted",
 	"• Working state for TWW",
 	"• Check Github for full changelog",
 
