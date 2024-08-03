@@ -141,6 +141,7 @@ end
 
 local function StuffingBank_OnHide()
 	if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then return end
+	if _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then return end
 	C_Bank.CloseBankFrame()
 	if Stuffing.frame:IsShown() then
 		Stuffing.frame:Hide()
@@ -150,6 +151,9 @@ end
 
 local function Stuffing_OnHide()
 	if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
+		C_Bank.CloseBankFrame()
+	end
+	if _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then
 		C_Bank.CloseBankFrame()
 	end
 	if Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
@@ -241,6 +245,7 @@ function Stuffing:SlotUpdate(b)
 	b.frame.Azerite:Hide()
 	b.frame.Conduit:Hide()
 	b.frame.Conduit2:Hide()
+	b.frame.Cosmetic:Hide()
 	b.frame.profQuality:Hide()
 
 	b.frame:UpdateItemContextMatching() -- Update Scrap items
@@ -274,7 +279,7 @@ function Stuffing:SlotUpdate(b)
 				b.itemlevel = tonumber(b.itemlevel) or 0
 				b.frame.text:SetText(b.itemlevel)
 			else
-				if b.itemlevel and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4 or (b.itemClassID == 3 and b.itemSubClassID == 11)) then
+				if b.itemlevel and b.itemlevel > 1 and quality > 1 and (b.itemClassID == 2 or b.itemClassID == 4 or (b.itemClassID == 3 and b.itemSubClassID == 11)) then
 					b.itemlevel = _getRealItemLevel(clink, b.bag, b.slot) or b.itemlevel
 					b.frame.text:SetText(b.itemlevel)
 				end
@@ -288,6 +293,8 @@ function Stuffing:SlotUpdate(b)
 		if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(clink) then
 			b.frame.Azerite:SetAtlas("AzeriteIconFrame")
 			b.frame.Azerite:Show()
+		elseif C_Item.IsCosmeticItem(clink) then
+			b.frame.Cosmetic:Show()
 		elseif C_Soulbinds.IsItemConduitByItemInfo(clink) then
 			b.frame.Conduit:SetAtlas("ConduitIconFrame")
 			b.frame.Conduit:Show()
@@ -527,6 +534,157 @@ function Stuffing:CreateReagentContainer()
 	ReagentBankFrameUnlockInfoPurchaseButton:SkinButton()
 end
 
+function Stuffing:SkinWarbandContainer()
+	local warbandFrame = CreateFrame("Frame", "StuffingFrameWarband", UIParent)
+	warbandFrame:SetWidth(((C.bag.button_size + C.bag.button_space) * 14) + 17)
+	warbandFrame:SetHeight(((C.bag.button_size + C.bag.button_space) * (7 + 1) + 70) - C.bag.button_space)
+	warbandFrame:SetPoint("TOPLEFT", _G["StuffingFrameBank"], "TOPLEFT", 0, 0)
+	warbandFrame:SetTemplate("Transparent")
+
+	AccountBankPanel.Header.Text:SetFont(C.media.normal_font, 12)
+	AccountBankPanel.Header:SetPoint("TOP", AccountBankPanel, "TOP", 0, -3)
+
+	AccountBankPanel.ItemDepositFrame.DepositButton:SetWidth(200)
+	AccountBankPanel.ItemDepositFrame.DepositButton:ClearAllPoints()
+	AccountBankPanel.ItemDepositFrame.DepositButton:SetPoint("BOTTOMLEFT", AccountBankPanel, "BOTTOMLEFT", 10, 38)
+
+	AccountBankPanel.MoneyFrame:SetPoint("BOTTOMRIGHT", AccountBankPanel, "BOTTOMRIGHT", -10, 3)
+
+	local SwitchBankButton = CreateFrame("Button", nil, warbandFrame)
+	SwitchBankButton:SetSize(80, 20)
+	SwitchBankButton:SkinButton()
+	SwitchBankButton:SetPoint("TOPLEFT", 10, -4)
+	SwitchBankButton:FontString("text", C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
+	SwitchBankButton.text:SetPoint("CENTER")
+	SwitchBankButton.text:SetText(BANK)
+	SwitchBankButton:SetScript("OnClick", function()
+		BankFrame_ShowPanel(BANK_PANELS[1].name)
+		warbandFrame:Hide()
+		_G["StuffingFrameBank"]:Show()
+		PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
+	end)
+
+	-- Close button
+	local Close = CreateFrame("Button", "StuffingCloseButtonWarband", warbandFrame, "UIPanelCloseButton")
+	T.SkinCloseButton(Close, nil, nil, true)
+	Close:SetSize(15, 15)
+	Close:RegisterForClicks("AnyUp")
+	Close:SetScript("OnClick", function(self, btn)
+		if btn == "RightButton" then
+			if Stuffing_DDMenu.initialize ~= Stuffing.Menu then
+				CloseDropDownMenus()
+				Stuffing_DDMenu.initialize = Stuffing.Menu
+			end
+			ToggleDropDownMenu(nil, nil, Stuffing_DDMenu, self:GetName(), 0, 0)
+			return
+		else
+			warbandFrame:Hide()
+			StuffingBank_OnHide()
+		end
+	end)
+
+	AccountBankPanel:StripTextures()
+	AccountBankPanel:SetParent(warbandFrame)
+	AccountBankPanel:ClearAllPoints()
+	AccountBankPanel:SetAllPoints()
+
+	hooksecurefunc(AccountBankPanel, "GenerateItemSlotsForSelectedTab", function(self)
+		for button in self.itemButtonPool:EnumerateActive() do
+			if not button.styled then
+				local icon = button.icon
+
+				button:SetNormalTexture(0)
+				button:StyleButton()
+				button:SetTemplate("Default")
+
+				T.SkinIconBorder(button.IconBorder, button)
+
+				icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				icon:ClearAllPoints()
+				icon:SetPoint("TOPLEFT", 2, -2)
+				icon:SetPoint("BOTTOMRIGHT", -2, 2)
+
+				if button.IconOverlay then
+					button.IconOverlay:ClearAllPoints()
+					button.IconOverlay:SetPoint("TOPLEFT", 2, -2)
+					button.IconOverlay:SetPoint("BOTTOMRIGHT", -2, 2)
+				end
+
+				button.Count:SetFont(C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
+				button.Count:SetShadowOffset(C.font.bags_font_shadow and 1 or 0, C.font.bags_font_shadow and -1 or 0)
+				button.Count:SetPoint("BOTTOMRIGHT", 1, 1)
+
+				button.IconQuestTexture:SetAlpha(0)
+				if button.Background then
+					button.Background:SetAlpha(0)
+				end
+
+				-- Reposition
+				button:SetSize(C.bag.button_size, C.bag.button_size)
+				hooksecurefunc(button, "SetPoint", function(self, point, anchor, attachTo, x, y)
+					if x == 8 or x == 19 then
+						self:SetPoint(point, anchor, attachTo, 3, y)
+					elseif y == -10 then
+						self:SetPoint(point, anchor, attachTo, x, -3)
+					elseif y == -63 then
+						self:SetPoint(point, anchor, attachTo, 10, -27)
+					end
+				end)
+
+				button.styled = true
+			end
+		end
+	end)
+
+	local function SkinBankTab(button)
+		if not button.styled then
+			button.Border:SetAlpha(0)
+
+			if button.Background then
+				button.Background:SetAlpha(0)
+			end
+
+			button:SetTemplate("Default")
+			button:StyleButton()
+
+			button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+			button.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
+			button.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
+
+			button.Icon:ClearAllPoints()
+			button.Icon:SetPoint("TOPLEFT", 2, -2)
+			button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+			button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+			button.styled = true
+		end
+	end
+
+	hooksecurefunc(AccountBankPanel, "RefreshBankTabs", function(self)
+		for tab in self.bankTabPool:EnumerateActive() do
+			SkinBankTab(tab)
+		end
+	end)
+	SkinBankTab(AccountBankPanel.PurchaseTab)
+
+	AccountBankPanel.ItemDepositFrame.DepositButton:SkinButton()
+	T.SkinCheckBox(AccountBankPanel.ItemDepositFrame.IncludeReagentsCheckbox)
+	AccountBankPanel.MoneyFrame.Border:Hide()
+	AccountBankPanel.MoneyFrame.WithdrawButton:SkinButton()
+	AccountBankPanel.MoneyFrame.DepositButton:SkinButton()
+
+	AccountBankPanel.PurchasePrompt:StripTextures()
+	AccountBankPanel.PurchasePrompt:SetTemplate("Overlay")
+	AccountBankPanel.PurchasePrompt:SetAllPoints(warbandFrame)
+	AccountBankPanel.PurchasePrompt:SetFrameStrata("FULLSCREEN")
+
+	AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton:SkinButton()
+	AccountBankPanel.PurchasePrompt.TabCostFrame.PurchaseButton:SetFrameLevel(AccountBankPanel.PurchasePrompt:GetFrameLevel() + 3)
+
+	T.SkinIconSelectionFrame(AccountBankPanel.TabSettingsMenu)
+
+	BankFrame_ShowPanel(BANK_PANELS[3].name)
+end
 function Stuffing:BagFrameSlotNew(p, slot)
 	for _, v in ipairs(self.bagframe_buttons) do
 		if v.slot == slot then
@@ -717,6 +875,12 @@ function Stuffing:SlotNew(bag, slot)
 		ret.frame.Conduit2:SetPoint("TOPLEFT", ret.frame, 2, -2)
 		ret.frame.Conduit2:SetPoint("BOTTOMRIGHT", ret.frame, -2, 2)
 		ret.frame.Conduit2:Hide()
+
+		ret.frame.Cosmetic = ret.frame:CreateTexture(nil, "ARTWORK")
+		ret.frame.Cosmetic:SetAtlas("CosmeticIconFrame")
+		ret.frame.Cosmetic:SetPoint("TOPLEFT", ret.frame, 2, -2)
+		ret.frame.Cosmetic:SetPoint("BOTTOMRIGHT", ret.frame, -2, 2)
+		ret.frame.Cosmetic:Hide()
 
 		ret.frame.profQuality = ret.frame:CreateTexture(nil, "ARTWORK")
 		ret.frame.profQuality:SetPoint("TOPLEFT", ret.frame, 0, 0)
@@ -991,37 +1155,28 @@ function Stuffing:CreateBagFrame(w)
 		f.b_reagent.text:SetText(REAGENT_BANK)
 		f.b_reagent:SetFontString(f.b_reagent.text)
 
-		 -- Warband button
+		-- Warband button
 		f.b_warband = CreateFrame("Button", "StuffingWarbandButton"..w, f)
 		f.b_warband:SetSize(105, 20)
 		f.b_warband:SetPoint("TOPLEFT", f.b_reagent, "TOPRIGHT", 3, 0)
 		f.b_warband:RegisterForClicks("AnyUp")
 		f.b_warband:SkinButton()
 		f.b_warband:SetScript("OnClick", function()
-			if C_Bank.CanPurchaseBankTab(Enum.BankType.Account) then
-				StaticPopup_Show("CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = Enum.BankType.Account})
+			if not AccountBankPanel.isMade then
+				self:SkinWarbandContainer()
+				AccountBankPanel.isMade = true
 			else
-				PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-				AccountBankPanel:Show()
-				BankFrame.selectedTab = 3
-				BankFrame.activeTabIndex = 3
+				BankFrame_ShowPanel(BANK_PANELS[3].name)
+				_G["StuffingFrameWarband"]:Show()
 			end
 
-			-- --FIXME BankFrame_ShowPanel(BANK_PANELS[3].name)
-			-- -- PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
-			-- -- if not ReagentBankFrame.isMade then
-				-- -- self:CreateReagentContainer()
-				-- -- ReagentBankFrame.isMade = true
-			-- -- else
-				-- -- _G["StuffingFrameReagent"]:Show()
-			-- -- end
-			-- -- _G["StuffingFrameBank"]:Hide()
+			PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
+			_G["StuffingFrameBank"]:Hide()
 		end)
 		f.b_warband:FontString("text", C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
 		f.b_warband.text:SetPoint("CENTER")
 		f.b_warband.text:SetText(ACCOUNT_BANK_PANEL_TITLE)
 		f.b_warband:SetFontString(f.b_warband.text)
-		f.b_warband:SetAlpha(0) -- Disable for now
 
 		-- Buy button
 		f.b_purchase = CreateFrame("Button", "StuffingPurchaseButton"..w, f)
@@ -1528,6 +1683,7 @@ function Stuffing:ADDON_LOADED(addon)
 
 	tinsert(UISpecialFrames, "StuffingFrameBags")
 	tinsert(UISpecialFrames, "StuffingFrameReagent")
+	tinsert(UISpecialFrames, "StuffingFrameWarband")
 
 	ToggleBackpack = Stuffing_Toggle
 	ToggleBag = Stuffing_Toggle
@@ -1634,6 +1790,9 @@ end
 function Stuffing:BANKFRAME_CLOSED()
 	if StuffingFrameReagent then
 		StuffingFrameReagent:Hide()
+	end
+	if StuffingFrameWarband then
+		StuffingFrameWarband:Hide()
 	end
 	if self.bankFrame then
 		self.bankFrame:Hide()
@@ -1788,6 +1947,8 @@ function Stuffing:SortBags()
 	local bagList
 	if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
 		bagList = {-3}
+	elseif _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then
+		bagList = {13, 14, 15, 16, 17}
 	elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
 		bagList = {12, 11, 10, 9, 8, 7, 6, -1}
 	else
@@ -2016,6 +2177,8 @@ function Stuffing.Menu(self, level)
 	info.func = function()
 		if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
 			C_Container.SortReagentBankBags()
+		elseif _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then
+			C_Container.SortAccountBankBags()
 		elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
 			C_Container.SortBankBags()
 		else
