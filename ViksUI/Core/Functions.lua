@@ -304,7 +304,8 @@ T.CreateBtn = function(buttonname, buttonparent, buttonwidth, buttonheight, tool
 	end)
 
 	-- set attributes
-	button:SetAttribute("type1", "macro")
+	button:SetAttribute("type", "macro")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 
 	-- Overlay texture
 	button:CreateOverlay()
