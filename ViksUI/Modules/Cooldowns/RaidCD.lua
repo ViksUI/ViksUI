@@ -17,18 +17,16 @@ local floor = math.floor
 local currentNumResses = 0
 local charges = nil
 local inBossCombat = nil
-local timer = 0
-local inEncounter
 local Ressesbars = {}
 local bars = {}
 
-AnchorRaidCD = CreateFrame("Frame","Move_RaidCD",UIParent)
-AnchorRaidCD:SetPoint("TOPLEFT", 5, -230)
-CreateAnchor2(AnchorRaidCD, "Move RaidCD", 186 + 32, 192)
-
 local RaidCDAnchor = CreateFrame("Frame", "RaidCDAnchor", UIParent)
-RaidCDAnchor:SetPoint("BOTTOM", AnchorRaidCD)
-RaidCDAnchor:SetSize(186 + 32, 20)
+RaidCDAnchor:SetPoint(unpack(C.position.raid_cooldown))
+if C.raidcooldown.show_icon == true then
+	RaidCDAnchor:SetSize(C.raidcooldown.width + 32, C.raidcooldown.height + 10)
+else
+	RaidCDAnchor:SetSize(C.raidcooldown.width + 32, C.raidcooldown.height + 4)
+end
 
 local FormatTime = function(time)
 	if time >= 60 then
@@ -51,7 +49,7 @@ end
 
 local UpdatePositions = function()
 	if charges and Ressesbars[1] then
-		Ressesbars[1]:SetPoint("BOTTOMRIGHT", RaidCDAnchor, "BOTTOMRIGHT", 0, 0)
+		Ressesbars[1]:SetPoint("BOTTOMRIGHT", RaidCDAnchor, "BOTTOMRIGHT", 0, C.raidcooldown.show_icon and -8 or -2)
 		Ressesbars[1].id = 1
 		for i = 1, #bars do
 			bars[i]:ClearAllPoints()
@@ -74,7 +72,7 @@ local UpdatePositions = function()
 		for i = 1, #bars do
 			bars[i]:ClearAllPoints()
 			if i == 1 then
-				bars[i]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
+				bars[i]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", -2, C.raidcooldown.show_icon and -8 or -2)
 			else
 				if C.raidcooldown.upwards == true then
 					bars[i]:SetPoint("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
@@ -145,21 +143,18 @@ local OnMouseDown = function(self, button)
 		if self.isResses then
 			SendChatMessage(sformat(L_COOLDOWNS_COMBATRESS_REMAINDER.."%d, "..L_COOLDOWNS_NEXTTIME.."%s.", currentNumResses, self.right:GetText()), T.CheckChat())
 		else
-			SendChatMessage(sformat(L_COOLDOWNS.."%s - %s: %s", self.name, GetSpellLink(self.spellId), self.right:GetText()), T.CheckChat())
+			SendChatMessage(sformat(L_COOLDOWNS.."%s - %s: %s", self.name, C_Spell.GetSpellLink(self.spellId), self.right:GetText()), T.CheckChat())
 		end
 	elseif button == "RightButton" then
 		StopTimer(self)
 	end
 end
 
+local barWidth = C.raidcooldown.width + (C.raidcooldown.show_icon and 0 or 28)
 local CreateBar = function()
 	local bar = CreateFrame("Statusbar", nil, UIParent)
 	bar:SetFrameStrata("MEDIUM")
-	if C.raidcooldown.show_icon == true then
-		bar:SetSize(C.raidcooldown.width, C.raidcooldown.height)
-	else
-		bar:SetSize(C.raidcooldown.width + 28, C.raidcooldown.height)
-	end
+	bar:SetSize(barWidth, C.raidcooldown.height)
 	bar:SetStatusBarTexture(C.media.texture)
 	bar:SetMinMaxValues(0, 100)
 	bar:CreateBackdrop("Default")
@@ -171,7 +166,7 @@ local CreateBar = function()
 	bar.left = CreateFS(bar)
 	bar.left:SetPoint("LEFT", 2, 0)
 	bar.left:SetJustifyH("LEFT")
-	bar.left:SetSize(C.raidcooldown.width - 30, C.font.raid_cooldowns_font_size)
+	bar.left:SetSize(barWidth - 30 - ((C.font.raid_cooldowns_font_size - 8) * 2), C.font.raid_cooldowns_font_size)
 
 	bar.right = CreateFS(bar)
 	bar.right:SetPoint("RIGHT", 1, 0)
@@ -335,7 +330,7 @@ end
 for spell in pairs(T.RaidSpells) do
 	local name = GetSpellInfo(spell)
 	if not name then
-		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in RaidCD! Report this to Viks.|r")
+		print("|cffff0000ViksUI: RaidCD spell ID ["..tostring(spell).."] no longer exists!|r")
 	end
 end
 
