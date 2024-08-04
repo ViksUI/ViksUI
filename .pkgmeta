@@ -1,7 +1,10 @@
 package-as: ViksUI
-manual-changelog: CHANGELOG.txt
 move-folders:
     ViksUI/ViksUI: ViksUI
     ViksUI/Viks_ConfigUI: Viks_ConfigUI
+
 ignore:
+  - .github/*
   - README.md
+  - */CHANGELOG.md
+  - CHANGELOG.md
