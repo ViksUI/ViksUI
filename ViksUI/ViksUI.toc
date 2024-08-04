@@ -2,7 +2,7 @@
 ## Title: |cff105c92ViksUI|r
 ## Notes: A total UI overhaul for World of Warcraft
 ## Author: Viks, Tryllemann
-## Version: 11.062
+## Version: 11.05
 ## OptionalDeps: Blizzard_CombatText, Blizzard_DebugTools, Blizzard_PetJournal, SharedMedia, Viks_ConfigUI, Masque, Bartender4, Skada, KLE, DBM, TinyDPS, DXE, Blizzard_CombatText, alEnemyCD, alRaidCD, AtlasLoot, caelNamePlates, cargBags, Clique, dNameplates, eCastingBar, epgp, Grid, Grid2, Mapster, Omen, oUF_Freebgrid, PitBull4, Postal, Prat-3.0, Quartz, Recount, ShadowedUnitFrames, sThreatMeter2, Stuf, TidyPlates, TipTac, TipTacTalents, TradeSkillMaster_Mailing, OPie, tullaCC, VuhDo, _NPCScan.Overlay, Rematch, ls_Toasts, RaiderIO, ViksUI_Profile
 ## SavedVariables: ViksUISettings, ViksUIStats, ViksUIBindings, ViksUICurrency, ViksUIPositions
 ## SavedVariablesPerCharacter: ViksUISettingsPerChar, StuffingDB, ViksUIPositions, ViksUIChatHistory, ViksUIPositionsPerChar

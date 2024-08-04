@@ -5,7 +5,7 @@ local ChangeLogData = {
 "Changes:",
 	"NOTE: Check that ViksUI Config addon is not missing!",
 	"Some auto packing failure at Curse pushes",
-	"Update 11.06 for Wow 11 TWW ",
+	"Update 11.05 for Wow 11 TWW ",
 	"• More Blizz skins updated",
 	"• Warband added to bags",
 	"• Improved Wowhead Link",
