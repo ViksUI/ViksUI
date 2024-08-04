@@ -3,17 +3,16 @@
 ## Notes: In-game configuration for ViksUI
 ## Credits to: Wetxius, Tukz, Dawn, Shestak, Haste, Roth, P3lim, Monolit, AlleyKat.
 ## Author: Viks, Tryllemann
-## Version: 11.04
+## Version: 11.05
 ## RequiredDeps: ViksUI
 ## SavedVariables: ViksUIOptionsGlobal, ViksUIOptions
 ## SavedVariablesPerCharacter: ViksUIOptionsPerChar
 ## IconTexture: Interface\AddOns\ViksUI\Media\Textures\viksicon.blp
 
-## X-Curse-Packaged-Version: 11.04
-## X-Curse-Project-Name: ViksUI
-## X-Curse-Project-ID: viksui
+## X-Curse-Project-ID: 83550
 ## X-WoWI-ID: 21462
-## X-Website: http://www.wowinterface.com/downloads/info21462-ViksUI.html
+## X-Wago-ID: q96dn1GO
+## X-Website: https://github.com/ViksUI/ViksUI
 
 Locales\English.lua
 Locales\Chinese.lua

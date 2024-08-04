@@ -3,10 +3,12 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 11.04 for Wow 11 TWW ",
-	"• More skins updated",
-	"• ObjectiveTrackerFrame adjusted",
-	"• Working state for TWW",
+	"NOTE: Check that ViksUI Config addon is not missing!",
+	"Some auto packing failure at Curse pushes",
+	"Update 11.05 for Wow 11 TWW ",
+	"• More Blizz skins updated",
+	"• Warband added to bags",
+	"• Improved Wowhead Link",
 	"• Check Github for full changelog",
 
 " ",
