@@ -414,10 +414,10 @@ for i = 1, #headers do
 		end)
 		hooksecurefunc(tracker, "OnBlockHeaderClick", function(_, block)
 			if IsControlKeyDown() then
-				ToggleGameMenu()
+				Menu.GetManager():HandleESC()
 				QuestMapQuestOptions_AbandonQuest(block.id)
 			elseif IsAltKeyDown() and C_QuestLog.IsPushableQuest(block.id) then
-				ToggleGameMenu()
+				Menu.GetManager():HandleESC()
 				QuestMapQuestOptions_ShareQuest(block.id)
 			end
 		end)
@@ -592,10 +592,10 @@ end)
 ----------------------------------------------------------------------------------------
 hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self)
 	if IsControlKeyDown() then
-		ToggleGameMenu()
+		Menu.GetManager():HandleESC()
 		QuestMapQuestOptions_AbandonQuest(self.questID)
 	elseif IsAltKeyDown() and C_QuestLog.IsPushableQuest(self.questID) then
-		ToggleGameMenu()
+		Menu.GetManager():HandleESC()
 		QuestMapQuestOptions_ShareQuest(self.questID)
 	end
 end)
