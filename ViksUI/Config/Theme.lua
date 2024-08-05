@@ -16,41 +16,50 @@ theme.t:SetPoint("TOPLEFT", theme, 2, -2)
 theme.t:SetPoint("BOTTOMRIGHT", theme, -2, 2)
 
 local function ThemeBorderC(r, g, b, a)
-	if not ViksUIOptionsGlobal then return end
-	if ViksUIOptionsGlobal[T.realm][T.name] == true then
-		if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
-		if ViksUIOptionsPerChar["media"] == nil then ViksUIOptionsPerChar["media"] = {} end
-		ViksUIOptionsPerChar["media"]["border_color"] = {r, g, b, a}
-	else
-		if ViksUIOptions == nil then ViksUIOptions = {} end
-		if ViksUIOptions["media"] == nil then ViksUIOptions["media"] = {} end
-		ViksUIOptions["media"]["border_color"] = {r, g, b, a}
+	if ViksUIOptionsGlobal then
+		if ViksUIOptionsGlobal[T.realm] and ViksUIOptionsGlobal[T.realm][T.name] and ViksUIOptionsGlobal[T.realm]["Current_Profile"] then
+			local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+			ViksUIOptionsPerChar[i]["media"]["border_color"] = {r, g, b, a}
+		else
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			ViksUIOptions[i]["media"]["border_color"] = {r, g, b, a}
+		end
 	end
 end
 
 local function ThemeBackdropC(r, g, b, a)
-	if not ViksUIOptionsGlobal then return end
-	if ViksUIOptionsGlobal[T.realm][T.name] == true then
-		if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
-		if ViksUIOptionsPerChar["media"] == nil then ViksUIOptionsPerChar["media"] = {} end
-		ViksUIOptionsPerChar["media"]["backdrop_color"] = {r, g, b, a}
-	else
-		if ViksUIOptions == nil then ViksUIOptions = {} end
-		if ViksUIOptions["media"] == nil then ViksUIOptions["media"] = {} end
-		ViksUIOptions["media"]["backdrop_color"] = {r, g, b, a}
+	if ViksUIOptionsGlobal then
+		if ViksUIOptionsGlobal[T.realm] and ViksUIOptionsGlobal[T.realm][T.name] and ViksUIOptionsGlobal[T.realm]["Current_Profile"] then
+			local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+			ViksUIOptionsPerChar[i]["media"]["backdrop_color"] = {r, g, b, a}
+		else
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			ViksUIOptions[i]["media"]["backdrop_color"] = {r, g, b, a}
+		end
 	end
 end
 
 local function ThemeOverlayC(r, g, b, a)
-	if not ViksUIOptionsGlobal then return end
-	if ViksUIOptionsGlobal[T.realm][T.name] == true then
-		if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
-		if ViksUIOptionsPerChar["media"] == nil then ViksUIOptionsPerChar["media"] = {} end
-		ViksUIOptionsPerChar["media"]["overlay_color"] = {r, g, b, a}
-	else
-		if ViksUIOptions == nil then ViksUIOptions = {} end
-		if ViksUIOptions["media"] == nil then ViksUIOptions["media"] = {} end
-		ViksUIOptions["media"]["overlay_color"] = {r, g, b, a}
+	if ViksUIOptionsGlobal then
+		if ViksUIOptionsGlobal[T.realm] and ViksUIOptionsGlobal[T.realm][T.name] and ViksUIOptionsGlobal[T.realm]["Current_Profile"] then
+			local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+			ViksUIOptionsPerChar[i]["media"]["overlay_color"] = {r, g, b, a}
+		else
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			ViksUIOptions[i]["media"]["overlay_color"] = {r, g, b, a}
+		end
+	end
+end
+
+local function ThemeNoPanels(value)
+	if ViksUIOptionsGlobal then
+		if ViksUIOptionsGlobal[T.realm] and ViksUIOptionsGlobal[T.realm][T.name] and ViksUIOptionsGlobal[T.realm]["Current_Profile"] then
+			local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+			ViksUIOptionsPerChar[i]["panels"]["NoPanels"] = value
+		else
+			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			ViksUIOptions[i]["panels"]["NoPanels"] = value
+		end
 	end
 end
 
@@ -61,12 +70,14 @@ local thememenu = {
 		ThemeBorderC(0, .38, .651, 1)
 		ThemeBackdropC(.06,.06,.06, 1)
 		ThemeOverlayC(0, 0, 0, 0.9)
+		ThemeNoPanels(false)
 		ReloadUI()
 	end},
-	{text = "ClassicTransp", notCheckable = 1, func = function()
+	{text = "ClassicLine", notCheckable = 1, func = function()
 		ThemeBorderC(0, .38, .651, 1)
 		ThemeBackdropC(.06,.06,.06, 1)
 		ThemeOverlayC(0, 0, 0, 0.5)
+		ThemeNoPanels(true)
 		ReloadUI()
 	end},
 	{text = "TranspGray", notCheckable = 1, func = function()
