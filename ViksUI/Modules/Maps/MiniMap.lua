@@ -67,7 +67,7 @@ frame:SetScript("OnEvent", function(self, event)
 	hooksecurefunc(QueueStatusButton, "SetPoint", function(self, _, anchor)
 		if anchor ~= Minimap then
 			self:ClearAllPoints()
-			self:SetPoint("TOP", Minimap, "TOP", 1, -1)
+			self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 1, -1)
 		end
 	end)
 
