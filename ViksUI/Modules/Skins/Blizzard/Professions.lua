@@ -74,7 +74,7 @@ local function LoadSkin()
 	SchematicForm.MinimalBackground:SetAlpha(0)
 
 	T.SkinCheckBox(SchematicForm.TrackRecipeCheckbox, 24)
-	--FIXME T.SkinCheckBox(SchematicForm.AllocateBestQualityCheckBox, 24)
+	T.SkinCheckBox(SchematicForm.AllocateBestQualityCheckbox, 24)
 
 	local function skinDetails(frame)
 		frame:SetFrameLevel(frame:GetFrameLevel() + 1)
