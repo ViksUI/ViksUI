@@ -3,7 +3,7 @@ name: Package addon
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - '*.*.*'
       - '!*.*.*-*'
