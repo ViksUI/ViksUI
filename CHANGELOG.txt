@@ -1,2 +1,0 @@
-Changes:
-	Changelog: https://github.com/ViksUI/ViksUI/commits/master/
