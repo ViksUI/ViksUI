@@ -1,78 +1,75 @@
 local T, C, L = unpack(ViksUI)
 
 T.ChatSetup = function()
-	local IsPublicChannelFound = EnumerateServerChannels()
-	
-	if not IsPublicChannelFound then
-		-- Restart this function until we are able to query public channels
-		C_Timer.After(1, Chat.Reset)
-		
-		return
-	end
-	
+	local chats = _G.CHAT_FRAMES
 	FCF_ResetChatWindows()
-	FCF_SetLocked(ChatFrame1, 1)
-	FCF_DockFrame(ChatFrame2)
-	FCF_SetLocked(ChatFrame2, 1)
 
-	FCF_OpenNewWindow("T & L")
-	FCF_OpenNewWindow("Guild")
-	FCF_DockFrame(ChatFrame3)
-	FCF_SetLocked(ChatFrame3, 1)
-	FCF_UnDockFrame(ChatFrame4)
-	FCF_SetLocked(ChatFrame4, 1)
-	ChatFrame4:Show()
-	FCF_SetChatWindowFontSize(nil, ChatFrame1, 12)
-	FCF_SetChatWindowFontSize(nil, ChatFrame2, 12)
-	FCF_SetChatWindowFontSize(nil, ChatFrame3, 12)
-	FCF_SetChatWindowFontSize(nil, ChatFrame4, 12)	
-	DEFAULT_CHAT_FRAME:SetUserPlaced(true)
-	
-	local ChatGroup = {}
-	local Channels = {}
-	
-	for i=1, select("#", EnumerateServerChannels()), 1 do
-		Channels[i] = select(i, EnumerateServerChannels())
-	end
-	
-	-- Remove everything in first 4 chat windows
-	for i = 1, 4 do
-		if i ~= 2 then
-			local ChatFrame = _G["ChatFrame"..i]
+	-- force initialize the tts chat (it doesn't get shown unless you use it)
+	local voiceChat = _G[chats[3]]
+	FCF_ResetChatWindow(voiceChat, VOICE)
+	FCF_DockFrame(voiceChat, 3)
+	FCF_SetWindowName(ChatFrame1,"Party & Guild")
 
-			ChatFrame_RemoveAllMessageGroups(ChatFrame)
-			ChatFrame_RemoveAllChannels(ChatFrame)
+	local rightChat = FCF_OpenNewWindow(LOOT)
+	FCF_UnDockFrame(rightChat)
+
+	for id, name in next, chats do
+		local frame = _G[name]
+
+		if id == 1 then
+			frame:ClearAllPoints()
+			frame:SetWidth(LChat:GetWidth()-8)
+			frame:SetHeight(LChat:GetHeight()-8)
+			frame:SetPoint("BOTTOMLEFT",LChat,"BOTTOMLEFT",4,6)
+			frame:SetPoint("TOPRIGHT",LChat,"TOPRIGHT",-4,-2)
+			--frame:Point('BOTTOMLEFT', _G.LeftChatToggleButton, 'TOPLEFT', 1, 3)
+		elseif id == 2 then
+			FCF_SetWindowName(frame, GUILD_EVENT_LOG)
+		elseif id == 3 then
+			VoiceTranscriptionFrame_UpdateVisibility(frame)
+			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
+			VoiceTranscriptionFrame_UpdateEditBox(frame)
+		elseif id == 4 then
+			frame:ClearAllPoints()
+			frame:SetWidth(RChat:GetWidth()-8)
+			frame:SetHeight(RChat:GetHeight()-8)
+			frame:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
+			frame:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-2)
+			FCF_SetWindowName(frame, LOOT..' / '..TRADE)
 		end
-	end
-	
-	-- Join public channels
-	for i = 1, #Channels do
-		SlashCmdList["JOIN"](Channels[i])
-	end
-	
-	-- Fix a editbox texture
-	ChatEdit_ActivateChat(ChatFrame1EditBox)
-	ChatEdit_DeactivateChat(ChatFrame1EditBox)
 
-	-----------------------
-	-- ChatFrame 1 Setup --
-	-----------------------
-	
-	ChatGroup = {"SKILL", "LOOT", "MONEY", "OPENING", "COMBAT_MISC_INFO ", "COMBAT_XP_GAIN", "COMBAT_HONOR_GAIN", "ARENA_POINTS", "CURRENCY", "SAY", "EMOTE", "YELL", "MONSTER_SAY", "MONSTER_EMOTE", "MONSTER_YELL", "MONSTER_WHISPER", "MONSTER_BOSS_EMOTE", "MONSTER_BOSS_WHISPER", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "INSTANCE_CHAT", "INSTANCE_CHAT_LEADER", "BG_HORDE", "BG_ALLIANCE", "BG_NEUTRAL", "AFK", "DND", "ACHIEVEMENT"}
-	
-	for _, v in ipairs(ChatGroup) do
+		FCF_SetChatWindowFontSize(nil, frame, 12)
+		FCF_SavePositionAndDimensions(frame)
+		FCF_StopDragging(frame)
+	end
+
+	-- keys taken from `ChatTypeGroup` but doesnt add: 'OPENING', 'TRADESKILLS', 'PET_INFO', 'COMBAT_MISC_INFO', 'COMMUNITIES_CHANNEL', 'PET_BATTLE_COMBAT_LOG', 'PET_BATTLE_INFO', 'TARGETICONS'
+	local chatGroup = { 'SYSTEM', 'CHANNEL', 'SAY', 'EMOTE', 'YELL', 'WHISPER', 'PARTY', 'PARTY_LEADER', 'RAID', 'RAID_LEADER', 'RAID_WARNING', 'INSTANCE_CHAT', 'INSTANCE_CHAT_LEADER', 'GUILD', 'OFFICER', 'MONSTER_SAY', 'MONSTER_YELL', 'MONSTER_EMOTE', 'MONSTER_WHISPER', 'MONSTER_BOSS_EMOTE', 'MONSTER_BOSS_WHISPER', 'ERRORS', 'AFK', 'DND', 'IGNORED', 'BG_HORDE', 'BG_ALLIANCE', 'BG_NEUTRAL', 'ACHIEVEMENT', 'GUILD_ACHIEVEMENT', 'BN_WHISPER', 'BN_INLINE_TOAST_ALERT' }
+	ChatFrame_RemoveAllMessageGroups(_G.ChatFrame1)
+	for _, v in next, chatGroup do
 		ChatFrame_AddMessageGroup(_G.ChatFrame1, v)
 	end
 
-	-----------------------
-	-- ChatFrame 3 Setup --
-	-----------------------
-
-	for i = 1, #Channels do
-		ChatFrame_RemoveChannel(ChatFrame1, Channels[i])
-		ChatFrame_AddChannel(ChatFrame3, Channels[i])
+	-- keys taken from `ChatTypeGroup` which weren't added above to ChatFrame1 but keeping CHANNEL
+	chatGroup = { WOW_PROJECT_MAINLINE and 'PING' or nil, 'CHANNEL', 'COMBAT_XP_GAIN', 'COMBAT_HONOR_GAIN', 'COMBAT_FACTION_CHANGE', 'SKILL', 'LOOT', 'CURRENCY', 'MONEY' }
+	ChatFrame_RemoveAllMessageGroups(rightChat)
+	for _, v in next, chatGroup do
+		ChatFrame_AddMessageGroup(rightChat, v)
 	end
-	
+
+	ChatFrame_AddChannel(_G.ChatFrame1, GENERAL)
+	ChatFrame_RemoveChannel(_G.ChatFrame1, TRADE)
+	ChatFrame_AddChannel(rightChat, TRADE)
+
+	-- set the chat groups names in class color to enabled for all chat groups which players names appear
+	chatGroup = { 'SAY', 'EMOTE', 'YELL', 'WHISPER', 'PARTY', 'PARTY_LEADER', 'RAID', 'RAID_LEADER', 'RAID_WARNING', 'INSTANCE_CHAT', 'INSTANCE_CHAT_LEADER', 'GUILD', 'OFFICER', 'ACHIEVEMENT', 'GUILD_ACHIEVEMENT', 'COMMUNITIES_CHANNEL' }
+	for i = 1, _G.MAX_WOW_CHAT_CHANNELS do
+		tinsert(chatGroup, 'CHANNEL'..i)
+	end
+	for _, v in next, chatGroup do
+		ToggleChatColorNamesByClassGroup(true, v)
+	end
+
 	-- Adjust Chat Colors
 	ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
 	ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
@@ -80,70 +77,6 @@ T.ChatSetup = function()
 	ChangeChatColor("CHANNEL4", 232/255, 228/255, 121/255)
 	ChangeChatColor("CHANNEL5", 0/255, 228/255, 121/255)
 	ChangeChatColor("CHANNEL6", 0/255, 228/255, 0/255)
-	
-	-----------------------
-	-- ChatFrame 4 Setup --
-	-----------------------
-	
-	local Tab4 = ChatFrame4Tab
-	local Chat4 = ChatFrame4
-
-	ChatGroup = {"GUILD", "OFFICER", "GUILD_ACHIEVEMENT", "WHISPER", "BN_WHISPER", "BN_CONVERSATION"}
-	
-	for _, v in ipairs(ChatGroup) do
-		ChatFrame_AddMessageGroup(_G.ChatFrame4, v)
-	end
-	
-	for i = 1, NUM_CHAT_WINDOWS do
-		local frame = _G[format("ChatFrame%s", i)]
-		local chatFrameId = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(chatFrameId)
-		
-		-- move general bottom left
-		if i == 1 then
-			frame:ClearAllPoints()
-			frame:SetWidth(LChat:GetWidth()-8)
-			frame:SetHeight(LChat:GetHeight()-8)
-			frame:SetPoint("BOTTOMLEFT",LChat,"BOTTOMLEFT",4,6)
-			frame:SetPoint("TOPRIGHT",LChat,"TOPRIGHT",-4,-2)		
-		elseif i == 4 then
-			frame:ClearAllPoints()
-			frame:SetWidth(RChat:GetWidth()-8)
-			frame:SetHeight(RChat:GetHeight()-8)
-			frame:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
-			frame:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-2)
-		end
-		
-		FCF_SavePositionAndDimensions(frame)
-		FCF_StopDragging(frame)
-		
-	
-		-- rename windows general because moved to chat #3
-		if i == 1 then
-			FCF_SetWindowName(frame, "GROUP")
-		elseif i == 2 then
-			FCF_SetWindowName(frame, "LOG")
-		elseif i == 3 then 
-			FCF_SetWindowName(frame, "T&G")
-		elseif i == 4 then 
-			FCF_SetWindowName(frame, "GUILD") 			
-		end
-	end
-
-
-	-- Reset saved variables on char
-	ViksUIPositions = {}
-	ViksUISettingsPerChar = {}
-
-	ViksUISettingsPerChar.Install = true
-	ViksUISettingsPerChar.FogOfWar = true
-	ViksUISettingsPerChar.Coords = true
-	ViksUISettingsPerChar.AutoInvite = false
-	ViksUISettingsPerChar.Archaeology = false
-	ViksUISettingsPerChar.BarsLocked = false
-	ViksUISettingsPerChar.SplitBars = true
-	ViksUISettingsPerChar.RightBars = C.actionbar.rightbars
-	ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars
 end
 
 local function cvarsetup()
@@ -193,6 +126,22 @@ local function cvarsetup()
 	SetCVar('showQuestTrackingTooltips', 1)
 	SetCVar("profanityFilter", 0)
 	SetCVar('fstack_preferParentKeys', 0) --Add back the frame names via fstack!
+
+	-- Reset saved variables on char
+	ViksUISettingsPerChar = {}
+
+	ViksUISettingsPerChar.Install = true
+	ViksUISettingsPerChar.FogOfWar = true
+	ViksUISettingsPerChar.Coords = true
+	ViksUISettingsPerChar.AutoInvite = false
+	ViksUISettingsPerChar.Archaeology = false
+	ViksUISettingsPerChar.BarsLocked = false
+	ViksUISettingsPerChar.SplitBars = true
+	ViksUISettingsPerChar.RightBars = C.actionbar.rightbars
+	ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars
+
+	-- Set to default layout of Blizzard Edit Mode
+	C_EditMode.SetActiveLayout(1)
 end
 
 local UploadBartender = function()
@@ -2115,7 +2064,7 @@ local UploadBartender = function()
 				},
 			},
 		},
-	
+
 		["profiles"] = {
 			["ViksUIDruid"] = {
 				["onkeydown"] = false,
@@ -2811,7 +2760,7 @@ MasqueDB = {
 			},
 		},
 	},
-}	
+}
 end
 
 local UploadDetails = function()
@@ -10379,9 +10328,6 @@ f:SetFrameStrata("HIGH")
 f:Hide()
 
 f.bg = f:CreateTexture(nil, "BACKGROUND")
---f.bg:Point("TOPLEFT", 2, -2)
---f.bg:Point("BOTTOMRIGHT", -2, 2)
---f.bg:Size()
 f.bg:SetPoint("CENTER", f, "CENTER", 0, 0)
 f.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\logosk]])
 f.bg:SetAlpha(0.2)
@@ -10519,38 +10465,86 @@ Optionb3:Hide()
 Optionb3:SetScript('OnShow', function() Optionb1:Width(100); Optionb1:ClearAllPoints(); Optionb1:Point('RIGHT', Optionb2, 'LEFT', -4, 0); Optionb2:Width(100); Optionb2:ClearAllPoints(); Optionb2:Point('BOTTOM', f, 'BOTTOM', 0, 60)  end)
 Optionb3:SetScript('OnHide', function() Optionb1:Width(160); Optionb1:ClearAllPoints(); Optionb1:Point("BOTTOM", 0, 60); Optionb2:Width(110); Optionb2:ClearAllPoints(); Optionb2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 60) end)
 
-maxsteps = 7
+local maxsteps = 8
 -- Creating the steps in installui
--- Step 6 / Finish
-local step7 = function()
+-- Step 8 / Finish
+local profile
+local step8 = function()
+	f.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\logosk]])
+	f.bg:SetAlpha(0.2)
 	ViksUISettingsPerChar.Install = true
 	sb:SetValue(7)
 	PlaySound(888)
-	header:SetText("4. Success!")
+	header:SetText("8. Success!")
 	text1:SetText("Installation is complete.")
 	text2:SetText("Please click the 'Finish' button to reload the UI.")
 	text3:SetText("")
 	text4:SetText("Enjoy ViksUI")
-	sbt:SetText("7/ "..maxsteps)
+	sbt:SetText("8/ "..maxsteps)
 	option1:Hide()
 	option2.Text:SetText("Finish")
 	option2:SetText("Finish")
-	option2:SetScript("OnClick", function() StaticPopup_Show("SWITCH_RAID") end)
+	option2:SetScript("OnClick", function() ReloadUI() end)
 end
--- Step 7 / Select Bartender Profile
-local step6 = function()
+-- Step 7 / Select Panels Layout
+local step7 = function()
 	if not option2:IsShown() then option2:Show() end
-	sb:SetValue(6)
+	sb:SetValue(7)
 	header:SetText("6. No Panel Layout Select")
 	text1:SetText("Click the button to use No Panel Layout")
 	text2:SetText("This can be changed under Config->Panels")
 	text3:Hide()
 	InstallOption1Button:Show()
-	InstallOption1Button:SetText("NoPanels.")
-	InstallOption1Button:SetScript('OnClick', function() ViksUIOptions.panels.NoPanels = true ViksUIOptionsPerChar.panels.NoPanels = true end)
+	InstallOption1Button:SetText("NoPanels")
+	InstallOption1Button:SetScript('OnClick', function()
+		f.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Other\NoPanels]])
+		f.bg:SetAlpha(1)
+		if not profile["panels"] then profile["panels"] = {} end
+		if not profile["panels"]["NoPanels"] then profile["panels"]["NoPanels"] = {} end
+		profile["panels"]["NoPanels"] = true
+		ViksUISettingsPerChar.NoPanels = true
+	end)
 	InstallOption2Button:Show()
-	InstallOption2Button:SetText("Normal Panels.")
-	InstallOption2Button:SetScript('OnClick', function() ViksUIOptions.panels.NoPanels = false ViksUIOptionsPerChar.panels.NoPanels = false end)
+	InstallOption2Button:SetText("Normal Panels")
+	InstallOption2Button:SetScript('OnClick', function()
+		f.bg:SetTexture([[Interface\AddOns\ViksUI\Media\Other\Panels]])
+		f.bg:SetAlpha(1)
+		if not profile["panels"] then profile["panels"] = {} end
+		if not profile["panels"]["NoPanels"] then profile["panels"]["NoPanels"] = {} end
+		profile["panels"]["NoPanels"] = false
+		ViksUISettingsPerChar.NoPanels = false
+	end)
+	text4:SetText("Click one of the buttons then click 'Continue'.")
+	sbt:SetText("7/ "..maxsteps)
+	option1:SetScript("OnClick", step8)
+	option2:SetScript("OnClick", function()
+		InstallOption1Button:Hide()
+		InstallOption2Button:Hide()
+		step8()
+	end)
+end
+-- Step 6 / Select UnitFrame Layout
+local step6 = function()
+	if not option2:IsShown() then option2:Show() end
+	sb:SetValue(6)
+	header:SetText("6. Unit Frame Layout")
+	text1:SetText("This step will setup Unit Frame Positions.")
+	text2:Hide()
+	text3:Hide()
+	InstallOption1Button:Show()
+	InstallOption1Button:SetText("DPS")
+	InstallOption1Button:SetScript('OnClick', function()
+		if not profile["unitframe"] then profile["unitframe"] = {} end
+		if not profile["unitframe"]["HealFrames"] then profile["unitframe"]["HealFrames"] = {} end
+		profile["unitframe"]["HealFrames"] = false
+	end)
+	InstallOption2Button:Show()
+	InstallOption2Button:SetText("HEALER")
+	InstallOption2Button:SetScript('OnClick', function()
+		if not profile["unitframe"] then profile["unitframe"] = {} end
+		if not profile["unitframe"]["HealFrames"] then profile["unitframe"]["HealFrames"] = {} end
+		profile["unitframe"]["HealFrames"] = true
+	end)
 	text4:SetText("Click one of the buttons then click 'Continue'.")
 	sbt:SetText("6/ "..maxsteps)
 	option1:SetScript("OnClick", step7)
@@ -10560,139 +10554,108 @@ local step6 = function()
 		step7()
 	end)
 end
--- Step 6 / Select UnitFrame Layout
-local step5 = function()
-sb:SetValue(5)
-	if not option2:IsShown() then option2:Show() end
-	sb:SetValue(5)
-	header:SetText("5. Unit Frame Layout")
-	text1:SetText("This step will setup Unit Frame Positions.")
-	text2:Hide()
-	text3:Hide()
-	InstallOption1Button:Show()
-	InstallOption1Button:SetText("DPS.")
-	InstallOption1Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false ViksUISettingsPerChar.RaidLayout = "DPS" end)
-	InstallOption2Button:Show()
-	InstallOption2Button:SetText("HEALER")
-	InstallOption2Button:SetScript('OnClick', function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true ViksUISettingsPerChar.RaidLayout = "HEAL" end)
-	--InstallOption3Button:Show()
-	--InstallOption3Button:SetText("TANK")
-	text4:SetText("Click one of the buttons then click 'Continue'.")
-	sbt:SetText("5/ "..maxsteps)
-	option1:SetScript("OnClick", step6)
-	option2:SetScript("OnClick", function()
-		InstallOption1Button:Hide()
-		InstallOption2Button:Hide()
-		step6()
-	end)
-end
 -- Step 5 / Setting up skada Profile
-local step4 = function()
+local step5 = function()
 	if IsAddOnLoaded("Details") then
-		if ViksUISettings.DetailsSettings then 
-		step5() 	
+		if ViksUISettings.DetailsSettings then
+		step6()
 		return end
 		if not option2:IsShown() then option2:Show() end
-		sb:SetValue(4)
-		header:SetText("4. Details")
+		sb:SetValue(5)
+		header:SetText("5. Details")
 		text1:SetText("This step will setup Details 3 Window profile.")
 		text2:SetText("This step is |cffff0000recommended|r for new users. NB: Load profile inside Details after")
 		text3:SetText("|cffff0000NB! NOTE|r this step overwrite Details current settings.")
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
-		sbt:SetText("4/ "..maxsteps)
-		option1:SetScript("OnClick", step5)
+		sbt:SetText("5/ "..maxsteps)
+		option1:SetScript("OnClick", step6)
 		option2:SetScript("OnClick", function()
-			--positionsetup()
 			UploadDetails()
 			_detalhes_database["active_profile"] = "ViksUI"
 			ViksUISettings.DetailsSettings = true
-			step5()
+			step6()
 		end)
 	elseif IsAddOnLoaded("Skada") then
-		if ViksUISettings.SkadaSettings then 
-		step5() 	
+		if ViksUISettings.SkadaSettings then
+		step6()
 		return end
 		if not option2:IsShown() then option2:Show() end
-		sb:SetValue(4)
-		header:SetText("4. Skada")
+		sb:SetValue(5)
+		header:SetText("5. Skada")
 		text1:SetText("This step will setup Skada 3 Window profile.")
 		text2:SetText("This step is |cffff0000recommended|r for new users.")
 		text3:SetText("|cffff0000NB! NOTE|r this step overwrite Skadas current settings.")
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
-		sbt:SetText("4/ "..maxsteps)
-		option1:SetScript("OnClick", step5)
+		sbt:SetText("5/ "..maxsteps)
+		option1:SetScript("OnClick", step6)
 		option2:SetScript("OnClick", function()
-			--positionsetup()
 			UploadSkada()
 			ViksUISettings.SkadaSettings = true
-			step5()
+			step6()
 		end)
 	else
 		if not option2:IsShown() then option2:Show() end
-		sb:SetValue(4)
-		header:SetText("4. Damage Meters")
+		sb:SetValue(5)
+		header:SetText("5. Damage Meters")
 		text1:SetText("Skada or Details was not detected! Both settings will be added")
 		text2:SetText("This step is |cffff0000recommended|r for new users.")
 		text3:SetText("|cffff0000NB! NOTE|r this step overwrite Skadas and Details current settings.")
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
-		sbt:SetText("4/ "..maxsteps)
-		option1:SetScript("OnClick", step5)
+		sbt:SetText("5/ "..maxsteps)
+		option1:SetScript("OnClick", step6)
 		option2:SetScript("OnClick", function()
-			--positionsetup()
 			UploadSkada()
 			ViksUISettings.SkadaSettings = true
 			UploadDetails()
 			ViksUISettings.DetailsSettings = true
-			step5()
+			step6()
 		end)
 	end
 end
 -- Step 4 / Setting up bartenders profile
-local step3 = function()
+local step4 = function()
 	if IsAddOnLoaded("Bartender4") then
-		if ViksUISettings.BTSettings then 
-		step4() 
+		if ViksUISettings.BTSettings then
+		step5()
 		return end
 		if not option2:IsShown() then option2:Show() end
-		sb:SetValue(3)
-		header:SetText("3. Bartender")
+		sb:SetValue(4)
+		header:SetText("4. Bartender")
 		text1:SetText("This step will setup bartender profile.")
 		text2:SetText("This step is |cffff0000recommended|r for new users.")
 		text3:SetText("|cffff0000NB! NOTE|r this step overwrite bartender current settings.")
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
 		sbt:SetText("3/ "..maxsteps)
-		option1:SetScript("OnClick", step4)
+		option1:SetScript("OnClick", step5)
 		option2:SetScript("OnClick", function()
-			--positionsetup()
 			UploadBartender()
 			ViksUISettingsPerChar.BartenderSet = false
 			ViksUISettings.BTSettings = true
-			step4()
+			step5()
 		end)
 	else
 		if not option2:IsShown() then option2:Show() end
-		sb:SetValue(3)
-		header:SetText("3. Bartender addon is missing!!!")
+		sb:SetValue(4)
+		header:SetText("4. Bartender addon is missing!!!")
 		text1:SetText("ViksUI mainly uses Bartender 3 for actionbars.")
 		text2:SetText("The addon will not look the same with default built in actionbars")
 		text3:SetText("|cffff0000NB! NOTE|r Apply settings for Bartender 3 still?.")
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
-		sbt:SetText("3/ "..maxsteps)
-		option1:SetScript("OnClick", step4)
+		sbt:SetText("4/ "..maxsteps)
+		option1:SetScript("OnClick", step5)
 		option2:SetScript("OnClick", function()
-			--positionsetup()
 			UploadBartender()
 			ViksUISettingsPerChar.BartenderSet = false
 			ViksUISettings.BTSettings = true
-			step4()
-		end)	
+			step5()
+		end)
 	end
 end
 -- Step 3 / Setting Sosial (chat++)
-local step2 = function()
-	sb:SetValue(2)
-	header:SetText("2. Social")
-	sbt:SetText("2/ "..maxsteps)
+local step3 = function()
+	sb:SetValue(3)
+	header:SetText("3. Social")
+	sbt:SetText("3/ "..maxsteps)
 	if IsAddOnLoaded("Prat") or IsAddOnLoaded("Chatter") then
 		text1:SetText("Another chat addon is found.  We will ignore this step.  Please press skip to continue installation.")
 		option2:Hide()
@@ -10703,39 +10666,76 @@ local step2 = function()
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
 		option2:SetScript("OnClick", function()
 			T.ChatSetup()
-			step3()
+			step4()
 		end)
 	end
-	option1:SetScript("OnClick", step3)
+	option1:SetScript("OnClick", step4)
 end
 -- Step 2 / Setting Cvars and Masque
-local step1 = function()
+local step2 = function()
 	close:Hide()
 	sb:SetMinMaxValues(0, 7) -- Setting amount of steps for Progressbar
 	sb:Show()
-	sb:SetValue(1)
+	sb:SetValue(2)
 	sb:SetStatusBarColor(.26, 1, .22)
-	header:SetText("1. Essential Settings")
+	header:SetText("2. Essential Settings")
 	text1:SetText("These steps will apply the correct CVar settings for ViksUI.")
-	text2:SetText("The first step applies the essential settings.")
+	text2:SetText("The step applies the essential settings.")
 	text3:SetText("This is |cffff0000recommended|r for any user, unless you want to apply only a specific part of the settings.")
 	text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
-	sbt:SetText("1/ "..maxsteps)
+	sbt:SetText("2/ "..maxsteps)
 	option1:Show()
 	option1.Text:SetText("Skip")
 	option2.Text:SetText("Continue")
 	option1:SetText("Skip")
 	option2:SetText("Continue")
-	option1:SetScript("OnClick", step2)
+	option1:SetScript("OnClick", step3)
 	option2:SetScript("OnClick", function()
 		cvarsetup()
 		UploadMasque()
-		step2()
+		step3()
 	end)
 	SetActionBarToggles(1, 1, 1, 1, 0)
 	SetCVar("alwaysShowActionBars", 0)
 end
--- Step 1 / Welcome
+-- Step 1 / Profile Settings
+local step1 = function()
+	local realm = GetRealmName()
+	local name = UnitName("player")
+	if not option2:IsShown() then option2:Show() end
+	sb:SetValue(1)
+	header:SetText("1. Profile Settings")
+	text1:SetText("This Character will use profile for:")
+	text2:SetText("Settings pr account or character")
+	text3:Hide()
+	InstallOption1Button:Show()
+	InstallOption1Button:SetText("Account")
+	InstallOption1Button:SetScript('OnClick', function()
+		ViksUIOptionsGlobal["Current_Profile"] = ViksUIOptionsGlobal["Current_Profile"] or 1
+		local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+		ViksUIOptions[i] = ViksUIOptions[i] or {}
+		profile = ViksUIOptions[i]
+		ViksUIOptionsGlobal[realm][name] = false
+	end)
+	InstallOption2Button:Show()
+	InstallOption2Button:SetText("Character")
+	InstallOption2Button:SetScript('OnClick', function()
+		ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] = ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] or 1
+		local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+		ViksUIOptionsPerChar[i] = ViksUIOptionsPerChar[i] or {}
+		profile = ViksUIOptionsPerChar[i]
+		ViksUIOptionsGlobal[realm][name] = true
+	end)
+	text4:SetText("Click one of the buttons then click 'Continue'.")
+	sbt:SetText("1/ "..maxsteps)
+	option1:SetScript("OnClick", step6)
+	option2:SetScript("OnClick", function()
+		InstallOption1Button:Hide()
+		InstallOption2Button:Hide()
+		step2()
+	end)
+end
+-- Step 0 / Welcome
 local function install()
 	f:Show()
 	sb:Hide()
@@ -10781,11 +10781,11 @@ OnLogon:SetScript("OnEvent", function(self)
 		ViksUICurrency = SavedCurrency
 		SavedCurrency = nil
 	end
-	
+
 	if ViksUISettings == nil then ViksUISettings = {} end
 	if not ViksUISettings.Migrated then
 		if SavedOptionsPerChar then
-			
+
 			if SavedOptionsPerChar.UFPos then
 				SavedPositions.UFPos = SavedOptionsPerChar.UFPos
 				SavedOptionsPerChar.UFPos = nil
@@ -10802,24 +10802,18 @@ OnLogon:SetScript("OnEvent", function(self)
 
 		ViksUISettings.Migrated = true
 	end
-	
+
 	-- Create empty CVar if they doesn't exist
 	if ViksUISettings == nil then ViksUISettings = {} end
 	if ViksUIPositions == nil then ViksUIPositions = {} end
+	if ViksUIPositions.UnitFrame == nil then ViksUIPositions.UnitFrame = {} end
 	if ViksUISettingsPerChar == nil then ViksUISettingsPerChar = {} end
-	if ViksUISettingsPerChar.RaidLayout == nil then ViksUISettingsPerChar.RaidLayout = "UNKNOWN" end
 	if ViksUIOptionsPerChar == nil then ViksUIOptionsPerChar = {} end
 	if ViksUISettingsPerChar.experiencebar == nil  then ViksUISettingsPerChar.experiencebar = {
 	["ViksUIExperienceBar1"] = "XP",
 	["ViksUIExperienceBar2"] = "HONOR",
 	}
 	end
-	if ViksUIOptions == nil then ViksUIOptions = {} end
-	if ViksUIOptionsPerChar.unitframe == nil then ViksUIOptionsPerChar.unitframe = {} end
-	if ViksUIOptions.unitframe == nil then ViksUIOptions.unitframe = {} end
-	if ViksUIOptions.panels == nil then ViksUIOptions.panels = {} end
-	if ViksUIOptionsPerChar.panels == nil then ViksUIOptionsPerChar.panels = {} end
-	if ViksUIOptions.panels.NoPanels == nil then ViksUIOptions.panels.NoPanels = false end
 	if ViksUISettingsPerChar.FogOfWar == nil then ViksUISettingsPerChar.FogOfWar = false end
 	if ViksUISettingsPerChar.AutoInvite == nil then ViksUISettingsPerChar.AutoInvite = false end
 	if ViksUISettingsPerChar.Archaeology == nil then ViksUISettingsPerChar.Archaeology = false end
@@ -10852,15 +10846,12 @@ OnLogon:SetScript("OnEvent", function(self)
 		end
 	end
 
-	if ViksUISettingsPerChar.RaidLayout == "UNKNOWN" and ViksUISettingsPerChar.Install then
-		StaticPopup_Show("SWITCH_RAID")
-	end
 	if IsAddOnLoaded("Bartender4") then
-		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels then
+		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUISettingsPerChar.NoPanels then
 			StaticPopup_Show("SET_BTLine")
 			ViksUISettingsPerChar.BartenderSet = true
 		end
-		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUIOptions.panels.NoPanels ~= true then
+		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUISettingsPerChar.NoPanels ~= true then
 			StaticPopup_Show("SET_BT")
 			ViksUISettingsPerChar.BartenderSet = true
 		end
@@ -10870,7 +10861,7 @@ OnLogon:SetScript("OnEvent", function(self)
 		print("|cffffff00".."Welcome to ViksUI "..T.version..", "..T.name)
 		print("|cffffff00".."Type /config to config interface".." |cffffff00".."for more informations.")
 	end
-	
+
 	-- Force load some cvars
 	C_Timer.After(1, function() -- Making sure other addons don't turn this off
 		SetCVar("cameraDistanceMaxZoomFactor", 2.6) -- Set Max camera distance
@@ -10920,19 +10911,6 @@ StaticPopupDialogs.RESET_STATS = {
 	preferredIndex = 5,
 }
 
-StaticPopupDialogs.SWITCH_RAID = {
-	text = L_POPUP_SWITCH_RAID,
-	button1 = DAMAGER,
-	button2 = HEALER,
-	--button3 = "Blizzard",
-	OnAccept = function() ViksUIOptionsPerChar.unitframe.HealFrames = false ViksUIOptions.unitframe.HealFrames = false ViksUISettingsPerChar.RaidLayout = "DPS" ReloadUI() end,
-	OnCancel = function() ViksUIOptionsPerChar.unitframe.HealFrames = true ViksUIOptions.unitframe.HealFrames = true ViksUISettingsPerChar.RaidLayout = "HEAL" ReloadUI() end,
-	--OnAlt = function() ViksUISettingsPerChar.RaidLayout = "NONE" ReloadUI() end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-	preferredIndex = 5,
-}
 StaticPopupDialogs.SET_BT = {
 	text = "Select Bartender Profile",
 	button1 = "Rogue",
