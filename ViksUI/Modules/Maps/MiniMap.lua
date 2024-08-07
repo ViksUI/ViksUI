@@ -131,9 +131,15 @@ frame:SetScript("OnEvent", function(self, event)
 	end)
 	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Textures\\Mail.tga")
 	MiniMapMailIcon:SetSize(16, 16)
-	
-	ExpansionLandingPageMinimapButton:ClearAllPoints()
-	ExpansionLandingPageMinimapButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
+
+	-- Move crafting order icon
+	local Crafting = MinimapCluster.IndicatorFrame.CraftingOrderFrame
+	hooksecurefunc(Crafting, "SetPoint", function(self, _, anchor)
+		if anchor ~= Minimap then
+			self:ClearAllPoints()
+			self:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 4)
+		end
+	end)
 end)
 
 -- Adjusting for patch 9.0.1 Minimap.xml
@@ -159,7 +165,9 @@ AddonCompartmentFrame:Kill()
 
 -- Garrison icon
 if C.minimap.garrison_icon == true then
-	ExpansionLandingPageMinimapButton:SetScale(0.5)
+	ExpansionLandingPageMinimapButton:SetScale(0.6)
+	ExpansionLandingPageMinimapButton:ClearAllPoints()
+	ExpansionLandingPageMinimapButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
 	hooksecurefunc(ExpansionLandingPageMinimapButton, "UpdateIconForGarrison", function()
 		ExpansionLandingPageMinimapButton:ClearAllPoints()
 		ExpansionLandingPageMinimapButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 4, -1)
