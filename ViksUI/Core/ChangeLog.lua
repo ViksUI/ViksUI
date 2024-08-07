@@ -3,13 +3,12 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"NOTE: Check that ViksUI Config addon is not missing!",
-	"Some auto packing failure at Curse pushes",
-	"Update 11.08 for Wow 11 TWW ",
+	"Update 11.11 for Wow 11 TWW ",
 	"• More Blizz skins updated",
-	"• Fix Theme Button & added NoPanel skin",
-	"• ObjectiveTracer Ctrl/Alt to Abandon/Share Quest",
-	"• Option to show role icon in chat",
+	"• Reworked install (/installui)",
+	"• New Chatwindow settings (/settings chat)",
+	"• Meters on NoPanel layout only hide/show Meter/Chat",
+	"• Wowhead link showing on more locations",
 	"• Check Github for full changelog",
 
 " ",
