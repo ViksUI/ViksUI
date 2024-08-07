@@ -52,7 +52,6 @@
 	<Script file="Core\Commands.lua"/>
 	<Script file="Core\WTF.lua"/>
 	<Script file="Core\Kill.lua"/>
-	<Script file="Core\Temp.lua"/>
 	<Script file="Core\CheckVersion.lua"/>
 	<Script file="Core\Panels.lua"/>
 	<Script file="Core\ChangeLog.lua"/>
@@ -279,4 +278,5 @@
 	<Script file="Modules\Tooltip\InstanceLockCompare.lua"/>
 	<Script file="Modules\Misc\ExperienceBar.lua"/>
 	<Script file="Core\Movers.lua"/>
+	<Script file="Core\Temp.lua"/>
 </Ui>
