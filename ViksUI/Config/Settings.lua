@@ -522,27 +522,28 @@ C["tooltip"] = {
 ----------------------------------------------------------------------------------------
 C["chat"] = {
 	["enable"] = true,							-- Enable chat
+	["width"] = C.panels.CPwidth - 4,			-- Chat width
+	["height"] = C.panels.CPTextheight,			-- Chat height
+	["second_frame"] = false,					-- Enable second frame on right side
 	["background"] = true,						-- Enable background for chat
 	["background_alpha"] = 0.4,					-- Background alpha
 	["filter"] = true,							-- Removing some systems spam("Player1" won duel "Player2")
 	["spam"] = false,							-- Removing some players spam(gold/portals/etc)
-	["width"] = C.panels.CPwidth - 4,			-- Chat width
-	["height"] = C.panels.CPTextheight,		-- Chat height
 	["chat_bar"] = false,						-- Lite Button Bar for switch chat channel
 	["chat_bar_mouseover"] = false,				-- Lite Button Bar on mouseover
 	["whisp_sound"] = true,						-- Sound when whisper
-	["transp_bubbles"] = true,					-- Transparent Chat Bubbles.
-	["transp_bubbles_a"] = 0.35,				-- Alpha for Transparent Chat Bubbles.
 	["combatlog"] = true,						-- Show CombatLog tab(need two reloads when false)
 	["tabs_mouseover"] = false,					-- Chat tabs on mouseover
 	["sticky"] = true,							-- Remember last channel
-	["reset_pos"] = true,						-- Reposition chatframes at login
 	["damage_meter_spam"] = true,				-- Merge damage meter spam in one line-link
 	["smileys"] = true,							-- Insert smileys instead of symbols like xD
 	["loot_icons"] = false,						-- Icons for loot
+	["role_icons"] = false,						-- Role Icons
 	["history"] = false,						-- Chat history
+	["hide_combat"] = false,					-- Hide chat in combat
 	["custom_time_color"] = true,				-- Enable custom timestamp coloring
 	["time_color"] = {1, 1, 0},					-- Timestamp coloring (http://www.december.com/html/spec/colorcodescompact.html)
+	["reset_pos"] = true,						-- Reposition chatframes at login
 }
 
 ----------------------------------------------------------------------------------------
