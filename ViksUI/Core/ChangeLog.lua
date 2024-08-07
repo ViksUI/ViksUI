@@ -201,7 +201,7 @@ end
 if ViksUISettingsPerChar == nil then ViksUISettingsPerChar = {} end
 
 function ChangeLog:OnCheckVersion(self)
-	if not ViksUISettings["version"] or (ViksUISettings["version"] and ViksUISettings["version"] ~= T.version) then
+	if ViksUISettingsPerChar.Install and ViksUISettings["version"] ~= T.version then
 		ViksUISettings["version"] = T.version
 		ChangeLog:CreateChangelog()
 	end
