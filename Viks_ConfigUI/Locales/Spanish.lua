@@ -241,6 +241,7 @@ L_GUI_UF_ICONS_READY_CHECK = "Iconos de comprobación"
 L_GUI_UF_ICONS_LEADER = "Iconos de líder, ayudantes en los marcos"
 L_GUI_UF_ICONS_SUMON = "Sumon icons" -- Need review
 L.raidframe_icons_phase = "Phase" -- Need review
+L.raidframe_plugins_debuffhighlight = "Show texture for dispellable debuff" -- Need review
 L.raidframe_plugins_debuffhighlight_icon = "Remarcar textura de desventajas + icono" -- Need review
 L.raidframe_plugins_aura_watch = "'BANDA' Ver las auras"
 L.raidframe_plugins_aura_watch_timer = "Temporizador en los iconos de perjuicios de la banda"
@@ -330,6 +331,7 @@ L.tooltip_mount = "Source of mount" -- Needs review
 -- Chat options
 L.chat_subtext = "Here you can change the settings of the chat window." -- Need review
 L.chat_enable = "Activar chat"
+L.chat_second_frame = "Enable second frame on right side" -- Need review
 L.chat_background = "Activar fondo del chat"
 L.chat_background_alpha = "Opacidad del fondo del chat"
 L.chat_filter = "Remover ciertos mensajes de spam"

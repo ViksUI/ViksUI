@@ -242,6 +242,7 @@ L_GUI_UF_ICONS_READY_CHECK = "Icone dell'appello"
 L_GUI_UF_ICONS_LEADER = "Icona del capoincursione, dell'assistente"
 L_GUI_UF_ICONS_SUMON = "Icone d’evocazione sui riquadri"
 L.raidframe_icons_phase = "Phase" -- Need review
+L.raidframe_plugins_debuffhighlight = "Show texture for dispellable debuff" -- Need review
 L.raidframe_plugins_debuffhighlight_icon = "Evidenzia texture + icona delle penalità" -- Need review
 L.raidframe_plugins_aura_watch = "Icone delle penalità d'incursione"
 L.raidframe_plugins_aura_watch_timer = "Timer sulle icone delle penalità d'incursione"
@@ -331,6 +332,7 @@ L.tooltip_mount = "Source of mount" -- Needs review
 -- Chat options
 L.chat_subtext = "Here you can change the settings of the chat window." -- Need review
 L.chat_enable = "Attiva chat"
+L.chat_second_frame = "Enable second frame on right side" -- Need review
 L.chat_background = "Attiva lo sfondo della chat"
 L.chat_background_alpha = "Trasparenza sfondo della chat"
 L.chat_filter = "Rimozione di un po' di spam di sistema"

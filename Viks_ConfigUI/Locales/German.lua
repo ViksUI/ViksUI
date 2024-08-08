@@ -243,6 +243,7 @@ L_GUI_UF_ICONS_READY_CHECK = "Bereitschaftschecksymbole"
 L_GUI_UF_ICONS_LEADER = "Anführer/Assistent an den Fenstern anzeigen"
 L_GUI_UF_ICONS_SUMON = "Sumon-Symbole"
 L.raidframe_icons_phase = "Phase"
+L.raidframe_plugins_debuffhighlight = "Show texture for dispellable debuff" -- Need review
 L.raidframe_plugins_debuffhighlight_icon = "Debufftextur und Symbol hervorheben" -- Need review
 L.raidframe_plugins_aura_watch = "'RAID' Buffüberwachung"
 L.raidframe_plugins_aura_watch_timer = "Timer auf Schlachtzugsdebuff Icons"
@@ -332,6 +333,7 @@ L.tooltip_mount = "Source of mount" -- Needs review
 -- Chat options
 L.chat_subtext = "Hier Einstellungen des Chat-Fensters ändern."
 L.chat_enable = "Chat aktivieren"
+L.chat_second_frame = "Enable second frame on right side" -- Need review
 L.chat_background = "Chathintergrund aktivieren"
 L.chat_background_alpha = "Transparenz des Hintergrunds"
 L.chat_filter = "Entferne Systemspam"
