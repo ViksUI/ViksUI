@@ -144,11 +144,11 @@ local function LoadSkin()
 				if frame.Button then
 					frame.Button.Border:Hide()
 
-					frame.Button.ActionBarHighlight:SetColorTexture(1, 1, 1, 0.4)
+					frame.Button.ActionBarHighlight:SetColorTexture(1, 0.82, 0, 0.4)
 					frame.Button.ActionBarHighlight:SetPoint("TOPLEFT", 2, -2)
 					frame.Button.ActionBarHighlight:SetPoint("BOTTOMRIGHT", -2, 2)
 					hooksecurefunc(frame.Button.ActionBarHighlight, "Show", function()
-						frame.Button.ActionBarHighlight:SetColorTexture(1, 1, 1, 0.4)
+						frame.Button.ActionBarHighlight:SetColorTexture(1, 0.82, 0, 0.4)
 						frame.Button.ActionBarHighlight:SetPoint("TOPLEFT", 2, -2)
 						frame.Button.ActionBarHighlight:SetPoint("BOTTOMRIGHT", -2, 2)
 					end)
