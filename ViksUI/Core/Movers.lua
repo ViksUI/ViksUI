@@ -160,29 +160,6 @@ local placed = {
 	"UIWidgetBelowAnchor"
 }
 
-local function MergeOldPositions()	-- TODO delete after while
-	if ViksUIOptionsGlobal[T.realm][T.name] then
-		if not ViksUIPositionsPerChar then
-			ViksUIPositionsPerChar = ViksUIPositions
-		end
-		if not ViksUIPositionsPerChar.merged then
-			local backup = ViksUIPositions
-			ViksUIPositionsPerChar = {}
-			ViksUIPositionsPerChar["1"] = backup
-			ViksUIPositionsPerChar.merged = true
-			ViksUIPositionsPerChar["1"]["1"] = nil -- T.CurrentProfile calls early and create empty table so remove this
-		end
-	else
-		if not ViksUIPositions.merged then
-			local backup = ViksUIPositions
-			ViksUIPositions = {}
-			ViksUIPositions["1"] = backup
-			ViksUIPositions.merged = true
-			ViksUIPositions["1"]["1"] = nil
-		end
-	end
-end
-
 local SaveDefaultPosition = function(mover)
 	local ap, p, rp, x, y = mover.frame:GetPoint()
 	local positionTable = T.CurrentProfile()
@@ -549,7 +526,6 @@ local RestoreUI = function(self)
 		end)
 		return
 	end
-	MergeOldPositions()	-- TODO delete after while
 	local positionTable = T.CurrentProfile()
 	if positionTable then
 		for frame_name, point in pairs(positionTable) do
