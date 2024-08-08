@@ -163,7 +163,7 @@ local function setupIcons(self)
 
 			if watch.PostCreateIcon then watch:PostCreateIcon(icon, icon.spellID, name, self) end
 		else
-			print("|cffff0000WARNING: spell ID ["..tostring(icon.spellID).."] no longer exists! Report this to Vik.|r")
+			print("|cffff0000ViksUI: AuraWatch spell ID ["..tostring(icon.spellID).."] no longer exists!|r")
 		end
 	end
 end

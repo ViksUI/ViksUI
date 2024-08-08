@@ -153,7 +153,7 @@ if C.pulsecooldown.enable == true then
 		if name then
 			return name
 		else
-			print("|cffff0000ShestakUI: Pulse cooldown spell ID ["..tostring(id).."] no longer exists!|r")
+			print("|cffff0000ViksUI: Pulse cooldown spell ID ["..tostring(id).."] no longer exists!|r")
 			return "Empty"
 		end
 	end

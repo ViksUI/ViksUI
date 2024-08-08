@@ -441,7 +441,7 @@ local function UpdateAuras(self, event, unit, updateInfo)
 					if(button.Count) then button.Count:SetText() end
 
 					button:EnableMouse(false)
-					button:Hide()	-- ShestakUI
+					button:Hide()	-- ViksUI
 
 					--[[ Callback: Auras:PostUpdateGapButton(unit, gapButton, position)
 					Called after an invisible aura button has been created. Only used by Auras when the `gap` option is enabled.
