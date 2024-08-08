@@ -46,25 +46,11 @@ if ViksUIOptionsGlobal[T.realm][T.name] == true then
 		ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] = ViksUIOptionsGlobal["Current_Profile"] or 1
 	end
 
-	if not ViksUIOptionsPerChar.merged and not ViksUIOptionsPerChar["1"] then	-- TODO delete after while
-		local backup = ViksUIOptionsPerChar
-		ViksUIOptionsPerChar = {}
-		ViksUIOptionsPerChar["1"] = backup
-		ViksUIOptionsPerChar.merged = true
-	end
-
 	ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] = ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name] or 1
 	local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
 	ViksUIOptionsPerChar[i] = ViksUIOptionsPerChar[i] or {}
 	profile = ViksUIOptionsPerChar[i]
 else
-	if not ViksUIOptions.merged and not ViksUIOptions["1"] then	-- TODO delete after while
-		local backup = ViksUIOptions
-		ViksUIOptions = {}
-		ViksUIOptions["1"] = backup
-		ViksUIOptions.merged = true
-	end
-
 	ViksUIOptionsGlobal["Current_Profile"] = ViksUIOptionsGlobal["Current_Profile"] or 1
 	local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
 	ViksUIOptions[i] = ViksUIOptions[i] or {}
