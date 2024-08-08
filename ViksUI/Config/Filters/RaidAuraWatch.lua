@@ -5,7 +5,7 @@ if C.unitframe.plugins_aura_watch ~= true then return end
 --	The best way to add or delete spell is to go at www.wowhead.com, search for a spell.
 --	Example: Renew -> http://www.wowhead.com/spell=139
 --	Take the number ID at the end of the URL, and add it to the list
-----------------------------------------------------------------------------------------	
+----------------------------------------------------------------------------------------
 T.RaidBuffs = {
 	DRUID = {
 		{774, "TOPRIGHT", {0.8, 0.4, 0.8}},					-- Rejuvenation
@@ -30,6 +30,7 @@ T.RaidBuffs = {
 		{410089, "TOP", {0.13, 0.87, 0.50}},				-- Prescience
 		{395296, "BOTTOMRIGHT", {0.14, 1.00, 0.88}},		-- Ebon Might
 		{406732, "RIGHT", {0.82, 0.29, 0.24}},				-- Spatial Paradox < on yourself
+		{406789, "RIGHT", {0.82, 0.29, 0.24}},				-- Spatial Paradox < on the partner
 	},
 	MONK = {
 		{119611, "TOPRIGHT", {0.2, 0.7, 0.7}},				-- Renewing Mist
@@ -93,7 +94,7 @@ local function SpellName(id)
 	if name then
 		return name
 	else
-		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists in RaidAurawatch! Report this to Viks.|r")
+		print("|cffff0000ViksUI: RaidAuraWatch spell ID ["..tostring(id).."] no longer exists!|r")
 		return "Empty"
 	end
 end
