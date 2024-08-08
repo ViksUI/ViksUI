@@ -1163,6 +1163,7 @@ function Stuffing:CreateBagFrame(w)
 		f.b_warband:SkinButton()
 		f.b_warband:SetScript("OnClick", function()
 			if not AccountBankPanel.isMade then
+				BankFrame_ShowPanel(BANK_PANELS[1].name)
 				self:SkinWarbandContainer()
 				AccountBankPanel.isMade = true
 			else
@@ -1784,6 +1785,9 @@ function Stuffing:BANKFRAME_OPENED()
 				v.frame.tooltipText = ""
 			end
 		end
+	end
+	if not C_Bank.CanViewBank(Enum.BankType.Character) and C_Bank.CanViewBank(Enum.BankType.Account) then
+		StuffingWarbandButtonBank:Click()
 	end
 end
 
