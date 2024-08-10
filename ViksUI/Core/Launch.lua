@@ -1267,16 +1267,16 @@ local UploadBartender = function()
 						},
 						["version"] = 3,
 						["position"] = {
-							["y"] = 47,
-							["x"] = 150,
+							["y"] = -45,
+							["x"] = 340,
 							["point"] = "CENTER",
 							["scale"] = 1.5,
 						},
 					},
 					["ViksUILine"] = {
 						["position"] = {
-							["y"] = 47,
-							["x"] = 150,
+							["y"] = -45,
+							["x"] = 340,
 							["point"] = "CENTER",
 							["scale"] = 1.5,
 						},
@@ -1288,8 +1288,8 @@ local UploadBartender = function()
 					},
 					["ViksUIDruidLine"] = {
 						["position"] = {
-							["y"] = 47,
-							["x"] = 150,
+							["y"] = -45,
+							["x"] = 340,
 							["point"] = "CENTER",
 							["scale"] = 1.5,
 						},
@@ -1306,8 +1306,8 @@ local UploadBartender = function()
 						},
 						["version"] = 3,
 						["position"] = {
-							["y"] = 47,
-							["x"] = 150,
+							["y"] = -45,
+							["x"] = 340,
 							["point"] = "CENTER",
 							["scale"] = 1.5,
 						},
@@ -1319,8 +1319,8 @@ local UploadBartender = function()
 							["Backdrop"] = false,
 						},
 						["position"] = {
-							["y"] = 47,
-							["x"] = 150,
+							["y"] = -45,
+							["x"] = 340,
 							["point"] = "CENTER",
 							["scale"] = 1.5,
 						},
@@ -1332,8 +1332,8 @@ local UploadBartender = function()
 						},
 						["version"] = 3,
 						["position"] = {
-							["y"] = 47,
-							["x"] = 150,
+							["y"] = -45,
+							["x"] = 340,
 							["point"] = "CENTER",
 							["scale"] = 1.5,
 						},
@@ -10847,6 +10847,8 @@ OnLogon:SetScript("OnEvent", function(self)
 	end
 
 	if IsAddOnLoaded("Bartender4") then
+		ExtraActionBarFrame:SetSize(50,50) -- Reduce annoying background frame that right button camera turning
+		ExtraAbilityContainer:SetSize(50,50) -- Reduce annoying background frame that right button camera turning
 		if ViksUISettingsPerChar.Install and ViksUISettingsPerChar.BartenderSet ~= true and ViksUISettingsPerChar.NoPanels then
 			StaticPopup_Show("SET_BTLine")
 			ViksUISettingsPerChar.BartenderSet = true
