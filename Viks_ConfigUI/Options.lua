@@ -130,6 +130,7 @@ end
 local FlagsTable = {
 	"OUTLINE",
 	"MONOCHROMEOUTLINE",
+	"THINOUTLINE",
 	""
 }
 
@@ -159,6 +160,12 @@ local PortraitTable = {
 	"2D",
 	"ICONS",
 	"OVERLAY"
+}
+
+local JustifyHTable = {
+	"LEFT",
+	"RIGHT",
+	"CENTER"
 }
 
 local TextureTable
@@ -631,6 +638,7 @@ ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGI
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
 ns.addCategory("actionbar", L_GUI_ACTIONBAR, ACTIONBARS_SUBTEXT, 3)
 ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext, 2)
+ns.addCategory("quest", L.quest, L.quest_subtext)
 ns.addCategory("chat", SOCIALS, L.chat_subtext)
 ns.addCategory("nameplate", UNIT_NAMEPLATES, L_GUI_NAMEPLATE_SUBTEXT, 2)
 ns.addCategory("combattext", L_GUI_COMBATTEXT, COMBATTEXT_SUBTEXT.." "..L_GUI_COMBATTEXT_SUBTEXT, 2)
@@ -1554,16 +1562,16 @@ do
 
 	local RaidShowSolo = ns.CreateCheckBox(parent, "RaidShowSolo", L_GUI_UF_SOLO_MODE)
 	RaidShowSolo:SetPoint("TOPLEFT", enable, "BOTTOMLEFT", 0, 0)
-	
+
 	local HealFrames = ns.CreateCheckBox(parent, "HealFrames", L_GUI_UF_HEALFRAMES)
 	HealFrames:SetPoint("TOPLEFT", RaidShowSolo, "BOTTOMLEFT", 0, 0)
-	
+
 	local HealthcolorClass = ns.CreateCheckBox(parent, "HealthcolorClass", L_GUI_UF_CLASS_COLOR)
 	HealthcolorClass:SetPoint("TOPLEFT", HealFrames, "BOTTOMLEFT", 0, 0)
 
 	local uf_color = ns.CreateColourPicker(parent, "uf_color", true, L_GUI_UF_UF_COLOR)
 	uf_color:SetPoint("TOPLEFT", HealthcolorClass, "BOTTOMLEFT", 0, -10)
-	
+
 	local HealthBarBackGround = ns.CreateColourPicker(parent, "HealthBarBackGround", true, L.unitframe_uf_color_bg)
 	HealthBarBackGround:SetPoint("TOPLEFT", uf_color, "BOTTOMLEFT", 0, -10)
 
@@ -1572,19 +1580,19 @@ do
 
 	local Autohide = ns.CreateCheckBox(parent, "Autohide", L_GUI_UF_AUTOHODE)
 	Autohide:SetPoint("TOPLEFT", Powercolor, "BOTTOMLEFT", 0, 0)
-	
+
 	local insideAlpha = ns.CreateNumberSlider(parent, "insideAlpha", nil, nil, 0, 1, 0.05, true)
 	insideAlpha:SetPoint("TOPLEFT", Autohide, "BOTTOMLEFT", 0, -28)
-	
+
 	local outsideAlpha = ns.CreateNumberSlider(parent, "outsideAlpha", nil, nil, 0, 1, 0.05, true)
 	outsideAlpha:SetPoint("TOPLEFT", insideAlpha, "BOTTOMLEFT", 0, -28)
-	
+
 	local UFfont = ns.CreateDropDown(parent, "UFfont", true, L.unitframe_UFfont, FontTable, LSM and true)
 	UFfont:SetPoint("TOPLEFT", outsideAlpha, "BOTTOMLEFT", -16, -10)
-	
+
 	local UFNamefont = ns.CreateDropDown(parent, "UFNamefont", true, L.unitframe_UFNamefont, FontTable, LSM and true)
 	UFNamefont:SetPoint("TOPLEFT", UFfont, "BOTTOMLEFT", 0, -10)
-	
+
 	-- Cast bars
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_CAST)
 	subheader:SetPoint("TOPLEFT", UFNamefont, "BOTTOMLEFT", 16, -10)
@@ -1594,7 +1602,7 @@ do
 
 	local castbar_ticks = ns.CreateCheckBox(parent, "castbar_ticks", L_GUI_UF_CASTBAR_TICKS)
 	castbar_ticks:SetPoint("TOPLEFT", Castbars, "BOTTOMLEFT", 0, 0)
-	
+
 	local castbar_icon = ns.CreateCheckBox(parent, "castbar_icon", L_GUI_UF_CASTBAR_ICON)
 	castbar_icon:SetPoint("LEFT", Castbars, "RIGHT", 170, 0)
 
@@ -1607,25 +1615,25 @@ do
 
 	local showfocus = ns.CreateCheckBox(parent, "showfocus", L_GUI_UF_SHOW_FOCUS)
 	showfocus:SetPoint("LEFT", showpet, "RIGHT", 170, 0)
-	
+
 	local showfocustarget = ns.CreateCheckBox(parent, "showfocustarget", L_GUI_UF_SHOW_FOCUST)
 	showfocustarget:SetPoint("TOPLEFT", showfocus, "BOTTOMLEFT", 0, 0)
 
 	local showtot = ns.CreateCheckBox(parent, "showtot", L_GUI_UF_SHOW_TOT)
 	showtot:SetPoint("LEFT", showfocus, "RIGHT", 170, 0)
-	
+
 	local MTFrames = ns.CreateCheckBox(parent, "MTFrames", L_GUI_UF_SHOW_TANK)
 	MTFrames:SetPoint("TOPLEFT", showpet, "BOTTOMLEFT", 0, 0)
 
 	local showBossFrames = ns.CreateCheckBox(parent, "showBossFrames", L_GUI_UF_SHOW_BOSS)
 	showBossFrames:SetPoint("TOPLEFT", MTFrames, "BOTTOMLEFT", 0, 0)
-	
+
 	local ShowRaid = ns.CreateCheckBox(parent, "ShowRaid", L_GUI_UF_SHOW_RAID)
 	ShowRaid:SetPoint("TOPLEFT", showfocustarget, "BOTTOMLEFT", 0, 0)
 
 	local ShowParty = ns.CreateCheckBox(parent, "ShowParty", L_GUI_UF_SHOW_PARTY)
 	ShowParty:SetPoint("TOPLEFT", showtot, "BOTTOMLEFT", 0, 0)
-	
+
 	local RaidShowAllGroups = ns.CreateCheckBox(parent, "RaidShowAllGroups", L_GUI_UF_RAID_ALLGROUP)
 	RaidShowAllGroups:SetPoint("TOPLEFT", ShowParty, "BOTTOMLEFT", 0, 0)
 
@@ -1643,7 +1651,7 @@ do
 
 	local tankdebuff = ns.CreateNumberSlider(parent, "tankdebuff", nil, nil, 0, 40, 1, true)
 	tankdebuff:SetPoint("TOPLEFT", icons_resting, "BOTTOMLEFT", 0, -28)
-	
+
 
 	-- Portraits
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_PORTRAIT)
@@ -1654,10 +1662,10 @@ do
 
 	local showPortraitHPbar = ns.CreateCheckBox(parent, "showPortraitHPbar", L_GUI_UF_PORTRAIT_BARS)
 	showPortraitHPbar:SetPoint("TOPLEFT", showPortrait, "BOTTOMLEFT", 0, 0)
-	
+
 	local portrait_type = ns.CreateDropDown(parent, "portrait_type", true, nil, PortraitTable)
 	portrait_type:SetPoint("TOPLEFT", showPortraitHPbar, "BOTTOMLEFT", -16, -8)
-	
+
 	-- Plugins
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_PLUGINS)
 	subheader:SetPoint("TOPLEFT", portrait_type, "BOTTOMLEFT", 16, -16)
@@ -1687,7 +1695,7 @@ do
 	plugins_aura_watch:SetPoint("TOPLEFT", plugins_debuffhighlight_icon, "BOTTOMLEFT", 0, 0)
 
 	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	ListButton:SetPoint("LEFT", plugins_aura_watch.Text, "RIGHT", 400, 0)
+	ListButton:SetPoint("LEFT", plugins_aura_watch, "RIGHT", 400, 0)
 	ListButton:SetSize(100, 23)
 	ListButton:SetText(ADD)
 	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
@@ -1709,7 +1717,7 @@ do
 
 	plugins_aura_watch:HookScript("OnClick", toggleListButton)
 	ListButton:HookScript("OnShow", toggleListButton)
-	
+
 	local plugins_aura_watch_timer = ns.CreateCheckBox(parent, "plugins_aura_watch_timer", L_GUI_UF_PLUGINS_AURA_WATCH_TIMER)
 	plugins_aura_watch_timer:SetPoint("TOPLEFT", plugins_aura_watch, "BOTTOMLEFT", 20, 0)
 
@@ -1723,140 +1731,130 @@ do
 
 	local plugins_auto_resurrection = ns.CreateCheckBox(parent, "plugins_auto_resurrection")
 	plugins_auto_resurrection:SetPoint("TOPLEFT", plugins_healcomm, "BOTTOMLEFT", 0, 0)
-	
-	local LayoutButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	LayoutButton:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -20, 5)
-	LayoutButton:SetSize(100, 23)
-	LayoutButton:SetText(L_GUI_LAYOUT)
-	LayoutButton:SetWidth(LayoutButton.Text:GetWidth() + 15)
-	LayoutButton:SetScript("OnClick", function()
-		StaticPopup_Show("SWITCH_RAID")
-	end)
-	tinsert(ns.buttons, LayoutButton)
-	
+
 	-- Panel 3
 	local parent = ViksUIOptionsPanel.unitframe3
-	
+
 	local subheader = ns.addSubCategory(parent, "Unit frames size")
 	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
-	
+
 	local Portrait_w = ns.CreateNumberSlider(parent, "Portrait_w", nil, nil, 0, 150, 1, true)
 	Portrait_w:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
-	
+
 	local Player_w = ns.CreateNumberSlider(parent, "Player_w", nil, nil, 105, 400, 1, true)
 	Player_w:SetPoint("TOPLEFT", Portrait_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Target_w = ns.CreateNumberSlider(parent, "Target_w", nil, nil, 105, 400, 1, true)
 	Target_w:SetPoint("TOPLEFT", Player_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Targettarget_w = ns.CreateNumberSlider(parent, "Targettarget_w", nil, nil, 40, 250, 1, true)
 	Targettarget_w:SetPoint("TOPLEFT", Target_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Focus_w = ns.CreateNumberSlider(parent, "Focus_w", nil, nil, 40, 400, 1, true)
 	Focus_w:SetPoint("TOPLEFT", Targettarget_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Focustarget_w = ns.CreateNumberSlider(parent, "Focustarget_w", nil, nil, 40, 250, 1, true)
 	Focustarget_w:SetPoint("TOPLEFT", Focus_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Pet_w = ns.CreateNumberSlider(parent, "Pet_w", nil, nil, 40, 250, 1, true)
 	Pet_w:SetPoint("TOPLEFT", Focustarget_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Boss_w = ns.CreateNumberSlider(parent, "Boss_w", nil, nil, 40, 250, 1, true)
 	Boss_w:SetPoint("TOPLEFT", Pet_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Tank_w = ns.CreateNumberSlider(parent, "Tank_w", nil, nil, 40, 250, 1, true)
 	Tank_w:SetPoint("TOPLEFT", Boss_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local TankH_w = ns.CreateNumberSlider(parent, "TankH_w", nil, nil, 40, 250, 1, true)
 	TankH_w:SetPoint("TOPLEFT", Tank_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Portrait_h = ns.CreateNumberSlider(parent, "Portrait_h", nil, nil, 0, 100, 1, true)
 	Portrait_h:SetPoint("LEFT", Portrait_w, "RIGHT", 150, 0)
-	
+
 	local Player_h = ns.CreateNumberSlider(parent, "Player_h", nil, nil, 0, 150, 1, true)
 	Player_h:SetPoint("TOPLEFT", Portrait_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Target_h = ns.CreateNumberSlider(parent, "Target_h", nil, nil, 0, 150, 1, true)
 	Target_h:SetPoint("TOPLEFT", Player_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Targettarget_h = ns.CreateNumberSlider(parent, "Targettarget_h", nil, nil, 0, 100, 1, true)
 	Targettarget_h:SetPoint("TOPLEFT", Target_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Focus_h = ns.CreateNumberSlider(parent, "Focus_h", nil, nil, 0, 150, 1, true)
 	Focus_h:SetPoint("TOPLEFT", Targettarget_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Focustarget_h = ns.CreateNumberSlider(parent, "Focustarget_h", nil, nil, 0, 150, 1, true)
 	Focustarget_h:SetPoint("TOPLEFT", Focus_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Pet_h = ns.CreateNumberSlider(parent, "Pet_h", nil, nil, 0, 150, 1, true)
 	Pet_h:SetPoint("TOPLEFT", Focustarget_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Boss_h = ns.CreateNumberSlider(parent, "Boss_h", nil, nil, 0, 150, 1, true)
 	Boss_h:SetPoint("TOPLEFT", Pet_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local Tank_h = ns.CreateNumberSlider(parent, "Tank_h", nil, nil, 0, 150, 1, true)
 	Tank_h:SetPoint("TOPLEFT", Boss_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local TankH_h = ns.CreateNumberSlider(parent, "TankH_h", nil, nil, 0, 150, 1, true)
 	TankH_h:SetPoint("TOPLEFT", Tank_h, "BOTTOMLEFT", 0, -28)
-	
+
 	-- Panel 4
 	local parent = ViksUIOptionsPanel.unitframe4
-	
+
 	local subheader = ns.addSubCategory(parent, "Normal Raid frames size")
 	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
-	
+
 	local Raid10H_w = ns.CreateNumberSlider(parent, "Raid10H_w", nil, nil, 0, 180, 1, true)
 	Raid10H_w:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
-	
+
 	local Raid10H_h = ns.CreateNumberSlider(parent, "Raid10H_h", nil, nil, 0, 100, 1, true)
 	Raid10H_h:SetPoint("LEFT", Raid10H_w, "RIGHT", 150, 0)
-	
+
 	local Raid25_w = ns.CreateNumberSlider(parent, "Raid25_w", nil, nil, 0, 180, 1, true)
 	Raid25_w:SetPoint("TOPLEFT", Raid10H_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Raid25_h = ns.CreateNumberSlider(parent, "Raid25_h", nil, nil, 0, 100, 1, true)
 	Raid25_h:SetPoint("LEFT", Raid25_w, "RIGHT", 150, 0)
-	
+
 	local Raid40_w = ns.CreateNumberSlider(parent, "Raid40_w", nil, nil, 0, 180, 1, true)
 	Raid40_w:SetPoint("TOPLEFT", Raid25_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Raid40_h = ns.CreateNumberSlider(parent, "Raid40_h", nil, nil, 0, 100, 1, true)
 	Raid40_h:SetPoint("LEFT", Raid40_w, "RIGHT", 150, 0)
-	
+
 	local Party_w = ns.CreateNumberSlider(parent, "Party_w", nil, nil, 0, 180, 1, true)
 	Party_w:SetPoint("TOPLEFT", Raid40_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Party_h = ns.CreateNumberSlider(parent, "Party_h", nil, nil, 0, 100, 1, true)
 	Party_h:SetPoint("LEFT", Party_w, "RIGHT", 150, 0)
-	
+
 	local subheader = ns.addSubCategory(parent, "Healer Layout Raid frames size")
 	subheader:SetPoint("TOPLEFT", Party_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Raid25H_w = ns.CreateNumberSlider(parent, "Raid25H_w", nil, nil, 0, 180, 1, true)
 	Raid25H_w:SetPoint("TOPLEFT", Party_w, "BOTTOMLEFT", 0, -80)
-	
+
 	local Raid25H_h = ns.CreateNumberSlider(parent, "Raid25H_h", nil, nil, 0, 100, 1, true)
 	Raid25H_h:SetPoint("LEFT", Raid25H_w, "RIGHT", 150, 0)
-	
+
 	local Raid40H_w = ns.CreateNumberSlider(parent, "Raid40H_w", nil, nil, 0, 180, 1, true)
 	Raid40H_w:SetPoint("TOPLEFT", Raid25H_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local Raid40H_h = ns.CreateNumberSlider(parent, "Raid40H_h", nil, nil, 0, 100, 1, true)
 	Raid40H_h:SetPoint("LEFT", Raid40H_w, "RIGHT", 150, 0)
-	
+
 	local subheader = ns.addSubCategory(parent, "Castbars hights - Width is based on healtframe width")
 	subheader:SetPoint("TOPLEFT", Raid40H_w, "BOTTOMLEFT", 0, -28)
-	
+
 	local CastbarPlayer_h = ns.CreateNumberSlider(parent, "CastbarPlayer_h", nil, nil, 0, 100, 1, true)
 	CastbarPlayer_h:SetPoint("TOPLEFT", Raid40H_w, "BOTTOMLEFT", 0, -80)
-	
+
 	local CastbarTarget_h = ns.CreateNumberSlider(parent, "CastbarTarget_h", nil, nil, 0, 100, 1, true)
 	CastbarTarget_h:SetPoint("LEFT", CastbarPlayer_h, "RIGHT", 150, 0)
-	
+
 	local CastbarBoss_h = ns.CreateNumberSlider(parent, "CastbarBoss_h", nil, nil, 0, 100, 1, true)
 	CastbarBoss_h:SetPoint("TOPLEFT", CastbarPlayer_h, "BOTTOMLEFT", 0, -28)
-	
+
 	local CastbarFocus_h = ns.CreateNumberSlider(parent, "CastbarFocus_h", nil, nil, 0, 100, 1, true)
 	CastbarFocus_h:SetPoint("LEFT", CastbarBoss_h, "RIGHT", 150, 0)
 end
@@ -2052,7 +2050,7 @@ do
 
 	local player_buff_mouseover = ns.CreateCheckBox(parent, "player_buff_mouseover")
 	player_buff_mouseover:SetPoint("TOPLEFT", player_auras, "BOTTOMLEFT", 0, 0)
-	
+
 	local target_auras = ns.CreateCheckBox(parent, "target_auras", L_GUI_AURA_TARGET_AURAS)
 	target_auras:SetPoint("TOPLEFT", player_buff_mouseover, "BOTTOMLEFT", 0, 0)
 
@@ -2343,7 +2341,7 @@ do
 	local target = ns.CreateCheckBox(parent, "target")
 	target:SetPoint("LEFT", achievements, "RIGHT", 320, 0)
 	target.Text:SetWidth(300)
-	
+
 	local title = ns.CreateCheckBox(parent, "title")
 	title:SetPoint("TOPLEFT", target, "BOTTOMLEFT", 0, 0)
 
@@ -2353,7 +2351,7 @@ do
 
 	local rank = ns.CreateCheckBox(parent, "rank")
 	rank:SetPoint("TOPLEFT", realm, "BOTTOMLEFT", 0, 0)
-	
+
 	local DungeonScore = ns.CreateCheckBox(parent, "DungeonScore", "Show Dungeon Score")
 	DungeonScore:SetPoint("TOPLEFT", rank, "BOTTOMLEFT", 0, 0)
 
@@ -2377,25 +2375,25 @@ do
 
 	local instance_lock = ns.CreateCheckBox(parent, "instance_lock")
 	instance_lock:SetPoint("TOPLEFT", unit_role, "BOTTOMLEFT", 0, 0)
-	
+
 	local mount = ns.CreateCheckBox(parent, "mount")
 	mount:SetPoint("TOPLEFT", instance_lock, "BOTTOMLEFT", 0, 0)
-	
+
 	local npc_id = ns.CreateCheckBox(parent, "npc_id")
 	npc_id:SetPoint("TOPLEFT", mount, "BOTTOMLEFT", 0, 0)
 
 	local npc_tip = ns.CreateCheckBox(parent, "npc_tip")
 	npc_tip:SetPoint("TOPLEFT", npc_id, "BOTTOMLEFT", 0, 0)
-	
+
 	-- Page 2
 	local parent = ViksUIOptionsPanel.tooltip2
-	
+
 	local bottomleft = ns.CreateCheckBox(parent, "bottomleft", "Tooltip Anchor from Bottom Left")
 	bottomleft:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
-	
+
 	local bottomright = ns.CreateCheckBox(parent, "bottomright", "Tooltip Anchor from Bottom Right")
 	bottomright:SetPoint("TOPLEFT", bottomleft, "BOTTOMLEFT", 0, 0)
-	
+
 	local topright = ns.CreateCheckBox(parent, "topright", "Tooltip Anchor from Top Right")
 	topright:SetPoint("TOPLEFT", bottomright, "BOTTOMLEFT", 0, 0)
 
@@ -2476,7 +2474,7 @@ do
 
 	local reset_pos = ns.CreateCheckBox(parent, "reset_pos", L.chat_reset_pos)
 	reset_pos:SetPoint("LEFT", whisp_sound, "RIGHT", 320, 0)
-	
+
 	local smileys = ns.CreateCheckBox(parent, "smileys", L.chat_smileys)
 	smileys:SetPoint("TOPLEFT", reset_pos, "BOTTOMLEFT", 0, 0)
 end
@@ -2484,9 +2482,9 @@ end
 -- Nameplate
 do
 	local parent = ViksUIOptionsPanel.nameplate
-	
+
 	local multScale = 768 / select(2, GetPhysicalScreenSize())
-	
+
 	local enable = ns.CreateCheckBox(parent, "enable", L_GUI_NAMEPLATE_ENABLE)
 	enable:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
@@ -2586,16 +2584,16 @@ do
 
 	local totem_icons = ns.CreateCheckBox(parent, "totem_icons", L_GUI_NAMEPLATE_TOTEM_ICONS)
 	totem_icons:SetPoint("TOPLEFT", healer_icon, "BOTTOMLEFT", 0, 0)
-	
+
 	local quests = ns.CreateCheckBox(parent, "quests", L.nameplate_quests)
 	quests:SetPoint("TOPLEFT", totem_icons, "BOTTOMLEFT", 0, 0)
-	
+
 	local target_glow = ns.CreateCheckBox(parent, "target_glow")
 	target_glow:SetPoint("TOPLEFT", quests, "BOTTOMLEFT", 0, 0)
-	
+
 	local npc_colors = ns.CreateCheckBox(parent, "npc_colors")
 	npc_colors:SetPoint("TOPLEFT", target_glow, "BOTTOMLEFT", 0, 0)
-	
+
 	local target_arrow = ns.CreateCheckBox(parent, "target_arrow", "Show arrow for target (Rearanges castbar icons position")
 	target_arrow:SetPoint("TOPLEFT", npc_colors, "BOTTOMLEFT", 0, 0)
 
@@ -2631,37 +2629,37 @@ do
 
 	local offtank_color = ns.CreateColourPicker(parent, "offtank_color", true, L_GUI_NAMEPLATE_OFFTANK_COLOR)
 	offtank_color:SetPoint("TOPLEFT", bad_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local subheader = ns.addSubCategory(parent, "Priority Markings colors")
 	subheader:SetPoint("TOPLEFT", offtank_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local priority_color = ns.CreateColourPicker(parent, "priority_color", true, L_GUI_NAMEPLATE_PRIORITY_COLOR)
 	priority_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -10)
-	
+
 	local semipri_color = ns.CreateColourPicker(parent, "semipri_color", true, L_GUI_NAMEPLATE_SEMIPRI_COLOR)
 	semipri_color:SetPoint("TOPLEFT", priority_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local nuke_color = ns.CreateColourPicker(parent, "nuke_color", true, L_GUI_NAMEPLATE_NUKE_COLOR)
 	nuke_color:SetPoint("TOPLEFT", semipri_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local t3mobs_color = ns.CreateColourPicker(parent, "t3mobs_color", true, L_GUI_NAMEPLATE_T3MOBS_COLOR)
 	t3mobs_color:SetPoint("TOPLEFT", nuke_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local tides_color = ns.CreateColourPicker(parent, "tides_color", true, L_GUI_NAMEPLATE_TIDES_COLOR)
 	tides_color:SetPoint("TOPLEFT", t3mobs_color, "BOTTOMLEFT", 0, -10)
 
 	local pvpstuff_color = ns.CreateColourPicker(parent, "pvpstuff_color", true, L_GUI_NAMEPLATE_PVPSTUFF_COLOR)
 	pvpstuff_color:SetPoint("TOPLEFT", tides_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local explosive_color = ns.CreateColourPicker(parent, "explosive_color", true, L_GUI_NAMEPLATE_EXPLOSIVE_COLOR)
 	explosive_color:SetPoint("TOPLEFT", pvpstuff_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local subheader2 = ns.addSubCategory(parent, "Target Arrow and Glow colors")
 	subheader2:SetPoint("TOPLEFT", explosive_color, "BOTTOMLEFT", 0, -10)
-	
+
 	local targetarrow_color = ns.CreateColourPicker(parent, "targetarrow_color", true, L_GUI_NAMEPLATE_TARGETARROW_COLOR)
 	targetarrow_color:SetPoint("TOPLEFT", subheader2, "BOTTOMLEFT", 0, -10)
-	
+
 	local targetglow_color = ns.CreateColourPicker(parent, "targetglow_color", true, L_GUI_NAMEPLATE_TARGETGLOW_COLOR)
 	targetglow_color:SetPoint("TOPLEFT", targetarrow_color, "BOTTOMLEFT", 0, -10)
 end
@@ -2858,7 +2856,7 @@ do
 
 	local toggle_menu = ns.CreateCheckBox(parent, "toggle_menu", L_GUI_MINIMAP_TOGGLE_MENU)
 	toggle_menu:SetPoint("TOPLEFT", hide_combat, "BOTTOMLEFT", 0, 0)
-	
+
 	local compass = ns.CreateCheckBox(parent, "compass", L_GUI_MINIMAP_COMPASS)
 	compass:SetPoint("TOPLEFT", toggle_menu, "BOTTOMLEFT", 0, 0)
 
@@ -2868,16 +2866,16 @@ do
 
 	local bg_map_stylization = ns.CreateCheckBox(parent, "bg_map_stylization")
 	bg_map_stylization:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -8)
-	
+
 	local minimb1 = ns.CreateCheckBox(parent, "minimb1", L_GUI_MINIMAP_MINIBT_1)
 	minimb1:SetPoint("TOPLEFT", bg_map_stylization, "BOTTOMLEFT", 0, -8)
-	
+
 	local minimb2 = ns.CreateCheckBox(parent, "minimb2", L_GUI_MINIMAP_MINIBT_2)
 	minimb2:SetPoint("TOPLEFT", minimb1, "BOTTOMLEFT", 0, -8)
-	
+
 	local zoneMapMultilplier = ns.CreateNumberSlider(parent, "zoneMapMultilplier", nil, nil, 0, 5, 0.1, true, zoneMapMultilplier)
 	zoneMapMultilplier:SetPoint("TOPLEFT", minimb2, "BOTTOMLEFT", 0, -20)
-	
+
 	local zoneMapScale = ns.CreateNumberSlider(parent, "zoneMapScale", nil, nil, 0, 2, 0.01, true, zoneMapScale)
 	zoneMapScale:SetPoint("TOPLEFT", zoneMapMultilplier, "BOTTOMLEFT", 0, -20)
 end
@@ -3008,7 +3006,7 @@ do
 
 	local interrupts = ns.CreateCheckBox(parent, "interrupts", L.announcements_interrupts)
 	interrupts:SetPoint("TOPLEFT", drinking, "BOTTOMLEFT", 0, 0)
-	
+
 	local spells = ns.CreateCheckBox(parent, "spells", L.announcements_spells)
 	spells:SetPoint("TOPLEFT", interrupts, "BOTTOMLEFT", 0, 0)
 
@@ -3106,19 +3104,8 @@ do
 	local accept_quest = ns.CreateCheckBox(parent, "accept_quest")
 	accept_quest:SetPoint("TOPLEFT", decline_duel, "BOTTOMLEFT", 0, 0)
 
-	local auto_collapse_login = ns.CreateCheckBox(parent, "auto_collapse_login")
-	auto_collapse_login:SetPoint("TOPLEFT", accept_quest, "BOTTOMLEFT", 0, 0)
-	
-	local auto_collapse = ns.CreateCheckBox(parent, "auto_collapse")
-	auto_collapse:SetPoint("TOPLEFT", auto_collapse_login, "BOTTOMLEFT", 0, 0)
-
-	local auto_collapse_reload = ns.CreateCheckBox(parent, "auto_collapse_reload")
-	auto_collapse_reload:SetPoint("TOPLEFT", auto_collapse, "BOTTOMLEFT", 20, 0)
-
-	auto_collapse.children = {auto_collapse_reload}
-
 	local skip_cinematic = ns.CreateCheckBox(parent, "skip_cinematic")
-	skip_cinematic:SetPoint("TOPLEFT", auto_collapse_reload, "BOTTOMLEFT", -20, 0)
+	skip_cinematic:SetPoint("TOPLEFT", accept_quest, "BOTTOMLEFT", 0, 0)
 
 	local auto_role = ns.CreateCheckBox(parent, "auto_role")
 	auto_role:SetPoint("TOPLEFT", skip_cinematic, "BOTTOMLEFT", 0, 0)
@@ -3137,18 +3124,27 @@ do
 
 	local open_items = ns.CreateCheckBox(parent, "open_items")
 	open_items:SetPoint("TOPLEFT", buff_on_scroll, "BOTTOMLEFT", 0, 0)
-	
+
 	local AutoRepair = ns.CreateCheckBox(parent, "AutoRepair")
 	AutoRepair:SetPoint("TOPLEFT", open_items, "BOTTOMLEFT", 0, 0)
-	
+
 	local AutoRepairG = ns.CreateCheckBox(parent, "AutoRepairG")
 	AutoRepairG:SetPoint("TOPLEFT", AutoRepair, "BOTTOMLEFT", 0, 0)
-	
+
 	local resurrection = ns.CreateCheckBox(parent, "resurrection")
 	resurrection:SetPoint("TOPLEFT", AutoRepairG, "BOTTOMLEFT", 0, 0)
 
 	local summon = ns.CreateCheckBox(parent, "summon")
 	summon:SetPoint("TOPLEFT", resurrection, "BOTTOMLEFT", 0, 0)
+
+	local whisper_invite = ns.CreateCheckBox(parent, "whisper_invite")
+	whisper_invite:SetPoint("TOPLEFT", summon, "BOTTOMLEFT", 0, 0)
+	whisper_invite.needsReload = false
+
+	local invite_keyword = ns.CreateEditBox(parent, "invite_keyword", true)
+	invite_keyword:SetPoint("TOPLEFT", whisper_invite, "BOTTOMLEFT", 6, -6)
+	invite_keyword:SetWidth(90)
+	invite_keyword:SetMaxLetters(20)
 end
 
 -- Reminder
@@ -3500,7 +3496,7 @@ end
 -- Panels
 do
 	local parent = ViksUIOptionsPanel.panels
-	
+
 	local CPwidth = ns.CreateNumberSlider(parent, "CPwidth", nil, nil, 0, 500, 1, true, L.panels_CPwidth)
 	CPwidth:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -30)
 
@@ -3509,46 +3505,45 @@ do
 
 	local CPTextheight = ns.CreateNumberSlider(parent, "CPTextheight", nil, nil, 0, 300, 1, true, L.panels_CPTextheight)
 	CPTextheight:SetPoint("TOPLEFT", CPLwidth, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPbarsheight = ns.CreateNumberSlider(parent, "CPbarsheight", nil, nil, 0, 50, 1, true, L.panels_CPbarsheight)
 	CPbarsheight:SetPoint("TOPLEFT", CPTextheight, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPXPBa_r = ns.CreateNumberSlider(parent, "CPXPBa_r", nil, nil, 0, 50, 1, true, L.panels_CPXPBa_r)
 	CPXPBa_r:SetPoint("TOPLEFT", CPbarsheight, "BOTTOMLEFT", 0, -20)
-	
+
 	local xoffset = ns.CreateNumberSlider(parent, "xoffset", nil, nil, 0, 15, 0.5, true, L.panels_xoffset)
 	xoffset:SetPoint("TOPLEFT", CPXPBa_r, "BOTTOMLEFT", 0, -20)
-	
+
 	local yoffset = ns.CreateNumberSlider(parent, "yoffset", nil, nil, 0, 15, 0.5, true, L.panels_yoffset)
 	yoffset:SetPoint("TOPLEFT", xoffset, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPSidesWidth = ns.CreateNumberSlider(parent, "CPSidesWidth", nil, nil, 0, 300, 1, true, L.panels_CPSidesWidth)
 	CPSidesWidth:SetPoint("LEFT", CPwidth, "RIGHT", 150, 0)
-	
+
 	local CPMABwidth = ns.CreateNumberSlider(parent, "CPMABwidth", nil, nil, 0, 800, 1, true, L.panels_CPMABwidth)
 	CPMABwidth:SetPoint("TOPLEFT", CPSidesWidth, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPMABheight = ns.CreateNumberSlider(parent, "CPMABheight", nil, nil, 0, 100, 1, true, L.panels_CPMABheight)
 	CPMABheight:SetPoint("TOPLEFT", CPMABwidth, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPMAByoffset = ns.CreateNumberSlider(parent, "CPMAByoffset", nil, nil, 0, 100, 1, true, L.panels_CPMAByoffset)
 	CPMAByoffset:SetPoint("TOPLEFT", CPMABheight, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPABarSide = ns.CreateNumberSlider(parent, "CPABarSide", nil, nil, 0, 50, 1, true, L.panels_CPABarSide)
 	CPABarSide:SetPoint("TOPLEFT", CPMAByoffset, "BOTTOMLEFT", 0, -20)
 
 	local CPCooldheight = ns.CreateNumberSlider(parent, "CPCooldheight", nil, nil, 0, 100, 1, true, L.panels_CPCooldheight)
 	CPCooldheight:SetPoint("TOPLEFT", CPABarSide, "BOTTOMLEFT", 0, -20)
-	
+
 	local CPTop = ns.CreateNumberSlider(parent, "CPTop", nil, nil, 0, 3000, 1, true, L.panels_CPTop)
 	CPTop:SetPoint("TOPLEFT", CPCooldheight, "BOTTOMLEFT", 0, -20)
 		
 	local NoPanels = ns.CreateCheckBox(parent, "NoPanels", L.panels_NoPanels)
 	NoPanels:SetPoint("TOPLEFT", yoffset, "BOTTOMLEFT", 0, -20)
-	
+
 	local HideABPanels = ns.CreateCheckBox(parent, "HideABPanels", L.panels_HideABPanels)
 	HideABPanels:SetPoint("TOPLEFT", NoPanels, "BOTTOMLEFT", 0, -10)
-
 end
 
 -- Miscellaneous
@@ -3562,7 +3557,7 @@ do
 	LFD_keyword:SetPoint("TOPLEFT", shift_marking, "BOTTOMLEFT", 6, -10)
 	LFD_keyword:SetWidth(200)
 	LFD_keyword:SetMaxLetters(40)
-	
+
 	local afk_spin_camera = ns.CreateCheckBox(parent, "afk_spin_camera")
 	afk_spin_camera:SetPoint("TOPLEFT", LFD_keyword, "BOTTOMLEFT", -6, -10)
 
@@ -3588,31 +3583,31 @@ do
 
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.misc2
-	
+
 	local markbar = ns.CreateCheckBox(parent, "markbar")
 	markbar:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
 
 	local meters = ns.CreateCheckBox(parent, "meters")
 	meters:SetPoint("TOPLEFT", markbar, "BOTTOMLEFT", 0, 0)
-	
+
 	local classtimer = ns.CreateCheckBox(parent, "classtimer")
 	classtimer:SetPoint("TOPLEFT", meters, "BOTTOMLEFT", 0, 0)
-	
+
 	local WatchFrame = ns.CreateCheckBox(parent, "WatchFrame")
 	WatchFrame:SetPoint("TOPLEFT", classtimer, "BOTTOMLEFT", 0, 0)
-	
+
 	local BT4Bars = ns.CreateCheckBox(parent, "BT4Bars")
 	BT4Bars:SetPoint("TOPLEFT", WatchFrame, "BOTTOMLEFT", 0, 0)
-	
+
 	local panelsh = ns.CreateCheckBox(parent, "panelsh")
 	panelsh:SetPoint("TOPLEFT", BT4Bars, "BOTTOMLEFT", 0, 0)
-	
+
 	local Pscale = ns.CreateNumberSlider(parent, "Pscale", nil, nil, 0.4, 1.1, 0.01, true)
 	Pscale:SetPoint("TOPLEFT", panelsh, "BOTTOMLEFT", 0, -20)
-	
+
 	local XPBar = ns.CreateCheckBox(parent, "XPBar")
 	XPBar:SetPoint("TOPLEFT", Pscale, "BOTTOMLEFT", 0, 0)
-	
+
 	local InfoPanel_Stats = ns.CreateCheckBox(parent, "InfoPanel_Stats")
 	InfoPanel_Stats:SetPoint("TOPLEFT", XPBar, "BOTTOMLEFT", 0, 0)
 end
@@ -3656,37 +3651,37 @@ do
 
 	local Versatility = ns.CreateNumberSlider(parent, "Versatility", nil, nil, 0, 18, 1, true)
 	Versatility:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 280, -5)
-	
+
 	local location = ns.CreateNumberSlider(parent, "location", nil, nil, 0, 18, 1, true)
 	location:SetPoint("TOPLEFT", Versatility, "BOTTOMLEFT", 0, -15)
-	
+
 	local Mastery = ns.CreateNumberSlider(parent, "Mastery", nil, nil, 0, 18, 1, true)
 	Mastery:SetPoint("TOPLEFT", location, "BOTTOMLEFT", 0, -15)
-	
+
 	local Power = ns.CreateNumberSlider(parent, "Power", nil, nil, 0, 18, 1, true)
 	Power:SetPoint("TOPLEFT", Mastery, "BOTTOMLEFT", 0, -15)
-	
+
 	local Profession = ns.CreateNumberSlider(parent, "Profession", nil, nil, 0, 18, 1, true)
 	Profession:SetPoint("TOPLEFT", Power, "BOTTOMLEFT", 0, -15)
-	
+
 	local Regen = ns.CreateNumberSlider(parent, "Regen", nil, nil, 0, 18, 1, true)
 	Regen:SetPoint("TOPLEFT", Profession, "BOTTOMLEFT", 0, -15)
-	
+
 	local System = ns.CreateNumberSlider(parent, "System", nil, nil, 0, 18, 1, true)
 	System:SetPoint("TOPLEFT", Regen, "BOTTOMLEFT", 0, -15)
-	
+
 	local Talents = ns.CreateNumberSlider(parent, "Talents", nil, nil, 0, 18, 1, true)
 	Talents:SetPoint("TOPLEFT", System, "BOTTOMLEFT", 0, -15)
-	
+
 	local togglemenu = ns.CreateNumberSlider(parent, "togglemenu", nil, nil, 0, 18, 1, true)
 	togglemenu:SetPoint("TOPLEFT", Talents, "BOTTOMLEFT", 0, -15)
-	
+
 	local Volume = ns.CreateNumberSlider(parent, "Volume", nil, nil, 0, 18, 1, true)
 	Volume:SetPoint("TOPLEFT", togglemenu, "BOTTOMLEFT", 0, -15)
-	
+
 	local Quests = ns.CreateNumberSlider(parent, "Quests", nil, nil, 0, 18, 1, true)
 	Quests:SetPoint("TOPLEFT", Volume, "BOTTOMLEFT", 0, -15)
-	
+
 	-- CheckBoxes
 	local currency = ns.addSubCategory(parent, L_GUI_DATATEXT_SUBHEADER_CURRENCY)
 	currency:SetPoint("TOPLEFT", Haste, "BOTTOMLEFT", 0, -27)
@@ -3702,25 +3697,25 @@ do
 
 	local classcolor = ns.CreateCheckBox(parent, "classcolor")
 	classcolor:SetPoint("TOPLEFT", Localtime, "BOTTOMLEFT", 0, 0)
-	
+
 	local color = ns.CreateColourPicker(parent, "color", true)
 	color:SetPoint("TOPLEFT", classcolor, "BOTTOMLEFT", 25, -5)
-	
+
 	local CurrArchaeology = ns.CreateCheckBox(parent, "CurrArchaeology")
 	CurrArchaeology:SetPoint("TOPLEFT", currency, "BOTTOMLEFT", 280, -8)
-	
+
 	local CurrCooking = ns.CreateCheckBox(parent, "CurrCooking")
 	CurrCooking:SetPoint("TOPLEFT", CurrArchaeology, "BOTTOMLEFT", 0, 0)
-	
+
 	local CurrProfessions = ns.CreateCheckBox(parent, "CurrProfessions")
 	CurrProfessions:SetPoint("TOPLEFT", CurrCooking, "BOTTOMLEFT", 0, 0)
-	
+
 	local CurrMiscellaneous = ns.CreateCheckBox(parent, "CurrMiscellaneous")
 	CurrMiscellaneous:SetPoint("TOPLEFT", CurrProfessions, "BOTTOMLEFT", 0, 0)
-	
+
 	local CurrPvP = ns.CreateCheckBox(parent, "CurrPvP")
 	CurrPvP:SetPoint("TOPLEFT", CurrMiscellaneous, "BOTTOMLEFT", 0, 0)
-	
+
 	local CurrRaid = ns.CreateCheckBox(parent, "CurrRaid")
 	CurrRaid:SetPoint("TOPLEFT", CurrPvP, "BOTTOMLEFT", 0, 0)
 
@@ -3728,6 +3723,62 @@ do
 	fps_ms:SetPoint("TOPLEFT", CurrRaid, "BOTTOMLEFT", 0, 0)
 end
 
+-- Quest
+do
+	local parent = ViksUIOptionsPanel.quest
+
+	-- Plugins
+	local subheader = ns.addSubCategory(parent, L.quest_subheader)
+	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -16)
+
+	local auto_collapse = ns.CreateDropDown(parent, "auto_collapse", true, false, CollapseTable)
+	auto_collapse:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -18, -10)
+
+	local header_button_only = ns.CreateCheckBox(parent, "header_button_only")
+	header_button_only:SetPoint("TOPLEFT", auto_collapse, "BOTTOMLEFT", 18, -4)
+
+	local subheader = ns.addSubCategory(parent, L.quest_subheader_header)
+	subheader:SetPoint("TOPLEFT", header_button_only, "BOTTOMLEFT", 0, -4)
+
+	local header_text_font = ns.CreateDropDown(parent, "header_text_font", true, L.quest_header_text_font, FontTable, LSM and true, true)
+	header_text_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+
+	local header_text_font_style = ns.CreateDropDown(parent, "header_text_font_style", true, L.quest_header_text_font_style, FlagsTable)
+	header_text_font_style:SetPoint("LEFT", header_text_font, "RIGHT", 150, 0)
+	
+	local header_text_ori = ns.CreateDropDown(parent, "header_text_ori", true, L.quest_header_text_ori, JustifyHTable)
+	header_text_ori:SetPoint("TOPLEFT", header_text_font_style, "BOTTOMLEFT", 0, -4)
+	
+	local header_text_font_size = ns.CreateNumberSlider(parent, "header_text_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
+	header_text_font_size:SetPoint("TOPLEFT", header_text_font, "BOTTOMLEFT", 16, -16)
+
+	local subheader = ns.addSubCategory(parent, L.quest_subheader_title)
+	subheader:SetPoint("TOPLEFT", header_text_font_size, "BOTTOMLEFT", 0, -11)
+
+	local title_text_font = ns.CreateDropDown(parent, "title_text_font", true, L.quest_title_text_font, FontTable, LSM and true, true)
+	title_text_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+
+	local title_text_font_style = ns.CreateDropDown(parent, "title_text_font_style", true, L.quest_title_text_font_style, FlagsTable)
+	title_text_font_style:SetPoint("LEFT", title_text_font, "RIGHT", 150, 0)
+
+	local title_text_font_size = ns.CreateNumberSlider(parent, "title_text_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
+	title_text_font_size:SetPoint("TOPLEFT", title_text_font, "BOTTOMLEFT", 4, -16)
+
+	local subheader = ns.addSubCategory(parent, L.quest_subheader_bar)
+	subheader:SetPoint("TOPLEFT", title_text_font_size, "BOTTOMLEFT", 12, -11)
+
+	local header_bar_color = ns.CreateColourPicker(parent, "header_bar_color", true)
+	header_bar_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 4, -10)
+	
+	local header_bar_height = ns.CreateNumberSlider(parent, "header_bar_height", nil, nil, 0, 130, 1, true, L.quest_header_bar_height)
+	header_bar_height:SetPoint("TOPLEFT", header_bar_color, "BOTTOMLEFT", -15, -25)
+	
+	local header_bar_width = ns.CreateNumberSlider(parent, "header_bar_width", nil, nil, 0, 130, 1, true, L.quest_header_bar_width)
+	header_bar_width:SetPoint("LEFT", header_bar_height, "RIGHT", 120, 0)
+	
+	local header_bar_Texture = ns.CreateDropDown(parent, "header_bar_Texture", true, nil, TextureTable, LSM and true)
+	header_bar_Texture:SetPoint("TOPLEFT", header_bar_height, "BOTTOMLEFT", 0, -15)
+end
 ----------------------------------------------------------------------------------------
 --	Skin extra frames
 ----------------------------------------------------------------------------------------

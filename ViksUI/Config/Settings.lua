@@ -43,6 +43,23 @@ if GetLocale() == "ruRU" then
 	C.media.yoffsetTop = -2
 end
 
+C["quest"] = {
+	["auto_collapse"] = "NONE",																-- Auto collapse Objective Tracker (RAID, RELOAD, SCENARIO, NONE)
+	["header_button_only"] = false,															-- Show only +/- button and not text
+	["header_text_color"] = { 0, 0.659, 1, 1},												-- Color for Headers (Quest/Scenario/etc)
+	["header_text_font"] = [=[Interface\Addons\ViksUI\Media\Font\normal_font.ttf]=], 		-- Font for Headers
+	["header_text_ori"] = "RIGHT",															-- Justify text for Headers
+	["header_text_font_size"] = 18, 														-- Header font size
+	["header_text_font_style"] = "THINOUTLINE",
+	["title_text_color"] = { 0, 0.659, 1, 1},												-- Color for Title (Quest/Scenario/etc)
+	["title_text_font"] = [=[Interface\Addons\ViksUI\Media\Font\normal_font.ttf]=], 		-- Title font
+	["title_text_font_size"] = 15, 															-- Title font size
+	["title_text_font_style"] = "THINOUTLINE", 												-- Title font style
+	["header_bar_Texture"] = [[Interface\AddOns\ViksUI\Media\Textures\Glow]],				-- Texture for line under Headers (Quest/Scenario/etc)
+	["header_bar_color"] = { 0, 0.659, 1},													-- Color for line under Headers (Quest/Scenario/etc)
+	["header_bar_height"] = 2,																-- Height for line under Headers (Quest/Scenario/etc)
+	["header_bar_width"] = 230,																-- Height for line under Headers (Quest/Scenario/etc)
+}
 ----------------------------------------------------------------------------------------
 --	General
 ----------------------------------------------------------------------------------------
@@ -717,10 +734,6 @@ C["automation"] = {
 	["accept_invite"] = false,					-- Auto accept invite
 	["decline_duel"] = true,					-- Auto decline duel (/disduel to temporarily disable)
 	["accept_quest"] = true,					-- Auto accept quests(if hold shift or alt, auto accept is disable)
-	["auto_collapse"] = "NONE",					-- Auto collapse Objective Tracker (RAID, RELOAD, SCENARIO, NONE)
-	--["auto_collapse"] = true,					-- Auto collapse WatchFrame in instance
-	--["auto_collapse_login"] = true,				-- Auto collapse WatchFrame on login
-	--["auto_collapse_reload"] = true,			-- Auto collapse WatchFrame on reloads
 	["skip_cinematic"] = false,					-- Auto skip cinematics/movies
 	["auto_role"] = false,						-- Auto set your role
 	["cancel_bad_buffs"] = false,				-- Auto cancel various buffs

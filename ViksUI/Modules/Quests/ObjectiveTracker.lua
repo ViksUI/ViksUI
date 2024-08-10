@@ -42,7 +42,135 @@ local headers = {
 ObjectiveTrackerFrame.Header.Background:SetTexture(nil)
 
 ----------------------------------------------------------------------------------------
---	Skin ObjectiveTrackerFrame item buttons
+--	Skin ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
+----------------------------------------------------------------------------------------
+if C.skins.blizzard_frames == true then
+	local button = ObjectiveTrackerFrame.Header.MinimizeButton
+	button:SetSize(17, 17)
+	button:StripTextures()
+	button:SetTemplate("Overlay")
+
+	button.minus = button:CreateTexture(nil, "OVERLAY")
+	button.minus:SetSize(7, 1)
+	button.minus:SetPoint("CENTER")
+	button.minus:SetTexture(C.media.blank)
+
+	button.plus = button:CreateTexture(nil, "OVERLAY")
+	button.plus:SetSize(1, 7)
+	button.plus:SetPoint("CENTER")
+	button.plus:SetTexture(C.media.blank)
+
+	button:HookScript("OnEnter", T.SetModifiedBackdrop)
+	button:HookScript("OnLeave", T.SetOriginalBackdrop)
+
+	button.plus:Hide()
+
+	hooksecurefunc(ObjectiveTrackerFrame, "SetCollapsed", function(self, collapsed)
+		if collapsed then
+			button.plus:Show()
+			if C.general.minimize_mouseover then
+				button:SetAlpha(0)
+				button:HookScript("OnEnter", function() button:SetAlpha(1) end)
+				button:HookScript("OnLeave", function() button:SetAlpha(0) end)
+			end
+		else
+			button.plus:Hide()
+			if C.general.minimize_mouseover then
+				button:SetAlpha(1)
+				button:HookScript("OnEnter", function() button:SetAlpha(1) end)
+				button:HookScript("OnLeave", function() button:SetAlpha(1) end)
+			end
+		end
+		button:SetNormalTexture(0)
+		button:SetPushedTexture(0)
+	end)
+end
+ObjectiveTrackerFrame.Header.MinimizeButton:Hide() -- Hide, controlled bt DataText / Todo: Add option
+ObjectiveTrackerFrame.Header.Text:Hide() -- Hide, controlled bt DataText / Todo: Add option
+----------------------------------------------------------------------------------------
+--	Auto collapse Objective Tracker
+----------------------------------------------------------------------------------------
+-- NOTE: SetCollapsed() cause UseQuestLogSpecialItem() taint
+if C.quest.auto_collapse ~= "NONE" then
+	local collapse = CreateFrame("Frame")
+	collapse:RegisterEvent("PLAYER_ENTERING_WORLD")
+	collapse:SetScript("OnEvent", function()
+		if C.quest.auto_collapse == "RAID" then
+			if IsInInstance() then
+				C_Timer.After(0.1, function()
+					ObjectiveTrackerFrame:SetCollapsed(true)
+				end)
+			elseif not InCombatLockdown() then
+				if ObjectiveTrackerFrame.isCollapsed then
+					ObjectiveTrackerFrame:SetCollapsed(false)
+				end
+			end
+		elseif C.quest.auto_collapse == "SCENARIO" then
+			local inInstance, instanceType = IsInInstance()
+			if inInstance then
+				if instanceType == "party" or instanceType == "scenario" then
+					C_Timer.After(0.1, function() -- for some reason it got error after reload in instance
+						for i = 3, #headers do
+							headers[i]:SetCollapsed(true)
+						end
+					end)
+				else
+					C_Timer.After(0.1, function()
+						ObjectiveTrackerFrame:SetCollapsed(true)
+					end)
+				end
+			else
+				if not InCombatLockdown() then
+					for i = 3, #headers do
+						if headers[i].isCollapsed then
+							headers[i]:SetCollapsed(false)
+						end
+					end
+					if ObjectiveTrackerFrame.isCollapsed then
+						ObjectiveTrackerFrame:SetCollapsed(false)
+					end
+				end
+			end
+		elseif C.quest.auto_collapse == "RELOAD" then
+			C_Timer.After(0.1, function()
+				ObjectiveTrackerFrame:SetCollapsed(true)
+			end)
+		end
+	end)
+end
+
+----------------------------------------------------------------------------------------
+--	Difficulty color for quest headers
+----------------------------------------------------------------------------------------
+hooksecurefunc(QuestObjectiveTracker, "Update", function()
+	for i = 1, C_QuestLog.GetNumQuestWatches() do
+		local questID = C_QuestLog.GetQuestIDForQuestWatchIndex(i)
+		if not questID then
+			break
+		end
+		local block = QuestObjectiveTracker:GetExistingBlock(questID)
+		if block then
+			local col = GetDifficultyColor(C_PlayerInfo.GetContentDifficultyQuestForPlayer(questID))
+			local diff = C_PlayerInfo.GetContentDifficultyQuestForPlayer(questID)
+			if diff == 2 then
+				local r1, g1, b1 = unpack(C.quest.title_text_color)
+				col = {r = r1, g = g1, b = b1}
+			end
+			block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
+			block.HeaderText:SetTextColor(col.r, col.g, col.b)
+			block.HeaderText.col = col
+		end
+	end
+end)
+
+hooksecurefunc(QuestObjectiveTracker, "OnBlockHeaderLeave", function(_, block)
+	if block.HeaderText.col then
+		block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
+	end
+end)
+
+----------------------------------------------------------------------------------------
+--	Skin quest item buttons
 ----------------------------------------------------------------------------------------
 local function HotkeyShow(self)
 	local item = self:GetParent()
@@ -100,44 +228,42 @@ local function SkinQuestIcons(_, block)
 
 		item.skinned = true
 	end
+
+	local finder = block and block.rightEdgeFrame
+	if finder and not finder.skinned then
+		finder:SetSize(26, 26)
+		finder:SetNormalTexture(0)
+		finder:SetHighlightTexture(0)
+		finder:SetPushedTexture(0)
+		finder.b = CreateFrame("Frame", nil, finder)
+		finder.b:SetTemplate("Overlay")
+		finder.b:SetPoint("TOPLEFT", finder, "TOPLEFT", 2, -3)
+		finder.b:SetPoint("BOTTOMRIGHT", finder, "BOTTOMRIGHT", -4, 3)
+		finder.b:SetFrameLevel(1)
+
+		finder:HookScript("OnEnter", function(self)
+			if self:IsEnabled() then
+				self.b:SetBackdropBorderColor(unpack(C.media.classborder_color))
+				if self.b.overlay then
+					self.b.overlay:SetVertexColor(C.media.classborder_color[1] * 0.3, C.media.classborder_color[2] * 0.3, C.media.classborder_color[3] * 0.3, 1)
+				end
+			end
+		end)
+
+		finder:HookScript("OnLeave", function(self)
+			self.b:SetBackdropBorderColor(unpack(C.media.border_color))
+			if self.b.overlay then
+				self.b.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+			end
+		end)
+
+		hooksecurefunc(finder, "Show", function(self)
+			self.b:SetFrameLevel(1)
+		end)
+
+		finder.skinned = true
+	end
 end
-
--- hooksecurefunc("QuestObjectiveSetupBlockButton_FindGroup", function(block)
-	-- if block.groupFinderButton and not block.groupFinderButton.styled then
-		-- local icon = block.groupFinderButton
-		-- icon:SetSize(26, 26)
-		-- icon:SetNormalTexture(0)
-		-- icon:SetHighlightTexture(0)
-		-- icon:SetPushedTexture(0)
-		-- icon.b = CreateFrame("Frame", nil, icon)
-		-- icon.b:SetTemplate("Overlay")
-		-- icon.b:SetPoint("TOPLEFT", icon, "TOPLEFT", 2, -3)
-		-- icon.b:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", -4, 3)
-		-- icon.b:SetFrameLevel(1)
-
-		-- icon:HookScript("OnEnter", function(self)
-			-- if self:IsEnabled() then
-				-- self.b:SetBackdropBorderColor(unpack(C.media.classborder_color))
-				-- if self.b.overlay then
-					-- self.b.overlay:SetVertexColor(C.media.classborder_color[1] * 0.3, C.media.classborder_color[2] * 0.3, C.media.classborder_color[3] * 0.3, 1)
-				-- end
-			-- end
-		-- end)
-
-		-- icon:HookScript("OnLeave", function(self)
-			-- self.b:SetBackdropBorderColor(unpack(C.media.border_color))
-			-- if self.b.overlay then
-				-- self.b.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
-			-- end
-		-- end)
-
-		-- hooksecurefunc(icon, "Show", function(self)
-			-- self.b:SetFrameLevel(1)
-		-- end)
-
-		-- icon.styled = true
-	-- end
--- end)
 
 -- WorldQuestsList button skin
 local frame = CreateFrame("Frame")
@@ -171,124 +297,6 @@ frame:SetScript("OnEvent", function()
 	end
 	_G.WorldQuestList.ObjectiveTracker_Update_hook = orig_hook
 end)
-
-----------------------------------------------------------------------------------------
---	Difficulty color for ObjectiveTrackerFrame lines
-----------------------------------------------------------------------------------------
-hooksecurefunc(QuestObjectiveTracker, "Update", function()
-	for i = 1, C_QuestLog.GetNumQuestWatches() do
-		local questID = C_QuestLog.GetQuestIDForQuestWatchIndex(i)
-		if not questID then
-			break
-		end
-		local col = GetDifficultyColor(C_PlayerInfo.GetContentDifficultyQuestForPlayer(questID))
-		local block = QuestObjectiveTracker:GetExistingBlock(questID)
-		if block then
-			block.HeaderText:SetTextColor(col.r, col.g, col.b)
-			block.HeaderText.col = col
-		end
-	end
-end)
-
-hooksecurefunc(QuestObjectiveTracker, "OnBlockHeaderLeave", function(_, block)
-	if block.HeaderText.col then
-		block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
-	end
-end)
-
-----------------------------------------------------------------------------------------
---	Skin ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
-----------------------------------------------------------------------------------------
-if C.skins.blizzard_frames == true then
-	local button = ObjectiveTrackerFrame.Header.MinimizeButton
-	button:SetSize(17, 17)
-	button:StripTextures()
-	button:SetTemplate("Overlay")
-
-	button.minus = button:CreateTexture(nil, "OVERLAY")
-	button.minus:SetSize(7, 1)
-	button.minus:SetPoint("CENTER")
-	button.minus:SetTexture(C.media.blank)
-
-	button.plus = button:CreateTexture(nil, "OVERLAY")
-	button.plus:SetSize(1, 7)
-	button.plus:SetPoint("CENTER")
-	button.plus:SetTexture(C.media.blank)
-
-	button:HookScript("OnEnter", T.SetModifiedBackdrop)
-	button:HookScript("OnLeave", T.SetOriginalBackdrop)
-
-	button.plus:Hide()
-
-	ObjectiveTrackerFrame.Header.MinimizeButton:Hide()
-
-	ObjectiveTrackerFrame.Header.Text:Hide()
-
-	hooksecurefunc(ObjectiveTrackerFrame, "SetCollapsed", function(self, collapsed)
-		if collapsed then
-			button.plus:Show()
-			if C.general.minimize_mouseover then
-				button:SetAlpha(0)
-				button:HookScript("OnEnter", function() button:SetAlpha(1) end)
-				button:HookScript("OnLeave", function() button:SetAlpha(0) end)
-			end
-		else
-			button.plus:Hide()
-			if C.general.minimize_mouseover then
-				button:SetAlpha(1)
-				button:HookScript("OnEnter", function() button:SetAlpha(1) end)
-				button:HookScript("OnLeave", function() button:SetAlpha(1) end)
-			end
-		end
-		button:SetNormalTexture(0)
-		button:SetPushedTexture(0)
-	end)
-end
-
-----------------------------------------------------------------------------------------
---	Auto collapse Objective Tracker
-----------------------------------------------------------------------------------------
-if C.automation.auto_collapse ~= "NONE" then
-	local collapse = CreateFrame("Frame")
-	collapse:RegisterEvent("PLAYER_ENTERING_WORLD")
-	collapse:SetScript("OnEvent", function()
-		if C.automation.auto_collapse == "RAID" then
-			if IsInInstance() then
-				C_Timer.After(0.1, function()
-					ObjectiveTrackerFrame:SetCollapsed(true)
-				end)
-			elseif not InCombatLockdown() then
-				ObjectiveTrackerFrame:SetCollapsed(false)
-			end
-		elseif C.automation.auto_collapse == "SCENARIO" then
-			local inInstance, instanceType = IsInInstance()
-			if inInstance then
-				if instanceType == "party" or instanceType == "scenario" then
-					C_Timer.After(0.1, function() -- for some reason it got error after reload in instance
-						for i = 3, #headers do
-							headers[i]:SetCollapsed(true)
-						end
-					end)
-				else
-					C_Timer.After(0.1, function()
-						ObjectiveTrackerFrame:SetCollapsed(true)
-					end)
-				end
-			else
-				if not InCombatLockdown() then
-					for i = 3, #headers do
-						headers[i]:SetCollapsed(false)
-					end
-					ObjectiveTrackerFrame:SetCollapsed(false)
-				end
-			end
-		elseif C.automation.auto_collapse == "RELOAD" then
-			C_Timer.After(0.1, function()
-				ObjectiveTrackerFrame:SetCollapsed(true)
-			end)
-		end
-	end)
-end
 
 ----------------------------------------------------------------------------------------
 --	Skin quest objective progress bar
@@ -361,30 +369,55 @@ local function SkinTimer(tracker, key)
 end
 
 ----------------------------------------------------------------------------------------
+--	Ctrl+Click to abandon a quest or Alt+Click to share a quest(by Suicidal Katt)
+----------------------------------------------------------------------------------------
+local function onClick(questID)
+	if IsControlKeyDown() then
+		Menu.GetManager():HandleESC()
+		QuestMapQuestOptions_AbandonQuest(questID)
+	elseif IsAltKeyDown() and C_QuestLog.IsPushableQuest(questID) then
+		Menu.GetManager():HandleESC()
+		QuestMapQuestOptions_ShareQuest(questID)
+	end
+end
+
+hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self) onClick(self.questID) end)
+
+----------------------------------------------------------------------------------------
 --	Skin and hook all trackers
 ----------------------------------------------------------------------------------------
 for i = 1, #headers do
 	local header = headers[i].Header
 	if header then
 		header.Background:SetTexture(nil)
-		header.MinimizeButton:Hide()
-		header.Text:SetFont(C.media.pxfontHeader, 14, "THINOUTLINE")
-		header.Text:SetJustifyH("RIGHT")
-		header.Text:SetTextColor(unpack(C.media.border_color))
-		header.Text:SetDrawLayer("OVERLAY", 7)
-		header.Text:SetPoint("BOTTOMRIGHT", 0, 8)
-		HeaderPanel = CreateFrame("Frame", nil, header)
-		HeaderPanel:SetFrameLevel(header:GetFrameLevel() - 1)
-		HeaderPanel:SetFrameStrata("BACKGROUND")
-		HeaderPanel:SetOutside(header, 1, 1)
+		if C.quest.header_button_only then
+		header.Text:Hide()
+		else
+			header.MinimizeButton:Hide()
+			header.Text:SetFont(C.quest.header_text_font, C.quest.header_text_font_size, C.quest.header_text_font_style)
+			header.Text:SetJustifyH(C.quest.header_text_ori)
+			header.Text:SetTextColor(unpack(C.quest.header_text_color))
+			header.Text:SetDrawLayer("OVERLAY", 7)
+			header.Text:SetPoint("BOTTOMRIGHT", 0, 8)
+			HeaderPanel = CreateFrame("Frame", nil, header)
+			HeaderPanel:SetFrameLevel(header:GetFrameLevel() - 1)
+			HeaderPanel:SetFrameStrata("BACKGROUND")
+			HeaderPanel:SetOutside(header, 1, 1)
 
-		HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
-		HeaderBar:Size(header.Text:GetStringWidth(), 2)
-		HeaderBar:SetPoint("RIGHT", HeaderPanel, 0, -10)
-		HeaderBar:SetStatusBarTexture(C.media.blank)
-		HeaderBar:SetStatusBarColor(unpack(C.media.classborder_color))
-		HeaderBar:SetTemplate()
-		HeaderBar:CreateShadow()
+			HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
+			HeaderBar:Size(C.quest.header_bar_width, C.quest.header_bar_height)
+			HeaderBar:SetPoint("RIGHT", HeaderPanel, 0, -10)
+			HeaderBar:SetStatusBarTexture(C.quest.header_bar_Texture)
+			HeaderBar:SetStatusBarColor(unpack(C.quest.header_bar_color))
+			HeaderBar:SetTemplate()
+			HeaderBar:CreateShadow()
+			header:SetScript("OnEnter", function(self)
+				header.Text:SetTextColor(1, .8, 0)
+			end)
+			header:SetScript("OnLeave", function(self)
+				header.Text:SetTextColor(unpack(C.quest.header_text_color))
+			end)
+		end
 	end
 
 	local tracker = headers[i]
@@ -430,32 +463,53 @@ for i = 1, #headers do
 				GameTooltip:Show()
 			end
 		end)
+		hooksecurefunc(tracker, "OnBlockHeaderLeave", function(_, block)
+			local poi = block.poiButton
+			if poi then
+				block.HeaderText:SetTextColor(unpack(C.quest.title_text_color))
+				local style = poi:GetStyle()
+				if style == POIButtonUtil.Style.WorldQuest then
+					if block.HeaderText and block.HeaderText.col then
+						block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
+					end
+				end
+			end
+		end)
+		hooksecurefunc(tracker, "AddBlock", function(_, block)
+			C_Timer.After(0.01, function()
+				local poi = block.poiButton
+				if poi then
+					poi:SkinButton()
+					if poi.UnderlayAtlas then poi.UnderlayAtlas:Hide() end
+					local style = poi:GetStyle()
+					block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
+					block.HeaderText:SetTextColor(unpack(C.quest.title_text_color))
+					if style == POIButtonUtil.Style.WorldQuest then
+						local questID = poi:GetQuestID()
+						local info = C_QuestLog.GetQuestTagInfo(questID)
+						if info then
+							local col = {r = 1, g = 1, b = 1}
+							if info.quality == Enum.WorldQuestQuality.Epic then
+								col = BAG_ITEM_QUALITY_COLORS[4]
+							elseif info.quality == Enum.WorldQuestQuality.Rare then
+								col = BAG_ITEM_QUALITY_COLORS[3]
+							else
+								local r1, g1, b1 = unpack(C.quest.title_text_color)
+								col = {r = r1, g = g1, b = b1}
+							end
+							block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
+							block.HeaderText:SetTextColor(col.r, col.g, col.b)
+							block.HeaderText.col = col
+						end
+					end
+				end
+			end)
+		end)
 	end
 end
 
 ----------------------------------------------------------------------------------------
---	Set tooltip depending on position
-----------------------------------------------------------------------------------------
-ScenarioObjectiveTracker.StageBlock:HookScript("OnEnter", function(self)
-	if T.IsFramePositionedLeft(ObjectiveTrackerFrame) then
-		GameTooltip:ClearAllPoints()
-		GameTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 50, -3)
-	end
-end)
-
-----------------------------------------------------------------------------------------
---	Kill reward animation when finished dungeon or bonus objectives
-----------------------------------------------------------------------------------------
---FIXME ObjectiveTrackerScenarioRewardsFrame.Show = T.dummy
--- BonusObjectiveTrackerProgressBar_PlayFlareAnim = T.dummy
-
---BETA hooksecurefunc("BonusObjectiveTracker_AnimateReward", function()
-	-- ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
-	-- ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
--- end)
-
-----------------------------------------------------------------------------------------
---	Skin ScenarioStageBlock
+--	Skin Dungeon block
 ----------------------------------------------------------------------------------------
 hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function(block)
 	if not block.backdrop then
@@ -469,8 +523,42 @@ hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function
 	end
 end)
 
+hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateWidgetRegistration", function(self)
+	local widgetContainer = self.WidgetContainer
+	if widgetContainer.widgetFrames then
+		for _, widgetFrame in pairs(widgetContainer.widgetFrames) do
+			if widgetFrame.Frame then widgetFrame.Frame:SetAlpha(0) end
+
+			local bar = widgetFrame.TimerBar
+			if bar and not bar.styled then
+				bar:SetStatusBarTexture(C.media.texture)
+				bar:CreateBackdrop("Overlay")
+				bar:SetStatusBarColor(0, 0.6, 1)
+				bar:SetFrameLevel(bar:GetFrameLevel() + 3)
+				bar.styled = true
+			end
+
+			if widgetFrame.CurrencyContainer then
+				for currencyFrame in widgetFrame.currencyPool:EnumerateActive() do
+					if not currencyFrame.styled then
+						currencyFrame.Icon:SkinIcon()
+						currencyFrame.styled = true
+					end
+				end
+			end
+		end
+	end
+end)
+
+ScenarioObjectiveTracker.StageBlock:HookScript("OnEnter", function(self)
+	if T.IsFramePositionedLeft(ObjectiveTrackerFrame) then
+		GameTooltip:ClearAllPoints()
+		GameTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 50, -3)
+	end
+end)
+
 ----------------------------------------------------------------------------------------
---	Skin ScenarioStageBlock
+--	Skin Mythic+ block
 ----------------------------------------------------------------------------------------
 hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "Activate", function(block)
 	if not block.backdrop then
@@ -511,35 +599,8 @@ hooksecurefunc(ScenarioObjectiveTracker.ChallengeModeBlock, "SetUpAffixes", func
 	end
 end)
 
-hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateWidgetRegistration", function(self)
-	local widgetContainer = self.WidgetContainer
-	if widgetContainer.widgetFrames then
-		for _, widgetFrame in pairs(widgetContainer.widgetFrames) do
-			if widgetFrame.Frame then widgetFrame.Frame:SetAlpha(0) end
-
-			local bar = widgetFrame.TimerBar
-			if bar and not bar.styled then
-				bar:SetStatusBarTexture(C.media.texture)
-				bar:CreateBackdrop("Overlay")
-				bar:SetStatusBarColor(0, 0.6, 1)
-				bar:SetFrameLevel(bar:GetFrameLevel() + 3)
-				bar.styled = true
-			end
-
-			if widgetFrame.CurrencyContainer then
-				for currencyFrame in widgetFrame.currencyPool:EnumerateActive() do
-					if not currencyFrame.styled then
-						currencyFrame.Icon:SkinIcon()
-						currencyFrame.styled = true
-					end
-				end
-			end
-		end
-	end
-end)
-
 ----------------------------------------------------------------------------------------
---	Skin MawBuffsBlock
+--	Skin Torghast ablities
 ----------------------------------------------------------------------------------------
 local Maw = ScenarioObjectiveTracker.MawBuffsBlock.Container
 Maw:SkinButton()
@@ -569,18 +630,5 @@ Maw:HookScript("OnClick", function(container)
 		container.List:SetPoint("TOPLEFT", container, "TOPRIGHT", 30, 1)
 	else
 		container.List:SetPoint("TOPRIGHT", container, "TOPLEFT", -15, 1)
-	end
-end)
-
-----------------------------------------------------------------------------------------
---	Ctrl+Click to abandon a quest or Alt+Click to share a quest(by Suicidal Katt)
-----------------------------------------------------------------------------------------
-hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self)
-	if IsControlKeyDown() then
-		Menu.GetManager():HandleESC()
-		QuestMapQuestOptions_AbandonQuest(self.questID)
-	elseif IsAltKeyDown() and C_QuestLog.IsPushableQuest(self.questID) then
-		Menu.GetManager():HandleESC()
-		QuestMapQuestOptions_ShareQuest(self.questID)
 	end
 end)
