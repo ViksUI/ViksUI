@@ -1,7 +1,13 @@
 local T, C, L = unpack(ViksUI)
 
 local CreateSpellEntry = function( id, castByAnyone, color, unitType, castSpellId )
-	return { id = id, castByAnyone = castByAnyone, color = color, unitType = unitType or 0, castSpellId = castSpellId };
+	local name = GetSpellInfo(id)
+	if name then
+		return { id = id, castByAnyone = castByAnyone, color = color, unitType = unitType or 0, castSpellId = castSpellId };
+	else
+		print("|cffff0000ViksUI: Class Timer spell ID ["..tostring(id).."] no longer exists!|r")
+		return "Empty"
+	end
 end
 
 T.ClassTimer_Trinkets = {
@@ -56,8 +62,14 @@ T.ClassTimer_Classes = {
 		target = {
 			-- Shared
 			CreateSpellEntry(45524), -- Chains of Ice
+			CreateSpellEntry(391568), -- Insidious Chill
+			CreateSpellEntry(273977), -- Grip of the Dead
+			CreateSpellEntry(206930), -- Heart Strike
+			CreateSpellEntry(383312), -- Abomination Limb
 			-- Blood
 			CreateSpellEntry(55078), -- Blood Plague
+			CreateSpellEntry(206931), -- Blooddrinker
+			CreateSpellEntry(343294), -- Soul Reaper
 			-- Frost
 			CreateSpellEntry(55095), -- Frost Fever
 			-- Unholy
@@ -70,13 +82,18 @@ T.ClassTimer_Classes = {
 			-- Global
 			CreateSpellEntry(48707), -- Anti-Magic Shell
 			CreateSpellEntry(81256), -- Dancing Rune Weapon
+			CreateSpellEntry(49028), -- Dancing Rune Weapon
 			CreateSpellEntry(49039), -- Lichborne
 			CreateSpellEntry(115018), -- Desecrated Ground
 			CreateSpellEntry(115989), -- Unholy Blight
 			CreateSpellEntry(145629), -- Anti-Magic Zone
+			CreateSpellEntry(188290), -- Death and Decay
+			CreateSpellEntry(315443), -- Abomination Limb
 			-- Blood
+			CreateSpellEntry(274156), -- Consumption
 			CreateSpellEntry(55233), -- Vampiric Blood
 			CreateSpellEntry(81141), -- Crimson Scourge
+			CreateSpellEntry(274156), -- Consumption
 			CreateSpellEntry(193249), -- Maw of the Damned
 			CreateSpellEntry(193320), -- Maw of the Damned
 			CreateSpellEntry(195181), -- Bone Shield
@@ -84,6 +101,8 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(194844), -- Bonestorm
 			CreateSpellEntry(219809), -- Tombstone
 			CreateSpellEntry(215377), -- Maw of the Damned
+			CreateSpellEntry(273947), -- Hemostasis
+			CreateSpellEntry(219788), -- Ossuary
 			-- Frost
 			CreateSpellEntry(48792), -- Ice Bound Fortitude
 			CreateSpellEntry(51124), -- Killing Machine
@@ -105,6 +124,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(53365), -- Unholy Strength
 			-- Blood
 			CreateSpellEntry(77535), -- Blood Shield
+			CreateSpellEntry(391481), -- Coagulopathy
 			-- Frost
 			-- Unholy
 			CreateSpellEntry(51460), -- Runic Corruption
@@ -120,7 +140,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(198813), -- Vengeful Retreat
 			CreateSpellEntry(200166), -- Metamorphosis (Stun)
 			CreateSpellEntry(202443), -- Anguish
-			CreateSpellEntry(206491), -- Nemesis
 			CreateSpellEntry(207690), -- Bloodlet
 			CreateSpellEntry(211053), -- Fel Barrage
 			CreateSpellEntry(213405), -- Master of the Glaives
@@ -502,7 +521,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(116849), -- Life Cocoon
 			CreateSpellEntry(202577), -- Dome of Mist
 			CreateSpellEntry(119611), -- Renewing Mist
-			CreateSpellEntry(191840), -- Essence Font
 			CreateSpellEntry(197908), -- Mana Tea
 			CreateSpellEntry(199888), -- The Mists of Shellum
 			CreateSpellEntry(214478), -- Shroud of Mist
@@ -574,7 +592,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(31850), -- Ardent Defender
 			CreateSpellEntry(86659), -- Guardian of Ancient Kings
 			CreateSpellEntry(132403), -- Shield of the Righteous
-			CreateSpellEntry(152262), -- Seraphim
 			CreateSpellEntry(204013), -- Blessing of Salvation
 			CreateSpellEntry(204018), -- Blessing of Spellwarding
 			CreateSpellEntry(204150), -- Aegis of Light
@@ -669,7 +686,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(198069), 	-- Power of the Dark Side
 			CreateSpellEntry(210027), 	-- Share in the Light
 			CreateSpellEntry(211681), 	-- Power Word: Fortitude
-			CreateSpellEntry(219521), 	-- Shadow Covenant
 			CreateSpellEntry(81782), 	-- Power Word: Barrier
 			CreateSpellEntry(271466),	-- Luminous Barrier
 			-- Shadow
@@ -684,7 +700,6 @@ T.ClassTimer_Classes = {
 		procs = {
 			CreateSpellEntry(45243), -- Focused Will
 			CreateSpellEntry(341207), -- Dark Thoughts
-			CreateSpellEntry(124430), -- Shadowy Insight
 			CreateSpellEntry(195329), -- Defender of the Weak
 			CreateSpellEntry(196684), -- Invoke the Naaru (Holy Priest Artifact)
 		},
@@ -708,7 +723,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(154953), -- Internal Bleeding
 			CreateSpellEntry(192425), -- Surge of Toxins
 			CreateSpellEntry(192759), -- Kingsbane
-			CreateSpellEntry(200803), -- Agonizing Poison
 			-- Outlaw
 			CreateSpellEntry(1776), -- Gouge
 			CreateSpellEntry(1943), -- Rupture
@@ -790,7 +804,6 @@ T.ClassTimer_Classes = {
 			-- Global
 			CreateSpellEntry(108271), -- Astral Shift
 			CreateSpellEntry(192082), -- Wind Rush
-			CreateSpellEntry(210918), -- Ethereal Form (PVP Talent)
 			CreateSpellEntry(118337), -- Harden Skin
 			CreateSpellEntry(383018), -- Stoneskin Totem
 			CreateSpellEntry(325174), -- Spirit Link Totem
@@ -983,7 +996,6 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(190456), -- Ignore Pain
 			CreateSpellEntry(202602), -- Into the Fray
 			CreateSpellEntry(203524), -- Neltharion's Fury
-			CreateSpellEntry(227744), -- Ravager
 		},
 		procs = {
 			-- Shared
