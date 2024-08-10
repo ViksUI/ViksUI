@@ -95,4 +95,5 @@ T.ABItems = {
 
 T.ABItemsIgnore = {
 	-- [itemID] = true,	-- Item name to ignore
+	[223988] = true,	-- Dalaran Hearthstone
 }
