@@ -118,7 +118,6 @@ C["misc"] = {
 	["chars_currency"] = true,					-- Tracks your currency tokens across multiple characters
 	["markbar"] = true,							-- Markbar for Raid Icons and flares
 	["classtimer"] = true,						-- Shows buff/debuffs/procs as bar on player/target frame
-	["WatchFrame"] = true,						-- Use custom Quest watch frame
 	["BT4Bars"] = true,							-- Panels behind Sidebar & Small bars for Bartender 4
 	["Pscale"] = 1,								-- Scale ViksUI Panels
 	["panelsh"] = true,							-- Set UI Panels to hidden

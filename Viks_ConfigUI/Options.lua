@@ -3593,11 +3593,8 @@ do
 	local classtimer = ns.CreateCheckBox(parent, "classtimer")
 	classtimer:SetPoint("TOPLEFT", meters, "BOTTOMLEFT", 0, 0)
 
-	local WatchFrame = ns.CreateCheckBox(parent, "WatchFrame")
-	WatchFrame:SetPoint("TOPLEFT", classtimer, "BOTTOMLEFT", 0, 0)
-
 	local BT4Bars = ns.CreateCheckBox(parent, "BT4Bars")
-	BT4Bars:SetPoint("TOPLEFT", WatchFrame, "BOTTOMLEFT", 0, 0)
+	BT4Bars:SetPoint("TOPLEFT", classtimer, "BOTTOMLEFT", 0, 0)
 
 	local panelsh = ns.CreateCheckBox(parent, "panelsh")
 	panelsh:SetPoint("TOPLEFT", BT4Bars, "BOTTOMLEFT", 0, 0)
