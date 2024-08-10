@@ -8,7 +8,11 @@ local top, below, power = _G["UIWidgetTopCenterContainerFrame"], _G["UIWidgetBel
 -- Top Widget
 local topAnchor = CreateFrame("Frame", "UIWidgetTopAnchor", UIParent)
 topAnchor:SetSize(200, 30)
-topAnchor:SetPoint(unpack(C.position.uiwidget_top))
+if C.toppanel.enable then
+	topAnchor:SetPoint(C.position.uiwidget_top[1], C.position.uiwidget_top[2], C.position.uiwidget_top[3], C.position.uiwidget_top[4], C.position.uiwidget_top[5] - 30)
+else
+	topAnchor:SetPoint(unpack(C.position.uiwidget_top))
+end
 
 top:ClearAllPoints()
 top:SetPoint("TOP", topAnchor)
@@ -197,25 +201,26 @@ for i = 1, 6 do
 	VigorBar[i].bg = VigorBar[i]:CreateTexture(nil, "BORDER")
 	VigorBar[i].bg:SetAllPoints()
 	VigorBar[i].bg:SetTexture(C.media.texture)
-	VigorBar[i].bg:SetVertexColor(0.2, 0.58, 0.8, 0.2)
+	VigorBar[i].bg:SetVertexColor(0.2 * 0.2, 0.58 * 0.2, 0.8 * 0.2)
 
 	VigorBar[i]:SetValue(0)
 end
 
 local function SkinVigorBar(widget)
+	if not widget:IsShown() then return end -- Hide our bar if Blizzard's not shown
 	local widgetInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
 	if not widgetInfo then return end
-	if not widget:IsShown() then return end -- Hide our bar if Blizzard's not shown
 
 	VigorBar:Show()
 	local total = widgetInfo.numTotalFrames
 	for i = 1, total do
 		local value = 0
-
+		VigorBar[i]:SetStatusBarColor(0.2, 0.58, 0.8)
 		if widgetInfo.numFullFrames >= i then
 			value = widgetInfo.fillMax
 		elseif widgetInfo.numFullFrames + 1 == i then
 			value = widgetInfo.fillValue
+			VigorBar[i]:SetStatusBarColor(0.2 * 0.6, 0.58 * 0.6, 0.8 * 0.6)
 		else
 			value = widgetInfo.fillMin
 		end
