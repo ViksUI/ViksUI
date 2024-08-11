@@ -3101,11 +3101,8 @@ do
 	local decline_duel = ns.CreateCheckBox(parent, "decline_duel")
 	decline_duel:SetPoint("TOPLEFT", invite_keyword, "BOTTOMLEFT", 0, 0)
 
-	local accept_quest = ns.CreateCheckBox(parent, "accept_quest")
-	accept_quest:SetPoint("TOPLEFT", decline_duel, "BOTTOMLEFT", 0, 0)
-
 	local skip_cinematic = ns.CreateCheckBox(parent, "skip_cinematic")
-	skip_cinematic:SetPoint("TOPLEFT", accept_quest, "BOTTOMLEFT", 0, 0)
+	skip_cinematic:SetPoint("TOPLEFT", decline_duel, "BOTTOMLEFT", 0, 0)
 
 	local auto_role = ns.CreateCheckBox(parent, "auto_role")
 	auto_role:SetPoint("TOPLEFT", skip_cinematic, "BOTTOMLEFT", 0, 0)
@@ -3136,15 +3133,6 @@ do
 
 	local summon = ns.CreateCheckBox(parent, "summon")
 	summon:SetPoint("TOPLEFT", resurrection, "BOTTOMLEFT", 0, 0)
-
-	local whisper_invite = ns.CreateCheckBox(parent, "whisper_invite")
-	whisper_invite:SetPoint("TOPLEFT", summon, "BOTTOMLEFT", 0, 0)
-	whisper_invite.needsReload = false
-
-	local invite_keyword = ns.CreateEditBox(parent, "invite_keyword", true)
-	invite_keyword:SetPoint("TOPLEFT", whisper_invite, "BOTTOMLEFT", 6, -6)
-	invite_keyword:SetWidth(90)
-	invite_keyword:SetMaxLetters(20)
 end
 
 -- Reminder
@@ -3561,11 +3549,8 @@ do
 	local afk_spin_camera = ns.CreateCheckBox(parent, "afk_spin_camera")
 	afk_spin_camera:SetPoint("TOPLEFT", LFD_keyword, "BOTTOMLEFT", -6, -10)
 
-	local quest_auto_button = ns.CreateCheckBox(parent, "quest_auto_button")
-	quest_auto_button:SetPoint("TOPLEFT", afk_spin_camera, "BOTTOMLEFT", 0, 0)
-
 	local raid_tools = ns.CreateCheckBox(parent, "raid_tools")
-	raid_tools:SetPoint("TOPLEFT", quest_auto_button, "BOTTOMLEFT", 0, 0)
+	raid_tools:SetPoint("TOPLEFT", afk_spin_camera, "BOTTOMLEFT", 0, 0)
 
 	local item_level = ns.CreateCheckBox(parent, "item_level")
 	item_level:SetPoint("TOPLEFT", raid_tools, "BOTTOMLEFT", 0, 0)
@@ -3724,21 +3709,27 @@ end
 do
 	local parent = ViksUIOptionsPanel.quest
 
+	local quest_auto_button = ns.CreateCheckBox(parent, "quest_auto_button")
+	quest_auto_button:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -4)
+
+	local accept_quest = ns.CreateCheckBox(parent, "accept_quest")
+	accept_quest:SetPoint("TOPLEFT", quest_auto_button, "BOTTOMLEFT", 0, -4)
+	
 	-- Plugins
 	local subheader = ns.addSubCategory(parent, L.quest_subheader)
-	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -16)
+	subheader:SetPoint("TOPLEFT", accept_quest, "BOTTOMLEFT", 0, -16)
 
 	local auto_collapse = ns.CreateDropDown(parent, "auto_collapse", true, false, CollapseTable)
 	auto_collapse:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -18, -10)
 
-	local header_button_only = ns.CreateCheckBox(parent, "header_button_only")
-	header_button_only:SetPoint("TOPLEFT", auto_collapse, "BOTTOMLEFT", 18, -4)
-
 	local subheader = ns.addSubCategory(parent, L.quest_subheader_header)
-	subheader:SetPoint("TOPLEFT", header_button_only, "BOTTOMLEFT", 0, -4)
+	subheader:SetPoint("TOPLEFT", auto_collapse, "BOTTOMLEFT", 18, -4)
+
+	local header_button_only = ns.CreateCheckBox(parent, "header_button_only")
+	header_button_only:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -4)
 
 	local header_text_font = ns.CreateDropDown(parent, "header_text_font", true, L.quest_header_text_font, FontTable, LSM and true, true)
-	header_text_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+	header_text_font:SetPoint("TOPLEFT", header_button_only, "BOTTOMLEFT", -16, -10)
 
 	local header_text_font_style = ns.CreateDropDown(parent, "header_text_font_style", true, L.quest_header_text_font_style, FlagsTable)
 	header_text_font_style:SetPoint("LEFT", header_text_font, "RIGHT", 150, 0)
@@ -3747,10 +3738,10 @@ do
 	header_text_ori:SetPoint("TOPLEFT", header_text_font_style, "BOTTOMLEFT", 0, -4)
 	
 	local header_text_font_size = ns.CreateNumberSlider(parent, "header_text_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
-	header_text_font_size:SetPoint("TOPLEFT", header_text_font, "BOTTOMLEFT", 16, -16)
+	header_text_font_size:SetPoint("TOPLEFT", header_text_font, "BOTTOMLEFT", 6, -16)
 
 	local subheader = ns.addSubCategory(parent, L.quest_subheader_title)
-	subheader:SetPoint("TOPLEFT", header_text_font_size, "BOTTOMLEFT", 0, -11)
+	subheader:SetPoint("TOPLEFT", header_text_font_size, "BOTTOMLEFT", 10, -11)
 
 	local title_text_font = ns.CreateDropDown(parent, "title_text_font", true, L.quest_title_text_font, FontTable, LSM and true, true)
 	title_text_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
@@ -3759,7 +3750,7 @@ do
 	title_text_font_style:SetPoint("LEFT", title_text_font, "RIGHT", 150, 0)
 
 	local title_text_font_size = ns.CreateNumberSlider(parent, "title_text_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
-	title_text_font_size:SetPoint("TOPLEFT", title_text_font, "BOTTOMLEFT", 4, -16)
+	title_text_font_size:SetPoint("TOPLEFT", title_text_font, "BOTTOMLEFT", 6, -16)
 
 	local subheader = ns.addSubCategory(parent, L.quest_subheader_bar)
 	subheader:SetPoint("TOPLEFT", title_text_font_size, "BOTTOMLEFT", 12, -11)
@@ -3767,14 +3758,29 @@ do
 	local header_bar_color = ns.CreateColourPicker(parent, "header_bar_color", true)
 	header_bar_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 4, -10)
 	
-	local header_bar_height = ns.CreateNumberSlider(parent, "header_bar_height", nil, nil, 0, 130, 1, true, L.quest_header_bar_height)
+	local header_bar_height = ns.CreateNumberSlider(parent, "header_bar_height", nil, nil, 0, 50, 0.5, true, L.quest_header_bar_height)
 	header_bar_height:SetPoint("TOPLEFT", header_bar_color, "BOTTOMLEFT", -15, -25)
 	
-	local header_bar_width = ns.CreateNumberSlider(parent, "header_bar_width", nil, nil, 0, 130, 1, true, L.quest_header_bar_width)
+	local header_bar_width = ns.CreateNumberSlider(parent, "header_bar_width", nil, nil, 50, 300, 1, true, L.quest_header_bar_width)
 	header_bar_width:SetPoint("LEFT", header_bar_height, "RIGHT", 120, 0)
 	
 	local header_bar_Texture = ns.CreateDropDown(parent, "header_bar_Texture", true, nil, TextureTable, LSM and true)
 	header_bar_Texture:SetPoint("TOPLEFT", header_bar_height, "BOTTOMLEFT", 0, -15)
+	
+	local texturePreview = CreateFrame("Frame", nil, parent)
+	texturePreview:SetSize(100, 30)
+	texturePreview:SetPoint("LEFT", header_bar_Texture.label, "RIGHT", 10, 0)
+	texturePreview:Hide()
+
+	texturePreview.tex = texturePreview:CreateTexture(nil, "OVERLAY")
+	texturePreview.tex:SetPoint("CENTER")
+	texturePreview.tex:SetSize(100, 30)
+
+	hooksecurefunc(header_bar_Texture, "SetValue", function()
+		texturePreview:Show()
+		texturePreview.tex:SetTexture(C.options.quest.header_bar_Texture)
+		texturePreview.tex:SetVertexColor(unpack(C.quest.header_bar_color))
+	end)
 end
 ----------------------------------------------------------------------------------------
 --	Skin extra frames

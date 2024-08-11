@@ -1,5 +1,5 @@
 local T, C, L = unpack(ViksUI)
-if C.misc.quest_auto_button ~= true then return end
+if C.quest.quest_auto_button ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	The best way to add or delete item is to go at www.wowhead.com, search for a item.

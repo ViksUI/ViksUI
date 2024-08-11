@@ -128,7 +128,7 @@ if IsAddOnLoaded("BigWigs") or IsAddOnLoaded("DBM-Core") then
 end
 
 if IsAddOnLoaded("QuickQuest") then
-	C.automation.accept_quest = false
+	C.quest.accept_quest = false
 end
 
 ----------------------------------------------------------------------------------------

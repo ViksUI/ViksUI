@@ -59,6 +59,8 @@ C["quest"] = {
 	["header_bar_color"] = { 0, 0.659, 1},													-- Color for line under Headers (Quest/Scenario/etc)
 	["header_bar_height"] = 2,																-- Height for line under Headers (Quest/Scenario/etc)
 	["header_bar_width"] = 230,																-- Height for line under Headers (Quest/Scenario/etc)
+	["quest_auto_button"] = true,															-- Quest auto button
+	["accept_quest"] = true,																-- Auto accept quests(if hold shift or alt, auto accept is disable)
 }
 ----------------------------------------------------------------------------------------
 --	General
@@ -110,7 +112,6 @@ C["misc"] = {
 	["LFD_keyword"] = "none",					-- Description to change text in LFD note - none for disable
 	["afk_spin_camera"] = true,					-- Spin camera while afk
 	["afk_spin_camera_anim"] = 69,				-- Spin camera modell animation
-	["quest_auto_button"] = true,				-- Quest auto button
 	["raid_tools"] = true,						-- Raid tools
 	["item_level"] = true,						-- Item level on character slot buttons
 	["click_cast"] = true,						-- Simple click2cast spell binder
@@ -732,7 +733,6 @@ C["automation"] = {
 	["solve_artifact"] = true,					-- Auto popup for solve artifact
 	["accept_invite"] = false,					-- Auto accept invite
 	["decline_duel"] = true,					-- Auto decline duel (/disduel to temporarily disable)
-	["accept_quest"] = true,					-- Auto accept quests(if hold shift or alt, auto accept is disable)
 	["skip_cinematic"] = false,					-- Auto skip cinematics/movies
 	["auto_role"] = false,						-- Auto set your role
 	["cancel_bad_buffs"] = false,				-- Auto cancel various buffs
