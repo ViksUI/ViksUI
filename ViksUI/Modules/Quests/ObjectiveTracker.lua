@@ -169,6 +169,43 @@ hooksecurefunc(QuestObjectiveTracker, "OnBlockHeaderLeave", function(_, block)
 	end
 end)
 
+local function colorQuest(_, block)
+	C_Timer.After(0.01, function()
+		local poi = block.poiButton
+		if poi then
+			poi:SetScale(0.82)
+			poi:SetPoint("TOP")
+			if poi.UnderlayAtlas then poi.UnderlayAtlas:Hide() end
+			if poi.Glow and poi.Glow:IsShown() then -- quest is selected
+				poi:SetAlpha(1)
+			else
+				poi:SetAlpha(0.7)
+			end
+			local style = poi:GetStyle()
+			block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
+			block.HeaderText:SetTextColor(unpack(C.quest.title_text_color))
+			if style == POIButtonUtil.Style.WorldQuest then
+				local questID = poi:GetQuestID()
+				local info = C_QuestLog.GetQuestTagInfo(questID)
+				if info then
+					local col = {r = 1, g = 1, b = 1}
+					if info.quality == Enum.WorldQuestQuality.Epic then
+						col = BAG_ITEM_QUALITY_COLORS[4]
+					elseif info.quality == Enum.WorldQuestQuality.Rare then
+						col = BAG_ITEM_QUALITY_COLORS[3]
+					else
+						local r1, g1, b1 = unpack(C.quest.title_text_color)
+						col = {r = r1, g = g1, b = b1}
+					end
+					block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
+					block.HeaderText:SetTextColor(col.r, col.g, col.b)
+					block.HeaderText.col = col
+				end
+			end
+		end
+	end)
+end
+
 ----------------------------------------------------------------------------------------
 --	Skin quest item buttons
 ----------------------------------------------------------------------------------------
@@ -463,6 +500,7 @@ for i = 1, #headers do
 				GameTooltip:Show()
 			end
 		end)
+
 		hooksecurefunc(tracker, "OnBlockHeaderLeave", function(_, block)
 			local poi = block.poiButton
 			if poi then
@@ -475,36 +513,7 @@ for i = 1, #headers do
 				end
 			end
 		end)
-		hooksecurefunc(tracker, "AddBlock", function(_, block)
-			C_Timer.After(0.01, function()
-				local poi = block.poiButton
-				if poi then
-					poi:SkinButton()
-					if poi.UnderlayAtlas then poi.UnderlayAtlas:Hide() end
-					local style = poi:GetStyle()
-					block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
-					block.HeaderText:SetTextColor(unpack(C.quest.title_text_color))
-					if style == POIButtonUtil.Style.WorldQuest then
-						local questID = poi:GetQuestID()
-						local info = C_QuestLog.GetQuestTagInfo(questID)
-						if info then
-							local col = {r = 1, g = 1, b = 1}
-							if info.quality == Enum.WorldQuestQuality.Epic then
-								col = BAG_ITEM_QUALITY_COLORS[4]
-							elseif info.quality == Enum.WorldQuestQuality.Rare then
-								col = BAG_ITEM_QUALITY_COLORS[3]
-							else
-								local r1, g1, b1 = unpack(C.quest.title_text_color)
-								col = {r = r1, g = g1, b = b1}
-							end
-							block.HeaderText:SetFont(C.quest.title_text_font, C.quest.title_text_font_size, C.quest.title_text_font_style)
-							block.HeaderText:SetTextColor(col.r, col.g, col.b)
-							block.HeaderText.col = col
-						end
-					end
-				end
-			end)
-		end)
+		hooksecurefunc(tracker, "AddBlock", colorQuest)
 	end
 end
 
