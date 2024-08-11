@@ -19,9 +19,11 @@ local function ThemeBorderC(r, g, b, a)
 	if ViksUIOptionsGlobal then
 		if ViksUIOptionsGlobal[T.realm] and ViksUIOptionsGlobal[T.realm][T.name] and ViksUIOptionsGlobal[T.realm]["Current_Profile"] then
 			local i = tostring(ViksUIOptionsGlobal[T.realm]["Current_Profile"][T.name])
+			if ViksUIOptionsPerChar[i]["media"] == nil then ViksUIOptionsPerChar[i]["media"] = {} end
 			ViksUIOptionsPerChar[i]["media"]["border_color"] = {r, g, b, a}
 		else
 			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
+			if ViksUIOptions[i]["media"] == nil then ViksUIOptions[i]["media"] = {} end
 			ViksUIOptions[i]["media"]["border_color"] = {r, g, b, a}
 		end
 	end
@@ -78,6 +80,7 @@ local thememenu = {
 		ThemeBackdropC(.06,.06,.06, 1)
 		ThemeOverlayC(0, 0, 0, 0.5)
 		ThemeNoPanels(true)
+		ViksUISettingsPerChar.BartenderSet = false
 		ReloadUI()
 	end},
 	{text = "TranspGray", notCheckable = 1, func = function()
