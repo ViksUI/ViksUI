@@ -3727,9 +3727,12 @@ do
 
 	local header_button_only = ns.CreateCheckBox(parent, "header_button_only")
 	header_button_only:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -4)
+	
+	local header_text_color = ns.CreateColourPicker(parent, "header_text_color", true)
+	header_text_color:SetPoint("TOPLEFT", header_button_only, "BOTTOMLEFT", 4, -10)
 
 	local header_text_font = ns.CreateDropDown(parent, "header_text_font", true, L.quest_header_text_font, FontTable, LSM and true, true)
-	header_text_font:SetPoint("TOPLEFT", header_button_only, "BOTTOMLEFT", -16, -10)
+	header_text_font:SetPoint("TOPLEFT", header_text_color, "BOTTOMLEFT", -20, -10)
 
 	local header_text_font_style = ns.CreateDropDown(parent, "header_text_font_style", true, L.quest_header_text_font_style, FlagsTable)
 	header_text_font_style:SetPoint("LEFT", header_text_font, "RIGHT", 150, 0)
@@ -3743,8 +3746,11 @@ do
 	local subheader = ns.addSubCategory(parent, L.quest_subheader_title)
 	subheader:SetPoint("TOPLEFT", header_text_font_size, "BOTTOMLEFT", 10, -11)
 
+	local title_text_color = ns.CreateColourPicker(parent, "title_text_color", true)
+	title_text_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 4, -10)
+	
 	local title_text_font = ns.CreateDropDown(parent, "title_text_font", true, L.quest_title_text_font, FontTable, LSM and true, true)
-	title_text_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+	title_text_font:SetPoint("TOPLEFT", title_text_color, "BOTTOMLEFT", -20, -10)
 
 	local title_text_font_style = ns.CreateDropDown(parent, "title_text_font_style", true, L.quest_title_text_font_style, FlagsTable)
 	title_text_font_style:SetPoint("LEFT", title_text_font, "RIGHT", 150, 0)
@@ -3765,7 +3771,7 @@ do
 	header_bar_width:SetPoint("LEFT", header_bar_height, "RIGHT", 120, 0)
 	
 	local header_bar_Texture = ns.CreateDropDown(parent, "header_bar_Texture", true, nil, TextureTable, LSM and true)
-	header_bar_Texture:SetPoint("TOPLEFT", header_bar_height, "BOTTOMLEFT", 0, -15)
+	header_bar_Texture:SetPoint("TOPLEFT", header_bar_height, "BOTTOMLEFT", -6, -15)
 	
 	local texturePreview = CreateFrame("Frame", nil, parent)
 	texturePreview:SetSize(100, 30)
