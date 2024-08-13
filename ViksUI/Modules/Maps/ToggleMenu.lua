@@ -125,7 +125,7 @@ C["toggleaddons"] = {
 		GatherMate2.db.profile["showWorldMap"] = not GatherMate2.db.profile["showWorldMap"]
 		GatherMate2:GetModule("Config"):UpdateConfig()
 	end,
-	["ViksUI_Config"] = function()
+	["Viks_ConfigUI"] = function()
 		SlashCmdList.CONFIG()
 	end,
 	["ACP"] = function()
