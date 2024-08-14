@@ -426,7 +426,7 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetU
 if C.tooltip.npc_tip == true then
 	local function OnTooltipSetNpcTip(self)
 	if self ~= GameTooltip then return end
-		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
+		local unit = (select(2, self:GetUnit())) or (GetMouseFoci() and GetMouseFoci().GetAttribute and GetMouseFoci():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
 		if unit then
 			local guid = UnitGUID(unit) or ""
 			local id = select(6, strsplit('-', guid))
@@ -453,7 +453,7 @@ end
 if C.tooltip.DungeonScore then
 	local function OnTooltipSetMScore(self)
 	if self ~= GameTooltip then return end
-		local unit = (select(2, self:GetUnit())) or (GetMouseFocus() and GetMouseFocus().GetAttribute and GetMouseFocus():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
+		local unit = (select(2, self:GetUnit())) or (GetMouseFoci() and GetMouseFoci().GetAttribute and GetMouseFoci():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
 		local isPlayer = UnitIsPlayer(unit)
 		if unit then
 			local data = C_PlayerInfo_GetPlayerMythicPlusRatingSummary(unit)
