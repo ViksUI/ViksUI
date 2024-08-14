@@ -3532,6 +3532,12 @@ do
 
 	local HideABPanels = ns.CreateCheckBox(parent, "HideABPanels", L.panels_HideABPanels)
 	HideABPanels:SetPoint("TOPLEFT", NoPanels, "BOTTOMLEFT", 0, -10)
+	
+	local HideDetailsPanels = ns.CreateCheckBox(parent, "HideDetailsPanels", L.panels_HideDetailsPanels)
+	HideDetailsPanels:SetPoint("TOPLEFT", HideABPanels, "BOTTOMLEFT", 0, -10)
+	
+	local twoDetailsPanels = ns.CreateCheckBox(parent, "twoDetailsPanels", L.panels_twoDetailsPanels)
+	twoDetailsPanels:SetPoint("TOPLEFT", HideDetailsPanels, "BOTTOMLEFT", 0, -10)
 end
 
 -- Miscellaneous

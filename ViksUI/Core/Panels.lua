@@ -238,25 +238,34 @@ end
 
 --Background Panel For Details if used
 
-if C_AddOns.IsAddOnLoaded("Details") then
+if C_AddOns.IsAddOnLoaded("Details") and not C.panels.HideDetailsPanels then
 local L_Details = CreateFrame("Frame", "L_Details", Details_WindowFrame3)
 L_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-10, LABar:GetHeight(), "BOTTOMLEFT", LABar, "BOTTOMRIGHT", xoffset, 0)
 L_Details:SetFrameLevel(2)
 L_Details:SetAlpha(pAlpha)
 
+if C.panels.twoDetailsPanels then 
+	rhight = (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))
+else
+	rhight = (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))*0.5
+end
+
 local R1_Details = CreateFrame("Frame", "R1_Details", Details_WindowFrame1)
-R1_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))*0.5, "BOTTOMRIGHT", RABar, "BOTTOMLEFT", -xoffset, 0)
+R1_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, rhight, "BOTTOMRIGHT", RABar, "BOTTOMLEFT", -xoffset, 0)
 R1_Details:SetFrameLevel(2)
 R1_Details:SetAlpha(pAlpha)
 
+if not C.panels.twoDetailsPanels then 
 local R2_Details = CreateFrame("Frame", "R2_Details", Details_WindowFrame2)
-R2_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, (Pscale*(CPbarsheight+yoffset+CPTextheight+CPbarsheight+yoffset))*0.49, "TOPRIGHT", RABar, "TOPLEFT", -xoffset, 0)
+R2_Details:CreatePanel("Transparent", (Pscale*CPSidesWidth)-8, rhight, "TOPRIGHT", RABar, "TOPLEFT", -xoffset, 0)
 R2_Details:SetFrameLevel(2)
 R2_Details:SetAlpha(pAlpha)
+RegisterStateDriver(R2_Details, "visibility", "[petbattle] hide; show")
+end
 
 RegisterStateDriver(L_Details, "visibility", "[petbattle] hide; show")
 RegisterStateDriver(R1_Details, "visibility", "[petbattle] hide; show")
-RegisterStateDriver(R2_Details, "visibility", "[petbattle] hide; show")
+
 end
 
 ----------------------------------------------------------------------------------------

@@ -151,6 +151,8 @@ C["panels"] = {
 	["Pscale"] = C["misc"].Pscale,					-- Can be used to resize all panels. It does not change X Y Values
 	["NoPanels"] = false,							-- Will Set all panels to hidden and show lines instead. On test stage still!
 	["HideABPanels"] = false,						-- Hides all panels behind actionbars!
+	["HideDetailsPanels"] = false,					-- Don't show panels behind detail
+	["twoDetailsPanels"] = false,					-- Don't show 2 panels on right side, Details
 }
 ----------------------------------------------------------------------------------------
 --	Skins options
