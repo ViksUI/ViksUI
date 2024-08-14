@@ -1,4 +1,4 @@
-local T, C, L = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true or C.unitframe.plugins_auto_resurrection ~= true or C.misc.click_cast == true or T.class == "DEMONHUNTER" or T.class == "HUNTER" or T.class == "MAGE" or T.class == "ROGUE" or T.class == "WARRIOR" then return end
 
 ----------------------------------------------------------------------------------------
@@ -9,31 +9,31 @@ local oUF = ns.oUF
 
 local classList = {
 	["DEATHKNIGHT"] = {
-		combat = GetSpellInfo(61999),	-- Raise Ally
+		combat = C_Spell.GetSpellInfo(61999),	-- Raise Ally
 	},
 	["DRUID"] = {
-		combat = GetSpellInfo(20484),	-- Rebirth
-		ooc = GetSpellInfo(50769),		-- Revive
+		combat = C_Spell.GetSpellInfo(20484),	-- Rebirth
+		ooc = C_Spell.GetSpellInfo(50769),		-- Revive
 	},
 	["EVOKER"] = {
-		ooc = GetSpellInfo(361227),		-- Return
+		ooc = C_Spell.GetSpellInfo(361227),		-- Return
 	},
 	["MONK"] = {
-		ooc = GetSpellInfo(115178),		-- Resuscitate
+		ooc = C_Spell.GetSpellInfo(115178),		-- Resuscitate
 	},
 	["PALADIN"] = {
-		combat = GetSpellInfo(391054),	-- Intercession
-		ooc = GetSpellInfo(7328),		-- Redemption
+		combat = C_Spell.GetSpellInfo(391054),	-- Intercession
+		ooc = C_Spell.GetSpellInfo(7328),		-- Redemption
 	},
 	["PRIEST"] = {
-		ooc = GetSpellInfo(2006),		-- Resurrection
+		ooc = C_Spell.GetSpellInfo(2006),		-- Resurrection
 	},
 	["SHAMAN"] = {
-		ooc = GetSpellInfo(2008),		-- Ancestral Spirit
+		ooc = C_Spell.GetSpellInfo(2008),		-- Ancestral Spirit
 	},
 	["WARLOCK"] = {
-		combat = GetSpellInfo(6203),	-- Soulstone
-		ooc = GetSpellInfo(6203),		-- Soulstone
+		combat = C_Spell.GetSpellInfo(6203),	-- Soulstone
+		ooc = C_Spell.GetSpellInfo(6203),		-- Soulstone
 	},
 }
 
@@ -51,7 +51,7 @@ local function macroBody(class)
 		end
 
 		if class == "WARLOCK" then
-			local name = GetSpellInfo(6203)
+			local name = C_Spell.GetSpellInfo(6203)
 			body = body.."\n/use "..name.."\n "
 		end
 	elseif oocspell then
@@ -65,7 +65,7 @@ local Enable = function(self)
 	local _, class = UnitClass("player")
 	if not class then return end
 
-	if classList[class] and not IsAddOnLoaded("Clique") and not InCombatLockdown() then
+	if classList[class] and not C_AddOns.IsAddOnLoaded("Clique") and not InCombatLockdown() then
 		self:SetAttribute("*type3", "macro")
 		self:SetAttribute("macrotext3", macroBody(class))
 		return true

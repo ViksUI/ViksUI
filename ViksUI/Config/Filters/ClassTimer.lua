@@ -1,7 +1,7 @@
 local T, C, L = unpack(ViksUI)
 
 local CreateSpellEntry = function( id, castByAnyone, color, unitType, castSpellId )
-	local name = GetSpellInfo(id)
+	local name = C_Spell.GetSpellInfo(id)
 	if name then
 		return { id = id, castByAnyone = castByAnyone, color = color, unitType = unitType or 0, castSpellId = castSpellId };
 	else

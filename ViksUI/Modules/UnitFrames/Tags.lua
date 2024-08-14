@@ -4,6 +4,8 @@ local _, ns = ...
 local cfg = ns.cfg
 local oUF = ns.oUF or oUF
 local foo = {""}
+local GetSpellInfo = _G.GetSpellInfo or _G.C_Spell.GetSpellName
+
 local spellcache = setmetatable({}, 
 {__index=function(t,id) 
 	local a = {GetSpellInfo(id)} 

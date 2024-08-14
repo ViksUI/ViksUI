@@ -260,8 +260,6 @@ C["unitframe"] = {
 	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
 	["plugins_pvp_debuffs"] = true,			-- Show also PvP debuff icons (from the list)
 	["plugins_healcomm"] = true,				-- Show incoming heals in player and raid frames
-	["plugins_over_absorb"] = false,			-- Show over absorb bar on raid frame
-	["plugins_over_heal_absorb"] = false,		-- Show over heal absorb on raid frame (from enemy debuffs)
 	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click(doesn't work with Clique)
 	-- Unit Size
 	["Portrait_w"] = 56,

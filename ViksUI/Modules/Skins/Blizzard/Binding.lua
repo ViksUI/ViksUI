@@ -13,7 +13,9 @@ local function LoadSkin()
 
 	T.SkinScrollBar(ClickBindingFrame.ScrollBar)
 	T.SkinCheckBox(frame.EnableMouseoverCastCheckbox)
-	T.SkinDropDownBox(frame.MouseoverCastKeyDropdown)
+	T.SkinDropDownBox(frame.MouseoverCastKeyDropDown)
+
+	ClickBindingFrame.MacrosPortrait:SetPoint("TOPRIGHT", -40, -60)
 
 	local function updateNewGlow(self)
 		if self.NewOutline:IsShown() then
@@ -71,8 +73,6 @@ local function LoadSkin()
 	tutorial.NineSlice:StripTextures()
 	tutorial:CreateBackdrop("Transparent")
 	tutorial.backdrop:SetInside()
-	tutorial.Bg:Hide()
-	T.SkinCloseButton(tutorial.CloseButton)
 end
 
 T.SkinFuncs["Blizzard_ClickBindingUI"] = LoadSkin

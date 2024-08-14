@@ -17,7 +17,7 @@ COOLDOWN_Anchor = CreateFrame("Frame", "COOLDOWN_Anchor", UIParent)
 T_DE_BUFF_BAR_Anchor = CreateFrame("Frame", "T_DE_BUFF_BAR_Anchor", UIParent)
 
 local function spellID(id)
-	local name = GetSpellInfo(id)
+	local name = C_Spell.GetSpellInfo(id)
 	if name then
 		return name
 	else
@@ -3355,6 +3355,6 @@ do
 
 	-- Remove Serpent Sting if Serpentstalker's Trickery is pick up
 	if IsPlayerSpell(378888) then
-		T.FilgerIgnoreSpell[GetSpellInfo(271788)] = true
+		T.FilgerIgnoreSpell[C_Spell.GetSpellInfo(271788)] = true
 	end
 end

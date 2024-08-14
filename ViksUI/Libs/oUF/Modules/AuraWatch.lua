@@ -123,7 +123,7 @@ local function setupIcons(self)
 	watch.watched = {}
 
 	for _, icon in pairs(icons) do
-		local name, _, image = GetSpellInfo(icon.spellID)
+		local name, _, image = C_Spell.GetSpellInfo(icon.spellID)
 		if name then
 			icon.name = name
 

@@ -4,7 +4,7 @@ local T, C, L = unpack(ViksUI)
 --	LiteStats configuration file
 --	BACKUP THIS FILE BEFORE UPDATING!
 ----------------------------------------------------------------------------------------
-local cBN = IsAddOnLoaded("cargBags_Nivaya")
+local cBN = C_AddOns.IsAddOnLoaded("cargBags_Nivaya")
 local ctab = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 local function class(string)
 	local color = ctab[T.class]

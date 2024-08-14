@@ -81,7 +81,7 @@ local function OnUpdate(_, update)
 				local getCooldownDetails
 				if v[2] == "spell" then
 					getCooldownDetails = memoize(function()
-                        local start, duration, enabled = GetSpellCooldown(v[3])
+                        local start, duration, enabled = C_Spell.GetSpellCooldown(v[3])
                         return {
                             name = GetSpellInfo(v[3]),
                             texture = GetSpellTexture(v[3]),
@@ -92,7 +92,7 @@ local function OnUpdate(_, update)
                     end)
 				elseif v[2] == "item" then
 					getCooldownDetails = memoize(function()
-                        local start, duration, enabled = GetItemCooldown(i)
+                        local start, duration, enabled = C_Item.GetItemCooldown(i)
                         return {
                             name = GetItemInfo(i),
                             texture = v[3],
@@ -195,7 +195,7 @@ frame:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 
 function frame:UNIT_SPELLCAST_SUCCEEDED(unit, _, spellID)
 	if unit == "player" then
-		local texture = GetSpellTexture(spellID)
+		local texture = C_Spell.GetSpellTexture(spellID)
 		local t1 = GetInventoryItemTexture("player", 13)
 		local t2 = GetInventoryItemTexture("player", 14)
 		if texture == t1 or texture == t2 then return end -- Fix wrong buff cd for trinket
@@ -209,7 +209,7 @@ function frame:COMBAT_LOG_EVENT_UNFILTERED()
 	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 	if eventType == "SPELL_CAST_SUCCESS" then
 		if (bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_PET) == COMBATLOG_OBJECT_TYPE_PET and bit.band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) == COMBATLOG_OBJECT_AFFILIATION_MINE) then
-			local name = GetSpellInfo(spellID)
+			local name = C_Spell.GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
 			if index and not select(7, GetPetActionInfo(index)) then
 				watching[spellID] = {GetTime(), "pet", index}
@@ -251,7 +251,7 @@ hooksecurefunc("UseInventoryItem", function(slot)
 end)
 
 SlashCmdList.PulseCD = function()
-	tinsert(animating, {GetSpellTexture(87214)})
+	tinsert(animating, {C_Spell.GetSpellTexture(87214)})
 	if C.pulsecooldown.sound == true then
 		PlaySoundFile(C.media.proc_sound, "Master")
 	end

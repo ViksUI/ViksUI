@@ -1,8 +1,8 @@
 local T, C, L = unpack(ViksUI)
-if C.skins.blizzard_frames ~= true or C.skins.pawn ~= true or IsAddOnLoaded('Pawn') ~= true then return end
+if C.skins.blizzard_frames ~= true or C.skins.pawn ~= true or C_AddOns.IsAddOnLoaded('Pawn') ~= true then return end
 
 local function LoadSkin()
-	if addon == 'Blizzard_InspectUI' or IsAddOnLoaded('Blizzard_InspectUI') then
+	if addon == 'Blizzard_InspectUI' or C_AddOns.IsAddOnLoaded('Blizzard_InspectUI') then
 		InspectFrame:HookScript('OnShow', function() PawnUI_InspectPawnButton:SkinButton(true) PawnUI_InspectPawnButton:SetFormattedText(" Pawn ") PawnUI_InspectPawnButton:ClearAllPoints() PawnUI_InspectPawnButton:Point('RIGHT', InspectFrameCloseButton, 'LEFT', -8, -4) PawnUI_InspectPawnButton:Size(66, 20)end)
 	end
 

@@ -9,18 +9,18 @@ local thickness = 1
 -- METERS
 -----------------------------------------------------------------------------------------
 
-if IsAddOnLoaded('Skada') or IsAddOnLoaded('Details') or IsAddOnLoaded('Recount') then
+if C_AddOns.IsAddOnLoaded('Skada') or C_AddOns.IsAddOnLoaded('Details') or C_AddOns.IsAddOnLoaded('Recount') then
 	CreateBtn("ShowHideMeters", RIGHTChatline, 55, 20, "", "")
 	RIGHTChatline:SetFrameStrata("HIGH")
 	RIGHTChatline:SetFrameLevel(15)
 	ShowHideMeters:SetPoint("LEFT", RIGHTChatline, "LEFT", 0, 0)
-	if IsAddOnLoaded('Skada') then
+	if C_AddOns.IsAddOnLoaded('Skada') then
 		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/Skada toggle")
 	end
-	if IsAddOnLoaded('Recount') then
+	if C_AddOns.IsAddOnLoaded('Recount') then
 		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/recount toggle")
 	end
-	if IsAddOnLoaded('Details') then
+	if C_AddOns.IsAddOnLoaded('Details') then
 		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/details toggle")
 	end
 	ShowHideMeters:SetAlpha(0)
@@ -59,13 +59,13 @@ if IsAddOnLoaded('Skada') or IsAddOnLoaded('Details') or IsAddOnLoaded('Recount'
 
 	CreateBtn("resetChat", RIGHTChatline, 70, 20, "", "")
 	resetChat:SetPoint("LEFT", RIGHTChatline, "LEFT", 60, 0)
-	if IsAddOnLoaded('Skada') then
+	if C_AddOns.IsAddOnLoaded('Skada') then
 		resetChat:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(1)\n/run ChatFrame4Tab:Show()\n/Skada toggle")
 	end
-	if IsAddOnLoaded('Recount') then
+	if C_AddOns.IsAddOnLoaded('Recount') then
 		resetChat:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(1)\n/run ChatFrame4Tab:Show()\n/recound toggle")
 	end
-	if IsAddOnLoaded('Details') then
+	if C_AddOns.IsAddOnLoaded('Details') then
 		resetChat:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(1)\n/run ChatFrame4Tab:Show()\n/details hide")
 	end
 

@@ -54,7 +54,7 @@ frame:Hide()
 tinsert(UISpecialFrames, "TeleportMenu")
 
 for i, spell in pairs(spells) do
-	local teleport = GetSpellInfo(spell[1])
+	local teleport = C_Spell.GetSpellInfo(spell[1])
 
 	local b = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
 	b:CreatePanel("Transparent", C.minimap.size, 20, "BOTTOMLEFT", frame, "BOTTOMLEFT", 0, ((i - 1) * 21))
@@ -81,7 +81,7 @@ for i, spell in pairs(spells) do
 	b:SetAttribute("type1", "spell")
 	b:SetAttribute("spell1", teleport)
 	b:SetAttribute("type2", "spell")
-	b:SetAttribute("spell2", GetSpellInfo(spell[2]))
+	b:SetAttribute("spell2", C_Spell.GetSpellInfo(spell[2]))
 end
 
 local learnSpell = CreateFrame("Frame")

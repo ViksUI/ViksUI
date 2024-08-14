@@ -91,7 +91,7 @@ local function LoadSkin()
 						end
 
 						if button.spellID then
-							local texture = GetSpellTexture(button.spellID)
+							local texture = C_Spell.GetSpellTexture(button.spellID)
 							if texture then
 								button.Icon:SetTexture(texture)
 							end
@@ -201,7 +201,7 @@ end
 local LoadTootlipSkin = CreateFrame("Frame")
 LoadTootlipSkin:RegisterEvent("ADDON_LOADED")
 LoadTootlipSkin:SetScript("OnEvent", function(self, _, addon)
-	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora")  then
+	if C_AddOns.IsAddOnLoaded("Skinner") or C_AddOns.IsAddOnLoaded("Aurora")  then
 		self:UnregisterEvent("ADDON_LOADED")
 		return
 	end

@@ -1,5 +1,5 @@
-local T, C, L = unpack(ViksUI)
-if C.general.color_picker ~= true then return end
+-- local T, C, L = unpack(ViksUI)
+-- if C.general.color_picker ~= true then return end
 
 -- ----------------------------------------------------------------------------------------
 -- --	Improved ColorPicker(ColorPickerPlus by Jaslm)
@@ -80,7 +80,7 @@ if C.general.color_picker ~= true then return end
 -- load:SetScript("OnEvent", function(self)
 	-- self:UnregisterAllEvents()
 
-	-- if IsAddOnLoaded("ColorPickerPlus") then return end
+	-- if C_AddOns.IsAddOnLoaded("ColorPickerPlus") then return end
 
 	-- ColorPickerFrame:HookScript("OnShow", function()
 		-- -- Get color that will be replaced

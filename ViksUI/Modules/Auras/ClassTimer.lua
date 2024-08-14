@@ -269,7 +269,7 @@ do
 				
 				local castSeparator = self.castSeparator;
 				if ( castSeparator and self.castSpellId ) then
-					local _, _, _, castTime, _, _ = GetSpellInfo(self.castSpellId)
+					local _, _, _, castTime, _, _ = C_Spell.GetSpellInfo(self.castSpellId)
 
 					castTime = castTime / 1000;
 					if ( castTime and remaining > castTime ) then

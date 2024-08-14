@@ -138,7 +138,7 @@ local function Update(self, event, ...)
 		-- when we enter the world and guildframe is not available then
 		-- load guild frame, update guild message and guild xp
 		if event == "PLAYER_ENTERING_WORLD" then
-			if not GuildFrame and IsInGuild() then LoadAddOn("Blizzard_GuildUI") UpdateGuildMessage() end
+			if not GuildFrame and IsInGuild() then C_AddOns.LoadAddOn("Blizzard_GuildUI") UpdateGuildMessage() end
 		end
 		-- an event occured that could change the guild roster, so request update, and wait for guild roster update to occur
 		if event ~= "GUILD_ROSTER_UPDATE" and event~="PLAYER_GUILD_UPDATE" then C_GuildInfo_GuildRoster() return end

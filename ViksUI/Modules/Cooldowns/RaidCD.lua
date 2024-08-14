@@ -183,7 +183,7 @@ local CreateBar = function()
 end
 
 local StartTimer = function(name, spellId)
-	local spell, _, icon = GetSpellInfo(spellId)
+	local spell, _, icon = C_Spell.GetSpellInfo(spellId)
 	if charges and spellId == 20484 then
 		for _, v in pairs(Ressesbars) do
 			UpdateCharges(v)
@@ -328,7 +328,7 @@ local OnEvent = function(self, event)
 end
 
 for spell in pairs(T.RaidSpells) do
-	local name = GetSpellInfo(spell)
+	local name = C_Spell.GetSpellInfo(spell)
 	if not name then
 		print("|cffff0000ViksUI: RaidCD spell ID ["..tostring(spell).."] no longer exists!|r")
 	end

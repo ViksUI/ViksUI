@@ -10,7 +10,7 @@ local function SpellName(id)
 	if name then
 		return {name, icon}
 	else
-		print("|cffff0000WARNING: spell ID ["..tostring(id).."] no longer exists in reminders! Report this to Viks.|r")
+		print("|cffff0000ViksUI: Reminders spell ID ["..tostring(id).."] no longer exists!|r")
 		return {"Empty", ""}
 	end
 end

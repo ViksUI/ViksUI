@@ -61,7 +61,7 @@ local PClass = UnitClass("player")
 local PRace = UnitRace("player")
 local PFaction = UnitFactionGroup("player")
 local color = T.RGBToHex(unpack(C["media"].pxcolor1))
-local Version = tonumber(GetAddOnMetadata("ViksUI", "Version"))
+local Version = tonumber(C_AddOns.GetAddOnMetadata("ViksUI", "Version"))
 
 T.AFK_LIST = {
 	"Mouseover minimap shows coords and locations.",

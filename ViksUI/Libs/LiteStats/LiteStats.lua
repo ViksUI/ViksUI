@@ -390,10 +390,10 @@ if fps.enabled then
 		local totalMemory = 0
 		UpdateAddOnMemoryUsage()
 		wipe(memoryt)
-		for i = 1, GetNumAddOns() do
+		for i = 1, C_AddOns.GetNumAddOns() do
 			local memory = GetAddOnMemoryUsage(i)
-			local addon, name = GetAddOnInfo(i)
-			if IsAddOnLoaded(i) then tinsert(memoryt, {name or addon, memory}) end
+			local addon, name = C_AddOns.GetAddOnInfo(i)
+			if C_AddOns.IsAddOnLoaded(i) then tinsert(memoryt, {name or addon, memory}) end
 			totalMemory = totalMemory + memory
 		end
 		table.sort(memoryt, sortdesc)
@@ -413,14 +413,14 @@ if fps.enabled then
 		local totalCPU = 0
 		UpdateAddOnCPUUsage()
 		wipe(cput)
-		for i = 1, GetNumAddOns() do
+		for i = 1, C_AddOns.GetNumAddOns() do
 			local cpu = GetAddOnCPUUsage(i)
-			local addon, name = GetAddOnInfo(i)
+			local addon, name = C_AddOns.GetAddOnInfo(i)
 			local cpus = cpu / (GetTime() - startTime)
 			local cpur = cpu - (lastCPU[i] and lastCPU[i] or cpu)
 			lastCPU[i] = cpu
 
-			if IsAddOnLoaded(i) then tinsert(cput, {name or addon, cpu, cpus, cpur}) end
+			if C_AddOns.IsAddOnLoaded(i) then tinsert(cput, {name or addon, cpu, cpus, cpur}) end
 			totalCPU = totalCPU + cpu
 		end
 		table.sort(cput, sortdesc)
@@ -1644,14 +1644,14 @@ if damage.enabled then
 	Inject("Damage", {
 		text = {
 			string = function()
-				if IsAddOnLoaded("Details") then
+				if C_AddOns.IsAddOnLoaded("Details") then
 					_detalhes.data_broker_text = "{dps}"
 					_detalhes:BrokerTick()
 					local effectiveDPS = _detalhes.databroker.text
 					if effectiveDPS and effectiveDPS ~= "0" then
 						return format(damage.alt_fmt, DAMAGE, effectiveDPS)
 					end
-				elseif IsAddOnLoaded("Numeration") then
+				elseif C_AddOns.IsAddOnLoaded("Numeration") then
 					local text = LibStub:GetLibrary("LibDataBroker-1.1"):GetDataObjectByName("Numeration").text
 					if text and text ~= "Numeration" then
 						return format(damage.alt_fmt, DAMAGE, text)
@@ -1660,9 +1660,9 @@ if damage.enabled then
 			end
 		},
 		OnClick = function(self, button)
-			if IsAddOnLoaded("Details") then
+			if C_AddOns.IsAddOnLoaded("Details") then
 				_detalhes:ToggleWindows()
-			elseif IsAddOnLoaded("Numeration") then
+			elseif C_AddOns.IsAddOnLoaded("Numeration") then
 				Numeration:ToggleVisibility()
 			end
 		end
@@ -1898,7 +1898,7 @@ if gold.enabled then
 
 				if total > 0 then
 					local info = C_CurrencyInfo.GetCurrencyInfo(1813)
-					local name = GetSpellInfo(325995)
+					local name = C_Spell.GetSpellInfo(325995)
 					GameTooltip:AddDoubleLine(name, format("%s |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", total, info.iconFileID, t_icon), 1, 1, 1, 1, 1, 1)
 				end
 			end

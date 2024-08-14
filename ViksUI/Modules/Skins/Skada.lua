@@ -1,6 +1,6 @@
 local T, C, L = unpack(ViksUI)
 if C.skins.skada ~= true then return end
-if not IsAddOnLoaded("Skada") then return end
+if not C_AddOns.IsAddOnLoaded("Skada") then return end
 local Skada = Skada
 
 local function CreateBackdrop(f, t, tex)

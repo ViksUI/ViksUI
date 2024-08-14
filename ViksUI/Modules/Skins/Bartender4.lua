@@ -7,7 +7,7 @@ if C.skins.blizzard_frames ~= true or C.skins.bartender ~= true then return end
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event, addon)
-	if not IsAddOnLoaded("Bartender4") then return end
+	if not C_AddOns.IsAddOnLoaded("Bartender4") then return end
 	
 	local function StyleNormalButton(self)
 		local name = self:GetName()

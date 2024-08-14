@@ -128,7 +128,7 @@ function button:PLAYER_LOGIN()
 	end
 
 	if IsSpellKnown(1804) then
-		rogue = ITEM_MIN_SKILL:gsub("%%s", (T.client == "ruRU" and "Взлом замков" or GetSpellInfo(1809))):gsub("%%d", "%(.*%)")
+		rogue = ITEM_MIN_SKILL:gsub("%%s", (T.client == "ruRU" and "Взлом замков" or C_Spell.GetSpellInfo(1809))):gsub("%%d", "%(.*%)")
 	end
 
 	local function OnTooltipSetUnit(self, data)
@@ -141,7 +141,7 @@ function button:PLAYER_LOGIN()
 			local spell, r, g, b
 			if disenchanter then
 				if enchantingItems[itemID] then
-					spell, r, g, b = GetSpellInfo(13262), 0.5, 0.5, 1
+					spell, r, g, b = C_Spell.GetSpellInfo(13262), 0.5, 0.5, 1
 				else
 					local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(link)
 					if quality and ((quality >= Enum.ItemQuality.Uncommon and quality <= Enum.ItemQuality.Epic)
@@ -150,13 +150,13 @@ function button:PLAYER_LOGIN()
 							or (class == Enum.ItemClass.Armor and subClass ~= Enum.ItemClass.Cosmetic)
 							or (class == Enum.ItemClass.Gem and subClass == 11)
 							or class == Enum.ItemClass.Profession)) then
-						spell, r, g, b = GetSpellInfo(13262), 0.5, 0.5, 1
+						spell, r, g, b = C_Spell.GetSpellInfo(13262), 0.5, 0.5, 1
 					end
 				end
 			elseif rogue then
 				for index = 1, self:NumLines() do
 					if string.match(_G["GameTooltipTextLeft"..index]:GetText() or "", rogue) then
-						spell, r, g, b = GetSpellInfo(1804), 0, 1, 1
+						spell, r, g, b = C_Spell.GetSpellInfo(1804), 0, 1, 1
 					end
 				end
 			end

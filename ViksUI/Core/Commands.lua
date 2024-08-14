@@ -7,6 +7,7 @@ SlashCmdList.RELOADUI = function() ReloadUI() end
 SLASH_RELOADUI1 = "/rl"
 SLASH_RELOADUI2 = "/кд"
 SLASH_RELOADUI3 = "//"
+SLASH_RELOADUI4 = "/."
 
 SlashCmdList.RCSLASH = function() DoReadyCheck() end
 SLASH_RCSLASH1 = "/rc"
@@ -46,7 +47,7 @@ SLASH_UIHELP3 = "/гшрудз"
 --	Enable/Disable addons
 ----------------------------------------------------------------------------------------
 SlashCmdList.DISABLE_ADDON = function(addon)
-	local _, _, _, _, _, reason = GetAddOnInfo(addon)
+	local _, _, _, _, _, reason = C_AddOns.GetAddOnInfo(addon)
 	if reason ~= "MISSING" then
 		DisableAddOn(addon)
 		ReloadUI()
@@ -58,7 +59,7 @@ SLASH_DISABLE_ADDON1 = "/dis"
 SLASH_DISABLE_ADDON2 = "/disable"
 
 SlashCmdList.ENABLE_ADDON = function(addon)
-	local _, _, _, _, _, reason = GetAddOnInfo(addon)
+	local _, _, _, _, _, reason = C_AddOns.GetAddOnInfo(addon)
 	if reason ~= "MISSING" then
 		EnableAddOn(addon)
 		LoadAddOn(addon)
@@ -71,8 +72,8 @@ SLASH_ENABLE_ADDON1 = "/en"
 SLASH_ENABLE_ADDON2 = "/enable"
 
 SlashCmdList.ONLY_UI = function()
-	for i = 1, GetNumAddOns() do
-		local name = GetAddOnInfo(i)
+	for i = 1, C_AddOns.GetNumAddOns() do
+		local name = C_AddOns.GetAddOnInfo(i)
 		if name ~= "ViksUI" and name ~= "Viks_ConfigUI" and name ~= "!BaudErrorFrame" and GetAddOnEnableState(T.name, name) == 2 then
 			DisableAddOn(name, T.name)
 		end
@@ -188,7 +189,7 @@ SLASH_NPCID1 = "/getid"
 ----------------------------------------------------------------------------------------
 --	Demo mode for DBM
 ----------------------------------------------------------------------------------------
-SlashCmdList.DBMTEST = function() if IsAddOnLoaded("DBM-Core") then DBM:DemoMode() end end
+SlashCmdList.DBMTEST = function() if C_AddOns.IsAddOnLoaded("DBM-Core") then DBM:DemoMode() end end
 SLASH_DBMTEST1 = "/dbmtest"
 SLASH_DBMTEST2 = "/виьеуые"
 
@@ -344,105 +345,6 @@ SlashCmdList.TEST_ACHIEVEMENT = function()
 end
 SLASH_TEST_ACHIEVEMENT1 = "/tach"
 SLASH_TEST_ACHIEVEMENT2 = "/ефср"
-
-
-----------------------------------------------------------------------------------------
---	CHAT SWITCH
-----------------------------------------------------------------------------------------
-SlashCmdList.CHAT_SWITCH = function()
-	FCF_UnDockFrame(ChatFrame4)
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "SAY")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "EMOTE")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "YELL")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_SAY")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_EMOTE")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_YELL")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_WHISPER")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_BOSS_EMOTE")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "MONSTER_BOSS_WHISPER")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "PARTY")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "PARTY_LEADER")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "RAID")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "RAID_LEADER")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "RAID_WARNING")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "INSTANCE_CHAT")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "INSTANCE_CHAT_LEADER")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "BATTLEGROUND")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "BATTLEGROUND_LEADER")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "BG_HORDE")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "BG_ALLIANCE")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "BG_NEUTRAL")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "SYSTEM")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "ERRORS")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "AFK")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "DND")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "IGNORED")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "ACHIEVEMENT")
-	ChatFrame_RemoveMessageGroup(ChatFrame4, "LOOT")
-	for i = 1, NUM_CHAT_WINDOWS do
-		local frame = _G[format("ChatFrame%s", i)]
-		local chatFrameId = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(chatFrameId)
-		
-		-- move general bottom left	
-		if i == 1 then
-			frame:ClearAllPoints()
-			frame:SetWidth(LChat:GetWidth())
-			frame:SetHeight(LChat:GetHeight())
-			frame:SetPoint("BOTTOMLEFT",LChat,"BOTTOMLEFT",12,6)
-			frame:SetPoint("TOPRIGHT",LChat,"TOPRIGHT",-4,-25)		
-		elseif i == 4 then
-			frame:ClearAllPoints()
-			frame:SetWidth(RChat:GetWidth())
-			frame:SetHeight(RChat:GetHeight())
-			frame:SetPoint("BOTTOMLEFT",RChat,"BOTTOMLEFT",4,4)
-			frame:SetPoint("TOPRIGHT",RChat,"TOPRIGHT",-4,-25)
-		end
-		
-		--FCF_SavePositionAndDimensions(frame)
-		FCF_StopDragging(frame)
-				
-	end
-	FCF_SelectDockFrame(ChatFrame1)
-	local visibleSkada = false
-end
-SLASH_CHAT_SWITCH1 = "/chatS"
-
-
-SlashCmdList.CHAT_USWITCH = function()
-	FCF_DockFrame(ChatFrame4)
-	ChatFrame_AddMessageGroup(ChatFrame4, "SAY")
-	ChatFrame_AddMessageGroup(ChatFrame4, "EMOTE")
-	ChatFrame_AddMessageGroup(ChatFrame4, "YELL")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_SAY")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_EMOTE")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_YELL")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_BOSS_EMOTE")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONSTER_BOSS_WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "PARTY")
-	ChatFrame_AddMessageGroup(ChatFrame4, "PARTY_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "RAID")
-	ChatFrame_AddMessageGroup(ChatFrame4, "RAID_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "RAID_WARNING")
-	ChatFrame_AddMessageGroup(ChatFrame4, "INSTANCE_CHAT")
-	ChatFrame_AddMessageGroup(ChatFrame4, "INSTANCE_CHAT_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BATTLEGROUND")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BATTLEGROUND_LEADER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BG_HORDE")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BG_ALLIANCE")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BG_NEUTRAL")
-	ChatFrame_AddMessageGroup(ChatFrame4, "SYSTEM")
-	ChatFrame_AddMessageGroup(ChatFrame4, "ERRORS")
-	ChatFrame_AddMessageGroup(ChatFrame4, "AFK")
-	ChatFrame_AddMessageGroup(ChatFrame4, "DND")
-	ChatFrame_AddMessageGroup(ChatFrame4, "IGNORED")
-	ChatFrame_AddMessageGroup(ChatFrame4, "ACHIEVEMENT")
-	ChatFrame_AddMessageGroup(ChatFrame4, "LOOT")
-	FCF_SelectDockFrame(ChatFrame4)
-	local visibleSkada = true
-end
-SLASH_CHAT_USWITCH1 = "/chatU"
 
 ----------------------------------------------------------------------------------------
 --	Test Blizzard Extra Action Button

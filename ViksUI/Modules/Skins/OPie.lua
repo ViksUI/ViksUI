@@ -1,5 +1,5 @@
 local T, C = unpack(ViksUI)
-if C.skins.opie ~= true or not IsAddOnLoaded("OPie") then return end
+if C.skins.opie ~= true or not C_AddOns.IsAddOnLoaded("OPie") then return end
 
 ----------------------------------------------------------------------------------------
 --	OPie skin (OPie Masque)
@@ -194,7 +194,7 @@ local function CreateIndicator(name, parent, size, ghost)
 		button.ProfessionQualityOverlayFrame = CreateFrame("Frame", nil, button, "ActionButtonProfessionOverlayTemplate")
 		button.ProfessionQualityOverlayFrame:SetPoint("TOPLEFT", 14, -14)
 	--end
-	
+
 	-- Outer glow (doesn't seem to do anything?)
 	button.GlowTextures = {}
 
@@ -241,5 +241,5 @@ end
 local function onParentAlphaChanged(button, alpha)
 button:SetAlpha(alpha)
 end
-	
+
 OPie.UI:RegisterIndicatorConstructor("OpieMasque", {CreateIndicator=CreateIndicator, name="OpieMasque", apiLevel=3, onParentAlphaChanged=onParentAlphaChanged})

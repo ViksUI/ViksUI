@@ -100,7 +100,7 @@ local CreateIcon = function()
 end
 
 local StartTimer = function(sGUID, sID, sName)
-	local _, _, texture = GetSpellInfo(sID)
+	local _, _, texture = C_Spell.GetSpellInfo(sID)
 	local icon = CreateIcon()
 	icon.Texture:SetTexture(texture)
 	icon.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -165,7 +165,7 @@ local OnEvent = function(_, event)
 end
 
 for spell in pairs(T.EnemySpells) do
-	local name = GetSpellInfo(spell)
+	local name = C_Spell.GetSpellInfo(spell)
 	if not name then
 		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists in EnemyCD! Report this to Viks.|r")
 	end

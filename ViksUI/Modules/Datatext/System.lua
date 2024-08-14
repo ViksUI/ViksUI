@@ -54,7 +54,7 @@ local function RefreshMem(self)
 	Total = 0
 	for i = 1, GetNumAddOns() do
 		Mem = GetAddOnMemoryUsage(i)
-		Memory[i] = { select(2, GetAddOnInfo(i)), Mem, IsAddOnLoaded(i) }
+		Memory[i] = { select(2, GetAddOnInfo(i)), Mem, C_AddOns.IsAddOnLoaded(i) }
 		Total = Total + Mem
 	end
 	
