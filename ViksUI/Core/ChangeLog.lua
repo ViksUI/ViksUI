@@ -3,8 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 11.13 for Wow 11.02 TWW ",
-	"• New API names",
+	"Update 11.14 for Wow 11.02 TWW ",
+	"• More renamed API",
+	"• New options for panels",
+	"• Reveal Map updated",
+	"• Xp/Rep/Honor/Anima Bar updated",
 	"Update 11.12 for Wow 11 TWW ",
 	"• Skinned Spellbook",
 	"• Updated font file/added symbols",
