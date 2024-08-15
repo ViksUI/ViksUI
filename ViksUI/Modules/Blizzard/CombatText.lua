@@ -589,7 +589,7 @@ local function StartTestMode()
 					local color = {}
 					msg = random(40000)
 					if C.combattext.icons then
-						_, _, icon = C_Spell.GetSpellInfo(msg)
+						_, _, icon = GetSpellInfo(msg)
 						if not icon then
 							icon = C_Spell.GetSpellTexture(6603)
 						end
@@ -1050,14 +1050,14 @@ end
 -- Check outdated spells
 if C.combattext.merge_aoe_spam then
 	for spell in pairs(T.aoespam) do
-		local name = C_Spell.GetSpellInfo(spell)
+		local name = GetSpellInfo(spell)
 		if not name then
 			print("|cffff0000ViksUI: CombatText spell ID ["..tostring(spell).."] no longer exists!|r")
 		end
 	end
 
 	for spell in pairs(T.merge) do
-		local name = C_Spell.GetSpellInfo(spell)
+		local name = GetSpellInfo(spell)
 		if not name then
 			print("|cffff0000ViksUI: CombatText spell ID ["..tostring(spell).."] no longer exists!|r")
 		end
@@ -1066,7 +1066,7 @@ end
 
 if C.combattext.healing then
 	for spell in pairs(T.healfilter) do
-		local name = C_Spell.GetSpellInfo(spell)
+		local name = GetSpellInfo(spell)
 		if not name then
 			print("|cffff0000ViksUI: CombatText spell ID ["..tostring(spell).."] no longer exists!|r")
 		end

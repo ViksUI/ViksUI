@@ -9,31 +9,31 @@ local oUF = ns.oUF
 
 local classList = {
 	["DEATHKNIGHT"] = {
-		combat = C_Spell.GetSpellInfo(61999),	-- Raise Ally
+		combat = GetSpellInfo(61999),	-- Raise Ally
 	},
 	["DRUID"] = {
-		combat = C_Spell.GetSpellInfo(20484),	-- Rebirth
-		ooc = C_Spell.GetSpellInfo(50769),		-- Revive
+		combat = GetSpellInfo(20484),	-- Rebirth
+		ooc = GetSpellInfo(50769),		-- Revive
 	},
 	["EVOKER"] = {
-		ooc = C_Spell.GetSpellInfo(361227),		-- Return
+		ooc = GetSpellInfo(361227),		-- Return
 	},
 	["MONK"] = {
-		ooc = C_Spell.GetSpellInfo(115178),		-- Resuscitate
+		ooc = GetSpellInfo(115178),		-- Resuscitate
 	},
 	["PALADIN"] = {
-		combat = C_Spell.GetSpellInfo(391054),	-- Intercession
-		ooc = C_Spell.GetSpellInfo(7328),		-- Redemption
+		combat = GetSpellInfo(391054),	-- Intercession
+		ooc = GetSpellInfo(7328),		-- Redemption
 	},
 	["PRIEST"] = {
-		ooc = C_Spell.GetSpellInfo(2006),		-- Resurrection
+		ooc = GetSpellInfo(2006),		-- Resurrection
 	},
 	["SHAMAN"] = {
-		ooc = C_Spell.GetSpellInfo(2008),		-- Ancestral Spirit
+		ooc = GetSpellInfo(2008),		-- Ancestral Spirit
 	},
 	["WARLOCK"] = {
-		combat = C_Spell.GetSpellInfo(6203),	-- Soulstone
-		ooc = C_Spell.GetSpellInfo(6203),		-- Soulstone
+		combat = GetSpellInfo(6203),	-- Soulstone
+		ooc = GetSpellInfo(6203),		-- Soulstone
 	},
 }
 
@@ -51,7 +51,7 @@ local function macroBody(class)
 		end
 
 		if class == "WARLOCK" then
-			local name = C_Spell.GetSpellInfo(6203)
+			local name = GetSpellInfo(6203)
 			body = body.."\n/use "..name.."\n "
 		end
 	elseif oocspell then

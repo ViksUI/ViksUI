@@ -16,16 +16,6 @@ PVE_PVP_CC_Anchor = CreateFrame("Frame", "PVE_PVP_CC_Anchor", UIParent)
 COOLDOWN_Anchor = CreateFrame("Frame", "COOLDOWN_Anchor", UIParent)
 T_DE_BUFF_BAR_Anchor = CreateFrame("Frame", "T_DE_BUFF_BAR_Anchor", UIParent)
 
-local function spellID(id)
-	local name = C_Spell.GetSpellInfo(id)
-	if name then
-		return name
-	else
-		print("|cffff0000WARNING: spell ID ["..tostring(id).."] in Filger no longer exists! Report this to Viks.|r")
-		return "Empty"
-	end
-end
-
 C["filger_spells"] = {
 	["DEATHKNIGHT"] = {
 		{
@@ -3355,6 +3345,6 @@ do
 
 	-- Remove Serpent Sting if Serpentstalker's Trickery is pick up
 	if IsPlayerSpell(378888) then
-		T.FilgerIgnoreSpell[C_Spell.GetSpellInfo(271788)] = true
+		T.FilgerIgnoreSpell[GetSpellInfo(271788)] = true
 	end
 end

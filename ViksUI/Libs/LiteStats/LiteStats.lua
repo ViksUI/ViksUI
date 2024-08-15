@@ -1898,7 +1898,7 @@ if gold.enabled then
 
 				if total > 0 then
 					local info = C_CurrencyInfo.GetCurrencyInfo(1813)
-					local name = C_Spell.GetSpellInfo(325995)
+					local name = GetSpellInfo(325995)
 					GameTooltip:AddDoubleLine(name, format("%s |T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59:%d|t", total, info.iconFileID, t_icon), 1, 1, 1, 1, 1, 1)
 				end
 			end

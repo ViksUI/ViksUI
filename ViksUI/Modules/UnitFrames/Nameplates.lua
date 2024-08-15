@@ -156,21 +156,21 @@ if C.nameplate.healer_icon == true then
 end
 
 local totemData = {
-	[C_Spell.GetSpellInfo(192058)] = 136013,	-- Capacitor Totem
-	[C_Spell.GetSpellInfo(98008)]  = 237586,	-- Spirit Link Totem
-	[C_Spell.GetSpellInfo(192077)] = 538576,	-- Wind Rush Totem
-	[C_Spell.GetSpellInfo(204331)] = 511726,	-- Counterstrike Totem
-	[C_Spell.GetSpellInfo(204332)] = 136114,	-- Windfury Totem
-	[C_Spell.GetSpellInfo(204336)] = 136039,	-- Grounding Totem
-	[C_Spell.GetSpellInfo(157153)] = 971076,	-- Cloudburst Totem
-	[C_Spell.GetSpellInfo(5394)]   = 135127,	-- Healing Stream Totem
-	[C_Spell.GetSpellInfo(108280)] = 538569,	-- Healing Tide Totem
-	[C_Spell.GetSpellInfo(207399)] = 136080,	-- Ancestral Protection Totem
-	[C_Spell.GetSpellInfo(198838)] = 136098,	-- Earthen Wall Totem
-	[C_Spell.GetSpellInfo(51485)]  = 136100,	-- Earthgrab Totem
-	[C_Spell.GetSpellInfo(196932)] = 136232,	-- Voodoo Totem
-	[C_Spell.GetSpellInfo(192222)] = 971079,	-- Liquid Magma Totem
-	[C_Spell.GetSpellInfo(204330)] = 135829,	-- Skyfury Totem
+	[GetSpellInfo(192058)] = 136013,	-- Capacitor Totem
+	[GetSpellInfo(98008)]  = 237586,	-- Spirit Link Totem
+	[GetSpellInfo(192077)] = 538576,	-- Wind Rush Totem
+	[GetSpellInfo(204331)] = 511726,	-- Counterstrike Totem
+	[GetSpellInfo(204332)] = 136114,	-- Windfury Totem
+	[GetSpellInfo(204336)] = 136039,	-- Grounding Totem
+	[GetSpellInfo(157153)] = 971076,	-- Cloudburst Totem
+	[GetSpellInfo(5394)]   = 135127,	-- Healing Stream Totem
+	[GetSpellInfo(108280)] = 538569,	-- Healing Tide Totem
+	[GetSpellInfo(207399)] = 136080,	-- Ancestral Protection Totem
+	[GetSpellInfo(198838)] = 136098,	-- Earthen Wall Totem
+	[GetSpellInfo(51485)]  = 136100,	-- Earthgrab Totem
+	[GetSpellInfo(196932)] = 136232,	-- Voodoo Totem
+	[GetSpellInfo(192222)] = 971079,	-- Liquid Magma Totem
+	[GetSpellInfo(204330)] = 135829,	-- Skyfury Totem
 }
 
 local function CreateBorderFrame(frame, point)

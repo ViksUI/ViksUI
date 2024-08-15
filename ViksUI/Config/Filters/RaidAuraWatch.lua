@@ -90,7 +90,7 @@ T.RaidBuffsIgnore = {
 }
 
 local function SpellName(id)
-	local name = C_Spell.GetSpellInfo(id)
+	local name = GetSpellInfo(id)
 	if name then
 		return name
 	else

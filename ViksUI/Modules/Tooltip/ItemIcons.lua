@@ -32,7 +32,7 @@ end)
 TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, function(self, data)
 	if whiteTooltip[self] and not self:IsForbidden() then
 		if data and data.id then
-			setTooltipIcon(self, select(3, C_Spell.GetSpellInfo(data.id)))
+			setTooltipIcon(self, select(3, GetSpellInfo(data.id)))
 		end
 	end
 end)
@@ -46,7 +46,7 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Macro, function(sel
 		if tooltipType == 0 then -- item
 			setTooltipIcon(self, GetItemIcon(lineData.tooltipID))
 		elseif tooltipType == 1 then -- spell
-			setTooltipIcon(self, select(3, C_Spell.GetSpellInfo(lineData.tooltipID)))
+			setTooltipIcon(self, select(3, GetSpellInfo(lineData.tooltipID)))
 		end
 	end
 end)

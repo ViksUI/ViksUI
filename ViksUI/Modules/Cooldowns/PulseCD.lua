@@ -84,7 +84,7 @@ local function OnUpdate(_, update)
                         local start, duration, enabled = C_Spell.GetSpellCooldown(v[3])
                         return {
                             name = GetSpellInfo(v[3]),
-                            texture = GetSpellTexture(v[3]),
+                            texture = C_Spell.GetSpellTexture(v[3]),
                             start = start,
                             duration = duration,
                             enabled = enabled
@@ -209,7 +209,7 @@ function frame:COMBAT_LOG_EVENT_UNFILTERED()
 	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 	if eventType == "SPELL_CAST_SUCCESS" then
 		if (bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_PET) == COMBATLOG_OBJECT_TYPE_PET and bit.band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) == COMBATLOG_OBJECT_AFFILIATION_MINE) then
-			local name = C_Spell.GetSpellInfo(spellID)
+			local name = GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
 			if index and not select(7, GetPetActionInfo(index)) then
 				watching[spellID] = {GetTime(), "pet", index}
