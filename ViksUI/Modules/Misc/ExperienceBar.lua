@@ -10,6 +10,8 @@ local BarSelected
 local Bars = 20
 local barTex = C.media.texture
 local MaxRenown = 80
+local GetWatchedFactionInfo = (C_Reputation and C_Reputation.GetWatchedFactionData) or GetWatchedFactionInfo
+local ExperienceMenu
 
 Experience.NumBars = 2
 Experience.RestedColor = {75 / 255, 175 / 255, 76 / 255}
@@ -17,7 +19,8 @@ Experience.XPColor = {0 / 255, 144 / 255, 255 / 255}
 Experience.PetXPColor = {255 / 255, 255 / 255, 105 / 255}
 Experience.AZColor = {229 / 255, 204 / 255, 127 / 255}
 Experience.HNColor = {222 / 255, 22 / 255, 22 / 255}
-Experience.AnimaColor = {153 / 255, 204 / 255, 255 / 255}														 
+Experience.AnimaColor = {153 / 255, 204 / 255, 255 / 255}
+
 Experience.Menu = {
 	{
 		text = XP,
@@ -130,13 +133,13 @@ function Experience:SetTooltip()
 		end
 	elseif BarType == "ANIMA" then
 		Current, Max = Experience:GetAnima()
-		
+
 		if Max == 0 then
 			return
 		end
-		
+
 		local Level = C_CovenantSanctumUI.GetRenownLevel()
-		
+
 		GameTooltip:AddDoubleLine("|cffFF3333"..COVENANT_SANCTUM_TAB_RENOWN.." "..LEVEL..": ", Level)
 		GameTooltip:AddDoubleLine("|cff99CCFF"..ANIMA_DIVERSION_CURRENCY_TOOLTIP_TITLE..": ", Current .. " / " .. Max .. " (" .. floor(Current / Max * 100) .. "%)")
 	elseif BarType == "PETXP" then
@@ -161,11 +164,11 @@ function Experience:SetTooltip()
 		GameTooltip:AddDoubleLine(ItemName..' ('..Level..')', format(ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS, Current, Max), 0.90, 0.80, 0.50)
 		GameTooltip:AddLine(' ')
 		GameTooltip:AddLine(AZERITE_POWER_TOOLTIP_BODY:format(ItemName))
-
 	elseif BarType == "REP" then
-		local Name, Standing, Min, Max, Value, Faction = C_Reputation.GetWatchedFactionData()
 		local Current, Max, Standing = Experience:GetReputation()
-		local Name, ID = C_Reputation.GetWatchedFactionData()
+		local Name = (T.Retail and GetWatchedFactionInfo().name) or select(1, GetWatchedFactionInfo())
+		local ID = (T.Retail and GetWatchedFactionInfo().reaction) or select(2, GetWatchedFactionInfo())
+		local Faction = (T.Retail and GetWatchedFactionInfo().factionID) or select(2, GetWatchedFactionInfo())
 		local Colors = FACTION_BAR_COLORS
 		local Hex = T.RGBToHex(Colors[ID].r, Colors[ID].g, Colors[ID].b)
 		local majorFactionData = C_MajorFactions.GetMajorFactionData(Faction)
@@ -214,7 +217,7 @@ function Experience:GetAzerite()
 	local AzeriteItems = C_AzeriteItem.FindActiveAzeriteItem()
 	local InBank = AzeriteUtil.IsAzeriteItemLocationBankBag(AzeriteItems)
 	local XP, TotalXP, Level
-	
+
 	if InBank then
 		XP, TotalXP = 0, 0
 		Level = 0
@@ -222,7 +225,7 @@ function Experience:GetAzerite()
 		XP, TotalXP = C_AzeriteItem.GetAzeriteItemXPInfo(AzeriteItems)
 		Level = C_AzeriteItem.GetPowerLevel(AzeriteItems)
 	end
-	
+
 	return XP, TotalXP, Level, AzeriteItems
 end
 
@@ -247,35 +250,44 @@ paragonStrings.zhTW = paragonStrings.zhCN
 _G.PARAGON = paragonStrings[GetLocale()] or 'Paragon'
 
 function Experience:GetReputation()
-	local pendingReward, standingText
-	local Name, Standing, Min, Max, Value, Faction = C_Reputation.GetWatchedFactionData()
+local pendingReward, standingText
+	local Name, Standing, Min, Max, Value, Faction = GetWatchedFactionInfo()
 	
-	local reputationInfo = C_GossipInfo.GetFriendshipReputation(Faction)
-	local friendshipID = reputationInfo and reputationInfo.friendshipFactionID
-    
-	if C_Reputation.IsFactionParagon(Faction) then
-		local cur, nextThreshold, _, hasRewardPending = C_Reputation.GetFactionParagonInfo(Faction)
-		if(cur) then
-			Value = cur % nextThreshold
-			Min = 0
-			Max = nextThreshold
-			pendingReward = hasRewardPending
-			Standing = MAX_REPUTATION_REACTION + 1 -- force paragon's color
-			standingText = PARAGON
+	if Name.currentReactionThreshold then
+		Min = Name.currentReactionThreshold
+		Max = Name.nextReactionThreshold
+		Value = Name.currentStanding
+		Faction = Name.name
+		FactionID = Name.factionID
+		Standing = Name.reaction
+		
+		local reputationInfo = C_GossipInfo.GetFriendshipReputation(FactionID)
+		local friendshipID = reputationInfo and reputationInfo.friendshipFactionID
+		
+		if C_Reputation.IsFactionParagon(FactionID) then
+			local cur, nextThreshold, _, hasRewardPending = C_Reputation.GetFactionParagonInfo(FactionID)
+			if(cur) then
+				Value = cur % nextThreshold
+				Min = 0
+				Max = nextThreshold
+				pendingReward = hasRewardPending
+				Standing = MAX_REPUTATION_REACTION + 1 -- force paragon's color
+				standingText = PARAGON
+			end
+		elseif C_Reputation.IsMajorFaction(FactionID) then
+			local majorFactionData = C_MajorFactions.GetMajorFactionData(FactionID)
+			Min, Max = 0, majorFactionData.renownLevelThreshold
+			Value = C_MajorFactions.HasMaximumRenown(FactionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+		elseif friendshipID and friendshipID > 0 then
+			local repInfo = C_GossipInfo.GetFriendshipReputation(FactionID)
+			standingText = repInfo.reaction
+			if repInfo.nextThreshold then
+				Min, Max, Value = repInfo.reactionThreshold, repInfo.nextThreshold, repInfo.standing
+			else
+				Min, Max, Value = 0, 1, 1 -- force a full bar when maxed out
+			end
+			Standing = 5 -- force friends' color
 		end
-	elseif C_Reputation.IsMajorFaction(Faction) then
-		local majorFactionData = C_MajorFactions.GetMajorFactionData(Faction)
-		Min, Max = 0, majorFactionData.renownLevelThreshold
-		Value = C_MajorFactions.HasMaximumRenown(Faction) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-	elseif friendshipID and friendshipID > 0 then
-		local repInfo = C_GossipInfo.GetFriendshipReputation(Faction)
-		standingText = repInfo.reaction
-		if repInfo.nextThreshold then
-			Min, Max, Value = repInfo.reactionThreshold, repInfo.nextThreshold, repInfo.standing
-		else
-			Min, Max, Value = 0, 1, 1 -- force a full bar when maxed out
-		end
-		Standing = 5 -- force friends' color
 	end
 	
 	local BarMax = Max - Min
@@ -289,42 +301,50 @@ end
 function Experience:GetAnima()
 	local CurrencyID, MaxDisplayableValue = C_CovenantSanctumUI.GetAnimaInfo()
 	local CurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(CurrencyID)
-	local Current = CurrencyInfo.quantity 
+	local Current = CurrencyInfo.quantity
 	local Max = CurrencyInfo.maxQuantity
-	
+
 	return Current, Max
 end
 
 function Experience:VerifyMenu()
-	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
-	local Honor = UnitHonorLevel										  
+	local AzeriteItem = T.Retail and C_AzeriteItem.FindActiveAzeriteItem()
+	local Honor = T.Retail and UnitHonorLevel
 	local HavePetXP = select(2, HasPetUI())
-	local WatchedFaction = C_Reputation.GetWatchedFactionData()
-	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
-	local AnimaCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
-	
-	if AzeriteItem then
+	local WatchedFaction = GetWatchedFactionInfo()
+	local AnimaCurrency = T.Retail and C_CovenantSanctumUI.GetAnimaInfo()
+	local AnimaCurrencyInfo = AnimaCurrency and C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
+
+	if WatchedFaction then
+		Experience.Menu[2].disabled = false
+	else
+		Experience.Menu[2].disabled = true
+	end
+
+	if HavePetXP then
 		Experience.Menu[3].disabled = false
 	else
 		Experience.Menu[3].disabled = true
 	end
 
-	if HavePetXP then
-		Experience.Menu[4].disabled = false
-	else
-		Experience.Menu[4].disabled = true
-	end
+	if T.Retail then
+		if Honor then
+			Experience.Menu[4].disabled = false
+		else
+			Experience.Menu[4].disabled = true
+		end
 
-	if WatchedFaction then
-		Experience.Menu[5].disabled = false
-	else
-		Experience.Menu[5].disabled = true
-	end
-	
-	if AnimaCurrency and AnimaCurrencyInfo.quantity ~= 0 and AnimaCurrencyInfo.maxQuantity ~= 0 then
-		Experience.Menu[6].disabled = false
-	else
-		Experience.Menu[6].disabled = true
+		if AzeriteItem then
+			Experience.Menu[5].disabled = false
+		else
+			Experience.Menu[5].disabled = true
+		end
+
+		if AnimaCurrency and AnimaCurrencyInfo.quantity ~= 0 and AnimaCurrencyInfo.maxQuantity ~= 0 then
+			Experience.Menu[6].disabled = false
+		else
+			Experience.Menu[6].disabled = true
+		end
 	end
 end
 
@@ -332,49 +352,49 @@ function Experience:Update()
 	local Current, Max
 	local Rested = GetXPExhaustion()
 	local IsRested = GetRestState()
-	local AnimaCurrency = C_CovenantSanctumUI.GetAnimaInfo()
-	local AnimaCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
-	local RenownLevel = C_CovenantSanctumUI.GetRenownLevel()
-	local AzeriteItem = C_AzeriteItem.FindActiveAzeriteItem()
+	local AnimaCurrency = T.Retail and C_CovenantSanctumUI.GetAnimaInfo()
+	local AnimaCurrencyInfo = AnimaCurrency and C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
+	local RenownLevel = T.Retail and C_CovenantSanctumUI.GetRenownLevel()
+	local AzeriteItem = T.Retail and C_AzeriteItem.FindActiveAzeriteItem()
 	local HavePetXP = select(2, HasPetUI())
-	local WatchedFaction = C_Reputation.GetWatchedFactionData()
+	local WatchedFaction = GetWatchedFactionInfo()
 
 	for i = 1, self.NumBars do
 		local Bar = self["XPBar"..i]
 		local RestedBar = self["RestedBar"..i]
 		local R, G, B
-		
+
 		if (Bar.BarType == "AZERITE" and not AzeriteItem) or (Bar.BarType == "PETXP" and not HavePetXP) or (Bar.BarType == "REP" and not WatchedFaction) or (Bar.BarType == "ANIMA" and AnimaCurrency and AnimaCurrencyInfo.quantity == 0 and AnimaCurrencyInfo.maxQuantity == 0) then
 			Bar.BarType = "XP"
 		end
 
 		if Bar.BarType == "HONOR" then
 			Current, Max = self:GetHonor()
-			
+
 			R, G, B = unpack(self.HNColor)
 		elseif Bar.BarType == "ANIMA" then
 			Current = RenownLevel
 			Max = MaxRenown
-			
+
 			R, G, B = unpack(self.AnimaColor)
 		elseif Bar.BarType == "PETXP" then
 			Current, Max = GetPetExperience()
-			
+
 			R, G, B = unpack(self.PetXPColor)
 		elseif Bar.BarType == "AZERITE" then
 			Current, Max = self:GetAzerite()
-			
+
 			R, G, B = unpack(self.AZColor)
 		elseif Bar.BarType == "REP" then
 			Current, Max = self:GetReputation()
-			
+
 			local Colors = FACTION_BAR_COLORS
-			local ID = select(2, C_Reputation.GetWatchedFactionData())
-			
+			local ID = (T.Retail and GetWatchedFactionInfo().reaction) or select(2, GetWatchedFactionInfo())
+
 			R, G, B = Colors[ID].r, Colors[ID].g, Colors[ID].b
 		else
 			Current, Max = self:GetExperience()
-			
+
 			R, G, B = unpack(self.XPColor)
 		end
 
@@ -452,7 +472,7 @@ function Experience:Create()
 		self["XPBar"..i] = XPBar
 		self["RestedBar"..i] = RestedBar
 	end
-	
+
 	self:RegisterEvent("PLAYER_XP_UPDATE")
 	self:RegisterEvent("UPDATE_FACTION")
 	self:RegisterEvent("PLAYER_LEVEL_UP")

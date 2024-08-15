@@ -14,6 +14,7 @@ T.TexCoords = {.1, .9, .1, .9}
 T.version = C_AddOns.GetAddOnMetadata("ViksUI", "Version")
 T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
 T.newPatch = select(4, GetBuildInfo()) >= 110000
+T.Retail =_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE
 
 -- BETA
 GetContainerItemInfo = function(bagIndex, slotIndex)
