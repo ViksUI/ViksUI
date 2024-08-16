@@ -15,13 +15,13 @@ if C_AddOns.IsAddOnLoaded('Skada') or C_AddOns.IsAddOnLoaded('Details') or C_Add
 	RIGHTChatline:SetFrameLevel(15)
 	ShowHideMeters:SetPoint("LEFT", RIGHTChatline, "LEFT", 0, 0)
 	if C_AddOns.IsAddOnLoaded('Skada') then
-		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/Skada toggle")
+		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Kill()\n/Skada toggle")
 	end
 	if C_AddOns.IsAddOnLoaded('Recount') then
-		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/recount toggle")
+		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Kill()\n/recount toggle")
 	end
 	if C_AddOns.IsAddOnLoaded('Details') then
-		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/details toggle")
+		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Kill()\n/details toggle")
 	end
 	ShowHideMeters:SetAlpha(0)
 
