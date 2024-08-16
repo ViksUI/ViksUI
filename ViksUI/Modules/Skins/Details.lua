@@ -39,7 +39,7 @@ hooksecurefunc(_detalhes, "SetFontOutline", function(_, fontString)
 end)
 
 local skinTable = {
-	file = [[Interface\AddOns\Details\images\skins\classic_skin_v1.blp]],
+	file = [[Interface\AddOns\ViksUI\Media\Textures\viksicon]],
 	author = "ViksUI",
 	version = "1.0",
 	site = "unknown",
@@ -138,7 +138,7 @@ local skinTable = {
 			1, -- [2]
 		},
 		["row_info"] = {
-			["spec_file"] = "Interface\\AddOns\\Details\\images\\spec_icons_normal",
+			["spec_file"] = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Details\\",
 			["textL_outline"] = true,
 			["textR_outline"] = true,
 			["textL_outline_small"] = false,
@@ -315,7 +315,7 @@ local skinTable = {
 	},
 }
 
-_detalhes.skins["Minimalistic v2"] = skinTable
+_detalhes.skins["ViksUI"] = skinTable
 
 local lower_instance = _detalhes:GetLowerInstanceNumber()
 if lower_instance then
