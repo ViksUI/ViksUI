@@ -3,6 +3,10 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.16 for Wow 11.02 TWW ",
+	"• Updated ClickCast",
+	"• More API fixes",
+	"• SpellCooldowns restored",
 	"Update 11.15 for Wow 11.02 TWW ",
 	"• Updated Details profile++",
 	"• ^ run: /settings details",
@@ -14,14 +18,6 @@ local ChangeLogData = {
 	"• New options for panels",
 	"• Reveal Map updated",
 	"• Xp/Rep/Honor/Anima Bar updated",
-	"Update 11.12 for Wow 11 TWW ",
-	"• Bigger restyling of Objective Frame",
-	"• ^ Restyling in /config under Quest",
-	"• ^ Quest title color changes if not trivial difficulty",
-	"• ^ Added quality color for world quest for rare/epic",
-	"• ^ Ctrl+Click to abandon a quest or Alt+Click to share a quest",
-	"• ^ Ctrl+Click to expand all Headers or Alt+Click to Collapse all header",
-	"• ^ Click to expand/collapse a header",
 	"• Check Github for full changelog",
 
 " ",
