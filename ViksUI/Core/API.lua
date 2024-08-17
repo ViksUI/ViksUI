@@ -1379,7 +1379,7 @@ function T.SkinIconBorder(frame, parent)
 	local border = parent or frame:GetParent().backdrop
 	frame:SetAlpha(0)
 	hooksecurefunc(frame, "SetVertexColor", function(self, r, g, b)
-		if r ~= BAG_ITEM_QUALITY_COLORS[1].r ~= r and g ~= BAG_ITEM_QUALITY_COLORS[1].g then
+		if r ~= BAG_ITEM_QUALITY_COLORS[1].r and g ~= BAG_ITEM_QUALITY_COLORS[1].g and not (r > 0.9 and g > 0.9 and b > 0.9) then
 			border:SetBackdropBorderColor(r, g, b)
 		else
 			border:SetBackdropBorderColor(unpack(C.media.border_color))
@@ -1413,6 +1413,16 @@ function T.ReplaceIconString(frame, text)
 	if count > 0 then frame:SetFormattedText("%s", newText) end
 end
 
+function T.SkinModelControl(frame)
+	for i = 1, 5 do
+		local button = select(i, frame.ControlFrame:GetChildren())
+		if button.NormalTexture then
+			button.NormalTexture:SetAlpha(0)
+			button.PushedTexture:SetAlpha(0)
+		end
+	end
+end
+
 local LoadBlizzardSkin = CreateFrame("Frame")
 LoadBlizzardSkin:RegisterEvent("ADDON_LOADED")
 LoadBlizzardSkin:SetScript("OnEvent", function(self, _, addon)
@@ -1439,13 +1449,3 @@ LoadBlizzardSkin:SetScript("OnEvent", function(self, _, addon)
 		end
 	end
 end)
-
-function T.SkinModelControl(frame)
-	for i = 1, 5 do
-		local button = select(i, frame.ControlFrame:GetChildren())
-		if button.NormalTexture then
-			button.NormalTexture:SetAlpha(0)
-			button.PushedTexture:SetAlpha(0)
-		end
-	end
-end
