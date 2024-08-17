@@ -13,11 +13,7 @@ local anchor = CreateFrame("Frame", "PulseCDAnchor", UIParent)
 anchor:SetSize(C.pulsecooldown.size, C.pulsecooldown.size)
 anchor:SetPoint(unpack(C.position.pulse_cooldown))
 
-local PulseCDAnchor = CreateFrame("Frame", "PulseCDAnchor", UIParent, "BackdropTemplate")
-PulseCDAnchor:SetSize(C.pulsecooldown.size, C.pulsecooldown.size)
-PulseCDAnchor:SetPoint(unpack(C.position.pulse_cooldown))
-
-local frame = CreateFrame("Frame", "PulseCDFrame", PulseCDAnchor, "BackdropTemplate")
+local frame = CreateFrame("Frame", "PulseCDFrame", anchor, "BackdropTemplate")
 frame:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
 frame:SetBackdrop({
 	bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.noscalemult,
@@ -25,7 +21,7 @@ frame:SetBackdrop({
 })
 frame:SetBackdropBorderColor(unpack(C.media.border_color))
 frame:SetBackdropColor(unpack(C.media.backdrop_color))
-frame:SetPoint("CENTER", PulseCDAnchor, "CENTER")
+frame:SetPoint("CENTER", anchor, "CENTER")
 
 local icon = frame:CreateTexture(nil, "ARTWORK")
 icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -81,7 +77,7 @@ local function OnUpdate(_, update)
 				local getCooldownDetails
 				if v[2] == "spell" then
 					getCooldownDetails = memoize(function()
-                        local start, duration, enabled = C_Spell.GetSpellCooldown(v[3])
+                        local start, duration, enabled = GetSpellCooldown(v[3])
                         return {
                             name = GetSpellInfo(v[3]),
                             texture = C_Spell.GetSpellTexture(v[3]),
