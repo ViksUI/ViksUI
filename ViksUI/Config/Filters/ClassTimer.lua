@@ -732,6 +732,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(196958), -- Strike from the Shadows
 			CreateSpellEntry(206760), -- Night Terrors
 			CreateSpellEntry(209786), -- Goremaw's Bite
+			CreateSpellEntry(316220), -- Find Weakness
 		},
 		player = {
 			-- Global
@@ -745,10 +746,10 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(115834), -- Shroud of Concealment
 			-- Shared
 			CreateSpellEntry(36554), -- Shadowstep
+			CreateSpellEntry(315496), -- Slice and Dice
 			-- Assassination
 			CreateSpellEntry(32645), -- Envenom
 			-- Outlaw
-			CreateSpellEntry(5171), -- Slice and Dice
 			CreateSpellEntry(13750), -- Adrenaline Rush
 			CreateSpellEntry(13877), -- Blade Flurry
 			CreateSpellEntry(51690), -- Killing Spree
