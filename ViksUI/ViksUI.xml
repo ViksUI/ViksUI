@@ -65,7 +65,7 @@
 	<Include file="Modules\UnitFrames\Template.xml"/>
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
-	<!-- <Script file="Modules\Misc\ClickCast.lua"/> -->
+	<Script file="Modules\Misc\ClickCast.lua"/>
 	<Script file="Modules\Misc\Combat.lua"/>
 	<Script file="Modules\Misc\InfoPanels.lua"/>
 	<Script file="Modules\Misc\LFGQueueTimer.lua"/>
