@@ -62,7 +62,7 @@ SlashCmdList.ENABLE_ADDON = function(addon)
 	local _, _, _, _, _, reason = C_AddOns.GetAddOnInfo(addon)
 	if reason ~= "MISSING" then
 		C_AddOns.EnableAddOn(addon)
-		LoadAddOn(addon)
+		C_AddOns.LoadAddOn(addon)
 		ReloadUI()
 	else
 		print("|cffffff00"..L_TOGGLE_ADDON.."'"..addon.."'"..L_TOGGLE_NOT_FOUND.."|r")
@@ -74,7 +74,7 @@ SLASH_ENABLE_ADDON2 = "/enable"
 SlashCmdList.ONLY_UI = function()
 	for i = 1, C_AddOns.GetNumAddOns() do
 		local name = C_AddOns.GetAddOnInfo(i)
-		if name ~= "ViksUI" and name ~= "Viks_ConfigUI" and name ~= "!BaudErrorFrame" and GetAddOnEnableState(T.name, name) == 2 then
+		if name ~= "ViksUI" and name ~= "Viks_ConfigUI" and name ~= "!BaudErrorFrame" and C_AddOns.GetAddOnEnableState(T.name, name) == 2 then
 			C_AddOns.DisableAddOn(name, T.name)
 		end
 	end
@@ -192,26 +192,6 @@ SLASH_NPCID1 = "/getid"
 SlashCmdList.DBMTEST = function() if C_AddOns.IsAddOnLoaded("DBM-Core") then DBM:DemoMode() end end
 SLASH_DBMTEST1 = "/dbmtest"
 SLASH_DBMTEST2 = "/виьеуые"
-
-----------------------------------------------------------------------------------------
---	Switch to heal layout
-----------------------------------------------------------------------------------------
-SlashCmdList.HEAL = function()
-	ViksUISettingsPerChar.RaidLayout = "HEAL"
-	ReloadUI()
-end
-SLASH_HEAL1 = "/heal"
-SLASH_HEAL2 = "/руфд"
-
-----------------------------------------------------------------------------------------
---	Switch to dps layout
-----------------------------------------------------------------------------------------
-SlashCmdList.DPS = function()
-	ViksUISettingsPerChar.RaidLayout = "DPS"
-	ReloadUI()
-end
-SLASH_DPS1 = "/dps"
-SLASH_DPS2 = "/взы"
 
 ----------------------------------------------------------------------------------------
 --	Command to show frame you currently have mouseovered
