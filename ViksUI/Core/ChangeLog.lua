@@ -3,6 +3,10 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.17 for Wow 11.02 TWW ",
+	"• More skins fixed",
+	"• Bags Allow search for bow (Warband)",
+	"• ItemCount updated with reagent/warband",
 	"Update 11.16 for Wow 11.02 TWW ",
 	"• Updated ClickCast",
 	"• More API fixes",
@@ -13,11 +17,6 @@ local ChangeLogData = {
 	"• ^ Open Details and select new profile",
 	"• Custom class icons for details",
 	"• Fixed more skins",
-	"Update 11.14 for Wow 11.02 TWW ",
-	"• More renamed API",
-	"• New options for panels",
-	"• Reveal Map updated",
-	"• Xp/Rep/Honor/Anima Bar updated",
 	"• Check Github for full changelog",
 
 " ",
