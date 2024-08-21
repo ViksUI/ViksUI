@@ -3,6 +3,8 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.18 for Wow 11.02 TWW ",
+	"• Minor updates/fixes",
 	"Update 11.17 for Wow 11.02 TWW ",
 	"• More skins fixed",
 	"• Bags Allow search for bow (Warband)",
