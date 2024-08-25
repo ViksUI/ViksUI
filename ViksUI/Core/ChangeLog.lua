@@ -3,6 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.19 for Wow 11.02 TWW ",
+	"• Fixed Empowering castbar",
+	"• Removed deprecated functions",
+	"• Skins updates/fixes",
+	"• Minor updates/fixes",
 	"Update 11.18 for Wow 11.02 TWW ",
 	"• Minor updates/fixes",
 	"Update 11.17 for Wow 11.02 TWW ",
@@ -13,12 +18,6 @@ local ChangeLogData = {
 	"• Updated ClickCast",
 	"• More API fixes",
 	"• SpellCooldowns restored",
-	"Update 11.15 for Wow 11.02 TWW ",
-	"• Updated Details profile++",
-	"• ^ run: /settings details",
-	"• ^ Open Details and select new profile",
-	"• Custom class icons for details",
-	"• Fixed more skins",
 	"• Check Github for full changelog",
 
 " ",
