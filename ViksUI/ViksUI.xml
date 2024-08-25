@@ -172,7 +172,6 @@
 	<Script file="Modules\Datatext\Battleground.lua"/>
 	<Script file="Modules\Datatext\Professions.lua"/>
 	<Script file="Modules\Datatext\Location.lua"/>
-	<Script file="Modules\Quests\AutoCollapse.lua"/>
 	<Script file="Modules\Datatext\Quests.lua"/>
 
 	<Script file="Modules\Quests\AutoAccept.lua"/>

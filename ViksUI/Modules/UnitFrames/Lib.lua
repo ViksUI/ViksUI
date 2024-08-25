@@ -1148,7 +1148,7 @@ lib.gen_castbar = function(f)
 		s.Lag = l
 		f:RegisterEvent("UNIT_SPELLCAST_STOP", cast.OnCastSent)
 	end
-	s.OnUpdate = cast.OnCastbarUpdate
+	s.OnUpdate = CastUpdate
 	s.PostCastStart = cast.PostCastStart
 	s.PostChannelStart = cast.PostCastStart
 	s.PostCastStop = cast.PostCastStop
@@ -1158,6 +1158,8 @@ lib.gen_castbar = function(f)
 	
 	f.Castbar = s
 	f.Castbar.Text = txt
+	f.Castbar.CustomTimeText = T.CustomCastTimeText
+	f.Castbar.CustomDelayText = T.CustomCastDelayText
 	f.Castbar.Time = t
 	if C.unitframe.castbar_icon == true then
 		f.Castbar.Icon = i
@@ -1648,7 +1650,7 @@ lib.addEssence = function(self)
 		if C.unitframe_class_bar.essence == true then
 			r, g, b = unpack(T.Colors.class["EVOKER"])
 			self.Essence = CreateFrame("Frame", self:GetName().."_Essence", self, "BackdropTemplate")
-			local maxEssence = UnitPowerMax(self.unit, Enum.PowerType.Essence)
+			-- local maxEssence = UnitPowerMax(self.unit, Enum.PowerType.Essence)
 			self.Essence:CreateBackdrop("Default")
 			self.Essence:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1,7)
 			self.Essence:SetHeight(7)

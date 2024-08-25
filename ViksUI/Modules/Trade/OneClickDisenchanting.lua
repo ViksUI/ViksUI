@@ -143,7 +143,7 @@ function button:PLAYER_LOGIN()
 				if enchantingItems[itemID] then
 					spell, r, g, b = GetSpellInfo(13262), 0.5, 0.5, 1
 				else
-					local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(link)
+					local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = C_Item.GetItemInfo(link)
 					if quality and ((quality >= Enum.ItemQuality.Uncommon and quality <= Enum.ItemQuality.Epic)
 						and C_Item.GetItemInventoryTypeByID(itemID) ~= Enum.InventoryType.IndexBodyType
 						and (class == Enum.ItemClass.Weapon

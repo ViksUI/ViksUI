@@ -543,6 +543,7 @@ do
 
 	tinsert(ns.buttons, CancelButton)
 
+	local selfText
 	StaticPopupDialogs.LINK_URL = {
 		text = "Help",
 		button1 = OKAY,
@@ -982,7 +983,6 @@ do
 	end
 
 	local selfTextImport
-	local importVar = "General"
 	StaticPopupDialogs.VIKSUI_IMPORT_PROFILE = {
 		text = L.profile_import,
 		button1 = ACCEPT,

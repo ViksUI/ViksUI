@@ -59,7 +59,7 @@ local function LootClick(frame)
 	if IsControlKeyDown() then
 		DressUpItemLink(frame.link)
 	elseif IsShiftKeyDown() then
-		local _, item = GetItemInfo(frame.link)
+		local _, item = C_Item.GetItemInfo(frame.link)
 		if ChatEdit_GetActiveWindow() then
 			ChatEdit_InsertLink(item)
 		else
@@ -103,7 +103,7 @@ local function CreateRollButton(parent, ntex, ptex, htex, rolltype, tiptext, ...
 	f:SetScript("OnLeave", HideTip)
 	f:SetScript("OnClick", ClickRoll)
 	f:SetMotionScriptsWhileDisabled(true)
-	return f, txt
+	return f
 end
 
 local function CreateRollFrame()
@@ -148,11 +148,11 @@ local function CreateRollFrame()
 	status.bg:SetAllPoints()
 	status.bg:SetDrawLayer("BACKGROUND", 2)
 
-	local need, needText = CreateRollButton(frame, "lootroll-toast-icon-need-up", "lootroll-toast-icon-need-highlight", "lootroll-toast-icon-need-down", 1, NEED, "LEFT", frame.button, "RIGHT", 8, -1)
-	local greed, greedText = CreateRollButton(frame, "lootroll-toast-icon-greed-up", "lootroll-toast-icon-greed-highlight", "lootroll-toast-icon-greed-down", 2, GREED, "LEFT", need, "RIGHT", 0, 1)
-	local transmog, transmogText = CreateRollButton(frame, "lootroll-toast-icon-transmog-up", "lootroll-toast-icon-transmog-highlight", "lootroll-toast-icon-transmog-down", 4, TRANSMOGRIFY, "LEFT", need, "RIGHT", -1, 1)
-	local de, deText = CreateRollButton(frame, "Interface\\Buttons\\UI-GroupLoot-DE-Up", "Interface\\Buttons\\UI-GroupLoot-DE-Highlight", "Interface\\Buttons\\UI-GroupLoot-DE-Down", 3, ROLL_DISENCHANT, "LEFT", greed, "RIGHT", -2, -2)
-	local pass, passText = CreateRollButton(frame, "lootroll-toast-icon-pass-up", "lootroll-toast-icon-pass-highlight", "lootroll-toast-icon-pass-down", 0, PASS, "LEFT", de or greed, "RIGHT", 0, 2.2)
+	local need = CreateRollButton(frame, "lootroll-toast-icon-need-up", "lootroll-toast-icon-need-highlight", "lootroll-toast-icon-need-down", 1, NEED, "LEFT", frame.button, "RIGHT", 8, -1)
+	local greed = CreateRollButton(frame, "lootroll-toast-icon-greed-up", "lootroll-toast-icon-greed-highlight", "lootroll-toast-icon-greed-down", 2, GREED, "LEFT", need, "RIGHT", 0, 1)
+	local transmog = CreateRollButton(frame, "lootroll-toast-icon-transmog-up", "lootroll-toast-icon-transmog-highlight", "lootroll-toast-icon-transmog-down", 4, TRANSMOGRIFY, "LEFT", need, "RIGHT", -1, 1)
+	local de = CreateRollButton(frame, "Interface\\Buttons\\UI-GroupLoot-DE-Up", "Interface\\Buttons\\UI-GroupLoot-DE-Highlight", "Interface\\Buttons\\UI-GroupLoot-DE-Down", 3, ROLL_DISENCHANT, "LEFT", greed, "RIGHT", -2, -2)
+	local pass = CreateRollButton(frame, "lootroll-toast-icon-pass-up", "lootroll-toast-icon-pass-highlight", "lootroll-toast-icon-pass-down", 0, PASS, "LEFT", de or greed, "RIGHT", 0, 2.2)
 	frame.need, frame.greed, frame.disenchant, frame.transmog = need, greed, de, transmog
 
 	local bind = frame:CreateFontString()
@@ -295,8 +295,8 @@ end)
 local function testRoll(f)
 	local items = {32837, 34196, 33820, 84004}
 	local item = items[math.random(1, #items)]
-	local name, _, quality, _, _, _, _, _, _, texture = GetItemInfo(item)
-	local r, g, b = GetItemQualityColor(quality or 1)
+	local name, _, quality, _, _, _, _, _, _, texture = C_Item.GetItemInfo(item)
+	local r, g, b = C_Item.GetItemQualityColor(quality or 1)
 
 	f.button.icon:SetTexture(texture)
 	f.button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)

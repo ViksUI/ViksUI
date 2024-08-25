@@ -200,7 +200,7 @@ local function onMouseWheel(self, delta)
 		return
 	end
 
-	value = self.textInput:GetText()
+	local value = self.textInput:GetText()
 
 	local step = self.step
 	if IsControlKeyDown() then

@@ -107,11 +107,11 @@ local function IsCached(itemLink) -- we can"t get the correct level of an artifa
 	local cached = true
 	local _, itemID, _, relic1, relic2, relic3 = strsplit(":", itemLink)
 
-	if not GetDetailedItemLevelInfo(itemID) then cached = false end
+	if not C_Item.GetDetailedItemLevelInfo(itemID) then cached = false end
 	if IsArtifact(itemLink) then
-		if relic1 and relic1 ~= "" and not GetDetailedItemLevelInfo(relic1) then cached = false end
-		if relic2 and relic2 ~= "" and not GetDetailedItemLevelInfo(relic2) then cached = false end
-		if relic3 and relic3 ~= "" and not GetDetailedItemLevelInfo(relic3) then cached = false end
+		if relic1 and relic1 ~= "" and not C_Item.GetDetailedItemLevelInfo(relic1) then cached = false end
+		if relic2 and relic2 ~= "" and not C_Item.GetDetailedItemLevelInfo(relic2) then cached = false end
+		if relic3 and relic3 ~= "" and not C_Item.GetDetailedItemLevelInfo(relic3) then cached = false end
 	end
 
 	return cached
@@ -211,7 +211,7 @@ local function OnTooltipSetItem(self)
 				end
 			end
 		elseif SlotCache[16] then -- main hand only
-			local _, _, _, weaponType = GetItemInfoInstant(ItemCache[16])
+			local _, _, _, weaponType = C_Item.GetItemInfoInstant(ItemCache[16])
 			local ilevelMain = SlotCache[16]
 			weaponLevel = ilevelMain
 			if TwoHanders[weaponType] then -- 2 handed, count it twice
@@ -323,11 +323,6 @@ local function DecorateTooltip(guid, isInspect)
 		local _, ourEquippedItemLevel = GetAverageItemLevel()
 		local averageItemLevel = cache.ilevel or 0
 		local r1, g1, b1 = ColorDiff(ourEquippedItemLevel, averageItemLevel)
-
-		local _, unitID = GameTooltip:GetUnit()
-		if isInspect then
-			unitID = "target"
-		end
 
 		local levelText = format("|cff%2x%2x%2x%.1f|r", r1 * 255, g1 * 255, b1 * 255, averageItemLevel)
 

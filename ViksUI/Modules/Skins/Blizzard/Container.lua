@@ -11,8 +11,6 @@ local function LoadSkin()
 		if not button.styled then
 			local icon = button.icon
 
-			button.IconBorder:SetAlpha(0)
-
 			button:SetNormalTexture(0)
 			button:StyleButton()
 			button:SetTemplate("Default")
@@ -25,6 +23,8 @@ local function LoadSkin()
 			button.Count:SetFont(C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
 			button.Count:SetShadowOffset(C.font.bags_font_shadow and 1 or 0, C.font.bags_font_shadow and -1 or 0)
 			button.Count:SetPoint("BOTTOMRIGHT", 1, 1)
+
+			T.SkinIconBorder(button.IconBorder, button)
 
 			button.IconQuestTexture:SetAlpha(0)
 			if button.Background then
@@ -65,9 +65,9 @@ local function LoadSkin()
 	ContainerFrameCombinedBags.Bg:Hide()
 	T.SkinCloseButton(ContainerFrameCombinedBags.CloseButton)
 
-	-- ContainerFrameCombinedBags:ClearAllPoints()
-	-- ContainerFrameCombinedBags:SetPoint(unpack(C.position.bag))
-	-- ContainerFrameCombinedBags.SetPoint = T.dummy
+	ContainerFrameCombinedBags:ClearAllPoints()
+	ContainerFrameCombinedBags:SetPoint(unpack(C.position.bag))
+	ContainerFrameCombinedBags.SetPoint = T.dummy
 
 	ContainerFrameCombinedBags.MoneyFrame.Border:Hide()
 	ContainerFrame1MoneyFrame.Border:Hide()
@@ -210,9 +210,9 @@ local function LoadSkin()
 		for i = 1, 98 do
 			local item = _G["ReagentBankFrameItem"..i]
 			SkinBagSlots(item)
+			BankFrameItemButton_Update(item)
 		end
 	end)
-
 
 	hooksecurefunc("BankFrameItemButton_Update", function(frame)
 		if not frame.isBag and frame.IconQuestTexture:IsShown() then
@@ -221,80 +221,7 @@ local function LoadSkin()
 			else
 				frame:SetBackdropBorderColor(1, 1, 0)
 			end
-		else
-			if frame.SetBackdropBorderColor then -- ReagentBank
-				frame:SetBackdropBorderColor(unpack(C.media.border_color))
-			end
 		end
-	end)
-
-	-- Frame Anchors
-	hooksecurefunc("UpdateContainerFrameAnchors", function()
-		local frame, xOffset, yOffset, screenHeight, freeScreenHeight, leftMostPoint, column
-		local screenWidth = GetScreenWidth()
-		local containerScale = 1
-		local leftLimit = 0
-
-		if BankFrame:IsShown() then
-			leftLimit = BankFrame:GetRight() - 25
-		end
-
-		while containerScale > 0.75 do
-			screenHeight = GetScreenHeight() / containerScale
-			xOffset = CONTAINER_OFFSET_X / containerScale
-			yOffset = CONTAINER_OFFSET_Y / containerScale
-			freeScreenHeight = screenHeight - yOffset
-			leftMostPoint = screenWidth - xOffset
-			column = 1
-			local frameHeight
-			-- for _, frameName in ipairs(ContainerFrame1.bags) do
-				-- frameHeight = _G[frameName]:GetHeight()
-				-- if freeScreenHeight < frameHeight then
-					-- column = column + 1
-					-- leftMostPoint = screenWidth - (column * 192 * containerScale) - xOffset
-					-- freeScreenHeight = screenHeight - yOffset
-				-- end
-				-- freeScreenHeight = freeScreenHeight - frameHeight - 3
-			-- end
-			if leftMostPoint < leftLimit then
-				containerScale = containerScale - 0.01
-			else
-				break
-			end
-		end
-
-		if containerScale < 0.75 then
-			containerScale = 0.75
-		end
-
-		screenHeight = GetScreenHeight() / containerScale
-		xOffset = CONTAINER_OFFSET_X / containerScale
-		yOffset = CONTAINER_OFFSET_Y / containerScale
-		freeScreenHeight = screenHeight - yOffset
-		column = 0
-
-		-- local bagsPerColumn = 0
-		-- for index, frameName in ipairs(ContainerFrame1.bags) do
-			-- frame = _G[frameName]
-			-- frame:SetScale(1)
-			-- if index == 1 then
-				-- frame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -21, 22)
-				-- bagsPerColumn = bagsPerColumn + 1
-			-- elseif freeScreenHeight < frame:GetHeight() then
-				-- column = column + 1
-				-- freeScreenHeight = screenHeight - yOffset
-				-- if column > 1 then
-					-- frame:SetPoint("BOTTOMRIGHT", ContainerFrame1.bags[(index - bagsPerColumn) - 1], "BOTTOMLEFT", 0, 0)
-				-- else
-					-- frame:SetPoint("BOTTOMRIGHT", ContainerFrame1.bags[index - bagsPerColumn], "BOTTOMLEFT", 0, 0)
-				-- end
-				-- bagsPerColumn = 0
-			-- else
-				-- frame:SetPoint("BOTTOMRIGHT", ContainerFrame1.bags[index - 1], "TOPRIGHT", 0, 0)
-				-- bagsPerColumn = bagsPerColumn + 1
-			-- end
-			-- freeScreenHeight = freeScreenHeight - frame:GetHeight() - 3
-		-- end
 	end)
 
 	-- Warband

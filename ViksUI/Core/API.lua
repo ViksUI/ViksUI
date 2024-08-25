@@ -708,8 +708,6 @@ function T.SkinScrollBar(frame, isMinimal)
 			end
 
 			if minimal then
-				-- UpButton:SetSize(14, 14)
-				-- DownButton:SetSize(14, 14)
 				newThumb:SetWidth(10)
 			end
 		end
@@ -1113,7 +1111,7 @@ function T.SkinSliderStep(frame, minimal)
 	end
 end
 
-function T.SkinIconSelectionFrame(frame, numIcons, buttonNameTemplate, frameNameOverride)
+function T.SkinIconSelectionFrame(frame, frameNameOverride)
 	local frameName = frameNameOverride or frame:GetName()
 	local editBox = frame.BorderBox.IconSelectorEditBox
 	local okayButton = frame.OkayButton or frame.BorderBox.OkayButton or _G[frameName.."Okay"]

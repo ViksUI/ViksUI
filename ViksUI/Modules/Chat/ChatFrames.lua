@@ -328,6 +328,7 @@ local function SetChatStyle(frame)
 		_G.TIMESTAMP_FORMAT_HHMM_24HR = color.."[%H:%M]|r "
 		_G.TIMESTAMP_FORMAT_HHMM_AMPM = color.."[%I:%M %p]|r "
 	end
+
 	frame.skinned = true
 end
 
@@ -534,7 +535,7 @@ end
 if C.chat.loot_icons == true then
 	local function AddLootIcons(_, _, message, ...)
 		local function Icon(link)
-			local texture = GetItemIcon(link)
+			local texture = C_Item.GetItemIconByID(link)
 			return "\124T"..texture..":12:12:0:0:64:64:5:59:5:59\124t"..link
 		end
 		message = message:gsub("(\124c%x+\124Hitem:.-\124h\124r)", Icon)
