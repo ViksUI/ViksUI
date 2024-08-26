@@ -10,7 +10,7 @@ frame:SetScript("OnEvent", function()
 		ClassPowerBar.OnEvent = T.dummy -- Fix error with druid on logon
 	end
 
-	if C.unitframe.enable and (ViksUISettingsPerChar and (ViksUISettingsPerChar.RaidLayout == "HEAL" or ViksUISettingsPerChar.RaidLayout == "DPS")) then
+	if C.unitframe.enable then
 		if CompactRaidFrameManager then
 			local function HideFrames()
 				CompactRaidFrameManager:UnregisterAllEvents()
