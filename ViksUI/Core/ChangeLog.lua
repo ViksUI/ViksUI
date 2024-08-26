@@ -3,6 +3,10 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.20 for Wow 11.02 TWW ",
+	"• Updated Stats for Infopanel",
+	"• Added Npc info & Color for Tww & S1",
+	"• Cleanups",
 	"Update 11.19 for Wow 11.02 TWW ",
 	"• Fixed Empowering castbar",
 	"• Removed deprecated functions",
@@ -14,11 +18,6 @@ local ChangeLogData = {
 	"• More skins fixed",
 	"• Bags Allow search for bow (Warband)",
 	"• ItemCount updated with reagent/warband",
-	"Update 11.16 for Wow 11.02 TWW ",
-	"• Updated ClickCast",
-	"• More API fixes",
-	"• SpellCooldowns restored",
-	"• Check Github for full changelog",
 
 " ",
 "EXTRA:",
