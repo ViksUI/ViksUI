@@ -978,7 +978,7 @@ end
 if C.combattext.healing then
 	local xCTh = CreateFrame("Frame")
 	if C.combattext.icons then
-		ct.blank = "Interface\\AddOns\\ShestakUI\\Media\\Textures\\Blank.tga"
+		ct.blank = "Interface\\AddOns\\ViksUI\\Media\\Textures\\Blank.tga"
 	end
 	local heal = function()
 		local msg, icon

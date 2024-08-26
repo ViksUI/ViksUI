@@ -1528,7 +1528,6 @@ do
 		{"rarescanner"},
 		{"recount"},
 		{"rematch"},
-		{"skada"},
 		{"tiny_dps"},
 		{"vanaskos"},
 		{"weak_auras"},

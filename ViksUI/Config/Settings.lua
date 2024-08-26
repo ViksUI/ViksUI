@@ -189,7 +189,6 @@ C["skins"] = {
 	["rarescanner"] = false,					-- RareScanner skin
 	["recount"] = false,						-- Recount skin
 	["rematch"] = false,						-- Rematch skin
-	["skada"] = true,							-- Skada skin
 	["tiny_dps"] = false,						-- TinyDPS skin
 	["vanaskos"] = false,						-- VanasKoS skin
 	["weak_auras"] = false,						-- WeakAuras skin
