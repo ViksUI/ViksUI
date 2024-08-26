@@ -1923,6 +1923,7 @@ end
 lib.Reputation = function(self)
 	if cfg.Reputationbar then 
 	local Reputation = CreateFrame('StatusBar', nil, self, "BackdropTemplate")
+	-- Reputation:CreateBackdrop("Default")
 	Reputation:SetStatusBarTexture(cfg.statusbar_texture)
 	Reputation:SetWidth(3)
 	Reputation:SetHeight(31)
@@ -1941,7 +1942,9 @@ lib.Reputation = function(self)
 	frame1px2_2(h)
 	CreateShadow(h)
 	
-	--Reputation.PostUpdate = UpdateReputationColor
+	Reputation.bg = Reputation:CreateTexture(nil, "BORDER")
+	Reputation.bg:SetAllPoints()
+	Reputation.bg:SetTexture(C.media.texture)
 	Reputation:EnableMouse(true)
 	Reputation.inAlpha = 1
 	Reputation.outAlpha = 0.75
