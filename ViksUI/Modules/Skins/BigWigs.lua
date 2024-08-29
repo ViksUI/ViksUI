@@ -178,7 +178,7 @@ f:SetScript("OnEvent", function(_, event, addon)
 				if BigWigs3DB.profileKeys and BigWigs3DB.namespaces and BigWigs3DB.namespaces.BigWigs_Plugins_Bars and BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles then
 					myProfile = BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles[BigWigs3DB.profileKeys[UnitName("player").." - "..GetRealmName()]]
 				end
-				if not myProfile or myProfile.InstalledBars ~= C.actionbar.bottombars then
+				if not myProfile then
 					StaticPopup_Show("SETTINGS_BIGWIGS")
 				end
 			end
