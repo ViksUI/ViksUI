@@ -3,6 +3,9 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.21 for Wow 11.02 TWW ",
+	"• More skins updated/fixed",
+	"• Minor fixes",
 	"Update 11.20 for Wow 11.02 TWW ",
 	"• Updated Stats for Infopanel",
 	"• Added Npc info & Color for Tww & S1",
@@ -14,10 +17,6 @@ local ChangeLogData = {
 	"• Minor updates/fixes",
 	"Update 11.18 for Wow 11.02 TWW ",
 	"• Minor updates/fixes",
-	"Update 11.17 for Wow 11.02 TWW ",
-	"• More skins fixed",
-	"• Bags Allow search for bow (Warband)",
-	"• ItemCount updated with reagent/warband",
 
 " ",
 "EXTRA:",
