@@ -347,6 +347,8 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(24394), -- Intimidation			
 			CreateSpellEntry(202933), -- Spider Sting
 			CreateSpellEntry(207094), -- Titan's Thunder
+			CreateSpellEntry(217200), -- Barbed Shot
+			CreateSpellEntry(459560), -- Lacerate (Pet)
 			-- Marksmanship
 			CreateSpellEntry(190533), -- Marked for Death
 			CreateSpellEntry(194599), -- Black Arrow
