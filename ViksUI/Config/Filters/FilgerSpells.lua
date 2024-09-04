@@ -393,6 +393,8 @@ C["filger_spells"] = {
 			{spellID = 1850, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Starfall
 			{spellID = 191034, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Lunar Beam
+			{spellID = 204066, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "P_PROC_ICON",
@@ -447,7 +449,9 @@ C["filger_spells"] = {
 			-- Thrash
 			{spellID = 77758, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Immobilized
-			{spellID = 45334, unitID = "target", caster = "player", filter = "DEBUFF"},
+			{spellID = 45334, unitID = "target", caster = "player", filter = "DEBUFF"},			
+			-- Atmospheric Exposure
+			{spellID = 430589, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
@@ -565,6 +569,8 @@ C["filger_spells"] = {
 			{spellID = 102558, filter = "CD"},
 			-- Incarnation: Tree of Life
 			{spellID = 33891, filter = "CD"},
+			-- Lunar Beam
+			{spellID = 204066, filter = "CD"},
 		},
 	},
 	["EVOKER"] = {
@@ -1558,6 +1564,8 @@ C["filger_spells"] = {
 			{spellID = 198069, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Surge of Light
 			{spellID = 114255, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Surge of Insanity
+			{spellID = 423846, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Twist of Fate
 			{spellID = 123254, unitID = "player", caster = "player", filter = "BUFF"},
 		},
@@ -2524,6 +2532,8 @@ C["filger_spells"] = {
 			{spellID = 116841, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Body and Soul
 			{spellID = 65081, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Spatial Paradox
+			{spellID = 406732, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Angelic Feather
 			{spellID = 121557, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Stampeding Roar
