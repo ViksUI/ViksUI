@@ -3,7 +3,7 @@ if T.client ~= "frFR" then return end
 
 ----------------------------------------------------------------------------------------
 --	Localization for frFR client
---	Translation: Cranan, Puree, AlbertDuval
+--	Translation: Cranan, Puree, AlbertDuval, Skyzo-be
 ----------------------------------------------------------------------------------------
 -- Announce flasks and food
 L_ANNOUNCE_FF_NOFOOD = "Sans nourriture : "
@@ -57,7 +57,7 @@ L_MISC_GROCERY_BUY = "Achat"
 L_MISC_GROCERY_DESC = "Achat automatique de sacs d'épicerie"
 L_MISC_SCROLL = "Parchemin"
 L_MISC_COLLAPSE = "The Collapse" -- Need review
-L_MISC_HEADER_QUEST = "Auto quest button" -- Needs review
+L_MISC_HEADER_QUEST = "Bouton d'items de quête automatique"
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Dissoudre le raid"
