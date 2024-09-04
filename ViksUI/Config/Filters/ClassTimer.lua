@@ -212,6 +212,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(6795), -- Growl
 			CreateSpellEntry(77758), -- Thrash
 			CreateSpellEntry(214995), -- Bloody Paws
+			CreateSpellEntry(430589), -- Atmospheric Exposure
 			-- Restoration
 			CreateSpellEntry(774), -- Rejuvenation
 			CreateSpellEntry(8936), -- Regrowth
@@ -262,6 +263,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(203975), -- Earthwarden
 			CreateSpellEntry(213680), -- Guardian of Elune
 			CreateSpellEntry(213708), -- Galactic Guardian
+			CreateSpellEntry(204066), -- Lunar Beam
 			-- Restoration
 			CreateSpellEntry(774), -- Rejuvenation
 			CreateSpellEntry(8936), -- Regrowth
@@ -282,6 +284,7 @@ T.ClassTimer_Classes = {
 			-- Balance
 			-- Feral
 			-- Guardian
+			CreateSpellEntry(93622), -- Gore
 			-- Restoration
 		}
 	},
@@ -879,6 +882,9 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(27243), -- Curse of Weakness
 			CreateSpellEntry(331623), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			CreateSpellEntry(325640), -- Soul Rot - Night Fae Covenant Ability for Warlocks
+			CreateSpellEntry(445468), -- Wither - Hero talent
+			CreateSpellEntry(265931), -- Conflagrate
+			CreateSpellEntry(234153), -- Drain Life
 			-- Shared
 			CreateSpellEntry(212295), -- Nether Ward (PVP Talent)
 			-- Affliction
