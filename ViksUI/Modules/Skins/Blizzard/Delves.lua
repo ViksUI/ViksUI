@@ -4,57 +4,65 @@ if C.skins.blizzard_frames ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Delves skin
 ----------------------------------------------------------------------------------------
-local function LoadSkin()
-	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
-	T.SkinFrame(CompanionConfigurationFrame)
-	CompanionConfigurationFrame.CompanionConfigShowAbilitiesButton:SkinButton()
+local function LoadFirstSkin()
+	local frame = _G.DelvesCompanionConfigurationFrame
+	T.SkinFrame(frame)
+	frame.CompanionConfigShowAbilitiesButton:SkinButton()
 
-	local function HandleButton(button)
-		if button.IsSkinned then return end
-
-		if button.Border then button.Border:SetAlpha(0) end
-		if button.Icon then
-			button.Icon:SkinIcon()
-		end
-
-		button.IsSkinned = true
-	end
-
-	local function UpdateButton(self)
-		self:ForEachFrame(HandleButton)
-	end
-
-	local function HandleOptionSlot(frame, skip)
+	local function SkinOptionSlot(frame, skip)
 		local option = frame.OptionsList
 		option:StripTextures()
 		option:SetTemplate("Transparent")
 
 		if not skip then
-			hooksecurefunc(option.ScrollBox, "Update", UpdateButton)
+			hooksecurefunc(option.ScrollBox, "Update", function(self)
+				self:ForEachFrame(function(button)
+					if not button.IsSkinned then
+						if button.Border then button.Border:SetAlpha(0) end
+						if button.Icon then
+							button.Icon:SkinIcon()
+						end
+
+						button.IsSkinned = true
+					end
+				end)
+			end)
 		end
 	end
 
-	HandleOptionSlot(CompanionConfigurationFrame.CompanionCombatRoleSlot, true)
-	HandleOptionSlot(CompanionConfigurationFrame.CompanionUtilityTrinketSlot)
-	HandleOptionSlot(CompanionConfigurationFrame.CompanionCombatTrinketSlot)
+	SkinOptionSlot(frame.CompanionCombatRoleSlot, true)
+	SkinOptionSlot(frame.CompanionUtilityTrinketSlot)
+	SkinOptionSlot(frame.CompanionCombatTrinketSlot)
 
-	local CompanionAbilityListFrame = _G.DelvesCompanionAbilityListFrame
-	T.SkinFrame(CompanionAbilityListFrame)
-	T.SkinDropDownBox(CompanionAbilityListFrame.DelvesCompanionRoleDropdown)
-	T.SkinNextPrevButton(CompanionAbilityListFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, true)
-	T.SkinNextPrevButton(CompanionAbilityListFrame.DelvesCompanionAbilityListPagingControls.NextPageButton)
+	local ablityFrame = _G.DelvesCompanionAbilityListFrame
+	T.SkinFrame(ablityFrame)
+	T.SkinDropDownBox(ablityFrame.DelvesCompanionRoleDropdown)
+	T.SkinNextPrevButton(ablityFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, true)
+	T.SkinNextPrevButton(ablityFrame.DelvesCompanionAbilityListPagingControls.NextPageButton)
+
+	hooksecurefunc(ablityFrame, "UpdatePaginatedButtonDisplay", function(self)
+		for _, button in pairs(self.buttons) do
+			if not button.styled then
+				if button.Icon then
+					button.Icon:SkinIcon()
+				end
+
+				button.styled = true
+			end
+		end
+	end)
 end
 
-T.SkinFuncs["Blizzard_DelvesCompanionConfiguration"] = LoadSkin
+T.SkinFuncs["Blizzard_DelvesCompanionConfiguration"] = LoadFirstSkin
 
-local function LoadSkin()
-	local DifficultyPickerFrame = _G.DelvesDifficultyPickerFrame
-	T.SkinFrame(DifficultyPickerFrame)
+local function LoadSecondSkin()
+	local frame = _G.DelvesDifficultyPickerFrame
+	T.SkinFrame(frame)
 
-	T.SkinDropDownBox(DifficultyPickerFrame.Dropdown)
-	DifficultyPickerFrame.EnterDelveButton:SkinButton()
+	T.SkinDropDownBox(frame.Dropdown)
+	frame.EnterDelveButton:SkinButton()
 
-	hooksecurefunc(DifficultyPickerFrame.DelveRewardsContainerFrame, "SetRewards", function(frame)
+	hooksecurefunc(frame.DelveRewardsContainerFrame, "SetRewards", function(frame)
 		for rewardFrame in frame.rewardPool:EnumerateActive() do
 			if not rewardFrame.IsSkinned then
 				rewardFrame:CreateBackdrop("Transparent")
@@ -68,12 +76,12 @@ local function LoadSkin()
 	end)
 end
 
-T.SkinFuncs["Blizzard_DelvesDifficultyPicker"] = LoadSkin
+T.SkinFuncs["Blizzard_DelvesDifficultyPicker"] = LoadSecondSkin
 
-local function LoadSkin()
-	local Dashboard = _G.DelvesDashboardFrame
-	Dashboard.DashboardBackground:SetAlpha(0)
-	Dashboard.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton:SkinButton()
+local function LoadThirdSkin()
+	local frame = _G.DelvesDashboardFrame
+	frame.DashboardBackground:SetAlpha(0)
+	frame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton:SkinButton()
 end
 
-T.SkinFuncs["Blizzard_DelvesDashboardUI"] = LoadSkin
+T.SkinFuncs["Blizzard_DelvesDashboardUI"] = LoadThirdSkin
