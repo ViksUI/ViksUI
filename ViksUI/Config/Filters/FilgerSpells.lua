@@ -2167,6 +2167,8 @@ C["filger_spells"] = {
 			{spellID = 342938, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
 			-- Soul Rot - Night Fae Covenant Ability for Warlocks
 			{spellID = 331623, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Wither - Hero tallent
+			{spellID = 445474, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "T_DE/BUFF_BAR",
