@@ -29,18 +29,6 @@ local function LoadSkin(self)
 			T.SkinCloseButton(landingOverlay.CloseButton)
 		end
 	end
-
-	self:UnregisterEvent("ADDON_LOADED")
 end
 
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("ADDON_LOADED")
-frame:SetScript("OnEvent", function(self)
-	if C_AddOns.IsAddOnLoaded("Skinner") or C_AddOns.IsAddOnLoaded("Aurora") then
-		self:UnregisterEvent("ADDON_LOADED")
-		return
-	end
-	if ExpansionLandingPage then
-		LoadSkin(self)
-	end
-end)
+T.SkinFuncs["Blizzard_ExpansionLandingPage"] = LoadSkin
