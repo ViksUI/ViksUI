@@ -882,7 +882,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(27243), -- Curse of Weakness
 			CreateSpellEntry(331623), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			CreateSpellEntry(325640), -- Soul Rot - Night Fae Covenant Ability for Warlocks
-			CreateSpellEntry(445468), -- Wither - Hero talent
+			CreateSpellEntry(445474), -- Wither - Hero talent
 			CreateSpellEntry(265931), -- Conflagrate
 			CreateSpellEntry(234153), -- Drain Life
 			-- Shared
