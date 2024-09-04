@@ -24,6 +24,10 @@ local function LoadSkin(self)
 			end
 		end
 
+		if overlay.DragonflightLandingOverlay and overlay.DragonflightLandingOverlay.MajorFactionList and overlay.DragonflightLandingOverlay.MajorFactionList.ScrollBar then
+			T.SkinScrollBar(overlay.DragonflightLandingOverlay.MajorFactionList.ScrollBar)
+		end
+
 		local landingOverlay = overlay.WarWithinLandingOverlay
 		if landingOverlay then
 			T.SkinCloseButton(landingOverlay.CloseButton)
