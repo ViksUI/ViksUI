@@ -25,6 +25,29 @@ local function LoadSkin()
 		DressUpFrameUndressButton:SkinButton()
 	end
 
+	local SetSelection = DressUpFrame.SetSelectionPanel
+	if SetSelection then
+		SetSelection:StripTextures()
+		SetSelection:CreateBackdrop("Transparent")
+		SetSelection.backdrop:SetPoint("TOPLEFT", 8, 0)
+		SetSelection.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
+		T.SkinScrollBar(SetSelection.ScrollBar)
+
+		hooksecurefunc(SetSelection.ScrollBox, "Update", function(self)
+			self:ForEachFrame(function(button)
+				if not button.IsSkinned then
+					button.Icon:SkinIcon()
+					T.SkinIconBorder(button.IconBorder, button.Icon:GetParent().backdrop)
+					button.BackgroundTexture:SetAlpha(0)
+					button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.2)
+					button.HighlightTexture:SetColorTexture(1, 1, 1, 0.2)
+
+					button.IsSkinned = true
+				end
+			end)
+		end)
+	end
+
 	local button = DressUpFrame.ToggleOutfitDetailsButton
 	button:SetNormalTexture(134331)
 	button:SetPushedTexture(134331)
@@ -37,7 +60,7 @@ local function LoadSkin()
 
 	DressUpFrame.OutfitDetailsPanel:StripTextures()
 	DressUpFrame.OutfitDetailsPanel:CreateBackdrop("Transparent")
-	DressUpFrame.OutfitDetailsPanel.backdrop:SetPoint("TOPLEFT", 11, 0)
+	DressUpFrame.OutfitDetailsPanel.backdrop:SetPoint("TOPLEFT", 10, 0)
 	DressUpFrame.OutfitDetailsPanel.backdrop:SetPoint("BOTTOMRIGHT", 0, 0)
 
 	hooksecurefunc(DressUpFrame.OutfitDetailsPanel, "Refresh", function(self)
