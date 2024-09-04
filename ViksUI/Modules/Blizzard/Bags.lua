@@ -275,7 +275,7 @@ function Stuffing:SlotUpdate(b)
 				b.itemlevel = petLevel
 				b.frame.text:SetText(b.itemlevel)
 			elseif info.itemID == 180653 or info.itemID == 187786 or info.itemID == 151086 then -- keystone
-				b.itemlevel, b.name = strmatch(clink, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
+				b.itemlevel = strmatch(clink, "%d+:%d+:(%d+)")
 				b.itemlevel = tonumber(b.itemlevel) or 0
 				b.frame.text:SetText(b.itemlevel)
 			else
@@ -286,7 +286,7 @@ function Stuffing:SlotUpdate(b)
 			end
 		end
 
-		if not b.name then	-- Keystone bug (NOTE: maybe not needed as check before)
+		if not b.name then	-- Keystone doesn't have name
 			b.name = clink:match("%[(.-)%]") or ""
 		end
 
@@ -541,6 +541,17 @@ function Stuffing:SkinWarbandContainer()
 	warbandFrame:SetPoint("TOPLEFT", _G["StuffingFrameBank"], "TOPLEFT", 0, 0)
 	warbandFrame:SetTemplate("Transparent")
 
+	warbandFrame:EnableMouse(true)
+	warbandFrame:SetMovable(true)
+	warbandFrame:SetClampedToScreen(true)
+	warbandFrame:SetClampRectInsets(0, 0, 0, -20)
+	warbandFrame:SetScript("OnMouseDown", function(self, button)
+		if IsShiftKeyDown() and button == "LeftButton" then
+			self:StartMoving()
+		end
+	end)
+	warbandFrame:SetScript("OnMouseUp", warbandFrame.StopMovingOrSizing)
+
 	AccountBankPanel.Header.Text:SetFont(C.media.normal_font, 12)
 	AccountBankPanel.Header:SetPoint("TOP", AccountBankPanel, "TOP", 0, -3)
 
@@ -549,6 +560,7 @@ function Stuffing:SkinWarbandContainer()
 	AccountBankPanel.ItemDepositFrame.DepositButton:SetPoint("BOTTOMLEFT", AccountBankPanel, "BOTTOMLEFT", 10, 38)
 
 	AccountBankPanel.MoneyFrame:SetPoint("BOTTOMRIGHT", AccountBankPanel, "BOTTOMRIGHT", -10, 3)
+	AccountBankPanel.TabSettingsMenu:SetClampedToScreen(true)
 
 	local SwitchBankButton = CreateFrame("Button", nil, warbandFrame)
 	SwitchBankButton:SetSize(80, 20)
@@ -1031,25 +1043,22 @@ function Stuffing:SearchUpdate(str)
 			local _, _, _, _, _, _, ilink = GetContainerItemInfo(-3, slotID)
 			local button = _G["ReagentBankFrameItem"..slotID]
 			if ilink then
-				local name, _, _, _, minLevel, class, subclass = C_Item.GetItemInfo(ilink)
+				local name, _, _, _, _, class, subclass = C_Item.GetItemInfo(ilink)
 				class = class or ""
 				subclass = subclass or ""
-				minLevel = minLevel or 1
 				if not string.find(string.lower(name), str) and not string.find(string.lower(class), str) and not string.find(string.lower(subclass), str) then
-					if IsItemUnusable(name) or minLevel > T.level then
-						_G[button:GetName().."IconTexture"]:SetVertexColor(0.5, 0.5, 0.5)
-					end
 					SetItemButtonDesaturated(button, true)
 					button.searchOverlay:Show()
 				else
-					if IsItemUnusable(name) or minLevel > T.level then
-						_G[button:GetName().."IconTexture"]:SetVertexColor(1, 0.1, 0.1)
-					end
 					SetItemButtonDesaturated(button, false)
 					button.searchOverlay:Hide()
 				end
 			end
 		end
+	end
+
+	if _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then
+		C_Container.SetItemSearch(str)
 	end
 end
 
@@ -1060,6 +1069,18 @@ function Stuffing:SearchReset()
 		end
 		b.frame.searchOverlay:Hide()
 		SetItemButtonDesaturated(b.frame, false)
+	end
+
+	if ReagentBankFrameItem1 then
+		for slotID = 1, 98 do
+			local button = _G["ReagentBankFrameItem"..slotID]
+			SetItemButtonDesaturated(button, false)
+			button.searchOverlay:Hide()
+		end
+	end
+
+	if _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then
+		C_Container.SetItemSearch("")
 	end
 
 	self.frame.editbox:SetText("")
@@ -1428,13 +1449,15 @@ function Stuffing:InitBags()
 		f.sortButton:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		f.sortButton:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
 		f.sortButton:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-		f.sortButton.ttText = "Sort (Bank&Reagent if open)"
+		f.sortButton.ttText = "Sort (Bank&Reagent&Warband(All) if open)"
 		f.sortButton:SetScript("OnEnter", tooltip_show)
 		f.sortButton:SetScript("OnLeave", tooltip_hide)
 		f.sortButton:SetScript("OnMouseUp", function(self, btn)
 			C_Container.SetSortBagsRightToLeft(true)
 			if _G["StuffingFrameReagent"] and _G["StuffingFrameReagent"]:IsShown() then
 				C_Container.SortReagentBankBags()
+			elseif _G["StuffingFrameWarband"] and _G["StuffingFrameWarband"]:IsShown() then
+				C_Container.SortAccountBankBags()
 			elseif Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
 				C_Container.SortBankBags()
 			else
