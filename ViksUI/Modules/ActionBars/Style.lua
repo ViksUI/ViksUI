@@ -158,6 +158,10 @@ local function StyleNormalButton(button, size)
 			-- button.CooldownFlash.Flipbook:Kill() -- 10.1.5 new GCD flash
 		end
 
+		if button.TargetReticleAnimFrame then
+			button.TargetReticleAnimFrame:SetScale(0.0001)
+		end
+
 		if flyoutBorder then
 			flyoutBorder:SetTexture("")
 		end
@@ -233,6 +237,7 @@ local function StyleSmallButton(button, name, isPet)
 		if isPet then
 			local autocast = button.AutoCastOverlay
 			autocast:SetSize(C.actionbar.button_size * 1.05, C.actionbar.button_size * 1.05)
+			autocast:SetPoint("CENTER", 0, 0)
 		end
 
 		if normal then
