@@ -434,7 +434,6 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["224731"] = "Todo ".. "\n".. "Interrupt", -- Web Marauder
 	["223182"] = "Todo ".. "\n".. "Interrupt", -- Web Marauder
 	-- The Dawnbreaker
-	["211262"] = "Todo ".. "\n".. "Interrupt", -- Ixkreten the Unbreakable
 	["211341"] = "Todo ".. "\n".. "Interrupt", -- Manifested Shadow
 	["214762"] = "Todo ".. "\n".. "Interrupt", -- Nightfall Commander
 	["228539"] = "Todo ".. "\n".. "Interrupt", -- Nightfall Darkcaster
@@ -701,6 +700,9 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["220065"] = "Top Pri ".. "\n".. "Kill ASAP", -- Umbral Weave
 	["222700"] = "Top Pri ".. "\n".. "Kill ASAP", -- Umbral Weave
 	-- The Dawnbreaker
+	["211261"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Ascendant Vis'coxria
+	["211262"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Ixkreten the Unbreakable
+	["211263"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Deathscreamer Iken'tak
 	["213885"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall Dark Architect
 	["213893"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall Darkcaster
 	["225605"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall Darkcaster
@@ -966,8 +968,6 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["219984"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Xeph'itik
 	-- The Dawnbreaker
 	["211089"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Anub'ikkaj
-	["211261"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Ascendant Vis'coxria
-	["211263"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Deathscreamer Iken'tak
 	["214761"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nightfall Ritualist
 	["213937"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rasha'nan
 	["211087"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Speaker Shadowcrown
