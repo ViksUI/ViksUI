@@ -94,6 +94,9 @@ T.ABItems = {
 	-- Profession
 	-- https://www.wowhead.com/items/miscellaneous/other?filter=166:98:111;11:1:2;0:0:1
 	-- https://www.wowhead.com/items/miscellaneous/other?filter=107;0;increase+your+Khaz+Algar
+	[213779] = true,
+	[213780] = true,
+	[213781] = true,
 	[222546] = true,
 	[222547] = true,
 	[222548] = true,
@@ -103,6 +106,7 @@ T.ABItems = {
 	[222552] = true,
 	[222553] = true,
 	[222554] = true,
+	[222621] = true,
 	[222649] = true,
 	[224007] = true,
 	[224023] = true,
