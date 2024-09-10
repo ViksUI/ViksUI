@@ -540,6 +540,8 @@ function Stuffing:SkinWarbandContainer()
 	warbandFrame:SetHeight(((C.bag.button_size + C.bag.button_space) * (7 + 1) + 70) - C.bag.button_space)
 	warbandFrame:SetPoint("TOPLEFT", _G["StuffingFrameBank"], "TOPLEFT", 0, 0)
 	warbandFrame:SetTemplate("Transparent")
+	warbandFrame:SetFrameStrata(_G["StuffingFrameBank"]:GetFrameStrata())
+	warbandFrame:SetFrameLevel(_G["StuffingFrameBank"]:GetFrameLevel() + 5)
 
 	warbandFrame:EnableMouse(true)
 	warbandFrame:SetMovable(true)
