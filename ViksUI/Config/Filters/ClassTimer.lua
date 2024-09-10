@@ -70,6 +70,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(55078), -- Blood Plague
 			CreateSpellEntry(206931), -- Blooddrinker
 			CreateSpellEntry(343294), -- Soul Reaper
+			CreateSpellEntry(434765), -- Reaper's Mark
 			-- Frost
 			CreateSpellEntry(55095), -- Frost Fever
 			-- Unholy
@@ -102,7 +103,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(219809), -- Tombstone
 			CreateSpellEntry(215377), -- Maw of the Damned
 			CreateSpellEntry(273947), -- Hemostasis
-			CreateSpellEntry(219788), -- Ossuary
+			-- Needed? CreateSpellEntry(219788), -- Ossuary
 			-- Frost
 			CreateSpellEntry(48792), -- Ice Bound Fortitude
 			CreateSpellEntry(51124), -- Killing Machine
