@@ -51,6 +51,8 @@ T.RaidBuffs = {
 		{204018, "BOTTOMRIGHT", {0.4, 0.6, 0.8}, true},		-- Blessing of Spellwarding
 		{287280, "BOTTOMLEFT", {0.9, 0.5, 0.1}},			-- Glimmer of Light
 		{223306, "TOPLEFT", {0.8, 0.8, 0.1}},				-- Bestow Faith
+		{431381, "LEFT", {0.8, 0.8, 0.1}},					-- Dawnlight
+		{156322, "BOTTOM", {0.8, 0.8, 0.1}},				-- Eternal Flame
 	},
 	PRIEST = {
 		{194384, "TOPRIGHT", {0.8, 0.4, 0.2}},				-- Atonement
