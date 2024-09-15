@@ -3,6 +3,14 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.25 ",
+	"• More skins updated/fixed",
+	"• Warband Bank Reworked with ilvl/layout",
+	"• RaidBuffsReminder, Added new option ClassColor",
+	"• Npc Info added for Tww & S1 trash mobs in Dungeon",
+	"• RaidAuraWatch Rework logic and table for debuffs.",
+	"• SlotItemLevel Increase min ilvl to 590 before show missing enchant.",
+	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.24 ",
 	"• More skins updated/fixed",
 	"• Warband Bag improved",
@@ -18,13 +26,6 @@ local ChangeLogData = {
 	"Update 11.22 for Wow 11.02 TWW ",
 	"• More skins updated/fixed",
 	"• Minor fixes",
-	"Update 11.21 for Wow 11.02 TWW ",
-	"• More skins updated/fixed",
-	"• Minor fixes",
-	"Update 11.20 for Wow 11.02 TWW ",
-	"• Updated Stats for Infopanel",
-	"• Added Npc info & Color for Tww & S1",
-	"• Cleanups",
 
 " ",
 "EXTRA:",
