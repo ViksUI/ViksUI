@@ -184,55 +184,53 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	["100991"] = "Move out of trap - Kill if player rooted.", -- Strangling Roots
 	["102962"] = "Run away with Fixate ".. "\n".. "Kite so trail don't go under tank/boss", -- Nightmare Abomination
 	["109908"] = "Run away with Fixate ".. "\n".. "Kite so trail don't go under tank/boss", -- Nightmare Abomination
-	-- Ara-Kara, City of Echoes
-	["216333"] = "Todo ".. "\n".. "Pri Interrupt", -- Bloodstained Assistant
-	["214840"] = "Todo ".. "\n".. "Pri Interrupt", -- Engorged Crawler
+	-- Ara-Kara
+	["216333"] = "Todo ".. "\n".. "Pri Interrupt", -- Bloodstained AssistantDark Blue
+	["214840"] = "Todo ".. "\n".. "Pri Interrupt", -- Engorged CrawlerDark Blue
+	-- Cinderbrew Meadery
+	["222964"] = "Interrupt: Rejuvenating Honey ".. "\n".. "Healing", -- Flavor ScientistDark Blue
+	["214673"] = "Interrupt: Rejuvenating Honey ".. "\n".. "Healing", -- Flavor ScientistDark Blue
 	-- City of Threads
-	["216326"] = "Todo ".. "\n".. "Pri Interrupt", -- Ascended Neophyte
-	["223357"] = "Todo ".. "\n".. "Pri Interrupt", -- Sureki Conscript
-	["220193"] = "Todo ".. "\n".. "Pri Interrupt", -- Sureki Venomblade
+	["216326"] = "Todo ".. "\n".. "Pri Interrupt", -- Ascended NeophyteDark Blue
+	["223357"] = "Todo ".. "\n".. "Pri Interrupt", -- Sureki ConscriptDark Blue
+	["220193"] = "Todo ".. "\n".. "Pri Interrupt", -- Sureki VenombladeDark Blue
+	-- Darkflame Cleft
+	["211228"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223772"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223776"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223774"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["220815"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223777"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223773"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223775"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["223770"] = "Interrupt: Explosive Flame (AoE)", -- Blazing FiendDark
+	["208456"] = "Stun/CC: Drain Light ".. "\n".. "Frontal: Shadow Smash", -- Shuffling HorrorDark
+	-- Grim Batol
+	["224152"] = "Todo ".. "\n".. "Pri Interrupt", -- Twilight BruteDark
+	["224240"] = "Todo ".. "\n".. "Pri Interrupt", -- Twilight DecapitatorDark
+	-- Priory of the Sacred Flame
+	["206698"] = "Todo ".. "\n".. "Pri Interrupt", -- Fanatical Conjuror#Priory of the Sacred FlameDark
+	["221760"] = "Interrupt: Fireball Volley (AoE) ".. "\n".. "Pri Interrupt", -- Risen Mage#Priory of the Sacred FlameDark
+	["217658"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Sir Braunpyke#Priory of the Sacred FlameDark
+	-- Siege of Boralus
+	["135258"] = "Todo ".. "\n".. "Pri Interrupt", -- Irontide Curseblade
+	["138464"] = "Stacking increase dmg taken debuff", -- Ashvane Deckhand
+	["136483"] = "Stacking increase dmg taken debuff", -- Ashvane Deckhand
+	["129372"] = "Spread 5y ".. "\n".. "Dodge burning tar", -- Blacktar Bomber
 	-- The Dawnbreaker
 	["223995"] = "Todo ".. "\n".. "Pri Interrupt", -- Nightfall Curseblade
 	["228538"] = "Todo ".. "\n".. "Pri Interrupt", -- Nightfall Curseblade
 	["213894"] = "Todo ".. "\n".. "Pri Interrupt", -- Nightfall Curseblade
 	["225606"] = "Todo ".. "\n".. "Pri Interrupt", -- Nightfall Shadowalker
 	["213895"] = "Todo ".. "\n".. "Pri Interrupt", -- Nightfall Shadowalker
-	["213934"] = "Todo ".. "\n".. "Pri Interrupt", -- Nightfall Tactician
-	-- The Stonevault
-	["214264"] = "Todo ".. "\n".. "Pri Interrupt", -- Cursedforge Honor Guard
-	["221979"] = "Todo ".. "\n".. "Pri Interrupt", -- Void Bound Howler
-	-- Siege of Boralus
-	["138464"] = "Todo ".. "\n".. "Pri Interrupt", -- Ashvane Deckhand
-	["136483"] = "Todo ".. "\n".. "Pri Interrupt", -- Ashvane Deckhand
-	["137517"] = "Todo ".. "\n".. "Pri Interrupt", -- Ashvane Destroyer
-	["144168"] = "Todo ".. "\n".. "Pri Interrupt", -- Ashvane Destroyer
-	["129372"] = "Todo ".. "\n".. "Pri Interrupt", -- Blacktar Bomber
-	["135258"] = "Todo ".. "\n".. "Pri Interrupt", -- Irontide Curseblade
-	-- Grim Batol
-	["224152"] = "Todo ".. "\n".. "Pri Interrupt", -- Twilight Brute
-	["224240"] = "Todo ".. "\n".. "Pri Interrupt", -- Twilight Decapitator
-	-- Darkflame Cleft
-	["211228"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223772"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223776"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223774"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["220815"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223777"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223773"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223775"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["223770"] = "Todo ".. "\n".. "Pri Interrupt", -- Blazing Fiend
-	["208456"] = "Todo ".. "\n".. "Pri Interrupt", -- Shuffling Horror
-	-- Cinderbrew Meadery
-	["222964"] = "Todo ".. "\n".. "Pri Interrupt", -- Flavor Scientist
-	["214673"] = "Todo ".. "\n".. "Pri Interrupt", -- Flavor Scientist
-	-- Priory of the Sacred Flame
-	["206698"] = "Todo ".. "\n".. "Pri Interrupt", -- Fanatical Conjuror
-	["221760"] = "Todo ".. "\n".. "Pri Interrupt", -- Risen Mage
-	["217658"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Sir Braunpyke
+	["213934"] = "Frontal: Black Edge", -- Nightfall Tactician
 	-- The Rookery
 	["214421"] = "Todo ".. "\n".. "Pri Interrupt", -- Coalescing Void Diffuser
 	["207199"] = "Todo ".. "\n".. "Pri Interrupt", -- Cursed Rooktender
-	["212793"] = "Todo ".. "\n".. "Pri Interrupt", -- Void Ascendant
+	["212793"] = "Interrupt: Void Volley (AoE)", -- Void Ascendant
+	-- The Stonevault
+	["214264"] = "Frontal: Unbridled Void", -- Cursedforge Honor Guard
+	["221979"] = "Piercing Wail ".. "\n".. "Party-wide AOE damage that stacks with each cast", -- Void Bound Howler
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -421,61 +419,61 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["99360"] = "Can not be killed if Keepers are alive", -- Vilethorn Blossom
 	["100539"] = "Dispell Scorching Shot debuff if needed ".. "\n".. "Cleave/Kill Decoys", -- Taintheart Deadeye
 	["107288"] = "harmless", -- Vilethorn Sapling
-	-- Ara-Kara, City of Echoes
-	["215968"] = "Todo ".. "\n".. "Interrupt", -- Black Blood
-	["216364"] = "Todo ".. "\n".. "Interrupt", -- Blood Overseer
-	["223253"] = "Todo ".. "\n".. "Interrupt", -- Bloodstained Webmage
-	["216293"] = "Todo ".. "\n".. "Interrupt", -- Trilling Attendant
+	-- Ara-Kara
+	["215968"] = "Stun/CC Int: Grasping Blood ".. "\n".. "Root player", -- Black Blood
+	["216364"] = "Interrupt: Venom Volley ".. "\n".. "AoE Poison on party", -- Blood Overseer
+	["223253"] = "Interrupt: Silken Restraint ".. "\n".. "Will cc the target", -- Bloodstained Webmage
+	["216293"] = "Interrupt: Resonant Barrage ".. "\n".. "Party-wide AoE damage", -- Trilling Attendant
+	-- Cinderbrew Meadery
+	["220141"] = "Interrupt: Honey Volley ".. "\n".. "AoE Dmg", -- Royal Jelly Purveyor
+	["218671"] = "Interrupt: Boiling Flames ".. "\n".. "Heavy single target damage", -- Venture Co. Pyromaniac
 	-- City of Threads
 	["221102"] = "Todo ".. "\n".. "Interrupt", -- Elder Shadeweaver
 	["219198"] = "Todo ".. "\n".. "Interrupt", -- Ravenous Scarab
-	["220195"] = "Todo ".. "\n".. "Interrupt", -- Sureki Silkbinder
-	["216339"] = "Todo ".. "\n".. "Interrupt", -- Sureki Unnaturaler
+	["220195"] = "Interrupt: Silk Binding ".. "\n".. "Stuns target after successful cast", -- Sureki Silkbinder
+	["216339"] = "Frontal: Awakening Calling ".. "\n".. "Awaken more adds", -- Sureki Unnaturaler
 	["224731"] = "Todo ".. "\n".. "Interrupt", -- Web Marauder
 	["223182"] = "Todo ".. "\n".. "Interrupt", -- Web Marauder
-	-- The Dawnbreaker
-	["211341"] = "Todo ".. "\n".. "Interrupt", -- Manifested Shadow
-	["214762"] = "Todo ".. "\n".. "Interrupt", -- Nightfall Commander
-	["228539"] = "Todo ".. "\n".. "Interrupt", -- Nightfall Darkcaster
-	["213892"] = "Todo ".. "\n".. "Interrupt", -- Nightfall Shadowmage
-	["223994"] = "Todo ".. "\n".. "Interrupt", -- Nightfall Shadowmage
-	["213932"] = "Todo ".. "\n".. "Interrupt", -- Sureki Militant
-	["225479"] = "Todo ".. "\n".. "Interrupt", -- Sureki Webmage
-	["210966"] = "Todo ".. "\n".. "Interrupt", -- Sureki Webmage
-	-- The Stonevault
-	["214066"] = "Todo ".. "\n".. "Interrupt", -- Cursedforge Stoneshaper
-	["212403"] = "Todo ".. "\n".. "Interrupt", -- Cursedheart Invader
-	["212389"] = "Todo ".. "\n".. "Interrupt", -- Cursedheart Invader
-	["212765"] = "Todo ".. "\n".. "Interrupt", -- Void Bound Despoiler
-	-- Siege of Boralus
-	["136549"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Cannoneer
-	["138465"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Cannoneer
-	["128967"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Sniper
-	["144170"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Sniper
-	["141938"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Sniper
-	["135263"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Spotter
-	["138255"] = "Todo ".. "\n".. "Interrupt", -- Ashvane Spotter
-	["137626"] = "Todo ".. "\n".. "Interrupt", -- Demolishing Terror
-	["140447"] = "Todo ".. "\n".. "Interrupt", -- Demolishing Terror
-	["137625"] = "Todo ".. "\n".. "Interrupt", -- Demolishing Terror
-	["137614"] = "Todo ".. "\n".. "Interrupt", -- Demolishing Terror
-	["129928"] = "Todo ".. "\n".. "Interrupt", -- Irontide Powdershot
-	["129370"] = "Todo ".. "\n".. "Interrupt", -- Irontide Waveshaper
-	["129640"] = "Todo ".. "\n".. "Interrupt", -- Snarling Dockhound
-	-- Grim Batol
-	["224219"] = "Todo ".. "\n".. "Interrupt", -- Twilight Earthcaller
-	["224271"] = "Todo ".. "\n".. "Interrupt", -- Twilight Warlock
 	-- Darkflame Cleft
 	["213913"] = "Todo ".. "\n".. "Interrupt", -- Kobold Flametender
 	["210812"] = "Todo ".. "\n".. "Interrupt", -- Royal Wicklighter
-	-- Cinderbrew Meadery
-	["220141"] = "Todo ".. "\n".. "Interrupt", -- Royal Jelly Purveyor
-	["218671"] = "Todo ".. "\n".. "Interrupt", -- Venture Co. Pyromaniac
+	-- Grim Batol
+	["224219"] = "Interrupt: Mass Tremor ".. "\n".. "AoE dmg", -- Twilight Earthcaller
+	["224271"] = "Todo ".. "\n".. "Interrupt", -- Twilight Warlock
 	-- Priory of the Sacred Flame
-	["206697"] = "Todo ".. "\n".. "Interrupt", -- Devout Priest
+	["206697"] = "Interrupt: Greater Heal (Big Heal)", -- Devout Priest#Priory of the Sacred Flame
+	-- Siege of Boralus
+	["136549"] = "Frontal: Broadside", -- Ashvane Cannoneer
+	["138465"] = "Frontal: Broadside", -- Ashvane Cannoneer
+	["128967"] = "Mostly harmless", -- Ashvane Sniper
+	["144170"] = "Mostly harmless", -- Ashvane Sniper
+	["141938"] = "Mostly harmless", -- Ashvane Sniper
+	["135263"] = "Note: Use Artillery to kill enemy", -- Ashvane Spotter
+	["138255"] = "Note: Use Artillery to kill enemy", -- Ashvane Spotter
+	["137626"] = "Note: Tank in mele range", -- Demolishing Terror
+	["140447"] = "Note: Tank in mele range", -- Demolishing Terror
+	["137625"] = "Note: Tank in mele range", -- Demolishing Terror
+	["137614"] = "Note: Tank in mele range", -- Demolishing Terror
+	["129928"] = "Interrupt: Molten Slug ".. "\n".. "Cast on random player", -- Irontide Powdershot
+	["129370"] = "Interrupt: Watertight Shell ".. "\n".. "Debuff that explodes", -- Irontide Waveshaper
+	["129640"] = "Kill dog ASAP due to 125% dmg increase ".. "\n".. "cc one on high fortify?", -- Snarling Dockhound
+	-- The Dawnbreaker
+	["211341"] = "Todo ".. "\n".. "Interrupt", -- Manifested Shadow
+	["214762"] = "Interrupt: Abyssal Howl ".. "\n".. "Absorb shield on enemies and AoE dmage", -- Nightfall Commander
+	["228539"] = "Interrupt (Pri): Tormenting Beam (Big Channeling dmg) ".. "\n".. "Interrupt: Umbral Barrier", -- Nightfall Darkcaster
+	["213892"] = "Interrupt: Ensnaring Shadow ".. "\n".. "Big DoT on target", -- Nightfall Shadowmage
+	["223994"] = "Interrupt: Ensnaring Shadow ".. "\n".. "Big DoT on target", -- Nightfall Shadowmage
+	["213932"] = "Interrupt: Silken Shell ".. "\n".. "Places an mitigation shield on enemy", -- Sureki Militant
+	["225479"] = "Todo ".. "\n".. "Interrupt", -- Sureki Webmage
+	["210966"] = "Todo ".. "\n".. "Interrupt", -- Sureki Webmage
 	-- The Rookery
-	["207198"] = "Todo ".. "\n".. "Interrupt", -- Cursed Thunderer
+	["207198"] = "Interrupt: Arcing Void ".. "\n".. "Bounces", -- Cursed Thunderer
 	["207202"] = "Todo ".. "\n".. "Interrupt", -- Void Fragment
+	-- The Stonevault
+	["214066"] = "Summons Earth Burst Totem ".. "\n".. "Totem does AOE Dmg", -- Cursedforge Stoneshaper
+	["212403"] = "Todo ".. "\n".. "Interrupt", -- Cursedheart Invader
+	["212389"] = "Todo ".. "\n".. "Interrupt", -- Cursedheart Invader
+	["212765"] = "Todo ".. "\n".. "Interrupt", -- Void Bound Despoiler
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -688,55 +686,55 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["99192"] = "Tank: Defensive on Festering Rip ".. "\n".. "Stack with Nightmare Bolt, Spread with Induced Paranoia", -- Shade of Xavius
 	["101991"] = "Interrupt / Stun: Tormenting Eye (Fear player) ".. "\n".. "Healer: dispel the  Tormenting Fear", -- Nightmare Dweller
 	["103344"] = "Tank: Defensive on Crushing Grip ".. "\n".. "Watch traps: Shattered Earth knock back ".. "\n".. "Party: Dodge tank throw after Grip", -- Oakheart
-	-- Ara-Kara, City of Echoes
-	["216856"] = "Top Pri ".. "\n".. "Kill ASAP", -- Black Blood
-	["215826"] = "Top Pri ".. "\n".. "Kill ASAP", -- Bloodworker
-	["216340"] = "Top Pri ".. "\n".. "Kill ASAP", -- Sentry Stagshell
+	-- Ara-Kara
+	["216856"] = "Stun/CC Int: Grasping Blood ".. "\n".. "Root player", -- Black BloodGreen
+	["215826"] = "Top Pri ".. "\n".. "Kill ASAP", -- BloodworkerGreen
+	["216340"] = "Stun/CC Int: Alarm Shrill ".. "\n".. "Summons more adds", -- Sentry Stagshell
 	["218961"] = "Top Pri ".. "\n".. "Kill ASAP", -- Starved Crawler
+	-- Cinderbrew Meadery
+	["214697"] = "Top Pri ".. "\n".. "Kill ASAP", -- Chef Chewie
+	["220368"] = "Top Pri ".. "\n".. "Kill ASAP", -- Failed Batch
 	-- City of Threads
-	["223844"] = "Top Pri ".. "\n".. "Kill ASAP", -- Covert Webmancer
-	["224732"] = "Top Pri ".. "\n".. "Kill ASAP", -- Covert Webmancer
+	["223844"] = "Interrupt Pri: Mending Web ".. "\n".. "Interrupt: Grimweave Blast", -- Covert Webmancer
+	["224732"] = "Interrupt Pri: Mending Web ".. "\n".. "Interrupt: Grimweave Blast", -- Covert Webmancer
 	["216342"] = "Top Pri ".. "\n".. "Kill ASAP", -- Skittering Assistant
 	["220065"] = "Top Pri ".. "\n".. "Kill ASAP", -- Umbral Weave
 	["222700"] = "Top Pri ".. "\n".. "Kill ASAP", -- Umbral Weave
+	-- flame Cleft
+	["212412"] = "Interrupt: Flaming Tether (big Dmg+ Root) ".. "\n".. "Frontal: Ceaseless Flame", -- Sootsnout#flame Cleft
+	-- Grim Batol
+	["40357"] = "Top Pri ".. "\n".. "Kill ASAP", -- Invoked Shadowflame Spirit
+	["40167"] = "Interrupt: Sear Mind ".. "\n".. "Big targetted damage and stuns", -- Twilight Beguiler
+	["224221"] = "Top Pri ".. "\n".. "Kill ASAP", -- Twilight Overseer
+	["39450"] = "Top Pri ".. "\n".. "Kill ASAP", -- Trogg Dweller
+	-- Siege of Boralus
+	["129367"] = "Interrupt(!): Revitalizing Mist (Big ST heal) ".. "\n".. "Interrupt or Dispel(!): Choking Waters (DoT, silence)", -- Bilge Rat Tempest
+	["137405"] = "Kill to free npc for cannon repair", -- Gripping Terror
+	["129879"] = "Frontal: Heavy Slash ".. "\n".. "Frontal line", -- Irontide Cleaver
+	["129371"] = "Frontal: Singing Steel (tank can dodge) ".. "\n".. "Dodge swirl on ground", -- Riptide Shredder
+	["144071"] = "Interrupt: Watertight Shell ".. "\n".. "Debuff that explodes", -- Irontide Waveshaper
+	["141284"] = "Interrupt: Watertight Shell ".. "\n".. "Purge if failed interrupt", -- Kul Tiran Wavetender
+	["141285"] = "Cast fire at random target ".. "\n".. "Mostly harmless", -- Kul Tiran Marksman
+	["132532"] = "Cast fire at random target ".. "\n".. "Mostly harmless", -- Kul Tiran Marksman
+	["132491"] = "Cast fire at random target ".. "\n".. "Mostly harmless", -- Kul Tiran Marksman
 	-- The Dawnbreaker
 	["211261"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Ascendant Vis'coxria
-	["211262"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Ixkreten the Unbreakable
 	["211263"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Deathscreamer Iken'tak
-	["213885"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall Dark Architect
-	["213893"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall Darkcaster
-	["225605"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall Darkcaster
+	["211262"] = "Adds 30% Dmg and +50% HP to Boss ".. "\n".. "Anub'ikkaj's Lieutenants", -- Ixkreten the Unbreakable
+	["213885"] = "Top Pri ".. "\n".. "Kill ASAP", -- Nightfall  Architect
+	["213893"] = "Interrupt (Pri): Tormenting Beam (Big Channeling dmg) ".. "\n".. "Interrupt: Umbral Barrier", -- Nightfall caster
+	["225605"] = "Interrupt (Pri): Tormenting Beam (Big Channeling dmg) ".. "\n".. "Interrupt: Umbral Barrier", -- Nightfall caster
 	["229537"] = "Top Pri ".. "\n".. "Kill ASAP", -- Void Emissary
+	-- The Rookery
+	["212786"] = "Top Pri ".. "\n".. "Kill ASAP", -- Voidrider
 	-- The Stonevault
 	["214443"] = "Top Pri ".. "\n".. "Kill ASAP", -- Crystal Shard
 	["224962"] = "Top Pri ".. "\n".. "Kill ASAP", -- Cursedforge Mender
 	["214287"] = "Top Pri ".. "\n".. "Kill ASAP", -- Earth Burst Totem
-	["213338"] = "Top Pri ".. "\n".. "Kill ASAP", -- Forgebound Mender
-	["212453"] = "Top Pri ".. "\n".. "Kill ASAP", -- Ghastly Voidsoul
+	["213338"] = "Interrupt: Restoring Metals ".. "\n".. "Heals enemy", -- Forgebound Mender
+	["212453"] = "Interrupt: Howling Fear ".. "\n".. "AoE Fear", -- Ghastly Voidsoul
 	["213217"] = "Top Pri ".. "\n".. "Kill ASAP", -- Speaker Brokk
-	["214350"] = "Top Pri ".. "\n".. "Kill ASAP", -- Turned Speaker
-	-- Siege of Boralus
-	["129367"] = "Top Pri ".. "\n".. "Kill ASAP", -- Bilge Rat Tempest
-	["137405"] = "Top Pri ".. "\n".. "Kill ASAP", -- Gripping Terror
-	["129879"] = "Top Pri ".. "\n".. "Kill ASAP", -- Irontide Cleaver
-	["129371"] = "Top Pri ".. "\n".. "Kill ASAP", -- Riptide Shredder
-	["144071"] = "Top Pri ".. "\n".. "Kill ASAP", -- Irontide Waveshaper
-	["141284"] = "Top Pri ".. "\n".. "Kill ASAP", -- Kul Tiran Wavetender
-	["141285"] = "Top Pri ".. "\n".. "Kill ASAP", -- Kul Tiran Marksman
-	["132532"] = "Top Pri ".. "\n".. "Kill ASAP", -- Kul Tiran Marksman
-	["132491"] = "Top Pri ".. "\n".. "Kill ASAP", -- Kul Tiran Marksman
-	-- Grim Batol
-	["40357"] = "Top Pri ".. "\n".. "Kill ASAP", -- Invoked Shadowflame Spirit
-	["40167"] = "Top Pri ".. "\n".. "Kill ASAP", -- Twilight Beguiler
-	["224221"] = "Top Pri ".. "\n".. "Kill ASAP", -- Twilight Overseer
-	["39450"] = "Top Pri ".. "\n".. "Kill ASAP", -- Trogg Dweller
-	-- Darkflame Cleft
-	["212412"] = "Top Pri ".. "\n".. "Kill ASAP", -- Sootsnout
-	-- Cinderbrew Meadery
-	["214697"] = "Top Pri ".. "\n".. "Kill ASAP", -- Chef Chewie
-	["220368"] = "Top Pri ".. "\n".. "Kill ASAP", -- Failed Batch
-	-- The Rookery
-	["212786"] = "Top Pri ".. "\n".. "Kill ASAP", -- Voidrider
+	["214350"] = "Silence: Censoring Gear ".. "\n".. "Silences the target", -- Turned Speaker
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -942,84 +940,84 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["95766"] = "Dodge: Crazed Razorbeak - Frontal Charge", -- Crazed Razorbeak
 	["100526"] = "Disease dispel to avoid drain and heal", -- Tormented Bloodseeker
 	["100531"] = "Frontal Charge: Face into wall", -- Bloodtainted Fury
-	-- Ara-Kara, City of Echoes
-	["215405"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Anub'zekt
-	["217533"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Atik
-	["213179"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Avanoxx
-	["228015"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hulking Bloodguard
-	["216338"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hulking Bloodguard
-	["217531"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Ixin
-	["215407"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Ki'katal the Harvester
-	["218324"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nakt
-	["217039"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nerubian Hauler
-	-- City of Threads
-	["220003"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Eye of the Queen
-	["220196"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Herald of Ansurek
-	["221103"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hulking Warshell
-	["216658"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Izo, the Grand Splicer
-	["216648"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nx
-	["216619"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Orator Krix'vizk
-	["220423"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Retired Lord Vul'azak
-	["220197"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Royal Swarmguard
-	["220730"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Royal Venomshell
-	["216320"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- The Coaglamation
-	["216328"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Unstable Test Subject
-	["216649"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Vx
-	["219984"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Xeph'itik
-	-- The Dawnbreaker
-	["211089"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Anub'ikkaj
-	["214761"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nightfall Ritualist
-	["213937"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rasha'nan
-	["211087"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Speaker Shadowcrown
-	-- The Stonevault
-	["210108"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- E.D.N.A
-	["210109"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Earth Infused Golem
-	["213343"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Forge Loader
-	["213119"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- High Speaker Eirich
-	["213954"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rock Smasher
-	["210156"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Skarmorak
-	["213216"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Speaker Dorlita
-	["212400"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Void Touched Elemental
-	-- Siege of Boralus
-	["128969"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Ashvane Commander
-	["144169"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Ashvane Commander
-	["135245"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Bilge Rat Demolisher
-	["128650"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Chopper Redhook
-	["129208"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Dread Captain Lockwood
-	["128651"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hadal Darkfathom
-	["129369"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Irontide Raider
-	["129374"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Scrimshaw Enforcer
-	["83026"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Siegemaster Olugar
-	["128652"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Viq'Goth
-	-- Grim Batol
-	["40319"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Drahga Shadowburner
-	["40484"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Erudax
-	["39392"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Faceless Corruptor
-	["40177"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Forgemaster Throngus
-	["39625"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- General Umbriss
-	["40166"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Molten Giant
-	["224609"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Twilight Destroyer
-	["224276"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Twilight Enforcer
-	["224249"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Twilight Lavabender
-	["40320"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Valiona
-	-- Darkflame Cleft
-	["210539"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Corridor Creeper
-	["211121"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rank Overseer
-	["212411"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Torchsnarl
-	["208450"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Wandering Candle
+	-- Ara-Kara
+	["215405"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Anub'zektLight Orange
+	["217533"] = "Interrupt: Poison Bolt ".. "\n".. "Frontal: Web Spray", -- AtikLight Orange
+	["213179"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- AvanoxxLight Orange
+	["228015"] = "Frontal: Impale", -- Hulking BloodguardLight Orange
+	["216338"] = "Frontal: Impale", -- Hulking BloodguardLight Orange
+	["217531"] = "Interrupt: Horrifying Shrill ".. "\n".. "AoE Fear on party", -- IxinLight
+	["215407"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Ki'katal the HarvesterLight
+	["218324"] = "Frontal: Web Spray", -- NaktLight
+	["217039"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nerubian HaulerLight
 	-- Cinderbrew Meadery
-	["223423"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Careless Hopgoblin
-	["210269"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hired Muscle
-	["220946"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Venture Co. Honey Harvester
+	["223423"] = "Dodge: Reckless Delivery ".. "\n".. "Charges in a line", -- Careless HopgoblinLight
+	["210269"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hired MuscleLight
+	["220946"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Venture Co. Honey HarvesterLight
+	-- City of Threads
+	["220003"] = "Frontal: Null Slam", -- Eye of the QueenLight
+	["220196"] = "Interrupt: Twist Thoughts ".. "\n".. "Heavy DoT on target", -- Herald of AnsurekLight
+	["221103"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Hulking WarshellLight
+	["216658"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Izo, the Grand SplicerLight
+	["216648"] = "Dodge All Frontals ".. "\n".. "Shade Slash, Umbral Slash, Ice Sickles", -- NxLight
+	["216619"] = "Frontal: Terrorize", -- Orator Krix'vizkLight
+	["220423"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Retired Lord Vul'azakLight
+	["220197"] = "Frontal: Earthshatter", -- Royal SwarmguardLight
+	["220730"] = "Frontal: Earthshatter ".. "\n".. "Frontal or Hard Hitting", -- Royal VenomshellLight
+	["216320"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- The CoaglamationLight
+	["216328"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Unstable Test SubjectLight
+	["216649"] = "Dodge All Frontals ".. "\n".. "Shade Slash, Umbral Slash, Ice Sickles", -- VxLight
+	["219984"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Xeph'itikLight
+	-- flame Cleft
+	["210539"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Corridor Creeper#flame CleftLight
+	["211121"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rank Overseer#flame CleftLight
+	["212411"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Torchsnarl#flame CleftLight
+	["208450"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Wandering Candle#flame CleftLight
+	-- Grim Batol
+	["40319"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Drahga ShadowburnerLight
+	["40484"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- ErudaxLight
+	["39392"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Faceless CorruptorLight
+	["40177"] = "Frontal: Fiery Cleave ".. "\n".. "Kite during 2H Mace or die?", -- Forgemaster ThrongusLight
+	["39625"] = "New: Just dodge lines ".. "\n".. "New: No adds", -- General UmbrissLight
+	["40166"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Molten GiantLight
+	["224609"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Twilight DestroyerLight
+	["224276"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Twilight EnforcerLight
+	["224249"] = "Frontal: Shadowflame Blast ".. "\n".. "Dodge line", -- Twilight LavabenderLight
+	["40320"] = "Frontal: Devouring Flame", -- ValionaLight
 	-- Priory of the Sacred Flame
-	["211290"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Elaena Emberlanz
-	["212831"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Forge Master Damian
-	["212826"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Guard Captain Suleyman
-	["211291"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Sergeant Shaynemail
+	["211290"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Elaena Emberlanz#Priory of the Sacred FlameLight
+	["212831"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Forge Master Damian#Priory of the Sacred FlameLight
+	["212826"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Guard Captain Suleyman#Priory of the Sacred FlameLight
+	["211291"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Sergeant Shaynemail#Priory of the Sacred FlameLight
+	-- Siege of Boralus
+	["128969"] = "Interrupt: Bolstering Shout ".. "\n".. "Places a defensive buff on enemy mobs", -- Ashvane CommanderLight
+	["144169"] = "Interrupt: Bolstering Shout ".. "\n".. "Places a defensive buff on enemy mobs", -- Ashvane CommanderLight
+	["135245"] = "Frontal: Crushing Slam ".. "\n".. "Tank can dodge also", -- Bilge Rat DemolisherLight
+	["128650"] = "Kite when fixated ".. "\n".. "Focus Adds over boss", -- Chopper RedhookLight
+	["129208"] = "Dodge Frontal Cleave (tank also) ".. "\n".. "Use cannon from add to get her of ship", -- Dread Captain LockwoodLight
+	["128651"] = "NOTE: Water wave is 2x now!", -- Hadal fathomLight
+	["129369"] = "Move away during Savage Tempest ".. "\n".. "Will grip random player", -- Irontide RaiderLight
+	["129374"] = "Nothing special", -- Scrimshaw EnforcerLight
+	["83026"] = "Mele: Move 5y during Shattering Strike", -- Siegemaster OlugarLight
+	["128652"] = "Pri Demolishing Terror over Gripping", -- Viq'GothLight
+	-- The Dawnbreaker
+	["211089"] = "Frontal:  Orb", -- Anub'ikkajLight
+	["214761"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Nightfall RitualistLight
+	["213937"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rasha'nanLight
+	["211087"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Speaker ShadowcrownLight
 	-- The Rookery
-	["209801"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Quartermaster Koratite
-	["212739"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Radiating Voidstone
-	["214419"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Void Cursed Crusher
+	["209801"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Quartermaster KoratiteLight
+	["212739"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Radiating VoidstoneLight
+	["214419"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Void Cursed CrusherLight
+	-- The Stonevault
+	["210108"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- E.D.N.ALight
+	["210109"] = "Frontal: Seismic Wave", -- Earth Infused GolemLight
+	["213343"] = "Frontal: Lava Cannon", -- Forge LoaderLight
+	["213119"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- High Speaker EirichLight
+	["213954"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Rock SmasherLight
+	["210156"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- SkarmorakLight
+	["213216"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Speaker DorlitaLight
+	["212400"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Void Touched ElementalLight
 }
 
 T.PlateTides = {
