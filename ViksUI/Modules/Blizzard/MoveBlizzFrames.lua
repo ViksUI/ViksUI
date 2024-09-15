@@ -5,14 +5,14 @@ if C.general.move_blizzard ~= true then return end
 --	Move some Blizzard frames
 ----------------------------------------------------------------------------------------
 local frames = {
-	"CharacterFrame", "SpellBookFrame", "TaxiFrame", "QuestFrame", "PVEFrame", "AddonList",
+	"CharacterFrame", "ChannelFrame", "TaxiFrame", "QuestFrame", "PVEFrame", "AddonList",
 	"QuestLogPopupDetailFrame", "MerchantFrame", "TradeFrame", "MailFrame", "LootFrame",
 	"FriendsFrame", "CinematicFrame", "TabardFrame", "PetStableFrame", "BankFrame",
 	"PetitionFrame", "HelpFrame", "GossipFrame", "DressUpFrame", "GuildRegistrarFrame",
 	"ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame", "WorldMapFrame",
 	"GameMenuFrame", "VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame",
-	"OpenMailFrame", "StackSplitFrame", "TutorialFrame", "StaticPopup1",
-	"StaticPopup2", "ScrollOfResurrectionSelectionFrame", "ProfessionsFrame"
+	"OpenMailFrame", "StackSplitFrame", "TutorialFrame", "StaticPopup1", "SettingsPanel",
+	"StaticPopup2", "ScrollOfResurrectionSelectionFrame", "CommunitiesFrame", "ShestakUIOptionsPanel"
 }
 
 for _, v in pairs(frames) do
@@ -37,7 +37,6 @@ local AddOnFrames = {
 	["Blizzard_Calendar"] = {"CalendarCreateEventFrame", "CalendarFrame", "CalendarViewEventFrame", "CalendarViewHolidayFrame"},
 	["Blizzard_ChallengesUI"] = {"ChallengesLeaderboardFrame"},
 	["Blizzard_Collections"] = {"CollectionsJournal", "WardrobeFrame"},
-	["Blizzard_Communities"] = {"CommunitiesFrame"},
 	["Blizzard_EncounterJournal"] = {"EncounterJournal"},
 	["Blizzard_GMChatUI"] = {"GMChatStatusFrame"},
 	["Blizzard_GMSurveyUI"] = {"GMSurveyFrame"},
@@ -51,13 +50,15 @@ local AddOnFrames = {
 	["Blizzard_LookingForGuildUI"] = {"LookingForGuildFrame"},
 	["Blizzard_MacroUI"] = {"MacroFrame"},
 	["Blizzard_OrderHallUI"] = {"OrderHallMissionFrame"},
+	["Blizzard_PlayerSpells"] = {"PlayerSpellsFrame"},
+	["Blizzard_Professions"] = {"ProfessionsFrame"},
+	["Blizzard_ProfessionsBook"] = {"ProfessionsBookFrame"},
 	["Blizzard_QuestChoice"] = {"QuestChoiceFrame"},
 	["Blizzard_ReforgingUI"] = {"ReforgingFrame"},
 	["Blizzard_TalentUI"] = {"PlayerTalentFrame"},
 	["Blizzard_TalkingHeadUI"] = {"TalkingHeadFrame"},
-	-- ["Blizzard_TradeSkillUI"] = {"TradeSkillFrame"},
 	["Blizzard_TrainerUI"] = {"ClassTrainerFrame"},
-	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"}
+	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"},
 }
 
 local frame = CreateFrame("Frame")
