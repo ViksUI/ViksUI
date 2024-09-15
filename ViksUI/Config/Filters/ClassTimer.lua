@@ -728,7 +728,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(79140), -- Vendetta
 			CreateSpellEntry(154953), -- Internal Bleeding
 			CreateSpellEntry(192425), -- Surge of Toxins
-			CreateSpellEntry(192759), -- Kingsbane
+			CreateSpellEntry(385627), -- Kingsbane
 			-- Outlaw
 			CreateSpellEntry(1776), -- Gouge
 			CreateSpellEntry(1943), -- Rupture

@@ -1832,6 +1832,8 @@ C["filger_spells"] = {
 			{spellID = 8680, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Crimson Tempest
 			{spellID = 121411, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Kingsbane
+			{spellID = 385627, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
@@ -1905,6 +1907,8 @@ C["filger_spells"] = {
 			{spellID = 36554, filter = "CD"},
 			-- Evasion
 			{spellID = 5277, filter = "CD"},
+			-- Kingsbane
+			{spellID = 385627, filter = "CD"},
 		},
 	},
 	["SHAMAN"] = {
