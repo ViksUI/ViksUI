@@ -90,7 +90,7 @@ end
 C["minimap"] = {
 	["enable"] = true,
 	["tracking_icon"] = false,				-- Tracking icon
-	["garrison_icon"] = false,				-- Garrison icon
+	["garrison_icon"] = false,				-- Expansion Summary icon
 	["size"] = 136,							-- Minimap size
 	["toggle_menu"] = false,				-- Show toggle menu
 	["hide_combat"] = false,				-- Hide minimap in combat
