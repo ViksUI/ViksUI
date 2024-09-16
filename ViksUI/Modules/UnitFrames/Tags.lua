@@ -60,7 +60,7 @@ oUF.Tags.Events["PetNameColor"] = "UNIT_POWER_UPDATE"
 
 oUF.Tags.Methods["GetNameColor"] = function(unit)
 	local reaction = UnitReaction(unit, "player")
-	if UnitIsPlayer(unit) then
+	if (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)) then
 		return _TAGS["raidcolor"](unit)
 	elseif reaction then
 		local c = T.Colors.reaction[reaction]
@@ -502,7 +502,7 @@ oUF.Tags.Methods['drk:color'] = function(u, r)
 		return "|cffA0A0A0"
 	elseif (UnitIsTapDenied(u) and not UnitPlayerControlled(u)) then
 		return hex(oUF.colors.tapped)
-	elseif (UnitIsPlayer(u)) then
+	elseif (UnitIsPlayer(u) or UnitInPartyIsAI(u))then
 		return hex(oUF.colors.class[class])
 	elseif reaction then
 		return hex(oUF.colors.reaction[reaction])
@@ -520,7 +520,7 @@ oUF.Tags.Methods['drk:color2'] = function(u, r)
 		return "|cffA0A0A0"
 	elseif (UnitIsTapDenied(u) and not UnitPlayerControlled(u)) then
 		return hex(oUF.colors.tapped)
-	elseif (UnitIsPlayer(u)) then
+	elseif (UnitIsPlayer(u) or UnitInPartyIsAI(u))then
 		return hex(unpack(C.media.oUFfontcolor))
 	elseif reaction then
 		return hex(oUF.colors.reaction[reaction])

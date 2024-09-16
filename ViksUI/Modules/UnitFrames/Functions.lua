@@ -60,7 +60,7 @@ T.PostUpdateHealth = function(health, unit, min, max)
 		end
 	else
 		local r, g, b
-		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
+		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit))) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and not UnitInPartyIsAI(unit) and UnitIsFriend(unit, "player")) then
 			local c = T.Colors.reaction[UnitReaction(unit, "player")]
 			if c then
 				r, g, b = c[1], c[2], c[3]
@@ -176,7 +176,7 @@ T.PostUpdateRaidHealth = function(health, unit, min, max)
 		end
 	else
 		local r, g, b
-		if not UnitIsPlayer(unit) and UnitIsFriend(unit, "player") and C.unitframe.own_color ~= true then
+		if not UnitIsPlayer(unit) and not UnitInPartyIsAI(unit) and UnitIsFriend(unit, "player") and C.unitframe.own_color ~= true then
 			local c = T.Colors.reaction[5]
 			local r, g, b = c[1], c[2], c[3]
 			health:SetStatusBarColor(r, g, b)
@@ -477,7 +477,7 @@ end
 
 local function castColor(unit)
 	local r, g, b
-	if UnitIsPlayer(unit) then
+	if (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)) then
 		local _, class = UnitClass(unit)
 		local color = T.Colors.class[class]
 		if color then
