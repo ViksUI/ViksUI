@@ -4,6 +4,15 @@ if C.automation.open_items ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Auto opening of items in bag (kAutoOpen by Kellett)
 ----------------------------------------------------------------------------------------
+-- Check if currency max limit is close to avoid waste currency
+local currencyInfo = C_CurrencyInfo.GetCurrencyInfo(3008)
+
+if currencyInfo.quantity >= (currencyInfo.maxQuantity - 50) then
+	PlaySound(SOUNDKIT.RAID_WARNING, "Master")
+	RaidNotice_AddMessage(RaidWarningFrame, "Valorstone almost MAX! Auto Open Items canceled!", ChatTypeInfo["RAID_WARNING"])
+	print(format("|cffff3300Valorstone almost max! Auto Open Items canceled|r"))
+end
+
 local frame, atBank, atMail, atMerchant = CreateFrame("Frame")
 frame:SetScript("OnEvent", function(self, event, ...) self[event](...) end)
 
@@ -58,8 +67,14 @@ frame:Register("BAG_UPDATE_DELAYED", function()
 		for slot = 0, C_Container.GetContainerNumSlots(bag) do
 			local _, _, locked, _, _, lootable, _, _, _, id = GetContainerItemInfo(bag, slot)
 			if lootable and not locked and id and T.OpenItems[id] then
-				print("|cffff0000"..OPENING..": "..C_Container.GetContainerItemLink(bag, slot)..".|r")
-				C_Container.UseContainerItem(bag, slot)
+				if amount  >= (currencyInfo.maxQuantity - 100) then
+					PlaySound(SOUNDKIT.RAID_WARNING, "Master")
+					RaidNotice_AddMessage(RaidWarningFrame, "Valorstone close to max! Auto Open Items canceled!", ChatTypeInfo["RAID_WARNING"])
+					print(format("|cffff3300Valorstone close to max! Auto Open Items canceled|r"))
+				else
+					print("|cffff0000"..OPENING..": "..C_Container.GetContainerItemLink(bag, slot)..".|r")
+					C_Container.UseContainerItem(bag, slot)
+				end
 				return
 			end
 		end
