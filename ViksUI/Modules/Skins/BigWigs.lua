@@ -147,7 +147,7 @@ local function registerStyle(myProfile)
 	if not BigWigs then return end
 	BigWigsAPI:RegisterBarStyle("ViksUI", {
 		apiVersion = 1,
-		version = 1,
+		version = 10,
 		GetSpacing = function() return T.Scale(13) end,
 		ApplyStyle = applystyle,
 		BarStopped = freestyle,
