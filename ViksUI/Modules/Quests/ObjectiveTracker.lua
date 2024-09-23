@@ -483,7 +483,7 @@ for i = 1, #headers do
 				end
 			end
 		end)
-		hooksecurefunc(tracker, "OnBlockHeaderClick", function(_, block)
+		hooksecurefunc(tracker, "OnBlockHeaderClick", function(_, block) onClick(block.id)
 			if IsControlKeyDown() then
 				Menu.GetManager():HandleESC()
 				QuestMapQuestOptions_AbandonQuest(block.id)
@@ -502,15 +502,8 @@ for i = 1, #headers do
 		end)
 
 		hooksecurefunc(tracker, "OnBlockHeaderLeave", function(_, block)
-			local poi = block.poiButton
-			if poi then
-				block.HeaderText:SetTextColor(unpack(C.quest.title_text_color))
-				local style = poi:GetStyle()
-				if style == POIButtonUtil.Style.WorldQuest then
-					if block.HeaderText and block.HeaderText.col then
-						block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
-					end
-				end
+			if block.HeaderText and block.HeaderText.col then
+				block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
 			end
 		end)
 		hooksecurefunc(tracker, "AddBlock", colorQuest)
