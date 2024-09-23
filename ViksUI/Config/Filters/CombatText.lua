@@ -382,11 +382,21 @@ elseif T.class == "PALADIN" then
 		T.aoespam[184689] = 1		-- Shield of Vengeance
 		T.aoespam[205202] = 1		-- Eye for an Eye
 		T.aoespam[255937] = 1		-- Wake of Ashes
+		T.merge[405345] = 255937	-- Wake of Ashes
+		T.merge[405350] = 255937	-- Wake of Ashes
 		T.aoespam[198137] = 5		-- Divine Hammer
 		T.aoespam[81297] = 3		-- Consecration
 		T.aoespam[53385] = 0		-- Divine Storm
 		T.aoespam[88263] = 1		-- Hammer of the Righteous
 		T.merge[53595] = 88263		-- Hammer of the Righteous
+		T.aoespam[184575] = .5		-- Blade of Justice
+		T.merge[404358] = 184575	-- Blade of Justice
+		T.aoespam[383346] = 3		-- Expurgation
+		T.aoespam[407480] = .5		-- Templar Strike
+		T.aoespam[406647] = .5		-- Templar Slash
+		T.aoespam[447142] = 3		-- Templar Slash (DoT)
+		T.aoespam[383921] = .5		-- Highlord's Judgment
+		T.aoespam[407478] = .5		-- Searing Light
 		T.aoespam[31935] = .5		-- Avenger's Shield
 		T.aoespam[114871] = 0		-- Holy Prism
 		T.aoespam[114919] = 3		-- Arcing Light
@@ -398,8 +408,11 @@ elseif T.class == "PALADIN" then
 		T.aoespam[204301] = 8		-- Blessed Hammer
 		T.aoespam[224239] = 1		-- Divine Storm
 		T.aoespam[20271] = 1		-- Judgment
+		T.aoespam[406957] = 1		-- Judgment (Divine Toll)
 		T.aoespam[217020] = 1		-- Zeal
 		T.aoespam[286232] = 1		-- Light's Decree
+		T.aoespam[403695] = 3		-- Truth's Wake
+		T.aoespam[343721] = 1		-- Final Reckoning
 	end
 elseif T.class == "PRIEST" then
 	if C.combattext.merge_aoe_spam then
@@ -429,6 +442,7 @@ elseif T.class == "PRIEST" then
 		T.aoespam[228361] = 1		-- Void Eruption
 		T.merge[228360] = 228361	-- Void Eruption
 		T.aoespam[193473] = 3		-- Mind Flay (Call to the Void)
+		T.aoespam[391403] = 2		-- Mind Flay: Insanity
 		T.aoespam[186723] = 2.5		-- Penance
 		T.merge[47666] = 186723		-- Penance
 		T.aoespam[132157] = 0		-- Holy Nova
@@ -438,7 +452,8 @@ elseif T.class == "PRIEST" then
 		T.aoespam[14914] = 3		-- Holy Fire
 		T.aoespam[120696] = 3		-- Halo
 		T.aoespam[122128] = 3		-- Divine Star
-		T.aoespam[148859] = 3		-- Shadowy Apparition
+		T.aoespam[413231] = 3		-- Shadowy Apparition
+		T.aoespam[373304] = 3		-- Echoing Void
 	end
 	if C.combattext.healing then
 		T.healfilter[34914] = true	-- Vampiric Touch
