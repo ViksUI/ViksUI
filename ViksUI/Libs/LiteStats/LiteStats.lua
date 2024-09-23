@@ -1855,7 +1855,7 @@ if gold.enabled then
 
 			if C.stats.currency_misc then
 				-- titleName = EXPANSION_NAME10
-				-- Currency(2122)	-- Storm Sigil
+				Currency(3028)	-- Restored Coffer Key
 			end
 
 			-- Anima (Shadownlands currency as items in bags credits to StoredAnimaCounter by Falx)

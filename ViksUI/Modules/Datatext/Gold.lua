@@ -191,10 +191,8 @@ Stat:SetScript("OnEnter", function(self)
 
 	if C.datatext.CurrMiscellaneous then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(EXPANSION_NAME9)
-		Currency(2122)	-- Storm Sigil
-		Currency(2118)	-- Elemental Overflow
-		Currency(2003)	-- Dragon Isles Supplies
+		GameTooltip:AddLine(EXPANSION_NAME10)
+		Currency(3028)	-- Restored Coffer Key
 	end
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Bags: Left Click")
