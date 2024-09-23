@@ -1372,6 +1372,8 @@ C["filger_spells"] = {
 			-- Buffs
 			-- Divine Purpose
 			{spellID = 223819, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Final Verdict
+			{spellID = 383329, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Righteous Verdict
 			{spellID = 267611, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Blade of Wrath
@@ -1386,6 +1388,8 @@ C["filger_spells"] = {
 			{spellID = 286393, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Selfless Healer
 			{spellID = 114250, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Blessing of Dawn
+			{spellID = 385127, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shining Light
 			{spellID = 327510, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 		},
@@ -1566,10 +1570,16 @@ C["filger_spells"] = {
 			{spellID = 198069, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Surge of Light
 			{spellID = 114255, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Surge of Insanity
-			{spellID = 423846, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Mind Flay: Insanity
+			{spellID = 391401, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Twist of Fate
 			{spellID = 123254, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Mind Devourer
+			{spellID = 373204, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Unfurling Darkness
+			{spellID = 341282, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Shadowy Insight
+			{spellID = 375981, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -2442,6 +2452,8 @@ C["filger_spells"] = {
 			-- Potions: Miscellaneous
 			-- Invisible [Potion of the Hushed Zephyr]
 			{spellID = 371124, unitID = "player", caster = "player", filter = "BUFF", absID = true},
+			-- Treading Lightly [Draught of Silent Footfalls]
+			{spellID = 431424, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 
 			-- Raid Amplifiers
 			-- Bloodlust
