@@ -156,6 +156,7 @@ if C.reminder.solo_buffs_enable == true then
 					SpellName(3408),	-- Crippling Poison
 					SpellName(5761),	-- Numbing Poison
 					SpellName(381637),	-- Atrophic Poison
+					SpellName(381664),	-- Amplifying Poison
 				},
 				["combat"] = true,
 				["instance"] = true,
