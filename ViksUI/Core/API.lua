@@ -121,6 +121,15 @@ local function SetInside(obj, anchor, xOffset, yOffset)
 	obj:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -xOffset, yOffset)
 end
 
+local function SetMovePoint(self, x, y, point, anchor, attachTo)
+	local old_point, old_anchor, old_attachTo, old_x, old_y = self:GetPoint()
+	if point or attachTo then
+		self:ClearAllPoints()
+	end
+
+	self:SetPoint(point or old_point, anchor or old_anchor, attachTo or old_attachTo, x or old_x, y or old_y)
+end
+
 ----------------------------------------------------------------------------------------
 --	Template functions
 ----------------------------------------------------------------------------------------
@@ -417,6 +426,13 @@ T.SetModifiedBackdrop = function(self)
 		if self.overlay then
 			self.overlay:SetVertexColor(C.media.classborder_color[1] * 0.3, C.media.classborder_color[2] * 0.3, C.media.classborder_color[3] * 0.3, 1)
 		end
+		if self.colorText == "Text" then
+			self.Text:SetTextColor(1, 1, 1)
+		elseif self.colorText == "Button" then
+			self.ButtonText:SetTextColor(1, 1, 1)
+		elseif self.colorText == "Name" then
+			_G[self:GetName().."Text"]:SetTextColor(1, 1, 1)
+		end
 	end
 end
 
@@ -425,9 +441,16 @@ T.SetOriginalBackdrop = function(self)
 	if self.overlay then
 		self.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
 	end
+	if self.colorText == "Text" then
+		self.Text:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	elseif self.colorText == "Button" then
+		self.ButtonText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	elseif self.colorText == "Name" then
+		_G[self:GetName().."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	end
 end
 
-local function SkinButton(f, strip)
+local function SkinButton(f, strip, colorText)
 	if strip then f:StripTextures() end
 
 	if f.SetNormalTexture then f:SetNormalTexture(0) end
@@ -453,6 +476,8 @@ local function SkinButton(f, strip)
 	if f.BottomMiddle then f.BottomMiddle:Hide() end
 	if f.MiddleMiddle then f.MiddleMiddle:Hide() end
 	if f.Background then f.Background:Hide() end
+
+	if colorText then f.colorText = colorText end -- some buttons have yellow static color
 
 	f:SetTemplate("Overlay")
 	f:HookScript("OnEnter", T.SetModifiedBackdrop)
@@ -570,6 +595,7 @@ local function addAPI(object)
 	if not object.Point then mt.Point = Point end
 	if not object.SetOutside then mt.SetOutside = SetOutside end
 	if not object.SetInside then mt.SetInside = SetInside end
+	if not object.SetMovePoint then mt.SetMovePoint = SetMovePoint end
 	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
 	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
 	if not object.SetTemplate then mt.SetTemplate = SetTemplate end
@@ -944,7 +970,7 @@ function T.SkinDropDownBox(frame, width, pos)
 end
 
 function T.SkinFilter(frame, height)
-	frame:SkinButton()
+	frame:SkinButton(nil, "Text")
 
 	local tex = frame:CreateTexture(nil, "ARTWORK")
 	tex:SetPoint("RIGHT", frame, -4, 0)
