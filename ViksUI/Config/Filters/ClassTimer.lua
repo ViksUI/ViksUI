@@ -880,7 +880,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(1098), -- Enslave Demon
 			CreateSpellEntry(334275), -- Curse of Exhaustion
 			CreateSpellEntry(702), -- Curse of Weakness
-			CreateSpellEntry(27243), -- Curse of Weakness
+			CreateSpellEntry(1714), -- Curse of Tongues
 			CreateSpellEntry(331623), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			CreateSpellEntry(325640), -- Soul Rot - Night Fae Covenant Ability for Warlocks
 			CreateSpellEntry(445474), -- Wither - Hero talent

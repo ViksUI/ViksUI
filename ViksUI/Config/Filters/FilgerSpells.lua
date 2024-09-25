@@ -2167,6 +2167,8 @@ C["filger_spells"] = {
 			{spellID = 334275, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Curse of Weakness
 			{spellID = 702, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Curse of Tongues
+			{spellID = 1714, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Agony
 			{spellID = 980, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Corruption
