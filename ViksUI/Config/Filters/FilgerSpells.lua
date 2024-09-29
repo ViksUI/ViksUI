@@ -1538,7 +1538,7 @@ C["filger_spells"] = {
 			-- Dark Ascension
 			{spellID = 391109, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Spirit of Redemption
-			{spellID = 20711, unitID = "player", caster = "all", filter = "BUFF"},
+			{spellID = 27827, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Divinity
 			{spellID = 197030, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Power of the Naaru
@@ -2568,6 +2568,8 @@ C["filger_spells"] = {
 			{spellID = 130, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Levitate
 			{spellID = 1706, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Concoction: Kiss of Death (Jump to cancel before timer ends or get stunned)
+			{spellID = 435493, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",
@@ -2876,10 +2878,6 @@ C["filger_spells"] = {
 			{spellID = 94794, unitID = "player", caster = "player", filter = "DEBUFF"},
 			-- Duel
 			{spellID = 236273, unitID = "player", caster = "all", filter = "DEBUFF"},
-
-			-- Mythic+
-			-- Necrotic Wound
-			{spellID = 209858, unitID = "player", caster = "all", filter = "DEBUFF", count = 16},
 		},
 		{
 			Name = "T_BUFF",
@@ -3209,6 +3207,9 @@ C["filger_spells"] = {
 			-- Haymaker (Kul Tiran)
 			{spellID = 287712, unitID = "target", caster = "all", filter = "DEBUFF"},
 
+			-- Special Trinket effect to Track
+			-- Digestive Venom
+			{spellID = 444264, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Player vs. Player
 			-- Battlegrounds
 			-- Netherstorm Flag
@@ -3227,10 +3228,6 @@ C["filger_spells"] = {
 			{spellID = 167152, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Food & Drink
 			{spellID = 257427, unitID = "target", caster = "all", filter = "BUFF"},
-
-			-- Mythic+
-			-- Sanguine Ichor
-			{spellID = 226510, unitID = "target", caster = "all", filter = "BUFF"},
 		},
 	},
 }
