@@ -52,9 +52,12 @@ T.ClassTimer_Trinkets = {
 	CreateSpellEntry(123456), -- Strength of Steel (Knight's Badge)
 	CreateSpellEntry(345231), -- Gladiator's Eternal Aegis
 	CreateSpellEntry(345231), -- Gladiator's Emblem
+	CreateSpellEntry(435493), -- Concoction: Kiss of Death
 }
 	
 T.ClassTimer_CommonTarget = {
+	--[[Trinkets]]--
+	CreateSpellEntry(444264), -- Digestive Venom
 }
 
 T.ClassTimer_Classes = {
@@ -172,6 +175,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(207693), -- Feast of Souls
 			CreateSpellEntry(207810), -- Netherbond
 			CreateSpellEntry(263648), -- Soul Barrier
+			CreateSpellEntry(258920), -- Immolation Aura
 		},
 		procs = {
 			-- Havoc

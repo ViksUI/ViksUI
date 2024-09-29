@@ -47,8 +47,7 @@ local SORT_DIRECTION = true;
 local TENTHS_TRESHOLD = 1
 
 local TRINKET_FILTER = T.ClassTimer_Trinkets
-
-
+local COMMON_FILTER = T.ClassTimer_CommonTarget
 local CLASS_FILTERS = T.ClassTimer_Classes
 
 local CreateUnitAuraDataSource
@@ -190,38 +189,38 @@ do
 	local GetTexCoord = function(self) return self.texture:GetTexCoord() end
 	local SetTexCoord = function(self, ...) return self.texture:SetTexCoord(...) end
 	local SetBorderColor = function(self, ...) return self.border:SetVertexColor(...) end
-	
+
 	-- constructor
 	CreateFramedTexture = function(parent)
 		local result = parent:CreateTexture( nil, "BACKGROUND", nil );
 		local border = parent:CreateTexture( nil, "BORDER", nil );
 		local background = parent:CreateTexture( nil, "ARTWORK", nil );
-		local texture = parent:CreateTexture( nil, "OVERLAY", nil );		
-		
+		local texture = parent:CreateTexture( nil, "OVERLAY", nil );
+
 		result:SetColorTexture(unpack(C.media.backdrop_color));
 		border:SetColorTexture(unpack(C.media.border_color));
 		background:SetColorTexture(unpack(C.media.backdrop_color));
-		
+
 		border:SetPoint( "TOPLEFT", result, "TOPLEFT", 0, 0 );
 		border:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 0, 0 );
-		
+
 		background:SetPoint( "TOPLEFT", border, "TOPLEFT", 1, -1 );
 		background:SetPoint( "BOTTOMRIGHT", border, "BOTTOMRIGHT", -1, 1 );
 
 		texture:SetPoint( "TOPLEFT", background, "TOPLEFT", 1, -1 );
 		texture:SetPoint( "BOTTOMRIGHT", background, "BOTTOMRIGHT", -1, 1 );
-			
+
 		result.border = border;
 		result.background = background;
 		result.texture = texture;
-			
+
 		result.SetBorderColor = SetBorderColor;
-		
+
 		result.SetTexture = SetTexture;
 		result.GetTexture = GetTexture;
 		result.SetTexCoord = SetTexCoord;
 		result.GetTexCoord = GetTexCoord;
-			
+
 		return result;
 	end
 end
@@ -231,23 +230,23 @@ do
 	-- classes
 	local CreateAuraBar;
 	do
-		-- private 
-		local OnUpdate = function( self, elapsed )	
+		-- private
+		local OnUpdate = function( self, elapsed )
 			local time = GetTime();
-		
+
 			if ( time > self.expirationTime ) then
 				self.bar:SetScript( "OnUpdate", nil );
 				self.bar:SetValue( 0 );
 				self.time:SetText( "" );
-				
+
 				local spark = self.spark;
-				if ( spark ) then			
+				if ( spark ) then
 					spark:Hide();
 				end
 			else
 				local remaining = self.expirationTime - time;
 				self.bar:SetValue( remaining );
-				
+
 				local timeText = "";
 				if ( remaining >= 3600 ) then
 					timeText = tostring( math.floor( remaining / 3600 ) ) .. "h";
@@ -259,14 +258,14 @@ do
 					timeText = tostring( math.floor( remaining * 10 ) / 10 );
 				end
 				self.time:SetText( timeText );
-				
+
 				local barWidth = self.bar:GetWidth();
-				
+
 				local spark = self.spark;
-				if ( spark ) then			
+				if ( spark ) then
 					spark:SetPoint( "CENTER", self.bar, "LEFT", barWidth * remaining / self.duration, 0 );
 				end
-				
+
 				local castSeparator = self.castSeparator;
 				if ( castSeparator and self.castSpellId ) then
 					local _, _, _, castTime, _, _ = C_Spell.GetSpellInfo(self.castSpellId)
@@ -280,54 +279,54 @@ do
 				end
 			end
 		end
-		
+
 		-- public
 		local SetIcon = function( self, icon )
 			if ( not self.icon ) then return; end
-			
+
 			self.icon:SetTexture( icon );
 		end
-		
+
 		local SetTime = function( self, expirationTime, duration )
 			self.expirationTime = expirationTime;
 			self.duration = duration;
-			
-			if ( expirationTime > 0 and duration > 0 ) then		
+
+			if ( expirationTime > 0 and duration > 0 ) then
 				self.bar:SetMinMaxValues( 0, duration );
 				OnUpdate( self, 0 );
-		
+
 				local spark = self.spark;
-				if ( spark ) then 
+				if ( spark ) then
 					spark:Show();
 				end
-		
+
 				self:SetScript( "OnUpdate", OnUpdate );
 			else
 				self.bar:SetMinMaxValues( 0, 1 );
 				self.bar:SetValue( PERMANENT_AURA_VALUE );
 				self.time:SetText( "" );
-				
+
 				local spark = self.spark;
-				if ( spark ) then 
+				if ( spark ) then
 					spark:Hide();
 				end
-				
+
 				self:SetScript( "OnUpdate", nil );
 			end
 		end
-		
+
 		local SetName = function( self, name )
 			self.name:SetText( name );
 		end
-		
+
 		local SetStacks = function( self, stacks )
 			if ( not self.stacks ) then
 				if ( stacks ~= nil and stacks > 1 ) then
 					local name = self.name;
-					
+
 					name:SetText( tostring( stacks ) .. "  " .. name:GetText() );
 				end
-			else			
+			else
 				if ( stacks ~= nil and stacks > 1 ) then
 					self.stacks:SetText( stacks );
 				else
@@ -335,14 +334,14 @@ do
 				end
 			end
 		end
-		
+
 		local SetColor = function( self, color )
 			self.bar:SetStatusBarColor( unpack( color ) );
 		end
-		
+
 		local SetCastSpellId = function( self, id )
 			self.castSpellId = id;
-			
+
 			local castSeparator = self.castSeparator;
 			if ( castSeparator ) then
 				if ( id ) then
@@ -352,24 +351,24 @@ do
 				end
 			end
 		end
-		
+
 		local SetAuraInfo = function( self, auraInfo )
 			self:SetName( auraInfo.name );
-			self:SetIcon( auraInfo.texture );	
+			self:SetIcon( auraInfo.texture );
 			self:SetTime( auraInfo.expirationTime, auraInfo.duration );
 			self:SetStacks( auraInfo.stacks );
 			self:SetCastSpellId( auraInfo.castSpellId );
 		end
-		
+
 		-- constructor
 		CreateAuraBar = function( parent )
 			local result = CreateFrame( "Frame", nil, parent, nil , "BackdropTemplate");
 
-			if ( bit.band( ICON_POSITION, 4 ) == 0 ) then		
+			if ( bit.band( ICON_POSITION, 4 ) == 0 ) then
 				local icon = CreateFramedTexture( result, "ARTWORK" );
 				icon:SetTexCoord( 0.15, 0.85, 0.15, 0.85 );
 				icon:SetBorderColor( unpack( ICON_COLOR ) );
-				
+
 				local iconAnchor1;
 				local iconAnchor2;
 				local iconOffset;
@@ -381,18 +380,18 @@ do
 					iconAnchor1 = "TOPRIGHT";
 					iconAnchor2 = "TOPLEFT";
 					iconOffset = -1;
-				end			
-				
+				end
+
 				if ( bit.band( ICON_POSITION, 2 ) == 2 ) then
 					icon:SetPoint( iconAnchor1, result, iconAnchor2, iconOffset * 6, 1 );
 				else
 					icon:SetPoint( iconAnchor1, result, iconAnchor2, iconOffset * ( -BAR_HEIGHT - 1 ), 1 );
-				end			
+				end
 				icon:SetWidth( BAR_HEIGHT + 2 );
-				icon:SetHeight( BAR_HEIGHT + 2 );	
+				icon:SetHeight( BAR_HEIGHT + 2 );
 
 				result.icon = icon;
-				
+
 				local stacks = result:CreateFontString( nil, "OVERLAY", nil );
 				stacks:SetFont( unpack( STACKS_FONT ) );
 				stacks:SetShadowColor( 0, 0, 0 );
@@ -403,7 +402,7 @@ do
 				stacks:SetPoint( "BOTTOMRIGHT", icon, "BOTTOMRIGHT", 0, 3 );
 				result.stacks = stacks;
 			end
-			
+
 			local bar = CreateFrame( "StatusBar", nil, result, nil , "BackdropTemplate");
 			bar:SetStatusBarTexture( texture );
 			if ( bit.band( ICON_POSITION, 2 ) == 2 or bit.band( ICON_POSITION, 4 ) == 4 ) then
@@ -415,11 +414,11 @@ do
 					bar:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", -BAR_HEIGHT - 1, 0 );
 				else
 					bar:SetPoint( "TOPLEFT", result, "TOPLEFT", BAR_HEIGHT + 1, 0 );
-					bar:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 0, 0 );					
-				end	
+					bar:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 0, 0 );
+				end
 			end
 			result.bar = bar;
-			
+
 			if ( SPARK ) then
 				local spark = bar:CreateTexture( nil, "OVERLAY", nil );
 				spark:SetTexture( [[Interface\CastingBar\UI-CastingBar-Spark]] );
@@ -428,7 +427,7 @@ do
 				spark:Show();
 				result.spark = spark;
 			end
-			
+
 			if ( CAST_SEPARATOR ) then
 				local castSeparator = bar:CreateTexture( nil, "OVERLAY", nil );
 				castSeparator:SetTexture( unpack( CAST_SEPARATOR_COLOR ) );
@@ -437,7 +436,7 @@ do
 				castSeparator:Show();
 				result.castSeparator = castSeparator;
 			end
-						
+
 			local name = bar:CreateFontString( nil, "OVERLAY", nil );
 			name:SetFont( unpack( MASTER_FONT ) );
 			name:SetJustifyH( "LEFT" );
@@ -446,7 +445,7 @@ do
 			name:SetPoint( "TOPLEFT", bar, "TOPLEFT", TEXT_MARGIN, 0 );
 			name:SetPoint( "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -45, 2 );
 			result.name = name;
-			
+
 			local time = bar:CreateFontString( nil, "OVERLAY", nil );
 			time:SetFont( unpack( MASTER_FONT ) );
 			time:SetJustifyH( "RIGHT" );
@@ -455,7 +454,7 @@ do
 			time:SetPoint( "TOPLEFT", name, "TOPRIGHT", 0, 0 );
 			time:SetPoint( "BOTTOMRIGHT", bar, "BOTTOMRIGHT", -TEXT_MARGIN, 2 );
 			result.time = time;
-			
+
 			result.SetIcon = SetIcon;
 			result.SetTime = SetTime;
 			result.SetName = SetName;
@@ -463,7 +462,7 @@ do
 			result.SetAuraInfo = SetAuraInfo;
 			result.SetColor = SetColor;
 			result.SetCastSpellId = SetCastSpellId;
-			
+
 			return result;
 		end
 	end
@@ -482,8 +481,8 @@ do
 				line:SetPoint( "BOTTOMRIGHT", anchor, "TOPRIGHT", 0, BAR_SPACING );
 			end
 			tinsert( self.lines, index, line );
-		end	
-		
+		end
+
 		line:SetAuraInfo( auraInfo );
 		if ( auraInfo.color ) then
 			line:SetColor( auraInfo.color );
@@ -492,26 +491,26 @@ do
 		elseif ( auraInfo.defaultColor ) then
 			line:SetColor( auraInfo.defaultColor );
 		end
-		
+
 		line:Show();
 	end
-	
+
 	local function OnUnitAura( self, unit )
 		if ( unit ~= self.unit and ( self.dataSource:GetIncludePlayer() == false or unit ~= "player" ) ) then
 			return;
 		end
-		
+
 		self:Render();
 	end
-	
+
 	local function OnPlayerTargetChanged( self, method )
 		self:Render();
 	end
-	
+
 	local function OnPlayerEnteringWorld( self )
 		self:Render();
 	end
-	
+
 	local function OnEvent( self, event, ... )
 		if ( event == "UNIT_AURA" ) then
 			OnUnitAura( self, ... );
@@ -525,14 +524,14 @@ do
 			error( "Unhandled event " .. event );
 		end
 	end
-	
+
 	-- public
 	local function Render( self )
-		local dataSource = self.dataSource;	
+		local dataSource = self.dataSource;
 
 		dataSource:Update();
 		dataSource:Sort();
-		
+
 		local count = dataSource:Count();
 
 
@@ -540,7 +539,7 @@ do
 		for index, auraInfo in ipairs( dataSource:Get() ) do
 			SetAuraBar( self, index, auraInfo );
 		end
-		
+
 		for index = count + 1, 80 do
 			local line = self.lines[ index ];
 			if ( line == nil or not line:IsShown() ) then
@@ -548,7 +547,7 @@ do
 			end
 			line:Hide();
 		end
-		
+
 		if ( count > 0 ) then
 			self:SetHeight( ( BAR_HEIGHT + BAR_SPACING ) * count - BAR_SPACING );
 			self:Show();
@@ -557,7 +556,7 @@ do
 			self:SetHeight( self.hiddenHeight or 1 );
 		end
 	end
-	
+
 	local function SetHiddenHeight( self, height )
 		self.hiddenHeight = height;
 	end
@@ -566,12 +565,12 @@ do
 	CreateAuraBarFrame = function( dataSource, parent )
 		local result = CreateFrame( "Frame", nil, parent, nil , "BackdropTemplate");
 		local unit = dataSource:GetUnit();
-		
+
 		result.unit = unit;
-		
-		result.lines = { };		
+
+		result.lines = { };
 		result.dataSource = dataSource;
-		
+
 		local background = result:CreateTexture(nil, 'BORDER');
 		background:SetAlpha( BACKGROUND_ALPHA );
 		background:SetTexture( texture );
@@ -579,7 +578,7 @@ do
 		background:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 0, 0 );
 		background:SetVertexColor( .1,.1,.1,1 );
 		result.background = background;
-		
+
 		local border = CreateFrame( "Frame", nil, result, nil , "BackdropTemplate");
 		border:SetAlpha( BACKGROUND_ALPHA );
 		border:SetFrameStrata( "BACKGROUND" );
@@ -588,19 +587,19 @@ do
 		border:SetBackdropBorderColor( 0, 0, 0 );
 		border:SetPoint( "TOPLEFT", result, "TOPLEFT", -5, 5 );
 		border:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 5, -5 );
-		result.border = border;		
+		result.border = border;
 		frame1px1(border)
 		result:RegisterEvent( "PLAYER_ENTERING_WORLD" );
 		result:RegisterEvent( "UNIT_AURA" );
 		if ( unit == "target" ) then
 			result:RegisterEvent( "PLAYER_TARGET_CHANGED" );
 		end
-		
+
 		result:SetScript( "OnEvent", OnEvent );
-		
+
 		result.Render = Render;
 		result.SetHiddenHeight = SetHiddenHeight;
-		
+
 		return result;
 	end
 end
@@ -616,17 +615,18 @@ if ( LAYOUT == 4 ) then
 	local targetDataSource = CreateUnitAuraDataSource( "target" );
 	local playerDataSource = CreateUnitAuraDataSource( "player" );
 	local trinketDataSource = CreateUnitAuraDataSource( "player" );
-	
+
 	targetDataSource:SetSortDirection( SORT_DIRECTION );
 	playerDataSource:SetSortDirection( SORT_DIRECTION );
 	trinketDataSource:SetSortDirection( SORT_DIRECTION );
-	
+
 	if ( classFilter ) then
-		targetDataSource:AddFilter( classFilter.target, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );		
+		targetDataSource:AddFilter( classFilter.target, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );
 		playerDataSource:AddFilter( classFilter.player, PLAYER_BAR_COLOR, PLAYER_DEBUFF_COLOR );
 		trinketDataSource:AddFilter( classFilter.procs, TRINKET_BAR_COLOR );
 	end
 	trinketDataSource:AddFilter( TRINKET_FILTER, TRINKET_BAR_COLOR );
+	targetDataSource:AddFilter( COMMON_FILTER, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );
 
 	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );
 	playerFrame:SetHiddenHeight( -yOffset );
@@ -660,7 +660,7 @@ if ( LAYOUT == 4 ) then
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
 		end
 	end
-	
+
 	local BarUpdater = CreateFrame("Frame")
 	BarUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
 	BarUpdater:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
@@ -668,13 +668,13 @@ if ( LAYOUT == 4 ) then
 	BarUpdater:SetScript("OnEvent", Barmover)
 
 	playerFrame:Show();
-	
+
 	local trinketFrame = CreateAuraBarFrame( trinketDataSource,  oUF_Player);
 	trinketFrame:SetHiddenHeight( -yOffset );
 	trinketFrame:SetPoint( "BOTTOMLEFT", playerFrame, "TOPLEFT", 0, 10);
 	trinketFrame:SetPoint( "BOTTOMRIGHT", playerFrame, "TOPRIGHT", 0, 10);
 	trinketFrame:Show();
-	
+
 	local targetFrame = CreateAuraBarFrame( targetDataSource,  oUF_ViksTarget );
 		if ((T.class == "DRUID" or T.class == "ROGUE") and C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old == true) then
 			targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 20);
