@@ -59,7 +59,7 @@ function hcic:Init()
 			end)
 
 			chatMouseover:SetScript("OnLeave", function(self)
-					hcic:ChatOnLeave(self)
+				hcic:ChatOnLeave(self)
 			end)
 
 			chatMouseover.Frames = {_G["ChatFrame"..i], _G["ChatFrame"..i.."Tab"], _G["ChatFrame"..i.."ButtonFrame"]}
