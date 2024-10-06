@@ -3,6 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.27 ",
+	"• More skins updated/fixed",
+	"• More spells added to Filger & Classtimer",
+	"• M+ Affixes updated",
+	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.26 ",
 	"• Again, big thanks to Patreon's! Making me keep this addon updated",
 	"• More skins updated/fixed",
@@ -19,13 +24,6 @@ local ChangeLogData = {
 	"• Npc Info added for Tww & S1 trash mobs in Dungeon",
 	"• RaidAuraWatch Rework logic and table for debuffs.",
 	"• SlotItemLevel Increase min ilvl to 590 before show missing enchant.",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-	"Update 11.24 ",
-	"• More skins updated/fixed",
-	"• Warband Bag improved",
-	"• Added new flask to Reminders",
-	"• Added Dornogal to Mage Portals",
-	"• More Spells added to RaidAuraWatch & Filger",
 	"• check: https://github.com/ViksUI/ViksUI/releases",
 
 " ",
