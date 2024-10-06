@@ -67,7 +67,7 @@ frame:Register("BAG_UPDATE_DELAYED", function()
 		for slot = 0, C_Container.GetContainerNumSlots(bag) do
 			local _, _, locked, _, _, lootable, _, _, _, id = GetContainerItemInfo(bag, slot)
 			if lootable and not locked and id and T.OpenItems[id] then
-				if currencyInfo.quantity >= (currencyInfo.maxQuantity - 100) then
+				if currencyInfo.quantity >= (currencyInfo.maxQuantity - 50) then
 					PlaySound(SOUNDKIT.RAID_WARNING, "Master")
 					RaidNotice_AddMessage(RaidWarningFrame, "Valorstone close to max! Auto Open Items canceled!", ChatTypeInfo["RAID_WARNING"])
 					print(format("|cffff3300Valorstone close to max! Auto Open Items canceled|r"))
