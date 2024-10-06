@@ -834,7 +834,7 @@ T.ClassTimer_Classes = {
 			-- Enhancer
 			CreateSpellEntry(58875), -- Spirit Walk
 			CreateSpellEntry(114051), -- Ascendance
-			CreateSpellEntry(192106), -- Lightning Shield
+			-- CreateSpellEntry(192106), -- Lightning Shield
 			CreateSpellEntry(194084), -- Flametongue
 			CreateSpellEntry(195222), -- Stormlash
 			CreateSpellEntry(197211), -- Fury of Air
