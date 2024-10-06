@@ -3228,6 +3228,10 @@ C["filger_spells"] = {
 			{spellID = 167152, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Food & Drink
 			{spellID = 257427, unitID = "target", caster = "all", filter = "BUFF"},
+			
+			-- Other
+			-- Porcelain Arrowhead (Delves, Brann)
+			{spellID = 458448, unitID = "target", caster = "all", filter = "DEBUFF"},
 		},
 	},
 }
