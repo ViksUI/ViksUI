@@ -196,6 +196,33 @@ if C.reminder.solo_buffs_enable == true then
 				["pvp"] = true,
 				["level"] = 10,
 			},
+			[4] = {	-- Buff
+				["spells"] = {
+					SpellName(462854),	-- Skyfury
+				},
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+			},
+			[5] = {	-- Buff
+				["spec"] = 1,
+				["spells"] = {
+					SpellName(974),		-- Earth Shield
+				},
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+			},
+			[6] = {	-- Buff
+				["offhand"] = true,
+				["spec"] = 1,
+				["spells"] = {
+					SpellName(462757),		-- Thunderstrike Ward
+				},
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+			},
 		},
 		WARRIOR = {
 			[1] = {	-- Battle Shout group
