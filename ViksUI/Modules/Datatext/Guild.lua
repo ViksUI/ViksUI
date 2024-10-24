@@ -142,10 +142,9 @@ local function Update(self, event, ...)
 		end
 		-- an event occured that could change the guild roster, so request update, and wait for guild roster update to occur
 		if event ~= "GUILD_ROSTER_UPDATE" and event~="PLAYER_GUILD_UPDATE" then C_GuildInfo_GuildRoster() return end
-
-		totalOnline = select(3, GetNumGuildMembers())
+		local NumTotalMembers, NumOnlineMembers, NumOnlineAndMobileMembers = GetNumGuildMembers()
 		
-		Text:SetFormattedText(displayString, totalOnline)
+		Text:SetFormattedText(displayString, NumOnlineMembers)
 	else
 		Text:SetText(noGuildString)
 	end
