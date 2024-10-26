@@ -142,12 +142,12 @@ local function LoadSkin()
 		button.icon:SetPoint("TOPLEFT", 2, -2)
 		button.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 	end
-
-	WorldMapFrame.NavBar:StripTextures()
-	WorldMapFrame.NavBar.overlay:StripTextures()
-	WorldMapFrameHomeButton:SkinButton(true)
-	WorldMapFrame.NavBar.homeButton.xoffset = 1
-	WorldMapFrame.NavBar.homeButton.text:SetFont(C.media.normal_font, 14)
+	
+	-- WorldMapFrame.NavBar:StripTextures()
+	-- WorldMapFrame.NavBar.overlay:StripTextures()
+	-- WorldMapFrameHomeButton:SkinButton(true)
+	-- WorldMapFrame.NavBar.homeButton.xoffset = 1
+	-- WorldMapFrame.NavBar.homeButton.text:SetFont(C.media.normal_font, 14)
 	
 	WorldMapFrame.BorderFrame.TitleContainer.TitleText:ClearAllPoints()
 	WorldMapFrame.BorderFrame.TitleContainer.TitleText:SetPoint("CENTER", WorldMapFrame.Header)
