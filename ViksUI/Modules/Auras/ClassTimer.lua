@@ -268,9 +268,9 @@ do
 
 				local castSeparator = self.castSeparator;
 				if ( castSeparator and self.castSpellId ) then
-					local _, _, _, castTime, _, _ = C_Spell.GetSpellInfo(self.castSpellId)
+					local spellinfo = C_Spell.GetSpellInfo(self.castSpellId)
 
-					castTime = castTime / 1000;
+					castTime = spellinfo.castTime / 1000;
 					if ( castTime and remaining > castTime ) then
 						castSeparator:SetPoint( "CENTER", self.bar, "LEFT", barWidth * ( remaining - castTime ) / self.duration, 0 );
 					else
