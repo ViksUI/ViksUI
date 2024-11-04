@@ -404,6 +404,7 @@ local function SkinTimer(tracker, key)
 		timerBar.styled = true
 	end
 end
+-- for test in dungeon /run ScenarioObjectiveTracker.ObjectivesBlock:AddTimerBar(60, GetTime() - 5)
 
 ----------------------------------------------------------------------------------------
 --	Ctrl+Click to abandon a quest or Alt+Click to share a quest(by Suicidal Katt)
@@ -517,7 +518,7 @@ hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateStageBlock", function
 	if not block.backdrop then
 		block:CreateBackdrop("Overlay")
 		block.backdrop:SetPoint("TOPLEFT", block.NormalBG, 3, -3)
-		block.backdrop:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 5)
+		block.backdrop:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 3)
 
 		block.NormalBG:SetAlpha(0)
 		block.FinalBG:SetAlpha(0)
@@ -533,6 +534,12 @@ hooksecurefunc(ScenarioObjectiveTracker.StageBlock, "UpdateWidgetRegistration", 
 
 			local bar = widgetFrame.TimerBar
 			if bar and not bar.styled then
+				hooksecurefunc(bar, "SetWidth", function(self, width)
+					if width ~= 200 then
+						self:SetWidth(200)
+						self:SetStatusBarTexture(C.media.texture)
+					end
+				end)
 				bar:SetStatusBarTexture(C.media.texture)
 				bar:CreateBackdrop("Overlay")
 				bar:SetStatusBarColor(0, 0.6, 1)
