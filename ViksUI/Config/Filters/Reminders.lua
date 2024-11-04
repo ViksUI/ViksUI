@@ -128,6 +128,16 @@ if C.reminder.solo_buffs_enable == true then
 				},
 				["instance"] = true
 			},
+			[2] = {	-- Rite of Sanctification
+				["spells"] = {
+					SpellName(433568),	-- Rite of Sanctification
+				},
+				["spec"] = 2,
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+				["level"] = 72,
+			},
 		},
 		PRIEST = {
 			[1] = {	-- Stamina group
@@ -196,28 +206,19 @@ if C.reminder.solo_buffs_enable == true then
 				["pvp"] = true,
 				["level"] = 10,
 			},
-			[4] = {	-- Buff
-				["spells"] = {
-					SpellName(462854),	-- Skyfury
-				},
-				["combat"] = true,
-				["instance"] = true,
-				["pvp"] = true,
-			},
-			[5] = {	-- Buff
-				["spec"] = 1,
-				["spells"] = {
-					SpellName(974),		-- Earth Shield
-				},
-				["combat"] = true,
-				["instance"] = true,
-				["pvp"] = true,
-			},
-			[6] = {	-- Buff
+			[4] = {	-- Thunderstrike Ward group
 				["offhand"] = true,
 				["spec"] = 1,
 				["spells"] = {
 					SpellName(462757),		-- Thunderstrike Ward
+				},
+				["combat"] = true,
+				["instance"] = true,
+				["pvp"] = true,
+			},
+			[5] = {	-- Skyfury group
+				["spells"] = {
+					SpellName(462854),	-- Skyfury
 				},
 				["combat"] = true,
 				["instance"] = true,
