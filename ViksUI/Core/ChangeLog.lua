@@ -3,10 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
-	"Update 11.27 ",
+	"Update 11.29 ",
 	"• More skins updated/fixed",
 	"• More spells added to Filger & Classtimer",
-	"• M+ Affixes updated",
+	"• Added more reminders to selfbuff",
+	"• Temporary disabled NavBar skinning worldmap due to error",
 	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.26 ",
 	"• Again, big thanks to Patreon's! Making me keep this addon updated",
