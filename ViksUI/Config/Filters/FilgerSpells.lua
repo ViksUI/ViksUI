@@ -777,8 +777,6 @@ C["filger_spells"] = {
 			{spellID = 90361, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Posthaste
 			{spellID = 118922, unitID = "player", caster = "player", filter = "BUFF"},
-			-- Volley
-			-- {spellID = 194386, unitID = "player", caster = "player", filter = "BUFF"}, -- Delete after while
 			-- Misdirection
 			{spellID = 35079, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Survivalist
@@ -828,6 +826,22 @@ C["filger_spells"] = {
 			{spellID = 118455, unitID = "pet", caster = "player", filter = "BUFF"},
 			-- Mend Pet
 			{spellID = 136, unitID = "pet", caster = "player", filter = "BUFF"},
+			-- Nascent Empowerment
+			{spellID = 449275, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Lunar Storm
+			{spellID = 450978, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Tip of the Spear
+			{spellID = 260286, unitID = "pet", caster = "player", filter = "BUFF"},
+			-- Ruthless Marauder
+			{spellID = 470070, unitID = "pet", caster = "player", filter = "BUFF"},
+			-- Kill Command
+			{spellID = 259285, unitID = "pet", caster = "player", filter = "BUFF"},
+			-- Deathblow
+			{spellID = 378770, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Bombardier
+			{spellID = 459859, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Fury of the Eagle
+			{spellID = 203415, unitID = "pet", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -847,7 +861,7 @@ C["filger_spells"] = {
 			-- A Murder of Crows
 			{spellID = 131894, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hunter's Mark
-			{spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- {spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"}, Disable for now. Don't want to keep constant icon on screen. Better use reminder / wa
 			-- Warp Time (Warp Stalker)
 			{spellID = 35346, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Ankle Crack (Crocolisk)
@@ -868,6 +882,14 @@ C["filger_spells"] = {
 			{spellID = 13812, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Steel Trap
 			{spellID = 162487, unitID = "target", caster = "player", filter = "DEBUFF", absID = true},
+			-- Wildfire Bomb
+			{spellID = 269747, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Lunar Storm
+			{spellID = 450884, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Merciless Blow
+			{spellID = 459870, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Explosive Shot
+			{spellID = 212431, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "PVE/PVP_CC",
