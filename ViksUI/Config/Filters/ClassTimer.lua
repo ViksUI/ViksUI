@@ -53,6 +53,7 @@ T.ClassTimer_Trinkets = {
 	CreateSpellEntry(345231), -- Gladiator's Eternal Aegis
 	CreateSpellEntry(345231), -- Gladiator's Emblem
 	CreateSpellEntry(435493), -- Concoction: Kiss of Death
+	CreateSpellEntry(268756), -- Dead Ahead
 }
 	
 T.ClassTimer_CommonTarget = {
@@ -377,6 +378,11 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(212353), -- Harpoon
 			CreateSpellEntry(212638), -- Tracker's Net
 			CreateSpellEntry(336746), -- Soulforge Embers
+			CreateSpellEntry(450387), -- Sentinel
+			CreateSpellEntry(269747), -- Wildfire Bomb
+			CreateSpellEntry(450884), -- Lunar Storm
+			CreateSpellEntry(459870), -- Merciless Blow
+			CreateSpellEntry(212431), -- Explosive Shot
 		},
 		player = {
 			-- Global
@@ -407,9 +413,17 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(186289), -- Aspect of the Eagle
 			CreateSpellEntry(190931), -- Mongoose Fury
 			CreateSpellEntry(194407), -- Spitting Cobra
+			CreateSpellEntry(449275), -- Nascent Empowerment
+			CreateSpellEntry(450978), -- Lunar Storm
 		},
 		procs = {
 			CreateSpellEntry(164857), -- Survivalist
+			CreateSpellEntry(260286), -- Tip of the Spear
+			CreateSpellEntry(470070), -- Ruthless Marauder
+			CreateSpellEntry(259285), -- Kill Command
+			CreateSpellEntry(378770), -- Deathblow
+			CreateSpellEntry(459859), -- Bombardier
+			CreateSpellEntry(203415), -- Fury of the Eagle
 		},
 	},
 	MAGE = {
