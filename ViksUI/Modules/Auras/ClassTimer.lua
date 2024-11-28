@@ -632,7 +632,7 @@ if ( LAYOUT == 4 ) then
 	playerFrame:SetHiddenHeight( -yOffset );
 
 	local function Barmover()
-		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "WARLOCK" or T.class == "MONK" or T.class == "PALADIN" or T.class == "EVOKER") then
+		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or T.class == "DRUID" or T.class == "WARLOCK" or T.class == "MONK" or T.class == "PALADIN" or T.class == "EVOKER") then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
 		elseif (T.class == "ROGUE" and C.unitframe_class_bar.combo_old ~= true) then
