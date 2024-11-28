@@ -3,6 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.30 ",
+	"• Classtimer position for Feral Druid fix",
+	"• Faster Loot improvment",
+	"• Hold down ALT, will auto accept compleated Warband Quest",
+	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.29 ",
 	"• More skins updated/fixed",
 	"• More spells added to Filger & Classtimer",
@@ -17,14 +22,6 @@ local ChangeLogData = {
 	"• Auto Open Items added most TWW bags/reward and have Valorstone cap warning",
 	"• Unitframes support AI Class color now.",
 	"• Many more minor fix/updates",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-	"Update 11.25 ",
-	"• More skins updated/fixed",
-	"• Warband Bank Reworked with ilvl/layout",
-	"• RaidBuffsReminder, Added new option ClassColor",
-	"• Npc Info added for Tww & S1 trash mobs in Dungeon",
-	"• RaidAuraWatch Rework logic and table for debuffs.",
-	"• SlotItemLevel Increase min ilvl to 590 before show missing enchant.",
 	"• check: https://github.com/ViksUI/ViksUI/releases",
 
 " ",
