@@ -319,9 +319,10 @@ local function isQuestIgnored(questID, title, override)
 	if C_QuestLog.IsQuestTrivial(questID) and not C_Minimap.IsTrackingHiddenQuests() then
 		return true
 	end
-
-	if C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID) and not C_Minimap.IsTrackingAccountCompletedQuests() then
-		return true
+	if not IsAltKeyDown() then -- So we avoid skip when we want to take quest even if compleated by warband
+		if C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID) and not C_Minimap.IsTrackingAccountCompletedQuests() then
+			return true
+		end
 	end
 
 	local questTitle = tonumber(questID) and C_QuestLog.GetTitleForQuestID(questID) or ''
