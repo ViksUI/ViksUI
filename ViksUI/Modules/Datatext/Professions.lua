@@ -178,7 +178,9 @@ local function OnEvent(self)
 	
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine("Left Click:", "Open Profession page", 1, 1, 1, 1, 1, 0)
-	GameTooltip:AddDoubleLine("Right Click:", "Open " .. GetProfessionName(prof2), 1, 1, 1, 1, 1, 0)
+	if prof2 ~= nil then
+		GameTooltip:AddDoubleLine("Right Click:", "Open " .. GetProfessionName(prof2), 1, 1, 1, 1, 1, 0)
+	end
 	GameTooltip:AddDoubleLine("Shift + Left Click:", "Open Archaeology", 1, 1, 1, 1, 1, 0)
 	GameTooltip:AddDoubleLine("Shift + Right Click:", "Open Cooking", 1, 1, 1, 1, 1, 0)
 	
