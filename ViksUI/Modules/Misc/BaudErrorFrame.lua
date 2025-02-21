@@ -29,24 +29,27 @@ function BaudErrorFrame_OnLoad(self)
 end
 
 function BaudErrorFrame_OnEvent(self, event, ...)
-	local arg1, arg2 = ...
-	if event == "VARIABLES_LOADED" then
-		if type(BaudErrorFrameConfig) ~= "table" then
-			BaudErrorFrameConfig = {}
-		end
-		for Key, Value in ipairs(QueueError)do
-			BaudErrorFrameShowError(Value)
-		end
-		QueueError = nil
-	elseif event == "ADDON_ACTION_BLOCKED" then
-		BaudErrorFrameAdd(arg1.." blocked from using "..arg2, 4)
-	elseif event == "MACRO_ACTION_BLOCKED" then
-		BaudErrorFrameAdd("Macro blocked from using "..arg1, 4)
-	elseif event == "ADDON_ACTION_FORBIDDEN" then
-		BaudErrorFrameAdd(arg1.." forbidden from using "..arg2.." (Only usable by Blizzard)", 4)
-	elseif event == "MACRO_ACTION_FORBIDDEN" then
-		BaudErrorFrameAdd("Macro forbidden from using "..arg1.." (Only usable by Blizzard)", 4)
-	end
+    local arg1, arg2 = ...
+    if event == "VARIABLES_LOADED" then
+        if type(BaudErrorFrameConfig) ~= "table" then
+            BaudErrorFrameConfig = {}
+        end
+        if type(QueueError) ~= "table" then  -- Add this check
+            QueueError = {}
+        end
+        for Key, Value in ipairs(QueueError) do
+            BaudErrorFrameShowError(Value)
+        end
+        QueueError = nil
+    elseif event == "ADDON_ACTION_BLOCKED" then
+        BaudErrorFrameAdd(arg1.." blocked from using "..arg2, 4)
+    elseif event == "MACRO_ACTION_BLOCKED" then
+        BaudErrorFrameAdd("Macro blocked from using "..arg1, 4)
+    elseif event == "ADDON_ACTION_FORBIDDEN" then
+        BaudErrorFrameAdd(arg1.." forbidden from using "..arg2.." (Only usable by Blizzard)", 4)
+    elseif event == "MACRO_ACTION_FORBIDDEN" then
+        BaudErrorFrameAdd("Macro forbidden from using "..arg1.." (Only usable by Blizzard)", 4)
+    end
 end
 
 function BaudErrorFrameMinimapButton_OnEnter(self)

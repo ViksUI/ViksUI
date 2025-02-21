@@ -22,8 +22,14 @@ local function LoadSkin()
 	CollectionsJournal:SetTemplate("Transparent")
 	CollectionsJournalPortrait:SetAlpha(0)
 
-	for i = 1, 5 do
-		T.SkinTab(_G["CollectionsJournalTab"..i])
+	if T.newPatch then
+		for i = 1, 6 do
+			T.SkinTab(_G["CollectionsJournalTab"..i])
+		end
+	else
+		for i = 1, 5 do
+			T.SkinTab(_G["CollectionsJournalTab"..i])
+		end
 	end
 
 	local buttons = {
@@ -154,9 +160,15 @@ local function LoadSkin()
 
 	local function SkinDynamicButton(button, i)
 		if button.Border then button.Border:Hide() end
-
 		if i == 1 then
-			select(i, button:GetRegions()):SkinIcon()
+			if T.newPatch then
+				button.b = CreateFrame("Frame", nil, button:GetParent())
+				button.b:SetTemplate("Default")
+				button.b:SetOutside(button)
+				select(3, button:GetRegions()):SetTexCoord(0.1, 0.9, 0.1, 0.9) -- icon
+			else
+				select(i, button:GetRegions()):SkinIcon()
+			end
 			button:SetPushedTexture(0)
 			button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.3)
 		else
@@ -167,13 +179,20 @@ local function LoadSkin()
 	end
 	SkinDynamicButton(MountJournal.ToggleDynamicFlightFlyoutButton, 1)
 
-	local flyout = MountJournal.DynamicFlightFlyout
-	flyout.Background:Hide()
-	flyout:CreateBackdrop("Default")
-	flyout.backdrop:SetPoint("TOPLEFT", 3, -5)
-	flyout.backdrop:SetPoint("BOTTOMRIGHT", -6, 6)
-	SkinDynamicButton(flyout.OpenDynamicFlightSkillTreeButton, 4)
-	SkinDynamicButton(flyout.DynamicFlightModeButton, 4)
+	local flyout = MountJournal.ToggleDynamicFlightFlyoutButton.popup or MountJournal.DynamicFlightFlyout
+	if flyout then
+		flyout.Background:Hide()
+		flyout:CreateBackdrop("Default")
+		if T.newPatch then
+			flyout.backdrop:SetPoint("TOPLEFT", 0, -8)
+			flyout.backdrop:SetPoint("BOTTOMRIGHT", 0, 5)
+		else
+			flyout.backdrop:SetPoint("TOPLEFT", 3, -5)
+			flyout.backdrop:SetPoint("BOTTOMRIGHT", -6, 6)
+		end
+		SkinDynamicButton(flyout.OpenDynamicFlightSkillTreeButton, 4)
+		SkinDynamicButton(flyout.DynamicFlightModeButton, 4)
+	end
 
 	-- PetJournal
 	PetJournal.LeftInset:StripTextures()
@@ -668,6 +687,29 @@ local function LoadSkin()
 
 	WardrobeCollectionFrame.InfoButton.Ring:Hide()
 	WardrobeCollectionFrame.InfoButton:SetPoint("TOPLEFT", WardrobeCollectionFrame, "TOPLEFT", -10, 12)
+
+	-- Scene
+	if T.newPatch then
+		local Frame = _G.WarbandSceneJournal
+
+		local IconsFrame = Frame.IconsFrame
+		if IconsFrame then
+			IconsFrame:StripTextures()
+
+			local controls = IconsFrame.Icons and IconsFrame.Icons.Controls
+			if controls then
+				local checkBox = controls and controls.ShowOwned and controls.ShowOwned.Checkbox
+				if checkBox then
+					T.SkinCheckBox(checkBox, 28)
+				end
+
+				if controls.PagingControls then
+					T.SkinNextPrevButton(controls.PagingControls.PrevPageButton)
+					T.SkinNextPrevButton(controls.PagingControls.NextPageButton)
+				end
+			end
+		end
+	end
 
 	-- Help box
 	local HelpBox = {

@@ -106,6 +106,13 @@ local function LoadSkin()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("TOPLEFT", QuestMapFrame, "TOPLEFT", 2, -8)
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetSize(326, 23)
 
+	local accountComplete = QuestMapFrame.QuestsFrame.DetailsFrame.BackFrame.AccountCompletedNotice
+	accountComplete:ClearAllPoints()
+	accountComplete:SetPoint("RIGHT", QuestMapFrame.QuestsFrame.DetailsFrame.BackFrame.BackButton, "RIGHT", -10, 0)
+	accountComplete.AccountCompletedIcon:SetSize(28, 28)
+	accountComplete.AccountCompletedIcon:ClearAllPoints()
+	accountComplete.AccountCompletedIcon:SetPoint("RIGHT", accountComplete.Text, "LEFT", -1, 0)
+
 	local AbandonButton = QuestMapFrame.DetailsFrame.AbandonButton
 	AbandonButton:SkinButton()
 	AbandonButton:ClearAllPoints()
@@ -253,7 +260,42 @@ local function LoadSkin()
 			break
 		end
 	end
-
+	
+	if T.newPatch then
+	-- New Side Tabs
+	local tabs = {
+		QuestMapFrame.QuestsTab,
+		QuestMapFrame.EventsTab,
+		QuestMapFrame.MapLegendTab
+	}
+	for _, tab in pairs(tabs) do
+		tab.Background:SetAlpha(0)
+		tab:Size(34, 44)
+		tab:CreateBackdrop("Overlay")
+		tab.backdrop:Point("TOPLEFT", 2, -2)
+		tab.backdrop:Point("BOTTOMRIGHT", -2, 2)
+		
+		tab.SelectedTexture:SetDrawLayer("ARTWORK")
+		tab.SelectedTexture:ClearAllPoints()
+		tab.SelectedTexture:SetAllPoints()
+		tab.SelectedTexture:SetPoint("TOPLEFT", 4, -4)
+		tab.SelectedTexture:SetPoint("BOTTOMRIGHT", -4, 4)
+		tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+		
+		for _, region in next, {tab:GetRegions()} do
+			if region:IsObjectType("Texture") then
+				if region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
+					region:Point("TOPLEFT", 4, -4)
+					region:Point("BOTTOMRIGHT", -4, 4)
+					region:SetColorTexture(1, 1, 1, 0.3)
+				end
+			end
+		end
+	end
+	QuestMapFrame.QuestsTab:ClearAllPoints()
+	QuestMapFrame.QuestsTab:Point("TOPLEFT", QuestMapFrame, "TOPRIGHT", 1, 2)
+	end
+	
 	-- QuestSessionManagement skin (based on skin from Aurora)
 	QuestMapFrame.QuestSessionManagement:StripTextures()
 

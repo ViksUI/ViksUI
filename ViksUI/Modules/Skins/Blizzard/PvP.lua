@@ -69,6 +69,9 @@ local function LoadSkin()
 	HonorFrameQueueButton:SkinButton(true)
 
 	PVPQueueFrame.HonorInset:StripTextures()
+	if T.newPatch then
+		PVPQueueFrame.HonorInset.Background:SetAlpha(0)
+	end
 
 	local RewardFrameSeason = PVPQueueFrame.HonorInset.RatedPanel.SeasonRewardFrame
 	RewardFrameSeason.Ring:Hide()
@@ -82,7 +85,6 @@ local function LoadSkin()
 		button:StyleButton()
 		button.SelectedTexture:SetDrawLayer("ARTWORK")
 		button.SelectedTexture:ClearAllPoints()
-		button.SelectedTexture:SetAllPoints()
 		button.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
 		button.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
@@ -208,7 +210,6 @@ local function LoadSkin()
 		button:StyleButton()
 		button.SelectedTexture:SetDrawLayer("ARTWORK")
 		button.SelectedTexture:ClearAllPoints()
-		button.SelectedTexture:SetAllPoints()
 		button.SelectedTexture:SetPoint("TOPLEFT", 2, -2)
 		button.SelectedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 		button.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
