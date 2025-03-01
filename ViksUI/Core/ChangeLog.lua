@@ -3,6 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.32 ",
+	"• Updated for Wow 11.1.0",
+	"• Error fixes",
+	"• Fog Of War updated",
+	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.31 ",
 	"• MapInfo updated",
 	"• ClassTimer position updated for druid",
@@ -13,12 +18,6 @@ local ChangeLogData = {
 	"• Classtimer position for Feral Druid fix",
 	"• Faster Loot improvment",
 	"• Hold down ALT, will auto accept compleated Warband Quest",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-	"Update 11.29 ",
-	"• More skins updated/fixed",
-	"• More spells added to Filger & Classtimer",
-	"• Added more reminders to selfbuff",
-	"• Temporary disabled NavBar skinning worldmap due to error",
 	"• check: https://github.com/ViksUI/ViksUI/releases",
 
 " ",
