@@ -921,8 +921,6 @@ C["filger_spells"] = {
 			{spellID = 147362, filter = "CD"},
 			-- Kill Command
 			{spellID = 34026, filter = "CD"},
-			-- Sidewinders
-			{spellID = 214579, filter = "CD"},
 			-- Explosive Shot
 			{spellID = 212431, filter = "CD"},
 			-- Chimera Shot
@@ -935,8 +933,6 @@ C["filger_spells"] = {
 			{spellID = 781, filter = "CD"},
 			-- Dire Beast
 			{spellID = 120679, filter = "CD"},
-			-- Fervor
-			{spellID = 82726, filter = "CD"},
 			-- Misdirection
 			{spellID = 34477, filter = "CD"},
 			-- Feign Death
@@ -975,8 +971,6 @@ C["filger_spells"] = {
 			{spellID = 264735, filter = "CD"},
 			-- Fortitude of the Bear
 			{spellID = 272679, filter = "CD"},
-			-- Volley
-			{spellID = 194386, filter = "CD"},
 			-- Trueshot
 			{spellID = 288613, filter = "CD"},
 			-- Aimed Shot
