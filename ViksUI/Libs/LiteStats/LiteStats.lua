@@ -1259,7 +1259,7 @@ if experience.enabled then
 						minrep, maxrep = 0, majorFactionData.renownLevelThreshold
 						currep = C_MajorFactions.HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
 						standing = 7
-						standingText = RENOWN_LEVEL_LABEL..majorFactionData.renownLevel
+						standingText = RENOWN_LEVEL_LABEL:format(majorFactionData.renownLevel)
 					else
 						local value, nextThreshold = C_Reputation.GetFactionParagonInfo(factionID)
 						if value then
@@ -1499,7 +1499,7 @@ if talents.enabled then
 								name = "|cff55ff55"..name.."|r"
 							end
 							specList[index + 1].text = format("|T%s:"..t_icon..":"..t_icon..":0:0:64:64:5:59:5:59|t  %s", texture, name)
-							specList[index + 1].func = function() SetSpecialization(index) end
+							specList[index + 1].func = function() C_SpecializationInfo.SetSpecialization(index) end
 						else
 							specList[index + 1] = nil
 						end
