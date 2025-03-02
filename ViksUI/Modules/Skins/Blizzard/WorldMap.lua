@@ -47,17 +47,6 @@ local function LoadSkin()
 	QuestScrollFrame.Background:Hide()
 	T.SkinEditBox(QuestScrollFrame.SearchBox)
 	
-	-- local CampaignOverview = QuestMapFrame.CampaignOverview
-	-- CampaignOverview:StripTextures()
-	-- CampaignOverview.ScrollFrame:StripTextures()
-	-- T.SkinScrollBar(CampaignOverview.ScrollFrame.ScrollBar)
-	-- CampaignOverview:CreateBackdrop("Overlay")
-	-- CampaignOverview.backdrop:SetPoint("TOPLEFT", CampaignOverview.Header, "TOPLEFT",  8, -2)
-	-- CampaignOverview.backdrop:SetPoint("BOTTOMRIGHT", CampaignOverview.Header, "BOTTOMRIGHT", -4, 10)
-	-- CampaignOverview.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
-	-- CampaignOverview.Header.Background:SetAlpha(0)
-	-- CampaignOverview.Header.TopFiligree:Hide()
-
 	do
 		local frame = QuestScrollFrame.Contents.StoryHeader
 		frame:CreateBackdrop("Overlay")
@@ -69,8 +58,9 @@ local function LoadSkin()
 		frame.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
 	end
 
-	QuestScrollFrame.ScrollBar:SetPoint("TOPLEFT", QuestScrollFrame, "TOPRIGHT", 2, -18)
-	QuestScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", QuestScrollFrame, "BOTTOMRIGHT", 2, 15)
+	QuestScrollFrame.ScrollBar:SetPoint("TOPLEFT", QuestScrollFrame, "TOPRIGHT", -21, -18)
+	QuestScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", QuestScrollFrame, "BOTTOMRIGHT", -21, 15)
+
 	T.SkinScrollBar(QuestScrollFrame.ScrollBar)
 
 	local QuestScrollFrameTopBorder = CreateFrame("Frame", "$parentBorder", QuestScrollFrame)
@@ -103,7 +93,7 @@ local function LoadSkin()
 	QuestMapFrame.DetailsFrame.BackFrame:StripTextures()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SkinButton()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:ClearAllPoints()
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("TOPLEFT", QuestMapFrame, "TOPLEFT", 2, -8)
+	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetSize(326, 23)
 
 	local accountComplete = QuestMapFrame.QuestsFrame.DetailsFrame.BackFrame.AccountCompletedNotice
@@ -151,11 +141,6 @@ local function LoadSkin()
 	end
 	
 	-- WorldMapFrame.NavBar:StripTextures()
-	-- WorldMapFrame.NavBar.overlay:StripTextures()
-	-- WorldMapFrameHomeButton:SkinButton(true)
-	-- WorldMapFrame.NavBar.homeButton.xoffset = 1
-	-- WorldMapFrame.NavBar.homeButton.text:SetFont(C.media.normal_font, 14)
-	
 	WorldMapFrame.BorderFrame.TitleContainer.TitleText:ClearAllPoints()
 	WorldMapFrame.BorderFrame.TitleContainer.TitleText:SetPoint("CENTER", WorldMapFrame.Header)
 
@@ -165,33 +150,22 @@ local function LoadSkin()
 	WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:SetPoint('RIGHT', WorldMapFrame.BorderFrame.CloseButton, 'LEFT', 6, 0)															 
 
 	QuestMapFrame.MapLegend.BorderFrame:StripTextures()
-	if not T.newPatch then
-		QuestMapFrame.MapLegend.BackButton:SkinButton()
-		QuestMapFrame.MapLegend.BackButton:ClearAllPoints()
-		QuestMapFrame.MapLegend.BackButton:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
-		QuestMapFrame.MapLegend.BackButton:SetSize(326, 23)
 
-		MapLegendScrollFrame.ScrollBar:SetPoint("TOPLEFT", MapLegendScrollFrame, "TOPRIGHT", 2, -18)
-		MapLegendScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", MapLegendScrollFrame, "BOTTOMRIGHT", 2, 15)
-	end
+	MapLegendScrollFrame:ClearAllPoints()
+	MapLegendScrollFrame:SetPoint("TOPLEFT", QuestMapFrame.backdrop, "TOPLEFT", 0, -3)
+	MapLegendScrollFrame:SetPoint("BOTTOMRIGHT", QuestMapFrame.backdrop, "BOTTOMRIGHT", 4, 0)
 
-	if T.newPatch then
-		MapLegendScrollFrame:ClearAllPoints()
-		MapLegendScrollFrame:SetPoint("TOPLEFT", QuestMapFrame.backdrop, "TOPLEFT", 0, -3)
-		MapLegendScrollFrame:SetPoint("BOTTOMRIGHT", QuestMapFrame.backdrop, "BOTTOMRIGHT", 4, 0)
+	local MapLegendTopBorder = CreateFrame("Frame", "$parentBorder", QuestMapFrame.MapLegend)
+	MapLegendTopBorder:CreateBackdrop("Overlay")
+	MapLegendTopBorder.backdrop:ClearAllPoints()
+	MapLegendTopBorder.backdrop:SetSize(326, 23)
+	MapLegendTopBorder.backdrop:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
 
-		local MapLegendTopBorder = CreateFrame("Frame", "$parentBorder", QuestMapFrame.MapLegend)
-		MapLegendTopBorder:CreateBackdrop("Overlay")
-		MapLegendTopBorder.backdrop:ClearAllPoints()
-		MapLegendTopBorder.backdrop:SetSize(326, 23)
-		MapLegendTopBorder.backdrop:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
+	QuestMapFrame.MapLegend.TitleText:ClearAllPoints()
+	QuestMapFrame.MapLegend.TitleText:SetPoint("CENTER", MapLegendTopBorder.backdrop)
 
-		QuestMapFrame.MapLegend.TitleText:ClearAllPoints()
-		QuestMapFrame.MapLegend.TitleText:SetPoint("CENTER", MapLegendTopBorder.backdrop)
-
-		MapLegendScrollFrame.ScrollBar:SetPoint("TOPLEFT", MapLegendScrollFrame, "TOPRIGHT", -21, -18)
-		MapLegendScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", MapLegendScrollFrame, "BOTTOMRIGHT", -21, 15)
-	end
+	MapLegendScrollFrame.ScrollBar:SetPoint("TOPLEFT", MapLegendScrollFrame, "TOPRIGHT", -21, -18)
+	MapLegendScrollFrame.ScrollBar:SetPoint("BOTTOMLEFT", MapLegendScrollFrame, "BOTTOMRIGHT", -21, 15)
 
 	MapLegendScrollFrame.Background:Hide()
 	T.SkinScrollBar(MapLegendScrollFrame.ScrollBar)
@@ -265,9 +239,6 @@ local function LoadSkin()
 	WorldMapFloorNavigationDropDown(WorldMapFrame.overlayFrames[1])
 	WorldMapTrackingOptionsButton(WorldMapFrame.overlayFrames[2])
 	WorldMapTrackingPinButton(WorldMapFrame.overlayFrames[3])
-	if not T.newPatch then
-		WorldMapLegendButton(WorldMapFrame.overlayFrames[4])
-	end
 
 	for i = 1, 15 do
 		local button = _G["Krowi_WorldMapButtons"..i]
@@ -284,40 +255,39 @@ local function LoadSkin()
 		end
 	end
 
-	if T.newPatch then
-		local tabs = {
-			QuestMapFrame.QuestsTab,
-			QuestMapFrame.MapLegendTab
-		}
-		for _, tab in pairs(tabs) do
-			tab.Background:SetAlpha(0)
+	local tabs = {
+		QuestMapFrame.QuestsTab,
+		QuestMapFrame.EventsTab,
+		QuestMapFrame.MapLegendTab
+	}
+	for _, tab in pairs(tabs) do
+		tab.Background:SetAlpha(0)
 
-			tab:SetSize(34, 44)
+		tab:SetSize(34, 44)
 
-			tab:CreateBackdrop("Overlay")
-			tab.backdrop:SetPoint("TOPLEFT", 2, -2)
-			tab.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
+		tab:CreateBackdrop("Overlay")
+		tab.backdrop:SetPoint("TOPLEFT", 2, -2)
+		tab.backdrop:SetPoint("BOTTOMRIGHT", -2, 2)
 
-			tab.SelectedTexture:SetDrawLayer("ARTWORK")
-			tab.SelectedTexture:ClearAllPoints()
-			tab.SelectedTexture:SetPoint("TOPLEFT", 4, -4)
-			tab.SelectedTexture:SetPoint("BOTTOMRIGHT", -4, 4)
-			tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+		tab.SelectedTexture:SetDrawLayer("ARTWORK")
+		tab.SelectedTexture:ClearAllPoints()
+		tab.SelectedTexture:SetPoint("TOPLEFT", 4, -4)
+		tab.SelectedTexture:SetPoint("BOTTOMRIGHT", -4, 4)
+		tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
 
-			for _, region in next, {tab:GetRegions()} do
-				if region:IsObjectType("Texture") then
-					if region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
-						region:SetPoint("TOPLEFT", 4, -4)
-						region:SetPoint("BOTTOMRIGHT", -4, 4)
-						region:SetColorTexture(1, 1, 1, 0.3)
-					end
+		for _, region in next, {tab:GetRegions()} do
+			if region:IsObjectType("Texture") then
+				if region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
+					region:SetPoint("TOPLEFT", 4, -4)
+					region:SetPoint("BOTTOMRIGHT", -4, 4)
+					region:SetColorTexture(1, 1, 1, 0.3)
 				end
 			end
 		end
-
-		QuestMapFrame.QuestsTab:ClearAllPoints()
-		QuestMapFrame.QuestsTab:SetPoint("TOPLEFT", QuestMapFrame.backdrop, "TOPRIGHT", 1, 2)
 	end
+
+	QuestMapFrame.QuestsTab:ClearAllPoints()
+	QuestMapFrame.QuestsTab:SetPoint("TOPLEFT", QuestMapFrame.backdrop, "TOPRIGHT", 1, 2)
 
 	-- QuestSessionManagement skin (based on skin from Aurora)
 	QuestMapFrame.QuestSessionManagement:StripTextures()
