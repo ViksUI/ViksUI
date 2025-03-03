@@ -3,6 +3,10 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.33 ",
+	"• More fixes",
+	"• New version due to wrong github packaging",
+	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.32 ",
 	"• Updated for Wow 11.1.0",
 	"• Error fixes",
@@ -13,11 +17,6 @@ local ChangeLogData = {
 	"• ClassTimer position updated for druid",
 	"• AutoAccept Updated",
 	"• Added new gemcolor for sockets",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-	"Update 11.30 ",
-	"• Classtimer position for Feral Druid fix",
-	"• Faster Loot improvment",
-	"• Hold down ALT, will auto accept compleated Warband Quest",
 	"• check: https://github.com/ViksUI/ViksUI/releases",
 
 " ",
