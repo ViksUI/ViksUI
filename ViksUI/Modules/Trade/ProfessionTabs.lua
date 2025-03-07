@@ -113,7 +113,13 @@ local function UpdateSelectedTabs(object)
 
 	for index = 1, #tabs[object] do
 		local tab = tabs[object][index]
-		tab:SetChecked(C_Spell.IsCurrentSpell(tab.name))
+		if tab.spellID and C_Spell.IsCurrentSpell(tab.spellID) then
+			tab:Disable()
+			tab:SetChecked(true)
+		else
+			tab:Enable()
+			tab:SetChecked(false)
+		end
 	end
 end
 
@@ -125,17 +131,26 @@ local function ResetTabs(object)
 	tabs[object].index = 0
 end
 
-local function UpdateTab(object, name, texture, hat)
+local function UpdateTab(object, name, texture, spellID)
 	local index = tabs[object].index + 1
-	local tab = tabs[object][index] or CreateFrame("CheckButton", "ProTabs"..tabs[object].index, object, "SecureActionButtonTemplate, ActionButtonTemplate")
+	local tab = tabs[object][index] or CreateFrame("CheckButton", "ProTabs"..tabs[object].index, object, "SecureActionButtonTemplate")
 	tab:RegisterForClicks("LeftButtonUp", "LeftButtonDown")
 
 	tab:SetSize(36, 36)
 	tab:ClearAllPoints()
+
+	if not tab.icon then
+		tab.icon = tab:CreateTexture("$parentIcon")
+		tab.icon:SetAllPoints()
+
+		tab:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square")
+		tab:GetHighlightTexture():SetBlendMode("ADD")
+		tab:SetCheckedTexture("Interface\\Buttons\\CheckButtonHilight")
+		tab:GetCheckedTexture():SetBlendMode("ADD")
+	end
+
 	if C_AddOns.IsAddOnLoaded("Aurora") then
 		tab:SetPoint("TOPLEFT", object, "TOPRIGHT", 11, (-44 * index) + 10)
-
-		tab:SetNormalTexture(0)
 
 		local F, C = unpack(Aurora)
 		F.CreateBG(tab)
@@ -144,7 +159,6 @@ local function UpdateTab(object, name, texture, hat)
 
 		tab:SetTemplate("Default")
 		tab:StyleButton()
-		tab:SetNormalTexture(0)
 		tab.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		tab.icon:ClearAllPoints()
 		tab.icon:SetPoint("TOPLEFT", 2, -2)
@@ -155,7 +169,7 @@ local function UpdateTab(object, name, texture, hat)
 
 	tab.icon:SetTexture(texture)
 
-	if hat then
+	if texture == 236571 then	-- Chef's Hat
 		tab:SetAttribute("type", "toy")
 		tab:SetAttribute("toy", 134020)
 	elseif texture == 135805 then	-- Cooking Fire
@@ -163,12 +177,13 @@ local function UpdateTab(object, name, texture, hat)
 		tab:SetAttribute("macrotext", "/cast [@player]"..name)
 	else
 		tab:SetAttribute("type", "spell")
-		tab:SetAttribute("spell", name)
+		tab:SetAttribute("spell", spellID or name)
 	end
 
 	tab:Show()
 
 	tab.name = name
+	tab.spellID = spellID
 
 	tab:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 5, -7)
@@ -193,16 +208,17 @@ local function HandleProfession(object, professionID, hat)
 				if defaults[skillID][index] then
 					local name = C_SpellBook.GetSpellBookItemName(offset + index, 0)
 					local texture = C_SpellBook.GetSpellBookItemTexture(offset + index, 0)
+					local spellID = C_SpellBook.GetSpellBookItemInfo(offset + index, 0).spellID
 
 					if name and texture then
-						UpdateTab(object, name, texture)
+						UpdateTab(object, name, texture, spellID)
 					end
 				end
 			end
 		end
 
 		if hat and PlayerHasToy(134020) and C_ToyBox.IsToyUsable(134020) then
-			UpdateTab(object, GetSpellInfo(67556), 236571, true)
+			UpdateTab(object, GetSpellInfo(67556), 236571, 134020)
 		end
 	end
 end
@@ -224,10 +240,11 @@ local function HandleTabs(object)
 		HandleProfession(object, fishing)
 		HandleProfession(object, cooking, true)
 
+		-- Runuforging and Pick Lock
 		for index = 1, #spells do
 			if IsSpellKnown(spells[index]) then
 				local name, _, texture = GetSpellInfo(spells[index])
-				UpdateTab(object, name, texture)
+				UpdateTab(object, name, texture, spells[index])
 			end
 		end
 	end
