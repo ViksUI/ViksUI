@@ -417,6 +417,7 @@ local function Load()
 		local F, C = unpack(Aurora)
 		SpellBinder:StripTextures()
 		SpellBinderInset:StripTextures()
+		SpellBinderPortrait:SetAlpha(0)
 
 		SpellBinder.OpenButton:StripTextures()
 		SpellBinder.OpenButton:SetNormalTexture("Interface\\ICONS\\Achievement_Guild_Doctorisin")
