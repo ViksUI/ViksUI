@@ -93,7 +93,11 @@ local function LoadSkin()
 	QuestMapFrame.DetailsFrame.BackFrame:StripTextures()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SkinButton()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:ClearAllPoints()
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
+	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetFrameLevel(5)
+	QuestMapFrame.DetailsFrame.AbandonButton:SetFrameLevel(5)
+	QuestMapFrame.DetailsFrame.ShareButton:SetFrameLevel(5)
+	QuestMapFrame.DetailsFrame.TrackButton:SetFrameLevel(5)
+	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("LEFT", QuestScrollFrame.SearchBox, "LEFT", -3, 0)
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetSize(326, 23)
 
 	local accountComplete = QuestMapFrame.QuestsFrame.DetailsFrame.BackFrame.AccountCompletedNotice
