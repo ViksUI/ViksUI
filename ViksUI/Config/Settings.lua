@@ -580,6 +580,7 @@ C["nameplate"] = {
 	["show_castbar_name"] = false,				-- Show castbar name
 	["class_icons"] = false,					-- Icons by class in PvP
 	["name_abbrev"] = false,					-- Display abbreviated names
+	["short_name"] = false,						-- Replace names with short ones (from the list)
 	["clamp"] = true,							-- Clamp nameplates to the top of the screen when outside of view
 	["track_debuffs"] = true,					-- Show your debuffs (from the list)
 	["track_buffs"] = true,						-- Show dispellable enemy buffs and buffs from the list

@@ -869,34 +869,6 @@ end
 
 -- [[ Init ]]
 
-local function changeProfile()
-	local profile
-	if ViksUIOptionsGlobal[realm][name] == true then
-		if ViksUIOptionsPerChar == nil then
-			ViksUIOptionsPerChar = {}
-		end
-		profile = ViksUIOptionsPerChar
-	else
-		profile = ViksUIOptions
-	end
-
-	for group, options in pairs(profile) do
-		if C[group] then
-			for option, value in pairs(options) do
-				if C[group][option] == nil or C[group][option] == value then
-					profile[group][option] = nil
-				else
-					C[group][option] = value
-				end
-			end
-		else
-			profile[group] = nil
-		end
-	end
-
-	C.options = profile
-end
-
 local function displaySettings()
 	for _, box in pairs(checkboxes) do
 		box:SetChecked(C[box.group][box.option])
@@ -949,7 +921,6 @@ init:SetScript("OnEvent", function()
 			else
 				ViksUIOptionsGlobal[realm][name] = false
 			end
-			-- changeProfile()
 			ReloadUI()
 		end,
 		OnCancel = function()

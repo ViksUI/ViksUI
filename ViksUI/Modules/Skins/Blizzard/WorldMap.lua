@@ -93,11 +93,7 @@ local function LoadSkin()
 	QuestMapFrame.DetailsFrame.BackFrame:StripTextures()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SkinButton()
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:ClearAllPoints()
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetFrameLevel(5)
-	QuestMapFrame.DetailsFrame.AbandonButton:SetFrameLevel(5)
-	QuestMapFrame.DetailsFrame.ShareButton:SetFrameLevel(5)
-	QuestMapFrame.DetailsFrame.TrackButton:SetFrameLevel(5)
-	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("LEFT", QuestScrollFrame.SearchBox, "LEFT", -3, 0)
+	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetPoint("LEFT", WorldMapFrame.Header, "RIGHT", 2, 0)
 	QuestMapFrame.DetailsFrame.BackFrame.BackButton:SetSize(326, 23)
 
 	local accountComplete = QuestMapFrame.QuestsFrame.DetailsFrame.BackFrame.AccountCompletedNotice
@@ -212,20 +208,7 @@ local function LoadSkin()
 		tex:SetAllPoints(button.Icon)
 	end
 
-	-- Legend
-	local function WorldMapLegendButton(button)
-		local shadow = button:GetRegions()
-		shadow:Hide()
-
-		button.Background:Hide()
-		button.IconOverlay:SetAlpha(0)
-		button.Border:Hide()
-
-		local tex = button:GetHighlightTexture()
-		tex:SetAtlas("QuestNormal")
-		tex:SetAllPoints(button.Icon)
-	end
-
+	-- HandyNotes
 	local function HandyNotesButton(button)
 		local shadow = button:GetRegions()
 		shadow:Hide()

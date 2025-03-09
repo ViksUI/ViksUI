@@ -67,11 +67,10 @@ if not NoTaint2_Proc_ResetActionButtonAction then
 	-- use /run ActionButton2.action = 2 ActionButton2:UpdateAction() to test
 
 	function NoTaint2_ResetActionButtonAction(self)
-		local ok, tainted_by = issecurevariable(self, "action")
+		local ok = issecurevariable(self, "action")
 		if not ok and not InCombatLockdown() then
 			self.action=nil
 			self:SetAttribute("_aby", "action")
-			-- if self:IsVisible() then NoTaint2_ShowWarning(tainted_by) end
 		end
 	end
 
@@ -123,7 +122,7 @@ if not NoTaint2_CleanStaticPopups then
 		OBJECTIVE_TRACKER_UPDATE_REASON = 1,
 	}
 
-	function NoTaint2_CleanGlobal(self)
+	function NoTaint2_CleanGlobal()
 		for k, _ in pairs(global_obj_name) do
 			if not issecurevariable(k) then
 				--print("clean", k, issecurevariable(k))
@@ -178,7 +177,7 @@ if not NoTaint2_Proc_StopEnterWorldLayout then
 	local f2 = CreateFrame("Frame")
 	f2:RegisterEvent("PLAYER_LEAVING_WORLD")
 	f2:RegisterEvent("PLAYER_ENTERING_WORLD")
-	f2:SetScript("OnEvent", function(self, event, ...)
+	f2:SetScript("OnEvent", function(_, event, ...)
 		if event == "PLAYER_ENTERING_WORLD" then
 			local login, reload = ...
 			if not login and not reload then

@@ -4,7 +4,7 @@ if C.skins.rematch ~= true or not C_AddOns.IsAddOnLoaded("Rematch") then return 
 ----------------------------------------------------------------------------------------
 --	Rematch skin
 ----------------------------------------------------------------------------------------
-local _,skin = ...
+local _, skin = ...
 Skin = skin
 
 local rematch = Rematch
@@ -522,7 +522,7 @@ skin.panels = {
 }
 
 --[[ Stuff that needs to be done on login that has no panel goes here (menus, tooltips, etc) ]]
-skin = {
+skin.misc = {
 
 	Menu = function()
 		-- menu framepool is local, going to force the creation of three levels of menus and skin them
@@ -573,16 +573,6 @@ skin = {
 }
 
 --[[ Helper functions ]]
-local icons = {
-	Locked = {0, 0.5, 0, 0.25},
-	Unlocked = {0.5, 1, 0, 0.25},
-	Minimized = {0, 0.5, 0.25, 0.5},
-	Maximized = {0.5, 1, 0.25, 0.5},
-	SinglePanel = {0, 0.5, 0.5, 0.75},
-	DualPanel = {0.5, 1, 0.5, 0.75},
-	Pinned = {0, 0.5, 0.75, 1},
-}
-
 function skin:ColorPetListBordersPet()
 	for _,button in ipairs(self.buttons) do
 
@@ -690,7 +680,7 @@ f:SetScript("OnEvent",function(self)
 			for panel,func in pairs(skin.panels) do
 				func(Rematch[panel])
 			end
-			for _,func in pairs(skin) do
+			for _,func in pairs(skin.misc) do
 				func()
 			end
 			self.skinDone = true
