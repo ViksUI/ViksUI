@@ -429,7 +429,6 @@ revBtn:HookScript("OnClick", function()
 	SetRevBtn()
 end)
 
-
 ----------------------------------------------------------------------------------------
 --	Count of quests
 ----------------------------------------------------------------------------------------
@@ -437,7 +436,7 @@ local maxQuest = 35
 local numQuest = CreateFrame("Frame", nil, QuestMapFrame)
 numQuest.text = numQuest:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 if C.skins.blizzard_frames then
-	numQuest.text:SetPoint("TOP", QuestMapFrame, "TOP", 100, -20)
+	numQuest.text:SetPoint("TOP", QuestMapFrame, "TOP", 100, 0)
 else
 	numQuest.text:SetPoint("TOP", QuestMapFrame, "TOP", 0, -17)
 end
