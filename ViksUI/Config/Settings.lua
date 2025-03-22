@@ -117,6 +117,7 @@ C["misc"] = {
 	["click_cast"] = true,						-- Simple click2cast spell binder
 	["click_cast_filter"] = false,				-- Ignore Player and Target frames for click2cast
 	["chars_currency"] = true,					-- Tracks your currency tokens across multiple characters
+	["CPUProfiler"] = true,						-- Force disable the CPU Profiling
 	["markbar"] = true,							-- Markbar for Raid Icons and flares
 	["classtimer"] = true,						-- Shows buff/debuffs/procs as bar on player/target frame
 	["BT4Bars"] = true,							-- Panels behind Sidebar & Small bars for Bartender 4
