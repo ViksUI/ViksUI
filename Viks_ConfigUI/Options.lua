@@ -2685,6 +2685,20 @@ do
 
 	local targetglow_color = ns.CreateColourPicker(parent, "targetglow_color", true, L_GUI_NAMEPLATE_TARGETGLOW_COLOR)
 	targetglow_color:SetPoint("TOPLEFT", targetarrow_color, "BOTTOMLEFT", 0, -10)
+
+	--local extra_color = ns.CreateColourPicker(parent, "extra_color", true)
+	--extra_color:SetPoint("TOPLEFT", targetglow_color, "BOTTOMLEFT", 2, -10)
+
+	--local mob_color_enable = ns.CreateCheckBox(parent, "mob_color_enable")
+	--mob_color_enable:SetPoint("TOPLEFT", extra_color, "BOTTOMLEFT", -24, -8)
+
+	--local mob_color = ns.CreateColourPicker(parent, "mob_color", true)
+	--mob_color:SetPoint("TOPLEFT", mob_color_enable, "BOTTOMLEFT", 24, -4)
+
+	local mob_color_list = ns.CreateEditBox(parent, "mob_color_list", true)
+	mob_color_list:SetPoint("TOPLEFT", targetglow_color, "BOTTOMLEFT", 2, -10)
+	mob_color_list:SetWidth(240)
+	mob_color_list:SetMaxLetters(200)
 end
 
 -- Combat text
