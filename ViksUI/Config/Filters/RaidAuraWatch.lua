@@ -132,6 +132,7 @@ local RaidDebuffs = {
 	[SpellName(466476)] = 3,	-- Frostshatter Boots
 	[SpellName(466509)] = 3,	-- Stormfury Finger Gun
 	[SpellName(1215488)] = 3,	-- Disintegration Beam
+	[SpellName(469391)] = 5,	-- Perforating Wound
 	-- Chrome King Gallywix
 	[SpellName(466154)] = 3,	-- Blast Burns
 	[SpellName(466834)] = 4,	-- Shock Barrage
@@ -459,6 +460,8 @@ local DungeonDebuffs = {
 	[SpellName(262513)] = 5,	-- Azerite Heartseeker
 	[SpellName(260838)] = 5,	-- Homing Missle
 	[SpellName(263637)] = 4,	-- Clothesline
+	[SpellName(262347)] = 3,	-- Static Pulse
+	[SpellName(1213141)] = 3,	-- Heavy Slash
 
 	-- Operation: Mechagon
 	[SpellName(291928)] = 3,	-- Giga-Zap
