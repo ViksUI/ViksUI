@@ -15,7 +15,7 @@ local function Update(self, event, unit)
 	if(element.PreUpdate) then element:PreUpdate(unit) end
 
 	local guid = UnitGUID(unit)
-	local isAvailable = UnitIsConnected(unit) and UnitIsVisible(unit)
+	local isAvailable = element:IsVisible() and UnitIsConnected(unit) and UnitIsVisible(unit)
 	local hasStateChanged = event ~= 'OnUpdate' or element.guid ~= guid or element.state ~= isAvailable
 	if(hasStateChanged) then
 		if(element:IsObjectType('PlayerModel')) then
