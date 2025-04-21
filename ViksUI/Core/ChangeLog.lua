@@ -3,6 +3,10 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.34 ",
+	"• More fixes",
+	"• Still traveling so short list here, check github",
+	"• check: https://github.com/ViksUI/ViksUI/releases",
 	"Update 11.33 ",
 	"• More fixes",
 	"• New version due to wrong github packaging",
@@ -11,12 +15,6 @@ local ChangeLogData = {
 	"• Updated for Wow 11.1.0",
 	"• Error fixes",
 	"• Fog Of War updated",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-	"Update 11.31 ",
-	"• MapInfo updated",
-	"• ClassTimer position updated for druid",
-	"• AutoAccept Updated",
-	"• Added new gemcolor for sockets",
 	"• check: https://github.com/ViksUI/ViksUI/releases",
 
 " ",
