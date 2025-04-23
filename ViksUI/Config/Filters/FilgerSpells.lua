@@ -2361,7 +2361,7 @@ C["filger_spells"] = {
 			-- Overpower
 			{spellID = 7384, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Frothing Berserker
-			{spellID = 215572, unitID = "player", caster = "player", filter = "BUFF"},
+			-- {spellID = 215572, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Furious Slash
 			{spellID = 202539, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Vengeance: Ignore Pain
