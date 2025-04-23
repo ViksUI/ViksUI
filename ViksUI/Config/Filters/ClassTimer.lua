@@ -389,7 +389,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(35079, true), -- Misdirection
 			CreateSpellEntry(109215), -- Posthaste (Disengage/Harpoon speed burst)
 			CreateSpellEntry(186258), -- Aspect of the Cheetah
-			CreateSpellEntry(189949), -- Aspect of the Turtle
+			-- CreateSpellEntry(189949), -- Aspect of the Turtle
 			CreateSpellEntry(186265), -- Aspect of the Turtle
 			CreateSpellEntry(53480), -- Roar of Sacrifice (PVP Talent)
 			-- Shared
