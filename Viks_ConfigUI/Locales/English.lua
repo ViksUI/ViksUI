@@ -697,8 +697,6 @@ L.misc_click_cast_desc = "Allows you to assign spells (analog Clique) to the mou
 L.misc_click_cast_filter = "Ignore Player and Target frames"
 L.misc_chars_currency = "Tracks your currency tokens across multiple characters"
 L.misc_chars_currency_desc = "Hover over the icon of the required currency in the character window to display information in the tooltip"
-L.misc_CPUProfiler = "Force disable the CPU Profiling"
-L.misc_CPUProfiler_desc = "If enable it will disable the CPU Profiling CVar. Which can cause some performance issues and should not be enabled by default"
 L.misc_hide_raid_button = "Button to hide raid frames in dps layout"
 L.misc_hide_raid_button_desc = "The button is displayed by hovering the mouse in the upper left corner"
 

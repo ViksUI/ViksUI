@@ -695,8 +695,6 @@ L.misc_click_cast_desc = "开启后法术书有鼠标绑定界面可以进行设
 L.misc_click_cast_filter = "忽略玩家/目标框架点击施法"
 L.misc_chars_currency = "追踪所有角色的货币"
 L.misc_chars_currency_desc = "在货币界面中追踪所有角色的货币"
-L.misc_CPUProfiler = "Force disable the CPU Profiling" -- Needs review
-L.misc_CPUProfiler_desc = "If enable it will disable the CPU Profiling CVar. Which can cause some performance issues and should not be enabled by default" -- Needs review
 L.misc_hide_raid_button = "输出布局最小化按钮"
 L.misc_hide_raid_button_desc = "按钮在团队框架左上方鼠标悬停显示"
 

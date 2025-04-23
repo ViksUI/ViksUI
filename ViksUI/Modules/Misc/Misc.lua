@@ -432,21 +432,3 @@ local function OnDoubleClick(self, button)
     LFGListApplicationDialog.SignUpButton:Click()
     end
 end
-
---------------------------------------------------------------------------------------------------
---	Force disable the CPU Profiling (Can cause performance issues and should not be on by default)
---------------------------------------------------------------------------------------------------
-if C.misc.CPUProfiler then
-	local function EnableCheck()
-		local enabled = C.misc.CPUProfiler == true
-		C_CVar.RegisterCVar("addonProfilerEnabled", "1")
-		C_CVar.SetCVar("addonProfilerEnabled", enabled and 0 or 1) -- We want to force disable it. So its a reverse check
-	end
-
-	local frame = CreateFrame("Frame")
-	frame:RegisterEvent("PLAYER_LOGIN")
-	frame:SetScript("OnEvent", EnableCheck)
-
-	C_CVar.RegisterCVar("addonProfilerEnabled", 1)
-	EnableCheck()
-end

@@ -3611,9 +3611,6 @@ do
 
 	local chars_currency = ns.CreateCheckBox(parent, "chars_currency")
 	chars_currency:SetPoint("TOPLEFT", click_cast_filter, "BOTTOMLEFT", -20, 0)
-	
-	local CPUProfiler = ns.CreateCheckBox(parent, "CPUProfiler")
-	CPUProfiler:SetPoint("TOPLEFT", chars_currency, "BOTTOMLEFT", 0, 0)
 
 	-- Panel 2
 	local parent = ViksUIOptionsPanel.misc2
