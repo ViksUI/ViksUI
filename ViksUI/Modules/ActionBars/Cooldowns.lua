@@ -91,6 +91,8 @@ local function Timer_Create(self)
 	Timer_OnSizeChanged(timer, scaler:GetSize())
 	scaler:SetScript("OnSizeChanged", function(_, ...) Timer_OnSizeChanged(timer, ...) end)
 
+	self:GetRegions():SetAlpha(0)	-- Hide Blizzard cd text
+
 	self.timer = timer
 	return timer
 end
