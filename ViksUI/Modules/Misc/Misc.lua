@@ -432,20 +432,3 @@ local function OnDoubleClick(self, button)
     LFGListApplicationDialog.SignUpButton:Click()
     end
 end
-
-----------------------------------------------------------------------------------------
---	Help info to save time
-----------------------------------------------------------------------------------------
-StaticPopupDialogs["OPIE_WARNING"] = {
-	text = "WorldFrame does not respond to mouse input while OPie is enabled after 11.1.5. This is caused by a Blizzard changes. Report to Vik when fixed to remove warning",
-	button1 = "OK",
-	OnAccept = function()
- 	end,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-}
-
-if T.newPatch and C_AddOns.IsAddOnLoaded("OPie") then
-StaticPopup_Show("OPIE_WARNING")
-end
