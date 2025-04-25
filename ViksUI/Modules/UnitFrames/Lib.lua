@@ -2015,6 +2015,7 @@ lib.raidDebuffs = function(self)
 			self.RaidDebuffs.cd:SetReverse(true)
 			self.RaidDebuffs.cd:SetDrawEdge(false)
 			self.RaidDebuffs.cd.noCooldownCount = true
+			self.RaidDebuffs.cd:SetHideCountdownNumbers(true)
 			self.RaidDebuffs.parent = CreateFrame("Frame", nil, self.RaidDebuffs, "BackdropTemplate")
 			self.RaidDebuffs.parent:SetFrameLevel(self.RaidDebuffs.cd:GetFrameLevel() + 1)
 			if C.unitframe.plugins_aura_watch_timer == true then
