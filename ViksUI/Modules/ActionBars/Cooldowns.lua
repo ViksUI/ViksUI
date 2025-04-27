@@ -74,28 +74,58 @@ local function Timer_OnUpdate(self, elapsed)
 	end
 end
 
-local function Timer_Create(self)
-	local scaler = CreateFrame("Frame", nil, self)
-	scaler:SetAllPoints(self)
+local Timer_Create
+if IsVik then
+	 Timer_Create = function(self)
+		local scaler = CreateFrame("Frame", nil, self)
+		scaler:SetAllPoints(self)
 
-	local timer = CreateFrame("Frame", nil, scaler)
-	timer:Hide()
-	timer:SetAllPoints(scaler)
-	timer:SetScript("OnUpdate", Timer_OnUpdate)
+		local timer = CreateFrame("Frame", nil, scaler)
+		timer:Hide()
+		timer:SetAllPoints(scaler)
+		timer:SetScript("OnUpdate", Timer_OnUpdate)
 
-	local text = timer:CreateFontString(nil, "OVERLAY")
-	text:SetPoint("CENTER", 1, 0)
-	text:SetJustifyH("CENTER")
-	timer.text = text
+		local text = timer:CreateFontString(nil, "OVERLAY")
+		text:SetPoint("LEFT", -2, 0)
+		text:SetPoint("RIGHT", 3, 0)
 
-	Timer_OnSizeChanged(timer, scaler:GetSize())
-	scaler:SetScript("OnSizeChanged", function(_, ...) Timer_OnSizeChanged(timer, ...) end)
+		text:SetJustifyH("CENTER")
+		timer.text = text
 
-	self:SetHideCountdownNumbers(true)
-	self:GetRegions():SetAlpha(0)	-- Hide Blizzard cd text
+		Timer_OnSizeChanged(timer, scaler:GetSize())
+		scaler:SetScript("OnSizeChanged", function(_, ...) Timer_OnSizeChanged(timer, ...) end)
 
-	self.timer = timer
-	return timer
+		self:SetHideCountdownNumbers(true)
+		self:GetRegions():SetAlpha(0)	-- Hide Blizzard cd text
+
+		self.timer = timer
+		return timer
+	end
+else
+	Timer_Create = function(self)
+		local scaler = CreateFrame("Frame", nil, self)
+		scaler:SetAllPoints(self)
+
+		local timer = CreateFrame("Frame", nil, scaler)
+		timer:Hide()
+		timer:SetAllPoints(scaler)
+		timer:SetScript("OnUpdate", Timer_OnUpdate)
+
+		local text = timer:CreateFontString(nil, "OVERLAY")
+		text:SetPoint("CENTER", 1, 0)
+
+		text:SetJustifyH("CENTER")
+		timer.text = text
+
+		Timer_OnSizeChanged(timer, scaler:GetSize())
+		scaler:SetScript("OnSizeChanged", function(_, ...) Timer_OnSizeChanged(timer, ...) end)
+
+		self:SetHideCountdownNumbers(true)
+		self:GetRegions():SetAlpha(0)	-- Hide Blizzard cd text
+
+		self.timer = timer
+		return timer
+	end
 end
 
 local Cooldown_MT = getmetatable(_G.ActionButton1Cooldown).__index
@@ -121,6 +151,12 @@ end
 
 hooksecurefunc(Cooldown_MT, "SetCooldown", function(cooldown, start, duration, modRate)
 	if cooldown.noCooldownCount or cooldown:IsForbidden() or hideNumbers[cooldown] then return end
+
+	local frameName = cooldown.GetName and cooldown:GetName()
+	if frameName and strfind(frameName, "WeakAuras") then
+		cooldown.noCooldownCount = true
+		return
+	end
 
 	local show = (start and start > 0) and (duration and duration > 2) and (modRate == nil or modRate > 0)
 
