@@ -13,6 +13,10 @@ local function LoadSkin()
 	frame.ShadowOverlay:Hide()
 
 	frame.ClosePanelButton:SkinButton()
+
+	if IsVik then
+		SubscriptionInterstitialFrame:Kill()
+	end
 end
 
 T.SkinFuncs["Blizzard_SubscriptionInterstitialUI"] = LoadSkin

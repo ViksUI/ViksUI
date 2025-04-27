@@ -5197,48 +5197,6 @@ OnLogon:RegisterEvent("PLAYER_LOGIN")
 OnLogon:SetScript("OnEvent", function(self)
 	self:UnregisterEvent("PLAYER_LOGIN")
 
-	-- TODO delete old variable
-	if SavedOptions then
-		ViksUISettings = SavedOptions
-		SavedOptions = nil
-	end
-
-	if SavedStats then
-		ViksUIStats = SavedStats
-		SavedStats = nil
-	end
-
-	if SavedBindings then
-		ViksUIBindings = SavedBindings
-		SavedBindings = nil
-	end
-
-	if SavedCurrency then
-		ViksUICurrency = SavedCurrency
-		SavedCurrency = nil
-	end
-
-	if ViksUISettings == nil then ViksUISettings = {} end
-	if not ViksUISettings.Migrated then
-		if SavedOptionsPerChar then
-
-			if SavedOptionsPerChar.UFPos then
-				SavedPositions.UFPos = SavedOptionsPerChar.UFPos
-				SavedOptionsPerChar.UFPos = nil
-				StaticPopup_Show("INSTALL_UI")
-			end
-			ViksUISettingsPerChar = SavedOptionsPerChar
-			SavedOptionsPerChar = nil
-		end
-
-		if SavedPositions then
-			ViksUIPositions = SavedPositions
-			SavedPositions = nil
-		end
-
-		ViksUISettings.Migrated = true
-	end
-
 	-- Create empty CVar if they doesn't exist
 	if ViksUISettings == nil then ViksUISettings = {} end
 	if ViksUIPositions == nil then ViksUIPositions = {} end
