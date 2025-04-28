@@ -1656,6 +1656,8 @@ C["filger_spells"] = {
 			{spellID = 9484, unitID = "focus", caster = "player", filter = "DEBUFF"},
 			-- Psychic Scream
 			{spellID = 8122, unitID = "focus", caster = "player", filter = "DEBUFF"},
+			-- Dominate Mind
+			{spellID = 205364, unitID = "focus", caster = "player", filter = "DEBUFF"},
 		},
 		{
 			Name = "COOLDOWN",
@@ -3102,8 +3104,10 @@ C["filger_spells"] = {
 			-- Holy Ward
 			{spellID = 213610, unitID = "target", caster = "all", filter = "BUFF"},
 			-- Debuffs
-			-- Dominate Mind
+			-- Mind Control
 			{spellID = 605, unitID = "target", caster = "all", filter = "DEBUFF"},
+			-- Dominate Mind
+			{spellID = 205364, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Psychic Horror
 			{spellID = 64044, unitID = "target", caster = "all", filter = "DEBUFF"},
 			-- Psychic Scream
