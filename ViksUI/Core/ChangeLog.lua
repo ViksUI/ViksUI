@@ -3,6 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 "Changes:",
+	"Update 11.37 ",
+	"• Fix for Itemlevel",
+	"• More fix for Cooldown timer",
+	"• Still traveling so short list here, check github",
+	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.37",
 	"Update 11.36 ",
 	"• Some updates for 11.1.5",
 	"• Still traveling so short list here, check github",
