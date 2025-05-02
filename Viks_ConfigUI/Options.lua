@@ -3620,9 +3620,12 @@ do
 
 	local meters = ns.CreateCheckBox(parent, "meters")
 	meters:SetPoint("TOPLEFT", markbar, "BOTTOMLEFT", 0, 0)
+	
+	local meters_show = ns.CreateCheckBox(parent, "meters_show")
+	meters_show:SetPoint("TOPLEFT", meters, "BOTTOMLEFT", 20, 0)
 
 	local classtimer = ns.CreateCheckBox(parent, "classtimer")
-	classtimer:SetPoint("TOPLEFT", meters, "BOTTOMLEFT", 0, 0)
+	classtimer:SetPoint("TOPLEFT", meters_show, "BOTTOMLEFT", -20, 0)
 
 	local BT4Bars = ns.CreateCheckBox(parent, "BT4Bars")
 	BT4Bars:SetPoint("TOPLEFT", classtimer, "BOTTOMLEFT", 0, 0)

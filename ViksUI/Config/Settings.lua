@@ -126,6 +126,7 @@ C["misc"] = {
 	["GameMenuBar"] = true,						-- Show Game Menu Bar
 	["XPBar"] = true,							-- XP/Honor/Rep bar above chat windows
 	["meters"] = true,							-- Show button for toggle dps meters and move chat (only in line layout)
+	["meters_show"] = true,						-- Show meters and hide Chat by default on login
 	["InfoPanel_Stats"] = true,					-- Stats Panel with info from https://www.icy-veins.com
 }
 

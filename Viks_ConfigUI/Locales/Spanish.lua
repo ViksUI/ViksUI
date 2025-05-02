@@ -852,6 +852,8 @@ L.misc_InfoPanel_Stats_desc = "Will show stats panel above character panel with 
 L.misc_XPBar = "Enable XP/REP/HONOR Bars above chat windows" -- Needs review
 L.misc_meters = "Skada/Details Toggle & Chat Move for NoPanel" -- Needs review
 L.misc_meters_desc = "For double chat and NoPanel Layout. Will swap bethween Chat and Dmg meters on right side" -- Needs review
+L.misc_meters_show = "Hide Chat on startup" -- Needs review
+L.misc_meters_show_desc = "Enabled will hide chat, disabled will hide details as default on enter world" -- Needs review
 -- Extra
 L_GUI_DATATEXT = "DataText" -- Needs review
 L_GUI_DATATEXT_SUBTEXT = "DataText positions. From left to right. Bottom is nr 1 to 6 and Top is 7 to 13." -- Needs review

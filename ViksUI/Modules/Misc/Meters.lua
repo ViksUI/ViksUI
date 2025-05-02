@@ -15,13 +15,13 @@ if C_AddOns.IsAddOnLoaded('Skada') or C_AddOns.IsAddOnLoaded('Details') or C_Add
 	RIGHTChatline:SetFrameLevel(15)
 	ShowHideMeters:SetPoint("LEFT", RIGHTChatline, "LEFT", 0, 0)
 	if C_AddOns.IsAddOnLoaded('Skada') then
-		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Kill()\n/Skada toggle")
+		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/Skada toggle")
 	end
 	if C_AddOns.IsAddOnLoaded('Recount') then
-		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Kill()\n/recount toggle")
+		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/recount toggle")
 	end
 	if C_AddOns.IsAddOnLoaded('Details') then
-		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Kill()\n/details toggle")
+		ShowHideMeters:SetAttribute("macrotext1", "/run ChatFrame4:SetAlpha(0)\n/run ChatFrame4Tab:Hide()\n/details toggle")
 	end
 	ShowHideMeters:SetAlpha(0)
 
@@ -88,5 +88,28 @@ if C_AddOns.IsAddOnLoaded('Skada') or C_AddOns.IsAddOnLoaded('Details') or C_Add
 	resetChat:SetScript("OnLeave", function(self)
 		resetChatText:SetTextColor(unpack(C.media.pxcolor1))
 		GameTooltip:Hide()
+	end)
+
+	local function HideChatFrameOnLogin()
+		if C.misc.meters_show then
+			if ChatFrame4 then
+				ChatFrame4:SetAlpha(0)
+				if ChatFrame4Tab then
+					ChatFrame4Tab:Hide()
+				end
+			end
+		else
+			if C_AddOns.IsAddOnLoaded('Details') then -- Need to add for other damage meters, unsure if they have hide command like details
+				DEFAULT_CHAT_FRAME.editBox:SetText("/details hide") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0)
+			end
+		end
+	end
+
+	local EventFrame = CreateFrame("Frame")
+	EventFrame:RegisterEvent("PLAYER_LOGIN")
+	EventFrame:SetScript("OnEvent", function(self, event, ...)
+		if event == "PLAYER_LOGIN" then
+			HideChatFrameOnLogin()
+		end
 	end)
 end
