@@ -4,7 +4,7 @@ local T, C, L = unpack(ViksUI)
 --	Move ObjectiveTrackerFrame and hide background
 ----------------------------------------------------------------------------------------
 local anchor = CreateFrame("Frame", "ObjectiveTrackerAnchor", UIParent)
-anchor:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, 10)
+anchor:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, -14)
 anchor:SetSize(224, 150)
 
 ObjectiveTrackerFrame.IsUserPlaced = function() return true end
