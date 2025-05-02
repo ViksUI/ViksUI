@@ -1556,7 +1556,7 @@ C["filger_spells"] = {
 			-- Spirit of Redemption
 			{spellID = 27827, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Divinity
-			{spellID = 197030, unitID = "player", caster = "player", filter = "BUFF"},
+			-- {spellID = 197030, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Power of the Naaru
 			{spellID = 196490, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Archangel
