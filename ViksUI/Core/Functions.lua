@@ -309,6 +309,7 @@ T.CreateBtn = function(buttonname, buttonparent, buttonwidth, buttonheight, tool
 
 	-- Overlay texture
 	button:CreateOverlay()
+	return button
 end
 
 function T:HandleButton(f, strip, isDeclineButton)
