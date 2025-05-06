@@ -211,9 +211,9 @@ CreateWorldMarkerButtons(Line02, worldMarkerData, clearWorldMarkers, RaidToolsTo
 local raidCommandButtons = {
     {
         name = "pulltimer",
-        tooltip = "Start a DBM pull timer",
+        tooltip = "Start a 10s pull timer",
         text = "Pull",
-        macro = "/dbm pull 10",
+        macro = "/pull 10",
         size = { width = RaidToolsWidth / 5.5, height = 19 },
         texture = nil,
     },
