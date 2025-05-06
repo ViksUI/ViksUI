@@ -231,6 +231,46 @@ T.PlateDangerous = { --NpcColor_HighPri /Blue Hex 1242b0
 	-- The Stonevault
 	["214264"] = "Frontal: Unbridled Void", -- Cursedforge Honor Guard
 	["221979"] = "Piercing Wail ".. "\n".. "Party-wide AOE damage that stacks with each cast", -- Void Bound Howler
+	-- Cinderbrew Meadery
+	["220141"] = "Todo", -- Royal Jelly Purveyor
+	["220060"] = "Todo", -- Taste Tester
+	["218671"] = "Todo", -- Venture Co. Pyromaniac
+
+	-- Darkflame Cleft
+	["211228"] = "Todo", -- Blazing Fiend
+	["220815"] = "Todo", -- Blazing Fiend
+	["223777"] = "Todo", -- Blazing Fiend
+	["223776"] = "Todo", -- Blazing Fiend
+	["223774"] = "Todo", -- Blazing Fiend
+	["223770"] = "Todo", -- Blazing Fiend
+	["223775"] = "Todo", -- Blazing Fiend
+	["223772"] = "Todo", -- Blazing Fiend
+	["223773"] = "Todo", -- Blazing Fiend
+	["213913"] = "Todo", -- Kobold Flametender
+	["210812"] = "Todo", -- Royal Wicklighter
+	["208456"] = "Todo", -- Shuffling Horror
+
+	-- The Rookery
+	["214439"] = "Todo", -- Corrupted Oracle
+	["207198"] = "Todo", -- Cursed Thunderer
+	["212793"] = "Todo", -- Void Ascendant
+
+	-- Priory of the Sacred Flame
+	["206698"] = "Todo", -- Fanatical Conjuror
+	["221760"] = "Todo", -- Risen Mage
+
+	-- Operation: Floodgate
+	["231223"] = "Todo", -- Disturbed Kelp
+	["229069"] = "Todo", -- Mechadrone Sniper
+	["231496"] = "Todo", -- Venture Co. Diver
+	["231312"] = "Todo", -- Venture Co. Electrician
+	["229686"] = "Todo", -- Venture Co. Surveyor
+
+	-- The MOTHERLODE
+	["134232"] = "Todo", -- Hired Assassin
+	["130635"] = "Todo", -- Stonefury
+	["133432"] = "Todo", -- Venture Co. Alchemist
+	["130661"] = "Todo", -- Venture Co. Earthshaper
 }
 
 T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs that have spells that should be tracked/interupted.
@@ -474,6 +514,19 @@ T.PlateImportant = { -- NpcColor_SemiPri / Baby Blue color, Hex 65cccc   - Mobs 
 	["212403"] = "Todo ".. "\n".. "Interrupt", -- Cursedheart Invader
 	["212389"] = "Todo ".. "\n".. "Interrupt", -- Cursedheart Invader
 	["212765"] = "Todo ".. "\n".. "Interrupt", -- Void Bound Despoiler
+	-- Cinderbrew Meadery
+	["218865"] = "Todo", -- Bee-let
+
+	-- Darkflame Cleft
+	["210148"] = "Todo", -- Menial Laborer
+	["210810"] = "Todo", -- Menial Laborer
+
+	-- The Rookery
+	["214419"] = "Todo", -- Void Cursed Crusher
+
+	-- Priory of the Sacred Flame
+	["206696"] = "Todo", -- Arathi Knight
+	["206699"] = "Todo", -- War Lynx
 }
 
 T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
@@ -735,6 +788,35 @@ T.PlateNuke = { -- NpcColor_Nuke / Green Hex 1cdb5c
 	["212453"] = "Interrupt: Howling Fear ".. "\n".. "AoE Fear", -- Ghastly Voidsoul
 	["213217"] = "Top Pri ".. "\n".. "Kill ASAP", -- Speaker Brokk
 	["214350"] = "Silence: Censoring Gear ".. "\n".. "Silences the target", -- Turned Speaker
+	-- Cinderbrew Meadery
+	["210264"] = "Todo", -- Bee Wrangler
+	["219301"] = "Todo", -- Brew Drop
+	["214697"] = "Todo", -- Chef Chewie
+	["220368"] = "Todo", -- Failed Batch
+	["218016"] = "Todo", -- Ravenous Cinderbee
+
+	-- Darkflame Cleft
+	["210818"] = "Todo", -- Lowly Moleherd
+	["213008"] = "Todo", -- Wriggling Darkspawn
+
+	-- The Rookery
+	["207199"] = "Todo", -- Cursed Rooktender
+	["213741"] = "Todo", -- Voidstone Awakened
+
+	-- Priory of the Sacred Flame
+	["206697"] = "Todo", -- Devout Priest
+
+	-- Operation: Floodgate
+	["230748"] = "Todo", -- Darkfuse Bloodwarper
+	["229252"] = "Todo", -- Darkfuse Hyena
+	["231176"] = "Todo", -- Scaffolding
+
+	-- The MOTHERLODE
+	["133482"] = "Todo", -- Crawler Mine
+	["129802"] = "Todo", -- Earthrager
+	["136470"] = "Todo", -- Refreshment Vendor
+	["133430"] = "Todo", -- Venture Co. Mastermind
+	["132056"] = "Todo", -- Venture Co. Skyscorcher
 }
 
 T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs that are dangerous due to dmg done to tank or group
@@ -1018,6 +1100,47 @@ T.PlateT3Mobs = { -- NpcColor_T3, Light Orange Color, Hex ff9e82. This is mobs t
 	["210156"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- SkarmorakLight
 	["213216"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Speaker DorlitaLight
 	["212400"] = "Todo ".. "\n".. "Frontal or Hard Hitting", -- Void Touched ElementalLight
+	-- Cinderbrew Meadery
+	["210269"] = "Todo", -- Hired Muscle
+	["220946"] = "Todo", -- Venture Co. Honey Harvester
+	["223423"] = "Todo", -- Careless Hopgoblin
+
+	-- Darkflame Cleft
+	["210539"] = "Todo", -- Corridor Creeper
+	["211121"] = "Todo", -- Rank Overseer
+	["212411"] = "Todo", -- Torchsnarl
+	["208450"] = "Todo", -- Wandering Candle
+	["212412"] = "Todo", -- Sootsnout
+
+	-- The Rookery
+	["214421"] = "Todo", -- Coalescing Void Diffuser
+	["212739"] = "Todo", -- Radiating Voidstone
+	["212786"] = "Todo", -- Voidrider
+	["209801"] = "Todo", -- Quartermaster Koratite
+
+	-- Priory of the Sacred Flame
+	["206704"] = "Todo", -- Ardent Paladin
+	["212831"] = "Todo", -- Forge Master Damian
+	["212826"] = "Todo", -- Guard Captain Suleyman
+	["212827"] = "Todo", -- High Priest Aemya
+	["239836"] = "Todo", -- Sergeant Shaynemail
+	["217658"] = "Todo", -- Sir Braunpyke
+	["207946"] = "Todo", -- Captain Dailcry
+
+	-- Operation: Floodgate
+	["231325"] = "Todo", -- Darkfuse Jumpstarter
+	["226402"] = "Todo", -- Bront
+	["231197"] = "Todo", -- Bubbles
+	["231385"] = "Todo", -- Darkfuse Inspector
+	["228424"] = "Todo", -- Darkfuse Mechadrone
+	["230740"] = "Todo", -- Shreddinator 3000
+
+	-- The MOTHERLODE
+	["136643"] = "Todo", -- Azerite Extractor
+	["136139"] = "Todo", -- Mechanized Peacekeeper
+	["134012"] = "Todo", -- Taskmaster Askari
+	["133463"] = "Todo", -- Venture Co. War Machine
+	["130435"] = "Todo", -- Addled Thug
 }
 
 T.PlateTides = {
