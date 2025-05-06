@@ -5461,3 +5461,30 @@ SlashCmdList.SETTINGS = function(msg)
 	end
 end
 SLASH_SETTINGS1 = "/settings"
+
+if IsVik then
+	-- Function to check and set the Bartender4 profile
+	local function CheckBartender4Profiles()
+		-- Ensure Bartender4 is loaded
+		if not C_AddOns.IsAddOnLoaded("Bartender4") then
+			print("Bartender4 is not loaded.")
+			return
+		end
+
+		-- Get the current profile of Bartender4
+		local currentProfile = Bartender4.db:GetCurrentProfile()
+
+		-- Check if the profile starts with "ViksUI"
+		if not currentProfile:match("^ViksUI") then
+			-- Ensure ViksUISettingsPerChar is defined
+			if ViksUIOptions.panels.NoPanels then
+				StaticPopup_Show("SET_BTLine")
+			else
+				StaticPopup_Show("SET_BT")
+			end
+		end
+	end
+
+	-- Run the function to check and set the Bartender4 profile
+	CheckBartender4Profiles()
+end
