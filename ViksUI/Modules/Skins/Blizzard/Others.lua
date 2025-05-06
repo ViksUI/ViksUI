@@ -401,7 +401,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			end
 
 			local function SkinNavBarButtons(self)
-				if self:GetParent():GetName() == "WorldMapFrame" then return end
+				-- if self:GetParent():GetName() == "WorldMapFrame" then return end
 				local total = #self.navList
 				local navButton = self.navList[total]
 				if navButton then
@@ -419,7 +419,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 							navButton.MenuArrowButton:SetHighlightTexture(0)
 						end
 
-						navButton.xoffset = 1
+						-- navButton.xoffset = 1
 						navButton.isSkinned = true
 					end
 				end
