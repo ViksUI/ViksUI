@@ -71,7 +71,8 @@ function ViksUI_STATS:Update()
         local classcolor = T.RGBToHex(unpack(C.media.border_color))
         local statcolor = T.RGBToHex(class.r, class.g, class.b)
         local sId, specName = GetSpecializationInfo(GetSpecialization())
-		if not specIndex then
+		local specIndex = GetSpecialization()
+		if specIndex == 5 or nil then
             ViksUI_STATStxt:SetText(classcolor .. "No Specialization Selected")
             ViksUI_STATS:SetPoint("TOPLEFT", CharacterFrame, "TOPLEFT", 0, 30)
             return

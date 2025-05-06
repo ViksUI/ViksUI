@@ -3,7 +3,7 @@ local T, C, L = unpack(ViksUI)
 -- InfoStats.lua
 -- This file contains the stats information for all classes and specializations.
 
-local InfoStats = {}
+InfoStats = {}
 --DH Havoc
 
 InfoStats["DEMONHUNTER-577"] = "Fel-Scarred: Crit > Mastery > Haste > Versatility > Agility \n Aldrachi Reaver: Crit > Mastery > Haste > Versatility > Agility "
