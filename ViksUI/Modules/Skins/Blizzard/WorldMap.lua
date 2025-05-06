@@ -227,6 +227,19 @@ local function LoadSkin()
 		end
 	end
 
+	local isSettingPoint = false -- Guard variable
+
+	local function PositionTabIcons(icon, _, anchor)
+		if isSettingPoint then return end -- Prevent recursive calls
+		isSettingPoint = true
+
+		if anchor and icon then
+			icon:SetPoint("CENTER", 1, -1) -- Adjust the offsets
+		end
+
+		isSettingPoint = false
+	end
+	
 	local tabs = {
 		QuestMapFrame.QuestsTab,
 		QuestMapFrame.MapLegendTab,
@@ -246,7 +259,13 @@ local function LoadSkin()
 		tab.SelectedTexture:SetPoint("TOPLEFT", 4, -4)
 		tab.SelectedTexture:SetPoint("BOTTOMRIGHT", -4, 4)
 		tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
-
+		
+		if tab.Icon then
+			tab.Icon:ClearAllPoints()
+			tab.Icon:SetPoint("CENTER", 1, -1) -- Adjust the offsets
+			hooksecurefunc(tab.Icon, 'SetPoint', PositionTabIcons) -- Reposition icon on click
+		end
+		
 		for _, region in next, {tab:GetRegions()} do
 			if region:IsObjectType("Texture") then
 				if region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
@@ -259,7 +278,7 @@ local function LoadSkin()
 	end
 
 	QuestMapFrame.QuestsTab:ClearAllPoints()
-	QuestMapFrame.QuestsTab:SetPoint("TOPLEFT", QuestMapFrame.backdrop, "TOPRIGHT", 1, 2)
+	QuestMapFrame.QuestsTab:SetPoint("TOPLEFT", QuestMapFrame.backdrop, "TOPRIGHT", 8, 2)
 
 	-- Map Legend frame
 	do
