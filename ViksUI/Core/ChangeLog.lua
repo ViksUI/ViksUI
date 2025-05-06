@@ -2,7 +2,16 @@ local T, C, L = unpack(ViksUI)
 
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
-"Changes:",
+	"Changes:",
+	"Update 11.38 ",
+	"• RaidTools rewritten. Usable in combat",
+	"• Meters Button: Hide chat by default (config)",
+	"• Filger spells added",
+	"• [Filger] Added new option to show Aura bars on player.",
+	"• [NpcColor] Added S2 mobs ID to list. Need to add info",
+	"• [Datatext] Volume should now save correct ",
+	"• [InfoPanels] Improve code",
+	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.38",
 	"Update 11.37 ",
 	"• Fix for Itemlevel",
 	"• More fix for Cooldown timer",
@@ -16,15 +25,6 @@ local ChangeLogData = {
 	"• Some updates for 11.1.5",
 	"• Still traveling so short list here, check github",
 	"• check: https://github.com/ViksUI/ViksUI/releases",	
-	"Update 11.34 ",
-	"• More fixes",
-	"• Still traveling so short list here, check github",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-	"Update 11.33 ",
-	"• More fixes",
-	"• New version due to wrong github packaging",
-	"• check: https://github.com/ViksUI/ViksUI/releases",
-
 " ",
 "EXTRA:",
 "Added Wow gift button and buymeacoffee button here on /changelog",

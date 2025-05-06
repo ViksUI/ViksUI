@@ -394,8 +394,11 @@ L_GUI_NAMEPLATE_OFFTANK_COLOR = "Coloration de la menace du tank secondaire"
 L.nameplate_extra_color = "Couleur d'affix pour explosif et méchant"
 L.nameplate_mob_color_enable = "Changer de couleur pour les mobs importants dans les donjons"
 L.nameplate_mob_color = "Couleur pour les mobs"
+L.nameplate_mob_color_alt = "Second color for mobs" -- Need review
 L.nameplate_mob_color_list = "List of mobs" -- Need review
 L.nameplate_mob_color_list_desc = "List of npc id (separated by space)" -- Need review
+L.nameplate_mob_color_alt_list = L.nameplate_mob_color_list
+L.nameplate_mob_color_alt_list_desc = L.nameplate_mob_color_list_desc
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Texte de combat"
@@ -507,6 +510,7 @@ L.filger_show_buff = "Buffs du joueur"
 L.filger_show_proc = "Procs du joueur"
 L.filger_show_debuff = "Debuffs sur la cible"
 L.filger_show_aura_bar = "Barre d'aura sur la cible"
+L.filger_show_aura_bar_player = "Aura bars on player" -- Need review
 L.filger_show_special = "Buffs spéciaux sur le joueur"
 L.filger_show_pvp_player = "Debuffs JcJ sur le joueur"
 L.filger_show_pvp_target = "Auras JcJ sur la cible"
