@@ -4,11 +4,7 @@ local cfg = ns.cfg
 local lib = ns.lib
 local cast = ns.cast
 local _, playerClass = UnitClass("player")
-local cast = CreateFrame("Frame")  
 local oUF = ns.oUF or oUF
-
-ns._Objects = {}
-ns._Headers = {}
 
   -----------------------------
   -- Aura FUNCTIONS
@@ -270,7 +266,7 @@ local UnitSpecific = {
 	end,
 	
 	pet = function(self, ...)
-		local _, playerClass = UnitClass("player")
+		-- local _, playerClass = UnitClass("player")
 		
 		self.mystyle = "pet"
 		--self:SetParent(PetBattleHider)
@@ -397,7 +393,8 @@ local UnitSpecific = {
 		self.Health.PostUpdate = lib.PostUpdateRaidFrame
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', lib.ChangedTarget)
 		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", lib.UpdateThreat)
-		self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)															  
+		self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", lib.UpdateThreat)
+		self:RegisterEvent("PLAYER_LEAVE_COMBAT", lib.UpdateThreat)		
 		
 	end,
 
