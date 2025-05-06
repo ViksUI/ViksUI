@@ -92,19 +92,7 @@ local function OnEvent(self, event, ...)
 end
 
 local function Click(self, button)
-	local prof1, prof2, archy, _, cooking = GetProfessions()
-	if button == "LeftButton" then
-		if IsShiftKeyDown() and archy ~= nil then
-		local name, _, _, _, _, _, _, _ = GetProfessionInfo(IsShiftKeyDown() and archy)
-		CastSpellByName(name == "Mining" and "Smelting" or name)
-		elseif prof1 == nil then return end
-		ToggleProfessionsBook()
-	elseif button == "RightButton" then
-		if IsShiftKeyDown() and cooking == nil then return
-		elseif not IsShiftKeyDown() and prof2 == nil then return end
-		local name, _, _, _, _, _, _, _ = GetProfessionInfo(IsShiftKeyDown() and cooking or prof2)
-		CastSpellByName(name == "Mining" and "Smelting" or name)
-	end
+	ToggleProfessionsBook()
 end
 
 local function OnEvent(self)
@@ -175,15 +163,6 @@ local function OnEvent(self)
 	for i = 1, #professions do
 		GameTooltip:AddDoubleLine(join("", professions[i].texture, "  ", professions[i].name), join("", professions[i].rank, " / ", professions[i].rank), 1, 1, 1, 1, 1, 1)
 	end
-	
-	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine("Left Click:", "Open Profession page", 1, 1, 1, 1, 1, 0)
-	if prof2 ~= nil then
-		GameTooltip:AddDoubleLine("Right Click:", "Open " .. GetProfessionName(prof2), 1, 1, 1, 1, 1, 0)
-	end
-	GameTooltip:AddDoubleLine("Shift + Left Click:", "Open Archaeology", 1, 1, 1, 1, 1, 0)
-	GameTooltip:AddDoubleLine("Shift + Right Click:", "Open Cooking", 1, 1, 1, 1, 1, 0)
-	
 	GameTooltip:Show()
 	end)
 	self:SetScript("OnLeave", function() GameTooltip:Hide() end)
