@@ -1,17 +1,12 @@
 local T, C, L = unpack(ViksUI)
 
---Lua functions
-local select = select
 local format, join = string.format, string.join
 local ceil = math.ceil
 local strform = string.format
-local tonumber = tonumber
-local tostring = tostring
 
 --WoW API / Variables
-local L_EasyMenu = L_EasyMenu
-local setCV = SetCVar
-local getCV = GetCVar
+local setCV = C_CVar.SetCVar
+local getCV = C_CVar.GetCVar
 local IsShiftKeyDown = IsShiftKeyDown
 
 if C.datatext.Volume and C.datatext.Volume > 0 then
@@ -140,6 +135,7 @@ local function OnEvent(self, event, ...)
 				GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, 1)
 				GameTooltip:ClearLines()
 				GameTooltip:AddDoubleLine("Scroll to change volume level")
+				GameTooltip:AddDoubleLine("Shift+Scroll for 10%")
 				GameTooltip:AddDoubleLine("Click to switch volum type")
 				GameTooltip:Show()
 			end
@@ -160,7 +156,6 @@ Stat:SetScript("OnMouseDown", function(self)
 	OnEvent(self, nil, nil)
 end)
 
---Stat:RegisterEvent("CVAR_UPDATE")
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
 Stat:SetScript("OnEvent", OnEvent)
 
