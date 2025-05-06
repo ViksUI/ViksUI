@@ -52,6 +52,7 @@ C["position"] = {
 		["pve_cc"] = {"LEFT", UIParent, "CENTER", 280, 38},							-- "PVE/PVP_CC"
 		["cooldown"] = {"RIGHT", UIParent, "CENTER", -416, -234},					-- "COOLDOWN"
 		["target_bar"] = {"LEFT", UIParent, "CENTER", 556, -140},					-- "T_DE/BUFF_BAR"
+		["player_bar"] = {"RIGHT", UIParent, "CENTER", -416, -200},					-- "P_BUFF_BAR"
 	},
 	-- Miscellaneous positions
 	["minimap"] = {"TOPRIGHT", UIParent, "TOPRIGHT", -3, -(C.panels.yoffset+C.panels.CPbarsheight+2)},				-- Minimap
