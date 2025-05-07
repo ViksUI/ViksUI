@@ -306,3 +306,119 @@ hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
 		SetupFlyoutLevel(button, nil, slot)
 	end
 end)
+
+	-- Helper Functions for Upgrade Icons
+local function GetUpgradeIcon(itemLink)
+	if not itemLink then return nil end
+
+	local itemUpgradeData = C_Item.GetItemUpgradeInfo(itemLink)
+	if not itemUpgradeData then return nil end
+
+	-- Define icons for upgrade categories
+	local categoryIcons = {
+		[970] = "|TInterface\\AddOns\\ViksUI\\Media\\Other\\GrayArrow.png:18:18|t", 	-- Explorer
+		[971] = "|TInterface\\AddOns\\ViksUI\\Media\\Other\\GrayArrow.png:18:18|t", 	-- Adventurer
+		[972] = "|TInterface\\AddOns\\ViksUI\\Media\\Other\\WhiteArrow.png:18:18|t", 	-- Veteran
+		[973] = "|TInterface\\AddOns\\ViksUI\\Media\\Other\\GreenArrow.png:18:18|t", 	-- Champion
+		[974] = "|TInterface\\AddOns\\ViksUI\\Media\\Other\\BlueArrow.png:18:18|t", 	-- Hero
+		[978] = "|TInterface\\AddOns\\ViksUI\\Media\\Other\\EpicArrow.png:18:18|t", 	-- Myth
+	}
+
+	return categoryIcons[itemUpgradeData.trackStringID]
+end
+
+local function UpdateSlotIcon(slot, slotNumber)
+    if not slot then return end
+
+    -- Create or update the upgrade icon for the slot
+    if not slot.UpgradeIcon then
+        slot.UpgradeIcon = slot:CreateFontString(nil, "OVERLAY", "GameTooltipText")
+    end
+	
+	local slotNumber = slot and slot:GetID()
+	if not slotNumber then
+		return -- Exit early if slotNumber is nil
+	end
+	
+    -- Determine the position based on slot number
+    if (slotNumber >= 1 and slotNumber <= 5) or slotNumber == 9 or slotNumber == 15 then
+        -- Grouped position for slots 1 to 5 and 9
+        slot.UpgradeIcon:SetPoint("BOTTOMLEFT", slot, "BOTTOMRIGHT", 6, 2)
+	elseif (slotNumber >= 6 and slotNumber <= 8) or (slotNumber >= 10 and slotNumber <= 14)then
+        -- Grouped position for slots 1 to 5 and 9
+        slot.UpgradeIcon:SetPoint("BOTTOMRIGHT", slot, "BOTTOMLEFT", -6, 2)
+	elseif slotNumber == 16 or slotNumber == 17 then
+        -- Grouped position for slots 1 to 5 and 9
+        slot.UpgradeIcon:SetPoint("BOTTOM", slot, "TOP", 0, 6)
+    else
+        -- Default position for other slots
+        slot.UpgradeIcon:SetPoint("TOPRIGHT", slot, "TOPRIGHT", -2, -2)
+    end
+
+    -- Update the icon text
+    local itemLink = GetInventoryItemLink("player", slot:GetID())
+    local icon = GetUpgradeIcon(itemLink)
+
+    if icon then
+        slot.UpgradeIcon:SetText(icon)
+        slot.UpgradeIcon:Show()
+    else
+        slot.UpgradeIcon:Hide()
+    end
+end
+
+local INVSLOT_NAMES = {
+    [1] = "HeadSlot",
+    [2] = "NeckSlot",
+    [3] = "ShoulderSlot",
+    [4] = "ShirtSlot", -- Optional
+    [5] = "ChestSlot",
+    [6] = "WaistSlot",
+    [7] = "LegsSlot",
+    [8] = "FeetSlot",
+    [9] = "WristSlot",
+    [10] = "HandsSlot",
+    [11] = "Finger0Slot",
+    [12] = "Finger1Slot",
+    [13] = "Trinket0Slot",
+    [14] = "Trinket1Slot",
+    [15] = "BackSlot",
+    [16] = "MainHandSlot",
+    [17] = "SecondaryHandSlot"
+}
+
+local function UpdateEquipmentSlots()
+	local slots = INVSLOT_NAMES
+
+	for _, slotName in pairs(slots) do
+		local slot = _G["Character" .. slotName]
+		UpdateSlotIcon(slot)
+	end
+end
+
+-- Hook Events to Update Icons Dynamically
+local function HookSlotEvents()
+	-- Update slots whenever the character frame is shown
+	CharacterFrame:HookScript("OnShow", UpdateEquipmentSlots)
+
+	-- Update slots when equipment changes
+	EventRegistry:RegisterFrameEventAndCallback("PLAYER_EQUIPMENT_CHANGED", function(_, slotIndex)
+		local slot = _G["Character" .. (slotIndex and _G.INVSLOT_NAMES[slotIndex] or "")]
+		UpdateSlotIcon(slot)
+	end)
+end
+
+EventRegistry:RegisterFrameEventAndCallback("PLAYER_EQUIPMENT_CHANGED", function(_, slotIndex)
+    if slotIndex then
+        local slotName = INVSLOT_NAMES[slotIndex]
+        if slotName then
+            local slot = _G["Character" .. slotName]
+            UpdateSlotIcon(slot, slotIndex)
+        end
+    else
+        UpdateEquipmentSlots()
+    end
+end)
+
+-- Initialize the functionality
+HookSlotEvents()
