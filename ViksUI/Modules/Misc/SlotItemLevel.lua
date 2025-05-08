@@ -327,6 +327,28 @@ local function GetUpgradeIcon(itemLink)
 	return categoryIcons[itemUpgradeData.trackStringID]
 end
 
+-- Fallback for INVSLOT_NAMES if it is not defined
+if not _G.INVSLOT_NAMES then
+    _G.INVSLOT_NAMES = {
+        [1] = "HeadSlot",
+        [2] = "NeckSlot",
+        [3] = "ShoulderSlot",
+        [15] = "BackSlot",
+        [5] = "ChestSlot",
+        [9] = "WristSlot",
+        [10] = "HandsSlot",
+        [6] = "WaistSlot",
+        [7] = "LegsSlot",
+        [8] = "FeetSlot",
+        [11] = "Finger0Slot",
+        [12] = "Finger1Slot",
+        [13] = "Trinket0Slot",
+        [14] = "Trinket1Slot",
+        [16] = "MainHandSlot",
+        [17] = "SecondaryHandSlot",
+    }
+end
+
 local function UpdateSlotIcon(slot, slotNumber)
     if not slot then return end
 
@@ -367,28 +389,8 @@ local function UpdateSlotIcon(slot, slotNumber)
     end
 end
 
-local INVSLOT_NAMES = {
-    [1] = "HeadSlot",
-    [2] = "NeckSlot",
-    [3] = "ShoulderSlot",
-    [4] = "ShirtSlot", -- Optional
-    [5] = "ChestSlot",
-    [6] = "WaistSlot",
-    [7] = "LegsSlot",
-    [8] = "FeetSlot",
-    [9] = "WristSlot",
-    [10] = "HandsSlot",
-    [11] = "Finger0Slot",
-    [12] = "Finger1Slot",
-    [13] = "Trinket0Slot",
-    [14] = "Trinket1Slot",
-    [15] = "BackSlot",
-    [16] = "MainHandSlot",
-    [17] = "SecondaryHandSlot"
-}
-
 local function UpdateEquipmentSlots()
-	local slots = INVSLOT_NAMES
+	local slots = _G.INVSLOT_NAMES
 
 	for _, slotName in pairs(slots) do
 		local slot = _G["Character" .. slotName]
@@ -409,14 +411,16 @@ local function HookSlotEvents()
 end
 
 EventRegistry:RegisterFrameEventAndCallback("PLAYER_EQUIPMENT_CHANGED", function(_, slotIndex)
-    if slotIndex then
-        local slotName = INVSLOT_NAMES[slotIndex]
-        if slotName then
-            local slot = _G["Character" .. slotName]
-            UpdateSlotIcon(slot, slotIndex)
-        end
+    if not _G.INVSLOT_NAMES then
+        return
+    end
+
+    local slotName = _G.INVSLOT_NAMES[slotIndex]
+    if slotName then
+        local slot = _G["Character" .. slotName]
+        UpdateSlotIcon(slot)
     else
-        UpdateEquipmentSlots()
+        print("Error: Invalid slotIndex or slotName is nil.")
     end
 end)
 
