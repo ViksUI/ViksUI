@@ -1149,11 +1149,6 @@ do
 					info.arg2 = key
 					info.checked = value == f.selectedValue
 
-					if isFont then
-						local fObject = CreateFont(info.text)
-						fObject:SetFont(value, 12, "")
-						info.fontObject = fObject
-					end
 					UIDropDownMenu_AddButton(info)
 				end
 			end)
@@ -1730,8 +1725,11 @@ do
 	local plugins_healcomm = ns.CreateCheckBox(parent, "plugins_healcomm", L_GUI_UF_PLUGINS_HEALCOMM)
 	plugins_healcomm:SetPoint("TOPLEFT", plugins_pvp_debuffs, "BOTTOMLEFT", 0, 0)
 
+	local plugins_buffs_timer = ns.CreateCheckBox(parent, "plugins_buffs_timer")
+	plugins_buffs_timer:SetPoint("TOPLEFT", plugins_pvp_debuffs, "BOTTOMLEFT", 0, 0)
+	
 	local plugins_auto_resurrection = ns.CreateCheckBox(parent, "plugins_auto_resurrection")
-	plugins_auto_resurrection:SetPoint("TOPLEFT", plugins_healcomm, "BOTTOMLEFT", 0, 0)
+	plugins_auto_resurrection:SetPoint("TOPLEFT", plugins_buffs_timer, "BOTTOMLEFT", 0, 0)
 
 	-- Panel 3
 	local parent = ViksUIOptionsPanel.unitframe3
