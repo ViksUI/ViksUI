@@ -115,7 +115,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		end)
 		if GameMenuFrame.ViksUI then
 			SkinButton(GameMenuFrame.ViksUI)
-			GameMenuFrame.ViksUI.backdrop:SetInside(button, 2, 2)
+			GameMenuFrame.ViksUI.backdrop:SetInside(GameMenuFrame.ViksUI, 2, 2)
 			local fstring = GameMenuFrame.ViksUI:GetFontString()
 			fstring:SetFont(C.media.normal_font, 14)
 		end
