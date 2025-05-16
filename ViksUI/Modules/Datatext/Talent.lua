@@ -34,7 +34,7 @@ ViksUISpecSwap:SetScript("OnEvent", function(...)
 			func = (function()
 				local getSpec = GetSpecialization()
 				if getSpec and getSpec == specIndex then
-					UIErrorsFrame:AddMessage("You're already in that spec!", 1.0, 0.0, 0.0, 53, 5);
+					UIErrorsFrame:AddMessage("You're already in that spec!", 1, 0, 0);
 					return
 				end
 				C_SpecializationInfo.SetSpecialization(specIndex)
