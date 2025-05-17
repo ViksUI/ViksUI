@@ -49,6 +49,7 @@ local TENTHS_TRESHOLD = 1
 local TRINKET_FILTER = T.ClassTimer_Trinkets
 local COMMON_FILTER = T.ClassTimer_CommonTarget
 local CLASS_FILTERS = T.ClassTimer_Classes
+local CAT_FORM = 1 -- Cat Form ID
 
 local CreateUnitAuraDataSource
 do
@@ -632,20 +633,25 @@ if ( LAYOUT == 4 ) then
 	playerFrame:SetHiddenHeight( -yOffset );
 
 	local function Barmover()
-		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or (T.class == "DRUID" and GetSpecialization() == 2) or T.class == "WARLOCK" or T.class == "MONK" or T.class == "PALADIN" or T.class == "EVOKER") then
+		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or (T.class == "DRUID" and GetSpecialization() == 2) or T.class == "WARLOCK" or (T.class == "MONK" and GetSpecialization() ~= 2) or T.class == "PALADIN" or T.class == "EVOKER") then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
 		elseif (T.class == "ROGUE" and C.unitframe_class_bar.combo_old ~= true) then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
-		elseif ( T.class == "DRUID" and C.unitframe_class_bar.combo_old ~= true) then
+		elseif (T.class == "DRUID" and C.unitframe_class_bar.combo_old ~= true) then
 			local form = GetShapeshiftFormID()
-			if form == CAT_FORM then
-				playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
-				playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
+			if not form or form == 0 then
+				-- No form: do not move the bar
+				return
+			elseif form == CAT_FORM then
+				-- Cat Form: use cat bar position
+				playerFrame:SetPoint("BOTTOMLEFT", oUF_Player, "TOPLEFT", 1, 20)
+				playerFrame:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -1, 20)
 			else
-				playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 8 );
-				playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 8 );
+				-- Any other druid form: use default position
+				playerFrame:SetPoint("BOTTOMLEFT", oUF_Player, "TOPLEFT", 1, 8)
+				playerFrame:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -1, 8)
 			end
 		elseif ( T.class == "MAGE") then
 			if GetSpecialization() == 1 and C.unitframe_class_bar.arcane then
