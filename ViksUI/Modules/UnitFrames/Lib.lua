@@ -1768,14 +1768,14 @@ lib.genHarmony = function(self)
 	-- Chi bar
 	self.HarmonyBar = CreateFrame("Frame", self:GetName().."_HarmonyBar", self, "BackdropTemplate")
 	self.HarmonyBar:CreateBackdrop("Default")
-	self.HarmonyBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
-	self.HarmonyBar:SetSize((self:GetWidth()-2), 7)
+	self.HarmonyBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 2, 7)
+	self.HarmonyBar:SetSize((self:GetWidth()-4), 7)
 
 	for i = 1, 6 do
 		self.HarmonyBar[i] = CreateFrame("StatusBar", self:GetName().."_HarmonyBar", self.HarmonyBar, "BackdropTemplate")
 		self.HarmonyBar[i]:SetSize((self.HarmonyBar:GetWidth()-4) / 6, 7)
 		if i == 1 then
-			self.HarmonyBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+			self.HarmonyBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 2, 7)
 		else
 			self.HarmonyBar[i]:SetPoint("TOPLEFT", self.HarmonyBar[i-1], "TOPRIGHT", 1, 0)
 		end
@@ -1814,8 +1814,8 @@ lib.genHarmony = function(self)
 	if C.unitframe_class_bar.stagger == true then
 		self.Stagger = CreateFrame("StatusBar", self:GetName().."_Stagger", self, "BackdropTemplate")
 		self.Stagger:CreateBackdrop("Default")
-		self.Stagger:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
-		self.Stagger:SetSize((self:GetWidth()-2), 7)
+		self.Stagger:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 2, 7)
+		self.Stagger:SetSize((self:GetWidth()-4), 7)
 		self.Stagger:SetStatusBarTexture(cfg.statusbar_texture)
 
 		self.Stagger.Text = T.SetFontString(self.Stagger, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
