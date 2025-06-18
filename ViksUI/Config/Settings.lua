@@ -258,11 +258,11 @@ C["unitframe"] = {
 	["plugins_fader"] = false,															-- Ø Fade unit frames
 	--["plugins_diminishing"] = false,													-- Diminishing Returns icons on arena frames
 	["plugins_debuffhighlight_icon"] = false,											-- Debuff highlight texture + icon
-	["plugins_aura_watch"] = true,														-- Raid debuff icons (from the list)
+	["plugins_aura_watch"] = false,														-- Raid debuff icons (from the list)
 	["plugins_aura_watch_timer"] = false,												-- Timer on raid debuff icons
 	["plugins_buffs_timer"] = false,													-- Timer on raid buffs icons
-	["plugins_pvp_debuffs"] = true,														-- Show also PvP debuff icons (from the list)
-	["plugins_healcomm"] = true,														-- Show incoming heals in player and raid frames
+	["plugins_pvp_debuffs"] = false,														-- Show also PvP debuff icons (from the list)
+	["plugins_healcomm"] = false,														-- Show incoming heals in player and raid frames
 	["plugins_auto_resurrection"] = false,												-- Auto cast resurrection on middle-click(doesn't work with Clique)
 	-- Unit Size
 	["Portrait_w"] = 56,

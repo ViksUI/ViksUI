@@ -191,7 +191,7 @@ local function LoadSkin()
 	T.SkinEditBox(page.SearchBox, 250, 22)
 	page.SearchPreviewContainer:StripTextures()
 	page.SearchPreviewContainer:CreateBackdrop("Transparent")
-	T.SkinCheckBox(page.HidePassivesCheckButton.Button)
+	-- T.SkinCheckBox(page.HidePassivesCheckButton.Button)
 
 	T.SkinMaxMinFrame(PlayerSpellsFrame.MaxMinButtonFrame, PlayerSpellsFrameCloseButton)
 
