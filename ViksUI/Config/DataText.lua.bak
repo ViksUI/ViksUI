@@ -153,7 +153,7 @@ LPSTAT_CONFIG = {
 		tip_anchor = cBN and "BOTTOMRIGHT" or C.bag.enable and "TOPRIGHT" or "BOTTOMRIGHT",
 		tip_x = cBN and 3 or C.bag.enable and -50 or -21,
 		tip_y = cBN and -3 or C.bag.enable and 0 or 20,
-		strata = cBN and "DIALOG" or "HIGH"
+		strata = "DIALOG" or "MEDIUM"
 	},
 -- Top block
 	Stats = {

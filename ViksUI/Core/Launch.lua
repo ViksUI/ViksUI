@@ -5488,3 +5488,162 @@ if IsVik then
 	-- Run the function to check and set the Bartender4 profile
 	CheckBartender4Profiles()
 end
+
+local importStrings = {
+    Details = "T3xAZTnsYc(BzJxSXBMiw5aOW98nslkBfwIsRaD7P3WHGajHiXiqc(aaTS6Dg9B)...",
+    Plater = "PlaterImportStringHere...",
+    Bartender = "BartenderImportStringHere...",
+    -- Add more as needed
+}
+
+local tabList = {"Details", "Plater", "Bartender"} -- order of tabs
+
+local function CreateStyledTab(parent, text)
+    -- local T, C, L, _ = unpack(ViksUI or select(2, ...))
+    local tab = CreateFrame("Button", nil, parent)
+    tab:SetSize(110, 24)
+    tab:SetTemplate("Overlay")
+    tab.text = tab:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    tab.text:SetPoint("CENTER")
+    tab.text:SetText(text)
+    tab:HookScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(C.media.classborder_color)) end)
+    tab:HookScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.border_color)) end)
+    return tab
+end
+
+local function CreateImportWindow()
+    -- local T, C, L, _ = unpack(ViksUI or select(2, ...))
+    local frame = CreateFrame("Frame", "ViksUIImportExportFrame", UIParent)
+    frame:SetSize(720, 340)
+    frame:SetPoint("CENTER")
+    frame:SetMovable(true)
+    frame:EnableMouse(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    frame:SetFrameStrata("DIALOG")
+    frame:SetClampedToScreen(true)
+    frame:SetTemplate("Transparent")
+
+    frame.title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    frame.title:SetPoint("TOP", 0, -14)
+    frame.title:SetText("ViksUI | Import Strings")
+
+    frame.tabs = {}
+    local prevTab
+    for i, tabName in ipairs(tabList) do
+        local tab = CreateStyledTab(frame, tabName)
+        if i == 1 then
+            tab:SetPoint("TOPLEFT", frame, "TOPLEFT", 16, -36)
+        else
+            tab:SetPoint("LEFT", prevTab, "RIGHT", 6, 0)
+        end
+        tab:SetID(i)
+        frame.tabs[i] = tab
+        prevTab = tab
+    end
+
+    frame.scrollFrames = {}
+    frame.editBoxes = {}
+
+    for i, tabName in ipairs(tabList) do
+        local scrollFrame = CreateFrame("ScrollFrame", "ViksUIImportExportScrollFrame"..tabName, frame, "UIPanelScrollFrameTemplate")
+        scrollFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 18, -68)
+        scrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -40, 52)
+        if T and T.SkinScrollBar then
+            T.SkinScrollBar(_G[scrollFrame:GetName().."ScrollBar"])
+        end
+
+        local editBox = CreateFrame("EditBox", nil, scrollFrame)
+        scrollFrame:SetScrollChild(editBox)
+        editBox:SetMultiLine(true)
+        editBox:SetMaxLetters(9999)
+        editBox:SetFontObject("ChatFontNormal")
+        editBox:SetWidth(640)
+        editBox:SetText(importStrings[tabName] or "")
+        editBox:HighlightText()
+        editBox:SetAutoFocus(false)
+        editBox:SetScript("OnEscapePressed", function() frame:Hide() end)
+        editBox:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+        editBox:SetScript("OnEditFocusLost", function(self) self:HighlightText(0, 0) end)
+        editBox:SetScript("OnKeyDown", function(self, key)
+            if IsControlKeyDown() and (key == "C" or key == "c") then
+                frame:Hide()
+            end
+        end)
+        if T and T.SkinEditBox then
+            T.SkinEditBox(editBox, 640, 160)
+        end
+
+        frame.scrollFrames[i] = scrollFrame
+        frame.editBoxes[i] = editBox
+        scrollFrame:Hide()
+    end
+
+    local function ShowTab(idx)
+        for i = 1, #tabList do
+            if i == idx then
+                frame.scrollFrames[i]:Show()
+                frame.tabs[i]:SetBackdropBorderColor(unpack(C.media.classborder_color))
+                frame.editBoxes[i]:HighlightText()
+                frame.editBoxes[i]:SetFocus()
+            else
+                frame.scrollFrames[i]:Hide()
+                frame.tabs[i]:SetBackdropBorderColor(unpack(C.media.border_color))
+            end
+        end
+    end
+
+    for i, tab in ipairs(frame.tabs) do
+        tab:SetScript("OnClick", function() ShowTab(i) end)
+    end
+
+    ShowTab(1)
+
+    local closeButton = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
+    closeButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -4, -4)
+    closeButton:SetScript("OnClick", function() frame:Hide() end)
+    if T and T.SkinCloseButton then
+        T.SkinCloseButton(closeButton)
+    end
+
+    local copyButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    copyButton:SetSize(140, 28)
+    copyButton:SetPoint("BOTTOM", 0, 14)
+    copyButton:SetText("Copy & Close")
+    copyButton:SetScript("OnClick", function()
+        for i, sf in ipairs(frame.scrollFrames) do
+            if sf:IsShown() then
+                frame.editBoxes[i]:HighlightText()
+                frame.editBoxes[i]:SetFocus()
+                print("Now press Ctrl+C (or Cmd+C on Mac) to copy, then paste into the target addon.")
+                break
+            end
+        end
+        frame:Hide()
+    end)
+    if T and T.SkinButton then
+        T.SkinButton(copyButton)
+    end
+
+    frame:SetScript("OnShow", function()
+        for i, sf in ipairs(frame.scrollFrames) do
+            if sf:IsShown() then
+                frame.editBoxes[i]:HighlightText()
+                frame.editBoxes[i]:SetFocus()
+            end
+        end
+    end)
+
+    return frame
+end
+
+local importExportFrame
+
+SLASH_VIKSUIIMPORT1 = "/viksuiimport"
+SlashCmdList["VIKSUIIMPORT"] = function()
+    if not importExportFrame then
+        importExportFrame = CreateImportWindow()
+    end
+    importExportFrame:Show()
+end

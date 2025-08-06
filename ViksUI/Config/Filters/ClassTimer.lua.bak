@@ -31,9 +31,6 @@ T.ClassTimer_Trinkets = {
 	CreateSpellEntry(58984), 			-- Shadowmeld (Night Elf)
 	CreateSpellEntry(28880), 			-- Gift of the Naaru (Draenei)
 
-	--[[Misc]]--
-	CreateSpellEntry(1225752, true), 		-- Overcharged Empowerment (Delves)
-
 	--[[Damage Reduction]]--
 	CreateSpellEntry(116849, true), 		-- [Monk] Life Cocoon
 	CreateSpellEntry(47788, true), 			-- [Priest] Guardian Spirit

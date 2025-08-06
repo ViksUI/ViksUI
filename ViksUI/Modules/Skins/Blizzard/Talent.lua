@@ -191,7 +191,17 @@ local function LoadSkin()
 	T.SkinEditBox(page.SearchBox, 250, 22)
 	page.SearchPreviewContainer:StripTextures()
 	page.SearchPreviewContainer:CreateBackdrop("Transparent")
-	-- T.SkinCheckBox(page.HidePassivesCheckButton.Button)
+
+	do
+		local button = page.AssistedCombatRotationSpellFrame.Button
+		button:CreateBackdrop("Default")
+		button.backdrop:SetAllPoints()
+		button:StyleButton()
+		button.Border:Hide()
+		button.Icon:CropIcon()
+
+		page.AssistedCombatRotationSpellFrame:StripTextures()
+	end
 
 	T.SkinMaxMinFrame(PlayerSpellsFrame.MaxMinButtonFrame, PlayerSpellsFrameCloseButton)
 
@@ -245,6 +255,11 @@ local function LoadSkin()
 					frame.Button.BorderSheen:Hide()
 					hooksecurefunc(frame.Button.BorderSheen, "Show", function()
 						frame.Button.BorderSheen:Hide()
+					end)
+
+					frame.Button.AssistedCombatIconCover:Hide()
+					hooksecurefunc(frame.Button.AssistedCombatIconCover, "SetShown", function()
+						frame.Button.AssistedCombatIconCover:Hide()
 					end)
 
 					frame.Button.Icon:SkinIcon()

@@ -18,14 +18,22 @@ RegisterStateDriver(anchor, "visibility", "[petbattle] hide; show")
 ExtraActionBarFrame:SetParent(anchor)
 ExtraActionBarFrame:ClearAllPoints()
 ExtraActionBarFrame:SetAllPoints()
+ExtraActionBarFrame.ignoreInLayout = true
+
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:SetScript("OnEvent", function()
+	ExtraActionBarFrame:SetIgnoreParentScale(true)
+	ExtraActionBarFrame:SetScale(UIParent:GetScale())
+end)
 
 -- Prevent reanchor
-ExtraAbilityContainer.ignoreFramePositionManager = true
-hooksecurefunc(ExtraActionBarFrame, "SetParent", function(self, parent)
-	if parent == ExtraAbilityContainer then
-		self:SetParent(anchor)
-	end
-end)
+ExtraAbilityContainer:SetScript("OnShow", nil)
+ExtraAbilityContainer:SetScript("OnUpdate", nil)
+ExtraAbilityContainer.OnUpdate = nil -- remove BaseLayoutMixin.OnUpdate
+ExtraAbilityContainer.IsLayoutFrame = nil -- dont let it get readded
+ExtraAbilityContainer.HighlightSystem = T.dummy
+ExtraAbilityContainer.ClearHighlight = T.dummy
 
 -- Zone Ability button
 local zoneAnchor = CreateFrame("Frame", "ZoneButtonAnchor", UIParent)

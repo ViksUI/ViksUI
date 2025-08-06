@@ -3269,8 +3269,6 @@ C["filger_spells"] = {
 			-- Other
 			-- Porcelain Arrowhead (Delves, Brann)
 			{spellID = 458448, unitID = "target", caster = "all", filter = "DEBUFF"},
-			-- Overcharged Empowerment (Delves)
-			{spellID = 1225752, unitID = "player", caster = "all", filter = "BUFF"},
 		},
 	},
 }
