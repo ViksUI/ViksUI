@@ -3,6 +3,9 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
+	"Update 11.42 ",
+	"• Updates & Fixes for WoW 11.2.",
+	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.42",
 	"Update 11.41 ",
 	"• Small fix and toc update.",
 	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.41",
@@ -13,18 +16,13 @@ local ChangeLogData = {
 	"• [DataText] Professions rewritten and optimized with mouseclick for all",
 	"• [DataText] Location rewritten and improved. Now with tooltip and chat send",
 	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.39",
-	"Update 11.39 ",
-	"• [SlotItem] Show upgrade level in character panel.",
-	"• [WorldMap] Adjust Tabs and Adjust icons inside Tab",
-	"• [WorldMap] Enable NavBar Skin again. ",
-	"• [InfoPanels] Fixed local/global and added logic check",
-	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.38",
 " ",
-"EXTRA:",
+"EXTRA: New Patreon Cashew, Thanks for the support",
+"Cashew is reason i made Mist version as well",
 "Added Wow gift button and buymeacoffee button here on /changelog",
 "Patreon helps me keep subscription while not playing",
 	"",
-"PATREON's: Wiggy and nAyu",
+"PATREON's: Wiggy, nAyu & Cashew",
 "But thanks to all who have used the addon and those supported my work",
 
 }
