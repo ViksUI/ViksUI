@@ -31,11 +31,12 @@ StaticPopupDialogs.WATCHFRAME_URL = {
 	whileDead = true,
 	hasEditBox = true,
 	editBoxWidth = 350,
-	OnShow = function(self, text)
-		self.editBox:SetMaxLetters(0)
-		self.editBox:SetText(text)
-		self.editBox:HighlightText()
-		selfText = text
+	OnShow = function(self, data)
+		local editBox = _G[self:GetName() .. "EditBox"]
+		editBox:SetMaxLetters(0)
+		editBox:SetText(data)
+		editBox:HighlightText()
+		selfText = data
 	end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
 	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,

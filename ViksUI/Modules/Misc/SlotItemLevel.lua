@@ -45,7 +45,7 @@ end
 	-- local i = 0
 	-- local specID
 	-- if unit == "player" then
-		-- specID = GetSpecializationInfo(GetSpecialization())
+		-- specID = C_SpecializationInfo.GetSpecializationInfo(C_SpecializationInfo.GetSpecialization())
 	-- else
 		-- specID = GetInspectSpecialization("target")
 	-- end
@@ -306,8 +306,7 @@ hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
 		return
 	end
 
-	local _, _, bags, voidStorage, slot, bag = EquipmentManager_UnpackLocation(location)
-	if voidStorage then return end
+	local _, _, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
 
 	if bags then
 		SetupFlyoutLevel(button, bag, slot)

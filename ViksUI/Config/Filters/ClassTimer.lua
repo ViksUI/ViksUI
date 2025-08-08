@@ -32,8 +32,7 @@ T.ClassTimer_Trinkets = {
 	CreateSpellEntry(28880), 			-- Gift of the Naaru (Draenei)
 
 	--[[Misc]]--
-	CreateSpellEntry(1225752, true), 		-- Overcharged Empowerment (Delves)
-
+	
 	--[[Damage Reduction]]--
 	CreateSpellEntry(116849, true), 		-- [Monk] Life Cocoon
 	CreateSpellEntry(47788, true), 			-- [Priest] Guardian Spirit
@@ -726,7 +725,7 @@ T.ClassTimer_Classes = {
 		},
 		procs = {
 			CreateSpellEntry(45243), -- Focused Will
-			CreateSpellEntry(341207), -- Dark Thoughts
+			-- CreateSpellEntry(341207), -- Dark Thoughts
 			CreateSpellEntry(195329), -- Defender of the Weak
 			CreateSpellEntry(196684), -- Invoke the Naaru (Holy Priest Artifact)
 		},
