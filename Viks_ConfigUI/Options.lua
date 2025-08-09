@@ -2859,16 +2859,16 @@ do
 	local filter = ns.CreateCheckBox(parent, "filter")
 	filter:SetPoint("TOPLEFT", new_items, "BOTTOMLEFT", 0, 0)
 
-	local button_size = ns.CreateNumberSlider(parent, "button_size", nil, nil, 0, 40, 1, true, L_GUI_BAGS_BUTTON_SIZE)
+	local button_size = ns.CreateNumberSlider(parent, "button_size", nil, nil, 0, 50, 1, true, L_GUI_BAGS_BUTTON_SIZE)
 	button_size:SetPoint("TOPLEFT", filter, "BOTTOMLEFT", 0, -20)
 
 	local button_space = ns.CreateNumberSlider(parent, "button_space", nil, nil, 0, 10, 1, true, L_GUI_BAGS_BUTTON_SPACE)
 	button_space:SetPoint("LEFT", button_size, "RIGHT", 120, 0)
 
-	local bag_columns = ns.CreateNumberSlider(parent, "bag_columns", nil, nil, 0, 20, 1, true, L_GUI_BAGS_BAG)
+	local bag_columns = ns.CreateNumberSlider(parent, "bag_columns", nil, nil, 7, 30, 1, true, L_GUI_BAGS_BAG)
 	bag_columns:SetPoint("TOPLEFT", button_size, "BOTTOMLEFT", 0, -20)
 
-	local bank_columns = ns.CreateNumberSlider(parent, "bank_columns", nil, nil, 0, 25, 1, true, L_GUI_BAGS_BANK)
+	local bank_columns = ns.CreateNumberSlider(parent, "bank_columns", nil, nil, 7, 30, 1, true, L_GUI_BAGS_BANK)
 	bank_columns:SetPoint("LEFT", bag_columns, "RIGHT", 120, 0)
 end
 

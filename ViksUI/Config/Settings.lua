@@ -663,7 +663,7 @@ C["bag"] = {
 	["SortTop"] = true,							-- Sort from top down
 	["button_size"] = 27,						-- Buttons size
 	["button_space"] = 3,						-- Buttons space
-	["bank_columns"] = 17,						-- Horizontal number of columns in bank
+	["bank_columns"] = 21,						-- Horizontal number of columns in bank
 	["bag_columns"] = 10,						-- Horizontal number of columns in main bag
 	["bag_buttons"] = true,						-- Show sort/deposit/Artifact buttons
 }
