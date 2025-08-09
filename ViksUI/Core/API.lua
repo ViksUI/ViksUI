@@ -902,17 +902,11 @@ function T.SkinEditBox(frame, width, height)
 
 	frame:CreateBackdrop("Overlay")
 
-	local frameName = frame.GetName and frame:GetName()
-	
+	local frameName = frame.GetName and frame:GetName()	
 	if frame.NineSlice then frame.NineSlice:StripTextures() end
 	if frameName and (frameName:find("Gold") or frameName:find("Silver") or frameName:find("Copper")) then
-		if frameName:find("Gold") then
-			frame.backdrop:SetPoint("TOPLEFT", -3, 1)
-			frame.backdrop:SetPoint("BOTTOMRIGHT", -3, 0)
-		else
-			frame.backdrop:SetPoint("TOPLEFT", -3, 1)
-			frame.backdrop:SetPoint("BOTTOMRIGHT", -13, 0)
-		end
+		frame.backdrop:SetPoint("TOPLEFT", -3, 1)
+		frame.backdrop:SetPoint("BOTTOMRIGHT", -2, 0)
 	end
 
 	if width then frame:SetWidth(width) end
