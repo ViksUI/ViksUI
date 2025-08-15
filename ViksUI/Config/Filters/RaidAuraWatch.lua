@@ -105,7 +105,28 @@ end
 --	Debuffs
 ----------------------------------------------------------------------------------------
 local RaidDebuffs = {
-	-- Liberation of Undermine
+	---------------------------------------------------------
+	------------------- Manaforge Omega ---------------------
+	---------------------------------------------------------
+	-- Plexus Sentinel
+	[SpellName(1219459)] = 3, -- Manifest Matrices
+	[SpellName(1219607)] = 3, -- Eradicating Salvo
+	[SpellName(1218625)] = 3, -- Displacement Matrix
+	-- Loom'ithar
+	[SpellName(1226311)] = 5, -- Infusion Tether
+	[SpellName(1237212)] = 4, -- Piercing Strand
+	[SpellName(1226721)] = 6, -- Silken Snare
+	-- Soulbinder Naazindhri
+	[SpellName(1227276)] = 3, -- Soulfray Annihilation
+	[SpellName(1223859)] = 3, -- Arcane Expulsion
+	-- Forgeweaver Araz
+	-- The Soul Hunters
+	-- Fractillus
+	-- Nexus-King Salhadaar
+	-- Dimensius, the All-Devouring
+	---------------------------------------------------------
+	--------------- Liberation of Undermine -----------------
+	---------------------------------------------------------
 	-- Vexie and the Geargrinders
 	[SpellName(465865)] = 3,	-- Tank Buster
 	[SpellName(459669)] = 3,	-- Spew Oil
@@ -207,8 +228,15 @@ local RaidDebuffs = {
 }
 
 local DungeonDebuffs = {
-	-- The War Within Season 1
-	[SpellName(440313)] = 6,	-- Void Rift
+	----------------------------------------------------------
+	------------------------- General ------------------------
+	----------------------------------------------------------
+	-- Misc
+	[SpellName(160029)] = 3, -- Resurrecting (Pending CR)
+	[SpellName(225080)] = 3, -- Reincarnation (Ankh ready)
+	[SpellName(255234)] = 3, -- Totemic Revival
+	-- Affixes
+	[SpellName(440313)] = 3, -- Void Rift
 
 	-- The Rookery (Season 2)
 	[SpellName(429493)] = 3,	-- Unstable Corruption
@@ -550,6 +578,58 @@ local DungeonDebuffs = {
 	[SpellName(451241)] = 3,	-- Shadowflame Slash
 	[SpellName(451965)] = 3,	-- Molten Wake
 	[SpellName(451224)] = 3,	-- Enveloping Shadowflame
+	----------------------------------------------------------
+	--------------- The War Within (Season 3) ----------------
+	----------------------------------------------------------
+	-- Eco-Dome Al'dani
+	[SpellName(1217439)] = 3, -- Toxic Regurgitation
+	[SpellName(1227152)] = 3, -- Warp Strike
+	[SpellName(1219535)] = 3, -- Rift Claws
+	[SpellName(1220390)] = 3, -- Warp Strike
+	[SpellName(1236126)] = 3, -- Binding Javelin
+	[SpellName(1225221)] = 3, -- Dread of the Unknown
+	[SpellName(1217446)] = 3, -- Digestive Spittle
+	[SpellName(1220671)] = 3, -- Binding Javelin
+	[SpellName(1231494)] = 3, -- Overgorged Burst
+	[SpellName(1224865)] = 3, -- Fatebound
+	[SpellName(1231224)] = 3, -- Arcane Slash
+	[SpellName(1221190)] = 3, -- Gluttonous Miasma
+	[SpellName(1221483)] = 3, -- Arcing Energy
+	[SpellName(1222202)] = 3, -- Arcane Burn
+	-- Halls of Atonement
+	[SpellName(335338)] = 3, -- Ritual of Woe
+	[SpellName(326891)] = 3, -- Anguish
+	[SpellName(329321)] = 3, -- Jagged Swipe 1
+	[SpellName(344993)] = 3, -- Jagged Swipe 2
+	[SpellName(319603)] = 3, -- Curse of Stone
+	[SpellName(319611)] = 3, -- Turned to Stone
+	[SpellName(325876)] = 3, -- Curse of Obliteration
+	[SpellName(326632)] = 3, -- Stony Veins
+	[SpellName(323650)] = 3, -- Haunting Fixation
+	[SpellName(326874)] = 3, -- Ankle Bites
+	[SpellName(340446)] = 3, -- Mark of Envy
+	-- Tazavesh, the Veiled Market
+	[SpellName(350804)] = 3, -- Collapsing Energy
+	[SpellName(350885)] = 3, -- Hyperlight Jolt
+	[SpellName(351101)] = 3, -- Energy Fragmentation
+	[SpellName(346828)] = 3, -- Sanitizing Field
+	[SpellName(355641)] = 3, -- Scintillate
+	[SpellName(355451)] = 3, -- Undertow
+	[SpellName(355581)] = 3, -- Crackle
+	[SpellName(349999)] = 3, -- Anima Detonation
+	[SpellName(346961)] = 3, -- Purging Field
+	[SpellName(351956)] = 3, -- High-Value Target
+	[SpellName(346297)] = 3, -- Unstable Explosion
+	[SpellName(347728)] = 3, -- Flock!
+	[SpellName(356408)] = 3, -- Ground Stomp
+	[SpellName(347744)] = 3, -- Quickblade
+	[SpellName(347481)] = 3, -- Shuri
+	[SpellName(355915)] = 3, -- Glyph of Restraint
+	[SpellName(350134)] = 3, -- Infinite Breath
+	[SpellName(350013)] = 3, -- Gluttonous Feast
+	[SpellName(355465)] = 3, -- Boulder Throw
+	[SpellName(346116)] = 3, -- Shearing Swings
+	[SpellName(356011)] = 3, -- Beam Splicer
 }
 
 local OtherDebuffs = {
