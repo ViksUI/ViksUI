@@ -77,6 +77,7 @@
 	<Script file="Modules\Misc\Mounts.lua"/>
 	<Script file="Modules\Misc\PvPQueueTimer.lua"/>
 	<Script file="Modules\Misc\RaidUtility.lua"/>
+	<Script file="Modules\Misc\ReshiiWrap.lua"/>
 	<Script file="Modules\Misc\SlotItemLevel.lua"/>
 	<Script file="Modules\Misc\Threat.lua"/>
 	<Script file="Modules\Misc\RaidTools.lua"/>

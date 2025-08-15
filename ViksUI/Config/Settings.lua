@@ -128,6 +128,7 @@ C["misc"] = {
 	["meters"] = true,							-- Show button for toggle dps meters and move chat (only in line layout)
 	["meters_show"] = true,						-- Show meters and hide Chat by default on login
 	["InfoPanel_Stats"] = true,					-- Stats Panel with info from https://www.icy-veins.com
+	["reshiiWrapsUpgrade"] = true,				-- Middle click the character back slot to open the Reshii Wraps upgrade menu
 }
 
 ----------------------------------------------------------------------------------------

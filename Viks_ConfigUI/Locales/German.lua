@@ -705,7 +705,10 @@ L.misc_click_cast_filter = "Ignoriere Spieler- und Zielfenster für click2cast"
 L.misc_chars_currency = "Zeige deine Währungstoken über diverse Karaktere"
 L.misc_chars_currency_desc = "Hover over the icon of the required currency in the character window to display information in the tooltip" -- Need review
 L.misc_hide_raid_button = "Verstecke oUF_RaidDPS Knopf"
-L.misc_hide_raid_button_desc = "The button is displayed by hovering the mouse in the upper left corner" -- Need review
+L.misc_hide_raid_button_desc = "The button is displayed by hovering the mouse in the upper left corner"
+L.misc_reshiiWrapsUpgrade = "Reshii Wraps Upgrade"
+L.misc_reshiiWrapsUpgrade_desc = "Middle click the character back slot to open the Reshii Wraps upgrade menu."
+ -- Need review
 
 -- My Extra
 L.media_overlay_color = "Color for action bars overlay" -- Needs review
