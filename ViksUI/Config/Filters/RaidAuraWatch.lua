@@ -110,20 +110,46 @@ local RaidDebuffs = {
 	---------------------------------------------------------
 	-- Plexus Sentinel
 	[SpellName(1219459)] = 3, -- Manifest Matrices
-	[SpellName(1219607)] = 3, -- Eradicating Salvo
+	[SpellName(1219607)] = 3, -- Eradicating Salvo 1
+	[SpellName(1219531)] = 3, -- Eradicating Salvo 2
 	[SpellName(1218625)] = 3, -- Displacement Matrix
 	-- Loom'ithar
 	[SpellName(1226311)] = 5, -- Infusion Tether
 	[SpellName(1237212)] = 4, -- Piercing Strand
 	[SpellName(1226721)] = 6, -- Silken Snare
+	[SpellName(1247045)] = 3, -- Hyper Infusion
+	[SpellName(1237307)] = 3, -- Lair Weaving
 	-- Soulbinder Naazindhri
 	[SpellName(1227276)] = 3, -- Soulfray Annihilation
-	[SpellName(1223859)] = 3, -- Arcane Expulsion
+	[SpellName(1226827)] = 3, -- Soulrend Orb
+	[SpellName(1227052)] = 3, -- Void Burst
 	-- Forgeweaver Araz
+	[SpellName(1234324)] = 3, -- Photon Blast
+	[SpellName(1228214)] = 3, -- Astral Harvest
+	[SpellName(1243901)] = 3, -- Void Harvest
+	[SpellName(1240705)] = 6, -- Astral Burn
 	-- The Soul Hunters
+	[SpellName(1227847)] = 3, -- The Hunt
+	[SpellName(1241946)] = 3, -- Frailty
 	-- Fractillus
+	[SpellName(1233411)] = 3, -- Crystalline Shockwave
 	-- Nexus-King Salhadaar
+	[SpellName(1227549)] = 3, -- Banishment
+	[SpellName(1226362)] = 3, -- Twilight Scar
+	[SpellName(1228056)] = 3, -- Reap
 	-- Dimensius, the All-Devouring
+	[SpellName(1239270)] = 3, -- Voidwarding
+	[SpellName(1250055)] = 3, -- Voidgrasp
+	[SpellName(1243699)] = 3, -- Spatial Fragment
+	[SpellName(1249425)] = 3, -- Mass Destruction
+	-- Buffs
+	-- Plexus Sentinel
+	[SpellName(1241303)] = 3, -- Arcanoshield
+	-- Loom'ithar
+	[SpellName(1238502)] = 3, -- Woven Ward
+	-- Soulbinder Naazindhri
+	[SpellName(1241100)] = 3, -- Mystic Lash
+	[SpellName(1225616)] = 3, -- Soulfire Convergence
 	---------------------------------------------------------
 	--------------- Liberation of Undermine -----------------
 	---------------------------------------------------------
@@ -609,6 +635,7 @@ local DungeonDebuffs = {
 	[SpellName(326874)] = 3, -- Ankle Bites
 	[SpellName(340446)] = 3, -- Mark of Envy
 	-- Tazavesh, the Veiled Market
+	[SpellName(356943)] = 3, -- Lockdown
 	[SpellName(350804)] = 3, -- Collapsing Energy
 	[SpellName(350885)] = 3, -- Hyperlight Jolt
 	[SpellName(351101)] = 3, -- Energy Fragmentation
@@ -625,6 +652,7 @@ local DungeonDebuffs = {
 	[SpellName(347744)] = 3, -- Quickblade
 	[SpellName(347481)] = 3, -- Shuri
 	[SpellName(355915)] = 3, -- Glyph of Restraint
+	[SpellName(350101)] = 3, -- Chains of Damnation
 	[SpellName(350134)] = 3, -- Infinite Breath
 	[SpellName(350013)] = 3, -- Gluttonous Feast
 	[SpellName(355465)] = 3, -- Boulder Throw
