@@ -32,10 +32,9 @@ if C_AddOns.IsAddOnLoaded("Stuf") or C_AddOns.IsAddOnLoaded("PitBull4") or C_Add
 	C.unitframe.enable = false
 end
 
-if C.unitframe.Autohide then
-	if C_AddOns.IsAddOnLoaded("Grid") or C_AddOns.IsAddOnLoaded("Grid2") or C_AddOns.IsAddOnLoaded("HealBot") or C_AddOns.IsAddOnLoaded("VuhDo") or C_AddOns.IsAddOnLoaded("Cell") or C_AddOns.IsAddOnLoaded("Aptechka") then
-		C.unitframe.ShowRaid = false
-	end
+if C_AddOns.IsAddOnLoaded("Grid") or C_AddOns.IsAddOnLoaded("Grid2") or C_AddOns.IsAddOnLoaded("HealBot") or C_AddOns.IsAddOnLoaded("VuhDo") or C_AddOns.IsAddOnLoaded("Cell") or C_AddOns.IsAddOnLoaded("Aptechka") then
+	C.unitframe.ShowRaid = false
+	C.unitframe.ShowParty = false
 end
 
 if C_AddOns.IsAddOnLoaded("TidyPlates") or C_AddOns.IsAddOnLoaded("nPlates") or C_AddOns.IsAddOnLoaded("Kui_Nameplates") or C_AddOns.IsAddOnLoaded("rNamePlates") or C_AddOns.IsAddOnLoaded("EKplates") or C_AddOns.IsAddOnLoaded("bdNameplates") or C_AddOns.IsAddOnLoaded("Plater") or C_AddOns.IsAddOnLoaded("Nameplates") or C_AddOns.IsAddOnLoaded("NeatPlates") then
@@ -81,7 +80,7 @@ if C_AddOns.IsAddOnLoaded("DBM-SpellTimers") then
 	C.raidcooldown.enable = false
 end
 
-T.anotherBags = C_AddOns.IsAddOnLoaded("AdiBags") or C_AddOns.IsAddOnLoaded("ArkInventory") or C_AddOns.IsAddOnLoaded("cargBags_Nivaya") or C_AddOns.IsAddOnLoaded("cargBags") or C_AddOns.IsAddOnLoaded("Bagnon") or C_AddOns.IsAddOnLoaded("Combuctor") or C_AddOns.IsAddOnLoaded("TBag") or C_AddOns.IsAddOnLoaded("BaudBag") or C_AddOns.IsAddOnLoaded("Baganator")
+T.anotherBags = C_AddOns.IsAddOnLoaded("AdiBags") or C_AddOns.IsAddOnLoaded("ArkInventory") or C_AddOns.IsAddOnLoaded("cargBags_Nivaya") or C_AddOns.IsAddOnLoaded("cargBags") or C_AddOns.IsAddOnLoaded("Bagnon") or C_AddOns.IsAddOnLoaded("Combuctor") or C_AddOns.IsAddOnLoaded("TBag") or C_AddOns.IsAddOnLoaded("BaudBag") or C_AddOns.IsAddOnLoaded("Baganator") or C_AddOns.IsAddOnLoaded("BetterBags")
 if T.anotherBags then
 	C.bag.enable = false
 end
