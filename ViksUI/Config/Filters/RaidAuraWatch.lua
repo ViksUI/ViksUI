@@ -127,7 +127,6 @@ local RaidDebuffs = {
 	[SpellName(1234324)] = 3, -- Photon Blast
 	[SpellName(1228214)] = 3, -- Astral Harvest
 	[SpellName(1243901)] = 3, -- Void Harvest
-	[SpellName(1240705)] = 6, -- Astral Burn
 	-- The Soul Hunters
 	[SpellName(1227847)] = 3, -- The Hunt
 	[SpellName(1241946)] = 3, -- Frailty
