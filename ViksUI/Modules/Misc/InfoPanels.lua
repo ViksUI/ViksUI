@@ -65,6 +65,8 @@ end
 
 -- Update the stats window with the player's current stats
 function ViksUI_STATS:Update()
+    if isUpdating then return end
+    isUpdating = true
     if ViksUI_STATS:CreateWin() then
         local _, className = UnitClass("player")
         local class = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
@@ -97,16 +99,15 @@ function ViksUI_STATS:Update()
             print("Warning: No stats found for", className, sId)
         end
     end
+	isUpdating = false
 end
 
 -- Event handling
+PaperDollFrame:HookScript("OnShow", function() ViksUI_STATS:Update() end)
+
 local f = ViksUI_STATS
 f:RegisterEvent("SPELLS_CHANGED")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, ...)
     ViksUI_STATS:Update()
-    PaperDollFrame:HookScript("OnShow", function() ViksUI_STATS:Update() end)
-    if event == "SPELLS_CHANGED" then
-        ViksUI_STATS:Update()
-    end
 end)
