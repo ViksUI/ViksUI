@@ -181,6 +181,7 @@ local QuickQuestDB = {
 			[75165] = true, -- In Need of Concentrated Primal Foci
 			[75166] = true, -- In Need of Many Primal Foci
 			[75167] = true, -- In Need of Many Concentrated Primal Foci
+			[84638] = true, -- Trouble in the Highlands (weekly quest giver)
 		},
 	},
 }
