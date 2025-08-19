@@ -267,6 +267,7 @@ local function SkinQuestIcons(_, block)
 	end
 
 	local finder = block and block.rightEdgeFrame
+    local poi = block and block.poiButton
 	if finder and not finder.skinned then
 		finder:SetSize(26, 26)
 		finder:SetNormalTexture(0)
@@ -300,41 +301,85 @@ local function SkinQuestIcons(_, block)
 
 		finder.skinned = true
 	end
+	
+	-- Only move the button if finder & block exist
+	local function positionFinder(b)
+		-- re-fetch fresh references
+		local finder = b and b.rightEdgeFrame
+		local poi = b and b.poiButton
+		local block = b
+
+		if not finder or not block then return end  -- safety check
+
+		local function IsObjectiveTrackerOnRight()
+			if not ObjectiveTrackerFrame then return false end
+			local left = ObjectiveTrackerFrame:GetLeft()
+			local right = ObjectiveTrackerFrame:GetRight()
+			if not left or not right then return false end
+			local screenWidth = GetScreenWidth()
+			local trackerCenter = (left + right) / 2
+			return trackerCenter > (screenWidth / 2)
+		end
+
+		if IsObjectiveTrackerOnRight() then
+			finder:ClearAllPoints()
+			if poi then
+				finder:SetPoint("TOPLEFT", poi, "BOTTOMLEFT", -4, -8)
+			else
+				finder:SetPoint("TOPLEFT", block, "TOPLEFT", -4, -8)
+			end
+		end
+	end
+
+	positionFinder(block)
+
+	-- Re-apply position every time finder is shown
+	if finder and not finder._moved then
+		finder:HookScript("OnShow", function() positionFinder(block) end)
+		finder._moved = true
+	end
+
+	-- Re-apply position every time finder is updated (extra robust)
+	if finder and not finder._updateHooked then
+		finder:HookScript("OnUpdate", function() positionFinder(block) end)
+		finder._updateHooked = true
+	end
 end
 
--- WorldQuestsList button skin
--- local frame = CreateFrame("Frame")
--- frame:RegisterEvent("PLAYER_LOGIN")
--- frame:SetScript("OnEvent", function()
-	-- if not C_AddOns.IsAddOnLoaded("WorldQuestsList") then return end
+----------------------------------------------------------------------------------------
+-- Move Find Group button (eye) under POI icon for World Quests
+----------------------------------------------------------------------------------------
+local function FixWorldQuestFinderButton()
+    if not WorldQuestObjectiveTracker or not WorldQuestObjectiveTracker.usedBlocks then return end
+    for block in pairs(WorldQuestObjectiveTracker.usedBlocks) do
+        local finder = block.rightEdgeFrame
+        local poi = block.poiButton
+        if finder and poi then
+            finder:ClearAllPoints()
+            finder:SetPoint("TOPLEFT", poi, "BOTTOMLEFT", -4, -6)
+        end
+    end
+end
 
-	-- local orig = _G.WorldQuestList.ObjectiveTracker_Update_hook
-	-- local function orig_hook(...)
-		-- orig(...)
-		-- for _, b in pairs(WorldQuestList.LFG_objectiveTrackerButtons) do
-			-- if b and not b.skinned then
-				-- b:SetSize(20, 20)
-				-- b.texture:SetAtlas("socialqueuing-icon-eye")
-				-- b.texture:SetSize(12, 12)
-				-- b:SetHighlightTexture(0)
+hooksecurefunc(WorldQuestObjectiveTracker, "AddBlock", FixWorldQuestFinderButton)
+hooksecurefunc(WorldQuestObjectiveTracker, "Update", function()
+    C_Timer.After(0, FixWorldQuestFinderButton)
+end)
 
-				-- local point, anchor, point2, x, y = b:GetPoint()
-				-- if x == -18 then
-					-- b:SetPoint(point, anchor, point2, -13, y)
-				-- end
+local updateFixFrame = CreateFrame("Frame")
+local elapsed = 0
+updateFixFrame:SetScript("OnUpdate", function(self, e)
+    elapsed = elapsed + e
+    FixWorldQuestFinderButton()
+    if elapsed > 0.5 then
+        self:SetScript("OnUpdate", nil)
+        elapsed = 0
+    end
+end)
 
-				-- b.b = CreateFrame("Frame", nil, b)
-				-- b.b:SetTemplate("Overlay")
-				-- b.b:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
-				-- b.b:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
-				-- b.b:SetFrameLevel(1)
-				-- b.skinned = true
-			-- end
-		-- end
-	-- end
-	-- _G.WorldQuestList.ObjectiveTracker_Update_hook = orig_hook
--- end)
-
+hooksecurefunc(WorldQuestObjectiveTracker, "Update", function()
+    updateFixFrame:SetScript("OnUpdate", updateFixFrame:GetScript("OnUpdate"))
+end)
 ----------------------------------------------------------------------------------------
 --	Skin quest objective progress bar
 ----------------------------------------------------------------------------------------
