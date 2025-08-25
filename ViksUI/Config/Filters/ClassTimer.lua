@@ -56,6 +56,41 @@ T.ClassTimer_Trinkets = {
 	CreateSpellEntry(345231), -- Gladiator's Emblem
 	CreateSpellEntry(435493), -- Concoction: Kiss of Death
 	CreateSpellEntry(268756), -- Dead Ahead
+	-- [[TWW S3 Trinkets]]-- Temp disabled / To much?
+	-- CreateSpellEntry(343396), -- Sunblood Amethyst
+	-- CreateSpellEntry(1236692), -- All-Devouring Nucleus
+	-- CreateSpellEntry(443534), -- Tome of Light's Devotion
+	-- CreateSpellEntry(368512), -- So'leah's Secret Technique
+	-- CreateSpellEntry(1235879), -- Brand of Ceaseless Ire
+	-- CreateSpellEntry(1218713), -- Improvised Seaforium Pacemaker
+	-- CreateSpellEntry(1233556), -- Unyielding Netherprism
+	-- CreateSpellEntry(1240000), -- Boon of the Oathsworn
+	-- CreateSpellEntry(1224918), -- Void-Touched Fragment
+	-- CreateSpellEntry(1245643), -- Mind-Fracturing Odium
+	-- CreateSpellEntry(450962), -- Void Pactstone
+	-- CreateSpellEntry(1231664), -- Miniature Reshi Sandgarden
+	-- CreateSpellEntry(1247207), -- Incorporeal Essence-Gorger
+	-- CreateSpellEntry(443531), -- Signet of the Priory
+	-- CreateSpellEntry(1241806), -- Cursed Stone Idol
+	-- CreateSpellEntry(449275), -- Empowering Crystal of Anub'ikkaj
+	-- CreateSpellEntry(1219102), -- Ringing Ritual Mud
+	-- CreateSpellEntry(1245376), -- Essence-Hunters Eyeglass
+	-- CreateSpellEntry(451303), -- Harvester's Edict
+	-- CreateSpellEntry(1244029), -- Lily of the Eternal Weave
+	-- CreateSpellEntry(1232802), -- Araz's Ritual Forge
+	-- CreateSpellEntry(1232721), -- Loom'ithar's Living Silk
+	-- CreateSpellEntry(1235425), -- Soulbinder's Embrace
+	-- CreateSpellEntry(452146), -- Ara-Kara Sacrbood
+	-- CreateSpellEntry(1225151), -- Soulbreaker's Sigil
+	-- CreateSpellEntry(351316), -- Codex of the First Technique
+	-- CreateSpellEntry(1246543), -- Shadowguard's Twisted Harvester
+	-- CreateSpellEntry(1231221), -- Veiling Mana Shroud
+	-- CreateSpellEntry(1239221), -- Diamantine Voidcore
+	-- CreateSpellEntry(1239641), -- Astral Antenna
+	-- CreateSpellEntry(1243843), -- Azhiccaran Parapodia
+	-- CreateSpellEntry(1245397), -- Manaforged Aethercell
+	-- CreateSpellEntry(352274), -- First Class Healing Distributor
+	-- CreateSpellEntry(1239997), -- Oath-Bound 2
 }
 	
 T.ClassTimer_CommonTarget = {

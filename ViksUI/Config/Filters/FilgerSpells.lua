@@ -2603,8 +2603,42 @@ C["filger_spells"] = {
 			BarWidth = 186,
 			Position = {"RIGHT", P_BUFF_BAR_Anchor},
 
-			-- Spell holder to enable this section
+			-- Trinkets TWW S3
 			{spellID = 460971, unitID = "player", caster = "all", filter = "BUFF"},
+			{spellID = 343396, unitID = "player", caster = "player", filter = "BUFF"}, -- Sunblood Amethyst
+			{spellID = 1236692, unitID = "player", caster = "player", filter = "BUFF"}, -- All-Devouring Nucleus
+			{spellID = 443534, unitID = "player", caster = "player", filter = "BUFF"}, -- Tome of Light's Devotion
+			{spellID = 368512, unitID = "player", caster = "player", filter = "BUFF"}, -- So'leah's Secret Technique
+			{spellID = 1235879, unitID = "player", caster = "player", filter = "BUFF"}, -- Brand of Ceaseless Ire
+			{spellID = 1218713, unitID = "player", caster = "player", filter = "BUFF"}, -- Improvised Seaforium Pacemaker
+			{spellID = 1233556, unitID = "player", caster = "player", filter = "BUFF"}, -- Unyielding Netherprism
+			{spellID = 1240000, unitID = "player", caster = "player", filter = "BUFF"}, -- Boon of the Oathsworn
+			{spellID = 1224918, unitID = "player", caster = "player", filter = "BUFF"}, -- Void-Touched Fragment
+			{spellID = 1245643, unitID = "player", caster = "player", filter = "BUFF"}, -- Mind-Fracturing Odium
+			{spellID = 450962, unitID = "player", caster = "player", filter = "BUFF"}, -- Void Pactstone
+			{spellID = 1231664, unitID = "player", caster = "player", filter = "BUFF"}, -- Miniature Reshi Sandgarden
+			{spellID = 1247207, unitID = "player", caster = "player", filter = "BUFF"}, -- Incorporeal Essence-Gorger
+			{spellID = 443531, unitID = "player", caster = "player", filter = "BUFF"}, -- Signet of the Priory
+			{spellID = 1241806, unitID = "player", caster = "player", filter = "BUFF"}, -- Cursed Stone Idol
+			{spellID = 449275, unitID = "player", caster = "player", filter = "BUFF"}, -- Empowering Crystal of Anub'ikkaj
+			{spellID = 1219102, unitID = "player", caster = "player", filter = "BUFF"}, -- Ringing Ritual Mud
+			{spellID = 1245376, unitID = "player", caster = "player", filter = "BUFF"}, -- Essence-Hunters Eyeglass
+			{spellID = 451303, unitID = "player", caster = "player", filter = "BUFF"}, -- Harvester's Edict
+			{spellID = 1244029, unitID = "player", caster = "player", filter = "BUFF"}, -- Lily of the Eternal Weave
+			{spellID = 1232802, unitID = "player", caster = "player", filter = "BUFF"}, -- Araz's Ritual Forge
+			{spellID = 1232721, unitID = "player", caster = "player", filter = "BUFF"}, -- Loom'ithar's Living Silk
+			{spellID = 1235425, unitID = "player", caster = "player", filter = "BUFF"}, -- Soulbinder's Embrace
+			{spellID = 452146, unitID = "player", caster = "player", filter = "BUFF"}, -- Ara-Kara Sacrbood
+			{spellID = 1225151, unitID = "player", caster = "player", filter = "BUFF"}, -- Soulbreaker's Sigil
+			{spellID = 351316, unitID = "player", caster = "player", filter = "BUFF"}, -- Codex of the First Technique
+			{spellID = 1246543, unitID = "player", caster = "player", filter = "BUFF"}, -- Shadowguard's Twisted Harvester
+			{spellID = 1231221, unitID = "player", caster = "player", filter = "BUFF"}, -- Veiling Mana Shroud
+			{spellID = 1239221, unitID = "player", caster = "player", filter = "BUFF"}, -- Diamantine Voidcore
+			{spellID = 1239641, unitID = "player", caster = "player", filter = "BUFF"}, -- Astral Antenna
+			{spellID = 1243843, unitID = "player", caster = "player", filter = "BUFF"}, -- Azhiccaran Parapodia
+			{spellID = 1245397, unitID = "player", caster = "player", filter = "BUFF"}, -- Manaforged Aethercell
+			{spellID = 352274, unitID = "player", caster = "player", filter = "BUFF"}, -- First Class Healing Distributor
+			{spellID = 1239997, unitID = "player", caster = "player", filter = "BUFF"}, -- Oath-Bound 2
 		},
 		{
 			Name = "PVE/PVP_DEBUFF",
