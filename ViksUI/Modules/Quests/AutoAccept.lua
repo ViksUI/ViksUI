@@ -181,7 +181,11 @@ local QuickQuestDB = {
 			[75165] = true, -- In Need of Concentrated Primal Foci
 			[75166] = true, -- In Need of Many Primal Foci
 			[75167] = true, -- In Need of Many Concentrated Primal Foci
+			-- Misc anoyance on alts
 			[84638] = true, -- Trouble in the Highlands (weekly quest giver)
+			[85244] = true, -- Defeating the Underpin (Brann)
+			[83500] = true, -- Zekvir, Hand of the Harbinger (Brann)
+			[84367] = true, -- A Time to Come Together (Brann - Campaign)
 		},
 	},
 }
