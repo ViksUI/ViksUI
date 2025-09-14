@@ -141,6 +141,7 @@ local RaidDebuffs = {
 	[SpellName(1250055)] = 3, -- Voidgrasp
 	[SpellName(1243699)] = 3, -- Spatial Fragment
 	[SpellName(1249425)] = 3, -- Mass Destruction
+	[SpellName(1228206)] = 3, -- Excess Mass
 	-- Buffs
 	-- Plexus Sentinel
 	[SpellName(1241303)] = 3, -- Arcanoshield
