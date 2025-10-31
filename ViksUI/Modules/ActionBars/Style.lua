@@ -180,7 +180,7 @@ local function StyleNormalButton(button, size)
 
 		if spellAlert then
 			spellAlert:SetSize((size or C.actionbar.button_size) * 1.4, (size or C.actionbar.button_size) * 1.4)
-			ActionButton_HideOverlayGlow(button)
+			ActionButtonSpellAlertManager:HideAlert(button)
 		end
 
 		if assist then
@@ -398,21 +398,24 @@ if C.actionbar.hotkey == true then
 end
 
 if C.actionbar.hide_highlight == true then
-	local function HideHighlightButton(self)
-		if self.overlay then
-			self.overlay:Hide()
-			ActionButton_HideOverlayGlow(self)
+	local function HideHighlightButton(self, button)
+		local alertFrame = button.SpellActivationAlert
+		if alertFrame then
+			alertFrame:Hide()
+			alertFrame.ProcStartAnim:Stop()
 		end
 	end
-
-	hooksecurefunc("ActionButton_ShowOverlayGlow", HideHighlightButton)
+	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", HideHighlightButton)
 else
-	hooksecurefunc("ActionButton_ShowOverlayGlow", function(button)
+	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", function(self, button)
 		-- Make proc glow better
-		button.SpellActivationAlert.ProcStartFlipbook:ClearAllPoints()
-		button.SpellActivationAlert.ProcStartFlipbook:SetPoint("TOPLEFT", button, -C.actionbar.button_size * 0.9, C.actionbar.button_size * 0.9)
-		button.SpellActivationAlert.ProcStartFlipbook:SetPoint("BOTTOMRIGHT", button, C.actionbar.button_size * 0.9, -C.actionbar.button_size * 0.9)
-		button.SpellActivationAlert.ProcLoop:Play()
+		local alertFrame = button.SpellActivationAlert
+		if alertFrame then
+			alertFrame.ProcStartFlipbook:ClearAllPoints()
+			alertFrame.ProcStartFlipbook:SetPoint("TOPLEFT", button, -C.actionbar.button_size * 0.9, C.actionbar.button_size * 0.9)
+			alertFrame.ProcStartFlipbook:SetPoint("BOTTOMRIGHT", button, C.actionbar.button_size * 0.9, -C.actionbar.button_size * 0.9)
+			alertFrame.ProcLoop:Play()
+		end
 	end)
 end
 

@@ -26,6 +26,7 @@
 	<Script file="Communities.lua"/>
 	<Script file="Container.lua"/>
 	<Script file="Contribution.lua"/>
+	<Script file="CooldownViewer.lua"/>
 	<Script file="CovenantPreview.lua"/>
 	<Script file="CovenantRenown.lua"/>
 	<Script file="CovenantSanctum.lua"/>
@@ -47,6 +48,7 @@
 	<Script file="GuildControl.lua"/>
 	<Script file="GuildRegistrar.lua"/>
 	<Script file="Help.lua"/>
+	<Script file="Housing.lua"/>
 	<Script file="Inspect.lua"/>
 	<Script file="Islands.lua"/>
 	<Script file="ItemInteraction.lua"/>

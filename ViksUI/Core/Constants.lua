@@ -13,7 +13,7 @@ T.color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 T.TexCoords = {.1, .9, .1, .9}
 T.version = C_AddOns.GetAddOnMetadata("ViksUI", "Version")
 T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
-T.newPatch = select(4, GetBuildInfo()) >= 110205
+T.newPatch = select(4, GetBuildInfo()) >= 110207
 T.Retail =_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE
 
 -- NOTE: Restore old function

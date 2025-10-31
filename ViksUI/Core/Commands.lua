@@ -367,7 +367,7 @@ SlashCmdList.GRIDONSCREEN = function(msg)
 			if i == 64 then
 				texture:SetColorTexture(1, 0, 0, 0.8)
 			else
-				texture:SetColorTexture(0, 0, 0, 0.8)
+				texture:SetColorTexture(0.01, 0.01, 0.01, 0.8)
 			end
 			texture:SetPoint("TOPLEFT", grid, "TOPLEFT", i * width - 1, 0)
 			texture:SetPoint("BOTTOMRIGHT", grid, "BOTTOMLEFT", i * width, 0)
@@ -377,7 +377,7 @@ SlashCmdList.GRIDONSCREEN = function(msg)
 			if i == 36 then
 				texture:SetColorTexture(1, 0, 0, 0.8)
 			else
-				texture:SetColorTexture(0, 0, 0, 0.8)
+				texture:SetColorTexture(0.01, 0.01, 0.01, 0.8)
 			end
 			texture:SetPoint("TOPLEFT", grid, "TOPLEFT", 0, -i * height)
 			texture:SetPoint("BOTTOMRIGHT", grid, "TOPRIGHT", 0, -i * height - 1)

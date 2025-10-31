@@ -63,9 +63,7 @@ local function LoadSkin()
 		EncounterJournalMonthlyActivitiesFrame:StripTextures()
 		EncounterJournalMonthlyActivitiesFrame.FilterList:StripTextures()
 		EncounterJournalMonthlyActivitiesFrame.FilterList:SetTemplate("Overlay")
-		if T.newPatch then
-			EncounterJournalMonthlyActivitiesFrame.ThemeContainer:StripTextures(true) -- force to kill
-		end
+		EncounterJournalMonthlyActivitiesFrame.ThemeContainer:StripTextures(true) -- force to kill
 		T.SkinScrollBar(EncounterJournalMonthlyActivitiesFrame.ScrollBar)
 		monthlyActivities.HelpButton.Ring:Hide()
 		monthlyActivities.HelpButton:SetPoint("TOPLEFT", EncounterJournalMonthlyActivitiesFrame, "TOPLEFT", -15, 70)
@@ -82,6 +80,14 @@ local function LoadSkin()
 	for _, tab in pairs(mainTabs) do
 		T.SkinTab(tab)
 	end
+
+	-- TutorialsFrame
+	if T.newPatch then
+		T.SkinTab(EncounterJournal.TutorialsTab)
+
+		EncounterJournal.TutorialsFrame.Contents.StartButton:SkinButton()
+	end
+
 
 	mainTabs[1]:ClearAllPoints()
 	mainTabs[1]:SetPoint("TOPLEFT", EncounterJournal, "BOTTOMLEFT", 11, 0)

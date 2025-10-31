@@ -15,13 +15,8 @@ local function LoadSkin()
 		WhoFrameColumnHeader4,
 		AddFriendFrame,
 		FriendsFriendsFrame,
-		IgnoreListFrame,
 		FriendsFrameInset,
 		WhoFrameListInset,
-		WhoFrameEditBoxInset,
-		LFRQueueFrameListInset,
-		LFRQueueFrameRoleInset,
-		LFRQueueFrameCommentInset,
 		FriendsFrameBattlenetFrame,
 		BattleTagInviteFrame,
 		QuickJoinRoleSelectionFrame,
@@ -88,12 +83,13 @@ local function LoadSkin()
 	}
 
 	for i = 1, #scrollbars do
-		T.SkinScrollBar(scrollbars[i], true)
+		local scrollbar = scrollbars[i]
+		if scrollbar then
+			T.SkinScrollBar(scrollbar, true)
+		end
 	end
 
-	if not T.newPatch then
-		T.SkinScrollBar(IgnoreListFrame.ScrollBar)
-	end
+	T.SkinScrollBar(RecentAlliesFrame.List.ScrollBar)
 
 	-- Reposition buttons
 	WhoFrameWhoButton:SetPoint("RIGHT", WhoFrameAddFriendButton, "LEFT", -3, 0)
@@ -101,10 +97,6 @@ local function LoadSkin()
 	WhoFrameGroupInviteButton:SetPoint("BOTTOMRIGHT", WhoFrame, "BOTTOMRIGHT", -4, 4)
 	FriendsFrameAddFriendButton:SetPoint("BOTTOMLEFT", FriendsFrame, "BOTTOMLEFT", 4, 4)
 	FriendsFrameSendMessageButton:SetPoint("BOTTOMRIGHT", FriendsFrame, "BOTTOMRIGHT", -4, 4)
-	if not T.newPatch then
-		FriendsFrameIgnorePlayerButton:SetPoint("BOTTOMLEFT", FriendsFrame, "BOTTOMLEFT", 4, 4)
-		FriendsFrameUnsquelchButton:SetPoint("BOTTOMRIGHT", FriendsFrame, "BOTTOMRIGHT", -4, 4)
-	end
 
 	-- Resize Buttons
 	WhoFrameWhoButton:SetSize(WhoFrameWhoButton:GetWidth() + 7, WhoFrameWhoButton:GetHeight())
@@ -114,17 +106,15 @@ local function LoadSkin()
 	WhoFrameEditBox:SetPoint("BOTTOM", WhoFrame, "BOTTOM", 0, 31)
 	WhoFrameEditBox.backdrop:SetOutside(nil, 2, -2)
 
-	T.SkinEditBox(AddFriendNameEditBox)
-	AddFriendNameEditBox:SetHeight(AddFriendNameEditBox:GetHeight() - 5)
+	T.SkinEditBox(AddFriendNameEditBox, nil, AddFriendNameEditBox:GetHeight() - 5)
+	AddFriendNameEditBox.backdrop:SetOutside(nil, 4, 0)
 	T.SkinFrame(AddFriendFrame)
 	FriendsFriendsFrame:SetTemplate("Transparent")
 
 	-- Ignore
-	if T.newPatch then
-		T.SkinFrame(FriendsFrame.IgnoreListWindow)
-		FriendsFrame.IgnoreListWindow.UnignorePlayerButton:SkinButton()
-		T.SkinScrollBar(FriendsFrame.IgnoreListWindow.ScrollBar)
-	end
+	T.SkinFrame(FriendsFrame.IgnoreListWindow)
+	FriendsFrame.IgnoreListWindow.UnignorePlayerButton:SkinButton()
+	T.SkinScrollBar(FriendsFrame.IgnoreListWindow.ScrollBar)
 
 	-- Recruit a Friend
 	local SplashFrame = RecruitAFriendFrame.SplashFrame
@@ -196,16 +186,10 @@ local function LoadSkin()
 	end)
 
 	-- BNet Frame
-	if not T.newPatch then
-		FriendsFrameBattlenetFrame.BroadcastButton:SetAlpha(0)
-		FriendsFrameBattlenetFrame.BroadcastButton:ClearAllPoints()
-		FriendsFrameBattlenetFrame.BroadcastButton:SetAllPoints(FriendsFrameBattlenetFrame)
-	end
-
-	if T.newPatch then
+	do
 		local b = FriendsFrameBattlenetFrame.ContactsMenuButton
 		b:SkinButton()
-		b:SetSize(25, 25)
+		b:SetSize(23, 23)
 	end
 
 	FriendsFrameBattlenetFrame.BroadcastFrame:CreateBackdrop("Transparent")
@@ -228,6 +212,19 @@ local function LoadSkin()
 
 	FriendsFrame:SetTemplate("Transparent")
 
+	local InviteAtlas = {
+		["friendslist-invitebutton-horde-normal"] = [[Interface\FriendsFrame\PlusManz-Horde]],
+		["friendslist-invitebutton-alliance-normal"] = [[Interface\FriendsFrame\PlusManz-Alliance]],
+		["friendslist-invitebutton-default-normal"] = [[Interface\FriendsFrame\PlusManz-PlusManz]]
+	}
+
+	local function HandleInviteTex(self, atlas)
+		local tex = InviteAtlas[atlas]
+		if tex then
+			self.inv:SetTexture(tex)
+		end
+	end
+
 	local function ReskinFriendButton(button)
 		if button.styled then return end
 		local icon = button.gameIcon
@@ -239,7 +236,7 @@ local function LoadSkin()
 
 		icon:SetParent(icon.b)
 		icon:SetSize(22, 22)
-		icon:SetTexCoord(.17, .83, .17, .83)
+		icon:SetTexCoord(0, 1, 0, 1)
 		icon:ClearAllPoints()
 		icon:SetPoint("RIGHT", button, "RIGHT", -27, 0)
 		icon.SetPoint = T.dummy
@@ -252,9 +249,11 @@ local function LoadSkin()
 		button.travelPassButton:SetPoint("TOPRIGHT", -1, -2)
 
 		button.inv = button.travelPassButton:CreateTexture(nil, "OVERLAY", nil, 7)
-		button.inv:SetTexture([[Interface\FriendsFrame\PlusManz-PlusManz]])
 		button.inv:SetPoint("TOPRIGHT", 1, -4)
 		button.inv:SetSize(22, 22)
+
+		button.travelPassButton.NormalTexture.inv = button.inv
+		hooksecurefunc(button.travelPassButton.NormalTexture, "SetAtlas", HandleInviteTex)
 
 		button.background:Hide()
 		button.styled = true
@@ -278,12 +277,14 @@ local function LoadSkin()
 	T.SkinCloseButton(FriendsFrameCloseButton)
 	T.SkinDropDownBox(WhoFrameDropdown, 150)
 	WhoFrameColumnHeader2:SetHeight(20)
-	T.SkinDropDownBox(FriendsFrameStatusDropdown, 70)
+	T.SkinDropDownBox(FriendsFrameStatusDropdown)
 	T.SkinDropDownBox(FriendsFriendsFrameDropdown)
 
 	FriendsFrameStatusDropdown:ClearAllPoints()
 	FriendsFrameStatusDropdown:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 22, -27)
 	FriendsFrameStatusDropdown.Text:SetFont(C.media.normal_font, 12, "")
+	FriendsFrameStatusDropdown.Text:ClearAllPoints()
+	FriendsFrameStatusDropdown.Text:SetPoint("LEFT", FriendsFrameStatusDropdown, "LEFT", 7, -1)
 
 	-- Bottom Tabs
 	for i = 1, 4 do
@@ -294,10 +295,8 @@ local function LoadSkin()
 		T.SkinTab(_G["FriendsTabHeaderTab"..i], true)
 	end
 
-	if T.newPatch then
-		for _, tab in next, {FriendsTabHeader.TabSystem:GetChildren()} do
-			tab:StripTextures()
-		end
+	for _, tab in next, {FriendsTabHeader.TabSystem:GetChildren()} do
+		tab:StripTextures()
 	end
 end
 
