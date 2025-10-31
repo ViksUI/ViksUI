@@ -3,6 +3,9 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
+	"Update 11.46 ",
+	"• Currently travelling so check github for full list",
+	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.46",
 	"Update 11.45 ",
 	"• Updated Aura watch for S3 M+ & Raid.",
 	"• Fixed / updated few skins",
@@ -17,9 +20,6 @@ local ChangeLogData = {
 	"• Middle click the equiped Reshii Wraps cloak to open the upgrade menu",
 	"• RaidAuraWatch - Added S3",
 	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.44",
-	"Update 11.43 ",
-	"• Updates & Fixes for WoW 11.2.",
-	"• check: https://github.com/ViksUI/ViksUI/releases/tag/11.1.43",
 " ",
 "EXTRA: New Patreon Cashew, Thanks for the support",
 "Cashew is reason i made Mist version as well",
