@@ -4,6 +4,25 @@ local SoundTime = 0
 local QueueError = {}
 local EnableSound = false
 
+-- Table for deferring Show calls while in combat lockdown
+local PendingShows = {}
+
+local function attemptShow(frame)
+	if not frame or not frame.GetName then return end
+	-- If we're in combat lockdown, defer the show and register to be retried
+	if InCombatLockdown() then
+		PendingShows[frame:GetName()] = frame
+		-- ensure BaudErrorFrame will listen for PLAYER_REGEN_ENABLED to flush pending shows
+		if BaudErrorFrame and not BaudErrorFrame._pendingShowRegistered then
+			BaudErrorFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+			BaudErrorFrame._pendingShowRegistered = true
+		end
+		return
+	end
+	-- Use pcall to avoid the Lua error bubbling up if something is protected
+	pcall(frame.Show, frame)
+end
+
 function BaudErrorFrame_OnLoad(self)
 	self:RegisterEvent("VARIABLES_LOADED")
 	self:RegisterEvent("ADDON_ACTION_BLOCKED")
@@ -49,6 +68,19 @@ function BaudErrorFrame_OnEvent(self, event, ...)
         BaudErrorFrameAdd(arg1.." forbidden from using "..arg2.." (Only usable by Blizzard)", 4)
     elseif event == "MACRO_ACTION_FORBIDDEN" then
         BaudErrorFrameAdd("Macro forbidden from using "..arg1.." (Only usable by Blizzard)", 4)
+    elseif event == "PLAYER_REGEN_ENABLED" then
+        -- Flush any pending deferred Show() calls now that combat ended
+        if PendingShows then
+            for name, frame in pairs(PendingShows) do
+                pcall(frame.Show, frame)
+                PendingShows[name] = nil
+            end
+        end
+        -- Unregister the event until another defer is needed
+        if BaudErrorFrame and BaudErrorFrame._pendingShowRegistered then
+            BaudErrorFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+            BaudErrorFrame._pendingShowRegistered = nil
+        end
     end
 end
 
@@ -95,8 +127,10 @@ function BaudErrorFrameAdd(Error, Retrace)
 		tinsert(QueueError, Error)
 	end
 	tinsert(ErrorList, {Error = Error, Count = 1, Stack = debugstack(Retrace)})
-	BaudErrorFrameMinimapCount:SetText(getn(ErrorList))
-	BaudErrorFrameMinimapButton:Show()
+	-- Use pcall for SetText to avoid errors if the frame gets tainted
+	pcall(function() BaudErrorFrameMinimapCount:SetText(getn(ErrorList)) end)
+	-- Use attemptShow to safely show the minimap button (defers during combat lockdown)
+	attemptShow(BaudErrorFrameMinimapButton)
 	BaudErrorFrameScrollBar_Update()
 end
 
@@ -118,7 +152,8 @@ end
 
 function BaudErrorFrameClearButton_OnClick(self)
 	ErrorList = {}
-	BaudErrorFrameMinimapButton:Hide()
+	-- Use pcall to avoid issues
+	pcall(function() BaudErrorFrameMinimapButton:Hide() end)
 	self:GetParent():Hide()
 end
 
