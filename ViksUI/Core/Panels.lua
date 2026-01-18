@@ -446,7 +446,10 @@ if C.panels.NoPanels == true then
 	
 	ChatOptions:SetScript("OnMouseDown", function(self, Button)
 		if (Button == "LeftButton") then
-			ToggleFrame(ChatMenu)
+			-- Guard against ChatMenu not being defined by the default UI (avoid passing nil into ToggleFrame)
+			if _G and _G.ChatMenu then
+				ToggleFrame(_G.ChatMenu)
+			end
 		end
 	end)
 	

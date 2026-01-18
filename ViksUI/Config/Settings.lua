@@ -258,6 +258,7 @@ C["unitframe"] = {
 	["plugins_combat_feedback"] = false,												-- Combat text on player/target frame
 	["plugins_fader"] = false,															-- Ø Fade unit frames
 	--["plugins_diminishing"] = false,													-- Diminishing Returns icons on arena frames
+	["plugins_debuffhighlight"] = true,													-- Show texture for dispellable debuff
 	["plugins_debuffhighlight_icon"] = false,											-- Debuff highlight texture + icon
 	["plugins_aura_watch"] = false,														-- Raid debuff icons (from the list)
 	["plugins_aura_watch_timer"] = false,												-- Timer on raid debuff icons

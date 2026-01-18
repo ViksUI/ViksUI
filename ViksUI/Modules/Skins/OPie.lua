@@ -188,10 +188,20 @@ local function CreateIndicator(name, parent, size)
 	button.OverlayIcon:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 4, 4)
 
 	-- Profession Overlay icon (Dragonflight only)
-	--if ver >= 100000 then
-		button.ProfessionQualityOverlayFrame = CreateFrame("Frame", nil, button, "ActionButtonProfessionOverlayTemplate")
-		button.ProfessionQualityOverlayFrame:SetPoint("TOPLEFT", 14, -14)
-	--end
+	-- Try to create the Dragonflight template if available; otherwise create a safe fallback so we don't error on older clients
+	local ok, profFrame = pcall(CreateFrame, "Frame", nil, button, "ActionButtonProfessionOverlayTemplate")
+	if ok and profFrame then
+		profFrame:SetPoint("TOPLEFT", 14, -14)
+		button.ProfessionQualityOverlayFrame = profFrame
+	else
+		-- Fallback for clients that don't have the template: create a minimal frame with a Texture child
+		local fallback = CreateFrame("Frame", nil, button)
+		fallback.Texture = fallback:CreateTexture(nil, "OVERLAY")
+		fallback.Texture:SetAllPoints(fallback)
+		fallback:Hide()
+		fallback:SetPoint("TOPLEFT", 14, -14)
+		button.ProfessionQualityOverlayFrame = fallback
+	end
 
 	-- Outer glow (doesn't seem to do anything?)
 	button.GlowTextures = {}
