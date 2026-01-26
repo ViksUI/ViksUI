@@ -1,5 +1,5 @@
-local T, C, L = unpack(select(2, ...))
-if C.unitframe.enable ~= true or C.unitframe.plugins_aura_watch ~= true then return end
+local T, C, L = unpack(ViksUI)
+if C.unitframe.enable ~= true or C.raidframe.plugins_aura_watch ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Based on oUF_RaidDebuffs(by Yleaf)
@@ -164,8 +164,14 @@ local Update = function(self, _, unit)
 		local i = 0
 		while(true) do
 			i = i + 1
-			local name, icon, count, debuffType, duration, expirationTime, _, _, _, spellId, _, isBossDebuff = UnitAura(unit, i, filter)
+			local name, icon, count, debuffType, duration, expirationTime, spellId, isBossDebuff
+			local auraData = C_UnitAuras.GetAuraDataByIndex(unit, i, filter)
+			if auraData then
+				name, icon, count, debuffType, duration, expirationTime, _, _, _, spellId, _, isBossDebuff = auraData.name, auraData.icon, auraData.applications, auraData.dispelName, auraData.duration, auraData.expirationTime, _, _, _,  auraData.spellId, _, auraData.isBossAura
+			end
+
 			if not name then break end
+			if not canaccessvalue(duration) then break end
 
 			if rd.ShowBossDebuff and isBossDebuff then
 				local prio = rd.BossDebuffPriority or bossDebuffPrio

@@ -116,7 +116,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(55095), -- Frost Fever
 			-- Unholy
 			CreateSpellEntry(191587), -- Virulent Plague
-			CreateSpellEntry(194310), -- Festering Wounds
+			-- CreateSpellEntry(194310), -- Festering Wounds
 			CreateSpellEntry(196782), -- Outbreak
 			CreateSpellEntry(221562), -- Asphyxiate
 		},
@@ -352,7 +352,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(361509), 		-- Living Flame Healing
 			CreateSpellEntry(363916), 		-- Obsidian Scales
 			CreateSpellEntry(375234), 		-- Time Spiral
-			CreateSpellEntry(370818), 		-- Snapfire
+			-- CreateSpellEntry(370818), 		-- Snapfire
 			CreateSpellEntry(359618), 		-- Essence burst
 			CreateSpellEntry(370901), 		-- Leaping Flames
 			CreateSpellEntry(374348), 		-- Renewing Blaze
@@ -417,7 +417,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(336746), -- Soulforge Embers
 			CreateSpellEntry(450387), -- Sentinel
 			CreateSpellEntry(269747), -- Wildfire Bomb
-			CreateSpellEntry(450884), -- Lunar Storm
+			-- CreateSpellEntry(450884), -- Lunar Storm
 			CreateSpellEntry(459870), -- Merciless Blow
 			CreateSpellEntry(212431), -- Explosive Shot
 		},
@@ -444,11 +444,11 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(82921), -- Bombardment
 			CreateSpellEntry(190515), -- Survival of the Fittest
 			CreateSpellEntry(193534), -- Steady Focus
-			CreateSpellEntry(203155), -- Sniper Shot
+			-- CreateSpellEntry(203155), -- Sniper Shot
 			-- Survival
 			CreateSpellEntry(62305), -- Master's Call
 			CreateSpellEntry(186289), -- Aspect of the Eagle
-			CreateSpellEntry(190931), -- Mongoose Fury
+			-- CreateSpellEntry(190931), -- Mongoose Fury
 			CreateSpellEntry(194407), -- Spitting Cobra
 			CreateSpellEntry(449275), -- Nascent Empowerment
 			CreateSpellEntry(450978), -- Lunar Storm
@@ -754,7 +754,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(193173), -- Mania
 			CreateSpellEntry(194249), -- Voidform
 			CreateSpellEntry(199131), -- Pure Shadow
-			CreateSpellEntry(204778), -- Void Shield
+			-- CreateSpellEntry(204778), -- Void Shield
 			CreateSpellEntry(205065), -- Void Torrent
 
 		},
@@ -781,13 +781,13 @@ T.ClassTimer_Classes = {
 			-- Assassination
 			CreateSpellEntry(16511), -- Hemorrhage
 			CreateSpellEntry(79140), -- Vendetta
-			CreateSpellEntry(154953), -- Internal Bleeding
+			-- CreateSpellEntry(154953), -- Internal Bleeding
 			CreateSpellEntry(192425), -- Surge of Toxins
 			CreateSpellEntry(385627), -- Kingsbane
 			-- Outlaw
 			CreateSpellEntry(1776), -- Gouge
 			CreateSpellEntry(1943), -- Rupture
-			CreateSpellEntry(196937), -- Ghostly Strike
+			-- CreateSpellEntry(196937), -- Ghostly Strike
 			-- Subtlety
 			CreateSpellEntry(195452), -- Nightblade
 			CreateSpellEntry(196958), -- Strike from the Shadows
@@ -902,7 +902,7 @@ T.ClassTimer_Classes = {
 			CreateSpellEntry(79206), 	-- Spiritwalker's Grace
 			CreateSpellEntry(98007), 	-- Spiritlink Totem
 			CreateSpellEntry(114052), 	-- Ascendance
-			CreateSpellEntry(157504), 	-- Cloudburst Totem
+			-- CreateSpellEntry(157504), 	-- Cloudburst Totem
 			CreateSpellEntry(974),		-- Earthen Shield
 			CreateSpellEntry(201633),	-- Earthen Shield
 			CreateSpellEntry(207400), 	-- Ancestral Vigor
@@ -1031,7 +1031,7 @@ T.ClassTimer_Classes = {
 			-- Protection
 			CreateSpellEntry(1160), -- Demoralizing Shout
 			CreateSpellEntry(6343), -- Thunderclap
-			CreateSpellEntry(115767), -- Deep Wounds
+			-- CreateSpellEntry(115767), -- Deep Wounds
 			CreateSpellEntry(23920), -- Spell Reflection
 			CreateSpellEntry(213871), -- Bodyguard
 		},

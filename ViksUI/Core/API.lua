@@ -174,8 +174,7 @@ end
 
 local function GetTemplate(t)
 	if t == "ClassColor" then
-		local c = T.Colors.class[T.class]
-		borderr, borderg, borderb, bordera = c[1], c[2], c[3], c[4]
+		borderr, borderg, borderb, bordera = unpack(C.media.classborder_color)
 		backdropr, backdropg, backdropb, backdropa = unpack(C.media.backdrop_color)
 	else
 		borderr, borderg, borderb, bordera = unpack(C.media.border_color)
@@ -426,13 +425,13 @@ T.SetModifiedBackdrop = function(self)
 		if self.overlay then
 			self.overlay:SetVertexColor(C.media.classborder_color[1] * 0.3, C.media.classborder_color[2] * 0.3, C.media.classborder_color[3] * 0.3, 1)
 		end
-		-- if self.colorText == "Text" then
-			-- self.Text:SetTextColor(1, 1, 1)
-		-- elseif self.colorText == "Button" then
-			-- self.ButtonText:SetTextColor(1, 1, 1)
-		-- elseif self.colorText == "Name" then
-			-- _G[self:GetName().."Text"]:SetTextColor(1, 1, 1)
-		-- end
+		if self.colorText == "Text" then
+			self.Text:SetTextColor(1, 1, 1)
+		elseif self.colorText == "Button" then
+			self.ButtonText:SetTextColor(1, 1, 1)
+		elseif self.colorText == "Name" then
+			_G[self:GetName().."Text"]:SetTextColor(1, 1, 1)
+		end
 	end
 end
 
@@ -441,13 +440,13 @@ T.SetOriginalBackdrop = function(self)
 	if self.overlay then
 		self.overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
 	end
-	-- if self.colorText == "Text" then
-		-- self.Text:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	-- elseif self.colorText == "Button" then
-		-- self.ButtonText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	-- elseif self.colorText == "Name" then
-		-- _G[self:GetName().."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	-- end
+	if self.colorText == "Text" then
+		self.Text:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	elseif self.colorText == "Button" then
+		self.ButtonText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	elseif self.colorText == "Name" then
+		_G[self:GetName().."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	end
 end
 
 local function SkinButton(f, strip, colorText)
@@ -1310,21 +1309,23 @@ function T.SkinProfessionsFlyout(_, parent)
 			frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 5, 2)
 			T.SkinCheckBox(frame.HideUnownedCheckbox, 24)
 			T.SkinScrollBar(frame.ScrollBar)
+
 			hooksecurefunc(frame.ScrollBox, "Update", function(self)
-				for i = 1, self.ScrollTarget:GetNumChildren() do
-					local button = select(i, self.ScrollTarget:GetChildren())
+				self:ForEachFrame(function(button)
 					if button.IconBorder and not button.styled then
 						button:SetTemplate("Transparent")
-						button.icon:CropIcon()
+						button.Icon:CropIcon()
 						button:SetNormalTexture(0)
 						button:SetPushedTexture(0)
 						button:GetHighlightTexture():Hide()
 						T.SkinIconBorder(button.IconBorder, button)
+						button.IconBorder:SetVertexColor(button.IconBorder:GetVertexColor())
 
 						button.styled = true
 					end
-				end
+				end)
 			end)
+			frame.ScrollBox:Update() -- force to apply skin
 
 			break
 		end

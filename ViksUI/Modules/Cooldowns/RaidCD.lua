@@ -1,4 +1,5 @@
 local T, C, L = unpack(ViksUI)
+if T.newPatch then return end -- BETA not work
 if C.raidcooldown.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------

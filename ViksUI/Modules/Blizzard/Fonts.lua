@@ -120,8 +120,14 @@ frame:SetScript("OnEvent", function(_, _, addon)
 	SetFont(NumberFontNormalSmall, NORMAL, 11, "OUTLINE")
 
 	-- Quest tracker
-	SetFont(ObjectiveTrackerHeaderFont, NORMAL, 16 * C.font.quest_tracker_font_mult) -- Quest title and objectives
-	SetFont(ObjectiveTrackerLineFont, NORMAL, 14 * C.font.quest_tracker_font_mult) -- Quest tracker
+	SetFont(ObjectiveTrackerHeaderFont, NORMAL, 14 * C.font.quest_tracker_font_mult) -- Quest title and objectives
+	SetFont(ObjectiveTrackerLineFont, NORMAL, 13 * C.font.quest_tracker_font_mult) -- Quest tracker
+
+	-- Combat text
+	if C.combattext.damage_style then
+		SetFont(SystemFont_World, C.font.combat_text_font, 64, C.font.combat_text_font_style)
+		SetFont(SystemFont_World_ThickOutline, C.font.combat_text_font, 64, C.font.combat_text_font_style)
+	end
 end)
 
 -- Registering fonts in LibSharedMedia

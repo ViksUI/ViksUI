@@ -1,4 +1,4 @@
-local T, C, L = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true or T.class ~= "WARLOCK" then return end
 
 local _, ns = ...
@@ -6,15 +6,7 @@ local oUF = ns.oUF
 
 local SPELL_POWER_SOUL_SHARDS = Enum.PowerType.SoulShards or 7
 
-local Colors = {
-	[1] = {111/255, 114/255, 195/255, 1},
-	[2] = {119/255, 103/255, 198/255, 1},
-	[3] = {125/255, 95/255, 195/255, 1},
-	[4] = {132/255, 86/255, 193/255, 1},
-	[5] = {209/255, 51/255, 188/255, 1},
-}
-
-local function Update(self, event, unit, powerType)
+local function Update(self, _, unit, powerType)
 	if(self.unit ~= unit or (powerType and powerType ~= "SOUL_SHARDS")) then return end
 
 	local element = self.SoulShards
@@ -55,21 +47,6 @@ local function Enable(self, unit)
 
 		self:RegisterEvent("UNIT_POWER_UPDATE", Path)
 		self:RegisterEvent("UNIT_DISPLAYPOWER", Path)
-
-		for i = 1, 5 do
-			local Point = element[i]
-			if not Point:GetStatusBarTexture() then
-				Point:SetStatusBarTexture([=[Interface\TargetingFrame\UI-StatusBar]=])
-			end
-
-			Point:SetFrameLevel(element:GetFrameLevel() + 1)
-			Point:GetStatusBarTexture():SetHorizTile(false)
-			Point:SetStatusBarColor(unpack(Colors[i]))
-
-			if Point.bg then
-				Point.bg:SetAllPoints()
-			end
-		end
 
 		return true
 	end

@@ -317,6 +317,13 @@ local micromenu = {
 		end
 		ToggleCollectionsJournal()
 	end},
+	{text = HOUSING_MICRO_BUTTON, notCheckable = 1, func = function()
+		if Kiosk.IsEnabled() then
+			return
+		end
+
+		HousingFramesUtil.ToggleHousingDashboard()
+	end},
 	{text = HELP_BUTTON, notCheckable = 1, func = function()
 		ToggleHelpFrame()
 	end},
@@ -329,17 +336,13 @@ local micromenu = {
 }
 
 if T.newPatch then
-	tinsert(micromenu, {text = HOUSING_MICRO_BUTTON, notCheckable = 1, func = function()
-		if Kiosk.IsEnabled() then
-			return
-		end
-
-		HousingFramesUtil.ToggleHousingDashboard()
-	end})
-end
-
-if not IsTrialAccount() and not C_StorePublic.IsDisabledByParentalControls() and C_StorePublic.IsEnabled() then
-	tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
+	if not IsTrialAccount() and C_StorePublic.IsEnabled() then
+		tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
+	end
+else
+	if not IsTrialAccount() and not C_StorePublic.IsDisabledByParentalControls() and C_StorePublic.IsEnabled() then
+		tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
+	end
 end
 
 if T.level == MAX_PLAYER_LEVEL then

@@ -1,4 +1,4 @@
-local T, C, L = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true or C.unitframe.plugins_experience_bar ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ local function UpdateColor(element, isHonor, isRested)
 
 	local r, g, b = unpack(colors[isRested and 2 or 1])
 	element:SetStatusBarColor(r, g, b)
-	--element.bg:SetVertexColor(r, g, b, 0.2) -- ViksUI
+	element.bg:SetVertexColor(r, g, b, 0.2) -- ViksUI
 	if(element.SetAnimatedTextureColors) then
 		element:SetAnimatedTextureColors(r, g, b)
 	end

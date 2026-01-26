@@ -822,7 +822,7 @@ C["filger_spells"] = {
 			-- Mok'Nathal Tactics
 			{spellID = 201081, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Mongoose Fury
-			{spellID = 190931, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 190931, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Beast Cleave
 			{spellID = 118455, unitID = "pet", caster = "player", filter = "BUFF"},
 			-- Mend Pet
@@ -1852,7 +1852,7 @@ C["filger_spells"] = {
 			-- Nightblade
 			{spellID = 195452, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Ghostly Strike
-			{spellID = 196937, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- {spellID = 196937, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Deadly Poison
 			{spellID = 2818, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Crippling Poison
@@ -1860,7 +1860,7 @@ C["filger_spells"] = {
 			-- Wound Poison
 			{spellID = 8680, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Crimson Tempest
-			{spellID = 121411, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- {spellID = 121411, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Kingsbane
 			{spellID = 385627, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
@@ -1921,7 +1921,7 @@ C["filger_spells"] = {
 			-- Between the Eyes
 			{spellID = 315341, filter = "CD"},
 			-- Riposte
-			{spellID = 199754, filter = "CD"},
+			-- {spellID = 199754, filter = "CD"},
 			-- Cloak of Shadows
 			{spellID = 31224, filter = "CD"},
 			-- Grappling Hook
@@ -1931,7 +1931,7 @@ C["filger_spells"] = {
 			-- Garrote
 			{spellID = 703, filter = "CD"},
 			-- Exsanguinate
-			{spellID = 200806, filter = "CD"},
+			-- {spellID = 200806, filter = "CD"},
 			-- Shadowstep
 			{spellID = 36554, filter = "CD"},
 			-- Evasion

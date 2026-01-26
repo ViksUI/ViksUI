@@ -1,8 +1,8 @@
-## Interface: 110205
+## Interface: 120000
 ## Title: |cff105c92ViksUI|r
 ## Notes: A total UI overhaul for World of Warcraft
 ## Author: Viks, Tryllemann
-## Version: 11.46
+## Version: 11.47
 ## SavedVariables: ViksUISettings, ViksUIStats, ViksUIBindings, ViksUICurrency, ViksUIPositions
 ## SavedVariablesPerCharacter: ViksUISettingsPerChar, StuffingDB, ViksUIPositions, ViksUIChatHistory, ViksUIPositionsPerChar
 ## IconTexture: Interface\AddOns\ViksUI\Media\Textures\viksicon.blp

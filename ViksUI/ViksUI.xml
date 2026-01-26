@@ -23,7 +23,7 @@
 	
 	<Script file="Config\DataText.lua"/>
 	<Script file="Libs\LiteStats\LiteStats.lua"/>
-	<!--Script file="UnitFrames\Colors.lua"/-->
+	<Script file="Modules\UnitFrames\Colors.lua"/>
 		
 	<Script file="Config\Filters\Announcements.lua"/>
 	<Script file="Config\Filters\ArenaControl.lua"/>
@@ -31,7 +31,7 @@
 	<Script file="Config\Filters\BadBuffs.lua"/>
 	<Script file="Config\Filters\ChannelingTicks.lua"/>
 	<Script file="Config\Filters\ChatSpam.lua"/>
-	<Script file="Config\Filters\ClassTimer.lua"/>
+	<!-- <Script file="Config\Filters\ClassTimer.lua"/> -->
 	<Script file="Config\Filters\CombatText.lua"/>
 	<Script file="Config\Filters\Cooldowns.lua"/>
 	<Script file="Config\Filters\Diminishing.lua"/>
@@ -57,13 +57,14 @@
 	<Script file="Core\Panels.lua"/>
 	<Script file="Core\ChangeLog.lua"/>
 	<Script file="Config\Theme.lua"/>
-	<Script file="Config\Filters\FilgerSpells.lua"/>
-	<Script file="Core\Colors.lua"/>
+	<!-- <Script file="Config\Filters\FilgerSpells.lua"/> -->
 	
 	<Script file="Modules\UnitFrames\Functions.lua"/>
+	<Script file="Modules\UnitFrames\Tags.lua"/>
+	<Script file="Modules\UnitFrames\Layout.lua"/>
+	<Script file="Modules\UnitFrames\RaidDPS.lua"/>
+	<Script file="Modules\UnitFrames\RaidHeal.lua"/>
 	<Script file="Modules\UnitFrames\Nameplates.lua"/>
-	<Include file="Modules\UnitFrames\UF.xml"/>
-	<Include file="Modules\UnitFrames\Template.xml"/>
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
@@ -118,13 +119,12 @@
 	<Script file="Modules\Announcements\Interrupts.lua"/>
 	<Script file="Modules\Announcements\PullCountdown.lua"/>
 	<Script file="Modules\Announcements\SafariHat.lua"/>
-	<Script file="Modules\Announcements\SayThanks.lua"/>
 	<Script file="Modules\Announcements\Spells.lua"/>
 	
 	<Script file="Modules\Auras\AuraSource.lua"/>
 	<Script file="Modules\Auras\BuffFrame.lua"/>
-	<Script file="Modules\Auras\ClassTimer.lua"/>
-	<Script file="Modules\Auras\Filger.lua"/>
+	<!-- <Script file="Modules\Auras\ClassTimer.lua"/> -->
+	<!-- <Script file="Modules\Auras\Filger.lua"/> -->
 	<Script file="Modules\Auras\SelfBuffsReminder.lua"/>
 	<Script file="Modules\Auras\RaidBuffsReminder.lua"/>
 	
@@ -233,6 +233,7 @@
 	
 	<Include file="Modules\Skins\Blizzard\!LoadFrames.xml"/>
 	<Script file="Modules\Skins\Ace3.lua"/>
+	<Script file="Modules\Skins\AssistedCombat.lua"/>
 	<Script file="Modules\Skins\AtlasLoot.lua"/>
 	<Script file="Modules\Skins\Aurora.lua"/>
 	<Script file="Modules\Skins\BigWigs.lua"/>

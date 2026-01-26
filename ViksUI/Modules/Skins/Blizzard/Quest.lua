@@ -142,6 +142,11 @@ local function LoadSkin()
 		if button.CircleBackground then button.CircleBackground:Hide() end
 		if button.CircleBackgroundGlow then button.CircleBackgroundGlow:Hide() end
 		if button.ValueText then button.ValueText:SetPoint("BOTTOMRIGHT", button.Icon, 0, 0) end
+		local context = button.QuestRewardContextIcon
+		if context then
+			local point, relativeTo, relativePoint, xOfs, yOfs = context:GetPoint()
+			context:SetPoint(point, relativeTo, relativePoint, xOfs - 7, yOfs)
+		end
 		if button.IconBorder then button.IconBorder:SetAlpha(0) end
 		if button.IconOverlay then button.IconOverlay:SetAlpha(0) end --BETA
 		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -413,13 +418,12 @@ local function LoadSkin()
 
 	-- NPC Model
 	QuestModelScene:StripTextures()
-	QuestModelScene:CreateBackdrop("Overlay")
-	QuestModelScene.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
-	QuestNPCModelNameTooltipFrame:CreateBackdrop("Overlay")
-	QuestNPCModelNameTooltipFrame.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+	QuestModelScene:CreateBackdrop("Transparent")
+	QuestNPCModelNameTooltipFrame:CreateBackdrop("Transparent")
 	QuestNPCModelNameTooltipFrame.backdrop:ClearAllPoints()
 	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("TOPLEFT", QuestModelScene.backdrop, "BOTTOMLEFT", 0, -3)
-	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("BOTTOMRIGHT", QuestModelScene.ModelTextFrame, "BOTTOMRIGHT", 2, -1)
+	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("TOPRIGHT", QuestModelScene.backdrop, "BOTTOMRIGHT", 0, -3)
+	QuestNPCModelNameTooltipFrame.backdrop:SetPoint("BOTTOM", QuestModelScene.ModelTextFrame, "BOTTOM", 0, 0)
 	QuestNPCModelNameText:SetPoint("TOPLEFT", QuestModelScene.ModelNameDivider, 15, -20)
 	QuestNPCModelNameText:SetPoint("BOTTOMRIGHT", QuestModelScene.ModelNameDivider, -15, 7)
 	QuestModelScene.ModelTextFrame:StripTextures()
@@ -428,14 +432,14 @@ local function LoadSkin()
 			x = x + 6
 			y = y + 40
 
-			QuestModelScene.backdrop.overlay:Hide()
-			QuestNPCModelNameTooltipFrame.backdrop.overlay:Hide()
+			QuestModelScene.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+			QuestNPCModelNameTooltipFrame.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
 		else
-			QuestModelScene.backdrop.overlay:Show()
-			QuestNPCModelNameTooltipFrame.backdrop.overlay:Show()
+			QuestModelScene.backdrop:SetBackdropColor(0.1, 0.1, 0.1, 1)
+			QuestNPCModelNameTooltipFrame.backdrop:SetBackdropColor(0.1, 0.1, 0.1, 1)
 		end
 		QuestModelScene:ClearAllPoints()
-		QuestModelScene:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
+		QuestModelScene:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x - 2, y)
 		QuestModelScene.ModelTextFrame:SetHeight(85)
 	end)
 
@@ -458,19 +462,15 @@ local function LoadSkin()
 				button:StripTextures()
 				button:CreateBackdrop("Overlay")
 				button.backdrop.overlay:SetVertexColor(0.13, 0.13, 0.13, 1)
-				local r, g, b = unpack(C.media.border_color)
-				button:GetHighlightTexture():SetColorTexture(r, g, b, .25)
+				button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.2)
 				button.ButtonText:SetFont(C.media.normal_font, 16)
 				button.IsSkinned = true
 			end
 		end
 		for button in _G.QuestScrollFrame.titleFramePool:EnumerateActive() do
-			if not button.IsSkinned then
-				if button.Checkbox then
-					button.Checkbox:DisableDrawLayer("BACKGROUND")
-					button.Checkbox:CreateBackdrop("Overlay")
-				end
-
+			if button.Checkbox and not button.IsSkinned then
+				button.Checkbox:StripTextures(true)
+				button.Checkbox:CreateBackdrop("Overlay")
 				button.IsSkinned = true
 			end
 		end
@@ -486,10 +486,11 @@ local function LoadSkin()
 			if header.CollapseButton and not header.CollapseButton.styled then
 				header:StripTextures()
 				header:CreateBackdrop("Overlay")
+				header.backdrop.overlay:SetVertexColor(0.13, 0.13, 0.13, 1)
 				header.backdrop:SetPoint("TOPLEFT", header.Background, -4, 0)
 				header.backdrop:SetPoint("BOTTOMRIGHT", header.Background, 0, 0)
-				local r, g, b = unpack(C.media.border_color)
-				header.Highlight:SetColorTexture(r, g, b, 0.75)
+				header.Highlight:SetColorTexture(1, 1, 1, 0.2)
+				header.Highlight:SetInside(header.backdrop)
 				header.CollapseButton.styled = true
 			end
 		end
@@ -518,13 +519,14 @@ local function LoadSkin()
 		for callingHeader in QuestScrollFrame.covenantCallingsHeaderFramePool:EnumerateActive() do
 			if not callingHeader.backdrop then
 				callingHeader:CreateBackdrop("Overlay")
-				callingHeader.backdrop:SetPoint("TOPLEFT", callingHeader.Background, 7, -2)
-				callingHeader.backdrop:SetPoint("BOTTOMRIGHT", callingHeader.Background, -5, 10)
+				callingHeader.backdrop:SetPoint("TOPLEFT", callingHeader.Background, 5, -2)
+				callingHeader.backdrop:SetPoint("BOTTOMRIGHT", callingHeader.Background, -5, 2)
 				callingHeader.backdrop.overlay:SetVertexColor(1, 1, 1, 0.2)
 
 				callingHeader.Background:SetAlpha(0)
-				callingHeader.HighlightBackground:SetAlpha(0)
+				callingHeader.HighlightTexture:SetAlpha(0)
 				callingHeader.SelectedTexture:SetAlpha(0)
+				callingHeader.SelectedHighlight:SetAlpha(0)
 				callingHeader.Divider:SetAlpha(0)
 			end
 		end

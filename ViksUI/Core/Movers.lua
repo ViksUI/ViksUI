@@ -28,17 +28,11 @@ T.MoverFrames = {
 	ThreatMeterAnchor,
 	LootRollAnchor,
 	RaidBuffsAnchor,
-	DCPAnchor,
+	PulseCDAnchor,
 	AutoButtonAnchor,
 	AnchorMarkBar,
 	TooltipAnchor,
 	ChatBar,
-	PulseCDAnchor,
-	oUF_Player,
-	oUF_Player_Castbar,
-	oUF_Target_Castbar,
-	oUF_Player_Portrait,
-	oUF_Target_Portrait,
 	P_BUFF_ICON_Anchor,
 	P_PROC_ICON_Anchor,
 	SPECIAL_P_BUFF_ICON_Anchor,
@@ -143,10 +137,10 @@ for i = 1, 5 do
 	tinsert(unitFrames,_G["oUF_Arena"..i.."Target"])
 end
 
---for i = 1, C.raidframe.raid_groups do
-	--tinsert(unitFrames, _G["RaidAnchor"..i])
-	--tinsert(unitFrames, _G["RaidDPSAnchor"..i])
---end
+for i = 1, C.raidframe.raid_groups do
+	tinsert(unitFrames, _G["RaidAnchor"..i])
+	tinsert(unitFrames, _G["RaidDPSAnchor"..i])
+end
 
 local moving = false
 local movers = {}
@@ -385,10 +379,6 @@ chatInfo:SetFrameStrata("TOOLTIP")
 chatInfo:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -3, 50)
 chatInfo:SetSize(C.chat.width + 7, C.chat.height + 4)
 chatInfo:SetTemplate("Overlay")
-chatInfo:SetMovable(true)
-chatInfo:EnableMouse(true)
-chatInfo:SetScript("OnMouseDown", chatInfo.StartMoving)
-chatInfo:SetScript("OnMouseUp", chatInfo.StopMovingOrSizing)
 chatInfo:Hide()
 
 local title = chatInfo:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
@@ -423,6 +413,27 @@ CloseButton:SetScript("OnClick", function()
 	SlashCmdList.MOVING()
 end)
 CloseButton:SkinButton()
+
+-- Allow to move chat frame
+do
+	chatInfo:EnableMouse(true)
+	chatInfo:SetMovable(true)
+	chatInfo:SetClampedToScreen(true)
+	chatInfo:RegisterForDrag("LeftButton")
+	chatInfo:SetScript("OnDragStart", OnDragStart)
+	chatInfo:SetScript("OnDragStop", OnDragStop)
+	chatInfo:SetScript("OnMouseUp", RestoreDefaults)
+	chatInfo:SetScript("OnMouseWheel", OnMouseWheel)
+	chatInfo.frame = ChatFrame1
+
+	chatInfo:SetScript("OnEnter", function(self)
+		ShowControls(self)
+	end)
+
+	chatInfo:SetScript("OnLeave", function(self)
+		if not MouseIsOver(controls) then controls:Hide() end
+	end)
+end
 
 local index = 200
 local CreateMover = function(frame, unit)
@@ -514,7 +525,6 @@ local InitMove = function(msg)
 		controls:Hide()
 		chatInfo:Hide()
 	end
-	if T.MoveUnitFrames then T.MoveUnitFrames() end												
 end
 
 local RestoreUI = function(self)

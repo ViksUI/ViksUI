@@ -11,8 +11,8 @@ local function Strip(info, name)
 end
 
 -- Function to rename channel and other stuff
-local AddMessage = function(self, text, ...)
-	if type(text) == "string" then
+local function AddMessage(self, text, ...)
+	if type(text) == "string" and canaccessvalue(text) then
 		text = text:gsub("|h%[(%d+)%. .-%]|h", "|h[%1]|h")
 		text = text:gsub("|Hplayer:(.-)|h%[(.-)%]|h", Strip)
 	end
@@ -241,11 +241,9 @@ local function SetChatStyle(frame)
 	_G[format("ChatFrame%sEditBoxMid", id)]:Kill()
 	_G[format("ChatFrame%sEditBoxRight", id)]:Kill()
 
-	if T.newPatch then
-		_G[format("ChatFrame%sEditBoxFocusLeft", id)]:SetTexture("")
-		_G[format("ChatFrame%sEditBoxFocusMid", id)]:SetTexture("")
-		_G[format("ChatFrame%sEditBoxFocusRight", id)]:SetTexture("")
-	end
+	_G[format("ChatFrame%sEditBoxFocusLeft", id)]:SetTexture("")
+	_G[format("ChatFrame%sEditBoxFocusMid", id)]:SetTexture("")
+	_G[format("ChatFrame%sEditBoxFocusRight", id)]:SetTexture("")
 
 	_G[format("ChatFrame%sTabGlow", id)]:Kill()
 
@@ -288,41 +286,22 @@ local function SetChatStyle(frame)
 		end
 
 		-- Update border color according where we talk
-		if T.newPatch then
-			hooksecurefunc(editBox, "UpdateHeader", function()
-				local chatType = editBox:GetAttribute("chatType")
-				if not chatType then return end
+		hooksecurefunc(editBox, "UpdateHeader", function()
+			local chatType = editBox:GetAttribute("chatType")
+			if not chatType then return end
 
-				local chanTarget = editBox:GetAttribute("channelTarget")
-				local chanName = chanTarget and GetChannelName(chanTarget)
-				if chanName and chatType == "CHANNEL" then
-					if chanName == 0 then
-						colorize(unpack(C.media.border_color))
-					else
-						colorize(ChatTypeInfo[chatType..chanName].r, ChatTypeInfo[chatType..chanName].g, ChatTypeInfo[chatType..chanName].b)
-					end
+			local chanTarget = editBox:GetAttribute("channelTarget")
+			local chanName = chanTarget and GetChannelName(chanTarget)
+			if chanName and chatType == "CHANNEL" then
+				if chanName == 0 then
+					colorize(unpack(C.media.border_color))
 				else
-					colorize(ChatTypeInfo[chatType].r, ChatTypeInfo[chatType].g, ChatTypeInfo[chatType].b)
+					colorize(ChatTypeInfo[chatType..chanName].r, ChatTypeInfo[chatType..chanName].g, ChatTypeInfo[chatType..chanName].b)
 				end
-			end)
-		else
-			hooksecurefunc("ChatEdit_UpdateHeader", function()
-				local chatType = _G[chat.."EditBox"]:GetAttribute("chatType")
-				if not chatType then return end
-
-				local chanTarget = _G[chat.."EditBox"]:GetAttribute("channelTarget")
-				local chanName = chanTarget and GetChannelName(chanTarget)
-				if chanName and chatType == "CHANNEL" then
-					if chanName == 0 then
-						colorize(unpack(C.media.border_color))
-					else
-						colorize(ChatTypeInfo[chatType..chanName].r, ChatTypeInfo[chatType..chanName].g, ChatTypeInfo[chatType..chanName].b)
-					end
-				else
-					colorize(ChatTypeInfo[chatType].r, ChatTypeInfo[chatType].g, ChatTypeInfo[chatType].b)
-				end
-			end)
-		end
+			else
+				colorize(ChatTypeInfo[chatType].r, ChatTypeInfo[chatType].g, ChatTypeInfo[chatType].b)
+			end
+		end)
 	end
 
 	-- Rename combat log tab
@@ -544,7 +523,7 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", RemoveRealmName)
 --	Save slash command typo
 ----------------------------------------------------------------------------------------
 local function TypoHistory_Posthook_AddMessage(chat, text)
-	if text and strfind(text, HELP_TEXT_SIMPLE) then
+	if text and canaccessvalue(text) and strfind(text, HELP_TEXT_SIMPLE) then
 		ChatEdit_AddHistory(chat.editBox)
 	end
 end

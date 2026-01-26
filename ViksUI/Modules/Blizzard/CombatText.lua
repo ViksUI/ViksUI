@@ -1,4 +1,29 @@
 local T, C, L = unpack(ViksUI)
+
+-- Change damage font
+if C.combattext.damage_style then
+	DAMAGE_TEXT_FONT = C.font.combat_text_font
+end
+
+-- Hide blizzard combat text
+if C.combattext.blizz_head_numbers ~= true then
+	SetCVar("floatingCombatTextCombatHealing", 0)
+	SetCVar("floatingCombatTextCombatDamage", 0)
+else
+	SetCVar("floatingCombatTextCombatHealing", 1)
+	SetCVar("floatingCombatTextCombatDamage", 1)
+end
+
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGOUT")
+frame:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_LOGOUT" then
+		SetCVar("floatingCombatTextCombatHealing", 1)
+		SetCVar("floatingCombatTextCombatDamage", 1)
+	end
+end)
+
+if T.newPatch then return end -- BETA not work
 if C.combattext.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -347,29 +372,6 @@ local function OnEvent(_, event, subevent, powerType)
 	end
 end
 
--- Change damage font
-if C.combattext.damage_style then
-	DAMAGE_TEXT_FONT = C.font.combat_text_font
-end
-
--- Hide blizzard combat text
-if C.combattext.blizz_head_numbers ~= true then
-	SetCVar("floatingCombatTextCombatHealing", 0)
-	SetCVar("floatingCombatTextCombatDamage", 0)
-else
-	SetCVar("floatingCombatTextCombatHealing", 1)
-	SetCVar("floatingCombatTextCombatDamage", 1)
-end
-
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_LOGOUT")
-frame:SetScript("OnEvent", function(_, event)
-	if event == "PLAYER_LOGOUT" then
-		SetCVar("floatingCombatTextCombatHealing", 1)
-		SetCVar("floatingCombatTextCombatDamage", 1)
-	end
-end)
-
 -- Frames
 ct.locked = true
 ct.frames = {}
@@ -392,21 +394,33 @@ for i = 1, numf do
 	f:SetInsertMode(C.combattext.direction and 1 or 2)
 	if i == 1 then
 		f:SetJustifyH(ct.justify_1)
-		f:SetPoint("CENTER", -600, 180)
+		if C.unitframe.enable == true and _G.oUF_Player then
+			f:SetPoint("BOTTOMLEFT", "oUF_Player", "TOPLEFT", -3, 60)
+		else
+			f:SetPoint("CENTER", -192, -32)
+		end
 	elseif i == 2 then
 		f:SetJustifyH(ct.justify_2)
-		f:SetPoint("CENTER", -460, 180)
+		if C.unitframe.enable == true and _G.oUF_Player then
+			f:SetPoint("BOTTOMRIGHT", "oUF_Player", "TOPRIGHT", 5, 60)
+		else
+			f:SetPoint("CENTER", 192, -32)
+		end
 	elseif i == 3 then
 		f:SetJustifyH(ct.justify_3)
 		f:SetWidth(256)
-		f:SetPoint("CENTER", 0, 400)
+		f:SetPoint("CENTER", 0, 205)
 	else
 		f:SetJustifyH(ct.justify_4)
 		f:SetWidth(200)
 		if C.combattext.icons then
 			f:SetHeight(150)
 		end
-		f:SetPoint("CENTER", 460, 180)
+		if C.unitframe.enable == true and _G.oUF_Target then
+			f:SetPoint("BOTTOMRIGHT", "oUF_Target", "TOPRIGHT", 2, 278)
+		else
+			f:SetPoint("CENTER", 330, 205)
+		end
 		local a, _, c = f:GetFont()
 		if C.font.combat_text_font_size == "auto" then
 			if C.combattext.icons then

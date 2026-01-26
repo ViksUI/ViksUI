@@ -181,7 +181,6 @@ end
 
 local function SkinSpell(widget)
 	if not widget.styled then
-		widget:SetSize(35, 35)	-- use to avoid overlap in Jail (by default 30 size), not sure how it looks in another place
 		widget.Icon:SkinIcon(true)
 		widget.Border:SetAlpha(0)
 		widget.DebuffBorder:SetAlpha(0)
@@ -190,91 +189,13 @@ local function SkinSpell(widget)
 	widget.IconMask:Hide()
 	widget.CircleMask:Hide()
 
+	local w, h = widget:GetSize()
+	widget:SetSize(w + 5, h + 5)	-- use to avoid overlap in Jail (by default 30 size), not sure how it looks in another place
+
 	if widget.DebuffBorder:IsShown() then
 		widget.Icon.b:SetBackdropBorderColor(0.7, 0, 0)
 	else
 		widget.Icon.b:SetBackdropBorderColor(unpack(C.media.border_color))
-	end
-end
-
-local VigorBar = CreateFrame("Frame", "VigorBar", UIParent)
-VigorBar:CreateBackdrop("Default")
-VigorBar:SetPoint("TOP", powerAnchor, "TOP", 0, -2)
-VigorBar:SetSize(250, 12)
-VigorBar:Hide()
-
-for i = 1, 6 do
-	VigorBar[i] = CreateFrame("StatusBar", "Vigor"..i, VigorBar)
-	VigorBar[i]:SetSize((250 - 5) / 6, 12)
-
-	if i == 1 then
-		VigorBar[i]:SetPoint("TOPLEFT", VigorBar, "TOPLEFT", 0, 0)
-	else
-		VigorBar[i]:SetPoint("TOPLEFT", VigorBar[i-1], "TOPRIGHT", 1, 0)
-	end
-	VigorBar[i]:SetStatusBarTexture(C.media.texture)
-	VigorBar[i]:SetMinMaxValues(0, 100)
-	VigorBar[i]:SetStatusBarColor(0.2, 0.58, 0.8)
-
-	VigorBar[i].bg = VigorBar[i]:CreateTexture(nil, "BORDER")
-	VigorBar[i].bg:SetAllPoints()
-	VigorBar[i].bg:SetTexture(C.media.texture)
-	VigorBar[i].bg:SetVertexColor(0.2 * 0.2, 0.58 * 0.2, 0.8 * 0.2)
-
-	VigorBar[i]:SetValue(0)
-end
-
-local function SkinVigorBar(widget)
-	if not widget:IsShown() then return end -- Hide our bar if Blizzard's not shown
-	local widgetInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
-	if not widgetInfo then return end
-
-	VigorBar:Show()
-	local total = widgetInfo.numTotalFrames
-	for i = 1, total do
-		local value = 0
-		VigorBar[i]:SetStatusBarColor(0.2, 0.58, 0.8)
-		if widgetInfo.numFullFrames >= i then
-			value = widgetInfo.fillMax
-		elseif widgetInfo.numFullFrames + 1 == i then
-			value = widgetInfo.fillValue
-			VigorBar[i]:SetStatusBarColor(0.2 * 0.6, 0.58 * 0.6, 0.8 * 0.6)
-		else
-			value = widgetInfo.fillMin
-		end
-		VigorBar[i]:SetValue(value)
-	end
-
-	if total < 6 and C_SpellBook.IsSpellKnown(377922) then total = 6 end -- sometimes it return 5
-
-	if total < 6 then
-		for i = total + 1, 6 do
-			VigorBar[i]:Hide()
-			VigorBar[i]:SetValue(0)
-		end
-
-		local spacing = select(4, VigorBar[6]:GetPoint())
-		local w = VigorBar:GetWidth()
-		local s = 0
-
-		for i = 1, total do
-			VigorBar[i]:Show()
-			if i ~= total then
-				VigorBar[i]:SetWidth(w / total - spacing)
-				s = s + (w / total)
-			else
-				VigorBar[i]:SetWidth(w - s)
-			end
-		end
-	end
-
-	widget:SetAlpha(0)
-
-	if not widget.hook then
-		hooksecurefunc(widget, "Hide", function()
-			VigorBar:Hide()
-		end)
-		widget.hook = true
 	end
 end
 
@@ -294,12 +215,6 @@ frame:SetScript("OnEvent", function()
 	for _, widget in pairs(UIWidgetBelowMinimapContainerFrame.widgetFrames) do
 		if widget.widgetType == Enum.UIWidgetVisualizationType.CaptureBar then
 			SkinCaptureBar(widget)
-		end
-	end
-
-	for _, widget in pairs(UIWidgetPowerBarContainerFrame.widgetFrames) do
-		if widget.widgetType == Enum.UIWidgetVisualizationType.FillUpFrames then
-			SkinVigorBar(widget)
 		end
 	end
 end)

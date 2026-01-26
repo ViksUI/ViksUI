@@ -1,4 +1,4 @@
-local T, C, L = unpack(select(2, ...))
+local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true then return end
 
 local _, ns = ...
@@ -107,10 +107,10 @@ local function Visibility(self)
 
 	if form == (DRUID_CAT_FORM or 1) or (UnitHasVehicleUI("player") and UnitPower("vehicle", 4) > 0) then
 		element:Show()
-		-- if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end   --Not changing as its on own anchor
+		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
 	else
 		element:Hide()
-		-- if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end  --Not changing as its on own anchor
+		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end
 	end
 end
 

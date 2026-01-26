@@ -166,6 +166,7 @@ C["skins"] = {
 	["minimap_buttons_mouseover"] = true,		-- Addons icons on mouseover
 	-- Addons
 	["ace3"] = false,							-- Ace3 options elements skin
+	["assistedcombat"] = false,					-- Simple Assisted Combat Icon skin
 	["atlasloot"] = false,						-- AtlasLoot skin
 	["bigwigs"] = false,						-- BigWigs skin
 	["blood_shield_tracker"] = false,			-- BloodShieldTracker skin
@@ -201,118 +202,59 @@ C["skins"] = {
 ----------------------------------------------------------------------------------------
 C["unitframe"] = {
 	-- Main
-	["enable"] = true,																	-- enable/disable action bars
-	["HealFrames"] = false,																-- Healing layout/positions
-	["HealthcolorClass"] = false,														-- health color = class color
-	["HealthBarBackGround"] = { .1, .1, .1, 1},
-	["Powercolor"] = true,																-- power color = class color
-	["Autohide"] = true, 																-- Always Hide Raidframes if Vuhdo/Healbot/Grid is loaded.
-	["UFfont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",
-	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
-	["insideAlpha"] = 1,																-- Alpha when Unitframe is in range	
-	["outsideAlpha"] = 0.6,																-- Alpha when Unitframe is out of range
-	["uf_color"] = {0.4, 0.4, 0.4},														-- Color for UF if ["own_color"] = true
-	-- misc
-	["showPlayerAuras"] = true, 														-- use a custom player buffs/debuffs frame instead of blizzard's default.
-	["IndicatorIcons2"] = false,														-- Ø Toggles different Indicator types.
-	["aurasize"] = 18,																	-- Ø Aura Size for indicator type 2
-	["indicatorsize"] = 6,																-- Ø Size on Squares on Indicator type 2
-	["symbolsize"] = 11,																-- Ø Size on Symbols on Indicator type 2
-	["fontsizeEdge"] = 12,																-- Ø
-	["tankdebuff"] = 22,																-- Size on debuffs on MT frames
-	["Findoutline"] = "OUTLINE",														-- Ø
+	["enable"] = true,							-- Enable unit frames
+	["own_color"] = false,						-- Set your color for health bars
+	["uf_color"] = {0.4, 0.4, 0.4},				-- Color of health bars if ["own_color"] = true
+	["uf_color_bg"] = {0.1, 0.1, 0.1},			-- Color of health background
+	["enemy_health_color"] = true,				-- If enable, enemy target healthbar color is red
+	["show_total_value"] = false,				-- Display of info text on player and target with XXXX/Total
+	["color_value"] = false,					-- Health/mana value is colored
+	["bar_color_value"] = false,				-- Health bar color by current health remaining
+	["lines"] = true,							-- Show Player and Target lines
 	-- Cast bars
-	["Castbars"] = true, 																-- Show castbars
-	["castbar_ticks"] = true,															-- Castbar ticks
-	["castbar_icon"] = true,															-- Show castbar icons
+	["unit_castbar"] = true,					-- Show castbars
+	["castbar_icon"] = false,					-- Show castbar icons
+	["castbar_latency"] = true,					-- Castbar latency
+	["castbar_ticks"] = false,					-- Castbar ticks
+	["castbar_focus_type"] = "ICON",			-- Icon for focus castbar (ICON, BAR, NONE)
 	-- Frames
-	["showtot"] = true, 																-- show target of target frame
-	["showpet"] = true,																	-- show pet frame
-	["showfocus"] = true, 																-- show focus frame
-	["showfocustarget"] = true, 														-- show focus targets frame
-	["showBossFrames"] = true, 															-- show boss frame
-	["MTFrames"] = true, 																-- show main tank frames
-	["ShowRaid"] = true,																-- Show Raid Frames
-	["ShowParty"] = true,																-- show party frames (shown as 5man raid)
-	["RaidShowAllGroups"] = true,														-- Show All 8 Raid Groups, if not then 5	
-	["RaidShowSolo"] = false,															-- show raid frames even when solo
+	["show_pet"] = true,						-- Show pet frame
+	["show_focus"] = true,						-- Show focus frame
+	["show_target_target"] = true,				-- Show target target frame
+	["show_boss"] = true,						-- Show boss frames
+	["boss_on_right"] = true,					-- Boss frames on the right
+	["show_arena"] = true,						-- Show arena frames
+	["arena_on_right"] = true,					-- Arena frames on the right
 	-- Icons
-	["showLFDIcons"] = true,															-- Show Raid Roll Icon on Frames
-	["customLFDIcons"] = true,															-- Show Custom Raid Roll Icon on Frames
-	["customLFDText"] = false,															-- Show Raid Roll Icon as Text on Frames
-	["showIndicators"] = true,															-- Show Indicators on frames
-	["debuffsOnlyShowPlayer"] = false,													-- only show your debuffs on target
-	["buffsOnlyShowPlayer"] = false,													-- only show your buffs
-	["RCheckIcon"] = true,																-- Show Ready Check Icons On Health Frames
-	-- Portrait
-	["showPortrait"] = true,															-- show portraits Icon
-	["showPortraitHPbar"] = false,														-- show portraits on Healthbar, Icon must be turned off
-	["portrait_type"] = "3D",															-- Type of portraits (3D, 2D, ICONS)
+	["icons_pvp"] = false,						-- Mouseover PvP text (not icons) on player and target frames
+	["icons_combat"] = true,					-- Combat icon
+	["icons_resting"] = true,					-- Resting icon
+	-- Portraits
+	["portrait_enable"] = false,				-- Enable player/target portraits
+	["portrait_classcolor_border"] = true,		-- Enable classcolor border
+	["portrait_type"] = "3D",					-- Type of portraits (3D, 2D, ICONS, OVERLAY)
+	["portrait_height"] = 92,					-- Portrait height
+	["portrait_width"] = 67,					-- Portrait width
 	-- Plugins
-	["plugins_gcd"] = false,															-- Global cooldown spark on player frame
-	["plugins_swing"] = false,															-- Swing bar
-	["plugins_reputation_bar"] = false,													-- Reputation bar
-	["plugins_experience_bar"] = false,													-- Experience bar
-	["plugins_smooth_bar"] = false,														-- Smooth bar
-	--["plugins_enemy_spec"] = false,													-- Enemy specialization
-	["plugins_combat_feedback"] = false,												-- Combat text on player/target frame
-	["plugins_fader"] = false,															-- Ø Fade unit frames
-	--["plugins_diminishing"] = false,													-- Diminishing Returns icons on arena frames
-	["plugins_debuffhighlight"] = true,													-- Show texture for dispellable debuff
-	["plugins_debuffhighlight_icon"] = false,											-- Debuff highlight texture + icon
-	["plugins_aura_watch"] = false,														-- Raid debuff icons (from the list)
-	["plugins_aura_watch_timer"] = false,												-- Timer on raid debuff icons
-	["plugins_buffs_timer"] = false,													-- Timer on raid buffs icons
-	["plugins_pvp_debuffs"] = false,														-- Show also PvP debuff icons (from the list)
-	["plugins_healcomm"] = false,														-- Show incoming heals in player and raid frames
-	["plugins_auto_resurrection"] = false,												-- Auto cast resurrection on middle-click(doesn't work with Clique)
-	-- Unit Size
-	["Portrait_w"] = 56,
-	["Portrait_h"] = 56,
-	["Player_w"] = 245,
-	["Player_h"] = 60,
-	["Target_w"] = 245,
-	["Target_h"] = 60,
-	["Targettarget_w"] = 120,
-	["Targettarget_h"] = 27,
-	["Focus_w"] = 200,
-	["Focus_h"] = 24,
-	["Focustarget_w"] = 120,
-	["Focustarget_h"] = 27,
-	["Pet_w"] = 120,
-	["Pet_h"] = 27,
-	["PetTarget_w"] = 95, -- Not in use
-	["PetTarget_h"] = 24, -- Not in use
-	["Boss_w"] = 150,
-	["Boss_h"] = 20,
-	["Tank_w"] = 180,
-	["Tank_h"] = 20,
-	["TankH_w"] = 150,
-	["TankH_h"] = 20,
-	["Raid10H_w"] = 100,
-	["Raid10H_h"] = 40,
-	["Raid25H_w"] = 60,
-	["Raid25H_h"] = 30,
-	["Raid25_w"] = 45,
-	["Raid25_h"] = 30,
-	["Raid40H_w"] = 40,
-	["Raid40H_h"] = 30,
-	["Raid40_w"] = 40,
-	["Raid40_h"] = 30,
-	["Party_w"] = 100,
-	["Party_h"] = 40,
-	["Arena_w"] = 245,
-	["Arena_h"] = 60,
-	["CastbarPlayer_w"] = 0, -- Not in use
-	["CastbarPlayer_h"] = 16,
-	["CastbarTarget_w"] = 0, -- Not in use
-	["CastbarTarget_h"] = 16,
-	["CastbarArena_w"] = 0, -- Not in use
-	["CastbarArena_h"] = 16,
-	["CastbarBoss_w"] = 0, -- Not in use
-	["CastbarBoss_h"] = 10,
-	["CastbarFocus_w"] = 0, -- Not in use
-	["CastbarFocus_h"] = 13,
+	["plugins_gcd"] = false,					-- Global cooldown spark on player frame
+	["plugins_swing"] = false,					-- Swing bar
+	["plugins_reputation_bar"] = false,			-- Reputation bar (left from player frame by mouseover, Middle-Click to lock visibility)
+	["plugins_experience_bar"] = false,			-- Experience bar (left from player frame by mouseover, Middle-Click to lock visibility)
+	["plugins_smooth_bar"] = false,				-- Smooth bar
+	["plugins_enemy_spec"] = false,				-- Enemy specialization in BG and Arena
+	["plugins_combat_feedback"] = false,		-- Combat text on player/target frame
+	["plugins_fader"] = false,					-- Fade unit frames
+	["plugins_diminishing"] = false,			-- Diminishing Returns icons on arena frames
+	["plugins_power_prediction"] = false,		-- Power cost prediction bar on player frame
+	["plugins_absorbs"] = false,				-- Absorbs value on player frame
+	-- Size
+	["player_width"] = 217,						-- Player and Target width
+	["boss_width"] = 150,						-- Boss and Arena width
+	["extra_height_auto"] = true,				-- Auto height for health/power depending on font size
+	["extra_health_height"] = 0,				-- Additional height for health
+	["extra_power_height"] = 0,					-- Additional height for power
+	["castbar_width"] = 194,					-- Player and Target castbar width
+	["castbar_height"] = 16,					-- Player and Target castbar height
 }
 
 ----------------------------------------------------------------------------------------
@@ -336,80 +278,71 @@ C["unitframe_class_bar"] = {
 ----------------------------------------------------------------------------------------
 --	Raid Frames options
 ----------------------------------------------------------------------------------------
-C["raidframes"] = {
-	["enable"] = false,
-	["scale"] = 1.0,
-	["width"] = 101,
-	["height"] = 30,
-	["width25"] = 60,
-	["height25"] = 30,
-	["width40"] = 60,
-	["height40"] = 24,
-	["fontsize"] = 12,
-	["fontsizeEdge"] = 12,
-	["outline"] = "OUTLINE",
-	["solo"] = false,
-	["player"] = true,
-	["party"] = false,
-	["numCol"] = 5,
-	["numUnits"] = 5,
-	["spacing"] = 7,
-	["orientation"] = "HORIZONTAL",
-	["porientation"] = "HORIZONTAL",
-	["horizontal"] = true, 
-	["growth"] = "UP", 
-	["reversecolors"] = true,
-	["definecolors"] = true,
-	["powerbar"] = true,
-	["powerbarsize"] = 0.12,
-	["outsideRange"] = .40,
-	["healtext"] = true,
-	["healbar"] = true,
-	["healoverflow"] = true,
-	["healothersonly"] = false,
-	["healalpha"] = .40,
-	["roleicon"] = true,
-	["showIndicators"] = true,
-	["indicatorsize"] = 6,
-	["symbolsize"] = 11,
-	["leadersize"] = 12,
-	["autorez"] = true,
-	["aurasize"] = 18,
-	["multi"] = true, --Use multiple headers for better group sorting. Note: This disables units per group and sets it to 5.
-	["deficit"] = true,
-	["multi2"] = true,
-	["perc"] = true,
-	["actual"] = true,
-	["myhealcolor"] = { 0, 1, 0.5, 0.4 },
-	["otherhealcolor"] = { 0, 1, 0, 0.4 },
-	["hpcolor"] = { 0.1, 0.1, 0.1, 1 },
-	["hpbgcolor"] = { 0.5, 0.5, 0.5, 1 },
-	["powercolor"] = { 1, 1, 1, 1 },
-	["powerbgcolor"] = { 0.33, 0.33, 0.33, 1 },
-	["powerdefinecolors"] = false,
-	["colorSmooth"] = false,
-	["gradient"] = { 1, 0, 0, 1 },
-	["tborder"] = true,
-	["fborder"] = true,
-	["afk"] = true,
-	["highlight"] = true,
-	["dispel"] = true,
-	["powerclass"] = true,
-	["tooltip"] = true,
-	["sortName"] = false,
-	["sortClass"] = false,
-	["classOrder"] = "DEATHKNIGHT,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR", --Uppercase English class names separated by a comma. \n { CLASS[,CLASS]... }"
-	["hidemenu"] = false,
+C["raidframe"] = {
+	-- Main
+	["layout"] = "HEAL",						-- Raid layout (HEAL, DPS, AUTO, BLIZZARD)
+	["show_party"] = true,						-- Show party frames
+	["show_raid"] = true,						-- Show raid frames
+	["show_target"] = true,						-- Show target frames
+	["show_pet"] = true,						-- Show pet frames
+	["solo_mode"] = false,						-- Show player frame always
+	["player_in_party"] = true,					-- Show player frame in party
+	["raid_tanks"] = true,						-- Show raid tanks
+	["raid_tanks_tt"] = false,					-- Show raid tanks target target
+	["raid_groups"] = 5,						-- Number of groups in raid
+	["auto_position"] = "DYNAMIC",				-- Auto reposition raid frame (only for Heal layout) (DYNAMIC, STATIC, NONE)
+	["party_vertical"] = false,					-- Vertical party (only for Heal layout)
+	["raid_groups_vertical"] = false,			-- Vertical raid groups (only for Heal layout)
+	["vertical_health"] = false,				-- Vertical orientation of health (only for Heal layout)
+	["by_role"] = true,							-- Sorting players in group by role
+	["aggro_border"] = true,					-- Aggro border
+	["deficit_health"] = false,					-- Raid deficit health
+	["hide_health_value"] = false,				-- Hide raid health value
+	["alpha_health"] = false,					-- Alpha of healthbars when 100%hp
+	["show_range"] = true,						-- Show range opacity for raidframes
+	["range_alpha"] = 0.5,						-- Alpha of unitframes when unit is out of range
+	-- Icons
+	["icons_role"] = false,						-- Role icon on frames
+	["icons_raid_mark"] = true,					-- Raid mark icons on frames
+	["icons_ready_check"] = true,				-- Ready check icons on frames
+	["icons_leader"] = true,					-- Leader icon and assistant icon on frames
+	["icons_sumon"] = true,						-- Sumon icons on frames
+	["icons_phase"] = true,						-- Phase icons on frames
+	-- Plugins
+	["plugins_debuffhighlight"] = true,			-- Show texture for dispellable debuff
+	["plugins_aura_watch"] = true,				-- Raid debuff icons (from the list)
+	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
+	["plugins_buffs_timer"] = false,			-- Timer on raid buffs icons
+	["plugins_debuffhighlight_icon"] = false,	-- Show dispellable debuff icon
+	["plugins_pvp_debuffs"] = false,			-- Show PvP debuff icons (from the list)
+	["plugins_healcomm"] = true,				-- Incoming heal bar on raid frame
+	["plugins_over_absorb"] = false,			-- Show over absorb bar on raid frame
+	["plugins_over_heal_absorb"] = false,		-- Show over heal absorb on raid frame (from enemy debuffs)
+	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click (doesn't work with Clique)
+	-- Heal layout size
+	["heal_party_width"] = 60.2,				-- Party width
+	["heal_party_height"] = 26,					-- Party height
+	["heal_party_power_height"] = 2,			-- Party power height
+	["heal_raid_width"] = 60.2,					-- Raid width
+	["heal_raid_height"] = 26,					-- Raid height
+	["heal_raid_power_height"] = 2,				-- Raid power height
+	-- DPS layout size
+	["dps_party_width"] = 140,					-- Party width
+	["dps_party_height"] = 27,					-- Party height
+	["dps_party_power_height"] = 5,				-- Party power height
+	["dps_raid_width"] = 104,					-- Raid width
+	["dps_raid_height"] = 17,					-- Raid height
+	["dps_raid_power_height"] = 1,				-- Raid power height
 }
 
 ----------------------------------------------------------------------------------------
 --	Auras/Buffs/Debuffs options
 ----------------------------------------------------------------------------------------
 C["aura"] = {
-	["player_buff_size"] = 30,					-- Player buffs size
+	["player_buff_size"] = 25,					-- Player buffs size
 	["player_buff_mouseover"] = false,			-- Player buffs on mouseover
-	["player_debuff_size"] = 44,				-- Player debuffs size
-	["show_spiral"] = true,						-- Spiral on aura icons
+	["debuff_size"] = 25,						-- Debuffs size on unitframes
+	["show_spiral"] = false,					-- Spiral on aura icons
 	["show_timer"] = true,						-- Show cooldown timer on aura icons
 	["player_auras"] = true,					-- Auras on player frame
 	["target_auras"] = true,					-- Auras on target frame
@@ -417,11 +350,13 @@ C["aura"] = {
 	["fot_debuffs"] = false,					-- DeBuffs on focustarget frame
 	["pet_debuffs"] = false,					-- DeBuffs on pet frame
 	["tot_debuffs"] = false,					-- DeBuffs on targettarget frame
-	["boss_buffs"] = true,						-- Buffs on boss frame
+	["boss_auras"] = true,						-- Auras on boss frame
+	["boss_debuffs"] = 0,						-- Number of debuffs on the boss frames
+	["boss_buffs"] = 3,							-- Number of buffs on the boss frames
 	["player_aura_only"] = false,				-- Only your debuff on target frame
 	["debuff_color_type"] = true,				-- Color debuff by type
-	["cast_by"] = true,							-- Show who cast a buff/debuff in its tooltip
 	["classcolor_border"] = false,				-- Enable classcolor border for player buffs
+	["cast_by"] = false,						-- Show who cast a buff/debuff in its tooltip
 }
 
 ----------------------------------------------------------------------------------------

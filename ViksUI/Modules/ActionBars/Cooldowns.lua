@@ -95,7 +95,7 @@ if IsVik then
 		Timer_OnSizeChanged(timer, scaler:GetSize())
 		scaler:SetScript("OnSizeChanged", function(_, ...) Timer_OnSizeChanged(timer, ...) end)
 
-		self:SetHideCountdownNumbers(true)
+		-- self:SetHideCountdownNumbers(true)
 		self:GetRegions():SetAlpha(0)	-- Hide Blizzard cd text
 
 		self.timer = timer
@@ -120,7 +120,7 @@ else
 		Timer_OnSizeChanged(timer, scaler:GetSize())
 		scaler:SetScript("OnSizeChanged", function(_, ...) Timer_OnSizeChanged(timer, ...) end)
 
-		self:SetHideCountdownNumbers(true)
+		-- self:SetHideCountdownNumbers(true)
 		self:GetRegions():SetAlpha(0)	-- Hide Blizzard cd text
 
 		self.timer = timer
@@ -139,7 +139,7 @@ local function deactivateDisplay(cooldown)
 end
 
 local function setHideCooldownNumbers(cooldown, hide)
-	local disable = not (hide or cooldown.noCooldownCount or cooldown:IsForbidden())
+	local disable = not (canaccessvalue(hide) and hide or cooldown.noCooldownCount or cooldown:IsForbidden())
 
 	if disable then
 		hideNumbers[cooldown] = true
@@ -149,12 +149,21 @@ local function setHideCooldownNumbers(cooldown, hide)
 	end
 end
 
+local font = CreateFont("ViksUI_TimerFont")
+font:SetFont(C.font.cooldown_timers_font, C.font.cooldown_timers_font_size, C.font.cooldown_timers_font_style)
+
 hooksecurefunc(Cooldown_MT, "SetCooldown", function(cooldown, start, duration, modRate)
 	if cooldown.noCooldownCount or cooldown:IsForbidden() or hideNumbers[cooldown] then return end
 
 	local frameName = cooldown.GetName and cooldown:GetName()
 	if frameName and strfind(frameName, "WeakAuras") then
 		cooldown.noCooldownCount = true
+		return
+	end
+
+	if not canaccessvalue(start) then
+		cooldown:SetCountdownFont("ShestakUI_TimerFont")
+		cooldown:GetRegions():SetAlpha(1)
 		return
 	end
 

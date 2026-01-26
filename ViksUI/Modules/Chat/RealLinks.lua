@@ -2,7 +2,7 @@ local T, C, L = unpack(ViksUI)
 if C.chat.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	Colors links in Battle.net whispers(RealLinks by p3lim) — fixed to avoid calling removed globals
+--	Colors links in Battle.net whispers(RealLinks by p3lim) â€” fixed to avoid calling removed globals
 ----------------------------------------------------------------------------------------
 local queuedMessages = {}
 

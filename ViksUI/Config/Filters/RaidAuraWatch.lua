@@ -1,5 +1,5 @@
 local T, C, L = unpack(ViksUI)
-if C.unitframe.plugins_aura_watch ~= true then return end
+if C.raidframe.plugins_aura_watch ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	The best way to add or delete spell is to go at www.wowhead.com, search for a spell.
@@ -670,7 +670,7 @@ local OtherDebuffs = {
 }
 
 -- Add spells from GUI
-for _, spell in pairs(C.unitframe.plugins_aura_watch_list) do
+for _, spell in pairs(C.raidframe.plugins_aura_watch_list) do
 	OtherDebuffs[SpellName(spell)] = 3
 end
 
@@ -682,7 +682,7 @@ end
 -----------------------------------------------------------------
 -- PvP
 -----------------------------------------------------------------
-if C.unitframe.plugins_pvp_debuffs == true then
+if C.raidframe.plugins_pvp_debuffs == true then
 	local PvPDebuffs = {
 	-- Death Knight
 	[SpellName(47476)] = 2,		-- Strangulate

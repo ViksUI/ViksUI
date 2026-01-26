@@ -1,9 +1,9 @@
-## Interface: 110205
+## Interface: 120000
 ## Title: |cff105c92ViksUI Config|r
 ## Notes: In-game configuration for ViksUI
 ## Credits to: Wetxius, Tukz, Dawn, Shestak, Haste, Roth, P3lim, Monolit, AlleyKat.
 ## Author: Viks, Tryllemann
-## Version: 11.46
+## Version: 11.47
 ## RequiredDeps: ViksUI
 ## SavedVariables: ViksUIOptionsGlobal, ViksUIOptions
 ## SavedVariablesPerCharacter: ViksUIOptionsPerChar

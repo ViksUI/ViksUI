@@ -82,6 +82,7 @@ end
 oUF.colors.reaction[MAX_REPUTATION_REACTION + 1] = {0.64, 0.2, 0.93}	-- paragon color
 oUF.colors.reaction[MAX_REPUTATION_REACTION + 2] = {0, 0.5, 0.9}		-- major faction color
 
+-- Changed tooltip for ViksUI
 local function UpdateTooltip(element)
 	local cur, max, name, _, standingID, standingText, pendingReward = GetReputation()
 	local rewardAtlas = pendingReward and "|A:ParagonReputation_Bag:0:0:0:0|a" or ""

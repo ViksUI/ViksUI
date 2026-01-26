@@ -39,8 +39,7 @@ local function UpdateSlot(self, slot)
 		r, g, b = r * mu, g * mu, b * mu
 		totem.bg:SetVertexColor(r, g, b)
 	end
-
-	if haveTotem and duration > 0 then
+	if (canaccessvalue(haveTotem) and haveTotem) and duration > 0 then
 		totem.finish = startTime + duration
 		totem:SetMinMaxValues(0, duration)
 		totem:SetValue(duration)
@@ -77,8 +76,8 @@ local function anchorTotems(element)
 		t:ClearAllPoints()
 		t:SetParent(element[i])
 		t:SetAllPoints(element[i])
-		-- t:SetFrameLevel(element[i]:GetFrameLevel() + 1)
-		-- t:SetFrameStrata(element[i]:GetFrameStrata())
+		t:SetFrameLevel(element[i]:GetFrameLevel() + 1)
+		t:SetFrameStrata(element[i]:GetFrameStrata())
 		t:SetAlpha(0)
 		t.Icon:Hide()
 	end

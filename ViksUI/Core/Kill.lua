@@ -10,7 +10,7 @@ frame:SetScript("OnEvent", function()
 		ClassPowerBar.OnEvent = T.dummy -- Fix error with druid on logon
 	end
 
-	if C.unitframe.enable then
+	if C.unitframe.enable and C.raidframe.layout ~= "BLIZZARD" then
 		if CompactRaidFrameManager then
 			local function HideFrames()
 				CompactRaidFrameManager:UnregisterAllEvents()
@@ -39,7 +39,8 @@ frame:SetScript("OnEvent", function()
 	SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_GARRISON_BUILDING, true)
 	SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TALENT_CHANGES, true)
 
-	SetCVar("countdownForCooldowns", 0)
+	 -- Enable Blizzard cd, cause our not worked in combat
+	SetCVar("countdownForCooldowns", 1)
 
 	if C.chat.enable then
 		SetCVar("chatStyle", "im")
@@ -65,13 +66,14 @@ frame:SetScript("OnEvent", function()
 		C_Container.SetInsertItemsLeftToRight(false)
 	end
 
-	if C.combattext.enable then
-		if C.combattext.incoming then
-			SetCVar("enableFloatingCombatText", 1)
-		else
-			SetCVar("enableFloatingCombatText", 0)
-		end
-	end
+	-- BETA not used
+	-- if C.combattext.enable then
+		-- if C.combattext.incoming then
+			-- SetCVar("enableFloatingCombatText", 1)
+		-- else
+			-- SetCVar("enableFloatingCombatText", 0)
+		-- end
+	-- end
 end)
 
 local function AcknowledgeTips()
