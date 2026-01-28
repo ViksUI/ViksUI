@@ -357,7 +357,7 @@ T.PostUpdatePower = function(power, unit, cur, _, max)
 		power.value:SetText()
 	else
 		local perc = UnitPowerPercent(unit, pType, true, CurveConstants.ScaleTo100)
-
+		local text = C_StringUtil.TruncateWhenZero(cur)	-- hide if zero
 		if pType == 0 and pToken ~= "POWER_TYPE_DINO_SONIC" then
 			if unit == "target" then
 				if C.unitframe.show_total_value then
@@ -416,9 +416,9 @@ T.PostUpdatePower = function(power, unit, cur, _, max)
 			end
 		else
 			if C.unitframe.color_value then
-				power.value:SetText(cur)
+				power.value:SetText(text or cur)
 			else
-				power.value:SetText("|cffffffff"..cur.."|r")
+				power.value:SetText("|cffffffff"..text or cur.."|r")
 			end
 		end
 
@@ -807,6 +807,65 @@ T.CustomCastDelayText = function(self, durationObject)
 		self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(self.channeling and duration or max - duration, self.channeling and "-" or "+", abs(self.delay)))
 	else
 		self.Time:SetText(("%.1f"):format(duration))
+	end
+end
+
+local colorStage = {
+	[1] = {1, 0, 0},
+	[2] = {1, 0.9, 0},
+	[3] = {0, 1, 0.5},
+}
+
+local colorStages = {
+	[1] = {1, 0, 0},
+	[2] = {1, 0.4, 0},
+	[3] = {1, 0.9, 0},
+	[4] = {0, 1, 0.5},
+}
+
+T.CustomCreatePip = function(element, stage)
+	local pip = CreateFrame("Frame", nil, element:GetParent())
+	pip:SetSize(2, element:GetHeight())
+
+	pip.texture = pip:CreateTexture(nil, "BORDER", nil, -2)
+	pip.texture:SetTexture(C.media.texture)
+
+	pip.gap = pip:CreateTexture(nil, "ARTWORK")
+	pip.gap:SetAllPoints(pip)
+	pip.gap:SetTexture(C.media.texture)
+
+	return pip
+end
+
+T.PostUpdatePips = function(element, stages)
+	local color = {0, 0, 0}
+
+	for stage, stageSection in next, stages do
+		if #stages == 4 then
+			color = colorStages[stage]
+		else
+			color = colorStage[stage]
+		end
+
+		local pip = element.Pips[stage]
+		local r, g, b = unpack(color)
+
+		pip.texture:SetVertexColor(r, g, b)
+		pip.gap:SetVertexColor(r * 0.75, g * 0.75, b * 0.75)
+	end
+
+	local maxStage = #element.Pips
+	for i, pip in next, element.Pips do
+		pip.texture:ClearAllPoints()
+
+		local anchor = element.Pips[i + 1] or element
+		if element:GetReverseFill() then
+			pip.texture:SetPoint("TOPLEFT", anchor, 0, 0)
+			pip.texture:SetPoint("BOTTOMRIGHT", pip, 0, 0)
+		else
+			pip.texture:SetPoint("TOPRIGHT", anchor, 0, 0)
+			pip.texture:SetPoint("BOTTOMLEFT", pip, 0, 0)
+		end
 	end
 end
 

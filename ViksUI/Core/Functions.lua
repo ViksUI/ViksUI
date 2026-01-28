@@ -227,6 +227,7 @@ T.IsFramePositionedLeft = function(frame)
 end
 
 T.CurrentProfile = function(reset)
+	if not ViksUIOptionsGlobal then return {} end	-- prevent error when disable ViksUI_Config
 	if ViksUIOptionsGlobal[T.realm][T.name] then
 		if ViksUIPositionsPerChar == nil then
 			ViksUIPositionsPerChar = ViksUIPositions

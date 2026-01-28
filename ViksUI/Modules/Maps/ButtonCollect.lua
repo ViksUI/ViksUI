@@ -16,6 +16,7 @@ local buttons = {}
 local collectFrame = CreateFrame("Frame", "ButtonCollectFrame", UIParent)
 local bsize = math.ceil(C.minimap.size / 6) -- Adjusting for 6 icons pr row
 local line = math.ceil(7)
+collectFrame.col = 1	-- for minimap on top option
 
 local texList = {
 	["136430"] = true,	-- Interface\\Minimap\\MiniMap-TrackingBorder
@@ -66,8 +67,10 @@ local function PositionAndStyle()
 		elseif i == line then
 			if C.panels.NoPanels == true then 
 				f:SetPoint("TOP", buttons[1], "BOTTOM", 0, -15)
+				collectFrame.col = 2
 			else
 				f:SetPoint("TOP", buttons[1], "BOTTOM", 0, -1)
+				collectFrame.col = 2
 			end
 		else
 			f:SetPoint("TOPLEFT", buttons[i-1], "TOPRIGHT", 1, 0)
