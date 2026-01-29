@@ -56,9 +56,20 @@ T.ChatSetup = function()
 		ChatFrame_AddMessageGroup(rightChat, v)
 	end
 
-	ChatFrame_AddChannel(_G.ChatFrame1, GENERAL)
-	ChatFrame_RemoveChannel(_G.ChatFrame1, TRADE)
-	ChatFrame_AddChannel(rightChat, TRADE)
+	-- replacement guarded calls to avoid nil globals on some clients
+	if type(ChatFrame_AddChannel) == "function" and type(ChatFrame_RemoveChannel) == "function" then
+		ChatFrame_AddChannel(_G.ChatFrame1, GENERAL)
+		ChatFrame_RemoveChannel(_G.ChatFrame1, TRADE)
+		ChatFrame_AddChannel(rightChat, TRADE)
+	elseif C_ChatInfo and type(C_ChatInfo.AddChatWindowChannel) == "function" then
+		-- best-effort use of newer C_ChatInfo API if available
+		pcall(C_ChatInfo.AddChatWindowChannel, _G.ChatFrame1, GENERAL)
+		pcall(C_ChatInfo.RemoveChatWindowChannel, _G.ChatFrame1, TRADE)
+		pcall(C_ChatInfo.AddChatWindowChannel, rightChat, TRADE)
+	else
+		-- API to add/remove chat channels is not available in this environment:
+		-- skip channel changes (prevents the 'attempt to call global ... (a nil value)' error)
+	end
 
 	-- set the chat groups names in class color to enabled for all chat groups which players names appear
 	chatGroup = { 'SAY', 'EMOTE', 'YELL', 'WHISPER', 'PARTY', 'PARTY_LEADER', 'RAID', 'RAID_LEADER', 'RAID_WARNING', 'INSTANCE_CHAT', 'INSTANCE_CHAT_LEADER', 'GUILD', 'OFFICER', 'ACHIEVEMENT', 'GUILD_ACHIEVEMENT', 'COMMUNITIES_CHANNEL' }
@@ -5032,17 +5043,10 @@ local step5 = function()
 		if not option2:IsShown() then option2:Show() end
 		sb:SetValue(5)
 		header:SetText("5. Damage Meters")
-		text1:SetText("Skada or Details was not detected! Both settings will be added")
-		text2:SetText("This step is |cffff0000recommended|r for new users.")
-		text3:SetText("|cffff0000NB! NOTE|r this step overwrite Skadas and Details current settings.")
-		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
+		text1:SetText("Skada or Details was not detected! No settings are added.")
 		sbt:SetText("5/ "..maxsteps)
 		option1:SetScript("OnClick", step6)
 		option2:SetScript("OnClick", function()
-			UploadSkada()
-			ViksUISettings.SkadaSettings = true
-			UploadDetails()
-			ViksUISettings.DetailsSettings = true
 			step6()
 		end)
 	end
@@ -5100,7 +5104,11 @@ local step3 = function()
 		text3:SetText("It is normal that your chat font will appear too big upon applying these settings.  It will revert back to normal when you finish with the installation.")
 		text4:SetText("Click 'Continue' to apply the settings, or click 'Skip' if you wish to skip this step.")
 		option2:SetScript("OnClick", function()
-			T.ChatSetup()
+			local ok, err = pcall(function() T.ChatSetup() end)
+			if not ok then
+				-- ignore the error; optional: log it for debugging
+				print("|cffff0000[ViksUI]|r ChatSetup failed: " .. tostring(err))
+			end
 			step4()
 		end)
 	end

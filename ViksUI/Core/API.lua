@@ -430,7 +430,10 @@ T.SetModifiedBackdrop = function(self)
 		elseif self.colorText == "Button" then
 			self.ButtonText:SetTextColor(1, 1, 1)
 		elseif self.colorText == "Name" then
-			_G[self:GetName().."Text"]:SetTextColor(1, 1, 1)
+			local name = self:GetName()
+			if name and _G[name.."Text"] then
+				_G[name.."Text"]:SetTextColor(1, 1, 1)
+			end
 		end
 	end
 end
@@ -445,7 +448,10 @@ T.SetOriginalBackdrop = function(self)
 	elseif self.colorText == "Button" then
 		self.ButtonText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	elseif self.colorText == "Name" then
-		_G[self:GetName().."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+		local name = self:GetName()
+		if name and _G[name.."Text"] then
+			_G[name.."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+		end
 	end
 end
 
@@ -1135,8 +1141,8 @@ end
 function T.SkinIconSelectionFrame(frame, frameNameOverride)
 	local frameName = frameNameOverride or frame:GetName()
 	local editBox = frame.BorderBox.IconSelectorEditBox
-	local okayButton = frame.OkayButton or frame.BorderBox.OkayButton or _G[frameName.."Okay"]
-	local cancelButton = frame.CancelButton or frame.BorderBox.CancelButton or _G[frameName.."Cancel"]
+	local okayButton = frame.OkayButton or frame.BorderBox.OkayButton or (frameName and _G[frameName.."Okay"])
+	local cancelButton = frame.CancelButton or frame.BorderBox.CancelButton or (frameName and _G[frameName.."Cancel"])
 
 	frame:StripTextures()
 	frame.BorderBox:StripTextures()
