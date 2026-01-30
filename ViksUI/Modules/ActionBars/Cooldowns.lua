@@ -162,7 +162,7 @@ hooksecurefunc(Cooldown_MT, "SetCooldown", function(cooldown, start, duration, m
 	end
 
 	if not canaccessvalue(start) then
-		cooldown:SetCountdownFont("ShestakUI_TimerFont")
+		cooldown:SetCountdownFont("ViksUI_TimerFont")
 		cooldown:GetRegions():SetAlpha(1)
 		return
 	end

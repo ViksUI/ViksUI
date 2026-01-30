@@ -994,6 +994,7 @@ init:SetScript("OnEvent", function()
 	local title = ViksUIOptionsPanel:CreateFontString("UIConfigTitleVer", "OVERLAY", "GameFontNormal")
 	title:SetPoint("TOP", 0, -10)
 	title:SetText("ViksUI "..T.version)
+
 	setActiveTab(ViksUIOptionsPanel.general.tab)
 
 	displaySettings()

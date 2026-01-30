@@ -743,6 +743,11 @@ local function Shared(self, unit)
 		end
 
 		if unit == "player" then
+			self.PrivateAuras = CreateFrame("Frame", self:GetName().."_PrivateAuras", self)	-- BETA Not tested
+			self.PrivateAuras:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 2, 19)
+			self.PrivateAuras:SetSize(60, 30)
+			-- self.PrivateAuras = PrivateAuras
+
 			if C.aura.player_auras then
 				self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)
 				self.Debuffs:SetHeight(165)
@@ -1221,9 +1226,9 @@ local function Shared(self, unit)
 end
 
 ----------------------------------------------------------------------------------------
---	Default position of ShestakUI unitframes
+--	Default position of ViksUI unitframes
 ----------------------------------------------------------------------------------------
-oUF:RegisterStyle("Shestak", Shared)
+oUF:RegisterStyle("Viks", Shared)
 
 local player = oUF:Spawn("player", "oUF_Player")
 player:SetPoint(unpack(C.position.unitframes.player))

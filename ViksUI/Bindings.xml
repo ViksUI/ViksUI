@@ -1,4 +1,4 @@
-<Bindings>
+﻿<Bindings>
 	<Binding category="BINDING_HEADER_CHATKEY" name="RW_MESSAGE">
 		ChatKey_Chat("/rw")
 	</Binding>

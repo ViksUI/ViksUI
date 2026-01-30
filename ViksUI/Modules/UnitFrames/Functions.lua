@@ -1175,7 +1175,7 @@ T.CreateHealthPrediction = function(self)
 	-- Over absorb in right
 	if C.raidframe.plugins_over_absorb then
 		local oa = self.Health:CreateTexture(nil, "ARTWORK")
-		oa:SetTexture([[Interface\AddOns\ShestakUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
+		oa:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
 		oa:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", -6, 0)
 		oa:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -6, 0)
 		oa:SetVertexColor(0.5, 0.5, 1)
@@ -1190,7 +1190,7 @@ T.CreateHealthPrediction = function(self)
 	-- Over heal absorb from enemy in left
 	if C.raidframe.plugins_over_heal_absorb then
 		local oha = self.Health:CreateTexture(nil, "ARTWORK")
-		oha:SetTexture([[Interface\AddOns\ShestakUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
+		oha:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
 		oha:SetPoint("TOPRIGHT", self.Health, "TOPLEFT", 6, 0)
 		oha:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMLEFT", 6, 0)
 		oha:SetVertexColor(1, 0, 0)
