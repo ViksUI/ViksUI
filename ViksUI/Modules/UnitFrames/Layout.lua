@@ -746,7 +746,6 @@ local function Shared(self, unit)
 			self.PrivateAuras = CreateFrame("Frame", self:GetName().."_PrivateAuras", self)	-- BETA Not tested
 			self.PrivateAuras:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 2, 19)
 			self.PrivateAuras:SetSize(60, 30)
-			-- self.PrivateAuras = PrivateAuras
 
 			if C.aura.player_auras then
 				self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)
@@ -1175,13 +1174,11 @@ local function Shared(self, unit)
 
 	-- Debuff highlight
 	if C.raidframe.plugins_debuffhighlight and unit ~= "arenatarget" then
-		self.DebuffHighlight = self.Health:CreateTexture(nil, "OVERLAY")
-		self.DebuffHighlight:SetAllPoints(self.Health)
-		self.DebuffHighlight:SetTexture(C.media.highlight)
-		self.DebuffHighlight:SetVertexColor(0, 0, 0, 0)
-		self.DebuffHighlight:SetBlendMode("ADD")
-		self.DebuffHighlightAlpha = 1
-		self.DebuffHighlightFilter = true
+		self.DispelColor = self.Health:CreateTexture(nil, "OVERLAY")
+		self.DispelColor:SetAllPoints(self.Health)
+		self.DispelColor:SetTexture(C.media.highlight)
+		self.DispelColor:SetVertexColor(0, 0, 0, 0)
+		self.DispelColor:SetBlendMode("ADD")
 	end
 
 	-- Incoming heals and heal/damage absorbs
