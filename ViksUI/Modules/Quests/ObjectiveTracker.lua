@@ -17,7 +17,7 @@ hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
 	end
 end)
 
-local height = T.screenHeight / 1.6
+local height = T.screenHeight / (1.65*T.mult)
 ObjectiveTrackerFrame:SetHeight(height)
 
 hooksecurefunc(ObjectiveTrackerFrame, "SetHeight", function(_, h)

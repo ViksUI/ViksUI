@@ -664,17 +664,6 @@ ns.addCategory("panels", L_GUI_PANELS, L_GUI_PANELS_SUBTEXT)
 ns.addCategory("trade", L_GUI_TRADE, L_GUI_TRADE_SUBTEXT)
 ns.addCategory("misc", OTHER, L_GUI_MISC_SUBTEXT, 2)
 
-
-local function HideOptions(frame)
-	-- for i = 1, #list do
-		-- local frame = list[i]
-		if frame then
-			frame:SetScale(0.00001)
-			frame:SetAlpha(0)
-		end
-	-- end
-end
-
 -- General
 do
 	local parent = ViksUIOptionsPanel.general
@@ -1534,9 +1523,10 @@ do
 		{"plater"},
 		{"postal"},
 		{"rarescanner"},
-		{"recount"},
+		-- {"recount"},
 		{"rematch"},
-		{"tiny_dps"},
+		-- {"skada"},
+		-- {"tiny_dps"},
 		{"vanaskos"},
 		{"weak_auras"},
 	}
@@ -1651,7 +1641,7 @@ do
 
 	-- Portraits
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_PORTRAIT)
-	subheader:SetPoint("TOPLEFT", icons_resting, "BOTTOMLEFT", 0, -16)
+	subheader:SetPoint("TOPLEFT", icons_resting, "BOTTOMLEFT", 0, -10)
 
 	local portrait_enable = ns.CreateCheckBox(parent, "portrait_enable", L_GUI_UF_PORTRAIT_ENABLE)
 	portrait_enable:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -8)
@@ -1670,16 +1660,16 @@ do
 
 	-- Plugins
 	local subheader = ns.addSubCategory(parent, L_GUI_UF_SUBHEADER_PLUGINS)
-	subheader:SetPoint("TOPLEFT", portrait_height, "BOTTOMLEFT", 0, -16)
+	subheader:SetPoint("TOPLEFT", portrait_height, "BOTTOMLEFT", 0, -11)
 
 	local plugins_gcd = ns.CreateCheckBox(parent, "plugins_gcd", L_GUI_UF_PLUGINS_GCD)
 	plugins_gcd:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -8)
 
-	local plugins_swing = ns.CreateCheckBox(parent, "plugins_swing", L_GUI_UF_PLUGINS_SWING)
-	plugins_swing:SetPoint("TOPLEFT", plugins_gcd, "BOTTOMLEFT", 0, 0)
+	-- local plugins_swing = ns.CreateCheckBox(parent, "plugins_swing", L_GUI_UF_PLUGINS_SWING)
+	-- plugins_swing:SetPoint("TOPLEFT", plugins_gcd, "BOTTOMLEFT", 0, 0)
 
 	local plugins_experience_bar = ns.CreateCheckBox(parent, "plugins_experience_bar")
-	plugins_experience_bar:SetPoint("TOPLEFT", plugins_swing, "BOTTOMLEFT", 0, 0)
+	plugins_experience_bar:SetPoint("TOPLEFT", plugins_swing or plugins_gcd, "BOTTOMLEFT", 0, 0)
 
 	local plugins_reputation_bar = ns.CreateCheckBox(parent, "plugins_reputation_bar")
 	plugins_reputation_bar:SetPoint("TOPLEFT", plugins_experience_bar, "BOTTOMLEFT", 0, 0)
@@ -1696,11 +1686,11 @@ do
 	local plugins_fader = ns.CreateCheckBox(parent, "plugins_fader", L_GUI_UF_PLUGINS_FADER)
 	plugins_fader:SetPoint("TOPLEFT", plugins_combat_feedback, "BOTTOMLEFT", 0, 0)
 
-	local plugins_diminishing = ns.CreateCheckBox(parent, "plugins_diminishing", L_GUI_UF_PLUGINS_DIMINISHING)
-	plugins_diminishing:SetPoint("TOPLEFT", plugins_fader, "BOTTOMLEFT", 0, 0)
+	-- local plugins_diminishing = ns.CreateCheckBox(parent, "plugins_diminishing", L_GUI_UF_PLUGINS_DIMINISHING)
+	-- plugins_diminishing:SetPoint("TOPLEFT", plugins_fader, "BOTTOMLEFT", 0, 0)
 
 	local plugins_power_prediction = ns.CreateCheckBox(parent, "plugins_power_prediction", L_GUI_UF_PLUGINS_POWER_PREDICTION)
-	plugins_power_prediction:SetPoint("TOPLEFT", plugins_diminishing, "BOTTOMLEFT", 0, 0)
+	plugins_power_prediction:SetPoint("TOPLEFT", plugins_diminishing or plugins_fader, "BOTTOMLEFT", 0, 0)
 
 	local plugins_absorbs = ns.CreateCheckBox(parent, "plugins_absorbs")
 	plugins_absorbs:SetPoint("TOPLEFT", plugins_power_prediction, "BOTTOMLEFT", 0, 0)
@@ -1715,7 +1705,7 @@ do
 	player_width:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
 
 	local subheader = ns.addSubCategory(parent, L.unitframe_subheader_boss_width)
-	subheader:SetPoint("TOPLEFT", player_width, "BOTTOMLEFT", 0, -10)
+	subheader:SetPoint("TOPLEFT", player_width, "BOTTOMLEFT", 0, -11)
 
 	local boss_width = ns.CreateNumberSlider(parent, "boss_width", nil, nil, 105, 300, 1, true, L.unitframe_player_width)
 	boss_width:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
@@ -1730,7 +1720,7 @@ do
 	extra_power_height:SetPoint("LEFT", extra_health_height, "RIGHT", 120, 0)
 
 	local subheader = ns.addSubCategory(parent, L.unitframe_subheader_castbar)
-	subheader:SetPoint("TOPLEFT", extra_health_height, "BOTTOMLEFT", 0, -10)
+	subheader:SetPoint("TOPLEFT", extra_health_height, "BOTTOMLEFT", 0, -11)
 
 	local castbar_width = ns.CreateNumberSlider(parent, "castbar_width", nil, nil, 190, 450, 1, true, L.unitframe_player_width)
 	castbar_width:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -28)
@@ -1968,7 +1958,7 @@ do
 
 	-- DPS layout size
 	local subheader = ns.addSubCategory(parent, L.raidframe_subheader_dps_size)
-	subheader:SetPoint("TOPLEFT", heal_party_power_height, "BOTTOMLEFT", 0, -10)
+	subheader:SetPoint("TOPLEFT", heal_party_power_height, "BOTTOMLEFT", 0, -11)
 
 	local dps_party_width = ns.CreateNumberSlider(parent, "dps_party_width", nil, nil, 80, 300, 1, true)
 	dps_party_width:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -30)
@@ -2504,8 +2494,11 @@ do
 	local name_abbrev = ns.CreateCheckBox(parent, "name_abbrev", L_GUI_NAMEPLATE_NAME_ABBREV)
 	name_abbrev:SetPoint("TOPLEFT", class_icons, "BOTTOMLEFT", 0, 0)
 
-	local clamp = ns.CreateCheckBox(parent, "clamp", L_GUI_NAMEPLATE_CLAMP)
-	clamp:SetPoint("TOPLEFT", name_abbrev, "BOTTOMLEFT", 0, 0)
+	local short_name = ns.CreateCheckBox(parent, "short_name")
+	short_name:SetPoint("TOPLEFT", name_abbrev, "BOTTOMLEFT", 0, 0)
+
+	local clamp = ns.CreateCheckBox(parent, "clamp")
+	clamp:SetPoint("TOPLEFT", short_name, "BOTTOMLEFT", 0, 0)
 
 	local track_debuffs = ns.CreateCheckBox(parent, "track_debuffs", L_GUI_NAMEPLATE_SHOW_DEBUFFS)
 	track_debuffs:SetPoint("TOPLEFT", clamp, "BOTTOMLEFT", 0, 0)
@@ -2583,7 +2576,7 @@ do
 	auras_size:SetPoint("TOPLEFT", track_buffs, "BOTTOMLEFT", 0, -20)
 
 	local healer_icon = ns.CreateCheckBox(parent, "healer_icon", L_GUI_NAMEPLATE_HEALER_ICON)
-	healer_icon:SetPoint("TOPLEFT", auras_size, "BOTTOMLEFT", 0, -20)
+	healer_icon:SetPoint("TOPLEFT", auras_size, "BOTTOMLEFT", 0, -10)
 
 	local totem_icons = ns.CreateCheckBox(parent, "totem_icons", L_GUI_NAMEPLATE_TOTEM_ICONS)
 	totem_icons:SetPoint("TOPLEFT", healer_icon, "BOTTOMLEFT", 0, 0)
@@ -2644,16 +2637,16 @@ do
 	enhance_threat:SetPoint("TOPLEFT", kick_color, "BOTTOMLEFT", 0, 0)
 
 	local good_color = ns.CreateColourPicker(parent, "good_color", true, L_GUI_NAMEPLATE_GOOD_COLOR)
-	good_color:SetPoint("TOPLEFT", enhance_threat, "BOTTOMLEFT", 4, -10)
+	good_color:SetPoint("TOPLEFT", enhance_threat, "BOTTOMLEFT", 24, -4)
 
 	local near_color = ns.CreateColourPicker(parent, "near_color", true, L_GUI_NAMEPLATE_NEAR_COLOR)
-	near_color:SetPoint("TOPLEFT", good_color, "BOTTOMLEFT", 0, -10)
+	near_color:SetPoint("TOPLEFT", good_color, "BOTTOMLEFT", 0, -8)
 
 	local bad_color = ns.CreateColourPicker(parent, "bad_color", true, L_GUI_NAMEPLATE_BAD_COLOR)
-	bad_color:SetPoint("TOPLEFT", near_color, "BOTTOMLEFT", 0, -10)
+	bad_color:SetPoint("TOPLEFT", near_color, "BOTTOMLEFT", 0, -8)
 
 	local offtank_color = ns.CreateColourPicker(parent, "offtank_color", true, L_GUI_NAMEPLATE_OFFTANK_COLOR)
-	offtank_color:SetPoint("TOPLEFT", bad_color, "BOTTOMLEFT", 0, -10)
+	offtank_color:SetPoint("TOPLEFT", bad_color, "BOTTOMLEFT", 0, -8)
 
 	local subheader = ns.addSubCategory(parent, "Priority Markings colors")
 	subheader:SetPoint("TOPLEFT", offtank_color, "BOTTOMLEFT", 0, -10)
@@ -2701,6 +2694,14 @@ do
 	mob_color_list:SetPoint("TOPLEFT", targetglow_color, "BOTTOMLEFT", 2, -10)
 	mob_color_list:SetWidth(240)
 	mob_color_list:SetMaxLetters(200)
+
+	local mob_color_alt = ns.CreateColourPicker(parent, "mob_color_alt", true)
+	mob_color_alt:SetPoint("TOPLEFT", mob_color_list, "BOTTOMLEFT", -2, -10)
+
+	local mob_color_alt_list = ns.CreateEditBox(parent, "mob_color_alt_list", true)
+	mob_color_alt_list:SetPoint("TOPLEFT", mob_color_alt, "BOTTOMLEFT", 2, -10)
+	mob_color_alt_list:SetWidth(240)
+	mob_color_alt_list:SetMaxLetters(200)
 end
 
 -- Combat text
