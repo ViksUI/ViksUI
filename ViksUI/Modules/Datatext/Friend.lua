@@ -453,7 +453,7 @@ Stat:SetScript("OnEnter", function(self)
 									status = 3
 								end
 
-								if T.oUF_colors.class[BNTable[i][14]] then
+								if unpack(T.oUF_colors.class[BNTable[i][14]]) then
 									classc.r, classc.g, classc.b = unpack(T.oUF_colors.class[BNTable[i][14]])
 								else
 									classc.r, classc.g, classc.b = 1, 1, 1
