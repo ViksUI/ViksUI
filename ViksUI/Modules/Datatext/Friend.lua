@@ -346,8 +346,8 @@ Stat:SetScript("OnMouseUp", function(self, btn)
 				if BNTable[i][6] == wowString and UnitFactionGroup("player") == BNTable[i][12] then
 					local levelc = GetQuestDifficultyColor(BNTable[i][16])
 
-					if T.Colors.class[BNTable[i][14]] then
-						classc.r, classc.g, classc.b = unpack(T.Colors.class[BNTable[i][14]])
+					if T.oUF_colors.class[BNTable[i][14]] then
+						classc.r, classc.g, classc.b = unpack(T.oUF_colors.class[BNTable[i][14]])
 					else
 						classc.r, classc.g, classc.b = 1, 1, 1
 					end
@@ -374,7 +374,7 @@ Stat:SetScript("OnMouseUp", function(self, btn)
 		for i = 1, #WoWTable do
 			if WoWTable[i].connected then
 				local Class = WoWTable[i].className
-				local R, G, B = unpack(T.Colors.class[Class])
+				local R, G, B = unpack(T.oUF_colors.class[Class])
 				local Hex = T.RGBToHex(R, G, B)
 				local levelc = GetQuestDifficultyColor(WoWTable[i].level)
 				local levelhex = T.RGBToHex(levelc.r, levelc.g, levelc.b)
@@ -459,6 +459,7 @@ Stat:SetScript("OnEnter", function(self)
 									classc.r, classc.g, classc.b = 1, 1, 1
 								end
 
+								levelc = GetQuestDifficultyColor(BNTable[i][16])
 								levelc = GetQuestDifficultyColor(BNTable[i][16])
 
 								if UnitInParty(BNTable[i][4]) or UnitInRaid(BNTable[i][4]) then
@@ -588,8 +589,8 @@ Stat:SetScript("OnEnter", function(self)
 
 				local R, G, B = 1, 1, 1
 				
-				if (T.Colors.class[class]) then
-					R, G, B = unpack(T.Colors.class[class])
+				if (T.oUF_colors.class[class]) then
+					R, G, B = unpack(T.oUF_colors.class[class])
 				end
 				
 				local Hex = T.RGBToHex(R, G, B)
