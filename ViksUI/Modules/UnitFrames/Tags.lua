@@ -191,3 +191,77 @@ oUF.Tags.Methods["Absorbs"] = function(unit)
 	-- end
 end
 oUF.Tags.Events["Absorbs"] = "UNIT_ABSORB_AMOUNT_CHANGED"
+
+local SVal = function(val)
+	if val then
+		if (val >= 1e6) then
+			return ("%.1fm"):format(val / 1e6)
+		elseif (val >= 1e3) then
+			return ("%.1fk"):format(val / 1e3)
+		else
+			return ("%d"):format(val)
+		end
+	end
+end
+local function hex(r, g, b)
+	if r then
+		if (type(r) == 'table') then
+			if(r.r) then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
+		end
+		return ('|cff%02x%02x%02x'):format(r * 255, g * 255, b * 255)
+	end
+end
+local utf8sub = function(string, i, dots)
+	if not string then return end
+	local bytes = string:len()
+	if (bytes <= i) then
+		return string
+	else
+		local len, pos = 0, 1
+		while(pos <= bytes) do
+			len = len + 1
+			local c = string:byte(pos)
+			if (c > 0 and c <= 127) then
+				pos = pos + 1
+			elseif (c >= 192 and c <= 223) then
+				pos = pos + 2
+			elseif (c >= 224 and c <= 239) then
+				pos = pos + 3
+			elseif (c >= 240 and c <= 247) then
+				pos = pos + 4
+			end
+			if (len == i) then break end
+		end
+
+		if (len == i and pos <= bytes) then
+			return string:sub(1, pos - 1)..(dots and '...' or '')
+		else
+			return string
+		end
+	end
+end
+
+oUF.Tags.Methods['drk:color2'] = function(u, r)
+	local _, class = UnitClass(u)
+	local reaction = UnitReaction(u, "player")
+	
+	if UnitIsDead(u) or UnitIsGhost(u) or not UnitIsConnected(u) then
+		return "|cffA0A0A0"
+	elseif (UnitIsTapDenied(u) and not UnitPlayerControlled(u)) then
+		return hex(oUF.colors.tapped)
+	elseif (UnitIsPlayer(u) or UnitInPartyIsAI(u))then
+		return hex(unpack(C.media.oUFfontcolor))
+	elseif reaction then
+		return hex(oUF.colors.reaction[reaction])
+	else
+		return hex(1, 1, 1)
+	end
+end
+oUF.Tags.Events['drk:color2'] = 'UNIT_HEALTH'
+
+oUF.Tags.Methods["drk:afkdnd"] = function(unit) 
+	
+	return UnitIsAFK(unit) and "|cffCFCFCF <afk>|r" or UnitIsDND(unit) and "|cffCFCFCF <dnd>|r" or ""
+end
+oUF.Tags.Events["drk:afkdnd"] = "PLAYER_FLAGS_CHANGED"
+

@@ -34,10 +34,10 @@ C["position"] = {
 		["tank_heal"] = {"BOTTOM", UIParent, "BOTTOM", -80, 330},					-- Tank frames Heal
 		["player_portrait"] = {"TOPRIGHT", "oUF_Player", "TOPLEFT", -12, 27},		-- Player Portrait
 		["target_portrait"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 10, 27},		-- Target Portrait
-		["player_castbar"] = {"TOPRIGHT", UIParent, "BOTTOM", -158, 276},			-- Player Castbar
-		["player_castbar_heal"] = {"TOPRIGHT", UIParent, "BOTTOM", -182, 282},		-- Player Castbar Heal
-		["target_castbar"] = {"TOPLEFT", UIParent, "BOTTOM", 158, 276},				-- Target Castbar
-		["target_castbar_heal"] = {"TOPLEFT", UIParent, "BOTTOM", 208, 282},		-- Target Castbar Heal
+		["player_castbar"] = {"TOPLEFT", "oUF_Player", "BOTTOMLEFT", 0, -11},			-- Player Castbar
+		["player_castbar_heal"] = {"TOPRIGHT", "oUF_Player", "BOTTOM", -182, 282},		-- Player Castbar Heal
+		["target_castbar"] = {"TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", 0, -34},				-- Target Castbar
+		["target_castbar_heal"] = {"TOPLEFT", "oUF_Target", "BOTTOM", 208, 282},		-- Target Castbar Heal
 		["focus_castbar"] = {"TOPLEFT", UIParent, "BOTTOM", 449, 344},				-- Focus Castbar icon
 		["focus_castbar_heal"] = {"TOPLEFT", UIParent, "BOTTOM", 579, 450},			-- Focus Castbar icon Heal
 	},

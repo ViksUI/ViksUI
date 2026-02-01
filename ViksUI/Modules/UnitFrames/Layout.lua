@@ -246,7 +246,16 @@ local function Shared(self, unit)
 
 		self.FlashInfo.ManaLevel = T.SetFontString(self.FlashInfo, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 		self.FlashInfo.ManaLevel:SetPoint("CENTER", 0, 0)
-
+		
+		-- self.Info = T.SetFontString(self.Health, C.font.unit_frames_namefont, C.font.unit_frames_namefont_size, C.font.unit_frames_namefont_style) -- Add later
+		self.Info = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+		self.Info:SetWordWrap(false)
+		self.Info:SetPoint("LEFT", self.Health, "LEFT", 2, 0)
+		self.Info:SetPoint("RIGHT", self.Health.value, "LEFT", 0, 0)
+		self.Info:SetJustifyH("LEFT")
+		self:Tag(self.Info, "[GetNameColor][NameLong]")
+		-- self:Tag(self.Info, "[drk:color2][name][drk:afkdnd]") -- Add later
+		
 		-- Combat icon
 		if C.unitframe.icons_combat == true then
 			self.CombatIndicator = self.Health:CreateTexture(nil, "OVERLAY")

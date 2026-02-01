@@ -80,10 +80,16 @@ C["font"] = {
 
 	-- Unit frames font
 	["unit_frames_font"] = C.media.pixel_font,
-	["unit_frames_font_size"] = 8,
+	["unit_frames_font_size"] = 10,
 	["unit_frames_font_style"] = "MONOCHROMEOUTLINE",
 	["unit_frames_font_shadow"] = false,
 
+	-- Unit frames Name font
+	["unit_frames_namefont"] = C.unitframe.UFNamefont,
+	["unit_frames_namefont_size"] = 18,
+	["unit_frames_namefont_style"] = "THINOUTLINE",
+	["unit_frames_namefont_shadow"] = false,
+	
 	-- Auras font
 	["auras_font"] = C.media.pixel_font,
 	["auras_font_size"] = 10,

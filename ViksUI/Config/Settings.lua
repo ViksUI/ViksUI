@@ -212,6 +212,8 @@ C["unitframe"] = {
 	["color_value"] = false,					-- Health/mana value is colored
 	["bar_color_value"] = false,				-- Health bar color by current health remaining
 	["lines"] = true,							-- Show Player and Target lines
+	["UFfont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",
+	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
 	-- Cast bars
 	["unit_castbar"] = true,					-- Show castbars
 	["castbar_icon"] = false,					-- Show castbar icons
