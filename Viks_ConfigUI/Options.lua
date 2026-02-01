@@ -2603,38 +2603,39 @@ do
 	low_health:SetPoint("LEFT", low_health_color, "RIGHT", 15, 0)
 	low_health.Text:SetWidth(250)
 
-	local cast_color = ns.CreateCheckBox(parent, "cast_color")
-	cast_color:SetPoint("TOPLEFT", low_health_value, "BOTTOMLEFT", 0, -10)
+	-- local cast_color = ns.CreateCheckBox(parent, "cast_color")
+	-- cast_color:SetPoint("TOPLEFT", low_health_value, "BOTTOMLEFT", 0, -10)
 
-	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	ListButton:SetPoint("LEFT", cast_color, "RIGHT", 430, 0)
-	ListButton:SetSize(100, 23)
-	ListButton:SetText(ADD)
-	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
-	ListButton:SetScript("OnClick", function()
-		if not C.options["nameplate"] then
-			C.options["nameplate"] = {}
-		end
-		if not C.options["nameplate"]["cast_color_list"] then
-			C.options["nameplate"]["cast_color_list"] = {}
-		end
-		BuildSpellList(C.options["nameplate"]["cast_color_list"])
-	end)
-	tinsert(ns.buttons, ListButton)
+	-- local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	-- ListButton:SetPoint("LEFT", cast_color, "RIGHT", 430, 0)
+	-- ListButton:SetSize(100, 23)
+	-- ListButton:SetText(ADD)
+	-- ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	-- ListButton:SetScript("OnClick", function()
+		-- if not C.options["nameplate"] then
+			-- C.options["nameplate"] = {}
+		-- end
+		-- if not C.options["nameplate"]["cast_color_list"] then
+			-- C.options["nameplate"]["cast_color_list"] = {}
+		-- end
+		-- BuildSpellList(C.options["nameplate"]["cast_color_list"])
+	-- end)
+	-- tinsert(ns.buttons, ListButton)
 
-	local function toggleListButton()
-		local shown = cast_color:GetChecked()
-		ListButton:SetEnabled(shown)
-	end
+	-- local function toggleListButton()
+		-- local shown = cast_color:GetChecked()
+		-- ListButton:SetEnabled(shown)
+	-- end
 
-	cast_color:HookScript("OnClick", toggleListButton)
-	ListButton:HookScript("OnShow", toggleListButton)
+	-- cast_color:HookScript("OnClick", toggleListButton)
+	-- ListButton:HookScript("OnShow", toggleListButton)
 
-	local kick_color = ns.CreateCheckBox(parent, "kick_color")
-	kick_color:SetPoint("TOPLEFT", cast_color, "BOTTOMLEFT", 0, 0)
+	-- local kick_color = ns.CreateCheckBox(parent, "kick_color")
+	-- kick_color:SetPoint("TOPLEFT", cast_color, "BOTTOMLEFT", 0, 0)
 
 	local enhance_threat = ns.CreateCheckBox(parent, "enhance_threat", L_GUI_NAMEPLATE_THREAT)
-	enhance_threat:SetPoint("TOPLEFT", kick_color, "BOTTOMLEFT", 0, 0)
+	-- enhance_threat:SetPoint("TOPLEFT", kick_color, "BOTTOMLEFT", 0, 0)
+	enhance_threat:SetPoint("TOPLEFT", low_health_value, "BOTTOMLEFT", 0, -10)
 
 	local good_color = ns.CreateColourPicker(parent, "good_color", true, L_GUI_NAMEPLATE_GOOD_COLOR)
 	good_color:SetPoint("TOPLEFT", enhance_threat, "BOTTOMLEFT", 24, -4)
@@ -2645,35 +2646,35 @@ do
 	local bad_color = ns.CreateColourPicker(parent, "bad_color", true, L_GUI_NAMEPLATE_BAD_COLOR)
 	bad_color:SetPoint("TOPLEFT", near_color, "BOTTOMLEFT", 0, -8)
 
-	local offtank_color = ns.CreateColourPicker(parent, "offtank_color", true, L_GUI_NAMEPLATE_OFFTANK_COLOR)
-	offtank_color:SetPoint("TOPLEFT", bad_color, "BOTTOMLEFT", 0, -8)
+	-- local offtank_color = ns.CreateColourPicker(parent, "offtank_color", true, L_GUI_NAMEPLATE_OFFTANK_COLOR)
+	-- offtank_color:SetPoint("TOPLEFT", bad_color, "BOTTOMLEFT", 0, -8)
 
-	local subheader = ns.addSubCategory(parent, "Priority Markings colors")
-	subheader:SetPoint("TOPLEFT", offtank_color, "BOTTOMLEFT", 0, -10)
+	-- local subheader = ns.addSubCategory(parent, "Priority Markings colors")
+	-- subheader:SetPoint("TOPLEFT", offtank_color, "BOTTOMLEFT", 0, -10)
 
-	local priority_color = ns.CreateColourPicker(parent, "priority_color", true, L_GUI_NAMEPLATE_PRIORITY_COLOR)
-	priority_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -10)
+	-- local priority_color = ns.CreateColourPicker(parent, "priority_color", true, L_GUI_NAMEPLATE_PRIORITY_COLOR)
+	-- priority_color:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -10)
 
-	local semipri_color = ns.CreateColourPicker(parent, "semipri_color", true, L_GUI_NAMEPLATE_SEMIPRI_COLOR)
-	semipri_color:SetPoint("TOPLEFT", priority_color, "BOTTOMLEFT", 0, -10)
+	-- local semipri_color = ns.CreateColourPicker(parent, "semipri_color", true, L_GUI_NAMEPLATE_SEMIPRI_COLOR)
+	-- semipri_color:SetPoint("TOPLEFT", priority_color, "BOTTOMLEFT", 0, -10)
 
-	local nuke_color = ns.CreateColourPicker(parent, "nuke_color", true, L_GUI_NAMEPLATE_NUKE_COLOR)
-	nuke_color:SetPoint("TOPLEFT", semipri_color, "BOTTOMLEFT", 0, -10)
+	-- local nuke_color = ns.CreateColourPicker(parent, "nuke_color", true, L_GUI_NAMEPLATE_NUKE_COLOR)
+	-- nuke_color:SetPoint("TOPLEFT", semipri_color, "BOTTOMLEFT", 0, -10)
 
-	local t3mobs_color = ns.CreateColourPicker(parent, "t3mobs_color", true, L_GUI_NAMEPLATE_T3MOBS_COLOR)
-	t3mobs_color:SetPoint("TOPLEFT", nuke_color, "BOTTOMLEFT", 0, -10)
+	-- local t3mobs_color = ns.CreateColourPicker(parent, "t3mobs_color", true, L_GUI_NAMEPLATE_T3MOBS_COLOR)
+	-- t3mobs_color:SetPoint("TOPLEFT", nuke_color, "BOTTOMLEFT", 0, -10)
 
-	local tides_color = ns.CreateColourPicker(parent, "tides_color", true, L_GUI_NAMEPLATE_TIDES_COLOR)
-	tides_color:SetPoint("TOPLEFT", t3mobs_color, "BOTTOMLEFT", 0, -10)
+	-- local tides_color = ns.CreateColourPicker(parent, "tides_color", true, L_GUI_NAMEPLATE_TIDES_COLOR)
+	-- tides_color:SetPoint("TOPLEFT", t3mobs_color, "BOTTOMLEFT", 0, -10)
 
-	local pvpstuff_color = ns.CreateColourPicker(parent, "pvpstuff_color", true, L_GUI_NAMEPLATE_PVPSTUFF_COLOR)
-	pvpstuff_color:SetPoint("TOPLEFT", tides_color, "BOTTOMLEFT", 0, -10)
+	-- local pvpstuff_color = ns.CreateColourPicker(parent, "pvpstuff_color", true, L_GUI_NAMEPLATE_PVPSTUFF_COLOR)
+	-- pvpstuff_color:SetPoint("TOPLEFT", tides_color, "BOTTOMLEFT", 0, -10)
 
-	local explosive_color = ns.CreateColourPicker(parent, "explosive_color", true, L_GUI_NAMEPLATE_EXPLOSIVE_COLOR)
-	explosive_color:SetPoint("TOPLEFT", pvpstuff_color, "BOTTOMLEFT", 0, -10)
+	-- local explosive_color = ns.CreateColourPicker(parent, "explosive_color", true, L_GUI_NAMEPLATE_EXPLOSIVE_COLOR)
+	-- explosive_color:SetPoint("TOPLEFT", pvpstuff_color, "BOTTOMLEFT", 0, -10)
 
 	local subheader2 = ns.addSubCategory(parent, "Target Arrow and Glow colors")
-	subheader2:SetPoint("TOPLEFT", explosive_color, "BOTTOMLEFT", 0, -10)
+	subheader2:SetPoint("TOPLEFT", explosive_color or near_color, "BOTTOMLEFT", 0, -10)
 
 	local targetarrow_color = ns.CreateColourPicker(parent, "targetarrow_color", true, L_GUI_NAMEPLATE_TARGETARROW_COLOR)
 	targetarrow_color:SetPoint("TOPLEFT", subheader2, "BOTTOMLEFT", 0, -10)
@@ -2690,18 +2691,18 @@ do
 	--local mob_color = ns.CreateColourPicker(parent, "mob_color", true)
 	--mob_color:SetPoint("TOPLEFT", mob_color_enable, "BOTTOMLEFT", 24, -4)
 
-	local mob_color_list = ns.CreateEditBox(parent, "mob_color_list", true)
-	mob_color_list:SetPoint("TOPLEFT", targetglow_color, "BOTTOMLEFT", 2, -10)
-	mob_color_list:SetWidth(240)
-	mob_color_list:SetMaxLetters(200)
+	-- local mob_color_list = ns.CreateEditBox(parent, "mob_color_list", true)
+	-- mob_color_list:SetPoint("TOPLEFT", targetglow_color, "BOTTOMLEFT", 2, -10)
+	-- mob_color_list:SetWidth(240)
+	-- mob_color_list:SetMaxLetters(200)
 
-	local mob_color_alt = ns.CreateColourPicker(parent, "mob_color_alt", true)
-	mob_color_alt:SetPoint("TOPLEFT", mob_color_list, "BOTTOMLEFT", -2, -10)
+	-- local mob_color_alt = ns.CreateColourPicker(parent, "mob_color_alt", true)
+	-- mob_color_alt:SetPoint("TOPLEFT", mob_color_list, "BOTTOMLEFT", -2, -10)
 
-	local mob_color_alt_list = ns.CreateEditBox(parent, "mob_color_alt_list", true)
-	mob_color_alt_list:SetPoint("TOPLEFT", mob_color_alt, "BOTTOMLEFT", 2, -10)
-	mob_color_alt_list:SetWidth(240)
-	mob_color_alt_list:SetMaxLetters(200)
+	-- local mob_color_alt_list = ns.CreateEditBox(parent, "mob_color_alt_list", true)
+	-- mob_color_alt_list:SetPoint("TOPLEFT", mob_color_alt, "BOTTOMLEFT", 2, -10)
+	-- mob_color_alt_list:SetWidth(240)
+	-- mob_color_alt_list:SetMaxLetters(200)
 end
 
 -- Combat text
@@ -3786,8 +3787,11 @@ do
 	local subheader = ns.addSubCategory(parent, L.quest_subheader_header)
 	subheader:SetPoint("TOPLEFT", auto_collapse, "BOTTOMLEFT", 18, -4)
 
+	local header_left = ns.CreateCheckBox(parent, "header_left")
+	header_left:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -4)
+
 	local header_button_only = ns.CreateCheckBox(parent, "header_button_only")
-	header_button_only:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -4)
+	header_button_only:SetPoint("TOPLEFT", header_left, "BOTTOMLEFT", 0, -4)
 	
 	local header_text_color = ns.CreateColourPicker(parent, "header_text_color", true)
 	header_text_color:SetPoint("TOPLEFT", header_button_only, "BOTTOMLEFT", 4, -10)

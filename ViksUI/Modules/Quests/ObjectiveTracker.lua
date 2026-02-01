@@ -4,9 +4,14 @@ local T, C, L = unpack(ViksUI)
 --	Move ObjectiveTrackerFrame and hide background
 ----------------------------------------------------------------------------------------
 local anchor = CreateFrame("Frame", "ObjectiveTrackerAnchor", UIParent)
-anchor:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, -14)
-anchor:SetSize(224, 150)
 
+
+if C.quest.header_left then
+	anchor:SetPoint(C.position.quest[1], C.position.quest[2], C.position.quest[3], C.position.quest[4], C.position.quest[5])
+else
+	anchor:SetPoint("TOPRIGHT", DataTextQuests, "BOTTOMLEFT", 0, -14)
+end
+anchor:SetSize(224, 150)
 ObjectiveTrackerFrame.IsUserPlaced = function() return true end
 ObjectiveTrackerFrame:SetClampedToScreen(false)
 
@@ -478,7 +483,6 @@ for i = 1, #headers do
 		else
 			header.MinimizeButton:Hide()
 			header.Text:SetFont(C.quest.header_text_font, C.quest.header_text_font_size, C.quest.header_text_font_style)
-			header.Text:SetJustifyH(C.quest.header_text_ori)
 			header.Text:SetTextColor(unpack(C.quest.header_text_color))
 			header.Text:SetDrawLayer("OVERLAY", 7)
 			header.Text:SetPoint("BOTTOMRIGHT", 0, 8)
@@ -489,14 +493,20 @@ for i = 1, #headers do
 
 			HeaderBar = CreateFrame("StatusBar", nil, HeaderPanel)
 			HeaderBar:Size(C.quest.header_bar_width, C.quest.header_bar_height)
-			HeaderBar:SetPoint("RIGHT", HeaderPanel, 0, -10)
 			HeaderBar:SetStatusBarTexture(C.quest.header_bar_Texture)
 			HeaderBar:SetStatusBarColor(unpack(C.quest.header_bar_color))
 			HeaderBar:SetTemplate()
 			HeaderBar:CreateShadow()
 			header:SetScript("OnEnter", function(self)
-				header.Text:SetTextColor(1, .8, 0)
+			header.Text:SetTextColor(1, .8, 0)
 			end)
+			if C.quest.header_left then
+				header.Text:SetJustifyH("LEFT")
+				HeaderBar:SetPoint("LEFT", HeaderPanel, 0, -10)
+			else
+				header.Text:SetJustifyH(C.quest.header_text_ori)
+				HeaderBar:SetPoint("RIGHT", HeaderPanel, 0, -10)
+			end
 			header:SetScript("OnLeave", function(self)
 				header.Text:SetTextColor(unpack(C.quest.header_text_color))
 			end)

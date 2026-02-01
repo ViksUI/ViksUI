@@ -45,6 +45,7 @@ end
 
 C["quest"] = {
 	["auto_collapse"] = "NONE",																-- Auto collapse Objective Tracker (RAID, RELOAD, SCENARIO, NONE)
+	["header_left"] = false,																-- Show Objective Tracker on left side
 	["header_button_only"] = false,															-- Show only +/- button and not text
 	["header_text_color"] = { 0, 0.659, 1, 1},												-- Color for Headers (Quest/Scenario/etc)
 	["header_text_font"] = [=[Interface\Addons\ViksUI\Media\Font\normal_font.ttf]=], 		-- Font for Headers
