@@ -156,6 +156,7 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			itemFrame.Item:SetTemplate("Default")
 			itemFrame.Item:StyleButton()
 			itemFrame.Item.IconBorder:SetAlpha(0)
+			itemFrame.Item.IconOverlay:SetAlpha(0)
 
 			local icon = _G["StaticPopup"..i.."IconTexture"]
 			icon:CropIcon()
@@ -428,6 +429,11 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			SplashFrame:CreateBackdrop("Transparent")
 			SplashFrame.BottomCloseButton:SkinButton()
 			T.SkinCloseButton(SplashFrame.TopCloseButton)
+
+			-- Campaign finish
+			UIWidgetCenterDisplayFrame:StripTextures()
+			UIWidgetCenterDisplayFrame:SetTemplate("Transparent")
+			UIWidgetCenterDisplayFrame.CloseButton:SkinButton()
 
 			-- NavBar Buttons (Used in EncounterJournal and HelpFrame)
 			local function NavButtonXOffset(button, point, anchor, point2, _, yoffset, skip)

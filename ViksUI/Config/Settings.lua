@@ -20,6 +20,7 @@ C["media"] = {
 	["backdrop_color"] = {.06,.06,.06, 1}, 												-- background color of Viks UI panels
 	["backdrop_alpha"] = 0.7,															-- Alpha for transparent backdrop
 	["overlay_color"] = {0, 0, 0, 0.9},													-- Color for action bars overlay
+	-- ["texture"] = [[Interface\AddOns\ViksUI\Media\Textures\backdrop.tga]],				-- Texture for status bars
 	["texture"] = [[Interface\AddOns\ViksUI\Media\Textures\Texture.tga]],				-- Texture for status bars
 	["blank"] = "Interface\\Buttons\\WHITE8x8",
 	["blank_border"] = "Interface\\Buttons\\WHITE8x8",									-- Texture for borders			

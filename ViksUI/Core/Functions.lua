@@ -3,13 +3,6 @@ local T, C, L = unpack(ViksUI)
 ----------------------------------------------------------------------------------------
 --	Number value function
 ----------------------------------------------------------------------------------------
--- Add comma's to a number
-T.Comma = function(num)
-	local Left, Number, Right = match(num, "^([^%d]*%d)(%d*)(.-)$")
-	
-	return 	Left .. reverse(gsub(reverse(Number), "(%d%d%d)", "%1,")) .. Right
-end
-
 T.Round = function(number, decimals)
 	if not decimals then decimals = 0 end
 	if decimals and decimals > 0 then
