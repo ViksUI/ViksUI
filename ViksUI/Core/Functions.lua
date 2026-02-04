@@ -276,7 +276,7 @@ T.CreateBtn = function(buttonname, buttonparent, buttonwidth, buttonheight, tool
 
 	-- button text
 	button.text = button:CreateFontString(nil, "OVERLAY")
-	--button.text:SetFont("Interface\\AddOns\\ViksUI\\Media\\Fonts\\Movavi.ttf", 12, "OUTLINE")
+	--button.text:SetFont("Interface\\AddOns\\ViksUI\\Media\\Font\\Movavi.ttf", 12, "OUTLINE")
 	button.text:SetFontObject(CombatLogFont)
 	button.text:SetText(buttontext)
 	button.text:SetTextColor(1, 1, 1)
@@ -344,7 +344,7 @@ function T:HandleButton(f, strip, isDeclineButton)
 		if f.Icon then f.Icon:Hide() end
 		if not f.text then
 			f.text = f:CreateFontString(nil, 'OVERLAY')
-			f.text:SetFont([[Interface\AddOns\ViksUI\Media\Fonts\LinkinPark.ttf]], 16, 'OUTLINE')
+			f.text:SetFont([[Interface\AddOns\ViksUI\Media\Font\LinkinPark.ttf]], 16, 'OUTLINE')
 			f.text:SetText('x')
 			f.text:SetJustifyH('CENTER')
 			f.text:SetPoint('CENTER', f, 'CENTER')
@@ -893,6 +893,16 @@ T.ColorGradient = function(a, b, ...)
 	local R1, G1, B1, R2, G2, B2 = select((Segment * 3) + 1, ...)
 
 	return R1 + (R2 - R1) * RelPercent, G1 + (G2 - G1) * RelPercent, B1 + (B2 - B1) * RelPercent
+end
+
+function T.GetTexCoordsForRoleSmall(role)
+    if role == "TANK" then
+        return 0, 19/64, 22/64, 41/64
+    elseif role == "HEALER" then
+        return 20/64, 39/64, 1/64, 20/64
+    elseif role == "DAMAGER" then
+        return 20/64, 39/64, 22/64, 41/64
+    end
 end
 
 -- New BFA DropDown Template (Original Function Credits: Aurora) ~ was modified.

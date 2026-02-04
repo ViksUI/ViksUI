@@ -664,33 +664,33 @@ local function callback(self, _, unit)
 			self:Show()
 		end
 
-		if C.nameplate.npc_colors then
-			if T.PlateDangerous[self.npcID] or T.PlateDangerous[self.unitName] then
-				--self.Health:SetStatusBarColor(unpack(C.nameplate.priority_color))
-				self.Arrow:SetVertexColor(unpack(C.nameplate.priority_color))
-				self.Arrow:Show()
-			elseif T.PlateImportant[self.npcID] or T.PlateImportant[self.unitName] then
-				self.Arrow:SetVertexColor(unpack(C.nameplate.semipri_color))
-				self.Arrow:Show()
-			elseif T.PlateNuke[self.npcID] or T.PlateNuke[self.unitName] then
-				self.Arrow:SetVertexColor(unpack(C.nameplate.nuke_color))
-				self.Arrow:Show()
-			elseif T.PlateT3Mobs[self.npcID] or T.PlateT3Mobs[self.unitName] then
-				self.Arrow:SetVertexColor(unpack(C.nameplate.t3mobs_color))
-				self.Arrow:Show()
-			elseif T.PlateTides[self.npcID] or T.PlateTides[self.unitName] then
-				self.Arrow:SetVertexColor(unpack(C.nameplate.tides_color))
-				self.Arrow:Show()
-			elseif T.PlateExplosive[self.npcID] or T.PlateExplosive[self.unitName] then
-				self.Arrow:SetVertexColor(unpack(C.nameplate.explosive_color))
-				self.Arrow:Show()
-			elseif T.PlatePvP[self.npcID] or T.PlatePvP[self.unitName] then
-				self.Arrow:SetVertexColor(unpack(C.nameplate.pvpstuff_color))
-				self.Arrow:Show()
-			else
-				self.Arrow:Hide()
-			end
-		end
+		-- if C.nameplate.npc_colors then
+			-- if T.PlateDangerous[self.npcID] or T.PlateDangerous[self.unitName] then
+				-- self.Health:SetStatusBarColor(unpack(C.nameplate.priority_color))
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.priority_color))
+				-- self.Arrow:Show()
+			-- elseif T.PlateImportant[self.npcID] or T.PlateImportant[self.unitName] then
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.semipri_color))
+				-- self.Arrow:Show()
+			-- elseif T.PlateNuke[self.npcID] or T.PlateNuke[self.unitName] then
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.nuke_color))
+				-- self.Arrow:Show()
+			-- elseif T.PlateT3Mobs[self.npcID] or T.PlateT3Mobs[self.unitName] then
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.t3mobs_color))
+				-- self.Arrow:Show()
+			-- elseif T.PlateTides[self.npcID] or T.PlateTides[self.unitName] then
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.tides_color))
+				-- self.Arrow:Show()
+			-- elseif T.PlateExplosive[self.npcID] or T.PlateExplosive[self.unitName] then
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.explosive_color))
+				-- self.Arrow:Show()
+			-- elseif T.PlatePvP[self.npcID] or T.PlatePvP[self.unitName] then
+				-- self.Arrow:SetVertexColor(unpack(C.nameplate.pvpstuff_color))
+				-- self.Arrow:Show()
+			-- else
+				-- self.Arrow:Hide()
+			-- end
+		-- end
 
 		if UnitIsUnit(unit, "player") then
 			self.Name:Hide()

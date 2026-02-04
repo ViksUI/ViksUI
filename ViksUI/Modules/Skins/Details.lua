@@ -162,7 +162,7 @@ local skinTable = {
 			},
 			["texture_background_class_color"] = false,
 			["start_after_icon"] = true,
-			["font_face_file"] = "Interface\\AddOns\\ViksUI\\Media\\Fonts\\pixel.ttf",
+			["font_face_file"] = "Interface\\AddOns\\ViksUI\\Media\\Font\\pixel.ttf",
 			["backdrop"] = {
 				["enabled"] = false,
 				["size"] = 12,

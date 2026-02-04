@@ -259,15 +259,17 @@ local function Shared(self, unit)
 		-- Combat icon
 		if C.unitframe.icons_combat == true then
 			self.CombatIndicator = self.Health:CreateTexture(nil, "OVERLAY")
-			self.CombatIndicator:SetSize(18, 18)
-			self.CombatIndicator:SetPoint("TOPRIGHT", 4, 8)
+			self.CombatIndicator:SetSize(22, 22)
+			self.CombatIndicator:SetPoint("CENTER", 0, -4)
+			self.CombatIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\CombatIcon")
 		end
 
 		-- Resting icon
 		if C.unitframe.icons_resting == true then
 			self.RestingIndicator = self.Health:CreateTexture(nil, "OVERLAY")
 			self.RestingIndicator:SetSize(18, 18)
-			self.RestingIndicator:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", -8, -8)
+			self.RestingIndicator:SetPoint("TOPLEFT", 0, 14)
+			self.RestingIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\RestedIcon")
 		end
 
 		-- Leader/Assistant icons
@@ -979,7 +981,7 @@ local function Shared(self, unit)
 
 		if unit == "focus" then
 			if C.unitframe.castbar_focus_type == "ICON" or C.unitframe.castbar_focus_type == "BAR" then
-				self.Castbar.Button = CreateFrame("Frame", self:GetName().."_CastbarIcon", self.Castbar)
+				self.Castbar.Button = CreateFrame("Frame", self:GetName().."_Castbar_Icon", self.Castbar)
 				self.Castbar.Button:SetPoint(unpack(C.position.unitframes.focus_castbar))
 				self.Castbar.Button:SetTemplate("Default")
 
@@ -994,25 +996,7 @@ local function Shared(self, unit)
 				self.Castbar.Time = T.SetFontString(self.Castbar, C.font.unit_frames_font, C.font.unit_frames_font_size * 2, C.font.unit_frames_font_style)
 				self.Castbar.Time:SetParent(self.Castbar.Button)
 				self.Castbar.Time:SetTextColor(1, 1, 1)
-				self.Castbar.Time:SetPoint("CENTER", self.Castbar.Icon, "CENTER", 0, 10)
-
-				self.Castbar.Time2 = T.SetFontString(self.Castbar, C.font.unit_frames_font, C.font.unit_frames_font_size * 2, C.font.unit_frames_font_style)
-				self.Castbar.Time2:SetParent(self.Castbar.Button)
-				self.Castbar.Time2:SetTextColor(1, 1, 1)
-				self.Castbar.Time2:SetPoint("CENTER", self.Castbar.Icon, "CENTER", 0, -10)
-
-				self.Castbar.CustomTimeText = function(self, duration)
-					if self.endTime then
-						local max = self.endTime - self.startTime
-						self.Time:SetText(("%.1f"):format(max))
-						self.Time2:SetText(("%.1f"):format(self.channeling and duration or max - duration))
-					else
-						self.Time2:SetText(("%.1f"):format(duration))
-					end
-				end
-				self.Castbar.CustomDelayText = function(self)
-					self.Time:SetText(("|cffaf5050%s %.1f|r"):format(self.channeling and "-" or "+", abs(self.delay)))
-				end
+				self.Castbar.Time:SetPoint("CENTER", self.Castbar.Icon, "CENTER", 0, 0)
 			elseif C.unitframe.castbar_focus_type == "BAR" then
 				self.Castbar:ClearAllPoints()
 				self.Castbar:SetPoint("TOP", self.Castbar.Icon, "BOTTOM", 0, -7)

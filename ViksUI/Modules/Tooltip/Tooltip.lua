@@ -422,7 +422,7 @@ local OnTooltipSetUnit = function(self)
 	end
 
 	if C.tooltip.who_targetting == true then
-		token = unit AddTargetedBy()
+		-- token = unit AddTargetedBy()
 	end
 	
 	if C.tooltip.npc_id == true then
@@ -441,48 +441,48 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetU
 ----------------------------------------------------------------------------------------
 --	Show tip for NPC
 ----------------------------------------------------------------------------------------
-if C.tooltip.npc_tip == true then
-	local function OnTooltipSetNpcTip(self)
-	if self ~= GameTooltip then return end
-		local unit = (select(2, self:GetUnit())) or (GetMouseFoci() and GetMouseFoci().GetAttribute and GetMouseFoci():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
-		if unit then
-			local guid = UnitGUID(unit) or ""
-			local id = select(6, strsplit('-', guid))
-			if id then
-				if T.PlateDangerous[id] then
-					self:AddLine(T.PlateDangerous[id])
-				elseif T.PlateImportant[id] then
-					self:AddLine(T.PlateImportant[id])
-				elseif T.PlateNuke[id] then
-					self:AddLine(T.PlateNuke[id])
-				elseif T.PlateT3Mobs[id] then
-					self:AddLine(T.PlateT3Mobs[id])
-				end
-			end
-		end
-	end
-	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetNpcTip)
-end
+-- if C.tooltip.npc_tip == true then
+	-- local function OnTooltipSetNpcTip(self)
+	-- if self ~= GameTooltip then return end
+		-- local unit = (select(2, self:GetUnit())) or (GetMouseFoci() and GetMouseFoci().GetAttribute and GetMouseFoci():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
+		-- if unit then
+			-- local guid = UnitGUID(unit) or ""
+			-- local id = select(6, strsplit('-', guid))
+			-- if id then
+				-- if T.PlateDangerous[id] then
+					-- self:AddLine(T.PlateDangerous[id])
+				-- elseif T.PlateImportant[id] then
+					-- self:AddLine(T.PlateImportant[id])
+				-- elseif T.PlateNuke[id] then
+					-- self:AddLine(T.PlateNuke[id])
+				-- elseif T.PlateT3Mobs[id] then
+					-- self:AddLine(T.PlateT3Mobs[id])
+				-- end
+			-- end
+		-- end
+	-- end
+	-- TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetNpcTip)
+-- end
 
 ----------------------------------------------------------------------------------------
 --	Show M+ Score
 ----------------------------------------------------------------------------------------
 
-if C.tooltip.DungeonScore then
-	local function OnTooltipSetMScore(self)
-	if self ~= GameTooltip then return end
-		local unit = (select(2, self:GetUnit())) or (GetMouseFoci() and GetMouseFoci().GetAttribute and GetMouseFoci():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
-		local isPlayer = UnitIsPlayer(unit)
-		if unit then
-			local data = C_PlayerInfo_GetPlayerMythicPlusRatingSummary(unit)
-			if data and data.currentSeasonScore then
-				local color = C_ChallengeMode_GetDungeonScoreRarityColor(data.currentSeasonScore)
-				GameTooltip:AddDoubleLine("Mythic+ Score:", data.currentSeasonScore, nil, nil, nil, color.r or 1, color.g or 1, color.b or 1)
-			end
-		end
-	end
-	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetMScore)
-end
+-- if C.tooltip.DungeonScore then
+	-- local function OnTooltipSetMScore(self)
+	-- if self ~= GameTooltip then return end
+		-- local unit = (select(2, self:GetUnit())) or (GetMouseFoci() and GetMouseFoci().GetAttribute and GetMouseFoci():GetAttribute("unit")) or (UnitExists("mouseover") and "mouseover") or nil
+		-- local isPlayer = UnitIsPlayer(unit)
+		-- if unit then
+			-- local data = C_PlayerInfo_GetPlayerMythicPlusRatingSummary(unit)
+			-- if data and data.currentSeasonScore then
+				-- local color = C_ChallengeMode_GetDungeonScoreRarityColor(data.currentSeasonScore)
+				-- GameTooltip:AddDoubleLine("Mythic+ Score:", data.currentSeasonScore, nil, nil, nil, color.r or 1, color.g or 1, color.b or 1)
+			-- end
+		-- end
+	-- end
+	-- TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetMScore)
+-- end
 ----------------------------------------------------------------------------------------
 --	Hide tooltips in combat for action bars, pet bar and stance bar
 ----------------------------------------------------------------------------------------
