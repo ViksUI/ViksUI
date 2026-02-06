@@ -1,10 +1,8 @@
 ## Interface: 120000
 ## Title: |cff105c92ViksUI Config|r
 ## Notes: In-game configuration for ViksUI
-## Credits to: Wetxius, Tukz, Dawn, Shestak, Haste, Roth, P3lim, Monolit, AlleyKat.
 ## Author: Viks, Tryllemann
 ## Version: 11.47
-## RequiredDeps: ViksUI
 ## SavedVariables: ViksUIOptionsGlobal, ViksUIOptions
 ## SavedVariablesPerCharacter: ViksUIOptionsPerChar
 ## IconTexture: Interface\AddOns\ViksUI\Media\Textures\viksicon.blp
@@ -24,6 +22,7 @@
 ## X-WoWI-ID: 21462
 ## X-Wago-ID: q96dn1GO
 ## X-Website: https://github.com/ViksUI/ViksUI
+## X-Credits: Haleth, Solor, Wetxius
 
 Locales\English.lua
 Locales\Chinese.lua

@@ -127,7 +127,7 @@ L.skins_bubbles = "Restyling dei fumetti delle chats"
 L_GUI_UF_SUBTEXT = "Customize player, target frames and etc." -- Need review
 L_GUI_UF_ENABLE = "Abilita i riquadri delle unità"
 L_GUI_UF_OWN_COLOR = "Scegli il colore per la tua barra della salute"
-L_GUI_UF_UF_COLOR = "Colore barre salute (se è attivo il colore per la tua barra della salute)"
+L_GUI_UF_UF_COLOR = "Colore barre salute"
 L.unitframe_uf_color_bg = "Color of health background" -- Need review
 L.unitframe_enemy_health_color = "Colora di rosso la barra della salute dei nemici"
 L.unitframe_enemy_health_color_desc = "Color an enemy player's health bar red" -- Needs review
@@ -580,7 +580,7 @@ L.automation_summon = "Confirm summon" -- Needs review
 L.automation_summon_desc = "Summon from players" -- Need review
 L.automation_whisper_invite = "Auto invite when whisper keyword" -- Needs review
 L.automation_invite_keyword = "List of keyword (separated by space)" -- Needs review
-L.automation_invite_keyword_desc = "When player whisper you keyword he will be invited in your group" -- Needs revieww"
+L.automation_invite_keyword_desc = "When player whisper you keyword he will be invited in your group" -- Needs review
 
 -- Buffs reminder options
 L_GUI_REMINDER = "Promemoria benefici"

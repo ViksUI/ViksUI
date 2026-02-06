@@ -5,7 +5,7 @@ if GetLocale() ~= "ruRU" then return end
 --	Localization for ruRU client
 --	Translation: Shestak, Wetxius
 ----------------------------------------------------------------------------------------
-L_GUI_SET_SAVED_SETTTINGS = "Установить настройки для персонажа"
+L_GUI_SET_SAVED_SETTTINGS = "Персональный профиль"
 L_GUI_SET_SAVED_SETTTINGS_DESC = "Переключение между профилем, который применяется ко всем персонажам, и профилем, уникальным для этого персонажа."
 L_GUI_RESET_CHAR = "Вы уверены, что хотите сбросить все настройки ViksUI для этого персонажа?"
 L_GUI_RESET_ALL = "Вы уверены, что хотите сбросить все настройки ViksUI?"
