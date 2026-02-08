@@ -1016,7 +1016,6 @@ T.CreateRaidAuraTimer = function(self, elapsed)
 		end
 		self.elapsed = 0
 	end
-	return true
 end
 
 T.PostUpdateRaidButton = function(element, button, unit, data)
@@ -1156,10 +1155,6 @@ T.CreateAuraWatch = function(self)
 	end
 
 	self.AuraWatch = auras
-end
-
-T.PostUpdatePrivate = function(self)
-	self:SetTemplate("Default")
 end
 
 T.CreateHealthPrediction = function(self)
