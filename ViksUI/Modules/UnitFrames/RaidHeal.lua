@@ -259,8 +259,8 @@ local function Shared(self, unit)
 
 		-- Raid Buffs
 		self.Buffs = CreateFrame("Frame", self:GetName().."_Buffs", self)
-		self.Buffs:SetSize(self:GetWidth(), 11 * C.raidframe.icon_multiplier)
-		self.Buffs.size = 11 * C.raidframe.icon_multiplier
+		self.Buffs:SetSize(self:GetWidth(), 12 * C.raidframe.icon_multiplier)
+		self.Buffs.size = 12 * C.raidframe.icon_multiplier
 		self.Buffs.num = 5
 		self.Buffs:SetPoint("TOPRIGHT", self, 2, 2)
 		self.Buffs.initialAnchor = "TOPRIGHT"
@@ -269,7 +269,7 @@ local function Shared(self, unit)
 		self.Buffs.PostCreateButton = T.CreateRaidBuffIcon
 
 		self.Buffs.disableMouse = true
-		self.Buffs.filter = "HELPFUL|PLAYER|RAID"
+		self.Buffs.filter = "HELPFUL|PLAYER|RAID_IN_COMBAT"
 
 		-- Raid Debuffs
 		self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)

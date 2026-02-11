@@ -1,4 +1,4 @@
-## Interface: 120000
+## Interface: 120001
 ## Title: |cff105c92ViksUI|r
 ## Notes: A total UI overhaul for World of Warcraft
 ## Author: Viks, Tryllemann
