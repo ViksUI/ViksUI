@@ -61,7 +61,6 @@ local PClass = UnitClass("player")
 local PRace = UnitRace("player")
 local PFaction = UnitFactionGroup("player")
 local color = T.RGBToHex(unpack(C["media"].pxcolor1))
-local Version = tonumber(C_AddOns.GetAddOnMetadata("ViksUI", "Version"))
 
 T.AFK_LIST = {
 	"Mouseover minimap shows coords and locations.",
@@ -173,7 +172,7 @@ ViksUIAFKPanelIcon.Texture:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Texture
 ViksUIAFKPanel.ViksUIText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.ViksUIText:SetPoint("CENTER", ViksUIAFKPanel, "CENTER", 0, -10)
 ViksUIAFKPanel.ViksUIText:SetFont(C["media"].pxfontHeader, 40, "OUTLINE")
-ViksUIAFKPanel.ViksUIText:SetText("|cffc41f3bViksUI " .. Version)
+ViksUIAFKPanel.ViksUIText:SetText("|cffc41f3bViksUI " .. T.version)
 
 ViksUIAFKPanel.DateText = ViksUIAFKPanel:CreateFontString(nil, "OVERLAY")
 ViksUIAFKPanel.DateText:SetPoint("BOTTOMLEFT", ViksUIAFKPanel, "BOTTOMRIGHT", -100, 54)

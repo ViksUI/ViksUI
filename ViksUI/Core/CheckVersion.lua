@@ -6,7 +6,7 @@ local T, C, L = unpack(ViksUI)
 local check = function(self, event, prefix, message, _, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix ~= "ViksUIVersion" or sender == T.name then return end
-		if tonumber(message) ~= nil and tonumber(message) > tonumber(T.version) then
+		if tonumber(message) ~= nil and tonumber(message) > T.version then
 			if T.vik == true then
 				print("|cffff0000" .. "HEY!, Viks here, thank you for using my addon. Always nice to group with a use of my addon. It's outdated so go and grab the latest version!".."|r")
 			else
@@ -16,13 +16,13 @@ local check = function(self, event, prefix, message, _, sender)
 		end
 	else
 		if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "INSTANCE_CHAT")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "INSTANCE_CHAT")
 		elseif IsInRaid(LE_PARTY_CATEGORY_HOME) then
-			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "RAID")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "RAID")
 		elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
-			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "PARTY")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "PARTY")
 		elseif IsInGuild() then
-			C_ChatInfo.SendAddonMessage("ViksUIVersion", tonumber(T.version), "GUILD")
+			C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "GUILD")
 		end
 	end
 end
