@@ -274,6 +274,10 @@ local AurasPostCreateIcon = function(element, button)
 		button.Cooldown:SetHideCountdownNumbers(true)
 	end
 	button.Cooldown:SetCountdownFont("ShestakUI_AuraTimerFont")
+	button.Cooldown:SetCountdownAbbrevThreshold(60)
+
+	local textCD = button.Cooldown:GetRegions()
+	textCD:SetPoint("CENTER", button, "CENTER", 1, 0)
 
 	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
@@ -296,7 +300,7 @@ end
 local AurasPostUpdateIcon = function(_, button, unit, data)
 	if not UnitIsFriend("player", unit) then
 		if data.isHarmfulAura then
-			if C.nameplate.track_debuffs and data.isPlayerAura or data.sourceUnit == "pet" then
+			if C.nameplate.track_debuffs and data.isPlayerAura or (canaccessvalue(data.sourceUnit) and data.sourceUnit == "pet") then
 				if C.nameplate.track_buffs then
 					SetColorBorder(button, unpack(C.media.border_color))
 				end
@@ -954,7 +958,7 @@ local function style(self, unit)
 	-- Aura tracking
 	if C.nameplate.track_debuffs or C.nameplate.track_buffs then
 		self.Auras = CreateFrame("Frame", nil, self)
-		self.Auras:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, C.font.nameplates_font_size + 7)
+		self.Auras:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, C.font.nameplates_font_size + 8)
 		self.Auras.initialAnchor = "BOTTOMRIGHT"
 		self.Auras.growthX = "LEFT"
 		self.Auras.growthY = "UP"
