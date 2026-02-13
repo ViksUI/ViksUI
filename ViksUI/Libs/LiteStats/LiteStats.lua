@@ -1680,7 +1680,7 @@ end
 if ping.enabled then
 	Inject("Ping", {
 		OnLoad = function(self)
-			-- self:RegisterEvent("MINIMAP_PING") -- BETA
+			-- self:RegisterEvent("MINIMAP_PING") -- BETA not event now and callback is secret
 			self.animGroup = self.text:CreateAnimationGroup()
 			self.anim = self.animGroup:CreateAnimation("Alpha")
 			self.animGroup:SetScript("OnFinished", function() self.text:Hide() end)
@@ -1769,7 +1769,7 @@ if gold.enabled then
 		end,
 		OnEnter = function(self)
 			local curgold = GetMoney()
-			local _, _, archaeology, _, cooking = GetProfessions()
+			local _, _, archaeology = GetProfessions()
 			conf.Gold = curgold
 			GameTooltip:SetOwner(self, "ANCHOR_NONE")
 			GameTooltip:ClearAllPoints()
@@ -1859,8 +1859,9 @@ if gold.enabled then
 			-- end
 
 			if C.stats.currency_misc then
-				-- titleName = EXPANSION_NAME10
+				titleName = EXPANSION_NAME10
 				Currency(3028)	-- Restored Coffer Key
+				Currency(2803)	-- Undercoin
 			end
 
 			-- Anima (Shadownlands currency as items in bags credits to StoredAnimaCounter by Falx)
