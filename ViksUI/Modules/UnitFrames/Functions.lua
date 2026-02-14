@@ -26,6 +26,16 @@ gradient:AddPoint(0.0, CreateColor(0.69, 0.31, 0.31))
 gradient:AddPoint(0.5, CreateColor(0.65, 0.63, 0.35))
 gradient:AddPoint(1, CreateColor(0.33, 0.59, 0.33))
 
+local health_value = C_CurveUtil.CreateColorCurve()
+health_value:SetType(Enum.LuaCurveType.Step)
+health_value:AddPoint(0, CreateColor(1, 1, 1, 1))
+health_value:AddPoint(1, CreateColor(1, 1, 1, 0))
+
+local full_health_value = C_CurveUtil.CreateColorCurve()
+full_health_value:SetType(Enum.LuaCurveType.Step)
+full_health_value:AddPoint(0, CreateColor(1, 1, 1, 0))
+full_health_value:AddPoint(1, CreateColor(1, 1, 1, 1))
+
 T.PostUpdateHealth = function(health, unit, cur, max)
 	if not health.value then return end	-- arena target
 	if not UnitIsConnected(unit) or UnitIsDeadOrGhost(unit) then
@@ -37,6 +47,8 @@ T.PostUpdateHealth = function(health, unit, cur, max)
 		elseif UnitIsGhost(unit) then
 			health.value:SetText("|cffD7BEA5"..L_UF_GHOST.."|r")
 		end
+		health.value:SetAlpha(1)
+		health.short_value:SetText()
 	else
 		local perc = UnitHealthPercent(unit, true, CurveConstants.ScaleTo100)
 
@@ -87,64 +99,30 @@ T.PostUpdateHealth = function(health, unit, cur, max)
 			end
 		end
 
-		-- if cur ~= max then
-			-- r, g, b = oUF:ColorGradient(cur, max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
-			-- if (unit == "player" and not UnitHasVehicleUI("player") or unit == "vehicle") and health:GetAttribute("normalUnit") ~= "pet" then
-				-- if C.unitframe.show_total_value then
-					-- if C.unitframe.color_value then
-						-- health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5-|r |cff559655%s|r", T.ShortValue(cur), T.ShortValue(max))
-					-- else
-						-- health.value:SetFormattedText("|cffffffff%s - %s|r", T.ShortValue(cur), T.ShortValue(max))
-					-- end
-				-- else
-					-- if C.unitframe.color_value then
-						-- health.value:SetFormattedText("|cffAF5050%d|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", cur, r * 255, g * 255, b * 255, floor(cur / max * 100))
-					-- else
-						-- health.value:SetFormattedText("|cffffffff%d - %d%%|r", cur, floor(cur / max * 100))
-					-- end
-				-- end
-			-- elseif unit == "target" then
-				-- if C.unitframe.show_total_value then
-					-- if C.unitframe.color_value then
-						-- health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5-|r |cff559655%s|r", T.ShortValue(cur), T.ShortValue(max))
-					-- else
-						-- health.value:SetFormattedText("|cffffffff%s - %s|r", T.ShortValue(cur), T.ShortValue(max))
-					-- end
-				-- else
-					-- if C.unitframe.color_value then
-						-- health.value:SetFormattedText("|cff%02x%02x%02x%d%%|r |cffD7BEA5-|r |cffAF5050%s|r", r * 255, g * 255, b * 255, floor(cur / max * 100), T.ShortValue(cur))
-					-- else
-						-- health.value:SetFormattedText("|cffffffff%d%% - %s|r", floor(cur / max * 100), T.ShortValue(cur))
-					-- end
-				-- end
-			-- elseif unit and unit:find("boss%d") then
-				-- if C.unitframe.color_value then
-					-- health.value:SetFormattedText("|cff%02x%02x%02x%d%%|r |cffD7BEA5-|r |cffAF5050%s|r", r * 255, g * 255, b * 255, floor(cur / max * 100), T.ShortValue(cur))
-				-- else
-					-- health.value:SetFormattedText("|cffffffff%d%% - %s|r", floor(cur / max * 100), T.ShortValue(cur))
-				-- end
-			-- else
-				-- if C.unitframe.color_value then
-					-- health.value:SetFormattedText("|cff%02x%02x%02x%d%%|r", r * 255, g * 255, b * 255, floor(cur / max * 100))
-				-- else
-					-- health.value:SetFormattedText("|cffffffff%d%%|r", floor(cur / max * 100))
-				-- end
-			-- end
-		-- else
-			-- if (unit == "player" and not UnitHasVehicleUI("player") or unit == "vehicle") then
-				-- if C.unitframe.color_value then
-					-- health.value:SetText("|cff559655"..max.."|r")
-				-- else
-					-- health.value:SetText("|cffffffff"..max.."|r")
-				-- end
-			-- else
-				-- if C.unitframe.color_value then
-					-- health.value:SetText("|cff559655"..T.ShortValue(max).."|r")
-				-- else
-					-- health.value:SetText("|cffffffff"..T.ShortValue(max).."|r")
-				-- end
-			-- end
-		-- end
+		local color = UnitHealthPercent(unit, true, health_value)
+		local _, _, _, alpha = color:GetRGBA()
+		health.value:SetAlpha(alpha)
+
+		-- Full health
+		do
+			if (unit == "player" and not UnitHasVehicleUI("player") or unit == "vehicle") then
+				if C.unitframe.color_value then
+					health.short_value:SetText("|cff559655"..max.."|r")
+				else
+					health.short_value:SetText("|cffffffff"..max.."|r")
+				end
+			else
+				if C.unitframe.color_value then
+					health.short_value:SetText("|cff559655"..AbbreviateNumbers(max).."|r")
+				else
+					health.short_value:SetText("|cffffffff"..AbbreviateNumbers(max).."|r")
+				end
+			end
+
+			local color = UnitHealthPercent(unit, true, full_health_value)
+			local _, _, _, alpha = color:GetRGBA()
+			health.short_value:SetAlpha(alpha)
+		end
 	end
 end
 
@@ -211,6 +189,11 @@ T.PostUpdateHealthColor = function(health, unit, color)
 	end
 end
 
+local full_health = C_CurveUtil.CreateColorCurve()
+full_health:SetType(Enum.LuaCurveType.Step)
+full_health:AddPoint(0, CreateColor(1, 1, 1, 1))
+full_health:AddPoint(0.95, CreateColor(1, 1, 1, 0.6))
+
 T.PostUpdateRaidHealth = function(health, unit, cur, max)
 	local self = health:GetParent()
 	local power = self.Power
@@ -224,6 +207,8 @@ T.PostUpdateRaidHealth = function(health, unit, cur, max)
 		elseif UnitIsGhost(unit) then
 			health.value:SetText("|cffD7BEA5"..L_UF_GHOST.."|r")
 		end
+		health.value:SetAlpha(1)
+		health.short_value:SetText()
 	else
 		local perc = UnitHealthPercent(unit, true, CurveConstants.ScaleTo100)
 
@@ -256,46 +241,29 @@ T.PostUpdateRaidHealth = function(health, unit, cur, max)
 			end
 		end
 
-		-- if cur ~= max then
-			-- r, g, b = oUF:ColorGradient(cur, max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
-			-- if self:GetParent():GetName():match("oUF_PartyDPS") then
-				-- if C.unitframe.color_value then
-					-- health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", T.ShortValue(cur), r * 255, g * 255, b * 255, floor(cur / max * 100))
-				-- else
-					-- health.value:SetFormattedText("|cffffffff%s - %d%%|r", T.ShortValue(cur), floor(cur / max * 100))
-				-- end
-			-- else
-				-- if C.unitframe.color_value then
-					-- if C.raidframe.deficit_health then
-						-- health.value:SetText("|cffffffff".."-"..T.ShortValue(max - cur))
-					-- else
-						-- health.value:SetFormattedText("|cff%02x%02x%02x%d%%|r", r * 255, g * 255, b * 255, floor(cur / max * 100))
-					-- end
-				-- else
-					-- if C.raidframe.deficit_health then
-						-- health.value:SetText("|cffffffff".."-"..T.ShortValue(max - cur))
-					-- else
-						-- health.value:SetFormattedText("|cffffffff%d%%|r", floor(cur / max * 100))
-					-- end
-				-- end
-			-- end
-		-- else
-			-- if C.unitframe.color_value then
-				-- health.value:SetText("|cff559655"..T.ShortValue(max).."|r")
-			-- else
-				-- health.value:SetText("|cffffffff"..T.ShortValue(max).."|r")
-			-- end
-		-- end
+		local color = UnitHealthPercent(unit, true, health_value)
+		local _, _, _, alpha = color:GetRGBA()
+		health.value:SetAlpha(alpha)
+
+		-- Full health
+		do
+			if C.unitframe.color_value then
+				health.short_value:SetText("|cff559655"..AbbreviateNumbers(max).."|r")
+			else
+				health.short_value:SetText("|cffffffff"..AbbreviateNumbers(max).."|r")
+			end
+
+			local color = UnitHealthPercent(unit, true, full_health_value)
+			local _, _, _, alpha = color:GetRGBA()
+			health.short_value:SetAlpha(alpha)
+		end
+
 		if C.raidframe.alpha_health then
-			-- if cur / max > 0.95 then -- BETA can't calc secret value
-				-- health:SetAlpha(0.6)
-				-- power:SetAlpha(0.6)
-				-- border:SetAlpha(0.6)
-			-- else
-				-- health:SetAlpha(1)
-				-- power:SetAlpha(1)
-				-- border:SetAlpha(1)
-			-- end
+			local color = UnitHealthPercent(unit, true, full_health)
+			local _, _, _, alpha = color:GetRGBA()
+			health:SetAlpha(alpha)
+			power:SetAlpha(alpha)
+			border:SetAlpha(alpha)
 		end
 	end
 end
@@ -341,6 +309,16 @@ T.ForceUpdate = function(self)
 	self.Power:ForceUpdate(self.Power)
 end
 
+local power_value = C_CurveUtil.CreateColorCurve()
+power_value:SetType(Enum.LuaCurveType.Step)
+power_value:AddPoint(0, CreateColor(1, 1, 1, 1))
+power_value:AddPoint(1, CreateColor(1, 1, 1, 0))
+
+local full_power_value = C_CurveUtil.CreateColorCurve()
+full_power_value:SetType(Enum.LuaCurveType.Step)
+full_power_value:AddPoint(0, CreateColor(1, 1, 1, 0))
+full_power_value:AddPoint(1, CreateColor(1, 1, 1, 1))
+
 T.PostUpdatePower = function(power, unit, cur, _, max)
 	local self = power:GetParent()
 	local pType, pToken = UnitPowerType(unit)
@@ -350,11 +328,11 @@ T.PostUpdatePower = function(power, unit, cur, _, max)
 		power:SetValue(0)
 	end
 
-	-- if unit == "focus" or unit == "focustarget" or unit == "targettarget" or (self:GetParent():GetName():match("oUF_RaidDPS")) then return end
 	if not power.value then return end
 
-	if isDead then -- BETA or max == 0
+	if isDead then
 		power.value:SetText()
+		power.short_value:SetText()
 	else
 		local perc = UnitPowerPercent(unit, pType, true, CurveConstants.ScaleTo100)
 		local text = C_StringUtil.TruncateWhenZero(cur)	-- hide if zero
@@ -422,85 +400,30 @@ T.PostUpdatePower = function(power, unit, cur, _, max)
 			end
 		end
 
-		-- if cur ~= max then
-			-- if pType == 0 and pToken ~= "POWER_TYPE_DINO_SONIC" then
-				-- if unit == "target" then
-					-- if C.unitframe.show_total_value then
-						-- if C.unitframe.color_value then
-							-- power.value:SetFormattedText("%s |cffD7BEA5-|r %s", T.ShortValue(max - (max - cur)), T.ShortValue(max))
-						-- else
-							-- power.value:SetFormattedText("|cffffffff%s - %s|r", T.ShortValue(max - (max - cur)), T.ShortValue(max))
-						-- end
-					-- else
-						-- if C.unitframe.color_value then
-							-- power.value:SetFormattedText("%d%% |cffD7BEA5-|r %s", perc, T.ShortValue(max - (max - cur)))
-						-- else
-							-- power.value:SetFormattedText("|cffffffff%d%% - %s|r", perc, T.ShortValue(max - (max - cur)))
-						-- end
-					-- end
-				-- elseif (unit == "player" and power:GetAttribute("normalUnit") == "pet") or unit == "pet" then
-					-- if C.unitframe.show_total_value then
-						-- if C.unitframe.color_value then
-							-- power.value:SetFormattedText("%s |cffD7BEA5-|r %s", T.ShortValue(max - (max - cur)), T.ShortValue(max))
-						-- else
-							-- power.value:SetFormattedText("%s |cffffffff-|r %s", T.ShortValue(max - (max - cur)), T.ShortValue(max))
-						-- end
-					-- else
-						-- if C.unitframe.color_value then
-							-- power.value:SetFormattedText("%d%%", perc)
-						-- else
-							-- power.value:SetFormattedText("|cffffffff%d%%|r", perc)
-						-- end
-					-- end
-				-- elseif unit and (unit:find("arena%d") or unit:find("boss%d")) then
-					-- if C.unitframe.color_value then
-						-- power.value:SetFormattedText("|cffD7BEA5%d%% - %s|r", perc, T.ShortValue(max - (max - cur)))
-					-- else
-						-- power.value:SetFormattedText("|cffffffff%d%% - %s|r", perc, T.ShortValue(max - (max - cur)))
-					-- end
-				-- elseif self:GetParent():GetName():match("oUF_PartyDPS") then
-					-- if C.unitframe.color_value then
-						-- power.value:SetFormattedText("%s |cffD7BEA5-|r %d%%", T.ShortValue(max - (max - cur)), perc)
-					-- else
-						-- power.value:SetFormattedText("|cffffffff%s - %d%%|r", T.ShortValue(max - (max - cur)), perc)
-					-- end
-				-- else
-					-- if C.unitframe.show_total_value then
-						-- if C.unitframe.color_value then
-							-- power.value:SetFormattedText("%s |cffD7BEA5-|r %s", T.ShortValue(max - (max - cur)), T.ShortValue(max))
-						-- else
-							-- power.value:SetFormattedText("|cffffffff%s - %s|r", T.ShortValue(max - (max - cur)), T.ShortValue(max))
-						-- end
-					-- else
-						-- if C.unitframe.color_value then
-							-- power.value:SetFormattedText("%d |cffD7BEA5-|r %d%%", max - (max - cur), perc)
-						-- else
-							-- power.value:SetFormattedText("|cffffffff%d - %d%%|r", max - (max - cur), perc)
-						-- end
-					-- end
-				-- end
-			-- else
-				-- if C.unitframe.color_value then
-					-- power.value:SetText(max - (max - cur))
-				-- else
-					-- power.value:SetText("|cffffffff"..max - (max - cur).."|r")
-				-- end
-			-- end
-		-- else
-			-- if unit == "pet" or unit == "target" or (unit and unit:find("arena%d")) or (self:GetParent():GetName():match("oUF_PartyDPS")) then
-				-- if C.unitframe.color_value then
-					-- power.value:SetText(T.ShortValue(cur))
-				-- else
-					-- power.value:SetText("|cffffffff"..T.ShortValue(cur).."|r")
-				-- end
-			-- else
-				-- if C.unitframe.color_value then
-					-- power.value:SetText(cur)
-				-- else
-					-- power.value:SetText("|cffffffff"..cur.."|r")
-				-- end
-			-- end
-		-- end
+		local color = UnitPowerPercent(unit, pType, true, power_value)
+		local _, _, _, alpha = color:GetRGBA()
+		power.value:SetAlpha(alpha)
+
+		-- Full power
+		do
+			if unit == "pet" or unit == "target" or (unit and unit:find("arena%d")) or (self:GetParent():GetName():match("oUF_PartyDPS")) then
+				if C.unitframe.color_value then
+					power.short_value:SetText(AbbreviateNumbers(cur))
+				else
+					power.short_value:SetText("|cffffffff"..AbbreviateNumbers(cur).."|r")
+				end
+			else
+				if C.unitframe.color_value then
+					power.short_value:SetText(cur)
+				else
+					power.short_value:SetText("|cffffffff"..cur.."|r")
+				end
+			end
+
+			local color = UnitPowerPercent(unit, pType, true, full_power_value)
+			local _, _, _, alpha = color:GetRGBA()
+			power.short_value:SetAlpha(alpha)
+		end
 	end
 end
 
@@ -853,22 +776,6 @@ end
 T.PostCreateIcon = function(element, button)
 	button:SetTemplate("Default")
 
-	-- button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-	-- button.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-	-- button.remaining:SetPoint("CENTER", button, "CENTER", 1, 1)
-	-- button.remaining:SetJustifyH("CENTER")
-
-	-- button.Cooldown.noCooldownCount = true
-	-- button.Cooldown:SetDrawEdge(false)
-	-- if not C.aura.show_timer then
-		-- button.Cooldown:SetHideCountdownNumbers(true)
-	-- end
-	-- button.Cooldown:SetCountdownFont("ShestakUI_AuraTimerFont")
-	-- button.Cooldown:SetCountdownAbbrevThreshold(60)
-
-	-- local textCD = button.Cooldown:GetRegions()
-	-- textCD:SetPoint("CENTER", button, "CENTER", 1, 0)
-
 	T.SkinCooldown(button.Cooldown, "aura")
 
 	button.Icon:SetPoint("TOPLEFT", 2, -2)
@@ -887,59 +794,10 @@ T.PostCreateIcon = function(element, button)
 		button.parent = CreateFrame("Frame", nil, button)
 		button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
 		button.Count:SetParent(button.parent)
-		-- button.remaining:SetParent(button.parent)
 	else
 		button.Cooldown:SetAlpha(0)
 	end
 end
-
-local day, hour, minute = 86400, 3600, 60
-local FormatTime = function(s)
-	if s >= day then
-		return format("%dd", floor(s / day + 0.5))
-	elseif s >= hour then
-		return format("%dh", floor(s / hour + 0.5))
-	elseif s >= minute then
-		return format("%dm", floor(s / minute + 0.5))
-	elseif s >= 5 then
-		return floor(s + 0.5)
-	end
-	return format("%.1f", s)
-end
-
-T.CreateAuraTimer = function(self, elapsed)
-	-- if self.timeLeft then
-		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed >= 0.1 then
-			-- if not self.first then
-				-- self.timeLeft = self.timeLeft - self.elapsed
-			-- else
-				-- self.timeLeft = self.timeLeft - GetTime()
-				-- self.first = false
-			-- end
-			local start, duration = self.Cooldown:GetCooldownTimes()
-			local timeleft
-			if duration and duration > 0 then
-				timeleft = (duration + start) / 1000 - GetTime()
-			end
-			if timeleft and timeleft > 0 then
-				local time = FormatTime(timeleft)
-				self.remaining:SetText(time)
-			else
-				self.remaining:Hide()
-				self.remaining:SetText("")
-				self:SetScript("OnUpdate", nil)
-			end
-			self.elapsed = 0
-		end
-	-- end
-end
-
-local playerUnits = {
-	player = true,
-	pet = true,
-	vehicle = true,
-}
 
 local dispelIndex = {
 	[0] = CreateColor(1, 0, 0),			-- None
@@ -948,7 +806,7 @@ local dispelIndex = {
 	[3] = CreateColor(0.6, 0.4, 0),		-- Disease
 	[4] = CreateColor(0, 0.6, 0),		-- Poison
 	[9] = CreateColor(0.95, 0.4, 0.95),	-- Enrage
-	[11] = CreateColor(0.5, 0.1, 0)		-- Bleed
+	[11] = CreateColor(1, 0, 0.5)		-- Bleed
 }
 
 local curve = C_CurveUtil.CreateColorCurve()
@@ -986,46 +844,35 @@ T.PostUpdateIcon = function(element, button, unit, data)
 		end
 		button.Icon:SetDesaturated(false)
 	end
-
-	-- if data.duration and (canaccessvalue(data.duration) and data.duration > 0) and C.aura.show_timer then
-	-- if data.expirationTime and C.aura.show_timer then
-		-- button.remaining:Show()
-		-- -- button.timeLeft = data.expirationTime
-		-- -- button:SetScript("OnUpdate", T.CreateAuraTimer)
-	-- else
-		-- button.remaining:Hide()
-		-- -- button.timeLeft = math.huge
-		-- button:SetScript("OnUpdate", nil)
-	-- end
-
-	-- button.first = true
 end
 
-local function formatTime(s)
-	if s > 60 then
-		return format("%dm", s / 60), s % 60
-	else
-		return format("%d", s), s - floor(s)
+T.PostUpdateGapButton = function(_, _, button)
+	button:Hide()
+end
+
+T.CreateRaidBuffIcon = function(element, button)
+	if not C.raidframe.plugins_buffs_timer then
+		button.Cooldown:SetHideCountdownNumbers(true)
 	end
-end
+	T.SkinCooldown(button.Cooldown, "aura")
 
-T.CreateRaidAuraTimer = function(self, elapsed)
-	self.elapsed = (self.elapsed or 0) + elapsed
-	if self.elapsed >= 0.1 then
-		local start, duration = self.Cooldown:GetCooldownTimes()
-		local timeleft
-		if duration and duration > 0 then
-			timeleft = (duration + start) / 1000 - GetTime()
-		end
-		if timeleft and timeleft > 0 then
-			local time = formatTime(timeleft)
-			self.remaining:SetText(time)
-		else
-			self.remaining:Hide()
-			self.remaining:SetText("")
-			self:SetScript("OnUpdate", nil)
-		end
-		self.elapsed = 0
+	button:CreateBorder(nil, true)
+	button.oborder:SetOutside(button.Icon, 1, 1)
+
+	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+	button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 4, -1)
+	button.Count:SetJustifyH("RIGHT")
+	button.Count:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+
+	if C.aura.show_spiral then
+		button.Cooldown:SetReverse(true)
+		button.parent = CreateFrame("Frame", nil, button)
+		button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
+		button.Count:SetParent(button.parent)
+	else
+		button.Cooldown:SetAlpha(0)
 	end
 end
 
@@ -1042,137 +889,92 @@ T.PostUpdateRaidButton = function(element, button, unit, data)
 	if not C.aura.plugins_aura_watch_timer then
 		button.Cooldown:SetHideCountdownNumbers(true)
 	end
+end
 
-	-- if data.expirationTime and C.raidframe.plugins_aura_watch_timer then
-		-- button.remaining:Show()
-		-- button:SetScript("OnUpdate", T.CreateRaidAuraTimer)
-	-- else
-		-- button.remaining:Hide()
-		-- button:SetScript("OnUpdate", nil)
+-- local CountOffSets = {
+	-- TOPLEFT = {"LEFT", "RIGHT", 1, 0},
+	-- TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
+	-- BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
+	-- BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
+	-- LEFT = {"LEFT", "RIGHT", 1, 0},
+	-- RIGHT = {"RIGHT", "LEFT", 2, 0},
+	-- TOP = {"RIGHT", "LEFT", 2, 0},
+	-- BOTTOM = {"RIGHT", "LEFT", 2, 0},
+-- }
+
+-- T.CreateAuraWatchIcon = function(_, aura)
+	-- aura:CreateBorder(nil, true)
+	-- aura.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	-- aura.icon:SetDrawLayer("ARTWORK")
+	-- if aura.cd then
+		-- aura.cd:SetReverse(true)
+		-- aura.cd:SetHideCountdownNumbers(true)
+		-- if C.raidframe.plugins_buffs_timer then
+			-- aura.parent = CreateFrame("Frame", nil, aura)
+			-- aura.parent:SetFrameLevel(aura.cd:GetFrameLevel() + 1)
+			-- aura.remaining = T.SetFontString(aura.parent, C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
+			-- aura.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+			-- aura.remaining:SetPoint("CENTER", aura, "CENTER", 1, 0)
+			-- aura.remaining:SetJustifyH("CENTER")
+		-- end
 	-- end
-end
+-- end
 
-T.PostUpdateGapButton = function(_, _, button)
-	button:Hide()
-end
+-- T.CreateAuraWatch = function(self)
+	-- local auras = CreateFrame("Frame", nil, self)
+	-- auras:SetPoint("TOPLEFT", self.Health, 0, 0)
+	-- auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)
+	-- auras.icons = {}
+	-- auras.PostCreateIcon = T.CreateAuraWatchIcon
 
-T.CreateRaidBuffIcon = function(element, button)
-	-- button.remaining = T.SetFontString(button, C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-	-- button.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-	-- button.remaining:SetPoint("CENTER", button, "CENTER", 1, 1)
-	-- button.remaining:SetJustifyH("CENTER")
+	-- if not C.aura.show_timer then
+		-- auras.hideCooldown = true
+	-- end
 
-	button.Cooldown.noCooldownCount = true
-	button.Cooldown:SetDrawEdge(false)
-	button.Cooldown:SetHideCountdownNumbers(true)
+	-- local buffs = {}
 
-	button.Icon:SetPoint("TOPLEFT", 2, -2)
-	button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	-- if T.RaidBuffs["ALL"] then
+		-- for _, value in pairs(T.RaidBuffs["ALL"]) do
+			-- tinsert(buffs, value)
+		-- end
+	-- end
 
-	button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
-	button.Count:SetJustifyH("RIGHT")
-	button.Count:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-	button.Count:Hide()
+	-- if T.RaidBuffs[T.class] then
+		-- for _, value in pairs(T.RaidBuffs[T.class]) do
+			-- tinsert(buffs, value)
+		-- end
+	-- end
 
-	if C.aura.show_spiral then
-		button.Cooldown:SetReverse(true)
-		button.Cooldown:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
-		button.Cooldown:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
-		button.parent = CreateFrame("Frame", nil, button)
-		button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
-		button.Count:SetParent(button.parent)
-		-- button.remaining:SetParent(button.parent)
-	else
-		button.Cooldown:SetAlpha(0)
-	end
-end
+	-- if buffs then
+		-- for _, spell in pairs(buffs) do
+			-- local aura = CreateFrame("Frame", nil, auras)
+			-- aura.spellID = spell[1]
+			-- aura.anyUnit = spell[4]
+			-- aura.strictMatching = spell[5]
+			-- aura:SetSize(7 * C.raidframe.icon_multiplier, 7 * C.raidframe.icon_multiplier)
+			-- aura:SetPoint(spell[2], 0, 0)
 
-local CountOffSets = {
-	TOPLEFT = {"LEFT", "RIGHT", 1, 0},
-	TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
-	BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
-	BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
-	LEFT = {"LEFT", "RIGHT", 1, 0},
-	RIGHT = {"RIGHT", "LEFT", 2, 0},
-	TOP = {"RIGHT", "LEFT", 2, 0},
-	BOTTOM = {"RIGHT", "LEFT", 2, 0},
-}
+			-- local tex = aura:CreateTexture(nil, "OVERLAY")
+			-- tex:SetAllPoints(aura)
+			-- tex:SetTexture(C.media.blank)
+			-- if spell[3] then
+				-- tex:SetVertexColor(unpack(spell[3]))
+			-- else
+				-- tex:SetVertexColor(0.8, 0.8, 0.8)
+			-- end
+			-- aura.icon = tex
 
-T.CreateAuraWatchIcon = function(_, aura)
-	aura:CreateBorder(nil, true)
-	aura.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	aura.icon:SetDrawLayer("ARTWORK")
-	if aura.cd then
-		aura.cd:SetReverse(true)
-		aura.cd:SetHideCountdownNumbers(true)
-		if C.raidframe.plugins_buffs_timer then
-			aura.parent = CreateFrame("Frame", nil, aura)
-			aura.parent:SetFrameLevel(aura.cd:GetFrameLevel() + 1)
-			aura.remaining = T.SetFontString(aura.parent, C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-			aura.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-			aura.remaining:SetPoint("CENTER", aura, "CENTER", 1, 0)
-			aura.remaining:SetJustifyH("CENTER")
-		end
-	end
-end
+			-- local count = T.SetFontString(aura, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+			-- local point, anchorPoint, x, y = unpack(CountOffSets[spell[2]])
+			-- count:SetPoint(point, aura, anchorPoint, x, y)
+			-- aura.count = count
 
-T.CreateAuraWatch = function(self)
-	local auras = CreateFrame("Frame", nil, self)
-	auras:SetPoint("TOPLEFT", self.Health, 0, 0)
-	auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)
-	auras.icons = {}
-	auras.PostCreateIcon = T.CreateAuraWatchIcon
+			-- auras.icons[spell[1]] = aura
+		-- end
+	-- end
 
-	if not C.aura.show_timer then
-		auras.hideCooldown = true
-	end
-
-	local buffs = {}
-
-	if T.RaidBuffs["ALL"] then
-		for _, value in pairs(T.RaidBuffs["ALL"]) do
-			tinsert(buffs, value)
-		end
-	end
-
-	if T.RaidBuffs[T.class] then
-		for _, value in pairs(T.RaidBuffs[T.class]) do
-			tinsert(buffs, value)
-		end
-	end
-
-	if buffs then
-		for _, spell in pairs(buffs) do
-			local aura = CreateFrame("Frame", nil, auras)
-			aura.spellID = spell[1]
-			aura.anyUnit = spell[4]
-			aura.strictMatching = spell[5]
-			aura:SetSize(7 * C.raidframe.icon_multiplier, 7 * C.raidframe.icon_multiplier)
-			aura:SetPoint(spell[2], 0, 0)
-
-			local tex = aura:CreateTexture(nil, "OVERLAY")
-			tex:SetAllPoints(aura)
-			tex:SetTexture(C.media.blank)
-			if spell[3] then
-				tex:SetVertexColor(unpack(spell[3]))
-			else
-				tex:SetVertexColor(0.8, 0.8, 0.8)
-			end
-			aura.icon = tex
-
-			local count = T.SetFontString(aura, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-			local point, anchorPoint, x, y = unpack(CountOffSets[spell[2]])
-			count:SetPoint(point, aura, anchorPoint, x, y)
-			aura.count = count
-
-			auras.icons[spell[1]] = aura
-		end
-	end
-
-	self.AuraWatch = auras
-end
+	-- self.AuraWatch = auras
+-- end
 
 T.CreateHealthPrediction = function(self)
 	-- Player healing
