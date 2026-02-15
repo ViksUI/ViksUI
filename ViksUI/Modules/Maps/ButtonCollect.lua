@@ -90,7 +90,7 @@ local function PositionAndStyle()
 	end
 end
 
-C_Timer.After(1, function() -- Details icon not working with PLAYER_ENTERING_WORLD
+local function skinButton()
 	for _, child in ipairs({Minimap:GetChildren()}) do
 		if not BlackList[child:GetName()] then
 			if child:GetObjectType() == "Button" and child:GetNumRegions() >= 3 and child:IsShown() then
@@ -108,4 +108,13 @@ C_Timer.After(1, function() -- Details icon not working with PLAYER_ENTERING_WOR
 		SkinButton(WIM3MinimapButton)
 		WIM3MinimapButton.backGround:Hide()
 	end
+end
+
+local collect = CreateFrame("Frame")
+collect:RegisterEvent("PLAYER_ENTERING_WORLD")
+collect:SetScript("OnEvent", function()
+	C_Timer.After(2, function() -- Details icon not working with PLAYER_ENTERING_WORLD after reload
+		skinButton()
+	end)
+	collect:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end)
