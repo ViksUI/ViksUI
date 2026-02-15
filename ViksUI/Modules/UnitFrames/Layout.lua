@@ -311,7 +311,7 @@ local function Shared(self, unit)
 		-- Combat icon
 		if C.unitframe.icons_combat == true then
 			self.CombatIndicator = self.Health:CreateTexture(nil, "OVERLAY")
-			self.CombatIndicator:SetSize(22, 22)
+			self.CombatIndicator:SetSize(18, 18)
 			self.CombatIndicator:SetPoint("CENTER", 0, -4)
 			self.CombatIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\CombatIcon")
 		end
