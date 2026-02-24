@@ -12,7 +12,6 @@
 	<Script file="Config\Positions.lua"/>
 	<Script file="Config\Fonts.lua"/>
 	<Script file="Config\Profiles.lua"/>
-	<Script file="Media\Media.lua"/>
 	<Script file="Core\GUI.lua"/>
 	<Script file="Core\PixelPerfect.lua"/>
 	
@@ -61,6 +60,7 @@
 	
 	<Script file="Modules\UnitFrames\Functions.lua"/>
 	<Script file="Modules\UnitFrames\Tags.lua"/>
+	<Script file="Modules\UnitFrames\Layout2.lua"/>
 	<Script file="Modules\UnitFrames\Layout.lua"/>
 	<Script file="Modules\UnitFrames\RaidDPS.lua"/>
 	<Script file="Modules\UnitFrames\RaidHeal.lua"/>
@@ -108,7 +108,6 @@
 	<Script file="Modules\ActionBars\Style.lua"/>
 	<Script file="Modules\ActionBars\Range.lua"/>
 	<Script file="Modules\ActionBars\VehicleExit.lua"/>
-	<!-- <Script file="Modules\ActionBars\Cooldowns.lua"/> -->
 	<Script file="Modules\ActionBars\ExtraBar.lua"/>
 	<Script file="Modules\ActionBars\MicroMenu.lua"/>
 

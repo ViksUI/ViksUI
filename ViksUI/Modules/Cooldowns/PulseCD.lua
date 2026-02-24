@@ -61,7 +61,7 @@ local function memoize(f)
 end
 
 local function GetPetActionIndexByName(name)
-	for i = 1, NUM_PET_ACTION_SLOTS, 1 do
+	for i = 1, 10, 1 do
 		if GetPetActionInfo(i) == name then
 			return i
 		end
@@ -234,7 +234,7 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 hooksecurefunc("UseAction", function(slot)
 	local actionType, itemID = GetActionInfo(slot)
 	if actionType == "item" then
-		local texture = GetActionTexture(slot)
+		local texture = C_ActionBar.GetActionTexture(slot)
 		watching[itemID] = {GetTime(), "item", texture}
 	end
 end)

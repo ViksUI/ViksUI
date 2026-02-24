@@ -1,0 +1,1313 @@
+local T, C, L = unpack(ViksUI)
+if C.unitframe.enable ~= true or C.layout2.enable ~= true then return end
+
+--print("|cff00ff00Layout2.lua: Starting to load...|r")
+
+local _, ns = ...
+local oUF = ns.oUF
+
+if not oUF then
+	print("|cffff0000Layout2.lua: oUF not found!|r")
+	return
+end
+
+-- Store reference to CreateShadow from Layout.lua
+local CreateShadow
+
+C.unitframe.lines = false -- Disable auto height adjustment for Layout2 frames
+C.unitframe.extra_height_auto = false -- Disable auto height adjustment for Layout2 frames
+
+-- Update C.media.texture to use Layout2 texture
+C.media.texture = C.layout2.health_texture
+
+----------------------------------------------------------------------------------------
+--	LAYOUT2 OPTIONS
+--	Customize Layout2 behavior with these easy-to-toggle options
+----------------------------------------------------------------------------------------
+
+local Layout2Options = {
+	-- Use portrait-style borders for secondary frames (pet, target's target, focus, etc.)
+	-- Set to true to use SetTemplate("Invisible") + SetBackdropColor like portrait
+	-- Set to false to use default SetTemplate("Default") borders
+	use_portrait_borders = true,
+}
+
+----------------------------------------------------------------------------------------
+--	TAG CONFIGURATION
+--	Configure which tags appear on player and target frames
+--	Set enable = false to hide a tag
+--	Modify the "tag" field to change what information is displayed
+----------------------------------------------------------------------------------------
+
+local Layout2Tags = {
+	player = {
+		health_bar = {
+			enable = true,
+			top_left = {
+				enable = C.layout2.player_health_top_left_enable,
+				tag = C.layout2.player_health_top_left_tag,
+				font_type = "name_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 2,
+				y = -1,
+				justify = "LEFT",
+			},
+			top_center = {
+				enable = false,
+				tag = "",
+				font_type = "name_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 0,
+				y = -1,
+				justify = "CENTER",
+			},
+			top_right = {
+				enable = C.layout2.player_health_top_right_enable,
+				tag = C.layout2.player_health_top_right_tag,
+				font_type = "number_font",
+				font = nil,
+				size = 24,
+				style = nil,
+				x = -2,
+				y = -1,
+				justify = "RIGHT",
+			},
+			bottom_right = {
+				enable = false,
+				tag = "",  -- Set your desired tag here
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = -2,
+				y = 1,
+				justify = "RIGHT",
+			},
+		},
+		text_bar = {
+			enable = true,
+			bottom_left = {
+				enable = C.layout2.player_text_bar_bottom_left_enable,
+				tag = C.layout2.player_text_bar_bottom_left_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 2,
+				y = 1,
+				justify = "LEFT",
+			},
+			bottom_center = {
+				enable = false,
+				tag = "[drk:color]| - [missinghp:shortvalue]",
+				font_type = "name_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 0,
+				y = 1,
+				justify = "CENTER",
+			},
+			bottom_right = {
+				enable = C.layout2.player_text_bar_bottom_right_enable,
+				tag = C.layout2.player_text_bar_bottom_right_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = -2,
+				y = 1,
+				justify = "RIGHT",
+			},
+		},
+	},
+	
+	target = {
+		health_bar = {
+			enable = true,
+			top_left = {
+				enable = C.layout2.target_health_top_left_enable,
+				tag = C.layout2.target_health_top_left_tag,
+				font_type = "name_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 2,
+				y = -1,
+				justify = "LEFT",
+			},
+			top_center = {
+				enable = false,
+				tag = "[DiffColor][classification]",
+				font_type = "name_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 0,
+				y = -1,
+				justify = "CENTER",
+			},
+			top_right = {
+				enable = C.layout2.target_health_top_right_enable,
+				tag = C.layout2.target_health_top_right_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = -2,
+				y = -1,
+				justify = "RIGHT",
+			},
+			bottom_right = {
+				enable = C.layout2.target_health_bottom_right_enable,
+				tag = C.layout2.target_health_bottom_right_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = -2,
+				y = 1,
+				justify = "RIGHT",
+			},
+		},
+		text_bar = {
+			enable = true,
+			bottom_left = {
+				enable = C.layout2.target_text_bar_bottom_left_enable,
+				tag = C.layout2.target_text_bar_bottom_left_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 2,
+				y = 1,
+				justify = "LEFT",
+			},
+			bottom_center = {
+				enable = C.layout2.target_text_bar_bottom_center_enable,
+				tag = C.layout2.target_text_bar_bottom_center_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = 0,
+				y = 1,
+				justify = "CENTER",
+			},
+			bottom_right = {
+				enable = C.layout2.target_text_bar_bottom_right_enable,
+				tag = C.layout2.target_text_bar_bottom_right_tag,
+				font_type = "number_font",
+				font = nil,
+				size = nil,
+				style = nil,
+				x = -2,
+				y = 1,
+				justify = "RIGHT",
+			},
+		},
+	},
+}
+
+-- Font Configuration
+local Layout2Fonts = {
+	name_font = {
+		font = C.layout2.UFNamefont or C.font.unit_frames_font,
+		size = C.layout2.name_font_size,
+		style = C.layout2.name_font_style,
+	},
+	number_font = {
+		font = C.layout2.pixel_font or C.font.unit_frames_font,
+		size = C.layout2.number_font_size,
+		style = C.layout2.number_font_style,
+	},
+}
+
+----------------------------------------------------------------------------------------
+--	SHADOW CONFIGURATION
+--	Controls drop shadows on text for better readability
+--	Set enable = false to disable shadows
+--	offset_x: horizontal shadow distance (positive = right, negative = left)
+--	offset_y: vertical shadow distance (positive = up, negative = down)
+----------------------------------------------------------------------------------------
+
+local Layout2Shadow = {
+	name_shadow = {
+		enable = true,
+		color = {0, 0, 0, 1},
+		offset_x = 1,
+		offset_y = -2,
+	},
+	number_shadow = {
+		enable = false,
+		color = {0, 0, 0, 1},
+		offset_x = 1,
+		offset_y = -1,
+	},
+}
+
+----------------------------------------------------------------------------------------
+--	LAYOUT2 CONFIGURATION
+--	Main configuration for all Layout2 frame sizes, positions, and offsets
+--	
+--	TIPS FOR EDITING:
+--	- layout2_w and layout2_h: Main frame dimensions (from Config)
+--	- offset_x/offset_y: Position adjustments relative to parent frame
+--	- frame_level: Drawing order (higher = on top)
+--	- pet_offset_x: Horizontal distance from portrait to pet frame
+--	- pet_offset_y: Vertical alignment adjustment for pet frame
+----------------------------------------------------------------------------------------
+
+local Layout2Config = {
+	-- Player frame
+	player = {
+		width = C.layout2.player_width,
+		height = C.layout2.player_height,
+	},
+	
+	-- Target frame
+	target = {
+		width = C.layout2.target_width,
+		height = C.layout2.target_height,
+	},
+	
+	-- Pet frame
+	pet = {
+		width = C.layout2.pet_width,
+		height = C.layout2.pet_height,
+	},
+	
+	-- Target's target frame
+	targettarget = {
+		width = C.layout2.targettarget_width,
+		height = C.layout2.targettarget_height,
+	},
+	
+	-- Focus frame
+	focus = {
+		width = C.layout2.focus_width,
+		height = C.layout2.focus_height,
+	},
+	
+	-- Focus target frame
+	focustarget = {
+		width = C.layout2.focustarget_width,
+		height = C.layout2.focustarget_height,
+	},
+	
+	-- Arena frame
+	arena = {
+		width = C.layout2.arena_width,
+		height = C.layout2.arena_height,
+	},
+	
+	-- Boss frame
+	boss = {
+		width = C.layout2.boss_width,
+		height = C.layout2.boss_height,
+	},
+	
+	-- Health frame styling
+	health = {
+		width = C.layout2.player_width,
+		height = C.layout2.player_height,
+		texture = C.layout2.health_texture,
+		backdrop_color = C.media.border_color,
+		frame_level = 6,
+	},
+	
+	-- Power frame (mana, rage, energy, etc.) styling and size
+	power = {
+		width = C.layout2.player_width,
+		height = C.layout2.player_height,
+		texture = C.layout2.power_texture,
+		backdrop_color = C.media.border_color,
+		frame_level = 5,
+		offset_x = -6,  -- Position relative to health frame
+		offset_y = -7,  -- Position relative to health frame
+	},
+	
+	-- Text bar (below health/power) for additional info
+	text_bar = {
+		width = C.layout2.player_width,
+		height = C.layout2.player_height,
+		texture = C.layout2.textbar_texture,
+		texture_color = {0.125, 0.125, 0.125, 1},
+		frame_level = 4,
+		offset_x = 6,   -- Horizontal offset from health frame
+		offset_y = 13,  -- Vertical offset below health frame
+	},
+	
+	-- Portrait frame (player/target face)
+	portrait = {
+		size = C.layout2.portrait_size,
+		frame_level = 5,
+		backdrop_color = C.media.border_color,
+		texcoord = {0.15, 0.85, 0.15, 0.85},
+		pet_offset_x = 56,  -- Distance from portrait RIGHT to pet frame (increase for more space)
+		pet_offset_y = 0,   -- Vertical alignment for pet frame
+	},
+	
+	-- Castbar positioning (below text bar)
+	castbar = {
+		offset_y = -6,  -- Space between text bar and castbar
+	},
+	
+	-- Experience and Reputation bars (beside portrait)
+	bars = {
+		width = 3,      -- Width of experience/reputation bars
+		spacing = -6,   -- Space between bars
+		frame_level = 8, -- Behind health/power/text frames
+	},
+}
+
+----------------------------------------------------------------------------------------
+--	HELPER FUNCTIONS
+----------------------------------------------------------------------------------------
+-- Get frame dimensions based on unit type
+local function GetFrameDimensions(unitType)
+	if unitType == "player" or unitType == "target" then
+		return C.layout2.player_width, C.layout2.player_height
+	elseif unitType == "arena" or unitType == "boss" then
+		return C.layout2.arena_width, C.layout2.arena_height
+	else
+		-- Pet, focus, focustarget, targettarget
+		return C.layout2.pet_width, C.layout2.pet_height
+	end
+end
+
+local function GetCreateShadow()
+	if CreateShadow then return CreateShadow end
+	
+	if _G.CreateShadow then
+		CreateShadow = _G.CreateShadow
+		return CreateShadow
+	end
+	
+	CreateShadow = function(f)
+		if f.shadow then return end
+		local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
+		shadow:SetFrameLevel(1)
+		shadow:SetFrameStrata(f:GetFrameStrata())
+		shadow:SetPoint("TOPLEFT", -4, 4)
+		shadow:SetPoint("BOTTOMRIGHT", 4, -4)
+		shadow:SetBackdrop({
+			edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex",
+			edgeSize = 4,
+			insets = { left = 3, right = 3, top = 3, bottom = 3 }
+		})
+		shadow:SetBackdropColor(0, 0, 0, 0)
+		shadow:SetBackdropBorderColor(0, 0, 0, 1)
+		f.shadow = shadow
+		return shadow
+	end
+	
+	return CreateShadow
+end
+
+-- Create a single tag (text) on a frame
+local function CreateTag(self, parent, tagConfig, point)
+	if not tagConfig or not tagConfig.enable or tagConfig.tag == "" then
+		return nil
+	end
+	
+	local fontType = tagConfig.font_type or "name_font"
+	local fontDefaults = Layout2Fonts[fontType]
+	if not fontDefaults then
+		fontDefaults = Layout2Fonts.name_font
+	end
+	
+	-- Use tag-specific font settings, or fall back to defaults
+	local font = tagConfig.font or fontDefaults.font
+	local size = tagConfig.size or fontDefaults.size
+	local style = tagConfig.style or fontDefaults.style
+	
+	local fontString = T.SetFontString(parent, font, size, style)
+	fontString:SetJustifyH(tagConfig.justify or "LEFT")
+	fontString:SetPoint(point, parent, point, tagConfig.x or 0, tagConfig.y or 0)
+	
+	-- Apply shadow based on font type
+	if fontType == "name_font" and Layout2Shadow.name_shadow.enable then
+		fontString:SetShadowColor(unpack(Layout2Shadow.name_shadow.color))
+		fontString:SetShadowOffset(Layout2Shadow.name_shadow.offset_x, Layout2Shadow.name_shadow.offset_y)
+	elseif fontType == "number_font" and Layout2Shadow.number_shadow.enable then
+		fontString:SetShadowColor(unpack(Layout2Shadow.number_shadow.color))
+		fontString:SetShadowOffset(Layout2Shadow.number_shadow.offset_x, Layout2Shadow.number_shadow.offset_y)
+	end
+	
+	self:Tag(fontString, tagConfig.tag)
+	return fontString
+end
+
+-- Apply all configured health bar tags
+local function ApplyHealthBarTags(self, unit)
+	if not Layout2Tags[unit] or not Layout2Tags[unit].health_bar then return end
+	if not Layout2Tags[unit].health_bar.enable then return end
+	
+	local config = Layout2Tags[unit].health_bar
+	if not self.Health then return end
+	
+	if config.top_left and config.top_left.enable then
+		self.Health.TagTopLeft = CreateTag(self, self.Health, config.top_left, "TOPLEFT")
+	end
+	
+	if config.top_center and config.top_center.enable then
+		self.Health.TagTopCenter = CreateTag(self, self.Health, config.top_center, "TOP")
+	end
+	
+	if config.top_right and config.top_right.enable then
+		self.Health.TagTopRight = CreateTag(self, self.Health, config.top_right, "TOPRIGHT")
+	end
+
+    if config.bottom_right and config.bottom_right.enable then
+        self.Health.TagBottomRight = CreateTag(self, self.Health, config.bottom_right, "BOTTOMRIGHT")
+    end
+	
+	if config.show_missing_hp then
+		self.Health.TagMissingHP = T.SetFontString(self.Health, Layout2Fonts.number_font.font, Layout2Fonts.number_font.size, Layout2Fonts.number_font.style)
+		self.Health.TagMissingHP:SetPoint("CENTER", self.Health, "CENTER", 0, -8)
+		self.Health.TagMissingHP:SetJustifyH("CENTER")
+		
+		if Layout2Shadow.number_shadow.enable then
+			self.Health.TagMissingHP:SetShadowColor(unpack(Layout2Shadow.number_shadow.color))
+			self.Health.TagMissingHP:SetShadowOffset(Layout2Shadow.number_shadow.offset_x, Layout2Shadow.number_shadow.offset_y)
+		end
+		
+		self:Tag(self.Health.TagMissingHP, "[MissingHP]")
+	end
+end
+
+-- Apply all configured text bar tags
+local function ApplyTextBarTags(self, textFrame, unit)
+	if not Layout2Tags[unit] or not Layout2Tags[unit].text_bar then return end
+	if not Layout2Tags[unit].text_bar.enable then return end
+	
+	local config = Layout2Tags[unit].text_bar
+	
+	if config.bottom_left and config.bottom_left.enable then
+		CreateTag(self, textFrame, config.bottom_left, "BOTTOMLEFT")
+	end
+	
+	if config.bottom_center and config.bottom_center.enable then
+		CreateTag(self, textFrame, config.bottom_center, "BOTTOM")
+	end
+	
+	if config.bottom_right and config.bottom_right.enable then
+		CreateTag(self, textFrame, config.bottom_right, "BOTTOMRIGHT")
+	end
+end
+
+----------------------------------------------------------------------------------------
+--	PLAYER FRAME PORTRAIT REFERENCE
+--	Stored for use when positioning pet and target's target frames
+----------------------------------------------------------------------------------------
+
+local playerFramePortrait = nil
+
+----------------------------------------------------------------------------------------
+--	SECONDARY FRAME TEMPLATE APPLIER
+--	Applies portrait-style borders to secondary frames (pet, target's target, etc.)
+--	if use_portrait_borders option is enabled
+----------------------------------------------------------------------------------------
+
+local function ApplySecondaryFrameTemplate(frame)
+	if Layout2Options.use_portrait_borders then
+		frame:SetTemplate("Invisible")
+		frame:SetBackdropColor(unpack(C.media.border_color))
+		CreateShadow(frame)
+	else
+		frame:SetTemplate("Default")
+	end
+end
+
+----------------------------------------------------------------------------------------
+--	MAIN HOOK - RegisterStyle
+--	This hooks into oUF's RegisterStyle function to apply Layout2 modifications
+--	to the "Viks" style frames after they are created
+----------------------------------------------------------------------------------------
+
+local originalRegisterStyle = oUF.RegisterStyle
+
+function oUF:RegisterStyle(styleName, sharedFunc)
+	if styleName == "Viks" then
+		local OriginalShared = sharedFunc
+		CreateShadow = GetCreateShadow()
+		
+		local function SharedWithLayout2(self, unit)
+			-- Call original Layout.lua function first
+			OriginalShared(self, unit)
+			
+			-- Only apply Layout2 if enabled in config
+			if not C.layout2.enable then
+				return self
+			end
+			
+			local unitType = (unit and unit:find("arena%dtarget")) and "arenatarget"
+				or (unit and unit:find("arena%d")) and "arena"
+				or (unit and unit:find("boss%d")) and "boss" or unit
+			
+			-- Only modify player and target frames for Layout2 styling
+			-- Secondary frames (pet, targettarget, focus, etc.) use ApplySecondaryFrameTemplate
+			if unitType ~= "player" and unitType ~= "target" then
+				-- Apply portrait-style borders to secondary frames if enabled
+				if Layout2Options.use_portrait_borders and self.backdrop then
+					ApplySecondaryFrameTemplate(self)
+				end
+				return self
+			end
+			
+			-- ========== BACKDROP SETUP ==========
+			-- Remove borders from main frame backdrop
+			if self.backdrop then
+				self.backdrop:SetBackdrop({edgeFile = nil})
+				self.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+			end
+			
+			-- ========== PORTRAIT SETUP ==========
+			-- Remove existing portrait if present
+			if self.Portrait and self.Portrait:GetParent() == self and not self.Portrait.isLayout2 then
+				self.Portrait:Hide()
+				self.Portrait = nil
+			end
+
+			-- Create new Layout2 portrait based on portrait type from config
+			if C.unitframe.portrait_type == "3D" or C.unitframe.portrait_type == "OVERLAY" then
+				self.Portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", self)
+			else
+				self.Portrait = CreateFrame("Frame", self:GetName().."_Portrait", self, "BackdropTemplate")
+			end
+			self.Portrait.isLayout2 = true
+
+			-- Set size and position
+			self.Portrait:SetSize(Layout2Config.portrait.size, Layout2Config.portrait.size)
+			if unitType == "player" then
+				self.Portrait:SetPoint(unpack(C.position.unitframes.player_portrait_2))
+			elseif unitType == "target" then
+				self.Portrait:SetPoint(unpack(C.position.unitframes.target_portrait_2))
+			end
+			self.Portrait:SetFrameLevel(Layout2Config.portrait.frame_level)
+
+			-- Setup backdrop and shadow (only for non-PlayerModel frames)
+			if C.unitframe.portrait_type ~= "OVERLAY" and C.unitframe.portrait_type ~= "3D" then
+				self.Portrait:SetTemplate("Default")
+				self.Portrait:SetBackdropColor(unpack(C.media.border_color))
+				CreateShadow(self.Portrait)
+				
+				if C.unitframe.portrait_type == "ICONS" then
+					self.Portrait.classIcons = true
+				end
+				
+				-- Create portrait texture
+				self.Portrait.Icon = self.Portrait:CreateTexture(nil, "ARTWORK")
+				self.Portrait.Icon:SetAllPoints()
+				self.Portrait.Icon:SetTexCoord(unpack(Layout2Config.portrait.texcoord))
+			else
+				-- For 3D and OVERLAY types, create a background frame with colored backdrop
+				if C.unitframe.portrait_type == "3D" or C.unitframe.portrait_type == "ICONS" then
+					local bgFrame = CreateFrame("Frame", nil, self, "BackdropTemplate")  -- Parent is self, not self.Portrait
+					bgFrame:SetFrameLevel(self.Portrait:GetFrameLevel() - 1)
+					bgFrame:SetTemplate("Invisible")
+					bgFrame:SetBackdropColor(unpack(C.media.backdrop_color))
+					CreateShadow(bgFrame)
+					
+					-- Position background frame to match portrait with 1px inset
+					if unitType == "player" then
+						bgFrame:SetPoint(unpack(C.position.unitframes.player_portrait_2))
+					elseif unitType == "target" then
+						bgFrame:SetPoint(unpack(C.position.unitframes.target_portrait_2))
+					end
+					bgFrame:SetSize(Layout2Config.portrait.size, Layout2Config.portrait.size)
+					
+					-- Inset portrait 1px into the background frame
+					self.Portrait:ClearAllPoints()
+					self.Portrait:SetPoint("TOPLEFT", bgFrame, "TOPLEFT", 1, -1)
+					self.Portrait:SetPoint("BOTTOMRIGHT", bgFrame, "BOTTOMRIGHT", -1, 1)
+					
+					self.Portrait.backgroundFrame = bgFrame
+				end
+				
+				if C.unitframe.portrait_type ~= "OVERLAY" then
+					self.Portrait.Icon = self.Portrait:CreateTexture(nil, "ARTWORK")
+					self.Portrait.Icon:SetAllPoints()
+					self.Portrait.Icon:SetTexCoord(unpack(Layout2Config.portrait.texcoord))
+				end
+			end
+
+			-- Add fake .backdrop property for ALL frame types (for Layout.lua compatibility)
+			self.Portrait.backdrop = {
+				SetBackdropBorderColor = function(...) end
+			}
+
+			-- Store player portrait reference AFTER creation for pet/target's target positioning
+			if unitType == "player" then
+				playerFramePortrait = self.Portrait
+			end
+
+			-- Apply class color to portrait backdrop if enabled (only for non-3D/OVERLAY)
+			-- if C.unitframe.portrait_classcolor_border == true and C.unitframe.portrait_type ~= "3D" and C.unitframe.portrait_type ~= "OVERLAY" then
+				-- if unitType == "player" then
+					-- self.Portrait:SetBackdropColor(T.color.r, T.color.g, T.color.b)
+				-- elseif unitType == "target" then
+					-- self.Portrait:RegisterEvent("PLAYER_TARGET_CHANGED")
+					-- self.Portrait:SetScript("OnEvent", function()
+						-- local _, class = UnitClass("target")
+						-- local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+						-- if color then
+							-- self.Portrait:SetBackdropColor(color.r, color.g, color.b)
+						-- else
+							-- self.Portrait:SetBackdropColor(unpack(C.media.border_color))
+						-- end
+					-- end)
+				-- end
+			-- end
+
+			-- OVERLAY specific positioning adjustments
+			if C.unitframe.portrait_type == "OVERLAY" and self.Health then
+				local healthTex = self.Health:GetStatusBarTexture()
+				self.Portrait:ClearAllPoints()
+				self.Portrait:SetPoint("TOPLEFT", healthTex, "TOPLEFT", 0, 0)
+				self.Portrait:SetPoint("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT", 0, 1)
+				self.Portrait:SetFrameLevel(self.Health:GetFrameLevel())
+				self.Portrait:SetAlpha(0.5)
+			end
+						
+			-- ========== HEALTH FRAME SETUP ==========
+			local healthFrame = CreateFrame("Frame", self:GetName().."_HealthFrame", self, "BackdropTemplate")
+			healthFrame:SetSize(Layout2Config.health.width, Layout2Config.health.height)
+			healthFrame:SetPoint("LEFT", self, "LEFT", 0, 0)
+			healthFrame:SetFrameLevel(Layout2Config.health.frame_level)
+			healthFrame:SetTemplate("Invisible")
+			healthFrame:SetBackdropColor(unpack(C.media.border_color))
+			CreateShadow(healthFrame)
+			
+			-- Move health bar into health frame
+			if self.Health then
+				self.Health:SetParent(healthFrame)
+				self.Health:ClearAllPoints()
+				self.Health:SetAllPoints()
+				self.Health:SetStatusBarTexture(C.layout2.health_texture)
+				self.Health:SetFrameLevel(Layout2Config.health.frame_level+1)
+				if C.unitframe.own_color == true then
+					self.Health.colorTapping = false
+					self.Health.colorDisconnected = false
+					self.Health.colorClass = false
+					self.Health.colorReaction = false
+					self.Health:SetStatusBarColor(unpack(C.unitframe.uf_color))
+				else
+					self.Health.colorTapping = true
+					self.Health.colorDisconnected = true
+					self.Health.colorClass = true
+					self.Health.colorReaction = true
+				end
+				if C.unitframe.plugins_smooth_bar == true then
+					self.Health.smoothing = Enum.StatusBarInterpolation.ExponentialEaseOut or 1
+				end
+
+				self.Health.PostUpdate = T.PostUpdateHealth
+				self.Health.PostUpdateColor = T.PostUpdateHealthColor
+				
+				if not self.Health.bg then
+					self.Health.bg = self.Health:CreateTexture(nil, "BORDER")
+					self.Health.bg:SetAllPoints()
+					self.Health.bg:SetTexture(C.layout2.health_texture)
+					if C.unitframe.own_color == true then
+						self.Health.bg:SetVertexColor(unpack(C.unitframe.uf_color_bg))
+					else
+						self.Health.bg.multiplier = 0.2
+					end
+				end
+			end
+			
+			-- Hide original health bar tags
+			if self.Health and self.Health.value then self.Health.value:Hide() end
+			if self.Health and self.Health.short_value then self.Health.short_value:Hide() end
+			if self.Info then self.Info:Hide() end
+			if self.Level then self.Level:Hide() end
+			
+			if C.unitframe.portrait_type == "OVERLAY" then
+				local healthTex = self.Health:GetStatusBarTexture()
+				self.Portrait:ClearAllPoints()
+				self.Portrait:SetPoint("TOPLEFT", healthTex, "TOPLEFT", 0, 0)
+				self.Portrait:SetPoint("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT", 0, 1)
+				self.Portrait:SetFrameLevel(self.Health:GetFrameLevel())
+				-- self.Portrait.backdrop:Hide()
+				self.Portrait:SetAlpha(0.5)
+			end
+			
+			-- Apply custom health bar tags from Layout2Tags
+			ApplyHealthBarTags(self, unitType)
+			
+			-- ========== PLAYER FRAME INDICATORS (Layout2 adjustments) ==========
+			if unitType == "player" then
+				-- FlashInfo frame for mana level display
+				self.FlashInfo = CreateFrame("Frame", "FlashInfo", self)
+				self.FlashInfo:SetScript("OnUpdate", T.UpdateManaLevel)
+				self.FlashInfo:SetFrameLevel(self.Health:GetFrameLevel() + 1)
+				self.FlashInfo:SetAllPoints(self.Health)  -- Cover entire health bar
+
+				-- Mana level text - centered on health bar
+				self.FlashInfo.ManaLevel = T.SetFontString(self.FlashInfo, C.layout2.UFNamefont or C.font.unit_frames_font, C.layout2.name_font_size, C.layout2.name_font_style)
+				self.FlashInfo.ManaLevel:SetPoint("CENTER", self.Health, "CENTER", 0, 0)
+				
+				-- Optional: Add shadow to mana text for better readability
+				if Layout2Shadow.name_shadow.enable then
+					self.FlashInfo.ManaLevel:SetShadowColor(unpack(Layout2Shadow.name_shadow.color))
+					self.FlashInfo.ManaLevel:SetShadowOffset(Layout2Shadow.name_shadow.offset_x, Layout2Shadow.name_shadow.offset_y)
+				end
+
+				-- Combat icon - reposition for Layout2
+				if self.CombatIndicator then
+					self.CombatIndicator:SetSize(20, 24)
+					self.CombatIndicator:ClearAllPoints()
+					self.CombatIndicator:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", -2, -2)
+					self.CombatIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\combat2")
+				end
+
+				-- Resting icon - reposition for Layout2
+				if self.RestingIndicator then
+					self.RestingIndicator:SetSize(18, 18)
+					self.RestingIndicator:ClearAllPoints()
+					self.RestingIndicator:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", -4, -4)
+					self.RestingIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\resting")
+				end
+
+				-- Leader icon - reposition for Layout2
+				if self.LeaderIndicator then
+					self.LeaderIndicator:SetSize(14, 14)
+					self.LeaderIndicator:ClearAllPoints()
+					self.LeaderIndicator:SetPoint("TOPLEFT", self.Health, "TOPLEFT", 2, -18)
+				end
+
+				-- Assistant icon - reposition for Layout2
+				if self.AssistantIndicator then
+					self.AssistantIndicator:SetSize(12, 12)
+					self.AssistantIndicator:ClearAllPoints()
+					self.AssistantIndicator:SetPoint("TOPLEFT", self.Health, "TOPLEFT", 2, -32)
+				end
+
+				-- LFD role icon - reposition for Layout2
+				if self.GroupRoleIndicator then
+					self.GroupRoleIndicator:SetSize(12, 12)
+					self.GroupRoleIndicator:ClearAllPoints()
+					self.GroupRoleIndicator:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", -16, -2)
+				end
+			end
+			
+			-- ========== POWER FRAME SETUP ==========
+			if self.Power then
+				local powerFrame = CreateFrame("Frame", self:GetName().."_PowerFrame", self, "BackdropTemplate")
+				powerFrame:SetSize(Layout2Config.power.width, Layout2Config.power.height)
+				
+				if unitType == "player" then
+					powerFrame:SetPoint("TOPLEFT", self.Health, "TOPLEFT", Layout2Config.power.offset_x, Layout2Config.power.offset_y)
+				elseif unitType == "target" then
+					powerFrame:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", -Layout2Config.power.offset_x, Layout2Config.power.offset_y)
+				end
+				
+				powerFrame:SetFrameLevel(Layout2Config.power.frame_level)
+				powerFrame:SetTemplate("Default")
+				powerFrame:SetBackdropColor(unpack(C.media.border_color))
+				CreateShadow(powerFrame)
+				
+				-- Move power bar into power frame
+				self.Power:SetParent(powerFrame)
+				self.Power:ClearAllPoints()
+				self.Power:SetAllPoints()
+				self.Power:SetStatusBarTexture(C.layout2.power_texture)
+				self.Power:SetFrameLevel(Layout2Config.power.frame_level)
+				self.Power.colorClass = true
+				
+				if not self.Power.bg then
+					self.Power.bg = self.Power:CreateTexture(nil, "BORDER")
+					self.Power.bg:SetAllPoints()
+					self.Power.bg:SetTexture(C.layout2.power_texture)
+					self.Power.bg:SetVertexColor(0.1, 0.1, 0.1, 0.2)
+				end
+				
+				-- Hide original power bar tags
+				if self.Power.value then self.Power.value:Hide() end
+				if self.Power.short_value then self.Power.short_value:Hide() end
+			end
+			
+			-- ========== TEXT BAR SETUP ==========
+			local textFrame = CreateFrame("Frame", self:GetName().."_TextFrame", self, "BackdropTemplate")
+			textFrame:SetSize(Layout2Config.text_bar.width, Layout2Config.text_bar.height)
+			
+			if unitType == "player" then
+				textFrame:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", Layout2Config.text_bar.offset_x, Layout2Config.text_bar.offset_y)
+			elseif unitType == "target" then
+				textFrame:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", -Layout2Config.text_bar.offset_x, Layout2Config.text_bar.offset_y)
+			end
+			
+			textFrame:SetFrameLevel(Layout2Config.text_bar.frame_level)
+			textFrame:SetTemplate("Default")
+			
+			local textBarTexture = textFrame:CreateTexture(nil, "BACKGROUND")
+			textBarTexture:SetAllPoints()
+			textBarTexture:SetTexture(C.layout2.textbar_texture)
+			textBarTexture:SetVertexColor(unpack(Layout2Config.text_bar.texture_color))
+			
+			-- Apply custom text bar tags from Layout2Tags
+			ApplyTextBarTags(self, textFrame, unitType)
+			
+			-- ========== CASTBAR REPOSITIONING ==========
+			if self.Castbar then
+				self.Castbar:ClearAllPoints()
+				if unitType == "player" then
+					if C.layout2.centerbar then
+						-- Move castbar down by castbar height + 6px
+						self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 18))
+						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					else
+						self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y)
+						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					end
+				elseif unitType == "target" then
+					if C.layout2.centerbar then
+						-- Move castbar down by castbar height + 6px
+						self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 8))
+						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					else
+						self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y)
+						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					end
+				end
+			end
+			
+				-- ========== PLAYER DEBUFFS REPOSITIONING ==========
+			if self.Debuffs and unitType == "player" then
+				self.Debuffs.size = C.layout2.player_debuff_size
+				self.Debuffs:ClearAllPoints()
+				self.Debuffs:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)
+				self.Debuffs.initialAnchor = "BOTTOMRIGHT"
+				self.Debuffs["growth-x"] = "LEFT"
+				self.Debuffs["growth-y"] = "DOWN"
+				self.Debuffs.spacing = C.layout2.debuff_spacing
+			end
+			
+			-- ========== EXPERIENCE & REPUTATION BARS REPOSITIONING ==========
+			if self.Experience then
+				self.Experience:ClearAllPoints()
+				if unitType == "player" then
+					self.Experience:SetPoint("TOPRIGHT", self.Portrait, "TOPLEFT", -2, -4)
+					self.Experience:SetSize(Layout2Config.bars.width, Layout2Config.portrait.size-14)
+					self.Experience:SetFrameLevel(Layout2Config.bars.frame_level)
+				end
+			end
+			
+			if self.Reputation then
+				self.Reputation:ClearAllPoints()
+				if unitType == "player" then
+					self.Reputation:SetPoint("TOPRIGHT", self.Experience, "TOPLEFT", Layout2Config.bars.spacing, 0)
+					self.Reputation:SetSize(Layout2Config.bars.width, Layout2Config.portrait.size-14)
+					self.Reputation:SetFrameLevel(Layout2Config.bars.frame_level)
+				end
+			end
+			
+			-- ========== CLASS BARS REPOSITIONING ==========
+			-- Adjust all class-specific bars (ComboPoints, Runes, Chi, etc.) to match Layout2 width
+			if unitType == "player" then
+				-- Runes (Death Knight)
+				if self.Runes then
+					self.Runes:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.Runes:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 6 do
+						if self.Runes[i] then
+							self.Runes[i]:SetSize(((C.layout2.player_width - 3) - 5) / 6, 7)
+						end
+						if i == 1 then
+							self.Runes[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- ComboPoints (Rogue, Druid)
+				if self.ComboPoints then
+					self.ComboPoints:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.ComboPoints:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 7 do
+						if self.ComboPoints[i] then
+							self.ComboPoints[i]:SetSize(((C.layout2.player_width - 3) - 5) / 7, 7)
+						end
+						if i == 1 then
+							self.ComboPoints[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- HarmonyBar / Chi (Monk)
+				if self.HarmonyBar then
+					self.HarmonyBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.HarmonyBar:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 6 do
+						if self.HarmonyBar[i] then
+							self.HarmonyBar[i]:SetSize(((C.layout2.player_width - 3) - 5) / 6, 7)
+						end
+						if i == 1 then
+							self.HarmonyBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- Stagger (Monk)
+				if self.Stagger then
+					self.Stagger:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.Stagger:SetSize((C.layout2.player_width - 3), 7)
+				end
+				
+				-- HolyPower (Paladin)
+				if self.HolyPower then
+					self.HolyPower:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.HolyPower:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 5 do
+						if self.HolyPower[i] then
+							self.HolyPower[i]:SetSize(((C.layout2.player_width - 3) - 4) / 5, 7)
+						end
+						if i == 1 then
+							self.HolyPower[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- SoulShards (Warlock)
+				if self.SoulShards then
+					self.SoulShards:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.SoulShards:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 5 do
+						if self.SoulShards[i] then
+							self.SoulShards[i]:SetSize(((C.layout2.player_width - 3) - 4) / 5, 7)
+						end
+						if i == 1 then
+							self.SoulShards[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- ArcaneCharge (Mage)
+				if self.ArcaneCharge then
+					self.ArcaneCharge:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.ArcaneCharge:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 4 do
+						if self.ArcaneCharge[i] then
+							self.ArcaneCharge[i]:SetSize(((C.layout2.player_width - 3) - 3) / 4, 7)
+						end
+						if i == 1 then
+							self.ArcaneCharge[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- Essence (for new content)
+				if self.Essence then
+					self.Essence:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.Essence:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 6 do
+						if self.Essence[i] then
+							self.Essence[i]:SetSize(((C.layout2.player_width - 3) - 5) / 6, 7)
+						end
+						if i == 1 then
+							self.Essence[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+				
+				-- SoulFragments (Demon Hunter)
+				if self.SoulFragments then
+					self.SoulFragments:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.SoulFragments:SetSize((C.layout2.player_width - 3), 7)
+				end
+				
+				-- TotemBar (Shaman)
+				if self.TotemBar then
+					self.TotemBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+					self.TotemBar:SetSize((C.layout2.player_width - 3), 7)
+					
+					for i = 1, 4 do
+						if self.TotemBar[i] then
+							self.TotemBar[i]:SetSize(((C.layout2.player_width - 3) - 3) / 4, 7)
+						end
+						if i == 1 then
+							self.TotemBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+						end
+					end
+				end
+			end
+			
+			-- ========== PET & TARGET'S TARGET POSITIONING ==========
+			-- Position pet frame and target's target based on centerbar setting
+			if unitType == "player" then
+				C_Timer.After(0.1, function()
+					if C.layout2.centerbar then
+						-- Use default Layout.lua positioning
+						if oUF_Pet then
+							oUF_Pet:ClearAllPoints()
+							oUF_Pet:SetPoint(unpack(C.position.unitframes.pet))
+						end
+						
+						if oUF_TargetTarget then
+							oUF_TargetTarget:ClearAllPoints()
+							oUF_TargetTarget:SetPoint(unpack(C.position.unitframes.target_target))
+						end
+					else
+						-- Use Layout2 positioning relative to portraits
+						if oUF_Pet and playerFramePortrait then
+							oUF_Pet:ClearAllPoints()
+							oUF_Pet:SetPoint("TOPLEFT", playerFramePortrait, "TOPRIGHT", Layout2Config.portrait.pet_offset_x, Layout2Config.portrait.pet_offset_y)
+						end
+						
+						if oUF_TargetTarget and oUF_Pet then
+							oUF_TargetTarget:ClearAllPoints()
+							oUF_TargetTarget:SetPoint("BOTTOMLEFT", playerFramePortrait, "BOTTOMRIGHT", Layout2Config.portrait.pet_offset_x, 0)
+						end
+					end
+				end)
+			end
+			
+			return self
+		end
+		
+		-- Re-register oUF style with Layout2 modifications
+		return originalRegisterStyle(self, styleName, SharedWithLayout2)
+	else
+		return originalRegisterStyle(self, styleName, sharedFunc)
+	end
+end
+
+--print("|cff00ff00Layout2.lua: Hook registered|r")
+
+----------------------------------------------------------------------------------------
+--	API FUNCTIONS
+--	Use these functions to modify Layout2 settings at runtime via console commands
+----------------------------------------------------------------------------------------
+
+-- Update a specific tag's display text
+-- Example: T.UpdateLayout2Tag("player", "health_bar", "top_left", "[PercentHP]")
+function T.UpdateLayout2Tag(unit, section, position, newTag)
+	if Layout2Tags[unit] and Layout2Tags[unit][section] and Layout2Tags[unit][section][position] then
+		Layout2Tags[unit][section][position].tag = newTag
+		--print("|cff00ff00Layout2: Updated tag|r")
+	end
+end
+
+-- Enable or disable a specific tag
+-- Example: T.SetLayout2TagEnabled("player", "health_bar", "top_right", true)
+function T.SetLayout2TagEnabled(unit, section, position, enabled)
+	if Layout2Tags[unit] and Layout2Tags[unit][section] and Layout2Tags[unit][section][position] then
+		Layout2Tags[unit][section][position].enable = enabled
+	end
+end
+
+-- Update font properties
+-- Example: T.UpdateLayout2Font("name_font", "size", 28)
+function T.UpdateLayout2Font(fontType, key, value)
+	if Layout2Fonts[fontType] then
+		Layout2Fonts[fontType][key] = value
+		--print("|cff00ff00Layout2: Updated font|r")
+	end
+end
+
+-- Update shadow properties
+-- Example: T.UpdateLayout2Shadow("name_shadow", "enable", false)
+function T.UpdateLayout2Shadow(shadowType, key, value)
+	if Layout2Shadow[shadowType] then
+		Layout2Shadow[shadowType][key] = value
+		--print("|cff00ff00Layout2: Updated shadow|r")
+	end
+end
+
+-- Retrieve all tag configurations
+function T.GetLayout2Tags() return Layout2Tags end
+
+-- Retrieve all font configurations
+function T.GetLayout2Fonts() return Layout2Fonts end
+
+-- Retrieve all shadow configurations
+function T.GetLayout2Shadow() return Layout2Shadow end
+
+----------------------------------------------------------------------------------------
+--	LAYOUT2 AUTO-POSITION HOOK
+--	Hook into Layout.lua's auto-position logic to apply Layout2 positions in raids
+----------------------------------------------------------------------------------------
+
+if C.layout2.enable and (C.raidframe.layout == "HEAL" or C.raidframe.layout == "AUTO") then
+	local function ApplyLayout2Positions()
+		if InCombatLockdown() then return end
+		
+		C_Timer.After(0.1, function()
+			local player = _G.oUF_Player
+			local target = _G.oUF_Target
+			local pet = _G.oUF_Pet
+			local targettarget = _G.oUF_TargetTarget
+			local focus = _G.oUF_Focus
+			local focustarget = _G.oUF_FocusTarget
+			
+			-- Get frame sizes from Layout.lua
+			local player_width = C.unitframe.player_width
+			local pet_width = (player_width - 7) / 2
+			
+			-- Apply positions from Positions.lua
+			-- Player frame anchors to its portrait (top right to portrait top left)
+			if player and player.Portrait then
+				player:ClearAllPoints()
+				player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, 0)
+				player:SetSize(C.layout2.player_width, C.layout2.player_height)
+			end
+			
+			-- Target frame anchors to its portrait (top left to portrait top right)
+			if target and target.Portrait then
+				target:ClearAllPoints()
+				target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, 0)
+				target:SetSize(C.layout2.target_width, C.layout2.target_height)
+			end
+			
+			-- Pet positioning and sizing
+			if pet and C.unitframe.show_pet then
+				pet:ClearAllPoints()
+				if C.layout2.centerbar then
+					-- Use default Layout.lua position and size
+					pet:SetPoint(unpack(C.position.unitframes.pet))
+					pet:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
+				else
+					-- Use Layout2 position and size
+					pet:SetPoint("TOPRIGHT", player, "TOPLEFT", -10, 0)
+					pet:SetSize(C.layout2.pet_width, C.layout2.pet_height)
+				end
+			end
+			
+			-- Target's target positioning and sizing
+			if targettarget and C.unitframe.show_target_target then
+				targettarget:ClearAllPoints()
+				if C.layout2.centerbar then
+					-- Use default Layout.lua position and size
+					targettarget:SetPoint(unpack(C.position.unitframes.target_target))
+					targettarget:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
+				else
+					-- Use Layout2 position and size
+					targettarget:SetPoint("TOPLEFT", target, "TOPRIGHT", 10, 0)
+					targettarget:SetSize(C.layout2.targettarget_width, C.layout2.targettarget_height)
+				end
+			end
+			
+			-- Focus positioning and sizing
+			if focus and C.unitframe.show_focus then
+				focus:ClearAllPoints()
+				if C.layout2.centerbar then
+					-- Use default Layout.lua position and size
+					focus:SetPoint(unpack(C.position.unitframes.focus))
+					focus:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
+				else
+					-- Use Layout2 position and size
+					focus:SetPoint(unpack(C.position.unitframes.focus))
+					focus:SetSize(C.layout2.focus_width, C.layout2.focus_height)
+				end
+			end
+			
+			-- Focus target positioning and sizing
+			if focustarget and C.unitframe.show_focus then
+				focustarget:ClearAllPoints()
+				if C.layout2.centerbar then
+					-- Use default Layout.lua position and size
+					focustarget:SetPoint(unpack(C.position.unitframes.focus_target))
+					focustarget:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
+				else
+					-- Use Layout2 position and size
+					focustarget:SetPoint(unpack(C.position.unitframes.focus_target))
+					focustarget:SetSize(C.layout2.focustarget_width, C.layout2.focustarget_height)
+				end
+			end
+			
+			-- Reposition party anchor to player portrait
+			if _G["PartyAnchor"] and player and player.Portrait then
+				_G["PartyAnchor"]:ClearAllPoints()
+				_G["PartyAnchor"]:SetPoint(unpack(C.position.unitframes.party_heal))
+			end
+		end)
+	end
+	
+	-- Hook into group roster updates
+	local layout2RepositionFrame = CreateFrame("Frame")
+	layout2RepositionFrame:RegisterEvent("PLAYER_LOGIN")
+	layout2RepositionFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
+	if C.raidframe.layout == "AUTO" then
+		layout2RepositionFrame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
+	end
+	
+	layout2RepositionFrame:SetScript("OnEvent", function(self, event)
+		ApplyLayout2Positions()
+	end)
+	
+	-- Support for C.raidframe.auto_position DYNAMIC
+	if C.raidframe.auto_position == "DYNAMIC" then
+		local prevNum = 5
+		local function Layout2DynamicReposition(self, event)
+			if (C.raidframe.layout == "HEAL" or C.raidframe.layout == "AUTO") and not C.raidframe.raid_groups_vertical and C.raidframe.raid_groups > 5 then
+				if InCombatLockdown() then
+					self:RegisterEvent("PLAYER_REGEN_ENABLED")
+					return
+				end
+				
+				local maxGroup = 5
+				local num = GetNumGroupMembers()
+				if num > 5 then
+					local _, _, subgroup = GetRaidRosterInfo(num)
+					if subgroup and subgroup > maxGroup then
+						maxGroup = subgroup
+					end
+				end
+				if maxGroup >= C.raidframe.raid_groups then
+					maxGroup = C.raidframe.raid_groups
+				end
+				if C.raidframe.layout == "AUTO" and not T.IsHealerSpec() then maxGroup = 5 end
+				
+				if prevNum ~= maxGroup then
+					-- Calculate offset based on number of raid groups
+					local offset = (maxGroup - 5) * (C.raidframe.heal_raid_height + 7)
+					if C.raidframe.layout == "AUTO" and not T.IsHealerSpec() then offset = 0 end
+					
+					-- Apply Layout2 positions with dynamic offset
+					local player = _G.oUF_Player
+					local target = _G.oUF_Target
+					
+					if player and player.Portrait then
+						player:ClearAllPoints()
+						player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, 0 + offset)
+					end
+					
+					if target and target.Portrait then
+						target:ClearAllPoints()
+						target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, 0 + offset)
+					end
+					
+					prevNum = maxGroup
+				end
+				
+				if event == "PLAYER_REGEN_ENABLED" then
+					self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				end
+			else
+				self:UnregisterAllEvents()
+			end
+		end
+		
+		local dynamicFrame = CreateFrame("Frame")
+		dynamicFrame:RegisterEvent("PLAYER_LOGIN")
+		dynamicFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
+		if C.raidframe.layout == "AUTO" then
+			dynamicFrame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
+		end
+		dynamicFrame:SetScript("OnEvent", Layout2DynamicReposition)
+	end
+end
+
+-- print("|cff00ff00Layout2.lua loaded successfully|r")

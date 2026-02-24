@@ -7,16 +7,19 @@ if C.actionbar.enable ~= true or addon == "bartender" then return end
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function()
+	MainActionBar:SetMovable(true) -- need for scale
+	MainActionBar:SetUserPlaced(true)
 	MainActionBar:SetScale(0.00001)
+	MainActionBar:SetAlpha(0)
 	MainActionBar:EnableMouse(false)
+	MainActionBar:UnregisterAllEvents()
+
 	OverrideActionBar:SetScale(0.00001)
 	OverrideActionBar:EnableMouse(false)
 	PetActionBar:EnableMouse(false)
 	PetActionBar:UnregisterAllEvents()
 	StanceBar:EnableMouse(false)
 	StanceBar:UnregisterAllEvents()
-	BagsBar:Hide()
-	BagsBar:UnregisterAllEvents()
 
 	if not C.actionbar.micromenu then
 		MicroMenu:Hide()
@@ -24,18 +27,15 @@ frame:SetScript("OnEvent", function()
 		PlayerSpellsMicroButton:SetPoint("TOP", UIParent, "TOP", 0, 100) -- hide missing talent alert
 	end
 
-	MainActionBar:SetMovable(true)
-	MainActionBar:SetUserPlaced(true)
-	MainActionBar.ignoreFramePositionManager = true
-	MainActionBar:SetAttribute("ignoreFramePositionManager", true)
+	-- MainActionBar.ignoreFramePositionManager = true
+	-- MainActionBar:SetAttribute("ignoreFramePositionManager", true)
 
-	EditModeUtil.GetRightActionBarWidth = function() return 100 end -- prevent error in GetRightContainerAnchor, abs is nil
+	-- EditModeUtil.GetRightActionBarWidth = function() return 100 end -- prevent error in GetRightContainerAnchor, abs is nil
 	-- EditModeUtil.GetBottomActionBarHeight = function() return 225 end
 
 	local elements = {
-		MainActionBar, OverrideActionBar, PossessBarFrame,
+		OverrideActionBar, PossessBarFrame, StatusTrackingBarManager, BagsBar,
 		MultiBarBottomLeft.QuickKeybindGlow, MultiBarLeft.QuickKeybindGlow, MultiBarBottomRight.QuickKeybindGlow, MultiBarRight.QuickKeybindGlow,
-		StatusTrackingBarManager
 	}
 
 	if not C_ClassTrial.IsClassTrialCharacter() then
@@ -47,9 +47,7 @@ frame:SetScript("OnEvent", function()
 			element:UnregisterAllEvents()
 		end
 
-		if element ~= MainActionBar then
-			element:Hide()
-		end
+		element:Hide()
 		element:SetAlpha(0)
 	end
 
@@ -57,12 +55,8 @@ frame:SetScript("OnEvent", function()
 		local b = _G["OverrideActionBarButton"..i]
 		b:UnregisterAllEvents()
 		b:SetAttribute("statehidden", true)
-		b:SetAttribute("showgrid", 1)
+		-- b:SetAttribute("showgrid", 1)
 	end
-
-	hooksecurefunc("TalentFrame_LoadUI", function()
-		PlayerTalentFrame:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-	end)
 end)
 
 ----------------------------------------------------------------------------------------
@@ -107,7 +101,7 @@ function RightBarMouseOver(alpha)
 
 	if C.actionbar.petbar_horizontal == false and C.actionbar.petbar_hide == false then
 		if PetHolder:IsShown() then
-			for i = 1, NUM_PET_ACTION_SLOTS do
+			for i = 1, 10 do
 				local b = _G["PetActionButton"..i]
 				b:SetAlpha(alpha)
 				local c = _G["PetActionButton"..i.."Cooldown"]
@@ -141,7 +135,7 @@ function StanceBarMouseOver(alpha)
 end
 
 function PetBarMouseOver(alpha)
-	for i = 1, NUM_PET_ACTION_SLOTS do
+	for i = 1, 10 do
 		local b = _G["PetActionButton"..i]
 		b:SetAlpha(alpha)
 		local c = _G["PetActionButton"..i.."Cooldown"]
@@ -298,6 +292,20 @@ function Bar8MouseOver(alpha)
 	end
 end
 
+function SetupMouseOver(b, func, bar)
+	for i = 1, 12 do
+		local b = _G[b..i]
+		b:SetAlpha(0)
+		b:HookScript("OnEnter", function() func(1) end)
+		b:HookScript("OnLeave", function() if not HoverBind.enabled then func(0) end end)
+	end
+
+	if bar then
+		bar:SetScript("OnEnter", function() func(1) end)
+		bar:SetScript("OnLeave", function() if not HoverBind.enabled then func(0) end end)
+	end
+end
+
 ----------------------------------------------------------------------------------------
 --	Fix cooldown spiral alpha (WoD bug)
 ----------------------------------------------------------------------------------------
@@ -366,7 +374,7 @@ if (C.actionbar.rightbars_mouseover == true and C.actionbar.petbar_horizontal ==
 	local EventPetSpiral = CreateFrame("Frame")
 	EventPetSpiral:RegisterEvent("PET_BAR_UPDATE_COOLDOWN")
 	EventPetSpiral:SetScript("OnEvent", function()
-		for i = 1, NUM_PET_ACTION_SLOTS do
+		for i = 1, 10 do
 			local c = _G["PetActionButton"..i.."Cooldown"]
 			T.HideSpiral(c, 0)
 		end
@@ -482,7 +490,7 @@ end
 
 T.PetBarUpdate = function()
 	local petActionButton, petActionIcon, petAutoCastOverlay
-	for i = 1, NUM_PET_ACTION_SLOTS, 1 do
+	for i = 1, 10, 1 do
 		local buttonName = "PetActionButton"..i
 		petActionButton = _G[buttonName]
 		petActionIcon = _G[buttonName.."Icon"]

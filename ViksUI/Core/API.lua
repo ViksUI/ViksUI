@@ -186,6 +186,21 @@ local function SetTemplate(f, t)
 	Mixin(f, BackdropTemplateMixin) -- 9.0 to set backdrop
 	GetTemplate(t)
 
+	-- Handle "1px" style specially
+	if t == "1px" then
+		f:SetBackdrop({
+			bgFile =  [=[Interface\ChatFrame\ChatFrameBackground]=],
+			edgeFile = "Interface\\Buttons\\WHITE8x8",
+			edgeSize = Mult,
+			insets = {left = -Mult, right = -Mult, top = -Mult, bottom = -Mult}
+		})
+		f:SetPoint("TOPLEFT", -1, 1)
+		f:SetPoint("BOTTOMRIGHT", 1, -1)
+		f:SetBackdropColor(unpack(C.media.backdrop_color))
+		f:SetBackdropBorderColor(unpack(C.media.border_color))
+		return
+	end
+
 	f:SetBackdrop({
 		bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = Mult,
 		insets = {left = -Mult, right = -Mult, top = -Mult, bottom = -Mult}
@@ -907,7 +922,7 @@ function T.SkinEditBox(frame, width, height)
 
 	frame:CreateBackdrop("Overlay")
 
-	local frameName = frame.GetName and frame:GetName()	
+	local frameName = frame.GetName and frame:GetName()
 	if frame.NineSlice then frame.NineSlice:StripTextures() end
 	if frameName and (frameName:find("Gold") or frameName:find("Silver") or frameName:find("Copper")) then
 		frame.backdrop:SetPoint("TOPLEFT", -3, 1)
@@ -1141,8 +1156,8 @@ end
 function T.SkinIconSelectionFrame(frame, frameNameOverride)
 	local frameName = frameNameOverride or frame:GetName()
 	local editBox = frame.BorderBox.IconSelectorEditBox
-	local okayButton = frame.OkayButton or frame.BorderBox.OkayButton or (frameName and _G[frameName.."Okay"])
-	local cancelButton = frame.CancelButton or frame.BorderBox.CancelButton or (frameName and _G[frameName.."Cancel"])
+	local okayButton = frame.OkayButton or frame.BorderBox.OkayButton or _G[frameName.."Okay"]
+	local cancelButton = frame.CancelButton or frame.BorderBox.CancelButton or _G[frameName.."Cancel"]
 
 	frame:StripTextures()
 	frame.BorderBox:StripTextures()
@@ -1481,20 +1496,32 @@ do
 end
 
 function T.SkinCooldown(cooldown, name)
+	if cooldown.styled then return end
+	local text = cooldown:GetRegions()
+
 	if name == "aura" then
 		cooldown:SetDrawEdge(false)
+		cooldown:SetSwipeColor(0, 0, 0, C.aura.show_spiral and 0.8 or 0)
 		if not C.aura.show_timer then
 			cooldown:SetHideCountdownNumbers(true)
 		end
 		cooldown:SetCountdownFont("ShestakUI_AuraTimerFont")
+		text:SetHeight(C.font.auras_font_size)
 	elseif name == "actionbar" then
 		cooldown:SetCountdownFont("ShestakUI_ActionBarTimerFont")
+		text:SetHeight(C.font.cooldown_timers_font_size)
 	end
 
-	cooldown:SetCountdownAbbrevThreshold(60)
+	cooldown:SetCountdownAbbrevThreshold(59)
 
-	local textCD = cooldown:GetRegions()
-	textCD:SetPoint("CENTER", 1, 0)
+	-- text:SetPoint("CENTER", 1, 0)
+	text:ClearAllPoints()
+	text:SetPoint("LEFT", -2, 0)
+	text:SetPoint("RIGHT", 5, 0)
+	text:SetJustifyH("CENTER")
+	cooldown.text = text
+
+	cooldown.styled = true
 end
 
 local LoadBlizzardSkin = CreateFrame("Frame")

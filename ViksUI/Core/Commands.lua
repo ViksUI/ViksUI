@@ -88,7 +88,7 @@ SLASH_ONLY_UI1 = "/onlyui"
 local function DisbandRaidGroup()
 	if InCombatLockdown() then return end
 	if UnitInRaid("player") then
-		C_ChatInfo.SendChatMessage(L_INFO_DISBAND, "RAID")
+		T.SendChatMessage(L_INFO_DISBAND, "RAID")
 		for i = 1, GetNumGroupMembers() do
 			local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i)
 			if online and name ~= T.name then
@@ -96,7 +96,7 @@ local function DisbandRaidGroup()
 			end
 		end
 	else
-		C_ChatInfo.SendChatMessage(L_INFO_DISBAND, "PARTY")
+		T.SendChatMessage(L_INFO_DISBAND, "PARTY")
 		for i = MAX_PARTY_MEMBERS, 1, -1 do
 			if GetNumGroupMembers(i) then
 				UninviteUnit(UnitName("party"..i))
@@ -288,7 +288,7 @@ SLASH_FRAMESTK1 = nil -- fix LFGFilter
 --	Clear chat
 ----------------------------------------------------------------------------------------
 SlashCmdList.CLEAR_CHAT = function()
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, Constants.ChatFrameConstants.MaxChatWindows do
 		_G[format("ChatFrame%d", i)]:Clear()
 	end
 end

@@ -925,7 +925,7 @@ function Stuffing:CreateBagFrame(w)
 		f.b_deposit:SetFontString(f.b_deposit.text)
 
 		if w == "Bank" then
-			f.b_deposit:SetScript("OnClick", function(_, btn)
+			f.b_deposit:SetScript("OnClick", function()
 				BankPanel.AutoDepositFrame.DepositButton:OnClick()
 			end)
 		else
@@ -1773,7 +1773,6 @@ end
 
 function Stuffing:Restack()
 	local st = {}
-	local sr = {}
 	local did_restack = false
 
 	if not (Stuffing.bankFrame and Stuffing.bankFrame:IsShown()) then

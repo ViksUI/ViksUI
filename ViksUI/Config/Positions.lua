@@ -12,34 +12,45 @@ C["position"] = {
 	["micro_menu"] = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -4, 200},					-- Micro menu
 	-- UnitFrame positions
 	unitframes = {
-		["player"] = {"TOPRIGHT", UIParent, "BOTTOM", -158, 320},					-- Player frame
-		["player_heal"] = {"TOPRIGHT", UIParent, "BOTTOM", -270, 305},				-- Player frame Heal
-		["target"] = {"TOPLEFT", UIParent, "BOTTOM", 158, 320},						-- Target frame
-		["target_heal"] = {"TOPLEFT", UIParent, "BOTTOM", 270, 305},				-- Target frame Heal
-		["target_target"] = {"TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", 0, -11},					-- ToT frame
-		["target_target_heal"] = {"BOTTOM", UIParent, "BOTTOM", 580, 300},			-- ToT frame Heal
-		["pet"] = {"BOTTOM", UIParent, "BOTTOM", 0, 289},							-- Pet frame
-		["pet_heal"] = {"TOPRIGHT", UIParent, "BOTTOM", -540, 285},					-- Pet frame Heal
-		["focus"] = {"TOPLEFT", UIParent, "BOTTOM", 430, 382},						-- Focus frame
-		["focus_heal"] = {"TOPLEFT", UIParent, "BOTTOM", 560, 490},					-- Focus frame Heal
-		["focus_target"] = {"TOPLEFT", "oUF_Target", "BOTTOMLEFT", 0, -11},			-- Focus target frame
-		["party_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12},			-- Heal layout Party frames
-		["raid_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12},			-- Heal layout Raid frames
+		["player"] = {"BOTTOMRIGHT", "ActionBarAnchor", "TOPLEFT", -9, 175},
+		["target"] = {"BOTTOMLEFT", "ActionBarAnchor", "TOPRIGHT", 9, 175},
+		["target_target"] = C.layout2.enable and {"TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", -8, -28} or {"TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", 0, -11},
+		["pet"] = C.layout2.enable and {"TOPLEFT", "oUF_Player", "BOTTOMLEFT", 8, -28} or {"TOPLEFT", "oUF_Player", "BOTTOMLEFT", 0, -11},
+		["focus"] = C.layout2.enable and {"TOPRIGHT", "oUF_Player", "BOTTOMRIGHT", 4, -28} or {"TOPRIGHT", "oUF_Player", "BOTTOMRIGHT", 0, -11},				-- Focus frame
+		["focus_target"] = C.layout2.enable and {"TOPLEFT", "oUF_Target", "BOTTOMLEFT", -4, -28} or {"TOPLEFT", "oUF_Target", "BOTTOMLEFT", 0, -11},			-- Focus target frame
+		["party_heal"] = C.layout2.enable and {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -49} or {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12},
+		["raid_heal"] = C.layout2.enable and {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12} or {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12},
 		["party_dps"] = {"BOTTOMLEFT", UIParent, "LEFT", 23, -70},					-- DPS layout Party frames
-		["raid_dps"] = {"TOPLEFT", UIParent, "TOPLEFT", 22, -22},					-- DPS layout Raid frames
+		["raid_dps"] = {"TOPLEFT", UIParent, "TOPLEFT", 23, -23},					-- DPS layout Raid frames
 		["arena"] = {"BOTTOMRIGHT", UIParent, "RIGHT", -60, -70},					-- Arena frames
-		["boss"] = {"RIGHT", UIParent, "RIGHT", -70, -120},							-- Boss frames
-		["boss_heal"] = {"RIGHT", UIParent, "RIGHT", -100, -90},					-- Boss frames Heal
-		["tank"] = {"BOTTOMLEFT", UIParent, "BOTTOMLEFT", 200, 320},				-- Tank frames
-		["tank_heal"] = {"BOTTOM", UIParent, "BOTTOM", -80, 330},					-- Tank frames Heal
-		["player_portrait"] = {"TOPRIGHT", "oUF_Player", "TOPLEFT", -12, 27},		-- Player Portrait
-		["target_portrait"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 10, 27},		-- Target Portrait
-		["player_castbar"] = {"TOPLEFT", "oUF_Player", "BOTTOMLEFT", 0, -11},			-- Player Castbar
-		["player_castbar_heal"] = {"TOPRIGHT", "oUF_Player", "BOTTOM", -182, 282},		-- Player Castbar Heal
-		["target_castbar"] = {"TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", 0, -34},				-- Target Castbar
-		["target_castbar_heal"] = {"TOPLEFT", "oUF_Target", "BOTTOM", 208, 282},		-- Target Castbar Heal
-		["focus_castbar"] = {"TOPLEFT", UIParent, "BOTTOM", 449, 344},				-- Focus Castbar icon
-		["focus_castbar_heal"] = {"TOPLEFT", UIParent, "BOTTOM", 579, 450},			-- Focus Castbar icon Heal
+		["boss"] = {"BOTTOMRIGHT", UIParent, "RIGHT", -23, -70},					-- Boss frames
+		["tank"] = C.layout2.enable and {"BOTTOMLEFT", UIParent, "BOTTOM", -80, 200} or {"BOTTOMLEFT", "ActionBarAnchor", "BOTTOMRIGHT", 10, 18},
+		["player_portrait"] = {"TOPRIGHT", "oUF_Player", "TOPLEFT", -12, 27},
+		["target_portrait"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 12, 27},
+		["player_portrait_2"] = {"BOTTOM", UIParent, "BOTTOM", -138, 300},		-- Player Portrait Layout2
+		["target_portrait_2"] = {"BOTTOM", UIParent, "BOTTOM", 	138, 300},		-- Target Portrait Layout2
+		["player_castbar"] = {"BOTTOM", "ActionBarAnchor", "TOP", 0, 175},			-- Player Castbar
+		["target_castbar"] = {"BOTTOM", "oUF_Player_Castbar", "TOP", 0, 7},			-- Target Castbar
+		["focus_castbar"] = {"CENTER", UIParent, "CENTER", 0, 250},					-- Focus Castbar icon
+	},
+	-- Layout2 positioning
+	layout2 = {
+		-- Reference point for all Layout2 frames
+		-- Positioned at center of screen, 320px from bottom
+		["ref_point_x"] = 0,						-- Horizontal offset from screen center (0 = centered)
+		["ref_point_y"] = -320,						-- Vertical offset from bottom of screen
+		
+		-- Portrait offsets from reference point
+		["player_portrait_offset_x"] = -50,			-- Move player portrait to the left
+		["target_portrait_offset_x"] = 50,			-- Move target portrait to the right
+		
+		-- UnitFrame offsets from portrait
+		["unitframe_portrait_offset"] = -25,			-- Move unitframe toward center from portrait
+		
+		-- Castbar offsets
+		["player_castbar_offset_y"] = -6,			-- Space between text bar and castbar
+		["target_castbar_offset_y"] = -6,			-- Space between text bar and castbar
+		
 	},
 	-- Filger positions
 	filger = {

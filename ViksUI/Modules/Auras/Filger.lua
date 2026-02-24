@@ -39,7 +39,7 @@ P_BUFF_BAR_Anchor:SetSize(218, 25)
 SpellActivationOverlayFrame:SetFrameStrata("BACKGROUND")
 
 -- Cache
-local GetTime, UnitAura, GetSpellCooldown, GetSpellInfo = GetTime, UnitAura, GetSpellCooldown, GetSpellInfo
+local GetTime, GetSpellCooldown, GetSpellInfo = GetTime, GetSpellCooldown, GetSpellInfo
 local pairs, ipairs, unpack, format = pairs, ipairs, unpack, string.format
 
 local Filger = {}
@@ -48,7 +48,7 @@ local SpellGroups = {}
 local tempActiveTable = {}
 
 function Filger:TooltipOnEnter()
-	if self.spellID > 20 then
+	if self.spellID > 15 then
 		GameTooltip:ClearLines()
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 3)
 		GameTooltip:SetHyperlink(format("spell:%s", self.spellID))

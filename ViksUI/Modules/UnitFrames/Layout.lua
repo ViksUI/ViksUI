@@ -298,30 +298,19 @@ local function Shared(self, unit)
 
 		self.FlashInfo.ManaLevel = T.SetFontString(self.FlashInfo, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 		self.FlashInfo.ManaLevel:SetPoint("CENTER", 0, 0)
-		
-		-- self.Info = T.SetFontString(self.Health, C.font.unit_frames_namefont, C.font.unit_frames_namefont_size, C.font.unit_frames_namefont_style) -- Add later
-		self.Info = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-		self.Info:SetWordWrap(false)
-		self.Info:SetPoint("LEFT", self.Health, "LEFT", 2, 0)
-		self.Info:SetPoint("RIGHT", self.Health.value, "LEFT", 0, 0)
-		self.Info:SetJustifyH("LEFT")
-		self:Tag(self.Info, "[GetNameColor][NameLong]")
-		-- self:Tag(self.Info, "[drk:color2][name][drk:afkdnd]") -- Add later
-		
+
 		-- Combat icon
 		if C.unitframe.icons_combat == true then
 			self.CombatIndicator = self.Health:CreateTexture(nil, "OVERLAY")
-			self.CombatIndicator:SetSize(18, 18)
-			self.CombatIndicator:SetPoint("CENTER", 0, -4)
-			self.CombatIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\CombatIcon")
+			self.CombatIndicator:SetSize(14, 14)
+			self.CombatIndicator:SetPoint("TOPRIGHT", 4, 8)
 		end
 
 		-- Resting icon
 		if C.unitframe.icons_resting == true then
 			self.RestingIndicator = self.Health:CreateTexture(nil, "OVERLAY")
 			self.RestingIndicator:SetSize(18, 18)
-			self.RestingIndicator:SetPoint("TOPLEFT", 0, 14)
-			self.RestingIndicator:SetTexture("Interface\\AddOns\\ViksUI\\Media\\Other\\RestedIcon")
+			self.RestingIndicator:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", -8, -8)
 		end
 
 		-- Leader/Assistant icons
@@ -828,12 +817,6 @@ local function Shared(self, unit)
 		end
 
 		if unit == "player" then
-			-- self.PrivateAuras = CreateFrame("Frame", self:GetName().."_PrivateAuras", self)	-- BETA Not tested
-			-- self.PrivateAuras:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 2, 25)
-			-- self.PrivateAuras:SetSize(60, T.Scale(C.aura.debuff_size))
-			-- self.PrivateAuras.size = T.Scale(C.aura.debuff_size)
-			-- self.PrivateAuras.spacing = T.Scale(3)
-
 			if C.aura.player_auras then
 				self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)
 				self.Debuffs:SetHeight(165)
@@ -948,12 +931,6 @@ local function Shared(self, unit)
 		self.Castbar.Overlay:SetFrameLevel(3)
 		self.Castbar.Overlay:SetPoint("TOPLEFT", -2, 2)
 		self.Castbar.Overlay:SetPoint("BOTTOMRIGHT", 2, -2)
-
-		-- self.Castbar.Shield = self.Castbar:CreateTexture(nil, 'ARTWORK') -- BETA delete if not need
-		-- self.Castbar.Shield:SetPoint("TOPLEFT", self.Castbar, "TOPLEFT", 0, 0)
-		-- self.Castbar.Shield:SetPoint("BOTTOMRIGHT", self.Castbar:GetStatusBarTexture(), "BOTTOMRIGHT", 0, 0)
-		-- self.Castbar.Shield:SetTexture(C.media.texture)
-		-- self.Castbar.Shield:SetVertexColor(0.8, 0, 0)
 
 		self.Castbar.PostCastStart = T.PostCastStart
 		self.Castbar.PostCastInterruptible = T.PostCastStart
@@ -1242,7 +1219,7 @@ local function Shared(self, unit)
 	end
 
 	-- Debuff highlight
-	if C.raidframe.plugins_debuffhighlight and unit ~= "arenatarget" then
+	if C.raidframe.plugins_debuffhighlight and not unit:match('%wtarget$') then
 		self.DispelColor = self.Health:CreateTexture(nil, "OVERLAY")
 		self.DispelColor:SetAllPoints(self.Health)
 		self.DispelColor:SetTexture(C.media.highlight)

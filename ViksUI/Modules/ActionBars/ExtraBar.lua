@@ -32,8 +32,8 @@ ExtraAbilityContainer:SetScript("OnShow", nil)
 ExtraAbilityContainer:SetScript("OnUpdate", nil)
 ExtraAbilityContainer.OnUpdate = nil -- remove BaseLayoutMixin.OnUpdate
 ExtraAbilityContainer.IsLayoutFrame = nil -- dont let it get readded
-ExtraAbilityContainer.HighlightSystem = T.dummy -- NOTE: This cause taint when open edit mode (How to fix?)
-ExtraAbilityContainer.ClearHighlight = T.dummy -- NOTE: This cause taint when open edit mode (How to fix?)
+-- ExtraAbilityContainer.HighlightSystem = T.dummy -- NOTE: This cause taint when open edit mode (How to fix?)
+-- ExtraAbilityContainer.ClearHighlight = T.dummy -- NOTE: This cause taint when open edit mode (How to fix?)
 
 -- Zone Ability button
 local zoneAnchor = CreateFrame("Frame", "ZoneButtonAnchor", UIParent)
@@ -65,7 +65,7 @@ end)
 hooksecurefunc("ExtraActionBar_Update", function()
 	local positionTable = T.CurrentProfile()
 	if positionTable["ZoneButtonAnchor"] then return end
-	if HasExtraActionBar() then
+	if C_ActionBar.HasExtraActionBar() then
 		zoneAnchor:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMLEFT", -3, 0)
 	else
 		if C.actionbar.split_bars then

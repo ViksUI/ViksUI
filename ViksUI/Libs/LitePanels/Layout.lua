@@ -37,18 +37,18 @@ lpanels:CreateLayout("Load For All", {
 			self:SetWidth(self.text4:GetWidth() + 20)
 		end,
 		OnEvent = function(self)
-			if UnitIsAFK("player") and not afk_timer then
+			if T.CheckUnitStatus(UnitIsAFK, "player") and not afk_timer then
 				self.text2:SetText("0:00")
 				afk_timer = time()
 				self:Show()
-			elseif not UnitIsAFK("player") then
+			elseif not T.CheckUnitStatus(UnitIsAFK, "player") then
 				self:Hide()
 				afk_timer = nil
 			end
 		end,
 		OnClick = function(self, b)
 			self:Hide()
-			if b == "LeftButton" then C_ChatInfo.SendChatMessage("", "AFK") end
+			if b == "LeftButton" then T.SendChatMessage("", "AFK") end
 		end,
 		OnEnter = function(self) self:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b) end,
 		OnLeave = function(self) self:SetBackdropBorderColor(unpack(C.media.border_color)) end

@@ -106,7 +106,7 @@ C["filger_spells"] = {
 			Position = {"LEFT", T_DE_BUFF_BAR_Anchor},
 
 			-- Festering Wound
-			{spellID = 194310, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 194310, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Virulent Plague
 			{spellID = 191587, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Blood Plague
@@ -628,7 +628,7 @@ C["filger_spells"] = {
 
 			-- Buffs
 			-- Snapfire
-			{spellID = 370818, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 370818, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Essence Burst
 			{spellID = 359618, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Leaping Flames
@@ -1679,7 +1679,7 @@ C["filger_spells"] = {
 			-- Mind Blast
 			{spellID = 8092, filter = "CD"},
 			-- Power Word: Shield
-			{spellID = 17, filter = "CD"},
+			{spellID = 17, filter = "CD", absID = true},
 			-- Shadow Word: Death
 			{spellID = 32379, filter = "CD"},
 			-- Circle of Healing
@@ -1687,7 +1687,7 @@ C["filger_spells"] = {
 			-- Angelic Feather
 			{spellID = 121536, filter = "CD"},
 			-- Prayer of Mending
-			{spellID = 33076, filter = "CD"},
+			{spellID = 33076, filter = "CD", absID = true},
 			-- Divine Star
 			{spellID = 110744, filter = "CD"},
 			-- Archangel
@@ -1852,7 +1852,7 @@ C["filger_spells"] = {
 			-- Nightblade
 			{spellID = 195452, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Ghostly Strike
-			-- {spellID = 196937, unitID = "target", caster = "player", filter = "DEBUFF"},
+			--BETA {spellID = 196937, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Deadly Poison
 			{spellID = 2818, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Crippling Poison
@@ -1921,7 +1921,7 @@ C["filger_spells"] = {
 			-- Between the Eyes
 			{spellID = 315341, filter = "CD"},
 			-- Riposte
-			-- {spellID = 199754, filter = "CD"},
+			--BETA {spellID = 199754, filter = "CD"},
 			-- Cloak of Shadows
 			{spellID = 31224, filter = "CD"},
 			-- Grappling Hook
@@ -1931,7 +1931,7 @@ C["filger_spells"] = {
 			-- Garrote
 			{spellID = 703, filter = "CD"},
 			-- Exsanguinate
-			-- {spellID = 200806, filter = "CD"},
+			--BETA {spellID = 200806, filter = "CD"},
 			-- Shadowstep
 			{spellID = 36554, filter = "CD"},
 			-- Evasion
@@ -2075,7 +2075,7 @@ C["filger_spells"] = {
 			-- Feral Lunge
 			{spellID = 196884, filter = "CD"},
 			-- Cloudburst Totem
-			{spellID = 157153, filter = "CD"},
+			--BETA {spellID = 157153, filter = "CD"},
 			-- Earthbind Totem
 			{spellID = 2484, filter = "CD"},
 			-- Thunderstorm
@@ -2121,7 +2121,7 @@ C["filger_spells"] = {
 			-- Empowered Life Tap
 			{spellID = 235156, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Soul Swap
-			{spellID = 86211, unitID = "player", caster = "player", filter = "BUFF"},
+			--BETA {spellID = 86211, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Dark Regeneration
 			{spellID = 108359, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Burning Rush

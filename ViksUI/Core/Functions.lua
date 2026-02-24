@@ -41,6 +41,22 @@ T.RGBToHex = function(r, g, b)
 end
 
 ----------------------------------------------------------------------------------------
+--	Secret value check
+----------------------------------------------------------------------------------------
+T.IsSecretValue = function(value)
+	return issecretvalue(value)
+end
+
+T.NotSecretValue = function(value)
+	return not issecretvalue(value)
+end
+
+T.CheckUnitStatus = function(func, unit)
+	local status = func(unit)
+	return T.NotSecretValue(status) and status
+end
+
+----------------------------------------------------------------------------------------
 --	Chat channel check
 ----------------------------------------------------------------------------------------
 T.CheckChat = function(warning)
@@ -58,12 +74,17 @@ T.CheckChat = function(warning)
 	return "SAY"
 end
 
+T.SendChatMessage = function(...)
+	if C_ChatInfo.InChatMessagingLockdown() then return end
+	return C_ChatInfo.SendChatMessage(...)
+end
+
 ----------------------------------------------------------------------------------------
 --	Player's role check
 ----------------------------------------------------------------------------------------
 local isCaster = {
 	DEATHKNIGHT = {nil, nil, nil},
-	DEMONHUNTER = {nil, nil},
+	DEMONHUNTER = {nil, nil, nil},
 	DRUID = {true},					-- Balance
 	HUNTER = {nil, nil, nil},
 	MAGE = {true, true, true},

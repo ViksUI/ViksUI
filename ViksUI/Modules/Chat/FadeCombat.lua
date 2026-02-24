@@ -37,7 +37,7 @@ end
 
 --
 function hcic:Init()
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, Constants.ChatFrameConstants.MaxChatWindows do
 		local f = _G["ChatFrame"..i]
 		if f:IsShown() then
 			local chatMouseover = CreateFrame("Frame", "HCIC"..i, UIParent)
@@ -77,6 +77,17 @@ function hcic:Init()
 				if C.chat.chat_bar and C.chat.chat_bar_mouseover ~= true then
 					tinsert(chatMouseover.Frames, ChatBar)
 				end
+			end
+
+			if i == 4 and C.chat.second_frame then
+				if C.chat.background == true then
+					tinsert(chatMouseover.Frames, ChatBackgroundRight)
+					tinsert(chatMouseover.Frames, ChatTabsPanelRight)
+				elseif C.stats.bottom_line then
+					tinsert(chatMouseover.Frames, RightPanel)
+				end
+				tinsert(chatMouseover.Frames, ChatFrameRightAnchor)
+				ChatFrame4Tab:SetParent(ChatFrameRightAnchor)
 			end
 
 			chatMouseover:SetFrameStrata("BACKGROUND")

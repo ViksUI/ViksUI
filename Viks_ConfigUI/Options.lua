@@ -636,6 +636,7 @@ ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, 2)
 ns.addCategory("font", L.font, L.font_subtext, 4)
 ns.addCategory("skins", L_GUI_SKINS, L_GUI_SKINS_SUBTEXT)
 ns.addCategory("unitframe", UNITFRAME_LABEL, L_GUI_UF_SUBTEXT, 4)
+-- ns.addCategory("layout2", L.layout2_title, L.layout2_enable_desc, 1)
 ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT)
 ns.addCategory("raidframe", RAID_FRAMES_LABEL, L_GUI_UF_RAIDFRAMES_SUBTEXT, 2)
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
@@ -1920,11 +1921,14 @@ do
 
 	plugins_aura_watch.children = {plugins_aura_watch_timer, plugins_debuffhighlight_icon, plugins_pvp_debuffs}
 
+	local plugins_buffs = ns.CreateCheckBox(parent, "plugins_buffs")
+	plugins_buffs:SetPoint("TOPLEFT", plugins_aura_watch_timer, "BOTTOMLEFT", -20, 0)
+
 	local plugins_buffs_timer = ns.CreateCheckBox(parent, "plugins_buffs_timer")
-	plugins_buffs_timer:SetPoint("TOPLEFT", plugins_aura_watch_timer, "BOTTOMLEFT", -20, 0)
+	plugins_buffs_timer:SetPoint("TOPLEFT", plugins_buffs, "BOTTOMLEFT", 20, 0)
 
 	local plugins_healcomm = ns.CreateCheckBox(parent, "plugins_healcomm", L_GUI_UF_PLUGINS_HEALCOMM)
-	plugins_healcomm:SetPoint("TOPLEFT", plugins_buffs_timer, "BOTTOMLEFT", 0, 0)
+	plugins_healcomm:SetPoint("TOPLEFT", plugins_buffs_timer, "BOTTOMLEFT", -20, 0)
 
 	local plugins_over_absorb = ns.CreateCheckBox(parent, "plugins_over_absorb")
 	plugins_over_absorb:SetPoint("TOPLEFT", plugins_healcomm, "BOTTOMLEFT", 20, 0)

@@ -3,11 +3,11 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-	"Update 12.0.1 ",
+	"Update 12.0.2 ",
 	"• Updated for Midnight",
-	"• Different unitframes",
+	"• Different unitframes, old frames getting updated",
 	"• Im out traveling so not active playing the game for few months",
-	"• check: https://github.com/ViksUI/ViksUI/releases/tag/12.0.1",
+	"• check: https://github.com/ViksUI/ViksUI/releases/tag/12.0.2",
 " ",
 "EXTRA: New Patreon Cashew, Thanks for the support",
 "Cashew is reason i made Mist version as well",

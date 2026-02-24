@@ -104,11 +104,8 @@ end
 oUF.Tags.Events["LFD"] = "PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDATE"
 
 oUF.Tags.Methods["AltPower"] = function(unit)
-	-- local min = UnitPower(unit, ALTERNATE_POWER_INDEX)
-	-- local max = UnitPowerMax(unit, ALTERNATE_POWER_INDEX)
 	local perc = UnitPowerPercent(unit, ALTERNATE_POWER_INDEX, true, CurveConstants.ScaleTo100)
 	if not UnitIsDeadOrGhost(unit) then
-	-- if max > 0 and not UnitIsDeadOrGhost(unit) then -- BETA
 		return ("%s%%"):format(perc)
 	end
 end
@@ -158,7 +155,7 @@ oUF.Tags.Events["NameplateNameColor"] = "UNIT_POWER_UPDATE UNIT_FLAGS"
 
 oUF.Tags.Methods["NameplateNameShort"] = function(unit)
 	local name = UnitName(unit)
-	if canaccessvalue(name) then -- BETA
+	if canaccessvalue(name) then
 		name = T.ShortNames[name] or name
 	end
 	return T.UTF(name, 18, true)
@@ -167,26 +164,160 @@ oUF.Tags.Events["NameplateNameShort"] = "UNIT_NAME_UPDATE"
 
 oUF.Tags.Methods["NameplateHealth"] = function(unit)
 	local hp = UnitHealth(unit)
-	-- local maxhp = UnitHealthMax(unit)
 	local perc = UnitHealthPercent(unit, true, CurveConstants.ScaleTo100)
-
 	return ("%s - %d%%"):format(T.ShortValue(hp), perc)
-
-	-- if maxhp == 0 then
-		-- return 0
-	-- else
-		-- return ("%s - %d%%"):format(T.ShortValue(hp), hp / maxhp * 100 + 0.5)
-	-- end
 end
 oUF.Tags.Events["NameplateHealth"] = "UNIT_HEALTH UNIT_MAXHEALTH NAME_PLATE_UNIT_ADDED"
 
 oUF.Tags.Methods["Absorbs"] = function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit)
-	if absorb then
+	if absorb and absorb > 0 then
 		return T.ShortValue(absorb)
 	end
+	return ""
 end
 oUF.Tags.Events["Absorbs"] = "UNIT_ABSORB_AMOUNT_CHANGED"
+
+-- ========== VIKSUI ==========
+oUF.Tags.Methods["missinghp:short"] = function(unit)
+	local healthMissing = UnitHealthMissing(unit)
+	return ("%s"):format(T.ShortValue(healthMissing))
+end
+oUF.Tags.Events["missinghp:short"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["missingpp:short"] = function(unit)
+	local powerMissing = UnitPowerMissing(unit)
+	return ("%s"):format(T.ShortValue(powerMissing))
+end
+oUF.Tags.Events["missingpp:short"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["absorbs:shortvalue"] = function(unit)
+	local absorb = UnitGetTotalAbsorbs(unit)
+	if absorb and absorb > 0 then
+		return T.ShortValue(absorb)
+	end
+	return ""
+end
+oUF.Tags.Events["absorbs:shortvalue"] = "UNIT_ABSORB_AMOUNT_CHANGED"
+
+oUF.Tags.Methods["absorbs:longvalue"] = function(unit)
+	local absorb = UnitGetTotalAbsorbs(unit)
+	if absorb and absorb > 0 then
+		return BreakUpLargeNumbers(absorb)
+	end
+	return ""
+end
+oUF.Tags.Events["absorbs:longvalue"] = "UNIT_ABSORB_AMOUNT_CHANGED"
+
+oUF.Tags.Methods["healabsorbs:shortvalue"] = function(unit)
+	local healAbsorb = UnitGetTotalHealAbsorbs(unit)
+	if healAbsorb and healAbsorb > 0 then
+		return T.ShortValue(healAbsorb)
+	end
+	return ""
+end
+oUF.Tags.Events["healabsorbs:shortvalue"] = "UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
+
+oUF.Tags.Methods["healabsorbs:longvalue"] = function(unit)
+	local healAbsorb = UnitGetTotalHealAbsorbs(unit)
+	if healAbsorb and healAbsorb > 0 then
+		return BreakUpLargeNumbers(healAbsorb)
+	end
+	return ""
+end
+oUF.Tags.Events["healabsorbs:longvalue"] = "UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
+
+oUF.Tags.Methods["missinghp:shortvalue"] = function(unit)
+	local healthMissing = UnitHealthMax(unit) - UnitHealth(unit)
+	if healthMissing > 0 then
+		return T.ShortValue(healthMissing)
+	end
+	return ""
+end
+oUF.Tags.Events["missinghp:shortvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["missinghp:longvalue"] = function(unit)
+	local healthMissing = UnitHealthMax(unit) - UnitHealth(unit)
+	if healthMissing > 0 then
+		return BreakUpLargeNumbers(healthMissing)
+	end
+	return ""
+end
+oUF.Tags.Events["missinghp:longvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["missingpp:shortvalue"] = function(unit)
+	local powerType = UnitPowerType(unit)
+	local powerMissing = UnitPowerMax(unit, powerType) - UnitPower(unit, powerType)
+	if powerMissing > 0 then
+		return T.ShortValue(powerMissing)
+	end
+	return ""
+end
+oUF.Tags.Events["missingpp:shortvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["missingpp:longvalue"] = function(unit)
+	local powerType = UnitPowerType(unit)
+	local powerMissing = UnitPowerMax(unit, powerType) - UnitPower(unit, powerType)
+	if powerMissing > 0 then
+		return BreakUpLargeNumbers(powerMissing)
+	end
+	return ""
+end
+oUF.Tags.Events["missingpp:longvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["health:current:shortvalue"] = function(unit)
+	return T.ShortValue(UnitHealth(unit))
+end
+oUF.Tags.Events["health:current:shortvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["health:current:longvalue"] = function(unit)
+	return BreakUpLargeNumbers(UnitHealth(unit))
+end
+oUF.Tags.Events["health:current:longvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["health:max:shortvalue"] = function(unit)
+	return T.ShortValue(UnitHealthMax(unit))
+end
+oUF.Tags.Events["health:max:shortvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["health:max:longvalue"] = function(unit)
+	return BreakUpLargeNumbers(UnitHealthMax(unit))
+end
+oUF.Tags.Events["health:max:longvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
+
+oUF.Tags.Methods["power:current:shortvalue"] = function(unit)
+	local powerType = UnitPowerType(unit)
+	local currentPower = UnitPower(unit, powerType)
+	return T.ShortValue(currentPower)
+end
+oUF.Tags.Events["power:current:shortvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["power:current:longvalue"] = function(unit)
+	local powerType = UnitPowerType(unit)
+	local currentPower = UnitPower(unit, powerType)
+	return BreakUpLargeNumbers(currentPower)
+end
+oUF.Tags.Events["power:current:longvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["power:max:shortvalue"] = function(unit)
+	local powerType = UnitPowerType(unit)
+	local maxPower = UnitPowerMax(unit, powerType)
+	return T.ShortValue(maxPower)
+end
+oUF.Tags.Events["power:max:shortvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["power:max:longvalue"] = function(unit)
+	local powerType = UnitPowerType(unit)
+	local maxPower = UnitPowerMax(unit, powerType)
+	return BreakUpLargeNumbers(maxPower)
+end
+oUF.Tags.Events["power:max:longvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
+
+oUF.Tags.Methods["pvp:honorlevel"] = function(unit)
+	if not UnitIsPlayer(unit) then return end
+	return UnitHonorLevel(unit)
+end
+oUF.Tags.Events["pvp:honorlevel"] = "UNIT_NAME_UPDATE"
 
 local function hex(r, g, b)
 	if r then
@@ -196,35 +327,29 @@ local function hex(r, g, b)
 		return ('|cff%02x%02x%02x'):format(r * 255, g * 255, b * 255)
 	end
 end
-local utf8sub = function(string, i, dots)
-	if not string then return end
-	local bytes = string:len()
-	if (bytes <= i) then
-		return string
-	else
-		local len, pos = 0, 1
-		while(pos <= bytes) do
-			len = len + 1
-			local c = string:byte(pos)
-			if (c > 0 and c <= 127) then
-				pos = pos + 1
-			elseif (c >= 192 and c <= 223) then
-				pos = pos + 2
-			elseif (c >= 224 and c <= 239) then
-				pos = pos + 3
-			elseif (c >= 240 and c <= 247) then
-				pos = pos + 4
-			end
-			if (len == i) then break end
-		end
 
-		if (len == i and pos <= bytes) then
-			return string:sub(1, pos - 1)..(dots and '...' or '')
-		else
-			return string
-		end
+oUF.Tags.Methods["drk:afkdnd"] = function(unit) 
+	return UnitIsAFK(unit) and "|cffCFCFCF <afk>|r" or UnitIsDND(unit) and "|cffCFCFCF <dnd>|r" or ""
+end
+oUF.Tags.Events["drk:afkdnd"] = "PLAYER_FLAGS_CHANGED"
+
+oUF.Tags.Methods['drk:color'] = function(u, r)
+	local _, class = UnitClass(u)
+	local reaction = UnitReaction(u, "player")
+	
+	if UnitIsDead(u) or UnitIsGhost(u) or not UnitIsConnected(u) then
+		return "|cffA0A0A0"
+	elseif (UnitIsTapDenied(u) and not UnitPlayerControlled(u)) then
+		return hex(oUF.colors.tapped)
+	elseif (UnitIsPlayer(u) or UnitInPartyIsAI(u))then
+		return hex(oUF.colors.class[class])
+	elseif reaction then
+		return hex(oUF.colors.reaction[reaction])
+	else
+		return hex(1, 1, 1)
 	end
 end
+oUF.Tags.Events['drk:color'] = 'UNIT_HEALTH'
 
 oUF.Tags.Methods['drk:color2'] = function(u, r)
 	local _, class = UnitClass(u)
@@ -244,9 +369,77 @@ oUF.Tags.Methods['drk:color2'] = function(u, r)
 end
 oUF.Tags.Events['drk:color2'] = 'UNIT_HEALTH'
 
-oUF.Tags.Methods["drk:afkdnd"] = function(unit) 
+oUF.Tags.Methods["drk:level"] = function(unit)
+	local c = UnitClassification(unit)
+	local l = UnitLevel(unit)
+	local d = GetQuestDifficultyColor(l)
 	
-	return UnitIsAFK(unit) and "|cffCFCFCF <afk>|r" or UnitIsDND(unit) and "|cffCFCFCF <dnd>|r" or ""
+	local str = l
+		
+	if l <= 0 then l = "??" end
+	
+	if c == "worldboss" then
+		str = string.format("|cff%02x%02x%02xBoss|r",250,20,0)
+	elseif c == "eliterare" then
+		str = string.format("|cff%02x%02x%02x%s|r|cff0080FFR|r+",d.r*255,d.g*255,d.b*255,l)
+	elseif c == "elite" then
+		str = string.format("|cff%02x%02x%02x%s|r+",d.r*255,d.g*255,d.b*255,l)
+	elseif c == "rare" then
+		str = string.format("|cff%02x%02x%02x%s|r|cff0080FFR|r",d.r*255,d.g*255,d.b*255,l)
+	else
+		if not UnitIsConnected(unit) then
+			str = "??"
+		else
+			str = string.format("|cff%02x%02x%02x%s",d.r*255,d.g*255,d.b*255,l)
+		end		
+	end
+	
+	return str
 end
-oUF.Tags.Events["drk:afkdnd"] = "PLAYER_FLAGS_CHANGED"
+oUF.Tags.Events["drk:level"] = "UNIT_LEVEL PLAYER_LEVEL_UP UNIT_CLASSIFICATION_CHANGED"
 
+oUF.Tags.Methods['drk:Shp'] = function(u)
+	local current = UnitHealthMax(u) - UnitHealth(u)
+	local maxhp = UnitHealthMax(u)
+	if maxhp ~= 0 and current > 0 then
+		local per = math.floor((current + 0.5) / maxhp * 100)
+		return "|cffff0000".."-"..T.ShortValue(current).." | "..per.."%|r"
+	end
+end
+oUF.Tags.Events['drk:Shp'] = 'UNIT_HEALTH'
+
+oUF.Tags.Events['drk:power2'] = 'UNIT_MAXPOWER UNIT_POWER_UPDATE'
+oUF.Tags.Methods['drk:power2'] = function(unit)
+	local curpp = UnitPower(unit)
+	local maxpp = UnitPowerMax(unit)
+	local playerClass, englishClass = UnitClass(unit)
+
+	if maxpp == 0 then
+		return ""
+	else
+		if englishClass == "WARRIOR" then
+			return curpp
+		elseif englishClass == "DEATHKNIGHT" or englishClass == "ROGUE" or englishClass == "HUNTER" then
+			return curpp .. ' /' .. maxpp
+		else
+			local ppp = math.floor((curpp + 0.5) / maxpp * 100)
+			return T.ShortValue(curpp) .. " /" .. T.ShortValue(maxpp) .. " | " .. ppp .. "%"
+		end
+	end
+end
+
+oUF.Tags.Methods['cur|max'] = function(u)
+	local cur = UnitHealth(u)
+	local max = UnitHealthMax(u)
+	local r, g, b
+	
+	local status = not UnitIsConnected(u) and 'Offline' or UnitIsGhost(u) and 'Ghost' or UnitIsDead(u) and 'Dead'
+	
+	if max ~= 0 then
+		r, g, b = oUF.ColorGradient(cur, max, .89,.11,.11, .89,.89,.11, .33,.59,.33)
+	end
+	
+	return status and status or ('%s%s | |cff2f9717%s|r'):format(Hex(r, g, b), T.ShortValue(cur), T.ShortValue(max))
+end
+
+oUF.Tags.Events['cur|max'] = 'UNIT_HEALTH'

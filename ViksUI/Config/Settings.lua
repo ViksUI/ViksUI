@@ -205,9 +205,9 @@ C["skins"] = {
 C["unitframe"] = {
 	-- Main
 	["enable"] = true,							-- Enable unit frames
-	["own_color"] = false,						-- Set your color for health bars
-	["uf_color"] = {0.4, 0.4, 0.4},				-- Color of health bars if ["own_color"] = true
-	["uf_color_bg"] = {0.1, 0.1, 0.1},			-- Color of health background
+	["own_color"] = true,						-- Set your color for health bars
+	["uf_color"] = {.2,.2,.2,1},				-- Color of health bars if ["own_color"] = true
+	["uf_color_bg"] = {.06,.06,.06, 1},			-- Color of health background
 	["enemy_health_color"] = true,				-- If enable, enemy target healthbar color is red
 	["show_total_value"] = false,				-- Display of info text on player and target with XXXX/Total
 	["color_value"] = false,					-- Health/mana value is colored
@@ -234,7 +234,7 @@ C["unitframe"] = {
 	["icons_combat"] = true,					-- Combat icon
 	["icons_resting"] = true,					-- Resting icon
 	-- Portraits
-	["portrait_enable"] = false,				-- Enable player/target portraits
+	["portrait_enable"] = true,					-- Enable player/target portraits
 	["portrait_classcolor_border"] = true,		-- Enable classcolor border
 	["portrait_type"] = "3D",					-- Type of portraits (3D, 2D, ICONS, OVERLAY)
 	["portrait_height"] = 92,					-- Portrait height
@@ -259,6 +259,14 @@ C["unitframe"] = {
 	["extra_power_height"] = 0,					-- Additional height for power
 	["castbar_width"] = 194,					-- Player and Target castbar width
 	["castbar_height"] = 16,					-- Player and Target castbar height
+	-- Layout2 Options (NEW)
+	["layout2"] = true,						-- Enable Layout2 design
+	["layout2_portrait"] = 58,					-- Portrait size for layout2
+	["layout2_w"] = 245,						-- Frame width for layout2
+	["layout2_h"] = 36,							-- Frame height for layout2
+	["layout2_health_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex", -- Health bar texture
+	["layout2_power_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex",   -- Power bar texture
+	["layout2_textbar_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\backdrop", -- Text bar texture
 }
 
 ----------------------------------------------------------------------------------------
@@ -315,8 +323,9 @@ C["raidframe"] = {
 	["icons_phase"] = true,						-- Phase icons on frames
 	-- Plugins
 	["plugins_debuffhighlight"] = true,			-- Show texture for dispellable debuff
-	["plugins_aura_watch"] = true,				-- Raid debuff icons (from the list)
+	["plugins_aura_watch"] = true,				-- Raid debuff icons (by Blizzard filter)
 	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
+	["plugins_buffs"] = true,					-- Raid buff icons (by Blizzard filter)
 	["plugins_buffs_timer"] = false,			-- Timer on raid buffs icons
 	["plugins_debuffhighlight_icon"] = false,	-- Show dispellable debuff icon
 	["plugins_pvp_debuffs"] = false,			-- Show PvP debuff icons (from the list)
@@ -344,10 +353,11 @@ C["raidframe"] = {
 --	Auras/Buffs/Debuffs options
 ----------------------------------------------------------------------------------------
 C["aura"] = {
-	["player_buff_size"] = 25,					-- Player buffs size
+	["player_buff_size"] = 30,					-- Player buffs size
 	["player_buff_mouseover"] = false,			-- Player buffs on mouseover
-	["debuff_size"] = 25,						-- Debuffs size on unitframes
-	["show_spiral"] = false,					-- Spiral on aura icons
+	["debuff_size"] = 24,						-- Debuffs size on unitframes
+	["player_debuff_size"] = 44,				-- Player debuffs size
+	["show_spiral"] = true,						-- Spiral on aura icons
 	["show_timer"] = true,						-- Show cooldown timer on aura icons
 	["player_auras"] = true,					-- Auras on player frame
 	["target_auras"] = true,					-- Auras on target frame
@@ -880,6 +890,76 @@ C["togglemenu"] = {
 	["classcolor"] = true,					-- Class color buttons
 }
 
+----------------------------------------------------------------------------------------
+-- Layout2
+----------------------------------------------------------------------------------------
+C["layout2"] = {
+	["enable"] = false,							-- Enable Layout2 design
+	["centerbar"] = true,  						-- Leave space between portraits empty
+	["portrait_size"] = 58,						-- Portrait size for layout2
+	-- Player and Target frames
+	["player_width"] = 245,						-- Player frame width
+	["player_height"] = 36,						-- Player frame height
+	["target_width"] = 245,						-- Target frame width
+	["target_height"] = 36,						-- Target frame height
+	-- Pet, Focus, and Secondary frames
+	["pet_width"] = 119,						-- Pet frame width
+	["pet_height"] = 28,						-- Pet frame height
+	["targettarget_width"] = 119,				-- Target's target frame width
+	["targettarget_height"] = 28,				-- Target's target frame height
+	["focus_width"] = 119,						-- Focus frame width
+	["focus_height"] = 28,						-- Focus frame height
+	["focustarget_width"] = 119,				-- Focus target frame width
+	["focustarget_height"] = 28,				-- Focus target frame height
+	-- Arena and Boss frames
+	["arena_width"] = 150,						-- Arena frame width
+	["arena_height"] = 36,						-- Arena frame height
+	["boss_width"] = 150,						-- Boss frame width
+	["boss_height"] = 36,						-- Boss frame height
+	-- Textures
+	["health_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex",
+	["power_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex",
+	["textbar_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\backdrop",
+	
+	-- Layout2 Tags - Player Frame
+	["player_health_top_left_enable"] = true,					-- Show player health top-left tag
+	["player_health_top_left_tag"] = "[GetNameColor][NameLong]", -- Player health top-left tag format
+	["player_health_top_right_enable"] = true,					-- Show player health top-right tag
+	["player_health_top_right_tag"] = "[missinghp]",			-- Player health top-right tag format
+	["player_text_bar_bottom_left_enable"] = true,				-- Show player text bar bottom-left tag
+	["player_text_bar_bottom_left_tag"] = "[drk:color][power:current:shortvalue] || [power:max:shortvalue]", -- Player text bar bottom-left
+	["player_text_bar_bottom_right_enable"] = true,				-- Show player text bar bottom-right tag
+	["player_text_bar_bottom_right_tag"] = "[drk:color][NameplateHealth]", -- Player text bar bottom-right
+	
+	-- Layout2 Tags - Target Frame
+	["target_health_top_left_enable"] = true,					-- Show target health top-left tag
+	["target_health_top_left_tag"] = "[drk:level][GetNameColor] [NameLongAbbrev]", -- Target health top-left tag format
+	["target_health_top_right_enable"] = true,					-- Show target health top-right tag
+	["target_health_top_right_tag"] = "[missinghp]",			-- Target health top-right tag format
+	["target_health_bottom_right_enable"] = true,				-- Show target health bottom-right tag
+	["target_health_bottom_right_tag"] = "[DiffColor][classification]", -- Target health bottom-right tag
+	["target_text_bar_bottom_left_enable"] = true,				-- Show target text bar bottom-left tag
+	["target_text_bar_bottom_left_tag"] = "[drk:color][power:current:shortvalue] || [power:max:shortvalue]", -- Target text bar bottom-left
+	["target_text_bar_bottom_center_enable"] = true,				-- Show target text bar bottom-center tag
+	["target_text_bar_bottom_center_tag"] = "[drk:color][missingpp:short] || [missinghp:short]", -- Target text bar bottom-center
+	["target_text_bar_bottom_right_enable"] = true,				-- Show target text bar bottom-right tag
+	["target_text_bar_bottom_right_tag"] = "[drk:color][NameplateHealth]", -- Target text bar bottom-right
+	
+	-- Layout2 Fonts
+	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
+	["pixel_font"] = [=[Interface\Addons\ViksUI\Media\Font\pixel.ttf]=], 				-- DataText Font Normal
+	["name_font_size"] = 26,										-- Size of name font in Layout2
+	["name_font_style"] = "NONE",									-- Style of name font (NONE, OUTLINE, THICKOUTLINE)
+	["number_font_size"] = 12,										-- Size of number font in Layout2
+	["number_font_style"] = "OUTLINE",								-- Style of number font
+	
+	-- Layout2 Frame Configuration
+	["use_portrait_borders"] = true,								-- Use portrait-style borders for secondary frames
+	
+	-- Player Debuffs Repositioning
+	["player_debuff_size"] = 32,									-- Size of debuff icons on player frame
+	["debuff_spacing"] = 8,											-- Space between debuff icons
+}
 ----------------------------------------------------------------------------------------
 --	Position options
 --	BACKUP THIS FILE BEFORE UPDATING!

@@ -306,6 +306,21 @@ local function SkinQuestIcons(_, block)
 
 		finder.skinned = true
 	end
+
+	if finder and finder.icon and not finder.icon.styled then
+		finder.border = CreateFrame("Frame", nil, finder)
+		finder.border:SetTemplate("Default")
+		finder.border:SetAllPoints(finder)
+		finder.border:SetFrameLevel(1)
+
+		finder.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		finder.icon:SetPoint("TOPLEFT", finder.border, 2, -2)
+		finder.icon:SetPoint("BOTTOMRIGHT", finder.border, -2, 2)
+
+		finder.Cooldown:SetAllPoints(finder.icon)
+
+		finder.icon.styled = true
+	end
 	
 	-- Only move the button if finder & block exist
 	local function positionFinder(b)
@@ -553,7 +568,6 @@ for i = 1, #headers do
 			if T.IsFramePositionedLeft(ObjectiveTrackerFrame) then
 				GameTooltip:ClearAllPoints()
 				GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
-				GameTooltip:Show()
 			end
 		end)
 

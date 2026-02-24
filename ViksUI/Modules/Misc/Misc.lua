@@ -222,37 +222,35 @@ ViksUIAFKPanel:SetScript("OnEvent", function(self, event, unit)
 
 	if event == "PLAYER_FLAGS_CHANGED" then
 		startTime = GetTime()
-		if unit == "player" then
-			if UnitIsAFK(unit) and not UnitIsDead(unit) then
-				SpinStart()
-				ViksUIAFKPanel:Show()
-				GuildText()
-				if not AFKPlayerModel then Model() end
-				Minimap:Hide()
-				ObjectiveTrackerFrame:Hide()				
-			else
-				SpinStop()
-				ViksUIAFKPanel:Hide()
-				Minimap:Show()
-				ObjectiveTrackerFrame:Show()				
-			end
+		if T.CheckUnitStatus(UnitIsAFK, "player") and not UnitIsDead(unit) then
+			SpinStart()
+			ViksUIAFKPanel:Show()
+			GuildText()
+			if not AFKPlayerModel then Model() end
+			Minimap:Hide()
+			ObjectiveTrackerFrame:Hide()				
+		else
+			SpinStop()
+			ViksUIAFKPanel:Hide()
+			Minimap:Show()
+			ObjectiveTrackerFrame:Show()				
 		end
 	elseif event == "PLAYER_DEAD" then
-		if UnitIsAFK("player") then
+		if T.CheckUnitStatus(UnitIsAFK, "player") and not InCombatLockdown() then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
 			ObjectiveTrackerFrame:Show()				   
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
-		if UnitIsAFK("player") then
+		if T.CheckUnitStatus(UnitIsAFK, "player") and not InCombatLockdown() then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
 			ObjectiveTrackerFrame:Show()
 		end
 	elseif event == "MODIFIER_STATE_CHANGED" then
-		if UnitIsAFK("player") then
+		if T.CheckUnitStatus(UnitIsAFK, "player") and not InCombatLockdown() then
 			SpinStop()
 			ViksUIAFKPanel:Hide()
 			Minimap:Show()
