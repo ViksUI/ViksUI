@@ -1154,7 +1154,7 @@ function T.GetLayout2Shadow() return Layout2Shadow end
 --	Hook into Layout.lua's auto-position logic to apply Layout2 positions in raids
 ----------------------------------------------------------------------------------------
 
-if C.layout2.enable and (C.raidframe.layout == "HEAL" or C.raidframe.layout == "AUTO") then
+if C.layout2.enable then
 	local function ApplyLayout2Positions()
 		if InCombatLockdown() then return end
 		
@@ -1187,14 +1187,14 @@ if C.layout2.enable and (C.raidframe.layout == "HEAL" or C.raidframe.layout == "
 			
 			-- Pet positioning and sizing
 			if pet and C.unitframe.show_pet then
-				pet:ClearAllPoints()
+				-- pet:ClearAllPoints()
 				if C.layout2.centerbar then
 					-- Use default Layout.lua position and size
-					pet:SetPoint(unpack(C.position.unitframes.pet))
+					-- pet:SetPoint(unpack(C.position.unitframes.pet))
 					pet:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
 				else
 					-- Use Layout2 position and size
-					pet:SetPoint("TOPRIGHT", player, "TOPLEFT", -10, 0)
+					-- pet:SetPoint("TOPRIGHT", player, "TOPLEFT", -10, 0)
 					pet:SetSize(C.layout2.pet_width, C.layout2.pet_height)
 				end
 			end
@@ -1204,11 +1204,11 @@ if C.layout2.enable and (C.raidframe.layout == "HEAL" or C.raidframe.layout == "
 				targettarget:ClearAllPoints()
 				if C.layout2.centerbar then
 					-- Use default Layout.lua position and size
-					targettarget:SetPoint(unpack(C.position.unitframes.target_target))
+					-- targettarget:SetPoint(unpack(C.position.unitframes.target_target))
 					targettarget:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
 				else
 					-- Use Layout2 position and size
-					targettarget:SetPoint("TOPLEFT", target, "TOPRIGHT", 10, 0)
+					-- targettarget:SetPoint("TOPLEFT", target, "TOPRIGHT", 10, 0)
 					targettarget:SetSize(C.layout2.targettarget_width, C.layout2.targettarget_height)
 				end
 			end
@@ -1241,10 +1241,12 @@ if C.layout2.enable and (C.raidframe.layout == "HEAL" or C.raidframe.layout == "
 				end
 			end
 			
-			-- Reposition party anchor to player portrait
-			if _G["PartyAnchor"] and player and player.Portrait then
-				_G["PartyAnchor"]:ClearAllPoints()
-				_G["PartyAnchor"]:SetPoint(unpack(C.position.unitframes.party_heal))
+			if C.raidframe.layout == "HEAL" or C.raidframe.layout == "AUTO" then
+				-- Reposition party anchor to player portrait
+				if _G["PartyAnchor"] and player and player.Portrait then
+					_G["PartyAnchor"]:ClearAllPoints()
+					_G["PartyAnchor"]:SetPoint(unpack(C.position.unitframes.party_heal))
+				end
 			end
 		end)
 	end
