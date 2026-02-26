@@ -445,10 +445,7 @@ T.SetModifiedBackdrop = function(self)
 		elseif self.colorText == "Button" then
 			self.ButtonText:SetTextColor(1, 1, 1)
 		elseif self.colorText == "Name" then
-			local name = self:GetName()
-			if name and _G[name.."Text"] then
-				_G[name.."Text"]:SetTextColor(1, 1, 1)
-			end
+			_G[self:GetName().."Text"]:SetTextColor(1, 1, 1)
 		end
 	end
 end
@@ -463,10 +460,7 @@ T.SetOriginalBackdrop = function(self)
 	elseif self.colorText == "Button" then
 		self.ButtonText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	elseif self.colorText == "Name" then
-		local name = self:GetName()
-		if name and _G[name.."Text"] then
-			_G[name.."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-		end
+		_G[self:GetName().."Text"]:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	end
 end
 
@@ -1501,7 +1495,7 @@ function T.SkinCooldown(cooldown, name)
 
 	if name == "aura" then
 		cooldown:SetDrawEdge(false)
-		cooldown:SetSwipeColor(0, 0, 0, C.aura.show_spiral and 0.8 or 0)
+		cooldown:SetSwipeColor(0, 0, 0, C.aura.show_spiral and 0.7 or 0)
 		if not C.aura.show_timer then
 			cooldown:SetHideCountdownNumbers(true)
 		end

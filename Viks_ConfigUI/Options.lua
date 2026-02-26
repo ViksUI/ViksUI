@@ -636,7 +636,7 @@ ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, 2)
 ns.addCategory("font", L.font, L.font_subtext, 4)
 ns.addCategory("skins", L_GUI_SKINS, L_GUI_SKINS_SUBTEXT)
 ns.addCategory("unitframe", UNITFRAME_LABEL, L_GUI_UF_SUBTEXT, 4)
--- ns.addCategory("layout2", L.layout2_title, L.layout2_enable_desc, 1)
+ns.addCategory("layout2", L.layout2_title, L.layout2_enable_desc)
 ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT)
 ns.addCategory("raidframe", RAID_FRAMES_LABEL, L_GUI_UF_RAIDFRAMES_SUBTEXT, 2)
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
@@ -1737,6 +1737,62 @@ do
 
 	extra_height_auto:HookScript("OnClick", toggleOptions)
 	extra_health_height:HookScript("OnShow", toggleOptions)
+end
+
+-- Unit Frames Layout 2
+do
+	local parent = ViksUIOptionsPanel.layout2
+	
+	local subheader = ns.addSubCategory(parent, L.layout2_explain)
+	subheader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
+	
+	local enable = ns.CreateCheckBox(parent, "enable", L.layout2_enable)
+	enable:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -11)
+
+	local centerbar = ns.CreateCheckBox(parent, "centerbar", L.layout2_centerbar)
+	centerbar:SetPoint("TOPLEFT", enable, "BOTTOMLEFT", 0, 0)
+
+	local subheader = ns.addSubCategory(parent, L.unitframe_subheader_player_width)
+	subheader:SetPoint("TOPLEFT", centerbar, "BOTTOMLEFT", 0, -11)
+
+	local player_width = ns.CreateNumberSlider(parent, "player_width", nil, nil, 50, 200, 1, true, L.layout2_player_width)
+	player_width:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -30)
+
+	local player_height = ns.CreateNumberSlider(parent, "player_height", nil, nil, 10, 100, 1, true, L.layout2_player_height)
+	player_height:SetPoint("LEFT", player_width, "RIGHT", 120, 0)
+
+	local target_width = ns.CreateNumberSlider(parent, "target_width", nil, nil, 50, 200, 1, true, L.layout2_target_width)
+	target_width:SetPoint("TOPLEFT", player_width, "BOTTOMLEFT", 0, -20)
+
+	local target_height = ns.CreateNumberSlider(parent, "target_height", nil, nil, 10, 100, 1, true, L.layout2_target_height)
+	target_height:SetPoint("LEFT", target_width, "RIGHT", 120, 0)
+	
+	local portrait_size = ns.CreateNumberSlider(parent, "portrait_size", nil, nil, 10, 100, 1, true, L.layout2_portrait_size)
+	portrait_size:SetPoint("TOPLEFT", target_width, "BOTTOMLEFT", 0, -20)
+	
+	local subheader = ns.addSubCategory(parent, L.layout2_name_font)
+	subheader:SetPoint("TOPLEFT", portrait_size, "BOTTOMLEFT", 0, -11)
+
+	local UFNamefont = ns.CreateDropDown(parent, "UFNamefont", true, L.layout2_name_font, FontTable, LSM and true, true)
+	UFNamefont:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+
+	local name_font_style = ns.CreateDropDown(parent, "name_font_style", true, L.font_stats_font_style, FlagsTable)
+	name_font_style:SetPoint("LEFT", UFNamefont, "RIGHT", 150, 0)
+
+	local name_font_size = ns.CreateNumberSlider(parent, "name_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
+	name_font_size:SetPoint("TOPLEFT", UFNamefont, "BOTTOMLEFT", 16, -16)
+
+	local subheader = ns.addSubCategory(parent, L.layout2_number_font)
+	subheader:SetPoint("TOPLEFT", name_font_size, "BOTTOMLEFT", 0, -11)
+
+	local pixel_font = ns.CreateDropDown(parent, "pixel_font", true, L.layout2_number_font, FontTable, LSM and true, true)
+	pixel_font:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+
+	local number_font_style = ns.CreateDropDown(parent, "number_font_style", true, L.font_stats_font_style, FlagsTable)
+	number_font_style:SetPoint("LEFT", pixel_font, "RIGHT", 150, 0)
+
+	local number_font_size = ns.CreateNumberSlider(parent, "number_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
+	number_font_size:SetPoint("TOPLEFT", pixel_font, "BOTTOMLEFT", 16, -16)
 end
 
 -- Unit Frames Class bar

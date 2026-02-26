@@ -904,13 +904,13 @@ C["layout2"] = {
 	["target_height"] = 36,						-- Target frame height
 	-- Pet, Focus, and Secondary frames
 	["pet_width"] = 119,						-- Pet frame width
-	["pet_height"] = 28,						-- Pet frame height
+	["pet_height"] = 16,						-- Pet frame height
 	["targettarget_width"] = 119,				-- Target's target frame width
-	["targettarget_height"] = 28,				-- Target's target frame height
+	["targettarget_height"] = 16,				-- Target's target frame height
 	["focus_width"] = 119,						-- Focus frame width
-	["focus_height"] = 28,						-- Focus frame height
+	["focus_height"] = 16,						-- Focus frame height
 	["focustarget_width"] = 119,				-- Focus target frame width
-	["focustarget_height"] = 28,				-- Focus target frame height
+	["focustarget_height"] = 16,				-- Focus target frame height
 	-- Arena and Boss frames
 	["arena_width"] = 150,						-- Arena frame width
 	["arena_height"] = 36,						-- Arena frame height
@@ -920,6 +920,10 @@ C["layout2"] = {
 	["health_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex",
 	["power_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex",
 	["textbar_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\backdrop",
+	-- Colors
+	["backdrop_color"] = { 0, .38, .651, 1},	-- Used to create border effect
+	-- ["power_backdrop_color"] = { 0, .38, .651, 1},
+	["textbar_texture_color"] = {0.125, 0.125, 0.125, 1},
 	
 	-- Layout2 Tags - Player Frame
 	["player_health_top_left_enable"] = true,					-- Show player health top-left tag
@@ -947,7 +951,7 @@ C["layout2"] = {
 	
 	-- Layout2 Fonts
 	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
-	["pixel_font"] = [=[Interface\Addons\ViksUI\Media\Font\pixel.ttf]=], 				-- DataText Font Normal
+	["pixel_font"] = [=[Interface\Addons\ViksUI\Media\Font\pixel.ttf]=], 				-- Font to use on numbers
 	["name_font_size"] = 26,										-- Size of name font in Layout2
 	["name_font_style"] = "NONE",									-- Style of name font (NONE, OUTLINE, THICKOUTLINE)
 	["number_font_size"] = 12,										-- Size of number font in Layout2

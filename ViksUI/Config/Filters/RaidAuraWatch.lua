@@ -12,9 +12,9 @@ T.RaidBuffs = {
 		{48438, "BOTTOMRIGHT", {0.8, 0.4, 0}},				-- Wild Growth
 		{8936, "BOTTOMLEFT", {0.2, 0.8, 0.2}},				-- Regrowth
 		{33763, "TOPLEFT", {0.4, 0.8, 0.2}},				-- Lifebloom
-		{391891, "TOP", {0.2, 0.7, 0.2}},					-- Adaptive Swarm
-		{102351, "BOTTOM", {0.2, 0.7, 0.2}},				-- Cenarion Ward
-		{102342, "LEFT", {0.45, 0.3, 0.2}, true},			-- Ironbark
+		-- {391891, "TOP", {0.2, 0.7, 0.2}},					-- Adaptive Swarm
+		-- {102351, "BOTTOM", {0.2, 0.7, 0.2}},				-- Cenarion Ward
+		-- {102342, "LEFT", {0.45, 0.3, 0.2}, true},			-- Ironbark
 		{155777, "RIGHT", {0.4, 0.9, 0.4}},					-- Rejuvenation (Germination)
 	},
 	EVOKER = {
@@ -24,35 +24,33 @@ T.RaidBuffs = {
 		{366155, "RIGHT", {0.14, 1.00, 0.88}},				-- Reversion
 		{364343, "TOP", {0.13, 0.87, 0.50}},				-- Echo
 		{373267, "TOPLEFT", {0.82, 0.29, 0.24}},			-- Life Bind (Verdant Embrace)
-		{357170, "BOTTOM", {0.11, 0.57, 0.71}},				-- Time Dilation
+		-- {357170, "BOTTOM", {0.11, 0.57, 0.71}},				-- Time Dilation
+		{376788, "BOTTOMRIGHT", {0.11, 0.57, 0.71}},		-- Dream Breath
 		-- Augmentation
 		{360827, "TOPRIGHT", {0.33, 0.33, 0.77}},			-- Blistering Scales
 		{410089, "TOP", {0.13, 0.87, 0.50}},				-- Prescience
-		{395296, "BOTTOMRIGHT", {0.14, 1.00, 0.88}},		-- Ebon Might
-		{406732, "RIGHT", {0.82, 0.29, 0.24}},				-- Spatial Paradox < on yourself
-		{406789, "RIGHT", {0.82, 0.29, 0.24}},				-- Spatial Paradox < on the partner
+		{395152, "BOTTOMRIGHT", {0.14, 1.00, 0.88}},		-- Ebon Might
+		-- {406732, "RIGHT", {0.82, 0.29, 0.24}},				-- Spatial Paradox < on yourself
 	},
 	MONK = {
 		{119611, "TOPRIGHT", {0.2, 0.7, 0.7}},				-- Renewing Mist
-		{116841, "RIGHT", {0.12, 1.00, 0.53}},				-- Tiger's Lust (Freedom)
+		-- {116841, "RIGHT", {0.12, 1.00, 0.53}},				-- Tiger's Lust (Freedom)
 		{115175, "BOTTOMRIGHT", {0.7, 0.4, 0}},				-- Soothing Mist
 		{124682, "BOTTOMLEFT", {0.4, 0.8, 0.2}},			-- Enveloping Mist
-		{325209, "BOTTOM", {0.3, 0.6, 0.6}},				-- Enveloping Breath
-		{116849, "LEFT", {0.81, 0.85, 0.1}, true},			-- Life Cocoon
+		-- {325209, "BOTTOM", {0.3, 0.6, 0.6}},				-- Enveloping Breath
+		{450769, "TOPLEFT", {0.3, 0.6, 0.6}},				-- Aspect of Harmony
+		-- {116849, "LEFT", {0.81, 0.85, 0.1}, true},			-- Life Cocoon
 	},
 	PALADIN = {
 		{53563, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Light
 		{156910, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Faith
-		{200025, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of Virtue
-		{157047, "TOP", {0.15, 0.58, 0.84}},				-- Saved by the Light (T25 Talent)
-		{1022, "BOTTOMRIGHT", {0.2, 0.2, 1}, true},			-- Blessing of Protection
-		{1044, "BOTTOMRIGHT", {0.89, 0.45, 0}, true},		-- Blessing of Freedom
-		{6940, "BOTTOMRIGHT", {0.89, 0.1, 0.1}, true},		-- Blessing of Sacrifice
-		{204018, "BOTTOMRIGHT", {0.4, 0.6, 0.8}, true},		-- Blessing of Spellwarding
-		{287280, "BOTTOMLEFT", {0.9, 0.5, 0.1}},			-- Glimmer of Light
-		{223306, "TOPLEFT", {0.8, 0.8, 0.1}},				-- Bestow Faith
-		{431381, "LEFT", {0.8, 0.8, 0.1}},					-- Dawnlight
-		{156322, "BOTTOM", {0.8, 0.8, 0.1}},				-- Eternal Flame
+		{1244893, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Beacon of the Savior
+		-- {157047, "TOP", {0.15, 0.58, 0.84}},				-- Saved by the Light (T25 Talent)
+		-- {1022, "BOTTOMRIGHT", {0.2, 0.2, 1}, true},			-- Blessing of Protection
+		-- {1044, "BOTTOMRIGHT", {0.89, 0.45, 0}, true},		-- Blessing of Freedom
+		-- {6940, "BOTTOMRIGHT", {0.89, 0.1, 0.1}, true},		-- Blessing of Sacrifice
+		-- {204018, "BOTTOMRIGHT", {0.4, 0.6, 0.8}, true},		-- Blessing of Spellwarding
+		{156322, "BOTTOMLEFT", {0.9, 0.5, 0.1}},				-- Eternal Flame
 	},
 	PRIEST = {
 		{194384, "TOPRIGHT", {0.8, 0.4, 0.2}},				-- Atonement
@@ -60,8 +58,8 @@ T.RaidBuffs = {
 		{41635, "BOTTOMRIGHT", {0.2, 0.7, 0.2}},			-- Prayer of Mending
 		{6788, "BOTTOMLEFT", {1, 0, 0}},					-- Weakened Soul
 		{17, "TOPLEFT", {0.81, 0.85, 0.1}},					-- Power Word: Shield
-		{33206, "LEFT", {0.89, 0.1, 0.1}, true},			-- Pain Suppression
-		{47788, "LEFT", {0.86, 0.52, 0}, true},				-- Guardian Spirit
+		-- {33206, "LEFT", {0.89, 0.1, 0.1}, true},			-- Pain Suppression
+		-- {47788, "LEFT", {0.86, 0.52, 0}, true},				-- Guardian Spirit
 	},
 	SHAMAN = {
 		{61295, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Riptide
@@ -105,53 +103,41 @@ end
 --	Debuffs
 ----------------------------------------------------------------------------------------
 local RaidDebuffs = {
-	---------------------------------------------------------
-	------------------- Manaforge Omega ---------------------
-	---------------------------------------------------------
+	-- Manaforge Omega
 	-- Plexus Sentinel
-	[SpellName(1219459)] = 3, -- Manifest Matrices
-	[SpellName(1219607)] = 3, -- Eradicating Salvo 1
-	[SpellName(1219531)] = 3, -- Eradicating Salvo 2
-	[SpellName(1218625)] = 3, -- Displacement Matrix
+	[SpellName(1219459)] = 3,	-- Manifest Matrices
+	[SpellName(1219607)] = 3,	-- Eradicating Salvo
+	[SpellName(1218625)] = 3,	-- Displacement Matrix
 	-- Loom'ithar
-	[SpellName(1226311)] = 5, -- Infusion Tether
-	[SpellName(1237212)] = 4, -- Piercing Strand
-	[SpellName(1226721)] = 6, -- Silken Snare
-	[SpellName(1247045)] = 3, -- Hyper Infusion
-	[SpellName(1237307)] = 3, -- Lair Weaving
+	[SpellName(1226311)] = 5,	-- Infusion Tether
+	[SpellName(1237212)] = 4,	-- Piercing Strand
+	[SpellName(1226721)] = 6,	-- Silken Snare
+	[SpellName(1247045)] = 3,	-- Hyper Infusion
+	[SpellName(1237307)] = 3,	-- Lair Weaving
 	-- Soulbinder Naazindhri
-	[SpellName(1227276)] = 3, -- Soulfray Annihilation
-	[SpellName(1226827)] = 3, -- Soulrend Orb
-	[SpellName(1227052)] = 3, -- Void Burst
+	[SpellName(1227276)] = 3,	-- Soulfray Annihilation
+	[SpellName(1226827)] = 3,	-- Soulrend Orb
+	[SpellName(1227052)] = 3,	-- Void Burst
 	-- Forgeweaver Araz
-	[SpellName(1234324)] = 3, -- Photon Blast
-	[SpellName(1228214)] = 3, -- Astral Harvest
-	[SpellName(1243901)] = 3, -- Void Harvest
+	[SpellName(1234324)] = 3,	-- Photon Blast
+	[SpellName(1228214)] = 3,	-- Astral Harvest
+	[SpellName(1243901)] = 3,	-- Void Harvest
 	-- The Soul Hunters
-	[SpellName(1227847)] = 3, -- The Hunt
-	[SpellName(1241946)] = 3, -- Frailty
+	[SpellName(1227847)] = 3,	-- The Hunt
+	[SpellName(1241946)] = 3,	-- Frailty
 	-- Fractillus
-	[SpellName(1233411)] = 3, -- Crystalline Shockwave
+	[SpellName(1233411)] = 3,	-- Crystalline Shockwave
 	-- Nexus-King Salhadaar
-	[SpellName(1227549)] = 3, -- Banishment
-	[SpellName(1226362)] = 3, -- Twilight Scar
-	[SpellName(1228056)] = 3, -- Reap
+	[SpellName(1227549)] = 3,	-- Banishment
+	[SpellName(1226362)] = 3,	-- Twilight Scar
+	[SpellName(1228056)] = 3,	-- Reap
 	-- Dimensius, the All-Devouring
-	[SpellName(1239270)] = 3, -- Voidwarding
-	[SpellName(1250055)] = 3, -- Voidgrasp
-	[SpellName(1243699)] = 3, -- Spatial Fragment
-	[SpellName(1249425)] = 3, -- Mass Destruction
-	-- Buffs
-	-- Plexus Sentinel
-	[SpellName(1241303)] = 3, -- Arcanoshield
-	-- Loom'ithar
-	[SpellName(1238502)] = 3, -- Woven Ward
-	-- Soulbinder Naazindhri
-	[SpellName(1241100)] = 3, -- Mystic Lash
-	[SpellName(1225616)] = 3, -- Soulfire Convergence
-	---------------------------------------------------------
-	--------------- Liberation of Undermine -----------------
-	---------------------------------------------------------
+	[SpellName(1239270)] = 3,	-- Voidwarding
+	[SpellName(1250055)] = 3,	-- Voidgrasp
+	[SpellName(1243699)] = 3,	-- Spatial Fragment
+	[SpellName(1249425)] = 3,	-- Mass Destruction
+
+	-- Liberation of Undermine
 	-- Vexie and the Geargrinders
 	[SpellName(465865)] = 3,	-- Tank Buster
 	[SpellName(459669)] = 3,	-- Spew Oil
@@ -178,7 +164,6 @@ local RaidDebuffs = {
 	[SpellName(466476)] = 3,	-- Frostshatter Boots
 	[SpellName(466509)] = 3,	-- Stormfury Finger Gun
 	[SpellName(1215488)] = 3,	-- Disintegration Beam
-	[SpellName(469391)] = 5,	-- Perforating Wound
 	-- Chrome King Gallywix
 	[SpellName(466154)] = 3,	-- Blast Burns
 	[SpellName(466834)] = 4,	-- Shock Barrage
@@ -253,15 +238,8 @@ local RaidDebuffs = {
 }
 
 local DungeonDebuffs = {
-	----------------------------------------------------------
-	------------------------- General ------------------------
-	----------------------------------------------------------
-	-- Misc
-	[SpellName(160029)] = 3, -- Resurrecting (Pending CR)
-	[SpellName(225080)] = 3, -- Reincarnation (Ankh ready)
-	[SpellName(255234)] = 3, -- Totemic Revival
-	-- Affixes
-	[SpellName(440313)] = 3, -- Void Rift
+	-- The War Within Season 1
+	[SpellName(440313)] = 6,	-- Void Rift
 
 	-- The Rookery (Season 2)
 	[SpellName(429493)] = 3,	-- Unstable Corruption
@@ -513,8 +491,6 @@ local DungeonDebuffs = {
 	[SpellName(262513)] = 5,	-- Azerite Heartseeker
 	[SpellName(260838)] = 5,	-- Homing Missle
 	[SpellName(263637)] = 4,	-- Clothesline
-	[SpellName(262347)] = 3,	-- Static Pulse
-	[SpellName(1213141)] = 3,	-- Heavy Slash
 
 	-- Operation: Mechagon
 	[SpellName(291928)] = 3,	-- Giga-Zap
@@ -603,60 +579,6 @@ local DungeonDebuffs = {
 	[SpellName(451241)] = 3,	-- Shadowflame Slash
 	[SpellName(451965)] = 3,	-- Molten Wake
 	[SpellName(451224)] = 3,	-- Enveloping Shadowflame
-	----------------------------------------------------------
-	--------------- The War Within (Season 3) ----------------
-	----------------------------------------------------------
-	-- Eco-Dome Al'dani
-	[SpellName(1217439)] = 3, -- Toxic Regurgitation
-	[SpellName(1227152)] = 3, -- Warp Strike
-	[SpellName(1219535)] = 3, -- Rift Claws
-	[SpellName(1220390)] = 3, -- Warp Strike
-	[SpellName(1236126)] = 3, -- Binding Javelin
-	[SpellName(1225221)] = 3, -- Dread of the Unknown
-	[SpellName(1217446)] = 3, -- Digestive Spittle
-	[SpellName(1220671)] = 3, -- Binding Javelin
-	[SpellName(1231494)] = 3, -- Overgorged Burst
-	[SpellName(1224865)] = 3, -- Fatebound
-	[SpellName(1231224)] = 3, -- Arcane Slash
-	[SpellName(1221190)] = 3, -- Gluttonous Miasma
-	[SpellName(1221483)] = 3, -- Arcing Energy
-	[SpellName(1222202)] = 3, -- Arcane Burn
-	-- Halls of Atonement
-	[SpellName(335338)] = 3, -- Ritual of Woe
-	[SpellName(326891)] = 3, -- Anguish
-	[SpellName(329321)] = 3, -- Jagged Swipe 1
-	[SpellName(344993)] = 3, -- Jagged Swipe 2
-	[SpellName(319603)] = 3, -- Curse of Stone
-	[SpellName(319611)] = 3, -- Turned to Stone
-	[SpellName(325876)] = 3, -- Curse of Obliteration
-	[SpellName(326632)] = 3, -- Stony Veins
-	[SpellName(323650)] = 3, -- Haunting Fixation
-	[SpellName(326874)] = 3, -- Ankle Bites
-	[SpellName(340446)] = 3, -- Mark of Envy
-	-- Tazavesh, the Veiled Market
-	[SpellName(356943)] = 3, -- Lockdown
-	[SpellName(350804)] = 3, -- Collapsing Energy
-	[SpellName(350885)] = 3, -- Hyperlight Jolt
-	[SpellName(351101)] = 3, -- Energy Fragmentation
-	[SpellName(346828)] = 3, -- Sanitizing Field
-	[SpellName(355641)] = 3, -- Scintillate
-	[SpellName(355451)] = 3, -- Undertow
-	[SpellName(355581)] = 3, -- Crackle
-	[SpellName(349999)] = 3, -- Anima Detonation
-	[SpellName(346961)] = 3, -- Purging Field
-	[SpellName(351956)] = 3, -- High-Value Target
-	[SpellName(346297)] = 3, -- Unstable Explosion
-	[SpellName(347728)] = 3, -- Flock!
-	[SpellName(356408)] = 3, -- Ground Stomp
-	[SpellName(347744)] = 3, -- Quickblade
-	[SpellName(347481)] = 3, -- Shuri
-	[SpellName(355915)] = 3, -- Glyph of Restraint
-	[SpellName(350101)] = 3, -- Chains of Damnation
-	[SpellName(350134)] = 3, -- Infinite Breath
-	[SpellName(350013)] = 3, -- Gluttonous Feast
-	[SpellName(355465)] = 3, -- Boulder Throw
-	[SpellName(346116)] = 3, -- Shearing Swings
-	[SpellName(356011)] = 3, -- Beam Splicer
 }
 
 local OtherDebuffs = {

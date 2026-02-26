@@ -564,12 +564,24 @@ for i = 1, #headers do
 			end
 		end)
 
-		hooksecurefunc(tracker, "OnBlockHeaderEnter", function(_, block)
-			if T.IsFramePositionedLeft(ObjectiveTrackerFrame) then
-				GameTooltip:ClearAllPoints()
-				GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
-			end
-		end)
+		hooksecurefunc(tracker, "OnBlockHeaderClick", function(_, block) onClick(block.id) end)
+
+		if tracker == WorldQuestObjectiveTracker or tracker == BonusObjectiveTracker then
+			hooksecurefunc(tracker, "OnBlockHeaderEnter", function(_, block)
+				if T.IsFramePositionedLeft(ObjectiveTrackerFrame) then
+					GameTooltip:ClearAllPoints()
+					GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+
+					if block.TryShowRewardsTooltip and not block.hook then
+						hooksecurefunc(block, "TryShowRewardsTooltip", function(self)
+							GameTooltip:ClearAllPoints()
+							GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+						end)
+						block.hook = true
+					end
+				end
+			end)
+		end
 
 		hooksecurefunc(tracker, "OnBlockHeaderLeave", function(_, block)
 			if block.HeaderText and block.HeaderText.col then

@@ -21,6 +21,18 @@ C.unitframe.extra_height_auto = false -- Disable auto height adjustment for Layo
 C.media.texture = C.layout2.health_texture
 
 ----------------------------------------------------------------------------------------
+--	LAYOUT2 POSITIONS
+--	Update positions for some elements for this layout.
+----------------------------------------------------------------------------------------
+C["position"].unitframes["target_target"] = {"TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", -8, -28}
+C["position"].unitframes["pet"] = {"TOPLEFT", "oUF_Player", "BOTTOMLEFT", 8, -28}
+C["position"].unitframes["focus"] = {"TOPRIGHT", "oUF_Player", "BOTTOMRIGHT", 4, -28}
+C["position"].unitframes["focus_target"] = {"TOPLEFT", "oUF_Target", "BOTTOMLEFT", -4, -28}
+C["position"].unitframes["party_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -49}
+C["position"].unitframes["raid_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12}
+C["position"].unitframes["tank"] = {"BOTTOMLEFT", UIParent, "BOTTOM", -80, 200}
+
+----------------------------------------------------------------------------------------
 --	LAYOUT2 OPTIONS
 --	Customize Layout2 behavior with these easy-to-toggle options
 ----------------------------------------------------------------------------------------
@@ -678,7 +690,7 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 			-- ========== HEALTH FRAME SETUP ==========
 			local healthFrame = CreateFrame("Frame", self:GetName().."_HealthFrame", self, "BackdropTemplate")
 			healthFrame:SetSize(Layout2Config.health.width, Layout2Config.health.height)
-			healthFrame:SetPoint("LEFT", self, "LEFT", 0, 0)
+			healthFrame:SetPoint("LEFT", self, "LEFT", 0, 2)
 			healthFrame:SetFrameLevel(Layout2Config.health.frame_level)
 			healthFrame:SetTemplate("Invisible")
 			healthFrame:SetBackdropColor(unpack(C.media.border_color))
@@ -834,46 +846,48 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 			end
 			
 			-- ========== TEXT BAR SETUP ==========
-			local textFrame = CreateFrame("Frame", self:GetName().."_TextFrame", self, "BackdropTemplate")
-			textFrame:SetSize(Layout2Config.text_bar.width, Layout2Config.text_bar.height)
-			
-			if unitType == "player" then
-				textFrame:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", Layout2Config.text_bar.offset_x, Layout2Config.text_bar.offset_y)
-			elseif unitType == "target" then
-				textFrame:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", -Layout2Config.text_bar.offset_x, Layout2Config.text_bar.offset_y)
-			end
-			
-			textFrame:SetFrameLevel(Layout2Config.text_bar.frame_level)
-			textFrame:SetTemplate("Default")
-			
-			local textBarTexture = textFrame:CreateTexture(nil, "BACKGROUND")
-			textBarTexture:SetAllPoints()
-			textBarTexture:SetTexture(C.layout2.textbar_texture)
-			textBarTexture:SetVertexColor(unpack(Layout2Config.text_bar.texture_color))
-			
-			-- Apply custom text bar tags from Layout2Tags
-			ApplyTextBarTags(self, textFrame, unitType)
-			
-			-- ========== CASTBAR REPOSITIONING ==========
-			if self.Castbar then
-				self.Castbar:ClearAllPoints()
+			if unitType == "player" or unitType == "target" then
+				local textFrame = CreateFrame("Frame", self:GetName().."_TextFrame", self, "BackdropTemplate")
+				textFrame:SetSize(Layout2Config.text_bar.width, Layout2Config.text_bar.height)
+				
 				if unitType == "player" then
-					if C.layout2.centerbar then
-						-- Move castbar down by castbar height + 6px
-						self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 18))
-						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
-					else
-						self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y)
-						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
-					end
+					textFrame:SetPoint("TOPRIGHT", self.Health, "BOTTOMRIGHT", Layout2Config.text_bar.offset_x, Layout2Config.text_bar.offset_y)
 				elseif unitType == "target" then
-					if C.layout2.centerbar then
-						-- Move castbar down by castbar height + 6px
-						self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 8))
-						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
-					else
-						self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y)
-						self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					textFrame:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", -Layout2Config.text_bar.offset_x, Layout2Config.text_bar.offset_y)
+				end
+				
+				textFrame:SetFrameLevel(Layout2Config.text_bar.frame_level)
+				textFrame:SetTemplate("Default")
+				
+				local textBarTexture = textFrame:CreateTexture(nil, "BACKGROUND")
+				textBarTexture:SetAllPoints()
+				textBarTexture:SetTexture(C.layout2.textbar_texture)
+				textBarTexture:SetVertexColor(unpack(Layout2Config.text_bar.texture_color))
+				
+				-- Apply custom text bar tags from Layout2Tags
+				ApplyTextBarTags(self, textFrame, unitType)
+				
+				-- ========== CASTBAR REPOSITIONING ==========
+				if self.Castbar then
+					self.Castbar:ClearAllPoints()
+					if unitType == "player" then
+						if C.layout2.centerbar then
+							-- Move castbar down by castbar height + 6px
+							self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 18))
+							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+						else
+							self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y)
+							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+						end
+					elseif unitType == "target" then
+						if C.layout2.centerbar then
+							-- Move castbar down by castbar height + 6px
+							self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 8))
+							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+						else
+							self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y)
+							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+						end
 					end
 				end
 			end
@@ -1239,6 +1253,7 @@ if C.layout2.enable and (C.raidframe.layout == "HEAL" or C.raidframe.layout == "
 	local layout2RepositionFrame = CreateFrame("Frame")
 	layout2RepositionFrame:RegisterEvent("PLAYER_LOGIN")
 	layout2RepositionFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
+	layout2RepositionFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	if C.raidframe.layout == "AUTO" then
 		layout2RepositionFrame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
 	end
