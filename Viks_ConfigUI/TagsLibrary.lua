@@ -82,14 +82,6 @@ ns.ViksUI_CustomTags = {
 	["Absorbs"] = "Absorption values",
 	["missinghp:short"] = "Missing health shortened",
 	["missingpp:short"] = "Missing power shortened",
-	["absorbs:shortvalue"] = "Absorbs shortened",
-	["absorbs:longvalue"] = "Absorbs full value",
-	["healabsorbs:shortvalue"] = "Heal absorbs shortened",
-	["healabsorbs:longvalue"] = "Heal absorbs full value",
-	["missinghp:shortvalue"] = "Missing HP shortened",
-	["missinghp:longvalue"] = "Missing HP full value",
-	["missingpp:shortvalue"] = "Missing power shortened",
-	["missingpp:longvalue"] = "Missing power full value",
 	["health:current:shortvalue"] = "Current health shortened",
 	["health:current:longvalue"] = "Current health full",
 	["health:max:shortvalue"] = "Max health shortened",
@@ -103,9 +95,7 @@ ns.ViksUI_CustomTags = {
 	["drk:color"] = "Class/reaction color code",
 	["drk:color2"] = "Custom font color code",
 	["drk:level"] = "Level with difficulty color",
-	["drk:Shp"] = "Missing health with percent",
 	["drk:power2"] = "Power with custom format",
-	["cur|max"] = "Colored current/max health",
 }
 
 -- ========== FUNCTIONS ==========
