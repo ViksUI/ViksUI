@@ -191,80 +191,6 @@ oUF.Tags.Methods["missingpp:short"] = function(unit)
 end
 oUF.Tags.Events["missingpp:short"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
 
-oUF.Tags.Methods["absorbs:shortvalue"] = function(unit)
-	local absorb = UnitGetTotalAbsorbs(unit)
-	if absorb and absorb > 0 then
-		return T.ShortValue(absorb)
-	end
-	return ""
-end
-oUF.Tags.Events["absorbs:shortvalue"] = "UNIT_ABSORB_AMOUNT_CHANGED"
-
-oUF.Tags.Methods["absorbs:longvalue"] = function(unit)
-	local absorb = UnitGetTotalAbsorbs(unit)
-	if absorb and absorb > 0 then
-		return BreakUpLargeNumbers(absorb)
-	end
-	return ""
-end
-oUF.Tags.Events["absorbs:longvalue"] = "UNIT_ABSORB_AMOUNT_CHANGED"
-
-oUF.Tags.Methods["healabsorbs:shortvalue"] = function(unit)
-	local healAbsorb = UnitGetTotalHealAbsorbs(unit)
-	if healAbsorb and healAbsorb > 0 then
-		return T.ShortValue(healAbsorb)
-	end
-	return ""
-end
-oUF.Tags.Events["healabsorbs:shortvalue"] = "UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
-
-oUF.Tags.Methods["healabsorbs:longvalue"] = function(unit)
-	local healAbsorb = UnitGetTotalHealAbsorbs(unit)
-	if healAbsorb and healAbsorb > 0 then
-		return BreakUpLargeNumbers(healAbsorb)
-	end
-	return ""
-end
-oUF.Tags.Events["healabsorbs:longvalue"] = "UNIT_HEAL_ABSORB_AMOUNT_CHANGED"
-
-oUF.Tags.Methods["missinghp:shortvalue"] = function(unit)
-	local healthMissing = UnitHealthMax(unit) - UnitHealth(unit)
-	if healthMissing > 0 then
-		return T.ShortValue(healthMissing)
-	end
-	return ""
-end
-oUF.Tags.Events["missinghp:shortvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
-
-oUF.Tags.Methods["missinghp:longvalue"] = function(unit)
-	local healthMissing = UnitHealthMax(unit) - UnitHealth(unit)
-	if healthMissing > 0 then
-		return BreakUpLargeNumbers(healthMissing)
-	end
-	return ""
-end
-oUF.Tags.Events["missinghp:longvalue"] = "UNIT_HEALTH UNIT_MAXHEALTH"
-
-oUF.Tags.Methods["missingpp:shortvalue"] = function(unit)
-	local powerType = UnitPowerType(unit)
-	local powerMissing = UnitPowerMax(unit, powerType) - UnitPower(unit, powerType)
-	if powerMissing > 0 then
-		return T.ShortValue(powerMissing)
-	end
-	return ""
-end
-oUF.Tags.Events["missingpp:shortvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
-
-oUF.Tags.Methods["missingpp:longvalue"] = function(unit)
-	local powerType = UnitPowerType(unit)
-	local powerMissing = UnitPowerMax(unit, powerType) - UnitPower(unit, powerType)
-	if powerMissing > 0 then
-		return BreakUpLargeNumbers(powerMissing)
-	end
-	return ""
-end
-oUF.Tags.Events["missingpp:longvalue"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
-
 oUF.Tags.Methods["health:current:shortvalue"] = function(unit)
 	return T.ShortValue(UnitHealth(unit))
 end
@@ -398,15 +324,6 @@ oUF.Tags.Methods["drk:level"] = function(unit)
 end
 oUF.Tags.Events["drk:level"] = "UNIT_LEVEL PLAYER_LEVEL_UP UNIT_CLASSIFICATION_CHANGED"
 
-oUF.Tags.Methods['drk:Shp'] = function(u)
-	local current = UnitHealthMax(u) - UnitHealth(u)
-	local maxhp = UnitHealthMax(u)
-	if maxhp ~= 0 and current > 0 then
-		local per = math.floor((current + 0.5) / maxhp * 100)
-		return "|cffff0000".."-"..T.ShortValue(current).." | "..per.."%|r"
-	end
-end
-oUF.Tags.Events['drk:Shp'] = 'UNIT_HEALTH'
 
 oUF.Tags.Events['drk:power2'] = 'UNIT_MAXPOWER UNIT_POWER_UPDATE'
 oUF.Tags.Methods['drk:power2'] = function(unit)
@@ -427,19 +344,3 @@ oUF.Tags.Methods['drk:power2'] = function(unit)
 		end
 	end
 end
-
-oUF.Tags.Methods['cur|max'] = function(u)
-	local cur = UnitHealth(u)
-	local max = UnitHealthMax(u)
-	local r, g, b
-	
-	local status = not UnitIsConnected(u) and 'Offline' or UnitIsGhost(u) and 'Ghost' or UnitIsDead(u) and 'Dead'
-	
-	if max ~= 0 then
-		r, g, b = oUF.ColorGradient(cur, max, .89,.11,.11, .89,.89,.11, .33,.59,.33)
-	end
-	
-	return status and status or ('%s%s | |cff2f9717%s|r'):format(Hex(r, g, b), T.ShortValue(cur), T.ShortValue(max))
-end
-
-oUF.Tags.Events['cur|max'] = 'UNIT_HEALTH'

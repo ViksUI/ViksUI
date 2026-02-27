@@ -635,8 +635,8 @@ end
 ns.addCategory("general", GENERAL_LABEL, L_GUI_GENERAL_SUBTEXT, 2)
 ns.addCategory("font", L.font, L.font_subtext, 4)
 ns.addCategory("skins", L_GUI_SKINS, L_GUI_SKINS_SUBTEXT)
-ns.addCategory("unitframe", UNITFRAME_LABEL, L_GUI_UF_SUBTEXT, 4)
-ns.addCategory("layout2", L.layout2_title, L.layout2_enable_desc)
+ns.addCategory("unitframe", UNITFRAME_LABEL, L_GUI_UF_SUBTEXT, 3)
+ns.addCategory("layout2", L.layout2_title, L.layout2_enable_desc, 4)
 ns.addCategory("unitframe_class_bar", L_GUI_UF_PLUGINS_CLASS_BAR, L_GUI_UF_PLUGINS_CLASS_BAR_SUBTEXT)
 ns.addCategory("raidframe", RAID_FRAMES_LABEL, L_GUI_UF_RAIDFRAMES_SUBTEXT, 2)
 ns.addCategory("aura", BUFFOPTIONS_LABEL, BUFFOPTIONS_SUBTEXT)
@@ -1793,6 +1793,155 @@ do
 
 	local number_font_size = ns.CreateNumberSlider(parent, "number_font_size", nil, nil, 8, 48, 1, true, FONT_SIZE)
 	number_font_size:SetPoint("TOPLEFT", pixel_font, "BOTTOMLEFT", 16, -16)
+	
+	--page 2
+	local parent = ViksUIOptionsPanel.layout22
+	
+	-- ========== PLAYER FRAME TAGS ==========
+	local playerHeader = ns.addSubCategory(parent, "Player Frame - Health Bar Tags")
+	playerHeader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -4)
+	
+	-- Player Health - Top Left
+	local player_health_top_left_enable = ns.CreateCheckBox(parent, "player_health_top_left_enable", "Show top-left tag")
+	player_health_top_left_enable:SetPoint("TOPLEFT", playerHeader, "BOTTOMLEFT", 0, -10)
+	
+	local player_health_top_left_tag = ns.CreateTagBox(parent, "player_health_top_left_tag", true, 
+		"Player Health Top-Left", "[GetNameColor][NameLong]")
+	player_health_top_left_tag:SetPoint("TOPLEFT", player_health_top_left_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Player Health - Top Center
+	local player_health_top_center_enable = ns.CreateCheckBox(parent, "player_health_top_center_enable", "Show top-center tag")
+	player_health_top_center_enable:SetPoint("TOPLEFT", player_health_top_left_tag, "BOTTOMLEFT", 0, -8)
+	
+	local player_health_top_center_tag = ns.CreateTagBox(parent, "player_health_top_center_tag", true, 
+		"Player Health Top-Center", "")
+	player_health_top_center_tag:SetPoint("TOPLEFT", player_health_top_center_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Player Health - Top Right
+	local player_health_top_right_enable = ns.CreateCheckBox(parent, "player_health_top_right_enable", "Show top-right tag")
+	player_health_top_right_enable:SetPoint("TOPLEFT", player_health_top_center_tag, "BOTTOMLEFT", 0, -8)
+	
+	local player_health_top_right_tag = ns.CreateTagBox(parent, "player_health_top_right_tag", true, 
+		"Player Health Top-Right", "[missinghp]")
+	player_health_top_right_tag:SetPoint("TOPLEFT", player_health_top_right_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Player Health - Bottom Right
+	local player_health_bottom_right_enable = ns.CreateCheckBox(parent, "player_health_bottom_right_enable", "Show bottom-right tag")
+	player_health_bottom_right_enable:SetPoint("TOPLEFT", player_health_top_right_tag, "BOTTOMLEFT", 0, -8)
+	
+	local player_health_bottom_right_tag = ns.CreateTagBox(parent, "player_health_bottom_right_tag", true, 
+		"Player Health Bottom-Right", "")
+	player_health_bottom_right_tag:SetPoint("TOPLEFT", player_health_bottom_right_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- ========== PLAYER TEXT BAR TAGS ==========
+	local playerTextHeader = ns.addSubCategory(parent, "Player Frame - Text Bar Tags")
+	playerTextHeader:SetPoint("TOPLEFT", player_health_bottom_right_tag, "BOTTOMLEFT", 0, -20)
+	
+	-- Player Text Bar - Bottom Left
+	local player_text_bar_bottom_left_enable = ns.CreateCheckBox(parent, "player_text_bar_bottom_left_enable", "Show bottom-left tag")
+	player_text_bar_bottom_left_enable:SetPoint("TOPLEFT", playerTextHeader, "BOTTOMLEFT", 0, -10)
+	
+	local player_text_bar_bottom_left_tag = ns.CreateTagBox(parent, "player_text_bar_bottom_left_tag", true, 
+		"Player TextBar Bottom-Left", "[drk:color][power:current:shortvalue] || [power:max:shortvalue]")
+	player_text_bar_bottom_left_tag:SetPoint("TOPLEFT", player_text_bar_bottom_left_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Player Text Bar - Bottom Center
+	local player_text_bar_bottom_center_enable = ns.CreateCheckBox(parent, "player_text_bar_bottom_center_enable", "Show bottom-center tag")
+	player_text_bar_bottom_center_enable:SetPoint("TOPLEFT", player_text_bar_bottom_left_tag, "BOTTOMLEFT", 0, -8)
+	
+	local player_text_bar_bottom_center_tag = ns.CreateTagBox(parent, "player_text_bar_bottom_center_tag", true, 
+		"Player TextBar Bottom-Center", "")
+	player_text_bar_bottom_center_tag:SetPoint("TOPLEFT", player_text_bar_bottom_center_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Player Text Bar - Bottom Right
+	local player_text_bar_bottom_right_enable = ns.CreateCheckBox(parent, "player_text_bar_bottom_right_enable", "Show bottom-right tag")
+	player_text_bar_bottom_right_enable:SetPoint("TOPLEFT", player_text_bar_bottom_center_tag, "BOTTOMLEFT", 0, -8)
+	
+	local player_text_bar_bottom_right_tag = ns.CreateTagBox(parent, "player_text_bar_bottom_right_tag", true, 
+		"Player TextBar Bottom-Right", "[drk:color][NameplateHealth]")
+	player_text_bar_bottom_right_tag:SetPoint("TOPLEFT", player_text_bar_bottom_right_enable, "BOTTOMLEFT", 0, -5)
+	
+	--page 3
+	local parent = ViksUIOptionsPanel.layout23
+	
+	-- ========== TARGET FRAME TAGS ==========
+	local targetHeader = ns.addSubCategory(parent, "Target Frame - Health Bar Tags")
+	targetHeader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -4)
+	
+	-- Target Health - Top Left
+	local target_health_top_left_enable = ns.CreateCheckBox(parent, "target_health_top_left_enable", "Show top-left tag")
+	target_health_top_left_enable:SetPoint("TOPLEFT", targetHeader, "BOTTOMLEFT", 0, -8)
+	
+	local target_health_top_left_tag = ns.CreateTagBox(parent, "target_health_top_left_tag", true, 
+		"Target Health Top-Left", "[drk:level][GetNameColor] [NameLongAbbrev]")
+	target_health_top_left_tag:SetPoint("TOPLEFT", target_health_top_left_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Target Health - Top Center
+	local target_health_top_center_enable = ns.CreateCheckBox(parent, "target_health_top_center_enable", "Show top-center tag")
+	target_health_top_center_enable:SetPoint("TOPLEFT", target_health_top_left_tag, "BOTTOMLEFT", 0, -8)
+	
+	local target_health_top_center_tag = ns.CreateTagBox(parent, "target_health_top_center_tag", true, 
+		"Target Health Top-Center", "")
+	target_health_top_center_tag:SetPoint("TOPLEFT", target_health_top_center_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Target Health - Top Right
+	local target_health_top_right_enable = ns.CreateCheckBox(parent, "target_health_top_right_enable", "Show top-right tag")
+	target_health_top_right_enable:SetPoint("TOPLEFT", target_health_top_center_tag, "BOTTOMLEFT", 0, -8)
+	
+	local target_health_top_right_tag = ns.CreateTagBox(parent, "target_health_top_right_tag", true, 
+		"Target Health Top-Right", "[missinghp]")
+	target_health_top_right_tag:SetPoint("TOPLEFT", target_health_top_right_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Target Health - Bottom Right
+	local target_health_bottom_right_enable = ns.CreateCheckBox(parent, "target_health_bottom_right_enable", "Show bottom-right tag")
+	target_health_bottom_right_enable:SetPoint("TOPLEFT", target_health_top_right_tag, "BOTTOMLEFT", 0, -8)
+	
+	local target_health_bottom_right_tag = ns.CreateTagBox(parent, "target_health_bottom_right_tag", true, 
+		"Target Health Bottom-Right", "[DiffColor][classification]")
+	target_health_bottom_right_tag:SetPoint("TOPLEFT", target_health_bottom_right_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- ========== TARGET TEXT BAR TAGS ==========
+	local targetTextHeader = ns.addSubCategory(parent, "Target Frame - Text Bar Tags")
+	targetTextHeader:SetPoint("TOPLEFT", target_health_bottom_right_tag, "BOTTOMLEFT", 0, -20)
+	
+	-- Target Text Bar - Bottom Left
+	local target_text_bar_bottom_left_enable = ns.CreateCheckBox(parent, "target_text_bar_bottom_left_enable", "Show bottom-left tag")
+	target_text_bar_bottom_left_enable:SetPoint("TOPLEFT", targetTextHeader, "BOTTOMLEFT", 0, -8)
+	
+	local target_text_bar_bottom_left_tag = ns.CreateTagBox(parent, "target_text_bar_bottom_left_tag", true, 
+		"Target TextBar Bottom-Left", "[drk:color][power:current:shortvalue] || [power:max:shortvalue]")
+	target_text_bar_bottom_left_tag:SetPoint("TOPLEFT", target_text_bar_bottom_left_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Target Text Bar - Bottom Center
+	local target_text_bar_bottom_center_enable = ns.CreateCheckBox(parent, "target_text_bar_bottom_center_enable", "Show bottom-center tag")
+	target_text_bar_bottom_center_enable:SetPoint("TOPLEFT", target_text_bar_bottom_left_tag, "BOTTOMLEFT", 0, -8)
+	
+	local target_text_bar_bottom_center_tag = ns.CreateTagBox(parent, "target_text_bar_bottom_center_tag", true, 
+		"Target TextBar Bottom-Center", "[drk:color][missingpp:short] || [missinghp:short]")
+	target_text_bar_bottom_center_tag:SetPoint("TOPLEFT", target_text_bar_bottom_center_enable, "BOTTOMLEFT", 0, -5)
+	
+	-- Target Text Bar - Bottom Right
+	local target_text_bar_bottom_right_enable = ns.CreateCheckBox(parent, "target_text_bar_bottom_right_enable", "Show bottom-right tag")
+	target_text_bar_bottom_right_enable:SetPoint("TOPLEFT", target_text_bar_bottom_center_tag, "BOTTOMLEFT", 0, -8)
+	
+	local target_text_bar_bottom_right_tag = ns.CreateTagBox(parent, "target_text_bar_bottom_right_tag", true, 
+		"Target TextBar Bottom-Right", "[drk:color][NameplateHealth]")
+	target_text_bar_bottom_right_tag:SetPoint("TOPLEFT", target_text_bar_bottom_right_enable, "BOTTOMLEFT", 0, -5)
+	
+	--page 4
+	local parent = ViksUIOptionsPanel.layout24
+	
+	-- ========== CUSTOM TAG SECTION ==========
+	local tagHeader = ns.addSubCategory(parent, "Custom Tag Management")
+	tagHeader:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, -10)
+	
+	-- Tag Creator (compact layout)
+	local tagCreator = ns.CreateCustomTagCreator(parent)
+	tagCreator:SetPoint("TOPLEFT", tagHeader, "BOTTOMLEFT", 0, -15)
+	
+	-- Tags Library (positioned below creator)
+	local tagsLibrary = ns.CreateTagsLibraryDisplay(parent)
+	tagsLibrary:SetPoint("TOPLEFT", tagCreator, "BOTTOMLEFT", 0, -20)
 end
 
 -- Unit Frames Class bar

@@ -406,6 +406,633 @@ ns.CreateEditBox = function(parent, option, needsReload, text, number)
 	return f
 end
 
+-- Tag EditBox with Popup Editor
+
+local function onTagBoxEnterPressed(self)
+	local value = tostring(self:GetText())
+	SaveValue(self, value)
+	self:ClearFocus()
+	old[self] = self.oldValue
+	checkIsReloadNeeded()
+end
+
+ns.CreateTagBox = function(parent, option, needsReload, text, defaultValue)
+	-- Create main container with label
+	local container = CreateFrame("Frame", parent:GetName()..option.."TagContainer", parent)
+	container:SetSize(550, 26)
+	
+	-- Label
+	local label = container:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	label:SetWidth(180)
+	label:SetHeight(20)
+	label:SetJustifyH("LEFT")
+	label:SetPoint("TOPLEFT", 0, 0)
+	
+	if text then
+		label:SetText(text)
+	else
+		label:SetText(ns[parent.tag.."_"..option])
+	end
+	
+	-- Display EditBox (read-only, shows value and button)
+	local displayBox = CreateFrame("EditBox", parent:GetName()..option.."TagDisplay", container, "InputBoxTemplate")
+	displayBox:SetAutoFocus(false)
+	displayBox:SetWidth(280)
+	displayBox:SetHeight(18)
+	displayBox:SetMaxLetters(0)
+	displayBox:SetFontObject(GameFontHighlightSmall)
+	displayBox:SetPoint("LEFT", label, "RIGHT", 10, 0)
+	displayBox:EnableMouse(true)
+	displayBox:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+	
+	-- Edit Button
+	local editBtn = CreateFrame("Button", nil, container, "UIPanelButtonTemplate")
+	editBtn:SetSize(60, 18)
+	editBtn:SetText("Edit")
+	editBtn:SetPoint("LEFT", displayBox, "RIGHT", 5, 0)
+	
+	-- Hidden actual editbox for storing value
+	local hiddenBox = CreateFrame("EditBox", nil, container)
+	hiddenBox.group = parent.tag
+	hiddenBox.option = option
+	hiddenBox.needsReload = needsReload
+	hiddenBox.value = ""
+	hiddenBox.valueNumber = false
+	hiddenBox:Hide()
+	parent[option] = hiddenBox
+	tinsert(editboxes, hiddenBox)
+	
+	-- ========== POPUP EDITOR WINDOW WITH VIKS STYLING ==========
+	local popupFrame = CreateFrame("Frame", parent:GetName()..option.."PopupEditor", UIParent, "BackdropTemplate")
+	popupFrame:SetSize(650, 380)
+	popupFrame:SetPoint("CENTER", UIParent, "CENTER")
+	popupFrame:SetFrameStrata("DIALOG")
+	popupFrame:SetFrameLevel(100)
+	popupFrame:Hide()
+	
+	-- Apply basic styling first (without T methods - they're not available yet)
+	popupFrame:SetBackdrop({
+		bgFile = "Interface\\Buttons\\WHITE8X8",
+		edgeFile = "Interface\\Buttons\\WHITE8X8",
+		tile = false,
+		tileSize = 32,
+		edgeSize = 1,
+		insets = { left = 0, right = 0, top = 0, bottom = 0 }
+	})
+	popupFrame:SetBackdropColor(0.05, 0.05, 0.05, 0.95)
+	popupFrame:SetBackdropBorderColor(0.3, 0.3, 0.3, 1)
+	
+	-- Store reference to apply T styling later
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, popupFrame)
+	
+	-- Popup Title
+	local popupTitle = popupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	popupTitle:SetPoint("TOPLEFT", popupFrame, "TOPLEFT", 15, -12)
+	popupTitle:SetText("Edit Tag: " .. (text or option))
+	
+	-- Close Button (styled later)
+	local closeBtn = CreateFrame("Button", nil, popupFrame)
+	closeBtn:SetSize(16, 16)
+	closeBtn:SetPoint("TOPRIGHT", popupFrame, "TOPRIGHT", -10, -10)
+	closeBtn:SetText("×")
+	closeBtn:SetNormalFontObject(GameFontNormalLarge)
+	
+	closeBtn:SetScript("OnClick", function()
+		popupFrame:Hide()
+	end)
+	
+	-- Tag Input Area
+	local tagInput = CreateFrame("EditBox", parent:GetName()..option.."PopupInput", popupFrame, "InputBoxTemplate")
+	tagInput:SetAutoFocus(true)
+	tagInput:SetWidth(600)
+	tagInput:SetHeight(180)
+	tagInput:SetMaxLetters(0)
+	tagInput:SetFontObject(GameFontHighlightSmall)
+	tagInput:SetMultiLine(true)
+	tagInput:EnableMouse(true)
+	tagInput:SetPoint("TOPLEFT", popupTitle, "BOTTOMLEFT", 0, -20)
+	
+	-- Helper text box
+	local helperFrame = CreateFrame("Frame", nil, popupFrame, "BackdropTemplate")
+	helperFrame:SetSize(600, 50)
+	helperFrame:SetPoint("TOPLEFT", tagInput, "BOTTOMLEFT", 0, -10)
+	helperFrame:SetBackdrop({
+		bgFile = "Interface\\Buttons\\WHITE8X8",
+		edgeFile = "Interface\\Buttons\\WHITE8X8",
+		tile = false,
+		tileSize = 32,
+		edgeSize = 1,
+		insets = { left = 0, right = 0, top = 0, bottom = 0 }
+	})
+	helperFrame:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
+	helperFrame:SetBackdropBorderColor(0.3, 0.3, 0.3, 0.8)
+	
+	local helperText = helperFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	helperText:SetWidth(580)
+	helperText:SetHeight(45)
+	helperText:SetJustifyH("LEFT")
+	helperText:SetJustifyV("TOP")
+	helperText:SetTextColor(0.7, 0.8, 1)
+	helperText:SetPoint("TOPLEFT", helperFrame, "TOPLEFT", 8, -5)
+	
+	if defaultValue and defaultValue ~= "" then
+		helperText:SetText("|cff70C0F5Default:|r " .. defaultValue)
+	else
+		helperText:SetText("|cff70C0F5Tip:|r Use oUF tag syntax like [name], [perhp], [drk:color], etc.\nMulti-line input supported. Press Escape to cancel.")
+	end
+	
+	-- OK Button
+	local okBtn = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
+	okBtn:SetSize(100, 22)
+	okBtn:SetText("OK")
+	okBtn:SetPoint("BOTTOMRIGHT", popupFrame, "BOTTOMRIGHT", -115, 12)
+	
+	okBtn:SetScript("OnClick", function()
+		local value = tagInput:GetText()
+		displayBox:SetText(value)
+		hiddenBox:SetText(value)
+		onTagBoxEnterPressed(hiddenBox)
+		popupFrame:Hide()
+	end)
+	
+	-- Cancel Button
+	local cancelBtn = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
+	cancelBtn:SetSize(100, 22)
+	cancelBtn:SetText("Cancel")
+	cancelBtn:SetPoint("LEFT", okBtn, "RIGHT", 8, 0)
+	
+	cancelBtn:SetScript("OnClick", function()
+		tagInput:SetText(displayBox:GetText())
+		popupFrame:Hide()
+	end)
+	
+	-- Reset Button - resets to default
+	if defaultValue and defaultValue ~= "" then
+		local resetBtn = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
+		resetBtn:SetSize(100, 22)
+		resetBtn:SetText("Reset Default")
+		resetBtn:SetPoint("BOTTOMLEFT", popupFrame, "BOTTOMLEFT", 12, 12)
+		
+		resetBtn:SetScript("OnClick", function()
+			tagInput:SetText(defaultValue)
+			tagInput:SetFocus()
+			tagInput:HighlightText()
+		end)
+		
+		-- Store for later skinning
+		ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+		table.insert(ns.tagPopupFramesToSkin, {resetBtn, true})
+	end
+	
+	-- Edit Button Click Handler
+	editBtn:SetScript("OnClick", function()
+		tagInput:SetText(displayBox:GetText())
+		tagInput:SetFocus()
+		tagInput:HighlightText()
+		popupFrame:Show()
+	end)
+	
+	-- Close on escape
+	popupFrame:SetScript("OnKeyDown", function(self, key)
+		if key == "Escape" then
+			self:Hide()
+		end
+	end)
+	
+	-- Store references for later skinning
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {displayBox, true})
+	table.insert(ns.tagPopupFramesToSkin, {editBtn, true})
+	table.insert(ns.tagPopupFramesToSkin, {closeBtn, true})
+	table.insert(ns.tagPopupFramesToSkin, {tagInput, true})
+	table.insert(ns.tagPopupFramesToSkin, {okBtn, true})
+	table.insert(ns.tagPopupFramesToSkin, {cancelBtn, true})
+	
+	-- Store references
+	container.displayBox = displayBox
+	container.editBtn = editBtn
+	container.hiddenBox = hiddenBox
+	container.popupFrame = popupFrame
+	container.tagInput = tagInput
+	container.tooltipText = ns[parent.tag.."_"..option.."_desc"] or text or ""
+	
+	-- Tooltip
+	container:SetScript("OnEnter", function()
+		GameTooltip:SetOwner(container, "ANCHOR_RIGHT", 5, 5)
+		GameTooltip:SetText(container.tooltipText, nil, nil, nil, nil, true)
+		if defaultValue and defaultValue ~= "" then
+			GameTooltip:AddLine("|cff70C0F5Default: " .. defaultValue .. "|r", 0.7, 0.8, 1)
+		end
+		GameTooltip:Show()
+	end)
+	
+	container:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	
+	container:EnableMouse(true)
+	
+	return container
+end
+
+-- Custom Tag Creator UI
+
+ns.CreateCustomTagCreator = function(parent)
+	local container = CreateFrame("Frame", parent:GetName().."CustomTagCreator", parent)
+	container:SetSize(550, 240)  -- Increased height for description
+	
+	-- Header
+	local header = container:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	header:SetWidth(550)
+	header:SetHeight(20)
+	header:SetJustifyH("LEFT")
+	header:SetPoint("TOPLEFT", 0, 0)
+	header:SetText("Create Custom Tag")
+	
+	-- ========== TAG NAME ==========
+	local nameLabel = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	nameLabel:SetWidth(100)
+	nameLabel:SetHeight(20)
+	nameLabel:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -15)
+	nameLabel:SetText("Tag Name:")
+	nameLabel:SetJustifyH("LEFT")
+	
+	local nameBox = CreateFrame("EditBox", parent:GetName().."CustomTagNameBox", container, "InputBoxTemplate")
+	nameBox:SetAutoFocus(false)
+	nameBox:SetWidth(200)
+	nameBox:SetHeight(18)
+	nameBox:SetMaxLetters(50)
+	nameBox:SetFontObject(GameFontHighlight)
+	nameBox:SetPoint("LEFT", nameLabel, "RIGHT", 10, 0)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {nameBox, false})
+	
+	-- ========== TAG FUNCTION ==========
+	local funcLabel = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	funcLabel:SetWidth(100)
+	funcLabel:SetHeight(20)
+	funcLabel:SetPoint("TOPLEFT", nameLabel, "BOTTOMLEFT", 0, -20)
+	funcLabel:SetText("Function:")
+	funcLabel:SetJustifyH("LEFT")
+	funcLabel:SetJustifyV("TOP")
+	
+	local funcEditBtn = CreateFrame("Button", nil, container, "UIPanelButtonTemplate")
+	funcEditBtn:SetSize(60, 18)
+	funcEditBtn:SetText("Edit")
+	funcEditBtn:SetPoint("LEFT", funcLabel, "RIGHT", 10, 0)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {funcEditBtn, true})
+	
+	-- Function display (read-only)
+	local funcDisplay = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	funcDisplay:SetWidth(420)
+	funcDisplay:SetHeight(30)
+	funcDisplay:SetJustifyH("LEFT")
+	funcDisplay:SetTextColor(0.7, 0.8, 1)
+	funcDisplay:SetPoint("TOPLEFT", funcLabel, "BOTTOMLEFT", 0, -5)
+	funcDisplay:SetText("|cff70C0F5(Click Edit to enter function)|r")
+	
+	-- Hidden function storage
+	local hiddenFunc = CreateFrame("EditBox", nil, container)
+	hiddenFunc:Hide()
+	
+	-- ========== EVENT STRING ==========
+	local eventLabel = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	eventLabel:SetWidth(100)
+	eventLabel:SetHeight(20)
+	eventLabel:SetPoint("TOPLEFT", funcDisplay, "BOTTOMLEFT", 0, -10)
+	eventLabel:SetText("Events:")
+	eventLabel:SetJustifyH("LEFT")
+	
+	local eventBox = CreateFrame("EditBox", parent:GetName().."CustomTagEventBox", container, "InputBoxTemplate")
+	eventBox:SetAutoFocus(false)
+	eventBox:SetWidth(350)
+	eventBox:SetHeight(18)
+	eventBox:SetMaxLetters(200)
+	eventBox:SetFontObject(GameFontHighlight)
+	eventBox:SetPoint("LEFT", eventLabel, "RIGHT", 10, 0)
+	eventBox:SetText("UNIT_HEALTH")
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {eventBox, false})
+	
+	-- ========== HELPER TEXT DESCRIPTION ==========
+	local helperText = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	helperText:SetWidth(530)
+	helperText:SetHeight(40)
+	helperText:SetJustifyH("LEFT")
+	helperText:SetTextColor(0.7, 0.8, 1)
+	helperText:SetPoint("TOPLEFT", eventBox, "BOTTOMLEFT", 0, -5)
+	helperText:SetText("|cff70C0F5Example:|r\n" ..
+		"|cffFFFFFFfunction(unit) return UnitHealthPercent(unit) .. '%' end|r\n" ..
+		"|cff70C0F5Events:|r UNIT_HEALTH UNIT_MAXHEALTH")
+	
+	-- ========== CREATE BUTTON (Right side) ==========
+	local createBtn = CreateFrame("Button", nil, container, "UIPanelButtonTemplate")
+	createBtn:SetSize(100, 22)
+	createBtn:SetText("Create Tag")
+	createBtn:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+	createBtn:SetPoint("TOP", eventBox, "BOTTOM", 0, -8)
+	
+	createBtn:SetScript("OnClick", function()
+		local tagName = nameBox:GetText()
+		local tagFunc = hiddenFunc:GetText()
+		local tagEvents = eventBox:GetText()
+		
+		if ns.RegisterCustomTag(tagName, tagFunc, tagEvents) then
+			nameBox:SetText("")
+			hiddenFunc:SetText("")
+			funcDisplay:SetText("|cff70C0F5(Click Edit to enter function)|r")
+			eventBox:SetText("UNIT_HEALTH")
+			
+			-- Refresh tag list if visible
+			if ns.RefreshTagsList then
+				ns.RefreshTagsList()
+			end
+		end
+	end)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {createBtn, true})
+	
+	-- ========== FUNCTION EDITOR POPUP ==========
+	local funcPopup = CreateFrame("Frame", parent:GetName().."FuncEditorPopup", UIParent, "BackdropTemplate")
+	funcPopup:SetSize(700, 450)
+	funcPopup:SetPoint("CENTER", UIParent, "CENTER")
+	funcPopup:SetFrameStrata("DIALOG")
+	funcPopup:SetFrameLevel(100)
+	funcPopup:Hide()
+	
+	funcPopup:SetBackdrop({
+		bgFile = "Interface\\Buttons\\WHITE8X8",
+		edgeFile = "Interface\\Buttons\\WHITE8X8",
+		tile = false,
+		tileSize = 32,
+		edgeSize = 1,
+		insets = { left = 0, right = 0, top = 0, bottom = 0 }
+	})
+	funcPopup:SetBackdropColor(0.05, 0.05, 0.05, 0.95)
+	funcPopup:SetBackdropBorderColor(0.3, 0.3, 0.3, 1)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, funcPopup)
+	
+	-- Popup title
+	local popupTitle = funcPopup:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	popupTitle:SetPoint("TOPLEFT", funcPopup, "TOPLEFT", 15, -12)
+	popupTitle:SetText("Edit Tag Function")
+	
+	-- Close button
+	local closeBtn = CreateFrame("Button", nil, funcPopup)
+	closeBtn:SetSize(16, 16)
+	closeBtn:SetPoint("TOPRIGHT", funcPopup, "TOPRIGHT", -10, -10)
+	closeBtn:SetText("×")
+	closeBtn:SetNormalFontObject(GameFontNormalLarge)
+	
+	closeBtn:SetScript("OnClick", function()
+		funcPopup:Hide()
+	end)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {closeBtn, true})
+	
+	-- Function input
+	local funcInput = CreateFrame("EditBox", parent:GetName().."FuncInput", funcPopup, "InputBoxTemplate")
+	funcInput:SetAutoFocus(true)
+	funcInput:SetWidth(650)
+	funcInput:SetHeight(250)
+	funcInput:SetMaxLetters(0)
+	funcInput:SetFontObject(GameFontHighlightSmall)
+	funcInput:SetMultiLine(true)
+	funcInput:EnableMouse(true)
+	funcInput:SetPoint("TOPLEFT", popupTitle, "BOTTOMLEFT", 0, -20)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {funcInput, false})
+	
+	-- Helper text in popup
+	local popupHelper = funcPopup:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	popupHelper:SetWidth(650)
+	popupHelper:SetHeight(50)
+	popupHelper:SetJustifyH("LEFT")
+	popupHelper:SetTextColor(0.7, 0.8, 1)
+	popupHelper:SetPoint("TOPLEFT", funcInput, "BOTTOMLEFT", 0, -5)
+	popupHelper:SetText("|cff70C0F5Tip:|r Your function receives 'unit' and 'realUnit' as parameters.\n" ..
+		"Use available tag functions from oUF like: UnitHealth(), UnitHealthPercent(), UnitName(), etc.")
+	
+	-- OK button
+	local popupOk = CreateFrame("Button", nil, funcPopup, "UIPanelButtonTemplate")
+	popupOk:SetSize(100, 22)
+	popupOk:SetText("OK")
+	popupOk:SetPoint("BOTTOMRIGHT", funcPopup, "BOTTOMRIGHT", -105, 12)
+	
+	popupOk:SetScript("OnClick", function()
+		local funcText = funcInput:GetText()
+		if funcText and funcText ~= "" then
+			hiddenFunc:SetText(funcText)
+			-- Show preview (first 60 chars)
+			if string.len(funcText) > 60 then
+				funcDisplay:SetText(funcText:sub(1, 57) .. "...")
+			else
+				funcDisplay:SetText(funcText)
+			end
+		end
+		funcPopup:Hide()
+	end)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {popupOk, true})
+	
+	-- Cancel button
+	local popupCancel = CreateFrame("Button", nil, funcPopup, "UIPanelButtonTemplate")
+	popupCancel:SetSize(100, 22)
+	popupCancel:SetText("Cancel")
+	popupCancel:SetPoint("LEFT", popupOk, "RIGHT", 8, 0)
+	
+	popupCancel:SetScript("OnClick", function()
+		funcInput:SetText(hiddenFunc:GetText())
+		funcPopup:Hide()
+	end)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {popupCancel, true})
+	
+	-- Edit button click handler
+	funcEditBtn:SetScript("OnClick", function()
+		funcInput:SetText(hiddenFunc:GetText())
+		funcInput:SetFocus()
+		funcInput:HighlightText()
+		funcPopup:Show()
+	end)
+	
+	funcPopup:SetScript("OnKeyDown", function(self, key)
+		if key == "Escape" then
+			self:Hide()
+		end
+	end)
+	
+	container.nameBox = nameBox
+	container.funcInput = hiddenFunc
+	container.eventBox = eventBox
+	container.createBtn = createBtn
+	container.funcPopup = funcPopup
+	
+	return container
+end
+
+ns.CreateTagsLibraryDisplay = function(parent)
+	local container = CreateFrame("Frame", parent:GetName().."TagsLibrary", parent)
+	container:SetSize(550, 280)  -- Adjusted to fit in panel
+	
+	-- Header
+	local header = container:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	header:SetWidth(550)
+	header:SetHeight(20)
+	header:SetJustifyH("LEFT")
+	header:SetPoint("TOPLEFT", 0, 0)
+	header:SetText("Available Tags - Search & Manage")
+	
+	-- ========== SEARCH BOX ==========
+	-- local searchLabel = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	-- searchLabel:SetWidth(50)
+	-- searchLabel:SetHeight(20)
+	-- searchLabel:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -12)
+	-- searchLabel:SetText("Search:")
+	
+	local searchBox = CreateFrame("EditBox", parent:GetName().."TagSearchBox", container, "InputBoxTemplate")
+	searchBox:SetAutoFocus(false)
+	searchBox:SetWidth(480)
+	searchBox:SetHeight(18)
+	searchBox:SetMaxLetters(100)
+	searchBox:SetFontObject(GameFontHighlight)
+	-- searchBox:SetPoint("LEFT", searchLabel, "RIGHT", 10, 0)
+	searchBox:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 10, 0)
+	
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {searchBox, false})
+	
+	-- ========== SCROLL FRAME FOR TAGS ==========
+	-- Use UIPanelScrollFrameTemplate for proper scrolling
+	local scrollFrame = CreateFrame("ScrollFrame", parent:GetName().."TagsScrollFrame", container, "UIPanelScrollFrameTemplate")
+	scrollFrame:SetSize(480, 225)
+	scrollFrame:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", -5, -10)
+	
+	-- Scroll child
+	local scrollChild = CreateFrame("Frame", nil, scrollFrame)
+	scrollChild:SetSize(520, 1)
+	scrollFrame:SetScrollChild(scrollChild)
+	
+	-- ========== POPULATE TAGS LIST ==========
+	local function UpdateTagsList(filter)
+		-- Initialize tagEntries if it doesn't exist
+		if not scrollChild.tagEntries then
+			scrollChild.tagEntries = {}
+		end
+		
+		-- Clear existing
+		for i = #scrollChild.tagEntries, 1, -1 do
+			if scrollChild.tagEntries[i] then
+				scrollChild.tagEntries[i]:Hide()
+				scrollChild.tagEntries[i]:SetParent(nil)
+			end
+		end
+		scrollChild.tagEntries = {}
+		
+		local allTags = ns.GetAllAvailableTags()
+		local yOffset = 0
+		
+		for _, tagInfo in ipairs(allTags) do
+			if filter == "" or tagInfo.name:lower():find(filter:lower(), 1, true) or 
+			   tagInfo.desc:lower():find(filter:lower(), 1, true) then
+				local tagEntry = CreateFrame("Frame", nil, scrollChild)
+				tagEntry:SetSize(510, 28)
+				tagEntry:SetPoint("TOPLEFT", 0, -yOffset)
+				
+				-- Tag name
+				local tagText = tagEntry:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+				tagText:SetWidth(120)
+				tagText:SetHeight(28)
+				tagText:SetJustifyH("LEFT")
+				tagText:SetPoint("TOPLEFT", 5, 0)
+				
+				local isCustom = tagInfo.source == "Custom"
+				local tagDisplay = isCustom and ("|cff70C0F5[CUSTOM]|r " .. tagInfo.name) or tagInfo.name
+				tagText:SetText(tagDisplay)
+				
+				-- Tag description
+				local descText = tagEntry:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+				descText:SetWidth(280)
+				descText:SetHeight(28)
+				descText:SetJustifyH("LEFT")
+				descText:SetTextColor(0.8, 0.8, 0.8)
+				descText:SetPoint("LEFT", tagText, "RIGHT", 5, 0)
+				descText:SetText(tagInfo.desc)
+				
+				-- Source label
+				local sourceText = tagEntry:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+				sourceText:SetWidth(60)
+				sourceText:SetHeight(28)
+				sourceText:SetJustifyH("CENTER")
+				sourceText:SetTextColor(0.6, 0.6, 0.8)
+				sourceText:SetPoint("RIGHT", tagEntry, "RIGHT", -40, 0)
+				sourceText:SetText(tagInfo.source)
+				
+				-- Delete button for custom tags
+				if isCustom then
+					local deleteBtn = CreateFrame("Button", nil, tagEntry)
+					deleteBtn:SetSize(16, 16)
+					deleteBtn:SetPoint("TOPRIGHT", tagEntry, "TOPRIGHT", -5, -6)
+					deleteBtn:SetText("×")
+					deleteBtn:SetNormalFontObject(GameFontHighlight)
+					deleteBtn:SetTextColor(1, 0.3, 0.3)
+					
+					deleteBtn:SetScript("OnClick", function()
+						ns.DeleteCustomTag(tagInfo.name)
+						UpdateTagsList(searchBox:GetText())
+					end)
+					
+					-- Hover effect
+					deleteBtn:SetScript("OnEnter", function()
+						deleteBtn:SetTextColor(1, 0.5, 0.5)
+					end)
+					deleteBtn:SetScript("OnLeave", function()
+						deleteBtn:SetTextColor(1, 0.3, 0.3)
+					end)
+				end
+				
+				table.insert(scrollChild.tagEntries, tagEntry)
+				yOffset = yOffset + 30
+			end
+		end
+		
+		scrollChild:SetHeight(math.max(yOffset, 225))
+		scrollFrame:SetVerticalScroll(0)
+	end
+	
+	searchBox:SetScript("OnTextChanged", function()
+		UpdateTagsList(searchBox:GetText())
+	end)
+	
+	-- Initial population
+	UpdateTagsList("")
+	
+	container.UpdateTagsList = UpdateTagsList
+	ns.RefreshTagsList = function()
+		if container and container.UpdateTagsList then
+			container.UpdateTagsList(searchBox:GetText())
+		end
+	end
+	
+	-- Store scrollframe for later skinning
+	ns.tagPopupFramesToSkin = ns.tagPopupFramesToSkin or {}
+	table.insert(ns.tagPopupFramesToSkin, {scrollFrame, false})
+	
+	return container
+end
+
 -- Colour pickers
 
 -- we update this in onColourSwatchClicked, need it for setColour / resetColour
@@ -891,9 +1518,19 @@ local function displaySettings()
 	userChangedSlider = true
 
 	for _, editbox in pairs(editboxes) do
-		editbox:SetText(C[editbox.group][editbox.option])
-		editbox:SetCursorPosition(0)
-		editbox.oldValue = C[editbox.group][editbox.option]
+		-- Handle both regular editboxes and tag boxes
+		local value = C[editbox.group][editbox.option]
+		if value then
+			editbox:SetText(value)
+			editbox:SetCursorPosition(0)
+			editbox.oldValue = value
+			
+			-- If this is a tag box (has a parent container with displayBox), update the display
+			local parent = editbox:GetParent()
+			if parent and parent.displayBox then
+				parent.displayBox:SetText(value)
+			end
+		end
 	end
 
 	for _, dropdown in pairs(dropdowns) do
@@ -953,6 +1590,11 @@ init:SetScript("OnEvent", function()
 
 	T.SkinCheckBox(ViksUIOptionsPanel.ProfileBox)
 
+	-- Load custom tags
+	if ns.LoadCustomTags then
+		ns.LoadCustomTags()
+	end
+	
 	for _, panel in pairs(panels) do
 		panel:CreateBackdrop("Overlay")
 		panel.backdrop:SetPoint("TOPLEFT", -10, 2)
@@ -984,11 +1626,66 @@ init:SetScript("OnEvent", function()
 	end
 
 	for _, editbox in pairs(editboxes) do
-		T.SkinEditBox(editbox)
+		-- Handle both regular editboxes and tag boxes
+		if editbox:GetParent() and editbox:GetParent().displayBox then
+			-- This is a tag box - skin it specially
+			local container = editbox:GetParent()
+			T.SkinEditBox(container.displayBox)
+			container.editBtn:SkinButton()
+		else
+			-- Regular editbox
+			T.SkinEditBox(editbox)
+		end
 	end
 
 	for _, dropdown in pairs(dropdowns) do
 		T.SkinDropDownBox(dropdown)
+	end
+
+	-- ========== SKIN CUSTOM TAG CREATOR AND LIBRARY FRAMES ==========
+	if ns.tagPopupFramesToSkin then
+		for _, item in ipairs(ns.tagPopupFramesToSkin) do
+			if item and type(item) == "table" then
+				-- Check if this is a {frame, isControl} pair
+				if item[2] ~= nil then
+					-- This is a {frame, isControl} pair
+					local frame = item[1]
+					if frame then
+						pcall(function()
+							local frameType = frame:GetObjectType()
+							if item[2] == true and frameType == "Button" then
+								frame:SkinButton()
+							elseif item[2] == false and frameType == "EditBox" then
+								T.SkinEditBox(frame)
+							end
+							if frameType == "ScrollFrame" then
+								if frame.ScrollBar then
+									T.SkinScrollBar(frame.ScrollBar)
+								end
+							elseif frameType == "Frame" and frame.SetTemplate then
+								frame:CreateBackdrop("Overlay")
+								frame.backdrop:SetOutside(frame)
+							end
+						end)
+					end
+				else
+					-- item itself is a bare frame (popup or scrollframe)
+					pcall(function()
+						local frameType = item:GetObjectType()
+						if frameType == "ScrollFrame" then
+							-- Skin the scrollbar
+							if item.ScrollBar then
+								item.ScrollBar:SkinScrollBar()
+							end
+						elseif frameType == "Frame" and item.SetTemplate then
+							-- This is a popup frame
+							item:CreateBackdrop("Overlay")
+							item.backdrop:SetOutside(item)
+						end
+					end)
+				end
+			end
+		end
 	end
 
 	local title = ViksUIOptionsPanel:CreateFontString("UIConfigTitleVer", "OVERLAY", "GameFontNormal")
@@ -999,20 +1696,20 @@ init:SetScript("OnEvent", function()
 
 	displaySettings()
 	
-ViksUIOptionsPanel:EnableMouse(true)
-ViksUIOptionsPanel:SetMovable(true)
+	ViksUIOptionsPanel:EnableMouse(true)
+	ViksUIOptionsPanel:SetMovable(true)
 
-ViksUIOptionsPanel:SetScript("OnMouseDown", function(self, button)
-  if button == "LeftButton" and not self.isMoving then
-   self:StartMoving();
-   self.isMoving = true;
-  end
-end)
+	ViksUIOptionsPanel:SetScript("OnMouseDown", function(self, button)
+	  if button == "LeftButton" and not self.isMoving then
+	   self:StartMoving()
+	   self.isMoving = true
+	  end
+	end)
 
-ViksUIOptionsPanel:SetScript("OnMouseUp", function(self, button)
-  if button == "LeftButton" and self.isMoving then
-   self:StopMovingOrSizing();
-   self.isMoving = false;
-  end
-end)
+	ViksUIOptionsPanel:SetScript("OnMouseUp", function(self, button)
+	  if button == "LeftButton" and self.isMoving then
+	   self:StopMovingOrSizing()
+	   self.isMoving = false
+	  end
+	end)
 end)

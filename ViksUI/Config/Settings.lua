@@ -925,29 +925,41 @@ C["layout2"] = {
 	-- ["power_backdrop_color"] = { 0, .38, .651, 1},
 	["textbar_texture_color"] = {0.125, 0.125, 0.125, 1},
 	
-	-- Layout2 Tags - Player Frame
-	["player_health_top_left_enable"] = true,					-- Show player health top-left tag
-	["player_health_top_left_tag"] = "[GetNameColor][NameLong]", -- Player health top-left tag format
-	["player_health_top_right_enable"] = true,					-- Show player health top-right tag
-	["player_health_top_right_tag"] = "[missinghp]",			-- Player health top-right tag format
-	["player_text_bar_bottom_left_enable"] = true,				-- Show player text bar bottom-left tag
-	["player_text_bar_bottom_left_tag"] = "[drk:color][power:current:shortvalue] || [power:max:shortvalue]", -- Player text bar bottom-left
-	["player_text_bar_bottom_right_enable"] = true,				-- Show player text bar bottom-right tag
-	["player_text_bar_bottom_right_tag"] = "[drk:color][NameplateHealth]", -- Player text bar bottom-right
-	
-	-- Layout2 Tags - Target Frame
-	["target_health_top_left_enable"] = true,					-- Show target health top-left tag
-	["target_health_top_left_tag"] = "[drk:level][GetNameColor] [NameLongAbbrev]", -- Target health top-left tag format
-	["target_health_top_right_enable"] = true,					-- Show target health top-right tag
-	["target_health_top_right_tag"] = "[missinghp]",			-- Target health top-right tag format
-	["target_health_bottom_right_enable"] = true,				-- Show target health bottom-right tag
-	["target_health_bottom_right_tag"] = "[DiffColor][classification]", -- Target health bottom-right tag
-	["target_text_bar_bottom_left_enable"] = true,				-- Show target text bar bottom-left tag
-	["target_text_bar_bottom_left_tag"] = "[drk:color][power:current:shortvalue] || [power:max:shortvalue]", -- Target text bar bottom-left
-	["target_text_bar_bottom_center_enable"] = true,				-- Show target text bar bottom-center tag
-	["target_text_bar_bottom_center_tag"] = "[drk:color][missingpp:short] || [missinghp:short]", -- Target text bar bottom-center
-	["target_text_bar_bottom_right_enable"] = true,				-- Show target text bar bottom-right tag
-	["target_text_bar_bottom_right_tag"] = "[drk:color][NameplateHealth]", -- Target text bar bottom-right
+	-- ========== LAYOUT2 TAGS - PLAYER HEALTH BAR ==========
+	["player_health_top_left_enable"] = true,
+	["player_health_top_left_tag"] = "[GetNameColor][NameLong]",
+	["player_health_top_center_enable"] = false,
+	["player_health_top_center_tag"] = "",
+	["player_health_top_right_enable"] = true,
+	["player_health_top_right_tag"] = "[missinghp]",
+	["player_health_bottom_right_enable"] = false,
+	["player_health_bottom_right_tag"] = "",
+
+	-- ========== LAYOUT2 TAGS - PLAYER TEXT BAR ==========
+	["player_text_bar_bottom_left_enable"] = true,
+	["player_text_bar_bottom_left_tag"] = "[drk:color][power:current:shortvalue] || [power:max:shortvalue]",
+	["player_text_bar_bottom_center_enable"] = false,
+	["player_text_bar_bottom_center_tag"] = "",
+	["player_text_bar_bottom_right_enable"] = true,
+	["player_text_bar_bottom_right_tag"] = "[drk:color][NameplateHealth]",
+
+	-- ========== LAYOUT2 TAGS - TARGET HEALTH BAR ==========
+	["target_health_top_left_enable"] = true,
+	["target_health_top_left_tag"] = "[drk:level][GetNameColor] [NameLongAbbrev]",
+	["target_health_top_center_enable"] = false,
+	["target_health_top_center_tag"] = "",
+	["target_health_top_right_enable"] = true,
+	["target_health_top_right_tag"] = "[missinghp]",
+	["target_health_bottom_right_enable"] = true,
+	["target_health_bottom_right_tag"] = "[DiffColor][classification]",
+
+	-- ========== LAYOUT2 TAGS - TARGET TEXT BAR ==========
+	["target_text_bar_bottom_left_enable"] = true,
+	["target_text_bar_bottom_left_tag"] = "[drk:color][power:current:shortvalue] || [power:max:shortvalue]",
+	["target_text_bar_bottom_center_enable"] = true,
+	["target_text_bar_bottom_center_tag"] = "[drk:color][missingpp:short] || [missinghp:short]",
+	["target_text_bar_bottom_right_enable"] = true,
+	["target_text_bar_bottom_right_tag"] = "[drk:color][NameplateHealth]",
 	
 	-- Layout2 Fonts
 	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names

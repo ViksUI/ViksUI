@@ -67,8 +67,8 @@ local Layout2Tags = {
 				justify = "LEFT",
 			},
 			top_center = {
-				enable = false,
-				tag = "",
+				enable = C.layout2.player_health_top_center_enable,
+				tag = C.layout2.player_health_top_center_tag,
 				font_type = "name_font",
 				font = nil,
 				size = nil,
@@ -89,8 +89,8 @@ local Layout2Tags = {
 				justify = "RIGHT",
 			},
 			bottom_right = {
-				enable = false,
-				tag = "",  -- Set your desired tag here
+				enable = C.layout2.player_health_bottom_right_enable,
+				tag = C.layout2.player_health_bottom_right_tag,
 				font_type = "number_font",
 				font = nil,
 				size = nil,
@@ -114,8 +114,8 @@ local Layout2Tags = {
 				justify = "LEFT",
 			},
 			bottom_center = {
-				enable = false,
-				tag = "[drk:color]| - [missinghp:shortvalue]",
+				enable = C.layout2.player_text_bar_bottom_center_enable,
+				tag = C.layout2.player_text_bar_bottom_center_tag,
 				font_type = "name_font",
 				font = nil,
 				size = nil,
@@ -153,8 +153,8 @@ local Layout2Tags = {
 				justify = "LEFT",
 			},
 			top_center = {
-				enable = false,
-				tag = "[DiffColor][classification]",
+				enable = C.layout2.target_health_top_center_enable,
+				tag = C.layout2.target_health_top_center_tag,
 				font_type = "name_font",
 				font = nil,
 				size = nil,
@@ -752,7 +752,7 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 			
 			-- Apply custom health bar tags from Layout2Tags
 			ApplyHealthBarTags(self, unitType)
-			
+
 			-- ========== PLAYER FRAME INDICATORS (Layout2 adjustments) ==========
 			if unitType == "player" then
 				-- FlashInfo frame for mana level display
@@ -903,6 +903,28 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				self.Debuffs.spacing = C.layout2.debuff_spacing
 			end
 			
+			-- ========== TARGET AURAS REPOSITIONING ==========
+			if unitType == "target" and self.Auras then
+				if C.aura.target_auras then
+					-- Hook the PostUpdate callback which runs after the aura element updates
+					local originalPostUpdate = self.Auras.PostUpdate
+					self.Auras.PostUpdate = function(auras, unit)
+						if originalPostUpdate then
+							originalPostUpdate(auras, unit)
+						end
+						
+						-- Force reposition after every update
+						C_Timer.After(0, function()
+							if auras and auras:GetParent() then
+								auras:ClearAllPoints()
+								auras:SetPoint("BOTTOMLEFT", auras:GetParent(), "TOPLEFT", -1, 5)
+								auras:SetWidth(C.layout2.player_width - 6)
+							end
+						end)
+					end
+				end
+			end
+
 			-- ========== EXPERIENCE & REPUTATION BARS REPOSITIONING ==========
 			if self.Experience then
 				self.Experience:ClearAllPoints()
@@ -1057,6 +1079,20 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 					end
 				end
 			end
+			
+			-- Player frame anchors to its portrait (top right to portrait top left)
+			-- if player and player.Portrait then
+				-- player:ClearAllPoints()
+				-- player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, 0)
+				-- player:SetSize(C.layout2.player_width, C.layout2.player_height)
+			-- end
+			
+			-- Target frame anchors to its portrait (top left to portrait top right)
+			-- if target and target.Portrait then
+				-- target:ClearAllPoints()
+				-- target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, 0)
+				-- target:SetSize(C.layout2.target_width, C.layout2.target_height)
+			-- end
 			
 			-- ========== PET & TARGET'S TARGET POSITIONING ==========
 			-- Position pet frame and target's target based on centerbar setting

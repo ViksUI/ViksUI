@@ -34,4 +34,5 @@ Locales\Spanish.lua
 Locales\Taiwan.lua
 
 Core.lua
+TagsLibrary.lua
 Options.lua

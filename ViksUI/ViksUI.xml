@@ -65,6 +65,7 @@
 	<Script file="Modules\UnitFrames\RaidDPS.lua"/>
 	<Script file="Modules\UnitFrames\RaidHeal.lua"/>
 	<Script file="Modules\UnitFrames\Nameplates.lua"/>
+	<Script file="Modules\UnitFrames\TagValidator.lua"/>
 	<Script file="Main\Style.lua"/>
 	<Script file="Modules\Misc\CharsCurrency.lua"/>
 	<Script file="Modules\Misc\ClickCast.lua"/>
@@ -123,7 +124,7 @@
 	<Script file="Modules\Auras\AuraSource.lua"/>
 	<Script file="Modules\Auras\BuffFrame.lua"/>
 	<!-- <Script file="Modules\Auras\ClassTimer.lua"/> -->
-	<!-- <Script file="Modules\Auras\Filger.lua"/> -->
+	<Script file="Modules\Auras\Filger.lua"/>
 	<Script file="Modules\Auras\SelfBuffsReminder.lua"/>
 	<Script file="Modules\Auras\RaidBuffsReminder.lua"/>
 	
