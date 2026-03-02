@@ -5,87 +5,88 @@ local T, C, L = unpack(ViksUI)
 
 InfoStats = {}
 --DH Havoc
-
-InfoStats["DEMONHUNTER-577"] = "Critical Strike = Mastery > Haste > Versatility > Agility"
+InfoStats["DEMONHUNTER-577"] = "Agility > Critical Strike > Haste > Versatility > Mastery"
 --DH Vengeance
-InfoStats["DEMONHUNTER-581"] = "Agility > Haste > Critical Strike = Mastery > Versatility"
+InfoStats["DEMONHUNTER-581"] = "Agility > Haste > Versatility = Critical Strike > Mastery"
+--DH Devourer
+InfoStats["DEMONHUNTER-1480"] = "Intellect > Mastery > Haste > Critical Strike > Versatility"
 
 --DEATHKNIGHT Blood
-InfoStats["DEATHKNIGHT-250"] = "Deathbringer: Item Level > Haste (5%) > Critical Strike = Versatility = Mastery \n San'layn: Item Level > Haste > Critical Strike = Versatility = Mastery"
+InfoStats["DEATHKNIGHT-250"] = "Item Level > Critical Strike = Versatility = Mastery > Haste"
 --DEATHKNIGHT Frost
-InfoStats["DEATHKNIGHT-251"] = "Critical Strike >> Mastery > Haste > Versatility"
+InfoStats["DEATHKNIGHT-251"] = "Strength > Critical Strike > Mastery > Haste > Versatility"
 --DEATHKNIGHT Unholy
-InfoStats["DEATHKNIGHT-252"] = "Haste ≥ Mastery >> Versatility ≥ Critical Strike"
+InfoStats["DEATHKNIGHT-252"] = "Strength > Mastery > Critical Strike > Haste > Versatility"
 
 --DRUID Balance
 InfoStats["DRUID-102"] = "Intellect > Mastery > Haste > Versatility > Critical Strike"
 --DRUID Feral
-InfoStats["DRUID-103"] = "Mastery = Critical Strike > Versatility > Haste > Agility"
+InfoStats["DRUID-103"] = "Agility > Mastery > Critical Strike > Haste > Versatility"
 --DRUID Guardian
-InfoStats["DRUID-104"] = "Survivability: Agility > Haste > Versatility > Mastery > Critical Strike \n DPS: Agility > Versatility = Haste > Critical Strike = Mastery"
+InfoStats["DRUID-104"] = "Agility > Haste > Versatility > Mastery > Critical Strike"
 --DRUID Restoration
-InfoStats["DRUID-105"] = "Raid: Intellect > Haste > Mastery > Versatility > Critical Strike \n Dungeon Healing: Intellect > Mastery = Haste > Versatility > Critical Strike \n Dungeon Damage Dealing: Intellect > Haste > Versatility > Critical Strike > Mastery"
+InfoStats["DRUID-105"] = "Intellect > Haste = Mastery > Versatility > Critical Strike"
 
 --EVOKER Devastation
-InfoStats["EVOKER-1467"] = "Intellect > Haste > Critial Strike > Mastery > Versatility"
+InfoStats["EVOKER-1467"] = "Intellect > Haste > Critical Strike > Mastery > Versatility"
 --EVOKER Preservation
-InfoStats["EVOKER-1468"] = "Myth+: Intellect > Critical Strike > Haste > Versatility > Mastery \n Raid: Intellect > Mastery > Critical Strike > Haste > Versatility"
+InfoStats["EVOKER-1468"] = "Intellect > Mastery > Critical Strike > Haste > Versatility"
 --EVOKER Augmentation
-InfoStats["EVOKER-1473"] = "Intellect > Critical Strike > Haste > Mastery > Versatility"
+InfoStats["EVOKER-1473"] = "Intellect > Mastery > Critical Strike > Haste > Versatility"
 
 --HUNTER BM
-InfoStats["HUNTER-253"] = "Agility > Haste > Critical Strike > Mastery > Versatility"
+InfoStats["HUNTER-253"] = "Agility > Critical Strike > Haste > Versatility > Mastery"
 --HUNTER MM
-InfoStats["HUNTER-254"] = "Agility > Critical Strike > Mastery > Versatility > Haste"
+InfoStats["HUNTER-254"] = "Agility > Critical Strike to 54% > Mastery > Versatility > Haste"
 --HUNTER SV
-InfoStats["HUNTER-255"] = "Agility > Mastery > Haste > Critical Strike > Versatility"
+InfoStats["HUNTER-255"] = "Agility > Mastery > Critical Strike > Haste > Versatility"
 
 --MAGE Arcane
-InfoStats["MAGE-62"] = "Intellect > Haste > Versatility > Mastery > Critical Strike"
+InfoStats["MAGE-62"] = "Intellect > Mastery > Critical Strike > Versatility > Haste"
 --MAGE Fire
-InfoStats["MAGE-63"] = "Intellect > Haste > Mastery > Versatility > Critical Strike"
+InfoStats["MAGE-63"] = "Intellect > Haste > Mastery > Critical Strike > Versatility"
 --MAGE Frost
-InfoStats["MAGE-64"] = "Intellect > Haste > Critical Strike to 33.34% > Mastery > Versatility"
+InfoStats["MAGE-64"] = "Intellect > Mastery > Critical Strike > Versatility > Haste"
 
 --MONK Brewmaster
-InfoStats["MONK-268"] = "Agility = Armor > Versatility = Mastery = Critical Strike > Haste"
+InfoStats["MONK-268"] = "Agility = Armor > Versatility = Critical Strike = Mastery > Haste"
 --MONK Windwalker
-InfoStats["MONK-269"] = "Agility > Mastery = Haste > Versatility = Critical Strike"
+InfoStats["MONK-269"] = "Agility > Critical Strike > Haste > Mastery > Versatility"
 --MONK Mistweaver
-InfoStats["MONK-270"] = "Intellect > Haste > Critical Strike > Versatility > Mastery"
+InfoStats["MONK-270"] = "Intellect > Haste > Critical Strike > Versatility = Mastery"
 
 --PALA Holy
-InfoStats["PALADIN-65"] = "Raid: Intellect > Haste > Mastery > Versatility \n Myth+: Intellect > Haste > Versatility > Critical Strike > Mastery"
+InfoStats["PALADIN-65"] = "Intellect > Haste > Mastery > Critical Strike > Versatility"
 --PALA Protection
-InfoStats["PALADIN-66"] = "Strength > Haste ≥ Mastery ≥ Versatility > Critical Strike"
+InfoStats["PALADIN-66"] = "Strength > Haste > Mastery > Versatility = Critical Strike"
 --PALA Retribution
-InfoStats["PALADIN-70"] = "Strength > Mastery = Critical Strike > Haste > Versatility"
+InfoStats["PALADIN-70"] = "Strength > Mastery = Haste > Critical Strike > Versatility"
 
---PRIESTDiscipline
-InfoStats["PRIEST-256"] = "Intellect > Haste to 20%-25% > Critical Strike = Mastery > Versatility"
---PRIESTHoly
-InfoStats["PRIEST-257"] = "Myth+: Intellect > Critical Strike = Haste > Versatility > Mastery \n Raid: Intellect > Critical Strike = Mastery > Versatility >= Haste"
---PRIESTShadow
-InfoStats["PRIEST-258"] = "Intellect > Haste > Mastery > Critical Strike > Versatility"
+--PRIEST Discipline
+InfoStats["PRIEST-256"] = "Intellect > Haste > Mastery > Critical Strike > Versatility"
+--PRIEST Holy
+InfoStats["PRIEST-257"] = "Intellect > Critical Strike > Versatility = Mastery > Haste"
+--PRIEST Shadow
+InfoStats["PRIEST-258"] = "Intellect > Mastery > Haste > Critical Strike > Versatility"
 
 --ROGUE Assassination
 InfoStats["ROGUE-259"] = "Agility > Critical Strike > Mastery > Haste > Versatility"
 --ROGUE Outlaw
 InfoStats["ROGUE-260"] = "Agility > Versatility > Haste > Critical Strike > Mastery"
 --ROGUE Subtlety
-InfoStats["ROGUE-261"] = "Agility > Mastery > Versatility > Critical Strike > Haste"
+InfoStats["ROGUE-261"] = "Agility > Haste > Critical Strike > Mastery > Versatility"
 
 --SHAMAN Elemental
-InfoStats["SHAMAN-262"] = "Intellect > Mastery > Haste > Versatility > Critical Strike"
+InfoStats["SHAMAN-262"] = "Intellect > Mastery > Haste = Versatility > Critical Strike"
 --SHAMAN Enhancement
-InfoStats["SHAMAN-263"] = "Mastery > Haste > Critical Strike > Versatility > Agility"
+InfoStats["SHAMAN-263"] = "Agility > Mastery > Haste > Critical Strike > Versatility"
 --SHAMAN Restoration
-InfoStats["SHAMAN-264"] = "Intellect > Haste > Critical Strike > Versatility > Mastery"
+InfoStats["SHAMAN-264"] = "Intellect > Haste = Critical Strike > Versatility > Mastery"
 
 --WARLOCK Affliction
-InfoStats["WARLOCK-265"] = "Intellect > Mastery = Critical Strike > Haste > Versatility"
+InfoStats["WARLOCK-265"] = "Intellect > Mastery = Haste > Critical Strike > Versatility"
 --WARLOCK Demonology
-InfoStats["WARLOCK-266"] = "Intellect > Haste = Critical Strike = Versatility > Mastery"
+InfoStats["WARLOCK-266"] = "Intellect > Haste = Critical Strike > Mastery > Versatility"
 --WARLOCK Destruction
 InfoStats["WARLOCK-267"] = "Haste = Critical Strike > Intellect > Mastery > Versatility"
 
