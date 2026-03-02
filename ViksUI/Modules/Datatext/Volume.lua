@@ -10,6 +10,11 @@ local getCV = C_CVar.GetCVar
 local IsShiftKeyDown = IsShiftKeyDown
 
 if C.datatext.Volume and C.datatext.Volume > 0 then
+	-- Todo: Clean up old saved variables, remove later
+	if C.datatext.VolumeSettings then
+		C.datatext.VolumeSettings = nil
+	end
+
 	local Stat = CreateFrame("Frame", "DataTextVolume", UIParent)
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
@@ -17,143 +22,113 @@ if C.datatext.Volume and C.datatext.Volume > 0 then
 
 	local Text  = Stat:CreateFontString(nil, "OVERLAY")
 	if C.datatext.Volume >= 9 then
-	Text:SetTextColor(unpack(C.media.pxcolor1))
-	Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
+		Text:SetTextColor(unpack(C.media.pxcolor1))
+		Text:SetFont(C.media.pxfontHeader, C.media.pxfontHsize, C.media.pxfontHFlag)
 	else
-	Text:SetTextColor(unpack(C.media.pxcolor1))
-	Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
+		Text:SetTextColor(unpack(C.media.pxcolor1))
+		Text:SetFont(C.media.pixel_font, C.media.pixel_font_size, C.media.pixel_font_style)
 	end
 	PP(C.datatext.Volume, Text)
 	
 local volumeCVars = {
 	{
 		Name = "Master",
-		Volume = {
-			CVar = "Sound_MasterVolume",
-			Value = 0
-		},
-		Enable = {
-			CVar = "Sound_EnableMaster",
-			Value = 0
-		}
+		CVar = "Sound_MasterVolume"
 	},
 	{
 		Name = "SFX",
-		Volume = {
-			CVar = "Sound_SFXVolume",
-			Value = 0
-		},
-		Enable = {
-			CVar = "Sound_EnableSXF",
-			Value = 0
-		}
+		CVar = "Sound_SFXVolume"
 	},
 	{
 		Name = "Ambience",
-		Volume = {
-			CVar = "Sound_AmbienceVolume",
-			Value = 0
-		},
-		Enable = {
-			CVar = "Sound_EnableAmbience",
-			Value = 0
-		}
+		CVar = "Sound_AmbienceVolume"
 	},
 	{
 		Name = "Dialog",
-		Volume = {
-			CVar = "Sound_DialogVolume",
-			Value = 0
-		},
-		Enable = {
-			CVar = "Sound_EnableDialog",
-			Value = 0
-		}
+		CVar = "Sound_DialogVolume"
 	},
 	{
 		Name = "Music",
-		Volume = {
-			CVar = "Sound_MusicVolume",
-			Value = 0
-		},
-		Enable = {
-			CVar = "Sound_EnableMusic",
-			Value = 0
-		}
+		CVar = "Sound_MusicVolume"
 	}
 }
 
 local activeVolumeIndex = 1
-local activeVolume = volumeCVars[activeVolumeIndex]
 
+-- Clamp volume to 0-1 range
+local function clampVolume(vol)
+	if vol > 1 then
+		return 1
+	elseif vol < 0 then
+		return 0
+	end
+	return vol
+end
 
-local function roundVal(num, numDecimalPlaces)
-  local mult = 10^(numDecimalPlaces or 0)
-  return ceil(num * mult + 0.5) / mult
+-- Get current volume from CVar
+local function getVolume(cvar)
+	local vol = tonumber(getCV(cvar)) or 0
+	return clampVolume(vol)
+end
+
+-- Set volume to CVar
+local function setVolume(cvar, vol)
+	vol = clampVolume(vol)
+	setCV(cvar, vol)
+	return vol
+end
+
+-- Update display text
+local function updateDisplay()
+	local activeVolume = volumeCVars[activeVolumeIndex]
+	local vol = getVolume(activeVolume.CVar)
+	Text:SetText(activeVolume.Name .. ": " .. qColor .. strform("%.0f", vol * 100) .. "%")
 end
 
 local function OnEvent(self, event, ...)
-	for key,value in pairs(volumeCVars) do
-		value.Volume.Value = roundVal(getCV(value.Volume.CVar), 3)
-		setCV(value.Volume.CVar, value.Volume.Value)
-		value.Enable.Value = getCV(value.Enable.CVar)
-	end
-
-	if (event == "PLAYER_ENTERING_WORLD" ) then
-
+	if event == "PLAYER_ENTERING_WORLD" then
 		self:EnableMouseWheel(true)
 
 		self:SetScript("OnMouseWheel", function(tself, delta)
-			local vol = activeVolume.Volume.Value;
-			local volScale = 100;
+			local activeVolume = volumeCVars[activeVolumeIndex]
+			local vol = getVolume(activeVolume.CVar)
 			
-			if (IsShiftKeyDown()) then
-				volScale = 10;
-			end
-
-			vol = vol + (delta / volScale)
-
-			if (vol >= 1) then
-				vol = 1
-			elseif (vol <= 0) then
-				vol = 0
+			if IsShiftKeyDown() then
+				vol = vol + (delta * 0.1)  -- Shift+Scroll = 10%
+			else
+				vol = vol + (delta * 0.01)  -- Normal Scroll = 1%
 			end
 			
-			activeVolume.Volume.Value = vol
-			setCV(activeVolume.Volume.CVar, vol)
-			Text:SetText(activeVolume.Name..": ".. qColor..strform("%.f", vol * 100) .. "%")
+			setVolume(activeVolume.CVar, vol)
+			updateDisplay()
 		end)
 
-	end
-	
-	Text:SetText(activeVolume.Name..": ".. qColor..strform("%.f", activeVolume.Volume.Value * 100) .. "%")
-		self:SetAllPoints(Text)
 		self:SetScript("OnEnter", function()
 			if not InCombatLockdown() then
-				GameTooltip:SetOwner(self, "ANCHOR_TOP", -20, 6);
+				GameTooltip:SetOwner(self, "ANCHOR_TOP", -20, 6)
 				GameTooltip:ClearAllPoints()
 				GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, 1)
 				GameTooltip:ClearLines()
 				GameTooltip:AddDoubleLine("Scroll to change volume level")
 				GameTooltip:AddDoubleLine("Shift+Scroll for 10%")
-				GameTooltip:AddDoubleLine("Click to switch volum type")
+				GameTooltip:AddDoubleLine("Click to switch volume type")
 				GameTooltip:Show()
 			end
 		end)
-	self:SetScript("OnLeave", function() GameTooltip:Hide() end)
-			
+
+		self:SetScript("OnLeave", function() GameTooltip:Hide() end)
+	end
+
+	updateDisplay()
+	self:SetAllPoints(Text)
 end
 
 Stat:SetScript("OnMouseDown", function(self)
 	activeVolumeIndex = activeVolumeIndex + 1
-	if (activeVolumeIndex == 6) then
+	if activeVolumeIndex == 6 then
 		activeVolumeIndex = 1
 	end
-
-	activeVolume = volumeCVars[activeVolumeIndex]
-	
-
-	OnEvent(self, nil, nil)
+	updateDisplay()
 end)
 
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")

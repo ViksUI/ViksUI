@@ -43,7 +43,11 @@ local function Enable()
 	GameMenuButton02:Point("LEFT", GameMenuButton01, "RIGHT", spacing, 0)
 	GameMenuButton02.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Microbar\spell.tga]])
 	GameMenuButton02:SetScript("OnMouseDown", function(self)
-		ToggleFrame(SpellBookFrame)
+		-- WoW 12.0: Use PlayerSpellsUtil.TogglePlayerSpellsFrame to open Spellbook tab
+		if not PlayerSpellsFrame then
+			C_AddOns.LoadAddOn("Blizzard_PlayerSpells")
+		end
+		PlayerSpellsUtil.TogglePlayerSpellsFrame(3)
 	end)
 
 	--Button 3 - Talent
@@ -52,10 +56,11 @@ local function Enable()
 	GameMenuButton03:SetAttribute("macrotext1", "/qs")
 	GameMenuButton03.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Microbar\talent.tga]])
 	GameMenuButton03:SetScript("OnMouseDown", function(self)
-		if (not PlayerTalentFrame) then
-		TalentFrame_LoadUI()
+		-- WoW 12.0: Use PlayerSpellsUtil function instead of deprecated talent functions
+		if not PlayerSpellsFrame then
+			LoadAddOn("Blizzard_PlayerSpells")
 		end
-		ShowUIPanel(PlayerTalentFrame)
+		PlayerSpellsUtil.ToggleClassTalentOrSpecFrame()
 	end)
 
 	--Button 4 - Achievements
@@ -128,15 +133,14 @@ local function Enable()
 	GameMenuButton13.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Microbar\guild.tga]])
 	GameMenuButton13:SetScript("OnMouseDown", function(self)
 		if IsInGuild() then
-			if (not GuildFrame) then
-			GuildFrame_LoadUI()
-			end
-			GuildFrame_Toggle()
+			-- WoW 12.0: Use ToggleGuildFrame() instead of deprecated functions
+			ToggleGuildFrame()
 		else
-			if (not LookingForGuildFrame) then
-			LookingForGuildFrame_LoadUI()
+			-- WoW 12.0: Load the Looking for Guild UI addon
+			if not LookingForGuildFrame then
+				C_AddOns.LoadAddOn("Blizzard_LookingForGuildUI")
 			end
-			LookingForGuildFrame_Toggle()
+			ToggleLookingForGuildFrame()
 		end
 	end)
 
@@ -161,10 +165,15 @@ local function Enable()
 	GameMenuButton16:Point("LEFT", GameMenuButton15, "RIGHT", spacing, 0)
 	GameMenuButton16.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Menuicons\calendar.tga]])
 	GameMenuButton16:SetScript("OnMouseDown", function(self)
-		if (not CalendarFrame) then
-		LoadAddOn("Blizzard_Calendar")
+		-- WoW 12.0: Use C_Calendar API instead of deprecated Calendar_Toggle
+		if not CalendarFrame then
+			C_AddOns.LoadAddOn("Blizzard_Calendar")
 		end
-		Calendar_Toggle()
+		if CalendarFrame:IsShown() then
+			CalendarFrame:Hide()
+		else
+			CalendarFrame:Show()
+		end
 	end)
 
 	--Button 17 - Dungeon Journal
@@ -181,23 +190,26 @@ local function Enable()
 	GameMenuButton18.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Microbar\location.tga]])
 	GameMenuButton18.icon:Size(size-10, size-10)
 	GameMenuButton18:SetScript("OnMouseDown", function(self)
-		GarrisonLandingPageMinimapButton_OnClick(_G.GarrisonLandingPageMinimapButton)
+		-- WoW 12.0: Use ExpansionLandingPageMinimapButton for Garrison/Expansion landing page
+		if not ExpansionLandingPageMinimapButton then
+			C_AddOns.LoadAddOn("Blizzard_ExpansionLandingPage")
+		end
+		if ExpansionLandingPageMinimapButton then
+			ExpansionLandingPageMinimapButton:ToggleLandingPage()
+		end
 	end)
 
-	--Button 19 - Compose a Tweet
-	T.CreateBtn("GameMenuButton19", GameMenuBG, size, size, "Compose a Tweet", "", GameMenuBG)
+	--Button 19 - Share Photo (Pinterest)
+	T.CreateBtn("GameMenuButton19", GameMenuBG, size, size, "Share Photo on Pinterest", "", GameMenuBG)
 	GameMenuButton19:Point("LEFT", GameMenuButton18, "RIGHT", spacing, 0)
 	GameMenuButton19.icon:SetTexture([[Interface\AddOns\ViksUI\Media\Microbar\chat.tga]])
 	GameMenuButton19:SetScript("OnMouseDown", function(self)
-			if not SocialPostFrame then
-			LoadAddOn("Blizzard_SocialUI")
-			end
-			local IsTwitterEnabled = C_Social.IsSocialEnabled()
-			if IsTwitterEnabled then
-			Social_SetShown(true)
-			else
-			T.Print(SOCIAL_TWITTER_TWEET_NOT_LINKED)
-			end
+		-- WoW 12.0: Use C_HousingPhotoSharing for Pinterest photo sharing
+		if C_HousingPhotoSharing and C_HousingPhotoSharing.IsEnabled() then
+			C_HousingPhotoSharing.TakePhoto()
+		else
+			print("Photo sharing is not available")
+		end
 	end)
 
 	--Button 20 - ViksUI config

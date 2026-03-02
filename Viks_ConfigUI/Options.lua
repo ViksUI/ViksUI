@@ -1751,9 +1751,21 @@ do
 
 	local centerbar = ns.CreateCheckBox(parent, "centerbar", L.layout2_centerbar)
 	centerbar:SetPoint("TOPLEFT", enable, "BOTTOMLEFT", 0, 0)
+	
+	local player_bigdebuff = ns.CreateCheckBox(parent, "player_bigdebuff", L.layout2_player_bigdebuff)
+	player_bigdebuff:SetPoint("TOPLEFT", centerbar, "BOTTOMLEFT", 0, 0)
+	
+	local subheader = ns.addSubCategory(parent, L.layout2_section_debuffs)
+	subheader:SetPoint("TOPLEFT", player_bigdebuff, "BOTTOMLEFT", 0, -11)
+	
+	local player_debuff_size = ns.CreateNumberSlider(parent, "player_debuff_size", nil, nil, 10, 80, 1, true, L.layout2_player_debuff_size)
+	player_debuff_size:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -30)
+
+	local debuff_spacing = ns.CreateNumberSlider(parent, "debuff_spacing", nil, nil, 0, 10, 1, true, L.layout2_debuff_spacing)
+	debuff_spacing:SetPoint("LEFT", player_debuff_size, "RIGHT", 120, 0)
 
 	local subheader = ns.addSubCategory(parent, L.unitframe_subheader_player_width)
-	subheader:SetPoint("TOPLEFT", centerbar, "BOTTOMLEFT", 0, -11)
+	subheader:SetPoint("TOPLEFT", player_debuff_size, "BOTTOMLEFT", 0, -11)
 
 	local player_width = ns.CreateNumberSlider(parent, "player_width", nil, nil, 50, 200, 1, true, L.layout2_player_width)
 	player_width:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -30)

@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- engine -->
 	<Script file="Libs\LibStub\LibStub.lua" />
-	<Include file="Libs\LibSpellRange-1.0\lib.xml"/>
 	<Script file="Core\Init.lua"/>
 	<Script file="Core\Constants.lua"/>
 	<Include file="Locales\load_locales.xml"/>

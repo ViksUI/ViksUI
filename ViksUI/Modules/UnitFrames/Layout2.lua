@@ -30,7 +30,7 @@ C["position"].unitframes["focus"] = {"TOPRIGHT", "oUF_Player", "BOTTOMRIGHT", 4,
 C["position"].unitframes["focus_target"] = {"TOPLEFT", "oUF_Target", "BOTTOMLEFT", -4, -28}
 C["position"].unitframes["party_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -49}
 C["position"].unitframes["raid_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12}
-C["position"].unitframes["tank"] = {"BOTTOMLEFT", UIParent, "BOTTOM", -80, 200}
+C["position"].unitframes["tank"] = {"BOTTOM", UIParent, "BOTTOM", -C.raidframe.heal_raid_width/2, 300}
 
 ----------------------------------------------------------------------------------------
 --	LAYOUT2 OPTIONS
@@ -1073,11 +1073,11 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				-- TotemBar (Shaman)
 				if self.TotemBar then
 					self.TotemBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
-					self.TotemBar:SetSize((C.layout2.player_width - 3), 7)
+					self.TotemBar:SetSize((C.layout2.player_width - 2), 7)
 					
 					for i = 1, 4 do
 						if self.TotemBar[i] then
-							self.TotemBar[i]:SetSize(((C.layout2.player_width - 3) - 3) / 4, 7)
+							self.TotemBar[i]:SetSize(((C.layout2.player_width - 2) - 3) / 4, 7)
 						end
 						if i == 1 then
 							self.TotemBar[i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
@@ -1085,20 +1085,6 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 					end
 				end
 			end
-			
-			-- Player frame anchors to its portrait (top right to portrait top left)
-			-- if player and player.Portrait then
-				-- player:ClearAllPoints()
-				-- player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, 0)
-				-- player:SetSize(C.layout2.player_width, C.layout2.player_height)
-			-- end
-			
-			-- Target frame anchors to its portrait (top left to portrait top right)
-			-- if target and target.Portrait then
-				-- target:ClearAllPoints()
-				-- target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, 0)
-				-- target:SetSize(C.layout2.target_width, C.layout2.target_height)
-			-- end
 			
 			-- ========== PET & TARGET'S TARGET POSITIONING ==========
 			-- Position pet frame and target's target based on centerbar setting
