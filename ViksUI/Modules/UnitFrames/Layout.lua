@@ -291,13 +291,17 @@ local function Shared(self, unit)
 	end
 
 	if unit == "player" then
-		self.FlashInfo = CreateFrame("Frame", "FlashInfo", self)
-		self.FlashInfo:SetScript("OnUpdate", T.UpdateManaLevel)
-		self.FlashInfo:SetFrameLevel(self.Health:GetFrameLevel() + 1)
-		self.FlashInfo:SetAllPoints(self.Health)
+		if T.class ~= "DEATHKNIGHT" and T.class ~= "DEMONHUNTER" and T.class ~= "HUNTER" and T.class ~= "ROGUE" and T.class ~= "WARRIOR" then
+			self.LowMana = CreateFrame("Frame", self:GetName().."_LowMana", self)
+			self.LowMana:SetScript("OnUpdate", T.UpdateManaLevel)
+			self.LowMana:SetFrameLevel(self.Health:GetFrameLevel() + 1)
+			self.LowMana:SetAllPoints(self.Health)
 
-		self.FlashInfo.ManaLevel = T.SetFontString(self.FlashInfo, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-		self.FlashInfo.ManaLevel:SetPoint("CENTER", 0, 0)
+			self.LowMana.Text = T.SetFontString(self.LowMana, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+			self.LowMana.Text:SetText("|cffaf5050"..MANA_LOW.."|r")
+			self.LowMana.Text:SetPoint("CENTER", 0, 0)
+			self.LowMana.Text:SetAlpha(0)
+		end
 
 		-- Combat icon
 		if C.unitframe.icons_combat == true then
@@ -912,8 +916,8 @@ local function Shared(self, unit)
 			self.Status:Hide()
 			self.Status.Override = T.dummy
 
-			self:SetScript("OnEnter", function(self) FlashInfo.ManaLevel:Hide() T.UpdatePvPStatus(self) self.Status:Show() UnitFrame_OnEnter(self) end)
-			self:SetScript("OnLeave", function(self) FlashInfo.ManaLevel:Show() self.Status:Hide() UnitFrame_OnLeave(self) end)
+			self:SetScript("OnEnter", function(self) if self.LowMana then self.LowMana.Text:Hide() end T.UpdatePvPStatus(self) self.Status:Show() UnitFrame_OnEnter(self) end)
+			self:SetScript("OnLeave", function(self) if self.LowMana then self.LowMana.Text:Show() end self.Status:Hide() UnitFrame_OnLeave(self) end)
 		end
 	end
 
@@ -1121,22 +1125,23 @@ local function Shared(self, unit)
 		self.FactionIcon:SetSize(16, 16)
 		self.FactionIcon:SetPoint("TOP", 0, 0)
 
-		self.AuraTracker = CreateFrame("Frame", self:GetName().."_AuraTracker", self)
-		self.AuraTracker:SetWidth(self.Trinket:GetWidth())
-		self.AuraTracker:SetHeight(self.Trinket:GetHeight())
-		self.AuraTracker:SetPoint("CENTER", self.Trinket, "CENTER")
-		self.AuraTracker:SetFrameStrata("HIGH")
+		-- TODO rework to use auras with filter?
+		--BETA self.AuraTracker = CreateFrame("Frame", self:GetName().."_AuraTracker", self)
+		-- self.AuraTracker:SetWidth(self.Trinket:GetWidth())
+		-- self.AuraTracker:SetHeight(self.Trinket:GetHeight())
+		-- self.AuraTracker:SetPoint("CENTER", self.Trinket, "CENTER")
+		-- self.AuraTracker:SetFrameStrata("HIGH")
 
-		self.AuraTracker.icon = self.AuraTracker:CreateTexture(nil, "ARTWORK")
-		self.AuraTracker.icon:SetWidth(self.Trinket:GetWidth())
-		self.AuraTracker.icon:SetHeight(self.Trinket:GetHeight())
-		self.AuraTracker.icon:SetPoint("TOPLEFT", self.Trinket, 2, -2)
-		self.AuraTracker.icon:SetPoint("BOTTOMRIGHT", self.Trinket, -2, 2)
-		self.AuraTracker.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		-- self.AuraTracker.icon = self.AuraTracker:CreateTexture(nil, "ARTWORK")
+		-- self.AuraTracker.icon:SetWidth(self.Trinket:GetWidth())
+		-- self.AuraTracker.icon:SetHeight(self.Trinket:GetHeight())
+		-- self.AuraTracker.icon:SetPoint("TOPLEFT", self.Trinket, 2, -2)
+		-- self.AuraTracker.icon:SetPoint("BOTTOMRIGHT", self.Trinket, -2, 2)
+		-- self.AuraTracker.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
-		self.AuraTracker.text = T.SetFontString(self.AuraTracker, C.font.unit_frames_font, C.font.unit_frames_font_size * 2, C.font.unit_frames_font_style)
-		self.AuraTracker.text:SetPoint("CENTER", self.AuraTracker, 0, 0)
-		self.AuraTracker:SetScript("OnUpdate", T.AuraTrackerTime)
+		-- self.AuraTracker.text = T.SetFontString(self.AuraTracker, C.font.unit_frames_font, C.font.unit_frames_font_size * 2, C.font.unit_frames_font_style)
+		-- self.AuraTracker.text:SetPoint("CENTER", self.AuraTracker, 0, 0)
+		-- self.AuraTracker:SetScript("OnUpdate", T.AuraTrackerTime)
 
 		if C.unitframe.plugins_enemy_spec == true then
 			self.EnemySpec = T.SetFontString(self.Power, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)

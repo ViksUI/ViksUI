@@ -323,8 +323,8 @@ C["raidframe"] = {
 	["icons_phase"] = true,						-- Phase icons on frames
 	-- Plugins
 	["plugins_debuffhighlight"] = true,			-- Show texture for dispellable debuff
-	["plugins_aura_watch"] = true,				-- Raid debuff icons (by Blizzard filter)
-	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
+	["plugins_debuffs"] = true,				-- Raid debuff icons (by Blizzard filter)
+	["plugins_debuffs_timer"] = false,		-- Timer on raid debuff icons
 	["plugins_buffs"] = true,					-- Raid buff icons (by Blizzard filter)
 	["plugins_buffs_timer"] = false,			-- Timer on raid buffs icons
 	["plugins_debuffhighlight_icon"] = false,	-- Show dispellable debuff icon
@@ -973,8 +973,37 @@ C["layout2"] = {
 	["use_portrait_borders"] = true,								-- Use portrait-style borders for secondary frames
 	
 	-- Player Debuffs Repositioning
-	["player_debuff_size"] = 32,									-- Size of debuff icons on player frame
+	["player_bigdebuff"] = true,									-- Show big Debuff under Buff Frame
+	["player_debuff_size"] = 50,									-- Size of debuff icons on player frame
 	["debuff_spacing"] = 8,											-- Space between debuff icons
+}
+
+----------------------------------------------------------------------------------------
+-- ClassTimer -- Work temp / Might be removed totaly later
+----------------------------------------------------------------------------------------
+C["classtimer"] = {
+	enable = true,
+	
+	-- Enable/disable frame displays
+	show_player_frame = true,
+	show_target_frame = true,
+	
+	-- Player Frame Filters
+	player_filters = {
+		helpful_player = true,           -- HELPFUL|PLAYER - Player's own buffs
+		helpful_big_defensive = true,    -- HELPFUL|BIG_DEFENSIVE - Major defensives
+		helpful_external_defensive = false, -- HELPFUL|EXTERNAL_DEFENSIVE - Shields from others
+		helpful_raid_in_combat = false,  -- HELPFUL|RAID_IN_COMBAT - Combat buffs
+	},
+	
+	-- Target Frame Filters
+	target_filters = {
+		harmful_player = true,           -- HARMFUL|PLAYER - Your debuffs/DoTs
+		harmful_player_cc = true,       -- HARMFUL|CROWD_CONTROL (player applied) - Your CC
+		harmful_crowd_control = false,   -- HARMFUL|CROWD_CONTROL - All CC on target
+		helpful_big_defensive = true,    -- HELPFUL|BIG_DEFENSIVE - Target's defensives
+		helpful_external_defensive = false, -- HELPFUL|EXTERNAL_DEFENSIVE - Target's shields
+	},
 }
 ----------------------------------------------------------------------------------------
 --	Position options

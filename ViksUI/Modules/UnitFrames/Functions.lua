@@ -170,7 +170,11 @@ T.PostUpdateHealthColor = function(health, unit, color)
 			if C.unitframe.own_color then
 				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
 			else
-				r, g, b = health:GetStatusBarColor()
+				if color then
+					r, g, b = color:GetRGB()
+				else
+					r, g, b = 0.3, 0.7, 0.3
+				end
 			end
 
 			local curve = C_CurveUtil.CreateColorCurve()
@@ -286,7 +290,11 @@ T.PostUpdateRaidHealthColor = function(health, unit, color)
 			if C.unitframe.own_color then
 				r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
 			else
-				r, g, b = health:GetStatusBarColor()
+				if color then
+					r, g, b = color:GetRGB()
+				else
+					r, g, b = 0.3, 0.7, 0.3
+				end
 			end
 
 			local curve = C_CurveUtil.CreateColorCurve()
@@ -470,32 +478,6 @@ T.PostUpdatePowerColor = function(power, unit, color, altR, altG, altB)
 	end
 end
 
--- local SetUpAnimGroup = function(self)
-	-- self.anim = self:CreateAnimationGroup()
-	-- self.anim:SetLooping("BOUNCE")
-	-- self.anim.fade = self.anim:CreateAnimation("Alpha")
-	-- self.anim.fade:SetFromAlpha(1)
-	-- self.anim.fade:SetToAlpha(0)
-	-- self.anim.fade:SetDuration(0.6)
-	-- self.anim.fade:SetSmoothing("IN_OUT")
--- end
-
--- local Flash = function(self)
-	-- if not self.anim then
-		-- SetUpAnimGroup(self)
-	-- end
-
-	-- if not self.anim:IsPlaying() then
-		-- self.anim:Play()
-	-- end
--- end
-
--- local StopFlash = function(self)
-	-- if self.anim then
-		-- self.anim:Finish()
-	-- end
--- end
-
 local low_mana = C_CurveUtil.CreateColorCurve()
 low_mana:SetType(Enum.LuaCurveType.Step)
 low_mana:AddPoint(0, CreateColor(1, 1, 1, 1))
@@ -507,28 +489,15 @@ T.UpdateManaLevel = function(self, elapsed)
 	self.elapsed = 0
 
 	if UnitPowerType("player") == 0 then
-		-- local cur = UnitPower("player", 0) -- BETA can't calculate
-		-- local max = UnitPowerMax("player", 0)
-		-- local percMana = max > 0 and (cur / max * 100) or 100
-		-- if percMana <= 20 and not UnitIsDeadOrGhost("player") then
-			-- self.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
-			-- Flash(self)
-		-- else
-			-- self.ManaLevel:SetText()
-			-- StopFlash(self)
-		-- end
-
 		if UnitIsDeadOrGhost("player") then
-			self.ManaLevel:SetText()
+			self.Text:SetAlpha(0)
 		else
 			local color = UnitPowerPercent("player", 0, true, low_mana)
 			local _, _, _, alpha = color:GetRGBA()
-			self.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
-			self.ManaLevel:SetAlpha(alpha)
+			self.Text:SetAlpha(alpha)
 		end
 	elseif T.class ~= "DRUID" and T.class ~= "PRIEST" and T.class ~= "SHAMAN" then
-		self.ManaLevel:SetText()
-		-- StopFlash(self)
+		self.Text:SetAlpha(0)
 	end
 end
 
@@ -544,44 +513,27 @@ T.UpdateClassMana = function(self, elapsed)
 	if self.unit ~= "player" then return end
 
 	if UnitPowerType("player") ~= 0 then
-		-- local min = UnitPower("player", 0) -- BETA can't calculate
-		-- local max = UnitPowerMax("player", 0)
-		-- local percMana = max > 0 and (min / max * 100) or 100
-		local percMana = UnitPowerPercent("player", 0, true, CurveConstants.ScaleTo100)
-		-- if percMana <= 20 and not UnitIsDeadOrGhost("player") then
-			-- self.FlashInfo.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
-			-- Flash(self.FlashInfo)
-		-- else
-			-- self.FlashInfo.ManaLevel:SetText()
-			-- StopFlash(self.FlashInfo)
-		-- end
-
 		if UnitIsDeadOrGhost("player") then
 			self.ClassMana:SetAlpha(0)
-			self.FlashInfo.ManaLevel:SetText()
+			self.LowMana.Text:SetAlpha(0)
 		else
 			local color = UnitPowerPercent("player", 0, true, low_mana)
 			local _, _, _, alpha = color:GetRGBA()
-			self.FlashInfo.ManaLevel:SetText("|cffaf5050"..MANA_LOW.."|r")
-			self.FlashInfo.ManaLevel:SetAlpha(alpha)
+			self.LowMana.Text:SetAlpha(alpha)
 
 			local color = UnitPowerPercent("player", 0, true, full_mana)
 			local _, _, _, alpha = color:GetRGBA()
-
-			-- if min ~= max then
-				if self.Power.value:GetText() then
-					self.ClassMana:SetPoint("RIGHT", self.Power.value, "LEFT", -1, 0)
-					self.ClassMana:SetFormattedText("%d%%|r |cffD7BEA5-|r", percMana)
-					self.ClassMana:SetJustifyH("RIGHT")
-				else
-					self.ClassMana:SetPoint("LEFT", self.Power, "LEFT", 4, 0)
-					self.ClassMana:SetFormattedText("%d%%", percMana)
-				end
-			-- else
-				-- self.ClassMana:SetText()
-			-- end
-
 			self.ClassMana:SetAlpha(alpha)
+
+			local percMana = UnitPowerPercent("player", 0, true, CurveConstants.ScaleTo100)
+			if self.Power.value:GetText() then
+				self.ClassMana:SetPoint("RIGHT", self.Power.value, "LEFT", -1, 0)
+				self.ClassMana:SetFormattedText("%d%%|r |cffD7BEA5-|r", percMana)
+				self.ClassMana:SetJustifyH("RIGHT")
+			else
+				self.ClassMana:SetPoint("LEFT", self.Power, "LEFT", 4, 0)
+				self.ClassMana:SetFormattedText("%d%%", percMana)
+			end
 		end
 	else
 		self.ClassMana:SetAlpha(0)
@@ -770,21 +722,21 @@ T.PostUpdatePips = function(element)
 	end
 end
 
-T.AuraTrackerTime = function(self, elapsed)
-	if self.active then
-		self.timeleft = self.timeleft - elapsed
-		if self.timeleft <= 5 then
-			self.text:SetTextColor(1, 0, 0)
-		else
-			self.text:SetTextColor(1, 1, 1)
-		end
-		if self.timeleft <= 0 then
-			self.icon:SetTexture("")
-			self.text:SetText("")
-		end
-		self.text:SetFormattedText("%.1f", self.timeleft)
-	end
-end
+--BETA T.AuraTrackerTime = function(self, elapsed)
+	-- if self.active then
+		-- self.timeleft = self.timeleft - elapsed
+		-- if self.timeleft <= 5 then
+			-- self.text:SetTextColor(1, 0, 0)
+		-- else
+			-- self.text:SetTextColor(1, 1, 1)
+		-- end
+		-- if self.timeleft <= 0 then
+			-- self.icon:SetTexture("")
+			-- self.text:SetText("")
+		-- end
+		-- self.text:SetFormattedText("%.1f", self.timeleft)
+	-- end
+-- end
 
 T.PostCreateIcon = function(_, button)
 	button:SetTemplate("Default")
@@ -893,27 +845,30 @@ T.PostUpdateRaidButton = function(_, button, unit, data)
 		button:SetBackdropBorderColor(1, 0, 0)
 	end
 
-	button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_aura_watch_timer)
+	button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_debuffs_timer)
 end
 
--- local CountOffSets = {
-	-- TOPLEFT = {"LEFT", "RIGHT", 1, 0},
-	-- TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
-	-- BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
-	-- BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
-	-- LEFT = {"LEFT", "RIGHT", 1, 0},
-	-- RIGHT = {"RIGHT", "LEFT", 2, 0},
-	-- TOP = {"RIGHT", "LEFT", 2, 0},
-	-- BOTTOM = {"RIGHT", "LEFT", 2, 0},
--- }
+local CountOffSets = {
+	TOPLEFT = {"LEFT", "RIGHT", 1, 0},
+	TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
+	BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
+	BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
+	LEFT = {"LEFT", "RIGHT", 1, 0},
+	RIGHT = {"RIGHT", "LEFT", 2, 0},
+	TOP = {"RIGHT", "LEFT", 2, 0},
+	BOTTOM = {"RIGHT", "LEFT", 2, 0},
+}
 
--- T.CreateAuraWatchIcon = function(_, aura)
-	-- aura:CreateBorder(nil, true)
-	-- aura.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	-- aura.icon:SetDrawLayer("ARTWORK")
-	-- if aura.cd then
-		-- aura.cd:SetReverse(true)
-		-- aura.cd:SetHideCountdownNumbers(true)
+T.CreateAuraWatchIcon = function(_, aura)
+	aura:CreateBorder(nil, true)
+	aura.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	aura.icon:SetDrawLayer("ARTWORK")
+
+	if aura.cd then
+		T.SkinCooldown(aura.cd, "aura")
+		aura.cd:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
+		aura.cd:SetReverse(true)
+
 		-- if C.raidframe.plugins_buffs_timer then
 			-- aura.parent = CreateFrame("Frame", nil, aura)
 			-- aura.parent:SetFrameLevel(aura.cd:GetFrameLevel() + 1)
@@ -922,64 +877,64 @@ end
 			-- aura.remaining:SetPoint("CENTER", aura, "CENTER", 1, 0)
 			-- aura.remaining:SetJustifyH("CENTER")
 		-- end
-	-- end
--- end
+	end
+end
 
--- T.CreateAuraWatch = function(self)
-	-- local auras = CreateFrame("Frame", nil, self)
-	-- auras:SetPoint("TOPLEFT", self.Health, 0, 0)
-	-- auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)
-	-- auras.icons = {}
-	-- auras.PostCreateIcon = T.CreateAuraWatchIcon
+T.CreateAuraWatch = function(self)
+	local auras = CreateFrame("Frame", nil, self)
+	auras:SetPoint("TOPLEFT", self.Health, 0, 0)
+	auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)
+	auras.icons = {}
+	auras.PostCreateIcon = T.CreateAuraWatchIcon
 
-	-- if not C.aura.show_timer then
-		-- auras.hideCooldown = true
-	-- end
+	if not C.aura.show_timer then
+		auras.hideCooldown = true
+	end
 
-	-- local buffs = {}
+	local buffs = {}
 
-	-- if T.RaidBuffs["ALL"] then
-		-- for _, value in pairs(T.RaidBuffs["ALL"]) do
-			-- tinsert(buffs, value)
-		-- end
-	-- end
+	if T.RaidBuffs["ALL"] then
+		for _, value in pairs(T.RaidBuffs["ALL"]) do
+			tinsert(buffs, value)
+		end
+	end
 
-	-- if T.RaidBuffs[T.class] then
-		-- for _, value in pairs(T.RaidBuffs[T.class]) do
-			-- tinsert(buffs, value)
-		-- end
-	-- end
+	if T.RaidBuffs[T.class] then
+		for _, value in pairs(T.RaidBuffs[T.class]) do
+			tinsert(buffs, value)
+		end
+	end
 
-	-- if buffs then
-		-- for _, spell in pairs(buffs) do
-			-- local aura = CreateFrame("Frame", nil, auras)
-			-- aura.spellID = spell[1]
-			-- aura.anyUnit = spell[4]
-			-- aura.strictMatching = spell[5]
-			-- aura:SetSize(7 * C.raidframe.icon_multiplier, 7 * C.raidframe.icon_multiplier)
-			-- aura:SetPoint(spell[2], 0, 0)
+	if buffs then
+		for _, spell in pairs(buffs) do
+			local aura = CreateFrame("Frame", nil, auras)
+			aura.spellID = spell[1]
+			aura.anyUnit = spell[4]
+			aura.strictMatching = spell[5]
+			aura:SetSize(7 * C.raidframe.icon_multiplier, 7 * C.raidframe.icon_multiplier)
+			aura:SetPoint(spell[2], 0, 0)
 
-			-- local tex = aura:CreateTexture(nil, "OVERLAY")
-			-- tex:SetAllPoints(aura)
-			-- tex:SetTexture(C.media.blank)
-			-- if spell[3] then
-				-- tex:SetVertexColor(unpack(spell[3]))
-			-- else
-				-- tex:SetVertexColor(0.8, 0.8, 0.8)
-			-- end
-			-- aura.icon = tex
+			local tex = aura:CreateTexture(nil, "OVERLAY")
+			tex:SetAllPoints(aura)
+			tex:SetTexture(C.media.blank)
+			if spell[3] then
+				tex:SetVertexColor(unpack(spell[3]))
+			else
+				tex:SetVertexColor(0.8, 0.8, 0.8)
+			end
+			aura.icon = tex
 
-			-- local count = T.SetFontString(aura, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-			-- local point, anchorPoint, x, y = unpack(CountOffSets[spell[2]])
-			-- count:SetPoint(point, aura, anchorPoint, x, y)
-			-- aura.count = count
+			local count = T.SetFontString(aura, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+			local point, anchorPoint, x, y = unpack(CountOffSets[spell[2]])
+			count:SetPoint(point, aura, anchorPoint, x, y)
+			aura.count = count
 
-			-- auras.icons[spell[1]] = aura
-		-- end
-	-- end
+			auras.icons[spell[1]] = aura
+		end
+	end
 
-	-- self.AuraWatch = auras
--- end
+	self.AuraWatch = auras
+end
 
 T.CreateHealthPrediction = function(self)
 	-- Player healing

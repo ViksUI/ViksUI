@@ -1,6 +1,10 @@
 local T, C, L = unpack(ViksUI)
 if C.skins.blizzard_frames ~= true then return end
 
+-- Skip if EnhancedCooldownManager or BetterCooldownManager is loaded
+if C_AddOns.IsAddOnLoaded("EnhancedCooldownManager") or C_AddOns.IsAddOnLoaded("BetterCooldownManager") then return end
+
+
 ----------------------------------------------------------------------------------------
 --	Cooldown Viewer skin
 ----------------------------------------------------------------------------------------
@@ -178,6 +182,8 @@ local function LoadSkin()
 				end
 			end
 		end
+		if container.CooldownFlash then container.CooldownFlash:SetAlpha(0) end
+		if container.DebuffBorder then container.DebuffBorder:SetAlpha(0) end
 	end
 
 	local function SkinBar(frame, bar)
@@ -186,7 +192,8 @@ local function LoadSkin()
 
 		if frame.Icon then
 			frame.Icon.Icon:ClearAllPoints()
-			frame.Icon.Icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
+			frame.Icon.Icon:SetPoint("TOPLEFT", 2, -2)
+			frame.Icon.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
 			frame.Icon.Icon:SetSize(26, 26)
 			SkinIcon(frame.Icon, frame.Icon.Icon)
 		end
@@ -258,6 +265,20 @@ local function LoadSkin()
 	HandleViewer(_G.BuffBarCooldownViewer)
 	HandleViewer(_G.BuffIconCooldownViewer)
 	HandleViewer(_G.EssentialCooldownViewer)
+
+	-- Reskin all frames when RefreshLayout is called
+	local function ReskinAllFrames(viewer)
+		return function()
+			for frame in viewer.itemFramePool:EnumerateActive() do
+				SkinItemFrame(frame)
+			end
+		end
+	end
+
+	hooksecurefunc(_G.EssentialCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.EssentialCooldownViewer))
+	hooksecurefunc(_G.UtilityCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.UtilityCooldownViewer))
+	hooksecurefunc(_G.BuffBarCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.BuffBarCooldownViewer))
+	hooksecurefunc(_G.BuffIconCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.BuffIconCooldownViewer))
 end
 
 T.SkinFuncs["Blizzard_CooldownViewer"] = LoadSkin

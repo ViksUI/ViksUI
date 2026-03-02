@@ -1,24 +1,12 @@
 local T, C, L = unpack(ViksUI)
-if not C.misc.classtimer == true then return end
+if not C.classtimer.enable then return end
 
 local mediaPath = "Interface\\AddOns\\ViksUI\\Media\\Other\\"
 local texture = "Interface\\Buttons\\WHITE8x8"
 local glowTex = mediaPath.."glowTex"
 fontsize = 10
-fontsize1 =  10
+fontsize1 = 10
 local buttonTex = mediaPath.."buttontex"
-
---[[ Configuration functions - DO NOT TOUCH
-	id - spell id
-	castByAnyone - show if aura wasn't created by player
-	color - bar color (nil for default color)
-	unitType - 0 all, 1 friendly, 2 enemy
-	castSpellId - fill only if you want to see line on bar that indicates if its safe to start casting spell and not clip the last tick, also note that this can be different from aura id
-]]--
-
-local CreateSpellEntry = function( id, castByAnyone, color, unitType, castSpellId )
-	return { id = id, castByAnyone = castByAnyone, color = color, unitType = unitType or 0, castSpellId = castSpellId };
-end
 
 local CreateColor = function( red, green, blue, alpha )
 	return { red / 255, green / 255, blue / 255, alpha };
@@ -46,55 +34,126 @@ local TRINKET_BAR_COLOR = CreateColor( 150, 150, 70, 1 );
 local SORT_DIRECTION = true;
 local TENTHS_TRESHOLD = 1
 
-local TRINKET_FILTER = T.ClassTimer_Trinkets
-local COMMON_FILTER = T.ClassTimer_CommonTarget
-local CLASS_FILTERS = T.ClassTimer_Classes
-local CAT_FORM = 1 -- Cat Form ID
+--[[ Build filter strings from user settings ]]--
+local function BuildPlayerFilterStrings()
+	local filterConfig = C.classtimer.player_filters
+	local filters = {}
+	
+	if filterConfig.helpful_player then
+		table.insert(filters, "HELPFUL|PLAYER")
+	end
+	if filterConfig.helpful_big_defensive then
+		table.insert(filters, "HELPFUL|PLAYER|BIG_DEFENSIVE")
+	end
+	if filterConfig.helpful_external_defensive then
+		table.insert(filters, "HELPFUL|EXTERNAL_DEFENSIVE")
+	end
+	if filterConfig.helpful_raid_in_combat then
+		table.insert(filters, "HELPFUL|PLAYER|RAID_IN_COMBAT")
+	end
+	
+	return filters
+end
+
+local function BuildTargetFilterStrings()
+	local filterConfig = C.classtimer.target_filters
+	local filters = {}
+	
+	if filterConfig.harmful_player then
+		table.insert(filters, "HARMFUL|PLAYER")
+	end
+	if filterConfig.harmful_player_cc then
+		table.insert(filters, "HARMFUL|PLAYER|CROWD_CONTROL")
+	end
+	if filterConfig.harmful_crowd_control then
+		table.insert(filters, "HARMFUL|CROWD_CONTROL")
+	end
+	if filterConfig.helpful_big_defensive then
+		table.insert(filters, "HELPFUL|BIG_DEFENSIVE")
+	end
+	if filterConfig.helpful_external_defensive then
+		table.insert(filters, "HELPFUL|EXTERNAL_DEFENSIVE")
+	end
+	
+	return filters
+end
 
 local CreateUnitAuraDataSource
 do
-	local auraTypes = { 'HELPFUL', 'HARMFUL' }
-
-	-- private
-	local CheckFilter = function(self, id, caster, filter)
-		if (filter == nil) then return false end
-		local byPlayer = caster == 'player' or caster == 'pet' or caster == 'vehicle'
-		for _, v in ipairs(filter) do
-			if (v.id == id and (v.castByAnyone or byPlayer)) then return v end
-		end
-		return false
-	end
-
-	local CheckUnit = function(self, unit, filter, result)
+	local CheckUnit = function(self, unit, userFilters, result)
 		if (not UnitExists(unit)) then return 0 end
-		local unitIsFriend = UnitIsFriend('player', unit)
+		
+		-- If no filters configured, return empty
+		if not userFilters or #userFilters == 0 then
+			return 0
+		end
+		
+		-- Use modern C_UnitAuras API
+		local auraTypes = { 'HELPFUL', 'HARMFUL' }
+		
 		for _, auraType in ipairs(auraTypes) do
 			local isDebuff = auraType == 'HARMFUL'
-
-			for index = 1, 40 do
-				local name, texture, stacks, _, duration, expirationTime, caster, _, _, spellId = UnitAura(unit, index, auraType)
-				if (name == nil) then break end
-				local filterInfo = CheckFilter(self, spellId, caster, filter)
-				if (filterInfo and (filterInfo.unitType ~= 1 or unitIsFriend) and (filterInfo.unitType ~= 2 or not unitIsFriend)) then
-					filterInfo.name = name
-					filterInfo.texture = texture
-					filterInfo.duration = duration
-					filterInfo.expirationTime = expirationTime
-					filterInfo.stacks = stacks
-					filterInfo.unit = unit
-					filterInfo.isDebuff = isDebuff
-					table.insert(result, filterInfo)
+			
+			-- Get all auras for the unit
+			for i, auraData in ipairs(C_UnitAuras.GetUnitAuras(unit, auraType)) do
+				if auraData and auraData.spellId then
+					-- Check if this aura matches ANY of the user-configured filters
+					local matchesFilter = false
+					for _, userFilter in ipairs(userFilters) do
+						-- Use C_UnitAuras to check if aura passes the filter
+						if not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, auraData.auraInstanceID, userFilter) then
+							matchesFilter = true
+							break
+						end
+					end
+					
+					if matchesFilter then
+						-- Sanitize duration and expirationTime before storing
+						local duration = auraData.duration or 0
+						local expirationTime = auraData.expirationTime or 0
+						local stacks = auraData.applications or 0
+						
+						if not canaccessvalue(duration) then
+							duration = 0
+						end
+						if not canaccessvalue(expirationTime) then
+							expirationTime = 0
+						end
+						if not canaccessvalue(stacks) then
+							stacks = 0
+						end
+						
+						local info = {
+							name = auraData.name,
+							texture = auraData.icon,
+							duration = duration,
+							expirationTime = expirationTime,
+							stacks = stacks,
+							unit = unit,
+							isDebuff = isDebuff,
+							auraInstanceID = auraData.auraInstanceID,
+							spellId = auraData.spellId,
+						}
+						
+						-- Set default colors based on aura type
+						if isDebuff then
+							info.defaultColor = TARGET_DEBUFF_COLOR
+						else
+							info.defaultColor = TARGET_BAR_COLOR
+						end
+						
+						table.insert(result, info)
+					end
 				end
 			end
 		end
 	end
-
+	
 	-- public
 	local Update = function(self)
 		local result = self.table
 		for index = 1, #result do table.remove(result) end
-		CheckUnit(self, self.unit, self.filter, result)
-		if (self.includePlayer) then CheckUnit(self, 'player', self.playerFilter, result) end
+		CheckUnit(self, self.unit, self.userFilters, result)
 		self.table = result
 	end
 
@@ -111,6 +170,12 @@ do
 				local nextKey = key + 1
 				local nextValue = self.table[ nextKey ]
 				if (nextValue == nil) then break end
+				
+				-- Double-check that expiration times are accessible
+				if not canaccessvalue(value.expirationTime) or not canaccessvalue(nextValue.expirationTime) then
+					break
+				end
+				
 				local currentRemaining = value.expirationTime == 0 and 4294967295 or math.max(value.expirationTime - time, 0)
 				local nextRemaining = nextValue.expirationTime == 0 and 4294967295 or math.max(nextValue.expirationTime - time, 0)
 				if ((direction and currentRemaining < nextRemaining) or (not direction and currentRemaining > nextRemaining)) then
@@ -121,46 +186,13 @@ do
 			end
 		until (sorted == true)
 	end
-
+	
 	local Get = function(self) return self.table end
 	local Count = function(self) return #self.table end
-
-	local AddFilter = function(self, filter, defaultColor, debuffColor)
-		if (filter == nil) then return end
-		for _, v in pairs(filter) do
-			local clone = { }
-			clone.id = v.id
-			clone.castByAnyone = v.castByAnyone
-			clone.color = v.color
-			clone.unitType = v.unitType
-			clone.castSpellId = v.castSpellId
-			clone.defaultColor = defaultColor
-			clone.debuffColor = debuffColor
-			table.insert(self.filter, clone)
-		end
-	end
-
-	local AddPlayerFilter = function(self, filter, defaultColor, debuffColor)
-		if (filter == nil) then return end
-		for _, v in pairs(filter) do
-			local clone = { }
-			clone.id = v.id
-			clone.castByAnyone = v.castByAnyone
-			clone.color = v.color
-			clone.unitType = v.unitType
-			clone.castSpellId = v.castSpellId
-			clone.defaultColor = defaultColor
-			clone.debuffColor = debuffColor
-			table.insert(self.playerFilter, clone)
-		end
-	end
-
 	local GetUnit = function(self) return self.unit end
-	local GetIncludePlayer = function(self) return self.includePlayer end
-	local SetIncludePlayer = function(self, value) self.includePlayer = value end
 
 	-- constructor
-	CreateUnitAuraDataSource = function(unit)
+	CreateUnitAuraDataSource = function(unit, userFilters)
 		local result = {}
 		result.Sort = Sort
 		result.Update = Update
@@ -168,15 +200,10 @@ do
 		result.Count = Count
 		result.SetSortDirection = SetSortDirection
 		result.GetSortDirection = GetSortDirection
-		result.AddFilter = AddFilter
-		result.AddPlayerFilter = AddPlayerFilter
 		result.GetUnit = GetUnit
-		result.SetIncludePlayer = SetIncludePlayer
-		result.GetIncludePlayer = GetIncludePlayer
 		result.unit = unit
-		result.includePlayer = false
-		result.filter = {}
-		result.playerFilter = {}
+		result.userFilters = userFilters or {}
+		result.sortDirection = SORT_DIRECTION
 		result.table = {}
 		return result
 	end
@@ -235,6 +262,20 @@ do
 		local OnUpdate = function( self, elapsed )
 			local time = GetTime();
 
+			-- Check if expirationTime is accessible before any comparisons
+			if not canaccessvalue(self.expirationTime) then
+				self.bar:SetScript( "OnUpdate", nil );
+				self.bar:SetValue( 0 );
+				self.time:SetText( "" );
+
+				local spark = self.spark;
+				if ( spark ) then
+					spark:Hide();
+				end
+				return
+			end
+
+			-- Now safe to compare
 			if ( time > self.expirationTime ) then
 				self.bar:SetScript( "OnUpdate", nil );
 				self.bar:SetValue( 0 );
@@ -266,33 +307,31 @@ do
 				if ( spark ) then
 					spark:SetPoint( "CENTER", self.bar, "LEFT", barWidth * remaining / self.duration, 0 );
 				end
-
-				local castSeparator = self.castSeparator;
-				if ( castSeparator and self.castSpellId ) then
-					local spellinfo = C_Spell.GetSpellInfo(self.castSpellId)
-
-					castTime = spellinfo.castTime / 1000;
-					if ( castTime and remaining > castTime ) then
-						castSeparator:SetPoint( "CENTER", self.bar, "LEFT", barWidth * ( remaining - castTime ) / self.duration, 0 );
-					else
-						castSeparator:Hide();
-					end
-				end
 			end
 		end
-
+		
 		-- public
 		local SetIcon = function( self, icon )
 			if ( not self.icon ) then return; end
-
 			self.icon:SetTexture( icon );
 		end
 
 		local SetTime = function( self, expirationTime, duration )
-			self.expirationTime = expirationTime;
-			self.duration = duration;
+			-- Check if values are accessible BEFORE storing them
+			local canAccess = canaccessvalue(expirationTime) and canaccessvalue(duration)
+			
+			-- If tainted, set to permanent aura values
+			if not canAccess then
+				expirationTime = 0
+				duration = 0
+			end
+			
+			-- Now store the safe values
+			self.expirationTime = expirationTime
+			self.duration = duration
 
-			if ( expirationTime > 0 and duration > 0 ) then
+			-- Now we can safely compare
+			if expirationTime > 0 and duration > 0 then
 				self.bar:SetMinMaxValues( 0, duration );
 				OnUpdate( self, 0 );
 
@@ -321,10 +360,14 @@ do
 		end
 
 		local SetStacks = function( self, stacks )
+			-- Check if stacks is accessible before comparing
+			if not canaccessvalue(stacks) then
+				stacks = 0
+			end
+			
 			if ( not self.stacks ) then
 				if ( stacks ~= nil and stacks > 1 ) then
 					local name = self.name;
-
 					name:SetText( tostring( stacks ) .. "  " .. name:GetText() );
 				end
 			else
@@ -340,25 +383,11 @@ do
 			self.bar:SetStatusBarColor( unpack( color ) );
 		end
 
-		local SetCastSpellId = function( self, id )
-			self.castSpellId = id;
-
-			local castSeparator = self.castSeparator;
-			if ( castSeparator ) then
-				if ( id ) then
-					self.castSeparator:Show();
-				else
-					self.castSeparator:Hide();
-				end
-			end
-		end
-
 		local SetAuraInfo = function( self, auraInfo )
 			self:SetName( auraInfo.name );
 			self:SetIcon( auraInfo.texture );
 			self:SetTime( auraInfo.expirationTime, auraInfo.duration );
 			self:SetStacks( auraInfo.stacks );
-			self:SetCastSpellId( auraInfo.castSpellId );
 		end
 
 		-- constructor
@@ -462,7 +491,6 @@ do
 			result.SetStacks = SetStacks;
 			result.SetAuraInfo = SetAuraInfo;
 			result.SetColor = SetColor;
-			result.SetCastSpellId = SetCastSpellId;
 
 			return result;
 		end
@@ -485,11 +513,7 @@ do
 		end
 
 		line:SetAuraInfo( auraInfo );
-		if ( auraInfo.color ) then
-			line:SetColor( auraInfo.color );
-		elseif ( auraInfo.debuffColor and auraInfo.isDebuff ) then
-			line:SetColor( auraInfo.debuffColor );
-		elseif ( auraInfo.defaultColor ) then
+		if ( auraInfo.defaultColor ) then
 			line:SetColor( auraInfo.defaultColor );
 		end
 
@@ -497,7 +521,7 @@ do
 	end
 
 	local function OnUnitAura( self, unit )
-		if ( unit ~= self.unit and ( self.dataSource:GetIncludePlayer() == false or unit ~= "player" ) ) then
+		if ( unit ~= self.unit ) then
 			return;
 		end
 
@@ -534,8 +558,6 @@ do
 		dataSource:Sort();
 
 		local count = dataSource:Count();
-
-
 
 		for index, auraInfo in ipairs( dataSource:Get() ) do
 			SetAuraBar( self, index, auraInfo );
@@ -605,35 +627,31 @@ do
 	end
 end
 
---local _, playerClass = UnitClass( "player" );
-local classFilter = CLASS_FILTERS[ T.class ];
 classtimerload = CreateFrame("Frame", "BackdropTemplate")
 classtimerload:RegisterEvent("PLAYER_LOGIN")
 classtimerload:SetScript("OnEvent", function(self, event, addon)
 if ( LAYOUT == 4 ) then
 	local yOffset = 11;
 
-	local targetDataSource = CreateUnitAuraDataSource( "target" );
-	local playerDataSource = CreateUnitAuraDataSource( "player" );
-	local trinketDataSource = CreateUnitAuraDataSource( "player" );
+	-- Build user-configured filter strings
+	local playerFilterStrings = BuildPlayerFilterStrings()
+	local targetFilterStrings = BuildTargetFilterStrings()
+
+	-- Create data sources with user-configured filters
+	local targetDataSource = CreateUnitAuraDataSource( "target", targetFilterStrings );
+	local playerDataSource = CreateUnitAuraDataSource( "player", playerFilterStrings );
+	local trinketDataSource = CreateUnitAuraDataSource( "player", {} );
 
 	targetDataSource:SetSortDirection( SORT_DIRECTION );
 	playerDataSource:SetSortDirection( SORT_DIRECTION );
 	trinketDataSource:SetSortDirection( SORT_DIRECTION );
 
-	if ( classFilter ) then
-		targetDataSource:AddFilter( classFilter.target, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );
-		playerDataSource:AddFilter( classFilter.player, PLAYER_BAR_COLOR, PLAYER_DEBUFF_COLOR );
-		trinketDataSource:AddFilter( classFilter.procs, TRINKET_BAR_COLOR );
-	end
-	trinketDataSource:AddFilter( TRINKET_FILTER, TRINKET_BAR_COLOR );
-	targetDataSource:AddFilter( COMMON_FILTER, TARGET_BAR_COLOR, TARGET_DEBUFF_COLOR );
-
-	local playerFrame = CreateAuraBarFrame( playerDataSource,  oUF_Player );
+	-- Create player frame
+	local playerFrame = CreateAuraBarFrame( playerDataSource, oUF_Player );
 	playerFrame:SetHiddenHeight( -yOffset );
 
 	local function Barmover()
-		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or (T.class == "DRUID" and GetSpecialization() == 2) or T.class == "WARLOCK" or (T.class == "MONK" and GetSpecialization() ~= 2) or T.class == "PALADIN" or T.class == "EVOKER") then
+		if (T.class == "DEATHKNIGHT" or T.class == "SHAMAN" or (T.class == "DRUID" and GetSpecialization() == 2) or T.class == "WARLOCK" or (T.class == "MONK" and GetSpecialization() ~= 2) or T.class == "PALADIN") then
 			playerFrame:SetPoint( "BOTTOMLEFT",  oUF_Player, "TOPLEFT", 1, 20);
 			playerFrame:SetPoint( "BOTTOMRIGHT",  oUF_Player, "TOPRIGHT", -1, 20);
 		elseif (T.class == "ROGUE" and C.unitframe_class_bar.combo_old ~= true) then
@@ -642,14 +660,11 @@ if ( LAYOUT == 4 ) then
 		elseif (T.class == "DRUID" and C.unitframe_class_bar.combo_old ~= true) then
 			local form = GetShapeshiftFormID()
 			if not form or form == 0 then
-				-- No form: do not move the bar
 				return
-			elseif form == CAT_FORM then
-				-- Cat Form: use cat bar position
+			elseif form == 1 then -- Cat Form
 				playerFrame:SetPoint("BOTTOMLEFT", oUF_Player, "TOPLEFT", 1, 20)
 				playerFrame:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -1, 20)
 			else
-				-- Any other druid form: use default position
 				playerFrame:SetPoint("BOTTOMLEFT", oUF_Player, "TOPLEFT", 1, 8)
 				playerFrame:SetPoint("BOTTOMRIGHT", oUF_Player, "TOPRIGHT", -1, 8)
 			end
@@ -675,13 +690,16 @@ if ( LAYOUT == 4 ) then
 
 	playerFrame:Show();
 
-	local trinketFrame = CreateAuraBarFrame( trinketDataSource,  oUF_Player);
+	-- Create trinket frame
+	local trinketFrame = CreateAuraBarFrame( trinketDataSource, oUF_Player);
 	trinketFrame:SetHiddenHeight( -yOffset );
 	trinketFrame:SetPoint( "BOTTOMLEFT", playerFrame, "TOPLEFT", 0, 10);
 	trinketFrame:SetPoint( "BOTTOMRIGHT", playerFrame, "TOPRIGHT", 0, 10);
 	trinketFrame:Show();
 
-	local targetFrame = CreateAuraBarFrame( targetDataSource,  oUF_ViksTarget );
+	-- Create target frame only if enabled in config
+	if C.classtimer.show_target_frame then
+		local targetFrame = CreateAuraBarFrame( targetDataSource, oUF_ViksTarget );
 		if ((T.class == "DRUID" or T.class == "ROGUE") and C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old == true) then
 			targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 20);
 			targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -2, 20);
@@ -689,7 +707,8 @@ if ( LAYOUT == 4 ) then
 			targetFrame:SetPoint( "BOTTOMLEFT",  oUF_ViksTarget, "TOPLEFT", 2, 8);
 			targetFrame:SetPoint( "BOTTOMRIGHT",  oUF_ViksTarget, "TOPRIGHT", -2, 8);
 		end
-	targetFrame:Show();
+		targetFrame:Show();
+	end
 else
 	error( "Undefined layout " .. tostring( LAYOUT ) );
 end

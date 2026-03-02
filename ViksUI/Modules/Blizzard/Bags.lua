@@ -350,7 +350,7 @@ function Stuffing:SlotUpdate(b)
 	SetItemButtonDesaturated(b.frame, locked)
 
 	local mult = itemSpellID[b.spellID]
-	if mult and count then
+	if mult and count and b.count then
 		b.count:SetText(mult * count) -- replace item count with anima count
 		b.count:SetTextColor(1, 1, 0)
 	end
@@ -926,7 +926,8 @@ function Stuffing:CreateBagFrame(w)
 
 		if w == "Bank" then
 			f.b_deposit:SetScript("OnClick", function()
-				BankPanel.AutoDepositFrame.DepositButton:OnClick()
+				-- BankPanel.AutoDepositFrame.DepositButton:OnClick()
+				C_Bank.AutoDepositItemsIntoBank(Enum.BankType.Character)
 			end)
 		else
 			local tooltip_show = function(self)
@@ -948,7 +949,8 @@ function Stuffing:CreateBagFrame(w)
 					SetCVar("bankAutoDepositReagents", isOn and 0 or 1)
 					f.b_deposit:GetScript("OnEnter")(f.b_deposit)
 				else
-					BankPanel.AutoDepositFrame.DepositButton:OnClick()
+					-- BankPanel.AutoDepositFrame.DepositButton:OnClick()
+					C_Bank.AutoDepositItemsIntoBank(Enum.BankType.Account)
 				end
 			end)
 		end
@@ -1955,8 +1957,19 @@ function Stuffing:PLAYERBANKSLOTS_CHANGED()
 	end
 end
 
+local function UpdateTab(id)
+	if Stuffing.bankFrame and Stuffing.bankFrame:IsShown() then
+		if id > 8 and Stuffing.frame.bank_first then
+			Stuffing:ToggleSlots("bank", true)
+		elseif id < 9 and not Stuffing.frame.bank_first then
+			Stuffing:ToggleSlots("bank", false)
+		end
+	end
+end
+
 function Stuffing:BAG_UPDATE(id)
 	self:BagSlotUpdate(id)
+	UpdateTab(id) -- prevent changing tab
 end
 
 function Stuffing:BAG_UPDATE_DELAYED()
@@ -2011,6 +2024,7 @@ function Stuffing:BANKFRAME_CLOSED()
 	if self.bankFrame then
 		self.bankFrame:Hide()
 	end
+	BankPanel:Hide() -- fix taint UseContainerItem() after close bank
 end
 
 function Stuffing:PLAYER_INTERACTION_MANAGER_FRAME_SHOW(...)

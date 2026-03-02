@@ -260,27 +260,29 @@ local function Shared(self, unit)
 
 	-- Raid Buffs
 	if C.raidframe.plugins_buffs == true and not (suffix == "pet" or suffix == "target" or suffix == "targettarget") then
-		self.Buffs = CreateFrame("Frame", self:GetName().."_Buffs", self)
-		self.Buffs:SetSize(self:GetWidth(), 8 * C.raidframe.icon_multiplier)
-		self.Buffs.size = 8 * C.raidframe.icon_multiplier
-		self.Buffs.spacing = 3
-		self.Buffs.num = 5
-		self.Buffs:SetPoint("TOPRIGHT", self, 0, 0)
-		self.Buffs.initialAnchor = "TOPRIGHT"
-		self.Buffs.growthX = "LEFT"
+		T.CreateAuraWatch(self, unit)
 
-		self.Buffs.PostCreateButton = T.CreateRaidBuffIcon
+		-- self.Buffs = CreateFrame("Frame", self:GetName().."_Buffs", self)
+		-- self.Buffs:SetSize(self:GetWidth(), 8 * C.raidframe.icon_multiplier)
+		-- self.Buffs.size = 8 * C.raidframe.icon_multiplier
+		-- self.Buffs.spacing = 3
+		-- self.Buffs.num = 5
+		-- self.Buffs:SetPoint("TOPRIGHT", self, 0, 0)
+		-- self.Buffs.initialAnchor = "TOPRIGHT"
+		-- self.Buffs.growthX = "LEFT"
 
-		self.Buffs.disableMouse = true
-		self.Buffs.filter = "HELPFUL|PLAYER|RAID_IN_COMBAT"
+		-- self.Buffs.PostCreateButton = T.CreateRaidBuffIcon
+
+		-- self.Buffs.disableMouse = true
+		-- self.Buffs.filter = "HELPFUL|PLAYER|RAID_IN_COMBAT"
 
 		-- Defensive buffs
 		self.Auras = CreateFrame("Frame", self:GetName().."_DefensiveBuffs", self)
-		self.Auras:SetSize(self:GetWidth(), 8 * C.raidframe.icon_multiplier)
-		self.Auras.size = 8 * C.raidframe.icon_multiplier
+		self.Auras:SetSize(self:GetWidth(), 7 * C.raidframe.icon_multiplier)
+		self.Auras.size = 7 * C.raidframe.icon_multiplier
 		self.Auras.spacing = 3
-		self.Auras.numBuffs = 1
-		self.Auras:SetPoint("LEFT", self, 0, 0)
+		self.Auras.numTotal = 1
+		self.Auras:SetPoint("LEFT", self, 0, 2)
 
 		self.Auras.PostCreateButton = T.CreateRaidBuffIcon
 
@@ -290,7 +292,7 @@ local function Shared(self, unit)
 	end
 
 	-- Raid Debuffs
-	if C.raidframe.plugins_aura_watch == true and not (suffix == "pet" or suffix == "target" or suffix == "targettarget") then
+	if C.raidframe.plugins_debuffs == true and not (suffix == "pet" or suffix == "target" or suffix == "targettarget") then
 		self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)
 		self.Debuffs:SetSize(18, 18)
 		self.Debuffs.size = T.Scale(18)
@@ -324,7 +326,7 @@ local function Shared(self, unit)
 		-- self.RaidDebuffs.icon:SetPoint("TOPLEFT", 2, -2)
 		-- self.RaidDebuffs.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 
-		-- if C.raidframe.plugins_aura_watch_timer == true then
+		-- if C.raidframe.plugins_debuffs_timer == true then
 			-- self.RaidDebuffs.time = T.SetFontString(self.RaidDebuffs, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 			-- self.RaidDebuffs.time:SetPoint("CENTER", 1, 1)
 			-- self.RaidDebuffs.time:SetTextColor(1, 1, 1)
@@ -344,7 +346,7 @@ local function Shared(self, unit)
 			-- self.RaidDebuffs.cd:SetHideCountdownNumbers(true)
 			-- self.RaidDebuffs.parent = CreateFrame("Frame", nil, self.RaidDebuffs)
 			-- self.RaidDebuffs.parent:SetFrameLevel(self.RaidDebuffs.cd:GetFrameLevel() + 1)
-			-- if C.raidframe.plugins_aura_watch_timer == true then
+			-- if C.raidframe.plugins_debuffs_timer == true then
 				-- self.RaidDebuffs.time:SetParent(self.RaidDebuffs.parent)
 			-- end
 			-- self.RaidDebuffs.count:SetParent(self.RaidDebuffs.parent)

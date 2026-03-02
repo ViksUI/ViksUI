@@ -755,20 +755,24 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 
 			-- ========== PLAYER FRAME INDICATORS (Layout2 adjustments) ==========
 			if unitType == "player" then
-				-- FlashInfo frame for mana level display
-				self.FlashInfo = CreateFrame("Frame", "FlashInfo", self)
-				self.FlashInfo:SetScript("OnUpdate", T.UpdateManaLevel)
-				self.FlashInfo:SetFrameLevel(self.Health:GetFrameLevel() + 1)
-				self.FlashInfo:SetAllPoints(self.Health)  -- Cover entire health bar
+				-- Low mana warning
+				if T.class ~= "DEATHKNIGHT" and T.class ~= "DEMONHUNTER" and T.class ~= "HUNTER" and T.class ~= "ROGUE" and T.class ~= "WARRIOR" then
+					self.LowMana = CreateFrame("Frame", self:GetName().."_LowMana", self)
+					self.LowMana:SetScript("OnUpdate", T.UpdateManaLevel)
+					self.LowMana:SetFrameLevel(self.Health:GetFrameLevel() + 1)
+					self.LowMana:SetAllPoints(self.Health)
 
-				-- Mana level text - centered on health bar
-				self.FlashInfo.ManaLevel = T.SetFontString(self.FlashInfo, C.layout2.UFNamefont or C.font.unit_frames_font, C.layout2.name_font_size, C.layout2.name_font_style)
-				self.FlashInfo.ManaLevel:SetPoint("CENTER", self.Health, "CENTER", 0, 0)
+					-- Mana level text - centered on health bar
+					self.LowMana.Text = T.SetFontString(self.LowMana, C.layout2.UFNamefont or C.font.unit_frames_font, C.layout2.name_font_size, C.layout2.name_font_style)
+					self.LowMana.Text:SetText("|cffaf5050"..MANA_LOW.."|r")
+					self.LowMana.Text:SetPoint("CENTER", 0, 0)
+					self.LowMana.Text:SetAlpha(0)
 				
-				-- Optional: Add shadow to mana text for better readability
-				if Layout2Shadow.name_shadow.enable then
-					self.FlashInfo.ManaLevel:SetShadowColor(unpack(Layout2Shadow.name_shadow.color))
-					self.FlashInfo.ManaLevel:SetShadowOffset(Layout2Shadow.name_shadow.offset_x, Layout2Shadow.name_shadow.offset_y)
+					-- Optional: Add shadow to mana text for better readability
+					if Layout2Shadow.name_shadow.enable then
+						self.LowMana.Text:SetShadowColor(unpack(Layout2Shadow.name_shadow.color))
+						self.LowMana.Text:SetShadowOffset(Layout2Shadow.name_shadow.offset_x, Layout2Shadow.name_shadow.offset_y)
+					end
 				end
 
 				-- Combat icon - reposition for Layout2
@@ -893,14 +897,16 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 			end
 			
 				-- ========== PLAYER DEBUFFS REPOSITIONING ==========
-			if self.Debuffs and unitType == "player" then
-				self.Debuffs.size = C.layout2.player_debuff_size
-				self.Debuffs:ClearAllPoints()
-				self.Debuffs:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)
-				self.Debuffs.initialAnchor = "BOTTOMRIGHT"
-				self.Debuffs["growth-x"] = "LEFT"
-				self.Debuffs["growth-y"] = "DOWN"
-				self.Debuffs.spacing = C.layout2.debuff_spacing
+			if C.layout2.player_bigdebuff then
+				if self.Debuffs and unitType == "player" then
+					self.Debuffs.size = C.layout2.player_debuff_size
+					self.Debuffs:ClearAllPoints()
+					self.Debuffs:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)
+					self.Debuffs.initialAnchor = "BOTTOMRIGHT"
+					self.Debuffs["growth-x"] = "LEFT"
+					self.Debuffs["growth-y"] = "DOWN"
+					self.Debuffs.spacing = C.layout2.debuff_spacing
+				end
 			end
 			
 			-- ========== TARGET AURAS REPOSITIONING ==========
@@ -1210,17 +1216,16 @@ if C.layout2.enable then
 			-- Player frame anchors to its portrait (top right to portrait top left)
 			if player and player.Portrait then
 				player:ClearAllPoints()
-				player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, 0)
+				player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, -1)
 				player:SetSize(C.layout2.player_width, C.layout2.player_height)
 			end
 			
 			-- Target frame anchors to its portrait (top left to portrait top right)
 			if target and target.Portrait then
 				target:ClearAllPoints()
-				target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, 0)
+				target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, -1)
 				target:SetSize(C.layout2.target_width, C.layout2.target_height)
 			end
-			
 			-- Pet positioning and sizing
 			if pet and C.unitframe.show_pet then
 				-- pet:ClearAllPoints()

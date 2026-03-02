@@ -956,57 +956,89 @@ L.layout2_enable = "Enable Layout2 modifications" -- Need Review
 L.layout2_enable_desc = "Activate the custom Layout2 unit frame styling and positioning system." -- Need Review
 L.layout2_centerbar = "Center area empty" -- Need Review
 L.layout2_centerbar_desc = "Move all frames away between portraits" -- Need Review
-
 -- Layout2 Tags Section -- Need Review
 L.layout2_section_tags = "Tag Display Settings" -- Need Review
-
 L.layout2_player_health_top_left_enable = "Player: show top-left tag" -- Need Review
 L.layout2_player_health_top_left_enable_desc = "Enable the top-left text display on the player's health bar." -- Need Review
-
 L.layout2_player_health_top_left_tag = "Player: top-left tag format" -- Need Review
 L.layout2_player_health_top_left_tag_desc = "Set the tag format for player name display (e.g., [NameLong], [PercentHP], etc)." -- Need Review
-
 L.layout2_target_health_top_left_enable = "Target: show top-left tag" -- Need Review
 L.layout2_target_health_top_left_enable_desc = "Enable the top-left text display on the target's health bar." -- Need Review
-
 L.layout2_target_health_top_left_tag = "Target: top-left tag format" -- Need Review
 L.layout2_target_health_top_left_tag_desc = "Set the tag format for target name display (e.g., [NameLongAbbrev], [classification], etc)." -- Need Review
-
 -- Layout2 Fonts Section -- Need Review
 L.layout2_section_fonts = "Font Settings" -- Need Review
-
 L.layout2_name_font = "Font for unit names" -- Need Review
 L.layout2_name_font_desc = "Adjust the font size for unit names in Layout2 frames." -- Need Review
-
 L.layout2_number_font = "Font for numbers" -- Need Review
 L.layout2_number_font_desc = "Adjust the font size for numeric values (health, mana, etc) in Layout2 frames." -- Need Review
-
 -- Layout2 Frame Size Section -- Need Review
 L.layout2_section_frame_size = " Player and Target Frame Dimensions" -- Need Review
-
 L.layout2_player_width = "Player width" -- Need Review
 L.layout2_player_width_desc = "Set the width of player unit frames." -- Need Review
-
 L.layout2_player_height = "Player height" -- Need Review
 L.layout2_player_height_desc = "Set the height of player unit frame." -- Need Review
-
 L.layout2_target_width = "Target width" -- Need Review
 L.layout2_target_width_desc = "Set the width of target unit frame." -- Need Review
-
 L.layout2_target_height = "Target height" -- Need Review
 L.layout2_target_height_desc = "Set the height of target unit frame." -- Need Review
-
 L.layout2_portrait_size = "Portrait size" -- Need Review
 L.layout2_portrait_size_desc = "Set the size of the portrait frame (player and target frames)." -- Need Review
-
 -- Layout2 Debuffs Section -- Need Review
 L.layout2_section_debuffs = "Player Debuff Settings" -- Need Review
-
 L.layout2_player_debuff_size = "Debuff icon size" -- Need Review
 L.layout2_player_debuff_size_desc = "Adjust the size of debuff icons displayed on the player frame." -- Need Review
-
 L.layout2_debuff_spacing = "Debuff icon spacing" -- Need Review
 L.layout2_debuff_spacing_desc = "Set the space between debuff icons on the player frame." -- Need Review
-
 L.layout2_use_portrait_borders = "Use portrait-style borders" -- Need Review
 L.layout2_use_portrait_borders_desc = "Apply portrait-style borders to secondary frames (pet, target's target, focus, etc)." -- Need Review
+
+-- ====================================
+-- ClassTimer Localization
+-- ====================================
+L.classtimer = "ClassTimer"
+L.classtimer_subtext = "Buff/Debuff tracker that displays auras as bars on your player and target frames. Configure which filters to display."
+
+-- ClassTimer Main Options
+L.classtimer_enable = "Enable ClassTimer"
+L.classtimer_enable_desc = "Show the ClassTimer buff/debuff tracking bars on player and target frames."
+
+L.classtimer_show_player_frame = "Show Player Frame"
+L.classtimer_show_player_frame_desc = "Display buff bars above the player frame to track your buffs, procs, and defensive abilities."
+
+L.classtimer_show_target_frame = "Show Target Frame"
+L.classtimer_show_target_frame_desc = "Display debuff bars above the target frame to track your damage-over-time effects and crowd controls on the target."
+
+-- Player Frame Filters Section
+L.classtimer_section_player = "Player Frame - Aura Filters"
+L.classtimer_section_player_desc = "Select which types of auras to display above the player frame."
+
+L.classtimer_player_helpful_player = "Show Player Buffs (HELPFUL|PLAYER)"
+L.classtimer_player_helpful_player_desc = "Display buffs that are cast by you on yourself. This includes procs, self-cast buffs, and personal damage cooldowns like Barbed Shot, Predator's Thirst, etc."
+
+L.classtimer_player_helpful_big_defensive = "Show Big Defensives (HELPFUL|BIG_DEFENSIVE)"
+L.classtimer_player_helpful_big_defensive_desc = "Display major defensive abilities cast by you. Examples: Survival Instinct, Feign Death, shields, large damage reduction abilities."
+
+L.classtimer_player_helpful_external_defensive = "Show External Defensives (HELPFUL|EXTERNAL_DEFENSIVE)"
+L.classtimer_player_helpful_external_defensive_desc = "Display shields and protective buffs cast on you by other players, such as Power Word: Shield, Aegis, defensive raid buffs, and healer shields."
+
+L.classtimer_player_helpful_raid_in_combat = "Show Combat Buffs (HELPFUL|RAID_IN_COMBAT)"
+L.classtimer_player_helpful_raid_in_combat_desc = "Display combat-relevant buffs from raids and group play. These are buffs specifically marked as important during combat situations."
+
+-- Target Frame Filters Section
+L.classtimer_section_target = "Target Frame - Aura Filters"
+L.classtimer_section_target_desc = "Select which types of auras to display above the target frame."
+
+L.classtimer_target_harmful_player = "Show Your Debuffs (HARMFUL|PLAYER)"
+L.classtimer_target_harmful_player_desc = "Display debuffs and damage-over-time effects that you have applied to the target. Examples: Agony, Unstable Affliction, Rake, Rip, Immolate, etc."
+
+L.classtimer_target_harmful_crowd_control = "Show Crowd Controls (HARMFUL|CROWD_CONTROL)"
+L.classtimer_target_harmful_crowd_control_desc = "Display crowd control effects on the target including stuns, roots, slows, silences, and other movement/action restricting debuffs."
+
+L.classtimer_target_helpful_big_defensive = "Show Target Defensives (HELPFUL|BIG_DEFENSIVE)"
+L.classtimer_target_helpful_big_defensive_desc = "Display major defensive buffs and shields that the target has active. Useful for tracking when enemies have damage reduction active."
+
+L.classtimer_target_helpful_external_defensive = "Show Target External Defensives (HELPFUL|EXTERNAL_DEFENSIVE)"
+L.classtimer_target_helpful_external_defensive_desc = "Display shields and protective buffs cast on the target by others. Useful for seeing when you need to wait before attacking."
+L.classtimer_target_harmful_player_cc = "Show Your Crowd Controls (HARMFUL|PLAYER|CROWD_CONTROL)"
+L.classtimer_target_harmful_player_cc_desc = "Display crowd control effects that YOU have applied to the target, such as stuns, roots, and slows you cast. This is separate from general crowd controls and helps you see only your CC effects."
