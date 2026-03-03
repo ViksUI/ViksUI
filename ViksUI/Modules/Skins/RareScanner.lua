@@ -31,7 +31,7 @@ frame:SetScript("OnEvent", function()
 	button.UnFilterEntityButton.plus:SetTexture(C.media.blank)
 
 	button.CloseButton:SkinButton()
-	button.CloseButton.text = button.CloseButton:FontString(nil, [[Interface\AddOns\ShestakUI\Media\Fonts\Pixel.ttf]], 8)
+	button.CloseButton.text = button.CloseButton:FontString(nil, [[Interface\AddOns\ViksUI\Media\Fonts\Pixel.ttf]], 8)
 	button.CloseButton.text:SetPoint("CENTER", 0, 0)
 	button.CloseButton.text:SetText("X")
 end)
