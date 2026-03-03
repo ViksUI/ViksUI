@@ -1480,18 +1480,18 @@ function T.SkinModelControl(frame)
 end
 
 do
-	local font = CreateFont("ShestakUI_AuraTimerFont")
+	local font = CreateFont("ViksUI_AuraTimerFont")
 	font:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
 	font:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
 
-	local font = CreateFont("ShestakUI_ActionBarTimerFont")
+	local font = CreateFont("ViksUI_ActionBarTimerFont")
 	font:SetFont(C.font.cooldown_timers_font, C.font.cooldown_timers_font_size, C.font.cooldown_timers_font_style)
 	font:SetShadowOffset(C.font.cooldown_timers_font_shadow and 1 or 0, C.font.cooldown_timers_font_shadow and -1 or 0)
 end
 
 function T.SkinCooldown(cooldown, name)
 	if cooldown.styled then return end
-	local text = cooldown:GetRegions()
+	local text = cooldown:GetCountdownFontString()
 
 	if name == "aura" then
 		cooldown:SetDrawEdge(false)
@@ -1499,16 +1499,15 @@ function T.SkinCooldown(cooldown, name)
 		if not C.aura.show_timer then
 			cooldown:SetHideCountdownNumbers(true)
 		end
-		cooldown:SetCountdownFont("ShestakUI_AuraTimerFont")
+		cooldown:SetCountdownFont("ViksUI_AuraTimerFont")
 		text:SetHeight(C.font.auras_font_size)
 	elseif name == "actionbar" then
-		cooldown:SetCountdownFont("ShestakUI_ActionBarTimerFont")
+		cooldown:SetCountdownFont("ViksUI_ActionBarTimerFont")
 		text:SetHeight(C.font.cooldown_timers_font_size)
 	end
 
 	cooldown:SetCountdownAbbrevThreshold(59)
 
-	-- text:SetPoint("CENTER", 1, 0)
 	text:ClearAllPoints()
 	text:SetPoint("LEFT", -2, 0)
 	text:SetPoint("RIGHT", 5, 0)
