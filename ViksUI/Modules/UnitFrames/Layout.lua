@@ -28,6 +28,12 @@ local function Shared(self, unit)
 	self:SetScript("OnEnter", UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
+	-- Focus click handling (Ctrl+Alt+Shift) Leftmouse set, right mouse clears
+	self:SetAttribute("alt-ctrl-shift-type1", "macro")
+	self:SetAttribute("alt-ctrl-shift-macrotext1", "/focus mouseover")
+	self:SetAttribute("alt-ctrl-shift-type2", "macro")
+	self:SetAttribute("alt-ctrl-shift-macrotext2", "/clearfocus")
+
 	local unit = (unit and unit:find("arena%dtarget")) and "arenatarget"
 	or (unit and unit:find("arena%d")) and "arena"
 	or (unit and unit:find("boss%d")) and "boss" or unit
