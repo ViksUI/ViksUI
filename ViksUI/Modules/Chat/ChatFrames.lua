@@ -142,21 +142,22 @@ end
 local function AddMessage( Frame, String, ... )
 	local Smilies = true
 	local MessageString
+	
+	-- Create a copy to avoid taint propagation
+	local str = tostring(String) or ""
 
-	String = String:gsub( '|Hplayer:(.-)|h%[(.-)%]|h', '|Hplayer:%1|h%2|h' )
-	String = String:gsub( '|HBNplayer:(.-)|h%[(.-)%]|h', '|HBNplayer:%1|h%2|h' )
-	--String = String:gsub( '^To (.-|h)', '|cffad2424@|r%1' )
-	--String = String:gsub( '^(.-|h) whispers', '%1' )
-	String = String:gsub( '^(.-|h) says', '%1' )
-	String = String:gsub( '^(.-|h) yells', '%1' )
-	String = String:gsub( '<' .. AFK .. '>', "AFK" )
-	String = String:gsub( '<' .. DND .. '>', "DND" )
-	String = String:gsub( '^%[' .. RAID_WARNING .. '%]', "Raid Warning" )
+	str = str:gsub( '|Hplayer:(.-)|h%[(.-)%]|h', '|Hplayer:%1|h%2|h' )
+	str = str:gsub( '|HBNplayer:(.-)|h%[(.-)%]|h', '|HBNplayer:%1|h%2|h' )
+	str = str:gsub( '^(.-|h) says', '%1' )
+	str = str:gsub( '^(.-|h) yells', '%1' )
+	str = str:gsub( '<' .. AFK .. '>', "AFK" )
+	str = str:gsub( '<' .. DND .. '>', "DND" )
+	str = str:gsub( '^%[' .. RAID_WARNING .. '%]', "Raid Warning" )
 
 	if( Smilies ) then
-		MessageString = origs[Frame]( Frame, GetSmileyReplacementText( String ), ... )
+		MessageString = origs[Frame]( Frame, GetSmileyReplacementText( str ), ... )
 	else
-		MessageString = origs[Frame]( Frame, String, ... )
+		MessageString = origs[Frame]( Frame, str, ... )
 	end
 
 	return MessageString
