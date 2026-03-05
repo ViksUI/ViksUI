@@ -559,36 +559,36 @@ end
 ----------------------------------------------------------------------------------------
 -- All frames that have a Portrait
 ----------------------------------------------------------------------------------------
-function T:HandlePortraitFrame(frame, setBackdrop)
-	assert(frame, "doesn't exist!")
+-- function T:HandlePortraitFrame(frame, setBackdrop)
+	-- assert(frame, "doesn't exist!")
 
-	local name = frame and frame.GetName and frame:GetName()
-	local insetFrame = name and _G[name..'Inset'] or frame.Inset
-	local portraitFrame = name and _G[name..'Portrait'] or frame.Portrait or frame.portrait
-	local portraitFrameOverlay = name and _G[name..'PortraitOverlay'] or frame.PortraitOverlay
-	local artFrameOverlay = name and _G[name..'ArtOverlayFrame'] or frame.ArtOverlayFrame
+	-- local name = frame and frame.GetName and frame:GetName()
+	-- local insetFrame = name and _G[name..'Inset'] or frame.Inset
+	-- local portraitFrame = name and _G[name..'Portrait'] or frame.Portrait or frame.portrait
+	-- local portraitFrameOverlay = name and _G[name..'PortraitOverlay'] or frame.PortraitOverlay
+	-- local artFrameOverlay = name and _G[name..'ArtOverlayFrame'] or frame.ArtOverlayFrame
 
-	frame:StripTextures()
+	-- frame:StripTextures()
 
-	if portraitFrame then portraitFrame:SetAlpha(0) end
-	if portraitFrameOverlay then portraitFrameOverlay:SetAlpha(0) end
-	if artFrameOverlay then artFrameOverlay:SetAlpha(0) end
+	-- if portraitFrame then portraitFrame:SetAlpha(0) end
+	-- if portraitFrameOverlay then portraitFrameOverlay:SetAlpha(0) end
+	-- if artFrameOverlay then artFrameOverlay:SetAlpha(0) end
 
-	if insetFrame then
-		T:HandleInsetFrame(insetFrame)
-	end
+	-- if insetFrame then
+		-- T:HandleInsetFrame(insetFrame)
+	-- end
 
-	if frame.CloseButton then
-		T.SkinCloseButton(frame.CloseButton)
-	end
+	-- if frame.CloseButton then
+		-- T.SkinCloseButton(frame.CloseButton)
+	-- end
 
-	if setBackdrop then
-		frame:CreateBackdrop('Transparent')
-		frame.backdrop:SetAllPoints()
-	else
-		frame:SetTemplate('Transparent')
-	end
-end
+	-- if setBackdrop then
+		-- frame:CreateBackdrop('Transparent')
+		-- frame.backdrop:SetAllPoints()
+	-- else
+		-- frame:SetTemplate('Transparent')
+	-- end
+-- end
 
 ----------------------------------------------------------------------------------------
 --	Fade in/out functions
@@ -618,7 +618,7 @@ local function addAPI(object)
 	if not object.CreateBackdropn then mt.CreateBackdropn = CreateBackdropn end -- Temp for New function
 	if not object.StripTextures then mt.StripTextures = StripTextures end
 	if not object.CreateShadow then mt.CreateShadow = CreateShadow end
-	if not object.HandlePortraitFrame then mt.HandlePortraitFrame = HandlePortraitFrame end
+	-- if not object.HandlePortraitFrame then mt.HandlePortraitFrame = HandlePortraitFrame end
 	if not object.Kill then mt.Kill = Kill end
 	if not object.StyleButton then mt.StyleButton = StyleButton end
 	if not object.SkinButton then mt.SkinButton = SkinButton end
