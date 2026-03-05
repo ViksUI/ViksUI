@@ -163,7 +163,9 @@ end
 -- Add all items from quest to our table
 local function UpdateSingle(_, quest)
 	local questLogIndex = quest:GetQuestLogIndex()
-	local link = GetQuestLogSpecialItemInfo(questLogIndex)
+	if not questLogIndex then return end
+	local success, link = pcall(GetQuestLogSpecialItemInfo, questLogIndex)
+	if not success then return end
 	if link then
 		local itemID = link:match("item:(%d+)")
 		itemID = tonumber(itemID) or 0
