@@ -146,13 +146,16 @@ local function AddMessage( Frame, String, ... )
 	-- Create a copy to avoid taint propagation
 	local str = tostring(String) or ""
 
-	str = str:gsub( '|Hplayer:(.-)|h%[(.-)%]|h', '|Hplayer:%1|h%2|h' )
-	str = str:gsub( '|HBNplayer:(.-)|h%[(.-)%]|h', '|HBNplayer:%1|h%2|h' )
-	str = str:gsub( '^(.-|h) says', '%1' )
-	str = str:gsub( '^(.-|h) yells', '%1' )
-	str = str:gsub( '<' .. AFK .. '>', "AFK" )
-	str = str:gsub( '<' .. DND .. '>', "DND" )
-	str = str:gsub( '^%[' .. RAID_WARNING .. '%]', "Raid Warning" )
+	-- Add taint checks before attempting string operations
+	if type(str) == "string" and canaccessvalue(str) then
+		str = str:gsub( '|Hplayer:(.-)|h%[(.-)%]|h', '|Hplayer:%1|h%2|h' )
+		str = str:gsub( '|HBNplayer:(.-)|h%[(.-)%]|h', '|HBNplayer:%1|h%2|h' )
+		str = str:gsub( '^(.-|h) says', '%1' )
+		str = str:gsub( '^(.-|h) yells', '%1' )
+		str = str:gsub( '<' .. AFK .. '>', "AFK" )
+		str = str:gsub( '<' .. DND .. '>', "DND" )
+		str = str:gsub( '^%[' .. RAID_WARNING .. '%]', "Raid Warning" )
+	end
 
 	if( Smilies ) then
 		MessageString = origs[Frame]( Frame, GetSmileyReplacementText( str ), ... )
