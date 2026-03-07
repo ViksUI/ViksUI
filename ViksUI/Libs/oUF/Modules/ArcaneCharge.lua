@@ -45,10 +45,16 @@ local function Visibility(self)
 
 	if spec == SPEC_MAGE_ARCANE then
 		element:Show()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
+		-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+		if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+			self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19)
+		end
 	else
 		element:Hide()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end
+		-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+		if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+			self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5)
+		end
 	end
 end
 

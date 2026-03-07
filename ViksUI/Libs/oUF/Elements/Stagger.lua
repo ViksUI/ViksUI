@@ -1,3 +1,4 @@
+local T, C, L = unpack(ViksUI)
 local _, ns = ...
 local oUF = ns.oUF
 
@@ -117,6 +118,10 @@ local function Visibility(self, event, unit)
 			--]]
 			if(element.PostVisibility) then
 				element:PostVisibility(false)
+				-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+				if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+					self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5)
+				end
 			end
 		end
 	else
@@ -126,6 +131,10 @@ local function Visibility(self, event, unit)
 
 			if(element.PostVisibility) then
 				element:PostVisibility(true)
+				-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+				if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+					self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19)
+				end
 			end
 		end
 

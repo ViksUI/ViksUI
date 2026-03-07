@@ -36,6 +36,7 @@ end
 
 ]]--
 
+local T, C, L = unpack(ViksUI)
 local _, ns = ...
 local oUF = ns.oUF
 
@@ -52,10 +53,16 @@ local function Update(self, _, unit, powerType)
 
 	if UnitHasVehicleUI("player") then
 		element:Hide()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5) end
+		-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+		if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+			self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5)
+		end
 	else
 		element:Show()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
+		-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+		if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+			self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19)
+		end
 	end
 
 	local cur = UnitPower("player", SPELL_POWER_ESSENCE)
@@ -112,7 +119,10 @@ local function Visibility(self)
 
 	if not UnitHasVehicleUI("player") then
 		element:Show()
-		if self.Debuffs then self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19) end
+		-- Layout2 support: Skip debuff repositioning if Layout2 big debuffs are enabled
+		if self.Debuffs and (not C.layout2.enable or not C.layout2.player_bigdebuff) then
+			self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19)
+		end
 	end
 	self:RegisterEvent("UNIT_POWER_UPDATE", Path)
 end
