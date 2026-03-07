@@ -1086,6 +1086,41 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				end
 			end
 			
+			-- ========== DEBUFFS ADJUSTMENT FOR CLASS BARS (PERSISTENT HOOK) ==========
+			-- Hook into debuffs PostUpdate to reapply positioning when debuffs change
+			if unitType == "player" and self.Debuffs then
+				local originalPostUpdate = self.Debuffs.PostUpdate
+				self.Debuffs.PostUpdate = function(auras, unit)
+					if originalPostUpdate then
+						originalPostUpdate(auras, unit)
+					end
+					
+					-- Only reposition if this is actually the Debuffs frame
+					if auras ~= self.Debuffs then return end
+					
+					-- Reapply positioning after debuffs update
+					if (T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune == true)
+					or ((T.class == "DRUID" or T.class == "ROGUE") and C.unitframe_class_bar.combo == true and C.unitframe_class_bar.combo_old ~= true)
+					or (T.class == "MONK" and C.unitframe_class_bar.chi == true)
+					or (T.class == "PALADIN" and C.unitframe_class_bar.holy == true)
+					or (T.class == "WARLOCK" and C.unitframe_class_bar.shard == true)
+					or (T.class == "MAGE" and C.unitframe_class_bar.arcane == true)
+					or (T.class == "DEMONHUNTER" and C.unitframe_class_bar.soul == true)
+					or (T.class == "SHAMAN" and C.unitframe_class_bar.totem == true) then
+						if C.layout2.player_bigdebuff then
+							auras:ClearAllPoints()
+							auras:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)
+						else
+							auras:ClearAllPoints()
+							auras:SetPoint("BOTTOMRIGHT", auras:GetParent(), "TOPRIGHT", 2, 19)
+						end
+					else
+						auras:ClearAllPoints()
+						auras:SetPoint("BOTTOMRIGHT", auras:GetParent(), "TOPRIGHT", 2, 5)
+					end
+				end
+			end
+			
 			-- ========== PET & TARGET'S TARGET POSITIONING ==========
 			-- Position pet frame and target's target based on centerbar setting
 			if unitType == "player" then
