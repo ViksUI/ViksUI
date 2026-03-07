@@ -119,17 +119,22 @@ end
 
 
 local function UpdateGuildMessage()
+	if InCombatLockdown() then return end
 	guildMotD = GetGuildRosterMOTD()
 end
 
 local function Update(self, event, ...)	
 	if IsInGuild() then
-		C_GuildInfo_GuildRoster() -- Bux Fix on 5.4.
+		if not InCombatLockdown() then
+			C_GuildInfo_GuildRoster() -- Bux Fix on 5.4.
+		end
 		-- special handler to request guild roster updates when guild members come online or go
 		-- offline, since this does not automatically trigger the GuildRoster update from the server
 		if event == "CHAT_MSG_SYSTEM" then
 			local message = select(1, ...)
-			if find(message, friendOnline) or find(message, friendOffline) then C_GuildInfo_GuildRoster() end
+			if not InCombatLockdown() and (find(message, friendOnline) or find(message, friendOffline)) then 
+				C_GuildInfo_GuildRoster() 
+			end
 		end
 		-- our guild xp changed, recalculate it
 		if event == "GUILD_XP_UPDATE" then UpdateGuildXP() return end
@@ -141,7 +146,12 @@ local function Update(self, event, ...)
 			if not GuildFrame and IsInGuild() then C_AddOns.LoadAddOn("Blizzard_GuildUI") UpdateGuildMessage() end
 		end
 		-- an event occured that could change the guild roster, so request update, and wait for guild roster update to occur
-		if event ~= "GUILD_ROSTER_UPDATE" and event~="PLAYER_GUILD_UPDATE" then C_GuildInfo_GuildRoster() return end
+		if event ~= "GUILD_ROSTER_UPDATE" and event~="PLAYER_GUILD_UPDATE" then 
+			if not InCombatLockdown() then
+				C_GuildInfo_GuildRoster() 
+			end
+			return 
+		end
 		local NumTotalMembers, NumOnlineMembers, NumOnlineAndMobileMembers = GetNumGuildMembers()
 		
 		Text:SetFormattedText(displayString, NumOnlineMembers)
@@ -212,6 +222,7 @@ end)
 
 Stat:SetScript("OnEnter", function(self)
 	if not IsInGuild() then return end
+	if InCombatLockdown() then return end
 	
 	local total, online = GetNumGuildMembers()
 	C_GuildInfo_GuildRoster()
