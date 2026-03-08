@@ -95,6 +95,7 @@ local function Shared(self, unit)
 	end
 
 	if not (suffix == "pet" or (suffix == "target" and unit ~= "tank")) then
+		-- Health value
 		self.Health.value = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 		if unit == "tank" then
 			self.Health.value:SetPoint("CENTER", self.Health, "CENTER", 0, -5)
@@ -258,7 +259,7 @@ local function Shared(self, unit)
 		self.Debuffs.PostUpdateButton = T.PostUpdateIcon
 	end
 
-	-- Debuff highlight
+	-- Dispel highlight
 	if C.raidframe.plugins_debuffhighlight and not (suffix == "target" or suffix == "targettarget") then
 		self.DispelColor = self.Health:CreateTexture(nil, "OVERLAY")
 		self.DispelColor:SetAllPoints(self.Health)
@@ -285,6 +286,7 @@ local function Shared(self, unit)
 		end
 	end
 
+	-- Apply expert code
 	if T.PostCreateDPSRaidFrames then
 		T.PostCreateDPSRaidFrames(self, unit)
 	end

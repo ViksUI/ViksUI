@@ -127,6 +127,7 @@ local function Shared(self, unit)
 	self:Tag(self.Info, "[GetNameColor][NameShort]")
 
 	if not (suffix == "pet" or (suffix == "target" and unit ~= "tank")) then
+		-- Health value
 		self.Health.value = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
 		self.Health.value:SetPoint("TOP", self.Info, "BOTTOM", 0, -1)
 		self.Health.value:SetTextColor(1, 1, 1)
@@ -237,7 +238,7 @@ local function Shared(self, unit)
 		self.ResurrectIndicator:SetPoint("BOTTOMRIGHT", self.Health, 2, -7)
 	end
 
-	-- Debuff highlight
+	-- Dispel highlight
 	if C.raidframe.plugins_debuffhighlight and not (suffix == "target" or suffix == "targettarget") then
 		self.DispelColor = self.Health:CreateTexture(nil, "OVERLAY")
 		self.DispelColor:SetAllPoints(self.Health)
@@ -369,6 +370,7 @@ local function Shared(self, unit)
 		-- self.RaidDebuffs.MatchBySpellName = true
 	end
 
+	-- Apply expert code
 	if T.PostCreateHealRaidFrames then
 		T.PostCreateHealRaidFrames(self, unit)
 	end
