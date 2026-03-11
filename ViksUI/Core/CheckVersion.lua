@@ -41,7 +41,7 @@ local whisp = CreateFrame("Frame")
 whisp:RegisterEvent("CHAT_MSG_WHISPER")
 whisp:RegisterEvent("CHAT_MSG_BN_WHISPER")
 whisp:SetScript("OnEvent", function(_, event, text, name, ...)
-	if text:lower():match("ui_version") or text:lower():match("уи_версия") then
+	if strlower(text):match("ui_version") or strlower(text):match("уи_версия") then
 		if event == "CHAT_MSG_WHISPER" then
 			SendChatMessage("ViksUI "..T.version, "WHISPER", nil, name)
 		elseif event == "CHAT_MSG_BN_WHISPER" then
