@@ -172,12 +172,13 @@ local function LoadSkin()
 
 		for _, region in next, {container:GetRegions()} do
 			if region:IsObjectType("Texture") then
-				local texture = region:GetTexture()
+				local textureFileID = region:GetTextureFileID()
 				local atlas = region:GetAtlas()
 
-				if texture == 6707800 then
+				-- Check if the value is tainted before comparing
+				if textureFileID and not issecretvalue(textureFileID) and textureFileID == 6707800 then
 					region:SetTexture(C.media.blank)
-				elseif atlas == "UI-HUD-CoolDownManager-IconOverlay" then -- 6704514
+				elseif atlas and not issecretvalue(atlas) and atlas == "UI-HUD-CoolDownManager-IconOverlay" then -- 6704514
 					region:SetAlpha(0)
 				end
 			end
