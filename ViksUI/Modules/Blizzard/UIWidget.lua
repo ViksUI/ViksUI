@@ -199,8 +199,10 @@ local function SkinSpell(widget)
 	widget.IconMask:Hide()
 	widget.CircleMask:Hide()
 
-	local w, h = widget:GetSize()
-	widget:SetSize(w + 5, h + 5)	-- use to avoid overlap in Jail (by default 30 size), not sure how it looks in another place
+	local success = pcall(function()
+		local w, h = widget:GetSize()
+		widget:SetSize(w + 5, h + 5)
+	end)	-- use to avoid overlap in Jail (by default 30 size), not sure how it looks in another place
 
 	if widget.DebuffBorder:IsShown() then
 		widget.Icon.b:SetBackdropBorderColor(0.7, 0, 0)
