@@ -336,76 +336,29 @@ if C.general.hide_banner == true then
 end
 
 ----------------------------------------------------------------------------------------
---	Hide button for oUF_RaidDPS
-----------------------------------------------------------------------------------------
-if C.misc.hide_raid_button == true then
-	local show = false
-	SlashCmdList.HideRaidMODE = function()
-		if show == false then
-			if oUF_RaidDPS1 then
-				for i = 1, C.raidframe.raid_groups do
-					_G["oUF_RaidDPS"..i]:SetAlpha(0)
-				end
-				oUF_MainTank:SetAlpha(0)
-			end
-			show = true
-		else
-			if oUF_RaidDPS1 then
-				for i = 1, C.raidframe.raid_groups do
-					_G["oUF_RaidDPS"..i]:SetAlpha(1)
-				end
-				oUF_MainTank:SetAlpha(1)
-			end
-			show = false
-		end
-
-	end
-	SLASH_HIDERAIDMODE1 = "/hideraid"
-
-	local HideRaid = CreateFrame("Button", "HideRaidMode", UIParent)
-	HideRaid:SetTemplate("ClassColor")
-	HideRaid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
-	HideRaid:SetSize(19, 19)
-	HideRaid:SetAlpha(0)
-	HideRaid:Hide()
-
-	HideRaid.t = HideRaid:CreateTexture(nil, "OVERLAY")
-	HideRaid.t:SetTexture("Interface\\Icons\\inv_misc_spyglass_03")
-	HideRaid.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	HideRaid.t:SetPoint("TOPLEFT", HideRaid, 2, -2)
-	HideRaid.t:SetPoint("BOTTOMRIGHT", HideRaid, -2, 2)
-
-	HideRaid:SetScript("OnClick", function()
-		if oUF_RaidDPS1 and oUF_RaidDPS1:IsShown() then
-			SlashCmdList.HideRaidMODE()
-		end
-	end)
-
-	HideRaid:SetScript("OnEnter", function()
-		if oUF_RaidDPS1 and oUF_RaidDPS1:IsShown() then
-			HideRaid:FadeIn()
-		end
-	end)
-
-	HideRaid:SetScript("OnLeave", function()
-		HideRaid:FadeOut()
-	end)
-
-	HideRaid:RegisterEvent("PLAYER_LOGIN")
-	HideRaid:SetScript("OnEvent", function(self)
-		if C.unitframe.enable == true and ViksUISettings and ViksUISettings.RaidLayout == "DPS" then
-			self:Show()
-		end
-	end)
-end
-
-----------------------------------------------------------------------------------------
 --	Easy delete good items
 ----------------------------------------------------------------------------------------
-local deleteDialog = StaticPopupDialogs["DELETE_GOOD_ITEM"]
-if deleteDialog.OnShow then
-	hooksecurefunc(deleteDialog, "OnShow", function(s) s:GetEditBox():SetText(DELETE_ITEM_CONFIRM_STRING) s:GetEditBox():SetAutoFocus(false) s:GetEditBox():ClearFocus() end)
+local function DeleteItemConfirm()
+	StaticPopup_ForEachShownDialog(function(dialog)
+		local dialogType = dialog.which
+		
+		-- Check if this is a delete dialog with an editbox
+		if dialogType == "DELETE_GOOD_ITEM" or dialogType == "DELETE_ITEM" or 
+		   dialogType == "DELETE_QUEST_ITEM" or dialogType == "DELETE_GOOD_QUEST_ITEM" then
+			
+			if dialog.EditBox then
+				dialog.EditBox:SetText(DELETE_ITEM_CONFIRM_STRING)
+				dialog.EditBox:SetAutoFocus(false)
+				dialog.EditBox:ClearFocus()
+			end
+		end
+	end)
 end
+
+-- Register the event to handle delete confirmations
+local DeleteItemFrame = CreateFrame("Frame")
+DeleteItemFrame:RegisterEvent("DELETE_ITEM_CONFIRM")
+DeleteItemFrame:SetScript("OnEvent", DeleteItemConfirm)
 
 ----------------------------------------------------------------------------------------
 --	Change UIErrorsFrame strata
@@ -430,3 +383,13 @@ local function OnDoubleClick(self, button)
     LFGListApplicationDialog.SignUpButton:Click()
     end
 end
+----------------------------------------------------------------------------------------
+--	Allow mousewheel in ItemTextScrollFrame
+----------------------------------------------------------------------------------------
+ItemTextScrollFrame:HookScript("OnMouseWheel", function(_, delta)
+	if delta < 0 and ItemTextNextPageButton:IsShown() then
+		ItemTextNextPageButton:Click()
+	elseif delta > 0 and ItemTextPrevPageButton:IsShown() then
+		ItemTextPrevPageButton:Click()
+	end
+end)
