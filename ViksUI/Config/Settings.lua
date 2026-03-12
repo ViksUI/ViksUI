@@ -181,6 +181,7 @@ C["skins"] = {
 	["dominos"] = false,						-- Dominos skin
 	["ExtraActionBarFrame"] = true, 			-- Skinn ExtraActionBarFrame with Masque
 	["flyout_button"] = false,					-- FlyoutButtonCustom skin
+	["follow_the_arrow"] = false,				-- FollowTheArrow skin
 	["ls_toasts"] = false,						-- Is: Toasts skin
 	["mage_nuggets"] = false,					-- MageNuggets skin
 	["my_role_play"] = false,					-- MyRolePlay skin
