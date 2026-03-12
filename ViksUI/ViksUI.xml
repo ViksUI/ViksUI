@@ -249,6 +249,7 @@
 	<Script file="Modules\Skins\DetailsIcons.lua"/>
 	<Script file="Modules\Skins\Dominos.lua"/>
 	<Script file="Modules\Skins\FlyoutButtonCustom.lua"/>
+	<Script file="Modules\Skins\FollowTheArrow.lua"/>
 	<Script file="Modules\Skins\MageNuggets.lua"/>
 	<Script file="Modules\Skins\MyRolePlay.lua"/>
 	<Script file="Modules\Skins\NPCScan.lua"/>
