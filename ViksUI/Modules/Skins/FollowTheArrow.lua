@@ -17,17 +17,32 @@ frame:SetScript("OnEvent", function(self)
 	main:StripTextures()
 	main:SetTemplate("Transparent")
 
-	-- Skin direct child buttons (close, prev, next, sync) and the scroll bar
+	-- Route dropdown (UIDropDownMenuTemplate, globally named)
+	if FollowTheArrowRouteDropdown then
+		T:HandleDropDownBox(FollowTheArrowRouteDropdown)
+	end
+
+	-- Skin direct child buttons/frames (close, min/max, prev, next, sync) and the scroll bar
 	for _, child in ipairs({main:GetChildren()}) do
 		local objType = child:GetObjectType()
 		if objType == "Button" then
 			local norm = child:GetNormalTexture()
 			local normTex = norm and norm:GetTexture()
+			local normAtlas = norm and norm.GetAtlas and norm:GetAtlas()
+			-- Close button uses an atlas whose name contains "close" in modern WoW
+			if normAtlas and normAtlas:lower():find("close") then
+				T.SkinCloseButton(child)
 			-- Skip the gear button (OptionsButton) and the resize grip (SizeGrabber)
-			if normTex == nil or (type(normTex) == "string"
-				and not normTex:find("OptionsButton")
-				and not normTex:find("SizeGrabber")) then
+			elseif type(normTex) == "string"
+				and (normTex:find("OptionsButton") or normTex:find("SizeGrabber")) then
+				-- intentionally skip
+			else
 				child:SkinButton()
+			end
+		elseif objType == "Frame" then
+			-- MaximizeMinimizeButtonFrameTemplate holds MinimizeButton / MaximizeButton
+			if child.MinimizeButton then
+				T.SkinMaxMinFrame(child)
 			end
 		elseif objType == "ScrollFrame" then
 			if child.ScrollBar then
