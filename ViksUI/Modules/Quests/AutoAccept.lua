@@ -77,6 +77,7 @@ local QuickQuestDB = {
 			[121602] = true, -- Manapoof in Dalaran
 			[147666] = true, -- Manapoof in Boralus
 			[147642] = true, -- Manapoof in Dazar'alor
+			[241677] = true, -- Image of Lady Liadrin (Campaign Skip)
 
 			-- Bodyguards
 			[86945] = true, -- Aeda Brightdawn (Horde)
@@ -186,6 +187,8 @@ local QuickQuestDB = {
 			[85244] = true, -- Defeating the Underpin (Brann)
 			[83500] = true, -- Zekvir, Hand of the Harbinger (Brann)
 			[84367] = true, -- A Time to Come Together (Brann - Campaign)
+			[91281] = true, -- Midnight intro quest. Safe to turn in and even use skip, but not auto.
+			
 		},
 	},
 }
