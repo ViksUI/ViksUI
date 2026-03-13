@@ -924,6 +924,14 @@ function T.GetTexCoordsForRoleSmall(role)
     end
 end
 
+----------------------------------------------------------------------------------------
+--	Timer functions
+----------------------------------------------------------------------------------------
+T.After = function(delay, func, ...)
+	local args = {...}
+	C_Timer.After(delay, function() func(unpack(args)) end)
+end
+
 -- New BFA DropDown Template (Original Function Credits: Aurora) ~ was modified.
 function T:HandleDropDownFrame(frame, width)
 	if not width then width = 155 end
