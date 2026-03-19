@@ -46,7 +46,7 @@ GetSpellCooldown = function(data)
 	end
 end
 
-local function EasyMenu_Initialize(frame, level, menuList)
+local function EasyMenu_Initialize(_, level, menuList)
 	for index = 1, #menuList do
 		local value = menuList[index]
 		if value.text then

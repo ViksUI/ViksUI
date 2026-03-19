@@ -1,4 +1,4 @@
-local T, C, L = unpack(ViksUI)
+local T, C, L, _ = unpack(ViksUI)
 if C.filger.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-local T, C, L = unpack(ViksUI)
+local T, C, L, _ = unpack(ViksUI)
 
 ----------------------------------------------------------------------------------------
 --	Based on LiteStats(by Katae)
