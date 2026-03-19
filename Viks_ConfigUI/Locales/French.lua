@@ -207,6 +207,7 @@ L_GUI_UF_PLUGINS_RUNE_BAR = "Activer la barre de Rune"
 L_GUI_UF_PLUGINS_TOTEM_BAR = "Activer la barre totem pour Shaman"
 L.unitframe_class_bar_totem_other = "Activer la barre totem pour les autres classes"
 L.unitframe_class_bar_essence = "Activer la barre d'essence pour l'Evoker"
+L.unitframe_class_bar_soul = "Enable Soul fragments bar" -- Need review
 
 -- Raid Frames options
 L_GUI_UF_RAIDFRAMES_SUBTEXT = "Personnalisez l’apparence des cadres de raid."
@@ -247,6 +248,7 @@ L.raidframe_plugins_debuffhighlight = "Afficher la texture de l'affaiblissement 
 L.raidframe_plugins_debuffhighlight_icon = "Afficher l’icône d'affaiblissement dispellable"
 L.raidframe_plugins_debuffs = "Icônes d'affaiblissement de raid (de la liste)"
 L.raidframe_plugins_debuffs_timer = "Durée sur les icônes d'affaiblissement du raid"
+L.raidframe_plugins_private_auras = "Blizzard 'Private Auras'" -- Need review
 L.raidframe_plugins_pvp_debuffs = "Afficher les icônes d'affaiblissement JcJ (de la liste)"
 L.raidframe_plugins_buffs = "Raid buff icons (by Blizzard filter)" -- Need review
 L.raidframe_plugins_buffs_timer = "Timer on raid buffs icons" -- Need review

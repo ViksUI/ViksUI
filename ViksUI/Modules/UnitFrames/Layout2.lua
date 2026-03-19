@@ -1231,11 +1231,11 @@ if C.layout2.enable then
 				targettarget:ClearAllPoints()
 				if C.layout2.centerbar then
 					-- Use default Layout.lua position and size
-					-- targettarget:SetPoint(unpack(C.position.unitframes.target_target))
+					targettarget:SetPoint(unpack(C.position.unitframes.target_target))
 					targettarget:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
 				else
 					-- Use Layout2 position and size
-					-- targettarget:SetPoint("TOPLEFT", target, "TOPRIGHT", 10, 0)
+					targettarget:SetPoint("TOPLEFT", target, "TOPRIGHT", 10, 0)
 					targettarget:SetSize(C.layout2.targettarget_width, C.layout2.targettarget_height)
 				end
 			end
