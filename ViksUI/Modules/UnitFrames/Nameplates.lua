@@ -261,7 +261,7 @@ if T.screenHeight > 1200 then
 	Mult = T.mult
 end
 
-local AurasPostCreateIcon = function(element, button)
+local AurasPostCreateIcon = function(_, button)
 	CreateBorderFrame(button)
 
 	T.SkinCooldown(button.Cooldown, "aura")
@@ -364,7 +364,7 @@ end
 local function UpdateName(self)
 	if C.nameplate.healer_icon then
 		local name = self.unitName
-		if name and canaccessvalue(name) then -- BETA
+		if name and canaccessvalue(name) then
 			if healList[name] then
 				if exClass[healList[name]] then
 					self.HealerIcon:Hide()
@@ -616,6 +616,9 @@ local function HealthPostUpdateColor(self, unit, color)
 		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
 	elseif not UnitIsTapDenied(unit) and not isPlayer then
 		local special = UnitClassification(unit)
+		if special == "elite" and IsInInstance() and UnitClassBase(unit) == "PALADIN" then
+			main.npcID = "caster"
+		end
 		if C.nameplate.mob_color_enable and T.ColorPlate[main.npcID] then
 			r, g, b = unpack(T.ColorPlate[main.npcID])
 		elseif special == "rare" or special == "rareelite" then
