@@ -60,7 +60,7 @@ frame:SetScript("OnEvent", function(self, event)
 	QueueStatusFrame:SetClampedToScreen(true)
 	QueueStatusFrame:SetFrameStrata("TOOLTIP")
 	QueueStatusButton:ClearAllPoints()
-	QueueStatusButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", 1, -1)
+	QueueStatusButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 1, -1)
 	QueueStatusButton:SetParent(Minimap)
 	QueueStatusButton:SetScale(0.5)
 
@@ -344,14 +344,8 @@ local micromenu = {
 	end},
 }
 
-if T.newPatch then
-	if not IsTrialAccount() and C_StorePublic.IsEnabled() then
-		tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
-	end
-else
-	if not IsTrialAccount() and not C_StorePublic.IsDisabledByParentalControls() and C_StorePublic.IsEnabled() then
-		tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
-	end
+if not IsTrialAccount() and C_StorePublic.IsEnabled() then
+	tinsert(micromenu, {text = BLIZZARD_STORE, notCheckable = 1, func = function() StoreMicroButton:Click() end})
 end
 
 if T.level == MAX_PLAYER_LEVEL then
