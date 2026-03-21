@@ -28,7 +28,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			"ReadyCheckFrame",
 			"ColorPickerFrame",
 			"LFDRoleCheckPopup",
-			"LFDReadyCheckPopup",
 			"GuildInviteFrame",
 			"RolePollPopup",
 			"OpacityFrame",
@@ -184,9 +183,15 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 		MovieFrame.CloseDialog:SetScale(C.general.uiscale)
 		MovieFrame.CloseDialog:StripTextures()
 		MovieFrame.CloseDialog:SetTemplate("Transparent")
-		MovieFrame.CloseDialog.ConfirmButton:SkinButton()
-		MovieFrame.CloseDialog.ResumeButton:SkinButton()
-		MovieFrame.CloseDialog.ResumeButton:SetPoint("LEFT", MovieFrame.CloseDialog.ConfirmButton, "RIGHT", 15, 0)
+		if MovieFrame.CloseDialog.ConfirmButton then -- BETA
+			MovieFrame.CloseDialog.ConfirmButton:SkinButton()
+			MovieFrame.CloseDialog.ResumeButton:SkinButton()
+			MovieFrame.CloseDialog.ResumeButton:SetPoint("LEFT", MovieFrame.CloseDialog.ConfirmButton, "RIGHT", 15, 0)
+		elseif MovieFrame.CloseDialog.Buttons.ConfirmButton then
+			MovieFrame.CloseDialog.Buttons.ConfirmButton:SkinButton()
+			MovieFrame.CloseDialog.Buttons.ResumeButton:SkinButton()
+			MovieFrame.CloseDialog.Buttons.ResumeButton:SetPoint("LEFT", MovieFrame.CloseDialog.Buttons.ConfirmButton, "RIGHT", 15, 0)
+		end
 
 		-- PetBattle popup
 		_G["PetBattleQueueReadyFrame"]:SetTemplate("Transparent")
@@ -362,7 +367,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			"RolePollPopupAcceptButton",
 			"LFDRoleCheckPopupDeclineButton",
 			"LFDRoleCheckPopupAcceptButton",
-			"LFDReadyCheckPopupAcceptButton",
 			"RaidUtilityConvertButton",
 			"RaidUtilityMainTankButton",
 			"RaidUtilityMainAssistButton",
@@ -381,10 +385,6 @@ SkinBlizzUI:SetScript("OnEvent", function(_, _, addon)
 			if buttons then
 				buttons:SkinButton()
 			end
-		end
-		if not T.newPatch then
-			LFDReadyCheckPopup.YesButton:SkinButton(true)
-			LFDReadyCheckPopup.NoButton:SkinButton(true)
 		end
 
 		-- ColorPickerFrame

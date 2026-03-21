@@ -70,16 +70,36 @@ local function LoadSkin()
 
 	DamageMeter:ForEachSessionWindow(function(window)
 		T.SkinFrame(window, true, 10, 4)
-		T.SkinFrame(window.SourceWindow, true, 12, 10)
-		T.SkinScrollBar(window.SourceWindow.ScrollBar)
+		local source = window.SourceWindow or window.MinimizeContainer.SourceWindow
+		if source then
+			T.SkinFrame(source, true, 15, 10)
+			T.SkinScrollBar(source.ScrollBar)
+
+			hooksecurefunc(source.ScrollBox, "Update", function(frame)
+				skinBar(frame, true)
+			end)
+		end
+
+		if window.MinimizeContainer and window.MinimizeContainer.Background then
+			window.MinimizeContainer.Background:SetAlpha(0)
+		end
 
 		window.DamageMeterTypeDropdown:SetSize(18, 18)
 		window.DamageMeterTypeDropdown:SkinButton()
 		window.DamageMeterTypeDropdown.Arrow:SetTexCoord(0.3, 0.7, 0.25, 0.65)
 		window.DamageMeterTypeDropdown.Arrow:SetInside(window.DamageMeterTypeDropdown)
-		window.DamageMeterTypeDropdown:ClearAllPoints()
-		window.DamageMeterTypeDropdown:SetPoint("TOPLEFT", window.Header, "TOPLEFT", 16, -10)
 		window.DamageMeterTypeDropdown.TypeName:SetPoint("LEFT", window.DamageMeterTypeDropdown.Arrow, "LEFT", 30, 0)
+
+		if window.SessionTimer then
+			local ap, p, rp, x, y = window.SessionTimer:GetPoint()
+			window.SessionTimer:SetPoint(ap, p, rp, x, y - 3)
+
+			local ap, p, rp, x, y = window.DamageMeterTypeDropdown:GetPoint()
+			window.DamageMeterTypeDropdown:SetPoint(ap, p, rp, x, y - 4)
+		else -- BETA
+			local ap, p, rp, x, y = window.DamageMeterTypeDropdown:GetPoint()
+			window.DamageMeterTypeDropdown:SetPoint(ap, p, rp, x, y - 10)
+		end
 
 		window.SessionDropdown:SkinButton()
 		window.SessionDropdown:SetPoint("RIGHT", window.SettingsDropdown, -28, 0)
@@ -89,17 +109,40 @@ local function LoadSkin()
 		window.SettingsDropdown.Icon:SetTexCoord(0.3, 0.73, 0.2, 0.65)
 		window.SettingsDropdown.Icon:SetInside(window.SettingsDropdown)
 		window.SettingsDropdown:ClearAllPoints()
-		window.SettingsDropdown:SetPoint("TOPRIGHT", window.Header, "TOPRIGHT", -16, -10)
+		window.SettingsDropdown:SetPoint("TOPRIGHT", window.Header, "TOPRIGHT", -16, -10) -- Remove in 12.0.5
 
-		skinBar(window.ScrollBox)
+		if window.MinimizeButton then
+			window.MinimizeButton:StripTextures()
+			T.SkinExpandOrCollapse(window.MinimizeButton)
+			window.MinimizeButton.bg:SetSize(18, 18)
+			window.MinimizeButton:SetPoint("TOPRIGHT", window.Header, "TOPRIGHT", -16, -9)
 
-		hooksecurefunc(window.ScrollBox, "Update", function(frame)
-			skinBar(frame)
-		end)
+			window.SettingsDropdown:ClearAllPoints()
+			window.SettingsDropdown:SetPoint("RIGHT", window.MinimizeButton.bg, "LEFT", -10, 0)
 
-		hooksecurefunc(window.SourceWindow.ScrollBox, "Update", function(frame)
-			skinBar(frame, true)
-		end)
+			local function checkState()
+				window.backdrop:ClearPoint("BOTTOMRIGHT")
+				if window:IsMinimized() then
+					window.MinimizeButton.bg.plus:Show()
+					window.backdrop:SetPoint("BOTTOMRIGHT", window.MinimizeButton, "BOTTOMRIGHT", 6, -6)
+				else
+					window.MinimizeButton.bg.plus:Hide()
+					window.backdrop:SetPoint("BOTTOMRIGHT", window, -10, 1)
+				end
+			end
+			checkState()
+
+			window.MinimizeButton:HookScript("OnClick", checkState)
+		end
+
+		local ScrollBox = window.ScrollBox or window.MinimizeContainer.ScrollBox
+		if ScrollBox then
+			skinBar(ScrollBox)
+
+			hooksecurefunc(ScrollBox, "Update", function(frame)
+				skinBar(frame)
+			end)
+		end
 	end)
 end
 
