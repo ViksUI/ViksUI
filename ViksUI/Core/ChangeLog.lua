@@ -3,16 +3,15 @@ local T, C, L = unpack(ViksUI)
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-	"Update 12.0.4 ",
+	"Update 12.0.5 ",
 	"• Updated for Midnight",
-	"• Cooldown and damage meter can now be dragged around",
-	"• - Save location and use right mouse click to reset",
-	"• Ctrl+Shift+Alt combined with mouse click to set focus.",
-	"• - Left to set, and right to clear focus",
-	"• Big debuff frame should now work combined with class bars",
+	"• Combat text updated",
+	"• More and more Taint fix, thx Blizz..",
+	"• Enchant check updated to correct slots",
+	"• ilvl check updated (AutoGreed etc)",
 	"• Some other fixes",
-	"• Still out traveling. Happy leveling everyone",
-	"• check: https://github.com/ViksUI/ViksUI/releases/tag/12.0.4",
+	"• New Patreon features early and exclusive content",
+	"• check: https://github.com/ViksUI/ViksUI/releases/tag/12.0.5",
 " ",
 "EXTRA: New Patreon Cashew, Thanks for the support",
 "Cashew is reason i made Mist version as well",
@@ -122,7 +121,7 @@ _G.StaticPopupDialogs["PATRON"] = {
 	editBoxWidth = 325,
 	OnShow = function(self, ...) 
 		self.editBox:SetFocus()
-		self.editBox:SetText("https://www.patreon.com/user?u=9534738")
+		self.editBox:SetText("https://www.patreon.com/ViksUI")
 		self.editBox:HighlightText()
 	end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
