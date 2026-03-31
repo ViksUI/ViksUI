@@ -1028,6 +1028,7 @@ C["experiencebar"] = {
 	--["ViksUIExperienceBar2"] = "HONOR",
 }
 C["spacer"] = {} -- Just spacer for config menu
+
 --------------------------------------------------------------------------------
 --	WORKING ON! Do NOT turn anything on!
 ----------------------------------------------------------------------------------------

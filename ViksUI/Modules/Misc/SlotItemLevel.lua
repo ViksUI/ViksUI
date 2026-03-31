@@ -4,7 +4,7 @@ if C.misc.item_level ~= true then return end
 ----------------------------------------------------------------------------------------
 --	Item level on slot buttons in Character/InspectFrame(iLevel by Sanex)
 ----------------------------------------------------------------------------------------
-local minItemLevel = 590 -- For missing enchant and gems checking (NOTE: need to update every expansion)
+local minItemLevel = 246 -- For missing enchant and gems checking (FIXME: need to update every expansion)
 local _G = getfenv(0)
 local equiped = {} -- Table to store equiped items
 
@@ -64,14 +64,16 @@ end
 -- end
 
 local slotsToCheck = {
-	[INVSLOT_BACK] = true,
+	[INVSLOT_HEAD] = true,
+	[INVSLOT_SHOULDER] = true,
+	-- [INVSLOT_BACK] = true,
 	[INVSLOT_CHEST] = true,
-	[INVSLOT_MAINHAND] = true,
+	-- [INVSLOT_WRIST] = true,
+	[INVSLOT_LEGS] = true,
+	[INVSLOT_FEET] = true,
 	[INVSLOT_FINGER1] = true,
 	[INVSLOT_FINGER2] = true,
-	[INVSLOT_WRIST] = true,
-	[INVSLOT_FEET] = true,
-	[INVSLOT_LEGS] = true,
+	[INVSLOT_MAINHAND] = true,
 }
 
 local function _updateItems(unit, frame)

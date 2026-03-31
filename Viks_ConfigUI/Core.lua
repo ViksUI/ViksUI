@@ -49,10 +49,24 @@ local function setReloadNeeded(isNeeded)
 end
 ns.setReloadNeeded = setReloadNeeded
 
+-- expose reload helpers so that external modules (e.g. Patreon_ConfigUI) can
+-- integrate nested controls with the same reload-detection mechanism
+ns.setOldValue = function(frame, value)
+	if old[frame] == nil then
+		old[frame] = value
+	end
+end
+
 -- check if a reload is needed
 local function checkIsReloadNeeded()
 	for frame, value in pairs(old) do
-		if C[frame.group][frame.option] ~= value then
+		local current
+		if frame.getValue then
+			current = frame.getValue()
+		else
+			current = C[frame.group][frame.option]
+		end
+		if current ~= value then
 			setReloadNeeded(true)
 			return
 		end
@@ -69,6 +83,7 @@ local function checkIsReloadNeeded()
 	-- if the tables were empty, or all of the old values match their current ones
 	setReloadNeeded(false)
 end
+ns.checkIsReloadNeeded = checkIsReloadNeeded
 
 -- Called by every widget to save a value
 local function SaveValue(f, value)
@@ -1582,11 +1597,12 @@ init:SetScript("OnEvent", function()
 	ViksUIOptionsPanel:SetTemplate("Transparent")
 
 	local sunFrame = CreateFrame("Frame", nil, ViksUIOptionsPanel)
-	sunFrame:SetPoint("LEFT", 10, 9)
-	sunFrame:SetSize(175, 670)
+	sunFrame:SetPoint("TOPLEFT", 10, -41)
+	sunFrame:SetSize(175, 690)
 	sunFrame:CreateBackdrop("Overlay")
 	sunFrame.backdrop:SetPoint("TOPLEFT", 0, 3)
 	sunFrame.backdrop:SetPoint("BOTTOMRIGHT", -2, -4)
+	ns.sunFrame = sunFrame
 
 	T.SkinCheckBox(ViksUIOptionsPanel.ProfileBox)
 

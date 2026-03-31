@@ -435,12 +435,12 @@ do
 		ShowControls(self)
 	end)
 
-	chatInfo:SetScript("OnLeave", function(self)
+	chatInfo:SetScript("OnLeave", function()
 		if not MouseIsOver(controls) then controls:Hide() end
 	end)
 end
 
-local index = 200
+-- local index = 200 -- Lets not limit the amount
 local CreateMover = function(frame, unit)
 	local mover = CreateFrame("Frame", nil, UIParent)
 	if unit then
@@ -453,7 +453,8 @@ local CreateMover = function(frame, unit)
 	mover.backdrop = mover.backdrop or mover
 	mover:SetAllPoints(frame)
 	mover:SetFrameStrata("TOOLTIP")
-	mover:SetFrameLevel(index)
+	mover:SetFrameLevel(200)
+
 	mover:EnableMouse(true)
 	mover:SetMovable(true)
 	mover:SetClampedToScreen(true)
@@ -485,11 +486,15 @@ local CreateMover = function(frame, unit)
 	text = text:gsub("oUF_", "")
 	mover.name:SetText(text)
 	mover.name:SetWidth(frame:GetWidth() - 4)
+
 	movers[frame:GetName()] = mover
-	index = index - 2
 end
 
 local GetMover = function(frame, unit)
+	if not frame or not frame.GetName then
+		return
+	end
+
 	if movers[frame:GetName()] then
 		return movers[frame:GetName()]
 	else
@@ -511,8 +516,19 @@ local InitMove = function(msg)
 	end
 	if not moving then
 		for _, v in pairs(T.MoverFrames) do
-			local mover = GetMover(v)
-			if mover then mover:Show() end
+			if v then
+				local frame = v
+
+				-- allow string entries like "extra_item_bar1"
+				if type(frame) == "string" then
+					frame = _G[frame]
+				end
+
+				if frame and frame.GetName then
+					local mover = GetMover(frame)
+					if mover then mover:Show() end
+				end
+			end
 		end
 		for _, v in pairs(unitFrames) do
 			local mover = GetMover(v, true)

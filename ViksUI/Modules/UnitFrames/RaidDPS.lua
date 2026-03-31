@@ -68,7 +68,7 @@ local function Shared(self, unit)
 		end
 	end
 
-	self.Health.PostUpdateColor = function(element, unit, color)
+	self.Health.PostUpdateColor = function(element, _, color)
 		T.PostUpdateBackdropColor(element, color)
 	end
 
@@ -244,6 +244,7 @@ local function Shared(self, unit)
 		self.SummonIndicator:SetPoint("BOTTOMRIGHT", self.Health, 6, -5)
 	end
 
+	-- Debuff icons
 	if unit == "party" and (not (suffix == "target")) and (not (suffix == "pet")) then
 		self.Debuffs = CreateFrame("Frame", self:GetName().."Debuffs", self)
 		self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -2, -5)

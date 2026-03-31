@@ -90,6 +90,14 @@ local atlasColors = {
 	["objectivewidget-bar-fill-right"] = {0.9, 0.2, 0.2}
 }
 
+-- store original sizes outside of the protected widget to avoid tainting
+local origSize = setmetatable({}, { __mode = "k" })
+
+local function SafeSetSize(widget, w, h)
+	-- protect against SetSize errors caused by tainted/secret numbers
+	pcall(function() widget:SetSize(w, h) end)
+end
+
 local function SkinStatusBar(widget)
 	local bar = widget.Bar
 
@@ -128,8 +136,9 @@ local function SkinStatusBar(widget)
 		bar.BorderRight:SetAlpha(0)
 		bar.BorderCenter:SetAlpha(0)
 		bar.Spark:SetAlpha(0)
+		-- if widget.widgetSetID == 260 then -- nameplate (better check?)
 		local parent = widget:GetParent():GetParent()
-		if parent.castBar or parent.UnitFrame then -- nameplate
+		if parent and (parent.castBar or parent.UnitFrame) then -- nameplate
 			widget:SetIgnoreParentScale(true)
 			Mixin(bar, BackdropTemplateMixin)
 			bar:SetBackdrop({
@@ -188,39 +197,81 @@ local function SkinCaptureBar(widget)
 end
 
 local function SkinSpell(widget)
+	-- defensive: bail out if widget is nil or forbidden
+	if not widget or widget:IsForbidden() then return end
+
+	local parent = widget:GetParent() and widget:GetParent():GetParent()
+	local isNameplate = parent and (parent.castBar or parent.UnitFrame)
+
 	if not widget.styled then
-		widget.Icon:SkinIcon(true)
-		widget.Border:SetAlpha(0)
-		widget.DebuffBorder:SetAlpha(0)
-		if widget.StackCount then
+		-- capture plain numbers early (before tainting operations)
+		local w, h = widget:GetSize()
+		if w and h then
+			origSize[widget] = { w, h }
+		end
+
+		-- clear cached size when the widget is hidden / recycled
+		pcall(function()
+			widget:HookScript("OnHide", function(self)
+				origSize[self] = nil
+			end)
+		end)
+
+		-- styling operations
+		if widget.Icon and widget.Icon.SkinIcon then pcall(widget.Icon.SkinIcon, widget.Icon, true) end
+		if widget.Border then widget.Border:SetAlpha(0) end
+		if widget.DebuffBorder then widget.DebuffBorder:SetAlpha(0) end
+		if widget.StackCount and widget.Icon and widget.Icon.b then
 			widget.StackCount:SetParent(widget.Icon.b)
 		end
 		widget.styled = true
 	end
-	widget.IconMask:Hide()
-	widget.CircleMask:Hide()
 
-	local success = pcall(function()
-		local w, h = widget:GetSize()
-		widget:SetSize(w + 5, h + 5)
-	end)	-- use to avoid overlap in Jail (by default 30 size), not sure how it looks in another place
+	if widget.IconMask then widget.IconMask:Hide() end
+	if widget.CircleMask then widget.CircleMask:Hide() end
 
-	if widget.DebuffBorder:IsShown() then
-		widget.Icon.b:SetBackdropBorderColor(0.7, 0, 0)
+	if not isNameplate then
+		local s = origSize[widget]
+		if s and s[1] and s[2] then
+			SafeSetSize(widget, s[1] + 5, s[2] + 5)
+		end
+	end
+
+	if widget.DebuffBorder and widget.DebuffBorder:IsShown() then
+		if widget.Icon and widget.Icon.b then
+			widget.Icon.b:SetBackdropBorderColor(0.7, 0, 0)
+		end
 	else
-		widget.Icon.b:SetBackdropBorderColor(unpack(C.media.border_color))
+		if widget.Icon and widget.Icon.b then
+			widget.Icon.b:SetBackdropBorderColor(unpack(C.media.border_color))
+		end
 	end
 end
 
 local function SkinItemDisplay(widget)
 	if not widget.styled then
 		widget.Item.Icon:SkinIcon(true)
-		T.SkinIconBorder(widget.Item.IconBorder, widget.Item.Icon.b)
-		widget.Item.IconBorder:SetVertexColor(widget.Item.IconBorder:GetVertexColor())
+		T.SkinIconBorder(widget.Item.IconBorder, widget.Item.Icon.b, nil, true)
 		widget.Item.ItemName:SetFont(C.media.normal_font, 14, "")
 		widget.styled = true
 	end
 	widget.Item.IconMask:Hide()
+end
+
+local function SkinItem(widget)
+	if not widget.styled then
+		widget.Icon:SkinIcon(true)
+		T.SkinIconBorder(widget.IconBorder, widget.Icon.b, nil, true)
+		widget.styled = true
+	end
+end
+
+local function SkinText(widget, widgetInfo)
+	if widgetInfo.enabledState == 3 then
+		T.ReplaceIconString(widget.Text, nil, 30)	-- this is for major faction icon
+	else
+		T.ReplaceIconString(widget.Text)			-- find in Worldsoul Memory tooltip
+	end
 end
 
 local frame = CreateFrame("Frame")
@@ -245,9 +296,9 @@ frame:SetScript("OnEvent", function()
 	end
 end)
 
-hooksecurefunc(UIWidgetTemplateScenarioHeaderCurrenciesAndBackgroundMixin, "Setup", function(widgetInfo)
-	widgetInfo.Frame:SetAlpha(0)
-	for frame in widgetInfo.currencyPool:EnumerateActive() do
+hooksecurefunc(UIWidgetTemplateScenarioHeaderCurrenciesAndBackgroundMixin, "Setup", function(widget)
+	widget.Frame:SetAlpha(0)
+	for frame in widget.currencyPool:EnumerateActive() do
 		frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	end
 end)
@@ -256,6 +307,18 @@ hooksecurefunc(UIWidgetTemplateStatusBarMixin, "Setup", function(widget)
 	SkinStatusBar(widget)
 end)
 
-hooksecurefunc(UIWidgetBaseSpellTemplateMixin, "Setup", function(widget)
-	SkinSpell(widget)
+-- call SkinSpell defensively
+hooksecurefunc(UIWidgetBaseSpellTemplateMixin, "Setup", function(self, ...)
+	-- pcall to avoid crashes if unexpected args or widget is nil
+	pcall(SkinSpell, self, ...)
+end)
+
+hooksecurefunc(UIWidgetBaseItemTemplateMixin, "Setup", function(widget)
+	SkinItem(widget)
+end)
+
+-- Find all widgets in tooltip
+-- /dump C_UIWidgetManager.GetAllWidgetsBySetID(1333)
+hooksecurefunc(UIWidgetTemplateTextWithStateMixin, "Setup", function(...)
+	SkinText(...)
 end)

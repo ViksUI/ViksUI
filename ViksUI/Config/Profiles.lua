@@ -41,7 +41,7 @@ end
 ----------------------------------------------------------------------------------------
 --	Per Max Character Level Config (overwrite general, class and name)
 ----------------------------------------------------------------------------------------
-if T.level ~= MAX_PLAYER_LEVEL then
+if T.level ~= GetMaxPlayerLevel() then
 
 end
 
