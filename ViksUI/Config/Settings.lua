@@ -81,7 +81,7 @@ C["general"] = {
 	["hide_talking_head"] = false,				-- Hide Talking Head Frame
 }
 
-if T.screenHeight == 1440 then
+if T.screenHeight > 1400 and T.screenHeight < 1500 then
 	C.general.auto_scale = false
 	C.general.uiscale = 0.64
 end
@@ -171,10 +171,8 @@ C["skins"] = {
 	["assistedcombat"] = false,					-- Simple Assisted Combat Icon skin
 	["atlasloot"] = false,						-- AtlasLoot skin
 	["bigwigs"] = false,						-- BigWigs skin
-	["blood_shield_tracker"] = false,			-- BloodShieldTracker skin
 	["capping"] = false,						-- Capping skin
 	["clique"] = false,							-- Clique skin
-	["cool_line"] = false,						-- CoolLine skin
 	["dbm"] = true,								-- DBM skin
 	["dbm_movable"] = false,					-- Allow to move DBM bars
 	["details"] = false,						-- Details skin
@@ -182,19 +180,13 @@ C["skins"] = {
 	["ExtraActionBarFrame"] = true, 			-- Skinn ExtraActionBarFrame with Masque
 	["follow_the_arrow"] = false,				-- Follow The Arrow skin
 	["flyout_button"] = false,					-- FlyoutButtonCustom skin
-	["ls_toasts"] = false,						-- Is: Toasts skin
 	["mage_nuggets"] = false,					-- MageNuggets skin
 	["my_role_play"] = false,					-- MyRolePlay skin
-	["nug_running"] = false,					-- NugRunning skin
-	["omen"] = false,							-- Omen skin
 	["opie"] = false,							-- OPie skin
-	["ovale"] = false,							-- OvaleSpellPriority skin
 	["plater"] = false,							-- Plater skin
 	["postal"] = false,							-- Postal skin
 	["rarescanner"] = false,					-- RareScanner skin
-	["recount"] = false,						-- Recount skin
 	["rematch"] = false,						-- Rematch skin
-	["tiny_dps"] = false,						-- TinyDPS skin
 	["vanaskos"] = false,						-- VanasKoS skin
 	["weak_auras"] = false,						-- WeakAuras skin
 }
@@ -533,6 +525,7 @@ C["nameplate"] = {
 	["combat"] = false,							-- Automatically show nameplate in combat
 	["health_value"] = false,					-- Numeral health value
 	["show_castbar_name"] = false,				-- Show castbar name
+	["cast_target"] = false,					-- Show name of the spell's target unit
 	["class_icons"] = false,					-- Icons by class in PvP
 	["name_abbrev"] = false,					-- Display abbreviated names
 	["short_name"] = false,						-- Replace names with short ones (from the list)

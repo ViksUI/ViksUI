@@ -315,9 +315,10 @@ local function Shared(self, unit)
 		if C.raidframe.plugins_private_auras then
 			self.PrivateAuras = CreateFrame("Frame", self:GetName().."_PrivateAuras", self)
 			self.PrivateAuras:SetPoint("CENTER", self, 0, 1)
-			self.PrivateAuras:SetSize(18, 18)
+			local numAuras = 1
+			self.PrivateAuras:SetSize(numAuras * 18, 18)
 			self.PrivateAuras.size = T.Scale(18)
-			self.PrivateAuras.num = 1
+			self.PrivateAuras.num = numAuras
 			self.PrivateAuras.borderScale = 1
 			self.PrivateAuras.disableCooldownText = true	-- not C.raidframe.plugins_debuffs_timer
 			self.PrivateAuras.disableCooldown = not C.aura.show_spiral
@@ -572,52 +573,186 @@ end
 
 ----------------------------------------------------------------------------------------
 --	Test RaidFrames
+--	Usage: /testraid [count]  (e.g. /testraid 10, /testraid 25, /testraid 40)
+--	Spawns mock raid frames with class colours, roles and tank frames.
+--	Run the command again to hide the test frames.
 ----------------------------------------------------------------------------------------
 do
 	local frames = {}
 	local moving = false
-	SlashCmdList.TEST_RAID = function()
+
+	local testClasses = {
+		"WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST",
+		"DEATHKNIGHT", "SHAMAN", "MAGE", "WARLOCK", "MONK",
+		"DRUID", "DEMONHUNTER", "EVOKER",
+	}
+	local testNames = {
+		"Warrior", "Paladin", "Hunter", "Rogue", "Priest",
+		"DK", "Shaman", "Mage", "Warlock", "Monk",
+		"Druid", "DH", "Evoker",
+	}
+	local roleTextures = {
+		TANK    = [[Interface\AddOns\ViksUI\Media\Textures\Tank.tga]],
+		HEALER  = [[Interface\AddOns\ViksUI\Media\Textures\Healer.tga]],
+		DAMAGER = [[Interface\AddOns\ViksUI\Media\Textures\Damager.tga]],
+	}
+
+	local function CreateTestRaidFrame(w, h, class, role, name)
+		local color = T.oUF_colors.class[class] or {r = 0.5, g = 0.5, b = 0.5}
+		local r, g, b = color.r, color.g, color.b
+		local iconMult = h / 26
+
+		local frame = CreateFrame("Frame", nil, UIParent)
+		frame:SetSize(w, h)
+		frame:CreateBackdrop("Default")
+
+		-- Health bar
+		local health = CreateFrame("StatusBar", nil, frame)
+		health:SetPoint("TOPLEFT")
+		health:SetPoint("TOPRIGHT")
+		health:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, raid_power_height > 0 and raid_power_height + 1 or 0)
+		health:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, raid_power_height > 0 and raid_power_height + 1 or 0)
+		health:SetStatusBarTexture(C.media.texture)
+		health:SetMinMaxValues(0, 100)
+		health:SetValue(random(50, 100))
+		health:SetStatusBarColor(r, g, b)
+
+		health.bg = health:CreateTexture(nil, "BORDER")
+		health.bg:SetAllPoints(health)
+		health.bg:SetTexture(C.media.texture)
+		health.bg:SetVertexColor(r * 0.2, g * 0.2, b * 0.2)
+
+		-- Power bar
+		if raid_power_height > 0 then
+			local power = CreateFrame("StatusBar", nil, frame)
+			power:SetPoint("BOTTOMLEFT")
+			power:SetPoint("BOTTOMRIGHT")
+			power:SetPoint("TOP", frame, "BOTTOM", 0, raid_power_height)
+			power:SetStatusBarTexture(C.media.texture)
+			power:SetStatusBarColor(0.31, 0.45, 0.63)
+			power:SetMinMaxValues(0, 100)
+			power:SetValue(random(20, 100))
+			power.bg = power:CreateTexture(nil, "BORDER")
+			power.bg:SetAllPoints(power)
+			power.bg:SetTexture(C.media.texture)
+			power.bg:SetVertexColor(0.06, 0.09, 0.13)
+		end
+
+		-- Name label
+		local nameText = health:CreateFontString(nil, "ARTWORK")
+		nameText:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+		nameText:SetWordWrap(false)
+		if C.raidframe.hide_health_value then
+			nameText:SetPoint("LEFT", health, "LEFT", 2, 0)
+			nameText:SetPoint("RIGHT", health, "RIGHT", -2, 0)
+		else
+			local center = (h - (C.font.unit_frames_font_size * 2 + 2)) / 2
+			nameText:SetPoint("TOPLEFT", health, "TOPLEFT", 2, -center)
+			nameText:SetPoint("TOPRIGHT", health, "TOPRIGHT", -2, -center)
+		end
+		nameText:SetTextColor(r, g, b)
+		nameText:SetText(name)
+
+		-- Health value
+		if not C.raidframe.hide_health_value then
+			local hpText = health:CreateFontString(nil, "ARTWORK")
+			hpText:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+			hpText:SetPoint("TOP", nameText, "BOTTOM", 0, -1)
+			hpText:SetTextColor(1, 1, 1)
+			hpText:SetText("100%")
+		end
+
+		-- Role icon (always shown in test so roles are visible)
+		local roleIcon = health:CreateTexture(nil, "OVERLAY")
+		roleIcon:SetSize(10 * iconMult, 10 * iconMult)
+		roleIcon:SetPoint("TOP", health, 0, 6)
+		if role and roleTextures[role] then
+			roleIcon:SetTexture(roleTextures[role])
+		else
+			roleIcon:Hide()
+		end
+
+		return frame
+	end
+
+	SlashCmdList.TEST_RAID = function(msg)
 		if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end
 		if not moving then
-			oUF_RaidHeal1:Show()
-			local raid = {}
-			local raid_j = {}
-			if #frames == 0 then
-				for j = 1, C.raidframe.raid_groups do
-					for i = 1, 5 do
-						local frame = CreateFrame("Frame", nil, UIParent)
-						frame:SetSize(raid_width, raid_height)
+			if oUF_RaidHeal1 then oUF_RaidHeal1:Show() end
+
+			-- Wipe previous test frames so a new count can be applied
+			for _, f in pairs(frames) do f:Hide() end
+			wipe(frames)
+
+			local count = tonumber(msg) or (C.raidframe.raid_groups * 5)
+			count = math.max(1, math.min(count, 40))
+
+			-- Role distribution: 2 tanks (1 for small groups), ~20% healers, rest DPS
+			local tankCount = count >= 10 and 2 or 1
+			local healerCount = math.max(1, math.floor(count * 0.2))
+			local roleList = {}
+			for i = 1, tankCount do roleList[i] = "TANK" end
+			for i = 1, healerCount do roleList[tankCount + i] = "HEALER" end
+			while #roleList < count do roleList[#roleList + 1] = "DAMAGER" end
+			-- Shuffle role assignments
+			for i = #roleList, 2, -1 do
+				local j = random(i)
+				roleList[i], roleList[j] = roleList[j], roleList[i]
+			end
+
+			local anchor = oUF_RaidHeal1 or _G["RaidAnchor1"]
+			local groups = math.ceil(count / 5)
+			local idx = 0
+			local groupAnchors = {}
+
+			for j = 1, groups do
+				local rowSize = math.min(5, count - (j - 1) * 5)
+				local prevInRow
+				for i = 1, rowSize do
+					idx = idx + 1
+					local classIdx = ((idx - 1) % #testClasses) + 1
+					local frame = CreateTestRaidFrame(
+						raid_width, raid_height,
+						testClasses[classIdx], roleList[idx], testNames[classIdx]
+					)
+					if i == 1 then
 						if j == 1 then
-							if i == 1 then
-								frame:SetPoint("TOPLEFT", oUF_RaidHeal1, "TOPLEFT", 0, 0)
-								raid_j[j] = frame
-							else
-								frame:SetPoint("TOPLEFT", raid[i-1], "TOPRIGHT", 7, 0)
-							end
+							frame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 0, 0)
 						else
-							if i == 1 then
-								frame:SetPoint("TOPLEFT", raid_j[j-1], "TOPLEFT", 0, -raid_height - 7)
-								raid_j[j] = frame
-							else
-								frame:SetPoint("TOPLEFT", raid[i-1], "TOPRIGHT", 7, 0)
-							end
+							frame:SetPoint("TOPLEFT", groupAnchors[j - 1], "TOPLEFT", 0, -raid_height - 7)
 						end
-						frame:CreateBackdrop("Overlay")
-						frame.backdrop.overlay:SetVertexColor(0.1, 0.9 - (j * 0.08) , 0.1)
-						raid[i] = frame
-						table.insert(frames, frame)
+						groupAnchors[j] = frame
+					else
+						frame:SetPoint("TOPLEFT", prevInRow, "TOPRIGHT", 7, 0)
 					end
-				end
-			else
-				for _, frame in pairs(frames) do
-					frame:Show()
+					prevInRow = frame
+					table.insert(frames, frame)
 				end
 			end
+
+			-- Tank test frames at the tank anchor
+			if C.raidframe.raid_tanks and _G["RaidTankAnchor"] then
+				local prevTank
+				for i = 1, math.min(tankCount, 3) do
+					local classIdx = ((i - 1) % #testClasses) + 1
+					local tankFrame = CreateTestRaidFrame(
+						raid_width, raid_height,
+						testClasses[classIdx], "TANK", testNames[classIdx]
+					)
+					if i == 1 then
+						tankFrame:SetPoint("BOTTOMLEFT", _G["RaidTankAnchor"], "BOTTOMLEFT", 0, 0)
+					else
+						tankFrame:SetPoint("BOTTOMLEFT", prevTank, "TOPLEFT", 0, 7)
+					end
+					prevTank = tankFrame
+					table.insert(frames, tankFrame)
+				end
+			end
+
 			moving = true
 		else
-			for _, frame in pairs(frames) do
-				frame:Hide()
-			end
+			for _, f in pairs(frames) do f:Hide() end
+			wipe(frames)
 			moving = false
 		end
 	end

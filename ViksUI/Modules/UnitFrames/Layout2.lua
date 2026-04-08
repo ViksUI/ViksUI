@@ -270,8 +270,7 @@ local Layout2Shadow = {
 --	- layout2_w and layout2_h: Main frame dimensions (from Config)
 --	- offset_x/offset_y: Position adjustments relative to parent frame
 --	- frame_level: Drawing order (higher = on top)
---	- pet_offset_x: Horizontal distance from portrait to pet frame
---	- pet_offset_y: Vertical alignment adjustment for pet frame
+--	- centerbar_true / no_centerbar: Sub-frame and castbar position config blocks
 ----------------------------------------------------------------------------------------
 
 local Layout2Config = {
@@ -360,15 +359,44 @@ local Layout2Config = {
 		frame_level = 5,
 		backdrop_color = C.media.border_color,
 		texcoord = {0.15, 0.85, 0.15, 0.85},
-		pet_offset_x = 56,  -- Distance from portrait RIGHT to pet frame (increase for more space)
-		pet_offset_y = 0,   -- Vertical alignment for pet frame
 	},
-	
-	-- Castbar positioning (below text bar)
-	castbar = {
-		offset_y = -6,  -- Space between text bar and castbar
+
+	-- -----------------------------------------------------------------------
+	-- CENTERBAR = TRUE  (C.layout2.centerbar = true)
+	--   Player castbar : TOP edge = portrait TOP,  X = screen centre
+	--   Target castbar : BOTTOM edge = portrait BOTTOM, X = screen centre
+	--   Pet            : TOPLEFT  4 px below textFrame BOTTOMLEFT  (left anchor)
+	--   Focus          : TOPRIGHT 4 px below textFrame BOTTOMRIGHT (right anchor)
+	--   FocusTarget    : TOPLEFT  4 px below target textFrame BOTTOMLEFT
+	--   TargetTarget   : TOPRIGHT 4 px below target textFrame BOTTOMRIGHT
+	--   Sub-frame width = (textFrame.width / 2) - pair_inner_margin
+	--   → pair_inner_margin 6 px each side = 12 px gap between the pair
+	-- -----------------------------------------------------------------------
+	centerbar_true = {
+		castbar_width_offset   = -4,   -- Castbar width  = textFrame.width + this
+		sub_frame_gap          = -4,   -- Y gap: sub-frame TOP below textFrame BOTTOM
+		pair_inner_margin      = 6,    -- Removed from each sub-frame width (12 px total gap)
+		sub_frame_height       = C.layout2.pet_height,  -- Height shared by pet/focus/tt/ft
 	},
-	
+
+	-- -----------------------------------------------------------------------
+	-- CENTERBAR = FALSE  (C.layout2.centerbar = false)
+	--   Player castbar  : TOPLEFT  6 px below textFrame BOTTOMLEFT, full width
+	--   Target castbar  : TOPRIGHT 6 px below textFrame BOTTOMRIGHT, full width
+	--   Pet             : same slot as player castbar in centerbar=true
+	--                     (screen-centred, TOP = portrait TOP)
+	--   TargetTarget    : same slot as target castbar in centerbar=true
+	--                     (screen-centred, BOTTOM = portrait BOTTOM)
+	--   Focus           : TOPRIGHT 6 px below player castbar BOTTOMRIGHT
+	--   FocusTarget     : TOPLEFT  6 px below target castbar BOTTOMLEFT
+	-- -----------------------------------------------------------------------
+	no_centerbar = {
+		castbar_gap            = -6,   -- Y gap: castbar TOP below textFrame BOTTOM
+		castbar_width_offset   = 0,    -- Castbar width  = textFrame.width + this (full)
+		focus_gap              = -6,   -- Y gap: focus TOP below player castbar BOTTOM
+		focustarget_gap        = -6,   -- Y gap: focustarget TOP below target castbar BOTTOM
+	},
+
 	-- Experience and Reputation bars (beside portrait)
 	bars = {
 		width = 3,      -- Width of experience/reputation bars
@@ -597,9 +625,9 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 			-- Set size and position
 			self.Portrait:SetSize(Layout2Config.portrait.size, Layout2Config.portrait.size)
 			if unitType == "player" then
-				self.Portrait:SetPoint(unpack(C.position.unitframes.player_portrait_2))
+				self.Portrait:SetPoint("TOPLEFT", self, "TOPRIGHT", 12, 0)
 			elseif unitType == "target" then
-				self.Portrait:SetPoint(unpack(C.position.unitframes.target_portrait_2))
+				self.Portrait:SetPoint("TOPRIGHT", self, "TOPLEFT", -12, 0)
 			end
 			self.Portrait:SetFrameLevel(Layout2Config.portrait.frame_level)
 
@@ -628,9 +656,9 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 					
 					-- Position background frame to match portrait with 1px inset
 					if unitType == "player" then
-						bgFrame:SetPoint(unpack(C.position.unitframes.player_portrait_2))
+						bgFrame:SetPoint("TOPLEFT", self, "TOPRIGHT", 12, 1)
 					elseif unitType == "target" then
-						bgFrame:SetPoint(unpack(C.position.unitframes.target_portrait_2))
+						bgFrame:SetPoint("TOPRIGHT", self, "TOPLEFT", -12, 1)
 					end
 					bgFrame:SetSize(Layout2Config.portrait.size, Layout2Config.portrait.size)
 					
@@ -654,7 +682,7 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				SetBackdropBorderColor = function(...) end
 			}
 
-			-- Store player portrait reference AFTER creation for pet/target's target positioning
+			-- Store player portrait reference AFTER creation for compatibility
 			if unitType == "player" then
 				playerFramePortrait = self.Portrait
 			end
@@ -870,27 +898,36 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				
 				-- Apply custom text bar tags from Layout2Tags
 				ApplyTextBarTags(self, textFrame, unitType)
-				
+
+				-- Store reference for later use by ApplyLayout2Positions
+				self.Layout2TextFrame = textFrame
+
 				-- ========== CASTBAR REPOSITIONING ==========
 				if self.Castbar then
 					self.Castbar:ClearAllPoints()
-					if unitType == "player" then
-						if C.layout2.centerbar then
-							-- Move castbar down by castbar height + 6px
-							self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 18))
-							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
-						else
-							self.Castbar:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 2, Layout2Config.castbar.offset_y)
-							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					local tfWidth = Layout2Config.text_bar.width
+					if C.layout2.centerbar then
+						-- centerbar = true
+						-- Player : TOP of castbar = TOP of portrait, centred at screen
+						-- Target : BOTTOM of castbar = BOTTOM of portrait, centred at screen
+						local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
+						self.Castbar:SetWidth(cbWidth)
+						if unitType == "player" then
+							self.Castbar:SetPoint("TOP",  self.Portrait, "TOP",    0, 0)
+							self.Castbar:SetPoint("LEFT", UIParent,      "CENTER", -cbWidth / 2, 0)
+						elseif unitType == "target" then
+							self.Castbar:SetPoint("BOTTOM", self.Portrait, "BOTTOM", 0, 0)
+							self.Castbar:SetPoint("LEFT",   UIParent,      "CENTER", -cbWidth / 2, 0)
 						end
-					elseif unitType == "target" then
-						if C.layout2.centerbar then
-							-- Move castbar down by castbar height + 6px
-							self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y - (C.unitframe.castbar_height + 8))
-							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
-						else
-							self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", -2, Layout2Config.castbar.offset_y)
-							self.Castbar:SetWidth(Layout2Config.text_bar.width-4)
+					else
+						-- centerbar = false
+						-- Both castbars go straight below their textFrame
+						local cbWidth = tfWidth + Layout2Config.no_centerbar.castbar_width_offset
+						self.Castbar:SetWidth(cbWidth)
+						if unitType == "player" then
+							self.Castbar:SetPoint("TOPLEFT",  textFrame, "BOTTOMLEFT",  0, Layout2Config.no_centerbar.castbar_gap)
+						elseif unitType == "target" then
+							self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", 0, Layout2Config.no_centerbar.castbar_gap)
 						end
 					end
 				end
@@ -1087,30 +1124,59 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 			end
 			
 			-- ========== PET & TARGET'S TARGET POSITIONING ==========
-			-- Position pet frame and target's target based on centerbar setting
+			-- Initial positioning is handled by ApplyLayout2Positions.
+			-- This early C_Timer ensures frames are placed before the first screen render
+			-- in case ApplyLayout2Positions has not fired yet.
 			if unitType == "player" then
 				C_Timer.After(0.1, function()
+					local player  = _G.oUF_Player
+					local target  = _G.oUF_Target
+					local pet     = _G.oUF_Pet
+					local tt      = _G.oUF_TargetTarget
+					local tfWidth = Layout2Config.text_bar.width
+
 					if C.layout2.centerbar then
-						-- Use default Layout.lua positioning
-						if oUF_Pet then
-							oUF_Pet:ClearAllPoints()
-							oUF_Pet:SetPoint(unpack(C.position.unitframes.pet))
+						-- ---- centerbar = true ----
+						-- Pet  : TOPLEFT  sub_frame_gap below player textFrame BOTTOMLEFT
+						-- TT   : TOPRIGHT sub_frame_gap below target textFrame BOTTOMRIGHT
+						local subW = (tfWidth / 2) - Layout2Config.centerbar_true.pair_inner_margin
+						local subH = Layout2Config.centerbar_true.sub_frame_height
+						local gap  = Layout2Config.centerbar_true.sub_frame_gap
+
+						local playerTF = player and _G[player:GetName().."_TextFrame"]
+						if pet and playerTF then
+							pet:ClearAllPoints()
+							pet:SetPoint("TOPLEFT", playerTF, "BOTTOMLEFT", 0, gap)
+							pet:SetSize(subW, subH)
 						end
-						
-						if oUF_TargetTarget then
-							oUF_TargetTarget:ClearAllPoints()
-							oUF_TargetTarget:SetPoint(unpack(C.position.unitframes.target_target))
+
+						local targetTF = target and _G[target:GetName().."_TextFrame"]
+						if tt and targetTF then
+							tt:ClearAllPoints()
+							tt:SetPoint("TOPRIGHT", targetTF, "BOTTOMRIGHT", 0, gap)
+							tt:SetSize(subW, subH)
 						end
 					else
-						-- Use Layout2 positioning relative to portraits
-						if oUF_Pet and playerFramePortrait then
-							oUF_Pet:ClearAllPoints()
-							oUF_Pet:SetPoint("TOPLEFT", playerFramePortrait, "TOPRIGHT", Layout2Config.portrait.pet_offset_x, Layout2Config.portrait.pet_offset_y)
+						-- ---- centerbar = false ----
+						-- Pet  : same slot as player castbar in centerbar=true
+						--        (screen-centred, TOP = portrait TOP)
+						local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
+						if pet and player then
+							pet:ClearAllPoints()
+							pet:SetWidth(cbWidth)
+							pet:SetHeight(C.layout2.pet_height)
+							pet:SetPoint("TOP",  player.Portrait, "TOP",    0, 0)
+							pet:SetPoint("LEFT", UIParent,        "CENTER", -cbWidth / 2, 0)
 						end
-						
-						if oUF_TargetTarget and oUF_Pet then
-							oUF_TargetTarget:ClearAllPoints()
-							oUF_TargetTarget:SetPoint("BOTTOMLEFT", playerFramePortrait, "BOTTOMRIGHT", Layout2Config.portrait.pet_offset_x, 0)
+
+						-- TT : same slot as target castbar in centerbar=true
+						--      (screen-centred, BOTTOM = portrait BOTTOM)
+						if tt and target then
+							tt:ClearAllPoints()
+							tt:SetWidth(cbWidth)
+							tt:SetHeight(C.layout2.targettarget_height)
+							tt:SetPoint("BOTTOM", target.Portrait, "BOTTOM", 0, 0)
+							tt:SetPoint("LEFT",   UIParent,        "CENTER", -cbWidth / 2, 0)
 						end
 					end
 				end)
@@ -1187,94 +1253,172 @@ if C.layout2.enable then
 		if InCombatLockdown() then return end
 		
 		C_Timer.After(0.1, function()
-			local player = _G.oUF_Player
-			local target = _G.oUF_Target
-			local pet = _G.oUF_Pet
+			local player      = _G.oUF_Player
+			local target      = _G.oUF_Target
+			local pet         = _G.oUF_Pet
 			local targettarget = _G.oUF_TargetTarget
-			local focus = _G.oUF_Focus
+			local focus       = _G.oUF_Focus
 			local focustarget = _G.oUF_FocusTarget
-			
-			-- Get frame sizes from Layout.lua
-			local player_width = C.unitframe.player_width
-			local pet_width = (player_width - 7) / 2
-			
-			-- Apply positions from Positions.lua
-			-- Player frame anchors to its portrait (top right to portrait top left)
-			if player and player.Portrait then
-				player:ClearAllPoints()
-				player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, -1)
-				player:SetSize(C.layout2.player_width, C.layout2.player_height)
-			end
-			
-			-- Target frame anchors to its portrait (top left to portrait top right)
-			if target and target.Portrait then
-				target:ClearAllPoints()
-				target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, -1)
-				target:SetSize(C.layout2.target_width, C.layout2.target_height)
-			end
-			-- Pet positioning and sizing
-			if pet and C.unitframe.show_pet then
-				-- pet:ClearAllPoints()
-				if C.layout2.centerbar then
-					-- Use default Layout.lua position and size
-					-- pet:SetPoint(unpack(C.position.unitframes.pet))
-					pet:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
-				else
-					-- Use Layout2 position and size
-					-- pet:SetPoint("TOPRIGHT", player, "TOPLEFT", -10, 0)
-					pet:SetSize(C.layout2.pet_width, C.layout2.pet_height)
+
+			-- Resize main frames
+			if player then player:SetSize(C.layout2.player_width, C.layout2.player_height) end
+			if target then target:SetSize(C.layout2.target_width, C.layout2.target_height) end
+
+			-- Shared references
+			local tfWidth     = Layout2Config.text_bar.width
+			local playerTF    = player and _G[player:GetName().."_TextFrame"]
+			local targetTF    = target and _G[target:GetName().."_TextFrame"]
+
+			if C.layout2.centerbar then
+				-- ================================================================
+				-- CENTERBAR = TRUE
+				-- Sub-frames sit in pairs below the textFrame.
+				-- Pet / Focus below player textFrame (left / right).
+				-- FocusTarget / TargetTarget below target textFrame (left / right).
+				-- ================================================================
+				local subW = (tfWidth / 2) - Layout2Config.centerbar_true.pair_inner_margin
+				local subH = Layout2Config.centerbar_true.sub_frame_height
+				local gap  = Layout2Config.centerbar_true.sub_frame_gap
+
+				-- Pet (left, under player textFrame)
+				if pet and C.unitframe.show_pet and playerTF then
+					pet:ClearAllPoints()
+					pet:SetPoint("TOPLEFT", playerTF, "BOTTOMLEFT", 0, gap)
+					pet:SetSize(subW, subH)
 				end
-			end
-			
-			-- Target's target positioning and sizing
-			if targettarget and C.unitframe.show_target_target then
-				targettarget:ClearAllPoints()
-				if C.layout2.centerbar then
-					-- Use default Layout.lua position and size
-					targettarget:SetPoint(unpack(C.position.unitframes.target_target))
-					targettarget:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
-				else
-					-- Use Layout2 position and size
-					targettarget:SetPoint("TOPLEFT", target, "TOPRIGHT", 10, 0)
-					targettarget:SetSize(C.layout2.targettarget_width, C.layout2.targettarget_height)
+
+				-- Focus (right, under player textFrame)
+				if focus and C.unitframe.show_focus and playerTF then
+					focus:ClearAllPoints()
+					focus:SetPoint("TOPRIGHT", playerTF, "BOTTOMRIGHT", 0, gap)
+					focus:SetSize(subW, subH)
 				end
-			end
-			
-			-- Focus positioning and sizing
-			if focus and C.unitframe.show_focus then
-				focus:ClearAllPoints()
-				if C.layout2.centerbar then
-					-- Use default Layout.lua position and size
-					focus:SetPoint(unpack(C.position.unitframes.focus))
-					focus:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
-				else
-					-- Use Layout2 position and size
-					focus:SetPoint(unpack(C.position.unitframes.focus))
+
+				-- FocusTarget (left, under target textFrame)
+				if focustarget and C.unitframe.show_focus and targetTF then
+					focustarget:ClearAllPoints()
+					focustarget:SetPoint("TOPLEFT", targetTF, "BOTTOMLEFT", 0, gap)
+					focustarget:SetSize(subW, subH)
+				end
+
+				-- TargetTarget (right, under target textFrame)
+				if targettarget and C.unitframe.show_target_target and targetTF then
+					targettarget:ClearAllPoints()
+					targettarget:SetPoint("TOPRIGHT", targetTF, "BOTTOMRIGHT", 0, gap)
+					targettarget:SetSize(subW, subH)
+				end
+			else
+				-- ================================================================
+				-- CENTERBAR = FALSE
+				-- Pet / TargetTarget take the castbar slots from centerbar=true
+				-- (screen-centred, portrait-aligned).
+				-- Focus / FocusTarget sit below their respective castbars.
+				-- ================================================================
+				local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
+
+				-- Pet : screen-centred, TOP = player portrait TOP
+				if pet and C.unitframe.show_pet and player then
+					pet:ClearAllPoints()
+					pet:SetWidth(Layout2Config.pet.width)
+					pet:SetHeight(C.layout2.pet_height)
+					local portraitTop = player.Portrait:GetTop()
+					local petHalfH = pet:GetHeight() / 2
+					local y = (portraitTop - petHalfH) - (UIParent:GetHeight() / 2)
+					pet:SetPoint("CENTER", UIParent, "CENTER", 0, y)
+				end
+
+				-- TargetTarget : screen-centred, BOTTOM = target portrait BOTTOM
+				if targettarget and C.unitframe.show_target_target and target then
+					targettarget:ClearAllPoints()
+					targettarget:SetWidth(Layout2Config.targettarget.width)
+					targettarget:SetHeight(C.layout2.targettarget_height)
+					local portraitBottom = target.Portrait:GetBottom()
+					local uiCenterY = UIParent:GetTop() - (UIParent:GetHeight() / 2)
+					local yOffset = (portraitBottom + targettarget:GetHeight() / 2) - uiCenterY
+
+					targettarget:SetPoint("CENTER", UIParent, "CENTER", 0, yOffset)
+				end
+
+				-- Focus : TOPRIGHT below player castbar BOTTOMRIGHT
+				if focus and C.unitframe.show_focus and player and player.Castbar then
+					focus:ClearAllPoints()
+					focus:SetPoint("TOPRIGHT", player.Castbar, "BOTTOMRIGHT", 0, Layout2Config.no_centerbar.focus_gap)
 					focus:SetSize(C.layout2.focus_width, C.layout2.focus_height)
 				end
-			end
-			
-			-- Focus target positioning and sizing
-			if focustarget and C.unitframe.show_focus then
-				focustarget:ClearAllPoints()
-				if C.layout2.centerbar then
-					-- Use default Layout.lua position and size
-					focustarget:SetPoint(unpack(C.position.unitframes.focus_target))
-					focustarget:SetSize(pet_width, 16 + (C.unitframe.extra_health_height / 2))
-				else
-					-- Use Layout2 position and size
-					focustarget:SetPoint(unpack(C.position.unitframes.focus_target))
+
+				-- FocusTarget : TOPLEFT below target castbar BOTTOMLEFT
+				if focustarget and C.unitframe.show_focus and target and target.Castbar then
+					focustarget:ClearAllPoints()
+					focustarget:SetPoint("TOPLEFT", target.Castbar, "BOTTOMLEFT", 0, Layout2Config.no_centerbar.focustarget_gap)
 					focustarget:SetSize(C.layout2.focustarget_width, C.layout2.focustarget_height)
 				end
 			end
-			
+
 			if C.raidframe.layout == "HEAL" or C.raidframe.layout == "AUTO" then
-				-- Reposition party anchor to player portrait
-				if _G["PartyAnchor"] and player and player.Portrait then
+				-- Reposition party anchor with layout2 offsets (12px right, 8px down vs default)
+				if _G["PartyAnchor"] and player then
 					_G["PartyAnchor"]:ClearAllPoints()
-					_G["PartyAnchor"]:SetPoint(unpack(C.position.unitframes.party_heal))
+					_G["PartyAnchor"]:SetPoint(unpack(C.position.unitframes.party_heal_layout2))
+				end
+				-- Reposition RaidAnchor1 with layout2 offsets
+				local raidAnchor1 = _G["RaidAnchor1"]
+				if raidAnchor1 and player then
+					raidAnchor1:ClearAllPoints()
+					raidAnchor1:SetPoint(unpack(C.position.unitframes.raid_heal_layout2))
 				end
 			end
+		end)
+
+		-- Lets move the raid and party frames if using bartender 4 default viks layout
+		local f = CreateFrame("Frame")
+		f:RegisterEvent("GROUP_ROSTER_UPDATE")
+
+		f:SetScript("OnEvent", function()
+			if InCombatLockdown() then return end
+			if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Bartender4")) then return end
+
+			local members = GetNumGroupMembers()
+
+			local raidHeight = C.raidframe.heal_raid_height or 40
+			local spacing = T and T.Scale and T.Scale(7) or 7
+
+			local baseOffset = (members >= 21) and math.floor(raidHeight * 0.75) or 0
+
+			local extraRows = 0
+			if members >= 26 then
+				extraRows = math.floor((members - 26) / 5) + 1
+			end
+
+			local extraOffset = extraRows * (raidHeight + spacing)
+
+			local extraY = baseOffset + extraOffset
+
+			local function MoveFrame(frame, extra)
+				if not frame then return end
+
+				local point, relFrame, relPoint, x, y = frame:GetPoint()
+
+				-- Save original Y once
+				if not frame.originalY then
+					frame.originalY = y
+				end
+
+				frame:ClearAllPoints()
+				frame:SetPoint(point, relFrame, relPoint, x, frame.originalY + extraY + (extra or 0))
+			end
+
+			MoveFrame(_G.oUF_Player)
+			MoveFrame(_G.oUF_Target)
+			
+			-- Move castbars too
+			if _G.oUF_Player and _G.oUF_Player.Castbar then
+				MoveFrame(_G.oUF_Player.Castbar, 150)
+			end
+
+			if _G.oUF_Target and _G.oUF_Target.Castbar then
+				MoveFrame(_G.oUF_Target.Castbar, 150)
+			end
+
 		end)
 	end
 	
@@ -1283,6 +1427,7 @@ if C.layout2.enable then
 	layout2RepositionFrame:RegisterEvent("PLAYER_LOGIN")
 	layout2RepositionFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	layout2RepositionFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	layout2RepositionFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 	if C.raidframe.layout == "AUTO" then
 		layout2RepositionFrame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
 	end
@@ -1290,68 +1435,6 @@ if C.layout2.enable then
 	layout2RepositionFrame:SetScript("OnEvent", function(self, event)
 		ApplyLayout2Positions()
 	end)
-	
-	-- Support for C.raidframe.auto_position DYNAMIC
-	if C.raidframe.auto_position == "DYNAMIC" then
-		local prevNum = 5
-		local function Layout2DynamicReposition(self, event)
-			if (C.raidframe.layout == "HEAL" or C.raidframe.layout == "AUTO") and not C.raidframe.raid_groups_vertical and C.raidframe.raid_groups > 5 then
-				if InCombatLockdown() then
-					self:RegisterEvent("PLAYER_REGEN_ENABLED")
-					return
-				end
-				
-				local maxGroup = 5
-				local num = GetNumGroupMembers()
-				if num > 5 then
-					local _, _, subgroup = GetRaidRosterInfo(num)
-					if subgroup and subgroup > maxGroup then
-						maxGroup = subgroup
-					end
-				end
-				if maxGroup >= C.raidframe.raid_groups then
-					maxGroup = C.raidframe.raid_groups
-				end
-				if C.raidframe.layout == "AUTO" and not T.IsHealerSpec() then maxGroup = 5 end
-				
-				if prevNum ~= maxGroup then
-					-- Calculate offset based on number of raid groups
-					local offset = (maxGroup - 5) * (C.raidframe.heal_raid_height + 7)
-					if C.raidframe.layout == "AUTO" and not T.IsHealerSpec() then offset = 0 end
-					
-					-- Apply Layout2 positions with dynamic offset
-					local player = _G.oUF_Player
-					local target = _G.oUF_Target
-					
-					if player and player.Portrait then
-						player:ClearAllPoints()
-						player:SetPoint("TOPRIGHT", player.Portrait, "TOPLEFT", -10, 0 + offset)
-					end
-					
-					if target and target.Portrait then
-						target:ClearAllPoints()
-						target:SetPoint("TOPLEFT", target.Portrait, "TOPRIGHT", 10, 0 + offset)
-					end
-					
-					prevNum = maxGroup
-				end
-				
-				if event == "PLAYER_REGEN_ENABLED" then
-					self:UnregisterEvent("PLAYER_REGEN_ENABLED")
-				end
-			else
-				self:UnregisterAllEvents()
-			end
-		end
-		
-		local dynamicFrame = CreateFrame("Frame")
-		dynamicFrame:RegisterEvent("PLAYER_LOGIN")
-		dynamicFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
-		if C.raidframe.layout == "AUTO" then
-			dynamicFrame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
-		end
-		dynamicFrame:SetScript("OnEvent", Layout2DynamicReposition)
-	end
 end
 
 -- print("|cff00ff00Layout2.lua loaded successfully|r")

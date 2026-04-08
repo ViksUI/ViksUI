@@ -33,7 +33,7 @@ end
 local function SetItemTip(frame)
 	if not frame.link then return end
 	GameTooltip:SetOwner(frame, "ANCHOR_TOPLEFT")
-	GameTooltip:SetHyperlink(frame.link)
+	GameTooltip:SetHyperlink(frame.link) -- BETA error secret
 	if IsShiftKeyDown() then GameTooltip_ShowCompareItem() end
 	if IsModifiedClick("DRESSUP") then ShowInspectCursor() else ResetCursor() end
 end
@@ -63,7 +63,7 @@ local function LootClick(frame)
 		if ChatFrameUtil.GetActiveWindow() then
 			ChatFrameUtil.InsertLink(item)
 		else
-			ChatFrameUtil.OpenChat(item)
+			T.OpenChat(item)
 		end
 	end
 end

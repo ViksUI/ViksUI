@@ -83,7 +83,7 @@ oUF.Tags.Events["NameLong"] = "UNIT_NAME_UPDATE"
 
 oUF.Tags.Methods["NameLongAbbrev"] = function(unit)
 	local name = UnitName(unit)
-	if name and canaccessvalue(name) and string.len(name) > 18 then
+	if canaccessvalue(name) and string.len(name) > 18 then
 		name = string.gsub(name, "-", "")
 		name = string.gsub(name, "%s?(.[\128-\191]*)%S+%s", "%1. ")
 	end
@@ -172,6 +172,7 @@ oUF.Tags.Events["NameplateHealth"] = "UNIT_HEALTH UNIT_MAXHEALTH NAME_PLATE_UNIT
 oUF.Tags.Methods["Absorbs"] = function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit)
 	if absorb and absorb > 0 then
+		oUF_Player.Absorbs:SetAlpha(absorb) -- hack to hide when value is zero
 		return T.ShortValue(absorb)
 	end
 	return ""

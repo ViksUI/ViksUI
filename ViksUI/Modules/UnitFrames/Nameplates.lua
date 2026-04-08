@@ -12,7 +12,6 @@ frame:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end
 if C.nameplate.combat then
 	frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 	frame:RegisterEvent("PLAYER_REGEN_DISABLED")
-	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	function frame:PLAYER_REGEN_ENABLED()
 		SetCVar("nameplateShowEnemies", 0)
@@ -21,8 +20,13 @@ if C.nameplate.combat then
 	function frame:PLAYER_REGEN_DISABLED()
 		SetCVar("nameplateShowEnemies", 1)
 	end
+end
 
-	function frame:PLAYER_ENTERING_WORLD()
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+function frame:PLAYER_ENTERING_WORLD()
+	C_NamePlate.SetNamePlateSize(C.nameplate.width * 1.2, (C.nameplate.height + C.font.nameplates_font_size + 8) * 2)
+
+	if C.nameplate.combat then
 		if InCombatLockdown() then
 			SetCVar("nameplateShowEnemies", 1)
 		else
@@ -56,7 +60,7 @@ function frame:PLAYER_LOGIN()
 	if C.nameplate.only_name then
 		SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", 1)
 	end
-	-- SetCVar("nameplateShowOnlyNames", 0)
+	SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", 1)
 
 	local function changeFont(self, size)
 		local mult = size or 1
@@ -108,7 +112,7 @@ if C.nameplate.healer_icon then
 			local playerFaction = numFactions[UnitFactionGroup("player")]
 			for i = 1, GetNumBattlefieldScores() do
 				local name, _, _, _, _, faction, _, _, _, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(i)
-				if name and healerSpecs[talentSpec] and faction == playerFaction then
+				if T.NotSecretValue(name) and name and healerSpecs[talentSpec] and faction == playerFaction then
 					name = name:match("(.+)%-.+") or name
 					healList[name] = talentSpec
 				end
@@ -126,7 +130,7 @@ if C.nameplate.healer_icon then
 				if specID and specID > 0 then
 					local name = UnitName(format("arena%d", i))
 					local _, talentSpec = GetSpecializationInfoByID(specID)
-					if name and healerSpecs[talentSpec] then
+					if T.NotSecretValue(name) and name and healerSpecs[talentSpec] then
 						healList[name] = talentSpec
 						local nameplate = C_NamePlate.GetNamePlateForUnit(format("arena%d", i))
 						if nameplate then
@@ -304,8 +308,8 @@ local AurasPostUpdateIcon = function(_, button, unit, data)
 end
 
 local function UpdateTarget(self)
-	local isTarget = UnitIsUnit(self.unit, "target")
-	local isMe = UnitIsUnit(self.unit, "player")
+	local isTarget = T.unitIsUnit(self.unit, "target")
+	local isMe = T.unitIsUnit(self.unit, "player")
 
 	if isTarget and not isMe then
 		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
@@ -358,6 +362,14 @@ local function UpdateTarget(self)
 		self.ArrowR:Hide()
 		self.ArrowL:Hide()
 		self.Level:Show()
+	end
+end
+
+local function UpdateFocus(self)
+	if T.unitIsUnit(self.unit, "focus") then
+		SetColorBorder(self.Health, 1, 0.8, 0)
+	else
+		SetColorBorder(self.Health, unpack(C.media.border_color))
 	end
 end
 
@@ -437,7 +449,7 @@ if C.nameplate.kick_color then
 end
 
 -- Cast color
-local function castColor(self)
+local function castColor(self, unit)
 	-- Check if notInterruptible
 	local color = C_CurveUtil.EvaluateColorFromBoolean(self.notInterruptible, {r = 0.78, g = 0.25, b = 0.25, a = 1}, {r = 1, g = 0.8, b = 0, a = 1})
 
@@ -457,13 +469,13 @@ local function castColor(self)
 	-- else
 		-- if C.nameplate.kick_color then
 			-- local start = GetSpellCooldown(kickID)
-			-- -- if (canaccessvalue(start) and start ~= 0) or start then -- BETA
-				-- -- self:SetStatusBarColor(1, 0.5, 0)
-				-- -- self.bg:SetColorTexture(1, 0.5, 0, 0.2)
-			-- -- else
-				-- -- self:SetStatusBarColor(1, 0.8, 0)
-				-- -- self.bg:SetColorTexture(1, 0.8, 0, 0.2)
-			-- -- end
+			-- if (canaccessvalue(start) and start ~= 0) or start then -- BETA
+				-- self:SetStatusBarColor(1, 0.5, 0)
+				-- self.bg:SetColorTexture(1, 0.5, 0, 0.2)
+			-- else
+				-- self:SetStatusBarColor(1, 0.8, 0)
+				-- self.bg:SetColorTexture(1, 0.8, 0, 0.2)
+			-- end
 		-- else
 			-- self:SetStatusBarColor(1, 0.8, 0)
 			-- self.bg:SetColorTexture(1, 0.8, 0, 0.2)
@@ -474,6 +486,20 @@ local function castColor(self)
 		local color = C_CurveUtil.EvaluateColorFromBoolean(C_Spell.IsSpellImportant(self.spellID), {r = 1, g = 0.8, b = 0, a = 1}, {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1})
 		SetColorBorder(self, color:GetRGB())
 		SetColorBorder(self.Border, color:GetRGB())
+	end
+
+	if C.nameplate.cast_target then
+		local target = UnitSpellTargetName(unit)
+		if target then
+			local class = UnitSpellTargetClass(unit)
+			if class then
+				local classColor = C_ClassColor.GetClassColor(class)
+				if classColor then
+					target = classColor:WrapTextInColorCode(target)
+				end
+			end
+			self.Text:SetText("-> "..target)
+		end
 	end
 
 	-- if C.nameplate.cast_color and canaccessvalue(self.spellID) then -- BETA not work
@@ -562,9 +588,9 @@ local function threatColor(self, forced)
 					local offTank = false
 					if IsInRaid() then
 						for i = 1, GetNumGroupMembers() do
-							if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
-								local threatStatus = UnitThreatSituation("raid"..i, self.unit)
-								if threatStatus and threatStatus >= 2 then
+							if UnitExists("raid"..i) and not T.unitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
+								local isTanking = UnitDetailedThreatSituation("raid"..i, self.unit)
+								if isTanking then
 									offTank = true
 									break
 								end
@@ -627,14 +653,18 @@ local function HealthPostUpdateColor(self, unit, color)
 	local mu = self.bg.multiplier
 	local isPlayer = UnitIsPlayer(unit)
 	local unitReaction = UnitReaction(unit, "player")
-	if not UnitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
+	if not T.unitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
 		r, g, b = T.oUF_colors.power["MANA"]:GetRGB()
 		self:SetStatusBarColor(r, g, b)
 		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
 	elseif not UnitIsTapDenied(unit) and not isPlayer then
 		local special = UnitClassification(unit)
-		if special == "elite" and IsInInstance() and UnitClassBase(unit) == "PALADIN" then
-			main.npcID = "caster"
+		if special == "elite" and IsInInstance() then
+			if UnitIsLieutenant(unit) then
+				main.npcID = "miniboss"
+			elseif UnitClassBase(unit) == "PALADIN" then
+				main.npcID = "caster"
+			end
 		end
 		if C.nameplate.mob_color_enable and T.ColorPlate[main.npcID] then
 			r, g, b = unpack(T.ColorPlate[main.npcID])
@@ -658,6 +688,10 @@ local function HealthPostUpdateColor(self, unit, color)
 	end
 
 	threatColor(main, true)
+
+	if T.unitIsUnit(unit, "focus") then
+		SetColorBorder(self, 1, 0.8, 0)
+	end
 end
 
 local function callback(self, _, unit)
@@ -731,6 +765,9 @@ local function callback(self, _, unit)
 
 			if C.nameplate.only_name then
 				if UnitIsFriend("player", unit) then
+					if not InCombatLockdown() then
+						nameplate:SetSize(C.nameplate.width * 0.5, C.font.nameplates_font_size + 8)
+					end
 					self.Health:SetAlpha(0)
 					self.Name:ClearAllPoints()
 					self.Name:SetPoint("CENTER", self, "CENTER", 0, 0)
@@ -740,6 +777,9 @@ local function callback(self, _, unit)
 						self.Glow:SetAlpha(0)
 					end
 				else
+					if not InCombatLockdown() then
+						nameplate:SetSize(C.nameplate.width * 1.2, (C.nameplate.height + C.font.nameplates_font_size + 8) * 2)
+					end
 					self.Health:SetAlpha(1)
 					self.Name:ClearAllPoints()
 					self.Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -3, 4)
@@ -850,7 +890,7 @@ local function style(self, unit)
 	self.Castbar.Time:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
 
 	-- Cast Name Text
-	if C.nameplate.show_castbar_name then
+	if C.nameplate.show_castbar_name or C.nameplate.cast_target then
 		self.Castbar.Text = self.Castbar:CreateFontString(nil, "OVERLAY")
 		self.Castbar.Text:SetPoint("LEFT", self.Castbar, "LEFT", 3, 0)
 		self.Castbar.Text:SetPoint("RIGHT", self.Castbar.Time, "LEFT", -1, 0)
@@ -1003,6 +1043,9 @@ local function style(self, unit)
 
 	table.insert(self.__elements, UpdateTarget)
 	self:RegisterEvent("PLAYER_TARGET_CHANGED", UpdateTarget, true)
+
+	table.insert(self.__elements, UpdateFocus)
+	self:RegisterEvent("PLAYER_FOCUS_CHANGED", UpdateFocus, true)
 
 	-- Disable movement via /moveui
 	self.disableMovement = true

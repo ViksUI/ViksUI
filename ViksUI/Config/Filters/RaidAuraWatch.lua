@@ -96,7 +96,7 @@ local function SpellName(id)
 	if name then
 		return name
 	else
-		print("|cffff0000ViksUI: RaidAuraWatch spell ID ["..tostring(id).."] no longer exists!|r")
+		print("|cffff0000ViksUI: RaidDebuffs spell ID ["..tostring(id).."] no longer exists!|r")
 		return "Empty"
 	end
 end

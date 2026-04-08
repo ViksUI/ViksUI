@@ -15,7 +15,6 @@ T.version = C_AddOns.GetAddOnMetadata("ViksUI", "Version")
 T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
 T.newPatch = select(4, GetBuildInfo()) >= 120005
 T.Midnight = select(4, GetBuildInfo()) >= 120000
-T.Retail =_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE
 
 -- NOTE: Restore old function
 GetContainerItemInfo = function(bagIndex, slotIndex)

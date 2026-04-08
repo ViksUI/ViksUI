@@ -508,11 +508,11 @@ local function SetupTempChat()
 end
 hooksecurefunc("FCF_OpenTemporaryWindow", SetupTempChat)
 
--- Disable pet battle tab
-local old = FCFManager_GetNumDedicatedFrames
-function FCFManager_GetNumDedicatedFrames(...)
-	return select(1, ...) ~= "PET_BATTLE_COMBAT_LOG" and old(...) or 1
-end
+-- Disable pet battle tab (not needed now?)
+-- local old = FCFManager_GetNumDedicatedFrames
+-- function FCFManager_GetNumDedicatedFrames(...)
+	-- return select(1, ...) ~= "PET_BATTLE_COMBAT_LOG" and old(...) or 1
+-- end
 
 -- Remove player's realm name
 local function RemoveRealmName(_, _, msg, author, ...)
@@ -576,7 +576,7 @@ local function UpdateTabChannelSwitch(self)
 			for j = h, r, step do
 				if cycles[j]:use(self, currChatType) then
 					self:SetAttribute("chatType", cycles[j].chatType)
-					ChatFrameEditBoxMixin.UpdateHeader(self)
+					ChatFrameEditBoxMixin.UpdateHeaderr(self)
 					return
 				end
 			end
@@ -598,9 +598,9 @@ hooksecurefunc("ChatEdit_CustomTabPressed", UpdateTabChannelSwitch)
 	-- }
 
 	-- local role_tex = {
-		-- TANK = "\124T"..[[Interface\AddOns\ViksUI\Media\Textures\Tank.tga]]..":12:12:0:0:64:64:5:59:5:59\124t",
-		-- HEALER	= "\124T"..[[Interface\AddOns\ViksUI\Media\Textures\Healer.tga]]..":12:12:0:0:64:64:5:59:5:59\124t",
-		-- DAMAGER = "\124T"..[[Interface\AddOns\ViksUI\Media\Textures\Damager.tga]]..":12:12:0:0:64:64:5:59:5:59\124t",
+		-- TANK = "\124T"..[[Interface\AddOns\ShestakUI\Media\Textures\Tank.tga]]..":12:12:0:0:64:64:5:59:5:59\124t",
+		-- HEALER	= "\124T"..[[Interface\AddOns\ShestakUI\Media\Textures\Healer.tga]]..":12:12:0:0:64:64:5:59:5:59\124t",
+		-- DAMAGER = "\124T"..[[Interface\AddOns\ShestakUI\Media\Textures\Damager.tga]]..":12:12:0:0:64:64:5:59:5:59\124t",
 	-- }
 
 	-- local func_orig = _G.ChatFrameUtil.GetDecoratedSenderName

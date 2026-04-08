@@ -853,7 +853,7 @@ if C.combattext.damage then
 					xCT4:AddMessage(amount..""..msg)
 				end
 			elseif eventType == "SPELL_DAMAGE" or (eventType == "SPELL_PERIODIC_DAMAGE" and C.combattext.dot_damage) then
-				local spellId, _, spellSchool, amount, _, _, _, _, _, critical = select(12, CombatLogGetCurrentEventInfo())
+				local spellId, _, spellSchool, amount, _, _, _, _, _, critical = select(12, C_CombatLog.GetCurrentEventInfo())
 				if amount >= C.combattext.treshold then
 					local color = {}
 					local rawamount = amount

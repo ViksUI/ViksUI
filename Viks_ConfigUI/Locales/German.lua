@@ -35,10 +35,10 @@ L.profile_error_lib = "To enable export and import - install Media_ViksUI" -- Ne
 L.profile_error_code = "Error in imported code!" -- Need review
 
 -- General options
-L_GUI_GENERAL_SUBTEXT = "Diese Einstellungen steuern die allgemeinen Einstellungen der Benutzeroberfläche. Geben Sie im Chat '/uihelp ein, um Hilfe zu erhalten."
-L_GUI_GENERAL_WELCOME_MESSAGE = "Welcome message in chat"
-L_GUI_GENERAL_AUTOSCALE = "Automatisch UI skalieren"
-L_GUI_GENERAL_UISCALE = "UI Skalierung (falls automatische Skalierung deaktiviert)"
+L.general_subtext = "Diese Einstellungen steuern die allgemeinen Einstellungen der Benutzeroberfläche. Geben Sie im Chat '/uihelp ein, um Hilfe zu erhalten."
+L.general_welcome_message = "Welcome message in chat"
+L.general_auto_scale = "Automatisch UI skalieren"
+L.general_uiscale = "UI Skalierung (falls automatische Skalierung deaktiviert)"
 L.general_subheader_blizzard = "Blizzard UI Elemente"
 L.general_error_filter = "Fehlerfilterung"
 L.general_error_blacklist = "Blacklist"
@@ -90,42 +90,16 @@ L.font_quest_tracker_font_mult = "Quest text scale" -- Need review
 L.font_global_font = "Disable Pixel font" -- Need review
 
 -- Skins options
-L_GUI_SKINS = "Design/Skins"
-L_GUI_SKINS_SUBTEXT = "Ändert das Erscheinungsbild der Standard UI."
-L_GUI_SKINS_BLIZZARD = "Aktiviere Styles für Blizzardfenster"
-L_GUI_SKINS_MINIMAP_BUTTONS = "Aktiviere styling Addonincons an der Minimap"
-L_GUI_SKINS_SUBHEADER = "Design/Skins für Addons"
-L.skins_ace3 = "Ace3"
-L.skins_atlasloot = "AtlasLoot"
-L.skins_bigwigs = "BigWigs"
-L.skins_blood_shield_tracker = "BloodShieldTracker"
-L.skins_capping = "Capping"
-L.skins_clique = "Clique"
-L.skins_cool_line = "CoolLine"
-L.skins_dbm = "DBM"
-L.skins_details = "Details"
-L.skins_dominos = "Dominos"
-L.skins_flyout_button = "FlyoutButtonCustom"
-L.skins_ls_toasts = "ls: Toasts"
-L.skins_mage_nuggets = "MageNuggets"
-L.skins_my_role_play = "MyRolePlay"
-L.skins_npcscan = "NPCScan"
-L.skins_nug_running = "NugRunning"
-L.skins_omen = "Omen"
-L.skins_opie = "OPie"
-L.skins_ovale = "OvaleSpellPriority"
-L.skins_postal = "Postal"
-L.skins_recount = "Recount"
-L.skins_rematch = "Rematch"
-L.skins_skada = "Skada"
-L.skins_tiny_dps = "TinyDPS"
-L.skins_vanaskos = "VanasKoS"
-L.skins_weak_auras = "WeakAuras"
+L.skins = "Design/Skins"
+L.skins_subtext = "Ändert das Erscheinungsbild der Standard UI."
+L.skins_blizzard_frames = "Aktiviere Styles für Blizzardfenster"
+L.skins_minimap_buttons = "Aktiviere styling Addonincons an der Minimap"
+L.skins_subheader = "Design/Skins für Addons"
 L.skins_minimap_buttons_mouseover = "Addons-Symbole bei Mouseover"
 L.skins_bubbles = "Blizzard Chat Blasen verändern"
 
 -- Unit Frames options
-L_GUI_UF_SUBTEXT = "Anpassen von Player, Zielframes usw."
+L.unitframe_subtext = "Anpassen von Player, Zielframes usw."
 L_GUI_UF_ENABLE = "Unitframes aktivieren"
 L_GUI_UF_OWN_COLOR = "Farbe für die Lebensleiste festlegen"
 L_GUI_UF_UF_COLOR = "Farbe der Lebensleiste"
@@ -360,29 +334,30 @@ L.chat_custom_time_color = "Aktivieren der benutzerdefinierten Zeitstempelfärbu
 L.chat_time_color = "Farbe des Zeitstempels"
 
 -- Nameplate options
-L_GUI_NAMEPLATE_SUBTEXT = "Nameplates Einstellung"
-L_GUI_NAMEPLATE_ENABLE = "Namensplaketten aktivieren"
-L_GUI_NAMEPLATE_COMBAT = "Namensplaketten automatisch im Kampf anzeigen"
-L_GUI_NAMEPLATE_HEALTH = "Numerischer Wert der Lebenspunkte"
-L_GUI_NAMEPLATE_HEIGHT = "Höhe der Namensplakette"
-L_GUI_NAMEPLATE_WIDTH = "Breite der Namensplakette"
+L.nameplate_subtext = "Nameplates Einstellung"
+L.nameplate_enable = "Namensplaketten aktivieren"
+L.nameplate_combat = "Namensplaketten automatisch im Kampf anzeigen"
+L.nameplate_health_value = "Numerischer Wert der Lebenspunkte"
+L.nameplate_height = "Höhe der Namensplakette"
+L.nameplate_width = "Breite der Namensplakette"
 L.nameplate_alpha = "Alpha"
 L.nameplate_alpha_desc = "Kein-Ziel Nameplate Alpha"
 L.nameplate_ad_height = "Zusätzliche Höhe"
 L.nameplate_ad_width = "Zusätzliche Breite"
 L.nameplate_ad_height_desc = "Zusätzliche Höhe für ausgewähltes Nameplate"
 L.nameplate_ad_width_desc = "Zusätzliche Breite für ausgewählte Nameplate"
-L_GUI_NAMEPLATE_CASTBAR_NAME = "Zeige den Namen in der Zauberleiste"
-L_GUI_NAMEPLATE_CLASS_ICON = "Zeige Klassensymbole an (PvP)"
-L_GUI_NAMEPLATE_NAME_ABBREV = "Namen abgekürzt anzeigen"
+L.nameplate_show_castbar_name = "Zeige den Namen in der Zauberleiste"
+L.nameplate_cast_target = "Namen des Zauberziels anzeigen" -- Needs review
+L.nameplate_class_icons = "Zeige Klassensymbole an (PvP)"
+L.nameplate_name_abbrev = "Namen abgekürzt anzeigen"
 L.nameplate_short_name = "Replace names with short ones" -- Need review
 L.nameplate_clamp = "Namensschilder am oberen Rand des Bildschirms, wenn außerhalb der Sichtweite." -- Need review
 L.nameplate_clamp_desc = "Namensschilder am oberen Rand des Bildschirms, wenn außerhalb der Sichtweite."
-L_GUI_NAMEPLATE_SHOW_DEBUFFS = "Zeige Schwächungszauber (Abgekürzte Namen müssen deaktiviert sein)"
-L_GUI_NAMEPLATE_SHOW_BUFFS = "Show dispellable enemy buffs and buffs from the list" -- Need review
-L_GUI_NAMEPLATE_DEBUFFS_SIZE = "Größe der Debuffs" -- Need review
-L_GUI_NAMEPLATE_HEALER_ICON = "Zeige Heilersymbol auf allen gegnerischen Heiler-Nameplates im BG"
-L_GUI_NAMEPLATE_TOTEM_ICONS = "Symbol über dem Namensschild des feindlichen Totems anzeigen"
+L.nameplate_track_debuffs = "Zeige Schwächungszauber (Abgekürzte Namen müssen deaktiviert sein)"
+L.nameplate_track_buffs = "Show dispellable enemy buffs and buffs from the list" -- Need review
+L.nameplate_auras_size = "Größe der Debuffs" -- Need review
+L.nameplate_healer_icon = "Zeige Heilersymbol auf allen gegnerischen Heiler-Nameplates im BG"
+L.nameplate_totem_icons = "Symbol über dem Namensschild des feindlichen Totems anzeigen"
 L.nameplate_target_glow = "Show glow texture for target" -- Need review
 L.nameplate_only_name = "Show only name for friendly units" -- Need review
 L.nameplate_quests = "Show quest icon" -- Need review
@@ -390,11 +365,11 @@ L.nameplate_cast_color = "Show color border for casting important spells" -- Nee
 L.nameplate_kick_color = "Change cast color if interrupt on cd" -- Need review
 L.nameplate_low_health_value = "Health value" -- Need review
 L.nameplate_low_health = "Low health highlight" -- Need review
-L_GUI_NAMEPLATE_THREAT = "Aktiviere Bedrohungsanzeige, ändert sich automatisch je nach deiner Rolle"
-L_GUI_NAMEPLATE_GOOD_COLOR = "Positive Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
-L_GUI_NAMEPLATE_NEAR_COLOR = "Verlust oder Zuwachs der Bedrohung farbig kennzeichen"
-L_GUI_NAMEPLATE_BAD_COLOR = "Negative Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
-L_GUI_NAMEPLATE_OFFTANK_COLOR = "Farbe der Offtank-Bedrohung"
+L.nameplate_enhance_threat = "Aktiviere Bedrohungsanzeige, ändert sich automatisch je nach deiner Rolle"
+L.nameplate_good_color = "Positive Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
+L.nameplate_near_color = "Verlust oder Zuwachs der Bedrohung farbig kennzeichen"
+L.nameplate_bad_color = "Negative Bedrohungsfarbe. Variiert abhängig ob Tank oder dps/heal"
+L.nameplate_offtank_color = "Farbe der Offtank-Bedrohung"
 L.nameplate_extra_color = "Explosive and Spiteful affix color" -- Need review
 L.nameplate_mob_color_enable = "Change color for important mobs in dungeons" -- Need review
 L.nameplate_mob_color = "Color for mobs" -- Need review
@@ -532,8 +507,8 @@ L.filger_subheader_spells = "Hinzufügen neuer Zaubersprüche"
 L.filger_category_list = "Kategorie der Zauberliste"
 
 -- Announcements options
-L_GUI_ANNOUNCEMENTS = "Benachrichtigungen"
-L_GUI_ANNOUNCEMENTS_SUBTEXT = "Einstellungen, die Chat-Ankündigungen über Zaubersprüche oder Gegenstände hinzufügen."
+L.announcements = "Benachrichtigungen"
+L.announcements_subtext = "Einstellungen, die Chat-Ankündigungen über Zaubersprüche oder Gegenstände hinzufügen."
 L.announcements_drinking = "Sage im Chat an wenn ein Arenagegener trinkt"
 L.announcements_interrupts = "Interrupts" -- Need review
 L.announcements_interrupts_desc = "Sage deine Unterbrechungen im Raid oder Schlachtzugschat an"
@@ -557,8 +532,8 @@ L.announcements_safari_hat = "Safari Hat" -- Needs review
 L.announcements_safari_hat_desc = "Überprüfe Safari Hat"
 
 -- Automation options
-L_GUI_AUTOMATION = "Automatisierung"
-L_GUI_AUTOMATION_SUBTEXT = "Dieser Block enthält Einstellungen, die die Routine erleichtern."
+L.automation = "Automatisierung"
+L.automation_subtext = "Dieser Block enthält Einstellungen, die die Routine erleichtern."
 L.automation_release = "Automatisch im Schlachtfeld wiederbeleben"
 L.automation_screenshot = "Speicher einen Screenshot wenn ein Achivment errungen wird"
 L.automation_solve_artifact = "Auto Popup für gelöste Artefakte"
@@ -677,8 +652,8 @@ L_GUI_STATS_CURRENCY_COOKING = "Zeige Kochpreise/Marken"
 L_GUI_STATS_CURRENCY_RAID = "Zeige Schlatzugs Siegel/Bonuswürffe"
 
 -- Trade options
-L_GUI_TRADE = "Handel"
-L_GUI_TRADE_SUBTEXT = "Einstellungen für Handel und Berufe"
+L.trade = "Handel"
+L.trade_subtext = "Einstellungen für Handel und Berufe"
 L.trade_profession_tabs = "Berufereiter/Tabs"
 L.trade_profession_tabs_desc = "Berufereiter an Handelsfähigkeiten und Handelsfenstern anzeigen"
 L.trade_already_known = "Färbt bereits bekannte Elemente ein"
@@ -694,7 +669,7 @@ L.trade_merchant_itemlevel = "Item level beim Händler"
 L.trade_merchant_itemlevel_desc = "Zeige Itemlevel für Waffen & Rüstung bei Händler"
 
 -- Miscellaneous options
-L_GUI_MISC_SUBTEXT = "Andere Einstellungen, die interessante Funktionen hinzufügen."
+L.misc_subtext = "Andere Einstellungen, die interessante Funktionen hinzufügen."
 L.misc_shift_marking = "Markiert Mouseover-Ziel"
 L.misc_shift_marking_desc = "Markiert das Mouseover-Ziel, beim drücken der Umschalttaste (nur in der Gruppe)"
 L.misc_afk_spin_camera = "Kamera drehen während du AFK bist"

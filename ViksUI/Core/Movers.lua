@@ -89,7 +89,9 @@ T.MoverFrames = {
 	R2_Details,
 	CPTopp,
 	CPMinim,
-	UIWidgetPowerBarAnchor
+	UIWidgetPowerBarAnchor,
+	ChatFrameRightAnchor,
+	PrivateAnchor
 }
 
 if C.actionbar.bar7_enable then

@@ -82,22 +82,11 @@ C["togglemainmenu"] = {
 -- Definde toggle functions
 C["toggleaddons"] = {
 	-- Damage Meters
-	["alDamageMeter"] = function()
-		ToggleFrame(alDamageMeterFrame)
-	end,
-	["Recount"] = function()
-		ToggleFrame(Recount.MainWindow)
-		Recount.RefreshMainWindow()
+	["Details"] = function()
+		Details:ToggleWindows()
 	end,
 	["Skada"] = function()
 		Skada:ToggleWindow()
-	end,
-	["TinyDPS"] = function()
-		ToggleFrame(tdpsFrame)
-	end,
-	-- Threat Meters
-	["Omen"] = function()
-		ToggleFrame(Omen.Anchor)
 	end,
 	-- Boss Addons
 	["BigWigs"] = function()
@@ -351,9 +340,9 @@ local function addonEnableToggle(_, i)
 	for j = 1, C_AddOns.GetNumAddOns() do
 		if (addonInfo[j].parent == i and addonInfo[i].collapsed) or (i == j and not addonInfo[addonInfo[i].parent].collapsed) then
 			if was_enabled then
-				DisableAddOn(j)
+				C_AddOns.DisableAddOn(j)
 			else
-				EnableAddOn(j)
+				C_AddOns.EnableAddOn(j)
 			end
 			addonInfo[j].enabled = not was_enabled
 		end
@@ -513,3 +502,25 @@ for i = 1, C_AddOns.GetNumAddOns() do
 end
 
 refreshAddOnMenu()
+
+----------------------------------------------------------------------------------------
+--	Reposition if minimap on top
+----------------------------------------------------------------------------------------
+if C.minimap.on_top then
+	local frame = CreateFrame("Frame")
+	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	frame:SetScript("OnEvent", function()
+		local _, y = Minimap:GetCenter()
+		local vhalf = (y > UIParent:GetHeight() / 2) and "TOP" or "BOTTOM"
+		if vhalf == "TOP" then
+			MenuBG:ClearAllPoints()
+			MenuBG:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 2, -3)
+
+			AddonBG:ClearAllPoints()
+			AddonBG:SetPoint("TOPRIGHT", MenuBG, "TOPRIGHT", 0, 0)
+
+			OpenMenuBG:ClearAllPoints()
+			OpenMenuBG:SetPoint("TOP", MenuBG, "TOP", 0, 0)
+		end
+	end)
+end

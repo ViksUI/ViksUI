@@ -1,8 +1,8 @@
 local T, C, L = unpack(ViksUI)
 if C.tooltip.enable ~= true then return end
 
-local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
-local C_PlayerInfo_GetPlayerMythicPlusRatingSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary
+-- local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
+-- local C_PlayerInfo_GetPlayerMythicPlusRatingSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary
 
 ----------------------------------------------------------------------------------------
 --	Based on aTooltip(by ALZA)
@@ -175,7 +175,7 @@ local function AddTargetedBy()
 	if numParty > 0 or numRaid > 0 then
 		for i = 1, (numRaid > 0 and numRaid or numParty) do
 			local unit = (numRaid > 0 and "raid"..i or "party"..i)
-			if UnitIsUnit(unit.."target", token) and not UnitIsUnit(unit, "player") then
+			if T.unitIsUnit(unit.."target", token) and not T.unitIsUnit(unit, "player") then
 				local _, class = UnitClass(unit)
 				targetedList[#targetedList + 1] = ClassColors[class]
 				targetedList[#targetedList + 1] = UnitName(unit)
@@ -407,7 +407,7 @@ local OnTooltipSetUnit = function(self)
 		end
 
 
-		if not C_Secrets.ShouldUnitComparisonBeSecret("player", unit.."target") and UnitIsUnit("player", unit.."target") then
+		if not C_Secrets.ShouldUnitComparisonBeSecret("player", unit.."target") and T.unitIsUnit("player", unit.."target") then
 			text = "|cfffed100"..STATUS_TEXT_TARGET..":|r ".."|cffff0000> "..UNIT_YOU.." <|r"
 		else
 			text = "|cfffed100"..STATUS_TEXT_TARGET..":|r "..UnitName(unit.."target")
@@ -431,13 +431,15 @@ local OnTooltipSetUnit = function(self)
 	end
 	
 	if C.tooltip.npc_id == true then
-		if unit and not isPlayerUnit then
-			local guid = UnitGUID(unit) or ''
-			local id = tonumber(strmatch(guid, '%-(%d-)%-%x-$'), 10)
-			if id then
-				self:AddLine(format('|cFFCA3C3C%s|r %d', _G.ID, id))
-			end
-		end
+	  if unit and not isPlayer and canaccessvalue(unit) then
+	    local guid = UnitGUID(unit) or ''
+	    if canaccessvalue(guid) then
+	      local id = tonumber(strmatch(guid, '%-(%d-)%-%x-$'), 10)
+	      if id then
+	        self:AddLine(format('|cFFCA3C3C%s|r %d', _G.ID, id))
+	      end
+	    end
+	  end
 	end
 end
 

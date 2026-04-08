@@ -9,15 +9,12 @@ local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function()
 	for _, mountID in ipairs(C_MountJournal.GetMountIDs()) do
-		local mountName = select(2, C_MountJournal.GetMountInfoByID(mountID))
-		if mountName then
-			MountCache[mountName] = mountID
-		end
+		MountCache[select(2, C_MountJournal.GetMountInfoByID(mountID))] = mountID
 	end
 end)
 
 local function checkBuff(self, ...)
-	if not UnitIsPlayer(...) or UnitIsUnit(..., "player") then return end
+	if not UnitIsPlayer(...) or T.unitIsUnit(..., "player") then return end
 	local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(...)
 	local id = aura and aura.spellId
 
@@ -35,9 +32,7 @@ local function checkBuff(self, ...)
 		self:AddLine(text, r, g, b)
 
 		local sourceText = select(3, C_MountJournal.GetMountInfoExtraByID(MountCache[id]))
-		if sourceText then
-			self:AddLine(sourceText, 1, 1, 1)
-		end
+		self:AddLine(sourceText, 1, 1, 1)
 		self:AddLine(" ")
 		self:Show()
 	end

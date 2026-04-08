@@ -2,9 +2,10 @@ local _, ns = ...
 local oUF = ns.oUF
 
 local function UpdateTooltip(self)
-	if(GameTooltip:IsForbidden()) then return end
+    if(GameTooltip:IsForbidden()) then return end
+    if(not self.auraInstanceID) then return end   -- guard added
 
-	GameTooltip:SetUnitAuraByAuraInstanceID(self:GetParent().__owner.unit, self.auraInstanceID)
+    GameTooltip:SetUnitAuraByAuraInstanceID(self:GetParent().__owner.unit, self.auraInstanceID)
 end
 
 local function onEnter(self)
