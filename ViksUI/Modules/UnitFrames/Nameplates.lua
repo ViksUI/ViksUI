@@ -589,8 +589,8 @@ local function threatColor(self, forced)
 					if IsInRaid() then
 						for i = 1, GetNumGroupMembers() do
 							if UnitExists("raid"..i) and not T.unitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
-								local isTanking = UnitDetailedThreatSituation("raid"..i, self.unit)
-								if isTanking then
+								local threatStatus = UnitThreatSituation("raid"..i, self.unit)
+								if threatStatus and threatStatus >= 2 then
 									offTank = true
 									break
 								end

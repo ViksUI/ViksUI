@@ -123,7 +123,7 @@ function Experience:SetTooltip()
 	elseif BarType == "REP" then
 		local Current, Max, Standing = Experience:GetReputation()
 		local Name, ID, Faction
-		if T.Retail then
+		if T.Midnight then
 			local watched = GetWatchedFactionInfo()
 			Name = watched and watched.name or nil
 			ID = watched and watched.reaction or nil
@@ -264,10 +264,10 @@ function Experience:GetAnima()
 end
 
 function Experience:VerifyMenu()
-	local AzeriteItem = T.Retail and C_AzeriteItem.FindActiveAzeriteItem()
-	local Honor = T.Retail and UnitHonorLevel
+	local AzeriteItem = T.Midnight and C_AzeriteItem.FindActiveAzeriteItem()
+	local Honor = T.Midnight and UnitHonorLevel
 	local WatchedFaction = GetWatchedFactionInfo()
-	local AnimaCurrency = T.Retail and C_CovenantSanctumUI.GetAnimaInfo()
+	local AnimaCurrency = T.Midnight and C_CovenantSanctumUI.GetAnimaInfo()
 	local AnimaCurrencyInfo = AnimaCurrency and C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
 
 	-- Honor always enabled
@@ -299,10 +299,10 @@ function Experience:Update()
 	local Current, Max
 	local Rested = GetXPExhaustion()
 	local IsRested = GetRestState()
-	local AnimaCurrency = T.Retail and C_CovenantSanctumUI.GetAnimaInfo()
+	local AnimaCurrency = T.Midnight and C_CovenantSanctumUI.GetAnimaInfo()
 	local AnimaCurrencyInfo = AnimaCurrency and C_CurrencyInfo.GetCurrencyInfo(AnimaCurrency)
-	local RenownLevel = T.Retail and C_CovenantSanctumUI.GetRenownLevel()
-	local AzeriteItem = T.Retail and C_AzeriteItem.FindActiveAzeriteItem()
+	local RenownLevel = T.Midnight and C_CovenantSanctumUI.GetRenownLevel()
+	local AzeriteItem = T.Midnight and C_AzeriteItem.FindActiveAzeriteItem()
 	local WatchedFaction = GetWatchedFactionInfo()
 
 	for i = 1, self.NumBars do
@@ -327,7 +327,7 @@ function Experience:Update()
 		elseif Bar.BarType == "REP" then
 			Current, Max = self:GetReputation()
 			local Colors = FACTION_BAR_COLORS
-			local ID = (T.Retail and WatchedFaction and WatchedFaction.reaction) or select(2, GetWatchedFactionInfo())
+			local ID = (T.Midnight and WatchedFaction and WatchedFaction.reaction) or select(2, GetWatchedFactionInfo())
 			R, G, B = Colors[ID].r, Colors[ID].g, Colors[ID].b
 		else
 			Current, Max = self:GetExperience()
