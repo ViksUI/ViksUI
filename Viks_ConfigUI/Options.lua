@@ -848,7 +848,7 @@ do
 
 	local ProfileBox = CreateFrame("CheckButton", nil, ProfileList, "InterfaceOptionsCheckButtonTemplate")
 	ProfileBox:SetPoint("TOPLEFT", ProfileList, "TOPLEFT", 1, -78)
-	ProfileBox.tooltipText = L_GUI_SET_SAVED_SETTTINGS_DESC
+	ProfileBox.tooltipText = L_GUI_SET_SAVED_SETTINGS_DESC
 	ProfileBox:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0)
 		GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true)
@@ -860,9 +860,11 @@ do
 	options.ProfileBox = ProfileBox
 
 	local label = ProfileBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	label:SetText(L_GUI_SET_SAVED_SETTTINGS)
+	label:SetText(L_GUI_SET_SAVED_SETTINGS)
 	label:SetTextColor(1, 1, 1)
 	label:SetPoint("LEFT", ProfileBox, "RIGHT", 10, 0)
+	label:SetWordWrap(false)
+	label:SetWidth(230)
 
 	local profileName
 	StaticPopupDialogs.VIKSUI_RENAME_PROFILE = {
@@ -2806,6 +2808,11 @@ do
 
 	local only_name = ns.CreateCheckBox(parent, "only_name")
 	only_name:SetPoint("TOPLEFT", target_glow, "BOTTOMLEFT", 0, 0)
+	only_name.Text:SetWidth(250)
+
+	local click_through = ns.CreateCheckBox(parent, "click_through")
+	click_through:SetPoint("LEFT", only_name.Text, "RIGHT", 20, 0)
+	click_through.Text:SetWidth(250)
 
 	local quests = ns.CreateCheckBox(parent, "quests")
 	quests:SetPoint("TOPLEFT", only_name, "BOTTOMLEFT", 0, 0)
@@ -3326,7 +3333,7 @@ do
 	local pull_countdown = ns.CreateCheckBox(parent, "pull_countdown")
 	pull_countdown:SetPoint("TOPLEFT", drinking, "BOTTOMLEFT", 0, 0)
 
-	-- Self announce
+	-- Self announcements
 	local subheader = ns.addSubCategory(parent, L.announcements_subheader_self)
 	subheader:SetPoint("TOPLEFT", pull_countdown, "BOTTOMLEFT", 0, -10)
 

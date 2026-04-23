@@ -16,6 +16,7 @@ if C.datatext.RunSpeed and C.datatext.RunSpeed > 0 then
 	local HowRunning
 
 	local function Update(self, elapsed)
+	if InCombatLockdown() then return end
 		HowRunning = "player"
 		if UnitInVehicle("player") then
 			HowRunning = "vehicle"

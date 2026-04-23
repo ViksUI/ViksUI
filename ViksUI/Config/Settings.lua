@@ -540,6 +540,7 @@ C["nameplate"] = {
 	["target_glow"] = true,						-- Show glow texture for target
 	["target_arrow"] = true,					-- Show target Arrow
 	["only_name"] = false,						-- Show only name for friendly units
+	["click_through"] = false,					-- Allow click-through on friendly names
 	["low_health"] = false,						-- Show red border when low health
 	["low_health_value"] = 0.2,					-- Value for low health (between 0.1 and 1)
 	["low_health_color"] = {0.8, 0, 0},			-- Color for low health border

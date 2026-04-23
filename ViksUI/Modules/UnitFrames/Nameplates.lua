@@ -1062,3 +1062,6 @@ oUF:SpawnNamePlates("ViksNameplates")
 oUFViksUI_NamePlateDriver:SetTargetCallback(callback)
 oUFViksUI_NamePlateDriver:SetAddedCallback(callback)
 oUFViksUI_NamePlateDriver:SetRemovedCallback(callback)
+if C.nameplate.click_through then
+	oUFViksUI_NamePlateDriver:SetFriendlyInteractible(false)
+end

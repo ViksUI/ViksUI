@@ -16,6 +16,7 @@ if C.datatext.Haste and C.datatext.Haste > 0 then
 	local int = 1
 
 	local function Update(self, t)
+	if InCombatLockdown() then return end
 		spellhaste = GetCombatRating(20)
 		rangedhaste = GetCombatRating(19)
 		attackhaste = GetCombatRating(18)

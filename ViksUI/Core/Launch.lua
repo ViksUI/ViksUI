@@ -5361,6 +5361,8 @@ SlashCmdList['INSTALLUI'] = install
 SLASH_RESETSTATS1 = "/resetstats"
 SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end
 
+SLASH_RESETEDITMODE1 = "/reseteditmode"
+SlashCmdList.RESETEDITMODE = function() C_EditMode.SetActiveLayout(1) ReloadUI() end
 
 SLASH_RESETSTATS1 = "/resetstats"
 SlashCmdList.RESETSTATS = function() StaticPopup_Show("RESET_STATS") end

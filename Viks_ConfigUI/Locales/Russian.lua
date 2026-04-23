@@ -5,8 +5,8 @@ if GetLocale() ~= "ruRU" then return end
 --	Localization for ruRU client
 --	Translation: Shestak, Wetxius
 ----------------------------------------------------------------------------------------
-L_GUI_SET_SAVED_SETTTINGS = "Персональный профиль"
-L_GUI_SET_SAVED_SETTTINGS_DESC = "Переключение между профилем, который применяется ко всем персонажам, и профилем, уникальным для этого персонажа."
+L_GUI_SET_SAVED_SETTINGS = "Персональный профиль"
+L_GUI_SET_SAVED_SETTINGS_DESC = "Переключение между профилем, который применяется ко всем персонажам, и профилем, уникальным для этого персонажа."
 L_GUI_RESET_CHAR = "Вы уверены, что хотите сбросить все настройки ViksUI для этого персонажа?"
 L_GUI_RESET_ALL = "Вы уверены, что хотите сбросить все настройки ViksUI?"
 L_GUI_PER_CHAR = "Вы уверены, что хотите сменить режим сохранения настроек?"
@@ -31,7 +31,7 @@ L.profile_options = "Настройки"
 L.profile_movers = "Перемещение элементов"
 L.profile_export = "Экспорт"
 L.profile_import = "Импорт"
-L.profile_error_lib = "Для включения импорта и экспорта - установите Media_ViksUI"
+L.profile_error_lib = "Для включения импорта и экспорта - установите Media_ShestakUI"
 L.profile_error_code = "Ошибка в импортируемом коде!"
 
 -- General options
@@ -50,7 +50,7 @@ L.general_move_blizzard = "Перемещение рамок Blizzard"
 L.general_color_picker = "Улучшенный подбор цвета"
 L.general_color_picker_desc = "В стандартное окно подбора цвета добавляются кнопки копировать/вставить, а так же поля для цифрового выставления цвета"
 L.general_minimize_mouseover = "Кнопка сворачивания квестов по наведению курсора"
-L.general_hide_banner = "Скрыть подсказку добычи после победы над боссом"
+L.general_hide_banner = "Скрыть уведомление о добыче после победы над боссом"
 L.general_hide_talking_head = "Скрыть рамку говорящей головы"
 
 -- Media options
@@ -360,6 +360,7 @@ L.nameplate_healer_icon = "Иконка над вражескими целите
 L.nameplate_totem_icons = "Иконка тотемов"
 L.nameplate_target_glow = "Выделять текущую цель"
 L.nameplate_only_name = "Отображать только имя для союзников"
+L.nameplate_click_through = "Отключить взаимодействие с именами"
 L.nameplate_quests = "Иконка квестов"
 L.nameplate_cast_color = "Выделить цветом чтение важных заклинаний"
 L.nameplate_kick_color = "Изменить цвет чтения заклинания, если ваше прерывание на кд"
@@ -552,7 +553,7 @@ L.automation_tab_binder = "Менять поведение клавиши 'Tab' 
 L.automation_tab_binder_desc = "Клавиша 'Tab' будет выбирать только вражеских игроков, игнорируя петов и мобов"
 L.automation_logging_combat = "Включать запись журнала боя в рейде"
 L.automation_buff_on_scroll = "Накладывать баффы на себя прокруткой колеса мыши (из списка)"
-L.automation_buff_on_scroll_desc = "Если бафф из списка не висит на игроке, прокрутив колесо он применится"
+L.automation_buff_on_scroll_desc = "Если бафф из списка отсутствует, прокрутив колесо он применится"
 L.automation_open_items = "Открывать сундуки и ящики в вашей сумке"
 L.automation_resurrection = "Принятие воскрешений"
 L.automation_summon = "Принятие призыва"
@@ -656,7 +657,7 @@ L.trade_subtext = "Настройки связанные с профессиям
 L.trade_profession_tabs = "Вкладки профессий"
 L.trade_profession_tabs_desc = "Вкладки ваших профессий у окна торговли/профессии"
 L.trade_already_known = "Изученные предметы"
-L.trade_already_known_desc = "Помечать цветом известные рецепты/спутников/игрушки"
+L.trade_already_known_desc = "Окрашивать уже изученные рецепты, игрушки, маунтов и питомцев"
 L.trade_disenchanting = "Быстрое распыление"
 L.trade_disenchanting_desc = "Распылять, просеивать и т.д. предметы, нажимая Alt + кнопка мыши"
 L.trade_sum_buyouts = "Отображать сумму ваших аукционов"

@@ -23,6 +23,7 @@ Stat:RegisterEvent("PLAYER_REGEN_ENABLED")
 Stat:RegisterEvent("UNIT_STATS")
 Stat:RegisterEvent("UNIT_AURA")
 Stat:SetScript("OnEvent", function(self)
+if InCombatLockdown() then return end
 	local base, casting = GetManaRegen()
 
 	if InCombatLockdown() then

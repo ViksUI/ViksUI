@@ -81,7 +81,7 @@ local frames = {
 	"GameMenuFrame", "VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame",
 	"OpenMailFrame", "StackSplitFrame", "TutorialFrame", "StaticPopup1", "SettingsPanel",
 	"StaticPopup2", "ScrollOfResurrectionSelectionFrame", "CommunitiesFrame", "ViksUIOptionsPanel", "CooldownViewerSettings", "EssentialCooldownViewer",
-	"UtilityCooldownViewer", "BuffBarCooldownViewer", "BuffIconCooldownViewer", "DamageMeter"
+	"UtilityCooldownViewer", "BuffBarCooldownViewer", "BuffIconCooldownViewer", "DamageMeterSessionWindow1", "DamageMeterSessionWindow2"
 }
 
 for _, v in pairs(frames) do

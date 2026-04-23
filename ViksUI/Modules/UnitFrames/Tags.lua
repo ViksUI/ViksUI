@@ -155,7 +155,7 @@ oUF.Tags.Events["NameplateNameColor"] = "UNIT_POWER_UPDATE UNIT_FLAGS"
 
 oUF.Tags.Methods["NameplateNameShort"] = function(unit)
 	local name = UnitName(unit)
-	if canaccessvalue(name) then
+	if T.NotSecretValue(name) then
 		name = T.ShortNames[name] or name
 	end
 	return T.UTF(name, 18, true)
@@ -165,6 +165,7 @@ oUF.Tags.Events["NameplateNameShort"] = "UNIT_NAME_UPDATE"
 oUF.Tags.Methods["NameplateHealth"] = function(unit)
 	local hp = UnitHealth(unit)
 	local perc = UnitHealthPercent(unit, true, CurveConstants.ScaleTo100)
+
 	return ("%s - %d%%"):format(T.ShortValue(hp), perc)
 end
 oUF.Tags.Events["NameplateHealth"] = "UNIT_HEALTH UNIT_MAXHEALTH NAME_PLATE_UNIT_ADDED"

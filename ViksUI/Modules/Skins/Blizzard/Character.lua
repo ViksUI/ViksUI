@@ -5,6 +5,21 @@ if C.skins.blizzard_frames ~= true then return end
 --	Character skin
 ----------------------------------------------------------------------------------------
 local function LoadSkin()
+	if InCombatLockdown() then
+		if not LoadSkin._waiting then
+			LoadSkin._waiting = true
+			local f = CreateFrame("Frame")
+			f:RegisterEvent("PLAYER_REGEN_ENABLED")
+			f:SetScript("OnEvent", function(self)
+				LoadSkin._waiting = false
+				self:UnregisterAllEvents()
+				self:SetScript("OnEvent", nil)
+				LoadSkin()
+			end)
+		end
+		return
+	end
+	
 	T.SkinCloseButton(CharacterFrameCloseButton)
 
 	-- Azerite Items
