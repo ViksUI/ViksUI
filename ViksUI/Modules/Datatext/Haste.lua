@@ -17,23 +17,25 @@ if C.datatext.Haste and C.datatext.Haste > 0 then
 
 	local function Update(self, t)
 	if InCombatLockdown() then return end
-		spellhaste = GetCombatRating(20)
-		rangedhaste = GetCombatRating(19)
-		attackhaste = GetCombatRating(18)
-		
-		if attackhaste > spellhaste and select(2, UnitClass("Player")) ~= "HUNTER" then
-			Haste = attackhaste
-		elseif select(2, UnitClass("Player")) == "HUNTER" then
-			Haste = rangedhaste
-		else
-			Haste = spellhaste
+		local spellhaste = GetCombatRating(20)
+		local rangedhaste = GetCombatRating(19)
+		local attackhaste = GetCombatRating(18)
+
+		local function safeVal(val)
+			return T.NotSecretValue(val) and val or "N/A"
 		end
-		
-		int = int - t
-		if int < 0 then
-			Text:SetText(qColor..Haste..qColor2.." ".."Haste")
-			int = 1
-		end     
+
+		-- Defensive assignment
+		local Haste
+		if attackhaste > spellhaste and select(2, UnitClass("Player")) ~= "HUNTER" then
+			Haste = safeVal(attackhaste)
+		elseif select(2, UnitClass("Player")) == "HUNTER" then
+			Haste = safeVal(rangedhaste)
+		else
+			Haste = safeVal(spellhaste)
+		end
+
+		Text:SetText(qColor..Haste..qColor2.." ".."Haste")
 	end
 
 	Stat:SetScript("OnUpdate", Update)

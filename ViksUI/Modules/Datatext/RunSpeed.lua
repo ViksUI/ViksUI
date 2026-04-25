@@ -16,16 +16,18 @@ if C.datatext.RunSpeed and C.datatext.RunSpeed > 0 then
 	local HowRunning
 
 	local function Update(self, elapsed)
-	if InCombatLockdown() then return end
+		if InCombatLockdown() then return end
 		HowRunning = "player"
 		if UnitInVehicle("player") then
 			HowRunning = "vehicle"
 		end
-		RunSpeed = string.format("%.0f",  GetUnitSpeed(HowRunning) / 7 * 100 ) .. "%"
-		--if int < 0 then
-			Text:SetText(qColor2.."Speed: "..qColor..string.format("%.0f",  GetUnitSpeed(HowRunning) / 7 * 100 ) .. "%")
-
-		--end     
+		local speed = GetUnitSpeed(HowRunning)
+		if type(speed) == "number" then
+			RunSpeed = string.format("%.0f", speed / 7 * 100) .. "%"
+			Text:SetText(qColor2.."Speed: "..qColor..RunSpeed)
+		else
+			Text:SetText(qColor2.."Speed: "..qColor.."--%")
+		end
 	end
 
 	Stat:SetScript("OnUpdate", Update)

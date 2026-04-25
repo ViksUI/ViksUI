@@ -26,10 +26,20 @@ Stat:SetScript("OnEvent", function(self)
 if InCombatLockdown() then return end
 	local base, casting = GetManaRegen()
 
+	local base, casting = GetManaRegen()
+
 	if InCombatLockdown() then
-		regen = floor(casting*5)
+		if T.NotSecretValue(casting) then
+			regen = floor(casting*5)
+		else
+			regen = "N/A"
+		end
 	else
-		regen = floor(base*5)		
+		if T.NotSecretValue(base) then
+			regen = floor(base*5)
+		else
+			regen = "N/A"
+		end
 	end
 	if C.datatext.Regen >= 6 then
 	Text:SetText("|cffFFFFFF"..regen..qColor2.." "..MANA_REGEN_ABBR)

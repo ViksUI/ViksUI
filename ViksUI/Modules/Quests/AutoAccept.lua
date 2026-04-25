@@ -188,7 +188,10 @@ local QuickQuestDB = {
 			[83500] = true, -- Zekvir, Hand of the Harbinger (Brann)
 			[84367] = true, -- A Time to Come Together (Brann - Campaign)
 			[91281] = true, -- Midnight intro quest. Safe to turn in and even use skip, but not auto.
-			
+			-- 12.0 bonus rolls
+			[95279] = true, -- Nebulous Voidcores: Gold
+			[95304] = true, -- Nebulous Voidcores: Veteran Dawncrest
+			[95290] = true, -- Nebulous Voidcores: Voidlight Marl
 		},
 	},
 }
@@ -254,10 +257,17 @@ ns.EventHandler = EventHandler
 
 local NPC_ID_PATTERN = '%w+%-.-%-.-%-.-%-.-%-(.-)%-'
 function ns.GetNPCID(unit)
-	local npcGUID = UnitGUID(unit or 'npc')
-	if npcGUID then
-		return tonumber(npcGUID:match(NPC_ID_PATTERN))
-	end
+    local npcGUID = UnitGUID(unit or 'npc')
+    if not npcGUID or type(npcGUID) ~= "string" then
+        return
+    end
+    local success, npcID = pcall(function()
+        return tonumber(npcGUID:match(NPC_ID_PATTERN))
+    end)
+    if success then
+        return npcID
+    end
+    -- fallback: could not extract, probably tainted, return nil
 end
 
 local EventHandler = ns.EventHandler
