@@ -80,9 +80,20 @@ local frames = {
 	"ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame", "WorldMapFrame",
 	"GameMenuFrame", "VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame",
 	"OpenMailFrame", "StackSplitFrame", "TutorialFrame", "StaticPopup1", "SettingsPanel",
-	"StaticPopup2", "ScrollOfResurrectionSelectionFrame", "CommunitiesFrame", "ViksUIOptionsPanel", "CooldownViewerSettings", "EssentialCooldownViewer",
-	"UtilityCooldownViewer", "BuffBarCooldownViewer", "BuffIconCooldownViewer", "DamageMeterSessionWindow1", "DamageMeterSessionWindow2"
+	"StaticPopup2", "ScrollOfResurrectionSelectionFrame", "CommunitiesFrame", "ViksUIOptionsPanel" --[[, "CooldownViewerSettings", "EssentialCooldownViewer",
+	"UtilityCooldownViewer", "BuffBarCooldownViewer", "BuffIconCooldownViewer", "DamageMeterSessionWindow1", "DamageMeterSessionWindow2"]]--
 }
+
+-- Clean up saved positions for removed frames (runs once per login)
+local removedFrames = {
+	"CooldownViewerSettings", "EssentialCooldownViewer",
+	"UtilityCooldownViewer", "BuffBarCooldownViewer", "BuffIconCooldownViewer", "DamageMeter" -- Gives problem with other addons and default Editmode.
+}
+for _, frameName in ipairs(removedFrames) do
+	if ViksUIPositionsPerChar and ViksUIPositionsPerChar[frameName] then
+		ViksUIPositionsPerChar[frameName] = nil
+	end
+end
 
 for _, v in pairs(frames) do
 	SetupMovableFrame(_G[v], v)
