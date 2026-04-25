@@ -15,10 +15,12 @@ T.UpdateAllElements = function(frame)
 end
 
 T.SetFontString = function(parent, fontName, fontHeight, fontStyle)
-	local fs = parent:CreateFontString(nil, "ARTWORK")
-	fs:SetFont(fontName, fontHeight, fontStyle)
-	fs:SetShadowOffset(C.font.unit_frames_font_shadow and 1 or 0, C.font.unit_frames_font_shadow and -1 or 0)
-	return fs
+    if not fontStyle or fontStyle == "NONE" then fontStyle = "" end
+
+    local fs = parent:CreateFontString(nil, "ARTWORK")
+    fs:SetFont(fontName, fontHeight, fontStyle)
+    fs:SetShadowOffset(C.font.unit_frames_font_shadow and 1 or 0, C.font.unit_frames_font_shadow and -1 or 0)
+    return fs
 end
 
 local gradient = C_CurveUtil.CreateColorCurve()
