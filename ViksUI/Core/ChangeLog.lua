@@ -2,25 +2,20 @@ local T, C, L = unpack(ViksUI)
 
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
-	"Changes:",
-	"Update 12.0.5 ",
-	"• Updated for Midnight",
-	"• Combat text updated",
-	"• More and more Taint fix, thx Blizz..",
-	"• Enchant check updated to correct slots",
-	"• ilvl check updated (AutoGreed etc)",
-	"• Some other fixes",
-	"• New Patreon features early and exclusive content",
-	"• check: https://github.com/ViksUI/ViksUI/releases/tag/12.0.5",
-" ",
-"EXTRA: New Patreon Cashew, Thanks for the support",
-"Cashew is reason i made Mist version as well",
-"Added Wow gift button and buymeacoffee button here on /changelog",
-"Patreon helps me keep subscription while not playing",
+	" ViksUI 12.0.6 – What's New:",
+	"• Updated for Midnight – combat text, taint fixes, enchant & ilvl checks",
+	"• Complete class stat priority overhaul (all specs + new entries)",
+	"• NEW: /testraid command 10/20 etc– spawn mock raid frames to test your layout",
+	"• Damage meter button now supports Skada, Recount, Details + Blizzard fallback",
+	"• Removed deprecated skins (Omen, Recount, TinyDPS, CoolLine, Ovale, etc.)",
+	"• Working on layout setup (update coming soon – stay tuned!)",
 	"",
-"PATREON's: Wiggy, nAyu & Cashew",
-"But thanks to all who have used the addon and those supported my work",
-
+	" Patreon Supporters: Wiggy, nAyu & Cashew",
+	" https://www.patreon.com/ViksUI  |  https://www.buymeacoffee.com/ViksUI",
+	" Discord: https://discord.gg/pDEnZSV  |  PayPal: https://www.paypal.me/Tryllemann",
+	" WoW Gift: VikingPower#2226",
+	"",
+	"Full release notes: https://github.com/ViksUI/ViksUI/releases/tag/12.0.6",
 }
 
 --// TODO LIST
