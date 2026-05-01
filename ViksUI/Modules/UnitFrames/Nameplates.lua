@@ -7,6 +7,86 @@ if C.nameplate.enable ~= true or C_AddOns.IsAddOnLoaded("Plater") or C_AddOns.Is
 local _, ns = ...
 local oUF = ns.oUF
 
+local usecustomcolor = true -- set false to use default/addon coloring
+local threatAsBorderColor = true  -- or set via your addon options
+
+CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE      = {0.8, 0, 0, 1}        -- RED (interruptible)
+CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE  = {1, 0.8, 0, 1}        -- YELLOW (non-interruptible)
+CUSTOM_CASTBAR_COLOR_BG                 = {0.3, 0.3, 0.3, 0.3}  -- background color
+
+T.PlateColors = {
+	player    = {0.31, 0.45, 1.0},    -- Blue
+	elite     = {1.0, 0.82, 0},       -- Gold
+	trivial   = {0.66, 0.66, 0.66},   -- Grey for trivial/minus
+	boss      = {1.0, 0.32, 0.32},    -- Red for world boss
+	rare      = {0.5, 0.7, 1.0},      -- Light blue for rare
+	rareelite = {1.0, 0.57, 1.0},     -- Magenta for rare-elite
+	miniboss  = {1.0, 0.58, 0.05},    -- Orange for lieutenant/miniboss
+	caster    = {0.5, 0.8, 1.0},      -- Cyan for caster elites
+	normal    = {1.0, 1.0, 1.0},      -- White for normal non-elite
+	default   = {1.0, 1.0, 1.0},      -- Fallback: white
+}
+
+-- Category-based color tag logic
+local function GetNameplateColorTag(unit)
+    if UnitIsPlayer(unit) then
+        return "player"
+    end
+
+    local classification = UnitClassification(unit)
+    local level = UnitLevel(unit)
+    local maxPlayerLevel = GetMaxPlayerLevel() -- Or hardcode, e.g. 60 for classic
+
+    -- "True" boss: worldboss, level==-1, OR (elite and at or above max) (= likely a legacy boss)
+    if classification == "worldboss" or level == -1 or (classification == "elite" and level >= maxPlayerLevel) then
+        return "boss"
+    elseif classification == "rareelite" then
+        return "rareelite"
+    elseif classification == "elite" then
+        return "elite"
+    elseif classification == "rare" then
+        return "rare"
+    elseif classification == "minus" then
+        return "trivial"
+    elseif classification == "normal" then
+        return "normal"
+    end
+
+    return "default"
+end
+
+local function ApplyNameplateColor(self, unit)
+    if usecustomcolor then
+        -- GROUP COLOR ONLY
+        local tag = GetNameplateColorTag(unit)
+        local color = (T.PlateColors and (T.PlateColors[tag] or T.PlateColors.default)) or {1,1,1}
+        if self.Health then self.Health:SetStatusBarColor(unpack(color)) end
+
+        if self.ThreatIcon then self.ThreatIcon:Show() end -- always show threat icon in custom mode
+		-- print("DEBUG: tag =", tag, "color =", color, "type(color) =", type(color))
+    else
+        -- Addon/oUF/original coloring
+        if self.Health then self.Health:SetStatusBarColor(1,1,1) end -- or your default/original logic
+        if self.ThreatIcon then self.ThreatIcon:Hide() end          -- never show threat icon in default mode
+    end
+end
+
+local function ColorCastbarBorder(self, spellID)
+	local color
+	if T.NukeCast and T.NukeCast[spellID] then
+		color = T.PlateColors.nuke
+	elseif T.HighPrioCast and T.HighPrioCast[spellID] then
+		color = T.PlateColors.priority
+	elseif T.InterruptCast and T.InterruptCast[spellID] then
+		color = T.PlateColors.interrupt
+	else
+		color = T.PlateColors.default
+	end
+	if self.Border and self.Border.SetBackdropBorderColor then
+		self.Border:SetBackdropBorderColor(unpack(color))
+	end
+end
+
 local frame = CreateFrame("Frame")
 frame:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
 if C.nameplate.combat then
@@ -218,7 +298,17 @@ local function CreateBorderFrame(frame, point)
 	frame.borderright:SetDrawLayer("BORDER", -7)
 end
 
+-- local function SetColorBorder(frame, r, g, b)
+	-- frame.bordertop:SetColorTexture(r, g, b)
+	-- frame.borderbottom:SetColorTexture(r, g, b)
+	-- frame.borderleft:SetColorTexture(r, g, b)
+	-- frame.borderright:SetColorTexture(r, g, b)
+-- end
+
 local function SetColorBorder(frame, r, g, b)
+	if not (frame.bordertop and frame.borderbottom and frame.borderleft and frame.borderright) then
+		CreateBorderFrame(frame)
+	end
 	frame.bordertop:SetColorTexture(r, g, b)
 	frame.borderbottom:SetColorTexture(r, g, b)
 	frame.borderleft:SetColorTexture(r, g, b)
@@ -450,18 +540,28 @@ end
 
 -- Cast color
 local function castColor(self, unit)
-	-- Check if notInterruptible
-	local color = C_CurveUtil.EvaluateColorFromBoolean(self.notInterruptible, {r = 0.78, g = 0.25, b = 0.25, a = 1}, {r = 1, g = 0.8, b = 0, a = 1})
-
-	-- if C.nameplate.kick_color then
-		-- local start, _, enabled = GetSpellCooldown(kickID)
-		-- local col = C_CurveUtil.EvaluateColorFromBoolean(enabled, {r = 1, g = 0.5, b = 0, a = 1}, {r = 1, g = 0.8, b = 0, a = 1})
-		-- -- Rewrite color for notInterruptible
-		-- color = C_CurveUtil.EvaluateColorFromBoolean(self.notInterruptible, {r = 0.78, g = 0.25, b = 0.25, a = 1}, {r = col.r, g = col.g, b = col.b, a = 1})
-	-- end
-
-	self:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
-	self.bg:SetColorTexture(color.r, color.g, color.b, 0.2)
+    if usecustomcolor and C_CurveUtil and C_CurveUtil.EvaluateColorFromBoolean then
+        local color = C_CurveUtil.EvaluateColorFromBoolean(
+            self.notInterruptible,
+            {r = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[4]}, -- yellow for non-interruptible
+            {r = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[4]} -- red for interruptible
+        )
+        self:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
+        if self.bg then
+            self.bg:SetColorTexture(unpack(CUSTOM_CASTBAR_COLOR_BG))
+        end
+    else
+        -- fallback: original color logic or UI default
+        local color = C_CurveUtil.EvaluateColorFromBoolean(
+            self.notInterruptible,
+            {r = 1, g = 0.8, b = 0, a = 1},   -- yellow as fallback for non-interruptible
+            {r = 0.8, g = 0, b = 0, a = 1}    -- red as fallback for interruptible
+        )
+        self:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
+        if self.bg then
+            self.bg:SetColorTexture(color.r, color.g, color.b, 0.2)
+        end
+    end
 
 	-- if canaccessvalue(self.notInterruptible) and self.notInterruptible then -- secret, need to create new element with alpha?
 		-- self:SetStatusBarColor(0.78, 0.25, 0.25)
@@ -535,85 +635,90 @@ end
 
 -- Health color
 local function threatColor(self, forced)
-	if UnitIsPlayer(self.unit) then return end
+    if usecustomcolor then
+        -- Do nothing! Threat is shown only via the threat icon.
+        return
+    end
 
-	if C.nameplate.enhance_threat ~= true then
-		SetColorBorder(self.Health, unpack(C.media.border_color))
-	end
-	if UnitIsTapDenied(self.unit) then
-		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
-	elseif UnitAffectingCombat("player") then
-		local threatStatus = UnitThreatSituation("player", self.unit)
-		if self.npcID == "120651" then	-- Explosives affix
-			self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
-		elseif self.npcID == "174773" then	-- Spiteful Shade affix
-			if threatStatus == 3 then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
-			else
-				self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-			end
-		elseif threatStatus == 3 then	-- securely tanking, highest threat
-			if T.Role == "Tank" then
-				if C.nameplate.enhance_threat then
-					if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
-						self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-					end
-				else
-					SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
-				end
-			else
-				if C.nameplate.enhance_threat then
-					self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
-				else
-					SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
-				end
-			end
-		elseif threatStatus == 2 then	-- insecurely tanking, another unit have higher threat but not tanking
-			if C.nameplate.enhance_threat then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
-			else
-				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
-			end
-		elseif threatStatus == 1 then	-- not tanking, higher threat than tank
-			if C.nameplate.enhance_threat then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
-			else
-				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
-			end
-		elseif threatStatus == 0 then	-- not tanking, lower threat than tank
-			if C.nameplate.enhance_threat then
-				if T.Role == "Tank" then
-					local offTank = false
-					if IsInRaid() then
-						for i = 1, GetNumGroupMembers() do
-							if UnitExists("raid"..i) and not T.unitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
-								local threatStatus = UnitThreatSituation("raid"..i, self.unit)
-								if threatStatus and threatStatus >= 2 then
-									offTank = true
-									break
-								end
-							end
-						end
-					end
-					if offTank then
-						self.Health:SetStatusBarColor(unpack(C.nameplate.offtank_color))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
-					end
-				else
-					if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
-						self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-					end
-				end
-			end
-		end
-	elseif not forced then
-		self.Health:ForceUpdate()
-	end
+    if UnitIsPlayer(self.unit) then return end
+
+    if C.nameplate.enhance_threat ~= true then
+        SetColorBorder(self.Health, unpack(C.media.border_color))
+    end
+    if UnitIsTapDenied(self.unit) then
+        self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
+    elseif UnitAffectingCombat("player") then
+        local threatStatus = UnitThreatSituation("player", self.unit)
+        if self.npcID == "120651" then	-- Explosives affix
+            self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
+        elseif self.npcID == "174773" then	-- Spiteful Shade affix
+            if threatStatus == 3 then
+                self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
+            else
+                self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+            end
+        elseif threatStatus == 3 then	-- securely tanking, highest threat
+            if T.Role == "Tank" then
+                if C.nameplate.enhance_threat then
+                    if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
+                        self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
+                    else
+                        self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+                    end
+                else
+                    SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
+                end
+            else
+                if C.nameplate.enhance_threat then
+                    self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
+                else
+                    SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
+                end
+            end
+        elseif threatStatus == 2 then	-- insecurely tanking, another unit have higher threat but not tanking
+            if C.nameplate.enhance_threat then
+                self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
+            else
+                SetColorBorder(self.Health, unpack(C.nameplate.near_color))
+            end
+        elseif threatStatus == 1 then	-- not tanking, higher threat than tank
+            if C.nameplate.enhance_threat then
+                self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
+            else
+                SetColorBorder(self.Health, unpack(C.nameplate.near_color))
+            end
+        elseif threatStatus == 0 then	-- not tanking, lower threat than tank
+            if C.nameplate.enhance_threat then
+                if T.Role == "Tank" then
+                    local offTank = false
+                    if IsInRaid() then
+                        for i = 1, GetNumGroupMembers() do
+                            if UnitExists("raid"..i) and not T.unitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
+                                local threatStatus = UnitThreatSituation("raid"..i, self.unit)
+                                if threatStatus and threatStatus >= 2 then
+                                    offTank = true
+                                    break
+                                end
+                            end
+                        end
+                    end
+                    if offTank then
+                        self.Health:SetStatusBarColor(unpack(C.nameplate.offtank_color))
+                    else
+                        self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
+                    end
+                else
+                    if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
+                        self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
+                    else
+                        self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+                    end
+                end
+            end
+        end
+    elseif not forced then
+        self.Health:ForceUpdate()
+    end
 end
 
 -- Low health border for enemy player and mobs
@@ -629,69 +734,80 @@ low_health:AddPoint(0, CreateColor(unpack(C.nameplate.low_health_color)))
 low_health:AddPoint(C.nameplate.low_health_value, CreateColor(unpack(C.media.border_color)))
 
 local function HealthPostUpdate(self, unit)
-	local isPlayer = UnitIsPlayer(unit)
-	if isPlayer then
-		local color = UnitHealthPercent(unit, true, low_health_player)
-		local r, g, b = color:GetRGB()
-		SetColorBorder(self, r, g, b)
-	elseif not isPlayer and C.nameplate.enhance_threat then
-		if C.nameplate.low_health then
-			local color = UnitHealthPercent(unit, true, low_health)
-			local r, g, b = color:GetRGB()
-			SetColorBorder(self, r, g, b)
-		else
-			SetColorBorder(self, unpack(C.media.border_color))
-		end
-	end
+    if usecustomcolor then
+        ApplyNameplateColor(self:GetParent(), unit)
+    else
+        local isPlayer = UnitIsPlayer(unit)
+        if isPlayer then
+            local color = UnitHealthPercent(unit, true, low_health_player)
+            local r, g, b = color:GetRGB()
+            SetColorBorder(self, r, g, b)
+        elseif not isPlayer and C.nameplate.enhance_threat then
+            if C.nameplate.low_health then
+                local color = UnitHealthPercent(unit, true, low_health)
+                local r, g, b = color:GetRGB()
+                SetColorBorder(self, r, g, b)
+            else
+                SetColorBorder(self, unpack(C.media.border_color))
+            end
+        end
+    end
 end
 
 local function HealthPostUpdateColor(self, unit, color)
-	T.PostUpdateBackdropColor(self, color)
+    T.PostUpdateBackdropColor(self, color)
 
-	local main = self:GetParent()
-	local r, g, b
-	local mu = self.bg.multiplier
-	local isPlayer = UnitIsPlayer(unit)
-	local unitReaction = UnitReaction(unit, "player")
-	if not T.unitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
-		r, g, b = T.oUF_colors.power["MANA"]:GetRGB()
-		self:SetStatusBarColor(r, g, b)
-		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
-	elseif not UnitIsTapDenied(unit) and not isPlayer then
-		local special = UnitClassification(unit)
-		if special == "elite" and IsInInstance() then
-			if UnitIsLieutenant(unit) then
-				main.npcID = "miniboss"
-			elseif UnitClassBase(unit) == "PALADIN" then
-				main.npcID = "caster"
-			end
-		end
-		if C.nameplate.mob_color_enable and T.ColorPlate[main.npcID] then
-			r, g, b = unpack(T.ColorPlate[main.npcID])
-		elseif special == "rare" or special == "rareelite" then
-			r, g, b = 0, 0.7, 0.6
-		else
-			local reaction = T.oUF_colors.reaction[unitReaction]
-			if reaction then
-				if unitReaction < 4 and not UnitCanAttack("player", unit) then
-					r, g, b = UnitSelectionColor(unit, true)
-				else
-					r, g, b = reaction:GetRGB()
-				end
-			else
-				r, g, b = UnitSelectionColor(unit, true)
-			end
-		end
+    -- ADD THIS CHECK AT THE START
+    if usecustomcolor then
+        threatColor(self:GetParent(), true)
+        return
+    end
 
-		self:SetStatusBarColor(r, g, b)
-		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
-	end
+    local main = self:GetParent()
+    local r, g, b
+    local mu = self.bg.multiplier
+    local isPlayer = UnitIsPlayer(unit)
+    local unitReaction = UnitReaction(unit, "player")
+    
+    if not T.unitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
+        r, g, b = T.oUF_colors.power["MANA"]:GetRGB()
+        self:SetStatusBarColor(r, g, b)
+        self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+    elseif not UnitIsTapDenied(unit) and not isPlayer then
+        local special = UnitClassification(unit)
+        if special == "elite" and IsInInstance() then
+            if UnitIsLieutenant(unit) then
+                main.npcID = "miniboss"
+            elseif UnitClassBase(unit) == "PALADIN" then
+                main.npcID = "caster"
+            end
+        end
+        if C.nameplate.mob_color_enable and T.ColorPlate[main.npcID] then
+            r, g, b = unpack(T.ColorPlate[main.npcID])
+        elseif special == "rare" or special == "rareelite" then
+            r, g, b = 0, 0.7, 0.6
+        else
+            local reaction = T.oUF_colors.reaction[unitReaction]
+            if reaction then
+                if unitReaction < 4 and not UnitCanAttack("player", unit) then
+                    r, g, b = UnitSelectionColor(unit, true)
+                else
+                    r, g, b = reaction:GetRGB()
+                end
+            else
+                r, g, b = UnitSelectionColor(unit, true)
+            end
+        end
 
-	threatColor(main, true)
+        self:SetStatusBarColor(r, g, b)
+        self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+    end
+    
+    threatColor(main, true)
 
-	if T.unitIsUnit(unit, "focus") then
-		SetColorBorder(self, 1, 0.8, 0)
-	end
+    if T.unitIsUnit(unit, "focus") then
+        SetColorBorder(self, 1, 0.8, 0)
+    end
 end
 
 local function callback(self, _, unit)
@@ -707,92 +823,93 @@ local function callback(self, _, unit)
 			self:Show()
 		end
 
-		-- if C.nameplate.npc_colors then
-			-- if T.PlateDangerous[self.npcID] or T.PlateDangerous[self.unitName] then
-				-- self.Health:SetStatusBarColor(unpack(C.nameplate.priority_color))
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.priority_color))
-				-- self.Arrow:Show()
-			-- elseif T.PlateImportant[self.npcID] or T.PlateImportant[self.unitName] then
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.semipri_color))
-				-- self.Arrow:Show()
-			-- elseif T.PlateNuke[self.npcID] or T.PlateNuke[self.unitName] then
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.nuke_color))
-				-- self.Arrow:Show()
-			-- elseif T.PlateT3Mobs[self.npcID] or T.PlateT3Mobs[self.unitName] then
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.t3mobs_color))
-				-- self.Arrow:Show()
-			-- elseif T.PlateTides[self.npcID] or T.PlateTides[self.unitName] then
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.tides_color))
-				-- self.Arrow:Show()
-			-- elseif T.PlateExplosive[self.npcID] or T.PlateExplosive[self.unitName] then
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.explosive_color))
-				-- self.Arrow:Show()
-			-- elseif T.PlatePvP[self.npcID] or T.PlatePvP[self.unitName] then
-				-- self.Arrow:SetVertexColor(unpack(C.nameplate.pvpstuff_color))
-				-- self.Arrow:Show()
-			-- else
-				-- self.Arrow:Hide()
-			-- end
-		-- end
+		-- [some commented-out code here]
+
+		local nameplate = C_NamePlate.GetNamePlateForUnit(unit)
 
 		if UnitIsUnit(unit, "player") then
-			self.Name:Hide()
-			self.Castbar:SetAlpha(0)
-			self.RaidTargetIndicator:SetAlpha(0)
+			if self.Name then self.Name:Hide() end
+			if self.Castbar then self.Castbar:SetAlpha(0) end
+			if self.RaidTargetIndicator then self.RaidTargetIndicator:SetAlpha(0) end
 		else
-			self.Name:Show()
-			self.Castbar:SetAlpha(1)
-			self.RaidTargetIndicator:SetAlpha(1)
+			if self.Name then self.Name:Show() end
+			if self.Castbar then self.Castbar:SetAlpha(1) end
+			if self.RaidTargetIndicator then self.RaidTargetIndicator:SetAlpha(1) end
 
 			if self.widgetsOnly or (UnitWidgetSet(unit) and UnitIsOwnerOrControllerOfUnit("player", unit)) then
-				self.Health:SetAlpha(0)
-				self.Level:SetAlpha(0)
-				self.Name:SetAlpha(0)
-				self.Castbar:SetAlpha(0)
+				if self.Health then self.Health:SetAlpha(0) end
+				if self.Level then self.Level:SetAlpha(0) end
+				if self.Name then self.Name:SetAlpha(0) end
+				if self.Castbar then self.Castbar:SetAlpha(0) end
 			else
-				self.Health:SetAlpha(1)
-				self.Level:SetAlpha(1)
-				self.Name:SetAlpha(1)
-				self.Castbar:SetAlpha(1)
+				if self.Health then self.Health:SetAlpha(1) end
+				if self.Level then self.Level:SetAlpha(1) end
+				if self.Name then self.Name:SetAlpha(1) end
+				if self.Castbar then self.Castbar:SetAlpha(1) end
 			end
 
-			local nameplate = C_NamePlate.GetNamePlateForUnit(unit)
-			if nameplate.UnitFrame then
-				if nameplate.UnitFrame.WidgetContainer then
-					nameplate.UnitFrame.WidgetContainer:SetParent(nameplate)
+			if nameplate and nameplate.UnitFrame and nameplate.UnitFrame.WidgetContainer then
+				nameplate.UnitFrame.WidgetContainer:SetParent(nameplate)
+			end
+		end
+
+		if C.nameplate.only_name then
+			if UnitIsFriend("player", unit) then
+				if not InCombatLockdown() and nameplate then
+					nameplate:SetSize(C.nameplate.width * 0.5, C.font.nameplates_font_size + 8)
 				end
-			end
-
-			if C.nameplate.only_name then
-				if UnitIsFriend("player", unit) then
-					if not InCombatLockdown() then
-						nameplate:SetSize(C.nameplate.width * 0.5, C.font.nameplates_font_size + 8)
-					end
-					self.Health:SetAlpha(0)
+				if self.Health then self.Health:SetAlpha(0) end
+				if self.Name then
 					self.Name:ClearAllPoints()
 					self.Name:SetPoint("CENTER", self, "CENTER", 0, 0)
-					self.Level:SetAlpha(0)
-					self.Castbar:SetAlpha(0)
-					if C.nameplate.target_glow then
-						self.Glow:SetAlpha(0)
-					end
-				else
-					if not InCombatLockdown() then
-						nameplate:SetSize(C.nameplate.width * 1.2, (C.nameplate.height + C.font.nameplates_font_size + 8) * 2)
-					end
-					self.Health:SetAlpha(1)
+				end
+				if self.Level then self.Level:SetAlpha(0) end
+				if self.Castbar then self.Castbar:SetAlpha(0) end
+				if C.nameplate.target_glow and self.Glow then
+					self.Glow:SetAlpha(0)
+				end
+			else
+				if not InCombatLockdown() and nameplate then
+					nameplate:SetSize(C.nameplate.width * 1.2, (C.nameplate.height + C.font.nameplates_font_size + 8) * 2)
+				end
+				if self.Health then self.Health:SetAlpha(1) end
+				if self.Name then
 					self.Name:ClearAllPoints()
 					self.Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -3, 4)
 					self.Name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 3, 4)
-					self.Level:SetAlpha(1)
-					self.Castbar:SetAlpha(1)
-					if C.nameplate.target_glow then
-						self.Glow:SetAlpha(1)
-					end
+				end
+				if self.Level then self.Level:SetAlpha(1) end
+				if self.Castbar then self.Castbar:SetAlpha(1) end
+				if C.nameplate.target_glow and self.Glow then
+					self.Glow:SetAlpha(1)
 				end
 			end
 		end
 	end
+end
+
+local function VUI_NameplateThreatIconUpdate(self, event, ...)
+    if not self or not self.ThreatIcon then return end
+
+    if not usecustomcolor then
+        self.ThreatIcon:Hide()
+        return
+    end
+
+    local hasAggro = false
+    if C.nameplate and C.nameplate.enhance_threat and UnitAffectingCombat("player") then
+        local threatStatus = UnitThreatSituation("player", self.unit)
+        hasAggro = (threatStatus == 3)
+        -- Only tanks care about aggro loss
+        if T.Role == "Tank" and not hasAggro then
+            self.ThreatIcon:SetVertexColor(1, 0, 0) -- Red for lost aggro
+            self.ThreatIcon:Show()
+        else
+            self.ThreatIcon:Hide()
+        end
+    else
+        self.ThreatIcon:Hide()
+    end
 end
 
 local function style(self, unit)
@@ -807,17 +924,39 @@ local function style(self, unit)
 	self.Health = CreateFrame("StatusBar", nil, self)
 	self.Health:SetAllPoints(self)
 	self.Health:SetStatusBarTexture(C.media.texture)
-	self.Health.colorTapping = true
-	self.Health.colorDisconnected = true
-	self.Health.colorClass = true
-	self.Health.colorReaction = true
-	self.Health.colorHealth = true
+	-- self.Health.colorTapping = true
+	-- self.Health.colorDisconnected = true
+	-- self.Health.colorClass = true
+	-- self.Health.colorReaction = true
+	-- self.Health.colorHealth = true
+	self.Health.colorTapping = false
+	self.Health.colorDisconnected = false
+	self.Health.colorClass = false
+	self.Health.colorReaction = false
+	self.Health.colorHealth = false
 	CreateBorderFrame(self.Health)
 
 	self.Health.bg = self.Health:CreateTexture(nil, "BORDER")
 	self.Health.bg:SetAllPoints()
 	self.Health.bg:SetTexture(C.media.texture)
+	self.Health.bg:SetColorTexture(0, 0, 0, 0.75)
 	self.Health.bg.multiplier = 0.2
+
+	-- Threat Icon for ViksUI Nameplates
+	self.ThreatIcon = self:CreateTexture(nil, "OVERLAY")
+	self.ThreatIcon:SetSize(18, 18)
+	self.ThreatIcon:SetPoint("LEFT", self.Health, "RIGHT", 6, 0)
+	self.ThreatIcon:SetTexture("Interface\\Icons\\Ability_DualWield")
+	self.ThreatIcon:Hide()
+
+	self:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE", VUI_NameplateThreatIconUpdate)
+	self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", VUI_NameplateThreatIconUpdate)
+	local vui_prevOnEvent = self:GetScript("OnEvent")
+	self:SetScript("OnEvent", function(frame, ...)
+		if vui_prevOnEvent then vui_prevOnEvent(frame, ...) end
+		VUI_NameplateThreatIconUpdate(frame)
+	end)
+	VUI_NameplateThreatIconUpdate(self) -- initialize right away
 
 	-- Health Text
 	if C.nameplate.health_value then
@@ -880,7 +1019,10 @@ local function style(self, unit)
 	self.Castbar.bg:SetTexture(C.media.texture)
 	self.Castbar.bg:SetColorTexture(1, 0.8, 0, 0.2)
 
-	self.Castbar.PostCastStart = castColor
+	self.Castbar.PostCastStart = function(castbar, unit, name, castID, spellID)
+		castColor(castbar, unit) -- existing coloring logic if needed
+		ColorCastbarBorder(castbar, spellID)
+	end
 	self.Castbar.PostCastInterruptible = castColor
 
 	-- Cast Time Text
@@ -1022,7 +1164,9 @@ local function style(self, unit)
 		threatColor(main)
 	end)
 
-	self.Health.PostUpdate = HealthPostUpdate
+	self.Health.PostUpdate = function(_, unit)
+		ApplyNameplateColor(self, unit)
+	end
 	self.Health.PostUpdateColor = HealthPostUpdateColor
 
 	-- Absorb

@@ -8,6 +8,14 @@ local _, ns = ...
 local oUF = ns.oUF
 T.oUF = oUF
 
+local usecustomcolor = false -- set false to use default/addon coloring
+
+-- Red for interruptible (enemy), yellow for non-interruptible (enemy), blue for friendly/self
+CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE      = {0.8, 0, 0, 1}                        -- enemy: interruptible (red)
+CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE  = {1, 0.8, 0, 1}                        -- enemy: non-interruptible (yellow)
+CUSTOM_CASTBAR_COLOR_FRIENDLY           = {95/255, 182/255, 255/255, 1}         -- friendly/self: blue
+CUSTOM_CASTBAR_COLOR_BG                 = {0.3, 0.3, 0.3, 0.3}                  -- background
+
 T.UpdateAllElements = function(frame)
 	for _, v in ipairs(frame.__elements) do
 		v(frame, "UpdateElement", frame.unit)
@@ -587,80 +595,113 @@ local function castColor(unit)
 end
 
 T.PostCastStart = function(Castbar, unit)
-	if unit == "vehicle" then unit = "player" end
+    if unit == "vehicle" then unit = "player" end
 
-	if unit == "player" and C.unitframe.castbar_latency and Castbar.Latency then
-		local _, _, _, ms = GetNetStats()
-		Castbar.Latency:SetText(("%dms"):format(ms))
-		if Castbar.casting then
-			Castbar.SafeZone:SetDrawLayer("BORDER")
-			Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
-		else
-			Castbar.SafeZone:SetDrawLayer("ARTWORK")
-			Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
-		end
-	end
+    if unit == "player" and C.unitframe.castbar_latency and Castbar.Latency then
+        local _, _, _, ms = GetNetStats()
+        Castbar.Latency:SetText(("%dms"):format(ms))
+        if Castbar.casting then
+            Castbar.SafeZone:SetDrawLayer("BORDER")
+            Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
+        else
+            Castbar.SafeZone:SetDrawLayer("ARTWORK")
+            Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
+        end
+    end
 
-	if unit == "player" and C.unitframe.castbar_ticks then
-		if Castbar.casting then
-			setBarTicks(Castbar, 0)
-		else
-			local spell = UnitChannelInfo(unit)
-			Castbar.channelingTicks = canaccessvalue(spell) and T.CastBarTicks[spell] or 0
-			setBarTicks(Castbar, Castbar.channelingTicks)
-		end
-	end
+    if unit == "player" and C.unitframe.castbar_ticks then
+        if Castbar.casting then
+            if setBarTicks then setBarTicks(Castbar, 0) end
+        else
+            local spell = UnitChannelInfo(unit)
+            Castbar.channelingTicks = (canaccessvalue and canaccessvalue(spell) and T.CastBarTicks and T.CastBarTicks[spell]) or 0
+            if setBarTicks then setBarTicks(Castbar, Castbar.channelingTicks) end
+        end
+    end
 
-	local r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
-	if not C.unitframe.own_color then
-		r, g, b = castColor(unit)
-	end
+    local r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
+    if not C.unitframe.own_color then
+        if castColor then
+            r, g, b = castColor(unit)
+        end
+    end
 
-	if UnitCanAttack("player", unit) then -- check interrupt only for hostile
-		local color = C_CurveUtil.EvaluateColorFromBoolean(Castbar.notInterruptible, {r = 0.8, g = 0, b = 0, a = 1}, {r = r, g = g, b = b, a = 1})
-		local color_border = C_CurveUtil.EvaluateColorFromBoolean(Castbar.notInterruptible, {r = 0.8, g = 0, b = 0, a = 1}, {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1})
+    if usecustomcolor and C_CurveUtil and C_CurveUtil.EvaluateColorFromBoolean then
+        local color
+        if UnitCanAttack("player", unit) then
+            color = C_CurveUtil.EvaluateColorFromBoolean(
+                Castbar.notInterruptible,
+                { r = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[4] }, -- yellow
+                { r = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[4] } -- red
+            )
+        else
+            color = CreateColor(unpack(CUSTOM_CASTBAR_COLOR_FRIENDLY))
+        end
+        Castbar:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
+        if Castbar.bg then
+            Castbar.bg:SetVertexColor(unpack(CUSTOM_CASTBAR_COLOR_BG))
+        end
+    else
+        -- ORIGINAL VIKSUI LOGIC FOR FULL COMPATIBILITY
+        if UnitCanAttack("player", unit) then -- hostile
+            local color = C_CurveUtil.EvaluateColorFromBoolean(
+                Castbar.notInterruptible,
+                {r = 0.8, g = 0, b = 0, a = 1},
+                {r = r, g = g, b = b, a = 1}
+            )
+            local color_border = C_CurveUtil.EvaluateColorFromBoolean(
+                Castbar.notInterruptible,
+                {r = 0.8, g = 0, b = 0, a = 1},
+                {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1}
+            )
 
-		Castbar:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
-		if C.unitframe.own_color then
-			local color_bg = C_CurveUtil.EvaluateColorFromBoolean(Castbar.notInterruptible, {r = 0.8, g = 0, b = 0, a = 0.2}, {r = C.unitframe.uf_color_bg[1], g = C.unitframe.uf_color_bg[2], b = C.unitframe.uf_color_bg[3], a = 1})
-			Castbar.bg:SetVertexColor(color_bg:GetRGBA())
-		else
-			Castbar.bg:SetVertexColor(color.r, color.g, color.b, 0.2)
-		end
-		Castbar.Overlay:SetBackdropBorderColor(color_border:GetRGB())
-		if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
-			Castbar.Button:SetBackdropBorderColor(color_border:GetRGB())
-		end
-	else
-		Castbar:SetStatusBarColor(r, g, b)
-		if C.unitframe.own_color then
-			Castbar.bg:SetVertexColor(C.unitframe.uf_color_bg[1], C.unitframe.uf_color_bg[2], C.unitframe.uf_color_bg[3], 1)
-		else
-			Castbar.bg:SetVertexColor(r, g, b, 0.2)
-		end
-		Castbar.Overlay:SetBackdropBorderColor(unpack(C.media.border_color))
-		if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
-			Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
-		end
-	end
+            Castbar:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
+            if C.unitframe.own_color then
+                local color_bg = C_CurveUtil.EvaluateColorFromBoolean(
+                    Castbar.notInterruptible,
+                    {r = 0.8, g = 0, b = 0, a = 0.2},
+                    {r = C.unitframe.uf_color_bg[1], g = C.unitframe.uf_color_bg[2], b = C.unitframe.uf_color_bg[3], a = 1}
+                )
+                Castbar.bg:SetVertexColor(color_bg:GetRGBA())
+            else
+                Castbar.bg:SetVertexColor(color.r, color.g, color.b, 0.2)
+            end
+            Castbar.Overlay:SetBackdropBorderColor(color_border:GetRGB())
+            if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
+                Castbar.Button:SetBackdropBorderColor(color_border:GetRGB())
+            end
+        else -- friendly or self
+            Castbar:SetStatusBarColor(r, g, b)
+            if C.unitframe.own_color then
+                Castbar.bg:SetVertexColor(C.unitframe.uf_color_bg[1], C.unitframe.uf_color_bg[2], C.unitframe.uf_color_bg[3], 1)
+            else
+                Castbar.bg:SetVertexColor(r, g, b, 0.2)
+            end
+            Castbar.Overlay:SetBackdropBorderColor(unpack(C.media.border_color))
+            if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
+                Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
+            end
+        end
+    end
 
-	if Castbar.Time and Castbar.Text then
-		local timeWidth = Castbar.Time:GetStringWidth()
-		if not canaccessvalue(timeWidth) then return end
-		local textWidth = Castbar:GetWidth() - timeWidth - 5
+    -- Text width logic (unchanged)
+    if Castbar.Time and Castbar.Text then
+        local timeWidth = Castbar.Time:GetStringWidth()
+        if not (canaccessvalue and canaccessvalue(timeWidth)) then return end
+        local textWidth = Castbar:GetWidth() - timeWidth - 5
 
-		if timeWidth == 0 then
-			C_Timer.After(0.05, function()
-				if not canaccessvalue(Castbar.Time:GetStringWidth()) then return end
-				textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
-				if textWidth > 0 then
-					Castbar.Text:SetWidth(textWidth)
-				end
-			end)
-		else
-			Castbar.Text:SetWidth(textWidth)
-		end
-	end
+        if timeWidth == 0 then
+            C_Timer.After(0.05, function()
+                if not (canaccessvalue and canaccessvalue(Castbar.Time:GetStringWidth())) then return end
+                textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
+                if textWidth > 0 then
+                    Castbar.Text:SetWidth(textWidth)
+                end
+            end)
+        else
+            Castbar.Text:SetWidth(textWidth)
+        end
+    end
 end
 
 T.CustomCastTimeText = function(self, durationObject)
@@ -936,6 +977,18 @@ T.CreateAuraWatch = function(self)
 	end
 
 	self.AuraWatch = auras
+end
+
+T.PrivateAurasSetPosition = function(element, aura)
+	aura:ClearAllPoints()
+	aura:SetPoint("CENTER", element, "CENTER", 0, 0)
+end
+
+T.PrivateAurasPostUpdate = function(self)
+	for i = 1, #self do
+		local aura = self[i]
+		aura:SetSize(0.0001, 0.0001)
+	end
 end
 
 T.CreateHealthPrediction = function(self, vertical)

@@ -409,3 +409,25 @@ SlashCmdList["TALENTLOADOUTNOTE"] = function(msg)
 		print("/tnote hide - Hide note frame")
 	end
 end
+
+-- Function to check if the player is in a dungeon or scenario
+local function DisableChatBubblesInDelvesOrScenarios()
+    local zoneName = GetZoneText()
+    
+    -- Check if the player is in a dungeon or scenario
+    if string.match(zoneName, "Scenario") or string.match(zoneName, "Dungeon") then
+        -- Disable chat bubbles
+        SetCVar("chatBubbles", 0)
+    else
+        -- Enable chat bubbles if outside dungeons/scenarios
+        SetCVar("chatBubbles", 1)
+    end
+end
+
+-- Call the function to check the zone and adjust chat bubbles
+DisableChatBubblesInDelvesOrScenarios()
+
+-- Optionally, you can create a small event listener to check when the zone changes
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+frame:SetScript("OnEvent", DisableChatBubblesInDelvesOrScenarios)

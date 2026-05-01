@@ -31,6 +31,29 @@ hooksecurefunc(ObjectiveTrackerFrame, "SetHeight", function(_, h)
 	end
 end)
 
+local function ReanchorObjectiveTracker()
+    -- Always clear and re-set the ObjectiveTrackerFrame position to anchor
+    ObjectiveTrackerFrame:ClearAllPoints()
+    ObjectiveTrackerFrame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
+
+    -- For scenarios/delves: make sure ScenarioObjectiveTracker is also rehooked
+    if ScenarioObjectiveTracker then
+        ScenarioObjectiveTracker:ClearAllPoints()
+        ScenarioObjectiveTracker:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
+    end
+end
+
+local reanchorFrame = CreateFrame("Frame")
+reanchorFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+reanchorFrame:SetScript("OnEvent", function()
+    local inInstance, instanceType = IsInInstance()
+    if inInstance and (instanceType == "scenario" or instanceType == "party") then
+        C_Timer.After(0.1, function()
+            ReanchorObjectiveTracker()
+        end)
+    end
+end)
+
 local headers = {
 	ScenarioObjectiveTracker,
 	BonusObjectiveTracker,
@@ -756,3 +779,19 @@ Maw:HookScript("OnClick", function(container)
 		container.List:SetPoint("TOPRIGHT", container, "TOPLEFT", -15, 1)
 	end
 end)
+
+hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self, _, parent)
+    if parent ~= anchor then
+        self:ClearAllPoints()
+        self:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
+    end
+end)
+
+if ScenarioObjectiveTracker then
+    hooksecurefunc(ScenarioObjectiveTracker, "SetPoint", function(self, _, parent)
+        if parent ~= anchor then
+            self:ClearAllPoints()
+            self:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
+        end
+    end)
+end

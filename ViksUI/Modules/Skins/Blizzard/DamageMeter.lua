@@ -84,10 +84,11 @@ local function LoadSkin()
 			window.MinimizeContainer.Background:SetAlpha(0)
 		end
 
-		window.DamageMeterTypeDropdown:SetSize(18, 18)
+		window.DamageMeterTypeDropdown:SetSize(14, 14)
 		window.DamageMeterTypeDropdown:SkinButton()
 		window.DamageMeterTypeDropdown.Arrow:SetTexCoord(0.3, 0.7, 0.25, 0.65)
 		window.DamageMeterTypeDropdown.Arrow:SetInside(window.DamageMeterTypeDropdown)
+		window.DamageMeterTypeDropdown.TypeName:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
 		window.DamageMeterTypeDropdown.TypeName:SetPoint("LEFT", window.DamageMeterTypeDropdown.Arrow, "LEFT", 30, 0)
 
 		if window.SessionTimer then
@@ -102,9 +103,11 @@ local function LoadSkin()
 		end
 
 		window.SessionDropdown:SkinButton()
+		window.SessionDropdown:SetSize(14, 14)
+		window.SessionDropdown.SessionName:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
 		window.SessionDropdown:SetPoint("RIGHT", window.SettingsDropdown, -28, 0)
 
-		window.SettingsDropdown:SetSize(18, 18)
+		window.SettingsDropdown:SetSize(14, 14)
 		window.SettingsDropdown:SkinButton()
 		window.SettingsDropdown.Icon:SetTexCoord(0.3, 0.73, 0.2, 0.65)
 		window.SettingsDropdown.Icon:SetInside(window.SettingsDropdown)
@@ -114,7 +117,7 @@ local function LoadSkin()
 		if window.MinimizeButton then
 			window.MinimizeButton:StripTextures()
 			T.SkinExpandOrCollapse(window.MinimizeButton)
-			window.MinimizeButton.bg:SetSize(18, 18)
+			window.MinimizeButton.bg:SetSize(14, 14)
 			window.MinimizeButton:SetPoint("TOPRIGHT", window.Header, "TOPRIGHT", -16, -9)
 
 			window.SettingsDropdown:ClearAllPoints()

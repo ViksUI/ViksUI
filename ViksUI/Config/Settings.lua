@@ -960,7 +960,7 @@ C["layout2"] = {
 	["UFNamefont"] = "Interface\\Addons\\ViksUI\\Media\\Font\\ROADWAY.ttf",				-- Font to use on Names
 	["pixel_font"] = [=[Interface\Addons\ViksUI\Media\Font\pixel.ttf]=], 				-- Font to use on numbers
 	["name_font_size"] = 26,										-- Size of name font in Layout2
-	["name_font_style"] = nil,									-- Style of name font (NONE, OUTLINE, THICKOUTLINE)
+	["name_font_style"] = nil,										-- Style of name font (nil, OUTLINE, THICKOUTLINE)
 	["number_font_size"] = 12,										-- Size of number font in Layout2
 	["number_font_style"] = "OUTLINE",								-- Style of number font
 	

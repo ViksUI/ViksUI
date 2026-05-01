@@ -31,7 +31,7 @@ C["position"] = {
 		["target_portrait"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 12, 27},
 		["player_portrait_2"] = {"TOPRIGHT", "oUF_Player", "TOPLEFT", -12, 27},	-- Player Portrait Layout2
 		["target_portrait_2"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 12, 27},	-- Target Portrait Layout2
-		["player_castbar"] = {"BOTTOM", "ActionBarAnchor", "TOP", 0, 175},			-- Player Castbar
+		["player_castbar"] = {"BOTTOM", "ActionBarAnchor", "TOP", 0, 196},			-- Player Castbar
 		["target_castbar"] = {"BOTTOM", "oUF_Player_Castbar", "TOP", 0, 7},			-- Target Castbar
 		["focus_castbar"] = {"CENTER", UIParent, "CENTER", 0, 250},					-- Focus Castbar icon
 	},
