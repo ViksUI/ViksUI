@@ -565,19 +565,32 @@ local function ApplySecondaryFrameTemplate(frame)
 end
 
 ----------------------------------------------------------------------------------------
---	CASTBAR REPOSITIONING HELPER
---	Defers castbar repositioning out of combat to avoid taint
---	This helper safely repositions castbars after Layout2 portrait creation
+--	CASTBAR REPOSITIONING HELPER (OUT-OF-COMBAT-SAFE)
+--	Wraps castbar repositioning to avoid taint during combat
+--	Only actually moves the castbar outside combat
 ----------------------------------------------------------------------------------------
 
 local function RepositionCastbarForLayout2(castbar, unitType, textFrame, portrait)
 	if not castbar or not portrait or not textFrame then return end
 	
+	-- Mark castbar for deferred repositioning
+	castbar._layout2_needs_reposition = true
+	castbar._layout2_unitType = unitType
+	castbar._layout2_textFrame = textFrame
+	castbar._layout2_portrait = portrait
+	
+	-- Try to reposition immediately if out of combat
 	local function DoCastbarReposition()
 		if InCombatLockdown() then
-			C_Timer.After(0.1, DoCastbarReposition)
+			-- Schedule retry after combat ends
 			return
 		end
+		
+		if not castbar._layout2_needs_reposition then
+			return
+		end
+		
+		castbar._layout2_needs_reposition = false
 		
 		castbar:ClearAllPoints()
 		local tfWidth = Layout2Config.text_bar.width
@@ -608,13 +621,66 @@ local function RepositionCastbarForLayout2(castbar, unitType, textFrame, portrai
 		end
 	end
 	
-	-- Schedule repositioning out of combat
-	if InCombatLockdown() then
-		C_Timer.After(0.1, DoCastbarReposition)
-	else
+	if not InCombatLockdown() then
 		DoCastbarReposition()
 	end
 end
+
+-- Hook into PLAYER_REGEN_ENABLED to reposition castbars when exiting combat
+local castbarRepositionFrame = CreateFrame("Frame")
+castbarRepositionFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+castbarRepositionFrame:SetScript("OnEvent", function()
+	-- Check if any castbars need repositioning
+	if _G.oUF_Player and _G.oUF_Player.Castbar and _G.oUF_Player.Castbar._layout2_needs_reposition then
+		local cb = _G.oUF_Player.Castbar
+		cb:ClearAllPoints()
+		local tfWidth = Layout2Config.text_bar.width
+		local unitType = cb._layout2_unitType
+		local textFrame = cb._layout2_textFrame
+		local portrait = cb._layout2_portrait
+		
+		if C.layout2.centerbar then
+			local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
+			cb:SetWidth(cbWidth)
+			if unitType == "player" then
+				cb:SetPoint("TOP",  portrait, "TOP",    0, 0)
+				cb:SetPoint("LEFT", UIParent,  "CENTER", -cbWidth / 2, 0)
+			end
+		else
+			local cbWidth = tfWidth + Layout2Config.no_centerbar.castbar_width_offset
+			cb:SetWidth(cbWidth)
+			if unitType == "player" then
+				cb:SetPoint("TOPLEFT", textFrame, "BOTTOMLEFT", 0, Layout2Config.no_centerbar.castbar_gap)
+			end
+		end
+		cb._layout2_needs_reposition = false
+	end
+	
+	if _G.oUF_Target and _G.oUF_Target.Castbar and _G.oUF_Target.Castbar._layout2_needs_reposition then
+		local cb = _G.oUF_Target.Castbar
+		cb:ClearAllPoints()
+		local tfWidth = Layout2Config.text_bar.width
+		local unitType = cb._layout2_unitType
+		local textFrame = cb._layout2_textFrame
+		local portrait = cb._layout2_portrait
+		
+		if C.layout2.centerbar then
+			local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
+			cb:SetWidth(cbWidth)
+			if unitType == "target" then
+				cb:SetPoint("BOTTOM", portrait, "BOTTOM", 0, 0)
+				cb:SetPoint("LEFT",   UIParent,  "CENTER", -cbWidth / 2, 0)
+			end
+		else
+			local cbWidth = tfWidth + Layout2Config.no_centerbar.castbar_width_offset
+			cb:SetWidth(cbWidth)
+			if unitType == "target" then
+				cb:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", 0, Layout2Config.no_centerbar.castbar_gap)
+			end
+		end
+		cb._layout2_needs_reposition = false
+	end
+end)
 
 ----------------------------------------------------------------------------------------
 --	MAIN HOOK - RegisterStyle
@@ -954,8 +1020,7 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				-- Store reference for later use by ApplyLayout2Positions
 				self.Layout2TextFrame = textFrame
 
-				-- ========== CASTBAR REPOSITIONING ==========
-				-- Defer castbar repositioning out of combat to avoid taint
+				-- ========== CASTBAR REPOSITIONING (OUT-OF-COMBAT-SAFE) ==========
 				if self.Castbar then
 					RepositionCastbarForLayout2(self.Castbar, unitType, textFrame, self.Portrait)
 				end
@@ -1438,13 +1503,15 @@ if C.layout2.enable then
 			MoveFrame(_G.oUF_Player)
 			MoveFrame(_G.oUF_Target)
 			
-			-- Move castbars too
-			if _G.oUF_Player and _G.oUF_Player.Castbar then
-				MoveFrame(_G.oUF_Player.Castbar, 150)
-			end
+			-- Move castbars too - but only out of combat
+			if not InCombatLockdown() then
+				if _G.oUF_Player and _G.oUF_Player.Castbar then
+					MoveFrame(_G.oUF_Player.Castbar, 150)
+				end
 
-			if _G.oUF_Target and _G.oUF_Target.Castbar then
-				MoveFrame(_G.oUF_Target.Castbar, 150)
+				if _G.oUF_Target and _G.oUF_Target.Castbar then
+					MoveFrame(_G.oUF_Target.Castbar, 150)
+				end
 			end
 
 		end)
