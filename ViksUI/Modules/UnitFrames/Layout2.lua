@@ -565,6 +565,58 @@ local function ApplySecondaryFrameTemplate(frame)
 end
 
 ----------------------------------------------------------------------------------------
+--	CASTBAR REPOSITIONING HELPER
+--	Defers castbar repositioning out of combat to avoid taint
+--	This helper safely repositions castbars after Layout2 portrait creation
+----------------------------------------------------------------------------------------
+
+local function RepositionCastbarForLayout2(castbar, unitType, textFrame, portrait)
+	if not castbar or not portrait or not textFrame then return end
+	
+	local function DoCastbarReposition()
+		if InCombatLockdown() then
+			C_Timer.After(0.1, DoCastbarReposition)
+			return
+		end
+		
+		castbar:ClearAllPoints()
+		local tfWidth = Layout2Config.text_bar.width
+		
+		if C.layout2.centerbar then
+			-- centerbar = true
+			-- Player : TOP of castbar = TOP of portrait, centred at screen
+			-- Target : BOTTOM of castbar = BOTTOM of portrait, centred at screen
+			local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
+			castbar:SetWidth(cbWidth)
+			if unitType == "player" then
+				castbar:SetPoint("TOP",  portrait, "TOP",    0, 0)
+				castbar:SetPoint("LEFT", UIParent,  "CENTER", -cbWidth / 2, 0)
+			elseif unitType == "target" then
+				castbar:SetPoint("BOTTOM", portrait, "BOTTOM", 0, 0)
+				castbar:SetPoint("LEFT",   UIParent,  "CENTER", -cbWidth / 2, 0)
+			end
+		else
+			-- centerbar = false
+			-- Both castbars go straight below their textFrame
+			local cbWidth = tfWidth + Layout2Config.no_centerbar.castbar_width_offset
+			castbar:SetWidth(cbWidth)
+			if unitType == "player" then
+				castbar:SetPoint("TOPLEFT",  textFrame, "BOTTOMLEFT",  0, Layout2Config.no_centerbar.castbar_gap)
+			elseif unitType == "target" then
+				castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", 0, Layout2Config.no_centerbar.castbar_gap)
+			end
+		end
+	end
+	
+	-- Schedule repositioning out of combat
+	if InCombatLockdown() then
+		C_Timer.After(0.1, DoCastbarReposition)
+	else
+		DoCastbarReposition()
+	end
+end
+
+----------------------------------------------------------------------------------------
 --	MAIN HOOK - RegisterStyle
 --	This hooks into oUF's RegisterStyle function to apply Layout2 modifications
 --	to the "Viks" style frames after they are created
@@ -903,33 +955,9 @@ function oUF:RegisterStyle(styleName, sharedFunc)
 				self.Layout2TextFrame = textFrame
 
 				-- ========== CASTBAR REPOSITIONING ==========
+				-- Defer castbar repositioning out of combat to avoid taint
 				if self.Castbar then
-					self.Castbar:ClearAllPoints()
-					local tfWidth = Layout2Config.text_bar.width
-					if C.layout2.centerbar then
-						-- centerbar = true
-						-- Player : TOP of castbar = TOP of portrait, centred at screen
-						-- Target : BOTTOM of castbar = BOTTOM of portrait, centred at screen
-						local cbWidth = tfWidth + Layout2Config.centerbar_true.castbar_width_offset
-						self.Castbar:SetWidth(cbWidth)
-						if unitType == "player" then
-							self.Castbar:SetPoint("TOP",  self.Portrait, "TOP",    0, 0)
-							self.Castbar:SetPoint("LEFT", UIParent,      "CENTER", -cbWidth / 2, 0)
-						elseif unitType == "target" then
-							self.Castbar:SetPoint("BOTTOM", self.Portrait, "BOTTOM", 0, 0)
-							self.Castbar:SetPoint("LEFT",   UIParent,      "CENTER", -cbWidth / 2, 0)
-						end
-					else
-						-- centerbar = false
-						-- Both castbars go straight below their textFrame
-						local cbWidth = tfWidth + Layout2Config.no_centerbar.castbar_width_offset
-						self.Castbar:SetWidth(cbWidth)
-						if unitType == "player" then
-							self.Castbar:SetPoint("TOPLEFT",  textFrame, "BOTTOMLEFT",  0, Layout2Config.no_centerbar.castbar_gap)
-						elseif unitType == "target" then
-							self.Castbar:SetPoint("TOPRIGHT", textFrame, "BOTTOMRIGHT", 0, Layout2Config.no_centerbar.castbar_gap)
-						end
-					end
+					RepositionCastbarForLayout2(self.Castbar, unitType, textFrame, self.Portrait)
 				end
 			end
 			
