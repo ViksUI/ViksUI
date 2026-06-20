@@ -4,7 +4,7 @@ local dr, dg, db = unpack(C.datatext.color)
 panelcolor = ("|cff%.2x%.2x%.2x"):format(dr * 255, dg * 255, db * 255)
 -- class color
 local r, g, b = unpack(C.datatext.color)
-qColor = ("|cff%.2x%.2x%.2x"):format(r * 255, g * 255, b * 255)
+local qColor = ("|cff%.2x%.2x%.2x"):format(r * 255, g * 255, b * 255)
 
 --------------------------------------------------------------------
 -- FRIEND
@@ -137,7 +137,7 @@ local function inviteClick(self, arg1, arg2, checked)
 	if type(arg1) ~= ("number") then
 		C_PartyInfo.InviteUnit(arg1)
 	else
-		BNInviteFriend(arg1);
+		C_BattleNet.InviteFriend(arg1);
 	end
 end
 

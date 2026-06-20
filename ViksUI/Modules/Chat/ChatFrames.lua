@@ -199,6 +199,7 @@ local function SetChatStyle(frame)
 	local id = frame:GetID()
 	local chat = frame:GetName()
 	local editBox = _G[chat.."EditBox"]
+	local tab = _G[chat.."Tab"]
 
 	_G[chat]:SetFrameLevel(5)
 
@@ -260,7 +261,7 @@ local function SetChatStyle(frame)
 	a:Kill() b:Kill() c:Kill()
 
 	-- Kill bubble tex/glow
-	if _G[chat.."Tab"].conversationIcon then _G[chat.."Tab"].conversationIcon:Kill() end
+	if tab.conversationIcon then tab.conversationIcon:Kill() end
 
 	-- Disable alt key usage
 	editBox:SetAltArrowKeyMode(false)
@@ -273,7 +274,11 @@ local function SetChatStyle(frame)
 	editBox:HookScript("OnEditFocusLost", function(self) if self:GetText() == "" then self:Hide() end end)
 
 	-- Hide edit box every time we click on a tab
-	_G[chat.."Tab"]:HookScript("OnClick", function() editBox:Hide() end)
+	tab:HookScript("OnClick", function() editBox:Hide() end)
+
+	-- Reposition tab text (fix whisper position)
+	tab.Text:ClearAllPoints()
+	tab.Text:SetPoint("CENTER", tab, 0, -5)
 
 	-- Create our own texture for edit box
 	if C.chat.background == true and C.chat.tabs_mouseover ~= true then

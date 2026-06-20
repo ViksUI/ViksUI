@@ -695,7 +695,7 @@ if friends.enabled then
 										notCheckable = true,
 										func = function(_, arg1)
 											menuFrame:Hide()
-											BNInviteFriend(arg1)
+											C_BattleNet.InviteFriend(arg1)
 										end
 									}
 								end
@@ -1685,9 +1685,24 @@ end
 --	Ping
 ----------------------------------------------------------------------------------------
 if ping.enabled then
+	local function OnEvent(self, unit)
+		if unit == P and ping.hide_self then return end
+		if UnitIsUnit(unit, "player") and ping.hide_self then return end
+		local class = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[select(2, UnitClass(unit))]
+		self.text:SetText(format(ping.fmt, UnitName(unit)))
+		if class then
+			self.text:SetTextColor(class.r, class.g, class.b, 1)
+		else
+			self.text:SetTextColor(1, 1, 1, 1)
+		end
+		self.animGroup:Stop()
+		self.text:Show()
+		self.animGroup:Play()
+	end
+
 	Inject("Ping", {
 		OnLoad = function(self)
-			-- self:RegisterEvent("MINIMAP_PING") -- BETA not event now and callback is secret
+			self:RegisterEventCallback("MINIMAP_PING", OnEvent)
 			self.animGroup = self.text:CreateAnimationGroup()
 			self.anim = self.animGroup:CreateAnimation("Alpha")
 			self.animGroup:SetScript("OnFinished", function() self.text:Hide() end)
@@ -1695,19 +1710,6 @@ if ping.enabled then
 			self.anim:SetToAlpha(0)
 			self.anim:SetDuration(2.8)
 			self.anim:SetStartDelay(5)
-		end,
-		OnEvent = function(self, _, unit)
-			if unit == P and ping.hide_self then return end
-			local class = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[select(2, UnitClass(unit))]
-			self.text:SetText(format(ping.fmt, UnitName(unit)))
-			if class then
-				self.text:SetTextColor(class.r, class.g, class.b, 1)
-			else
-				self.text:SetTextColor(1, 1, 1, 1)
-			end
-			self.animGroup:Stop()
-			self.text:Show()
-			self.animGroup:Play()
 		end
 	})
 end
@@ -2208,7 +2210,7 @@ if nameplates.enabled then
 	Inject("Nameplates", {
 		OnLoad = function(self) RegEvents(self, "PLAYER_LOGIN CVAR_UPDATE") end,
 		OnEvent = function(self)
-			if GetCVar("nameplateMotion") == "0" then
+			if C_CVar.GetCVarBitfield("nameplateStackingTypes", 1) then
 				self.text:SetText(format(nameplates.fmt, "|cff55ff55"..L_STATS_ON.."|r"))
 			else
 				self.text:SetText(format(nameplates.fmt, "|cffff5555"..strupper(OFF).."|r"))
@@ -2216,11 +2218,11 @@ if nameplates.enabled then
 		end,
 		OnClick = function(self, button)
 			if button == "RightButton" or button == "LeftButton" then
-				if GetCVar("nameplateMotion") == "0" then
-					SetCVar("nameplateMotion", "1")
+				if C_CVar.GetCVarBitfield("nameplateStackingTypes", 1) then
+					C_CVar.SetCVarBitfield("nameplateStackingTypes", Enum.NamePlateStackType.Enemy, false)
 					self.text:SetText(format(nameplates.fmt, "|cffff5555"..strupper(OFF).."|r"))
 				else
-					SetCVar("nameplateMotion", "0")
+					C_CVar.SetCVarBitfield("nameplateStackingTypes", Enum.NamePlateStackType.Enemy, true)
 					self.text:SetText(format(nameplates.fmt, "|cff55ff55"..L_STATS_ON.."|r"))
 				end
 			end

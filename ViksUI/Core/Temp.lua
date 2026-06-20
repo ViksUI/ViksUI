@@ -5,8 +5,8 @@ if not IsVik then return end
 ----------------------------------------------------------------------------------------
 
 local FRAME_NAME = "ViksUITalentNote"
-local MAX_WORDS = 60
-local MAX_LINES = 4
+local MAX_WORDS = 200
+local MAX_LINES = 8
 
 local noteFrame = nil
 local editFrame = nil

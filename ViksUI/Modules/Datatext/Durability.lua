@@ -17,6 +17,12 @@ localSlots = {
 }
 	
 if C.datatext.Durability and C.datatext.Durability > 0 then
+local _, class = UnitClass("player")
+local classcolor = RAID_CLASS_COLORS[class]
+local qColor = ("|cff%.2x%.2x%.2x"):format(classcolor.r * 255, classcolor.g * 255, classcolor.b * 255)
+local br, bg, bb = select(1, unpack(C.media.border_color))
+local qColor2 = ("|cff%.2x%.2x%.2x"):format(br * 255, bg * 255, bb * 255)
+
 	local Stat = CreateFrame("Frame", "DataTextDurability", UIParent)
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")

@@ -43,9 +43,6 @@ InfoStats["EVOKER-1467"] = [[General: Item Level > Haste > Critical Strike > Mas
 -- EVOKER Preservation (1468)
 InfoStats["EVOKER-1468"] = [[General: Intellect > Mastery > Haste > Critical Strike > Versatility]]
 
--- EVOKER Augmentation (1473)
-InfoStats["EVOKER-1467"] = [[General: Item Level > Critical Strike > Haste > Mastery (MoP Builds) > Mastery = Versatility]]
-
 -- HUNTER Beast Mastery (253)
 InfoStats["HUNTER-253"] = [[General: Mastery > Critical Strike > Haste > Versatility]]
 
@@ -83,7 +80,7 @@ InfoStats["PALADIN-66"] = [[General: Haste > Versatility / Mastery > Critical St
 InfoStats["PALADIN-70"] = [[General: Strength > Mastery > Critical Strike > Haste > Versatility]]
 
 -- PRIEST Discipline (256)
-InfoStats["PRIEST-256"] = [[General: Haste > Critical Strike > Versatility > Mastery]]
+InfoStats["PRIEST-256"] = [[General: Haste > Critical Strike > Mastery > Versatility]]
 
 -- PRIEST Holy (257)
 InfoStats["PRIEST-257"] = [[General: Critical Strike > Versatility / Mastery > Haste]]
@@ -98,10 +95,10 @@ InfoStats["ROGUE-259"] = [[General: Critical Strike / Haste > Mastery > Versatil
 InfoStats["ROGUE-260"] = [[General: Critical Strike > Haste > Versatility > Mastery]]
 
 -- ROGUE Subtlety (261)
-InfoStats["ROGUE-261"] = [[General: Haste > Critical Strike > Mastery > Versatility]]
+InfoStats["ROGUE-261"] = [[General: Haste > Mastery > Critical Strike > Versatility]]
 
 -- SHAMAN Elemental (262)
-InfoStats["SHAMAN-262"] = [[General: Intellect > Mastery 50% > Haste 25% > Critical Strike 25%]]
+InfoStats["SHAMAN-262"] = [[General: Mastery > Haste]]
 
 -- SHAMAN Enhancement (263)
 InfoStats["SHAMAN-263"] = [[Stormbringer: Agility > Haste > Mastery / Critical Strike > Versatility

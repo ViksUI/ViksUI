@@ -1,279 +1,250 @@
 local T, C, L = unpack(ViksUI)
+
 if C.skins.bigwigs ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	BigWigs skin(by Affli)
+--	BigWigs skin (using ViksUI API)
 ----------------------------------------------------------------------------------------
--- Init some tables to store backgrounds
-local freebg = {}
 
--- Styling functions
-local createbg = function()
-	local bg = CreateFrame("Frame")
-	bg:SetTemplate("Default")
-	return bg
-end
-
-local function freestyle(bar)
-	-- Reparent and hide bar background
-	local bg = bar:Get("bigwigs:ViksUI:bg")
-	if bg then
-		bg:ClearAllPoints()
-		bg:SetParent(UIParent)
-		bg:Hide()
-		freebg[#freebg + 1] = bg
-	end
-
-	-- Reparent and hide icon background
-	local ibg = bar:Get("bigwigs:ViksUI:ibg")
-	if ibg then
-		ibg:ClearAllPoints()
-		ibg:SetParent(UIParent)
-		ibg:Hide()
-		freebg[#freebg + 1] = ibg
-	end
-
-	-- Replace dummies with original method functions
-	bar.candyBarBar.SetPoint = bar.candyBarBar.OldSetPoint
-	bar.candyBarIconFrame.SetWidth = bar.candyBarIconFrame.OldSetWidth
-	bar.SetScale = bar.OldSetScale
-
-	-- Reset Positions
-	-- Icon
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("TOPLEFT")
-	bar.candyBarIconFrame:SetPoint("BOTTOMLEFT")
-	bar.candyBarIconFrame:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-	-- Status Bar
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar:SetPoint("TOPRIGHT")
-	bar.candyBarBar:SetPoint("BOTTOMRIGHT")
-
-	-- BG
-	bar.candyBarBackground:SetAllPoints()
-
-	-- Duration
-	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
-
-	-- Name
-	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("LEFT", bar.candyBarBar, "LEFT", 2, 0)
-	bar.candyBarLabel:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
-end
-
-local applystyle = function(bar)
-	-- General bar settings
-	bar:SetHeight(15)
-	bar:SetScale(1)
-	bar.OldSetScale = bar.SetScale
-
-	-- Set currect scale if bars attached to nameplates
-	if not bar.hook then
-		hooksecurefunc(bar, "SetParent", function()
-			bar:SetScale(T.noscalemult)
-		end)
-		bar.hook = true
-	end
-
-	-- Create or reparent and use bar background
-	local bg = nil
-	if #freebg > 0 then
-		bg = table.remove(freebg)
-	else
-		bg = createbg()
-	end
-	bg:SetParent(bar)
-	bg:ClearAllPoints()
-	bg:SetPoint("TOPLEFT", bar, "TOPLEFT", -2, 2)
-	bg:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 2, -2)
-	bg:SetFrameStrata("BACKGROUND")
-	bg:Show()
-	bar:Set("bigwigs:ViksUI:bg", bg)
-
-	-- Create or reparent and use icon background
-	local ibg = nil
-	if bar.candyBarIconFrame:GetTexture() then
-		if #freebg > 0 then
-			ibg = table.remove(freebg)
-		else
-			ibg = createbg()
-		end
-		ibg:SetParent(bar)
-		ibg:ClearAllPoints()
-		ibg:SetPoint("TOPLEFT", bar.candyBarIconFrame, "TOPLEFT", -2, 2)
-		ibg:SetPoint("BOTTOMRIGHT", bar.candyBarIconFrame, "BOTTOMRIGHT", 2, -2)
-		ibg:SetFrameStrata("BACKGROUND")
-		ibg:Show()
-		bar:Set("bigwigs:ViksUI:ibg", ibg)
-	end
-
-	-- Setup timer and bar name fonts and positions
-	bar.candyBarLabel:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
-	bar.candyBarLabel:SetShadowOffset(C.font.stylization_font_shadow and 1 or 0, C.font.stylization_font_shadow and -1 or 0)
-	bar.candyBarLabel:SetJustifyH("LEFT")
-	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, 0)
-	bar.candyBarLabel:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -14, 0)
-
-	bar.candyBarDuration:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
-	bar.candyBarDuration:SetShadowOffset(C.font.stylization_font_shadow and 1 or 0, C.font.stylization_font_shadow and -1 or 0)
-	bar.candyBarDuration:SetJustifyH("RIGHT")
-	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", 1, 0)
-
-	-- Setup bar positions and look
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar:SetAllPoints(bar)
-	bar.candyBarBar.OldSetPoint = bar.candyBarBar.SetPoint
-	bar.candyBarBar.SetPoint = T.dummy
-	bar.candyBarBar:SetStatusBarTexture(C.media.texture)
-	if not bar:Get("bigwigs:emphasized") then
-		bar.candyBarBar:SetStatusBarColor(T.color.r, T.color.g, T.color.b, 1)
-	end
-	bar.candyBarBackground:SetTexture(C.media.texture)
-
-	-- Setup icon positions and other things
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", -28, 0)
-	bar.candyBarIconFrame:SetSize(21, 21)
-	bar.candyBarIconFrame.OldSetWidth = bar.candyBarIconFrame.SetWidth
-	bar.candyBarIconFrame.SetWidth = T.dummy
-	bar.candyBarIconFrame:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-end
-
-local function registerStyle(myProfile)
-	if not BigWigs then return end
-	BigWigsAPI:RegisterBarStyle("ViksUI", {
-		apiVersion = 1,
-		version = 10,
-		GetSpacing = function() return T.Scale(13) end,
-		ApplyStyle = applystyle,
-		BarStopped = freestyle,
-		GetStyleName = function() return "ViksUI" end,
-	})
-
-	if BigWigsLoader and myProfile and myProfile.barStyle == "ViksUI" then
-		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
-			BigWigsProximityAnchor:SetTemplate("Transparent")
-		end)
-
-		BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_BarEmphasized", function(_, _, bar)
-			local module = bar:Get("bigwigs:module")
-			local key = bar:Get("bigwigs:option")
-			local colors = BigWigs:GetPlugin("Colors")
-			bar.candyBarBar:SetStatusBarColor(colors:GetColor("barEmphasized", module, key))
-		end)
-	end
-end
-
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(_, event, addon)
-	if event == "ADDON_LOADED" then
-		if addon == "BigWigs_Plugins" then
-			local myProfile
-			if BigWigs3DB then
-				if BigWigs3DB.profileKeys and BigWigs3DB.namespaces and BigWigs3DB.namespaces.BigWigs_Plugins_Bars and BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles then
-					myProfile = BigWigs3DB.namespaces.BigWigs_Plugins_Bars.profiles[BigWigs3DB.profileKeys[UnitName("player").." - "..GetRealmName()]]
-				end
-				if not myProfile then
-					StaticPopup_Show("SETTINGS_BIGWIGS")
-				end
-			end
-
-			registerStyle(myProfile)
-			f:UnregisterEvent("ADDON_LOADED")
-		elseif addon == "ViksUI" then
-			if BigWigsLoader then
-				BigWigsLoader.RegisterMessage(addon, "BigWigs_FrameCreated", function(_, frame, name)
-					if name == "AltPower" then
-						frame:SetTemplate("Transparent")
-					end
-					if name == "QueueTimer" and C.skins.blizzard_frames then
-						frame:SetSize(240, 15)
-						frame:StripTextures()
-						frame:SetStatusBarTexture(C.media.texture)
-						frame:CreateBackdrop("Overlay")
-					end
-				end)
-			end
-		end
-	end
-end)
-
-function T.UploadBW()
-	if not BigWigs then return end
-	local bars = BigWigs:GetPlugin("Bars", true)
-	if bars then
-		bars.db.profile.barStyle = "ViksUI"
-		bars.db.profile.fontName = C.font.stylization_font
-		bars.db.profile.BigWigsAnchor_width = 184.9999694824219
-		bars.db.profile.BigWigsAnchor_x = 1171
-		bars.db.profile.BigWigsEmphasizeAnchor_width = 262.0124206542969
-		bars.db.profile.BigWigsEmphasizeAnchor_x = 599.2888764651907
-		bars.db.profile.emphasizeGrowup = true
-		bars.db.profile.InstalledBars = 2
-		bars.db.profile.BigWigsAnchor_y = 165
-		bars.db.profile.BigWigsEmphasizeAnchor_y = 248.6890313920976
-	end
-	local mess = BigWigs:GetPlugin("Messages")
-	if mess then
-		mess.db.profile.fontName = C.font.stylization_font
-		mess.db.profile.fontSize = 20
-		mess.db.profile.emphFontName = "Calibri"
-		mess.db.profile.BWMessageAnchor_x = 619
-		mess.db.profile.BWMessageAnchor_y = 702
-		mess.db.profile.BWEmphasizeMessageAnchor_x = 621
-		mess.db.profile.BWEmphasizeMessageAnchor_y = 745
-		mess.db.profile.BWEmphasizeCountdownMessageAnchor_x = 673
-		mess.db.profile.BWEmphasizeCountdownMessageAnchor_y = 642
-	end
-	local prox = BigWigs:GetPlugin("Proximity")
-	if prox then
-		prox.db.profile.fontName = C.font.stylization_font
-		prox.db.profile.objects.ability = false
-	end
-	BigWigs:GetPlugin("AltPower").db.profile.fontName = "Calibri"
-	BigWigsIconDB.hide = true
-	if InCombatLockdown() then
-		print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r")
-		print("|cffffff00Reload your UI to apply skin.|r")
-	else
-		ReloadUI()
-	end
-end
-
--- manual command /settings bw
-StaticPopupDialogs.SETTINGS_BIGWIGS = {
-	text = L_POPUP_SETTINGS_BW,
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = function() T.UploadBW() end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = true,
-	preferredIndex = 5,
+-- Object pool for reuse
+local pool = {
+    backdrops = {},
+    icons = {},
 }
 
-SlashCmdList.BWTEST = function(msg)
-	if msg == "apply" then
-		SlashCmdList["BigWigs"]()
-		HideUIPanel(InterfaceOptionsFrame)
-		StaticPopup_Show("SETTINGS_BIGWIGS")
-	-- elseif msg == "test" then
-		-- SlashCmdList["BigWigs"]()
-		-- HideUIPanel(InterfaceOptionsFrame)
-		-- BigWigs:Test()
-		-- BigWigs:Test()
-		-- BigWigs:Test()
-		-- BigWigs:Test()
-		-- BigWigs:Test()
-	else
-		print("|cffffff00Type /bwtest apply to apply BigWigs settings.|r")
-		-- print("|cffffff00Type /bwtest test to launch BigWigs testmode.|r")
-	end
+-- Get backdrop from pool
+local function getBackdrop()
+    if #pool.backdrops > 0 then
+        return tremove(pool.backdrops)
+    end
+    
+    local backdrop = CreateFrame("Frame", nil, UIParent)
+    backdrop:SetTemplate("Transparent")
+    backdrop:CreateShadow()
+    backdrop:Hide()
+    return backdrop
 end
-SLASH_BWTEST1 = "/bwtest"
-SLASH_BWTEST2 = "/ицеуые"
+
+-- Return backdrop to pool
+local function releaseBackdrop(backdrop)
+    if not backdrop then return end
+    backdrop:Hide()
+    backdrop:ClearAllPoints()
+    backdrop:SetParent(UIParent)
+    tinsert(pool.backdrops, backdrop)
+end
+
+-- Store original frame properties for restoration
+local function storeOriginalState(bar)
+    bar:Set("bigwigs:viksui:originalheight", bar:GetHeight())
+    bar:Set("bigwigs:viksui:originaliconpoints", {bar.candyBarIconFrame:GetPoint()})
+    bar:Set("bigwigs:viksui:originaliconparent", bar.candyBarIconFrame:GetParent())
+    bar:Set("bigwigs:viksui:originalicontexcoord", {bar.candyBarIconFrame:GetTexCoord()})
+    bar:Set("bigwigs:viksui:originalbgshown", bar.candyBarBackground:IsShown())
+end
+
+-- Apply style to bar
+local function applyStyle(bar)
+    -- Store original state first
+    storeOriginalState(bar)
+    
+    -- Bar sizing
+    local height = bar:GetHeight()
+    bar:Height(height * 0.618)
+    
+    -- Create or reuse backdrop
+    local bg = getBackdrop()
+    bg:SetParent(bar.candyBarBar)
+    bg:ClearAllPoints()
+    bg:SetOutside(bar.candyBarBar, 2, 2)
+    bg:SetFrameStrata("BACKGROUND")
+    bg:Show()
+    bar:Set("bigwigs:viksui:backdrop", bg)
+    
+    -- Hide original background
+    bar.candyBarBackground:Hide()
+    
+    -- Setup status bar
+    bar.candyBarBar:SetStatusBarTexture(C.media.texture)
+    if not bar:Get("bigwigs:emphasized") then
+        bar.candyBarBar:SetStatusBarColor(T.color.r, T.color.g, T.color.b, 1)
+    end
+    
+    -- Setup fonts
+    bar.candyBarLabel:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
+    bar.candyBarLabel:SetShadowOffset(0, 0)
+    bar.candyBarLabel:ClearAllPoints()
+    bar.candyBarLabel:Point("BOTTOMLEFT", bar.candyBarBar, "TOPLEFT", 3, -height * 0.22)
+    
+    bar.candyBarDuration:SetFont(C.font.stylization_font, C.font.stylization_font_size, C.font.stylization_font_style)
+    bar.candyBarDuration:SetShadowOffset(0, 0)
+    bar.candyBarDuration:ClearAllPoints()
+    bar.candyBarDuration:Point("BOTTOMRIGHT", bar.candyBarBar, "TOPRIGHT", -3, -height * 0.22)
+    
+    -- Handle icon if exists
+    local iconTex = bar:GetIcon()
+    if iconTex then
+        bar:SetIcon(nil)
+        bar.candyBarIconFrame:SetTexture(iconTex)
+        bar.candyBarIconFrame:Show()
+        
+        -- Position icon
+        if bar.iconPosition == "RIGHT" then
+            bar.candyBarIconFrame:Point("BOTTOMLEFT", bar, "BOTTOMRIGHT", 5, 0)
+        else
+            bar.candyBarIconFrame:Point("BOTTOMRIGHT", bar, "BOTTOMLEFT", -5, 0)
+        end
+        
+        bar.candyBarIconFrame:Size(height + 2)
+        bar.candyBarIconFrame:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+        bar:Set("bigwigs:viksui:icontex", iconTex)
+        
+        -- Icon backdrop
+        local iconBg = getBackdrop()
+        iconBg:SetParent(bar)
+        iconBg:ClearAllPoints()
+        iconBg:SetOutside(bar.candyBarIconFrame, 2, 2)
+        iconBg:Show()
+        bar:Set("bigwigs:viksui:iconbackdrop", iconBg)
+    end
+end
+
+-- Restore bar to original state
+local function barStopped(bar)
+    -- Restore original height
+    local origHeight = bar:Get("bigwigs:viksui:originalheight")
+    if origHeight then
+        bar:Height(origHeight)
+        bar:Set("bigwigs:viksui:originalheight", nil)
+    end
+    
+    -- Restore icon
+    local iconTex = bar:Get("bigwigs:viksui:icontex")
+    if iconTex then
+        bar:SetIcon(iconTex)
+        bar:Set("bigwigs:viksui:icontex", nil)
+        
+        local iconPoints = bar:Get("bigwigs:viksui:originaliconpoints")
+        if iconPoints then
+            bar.candyBarIconFrame:ClearAllPoints()
+            if iconPoints[1] then
+                bar.candyBarIconFrame:Point(unpack(iconPoints[1]))
+            end
+            bar:Set("bigwigs:viksui:originaliconpoints", nil)
+        end
+        
+        local texCoord = bar:Get("bigwigs:viksui:originalicontexcoord")
+        if texCoord then
+            bar.candyBarIconFrame:SetTexCoord(unpack(texCoord))
+            bar:Set("bigwigs:viksui:originalicontexcoord", nil)
+        end
+    end
+    
+    -- Release icon backdrop
+    local iconBg = bar:Get("bigwigs:viksui:iconbackdrop")
+    if iconBg then
+        releaseBackdrop(iconBg)
+        bar:Set("bigwigs:viksui:iconbackdrop", nil)
+    end
+    
+    -- Restore background visibility
+    local bgShown = bar:Get("bigwigs:viksui:originalbgshown")
+    if bgShown ~= nil then
+        if bgShown then
+            bar.candyBarBackground:Show()
+        else
+            bar.candyBarBackground:Hide()
+        end
+        bar:Set("bigwigs:viksui:originalbgshown", nil)
+    end
+    
+    -- Release main backdrop
+    local bg = bar:Get("bigwigs:viksui:backdrop")
+    if bg then
+        releaseBackdrop(bg)
+        bar:Set("bigwigs:viksui:backdrop", nil)
+    end
+end
+
+-- Register the bar style
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(_, _, addon)
+    if addon == "BigWigs" then
+        if BigWigs and BigWigsAPI then
+            BigWigsAPI:RegisterBarStyle("ViksUI", {
+                apiVersion = 1,
+                version = 10,
+                GetSpacing = function() return T.Scale(13) end,
+                ApplyStyle = applyStyle,
+                BarStopped = barStopped,
+                GetStyleName = function() return "ViksUI" end,
+            })
+            
+            -- Set as default if profile exists
+            if BigWigs3DB and BigWigs3DB.profileKeys and BigWigs3DB.namespaces then
+                local barsProfile = BigWigs3DB.namespaces.BigWigs_Plugins_Bars
+                if barsProfile and barsProfile.profiles then
+                    local playerKey = UnitName("player").." - "..GetRealmName()
+                    local profileKey = BigWigs3DB.profileKeys[playerKey]
+                    if profileKey and barsProfile.profiles[profileKey] then
+                        barsProfile.profiles[profileKey].barStyle = "ViksUI"
+                    end
+                end
+            end
+        end
+        f:UnregisterEvent("ADDON_LOADED")
+    end
+end)
+
+-- Apply skin to other BigWigs frames
+function T.SkinBigWigsFrame(frame, name)
+    if not frame then return end
+    
+    if name == "Proximity" or name == "AltPower" then
+        frame:SetTemplate("Transparent")
+        frame:CreateShadow()
+    elseif name == "QueueTimer" then
+        frame:SetTemplate("Overlay")
+        frame:SetHeight(15)
+    end
+end
+
+-- Hook into BigWigs frame creation
+if BigWigsLoader then
+    BigWigsLoader.RegisterMessage("ViksUI", "BigWigs_FrameCreated", function(_, frame, name)
+        T.SkinBigWigsFrame(frame, name)
+    end)
+end
+
+-- Manual settings command
+StaticPopupDialogs.VIKSUI_BIGWIGS = {
+    text = L_POPUP_SETTINGS_BW or "Apply ViksUI skin to BigWigs?",
+    button1 = ACCEPT,
+    button2 = CANCEL,
+    OnAccept = function()
+        if BigWigs then
+            local bars = BigWigs:GetPlugin("Bars")
+            if bars then
+                bars.db.profile.barStyle = "ViksUI"
+            end
+            if not InCombatLockdown() then
+                ReloadUI()
+            else
+                print("|cffffff00Exit combat and type /reload to apply BigWigs skin.|r")
+            end
+        end
+    end,
+    timeout = 0,
+    whileDead = 1,
+    hideOnEscape = true,
+}
+
+SlashCmdList.VIKSUI_BW = function(msg)
+    if msg == "apply" then
+        StaticPopup_Show("VIKSUI_BIGWIGS")
+    else
+        print("|cffffff00Type /viksui_bw apply to apply BigWigs skin.|r")
+    end
+end
+SLASH_VIKSUI_BW1 = "/viksui_bw"

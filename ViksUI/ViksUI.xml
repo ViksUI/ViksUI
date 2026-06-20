@@ -59,7 +59,7 @@
 	
 	<Script file="Modules\UnitFrames\Functions.lua"/>
 	<Script file="Modules\UnitFrames\Tags.lua"/>
-	<Script file="Modules\UnitFrames\Layout2.lua"/>
+	<!-- <Script file="Modules\UnitFrames\Layout2.lua"/> -->
 	<Script file="Modules\UnitFrames\Layout.lua"/>
 	<Script file="Modules\UnitFrames\RaidDPS.lua"/>
 	<Script file="Modules\UnitFrames\RaidHeal.lua"/>
@@ -154,7 +154,7 @@
 
 	<Script file="Modules\Datatext\Positions.lua"/>
 	<Script file="Modules\Datatext\Durability.lua"/>
-	<Script file="Modules\Datatext\RunSpeed.lua"/>
+	<!-- <Script file="Modules\Datatext\RunSpeed.lua"/> -->
 	<Script file="Modules\Datatext\System.lua"/>
 	<Script file="Modules\Datatext\Friend.lua"/>
 	<Script file="Modules\Datatext\Gold.lua"/>
@@ -165,12 +165,12 @@
 	<Script file="Modules\Datatext\GameMenu.lua"/>
 	<Script file="Modules\Datatext\Avoidance.lua"/>
 	<Script file="Modules\Datatext\Crit.lua"/>
-	<Script file="Modules\Datatext\Haste.lua"/>
+	<!-- <Script file="Modules\Datatext\Haste.lua"/> -->
 	<Script file="Modules\Datatext\Versatility.lua"/>
 	<Script file="Modules\Datatext\Volume.lua"/>
 	<Script file="Modules\Datatext\Mastery.lua"/>
 	<Script file="Modules\Datatext\Power.lua"/>
-	<Script file="Modules\Datatext\Regen.lua"/>
+	<!-- <Script file="Modules\Datatext\Regen.lua"/> -->
 	<Script file="Modules\Datatext\Talent.lua"/>
 	<Script file="Modules\Datatext\Battleground.lua"/>
 	<Script file="Modules\Datatext\Professions.lua"/>

@@ -41,11 +41,33 @@ local whisp = CreateFrame("Frame")
 whisp:RegisterEvent("CHAT_MSG_WHISPER")
 whisp:RegisterEvent("CHAT_MSG_BN_WHISPER")
 whisp:SetScript("OnEvent", function(_, event, text, name, ...)
-	if strlower(text):match("ui_version") or strlower(text):match("уи_версия") then
-		if event == "CHAT_MSG_WHISPER" then
-			SendChatMessage("ViksUI "..T.version, "WHISPER", nil, name)
-		elseif event == "CHAT_MSG_BN_WHISPER" then
-			BNSendWhisper(select(11, ...), "ViksUI "..T.version)
-		end
-	end
+    -- Check without converting the entire string
+    local isUICommand = false
+    
+    -- Manual character check to avoid taint
+    for i = 1, #text do
+        local char = text:sub(i, i)
+        if char == "u" or char == "U" then
+            if i+7 <= #text and text:sub(i, i+8):lower() == "ui_version" then
+                isUICommand = true
+                break
+            end
+        elseif char == "у" then
+            if i+9 <= #text and text:sub(i, i+10) == "уи_версия" then
+                isUICommand = true
+                break
+            end
+        end
+    end
+    
+    if isUICommand then
+        if event == "CHAT_MSG_WHISPER" then
+            SendChatMessage("ViksUI "..T.version, "WHISPER", nil, name)
+        elseif event == "CHAT_MSG_BN_WHISPER" then
+            local presenceID = select(11, ...)
+            if presenceID then
+                BNSendWhisper(presenceID, "ViksUI "..T.version)
+            end
+        end
+    end
 end)

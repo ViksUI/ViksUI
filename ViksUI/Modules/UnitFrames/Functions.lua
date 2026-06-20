@@ -8,7 +8,7 @@ local _, ns = ...
 local oUF = ns.oUF
 T.oUF = oUF
 
-local usecustomcolor = false -- set false to use default/addon coloring
+local usecustomcolor = true -- set false to use default/addon coloring
 
 -- Red for interruptible (enemy), yellow for non-interruptible (enemy), blue for friendly/self
 CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE      = {0.8, 0, 0, 1}                        -- enemy: interruptible (red)
@@ -1057,23 +1057,30 @@ T.CreateHealthPrediction = function(self, vertical)
 
 	-- Over absorb in right
 	if C.raidframe.plugins_over_absorb then
-		local oa = self.Health:CreateTexture(nil, "ARTWORK")
-		oa:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
+		local oa = CreateFrame("StatusBar", nil, self.Health)
+		oa:SetAllPoints(self.Health)
+		oa:SetFrameLevel(self.Health:GetFrameLevel())
 		if vertical then
-			oa:SetPoint("TOPLEFT", self.Health, "TOPLEFT", 0, 0)
-			oa:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", 0, 0)
-			oa:SetHeight(6)
-		else
-			oa:SetPoint("TOPRIGHT", self.Health, "TOPRIGHT", 0, 0)
-			oa:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, 0)
-			oa:SetWidth(6)
+			oa:SetOrientation("VERTICAL")
 		end
-		oa:SetVertexColor(0.5, 0.5, 1)
-		oa:SetHorizTile(true)
-		oa:SetVertTile(true)
-		oa:SetAlpha(0.4)
-		oa:SetBlendMode("ADD")
+		oa:SetStatusBarTexture(C.media.blank)
+		oa:SetReverseFill(true)
+		oa:SetValue(0)
+
+		local texture = oa:GetStatusBarTexture()
+		texture:SetTexture([[Interface\AddOns\ViksUI\Media\Textures\Cross.tga]], "REPEAT", "REPEAT")
+		texture:SetVertexColor(0.5, 0.5, 1)
+		texture:SetHorizTile(true)
+		texture:SetVertTile(true)
+		texture:SetAlpha(0.5)
+		texture:SetBlendMode("ADD")
 		self.Health.OverDamageAbsorbIndicator = oa
+
+		hooksecurefunc(self.Health, "PostUpdate", function(self, unit, _, max)
+			local absorb = UnitGetTotalAbsorbs(unit)
+			oa:SetMinMaxValues(0, max)
+			oa:SetValue(absorb)
+		end)
 	end
 
 	-- Over heal absorb from enemy in left
@@ -1147,4 +1154,39 @@ T.CustomFilterBoss = function(_, unit, data)
 		return false
 	end
 	return true
+end
+
+if C.raidframe.plugins_debuffs_filter then
+	T.CustomDebuffFilter = function(_, unit, data)
+		local allow = false
+
+		local filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HARMFUL|IMPORTANT")
+		if filter then
+			allow = true
+		end
+
+		filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HARMFUL|CROWD_CONTROL")
+		if filter then
+			allow = true
+		end
+
+		filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HARMFUL|RAID")
+		if filter then
+			allow = true
+		end
+
+		filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HARMFUL|RAID_IN_COMBAT")
+		if filter then
+			allow = true
+		end
+
+		return allow
+	end
+else
+	T.CustomDebuffFilter = function(_, _, data)
+		if T.NotSecretValue(data.spellId) and T.RaidDebuffsIgnore[data.spellId] then
+			return false
+		end
+		return true
+	end
 end

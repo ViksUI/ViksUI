@@ -3,6 +3,12 @@ local T, C, L = unpack(ViksUI)
 -- Exit early if the location datatext is disabled
 if not C.datatext.location or C.datatext.location <= 0 then return end
 
+local _, class = UnitClass("player")
+local classcolor = RAID_CLASS_COLORS[class]
+local qColor = ("|cff%.2x%.2x%.2x"):format(classcolor.r * 255, classcolor.g * 255, classcolor.b * 255)
+local qColor2 = ("|cff%.2x%.2x%.2x"):format(unpack(C.media.border_color, 1, 3)) or "|cff006bb3"
+
+
 -- Create the Stat frame
 local Stat = CreateFrame("Frame", "DataTextLocation", UIParent)
 Stat:SetFrameStrata("BACKGROUND")

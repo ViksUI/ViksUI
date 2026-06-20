@@ -9,17 +9,27 @@ end
 if C.combattext.blizz_head_numbers ~= true then
 	SetCVar("floatingCombatTextCombatHealing", 0)
 	SetCVar("floatingCombatTextCombatDamage", 0)
+	SetCVar("floatingCombatTextCombatHealing_v2", 0)
+	SetCVar("floatingCombatTextCombatDamage_v2", 0)
+	SetCVar("floatingCombatTextCombatLogPeriodicSpells_v2", 0)
+	SetCVar("floatingCombatTextPetMeleeDamage_v2", 0)
+	SetCVar("floatingCombatTextPetSpellDamage_v2", 0)
 else
-	SetCVar("floatingCombatTextCombatHealing", 1)
-	SetCVar("floatingCombatTextCombatDamage", 1)
+	-- SetCVar("floatingCombatTextCombatHealing", 1)
+	-- SetCVar("floatingCombatTextCombatDamage", 1)
+	-- SetCVar("floatingCombatTextCombatHealing_v2", 1)
+	-- SetCVar("floatingCombatTextCombatDamage_v2", 1)
+	-- SetCVar("floatingCombatTextCombatLogPeriodicSpells_v2", 1)
+	-- SetCVar("floatingCombatTextPetMeleeDamage_v2", 1)
+	-- SetCVar("floatingCombatTextPetSpellDamage_v2", 1)
 end
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGOUT")
 frame:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_LOGOUT" then
-		SetCVar("floatingCombatTextCombatHealing", 1)
-		SetCVar("floatingCombatTextCombatDamage", 1)
+		-- SetCVar("floatingCombatTextCombatHealing", 1)
+		-- SetCVar("floatingCombatTextCombatDamage", 1)
 	end
 end)
 
