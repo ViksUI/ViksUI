@@ -2,15 +2,13 @@ local T, C, L = unpack(ViksUI)
 
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
-	" ViksUI 12.0.6 – What's New:",
-	"• Updated for Midnight – combat text, taint fixes, enchant & ilvl checks",
-	"• Complete class stat priority overhaul (all specs + new entries)",
-	"• NEW: /testraid command 10/20 etc– spawn mock raid frames to test your layout",
-	"• Damage meter button now supports Skada, Recount, Details + Blizzard fallback",
-	"• Removed deprecated skins (Omen, Recount, TinyDPS, CoolLine, Ovale, etc.)",
-	"• Working on layout setup (update coming soon – stay tuned!)",
+	" ViksUI 12.0.7 – What's New:",
+	"• Finaly back home and getting more testing.",
+	"• Layout2 temporary disabled",
+	"• Minor updates to skins",
+	"• Rework raid debuff filter. Now show all except of blacklisted",
 	"",
-	" Patreon Supporters: Wiggy, nAyu & Cashew",
+	" Patreon Supporters: Wiggy & Cashew",
 	" https://www.patreon.com/ViksUI  |  https://www.buymeacoffee.com/ViksUI",
 	" Discord: https://discord.gg/pDEnZSV  |  PayPal: https://www.paypal.me/Tryllemann",
 	" WoW Gift: VikingPower#2226",
