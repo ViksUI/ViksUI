@@ -44,7 +44,7 @@ local spells = (UnitFactionGroup("player") == "Horde") and {
 	[18] = {1259190, 1259194},	-- Silvermoon City
 }
 
-local frame = CreateFrame("Frame", "TeleportMenu", UIParent)
+local frame = CreateFrame("Frame", "TeleportMenu2", UIParent)
 frame:CreatePanel("Invisible", C.minimap.size, (#spells) * 20 + 4, "BOTTOMLEFT", RChat, "TOPLEFT", -2, 20)
 frame:SetFrameStrata("MEDIUM")
 frame:EnableMouse(true)
@@ -55,7 +55,7 @@ frame:SetScript("OnEvent", function(self)
 	end
 end)
 frame:Hide()
-tinsert(UISpecialFrames, "TeleportMenu")
+tinsert(UISpecialFrames, "TeleportMenu2")
 
 for i, spell in pairs(spells) do
 	local teleport = GetSpellInfo(spell[1])
@@ -115,10 +115,10 @@ button.t:SetPoint("BOTTOMRIGHT", button, -2, 2)
 
 button:SetScript("OnClick", function()
 	if not InCombatLockdown() then
-		if _G["TeleportMenu"]:IsShown() then
-			_G["TeleportMenu"]:Hide()
+		if _G["TeleportMenu2"]:IsShown() then
+			_G["TeleportMenu2"]:Hide()
 		else
-			_G["TeleportMenu"]:Show()
+			_G["TeleportMenu2"]:Show()
 		end
 		if C.minimap.toggle_menu and _G["TTMenuAddOnBackground"]:IsShown() then
 			_G["TTMenuAddOnBackground"]:Hide()
