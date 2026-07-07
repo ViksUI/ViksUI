@@ -29,7 +29,7 @@ local ceil			= math.ceil
 
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local GetGuildRosterInfo = GetGuildRosterInfo
-local GetGuildRosterMOTD = GetGuildRosterMOTD
+local GetGuildRosterMOTD = C_GuildInfo.GetMOTD
 local C_GuildInfo_GuildRoster = C_GuildInfo.GuildRoster
 local GetNumGuildMembers = GetNumGuildMembers
 local GetQuestDifficultyColor = GetQuestDifficultyColor
