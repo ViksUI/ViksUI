@@ -132,7 +132,8 @@ local function Update(self, event, ...)
 		-- offline, since this does not automatically trigger the GuildRoster update from the server
 		if event == "CHAT_MSG_SYSTEM" then
 			local message = select(1, ...)
-			if not InCombatLockdown() and (find(message, friendOnline) or find(message, friendOffline)) then 
+			if not InCombatLockdown() then 
+				-- Use the built-in event filters instead of parsing the string
 				C_GuildInfo_GuildRoster() 
 			end
 		end
