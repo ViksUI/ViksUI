@@ -4730,16 +4730,6 @@ OPie_SavedData = nil
 
 end
 -- Create installui
-
-local OnLogon = CreateFrame("Frame")
-OnLogon:RegisterEvent("PLAYER_ENTERING_WORLD")
-OnLogon:SetScript("OnEvent", function(self, event)
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-
-	local CD = GetCVar("countdownForCooldowns")
-	if CD == "1" then SetCVar("countdownForCooldowns", "0") end
-end)
-
 local v = CreateFrame("Button", "ViksUIVersionFrame", UIParent)
 v:SetSize(300, 66)
 v:SetPoint("CENTER")
