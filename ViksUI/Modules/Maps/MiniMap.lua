@@ -58,11 +58,12 @@ frame:SetScript("OnEvent", function(self, event)
 
 	-- Move QueueStatus icon
 	QueueStatusFrame:SetClampedToScreen(true)
-	QueueStatusFrame:SetFrameStrata("TOOLTIP")
 	QueueStatusButton:ClearAllPoints()
 	QueueStatusButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 1, -1)
 	QueueStatusButton:SetParent(Minimap)
 	QueueStatusButton:SetScale(0.5)
+	QueueStatusButton:SetFrameStrata("TOOLTIP")
+    QueueStatusButton:SetFrameLevel(100)
 
 	hooksecurefunc(QueueStatusButton, "SetPoint", function(self, _, anchor)
 		if anchor ~= Minimap then
