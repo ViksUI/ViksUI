@@ -344,10 +344,18 @@ Stat:SetScript("OnMouseUp", function(self, btn)
 				menuList[3].menuList[menuCountWhispers] = {text = "|cff00ccff"..RemoveTagNumber(BNTable[i][3].."|r"), arg1 = realID, arg2 = true, notCheckable=true, func = whisperClick}
 				
 				if BNTable[i][6] == wowString and UnitFactionGroup("player") == BNTable[i][12] then
-					local levelc = GetQuestDifficultyColor(BNTable[i][16])
-
-					if T.oUF_colors.class[BNTable[i][14]] then
-						classc.r, classc.g, classc.b = unpack(T.oUF_colors.class[BNTable[i][14]])
+					-- FIX: Safely get level and color
+					local level = BNTable[i][16] or 1
+					local levelc = GetQuestDifficultyColor(level) or {r=1, g=1, b=1}
+					
+					-- Safely get class color with fallback
+					local classColor = T.oUF_colors.class[BNTable[i][14]]
+					if classColor then
+						if type(classColor) == "table" and classColor.r and classColor.g and classColor.b then
+							classc.r, classc.g, classc.b = classColor.r, classColor.g, classColor.b
+						else
+							classc.r, classc.g, classc.b = 1, 1, 1
+						end
 					else
 						classc.r, classc.g, classc.b = 1, 1, 1
 					end
@@ -359,7 +367,21 @@ Stat:SetScript("OnMouseUp", function(self, btn)
 					end
 
 					menuCountInvites = menuCountInvites + 1
-					menuList[2].menuList[menuCountInvites] = {text = format(levelNameString,levelc.r*255,levelc.g*255,levelc.b*255,BNTable[i][16],classc.r*255,classc.g*255,classc.b*255,BNTable[i][4]), arg1 = BNTable[i][5],notCheckable=true, func = inviteClick}
+					menuList[2].menuList[menuCountInvites] = {
+						text = format(levelNameString,
+							(levelc.r or 1) * 255,
+							(levelc.g or 1) * 255,
+							(levelc.b or 1) * 255,
+							level,
+							(classc.r or 1) * 255,
+							(classc.g or 1) * 255,
+							(classc.b or 1) * 255,
+							BNTable[i][4] or "Unknown"
+						),
+						arg1 = BNTable[i][5],
+						notCheckable = true,
+						func = inviteClick
+					}
 				end
 			end
 		end
@@ -468,8 +490,9 @@ Stat:SetScript("OnEnter", function(self)
 									classc.r, classc.g, classc.b = 1, 1, 1
 								end
 
-								levelc = GetQuestDifficultyColor(BNTable[i][16])
-								levelc = GetQuestDifficultyColor(BNTable[i][16])
+								-- FIX: Safely get level and color
+								local level = BNTable[i][16] or 1
+								levelc = GetQuestDifficultyColor(level) or {r=1, g=1, b=1}
 
 								if UnitInParty(BNTable[i][4]) or UnitInRaid(BNTable[i][4]) then
 									grouped = 1
@@ -477,7 +500,20 @@ Stat:SetScript("OnEnter", function(self)
 									grouped = 2
 								end
 
-								GameTooltip:AddDoubleLine(format(clientLevelNameString, BNName, levelc.r * 255, levelc.g * 255, levelc.b * 255, BNTable[i][16], classc.r * 255, classc.g * 255, classc.b * 255, BNTable[i][4], groupedTable[grouped], 255, 0, 0, statusTable[status]), ProjectID)
+								GameTooltip:AddDoubleLine(format(clientLevelNameString, 
+									BNName or "Unknown",
+									(levelc.r or 1) * 255, 
+									(levelc.g or 1) * 255, 
+									(levelc.b or 1) * 255, 
+									level, 
+									(classc.r or 1) * 255, 
+									(classc.g or 1) * 255, 
+									(classc.b or 1) * 255, 
+									BNTable[i][4] or "Unknown", 
+									groupedTable[grouped] or "", 
+									255, 0, 0, 
+									statusTable[status] or ""
+								), ProjectID or "Unknown")
 
 								if IsShiftKeyDown() then
 									if GetRealZoneText() == BNTable[i][15] then
@@ -492,72 +528,72 @@ Stat:SetScript("OnEnter", function(self)
 										realmc = inactivezone
 									end
 
-									GameTooltip:AddDoubleLine("  "..BNTable[i][15], BNTable[i][11], zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
+									GameTooltip:AddDoubleLine("  "..(BNTable[i][15] or "Unknown"), BNTable[i][11] or "Unknown", zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
 								end
 							end
 
 							if BNTable[i][6] == "BSAp" or BNTable[i][6] == "App" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Battle.net")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Battle.net")
 							end
 
 							if BNTable[i][6] == "Fen" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo 4")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Diablo 4")
 							end								
 							
 							if BNTable[i][6] == "D3" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo 3")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Diablo 3")
 							end							
 							
 							if BNTable[i][6] == "OSI" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo 2: Resurrected")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Diablo 2: Resurrected")
 							end							
 							
 							if BNTable[i][6] == "ANBS" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Diablo Immortal")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Diablo Immortal")
 							end
 
 							if BNTable[i][6] == "Hero" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Heroes of the Storm")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Heroes of the Storm")
 							end
 
 							if BNTable[i][6] == "S1" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "StarCraft: Remastered")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "StarCraft: Remastered")
 							end
 
 							if BNTable[i][6] == "S2" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "StarCraft 2")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "StarCraft 2")
 							end
 
 							if BNTable[i][6] == "WTCG" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Hearthstone")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Hearthstone")
 							end
 
 							if BNTable[i][6] == "Pro" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Overwatch")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Overwatch")
 							end
 
 							if BNTable[i][6] == "DST2" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Destiny 2")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Destiny 2")
 							end
 
 							if BNTable[i][6] == "VIPR" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Black Ops 4")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "COD: Black Ops 4")
 							end
 
 							if BNTable[i][6] == "ODIN" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Modern Warfare")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "COD: Modern Warfare")
 							end							
 							
 							if BNTable[i][6] == "LAZR" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Modern Warfare 2")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "COD: Modern Warfare 2")
 							end							
 							
 							if BNTable[i][6] == "ZEUS" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "COD: Cold War")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "COD: Cold War")
 							end							
 							
 							if BNTable[i][6] == "GRY" then
-								GameTooltip:AddDoubleLine("|cffeeeeee"..BNName.."|r", "Warcraft Arclight Rumble")
+								GameTooltip:AddDoubleLine("|cffeeeeee"..(BNName or "Unknown").."|r", "Warcraft Arclight Rumble")
 							end
 
 							count = count + 1
