@@ -1,5 +1,5 @@
 local T, C, L = unpack(ViksUI)
-if C.actionbar.enable ~= true or addon == "bartender" then return end
+if C.actionbar.enable ~= true then return end
 
 ----------------------------------------------------------------------------------------
 --	Hide Blizzard ActionBars stuff(by Tukz)
