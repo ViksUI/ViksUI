@@ -5,6 +5,7 @@ local T, C, L = unpack(ViksUI)
 ----------------------------------------------------------------------------------------
 local check = function(self, event, prefix, message, _, sender)
 	if event == "CHAT_MSG_ADDON" then
+		-- Handle incoming version check
 		if prefix ~= "ViksUIVersion" or sender == T.name then return end
 		if tonumber(message) ~= nil and tonumber(message) > T.version then
 			if T.vik == true then
@@ -14,9 +15,16 @@ local check = function(self, event, prefix, message, _, sender)
 			end
 			self:UnregisterEvent("CHAT_MSG_ADDON")
 		end
-	else
+	elseif event == "PLAYER_ENTERING_WORLD" or event == "GROUP_ROSTER_UPDATE" then
+		-- Check if we're in an instance group
 		if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-			C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "INSTANCE_CHAT")
+			-- If it's a raid instance (LFR, Epic BG), use RAID
+			if IsInRaid(LE_PARTY_CATEGORY_INSTANCE) then
+				C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "RAID")
+			else
+				-- 5-man dungeon or arena
+				C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "INSTANCE_CHAT")
+			end
 		elseif IsInRaid(LE_PARTY_CATEGORY_HOME) then
 			C_ChatInfo.SendAddonMessage("ViksUIVersion", T.version, "RAID")
 		elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
