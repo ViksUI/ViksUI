@@ -1,6 +1,16 @@
 local T, C, L = unpack(ViksUI)
 if C.tooltip.enable ~= true or C.tooltip.average_lvl ~= true then return end
 
+-- ============================================================
+-- COMPLETELY SKIP THIS MODULE IN INSTANCES
+-- ============================================================
+local _, instanceType = GetInstanceInfo()
+local isInstance = instanceType == "party" or instanceType == "raid" or instanceType == "arena" or instanceType == "pvp"
+
+if isInstance or InCombatLockdown() then
+    return -- Module does nothing in instances
+end
+
 ----------------------------------------------------------------------------------------
 --	Equipped average item level(AverageItemLevel by Semlar)
 ----------------------------------------------------------------------------------------
@@ -430,23 +440,32 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, function(self
 	end
 end)
 
-----------------------------------------------------------------------------------------
---	Character Info Sheet
-----------------------------------------------------------------------------------------
-MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = 1
-hooksecurefunc("PaperDollFrame_SetItemLevel", function(self, unit)
-	if unit ~= "player" then return end
+local f = CreateFrame("Frame")
 
-	local total, equip = GetAverageItemLevel()
-	if total > 0 then total = string.format("%.1f", total) end
-	if equip > 0 then equip = string.format("%.1f", equip) end
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+f:RegisterEvent("UNIT_INVENTORY_CHANGED")
 
-	local ilvl = equip
-	if equip ~= total then
-		ilvl = equip.." / "..total
-	end
+local function UpdateItemLevel()
+    if InCombatLockdown() then return end
+    if not CharacterFrame or not CharacterFrame:IsShown() then return end
+    if not PaperDollFrame or not PaperDollFrame.ItemLevelFrame then return end
 
-	self.Value:SetText(ilvl)
+    local total, equip = GetAverageItemLevel()
 
-	self.tooltip = "|cffffffff"..STAT_AVERAGE_ITEM_LEVEL..": "..ilvl
-end)
+    if total > 0 then total = format("%.1f", total) end
+    if equip > 0 then equip = format("%.1f", equip) end
+
+    local ilvl = equip
+    if equip ~= total then
+        ilvl = equip .. " / " .. total
+    end
+
+    PaperDollFrame.ItemLevelFrame.Value:SetText(ilvl)
+    PaperDollFrame.ItemLevelFrame.tooltip =
+        "|cffffffff" .. STAT_AVERAGE_ITEM_LEVEL .. ": " .. ilvl
+end
+
+f:SetScript("OnEvent", UpdateItemLevel)
+
+CharacterFrame:HookScript("OnShow", UpdateItemLevel)
