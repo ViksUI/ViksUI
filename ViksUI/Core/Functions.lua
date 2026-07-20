@@ -108,22 +108,24 @@ end
 local isCaster = {
 	DEATHKNIGHT = {nil, nil, nil},
 	DEMONHUNTER = {nil, nil, nil},
-	DRUID = {true},					-- Balance
+	DRUID = {true, nil, nil, true},  -- Balance (1), Feral (2), Guardian (3), Restoration (4) - fixed!
 	HUNTER = {nil, nil, nil},
 	MAGE = {true, true, true},
 	MONK = {nil, nil, nil},
 	PALADIN = {nil, nil, nil},
-	PRIEST = {nil, nil, true},		-- Shadow
+	PRIEST = {nil, nil, true},       -- Shadow (3)
 	ROGUE = {nil, nil, nil},
-	SHAMAN = {true},				-- Elemental
+	SHAMAN = {true, nil, true},      -- Elemental (1), Enhancement (2), Restoration (3) - fixed!
 	WARLOCK = {true, true, true},
 	WARRIOR = {nil, nil, nil},
-	EVOKER = {true}
+	EVOKER = {true, nil, true}       -- Devastation (1), Preservation (2), Augmentation (3) - fixed!
 }
 
 local function CheckRole()
 	local spec = C_SpecializationInfo.GetSpecialization()
-	local role = spec and GetSpecializationRole(spec)
+	if not spec then return end  -- Safety check
+	
+	local role = GetSpecializationRole(spec)
 
 	T.Spec = spec
 	if role == "TANK" then
@@ -131,27 +133,36 @@ local function CheckRole()
 	elseif role == "HEALER" then
 		T.Role = "Healer"
 	elseif role == "DAMAGER" then
-		if isCaster[T.class][spec] then
+		local classSpecs = isCaster[T.class]
+		if classSpecs and classSpecs[spec] then
 			T.Role = "Caster"
 		else
 			T.Role = "Melee"
 		end
+	else
+		T.Role = "Unknown"
 	end
 end
+
 local RoleUpdater = CreateFrame("Frame")
 RoleUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
 RoleUpdater:RegisterEvent("PLAYER_TALENT_UPDATE")
 RoleUpdater:SetScript("OnEvent", CheckRole)
 
 T.IsHealerSpec = function()
-	local healer = false
 	local spec = C_SpecializationInfo.GetSpecialization()
-
-	if (T.class == "EVOKER" and spec == 2) or (T.class == "DRUID" and spec == 4) or (T.class == "MONK" and spec == 2) or
-	(T.class == "PALADIN" and spec == 1) or (T.class == "PRIEST" and spec ~= 3) or (T.class == "SHAMAN" and spec == 3) then
+	if not spec then return false end
+	
+	local healer = false
+	if (T.class == "EVOKER" and spec == 2) or  -- Preservation
+	   (T.class == "DRUID" and spec == 4) or   -- Restoration
+	   (T.class == "MONK" and spec == 2) or    -- Mistweaver
+	   (T.class == "PALADIN" and spec == 1) or -- Holy
+	   (T.class == "PRIEST" and spec ~= 3) or  -- Holy or Discipline (not Shadow)
+	   (T.class == "SHAMAN" and spec == 3) then -- Restoration
 		healer = true
 	end
-
+	
 	return healer
 end
 
