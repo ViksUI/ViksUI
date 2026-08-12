@@ -96,28 +96,19 @@ local function OnEvent(self, event, arg1)
 			return
 		end
 
-		wipe(playerBuff)
-		local i = 1
-		local secret
-		while true do
-			local name
-			local auraData = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
-			if auraData then
-				if canaccessvalue(auraData.name) then -- BETA
-					name = auraData.name
-				else
-					secret = true
-				end
-			end
-			if not name then break end
-			playerBuff[name] = true
-			i = i + 1
-		end
+		-- 12.1: Do not enumerate aura data by index.
+		-- GetAuraDataByIndex is forbidden while aura data is secret and
+		-- will Lua error when called from tainted addon code.
+		-- Query the configured spells directly instead.
 		if reversecheck then
-			if group.negate_reversecheck and group.negate_reversecheck == T.Spec then self:Hide() return end
+			if group.negate_reversecheck and group.negate_reversecheck == T.Spec then
+				self:Hide()
+				return
+			end
+
 			for i = 1, #group.spells do
 				local name = group.spells[i][1]
-				if name and playerBuff[name] then
+				if name and C_UnitAuras.GetAuraDataBySpellName("player", name, "HELPFUL") then
 					self:Show()
 					if canplaysound == true then PlaySoundFile(C.media.warning_sound, "Master") end
 					return
@@ -126,7 +117,7 @@ local function OnEvent(self, event, arg1)
 		else
 			for i = 1, #group.spells do
 				local name = group.spells[i][1]
-				if (name and playerBuff[name]) or secret then
+				if name and C_UnitAuras.GetAuraDataBySpellName("player", name, "HELPFUL") then
 					self:Hide()
 					return
 				end

@@ -22,17 +22,14 @@ local function addLine(self, id, isItem)
 end
 
 -- Spells
-hooksecurefunc(GameTooltip, "SetUnitAura", function(self, unit, index, filter)
-	local aura = C_UnitAuras.GetAuraDataByIndex(unit, index, filter)
-	local id = aura and aura.spellId
-	if id and canaccessvalue(id) then addLine(self, id) end
-	if debuginfo == true and id and canaccessvalue(id) and IsModifierKeyDown() then
-		local name = aura.name
-		if name and canaccessvalue(name) then
-			print(name..": "..id)
-		end
-	end
-end)
+-- 12.1: Do not hook GameTooltip:SetUnitAura and then call
+-- C_UnitAuras.GetAuraDataByIndex(). Blizzard's BuffFrame can invoke
+-- SetUnitAura with a secret index while in combat; querying that index from
+-- tainted addon code produces a Lua taint error.
+--
+-- Spell IDs for normal spell tooltips are still handled below through
+-- TooltipDataProcessor. Aura-instance tooltip callbacks are handled by
+-- attachByAuraInstanceID() with an accessibility guard.
 
 local function attachByAuraInstanceID(self, unit, auraInstanceID)
 	-- In 12.1 restricted combat/instance contexts, Blizzard can pass a

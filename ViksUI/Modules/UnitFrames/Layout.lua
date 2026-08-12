@@ -812,7 +812,10 @@ local function Shared(self, unit)
 					self.Portrait.backdrop:RegisterEvent("PLAYER_TARGET_CHANGED")
 					self.Portrait.backdrop:SetScript("OnEvent", function()
 						local _, class = UnitClass("target")
-						local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+						local color
+						if class and not issecretvalue(class) and canaccessvalue(class) then
+							color = C_ClassColor.GetClassColor(class)
+						end
 						if color then
 							self.Portrait.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 						else
@@ -1456,7 +1459,10 @@ if C.unitframe.show_arena then
 						end
 
 						if class and spec then
-							local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+							local color
+							if class and not issecretvalue(class) and canaccessvalue(class) then
+								color = C_ClassColor.GetClassColor(class)
+							end
 							if C.unitframe.own_color then
 								f.Health:SetStatusBarColor(unpack(C.unitframe.uf_color))
 								f.Spec:SetText(spec)
@@ -1582,7 +1588,10 @@ if C.unitframe.lines then
 	HorizontalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
 	HorizontalTargetLine:SetScript("OnEvent", function(self)
 		local _, class = UnitClass("target")
-		local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+		local color
+		if class and not issecretvalue(class) and canaccessvalue(class) then
+			color = C_ClassColor.GetClassColor(class)
+		end
 		if color then
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
@@ -1595,7 +1604,10 @@ if C.unitframe.lines then
 	VerticalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
 	VerticalTargetLine:SetScript("OnEvent", function(self)
 		local _, class = UnitClass("target")
-		local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+		local color
+		if class and not issecretvalue(class) and canaccessvalue(class) then
+			color = C_ClassColor.GetClassColor(class)
+		end
 		if color then
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
