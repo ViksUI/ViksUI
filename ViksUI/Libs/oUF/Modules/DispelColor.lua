@@ -128,7 +128,7 @@ local function CheckSpec()
 end
 
 local function Update(self, _, unit)
-	if(self.unit ~= unit) then return end
+	if(self.__unit ~= unit) then return end
 	local element = self.DispelColor
 
 	if not UnitCanAssist("player", unit) then
@@ -136,7 +136,12 @@ local function Update(self, _, unit)
 		return
 	end
 
-	local aura = C_UnitAuras.GetAuraDataByIndex(unit, 1, "HARMFUL|RAID_PLAYER_DISPELLABLE")
+	local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, unit, 1, "HARMFUL|RAID_PLAYER_DISPELLABLE")
+	if not ok then
+		element:Hide()
+		return
+	end
+
 	local auraInstanceID = aura and aura.auraInstanceID or nil
 
 	if auraInstanceID then
@@ -158,10 +163,10 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit)
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit)
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.DispelColor
 	if(element) then
 		element.__owner = self

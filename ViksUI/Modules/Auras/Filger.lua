@@ -533,13 +533,17 @@ local function FindAuras(self, unit)
 	end
 
 	if unit == self.Unit then
-		for i, auraData in ipairs(C_UnitAuras.GetUnitAuras(unit, self.Filter, 6, Enum.UnitAuraSortRule.Expiration)) do
-			if auraData and auraData.auraInstanceID then
-				local allow = checkFilters(self, unit, auraData.auraInstanceID)
-				local spell_name = GetSpellInfo(SPELL_HOLDER)
-				local data = SpellGroups[self.Id].spells[spell_name] or SpellGroups[self.Id].spells[SPELL_HOLDER]
-				if data and allow then
-					self.actives[i] = {data = data, unit = unit, auraData = auraData, auraInstanceID = auraData.auraInstanceID, name = auraData.name, icon = auraData.icon, count = auraData.applications, duration = auraData.duration, spid = auraData.spellId}
+		local auras = {pcall(C_UnitAuras.GetUnitAuras, unit, self.Filter, 6, Enum.UnitAuraSortRule.Expiration)}
+		if auras[1] then
+			table.remove(auras, 1) -- remove pcall success flag
+			for i, auraData in ipairs(auras[1] or {}) do
+				if auraData and auraData.auraInstanceID and canaccessvalue(auraData.name) then
+					local allow = checkFilters(self, unit, auraData.auraInstanceID)
+					local spell_name = GetSpellInfo(SPELL_HOLDER)
+					local data = SpellGroups[self.Id].spells[spell_name] or SpellGroups[self.Id].spells[SPELL_HOLDER]
+					if data and allow then
+						self.actives[i] = {data = data, unit = unit, auraData = auraData, auraInstanceID = auraData.auraInstanceID, name = auraData.name, icon = auraData.icon, count = auraData.applications, duration = auraData.duration, spid = auraData.spellId}
+					end
 				end
 			end
 		end

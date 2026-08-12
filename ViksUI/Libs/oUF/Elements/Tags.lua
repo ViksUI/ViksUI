@@ -1,12 +1,120 @@
 -- Credits: Vika, Cladhaire, Tekkub
+--[[
+# Element: Tags
+
+A system for displaying dynamic information ("tags") on fontstring widgets.
+
+## Notes
+
+A "tag" is a string consisting of a tag name surrounded by square brackets, e.g. `[name]`.
+The tag will be replaced by the output of the function the tag refers to and displayed as text on
+the fontstring widget the tag is registered with, e.g. `[name]` will be replaced with `Thrall`.
+
+Multiple tags can be registered on a fontstring at the same time, and anything outside of the tag
+brackets will be rendered plainly, e.g. `[curhp]/[maxhp]` will display `2453/5000`.
+
+Each tag will be updated individually based on the events registered with the tag. If the tag is
+registered on an eventless unit frame (i.e. units that don't have proper unitIDs, like
+"targettarget") the tag(s) will be updated on a set time interval. See the `.frequentUpdates` option
+below for more info.
+
+Tags can optionally be used with a prefix and a suffix that are separated from the tag name with
+`$>` and `<$` respectively, allowing for conditional formatting. For example, `[==$>name<$==]` will
+display `==Thrall==`, and `[perhp<$%]` will display `95%`. If the tag value is empty these affixes
+will be omitted.
+
+Tags can optionally take extra arguments in order to alter their behavior. These are defined via
+`()` at the end of the tag, and each argument is separated by commas, e.g. `[name(a,r,g,s)]`.
+
+The full tag syntax looks like this: `[prefix$>tagname<$suffix(a,r,g,s)]`. The order of the optional
+elements is important; while they can be independently omitted, they cannot be reordered.
+
+A "tag function" is used to define a tag and its behavior. A tag function receives two arguments
+(plus any optional arguments) - `unit` and `realUnit`. `unit` is the unitID for the unit frame where
+the tag is registered. `realUnit` is typically nil, see the `.overrideUnit` option below for more
+details. The tag function is called when the unit frame is shown or when a specific event tied to it
+is fired. To define a new tag function use the `oUF.Tags.Methods` table (see examples below).
+
+Tag methods run in a limited environment, so if you need access to functions or variables from the
+outside that aren't already available you can define them in the `oUF.Tags.Vars` table, e.g.
+`oUF.Tags.Vars.L = mylocalizations`.
+
+Within the tag method environment there are a few "magic" objects available:
+- `_TAGS`   - a table containing all defined tag methods
+- `_VARS`   - a table containing all defined tag vars
+- `_FRAME`  - the unit frame the tag is registered with
+- `_COLORS` - equivalent to `_FRAME.colors`, inheriting colors from `oUF.colors`
+- `Hex`     - a simple function that takes either a color table or plain r,g,b arguments and returns
+              the hexadecimal representation of that color, e.g. `Hex(1, 0.5, 0)` => `|cffff7f00`.
+
+A tag function can be registered with associated "tag events", which define when the tag function
+should run in order to update the tag (with the exception of eventless units, as already mentioned).
+These are [frame events](https://warcraft.wiki.gg/wiki/Events) and are defined in a space-separated
+string. To define a (set of) event(s) use the `oUF.Tags.Events` table (see examples below). If the
+event has no associated unitID in its payload it should also be added to the `oUF.Tags.SharedEvents`
+table, e.g. `oUF.Tags.SharedEvents.EVENT_NAME = true`.
+
+A number of built-in tags exist. The layout can also define its own tags by adding them to
+`oUF.Tags` as mentioned above, but we urge layouts to use a naming scheme of `mylayout:mytag` in
+order to avoid possible name collisions.
+
+## Options
+
+.overrideUnit    - if specified on the fontstring widget, the frame's real unit will be passed as the second argument to
+                   every tag function whose name is contained in the relevant tag string. Otherwise the second argument
+                   is always nil (boolean)
+.frequentUpdates - if specified on the fontstring widget, this defines how often the corresponding tag(s) should be updated.
+                   This will override the events for the tag(s), if any. If the value is a number, it is taken as a time
+                   interval in seconds. If the value is a boolean, the time interval is set to 0.5 seconds (number or boolean)
+
+## Examples
+
+### Example tag usage
+
+    -- in your style function create a fontstring widget
+    local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    info:SetPoint('LEFT')
+
+    -- register tag(s) on the fontstring widget with oUF
+    self:Tag(info, '[raidcolor][name<$|r]')
+
+### Example tag definition
+
+    -- outside your style function define a new tag method
+    oUF.Tags.Methods['mylayout:threatname'] = function(unit, realUnit, arg1)
+        local name = _TAGS['name'](unit, realUnit)
+        local color = _COLORS.threat[UnitThreatSituation(realUnit or unit) or 0]
+
+        -- handle extra arguments (optional)
+        local length = tonumber(arg1)
+        if(length) then
+            name = name:sub(1, length) -- note: this is just for demonstration, it doesn't work with secrets
+        end
+
+        return color:WrapTextInColorCode(name)
+    end
+
+    -- outside your style function define events for your tag
+    oUF.Tags.Events['mylayout:threatname'] = 'UNIT_NAME_UPDATE UNIT_THREAT_SITUATION_UPDATE'
+
+    -- in your style function create a fontstring widget and register the tag
+    local info = self.Health:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    info:SetPoint('LEFT')
+    self:Tag(info, '[mylayout:threatname(5)]') -- passing arguments to the tag function
+    -- self:Tag(info, '[mylayout:threatname]') -- or don't
+
+--]]
 
 local _, ns = ...
 local oUF = ns.oUF
 local Private = oUF.Private
 
+local STATE = {}
+
 local nierror = Private.nierror
 local unitExists = Private.unitExists
 local validateEvent = Private.validateEvent
+local insertObjectElementUpdateFunc = Private.insertObjectElementUpdateFunc
 
 local _PATTERN = '%[..-%]+'
 
@@ -108,9 +216,8 @@ local tagStrings = {
 	['group'] = [[function(unit)
 		if(IsInRaid()) then
 			for index = 1, GetNumGroupMembers() do
-				-- TODO: use C_Secrets.CanCompareUnitTokens instead of pcall
-				local isOk, isUnit = pcall(UnitIsUnit, unit, 'raid' .. index)
-				if(isOk and isUnit) then
+				local raidUnit = 'raid' .. index
+				if(C_Secrets.CanCompareUnitTokens(unit, raidUnit) and UnitIsUnit(unit, raidUnit)) then
 					local _, _, group = GetRaidRosterInfo(index)
 					return group
 				end
@@ -128,13 +235,15 @@ local tagStrings = {
 	end]],
 
 	['leader'] = [[function(u)
-		if(UnitIsGroupLeader(u)) then
+		local isLeader = UnitIsGroupLeader(unit)
+		if(not issecretvalue(isLeader) and isLeader) then
 			return 'L'
 		end
 	end]],
 
 	['leaderlong']  = [[function(u)
-		if(UnitIsGroupLeader(u)) then
+		local isLeader = UnitIsGroupLeader(unit)
+		if(not issecretvalue(isLeader) and isLeader) then
 			return 'Leader'
 		end
 	end]],
@@ -216,8 +325,14 @@ local tagStrings = {
 
 	['raidcolor'] = [[function(u)
 		local _, class = UnitClass(u)
-		if(class) then
-			return _COLORS.class[class]:GenerateHexColorMarkup()
+		if(class ~= nil) then
+			if(issecretvalue(class)) then
+				-- BUG: we can't use custom colors if the class is secret
+				-- https://github.com/oUF-wow/oUF/issues/873
+				return C_ClassColor.GetClassColor(class):GenerateHexColorMarkup()
+			else
+				return _COLORS.class[class]:GenerateHexColorMarkup()
+			end
 		else
 			local id = u:match('arena(%d)$')
 			if(id) then
@@ -257,11 +372,13 @@ local tagStrings = {
 	end]],
 
 	['sex'] = [[function(u)
-		local s = UnitSex(u)
-		if(s == 2) then
-			return 'Male'
-		elseif(s == 3) then
-			return 'Female'
+		local sex = UnitSex(u)
+		if(not issecretvalue(sex)) then
+			if(sex == 2) then
+				return 'Male'
+			elseif(sex == 3) then
+				return 'Female'
+			end
 		end
 	end]],
 
@@ -460,7 +577,7 @@ eventFrame:SetScript('OnEvent', function(self, event, unit)
 	local strings = eventFontStrings[event]
 	if(strings) then
 		for fs in next, strings do
-			if(not stringsToUpdate[fs] and fs:IsVisible() and (unitlessEvents[event] or fs.parent.unit == unit or (fs.extraUnits and fs.extraUnits[unit]))) then
+			if(not stringsToUpdate[fs] and fs:IsVisible() and (unitlessEvents[event] or fs.__owner.__unit == unit or (fs.extraUnits and fs.extraUnits[unit]))) then
 				stringsToUpdate[fs] = true
 			end
 		end
@@ -498,7 +615,7 @@ local function enableTimer(timer)
 		frame:SetScript('OnUpdate', function(self, elapsed)
 			if(total >= timer) then
 				for fs in next, strings do
-					if(fs.parent:IsShown() and unitExists(fs.parent.unit)) then
+					if(fs.__owner:IsShown() and unitExists(fs.__owner.__unit)) then
 						fs:UpdateTag()
 					end
 				end
@@ -528,8 +645,8 @@ Used to update all tags on a frame.
 * self - the unit frame from which to update the tags
 --]]
 local function Update(self)
-	if(self.__tags) then
-		for fs in next, self.__tags do
+	if(STATE[self]) then
+		for fs in next, STATE[self] do
 			fs:UpdateTag()
 		end
 	end
@@ -643,11 +760,11 @@ local function getTagFunc(tagstr)
 		end
 
 		func = function(self)
-			local parent = self.parent
-			local unit = parent.unit
+			local parent = self.__owner
+			local unit = parent.__unit
 			local realUnit
 			if(self.overrideUnit) then
-				realUnit = parent.realUnit
+				realUnit = parent.__realUnit
 			end
 
 			_ENV._COLORS = parent.colors
@@ -720,8 +837,6 @@ local function unregisterTimer(fs)
 	end
 end
 
-local taggedFontStrings = {}
-
 --[[ Tags: frame:Tag(fs, ts, ...)
 Used to register a tag on a unit frame.
 
@@ -733,40 +848,41 @@ Used to register a tag on a unit frame.
 local function Tag(self, fs, ts, ...)
 	if(not fs or not ts) then return end
 
-	if(not self.__tags) then
-		self.__tags = {}
-		table.insert(self.__elements, Update)
-	elseif(self.__tags[fs]) then
-		-- We don't need to remove it from the __tags table as Untag handles that for us.
+	if(not STATE[self]) then
+		STATE[self] = {}
+		insertObjectElementUpdateFunc(self, Update)
+	elseif(STATE[self][fs]) then
 		self:Untag(fs)
 	end
 
-	fs.parent = self
+	fs.__owner = self
 	fs.UpdateTag = getTagFunc(ts)
 
-	if(self.__eventless or fs.frequentUpdates) then
-		local timer = 0.5
-		if(type(fs.frequentUpdates) == 'number') then
-			timer = fs.frequentUpdates
-		end
-
-		registerTimer(fs, timer)
-	else
-		registerEvents(fs, ts)
-
-		if(...) then
-			if(not fs.extraUnits) then
-				fs.extraUnits = {}
+	if(not self:IsEventless()) then
+		-- tags on eventless units gets updated through the frame's timer
+		if(fs.frequentUpdates) then
+			local timer = 0.5
+			if(type(fs.frequentUpdates) == 'number') then
+				timer = fs.frequentUpdates
 			end
 
-			for index = 1, select('#', ...) do
-				fs.extraUnits[select(index, ...)] = true
+			registerTimer(fs, timer)
+		else
+			registerEvents(fs, ts)
+
+			if(...) then
+				if(not fs.extraUnits) then
+					fs.extraUnits = {}
+				end
+
+				for index = 1, select('#', ...) do
+					fs.extraUnits[select(index, ...)] = true
+				end
 			end
 		end
 	end
 
-	taggedFontStrings[fs] = ts
-	self.__tags[fs] = true
+	STATE[self][fs] = ts
 end
 
 --[[ Tags: frame:Untag(fs)
@@ -776,15 +892,14 @@ Used to unregister a tag from a unit frame.
 * fs   - the font string holding the tag (FontString)
 --]]
 local function Untag(self, fs)
-	if(not fs or not self.__tags) then return end
+	if(not fs or not STATE[self]) then return end
 
 	unregisterEvents(fs)
 	unregisterTimer(fs)
 
 	fs.UpdateTag = nil
 
-	taggedFontStrings[fs] = nil
-	self.__tags[fs] = nil
+	STATE[self][fs] = nil
 end
 
 local function strip(tag)
@@ -814,7 +929,7 @@ oUF.Tags = {
 			if(strip(tagstr):match(tag)) then
 				tagStringFuncs[tagstr] = nil
 
-				for fs in next, taggedFontStrings do
+				for fs in next, STATE[self] do
 					if(fs.UpdateTag == func) then
 						fs.UpdateTag = getTagFunc(tagstr)
 
@@ -835,7 +950,7 @@ oUF.Tags = {
 
 		for tagstr in next, tagStringFuncs do
 			if(strip(tagstr):match(tag)) then
-				for fs, ts in next, taggedFontStrings do
+				for fs, ts in next, STATE[self] do
 					if(ts == tagstr) then
 						unregisterEvents(fs)
 						registerEvents(fs, tagstr)

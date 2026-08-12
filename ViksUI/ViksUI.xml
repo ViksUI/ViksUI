@@ -59,7 +59,7 @@
 	
 	<Script file="Modules\UnitFrames\Functions.lua"/>
 	<Script file="Modules\UnitFrames\Tags.lua"/>
-	<!-- <Script file="Modules\UnitFrames\Layout2.lua"/> -->
+	<Script file="Modules\UnitFrames\Layout2.lua"/>
 	<Script file="Modules\UnitFrames\Layout.lua"/>
 	<Script file="Modules\UnitFrames\RaidDPS.lua"/>
 	<Script file="Modules\UnitFrames\RaidHeal.lua"/>

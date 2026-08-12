@@ -2,18 +2,27 @@ local T, C, L = unpack(ViksUI)
 
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
-	" ViksUI 12.0.7 – What's New:",
-	"• Finaly back home and getting more testing.",
-	"• Layout2 temporary disabled",
-	"• Minor updates to skins",
-	"• Rework raid debuff filter. Now show all except of blacklisted",
+	" ViksUI 12.1 – What's New:",
+	"• Updated ViksUI for WoW 12.1 API changes.",
+	"• Updated embedded oUF to the current 12.1 AuraContainer architecture.",
+	"• Updated raid frames and nameplates to use the new AuraContainer system.",
+	"• Fixed aura nil errors, refresh issues and aura layout/spacing.",
+	"• Removed 12.1-forbidden aura reparenting and taint-prone code.",
+	"• Updated oUF unit handling for the new private unit fields.",
+	"• Updated dispel handling and aura color logic for the new oUF API.",
+	"• Fixed nameplate sizing, castbar sizing and target layout issues.",
+	"• Added optional style for nameplate and custom color for mobs",
+	"• Fixed nameplate element update errors after the oUF 12.1 changes.",
+	"• Added 12.1 secret-value and taint protection in nameplate and aura code.",
+	"• Slowly bring Layout2 back, still some repositioning needed.",
+	"• Continued cleanup and compatibility fixes across the UI.",
 	"",
 	" Patreon Supporters: Wiggy & Cashew",
 	" https://www.patreon.com/ViksUI  |  https://www.buymeacoffee.com/ViksUI",
 	" Discord: https://discord.gg/pDEnZSV  |  PayPal: https://www.paypal.me/Tryllemann",
 	" WoW Gift: VikingPower#2226",
 	"",
-	"Full release notes: https://github.com/ViksUI/ViksUI/releases/tag/12.0.6",
+	"Full release notes: https://github.com/ViksUI/ViksUI/releases/tag/12.1",
 }
 
 --// TODO LIST

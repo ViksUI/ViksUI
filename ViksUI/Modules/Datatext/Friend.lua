@@ -36,10 +36,6 @@ local friendTable, BNTable = {}, {}
 local WoWTable = {}
 local dataValid = false
 local totalOnline, BNTotalOnline = 0, 0
-local C_FriendList_GetFriendInfo = C_FriendList.GetFriendInfo
-local BNGetGameAccountInfo = BNGetGameAccountInfo
-local GetFriendInfo = GetFriendInfo
-local BNGetFriendInfo = BNGetFriendInfo
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
@@ -53,11 +49,23 @@ StaticPopupDialogs.SET_BN_BROADCAST = {
 	hasEditBox = 1,
 	editBoxWidth = 350,
 	maxLetters = 127,
-	OnAccept = function(self) BNSetCustomMessage(self.editBox:GetText()) end,
-	OnShow = function(self) self.editBox:SetText(select(3, BNGetInfo()) ) self.editBox:SetFocus() end,
-	OnHide = ChatEdit_FocusActiveWindow,
-	EditBoxOnEnterPressed = function(self) BNSetCustomMessage(self:GetText()) self:GetParent():Hide() end,
-	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+	OnAccept = function(self)
+		C_BattleNet.SetCustomMessage(self.editBox:GetText())
+	end,
+
+	OnShow = function(self)
+		local accountInfo = C_BattleNet.GetAccountInfo()
+		self.editBox:SetText(accountInfo and accountInfo.customMessage or "")
+		self.editBox:SetFocus()
+	end,
+
+	EditBoxOnEnterPressed = function(self)
+		C_BattleNet.SetCustomMessage(self:GetText())
+		self:GetParent():Hide()
+	end,
+	EditBoxOnEscapePressed = function(self)
+		self:GetParent():Hide()
+	end,
 	timeout = 0,
 	exclusive = 1,
 	whileDead = 1,
@@ -229,27 +237,36 @@ local function BuildFriendTable(total)
     totalOnline = 0
     wipe(friendTable)
 
-    local name, level, class, area, connected, status, note
-
     for i = 1, total do
-        name, level, class, area, connected, status, note = C_FriendList.GetFriendInfo(i)
+        local info = C_FriendList.GetFriendInfoByIndex(i)
 
-        for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-            if class == v then
-                class = k
+        if info then
+            local name = info.name
+            local level = info.level
+            local class = info.className
+            local area = info.area
+            local connected = info.connected
+            local status = info.connected and (info.afk and "<"..AFK..">" or info.dnd and "<"..DND..">" or "") or ""
+            local note = info.notes
+
+            for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+                if class == v then
+                    class = k
+                    break
+                end
             end
-        end
 
-        if status == "<"..AFK..">" then
-            status = "|cffff0000[AFK]|r"
-        elseif status == "<"..DND..">" then
-            status = "|cffff0000[DND]|r"
-        end
+            if status == "<"..AFK..">" then
+                status = "|cffff0000[AFK]|r"
+            elseif status == "<"..DND..">" then
+                status = "|cffff0000[DND]|r"
+            end
 
-        friendTable[i] = { name, level, class, area, connected, status, note }
+            friendTable[i] = { name, level, class, area, connected, status, note }
 
-        if connected then
-            totalOnline = totalOnline + 1
+            if connected then
+                totalOnline = totalOnline + 1
+            end
         end
     end
 end
@@ -257,44 +274,64 @@ end
 local function UpdateFriendTable(total)
     totalOnline = 0
 
-    local name, level, class, area, connected, status, note
-
     for i = 1, #friendTable do
-        name, level, class, area, connected, status, note = C_FriendList.GetFriendInfo(i)
+        local info = C_FriendList.GetFriendInfoByIndex(i)
 
-        for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-            if class == v then
-                class = k
+        if info then
+            local name = info.name
+            local level = info.level
+            local class = info.className
+            local area = info.area
+            local connected = info.connected
+            local status = connected and (info.afk and "<"..AFK..">" or info.dnd and "<"..DND..">" or "") or ""
+            local note = info.notes
+
+            for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+                if class == v then
+                    class = k
+                    break
+                end
             end
-        end
 
-        -- get the correct index in our table		
-        local index = GetTableIndex(friendTable, 1, name)
+            if status == "<"..AFK..">" then
+                status = "|cffff0000[AFK]|r"
+            elseif status == "<"..DND..">" then
+                status = "|cffff0000[DND]|r"
+            end
 
-        -- we cannot find a friend in our table, so rebuild it
-        if index == -1 then
-            BuildFriendTable(total)
-            break
-        end
+            -- get the correct index in our table
+            local index = GetTableIndex(friendTable, 1, name)
 
-        -- update on-line status for all members
-        friendTable[index][5] = connected
+            -- we cannot find a friend in our table, so rebuild it
+            if index == -1 then
+                BuildFriendTable(total)
+                break
+            end
 
-        -- update information only for on-line members
-        if connected then
-            friendTable[index][2] = level
-            friendTable[index][3] = class
-            friendTable[index][4] = area
-            friendTable[index][6] = status
-            friendTable[index][7] = note
-            totalOnline = totalOnline + 1
+            -- update on-line status for all members
+            friendTable[index][5] = connected
+
+            -- update information only for on-line members
+            if connected then
+                friendTable[index][2] = level
+                friendTable[index][3] = class
+                friendTable[index][4] = area
+                friendTable[index][6] = status
+                friendTable[index][7] = note
+                totalOnline = totalOnline + 1
+            end
         end
     end
 end
 
 local function Update(self, event)
-	if event == "BN_FRIEND_INFO_CHANGED" or "BN_FRIEND_ACCOUNT_ONLINE" or "BN_FRIEND_ACCOUNT_OFFLINE" or "BN_TOON_NAME_UPDATED"
-			or "BN_FRIEND_TOON_ONLINE" or "BN_FRIEND_TOON_OFFLINE" or "PLAYER_ENTERING_WORLD" then
+	if event == "BN_FRIEND_INFO_CHANGED"
+	or event == "BN_FRIEND_ACCOUNT_ONLINE"
+	or event == "BN_FRIEND_ACCOUNT_OFFLINE"
+	or event == "BN_TOON_NAME_UPDATED"
+	or event == "BN_FRIEND_TOON_ONLINE"
+	or event == "BN_FRIEND_TOON_OFFLINE"
+	or event == "PLAYER_ENTERING_WORLD" then
 		local BNTotal = BNGetNumFriends()
 		if BNTotal == #BNTable then
 			UpdateBNTable(BNTotal)
@@ -303,7 +340,8 @@ local function Update(self, event)
 		end
 	end
 	
-	if event == "FRIENDLIST_UPDATE" or "PLAYER_ENTERING_WORLD" then
+	if event == "FRIENDLIST_UPDATE"
+	or event == "PLAYER_ENTERING_WORLD" then
 		local total = C_FriendList.GetNumFriends()
 		if total == #friendTable then
 			UpdateFriendTable(total)
@@ -396,7 +434,14 @@ Stat:SetScript("OnMouseUp", function(self, btn)
 		for i = 1, #WoWTable do
 			if WoWTable[i].connected then
 				local Class = WoWTable[i].className
-				local R, G, B = unpack(T.oUF_colors.class[Class])
+				local color = T.oUF_colors.class[Class]
+				local R, G, B = 1, 1, 1
+
+				if color then
+					R = color.r or color[1] or 1
+					G = color.g or color[2] or 1
+					B = color.b or color[3] or 1
+				end
 				local Hex = T.RGBToHex(R, G, B)
 				local levelc = GetQuestDifficultyColor(WoWTable[i].level)
 				local levelhex = T.RGBToHex(levelc.r, levelc.g, levelc.b)
@@ -431,7 +476,8 @@ Stat:SetScript("OnEnter", function(self)
 	end
 
 	if not BNConnected() then
-		GameTooltip:SetOwner(self:GetTooltipAnchor())
+		-- GameTooltip:SetOwner(self:GetTooltipAnchor())
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(BN_CHAT_DISCONNECTED)
 		GameTooltip:Show()
@@ -639,7 +685,7 @@ Stat:SetScript("OnEnter", function(self)
 				end
 				
 				local Hex = T.RGBToHex(R, G, B)
-				local levelc = GetQuestDifficultyColor(level)
+				local levelc = GetQuestDifficultyColor(level) or { r = 1, g = 1, b = 1 }
 				local levelhex = T.RGBToHex(levelc.r, levelc.g, levelc.b)
 
 				WoWTable[i].hex = Hex
@@ -677,7 +723,9 @@ Stat:RegisterEvent("BN_BLOCK_LIST_UPDATED")
 Stat:RegisterEvent("BN_CONNECTED")
 Stat:RegisterEvent("BN_DISCONNECTED")
 Stat:RegisterEvent("BN_INFO_CHANGED")
-Stat:RegisterEvent("BATTLETAG_INVITE_SHOW")
+if C_BattleNet and C_BattleNet.GetFriendInviteInfo then
+    Stat:RegisterEvent("CONFIRM_BATTLE_NET_FRIEND_INVITE_SHOW")
+end
 
 Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
 Stat:SetScript("OnEvent", Update)

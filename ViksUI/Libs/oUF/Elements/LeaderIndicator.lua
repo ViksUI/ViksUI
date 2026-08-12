@@ -1,9 +1,37 @@
+--[[
+# Element: Leader Indicator
+
+Toggles the visibility of an indicator based on the unit's leader status.
+
+## Widget
+
+LeaderIndicator - A `Texture` used to display if the unit is a leader.
+
+## Notes
+
+This element updates by changing the texture.
+
+## Options
+
+.useAtlasSize - Makes the element use preprogrammed atlas' size instead of its set dimensions (boolean)
+
+## Examples
+
+    -- Position and size
+    local LeaderIndicator = self:CreateTexture(nil, 'OVERLAY')
+    LeaderIndicator:SetSize(16, 16)
+    LeaderIndicator:SetPoint('BOTTOM', self, 'TOP')
+
+    -- Register it with oUF
+    self.LeaderIndicator = LeaderIndicator
+--]]
+
 local _, ns = ...
 local oUF = ns.oUF
 
 local function Update(self, event)
 	local element = self.LeaderIndicator
-	local unit = self.unit
+	local unit = self.__unit
 
 	--[[ Callback: LeaderIndicator:PreUpdate()
 	Called before the element has been updated.
@@ -29,6 +57,10 @@ local function Update(self, event)
 		isLeader = UnitIsGroupLeader(unit)
 	else
 		isLeader = UnitLeadsAnyGroup(unit)
+	end
+
+	if(issecretvalue(isLeader)) then
+		isLeader = false
 	end
 
 	if(isLeader) then
@@ -70,7 +102,7 @@ local function ForceUpdate(element)
 	return Path(element.__owner, 'ForceUpdate')
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.LeaderIndicator
 	if(element) then
 		element.__owner = self

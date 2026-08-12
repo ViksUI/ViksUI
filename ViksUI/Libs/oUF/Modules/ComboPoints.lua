@@ -7,7 +7,7 @@ local oUF = ns.oUF
 local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
 local function Update(self, _, unit, powerType)
-	if(self.unit ~= unit and (powerType and (powerType ~= "COMBO_POINTS"))) then return end
+	if(self.__unit ~= unit and (powerType and (powerType ~= "COMBO_POINTS"))) then return end
 
 	local element = self.ComboPoints
 	local cur, max
@@ -121,7 +121,7 @@ local function Visibility(self)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit, "COMBO_POINTS")
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit, "COMBO_POINTS")
 end
 
 local Enable = function(self)

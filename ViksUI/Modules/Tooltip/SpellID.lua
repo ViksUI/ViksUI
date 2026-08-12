@@ -22,18 +22,37 @@ local function addLine(self, id, isItem)
 end
 
 -- Spells
-hooksecurefunc(GameTooltip, "SetUnitAura", function(self, ...)
-	local aura = C_UnitAuras.GetAuraDataByIndex(...)
+hooksecurefunc(GameTooltip, "SetUnitAura", function(self, unit, index, filter)
+	local aura = C_UnitAuras.GetAuraDataByIndex(unit, index, filter)
 	local id = aura and aura.spellId
-	if id then addLine(self, id) end
-	if debuginfo == true and id and IsModifierKeyDown() then print(UnitAura(...)..": "..id) end
+	if id and canaccessvalue(id) then addLine(self, id) end
+	if debuginfo == true and id and canaccessvalue(id) and IsModifierKeyDown() then
+		local name = aura.name
+		if name and canaccessvalue(name) then
+			print(name..": "..id)
+		end
+	end
 end)
 
-local function attachByAuraInstanceID(self, ...)
-	local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(...)
+local function attachByAuraInstanceID(self, unit, auraInstanceID)
+	-- In 12.1 restricted combat/instance contexts, Blizzard can pass a
+	-- secret auraInstanceID to the tooltip callback. Calling
+	-- GetAuraDataByAuraInstanceID() with that secret key from tainted addon
+	-- execution is forbidden and produces:
+	-- "Auras cannot be accessed when secret while tainted by 'ViksUI'".
+	--
+	-- If the instance ID is accessible, keep the old Spell ID behavior.
+	if not canaccessvalue(auraInstanceID) then return end
+
+	local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, auraInstanceID)
 	local id = aura and aura.spellId
-	if id then addLine(self, id) end
-	if debuginfo == true and id and IsModifierKeyDown() then print(aura.name..": "..id) end
+	if id and canaccessvalue(id) then addLine(self, id) end
+	if debuginfo == true and id and canaccessvalue(id) and IsModifierKeyDown() then
+		local name = aura.name
+		if name and canaccessvalue(name) then
+			print(name..": "..id)
+		end
+	end
 end
 
 hooksecurefunc(GameTooltip, "SetUnitBuffByAuraInstanceID", attachByAuraInstanceID)

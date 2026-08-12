@@ -175,7 +175,8 @@ local function AddTargetedBy()
 			local unit = (numRaid > 0 and "raid"..i or "party"..i)
 			if T.unitIsUnit(unit.."target", token) and not T.unitIsUnit(unit, "player") then
 				local _, class = UnitClass(unit)
-				targetedList[#targetedList + 1] = ClassColors[class]
+				local classColor = canaccessvalue(class) and ClassColors[class]
+				targetedList[#targetedList + 1] = classColor or "|cffffffff"
 				targetedList[#targetedList + 1] = UnitName(unit)
 				targetedList[#targetedList + 1] = "|r, "
 			end
@@ -200,7 +201,7 @@ local function GetColor(unit)
 
 	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
 		local _, class = UnitClass(unit)
-		local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+		local color = canaccessvalue(class) and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
 		if color then
 			r, g, b = color.r, color.g, color.b
 		else
@@ -209,7 +210,8 @@ local function GetColor(unit)
 	elseif UnitIsTapDenied(unit) or UnitIsDead(unit) then
 		r, g, b = 0.6, 0.6, 0.6
 	else
-		local reaction = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+		local reactionID = UnitReaction(unit, "player")
+		local reaction = canaccessvalue(reactionID) and T.oUF_colors.reaction[reactionID]
 		if reaction then
 			r, g, b = reaction:GetRGB()
 		else
@@ -429,9 +431,11 @@ local OnTooltipSetUnit = function(self)
 		local text = ""
 
 		if UnitIsEnemy("player", unit.."target") then
-			r, g, b = T.oUF_colors.reaction[1]:GetRGB()
+			local reaction = T.oUF_colors.reaction[1]
+			r, g, b = reaction:GetRGB()
 		elseif not UnitIsFriend("player", unit.."target") then
-			r, g, b = T.oUF_colors.reaction[4]:GetRGB()
+			local reaction = T.oUF_colors.reaction[4]
+			r, g, b = reaction:GetRGB()
 		end
 
 

@@ -91,7 +91,8 @@ T.MoverFrames = {
 	CPMinim,
 	UIWidgetPowerBarAnchor,
 	ChatFrameRightAnchor,
-	PrivateAnchor
+	PrivateAnchor,
+	TeleportMenu2
 }
 
 if C.actionbar.bar7_enable then
@@ -192,14 +193,14 @@ controls:SetFrameLevel(200)
 controls:SetClampedToScreen(true)
 controls:Hide()
 controls:SetScript("OnLeave", function(self)
-	if MouseIsOver(self) then return end
-	if not self._frame then
-		self:Hide()
-	elseif not MouseIsOver(self._frame) then
-		self:Hide()
-	end
-	controls.x:SetText("")
-	controls.y:SetText("")
+    if self:IsMouseOver() then return end
+    if not self._frame then
+        self:Hide()
+    elseif not self._frame:IsMouseOver() then
+        self:Hide()
+    end
+    controls.x:SetText("")
+    controls.y:SetText("")
 end)
 
 local function CreateArrow(moveX, moveY, callback)
@@ -438,7 +439,9 @@ do
 	end)
 
 	chatInfo:SetScript("OnLeave", function()
-		if not MouseIsOver(controls) then controls:Hide() end
+		if not controls:IsMouseOver() then
+			controls:Hide()
+		end
 	end)
 end
 

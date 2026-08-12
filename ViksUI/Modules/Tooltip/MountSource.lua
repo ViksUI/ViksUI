@@ -13,9 +13,15 @@ frame:SetScript("OnEvent", function()
 	end
 end)
 
-local function checkBuff(self, ...)
-	if not UnitIsPlayer(...) or T.unitIsUnit(..., "player") then return end
-	local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(...)
+local function checkBuff(self, unit, auraInstanceID)
+	-- 12.1: Blizzard can pass secret unit/aura identifiers to tooltip
+	-- callbacks during combat and restricted content. Do not pass either
+	-- secret value into UnitIsPlayer(), T.unitIsUnit(), or
+	-- GetAuraDataByAuraInstanceID().
+	if not canaccessvalue(unit) or not canaccessvalue(auraInstanceID) then return end
+	if not UnitIsPlayer(unit) or T.unitIsUnit(unit, "player") then return end
+
+	local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, auraInstanceID)
 	local id = aura and aura.spellId
 
 	if id and T.NotSecretValue(id) and MountCache[id] then

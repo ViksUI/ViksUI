@@ -354,6 +354,7 @@ L.chat_time_color = "Timestamp coloring"
 
 -- Nameplate options
 L.nameplate_subtext = "Nameplate settings"
+L.nameplate_colors_subtext = "Custom nameplate colors"
 L.nameplate_enable = "Enable nameplates"
 L.nameplate_combat = "Automatically show nameplates in combat"
 L.nameplate_health_value = "Numeral health value"
@@ -383,6 +384,8 @@ L.nameplate_click_through = "Allow click-through on friendly names"
 L.nameplate_quests = "Show quest icon"
 L.nameplate_cast_color = "Show color border for casting important spells"
 L.nameplate_kick_color = "Change cast color if interrupt on cd"
+L.nameplate_castbar_height = "Castbar height"
+L.nameplate_castbar_height_desc = "Nameplate castbar height (0 = same as nameplate height)"
 L.nameplate_low_health_value = "Health value"
 L.nameplate_low_health = "Low health highlight"
 L.nameplate_enhance_threat = "Enable threat feature, automatically changes by your role"
@@ -398,6 +401,28 @@ L.nameplate_mob_color_list = "List of mobs"
 L.nameplate_mob_color_list_desc = "List of npc id (separated by space)"
 L.nameplate_mob_color_alt_list = L.nameplate_mob_color_list
 L.nameplate_mob_color_alt_list_desc = L.nameplate_mob_color_list_desc
+-- Quest colors
+L.nameplate_quest_friendly_color = "Quest friendly color"
+L.nameplate_quest_neutral_color = "Quest neutral color"
+L.nameplate_quest_hostile_color = "Quest hostile color"
+-- Elite colors
+L.nameplate_elite_boss_color = "Elite boss color"
+L.nameplate_elite_miniboss_color = "Elite miniboss color"
+L.nameplate_elite_caster_color = "Elite caster color"
+L.nameplate_elite_melee_color = "Elite melee color"
+L.nameplate_elite_trivial_color = "Elite trivial color"
+L.nameplate_elite_only_instance = "Only in instance"
+-- Delve colors
+L.nameplate_delve_boss_color = "Delve boss color"
+L.nameplate_delve_miniboss_color = "Delve miniboss color"
+L.nameplate_delve_caster_color = "Delve caster color"
+L.nameplate_delve_melee_color = "Delve melee color"
+L.nameplate_delve_trivial_color = "Delve trivial color"
+L.nameplate_delve_only_delves = "Only in Delves"
+-- Tapped color
+L.nameplate_tapped_color = "Tapped color"
+L.nameplate_shadow_border = "Shadow border style"
+L.nameplate_shadow_border_desc = "Use small black border with drop shadow"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Combat Text"

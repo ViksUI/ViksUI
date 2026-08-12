@@ -12,6 +12,7 @@ LSM:Register("border", "ViksGlowBorder", [[Interface\AddOns\ViksUI\Media\Other\g
 LSM:Register("font", "ViksFont", [[Interface\AddOns\ViksUI\Media\Font\1.ttf]])
 LSM:Register("font", "ViksUIStdFont", [=[Interface\Addons\ViksUI\Media\Font\normal_font.ttf]=])
 LSM:Register("font", "VikspxFont", [[Interface\AddOns\ViksUI\Media\Font\HOOG0555.ttf]])
+LSM:Register("font", "VikspixelFont", [[Interface\AddOns\ViksUI\Media\Font\pixel.ttf]])
 LSM:Register("font", "LinkinPark",[[Interface\Addons\ViksUI\Media\Font\LinkinPark.ttf]])
 LSM:Register("font", "Captureit",[[Interface\Addons\ViksUI\Media\Font\Captureit.ttf]])
 LSM:Register("font", "Cleanwork",[[Interface\Addons\ViksUI\Media\Font\Cleanwork.ttf]])

@@ -362,6 +362,7 @@ L.chat_time_color = "时间标签颜色"
 
 -- Nameplate options
 L.nameplate_subtext = "单位姓名板设置"
+L.nameplate_colors_subtext = "自定义姓名板颜色"
 L.nameplate_enable = "单位姓名板增强"
 L.nameplate_combat = "战斗中自动显示单位姓名板"
 L.nameplate_health_value = "生命值以百分比显示"
@@ -391,6 +392,8 @@ L.nameplate_click_through = "禁用与友方名称的交互" -- Needs review
 L.nameplate_quests = "任务图标"
 L.nameplate_cast_color = "重要法术施法条边框高亮"
 L.nameplate_kick_color = "当断法技能冷却中则施法条变色"
+L.nameplate_castbar_height = "施法条高度"
+L.nameplate_castbar_height_desc = "姓名板施法条高度（0 = 与姓名板高度相同）"
 L.nameplate_low_health_value = "斩杀线阈值"
 L.nameplate_low_health = "斩杀边框高亮"
 L.nameplate_enhance_threat = "仇恨情况"
@@ -406,6 +409,28 @@ L.nameplate_mob_color_list = "重要小怪名单"
 L.nameplate_mob_color_list_desc = "NPC ID (用空格分开)"
 L.nameplate_mob_color_alt_list = L.nameplate_mob_color_list
 L.nameplate_mob_color_alt_list_desc = L.nameplate_mob_color_list_desc
+-- Quest colors
+L.nameplate_quest_friendly_color = "任务友好颜色"
+L.nameplate_quest_neutral_color = "任务中立颜色"
+L.nameplate_quest_hostile_color = "任务敌对颜色"
+-- Elite colors
+L.nameplate_elite_boss_color = "精英Boss颜色"
+L.nameplate_elite_miniboss_color = "精英小Boss颜色"
+L.nameplate_elite_caster_color = "精英施法者颜色"
+L.nameplate_elite_melee_color = "精英近战颜色"
+L.nameplate_elite_trivial_color = "精英普通颜色"
+L.nameplate_elite_only_instance = "仅在副本中"
+-- Delve colors
+L.nameplate_delve_boss_color = "探秘Boss颜色"
+L.nameplate_delve_miniboss_color = "探秘小Boss颜色"
+L.nameplate_delve_caster_color = "探秘施法者颜色"
+L.nameplate_delve_melee_color = "探秘近战颜色"
+L.nameplate_delve_trivial_color = "探秘普通颜色"
+L.nameplate_delve_only_delves = "仅在探秘中"
+-- Tapped color
+L.nameplate_tapped_color = "已锁定颜色"
+L.nameplate_shadow_border = "阴影边框样式"
+L.nameplate_shadow_border_desc = "使用带投影的小黑色边框"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "战斗文字"

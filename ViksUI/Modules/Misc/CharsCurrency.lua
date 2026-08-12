@@ -12,6 +12,7 @@ local nameToID = {}
 local collapsed = {}
 
 local function UpdateData()
+	if not charDB or not realmDB then return end
 	if TokenFrame:IsVisible() then
 		return
 	end

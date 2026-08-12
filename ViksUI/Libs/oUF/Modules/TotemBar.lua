@@ -92,7 +92,7 @@ local function anchorTotems(element)
 	end
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.TotemBar
 	if element then
 		self:RegisterEvent("PLAYER_TOTEM_UPDATE", Event, true)

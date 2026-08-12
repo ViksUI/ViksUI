@@ -7,7 +7,7 @@ local oUF = ns.oUF
 local SPELL_POWER_CHI = Enum.PowerType.Chi or 12
 
 local function Update(self, _, unit, powerType)
-	if(self.unit ~= unit and (powerType and (powerType ~= "CHI" and powerType ~= "DARK_FORCE"))) then return end
+	if(self.__unit ~= unit and (powerType and (powerType ~= "CHI" and powerType ~= "DARK_FORCE"))) then return end
 
 	local element = self.HarmonyBar
 
@@ -58,7 +58,7 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit, "CHI")
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit, "CHI")
 end
 
 local function Visibility(self)

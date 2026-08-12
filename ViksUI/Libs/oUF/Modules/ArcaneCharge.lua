@@ -7,7 +7,7 @@ local oUF = ns.oUF
 local SPELL_POWER_ARCANE_CHARGES = Enum.PowerType.ArcaneCharges or 16
 
 local function Update(self, _, unit, powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= "ARCANE_CHARGES")) then return end
+	if(self.__unit ~= unit or (powerType and powerType ~= "ARCANE_CHARGES")) then return end
 
 	local element = self.ArcaneCharge
 
@@ -36,7 +36,7 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit, "ARCANE_CHARGES")
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit, "ARCANE_CHARGES")
 end
 
 local function Visibility(self)
@@ -58,7 +58,7 @@ local function Visibility(self)
 	end
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.ArcaneCharge
 	if(element) then
 		element.__owner = self

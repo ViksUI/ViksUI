@@ -17,9 +17,7 @@ CUSTOM_CASTBAR_COLOR_FRIENDLY           = {95/255, 182/255, 255/255, 1}         
 CUSTOM_CASTBAR_COLOR_BG                 = {0.3, 0.3, 0.3, 0.3}                  -- background
 
 T.UpdateAllElements = function(frame)
-	for _, v in ipairs(frame.__elements) do
-		v(frame, "UpdateElement", frame.unit)
-	end
+	frame:UpdateAllElements('UpdateElement')
 end
 
 T.SetFontString = function(parent, fontName, fontHeight, fontStyle)
@@ -152,7 +150,8 @@ T.PostUpdateHealthColor = function(health, unit, color)
 	if UnitIsConnected(unit) and not UnitIsDeadOrGhost(unit) then
 		local r, g, b
 		if (C.unitframe.own_color ~= true and C.unitframe.enemy_health_color and unit == "target" and UnitIsEnemy(unit, "player") and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit))) or (C.unitframe.own_color ~= true and unit == "target" and not UnitIsPlayer(unit) and not UnitInPartyIsAI(unit) and UnitIsFriend(unit, "player")) then
-			local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+			local reaction = UnitReaction(unit, "player")
+			local c = canaccessvalue(reaction) and T.oUF_colors.reaction[reaction]
 			if c then
 				r, g, b = c:GetRGB()
 			else
@@ -162,7 +161,8 @@ T.PostUpdateHealthColor = function(health, unit, color)
 		end
 		if unit == "pet" then
 			local _, class = UnitClass("player")
-			local r, g, b = T.oUF_colors.class[class]:GetRGB()
+			local classColor = canaccessvalue(class) and T.oUF_colors.class[class]
+			local r, g, b = classColor and classColor:GetRGB()
 			if C.unitframe.own_color then
 				health:SetStatusBarColor(unpack(C.unitframe.uf_color))
 				health.bg:SetVertexColor(0.1, 0.1, 0.1)
@@ -455,7 +455,15 @@ T.PostUpdatePowerBackdropColor = function(element, color, altR, altG, altB)
 		elseif altR then
 			r, g, b = altR, altG, altB
 		end
-		bg:SetVertexColor(r * mu, g * mu, b * mu)
+		-- In 12.1 restricted unit contexts, Color:GetRGB() can return
+		-- secret numbers. Arithmetic on those values taints the execution.
+		-- Pass secret colors directly to the color sink; only apply our
+		-- multiplier when the RGB values are accessible.
+		if canaccessvalue(r) and canaccessvalue(g) and canaccessvalue(b) then
+			bg:SetVertexColor(r * mu, g * mu, b * mu)
+		else
+			bg:SetVertexColor(r, g, b)
+		end
 	end
 end
 
@@ -466,7 +474,7 @@ T.PostUpdatePowerColor = function(power, unit, color, altR, altG, altB)
 		-- Check if we should use class color instead of power color
 		if power.colorClass and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)) then
 			local _, class = UnitClass(unit)
-			local classColor = T.oUF_colors.class[class]
+			local classColor = canaccessvalue(class) and T.oUF_colors.class[class]
 			if classColor then
 				power:SetStatusBarColor(classColor:GetRGB())
 				if power.value then
@@ -478,7 +486,7 @@ T.PostUpdatePowerColor = function(power, unit, color, altR, altG, altB)
 		
 		-- Fall back to power color
 		local _, pToken = UnitPowerType(unit)
-		local powerColor = T.oUF_colors.power[pToken]
+		local powerColor = canaccessvalue(pToken) and T.oUF_colors.power[pToken]
 		if powerColor then
 			power:SetStatusBarColor(powerColor:GetRGB())
 			if power.value then
@@ -520,7 +528,7 @@ T.UpdateClassMana = function(self, elapsed)
 	if self.elapsed < 0.05 then return end
 	self.elapsed = 0
 
-	if self.unit ~= "player" then return end
+	if self.__unit ~= "player" then return end
 
 	if UnitPowerType("player") ~= 0 then
 		if UnitIsDeadOrGhost("player") then
@@ -577,14 +585,14 @@ local function castColor(unit)
 	local r, g, b
 	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) or unit == "pet" or unit == "vehicle" then
 		local _, class = UnitClass(unit)
-		local color = T.oUF_colors.class[class]
+		local color = canaccessvalue(class) and T.oUF_colors.class[class]
 		if color then
 			r, g, b = color:GetRGB()
 		end
 	else
 		local reaction = UnitReaction(unit, "player")
-		local color = T.oUF_colors.reaction[reaction]
-		if color and reaction >= 5 then
+		local color = canaccessvalue(reaction) and T.oUF_colors.reaction[reaction]
+		if color and canaccessvalue(reaction) and reaction >= 5 then
 			r, g, b = color:GetRGB()
 		else
 			r, g, b = 0.85, 0.77, 0.36
@@ -628,9 +636,10 @@ T.PostCastStart = function(Castbar, unit)
 
     if usecustomcolor and C_CurveUtil and C_CurveUtil.EvaluateColorFromBoolean then
         local color
+        local notInterruptible = canaccessvalue(Castbar.notInterruptible) and Castbar.notInterruptible or false
         if UnitCanAttack("player", unit) then
             color = C_CurveUtil.EvaluateColorFromBoolean(
-                Castbar.notInterruptible,
+                notInterruptible,
                 { r = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[4] }, -- yellow
                 { r = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[4] } -- red
             )
@@ -643,14 +652,15 @@ T.PostCastStart = function(Castbar, unit)
         end
     else
         -- ORIGINAL VIKSUI LOGIC FOR FULL COMPATIBILITY
+        local notInterruptible = canaccessvalue(Castbar.notInterruptible) and Castbar.notInterruptible or false
         if UnitCanAttack("player", unit) then -- hostile
             local color = C_CurveUtil.EvaluateColorFromBoolean(
-                Castbar.notInterruptible,
+                notInterruptible,
                 {r = 0.8, g = 0, b = 0, a = 1},
                 {r = r, g = g, b = b, a = 1}
             )
             local color_border = C_CurveUtil.EvaluateColorFromBoolean(
-                Castbar.notInterruptible,
+                notInterruptible,
                 {r = 0.8, g = 0, b = 0, a = 1},
                 {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1}
             )
@@ -784,43 +794,48 @@ end
 T.PostCreateIcon = function(_, button)
 	button:SetTemplate("Default")
 
-	T.SkinCooldown(button.Cooldown, "aura")
+	if button.Cooldown then
+		T.SkinCooldown(button.Cooldown, "aura")
+	end
 
-	button.Icon:SetPoint("TOPLEFT", 2, -2)
-	button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	if button.Icon then
+		button.Icon:SetPoint("TOPLEFT", 2, -2)
+		button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	end
 
-	button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
-	button.Count:SetJustifyH("RIGHT")
-	button.Count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	if button.Count then
+		button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
+		button.Count:SetJustifyH("RIGHT")
+		button.Count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
+		button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	end
 
-	if C.aura.show_spiral then
+	if C.aura.show_spiral and button.Cooldown then
 		button.Cooldown:SetReverse(true)
 		button.Cooldown:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
 		button.Cooldown:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
-		button.parent = CreateFrame("Frame", nil, button)
-		button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
-		button.Count:SetParent(button.parent)
-	else
-		-- button.Cooldown:SetAlpha(0)
 	end
 end
 
 local dispelIndex = {
-	[0] = CreateColor(1, 0, 0),			-- None
-	[1] = CreateColor(0.2, 0.6, 1),		-- Magic
-	[2] = CreateColor(0.6, 0, 1),		-- Curse
-	[3] = CreateColor(0.6, 0.4, 0),		-- Disease
-	[4] = CreateColor(0, 0.6, 0),		-- Poison
-	[9] = CreateColor(0.95, 0.4, 0.95),	-- Enrage
-	[11] = CreateColor(1, 0, 0.5)		-- Bleed
+	None = CreateColor(1, 0, 0),
+	Magic = CreateColor(0.2, 0.6, 1),
+	Curse = CreateColor(0.6, 0, 1),
+	Disease = CreateColor(0.6, 0.4, 0),
+	Poison = CreateColor(0, 0.6, 0),
+	Enrage = CreateColor(0.95, 0.4, 0.95),
+	Bleed = CreateColor(1, 0, 0.5),
 }
 
 local curve = C_CurveUtil.CreateColorCurve()
 curve:SetType(Enum.LuaCurveType.Step)
-for i, color in pairs(dispelIndex) do
-	curve:AddPoint(i, color)
+for name, color in pairs(dispelIndex) do
+	-- Map string names to numeric indices for the curve
+	local index = ({None=0, Magic=1, Curse=2, Disease=3, Poison=4, Enrage=9, Bleed=11})[name]
+	if index then
+		curve:AddPoint(index, color)
+	end
 end
 T.DispelCurve = curve
 
@@ -854,27 +869,31 @@ T.PostUpdateGapButton = function(_, _, button)
 end
 
 T.CreateRaidBuffIcon = function(_, button)
-	T.SkinCooldown(button.Cooldown, "aura")
+	if button.Cooldown then
+		T.SkinCooldown(button.Cooldown, "aura")
+		button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
+	end
 
-	button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
+	if button.CreateBorder then
+		button:CreateBorder(nil, true)
+		if button.oborder and button.Icon then
+			button.oborder:SetOutside(button.Icon, 1, 1)
+		end
+	end
 
-	button:CreateBorder(nil, true)
-	button.oborder:SetOutside(button.Icon, 1, 1)
+	if button.Icon then
+		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	end
 
-	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	if button.Count then
+		button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 4, -1)
+		button.Count:SetJustifyH("RIGHT")
+		button.Count:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+		button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	end
 
-	button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 4, -1)
-	button.Count:SetJustifyH("RIGHT")
-	button.Count:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-
-	if C.aura.show_spiral then
+	if C.aura.show_spiral and button.Cooldown then
 		button.Cooldown:SetReverse(true)
-		button.parent = CreateFrame("Frame", nil, button)
-		button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
-		button.Count:SetParent(button.parent)
-	else
-		-- button.Cooldown:SetAlpha(0)
 	end
 end
 
@@ -1107,7 +1126,7 @@ end
 
 T.UpdateThreat = function(self, unit, status, color)
 	local parent = self:GetParent()
-	local badunit = not unit or parent.unit ~= unit
+	local badunit = not unit or parent.__unit ~= unit
 
 	if not badunit and color and status and status > 1 then
 		parent.backdrop:SetBackdropBorderColor(color:GetRGB())
@@ -1117,7 +1136,7 @@ T.UpdateThreat = function(self, unit, status, color)
 end
 
 T.UpdatePvPStatus = function(self)
-	local unit = self.unit
+	local unit = self.__unit
 
 	if self.Status then
 		local factionGroup = UnitFactionGroup(unit)

@@ -7,7 +7,7 @@ local oUF = ns.oUF
 local SPELL_POWER_HOLY_POWER = Enum.PowerType.HolyPower or 9
 
 local function Update(self, _, unit, powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= "HOLY_POWER")) then return end
+	if(self.__unit ~= unit or (powerType and powerType ~= "HOLY_POWER")) then return end
 
 	local element = self.HolyPower
 
@@ -50,7 +50,7 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit, "HOLY_POWER")
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit, "HOLY_POWER")
 end
 
 local function Visibility(self)
@@ -66,7 +66,7 @@ local function Visibility(self)
 	self:RegisterEvent("UNIT_POWER_UPDATE", Path)
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.HolyPower
 	if(element) then
 		element.__owner = self

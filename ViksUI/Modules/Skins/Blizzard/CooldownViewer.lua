@@ -3,8 +3,7 @@ local T, C, L = unpack(ViksUI)
 if C.skins.blizzard_frames ~= true then return end
 
 -- Skip if EnhancedCooldownManager or BetterCooldownManager is loaded
-if C_AddOns.IsAddOnLoaded("EnhancedCooldownManager") or C_AddOns.IsAddOnLoaded("BetterCooldownManager") or C_AddOns.IsAddOnLoaded("Ayije_CDM") or C_AddOns.IsAddOnLoaded("EllesmereUI") then return end
-
+if C_AddOns.IsAddOnLoaded("EnhancedCooldownManager") or C_AddOns.IsAddOnLoaded("BetterCooldownManager") or C_AddOns.IsAddOnLoaded("Ayije_CDM") or C_AddOns.IsAddOnLoaded("EllesmereUI") or C_AddOns.IsAddOnLoaded("EUIStandaloneCooldownManager") then return end
 
 ----------------------------------------------------------------------------------------
 --	Cooldown Viewer skin

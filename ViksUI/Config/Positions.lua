@@ -20,49 +20,36 @@ C["position"] = {
 		["focus_target"] = {"TOPLEFT", "oUF_Target", "BOTTOMLEFT", 0, -11},			-- Focus target frame
 		["party_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12},
 		["raid_heal"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 11, -12},
-		["party_heal_layout2"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 22, -30},	-- Layout2: 12px right, 8px down
-		["raid_heal_layout2"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 22, -30},	-- Layout2: 12px right, 8px down
+		["party_heal_layout2"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 22, -30},	-- Layout2: 12px right, 18px down
+		["raid_heal_layout2"] = {"TOPLEFT", "oUF_Player", "BOTTOMRIGHT", 22, -30},	-- Layout2: 12px right, 18px down
 		["party_dps"] = {"BOTTOMLEFT", UIParent, "LEFT", 23, -70},					-- DPS layout Party frames
 		["raid_dps"] = {"TOPLEFT", UIParent, "TOPLEFT", 23, -23},					-- DPS layout Raid frames
 		["arena"] = {"BOTTOMRIGHT", UIParent, "RIGHT", -60, -70},					-- Arena frames
 		["boss"] = {"BOTTOMRIGHT", UIParent, "RIGHT", -23, -70},					-- Boss frames
-		["tank"] = {"BOTTOMLEFT", "ActionBarAnchor", "BOTTOMRIGHT", 10, 18},
+		["tank"] = {"BOTTOMLEFT", "ActionBarAnchor", "BOTTOMRIGHT", 10, 140},
 		["player_portrait"] = {"TOPRIGHT", "oUF_Player", "TOPLEFT", -12, 27},
 		["target_portrait"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 12, 27},
-		["player_portrait_2"] = {"TOPRIGHT", "oUF_Player", "TOPLEFT", -12, 27},	-- Player Portrait Layout2
-		["target_portrait_2"] = {"TOPLEFT", "oUF_Target", "TOPRIGHT", 12, 27},	-- Target Portrait Layout2
+		-- Layout2 centerbar sub-frame positions (used when C.layout2.centerbar = true)
+		["pet_centerbar"] = {"TOPLEFT", "oUF_Player_TextFrame", "BOTTOMLEFT", 0, -4},
+		["target_target_centerbar"] = {"TOPRIGHT", "oUF_Target_TextFrame", "BOTTOMRIGHT", 0, -4},
+		["focus_centerbar"] = {"TOPRIGHT", "oUF_Player_TextFrame", "BOTTOMRIGHT", 0, -4},
+		["focus_target_centerbar"] = {"TOPLEFT", "oUF_Target_TextFrame", "BOTTOMLEFT", 0, -4},
+		-- Layout2 castbar positions (used when C.layout2.enable = true)
+		["layout2_castbar_player"] = {"BOTTOM", "oUF_Player_Portrait", "TOP", 0, 0},
+		["layout2_castbar_target"] = {"TOP", "oUF_Target_Portrait", "BOTTOM", 0, 0},
 		["player_castbar"] = {"BOTTOM", "ActionBarAnchor", "TOP", 0, 196},			-- Player Castbar
 		["target_castbar"] = {"BOTTOM", "oUF_Player_Castbar", "TOP", 0, 7},			-- Target Castbar
 		["focus_castbar"] = {"CENTER", UIParent, "CENTER", 0, 250},					-- Focus Castbar icon
-	},
-	-- Layout2 positioning
-	layout2 = {
-		-- Reference point for all Layout2 frames
-		-- Positioned at center of screen, 320px from bottom
-		["ref_point_x"] = 0,						-- Horizontal offset from screen center (0 = centered)
-		["ref_point_y"] = -320,						-- Vertical offset from bottom of screen
-		
-		-- Portrait offsets from reference point
-		["player_portrait_offset_x"] = -50,			-- Move player portrait to the left
-		["target_portrait_offset_x"] = 50,			-- Move target portrait to the right
-		
-		-- UnitFrame offsets from portrait
-		["unitframe_portrait_offset"] = -25,			-- Move unitframe toward center from portrait
-		
-		-- Castbar offsets
-		["player_castbar_offset_y"] = -6,			-- Space between text bar and castbar
-		["target_castbar_offset_y"] = -6,			-- Space between text bar and castbar
-		
 	},
 	-- Filger positions
 	filger = {
 		["player_buff_icon"] = {"RIGHT", UIParent, "CENTER", -280, 23},				-- "P_BUFF_ICON"
 		["player_proc_icon"] = {"RIGHT", UIParent, "CENTER", -280, 80},				-- "P_PROC_ICON"
 		["special_proc_icon"] = {"RIGHT", UIParent, "CENTER", -280, -18},			-- "SPECIAL_P_BUFF_ICON"
-		["target_debuff_icon"] = {"LEFT", UIParent, "CENTER", 280, 80},				-- "T_DEBUFF_ICON"
-		["target_buff_icon"] = {"LEFT", UIParent, "CENTER", 280, 134},				-- "T_BUFF"
+		["target_debuff_icon"] = {"LEFT", UIParent, "CENTER", 300, 160},			-- "T_DEBUFF_ICON"
+		["target_buff_icon"] = {"LEFT", UIParent, "CENTER", 300, 210},				-- "T_BUFF"
 		["pve_debuff"] = {"RIGHT", UIParent, "CENTER", -280, 134},					-- "PVE/PVP_DEBUFF"
-		["focus_cc"] = {"LEFT", UIParent, "CENTER", 280, 38},						-- "FOCUS_CC"
+		["focus_cc"] = {"LEFT", UIParent, "CENTER", 280, -160},						-- "FOCUS_CC"
 		["cooldown"] = {"RIGHT", UIParent, "CENTER", -416, -234},					-- "COOLDOWN"
 		["target_bar"] = {"LEFT", UIParent, "CENTER", 556, -140},					-- "T_DE/BUFF_BAR"
 		["player_bar"] = {"RIGHT", UIParent, "CENTER", -416, -200},					-- "P_BUFF_BAR"
@@ -105,6 +92,6 @@ C["position"] = {
 	["talking_head"] = {"TOP", UIParent, "TOP", 0, -25},							-- Talking Head
 	["alt_power_bar"] = {"TOP", UIWidgetTopCenterContainerFrame, "BOTTOM", 0, -7},	-- Alt power bar
 	["uiwidget_top"] = {"TOP", UIParent, "TOP", 0, -25},							-- Top Widget
-	["uiwidget_below"] = {"BOTTOM", UIParent, "BOTTOM", 0, 216},					-- Below Widget
+	["uiwidget_below"] = {"TOP", UIParent, "TOP", 0, -25},							-- Below Widget
 	["capture_bar"] = {"TOP", UIParent, "TOP", 0, 3},								-- BG capture bars
 }

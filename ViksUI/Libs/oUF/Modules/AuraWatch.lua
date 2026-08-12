@@ -209,7 +209,7 @@ local function setupIcons(self)
 	end
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	if self.AuraWatch then
 		self:RegisterEvent("UNIT_AURA", Update)
 		setupIcons(self)

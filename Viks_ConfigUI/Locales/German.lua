@@ -333,6 +333,7 @@ L.chat_time_color = "Farbe des Zeitstempels"
 
 -- Nameplate options
 L.nameplate_subtext = "Nameplates Einstellung"
+L.nameplate_colors_subtext = "Benutzerdefinierte Nameplate Farben"
 L.nameplate_enable = "Namensplaketten aktivieren"
 L.nameplate_combat = "Namensplaketten automatisch im Kampf anzeigen"
 L.nameplate_health_value = "Numerischer Wert der Lebenspunkte"
@@ -362,6 +363,8 @@ L.nameplate_click_through = "Interaktion mit freundlichen Namen deaktivieren"
 L.nameplate_quests = "Quest-Symbol anzeigen"
 L.nameplate_cast_color = "Farbigen Rahmen bei wichtigen Zaubern anzeigen"
 L.nameplate_kick_color = "Zauberfarbe ändern, wenn Unterbrechung auf CD ist"
+L.nameplate_castbar_height = "Zauberleistenhöhe"
+L.nameplate_castbar_height_desc = "Zauberleistenhöhe der Namensplakette (0 = gleiche Höhe wie Namensplakette)"
 L.nameplate_low_health_value = "Gesundheitswert"
 L.nameplate_low_health = "Hervorhebung bei niedrigem Leben"
 L.nameplate_enhance_threat = "Aktiviere Bedrohungsanzeige, ändert sich automatisch je nach deiner Rolle"
@@ -377,6 +380,28 @@ L.nameplate_mob_color_list = "Liste der Mobs"
 L.nameplate_mob_color_list_desc = "Liste der NPC-IDs (durch Leerzeichen getrennt)"
 L.nameplate_mob_color_alt_list = L.nameplate_mob_color_list
 L.nameplate_mob_color_alt_list_desc = L.nameplate_mob_color_list_desc
+-- Quest colors
+L.nameplate_quest_friendly_color = "Quest freundliche Farbe"
+L.nameplate_quest_neutral_color = "Quest neutrale Farbe"
+L.nameplate_quest_hostile_color = "Quest feindliche Farbe"
+-- Elite colors
+L.nameplate_elite_boss_color = "Elite Boss Farbe"
+L.nameplate_elite_miniboss_color = "Elite Mini-Boss Farbe"
+L.nameplate_elite_caster_color = "Elite Zauberer Farbe"
+L.nameplate_elite_melee_color = "Elite Nahkampf Farbe"
+L.nameplate_elite_trivial_color = "Elite trivial Farbe"
+L.nameplate_elite_only_instance = "Nur in Instanzen"
+-- Delve colors
+L.nameplate_delve_boss_color = "Delve Boss Farbe"
+L.nameplate_delve_miniboss_color = "Delve Mini-Boss Farbe"
+L.nameplate_delve_caster_color = "Delve Zauberer Farbe"
+L.nameplate_delve_melee_color = "Delve Nahkampf Farbe"
+L.nameplate_delve_trivial_color = "Delve trivial Farbe"
+L.nameplate_delve_only_delves = "Nur in Delves"
+-- Tapped color
+L.nameplate_tapped_color = "Angegriffen Farbe"
+L.nameplate_shadow_border = "Schattenrahmen Stil"
+L.nameplate_shadow_border_desc = "Kleinen schwarzen Rahmen mit Schattenwurf verwenden"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Kampftext"

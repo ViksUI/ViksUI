@@ -644,7 +644,7 @@ ns.addCategory("actionbar", L_GUI_ACTIONBAR, ACTIONBARS_SUBTEXT, 3)
 ns.addCategory("tooltip", L.tooltip, L.tooltip_subtext, 2)
 ns.addCategory("quest", L.quest, L.quest_subtext)
 ns.addCategory("chat", SOCIALS, L.chat_subtext)
-ns.addCategory("nameplate", UNIT_NAMEPLATES, L.nameplate_subtext, 2)
+ns.addCategory("nameplate", UNIT_NAMEPLATES, L.nameplate_subtext, 3)
 ns.addCategory("combattext", L_GUI_COMBATTEXT, COMBATTEXT_SUBTEXT.." "..L_GUI_COMBATTEXT_SUBTEXT, 1) -- BETA
 ns.addCategory("bag", L_GUI_BAGS, L_GUI_BAGS_SUBTEXT)
 ns.addCategory("minimap", MINIMAP_LABEL, L_GUI_MINIMAP_SUBTEXT)
@@ -2248,6 +2248,14 @@ do
 	fot_debuffs:SetPoint("LEFT", focus_debuffs, "RIGHT", 320, 0)
 	fot_debuffs.Text:SetWidth(200)
 
+	local debuff_minimap = ns.CreateCheckBox(parent, "debuff_minimap", "Show Big PlayerDebuff at Minimap")
+	debuff_minimap:SetPoint("TOPLEFT", fot_debuffs, "BOTTOMLEFT", 0, 0)
+	debuff_minimap.Text:SetWidth(200)
+	
+	local player_debuff_size = ns.CreateNumberSlider(parent, "player_debuff_size", nil, nil, 20, 70, 1, true, "Debuff at Minimap Size")
+	player_debuff_size:SetPoint("TOPLEFT", debuff_minimap, "BOTTOMLEFT", 0, -20)
+	player_debuff_size.Text:SetWidth(200)
+	
 	local pet_debuffs = ns.CreateCheckBox(parent, "pet_debuffs", L_GUI_AURA_PET_DEBUFFS)
 	pet_debuffs:SetPoint("TOPLEFT", focus_debuffs, "BOTTOMLEFT", 0, 0)
 
@@ -2863,8 +2871,11 @@ do
 	-- local kick_color = ns.CreateCheckBox(parent, "kick_color")
 	-- kick_color:SetPoint("TOPLEFT", cast_color, "BOTTOMLEFT", 0, 0)
 
+	local castbar_height = ns.CreateNumberSlider(parent, "castbar_height", nil, nil, 0, 40, 1, true)
+	castbar_height:SetPoint("TOPLEFT", cast_color, "BOTTOMLEFT", 0, -20)
+
 	local enhance_threat = ns.CreateCheckBox(parent, "enhance_threat")
-	enhance_threat:SetPoint("TOPLEFT", cast_color, "BOTTOMLEFT", 0, 0)
+	enhance_threat:SetPoint("TOPLEFT", castbar_height, "BOTTOMLEFT", 0, -10)
 
 	local good_color = ns.CreateColourPicker(parent, "good_color", true)
 	good_color:SetPoint("TOPLEFT", enhance_threat, "BOTTOMLEFT", 24, -4)
@@ -2932,6 +2943,79 @@ do
 	-- mob_color_alt_list:SetPoint("TOPLEFT", mob_color_alt, "BOTTOMLEFT", 2, -10)
 	-- mob_color_alt_list:SetWidth(240)
 	-- mob_color_alt_list:SetMaxLetters(200)
+end
+
+-- Nameplate Panel 3 - Colors
+do
+	local parent = ViksUIOptionsPanel.nameplate3
+	parent.subText:SetText(L.nameplate_colors_subtext)
+
+	local shadow_border = ns.CreateCheckBox(parent, "shadow_border")
+	shadow_border:SetPoint("TOPLEFT", parent.subText, "BOTTOMLEFT", 0, 0)
+
+	-- Quest colors
+	local subheader_quest = ns.addSubCategory(parent, L.nameplate_quest_friendly_color)
+	subheader_quest:SetPoint("TOPLEFT", shadow_border, "BOTTOMLEFT", 0, -10)
+
+	local quest_friendly_color = ns.CreateColourPicker(parent, "quest_friendly_color", true, L.nameplate_quest_friendly_color)
+	quest_friendly_color:SetPoint("TOPLEFT", subheader_quest, "BOTTOMLEFT", 4, -8)
+
+	local quest_neutral_color = ns.CreateColourPicker(parent, "quest_neutral_color", true, L.nameplate_quest_neutral_color)
+	quest_neutral_color:SetPoint("LEFT", quest_friendly_color, "RIGHT", 300, 0)
+
+	local quest_hostile_color = ns.CreateColourPicker(parent, "quest_hostile_color", true, L.nameplate_quest_hostile_color)
+	quest_hostile_color:SetPoint("TOPLEFT", quest_friendly_color, "BOTTOMLEFT", 0, -8)
+
+	-- Elite colors
+	local subheader_elite = ns.addSubCategory(parent, L.nameplate_elite_boss_color)
+	subheader_elite:SetPoint("TOPLEFT", quest_hostile_color, "BOTTOMLEFT", -4, -12)
+
+	local elite_only_instance = ns.CreateCheckBox(parent, "elite_only_instance")
+	elite_only_instance:SetPoint("TOPLEFT", subheader_elite, "BOTTOMLEFT", 0, 0)
+
+	local elite_boss_color = ns.CreateColourPicker(parent, "elite_boss_color", true, L.nameplate_elite_boss_color)
+	elite_boss_color:SetPoint("TOPLEFT", elite_only_instance, "BOTTOMLEFT", 24, -4)
+
+	local elite_miniboss_color = ns.CreateColourPicker(parent, "elite_miniboss_color", true, L.nameplate_elite_miniboss_color)
+	elite_miniboss_color:SetPoint("LEFT", elite_boss_color, "RIGHT", 300, 0)
+
+	local elite_caster_color = ns.CreateColourPicker(parent, "elite_caster_color", true, L.nameplate_elite_caster_color)
+	elite_caster_color:SetPoint("TOPLEFT", elite_boss_color, "BOTTOMLEFT", 0, -8)
+
+	local elite_melee_color = ns.CreateColourPicker(parent, "elite_melee_color", true, L.nameplate_elite_melee_color)
+	elite_melee_color:SetPoint("LEFT", elite_caster_color, "RIGHT", 300, 0)
+
+	local elite_trivial_color = ns.CreateColourPicker(parent, "elite_trivial_color", true, L.nameplate_elite_trivial_color)
+	elite_trivial_color:SetPoint("TOPLEFT", elite_caster_color, "BOTTOMLEFT", 0, -8)
+
+	-- Delve colors
+	local subheader_delve = ns.addSubCategory(parent, L.nameplate_delve_boss_color)
+	subheader_delve:SetPoint("TOPLEFT", elite_trivial_color, "BOTTOMLEFT", -28, -12)
+
+	local delve_only_delves = ns.CreateCheckBox(parent, "delve_only_delves")
+	delve_only_delves:SetPoint("TOPLEFT", subheader_delve, "BOTTOMLEFT", 0, 0)
+
+	local delve_boss_color = ns.CreateColourPicker(parent, "delve_boss_color", true, L.nameplate_delve_boss_color)
+	delve_boss_color:SetPoint("TOPLEFT", delve_only_delves, "BOTTOMLEFT", 24, -4)
+
+	local delve_miniboss_color = ns.CreateColourPicker(parent, "delve_miniboss_color", true, L.nameplate_delve_miniboss_color)
+	delve_miniboss_color:SetPoint("LEFT", delve_boss_color, "RIGHT", 300, 0)
+
+	local delve_caster_color = ns.CreateColourPicker(parent, "delve_caster_color", true, L.nameplate_delve_caster_color)
+	delve_caster_color:SetPoint("TOPLEFT", delve_boss_color, "BOTTOMLEFT", 0, -8)
+
+	local delve_melee_color = ns.CreateColourPicker(parent, "delve_melee_color", true, L.nameplate_delve_melee_color)
+	delve_melee_color:SetPoint("LEFT", delve_caster_color, "RIGHT", 300, 0)
+
+	local delve_trivial_color = ns.CreateColourPicker(parent, "delve_trivial_color", true, L.nameplate_delve_trivial_color)
+	delve_trivial_color:SetPoint("TOPLEFT", delve_caster_color, "BOTTOMLEFT", 0, -8)
+
+	-- Tapped color
+	local subheader_tapped = ns.addSubCategory(parent, L.nameplate_tapped_color)
+	subheader_tapped:SetPoint("TOPLEFT", delve_trivial_color, "BOTTOMLEFT", -28, -12)
+
+	local tapped_color = ns.CreateColourPicker(parent, "tapped_color", true, L.nameplate_tapped_color)
+	tapped_color:SetPoint("TOPLEFT", subheader_tapped, "BOTTOMLEFT", 4, -8)
 end
 
 -- Combat text

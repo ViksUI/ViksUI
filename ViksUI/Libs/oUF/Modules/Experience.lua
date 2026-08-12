@@ -116,7 +116,7 @@ local function UpdateColor(element, isHonor, isRested)
 end
 
 local function Update(self, _, unit)
-	if(self.unit ~= unit or unit ~= 'player') then return end
+	if(self.__unit ~= unit or unit ~= 'player') then return end
 
 	local element = self.Experience
 	if(element.PreUpdate) then element:PreUpdate(unit) end
@@ -200,7 +200,7 @@ local function VisibilityPath(self, ...)
 end
 
 local function ForceUpdate(element)
-	return VisibilityPath(element.__owner, 'ForceUpdate', element.__owner.unit)
+	return VisibilityPath(element.__owner, 'ForceUpdate', element.__owner.__unit)
 end
 
 local function Enable(self, unit)

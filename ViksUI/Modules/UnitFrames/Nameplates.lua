@@ -182,47 +182,104 @@ local function CreateBorderFrame(frame, point)
 	if point == nil then point = frame end
 	if point.backdrop then return end
 
-	frame.backdrop = frame:CreateTexture(nil, "BORDER")
-	frame.backdrop:SetDrawLayer("BORDER", -8)
-	frame.backdrop:SetPoint("TOPLEFT", point, "TOPLEFT", -1 * 3, 1 * 3)
-	frame.backdrop:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", 1 * 3, -1 * 3)
-	local r, g, b, a = unpack(C.media.backdrop_color)
-	frame.backdrop:SetColorTexture(r, g, b + 0.01, a)
+	if C.nameplate.shadow_border then
+		-- Shadow border style - create overlay frame for border
+		local border = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		border:SetFrameLevel(frame:GetFrameLevel() + 1)
+		border:SetPoint("TOPLEFT", point, "TOPLEFT", -1, 1)
+		border:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", 1, -1)
+		border:SetBackdrop({
+			edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1,
+			insets = {left = -1, right = -1, top = -1, bottom = -1}
+		})
+		border:SetBackdropColor(0, 0, 0, 0)
+		border:SetBackdropBorderColor(0, 0, 0, 1)
+		frame.iborder = border
 
-	frame.bordertop = frame:CreateTexture(nil, "BORDER")
-	frame.bordertop:SetPoint("TOPLEFT", point, "TOPLEFT", -1 * 2, 1 * 2)
-	frame.bordertop:SetPoint("TOPRIGHT", point, "TOPRIGHT", 1 * 2, 1 * 2)
-	frame.bordertop:SetHeight(1)
-	frame.bordertop:SetColorTexture(unpack(C.media.border_color))
-	frame.bordertop:SetDrawLayer("BORDER", -7)
+		-- Shadow frame
+		local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		shadow:SetFrameLevel(0)
+		shadow:SetFrameStrata(frame:GetFrameStrata())
+		shadow:SetPoint("TOPLEFT", point, "TOPLEFT", -4, 4)
+		shadow:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", 4, -4)
+		shadow:SetBackdrop({
+			edgeFile = "Interface\\AddOns\\ViksUI\\Media\\Other\\glowTex", edgeSize = 4,
+		})
+		shadow:SetBackdropColor(0, 0, 0, 0)
+		shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
+		frame.shadow = shadow
+		frame.backdrop = true
+	else
+		-- Default border style
+		frame.backdrop = frame:CreateTexture(nil, "BORDER")
+		frame.backdrop:SetDrawLayer("BORDER", -8)
+		frame.backdrop:SetPoint("TOPLEFT", point, "TOPLEFT", -1 * 3, 1 * 3)
+		frame.backdrop:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", 1 * 3, -1 * 3)
+		local r, g, b, a = unpack(C.media.backdrop_color)
+		frame.backdrop:SetColorTexture(r, g, b + 0.01, a)
 
-	frame.borderbottom = frame:CreateTexture(nil, "BORDER")
-	frame.borderbottom:SetPoint("BOTTOMLEFT", point, "BOTTOMLEFT", -1 * 2, -1 * 2)
-	frame.borderbottom:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", 1 * 2, -1 * 2)
-	frame.borderbottom:SetHeight(1)
-	frame.borderbottom:SetColorTexture(unpack(C.media.border_color))
-	frame.borderbottom:SetDrawLayer("BORDER", -7)
+		frame.bordertop = frame:CreateTexture(nil, "BORDER")
+		frame.bordertop:SetPoint("TOPLEFT", point, "TOPLEFT", -1 * 2, 1 * 2)
+		frame.bordertop:SetPoint("TOPRIGHT", point, "TOPRIGHT", 1 * 2, 1 * 2)
+		frame.bordertop:SetHeight(1)
+		frame.bordertop:SetColorTexture(unpack(C.media.border_color))
+		frame.bordertop:SetDrawLayer("BORDER", -7)
 
-	frame.borderleft = frame:CreateTexture(nil, "BORDER")
-	frame.borderleft:SetPoint("TOPLEFT", point, "TOPLEFT", -1 * 2, 1 * 2)
-	frame.borderleft:SetPoint("BOTTOMLEFT", point, "BOTTOMLEFT", 1 * 2, -1 * 2)
-	frame.borderleft:SetWidth(1)
-	frame.borderleft:SetColorTexture(unpack(C.media.border_color))
-	frame.borderleft:SetDrawLayer("BORDER", -7)
+		frame.borderbottom = frame:CreateTexture(nil, "BORDER")
+		frame.borderbottom:SetPoint("BOTTOMLEFT", point, "BOTTOMLEFT", -1 * 2, -1 * 2)
+		frame.borderbottom:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", 1 * 2, -1 * 2)
+		frame.borderbottom:SetHeight(1)
+		frame.borderbottom:SetColorTexture(unpack(C.media.border_color))
+		frame.borderbottom:SetDrawLayer("BORDER", -7)
 
-	frame.borderright = frame:CreateTexture(nil, "BORDER")
-	frame.borderright:SetPoint("TOPRIGHT", point, "TOPRIGHT", 1 * 2, 1 * 2)
-	frame.borderright:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", -1 * 2, -1 * 2)
-	frame.borderright:SetWidth(1)
-	frame.borderright:SetColorTexture(unpack(C.media.border_color))
-	frame.borderright:SetDrawLayer("BORDER", -7)
+		frame.borderleft = frame:CreateTexture(nil, "BORDER")
+		frame.borderleft:SetPoint("TOPLEFT", point, "TOPLEFT", -1 * 2, 1 * 2)
+		frame.borderleft:SetPoint("BOTTOMLEFT", point, "BOTTOMLEFT", 1 * 2, -1 * 2)
+		frame.borderleft:SetWidth(1)
+		frame.borderleft:SetColorTexture(unpack(C.media.border_color))
+		frame.borderleft:SetDrawLayer("BORDER", -7)
+
+		frame.borderright = frame:CreateTexture(nil, "BORDER")
+		frame.borderright:SetPoint("TOPRIGHT", point, "TOPRIGHT", 1 * 2, 1 * 2)
+		frame.borderright:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", -1 * 2, -1 * 2)
+		frame.borderright:SetWidth(1)
+		frame.borderright:SetColorTexture(unpack(C.media.border_color))
+		frame.borderright:SetDrawLayer("BORDER", -7)
+	end
 end
 
 local function SetColorBorder(frame, r, g, b)
-	frame.bordertop:SetColorTexture(r, g, b)
-	frame.borderbottom:SetColorTexture(r, g, b)
-	frame.borderleft:SetColorTexture(r, g, b)
-	frame.borderright:SetColorTexture(r, g, b)
+	if C.nameplate.shadow_border then
+		-- When shadow_border is enabled, use black as default instead of border_color
+		if frame.iborder then
+			frame.iborder:SetBackdropBorderColor(r, g, b, 1)
+		end
+		if frame.shadow then
+			frame.shadow:SetBackdropBorderColor(r, g, b, 0.8)
+		end
+	else
+		if frame.bordertop then
+			frame.bordertop:SetColorTexture(r, g, b)
+		end
+		if frame.borderbottom then
+			frame.borderbottom:SetColorTexture(r, g, b)
+		end
+		if frame.borderleft then
+			frame.borderleft:SetColorTexture(r, g, b)
+		end
+		if frame.borderright then
+			frame.borderright:SetColorTexture(r, g, b)
+		end
+	end
+end
+
+-- Helper to get default border color (black for shadow, border_color for default)
+local function GetDefaultBorderColor()
+	if C.nameplate.shadow_border then
+		return 0, 0, 0
+	else
+		return unpack(C.media.border_color)
+	end
 end
 
 -- Auras functions
@@ -265,25 +322,28 @@ if T.screenHeight > 1200 then
 	Mult = T.mult
 end
 
-local AurasPostCreateIcon = function(_, button)
-	CreateBorderFrame(button)
+local AurasPostCreateIcon = function(_, button, options)
+	if CreateBorderFrame then
+		CreateBorderFrame(button)
+	end
 
-	T.SkinCooldown(button.Cooldown, "aura")
+	if button.Cooldown then
+		T.SkinCooldown(button.Cooldown, "aura")
+	end
 
-	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	if button.Icon then
+		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	end
 
-	button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
-	button.Count:SetJustifyH("RIGHT")
-	button.Count:SetFont(C.font.auras_font, C.font.auras_font_size * 1 / Mult, C.font.auras_font_style)
-	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	if button.Count then
+		button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
+		button.Count:SetJustifyH("RIGHT")
+		button.Count:SetFont(C.font.auras_font, C.font.auras_font_size * 1 / Mult, C.font.auras_font_style)
+		button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	end
 
-	if C.aura.show_spiral then
+	if C.aura.show_spiral and button.Cooldown then
 		button.Cooldown:SetReverse(true)
-		button.parent = CreateFrame("Frame", nil, button)
-		button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
-		button.Count:SetParent(button.parent)
-	else
-		-- button.Cooldown:SetAlpha(0)
 	end
 end
 
@@ -292,7 +352,7 @@ local AurasPostUpdateIcon = function(_, button, unit, data)
 		if data.isHarmfulAura then
 			if C.nameplate.track_debuffs and data.isPlayerAura or (canaccessvalue(data.sourceUnit) and data.sourceUnit == "pet") then
 				if C.nameplate.track_buffs then
-					SetColorBorder(button, unpack(C.media.border_color))
+					SetColorBorder(button, GetDefaultBorderColor())
 				end
 			end
 		else
@@ -307,26 +367,47 @@ local AurasPostUpdateIcon = function(_, button, unit, data)
 	end
 end
 
+local function GetCastbarOffset()
+	-- Normal border extends farther outside the frame; shadow border is only 1px.
+	-- Keep the castbar/icon close to the healthbar when using the shadow style.
+	return C.nameplate.shadow_border and 3 or 8
+end
+
 local function UpdateTarget(self)
-	local isTarget = T.unitIsUnit(self.unit, "target")
-	local isMe = T.unitIsUnit(self.unit, "player")
+	-- Use oUF's canonical private unit token. Blizzard 12.1 owns .unit,
+	-- while _unit is our cached nameplate token.
+	local unit = self.__unit or self._unit
+	local gap = GetCastbarOffset()
+	local isTarget = unit and T.unitIsUnit(unit, "target")
+	local isMe = unit and T.unitIsUnit(unit, "player")
+
+	-- Always clear target-only visuals first. This prevents a recycled
+	-- nameplate from retaining the previous target's arrows/glow if the
+	-- target changes or the plate is rebound.
+	self.ArrowR:Hide()
+	self.ArrowL:Hide()
+	self.Level:Show()
+	if C.nameplate.target_glow then
+		self.Glow:Hide()
+	end
 
 	if isTarget and not isMe then
 		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
 			if C.nameplate.target_arrow == true then
 				self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
-				self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 5+((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), -8)
-				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+				self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 8+((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), -gap)
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -gap-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
 				self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult), ((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
 			else
 				self:SetSize((C.nameplate.width + C.nameplate.ad_width) * T.noscalemult, (C.nameplate.height + C.nameplate.ad_height) * T.noscalemult)
-				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -gap-((C.nameplate.height + C.nameplate.ad_height) * T.noscalemult))
 				self.Castbar.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
 			end
 			if C.nameplate.class_icons == true then
 				self.Class.Icon:SetSize(((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8, ((C.nameplate.height + C.nameplate.ad_height) * 2 * T.noscalemult) + 8)
 			end
 		end
+
 		self.ArrowR:Show()
 		self.ArrowL:Show()
 		self.Level:Hide()
@@ -339,37 +420,32 @@ local function UpdateTarget(self)
 		if C.nameplate.ad_height > 0 or C.nameplate.ad_width > 0 then
 			if C.nameplate.target_arrow == true then
 				self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
-				self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+5, -8)
-				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult), -8-(C.nameplate.height * T.noscalemult))
+				self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+8, -gap)
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult), -gap-(C.nameplate.height * T.noscalemult))
 				self.Castbar.Icon:SetSize((C.nameplate.height * T.noscalemult), (C.nameplate.height * T.noscalemult))
 			else
 				self:SetSize(C.nameplate.width * T.noscalemult, C.nameplate.height * T.noscalemult)
-				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -8-(C.nameplate.height * T.noscalemult))
+				self.Castbar:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 0, -gap-(C.nameplate.height * T.noscalemult))
 				self.Castbar.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
 			end
 			if C.nameplate.class_icons == true then
 				self.Class.Icon:SetSize((C.nameplate.height * 2 * T.noscalemult) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
 			end
 		end
-		if C.nameplate.target_glow then
-			self.Glow:Hide()
-		end
+
 		if not UnitExists("target") or isMe then
 			self:SetAlpha(1)
 		else
 			self:SetAlpha(C.nameplate.alpha)
 		end
-		self.ArrowR:Hide()
-		self.ArrowL:Hide()
-		self.Level:Show()
 	end
 end
 
 local function UpdateFocus(self)
-	if T.unitIsUnit(self.unit, "focus") then
+	if T.unitIsUnit(self._unit, "focus") then
 		SetColorBorder(self.Health, 1, 0.8, 0)
 	else
-		SetColorBorder(self.Health, unpack(C.media.border_color))
+		SetColorBorder(self.Health, GetDefaultBorderColor())
 	end
 end
 
@@ -390,13 +466,25 @@ local function UpdateName(self)
 	end
 
 	if C.nameplate.class_icons then
-		local reaction = UnitReaction(self.unit, "player")
-		if UnitIsPlayer(self.unit) and (reaction and reaction <= 4) then
-			local _, class = UnitClass(self.unit)
-			local texcoord = CLASS_ICON_TCOORDS[class]
-			self.Class.Icon:SetTexCoord(texcoord[1] + 0.015, texcoord[2] - 0.02, texcoord[3] + 0.018, texcoord[4] - 0.02)
-			self.Class:Show()
-			self.Level:SetPoint("RIGHT", self.Name, "LEFT", -2, 0)
+		local reaction = UnitReaction(self._unit, "player")
+		if UnitIsPlayer(self._unit) and canaccessvalue(reaction) and reaction <= 4 then
+			local _, class = UnitClass(self._unit)
+			if canaccessvalue(class) then
+				local texcoord = CLASS_ICON_TCOORDS[class]
+				if texcoord then
+					self.Class.Icon:SetTexCoord(texcoord[1] + 0.015, texcoord[2] - 0.02, texcoord[3] + 0.018, texcoord[4] - 0.02)
+					self.Class:Show()
+					self.Level:SetPoint("RIGHT", self.Name, "LEFT", -2, 0)
+				else
+					self.Class.Icon:SetTexCoord(0, 0, 0, 0)
+					self.Class:Hide()
+					self.Level:SetPoint("RIGHT", self.Health, "LEFT", -2, 0)
+				end
+			else
+				self.Class.Icon:SetTexCoord(0, 0, 0, 0)
+				self.Class:Hide()
+				self.Level:SetPoint("RIGHT", self.Health, "LEFT", -2, 0)
+			end
 		else
 			self.Class.Icon:SetTexCoord(0, 0, 0, 0)
 			self.Class:Hide()
@@ -449,9 +537,15 @@ if C.nameplate.kick_color then
 end
 
 -- Cast color
-local function castColor(self, unit)
-	-- Check if notInterruptible
-	local color = C_CurveUtil.EvaluateColorFromBoolean(self.notInterruptible, {r = 0.78, g = 0.25, b = 0.25, a = 1}, {r = 1, g = 0.8, b = 0, a = 1})
+local function castColor(self, unit, spellID, notInterruptible)
+	-- oUF passes the current cast's spellID and interruptibility directly
+	-- to PostCastStart. Do not read self.spellID/self.notInterruptible here:
+	-- those are not public CastBar fields in this oUF implementation.
+	local color = C_CurveUtil.EvaluateColorFromBoolean(
+		notInterruptible,
+		{r = 0.78, g = 0.25, b = 0.25, a = 1},
+		{r = 1, g = 0.8, b = 0, a = 1}
+	)
 
 	-- if C.nameplate.kick_color then
 		-- local start, _, enabled = GetSpellCooldown(kickID)
@@ -483,7 +577,18 @@ local function castColor(self, unit)
 	-- end
 
 	if C.nameplate.cast_color then
-		local color = C_CurveUtil.EvaluateColorFromBoolean(C_Spell.IsSpellImportant(self.spellID), {r = 1, g = 0.8, b = 0, a = 1}, {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1})
+		-- C_Spell.IsSpellImportant() is designed to accept the spell identifier
+		-- supplied by the cast system, including secret spell identifiers on
+		-- restricted/instance nameplates. Do not gate this with canaccessvalue():
+		-- the identifier can be secret while still being a valid API argument.
+		-- EvaluateColorFromBoolean() is the secret-safe sink for the result.
+		local important = C_Spell.IsSpellImportant(spellID)
+		local br, bg, bb = GetDefaultBorderColor()
+		local color = C_CurveUtil.EvaluateColorFromBoolean(
+			important,
+			{r = 1, g = 0.8, b = 0, a = 1},
+			{r = br, g = bg, b = bb, a = 1}
+		)
 		SetColorBorder(self, color:GetRGB())
 		SetColorBorder(self.Border, color:GetRGB())
 	end
@@ -533,86 +638,211 @@ local function CastInterrupted(self, unit, interruptedBy)
 	end
 end
 
--- Health color
-local function threatColor(self, forced)
-	if UnitIsPlayer(self.unit) then return end
+-- 12.1 dungeon mob-type resolver, mapped from EllesmereUI's nameplate
+-- priority model.
+--
+-- Categories:
+--   boss      = worldboss / skull / 2+ effective levels above player
+--   miniboss  = lieutenant / elite one level above player
+--   caster    = unit has a MANA power type
+--   mini      = normal / minus / trivial dungeon trash
+--   melee     = remaining elite / rareelite dungeon mobs
+--
+-- Important 12.1 rule: do not use UnitClassBase for caster detection.
+-- UnitHasPowerType(unit, Enum.PowerType.Mana) is safe and also matches the
+-- actual behavior used by EllesmereUI.
+local function GetDungeonMobType(unit)
+	if not unit or UnitIsPlayer(unit) then return nil end
 
-	if C.nameplate.enhance_threat ~= true then
-		SetColorBorder(self.Health, unpack(C.media.border_color))
+	local classification = UnitClassification(unit)
+	local inInstance = IsInInstance()
+
+	if not inInstance then
+		return nil
 	end
-	if UnitIsTapDenied(self.unit) then
-		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
-	elseif UnitAffectingCombat("player") then
-		local threatStatus = UnitThreatSituation("player", self.unit)
-		if self.npcID == "120651" then	-- Explosives affix
-			self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
-		elseif self.npcID == "174773" then	-- Spiteful Shade affix
-			if threatStatus == 3 then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
-			else
-				self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-			end
-		elseif threatStatus == 3 then	-- securely tanking, highest threat
-			if T.Role == "Tank" then
-				if C.nameplate.enhance_threat then
-					if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
-						self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-					end
+
+	-- Bosses: worldboss is an immediate boss classification.
+	if classification == "worldboss" then
+		return "boss"
+	end
+
+	-- Mini-boss / boss tiering for elite/rareelite mobs.
+	if classification == "elite" or classification == "rareelite" then
+		local level = UnitEffectiveLevel(unit)
+		local playerLevel = UnitEffectiveLevel("player")
+
+		local levelClean = level ~= nil and not issecretvalue(level)
+		local playerLevelClean = playerLevel ~= nil and not issecretvalue(playerLevel)
+
+		if levelClean and playerLevelClean then
+			local isSkull = level == -1
+			local aboveOne = level >= playerLevel + 1
+
+			if isSkull or aboveOne then
+				local aboveTwo = level >= playerLevel + 2
+				local lieutenant = (not isSkull) and UnitIsLieutenant and UnitIsLieutenant(unit)
+
+				if not lieutenant and (isSkull or aboveTwo) then
+					return "boss"
 				else
-					SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
-				end
-			else
-				if C.nameplate.enhance_threat then
-					self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
-				else
-					SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
-				end
-			end
-		elseif threatStatus == 2 then	-- insecurely tanking, another unit have higher threat but not tanking
-			if C.nameplate.enhance_threat then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
-			else
-				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
-			end
-		elseif threatStatus == 1 then	-- not tanking, higher threat than tank
-			if C.nameplate.enhance_threat then
-				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
-			else
-				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
-			end
-		elseif threatStatus == 0 then	-- not tanking, lower threat than tank
-			if C.nameplate.enhance_threat then
-				if T.Role == "Tank" then
-					local offTank = false
-					if IsInRaid() then
-						for i = 1, GetNumGroupMembers() do
-							if UnitExists("raid"..i) and not T.unitIsUnit("raid"..i, "player") and UnitGroupRolesAssigned("raid"..i) == "TANK" then
-								local isTanking = UnitDetailedThreatSituation("raid"..i, self.unit)
-								if isTanking then
-									offTank = true
-									break
-								end
-							end
-						end
-					end
-					if offTank then
-						self.Health:SetStatusBarColor(unpack(C.nameplate.offtank_color))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
-					end
-				else
-					if C.nameplate.mob_color_enable and T.ColorPlate[self.npcID] then
-						self.Health:SetStatusBarColor(unpack(T.ColorPlate[self.npcID]))
-					else
-						self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
-					end
+					return "miniboss"
 				end
 			end
 		end
-	elseif not forced then
-		self.Health:ForceUpdate()
+	end
+
+	-- Caster detection: this is the important difference from the old
+	-- PALADIN-based logic. Blizzard exposes the actual mana power type.
+	if UnitHasPowerType and Enum and Enum.PowerType and UnitHasPowerType(unit, Enum.PowerType.Mana) then
+		return "caster"
+	end
+
+	-- Mini enemies / non-elite dungeon trash.
+	if classification == "normal" or classification == "minus" or classification == "trivial" then
+		return "mini"
+	end
+
+	-- Remaining elite/rare-elite mobs are normal dungeon enemies.
+	if classification == "elite" or classification == "rareelite" then
+		return "melee"
+	end
+
+	return nil
+end
+
+local function GetDungeonMobColor(unit)
+	local mobType = GetDungeonMobType(unit)
+	if not mobType then return nil end
+
+	if mobType == "boss" then
+		return C.nameplate.elite_boss_color, mobType
+	elseif mobType == "miniboss" then
+		return C.nameplate.elite_miniboss_color, mobType
+	elseif mobType == "caster" then
+		return C.nameplate.elite_caster_color, mobType
+	elseif mobType == "mini" then
+		return C.nameplate.elite_trivial_color, mobType
+	elseif mobType == "melee" then
+		return C.nameplate.elite_melee_color, mobType
+	end
+end
+
+local function GetMobColorOverride(self)
+	if not C.nameplate.elite_only_instance then return nil end
+	if not self or not self._unit then return nil end
+
+	local color, mobType = GetDungeonMobColor(self._unit)
+	if color then
+		return color, mobType
+	end
+end
+
+local function threatColor(self, forced)
+	if UnitIsPlayer(self._unit) then return end
+
+	if C.nameplate.enhance_threat ~= true then
+		SetColorBorder(self.Health, GetDefaultBorderColor())
+	end
+
+	if UnitIsTapDenied(self._unit) then
+		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
+		return
+	end
+
+	-- Only use threat coloring while the player is actually in combat.
+	if not UnitAffectingCombat("player") then
+		if not forced then
+			self.Health:ForceUpdate()
+		end
+		return
+	end
+
+	local threatStatus = UnitThreatSituation("player", self._unit)
+
+	-- Preserve the existing special affix behavior.
+	if self.npcID == "120651" then
+		self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
+		return
+	elseif self.npcID == "174773" then
+		if threatStatus == 3 then
+			self.Health:SetStatusBarColor(unpack(C.nameplate.extra_color))
+		else
+			self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+		end
+		return
+	end
+
+	if not threatStatus then
+		return
+	end
+
+	-- EllesmereUI priority mapping:
+	-- DPS/healer: has aggro / near aggro override mob colors.
+	-- Tank: losing aggro / no aggro override mob colors.
+	if T.Role == "Tank" then
+		if threatStatus == 2 or threatStatus == 1 then
+			if C.nameplate.enhance_threat then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
+			else
+				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
+			end
+			return
+		elseif threatStatus == 0 then
+			if C.nameplate.enhance_threat then
+				local offTank = false
+				if IsInRaid() then
+					for i = 1, GetNumGroupMembers() do
+						local raidUnit = "raid"..i
+						if UnitExists(raidUnit)
+							and not T.unitIsUnit(raidUnit, "player")
+							and UnitGroupRolesAssigned(raidUnit) == "TANK" then
+							if UnitDetailedThreatSituation(raidUnit, self._unit) then
+								offTank = true
+								break
+							end
+						end
+					end
+				end
+
+				if offTank then
+					self.Health:SetStatusBarColor(unpack(C.nameplate.offtank_color))
+				else
+					self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
+				end
+			else
+				SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
+			end
+			return
+		end
+
+		-- threatStatus == 3: tank has secure aggro.
+		-- Do NOT overwrite mob-type colors. This is the important EllesmereUI
+		-- behavior: miniboss/caster/boss colors survive normal tank aggro.
+		return
+	else
+		if threatStatus == 3 then
+			if C.nameplate.enhance_threat then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.bad_color))
+			else
+				SetColorBorder(self.Health, unpack(C.nameplate.bad_color))
+			end
+			return
+		elseif threatStatus == 2 or threatStatus == 1 then
+			if C.nameplate.enhance_threat then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.near_color))
+			else
+				SetColorBorder(self.Health, unpack(C.nameplate.near_color))
+			end
+			return
+		elseif threatStatus == 0 then
+			-- DPS/healer with no active threat warning: preserve the mob-type
+			-- color when mob coloring is enabled, otherwise use the old good
+			-- color behavior.
+			if C.nameplate.enhance_threat and not C.nameplate.mob_color_enable then
+				self.Health:SetStatusBarColor(unpack(C.nameplate.good_color))
+			end
+			return
+		end
 	end
 end
 
@@ -621,12 +851,20 @@ local low_health_player = C_CurveUtil.CreateColorCurve()
 low_health_player:SetType(Enum.LuaCurveType.Step)
 low_health_player:AddPoint(0, CreateColor(1, 0, 0, 1))
 low_health_player:AddPoint(0.2, CreateColor(1, 1, 0, 1))
-low_health_player:AddPoint(0.5, CreateColor(unpack(C.media.border_color)))
+if C.nameplate.shadow_border then
+	low_health_player:AddPoint(0.5, CreateColor(0, 0, 0))
+else
+	low_health_player:AddPoint(0.5, CreateColor(unpack(C.media.border_color)))
+end
 
 local low_health = C_CurveUtil.CreateColorCurve()
 low_health:SetType(Enum.LuaCurveType.Step)
 low_health:AddPoint(0, CreateColor(unpack(C.nameplate.low_health_color)))
-low_health:AddPoint(C.nameplate.low_health_value, CreateColor(unpack(C.media.border_color)))
+if C.nameplate.shadow_border then
+	low_health:AddPoint(C.nameplate.low_health_value, CreateColor(0, 0, 0))
+else
+	low_health:AddPoint(C.nameplate.low_health_value, CreateColor(unpack(C.media.border_color)))
+end
 
 local function HealthPostUpdate(self, unit)
 	local isPlayer = UnitIsPlayer(unit)
@@ -640,7 +878,7 @@ local function HealthPostUpdate(self, unit)
 			local r, g, b = color:GetRGB()
 			SetColorBorder(self, r, g, b)
 		else
-			SetColorBorder(self, unpack(C.media.border_color))
+			SetColorBorder(self, GetDefaultBorderColor())
 		end
 	end
 end
@@ -653,33 +891,88 @@ local function HealthPostUpdateColor(self, unit, color)
 	local mu = self.bg.multiplier
 	local isPlayer = UnitIsPlayer(unit)
 	local unitReaction = UnitReaction(unit, "player")
-	if not T.unitIsUnit("player", unit) and isPlayer and (unitReaction and unitReaction >= 5) then
+	local reactionAccessible = canaccessvalue(unitReaction)
+	if not T.unitIsUnit("player", unit) and isPlayer and reactionAccessible and unitReaction >= 5 then
 		r, g, b = T.oUF_colors.power["MANA"]:GetRGB()
 		self:SetStatusBarColor(r, g, b)
 		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
-	elseif not UnitIsTapDenied(unit) and not isPlayer then
+	elseif UnitIsTapDenied(unit) then
+		r, g, b = unpack(C.nameplate.tapped_color)
+		self:SetStatusBarColor(r, g, b)
+		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+	elseif not isPlayer then
 		local special = UnitClassification(unit)
-		if special == "elite" and IsInInstance() then
-			if UnitIsLieutenant(unit) then
-				main.npcID = "miniboss"
-			elseif UnitClassBase(unit) == "PALADIN" then
-				main.npcID = "caster"
-			end
-		end
-		if C.nameplate.mob_color_enable and T.ColorPlate[main.npcID] then
-			r, g, b = unpack(T.ColorPlate[main.npcID])
-		elseif special == "rare" or special == "rareelite" then
-			r, g, b = 0, 0.7, 0.6
-		else
-			local reaction = T.oUF_colors.reaction[unitReaction]
-			if reaction then
-				if unitReaction < 4 and not UnitCanAttack("player", unit) then
-					r, g, b = UnitSelectionColor(unit, true)
+		local inInstance = IsInInstance()
+		local unitGUID = UnitGUID(unit)
+
+		-- Quest colors retain highest mob-color priority.
+		if C.nameplate.quests and main.QuestIcon and main.QuestIcon:IsShown() then
+			if reactionAccessible then
+				if unitReaction >= 4 then
+					r, g, b = unpack(C.nameplate.quest_friendly_color)
+				elseif unitReaction == 3 then
+					r, g, b = unpack(C.nameplate.quest_neutral_color)
 				else
-					r, g, b = reaction:GetRGB()
+					r, g, b = unpack(C.nameplate.quest_hostile_color)
 				end
+			end
+		elseif C.nameplate.elite_only_instance and inInstance then
+			-- EllesmereUI-style dungeon mob categories:
+			-- Bosses > Mini-Bosses > Spell Casters > Mini Enemies > Enemies.
+			local dungeonColor, mobType = GetDungeonMobColor(unit)
+
+			if dungeonColor then
+				r, g, b = unpack(dungeonColor)
+				main._dungeonMobType = mobType
 			else
-				r, g, b = UnitSelectionColor(unit, true)
+				main._dungeonMobType = nil
+
+				-- Existing explicit NPC color table remains the fallback for
+				-- mobs that do not fall into a dungeon category.
+				local npcColor = C.nameplate.mob_color_enable
+					and main.npcID
+					and T.ColorPlate[main.npcID]
+
+				if npcColor then
+					r, g, b = unpack(npcColor)
+				elseif special == "rare" or special == "rareelite" then
+					r, g, b = 0, 0.7, 0.6
+				else
+					local reaction = reactionAccessible and T.oUF_colors.reaction[unitReaction]
+					if reaction then
+						if unitReaction < 4 and not UnitCanAttack("player", unit) then
+							r, g, b = UnitSelectionColor(unit, true)
+						else
+							r, g, b = reaction:GetRGB()
+						end
+					else
+						r, g, b = UnitSelectionColor(unit, true)
+					end
+				end
+			end
+		else
+			main._dungeonMobType = nil
+
+			-- Outside dungeon coloring, preserve the existing NPC/reaction logic.
+			local npcColor = C.nameplate.mob_color_enable
+				and main.npcID
+				and T.ColorPlate[main.npcID]
+
+			if npcColor then
+				r, g, b = unpack(npcColor)
+			elseif special == "rare" or special == "rareelite" then
+				r, g, b = 0, 0.7, 0.6
+			else
+				local reaction = reactionAccessible and T.oUF_colors.reaction[unitReaction]
+				if reaction then
+					if unitReaction < 4 and not UnitCanAttack("player", unit) then
+						r, g, b = UnitSelectionColor(unit, true)
+					else
+						r, g, b = reaction:GetRGB()
+					end
+				else
+					r, g, b = UnitSelectionColor(unit, true)
+				end
 			end
 		end
 
@@ -697,6 +990,7 @@ end
 local function callback(self, _, unit)
 	if not self then return end
 	if unit then
+		self._unit = unit
 		local unitGUID = UnitGUID(unit)
 		self.npcID = unitGUID and canaccessvalue(unitGUID) and select(6, strsplit('-', unitGUID))
 		self.unitName = UnitName(unit)
@@ -707,25 +1001,28 @@ local function callback(self, _, unit)
 			self:Show()
 		end
 
-		if T.unitIsUnit(unit, "player") then
-			self.Name:Hide()
-			self.Castbar:SetAlpha(0)
-			self.RaidTargetIndicator:SetAlpha(0)
-		else
-			self.Name:Show()
-			self.Castbar:SetAlpha(1)
-			self.RaidTargetIndicator:SetAlpha(1)
+		UpdateTarget(self)
 
-			if self.widgetsOnly or (UnitWidgetSet(unit) and UnitIsOwnerOrControllerOfUnit("player", unit)) then
-				self.Health:SetAlpha(0)
-				self.Level:SetAlpha(0)
-				self.Name:SetAlpha(0)
-				self.Castbar:SetAlpha(0)
+		if T.unitIsUnit(unit, "player") then
+			if self.Name then self.Name:Hide() end
+			if self.Castbar then self.Castbar:SetAlpha(0) end
+			if self.RaidTargetIndicator then self.RaidTargetIndicator:SetAlpha(0) end
+		else
+			if self.Name then self.Name:Show() end
+			if self.Castbar then self.Castbar:SetAlpha(1) end
+			if self.RaidTargetIndicator then self.RaidTargetIndicator:SetAlpha(1) end
+
+			local isOwnerOrController = UnitIsOwnerOrControllerOfUnit("player", unit)
+			if self.widgetsOnly or (UnitWidgetSet(unit) and canaccessvalue(isOwnerOrController) and isOwnerOrController) then
+				if self.Health then self.Health:SetAlpha(0) end
+				if self.Level then self.Level:SetAlpha(0) end
+				if self.Name then self.Name:SetAlpha(0) end
+				if self.Castbar then self.Castbar:SetAlpha(0) end
 			else
-				self.Health:SetAlpha(1)
-				self.Level:SetAlpha(1)
-				self.Name:SetAlpha(1)
-				self.Castbar:SetAlpha(1)
+				if self.Health then self.Health:SetAlpha(1) end
+				if self.Level then self.Level:SetAlpha(1) end
+				if self.Name then self.Name:SetAlpha(1) end
+				if self.Castbar then self.Castbar:SetAlpha(1) end
 			end
 
 			local nameplate = C_NamePlate.GetNamePlateForUnit(unit)
@@ -740,12 +1037,14 @@ local function callback(self, _, unit)
 					if not InCombatLockdown() then
 						nameplate:SetSize(C.nameplate.width * 0.5, C.font.nameplates_font_size + 8)
 					end
-					self.Health:SetAlpha(0)
-					self.Name:ClearAllPoints()
-					self.Name:SetPoint("CENTER", self, "CENTER", 0, 0)
-					self.Level:SetAlpha(0)
-					self.Castbar:SetAlpha(0)
-					if C.nameplate.target_glow then
+					if self.Health then self.Health:SetAlpha(0) end
+					if self.Name then
+						self.Name:ClearAllPoints()
+						self.Name:SetPoint("CENTER", self, "CENTER", 0, 0)
+					end
+					if self.Level then self.Level:SetAlpha(0) end
+					if self.Castbar then self.Castbar:SetAlpha(0) end
+					if C.nameplate.target_glow and self.Glow then
 						self.Glow:SetAlpha(0)
 					end
 					if C.raidframe.plugins_healcomm then
@@ -759,16 +1058,18 @@ local function callback(self, _, unit)
 					if not InCombatLockdown() then
 						nameplate:SetSize(C.nameplate.width * 1.2, (C.nameplate.height + C.font.nameplates_font_size + 8) * 2)
 					end
-					self.Health:SetAlpha(1)
-					self.Name:ClearAllPoints()
-					self.Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -3, 4)
-					self.Name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 3, 4)
-					self.Level:SetAlpha(1)
-					self.Castbar:SetAlpha(1)
-					if C.nameplate.target_glow then
+					if self.Health then self.Health:SetAlpha(1) end
+					if self.Name then
+						self.Name:ClearAllPoints()
+						self.Name:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -3, 4)
+						self.Name:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 3, 4)
+					end
+					if self.Level then self.Level:SetAlpha(1) end
+					if self.Castbar then self.Castbar:SetAlpha(1) end
+					if C.nameplate.target_glow and self.Glow then
 						self.Glow:SetAlpha(1)
 					end
-					if C.raidframe.plugins_healcomm then
+					if C.raidframe.plugins_healcomm and self.Health then
 						self.Health.DamageAbsorb:Show()
 
 						if C.raidframe.plugins_over_heal_absorb then
@@ -783,7 +1084,8 @@ end
 
 local function style(self, unit)
 	local main = self
-	self.unit = unit
+	self._unit = unit
+	local castbarGap = GetCastbarOffset()
 
 	self:ClearAllPoints()
 	self:SetPoint("CENTER")
@@ -849,16 +1151,17 @@ local function style(self, unit)
 	self:Tag(self.Level, "[DiffColor][NameplateLevel][shortclassification]")
 
 	-- Cast Bar
-	self.Castbar = CreateFrame("StatusBar", nil, self)
+	self.Castbar = CreateFrame("StatusBar", nil, self.Health)
 	self.Castbar:SetFrameLevel(3)
 	self.Castbar:SetStatusBarTexture(C.media.texture)
 	self.Castbar:SetStatusBarColor(1, 0.8, 0)
+	local castbarHeight = C.nameplate.castbar_height > 0 and C.nameplate.castbar_height or C.nameplate.height
 	if C.nameplate.target_arrow == true then
-		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+5, -8)
+		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", (C.nameplate.height * T.noscalemult)+castbarGap, -castbarGap)
 	else
-		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -8)
+		self.Castbar:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -castbarGap)
 	end
-	self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, -8-(C.nameplate.height * T.noscalemult))
+	self.Castbar:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", 0, -castbarGap-castbarHeight)
 	CreateBorderFrame(self.Castbar)
 
 	self.Castbar.bg = self.Castbar:CreateTexture(nil, "BORDER")
@@ -894,11 +1197,11 @@ local function style(self, unit)
 	self.Castbar.Icon = self.Castbar.Border:CreateTexture(nil, "OVERLAY")
 	self.Castbar.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	self.Castbar.Icon:SetDrawLayer("ARTWORK")
-	self.Castbar.Icon:SetSize((C.nameplate.height * 2 * 1) + 8, (C.nameplate.height * 2 * T.noscalemult) + 8)
+	self.Castbar.Icon:SetSize(castbarHeight, castbarHeight)
 	if C.nameplate.target_arrow == true then
-		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -8)
+		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -castbarGap)
 	else
-		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", 8, 0)
+		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "TOPRIGHT", castbarGap, 0)
 	end
 	CreateBorderFrame(self.Castbar.Border, self.Castbar.Icon)
 
@@ -981,21 +1284,27 @@ local function style(self, unit)
 
 	-- Aura tracking
 	if C.nameplate.track_debuffs or C.nameplate.track_buffs then
-		self.Auras = CreateFrame("Frame", nil, self)
+		self.Auras = self:CreateAuras({
+			initialAnchor = "BOTTOMRIGHT",
+			growthX = "LEFT",
+			growthY = "UP",
+			layoutLimit = 20 + C.nameplate.width,
+		})
 		self.Auras:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, C.font.nameplates_font_size + 8)
-		self.Auras.initialAnchor = "BOTTOMRIGHT"
-		self.Auras.growthX = "LEFT"
-		self.Auras.growthY = "UP"
-		self.Auras.numDebuffs = C.nameplate.track_debuffs and 6 or 0
-		self.Auras.numBuffs = C.nameplate.track_buffs and 4 or 0
 		self.Auras:SetSize(20 + C.nameplate.width, C.nameplate.auras_size)
 		self.Auras.spacing = 5 * 1
 		self.Auras.size = C.nameplate.auras_size * 1 - 3
 		self.Auras.disableMouse = true
+		self.Auras.showCount = true
 
-		self.Auras.FilterAura = AurasCustomFilter
 		self.Auras.PostCreateButton = AurasPostCreateIcon
-		self.Auras.PostUpdateButton = AurasPostUpdateIcon
+
+		if C.nameplate.track_buffs then
+			self.Auras:AddGroup('HELPFUL', { maxFrameCount = 4 })
+		end
+		if C.nameplate.track_debuffs then
+			self.Auras:AddGroup('HARMFUL', { maxFrameCount = 6 })
+		end
 	end
 
 	-- Health color
@@ -1046,14 +1355,9 @@ local function style(self, unit)
 		end
 	end
 
-	-- Every event should be register with this
-	table.insert(self.__elements, UpdateName)
+	-- Register update functions as event handlers
 	self:RegisterEvent("UNIT_NAME_UPDATE", UpdateName)
-
-	table.insert(self.__elements, UpdateTarget)
 	self:RegisterEvent("PLAYER_TARGET_CHANGED", UpdateTarget, true)
-
-	table.insert(self.__elements, UpdateFocus)
 	self:RegisterEvent("PLAYER_FOCUS_CHANGED", UpdateFocus, true)
 
 	-- Disable movement via /moveui

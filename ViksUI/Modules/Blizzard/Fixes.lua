@@ -47,6 +47,7 @@ end
 --	Hide right-click line on unitframes tooltip
 ----------------------------------------------------------------------------------------
 function UnitFrame_UpdateTooltip(self)
+	if not self.unit then return end
 	GameTooltip_SetDefaultAnchor(GameTooltip, self)
 	if GameTooltip:SetUnit(self.unit, self.hideStatusOnTooltip) then
 		self.UpdateTooltip = UnitFrame_UpdateTooltip

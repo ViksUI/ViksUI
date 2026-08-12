@@ -49,7 +49,7 @@ local function ForceUpdate(element)
 	return Update(element.__owner, 'ForceUpdate')
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.GCD
 	if(element) then
 		element.__owner = self

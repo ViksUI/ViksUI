@@ -1,9 +1,33 @@
+--[[
+# Element: Assistant Indicator
+
+Toggles the visibility of an indicator based on the unit's raid assistant status.
+
+## Widget
+
+AssistantIndicator - Any UI widget.
+
+## Notes
+
+A default texture will be applied if the widget is a Texture and doesn't have a texture or a color set.
+
+## Examples
+
+    -- Position and size
+    local AssistantIndicator = self:CreateTexture(nil, 'OVERLAY')
+    AssistantIndicator:SetSize(16, 16)
+    AssistantIndicator:SetPoint('TOP', self)
+
+    -- Register it with oUF
+    self.AssistantIndicator = AssistantIndicator
+--]]
+
 local _, ns = ...
 local oUF = ns.oUF
 
 local function Update(self, event)
 	local element = self.AssistantIndicator
-	local unit = self.unit
+	local unit = self.__unit
 
 	--[[ Callback: AssistantIndicator:PreUpdate()
 	Called before the element has been updated.
@@ -14,7 +38,17 @@ local function Update(self, event)
 		element:PreUpdate()
 	end
 
-	local isAssistant = UnitInRaid(unit) and UnitIsGroupAssistant(unit) and not UnitIsGroupLeader(unit)
+	local isAssistant
+	if(UnitInRaid(unit) ~= nil) then
+		local isGroupLeader = UnitIsGroupLeader(unit)
+		if(not issecretvalue(isGroupLeader) and not isGroupLeader) then
+			isAssistant = UnitIsGroupAssistant(unit)
+			if(issecretvalue(isAssistant)) then
+				isAssistant = false
+			end
+		end
+	end
+
 	if(isAssistant) then
 		element:Show()
 	else
@@ -47,7 +81,7 @@ local function ForceUpdate(element)
 	return Path(element.__owner, 'ForceUpdate')
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.AssistantIndicator
 	if(element) then
 		element.__owner = self

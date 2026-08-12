@@ -25,7 +25,7 @@ local function GetSoulFragments()
 end
 
 local function Update(self, _, unit)
-	if(unit and unit ~= self.unit) then return end
+	if(unit and unit ~= self.__unit) then return end
 
 	local element = self.SoulFragments
 
@@ -56,7 +56,7 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit)
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit)
 end
 
 local function Visibility(self)

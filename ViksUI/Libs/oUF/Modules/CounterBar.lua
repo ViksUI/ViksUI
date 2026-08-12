@@ -13,7 +13,7 @@ local OnUpdate = function(self, elapsed)
 end
 
 local Update = function(self, _, unit)
-	if self.unit ~= unit then return end
+	if self.__unit ~= unit then return end
 
 	local counterbar = self.CounterBar
 	if counterbar.PreUpdate then
@@ -41,7 +41,7 @@ local Path = function(self, ...)
 end
 
 local ForceUpdate = function(element)
-	return Path(element.__owner, "ForceUpdate", element.__owner.unit)
+	return Path(element.__owner, "ForceUpdate", element.__owner.__unit)
 end
 
 local Enable = function(self, unit)

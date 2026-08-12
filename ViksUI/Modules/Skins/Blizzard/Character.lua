@@ -142,8 +142,7 @@ local function ApplySkin()
         PaperDollFrame.TitleManagerPane.ScrollBar,
         PaperDollFrame.EquipmentManagerPane.ScrollBar,
         ReputationFrame.ScrollBar,
-        ReputationFrame.ReputationDetailFrame.ScrollingDescriptionScrollBar,
-        TokenFrame.ScrollBar
+        ReputationFrame.ReputationDetailFrame.ScrollingDescriptionScrollBar
     }
 
     for i = 1, #scrollbars do
@@ -340,30 +339,9 @@ local function ApplySkin()
     T.SkinScrollBar(CurrencyTransferLog.ScrollBar)
     CurrencyTransferLog:SetPoint("TOPLEFT", TokenFrame, "TOPRIGHT", 3, 0)
 
-    do
-        local button = TokenFrame.CurrencyTransferLogToggleButton
-        button:SetNormalTexture(134331)
-        button:SetPushedTexture(134331)
-        button:StyleButton(true)
-        button:SetTemplate("Default")
-        button:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-        button:GetNormalTexture():SetInside()
-        button:GetPushedTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-        button:GetPushedTexture():SetInside()
-    end
-
-    hooksecurefunc(CurrencyTransferLog.ScrollBox, "Update", function(self)
-        for i = 1, self.ScrollTarget:GetNumChildren() do
-            local child = select(i, self.ScrollTarget:GetChildren())
-            if child and not child.styled then
-                local icon = child.CurrencyIcon
-                if icon then
-                    icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-                end
-                child.styled = true
-            end
-        end
-    end)
+    -- Fixme: CurrencyTransferLogToggleButton - COMPLETELY SKIP styling this button
+    -- Any attempt to style this button causes ADDON_ACTION_FORBIDDEN errors
+    -- The button will use default Blizzard textures
 
     local currencyTransfer = _G.CurrencyTransferMenu
     currencyTransfer:StripTextures()
@@ -382,34 +360,11 @@ local function ApplySkin()
     frame.SourceBalancePreview.BalanceInfo.CurrencyIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     frame.PlayerBalancePreview.BalanceInfo.CurrencyIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
-    hooksecurefunc(TokenFrame.ScrollBox, "Update", function(self)
-        for i = 1, self.ScrollTarget:GetNumChildren() do
-            local child = select(i, self.ScrollTarget:GetChildren())
-            if child and not child.styled then
-                if child.Right then
-                    child:StripTextures()
-                    child:CreateBackdrop("Overlay")
-                    child.backdrop:SetInside(child)
-                    updateCollapse(child.Right)
-                    updateCollapse(child.HighlightRight)
-                    hooksecurefunc(child.Right, "SetAtlas", updateCollapse)
-                    hooksecurefunc(child.HighlightRight, "SetAtlas", updateCollapse)
-                end
-                local icon = child.Content and child.Content.CurrencyIcon
-                if icon then
-                    icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-                end
-                if child.ToggleCollapseButton then
-                    child.ToggleCollapseButton:GetNormalTexture():SetAlpha(0)
-                    child.ToggleCollapseButton:GetPushedTexture():SetAlpha(0)
-                    T.SkinExpandOrCollapse(child.ToggleCollapseButton)
-                    updateToggleCollapse(child.ToggleCollapseButton)
-                    hooksecurefunc(child.ToggleCollapseButton, "RefreshIcon", updateToggleCollapse)
-                end
-                child.styled = true
-            end
-        end
-    end)
+    -- Fixme: ============================================================
+    -- REMOVED: hooksecurefunc on CurrencyTransferLog.ScrollBox
+    -- REMOVED: hooksecurefunc on TokenFrame.ScrollBox
+    -- These were causing ADDON_ACTION_FORBIDDEN errors
+    -- ============================================================
 end
 
 -- ============================================================

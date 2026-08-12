@@ -86,7 +86,8 @@ local function OnAuraChange(_, event, arg1)
 	local i = 1
 	while true do
 		local name
-		local auraData = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
+		local ok, auraData = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
+		if not ok then isSecret = true; break end
 		if auraData and not canaccessvalue(auraData.name) then isSecret = true end  -- BETA
 		if auraData and canaccessvalue(auraData.name) then
 			name = auraData.name

@@ -43,4 +43,11 @@ local function CaptureUpdate()
 		end
 	end
 end
-hooksecurefunc("UIParent_ManageFramePositions", CaptureUpdate)
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+f:RegisterEvent("ZONE_CHANGED")
+f:RegisterEvent("ZONE_CHANGED_INDOORS")
+f:SetScript("OnEvent", function()
+    C_Timer.After(0, CaptureUpdate)
+end)

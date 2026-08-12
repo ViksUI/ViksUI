@@ -336,6 +336,7 @@ L.chat_time_color = "Цвет времени чата"
 
 -- Nameplate options
 L.nameplate_subtext = "Изменение индикаторов здоровья."
+L.nameplate_colors_subtext = "Пользовательские цвета индикаторов"
 L.nameplate_enable = "Включить индикаторы здоровья"
 L.nameplate_combat = "Автоматически показывать индикаторы во время боя"
 L.nameplate_health_value = "Цифровое значение здоровья"
@@ -365,6 +366,8 @@ L.nameplate_click_through = "Отключить взаимодействие с 
 L.nameplate_quests = "Иконка квестов"
 L.nameplate_cast_color = "Выделить цветом чтение важных заклинаний"
 L.nameplate_kick_color = "Изменить цвет чтения заклинания, если ваше прерывание на кд"
+L.nameplate_castbar_height = "Высота полосы чтения"
+L.nameplate_castbar_height_desc = "Высота полосы чтения на индикаторе здоровья (0 = такая же, как у индикатора)"
 L.nameplate_low_health_value = "Уровень здоровья"
 L.nameplate_low_health = "Подсветка низкого здоровья"
 L.nameplate_enhance_threat = "Цветовое обозначение угрозы (зависит от роли)"
@@ -380,6 +383,28 @@ L.nameplate_mob_color_list = "Список противников"
 L.nameplate_mob_color_list_desc = "Список номеров (через пробел)"
 L.nameplate_mob_color_alt_list = L.nameplate_mob_color_list
 L.nameplate_mob_color_alt_list_desc = L.nameplate_mob_color_list_desc
+-- Quest colors
+L.nameplate_quest_friendly_color = "Цвет дружественного квеста"
+L.nameplate_quest_neutral_color = "Цвет нейтрального квеста"
+L.nameplate_quest_hostile_color = "Цвет враждебного квеста"
+-- Elite colors
+L.nameplate_elite_boss_color = "Цвет элитного босса"
+L.nameplate_elite_miniboss_color = "Цвет элитного мини-босса"
+L.nameplate_elite_caster_color = "Цвет элитного заклинателя"
+L.nameplate_elite_melee_color = "Цвет элитного ближнего боя"
+L.nameplate_elite_trivial_color = "Цвет элитного тривиала"
+L.nameplate_elite_only_instance = "Только в подземельях"
+-- Delve colors
+L.nameplate_delve_boss_color = "Цвет босса вылазки"
+L.nameplate_delve_miniboss_color = "Цвет мини-босса вылазки"
+L.nameplate_delve_caster_color = "Цвет заклинателя вылазки"
+L.nameplate_delve_melee_color = "Цвет ближнего боя вылазки"
+L.nameplate_delve_trivial_color = "Цвет тривиала вылазки"
+L.nameplate_delve_only_delves = "Только в вылазках"
+-- Tapped color
+L.nameplate_tapped_color = "Цвет захваченного"
+L.nameplate_shadow_border = "Стиль тени рамки"
+L.nameplate_shadow_border_desc = "Использовать маленькую черную рамку с тенью"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Текст боя"

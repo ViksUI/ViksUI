@@ -251,14 +251,6 @@ C["unitframe"] = {
 	["extra_power_height"] = 0,					-- Additional height for power
 	["castbar_width"] = 194,					-- Player and Target castbar width
 	["castbar_height"] = 16,					-- Player and Target castbar height
-	-- Layout2 Options (NEW)
-	["layout2"] = true,						-- Enable Layout2 design
-	["layout2_portrait"] = 58,					-- Portrait size for layout2
-	["layout2_w"] = 245,						-- Frame width for layout2
-	["layout2_h"] = 36,							-- Frame height for layout2
-	["layout2_health_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex", -- Health bar texture
-	["layout2_power_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\normTex",   -- Power bar texture
-	["layout2_textbar_texture"] = "Interface\\AddOns\\ViksUI\\Media\\textures\\backdrop", -- Text bar texture
 }
 
 ----------------------------------------------------------------------------------------
@@ -518,12 +510,12 @@ C["chat"] = {
 ----------------------------------------------------------------------------------------
 C["nameplate"] = {
 	["enable"] = true, 							-- Enable nameplate
-	["height"] = 9,								-- Nameplate height
-	["width"] = 120,							-- Nameplate width
+	["height"] = 16,								-- Nameplate height
+	["width"] = 180,							-- Nameplate width
 	["alpha"] = 0.75,							-- Nameplate alpha
 	["distance"] = 40,							-- Show nameplates for units within this range
-	["ad_height"] = 8,							-- Additional height for selected nameplate
-	["ad_width"] = 10,							-- Additional width for selected nameplate
+	["ad_height"] = 4,							-- Additional height for selected nameplate
+	["ad_width"] = 6,							-- Additional width for selected nameplate
 	["combat"] = false,							-- Automatically show nameplate in combat
 	["health_value"] = false,					-- Numeral health value
 	["show_castbar_name"] = false,				-- Show castbar name
@@ -548,6 +540,25 @@ C["nameplate"] = {
 	["low_health_color"] = {0.8, 0, 0},			-- Color for low health border
 	["cast_color"] = false,						-- Show color border for casting important spells
 	["kick_color"] = false,						-- Change cast color if interrupt on cd
+	-- Castbar
+	["castbar_height"] = 10,						-- Nameplate castbar height (0 = same as nameplate height)
+	-- Custom colors
+	["quest_friendly_color"] = {0, 0.8, 0},		-- Quest friendly color
+	["quest_neutral_color"] = {1, 1, 0},			-- Quest neutral color
+	["quest_hostile_color"] = {1, 0, 0},			-- Quest hostile color
+	["elite_boss_color"] = {0.12, 1.00, 0.05},				-- Elite boss color
+	["elite_miniboss_color"] = {1.00, 0.48, 0.38},		-- Elite miniboss color
+	["elite_caster_color"] = {0.10, 0.32, 0.72},			-- Elite caster color
+	["elite_melee_color"] = {0.38, 0.90, 0.90},			-- Elite melee color
+	["elite_trivial_color"] = {0.90, 0.16, 0.16},		-- Elite trivial color
+	["elite_only_instance"] = true,					-- Only show elite colors in instances
+	["delve_boss_color"] = {1, 0, 0},				-- Delve boss color
+	["delve_miniboss_color"] = {1, 0.5, 0},		-- Delve miniboss color
+	["delve_caster_color"] = {0.7, 0, 1},			-- Delve caster color
+	["delve_melee_color"] = {1, 0.3, 0},			-- Delve melee color
+	["delve_trivial_color"] = {0.5, 0.5, 0.5},		-- Delve trivial color
+	["delve_only_delves"] = true,					-- Only show delve colors in delves
+	["tapped_color"] = {0.6, 0.6, 0.6},			-- Tapped color
 	-- Threat
 	["enhance_threat"] = true,					-- Enable threat feature, automatically changes by your role
 	["good_color"] = {0.2, 0.8, 0.2},			-- Good threat color
@@ -566,7 +577,8 @@ C["nameplate"] = {
 	["explosive_color"] = {1, .36, .15},		-- Nameplate color for Explosive (m+ affix)
 	["pvpstuff_color"] = {.85, .17, .22},		-- Nameplate color for pvp stuff	
 	["targetarrow_color"] = {0, 1, 1},			-- Color for Target Arrow
-	["targetglow_color"] = {0, 1, 1},			-- Color for Target Glow	
+	["targetglow_color"] = {0, 1, 1},			-- Color for Target Glow
+	["shadow_border"] = true,					-- Use small black border with drop shadow
 }
 
 ----------------------------------------------------------------------------------------
@@ -892,6 +904,7 @@ C["togglemenu"] = {
 ----------------------------------------------------------------------------------------
 C["layout2"] = {
 	["enable"] = false,							-- Enable Layout2 design
+	["border_style"] = false,					-- Use Layout2 thin border + shadow style (works with or without Layout2)
 	["centerbar"] = true,  						-- Leave space between portraits empty
 	["portrait_size"] = 58,						-- Portrait size for layout2
 	-- Player and Target frames

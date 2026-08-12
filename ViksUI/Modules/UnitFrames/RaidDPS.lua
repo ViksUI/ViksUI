@@ -246,18 +246,22 @@ local function Shared(self, unit)
 
 	-- Debuff icons
 	if unit == "party" and (not (suffix == "target")) and (not (suffix == "pet")) then
-		self.Debuffs = CreateFrame("Frame", self:GetName().."Debuffs", self)
+		self.Debuffs = self:CreateAuras({
+			initialAnchor = "LEFT",
+			growthX = "RIGHT",
+			growthY = "DOWN",
+			layoutLimit = 144,
+		})
 		self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -2, -5)
 		self.Debuffs:SetHeight(18)
 		self.Debuffs:SetWidth(144)
 		self.Debuffs.size = T.Scale(18)
 		self.Debuffs.spacing = T.Scale(3)
-		self.Debuffs.initialAnchor = "LEFT"
-		self.Debuffs.num = 7
-		self.Debuffs.growthX = "RIGHT"
-		self.Debuffs.growthY = "DOWN"
-		self.Debuffs.PostCreateButton = T.PostCreateIcon
-		self.Debuffs.PostUpdateButton = T.PostUpdateIcon
+		self.Debuffs.showCount = true
+		self.Debuffs.PostCreateButton = function(element, button, options)
+			T.PostCreateIcon(element, button)
+		end
+		self.Debuffs:AddGroup('HARMFUL', { maxFrameCount = 7 })
 	end
 
 	-- Dispel highlight
@@ -456,15 +460,15 @@ local party_pet = CreateFrame("Frame", "PartyPetDPSAnchor", UIParent)
 party_pet:SetPoint("BOTTOMLEFT", party, "BOTTOMRIGHT", partytarget_width + 14, 0)
 
 local raidtank = CreateFrame("Frame", "RaidTankDPSAnchor", UIParent)
-if C.threat.enable then
-	raidtank:SetPoint(C.position.unitframes.tank[1], C.position.unitframes.tank[2], C.position.unitframes.tank[3], C.position.unitframes.tank[4] + C.threat.width + 6, C.position.unitframes.tank[5])
-else
-	if C.actionbar.split_bars then
-		raidtank:SetPoint(C.position.unitframes.tank[1], SplitBarRight, C.position.unitframes.tank[3], C.position.unitframes.tank[4], C.position.unitframes.tank[5])
-	else
+-- if C.threat.enable then
+	-- raidtank:SetPoint(C.position.unitframes.tank[1], C.position.unitframes.tank[2], C.position.unitframes.tank[3], C.position.unitframes.tank[4] + C.threat.width + 6, C.position.unitframes.tank[5])
+-- else
+	-- if C.actionbar.split_bars then
+		-- raidtank:SetPoint(C.position.unitframes.tank[1], SplitBarRight, C.position.unitframes.tank[3], C.position.unitframes.tank[4], C.position.unitframes.tank[5])
+	-- else
 		raidtank:SetPoint(unpack(C.position.unitframes.tank))
-	end
-end
+	-- end
+-- end
 
 ----------------------------------------------------------------------------------------
 --	Auto change raid frame layout

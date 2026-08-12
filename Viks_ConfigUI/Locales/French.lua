@@ -336,6 +336,7 @@ L.chat_time_color = "Couleur de l'heure"
 
 -- Nameplate options
 L.nameplate_subtext = "Paramètres des barres de noms"
+L.nameplate_colors_subtext = "Couleurs personnalisées des barres de noms"
 L.nameplate_enable = "Activer les barres de noms"
 L.nameplate_combat = "Afficher automatiquement les barres de noms en combat"
 L.nameplate_health_value = "Valeur de points de vie"
@@ -364,7 +365,9 @@ L.nameplate_only_name = "Afficher uniquement le nom (san les barres) pour les un
 L.nameplate_click_through = "Désactiver l'interaction avec les noms alliés"
 L.nameplate_quests = "Afficher l’icône de quête"
 L.nameplate_cast_color = "Afficher la bordure de couleur pour certains sorts importants"
-L.nameplate_kick_color = "Changer la couleur de cast pour le cooldown d’interruption"
+L.nameplate_kick_color = "Changer la couleur de cast pour le cooldown d'interruption"
+L.nameplate_castbar_height = "Hauteur de la barre d'incantation"
+L.nameplate_castbar_height_desc = "Hauteur de la barre d'incantation des barres de noms (0 = même hauteur que la barre de vie)"
 L.nameplate_low_health_value = "Valeur des points de vie"
 L.nameplate_low_health = "Mise en évidence pour les points de vie faible"
 L.nameplate_enhance_threat = "Activer la gestion de la menace, change automatiquement selon votre rôle"
@@ -380,6 +383,28 @@ L.nameplate_mob_color_list = "Liste des créatures"
 L.nameplate_mob_color_list_desc = "Liste des ID de PNJ (séparés par des espaces)"
 L.nameplate_mob_color_alt_list = L.nameplate_mob_color_list
 L.nameplate_mob_color_alt_list_desc = L.nameplate_mob_color_list_desc
+-- Quest colors
+L.nameplate_quest_friendly_color = "Couleur quête amicale"
+L.nameplate_quest_neutral_color = "Couleur quête neutre"
+L.nameplate_quest_hostile_color = "Couleur quête hostile"
+-- Elite colors
+L.nameplate_elite_boss_color = "Couleur boss elite"
+L.nameplate_elite_miniboss_color = "Couleur mini-boss elite"
+L.nameplate_elite_caster_color = "Couleur lanceur elite"
+L.nameplate_elite_melee_color = "Couleur mêlée elite"
+L.nameplate_elite_trivial_color = "Couleur trivial elite"
+L.nameplate_elite_only_instance = "Seulement en instance"
+-- Delve colors
+L.nameplate_delve_boss_color = "Couleur boss exploration"
+L.nameplate_delve_miniboss_color = "Couleur mini-boss exploration"
+L.nameplate_delve_caster_color = "Couleur lanceur exploration"
+L.nameplate_delve_melee_color = "Couleur mêlée exploration"
+L.nameplate_delve_trivial_color = "Couleur trivial exploration"
+L.nameplate_delve_only_delves = "Seulement en exploration"
+-- Tapped color
+L.nameplate_tapped_color = "Couleur ciblé"
+L.nameplate_shadow_border = "Style de bordure ombrée"
+L.nameplate_shadow_border_desc = "Utiliser une petite bordure noire avec ombre portée"
 
 -- Combat text options
 L_GUI_COMBATTEXT = "Texte de combat"

@@ -1,3 +1,38 @@
+--[[
+# Element: Phasing Indicator
+
+Toggles the visibility of an indicator based on the unit's phasing relative to the player.
+
+## Widget
+
+PhaseIndicator - Any UI widget.
+
+## Sub-Widgets
+
+.Icon - A `Texture` to represent the phased status.
+
+## Notes
+
+A default texture will be applied if the widget is a Texture and doesn't have a texture or a color set.
+OnEnter and OnLeave script handlers will be set to display a Tooltip if the widget is mouse enabled and does not have
+OnEnter and/or OnLeave handlers.
+
+## Examples
+
+    -- Position and size
+    local PhaseIndicator = CreateFrame('Frame', nil, self)
+    PhaseIndicator:SetSize(16, 16)
+    PhaseIndicator:SetPoint('TOPLEFT', self)
+    PhaseIndicator:EnableMouse(true)
+
+    local Icon = PhaseIndicator:CreateTexture(nil, 'OVERLAY')
+    Icon:SetAllPoints()
+    PhaseIndicator.Icon = Icon
+
+    -- Register it with oUF
+    self.PhaseIndicator = PhaseIndicator
+--]]
+
 local _, ns = ...
 local oUF = ns.oUF
 
@@ -7,7 +42,7 @@ Used to populate the tooltip when the widget is hovered.
 * self - the PhaseIndicator widget
 --]]
 local function UpdateTooltip(element)
-	local text = PartyUtil.GetPhasedReasonString(element.reason, element.__owner.unit)
+	local text = PartyUtil.GetPhasedReasonString(element.reason, element.__owner.__unit)
 	if(text) then
 		GameTooltip:SetText(text, nil, nil, nil, nil, true)
 		GameTooltip:Show()
@@ -30,7 +65,7 @@ local function onLeave()
 end
 
 local function Update(self, event, unit)
-	if(self.unit ~= unit) then return end
+	if(self.__unit ~= unit) then return end
 
 	local element = self.PhaseIndicator
 
@@ -45,7 +80,11 @@ local function Update(self, event, unit)
 
 	-- BUG: UnitPhaseReason returns wrong data for friendly NPCs in phased scenarios like WM or Chromie Time
 	-- https://github.com/Stanzilla/WoWUIBugs/issues/49
-	local phaseReason = UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitPhaseReason(unit) or nil
+	local phaseReason = UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitPhaseReason(unit)
+	if(issecretvalue(phaseReason)) then
+		phaseReason = nil
+	end
+
 	if(phaseReason) then
 		element:Show()
 	else
@@ -54,15 +93,14 @@ local function Update(self, event, unit)
 
 	element.reason = phaseReason
 
-	--[[ Callback: PhaseIndicator:PostUpdate(isInSamePhase, phaseReason)
+	--[[ Callback: PhaseIndicator:PostUpdate(phaseReason)
 	Called after the element has been updated.
 
-	* self          - the PhaseIndicator element
-	* isInSamePhase - indicates whether the unit is in the same phase as the player (boolean)
-	* phaseReason   - the reason why the unit is in a different phase (number?)
+	* self        - the PhaseIndicator element
+	* phaseReason - the reason why the unit is in a different phase (number?)
 	--]]
 	if(element.PostUpdate) then
-		return element:PostUpdate(not phaseReason, phaseReason)
+		return element:PostUpdate(phaseReason)
 	end
 end
 
@@ -78,10 +116,10 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	return Path(element.__owner, 'ForceUpdate', element.__owner.unit)
+	return Path(element.__owner, 'ForceUpdate', element.__owner.__unit)
 end
 
-local function Enable(self)
+local function Enable(self, unit)
 	local element = self.PhaseIndicator
 	if(element) then
 		element.__owner = self

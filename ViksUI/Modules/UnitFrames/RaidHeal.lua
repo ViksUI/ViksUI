@@ -283,34 +283,41 @@ local function Shared(self, unit)
 		-- self.Buffs.filter = "HELPFUL|PLAYER|RAID_IN_COMBAT"
 
 		-- Defensive buffs
-		self.Auras = CreateFrame("Frame", self:GetName().."_DefensiveBuffs", self)
+		self.Auras = self:CreateAuras({
+			initialAnchor = "LEFT",
+			growthX = "RIGHT",
+			growthY = "UP",
+			layoutLimit = self:GetWidth(),
+		})
 		self.Auras:SetPoint("LEFT", self, 0, 2)
 		self.Auras:SetSize(self:GetWidth(), 7 * C.raidframe.icon_multiplier)
 		self.Auras.size = 7 * C.raidframe.icon_multiplier
 		self.Auras.spacing = 3
-		self.Auras.numTotal = 1
-
-		self.Auras.PostCreateButton = T.CreateRaidBuffIcon
-
 		self.Auras.disableMouse = true
-		self.Auras.filter = "HELPFUL|EXTERNAL_DEFENSIVE"
-		-- self.Auras.filter = "HELPFUL|BIG_DEFENSIVE"
+		self.Auras.showCount = true
+		self.Auras.PostCreateButton = function(element, button, options)
+			T.CreateRaidBuffIcon(element, button)
+		end
+		self.Auras:AddGroup('HELPFUL|EXTERNAL_DEFENSIVE', { maxFrameCount = 1 })
 	end
 
 	-- Raid Debuffs
 	if C.raidframe.plugins_debuffs == true and not (suffix == "pet" or suffix == "target" or suffix == "targettarget") then
-		self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)
+		self.Debuffs = self:CreateAuras({
+			initialAnchor = "CENTER",
+			growthX = "RIGHT",
+			growthY = "UP",
+			layoutLimit = 18 * C.raidframe.icon_multiplier,
+		})
 		self.Debuffs:SetPoint("CENTER", self, 0, 1)
 		self.Debuffs:SetSize(18 * C.raidframe.icon_multiplier, 18 * C.raidframe.icon_multiplier)
 		self.Debuffs.size = 18 * C.raidframe.icon_multiplier
-		self.Debuffs.num = 1
-
-		self.Debuffs.PostCreateButton = T.PostCreateIcon
-		self.Debuffs.PostUpdateButton = T.PostUpdateRaidButton
-		self.Debuffs.FilterAura = T.CustomDebuffFilter
-
 		self.Debuffs.disableMouse = true
-		self.Debuffs.filter = "HARMFUL"
+		self.Debuffs.showCount = true
+		self.Debuffs.PostCreateButton = function(element, button, options)
+			T.PostCreateIcon(element, button)
+		end
+		self.Debuffs:AddGroup('HARMFUL', { maxFrameCount = 1 })
 
 		-- Blizzard private auras
 		if C.raidframe.plugins_private_auras then

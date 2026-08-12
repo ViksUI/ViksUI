@@ -1,11 +1,162 @@
+--[[
+# Element: Health Bar
+
+Handles the updating of a status bar that displays the unit's health.
+
+## Widget
+
+Health - A `StatusBar` used to represent the unit's health.
+
+## Sub-Widgets
+
+.TempLoss                  - A `StatusBar` used to represent temporary max health reduction.
+.HealingAll                - A `StatusBar` used to represent incoming heals from all sources.
+.HealingPlayer             - A `StatusBar` used to represent incoming heals from the player.
+.HealingOther              - A `StatusBar` used to represent incoming heals from others.
+.OverHealIndicator         - A `Texture` used to indicate that the incoming healing is greater than the configured limits.
+.DamageAbsorb              - A `StatusBar` used to represent damage absorbs.
+.OverDamageAbsorbIndicator - A `Texture` used to signify that the amount of damage absorb is greater than the configured limits.
+.HealAbsorb                - A `StatusBar` used to represent heal absorbs.
+.OverHealAbsorbIndicator   - A `Texture` used to signify that the amount of heal absorb is greater than the configured limits.
+
+## Notes
+
+A default texture will be applied if the widget is a StatusBar and doesn't have a texture set.
+A default texture will be applied to the Texture widgets if they don't have a texture or a color set.
+
+## Options
+
+.considerSelectionInCombatHostile - Indicates whether selection should be considered hostile while the unit is in
+                                    combat with the player (boolean)
+.smoothing                        - Which status bar smoothing method to use, defaults to
+                                    `Enum.StatusBarInterpolation.Immediate` (number)
+.maximumHealthClampMode           - Defines how maximum health should clamp. See [Enum.UnitMaximumHealthMode](https://warcraft.wiki.gg/wiki/Enum.UnitMaximumHealthMode).
+.damageAbsorbClampMode            - Defines how damage absorbs should clamp. See [Enum.UnitDamageAbsorbClampMode](https://warcraft.wiki.gg/wiki/Enum.UnitDamageAbsorbClampMode).
+.healAbsorbClampMode              - Defines how healing absorbs should clamp. See [Enum.UnitHealAbsorbClampMode](https://warcraft.wiki.gg/wiki/Enum.UnitHealAbsorbClampMode).
+.healAbsorbMode                   - Defines how healing absorbs should be treated. See [Enum.UnitHealAbsorbMode](https://warcraft.wiki.gg/wiki/Enum.UnitHealAbsorbMode).
+.incomingHealClampMode            - Defines how incoming healing should clamp. See [Enum.UnitIncomingHealClampMode](https://warcraft.wiki.gg/wiki/Enum.UnitIncomingHealClampMode).
+.incomingHealOverflow             - The maximum amount of overflow past the end of the health bar. Set this to 1 to disable the overflow.
+                                    Defaults to 1.05 (number)
+
+The following options are listed by priority. The first check that returns true decides the color of the health bar.
+
+.colorDisconnected - Use `self.colors.disconnected` to color the bar if the unit is offline (boolean)
+.colorTapping      - Use `self.colors.tapping` to color the bar if the unit isn't tapped by the player (boolean)
+.colorThreat       - Use `self.colors.threat[threat]` to color the bar based on the unit's threat status. `threat` is
+                     defined by the first return of [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation) (boolean)
+.colorClass        - Use `self.colors.class[class]` to color the bar based on unit class. `class` is defined by the
+                     second return of [UnitClass](https://warcraft.wiki.gg/wiki/API_UnitClass) (boolean)
+.colorClassNPC     - Use `self.colors.class[class]` to color the bar if the unit is a NPC (boolean)
+.colorClassPet     - Use `self.colors.class[class]` to color the bar if the unit is player controlled, but not a player
+                     (boolean)
+.colorSelection    - Use `self.colors.selection[selection]` to color the bar based on the unit's outline/highlight
+                     color. `selection` is defined by the return value of Private.unitSelectionType, a wrapper function
+                     for [UnitSelectionType](https://warcraft.wiki.gg/wiki/API_UnitSelectionType) (boolean)
+.colorReaction     - Use `self.colors.reaction[reaction]` to color the bar based on the player's reaction towards the
+                     unit. `reaction` is defined by the return value of
+                     [UnitReaction](https://warcraft.wiki.gg/wiki/API_UnitReaction) (boolean)
+.colorSmooth       - Use color curve from `self.colors.health` to color the bar with a smooth gradient based on the
+                     unit's current health percentage (boolean)
+.colorHealth       - Use `self.colors.health` to color the bar. This flag is used to reset the bar color back to default
+                     if none of the above conditions are met (boolean)
+
+## Attributes
+
+.values - A [unit health prediction calculator](https://warcraft.wiki.gg/wiki/API_CreateUnitHealPredictionCalculator) used to calculate the values used in this element.
+
+## Examples
+
+    -- Position and size
+    local Health = CreateFrame('StatusBar', nil, self)
+    Health:SetHeight(20)
+    Health:SetPoint('TOP')
+    Health:SetPoint('LEFT')
+    Health:SetPoint('RIGHT')
+
+    -- Options
+    Health.colorTapping = true
+    Health.colorDisconnected = true
+    Health.colorClass = true
+    Health.colorReaction = true
+    Health.colorHealth = true
+
+    -- Register it with oUF
+    self.Health = Health
+
+    -- Alternatively, if .TempLoss is being used
+    local TempLoss = CreateFrame('StatusBar', nil, self)
+    TempLoss:SetStatusBarTexture('UI-HUD-UnitFrame-Target-PortraitOn-Bar-TempHPLoss')
+    TempLoss:SetReverseFill(true)
+    TempLoss:SetHeight(20)
+    TempLoss:SetPoint('TOP')
+    TempLoss:SetPoint('LEFT')
+    TempLoss:SetPoint('RIGHT')
+
+    local Health = CreateFrame('StatusBar', nil, self)
+    Health:SetPoint('LEFT')
+    Health:SetPoint('TOPRIGHT', TempLoss:GetStatusBarTexture(), 'TOPLEFT')
+    Health:SetPoint('BOTTOMRIGHT', TempLoss:GetStatusBarTexture(), 'BOTTOMLEFT')
+
+	-- Optionally with healing prediction and absorbtion sub-widgets
+    local HealingAll = CreateFrame('StatusBar', nil, self.Health)
+    HealingAll:SetPoint('TOP')
+    HealingAll:SetPoint('BOTTOM')
+    HealingAll:SetPoint('LEFT', self.Health:GetStatusBarTexture(), 'RIGHT')
+    HealingAll:SetWidth(200)
+    HealingAll:SetStatusBarTexture('Interface\\TargetingFrame\\UI-StatusBar')
+    self.Health.HealingAll = HealingAll
+
+    local DamageAbsorb = CreateFrame('StatusBar', nil, self.Health)
+    DamageAbsorb:SetPoint('TOP')
+    DamageAbsorb:SetPoint('BOTTOM')
+    DamageAbsorb:SetPoint('LEFT', HealingAll:GetStatusBarTexture(), 'RIGHT')
+    DamageAbsorb:SetWidth(200)
+    self.Health.DamageAbsorb = DamageAbsorb
+
+    local HealAbsorb = CreateFrame('StatusBar', nil, self.Health)
+    HealAbsorb:SetPoint('TOP')
+    HealAbsorb:SetPoint('BOTTOM')
+    HealAbsorb:SetPoint('RIGHT', self.Health:GetStatusBarTexture())
+    HealAbsorb:SetWidth(200)
+    HealAbsorb:SetReverseFill(true)
+    self.Health.HealAbsorb = HealAbsorb
+
+    local OverDamageAbsorbIndicator = self.Health:CreateTexture(nil, "OVERLAY")
+    OverDamageAbsorbIndicator:SetPoint('TOP')
+    OverDamageAbsorbIndicator:SetPoint('BOTTOM')
+    OverDamageAbsorbIndicator:SetPoint('LEFT', self.Health, 'RIGHT')
+    OverDamageAbsorbIndicator:SetWidth(10)
+    self.Health.OverDamageAbsorbIndicator = OverDamageAbsorbIndicator
+
+    local OverHealAbsorbIndicator = self.Health:CreateTexture(nil, "OVERLAY")
+    OverHealAbsorbIndicator:SetPoint('TOP')
+    OverHealAbsorbIndicator:SetPoint('BOTTOM')
+    OverHealAbsorbIndicator:SetPoint('RIGHT', self.Health, 'LEFT')
+    OverHealAbsorbIndicator:SetWidth(10)
+    self.Health.OverHealAbsorbIndicator = OverHealAbsorbIndicator
+
+    -- Options
+    Health.colorTapping = true
+    Health.colorDisconnected = true
+    Health.colorClass = true
+    Health.colorReaction = true
+    Health.colorHealth = true
+
+    -- Register it with oUF
+    Health.TempLoss = TempLoss
+    self.Health = Health
+--]]
+
 local _, ns = ...
 local oUF = ns.oUF
 local Private = oUF.Private
 
+local STATE = {}
+
 local unitSelectionType = Private.unitSelectionType
 
 local function UpdateColor(self, event, unit)
-	if(not unit or self.unit ~= unit) then return end
+	if(not unit or self.__unit ~= unit) then return end
 	local element = self.Health
 
 	local color
@@ -19,7 +170,13 @@ local function UpdateColor(self, event, unit)
 		or (element.colorClassNPC and not (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
 		or (element.colorClassPet and UnitPlayerControlled(unit) and not UnitIsPlayer(unit)) then
 		local _, class = UnitClass(unit)
-		color = self.colors.class[class]
+		if(issecretvalue(class)) then
+			-- BUG: we can't use custom colors if the class is secret
+			-- https://github.com/oUF-wow/oUF/issues/873
+			color = C_ClassColor.GetClassColor(class)
+		else
+			color = self.colors.class[class]
+		end
 	elseif(element.colorSelection and unitSelectionType(unit, element.considerSelectionInCombatHostile)) then
 		color = self.colors.selection[unitSelectionType(unit, element.considerSelectionInCombatHostile)]
 	elseif(element.colorReaction and UnitReaction(unit, 'player')) then
@@ -58,7 +215,7 @@ local function ColorPath(self, ...)
 end
 
 local function Update(self, event, unit)
-	if(not unit or self.unit ~= unit) then return end
+	if(not unit or self.__unit ~= unit) then return end
 	local element = self.Health
 
 	--[[ Callback: Health:PreUpdate(unit)
@@ -82,9 +239,6 @@ local function Update(self, event, unit)
 	else
 		element:SetValue(max, element.smoothing)
 	end
-
-	element.cur = cur -- DEPRECATED: use element.values
-	element.max = max -- DEPRECATED: use element.values
 
 	if(element.HealingAll or element.HealingPlayer or element.HealingOther or element.OverHealIndicator) then
 		local allHeal, playerHeal, otherHeal, healClamped = element.values:GetIncomingHeals()
@@ -150,35 +304,36 @@ end
 local function UpdatePredictionSize(self, event, unit)
 	local element = self.Health
 
+	local method = STATE[element].horizontal and 'SetWidth' or 'SetHeight'
 	if(element.HealingAll) then
-		element.HealingAll[element.__isHoriz and 'SetWidth' or 'SetHeight'](element.HealingAll, element.__size)
+		element.HealingAll[method](element.HealingAll, STATE[element].size)
 	end
 
 	if(element.HealingPlayer) then
-		element.HealingPlayer[element.__isHoriz and 'SetWidth' or 'SetHeight'](element.HealingPlayer, element.__size)
+		element.HealingPlayer[method](element.HealingPlayer, STATE[element].size)
 	end
 
 	if(element.HealingOther) then
-		element.HealingOther[element.__isHoriz and 'SetWidth' or 'SetHeight'](element.HealingOther, element.__size)
+		element.HealingOther[method](element.HealingOther, STATE[element].size)
 	end
 
 	if(element.DamageAbsorb) then
-		element.DamageAbsorb[element.__isHoriz and 'SetWidth' or 'SetHeight'](element.DamageAbsorb, element.__size)
+		element.DamageAbsorb[method](element.DamageAbsorb, STATE[element].size)
 	end
 
 	if(element.HealAbsorb) then
-		element.HealAbsorb[element.__isHoriz and 'SetWidth' or 'SetHeight'](element.HealAbsorb, element.__size)
+		element.HealAbsorb[method](element.HealAbsorb, STATE[element].size)
 	end
 end
 
 local function shouldUpdatePredictionSize(self)
 	local element = self.Health
 
-	local isHoriz = element:GetOrientation() == 'HORIZONTAL'
-	local newSize = element[isHoriz and 'GetWidth' or 'GetHeight'](element)
-	if(isHoriz ~= element.__isHoriz or newSize ~= element.__size) then
-		element.__isHoriz = isHoriz
-		element.__size = newSize
+	local horizontal = element:GetOrientation() == 'HORIZONTAL'
+	local size = horizontal and element:GetWidth() or element:GetHeight()
+	if(horizontal ~= STATE[element].horizontal or size ~= STATE[element].size) then
+		STATE[element].horizontal = horizontal
+		STATE[element].size = size
 
 		return true
 	end
@@ -212,23 +367,10 @@ local function Path(self, ...)
 end
 
 local function ForceUpdate(element)
-	element.__isHoriz = nil
-	element.__size = nil
+	STATE[element].horizontal = nil
+	STATE[element].size = nil
 
-	Path(element.__owner, 'ForceUpdate', element.__owner.unit)
-end
-
---[[ Health:SetColorDisconnected(state, isForced)
-Used to toggle coloring if the unit is offline.
-
-* self     - the Health element
-* state    - the desired state (boolean)
-* isForced - forces the event update even if the state wasn't changed (boolean)
---]]
-local function SetColorDisconnected(element, state, isForced) -- DEPRECATED
-	if(element.colorDisconnected ~= state or isForced) then
-		element.colorDisconnected = state
-	end
+	Path(element.__owner, 'ForceUpdate', element.__owner.__unit)
 end
 
 --[[ Health:SetColorSelection(state, isForced)
@@ -308,11 +450,12 @@ local function Enable(self, unit)
 	if(element) then
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
-		element.SetColorDisconnected = SetColorDisconnected
 		element.SetColorSelection = SetColorSelection
 		element.SetColorTapping = SetColorTapping
 		element.SetColorReaction = SetColorReaction
 		element.SetColorThreat = SetColorThreat
+
+		STATE[element] = {}
 
 		if(element.values) then
 			element.values:ResetPredictedValues()

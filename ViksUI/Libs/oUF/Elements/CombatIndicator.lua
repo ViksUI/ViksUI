@@ -1,8 +1,32 @@
+--[[
+# Element: Combat Indicator
+
+Toggles the visibility of an indicator based on the unit's combat status.
+
+## Widget
+
+CombatIndicator - Any UI widget.
+
+## Notes
+
+A default texture will be applied if the widget is a Texture and doesn't have a texture or a color set.
+
+## Examples
+
+    -- Position and size
+    local CombatIndicator = self:CreateTexture(nil, 'OVERLAY')
+    CombatIndicator:SetSize(16, 16)
+    CombatIndicator:SetPoint('TOP', self)
+
+    -- Register it with oUF
+    self.CombatIndicator = CombatIndicator
+--]]
+
 local _, ns = ...
 local oUF = ns.oUF
 
 local function Update(self, event, unit)
-	if(not unit or self.unit ~= unit) then return end
+	if(not unit or self.__unit ~= unit) then return end
 	local element = self.CombatIndicator
 
 	--[[ Callback: CombatIndicator:PreUpdate()
