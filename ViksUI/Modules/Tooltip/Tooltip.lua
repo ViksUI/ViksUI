@@ -52,12 +52,10 @@ for _, tt in pairs(tooltips) do
 		end
 		bg:SetTemplate("Transparent")
 
-		local header = tt.CompareHeader
-		if header then
-			header:StripTextures()
-			header:CreateBackdrop("Overlay")
-			header.backdrop:SetInside(header, 0, 3)
-		end
+		-- Do not modify CompareHeader.
+		-- Blizzard's TooltipComparisonManager uses CompareHeader.Label:GetWidth()
+		-- during secure item comparison. Styling this Blizzard-owned frame can
+		-- taint the width value and cause "arithmetic on a secret number".
 
 		tt.GetBackdrop = function() return backdrop end
 		tt.GetBackdropColor = function() return C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha end

@@ -19,16 +19,12 @@ local function LoadFirstSkin()
 		local option = frame.OptionsList
 		option:StripTextures()
 		option:SetTemplate("Transparent")
-
 		if not skip then
 			hooksecurefunc(option.ScrollBox, "Update", function(self)
 				self:ForEachFrame(function(button)
 					if not button.styled then
 						if button.Border then button.Border:SetAlpha(0) end
-						if button.Icon then
-							button.Icon:SkinIcon()
-						end
-
+						if button.Icon then button.Icon:SkinIcon() end
 						button.styled = true
 					end
 				end)
@@ -42,19 +38,16 @@ local function LoadFirstSkin()
 		SkinOptionSlot(frame.CompanionCombatTrinketSlot)
 	end
 
-	local ablityFrame = _G.DelvesCompanionAbilityListFrame
-	T.SkinFrame(ablityFrame)
-	T.SkinDropDownBox(ablityFrame.DelvesCompanionRoleDropdown)
-	T.SkinNextPrevButton(ablityFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, true)
-	T.SkinNextPrevButton(ablityFrame.DelvesCompanionAbilityListPagingControls.NextPageButton)
+	local abilityFrame = _G.DelvesCompanionAbilityListFrame
+	T.SkinFrame(abilityFrame)
+	T.SkinDropDownBox(abilityFrame.DelvesCompanionRoleDropdown)
+	T.SkinNextPrevButton(abilityFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, true)
+	T.SkinNextPrevButton(abilityFrame.DelvesCompanionAbilityListPagingControls.NextPageButton)
 
-	hooksecurefunc(ablityFrame, "UpdatePaginatedButtonDisplay", function(self)
+	hooksecurefunc(abilityFrame, "UpdatePaginatedButtonDisplay", function(self)
 		for _, button in pairs(self.buttons) do
 			if not button.styled then
-				if button.Icon then
-					button.Icon:SkinIcon()
-				end
-
+				if button.Icon then button.Icon:SkinIcon() end
 				button.styled = true
 			end
 		end
@@ -67,7 +60,11 @@ local function LoadSecondSkin()
 	local frame = _G.DelvesDifficultyPickerFrame
 	T.SkinFrame(frame)
 
-	T.SkinDropDownBox(frame.Dropdown)
+	-- 12.1: Blizzard's Delves difficulty dropdown now uses the newer
+	-- DropdownButton/Menu system. ViksUI's legacy SkinDropDownBox changes
+	-- frame level/arrow/background state and is not needed for the menu itself.
+	-- Leave the native dropdown untouched to avoid interfering with menu
+	-- generation/selection state.
 	frame.EnterDelveButton:SkinButton()
 
 	local function skinReward(rewardFrame)
@@ -75,7 +72,6 @@ local function LoadSecondSkin()
 			rewardFrame.NameFrame:SetAlpha(0)
 			rewardFrame.Icon:SkinIcon()
 			rewardFrame.IconBorder:SetAlpha(0)
-
 			rewardFrame.styled = true
 		end
 	end
