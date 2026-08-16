@@ -50,6 +50,9 @@ local function LoadSkin()
 
 	T.SkinCloseButton(AchievementFrameCloseButton, AchievementFrame.backdrop)
 
+	AchievementFrame.HeaderDetails.TopTileStreaks:SetAlpha(0)
+	AchievementFrame.HeaderDetails.Back:SkinButton()
+
 	T.SkinFilter(AchievementFrame.HeaderDetails.Filters.FilterDropdown, true)
 	AchievementFrame.HeaderDetails.Filters.FilterDropdown:ClearAllPoints()
 	AchievementFrame.HeaderDetails.Filters.FilterDropdown:SetPoint("TOPLEFT", AchievementFrameAchievements, "TOPLEFT", 5, 21)
@@ -67,18 +70,11 @@ local function LoadSkin()
 	AchievementFrame.HeaderDetails.Filters.SearchBox:ClearAllPoints()
 	AchievementFrame.HeaderDetails.Filters.SearchBox:SetPoint("TOPRIGHT", AchievementFrame, "TOPRIGHT", -52, 0)
 
-	local SearchBox = AchievementFrame.HeaderDetails.Filters.SearchBox
-	local SearchPreviewContainer = SearchBox.SearchPreviewContainer
-
-	SearchPreviewContainer:StripTextures()
-	SearchPreviewContainer:CreateBackdrop("Transparent")
-	SearchPreviewContainer.backdrop:SetPoint("TOPLEFT", -2, 2)
-	SearchPreviewContainer.backdrop:SetPoint(
-		"BOTTOMRIGHT",
-		SearchPreviewContainer.ShowAllSearchResults,
-		2,
-		-2
-	)
+	local preview = AchievementFrame.HeaderDetails.Filters.SearchBox.SearchPreviewContainer
+	preview:StripTextures()
+	preview:CreateBackdrop("Transparent")
+	preview.backdrop:SetPoint("TOPLEFT", -2, 2)
+	preview.backdrop:SetPoint("BOTTOMRIGHT", preview.ShowAllSearchResults, 2, -2)
 
 	AchievementFrame.SearchResults:StripTextures()
 	AchievementFrame.SearchResults:SetTemplate("Transparent")

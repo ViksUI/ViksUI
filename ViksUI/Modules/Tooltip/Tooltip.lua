@@ -63,6 +63,13 @@ for _, tt in pairs(tooltips) do
 	end
 end
 
+-- Aura container skin
+AuraContainerInbound.SetTooltipBackdrop({
+	backdropInfo = backdrop,
+	borderColor = CreateColor(unpack(C.media.border_color)),
+	centerColor = CreateColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+})
+
 -- LibExtraTip skin
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
@@ -393,7 +400,8 @@ local OnTooltipSetUnit = function(self)
 		-- thx TipTac for the fix above with color blind enabled
 		if GetCVar("colorblindMode") == "1" then
 			n = n + 1
-			local class = UnitClass(unit)
+			local _, class = UnitClass(unit)
+			class = canaccessvalue(class) and class or nil
 			_G["GameTooltipTextLeft"..n]:SetFormattedText("|cff%02x%02x%02x%s|r %s %s", levelColor.r * 255, levelColor.g * 255, levelColor.b * 255, level, race or UNKNOWN, class or "")
 		else
 			_G["GameTooltipTextLeft"..n]:SetFormattedText("|cff%02x%02x%02x%s|r %s", levelColor.r * 255, levelColor.g * 255, levelColor.b * 255, level, race or UNKNOWN)

@@ -165,7 +165,13 @@ local function Shared(self, unit)
 
 	-- Register click
 	self:RegisterForClicks("AnyUp")
-	self:SetScript("OnEnter", UnitFrame_OnEnter)
+	self:SetScript("OnEnter", function(self)
+		local unit = self.__unit
+		if unit then
+			self.unit = unit
+			UnitFrame_OnEnter(self)
+		end
+	end)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
 	-- Focus click handling (Ctrl+Alt+Shift) Leftmouse set, right mouse clears
@@ -1117,31 +1123,32 @@ local function Shared(self, unit)
 	if unit == "pet" and C.aura.pet_debuffs or unit == "focus" and C.aura.focus_debuffs
 	or unit == "focustarget" and C.aura.fot_debuffs or unit == "targettarget" and C.aura.tot_debuffs then
 		self.Debuffs = self:CreateAuras({
-			initialAnchor = (unit == "pet" or unit == "focus") and "TOPRIGHT" or "TOPLEFT",
-			growthX = (unit == "pet" or unit == "focus") and "LEFT" or "RIGHT",
 			growthY = "DOWN",
-			layoutLimit = pet_width + 4,
+			layoutLimit = pet_width + 5,
 		})
-		self.Debuffs:SetHeight(25)
-		self.Debuffs:SetWidth(pet_width + 4)
 		self.Debuffs.size = T.Scale(C.aura.debuff_size)
+		self.Debuffs.showCount = true
 		self.Debuffs.elementSpacing = T.Scale(3)
-		self.Debuffs.num = 4
+		self.Debuffs.PostCreateButton = T.PostCreateIcon
+
 		if unit == "pet" or unit == "focus" then
 			self.Debuffs:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 2, -17)
+			self.Debuffs.initialAnchor = "TOPRIGHT"
+			self.Debuffs.growthX = "LEFT"
 		else
 			self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -2, -17)
+			self.Debuffs.initialAnchor = "TOPLEFT"
+			self.Debuffs.growthX = "RIGHT"
 		end
-		self.Debuffs.showDebuffBorder = true
-		self.Debuffs.showCount = true
-		self.Debuffs.PostCreateButton = T.PostCreateIcon
-		self.Debuffs:AddGroup('HARMFUL', { maxFrameCount = 4 })
+
+		self.Debuffs:AddGroup("HARMFUL", {
+			maxFrameCount = 4,
+		})
 
 		if unit == "pet" then
 			self:RegisterEvent("UNIT_PET", T.UpdateAllElements)
 		end
 	end
-
 	if unit == "player" or unit == "target" then
 		-- Portrait
 		if C.unitframe.portrait_enable then
@@ -1176,7 +1183,10 @@ local function Shared(self, unit)
 					self.Portrait.backdrop:RegisterEvent("PLAYER_TARGET_CHANGED")
 					self.Portrait.backdrop:SetScript("OnEvent", function()
 						local _, class = UnitClass("target")
-						local color = (canaccessvalue(class) and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class])
+						local color
+						if class and not issecretvalue(class) and canaccessvalue(class) then
+							color = C_ClassColor.GetClassColor(class)
+						end
 						if color then
 							self.Portrait.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 						else
@@ -1184,7 +1194,6 @@ local function Shared(self, unit)
 						end
 					end)
 				end
-			end
 
 			if C.unitframe.portrait_type == "OVERLAY" then
 				local healthTex = self.Health:GetStatusBarTexture()
@@ -1264,7 +1273,7 @@ local function Shared(self, unit)
 		end
 
 		if unit == "player" then
-			-- Debuffs on player
+			-- Debuffs on player (12.1 aura layout)
 			if C.aura.player_auras then
 				self.Debuffs = self:CreateAuras({
 					initialAnchor = "BOTTOMRIGHT",
@@ -1272,10 +1281,13 @@ local function Shared(self, unit)
 					growthY = "UP",
 					layoutLimit = player_width + 4,
 				})
-				self.Debuffs:SetHeight(165)
-				self.Debuffs:SetWidth(player_width + 4)
-				self.Debuffs.size = T.Scale(C.aura.debuff_size)
+				self.Debuffs.showCount = true
 				self.Debuffs.elementSpacing = T.Scale(3)
+				self.Debuffs.tooltipAnchor = "ANCHOR_TOPRIGHT"
+				self.Debuffs.tooltipOffsetY = 3
+				self.Debuffs.size = T.Scale(C.aura.debuff_size)
+				self.Debuffs.PostCreateButton = T.PostCreateIcon
+
 				if (T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune)
 				or ((T.class == "DRUID" or T.class == "ROGUE") and C.unitframe_class_bar.combo and C.unitframe_class_bar.combo_old ~= true)
 				or (T.class == "SHAMAN" and C.unitframe_class_bar.totem)
@@ -1284,6 +1296,11 @@ local function Shared(self, unit)
 				else
 					self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5)
 				end
+
+				self.Debuffs:AddGroup("HARMFUL", {
+					maxFrameCount = 10,
+				})
+
 				if C.aura.debuff_minimap then
 					self.Debuffs.size = T.Scale(C.aura.player_debuff_size)
 					C_Timer.After(0.25, function()
@@ -1292,16 +1309,14 @@ local function Shared(self, unit)
 						self.Debuffs.SetPoint = T.dummy
 					end)
 				end
-				self.Debuffs.showDebuffBorder = true
-				self.Debuffs.showCount = true
+
 				self.Debuffs.PostCreateButton = T.PostCreateIcon
-				self.Debuffs:AddGroup('HARMFUL', { maxFrameCount = 40 })
 			else
 				BuffFrame:Hide()
 				DebuffFrame:Hide()
 			end
 
-			--=== LAYOUT2: PLAYER DEBUFFS REPOSITION ===--
+			-- Layout2-specific large player debuff display
 			if C.layout2.enable and C.layout2.player_bigdebuff and self.Debuffs then
 				self.Debuffs.size = C.layout2.player_debuff_size
 				self.Debuffs:ClearAllPoints()
@@ -1311,38 +1326,52 @@ local function Shared(self, unit)
 		end
 
 		if unit == "target" then
-		-- Auras on target
-		if C.aura.target_auras then
-			self.Auras = self:CreateAuras({
-				initialAnchor = "BOTTOMLEFT",
-				growthX = "RIGHT",
-				growthY = "UP",
-				layoutLimit = player_width - 6,
-			})
-			self.Auras:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -2, 5)
-			self.Auras:SetHeight(165)
-			self.Auras:SetWidth(player_width - 6)
-				self.Auras.elementSpacing = T.Scale(3)
-				self.Auras.size = T.Scale(C.aura.debuff_size)
-				self.Auras.showDebuffBorder = true
-				self.Auras.showStealableBorder = true
+			-- Auras on target (12.1 aura groups)
+			if C.aura.target_auras then
+				self.Auras = self:CreateAuras({
+					initialAnchor = "BOTTOMLEFT",
+					growthX = "RIGHT",
+					growthY = "UP",
+					layoutLimit = player_width + 5,
+				})
+				self.Auras:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -2, 5)
 				self.Auras.showCount = true
+				self.Auras.maxFrameCount = 16
+				self.Auras.elementSpacing = T.Scale(3)
+				self.Auras.lineSpacing = T.Scale(3)
+				self.Auras.size = T.Scale(C.aura.debuff_size)
+				self.Auras.groupLineSpacing = T.Scale(3)
+				self.Auras.tooltipAnchor = "ANCHOR_TOPLEFT"
+				self.Auras.tooltipOffsetY = 3
 				self.Auras.PostCreateButton = T.PostCreateIcon
-				self.Auras:AddGroup('HELPFUL', { maxFrameCount = 32 })
-				self.Auras:AddGroup('HARMFUL', { maxFrameCount = 16 })
 
-				--=== LAYOUT2: TARGET AURAS REPOSITION ===--
-				if C.layout2.enable then
-					C_Timer.After(0, function()
-						if self.Auras and self.Auras:GetParent() then
-							self.Auras:ClearAllPoints()
-							self.Auras:SetPoint("BOTTOMLEFT", self.Auras:GetParent(), "TOPLEFT", -1, 5)
-							self.Auras:SetWidth(C.layout2.player_width - 6)
-						end
-					end)
+				-- BETA: keep filtering in the shared aura implementation.
+				-- self.Auras.FilterAura = T.CustomFilter
+				-- self.Auras.PostUpdateButton = T.PostUpdateIcon
+
+				self.Auras:AddGroup("HELPFUL")
+				self.Auras:AddGroup("HARMFUL|PLAYER", {
+					layout = {
+						groupSpacing = T.Scale(C.aura.debuff_size + 3),
+					}
+				})
+
+				if not C.aura.player_aura_only then
+					self.Auras:AddGroup("HARMFUL|!PLAYER", {
+						notPlayerDebuff = true,
+					})
 				end
-			end
 
+				-- Layout2 frame is narrower than the base target frame.
+				C_Timer.After(0, function()
+					if self.Auras and self.Auras:GetParent() then
+						self.Auras:ClearAllPoints()
+						self.Auras:SetPoint("BOTTOMLEFT", self.Auras:GetParent(), "TOPLEFT", -1, 5)
+						self.Auras:SetWidth(C.layout2.player_width - 6)
+					end
+				end)
+			end
+		end
 			-- Rogue/Druid Combo bar on target
 			if C.unitframe_class_bar.combo and (C.unitframe_class_bar.combo_old or (T.class ~= "DRUID" and T.class ~= "ROGUE")) then
 				self.ComboPoints = CreateFrame("Frame", self:GetName().."_ComboBar", self)
@@ -1400,7 +1429,7 @@ local function Shared(self, unit)
 	end
 
 	-- Castbar
-	if C.unitframe.unit_castbar and not unit:match('%wtarget$') then
+	if C.unitframe.unit_castbar and not unit:match("%wtarget$") then
 		self.Castbar = CreateFrame("StatusBar", self:GetName().."_Castbar", self)
 		self.Castbar:SetStatusBarTexture(C.media.texture, "ARTWORK")
 
@@ -1632,24 +1661,27 @@ local function Shared(self, unit)
 
 		-- Crowd control icon
 		self.Debuffs = self:CreateAuras({
-			initialAnchor = C.unitframe.boss_on_right and "RIGHT" or "LEFT",
-			growthX = C.unitframe.boss_on_right and "LEFT" or "RIGHT",
-			layoutLimit = 31 + T.extraHeight,
+			growthY = "DOWN",
 		})
-		self.Debuffs:SetSize(31 + T.extraHeight, 31 + T.extraHeight)
 		self.Debuffs:SetFrameStrata("HIGH")
 		self.Debuffs.size = T.Scale(31 + T.extraHeight)
-		self.Debuffs.num = 1
+		self.Debuffs.showCount = true
+		self.Debuffs.elementSpacing = T.Scale(3)
+		self.Debuffs.PostCreateButton = T.PostCreateIcon
+
 		if C.unitframe.boss_on_right then
 			self.Debuffs:SetPoint("RIGHT", self, "LEFT", -5, 0)
+			self.Debuffs.initialAnchor = "RIGHT"
+			self.Debuffs.growthX = "LEFT"
 		else
 			self.Debuffs:SetPoint("LEFT", self, "RIGHT", 5, 0)
+			self.Debuffs.initialAnchor = "LEFT"
+			self.Debuffs.growthX = "RIGHT"
 		end
-		self.Debuffs.showDebuffBorder = true
-		self.Debuffs.showCount = true
-		self.Debuffs.PostCreateButton = T.PostCreateIcon
-		self.Debuffs:AddGroup('HARMFUL|CROWD_CONTROL', { maxFrameCount = 1 })
 
+		self.Debuffs:AddGroup("HARMFUL|CROWD_CONTROL", {
+			maxFrameCount = 1,
+		})
 		--BETA self.AuraTracker = CreateFrame("Frame", self:GetName().."_AuraTracker", self)
 		-- self.AuraTracker:SetWidth(self.Trinket:GetWidth())
 		-- self.AuraTracker:SetHeight(self.Trinket:GetHeight())
@@ -1709,28 +1741,34 @@ local function Shared(self, unit)
 
 		-- Auras on boss
 		if C.aura.boss_auras then
-			self.Auras = self:CreateAuras({
-				initialAnchor = C.unitframe.boss_on_right and "RIGHT" or "LEFT",
-				growthX = C.unitframe.boss_on_right and "LEFT" or "RIGHT",
-				layoutLimit = (34 + T.extraHeight) * (C.aura.boss_debuffs + C.aura.boss_buffs + 1),
-			})
+			self.Auras = self:CreateAuras()
+			self.Auras.showCount = true
+			self.Auras.elementSpacing = T.Scale(3)
+			self.Auras.groupSpacing = T.Scale(C.aura.debuff_size)
+			self.Auras.tooltipAnchor = "ANCHOR_TOPRIGHT"
+			self.Auras.tooltipOffsetY = 3					
+			self.Auras.PostCreateButton = T.PostCreateIcon
+			self.Auras.size = T.Scale(31 + T.extraHeight)
+
+			--BETA self.Auras.FilterAura = T.CustomFilterBoss
+
 			if C.unitframe.boss_on_right then
 				self.Auras:SetPoint("RIGHT", self, "LEFT", -5, 0)
+				self.Auras.initialAnchor = "RIGHT"
+				self.Auras.growthX = "LEFT"
 			else
 				self.Auras:SetPoint("LEFT", self, "RIGHT", 5, 0)
+				self.Auras.initialAnchor = "LEFT"
+				self.Auras.growthX = "RIGHT"
 			end
-			self.Auras:SetHeight(31 + T.extraHeight)
-			self.Auras:SetWidth((34 + T.extraHeight) * (C.aura.boss_debuffs + C.aura.boss_buffs + 1))
-			self.Auras.elementSpacing = T.Scale(3)
-			self.Auras.size = T.Scale(31 + T.extraHeight)
-			self.Auras.showDebuffBorder = true
-			self.Auras.showStealableBorder = true
-			self.Auras.showCount = true
-			self.Auras.PostCreateButton = T.PostCreateIcon
-			self.Auras:AddGroup('HELPFUL', { maxFrameCount = C.aura.boss_buffs })
-			self.Auras:AddGroup('HARMFUL', { maxFrameCount = C.aura.boss_debuffs })
-		end
 
+			self.Auras:AddGroup("HELPFUL", {
+				maxFrameCount = C.aura.boss_buffs,
+			})
+			self.Auras:AddGroup("HARMFUL", {
+				maxFrameCount = C.aura.boss_debuffs,
+			})
+		end
 		self:HookScript("OnShow", T.UpdateAllElements)
 	end
 
@@ -1749,12 +1787,8 @@ local function Shared(self, unit)
 	end
 
 	-- Dispel highlight
-	if C.raidframe.plugins_debuffhighlight and not unit:match('%wtarget$') then
-		self.DispelColor = self.Health:CreateTexture(nil, "OVERLAY")
-		self.DispelColor:SetAllPoints(self.Health)
-		self.DispelColor:SetTexture(C.media.highlight)
-		self.DispelColor:SetVertexColor(0, 0, 0, 0)
-		self.DispelColor:SetBlendMode("ADD")
+	if C.raidframe.plugins_debuffhighlight and not unit:match("%wtarget$") then
+		T.DispelColor(self)
 	end
 
 	-- Incoming heals and heal/damage absorbs
@@ -1930,7 +1964,10 @@ if C.unitframe.show_arena then
 						end
 
 						if class and spec then
-							local color = (canaccessvalue(class) and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class])
+							local color
+							if class and not issecretvalue(class) and canaccessvalue(class) then
+								color = C_ClassColor.GetClassColor(class)
+							end
 							if C.unitframe.own_color then
 								f.Health:SetStatusBarColor(unpack(C.unitframe.uf_color))
 								f.Spec:SetText(spec)
@@ -2132,7 +2169,10 @@ if C.unitframe.lines then
 	HorizontalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
 	HorizontalTargetLine:SetScript("OnEvent", function(self)
 		local _, class = UnitClass("target")
-		local color = (canaccessvalue(class) and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class])
+		local color
+		if class and not issecretvalue(class) and canaccessvalue(class) then
+			color = C_ClassColor.GetClassColor(class)
+		end
 		if color then
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
@@ -2145,7 +2185,10 @@ if C.unitframe.lines then
 	VerticalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
 	VerticalTargetLine:SetScript("OnEvent", function(self)
 		local _, class = UnitClass("target")
-		local color = (canaccessvalue(class) and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class])
+		local color
+		if class and not issecretvalue(class) and canaccessvalue(class) then
+			color = C_ClassColor.GetClassColor(class)
+		end
 		if color then
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else

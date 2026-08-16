@@ -82,14 +82,17 @@ local function LoadSkin()
 		end
 	end)
 
-	local rewardText = frame.ConcessionFrame.RewardsFrame.Text
-	hooksecurefunc(rewardText, "SetText", function(self, text)
-		if not text then text = self:GetText() end
-		if not text or text == "" then return end
+	local concessions = frame.ConcessionsFrame
+	local rewardText = concessions and concessions.RewardsFrame and concessions.RewardsFrame.Text
+	if rewardText then
+		hooksecurefunc(rewardText, "SetText", function(self, text)
+			if not text then text = self:GetText() end
+			if not text or text == "" then return end
 
-		local newText, count = gsub(text, "24:24:0:%-2", "14:14:0:0:64:64:5:59:5:59")
-		if count > 0 then self:SetFormattedText("%s", newText) end
-	end)
+			local newText, count = gsub(text, "24:24:0:%-2", "14:14:0:0:64:64:5:59:5:59")
+			if count > 0 then self:SetFormattedText("%s", newText) end
+		end)
+	end
 end
 
 T.SkinFuncs["Blizzard_WeeklyRewards"] = LoadSkin

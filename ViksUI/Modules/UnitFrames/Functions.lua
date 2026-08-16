@@ -137,9 +137,8 @@ end
 T.PostUpdateBackdropColor = function(element, color)
 	local bg = element.bg
 	if bg and color then
-		local mu = bg.multiplier or 1
 		local r, g, b = color:GetRGB()
-		bg:SetVertexColor(r * mu, g * mu, b * mu)
+		bg:SetVertexColor(r, g, b, 0.2)
 	end
 end
 
@@ -170,8 +169,7 @@ T.PostUpdateHealthColor = function(health, unit, color)
 				if b then
 					health:GetStatusBarTexture():SetVertexColor(r, g, b)
 					if health.bg and health.bg.multiplier then
-						local mu = health.bg.multiplier
-						health.bg:SetVertexColor(r * mu, g * mu, b * mu)
+						health.bg:SetVertexColor(r, g, b, 0.2)
 					end
 				end
 			end
@@ -292,8 +290,7 @@ T.PostUpdateRaidHealthColor = function(health, unit, color)
 			local r, g, b = c:GetRGB()
 			health:SetStatusBarColor(r, g, b)
 			if health.bg and health.bg.multiplier then
-				local mu = health.bg.multiplier
-				health.bg:SetVertexColor(r * mu, g * mu, b * mu)
+				health.bg:SetVertexColor(r, g, b, 0.2)
 			end
 		end
 		if C.unitframe.bar_color_value and not UnitIsTapDenied(unit) then
@@ -448,22 +445,15 @@ end
 T.PostUpdatePowerBackdropColor = function(element, color, altR, altG, altB)
 	local bg = element.bg
 	if bg then
-		local mu = bg.multiplier or 1
 		local r, g, b = 0, 0, 0
 		if color then
 			r, g, b = color:GetRGB()
 		elseif altR then
 			r, g, b = altR, altG, altB
 		end
-		-- In 12.1 restricted unit contexts, Color:GetRGB() can return
-		-- secret numbers. Arithmetic on those values taints the execution.
-		-- Pass secret colors directly to the color sink; only apply our
-		-- multiplier when the RGB values are accessible.
-		if canaccessvalue(r) and canaccessvalue(g) and canaccessvalue(b) then
-			bg:SetVertexColor(r * mu, g * mu, b * mu)
-		else
-			bg:SetVertexColor(r, g, b)
-		end
+		-- Pass colors directly to the color sink. Do not perform arithmetic
+		-- on Color values in restricted 12.1 unit contexts.
+		bg:SetVertexColor(r, g, b, 0.2)
 	end
 end
 
@@ -602,116 +592,81 @@ local function castColor(unit)
 	return r, g, b
 end
 
-T.PostCastStart = function(Castbar, unit)
-    if unit == "vehicle" then unit = "player" end
+T.PostCastStart = function(Castbar, unit, _, notInterruptible)
+	if unit == "vehicle" then unit = "player" end
 
-    if unit == "player" and C.unitframe.castbar_latency and Castbar.Latency then
-        local _, _, _, ms = GetNetStats()
-        Castbar.Latency:SetText(("%dms"):format(ms))
-        if Castbar.casting then
-            Castbar.SafeZone:SetDrawLayer("BORDER")
-            Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
-        else
-            Castbar.SafeZone:SetDrawLayer("ARTWORK")
-            Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
-        end
-    end
+	if unit == "player" and C.unitframe.castbar_latency and Castbar.Latency then
+		local _, _, _, ms = GetNetStats()
+		Castbar.Latency:SetText(("%dms"):format(ms))
+		if Castbar.casting then
+			Castbar.SafeZone:SetDrawLayer("BORDER")
+			Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27)
+		else
+			Castbar.SafeZone:SetDrawLayer("ARTWORK")
+			Castbar.SafeZone:SetVertexColor(0.85, 0.27, 0.27, 0.75)
+		end
+	end
 
-    if unit == "player" and C.unitframe.castbar_ticks then
-        if Castbar.casting then
-            if setBarTicks then setBarTicks(Castbar, 0) end
-        else
-            local spell = UnitChannelInfo(unit)
-            Castbar.channelingTicks = (canaccessvalue and canaccessvalue(spell) and T.CastBarTicks and T.CastBarTicks[spell]) or 0
-            if setBarTicks then setBarTicks(Castbar, Castbar.channelingTicks) end
-        end
-    end
+	if unit == "player" and C.unitframe.castbar_ticks then
+		if Castbar.casting then
+			setBarTicks(Castbar, 0)
+		else
+			local spell = UnitChannelInfo(unit)
+			Castbar.channelingTicks = canaccessvalue(spell) and T.CastBarTicks[spell] or 0
+			setBarTicks(Castbar, Castbar.channelingTicks)
+		end
+	end
 
-    local r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
-    if not C.unitframe.own_color then
-        if castColor then
-            r, g, b = castColor(unit)
-        end
-    end
+	local r, g, b = C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3]
+	if not C.unitframe.own_color then
+		r, g, b = castColor(unit)
+	end
 
-    if usecustomcolor and C_CurveUtil and C_CurveUtil.EvaluateColorFromBoolean then
-        local color
-        local notInterruptible = canaccessvalue(Castbar.notInterruptible) and Castbar.notInterruptible or false
-        if UnitCanAttack("player", unit) then
-            color = C_CurveUtil.EvaluateColorFromBoolean(
-                notInterruptible,
-                { r = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_NON_INTERRUPTIBLE[4] }, -- yellow
-                { r = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[1], g = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[2], b = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[3], a = CUSTOM_CASTBAR_COLOR_INTERRUPTIBLE[4] } -- red
-            )
-        else
-            color = CreateColor(unpack(CUSTOM_CASTBAR_COLOR_FRIENDLY))
-        end
-        Castbar:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
-        if Castbar.bg then
-            Castbar.bg:SetVertexColor(unpack(CUSTOM_CASTBAR_COLOR_BG))
-        end
-    else
-        -- ORIGINAL VIKSUI LOGIC FOR FULL COMPATIBILITY
-        local notInterruptible = canaccessvalue(Castbar.notInterruptible) and Castbar.notInterruptible or false
-        if UnitCanAttack("player", unit) then -- hostile
-            local color = C_CurveUtil.EvaluateColorFromBoolean(
-                notInterruptible,
-                {r = 0.8, g = 0, b = 0, a = 1},
-                {r = r, g = g, b = b, a = 1}
-            )
-            local color_border = C_CurveUtil.EvaluateColorFromBoolean(
-                notInterruptible,
-                {r = 0.8, g = 0, b = 0, a = 1},
-                {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1}
-            )
+	if UnitCanAttack("player", unit) then -- check interrupt only for hostile
+		local color = C_CurveUtil.EvaluateColorFromBoolean(notInterruptible, {r = 0.8, g = 0, b = 0, a = 1}, {r = r, g = g, b = b, a = 1})
+		local color_border = C_CurveUtil.EvaluateColorFromBoolean(notInterruptible, {r = 0.8, g = 0, b = 0, a = 1}, {r = C.media.border_color[1], g = C.media.border_color[2], b = C.media.border_color[3], a = 1})
 
-            Castbar:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
-            if C.unitframe.own_color then
-                local color_bg = C_CurveUtil.EvaluateColorFromBoolean(
-                    Castbar.notInterruptible,
-                    {r = 0.8, g = 0, b = 0, a = 0.2},
-                    {r = C.unitframe.uf_color_bg[1], g = C.unitframe.uf_color_bg[2], b = C.unitframe.uf_color_bg[3], a = 1}
-                )
-                Castbar.bg:SetVertexColor(color_bg:GetRGBA())
-            else
-                Castbar.bg:SetVertexColor(color.r, color.g, color.b, 0.2)
-            end
-            Castbar.Overlay:SetBackdropBorderColor(color_border:GetRGB())
-            if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
-                Castbar.Button:SetBackdropBorderColor(color_border:GetRGB())
-            end
-        else -- friendly or self
-            Castbar:SetStatusBarColor(r, g, b)
-            if C.unitframe.own_color then
-                Castbar.bg:SetVertexColor(C.unitframe.uf_color_bg[1], C.unitframe.uf_color_bg[2], C.unitframe.uf_color_bg[3], 1)
-            else
-                Castbar.bg:SetVertexColor(r, g, b, 0.2)
-            end
-            Castbar.Overlay:SetBackdropBorderColor(unpack(C.media.border_color))
-            if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
-                Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
-            end
-        end
-    end
+		Castbar:GetStatusBarTexture():SetVertexColor(color:GetRGBA())
+		if C.unitframe.own_color then
+			local color_bg = C_CurveUtil.EvaluateColorFromBoolean(notInterruptible, {r = 0.8, g = 0, b = 0, a = 0.2}, {r = C.unitframe.uf_color_bg[1], g = C.unitframe.uf_color_bg[2], b = C.unitframe.uf_color_bg[3], a = 1})
+			Castbar.bg:SetVertexColor(color_bg:GetRGBA())
+		else
+			Castbar.bg:SetVertexColor(color.r, color.g, color.b, 0.2)
+		end
+		Castbar.Overlay:SetBackdropBorderColor(color_border:GetRGB())
+		if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
+			Castbar.Button:SetBackdropBorderColor(color_border:GetRGB())
+		end
+	else
+		Castbar:SetStatusBarColor(r, g, b)
+		if C.unitframe.own_color then
+			Castbar.bg:SetVertexColor(C.unitframe.uf_color_bg[1], C.unitframe.uf_color_bg[2], C.unitframe.uf_color_bg[3], 1)
+		else
+			Castbar.bg:SetVertexColor(r, g, b, 0.2)
+		end
+		Castbar.Overlay:SetBackdropBorderColor(unpack(C.media.border_color))
+		if (C.unitframe.castbar_icon and unit == "target") or (unit == "focus" and C.unitframe.castbar_focus_type ~= "NONE") then
+			Castbar.Button:SetBackdropBorderColor(unpack(C.media.border_color))
+		end
+	end
 
-    -- Text width logic (unchanged)
-    if Castbar.Time and Castbar.Text then
-        local timeWidth = Castbar.Time:GetStringWidth()
-        if not (canaccessvalue and canaccessvalue(timeWidth)) then return end
-        local textWidth = Castbar:GetWidth() - timeWidth - 5
+	if Castbar.Time and Castbar.Text then
+		local timeWidth = Castbar.Time:GetStringWidth()
+		if not canaccessvalue(timeWidth) then return end
+		local textWidth = Castbar:GetWidth() - timeWidth - 5
 
-        if timeWidth == 0 then
-            C_Timer.After(0.05, function()
-                if not (canaccessvalue and canaccessvalue(Castbar.Time:GetStringWidth())) then return end
-                textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
-                if textWidth > 0 then
-                    Castbar.Text:SetWidth(textWidth)
-                end
-            end)
-        else
-            Castbar.Text:SetWidth(textWidth)
-        end
-    end
+		if timeWidth == 0 then
+			C_Timer.After(0.05, function()
+				if not canaccessvalue(Castbar.Time:GetStringWidth()) then return end
+				textWidth = Castbar:GetWidth() - Castbar.Time:GetStringWidth() - 5
+				if textWidth > 0 then
+					Castbar.Text:SetWidth(textWidth)
+				end
+			end)
+		else
+			Castbar.Text:SetWidth(textWidth)
+		end
+	end
 end
 
 T.CustomCastTimeText = function(self, durationObject)
@@ -791,53 +746,82 @@ end
 	-- end
 -- end
 
-T.PostCreateIcon = function(_, button)
-	button:SetTemplate("Default")
-
-	if button.Cooldown then
-		T.SkinCooldown(button.Cooldown, "aura")
-	end
-
-	if button.Icon then
-		button.Icon:SetPoint("TOPLEFT", 2, -2)
-		button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
-		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	end
-
-	if button.Count then
-		button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
-		button.Count:SetJustifyH("RIGHT")
-		button.Count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-		button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-	end
-
-	if C.aura.show_spiral and button.Cooldown then
-		button.Cooldown:SetReverse(true)
-		button.Cooldown:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
-		button.Cooldown:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
-	end
-end
-
-local dispelIndex = {
+local dispelColor = {
 	None = CreateColor(1, 0, 0),
 	Magic = CreateColor(0.2, 0.6, 1),
 	Curse = CreateColor(0.6, 0, 1),
 	Disease = CreateColor(0.6, 0.4, 0),
 	Poison = CreateColor(0, 0.6, 0),
 	Enrage = CreateColor(0.95, 0.4, 0.95),
-	Bleed = CreateColor(1, 0, 0.5),
+	Bleed = CreateColor(1, 0, 0.5)
 }
 
-local curve = C_CurveUtil.CreateColorCurve()
-curve:SetType(Enum.LuaCurveType.Step)
-for name, color in pairs(dispelIndex) do
-	-- Map string names to numeric indices for the curve
-	local index = ({None=0, Magic=1, Curse=2, Disease=3, Poison=4, Enrage=9, Bleed=11})[name]
-	if index then
-		curve:AddPoint(index, color)
+T.PostCreateIcon = function(element, button, options)
+	button:SetTemplate("Default")
+
+	T.SkinCooldown(button.Cooldown, "aura")
+
+	button.Icon:SetPoint("TOPLEFT", 2, -2)
+	button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+	button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 0)
+	button.Count:SetJustifyH("RIGHT")
+	button.Count:SetFont(C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
+	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+
+	if options.notPlayerDebuff then
+		button:SetBackdropBorderColor(unpack(C.media.border_color))
+		button.Icon:SetDesaturated(true)
+	elseif C.aura.debuff_color_type then
+		local top = button:CreateTexture(nil, "BORDER", nil, 1)
+		top:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
+		top:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
+		top:SetHeight(1)
+		top:SetTexture(C.media.blank)
+
+		local bottom = button:CreateTexture(nil, "BORDER", nil, 1)
+		bottom:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT")
+		bottom:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT")
+		bottom:SetHeight(1)
+		bottom:SetTexture(C.media.blank)
+
+		local left = button:CreateTexture(nil, "BORDER", nil, 1)
+		left:SetPoint("TOPLEFT", button, "TOPLEFT")
+		left:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT")
+		left:SetWidth(1)
+		left:SetTexture(C.media.blank)
+
+		local right = button:CreateTexture(nil, "BORDER", nil, 1)
+		right:SetPoint("TOPRIGHT", button, "TOPRIGHT")
+		right:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT")
+		right:SetWidth(1)
+		right:SetTexture(C.media.blank)
+
+		for _, border in pairs{top, bottom, left, right} do
+			button:AddDispelTypeTexture(border, {
+			   style = Enum.CustomAuraButtonDispelTypeTextureStyle.PreserveAsset,
+			   showWithoutDispelType = true,
+			   customDispelColorMap = dispelColor,
+			})
+		end
+	end
+
+	if C.aura.show_spiral then
+		button.Cooldown:SetReverse(true)
+		button.Cooldown:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
+		button.Cooldown:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
+		-- button.parent = CreateFrame("Frame", nil, button)
+		-- button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
+		-- button.Count:SetParent(button.parent)
+	else
+		-- button.Cooldown:SetAlpha(0)
+	end
+
+	if element.isRaidDebuff then
+		button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
 	end
 end
-T.DispelCurve = curve
 
 T.PostUpdateIcon = function(_, button, unit, data)
 	if data.isHarmfulAura then
@@ -868,32 +852,55 @@ T.PostUpdateGapButton = function(_, _, button)
 	button:Hide()
 end
 
-T.CreateRaidBuffIcon = function(_, button)
-	if button.Cooldown then
-		T.SkinCooldown(button.Cooldown, "aura")
-		button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
-	end
+local CountOffSets = {
+	TOPLEFT = {"LEFT", "RIGHT", 1, 0},
+	TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
+	BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
+	BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
+	LEFT = {"LEFT", "RIGHT", 1, 0},
+	RIGHT = {"RIGHT", "LEFT", 2, 0},
+	TOP = {"RIGHT", "LEFT", 2, 0},
+	BOTTOM = {"RIGHT", "LEFT", 2, 0},
+}
 
-	if button.CreateBorder then
-		button:CreateBorder(nil, true)
-		if button.oborder and button.Icon then
-			button.oborder:SetOutside(button.Icon, 1, 1)
-		end
-	end
+T.CreateRaidBuffIcon = function(element, button)
+	T.SkinCooldown(button.Cooldown, "aura")
 
-	if button.Icon then
-		button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	end
+	button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
 
-	if button.Count then
+	button:CreateBorder(nil, true)
+	button.oborder:SetOutside(button.Icon, 1, 1)
+
+	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+	if element.point then
+		local point, anchorPoint, x, y = unpack(CountOffSets[element.point])
+		button.Count:SetPoint(point, button, anchorPoint, x, y)
+	else
 		button.Count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 4, -1)
 		button.Count:SetJustifyH("RIGHT")
-		button.Count:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-		button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+	end
+	button.Count:SetFont(C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+	button.Count:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
+
+	if element.color then
+		local tex = button:CreateTexture(nil, "OVERLAY")
+		tex:SetAllPoints(button)
+		tex:SetTexture(C.media.blank)
+		-- if element.color then
+			tex:SetVertexColor(unpack(element.color))
+		-- else
+			-- tex:SetVertexColor(0.8, 0.8, 0.8)
+		-- end
 	end
 
-	if C.aura.show_spiral and button.Cooldown then
+	if C.aura.show_spiral then
 		button.Cooldown:SetReverse(true)
+		-- button.parent = CreateFrame("Frame", nil, button)
+		-- button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
+		-- button.Count:SetParent(button.parent)
+	else
+		-- button.Cooldown:SetAlpha(0)
 	end
 end
 
@@ -910,49 +917,7 @@ T.PostUpdateRaidButton = function(_, button, unit, data)
 	button.Cooldown:SetHideCountdownNumbers(not C.raidframe.plugins_debuffs_timer)
 end
 
-local CountOffSets = {
-	TOPLEFT = {"LEFT", "RIGHT", 1, 0},
-	TOPRIGHT = {"RIGHT", "LEFT", 2, 0},
-	BOTTOMLEFT = {"LEFT", "RIGHT", 1, 0},
-	BOTTOMRIGHT = {"RIGHT", "LEFT", 2, 0},
-	LEFT = {"LEFT", "RIGHT", 1, 0},
-	RIGHT = {"RIGHT", "LEFT", 2, 0},
-	TOP = {"RIGHT", "LEFT", 2, 0},
-	BOTTOM = {"RIGHT", "LEFT", 2, 0},
-}
-
-T.CreateAuraWatchIcon = function(_, aura)
-	aura:CreateBorder(nil, true)
-	aura.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	aura.icon:SetDrawLayer("ARTWORK")
-
-	if aura.cd then
-		T.SkinCooldown(aura.cd, "aura")
-		aura.cd:SetHideCountdownNumbers(not C.raidframe.plugins_buffs_timer)
-		aura.cd:SetReverse(true)
-
-		-- if C.raidframe.plugins_buffs_timer then
-			-- aura.parent = CreateFrame("Frame", nil, aura)
-			-- aura.parent:SetFrameLevel(aura.cd:GetFrameLevel() + 1)
-			-- aura.remaining = T.SetFontString(aura.parent, C.font.auras_font, C.font.auras_font_size, C.font.auras_font_style)
-			-- aura.remaining:SetShadowOffset(C.font.auras_font_shadow and 1 or 0, C.font.auras_font_shadow and -1 or 0)
-			-- aura.remaining:SetPoint("CENTER", aura, "CENTER", 1, 0)
-			-- aura.remaining:SetJustifyH("CENTER")
-		-- end
-	end
-end
-
 T.CreateAuraWatch = function(self)
-	local auras = CreateFrame("Frame", nil, self)
-	auras:SetPoint("TOPLEFT", self.Health, 0, 0)
-	auras:SetPoint("BOTTOMRIGHT", self.Health, 0, 0)
-	auras.icons = {}
-	auras.PostCreateIcon = T.CreateAuraWatchIcon
-
-	if not C.aura.show_timer then
-		auras.hideCooldown = true
-	end
-
 	local buffs = {}
 
 	if T.RaidBuffs["ALL"] then
@@ -969,33 +934,29 @@ T.CreateAuraWatch = function(self)
 
 	if buffs then
 		for _, spell in pairs(buffs) do
-			local aura = CreateFrame("Frame", nil, auras)
-			aura.spellID = spell[1]
-			aura.anyUnit = spell[4]
-			aura.strictMatching = spell[5]
-			aura:SetSize(7 * C.raidframe.icon_multiplier, 7 * C.raidframe.icon_multiplier)
-			aura:SetPoint(spell[2], 0, 0)
+			local auras = self:CreateAuras()
+			auras.size = 7 * C.raidframe.icon_multiplier
+			auras:SetPoint(spell[2], 0, 0)
+			auras.showCount = true
+			auras.disableMouse = true
 
-			local tex = aura:CreateTexture(nil, "OVERLAY")
-			tex:SetAllPoints(aura)
-			tex:SetTexture(C.media.blank)
-			if spell[3] then
-				tex:SetVertexColor(unpack(spell[3]))
-			else
-				tex:SetVertexColor(0.8, 0.8, 0.8)
+			auras.point = spell[2]
+			auras.color = spell[3]
+			-- auras.anyUnit = spell[4]
+			-- auras.strictMatching = spell[5]
+
+			if not C.aura.show_timer then
+				auras.disableCooldown = true
 			end
-			aura.icon = tex
 
-			local count = T.SetFontString(aura, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-			local point, anchorPoint, x, y = unpack(CountOffSets[spell[2]])
-			count:SetPoint(point, aura, anchorPoint, x, y)
-			aura.count = count
+			auras.PostCreateButton = T.CreateRaidBuffIcon
 
-			auras.icons[spell[1]] = aura
+			auras:AddGroup("HELPFUL|PLAYER", {
+				candidateFilters = {includeSpellIDs = {[spell[1]] = true}},
+				maxFrameCount = 1,
+			})
 		end
 	end
-
-	self.AuraWatch = auras
 end
 
 T.PrivateAurasSetPosition = function(element, aura)
@@ -1212,4 +1173,25 @@ else
 		end
 		return true
 	end
+end
+
+T.DispelColor = function(self)
+	local frame = self:CreateAuras()
+	frame:AddSlot("HARMFUL|RAID", {
+		CreateButton = function(button)
+			button:EnableMouse(false)
+			button:SetAllPoints(self.Health)
+			button:SetFrameLevel(self:GetFrameLevel() + 20)
+
+			local texture = button:CreateTexture(nil, "OVERLAY")
+			texture:SetAllPoints()
+			texture:SetTexture(C.media.highlight)
+			texture:SetVertexColor(0, 0, 0, 0)
+			texture:SetBlendMode("ADD")
+
+			-- button:AddDispelTypeTexture(texture, {
+				-- style = Enum.CustomAuraButtonDispelTypeTextureStyle.PreserveAsset
+			-- })
+		end
+	})
 end

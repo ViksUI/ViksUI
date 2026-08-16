@@ -475,7 +475,7 @@ local CreateMover = function(frame, unit)
 	mover:SetScript("OnLeave", function(self)
 		self.backdrop:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
 		self.backdrop:SetBackdropBorderColor(0, 0.6, 0.6)
-		if not MouseIsOver(controls) then controls:Hide() end
+		if not controls:IsMouseOver() then controls:Hide() end
 	end)
 	mover:SetScript("OnMouseUp", RestoreDefaults)
 	mover:SetScript("OnMouseWheel", OnMouseWheel)

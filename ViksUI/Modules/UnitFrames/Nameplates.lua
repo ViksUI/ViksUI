@@ -374,9 +374,8 @@ local function GetCastbarOffset()
 end
 
 local function UpdateTarget(self)
-	-- Use oUF's canonical private unit token. Blizzard 12.1 owns .unit,
-	-- while _unit is our cached nameplate token.
-	local unit = self.__unit or self._unit
+	-- Use oUF's canonical private unit token.
+	local unit = self.__unit
 	local gap = GetCastbarOffset()
 	local isTarget = unit and T.unitIsUnit(unit, "target")
 	local isMe = unit and T.unitIsUnit(unit, "player")
@@ -442,7 +441,7 @@ local function UpdateTarget(self)
 end
 
 local function UpdateFocus(self)
-	if T.unitIsUnit(self._unit, "focus") then
+	if T.unitIsUnit(self.__unit, "focus") then
 		SetColorBorder(self.Health, 1, 0.8, 0)
 	else
 		SetColorBorder(self.Health, GetDefaultBorderColor())
@@ -466,9 +465,9 @@ local function UpdateName(self)
 	end
 
 	if C.nameplate.class_icons then
-		local reaction = UnitReaction(self._unit, "player")
-		if UnitIsPlayer(self._unit) and canaccessvalue(reaction) and reaction <= 4 then
-			local _, class = UnitClass(self._unit)
+		local reaction = UnitReaction(self.__unit, "player")
+		if UnitIsPlayer(self.__unit) and canaccessvalue(reaction) and reaction <= 4 then
+			local _, class = UnitClass(self.__unit)
 			if canaccessvalue(class) then
 				local texcoord = CLASS_ICON_TCOORDS[class]
 				if texcoord then
@@ -729,22 +728,22 @@ end
 
 local function GetMobColorOverride(self)
 	if not C.nameplate.elite_only_instance then return nil end
-	if not self or not self._unit then return nil end
+	if not self or not self.__unit then return nil end
 
-	local color, mobType = GetDungeonMobColor(self._unit)
+	local color, mobType = GetDungeonMobColor(self.__unit)
 	if color then
 		return color, mobType
 	end
 end
 
 local function threatColor(self, forced)
-	if UnitIsPlayer(self._unit) then return end
+	if UnitIsPlayer(self.__unit) then return end
 
 	if C.nameplate.enhance_threat ~= true then
 		SetColorBorder(self.Health, GetDefaultBorderColor())
 	end
 
-	if UnitIsTapDenied(self._unit) then
+	if UnitIsTapDenied(self.__unit) then
 		self.Health:SetStatusBarColor(0.6, 0.6, 0.6)
 		return
 	end
@@ -757,7 +756,7 @@ local function threatColor(self, forced)
 		return
 	end
 
-	local threatStatus = UnitThreatSituation("player", self._unit)
+	local threatStatus = UnitThreatSituation("player", self.__unit)
 
 	-- Preserve the existing special affix behavior.
 	if self.npcID == "120651" then
@@ -796,7 +795,7 @@ local function threatColor(self, forced)
 						if UnitExists(raidUnit)
 							and not T.unitIsUnit(raidUnit, "player")
 							and UnitGroupRolesAssigned(raidUnit) == "TANK" then
-							if UnitDetailedThreatSituation(raidUnit, self._unit) then
+							if UnitDetailedThreatSituation(raidUnit, self.__unit) then
 								offTank = true
 								break
 							end
@@ -888,18 +887,17 @@ local function HealthPostUpdateColor(self, unit, color)
 
 	local main = self:GetParent()
 	local r, g, b
-	local mu = self.bg.multiplier
 	local isPlayer = UnitIsPlayer(unit)
 	local unitReaction = UnitReaction(unit, "player")
 	local reactionAccessible = canaccessvalue(unitReaction)
 	if not T.unitIsUnit("player", unit) and isPlayer and reactionAccessible and unitReaction >= 5 then
 		r, g, b = T.oUF_colors.power["MANA"]:GetRGB()
 		self:SetStatusBarColor(r, g, b)
-		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+		self.bg:SetVertexColor(r, g, b, 0.2)
 	elseif UnitIsTapDenied(unit) then
 		r, g, b = unpack(C.nameplate.tapped_color)
 		self:SetStatusBarColor(r, g, b)
-		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+		self.bg:SetVertexColor(r, g, b, 0.2)
 	elseif not isPlayer then
 		local special = UnitClassification(unit)
 		local inInstance = IsInInstance()
@@ -977,7 +975,7 @@ local function HealthPostUpdateColor(self, unit, color)
 		end
 
 		self:SetStatusBarColor(r, g, b)
-		self.bg:SetVertexColor(r * mu, g * mu, b * mu)
+		self.bg:SetVertexColor(r, g, b, 0.2)
 	end
 
 	threatColor(main, true)
@@ -990,7 +988,7 @@ end
 local function callback(self, _, unit)
 	if not self then return end
 	if unit then
-		self._unit = unit
+		self.__unit = unit
 		local unitGUID = UnitGUID(unit)
 		self.npcID = unitGUID and canaccessvalue(unitGUID) and select(6, strsplit('-', unitGUID))
 		self.unitName = UnitName(unit)
@@ -1084,7 +1082,7 @@ end
 
 local function style(self, unit)
 	local main = self
-	self._unit = unit
+	self.__unit = unit
 	local castbarGap = GetCastbarOffset()
 
 	self:ClearAllPoints()
@@ -1292,7 +1290,7 @@ local function style(self, unit)
 		})
 		self.Auras:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, C.font.nameplates_font_size + 8)
 		self.Auras:SetSize(20 + C.nameplate.width, C.nameplate.auras_size)
-		self.Auras.spacing = 5 * 1
+		self.Auras.elementSpacing = 5 * 1
 		self.Auras.size = C.nameplate.auras_size * 1 - 3
 		self.Auras.disableMouse = true
 		self.Auras.showCount = true
@@ -1300,11 +1298,19 @@ local function style(self, unit)
 		self.Auras.PostCreateButton = AurasPostCreateIcon
 
 		if C.nameplate.track_buffs then
-			self.Auras:AddGroup('HELPFUL', { maxFrameCount = 4 })
+			self.Auras:AddGroup("HELPFUL", {
+				maxFrameCount = 4,
+				showStealableBorder = true,
+			})
 		end
+
 		if C.nameplate.track_debuffs then
-			self.Auras:AddGroup('HARMFUL', { maxFrameCount = 6 })
+			self.Auras:AddGroup("HARMFUL|PLAYER", {
+				maxFrameCount = 6,
+				-- showDebuffBorder = true,
+			})
 		end
+
 	end
 
 	-- Health color

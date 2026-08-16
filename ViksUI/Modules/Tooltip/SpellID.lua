@@ -1,4 +1,5 @@
 local T, C, L = unpack(ViksUI)
+C_CVar.SetCVar('tooltipShowAuraSpellIDs', C.tooltip.spell_id and 1 or 0)
 if C.tooltip.enable ~= true or C.tooltip.spell_id ~= true then return end
 
 ----------------------------------------------------------------------------------------
@@ -22,39 +23,24 @@ local function addLine(self, id, isItem)
 end
 
 -- Spells
--- 12.1: Do not hook GameTooltip:SetUnitAura and then call
--- C_UnitAuras.GetAuraDataByIndex(). Blizzard's BuffFrame can invoke
--- SetUnitAura with a secret index while in combat; querying that index from
--- tainted addon code produces a Lua taint error.
---
--- Spell IDs for normal spell tooltips are still handled below through
--- TooltipDataProcessor. Aura-instance tooltip callbacks are handled by
--- attachByAuraInstanceID() with an accessibility guard.
+-- hooksecurefunc(GameTooltip, "SetUnitAura", function(self, unit, index, filter)
+	-- if InCombatLockdown() or IsInInstance() then return end -- secret error
+	-- local aura = C_UnitAuras.GetAuraDataByIndex(unit, index, filter)
+	-- local id = aura and aura.spellId
+	-- if id then addLine(self, id) end
+	-- if debuginfo == true and id and IsModifierKeyDown() then print(UnitAura(unit, index, filter)..": "..id) end
+-- end)
 
-local function attachByAuraInstanceID(self, unit, auraInstanceID)
-	-- In 12.1 restricted combat/instance contexts, Blizzard can pass a
-	-- secret auraInstanceID to the tooltip callback. Calling
-	-- GetAuraDataByAuraInstanceID() with that secret key from tainted addon
-	-- execution is forbidden and produces:
-	-- "Auras cannot be accessed when secret while tainted by 'ViksUI'".
-	--
-	-- If the instance ID is accessible, keep the old Spell ID behavior.
-	if not canaccessvalue(auraInstanceID) then return end
+-- local function attachByAuraInstanceID(self, ...)
+	-- local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(...)
+	-- local id = aura and aura.spellId
+	-- if id then addLine(self, id) end
+	-- if debuginfo == true and id and IsModifierKeyDown() then print(aura.name..": "..id) end
+-- end
 
-	local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, auraInstanceID)
-	local id = aura and aura.spellId
-	if id and canaccessvalue(id) then addLine(self, id) end
-	if debuginfo == true and id and canaccessvalue(id) and IsModifierKeyDown() then
-		local name = aura.name
-		if name and canaccessvalue(name) then
-			print(name..": "..id)
-		end
-	end
-end
-
-hooksecurefunc(GameTooltip, "SetUnitBuffByAuraInstanceID", attachByAuraInstanceID)
-hooksecurefunc(GameTooltip, "SetUnitDebuffByAuraInstanceID", attachByAuraInstanceID)
-hooksecurefunc(GameTooltip, "SetUnitAuraByAuraInstanceID", attachByAuraInstanceID)	-- from oUF Auras
+-- hooksecurefunc(GameTooltip, "SetUnitBuffByAuraInstanceID", attachByAuraInstanceID)
+-- hooksecurefunc(GameTooltip, "SetUnitDebuffByAuraInstanceID", attachByAuraInstanceID)
+-- hooksecurefunc(GameTooltip, "SetUnitAuraByAuraInstanceID", attachByAuraInstanceID)	-- from oUF Auras
 
 hooksecurefunc("SetItemRef", function(link)
 	local id = tonumber(link:match("spell:(%d+)"))

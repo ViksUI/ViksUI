@@ -253,24 +253,20 @@ local function Shared(self, unit)
 			layoutLimit = 144,
 		})
 		self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -2, -5)
-		self.Debuffs:SetHeight(18)
-		self.Debuffs:SetWidth(144)
 		self.Debuffs.size = T.Scale(18)
-		self.Debuffs.spacing = T.Scale(3)
+		self.Debuffs.elementSpacing = T.Scale(3)
 		self.Debuffs.showCount = true
-		self.Debuffs.PostCreateButton = function(element, button, options)
-			T.PostCreateIcon(element, button)
-		end
-		self.Debuffs:AddGroup('HARMFUL', { maxFrameCount = 7 })
+		self.Debuffs.PostCreateButton = T.PostCreateIcon
+
+		self.Debuffs:AddGroup("HARMFUL", {
+			maxFrameCount = 7,
+			showDebuffBorder = true,
+		})
 	end
 
 	-- Dispel highlight
 	if C.raidframe.plugins_debuffhighlight and not (suffix == "target" or suffix == "targettarget") then
-		self.DispelColor = self.Health:CreateTexture(nil, "OVERLAY")
-		self.DispelColor:SetAllPoints(self.Health)
-		self.DispelColor:SetTexture(C.media.highlight)
-		self.DispelColor:SetVertexColor(0, 0, 0, 0)
-		self.DispelColor:SetBlendMode("ADD")
+		T.DispelColor(self)
 	end
 
 	-- Incoming heals and heal/damage absorbs
@@ -460,15 +456,15 @@ local party_pet = CreateFrame("Frame", "PartyPetDPSAnchor", UIParent)
 party_pet:SetPoint("BOTTOMLEFT", party, "BOTTOMRIGHT", partytarget_width + 14, 0)
 
 local raidtank = CreateFrame("Frame", "RaidTankDPSAnchor", UIParent)
--- if C.threat.enable then
-	-- raidtank:SetPoint(C.position.unitframes.tank[1], C.position.unitframes.tank[2], C.position.unitframes.tank[3], C.position.unitframes.tank[4] + C.threat.width + 6, C.position.unitframes.tank[5])
--- else
-	-- if C.actionbar.split_bars then
-		-- raidtank:SetPoint(C.position.unitframes.tank[1], SplitBarRight, C.position.unitframes.tank[3], C.position.unitframes.tank[4], C.position.unitframes.tank[5])
-	-- else
+if C.threat.enable then
+	raidtank:SetPoint(C.position.unitframes.tank[1], C.position.unitframes.tank[2], C.position.unitframes.tank[3], C.position.unitframes.tank[4] + C.threat.width + 6, C.position.unitframes.tank[5])
+else
+	if C.actionbar.split_bars then
+		raidtank:SetPoint(C.position.unitframes.tank[1], SplitBarRight, C.position.unitframes.tank[3], C.position.unitframes.tank[4], C.position.unitframes.tank[5])
+	else
 		raidtank:SetPoint(unpack(C.position.unitframes.tank))
-	-- end
--- end
+	end
+end
 
 ----------------------------------------------------------------------------------------
 --	Auto change raid frame layout
