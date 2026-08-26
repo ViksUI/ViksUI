@@ -182,9 +182,9 @@ local FilgerTable = {
 	L.filger_show_buff,
 	L.filger_show_proc,
 	L.filger_show_debuff,
-	L.filger_show_aura_bar,
-	L.filger_show_aura_bar_player,
-	L.filger_show_cd,
+	-- L.filger_show_aura_bar,
+	-- L.filger_show_aura_bar_player,
+	-- L.filger_show_cd,
 	IGNORE
 }
 
@@ -962,28 +962,26 @@ do
 	local profileVar = "General"
 	local function startExport()
 		local Prefix = "ViksUI:Profile:"
-		local LibDeflate = LibStub:GetLibrary("LibDeflate")
-		local LibSerialize = LibStub("LibSerialize")
 
 		local Serialized
 		if profileVar == "General" then
 			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
-			Serialized = LibSerialize:Serialize(ViksUIOptions[i])
+			Serialized = C_EncodingUtil.SerializeCBOR(ViksUIOptions[i])
 		elseif profileVar == "Personal" then
 			local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
-			Serialized = LibSerialize:Serialize(ViksUIOptionsPerChar[i])
+			Serialized = C_EncodingUtil.SerializeCBOR(ViksUIOptionsPerChar[i])
 		elseif profileVar == "Mover" then
 			local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
-			Serialized = LibSerialize:Serialize(ViksUIPositions[i])
+			Serialized = C_EncodingUtil.SerializeCBOR(ViksUIPositions[i])
 		elseif profileVar == "Mover_Personal" then
 			local i = tostring(ViksUIOptionsGlobal[realm]["Current_Profile"][name])
-			Serialized = LibSerialize:Serialize(ViksUIPositionsPerChar[i])
+			Serialized = C_EncodingUtil.SerializeCBOR(ViksUIPositionsPerChar[i])
 		end
 
-		local Compressed = LibDeflate:CompressDeflate(Serialized, {level = 9})
-		local Encoded = LibDeflate:EncodeForPrint(Compressed)
+		local Compressed = C_EncodingUtil.CompressString(Serialized, Enum.CompressionMethod.Deflate, Enum.CompressionLevel.Default)
+		local Encoded = C_EncodingUtil.EncodeBase64(Compressed)
 		local Result = Prefix..Encoded
-		StaticPopup_Show("VIKSUI_EXPORT_PROFILE", _, _, Result)
+		StaticPopup_Show("ViksUI_EXPORT_PROFILE", _, _, Result)
 	end
 
 	local selfTextImport
@@ -1002,16 +1000,14 @@ do
 		OnAccept = function()
 			local Code = selfTextImport
 			local Prefix = "ViksUI:Profile:"
-			local LibDeflate = LibStub:GetLibrary("LibDeflate")
-			local LibSerialize = LibStub("LibSerialize")
 
 			local LibCode = string.gsub(Code, Prefix, "")
-			local Decoded = LibDeflate:DecodeForPrint(LibCode)
+			local Decoded = C_EncodingUtil.DecodeBase64(LibCode)
 
 			if Decoded then
-				local Decompressed = LibDeflate:DecompressDeflate(Decoded)
-				local Success, Table = LibSerialize:Deserialize(Decompressed)
-				if Success then
+				local Decompressed = C_EncodingUtil.DecompressString(Decoded, Enum.CompressionMethod.Deflate)
+				local Table = C_EncodingUtil.DeserializeCBOR(Decompressed)
+				if Table then
 					if profileVar == "General" then
 						local i = tostring(ViksUIOptionsGlobal["Current_Profile"])
 						ViksUIOptions[i] = Table
@@ -1091,18 +1087,6 @@ do
 	tinsert(ns.buttons, ImportMoveButton)
 
 	C_Timer.After(0.3, function() -- need to grab SavedVariables and loaded libraries
-		local LibDeflate = LibStub and LibStub:GetLibrary("LibDeflate", true)
-		local LibSerialize = LibStub and LibStub:GetLibrary("LibSerialize", true)
-		local LibsExist = LibDeflate and LibSerialize
-
-		if not LibsExist then
-			ExportButton:Disable()
-			ImportButton:Disable()
-			ExportMoveButton:Disable()
-			ImportMoveButton:Disable()
-			status:SetText(L.profile_error_lib)
-		end
-
 		-- Use existing function in Core.lua to create dropdown with name via SavedVariables
 		local function SaveValue(f, value)
 			if not C.options[f.group] then C.options[f.group] = {} end
@@ -2737,46 +2721,46 @@ do
 	track_debuffs:SetPoint("TOPLEFT", clamp, "BOTTOMLEFT", 0, 0)
 	track_debuffs.Text:SetWidth(350)
 
-	-- local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	-- ListButton:SetPoint("LEFT", track_debuffs, "RIGHT", 400, 0)
-	-- ListButton:SetSize(100, 23)
-	-- ListButton:SetText(ADD)
-	-- ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
-	-- ListButton:RegisterForClicks("AnyUp")
-	-- ListButton:SetScript("OnClick", function(_, btn)
-		-- if not C.options["nameplate"] then
-			-- C.options["nameplate"] = {}
-		-- end
-		-- if btn == "LeftButton" then
-			-- if not C.options["nameplate"]["debuffs_list"] then
-				-- C.options["nameplate"]["debuffs_list"] = {}
-			-- end
-			-- BuildSpellList(C.options["nameplate"]["debuffs_list"])
-		-- else
-			-- if not C.options["nameplate"]["ignore_list"] then
-				-- C.options["nameplate"]["ignore_list"] = {}
-			-- end
-			-- BuildSpellList(C.options["nameplate"]["ignore_list"])
-		-- end
-	-- end)
-	-- tinsert(ns.buttons, ListButton)
+	local ListButton = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	ListButton:SetPoint("LEFT", track_debuffs, "RIGHT", 400, 0)
+	ListButton:SetSize(100, 23)
+	ListButton:SetText(ADD)
+	ListButton:SetWidth(ListButton.Text:GetWidth() + 15)
+	ListButton:RegisterForClicks("AnyUp")
+	ListButton:SetScript("OnClick", function(_, btn)
+		if not C.options["nameplate"] then
+			C.options["nameplate"] = {}
+		end
+		if btn == "LeftButton" then
+			if not C.options["nameplate"]["debuffs_list"] then
+				C.options["nameplate"]["debuffs_list"] = {}
+			end
+			BuildSpellList(C.options["nameplate"]["debuffs_list"])
+		else
+			if not C.options["nameplate"]["ignore_list"] then
+				C.options["nameplate"]["ignore_list"] = {}
+			end
+			BuildSpellList(C.options["nameplate"]["ignore_list"])
+		end
+	end)
+	tinsert(ns.buttons, ListButton)
 
-	-- local tooltip_show = function(self)
-		-- GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 3, 3)
-		-- GameTooltip:ClearLines()
-		-- GameTooltip:SetText(RIGHT_BUTTON_STRING..": "..IGNORE)
-	-- end
+	local tooltip_show = function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 3, 3)
+		GameTooltip:ClearLines()
+		GameTooltip:SetText(RIGHT_BUTTON_STRING..": "..IGNORE)
+	end
 
-	-- ListButton:HookScript("OnEnter", tooltip_show)
-	-- ListButton:HookScript("OnLeave", function() GameTooltip:Hide() end)
+	ListButton:HookScript("OnEnter", tooltip_show)
+	ListButton:HookScript("OnLeave", function() GameTooltip:Hide() end)
 
-	-- local function toggleListButton()
-		-- local shown = track_debuffs:GetChecked()
-		-- ListButton:SetEnabled(shown)
-	-- end
+	local function toggleListButton()
+		local shown = track_debuffs:GetChecked()
+		ListButton:SetEnabled(shown)
+	end
 
-	-- track_debuffs:HookScript("OnClick", toggleListButton)
-	-- ListButton:HookScript("OnShow", toggleListButton)
+	track_debuffs:HookScript("OnClick", toggleListButton)
+	ListButton:HookScript("OnShow", toggleListButton)
 
 	local track_buffs = ns.CreateCheckBox(parent, "track_buffs")
 	track_buffs:SetPoint("TOPLEFT", track_debuffs, "BOTTOMLEFT", 0, 0)
@@ -3281,14 +3265,14 @@ do
 	local show_buff = ns.CreateCheckBox(parent, "show_buff")
 	show_buff:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", 0, -10)
 
-	-- local show_proc = ns.CreateCheckBox(parent, "show_proc")
-	-- show_proc:SetPoint("LEFT", show_buff, "RIGHT", 320, 0)
+	local show_proc = ns.CreateCheckBox(parent, "show_proc")
+	show_proc:SetPoint("LEFT", show_buff, "RIGHT", 320, 0)
 
 	local show_debuff = ns.CreateCheckBox(parent, "show_debuff")
 	show_debuff:SetPoint("TOPLEFT", show_buff, "BOTTOMLEFT", 0, 0)
 
-	local show_aura_bar = ns.CreateCheckBox(parent, "show_aura_bar")
-	show_aura_bar:SetPoint("LEFT", show_debuff, "RIGHT", 320, 0)
+	-- local show_aura_bar = ns.CreateCheckBox(parent, "show_aura_bar")
+	-- show_aura_bar:SetPoint("LEFT", show_debuff, "RIGHT", 320, 0)
 
 	local show_pvp_player = ns.CreateCheckBox(parent, "show_pvp_player")
 	show_pvp_player:SetPoint("TOPLEFT", show_debuff, "BOTTOMLEFT", 0, 0)
@@ -3335,21 +3319,21 @@ do
 	-- max_test_icon:SetPoint("TOPLEFT", test_mode, "BOTTOMLEFT", 0, -20)
 
 	-- Spell List
-	-- local subheader = ns.addSubCategory(parent, L.filger_subheader_spells)
-	-- subheader:SetPoint("TOPLEFT", max_test_icon, "BOTTOMLEFT", 0, -11)
+	local subheader = ns.addSubCategory(parent, L.filger_subheader_spells)
+	subheader:SetPoint("TOPLEFT", pvp_size, "BOTTOMLEFT", 0, -11)
 
-	-- local category_list = ns.CreateDropDown(parent, "category_list", true, L.filger_category_list, FilgerTable)
-	-- category_list:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
+	local category_list = ns.CreateDropDown(parent, "category_list", true, L.filger_category_list, FilgerTable)
+	category_list:SetPoint("TOPLEFT", subheader, "BOTTOMLEFT", -16, -10)
 
-	-- hooksecurefunc(category_list, "SetValue", function()
-		-- if not C.options["filger"] then
-			-- C.options["filger"] = {}
-		-- end
-		-- if not C.options["filger"][FilgerDropDownText[category_list.selectedValue]] then
-			-- C.options["filger"][FilgerDropDownText[category_list.selectedValue]] = {}
-		-- end
-		-- BuildSpellList(C.options["filger"][FilgerDropDownText[category_list.selectedValue]], false, true)
-	-- end)
+	hooksecurefunc(category_list, "SetValue", function()
+		if not C.options["filger"] then
+			C.options["filger"] = {}
+		end
+		if not C.options["filger"][FilgerDropDownText[category_list.selectedValue]] then
+			C.options["filger"][FilgerDropDownText[category_list.selectedValue]] = {}
+		end
+		BuildSpellList(C.options["filger"][FilgerDropDownText[category_list.selectedValue]], false, true)
+	end)
 end
 
 -- Announcements

@@ -1,5 +1,6 @@
 local T, C, L = unpack(ViksUI)
 if C.tooltip.enable ~= true or C.tooltip.mount ~= true then return end
+if T.Midnight then return end -- oUF now used another aura system
 
 ----------------------------------------------------------------------------------------
 --	Show source of mount

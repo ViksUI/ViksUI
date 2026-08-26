@@ -1,10 +1,12 @@
 local T, C, L = unpack(ViksUI)
 if C.aura.cast_by ~= true then return end
-
+if T.Midnight then return end
 ----------------------------------------------------------------------------------------
 --	Tells you who cast a buff or debuff in its tooltip(prButler by Renstrom)
 ----------------------------------------------------------------------------------------
 local function addAuraSource(self, unit, index, filter, instanceID)
+	if C_Secrets.ShouldAurasBeSecret() then return end
+
 	local srcUnit
 	if instanceID then
 		local aura = C_UnitAuras.GetAuraDataByAuraInstanceID(unit, index)

@@ -26,13 +26,7 @@ local function Shared(self, unit)
 
 	-- Register click
 	self:RegisterForClicks("AnyUp")
-	self:SetScript("OnEnter", function(self)
-		local unit = self.__unit
-		if unit then
-			self.unit = unit
-			UnitFrame_OnEnter(self)
-		end
-	end)
+	self:SetScript("OnEnter", T.UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
 	-- Focus click handling (Ctrl+Alt+Shift) Leftmouse set, right mouse clears
@@ -765,6 +759,7 @@ local function Shared(self, unit)
 		self.Debuffs.size = T.Scale(C.aura.debuff_size)
 		self.Debuffs.showCount = true
 		self.Debuffs.elementSpacing = T.Scale(3)
+		self.Debuffs.sortDirection = AuraContainerSortDirection.Reverse
 		self.Debuffs.PostCreateButton = T.PostCreateIcon
 
 		if unit == "pet" or unit == "focus" then
@@ -781,9 +776,9 @@ local function Shared(self, unit)
 			maxFrameCount = 4,
 		})
 
-		if unit == "pet" then
-			self:RegisterEvent("UNIT_PET", T.UpdateAllElements)
-		end
+		-- if unit == "pet" then
+			-- self:RegisterEvent("UNIT_PET", T.UpdateAllElements)
+		-- end
 	end
 
 	if unit == "player" or unit == "target" then
@@ -857,7 +852,13 @@ local function Shared(self, unit)
 				self.Debuffs.elementSpacing = T.Scale(3)
 				self.Debuffs.tooltipAnchor = "ANCHOR_TOPRIGHT"
 				self.Debuffs.tooltipOffsetY = 3
-				self.Debuffs.size = T.Scale(C.aura.debuff_size)
+
+				if C.aura.debuff_minimap then
+					self.Debuffs.size = T.Scale(C.aura.player_debuff_size)
+				else
+					self.Debuffs.size = T.Scale(C.aura.debuff_size)
+				end
+
 				self.Debuffs.PostCreateButton = T.PostCreateIcon
 
 				if (T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune)
@@ -874,7 +875,6 @@ local function Shared(self, unit)
 				})
 
 				if C.aura.debuff_minimap then
-					self.Debuffs.size = T.Scale(C.aura.player_debuff_size)
 					C_Timer.After(0.25, function()
 						self.Debuffs:ClearAllPoints()
 						self.Debuffs:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)
@@ -907,6 +907,7 @@ local function Shared(self, unit)
 				self.Auras.groupLineSpacing = T.Scale(3)
 				self.Auras.tooltipAnchor = "ANCHOR_TOPLEFT"
 				self.Auras.tooltipOffsetY = 3
+				self.Auras.sortDirection = AuraContainerSortDirection.Reverse
 				self.Auras.PostCreateButton = T.PostCreateIcon
 
 				--BETA self.Auras.FilterAura = T.CustomFilter -- find another way
@@ -976,9 +977,8 @@ local function Shared(self, unit)
 			self.Status:SetPoint("CENTER", self.Health, "CENTER", 0, 0)
 			self.Status:SetTextColor(0.69, 0.31, 0.31)
 			self.Status:Hide()
-			self.Status.Override = T.dummy
 
-			self:SetScript("OnEnter", function(self) if self.LowMana then self.LowMana.Text:Hide() end T.UpdatePvPStatus(self) self.Status:Show() UnitFrame_OnEnter(self) end)
+			self:SetScript("OnEnter", function(self) if self.LowMana then self.LowMana.Text:Hide() end T.UpdatePvPStatus(self) self.Status:Show() T.UnitFrame_OnEnter(self) end)
 			self:SetScript("OnLeave", function(self) if self.LowMana then self.LowMana.Text:Show() end self.Status:Hide() UnitFrame_OnLeave(self) end)
 		end
 	end
@@ -1197,6 +1197,7 @@ local function Shared(self, unit)
 		self.Debuffs.size = T.Scale(31 + T.extraHeight)
 		self.Debuffs.showCount = true
 		self.Debuffs.elementSpacing = T.Scale(3)
+		self.Debuffs.sortDirection = AuraContainerSortDirection.Reverse
 		self.Debuffs.PostCreateButton = T.PostCreateIcon
 
 		if C.unitframe.boss_on_right then
@@ -1278,6 +1279,7 @@ local function Shared(self, unit)
 			self.Auras.groupSpacing = T.Scale(C.aura.debuff_size)
 			self.Auras.tooltipAnchor = "ANCHOR_TOPRIGHT"
 			self.Auras.tooltipOffsetY = 3
+			self.Auras.sortDirection = AuraContainerSortDirection.Reverse
 			self.Auras.PostCreateButton = T.PostCreateIcon
 			self.Auras.size = T.Scale(31 + T.extraHeight)
 
@@ -1297,12 +1299,12 @@ local function Shared(self, unit)
 				maxFrameCount = C.aura.boss_buffs,
 			})
 
-			self.Auras:AddGroup("HARMFUL", {
+			self.Auras:AddGroup("HARMFUL|PLAYER", {
 				maxFrameCount = C.aura.boss_debuffs,
 			})
 		end
 
-		self:HookScript("OnShow", T.UpdateAllElements)
+		-- self:HookScript("OnShow", T.UpdateAllElements)
 	end
 
 	-- Aggro border
@@ -1320,7 +1322,8 @@ local function Shared(self, unit)
 	end
 
 	-- Dispel highlight
-	if C.raidframe.plugins_debuffhighlight and not unit:match("%wtarget$") then
+	-- if C.raidframe.plugins_debuffhighlight and not unit:match("%wtarget$") then
+	if C.raidframe.plugins_debuffhighlight and (unit == "player" or unit == "pet") then -- Can't filter enemy now
 		T.DispelColor(self)
 	end
 
@@ -1352,6 +1355,13 @@ local function Shared(self, unit)
 			}
 		end
 		self.NormalAlpha = 1
+	end
+
+	-- Filger auras tracker
+	if C.filger.enable then
+		C_Timer.After(1, function()
+			T.CreateFilgerAuras(self, unit)
+		end)
 	end
 
 	-- Apply expert code

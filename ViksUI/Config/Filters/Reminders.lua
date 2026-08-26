@@ -6,9 +6,9 @@ local T, C, L = unpack(ViksUI)
 --	Take the number ID at the end of the URL, and add it to the list
 ----------------------------------------------------------------------------------------
 local function SpellName(id)
-	local name, _, icon = GetSpellInfo(id)
+	local name, _, icon, _, _, _, spellID = GetSpellInfo(id)
 	if name then
-		return {name, icon}
+		return {name, icon, spellID}
 	else
 		print("|cffff0000ViksUI: Reminders spell ID ["..tostring(id).."] no longer exists!|r")
 		return {"Empty", ""}
@@ -120,14 +120,7 @@ if C.reminder.solo_buffs_enable == true then
 			},
 		},
 		PALADIN = {
-			[1] = {	-- Auras group
-				["spells"] = {
-					SpellName(465),		-- Devotion Aura
-					SpellName(317920),	-- Concentration Aura
-				},
-				["instance"] = true
-			},
-			[2] = {	-- Rite of Sanctification/Adjuration group
+			[1] = {	-- Rite of Sanctification/Adjuration group
 				["spells"] = {
 					SpellName(433568),	-- Rite of Sanctification
 					SpellName(433583),	-- Rite of Adjuration
@@ -137,6 +130,13 @@ if C.reminder.solo_buffs_enable == true then
 				["instance"] = true,
 				["pvp"] = true,
 			},
+			-- [2] = {	-- Auras group
+				-- ["spells"] = {
+					-- SpellName(465),		-- Devotion Aura
+					-- SpellName(317920),	-- Concentration Aura
+				-- },
+				-- ["instance"] = true
+			-- },
 		},
 		PRIEST = {
 			[1] = {	-- Stamina group
@@ -173,17 +173,7 @@ if C.reminder.solo_buffs_enable == true then
 			},
 		},
 		SHAMAN = {
-			[1] = {	-- Shields group
-				["spells"] = {
-					SpellName(52127),	-- Water Shield
-					SpellName(974),		-- Earth Shield
-					SpellName(192106),	-- Lightning Shield
-				},
-				["combat"] = true,
-				["instance"] = true,
-				["pvp"] = true,
-			},
-			[2] = {	-- Windfury Weapon group
+			[1] = {	-- Windfury Weapon group
 				["spells"] = {
 					SpellName(33757),	-- Windfury Weapon
 				},
@@ -194,7 +184,7 @@ if C.reminder.solo_buffs_enable == true then
 				["pvp"] = true,
 				["level"] = 10,
 			},
-			[3] = {	-- Flametongue Weapon group
+			[2] = {	-- Flametongue Weapon group
 				["spells"] = {
 					SpellName(318038),	-- Flametongue Weapon
 				},
@@ -205,7 +195,7 @@ if C.reminder.solo_buffs_enable == true then
 				["pvp"] = true,
 				["level"] = 10,
 			},
-			[4] = {	-- Thunderstrike Ward group
+			[3] = {	-- Thunderstrike Ward group
 				["offhand"] = true,
 				["spec"] = 1,
 				["spells"] = {
@@ -215,7 +205,7 @@ if C.reminder.solo_buffs_enable == true then
 				["instance"] = true,
 				["pvp"] = true,
 			},
-			[5] = {	-- Skyfury group
+			[4] = {	-- Skyfury group
 				["spells"] = {
 					SpellName(462854),	-- Skyfury
 				},
@@ -223,6 +213,16 @@ if C.reminder.solo_buffs_enable == true then
 				["instance"] = true,
 				["pvp"] = true,
 			},
+			-- [5] = {	-- Shields group
+				-- ["spells"] = {
+					-- SpellName(52127),	-- Water Shield
+					-- SpellName(974),		-- Earth Shield
+					-- SpellName(192106),	-- Lightning Shield
+				-- },
+				-- ["combat"] = true,
+				-- ["instance"] = true,
+				-- ["pvp"] = true,
+			-- },
 		},
 		WARRIOR = {
 			[1] = {	-- Battle Shout group

@@ -43,7 +43,7 @@ T.MoverFrames = {
 	FOCUS_CC_Anchor,
 	COOLDOWN_Anchor,
 	T_DE_BUFF_BAR_Anchor,
-	-- P_BUFF_BAR_Anchor, -- not used now
+	P_BUFF_BAR_Anchor, -- not used now
 	Move_PVEDEBUFF,
 	Anchorflash,
 	DataTextP1,

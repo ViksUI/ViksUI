@@ -1285,7 +1285,11 @@ local function Shared(self, unit)
 				self.Debuffs.elementSpacing = T.Scale(3)
 				self.Debuffs.tooltipAnchor = "ANCHOR_TOPRIGHT"
 				self.Debuffs.tooltipOffsetY = 3
-				self.Debuffs.size = T.Scale(C.aura.debuff_size)
+				if C.aura.debuff_minimap then
+					self.Debuffs.size = T.Scale(C.aura.player_debuff_size)
+				else
+					self.Debuffs.size = T.Scale(C.aura.debuff_size)
+				end
 				self.Debuffs.PostCreateButton = T.PostCreateIcon
 
 				if (T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune)
@@ -1302,7 +1306,6 @@ local function Shared(self, unit)
 				})
 
 				if C.aura.debuff_minimap then
-					self.Debuffs.size = T.Scale(C.aura.player_debuff_size)
 					C_Timer.After(0.25, function()
 						self.Debuffs:ClearAllPoints()
 						self.Debuffs:SetPoint("BOTTOMRIGHT", DeBuffsAnchor, "BOTTOMRIGHT", 0, 0)

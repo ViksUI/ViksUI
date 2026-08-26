@@ -1,6 +1,6 @@
 local T, C, L, _ = unpack(ViksUI)
 if C.filger.enable ~= true then return end
-
+if T.Midnight then return end
 ----------------------------------------------------------------------------------------
 --	Lightweight buff/debuff tracking (Filger by Nils Ruesch, editors Affli/SinaC/Ildyria)
 ----------------------------------------------------------------------------------------

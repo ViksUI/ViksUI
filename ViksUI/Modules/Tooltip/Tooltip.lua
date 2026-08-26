@@ -146,8 +146,24 @@ anchor.text = SetFontString(anchor, C.media.normal_font, 10)
 anchor.text:SetPoint("CENTER")
 anchor.text:SetText("Move Tooltip")
 
--- Hide PVP text
-PVP_ENABLED = ""
+-- Hide unwanted lines
+local validTooltip = {[GameTooltip] = true, [GameTooltipTooltip] = true, [ItemRefTooltip] = true}
+local removeLines = {[_G.FACTION_ALLIANCE] = true, [_G.FACTION_HORDE] = true, [_G.PVP] = true}
+TooltipDataProcessor.AddLinePreCall(Enum.TooltipDataLineType.None, function(tooltip, lineData)
+	if not validTooltip[tooltip] or tooltip:IsForbidden() then return end
+	if not tooltip:IsTooltipType(Enum.TooltipDataType.Unit) then return end
+
+	if T.NotSecretValue(lineData.leftText) and removeLines[lineData.leftText] then
+		return true
+	end
+end)
+
+TooltipDataProcessor.AddLinePreCall(Enum.TooltipDataLineType.Blank, function(tooltip)
+	if not validTooltip[tooltip] or tooltip:IsForbidden() then return end
+	if not tooltip:IsTooltipType(Enum.TooltipDataType.Unit) then return end
+
+	return true
+end)
 
 -- Statusbar
 GameTooltipStatusBar:SetStatusBarTexture(C.media.texture)
@@ -375,7 +391,7 @@ local OnTooltipSetUnit = function(self)
 			self:AppendText((" %s"):format("|cffFF0000"..L_CHAT_DND.."|r"))
 		end
 
-		if isPlayer and (englishRace == "Pandaren" or englishRace == "Dracthyr" or englishRace == "EarthenDwarf" or englishRace == "Harronir") and faction ~= nil and faction ~= playerFaction then
+		if T.NotSecretValue(englishRace) and (englishRace == "Pandaren" or englishRace == "Dracthyr" or englishRace == "EarthenDwarf" or englishRace == "Harronir") and faction ~= nil and faction ~= playerFaction then
 			local hex = "cffff3333"
 			if faction == "Alliance" then
 				hex = "cff69ccf0"
@@ -405,18 +421,6 @@ local OnTooltipSetUnit = function(self)
 			_G["GameTooltipTextLeft"..n]:SetFormattedText("|cff%02x%02x%02x%s|r %s %s", levelColor.r * 255, levelColor.g * 255, levelColor.b * 255, level, race or UNKNOWN, class or "")
 		else
 			_G["GameTooltipTextLeft"..n]:SetFormattedText("|cff%02x%02x%02x%s|r %s", levelColor.r * 255, levelColor.g * 255, levelColor.b * 255, level, race or UNKNOWN)
-		end
-
-		for i = n + 1, lines do
-			local line = _G["GameTooltipTextLeft"..i]
-			if not line or not line:GetText() then return end
-			local text = line:GetText()
-			if T.NotSecretValue(text) then
-				if text == FACTION_HORDE or text == FACTION_ALLIANCE then
-					line:SetText()
-					break
-				end
-			end
 		end
 	else
 		for i = 2, lines do

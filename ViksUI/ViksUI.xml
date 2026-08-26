@@ -55,7 +55,7 @@
 	<Script file="Core\Panels.lua"/>
 	<Script file="Core\ChangeLog.lua"/>
 	<Script file="Config\Theme.lua"/>
-	<!-- <Script file="Config\Filters\FilgerSpells.lua"/> -->
+	<Script file="Config\Filters\FilgerSpells.lua"/>
 	
 	<Script file="Modules\UnitFrames\Functions.lua"/>
 	<Script file="Modules\UnitFrames\Tags.lua"/>
@@ -120,7 +120,7 @@
 	<Script file="Modules\Announcements\SafariHat.lua"/>
 	<Script file="Modules\Announcements\Spells.lua"/>
 	
-	<Script file="Modules\Auras\AuraSource.lua"/>
+	<!-- <Script file="Modules\Auras\AuraSource.lua"/> -->
 	<Script file="Modules\Auras\BuffFrame.lua"/>
 	<!-- <Script file="Modules\Auras\ClassTimer.lua"/> -->
 	<Script file="Modules\Auras\Filger.lua"/>

@@ -34,21 +34,14 @@ local function Shared(self, unit)
 	-- Set our own colors
 	self.colors = T.oUF_colors
 
-	-- Click handling is managed by oUF header attributes, not RegisterForClicks
-	-- Focus click handling (Ctrl+Alt+Shift) Leftmouse set, right mouse clears
+	-- Register click
+	self:RegisterForClicks("AnyUp")
+	self:SetScript("OnEnter", T.UnitFrame_OnEnter)
+	self:SetScript("OnLeave", UnitFrame_OnLeave)
 	self:SetAttribute("alt-ctrl-shift-type1", "macro")
 	self:SetAttribute("alt-ctrl-shift-macrotext1", "/focus mouseover")
 	self:SetAttribute("alt-ctrl-shift-type2", "macro")
 	self:SetAttribute("alt-ctrl-shift-macrotext2", "/clearfocus")
-
-	self:SetScript("OnEnter", function(self)
-		local unit = self.__unit
-		if unit then
-			self.unit = unit
-			UnitFrame_OnEnter(self)
-		end
-	end)
-	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
 	-- Backdrop for every units
 	self:CreateBackdrop("Default")
@@ -280,6 +273,7 @@ local function Shared(self, unit)
 		self.Auras.elementSpacing = T.Scale(3)
 		self.Auras.size = 7 * C.raidframe.icon_multiplier
 		self.Auras.disableMouse = true
+		self.Auras.sortDirection = AuraContainerSortDirection.Reverse
 		self.Auras.PostCreateButton = T.CreateRaidBuffIcon
 
 		self.Auras:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE", {
@@ -296,6 +290,7 @@ local function Shared(self, unit)
 		self.Debuffs.disableMouse = true
 		self.Debuffs.showCount = true
 		self.Debuffs.isRaidDebuff = true
+		self.Debuffs.sortDirection = AuraContainerSortDirection.Reverse
 		self.Debuffs.PostCreateButton = T.PostCreateIcon
 
 		if C.raidframe.plugins_debuffs_filter then
@@ -304,8 +299,10 @@ local function Shared(self, unit)
 			self.Debuffs:AddGroup("HARMFUL|CROWD_CONTROL")
 			self.Debuffs:AddGroup("HARMFUL|IMPORTANT")
 		else
-			self.Debuffs:AddGroup("HARMFUL", {
+			self.Debuffs:AddGroup("HARMFUL|!PLAYER", {
 			  candidateFilters = {
+				isFromPlayerOrPlayerPet = false,
+				-- maxDuration = 60,
 				excludeSpellIDs = T.RaidDebuffsIgnore
 			  }
 			})

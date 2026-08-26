@@ -289,7 +289,7 @@ local AurasCustomFilter = function(_, unit, data)
 	if not UnitIsFriend("player", unit) then
 		if data.isHarmfulAura then
 			if C.nameplate.track_debuffs and data.isPlayerAura then
-				local filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HARMFUL|PLAYER|")
+				local filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HARMFUL|PLAYER")
 				if filter then
 					allow = true
 				end
@@ -306,7 +306,7 @@ local AurasCustomFilter = function(_, unit, data)
 					allow = true
 				end
 
-				local filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HELPFUL|RAID_PLAYER_DISPELLABLE")
+				local filter = not C_UnitAuras.IsAuraFilteredOutByInstanceID(unit, data.auraInstanceID, "HELPFUL|DISPELLABLE")
 				if filter then
 					allow = true
 				end
@@ -327,6 +327,10 @@ local AurasPostCreateIcon = function(_, button, options)
 		CreateBorderFrame(button)
 	end
 
+	if not options.isDebuff then
+		SetColorBorder(button, 0, 0.5, 0)
+	end
+	
 	if button.Cooldown then
 		T.SkinCooldown(button.Cooldown, "aura")
 	end
@@ -1030,6 +1034,15 @@ local function callback(self, _, unit)
 				end
 			end
 
+			-- Hide auras for ally
+			if self.Auras then
+				if UnitIsFriend("player", unit) then
+					self.Auras:SetAlpha(0)
+				else
+					self.Auras:SetAlpha(1)
+				end
+			end
+
 			if C.nameplate.only_name then
 				if UnitIsFriend("player", unit) then
 					if not InCombatLockdown() then
@@ -1047,7 +1060,6 @@ local function callback(self, _, unit)
 					end
 					if C.raidframe.plugins_healcomm then
 						self.Health.DamageAbsorb:Hide()
-
 						if C.raidframe.plugins_over_heal_absorb then
 							self.Health.OverDamageAbsorbIndicator:Hide()
 						end
@@ -1069,7 +1081,6 @@ local function callback(self, _, unit)
 					end
 					if C.raidframe.plugins_healcomm and self.Health then
 						self.Health.DamageAbsorb:Show()
-
 						if C.raidframe.plugins_over_heal_absorb then
 							self.Health.OverDamageAbsorbIndicator:Show()
 						end
@@ -1298,16 +1309,25 @@ local function style(self, unit)
 		self.Auras.PostCreateButton = AurasPostCreateIcon
 
 		if C.nameplate.track_buffs then
-			self.Auras:AddGroup("HELPFUL", {
-				maxFrameCount = 4,
+			self.Auras:AddGroup("HELPFUL|RAID_PLAYER_DISPELLABLE", {
+				maxFrameCount = 2,
 				showStealableBorder = true,
 			})
+
+			-- TODO find a way to show buffs only on enemy
+			-- self.Auras:AddGroup("HELPFUL|BIG_DEFENSIVE|!DISPELLABLE", {
+				-- maxFrameCount = 1,
+			-- })
+			-- self.Auras:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE|!DISPELLABLE", {
+				-- maxFrameCount = 1,
+			-- })
 		end
 
 		if C.nameplate.track_debuffs then
 			self.Auras:AddGroup("HARMFUL|PLAYER", {
+				candidateFilters = {includeSpellIDs = T.DebuffWhiteList, excludeSpellIDs = T.DebuffBlackList},
 				maxFrameCount = 6,
-				-- showDebuffBorder = true,
+				isDebuff = true,
 			})
 		end
 

@@ -14,7 +14,8 @@ local function LoadSkin()
 
 	local tabs = {
 		frame.SpellsTab,
-		frame.AurasTab
+		frame.AurasTab,
+		frame.GroupBuffsTab
 	}
 	for _, tab in pairs(tabs) do
 		T.SkinFrameTab(tab)
@@ -46,6 +47,8 @@ local function LoadSkin()
 			end
 		end
 	end
+
+	T.SkinScrollBar(frame.GroupBuffFilter.Scroll.ScrollBar)
 
 	local function SkinHeaders(header)
 		if header and not header.IsSkinned then
@@ -106,12 +109,7 @@ local function LoadSkin()
 	end
 
 	local hookedItemPools = {}
-
-	local function RefreshLayout()
-		local CooldownViewer = _G.CooldownViewerSettings
-		if not CooldownViewer or not CooldownViewer.CooldownScroll then return end
-
-		local content = CooldownViewer.CooldownScroll.Content
+	local function RefreshContent(content)
 		if not content then return end
 
 		for _, child in next, {content:GetChildren()} do
@@ -128,6 +126,22 @@ local function LoadSkin()
 
 				hooksecurefunc(itemPool, "Acquire", HandleSettingItemPool)
 			end
+		end
+	end
+
+	local function RefreshLayout()
+		local CooldownViewer = _G.CooldownViewerSettings
+		if not CooldownViewer or not CooldownViewer.CooldownScroll then return end
+
+		local content = CooldownViewer.CooldownScroll.Content
+
+		if content then
+			RefreshContent(content)
+		end
+
+		local groupBuffFilter = CooldownViewer.GroupBuffFilter
+		if groupBuffFilter and groupBuffFilter.Scroll then
+			RefreshContent(groupBuffFilter.Scroll.Content)
 		end
 	end
 
@@ -172,19 +186,16 @@ local function LoadSkin()
 
 		for _, region in next, {container:GetRegions()} do
 			if region:IsObjectType("Texture") then
-				local textureFileID = region:GetTextureFileID()
+				local texture = region:GetTexture()
 				local atlas = region:GetAtlas()
 
-				-- Check if the value is tainted before comparing
-				if textureFileID and not issecretvalue(textureFileID) and textureFileID == 6707800 then
+				if texture == 6707800 then
 					region:SetTexture(C.media.blank)
-				elseif atlas and not issecretvalue(atlas) and atlas == "UI-HUD-CoolDownManager-IconOverlay" then -- 6704514
+				elseif atlas == "UI-HUD-CoolDownManager-IconOverlay" then -- 6704514
 					region:SetAlpha(0)
 				end
 			end
 		end
-		if container.CooldownFlash then container.CooldownFlash:SetAlpha(0) end
-		if container.DebuffBorder then container.DebuffBorder:SetAlpha(0) end
 	end
 
 	local function SkinBar(frame, bar)
@@ -193,8 +204,7 @@ local function LoadSkin()
 
 		if frame.Icon then
 			frame.Icon.Icon:ClearAllPoints()
-			frame.Icon.Icon:SetPoint("TOPLEFT", 2, -2)
-			frame.Icon.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
+			frame.Icon.Icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
 			frame.Icon.Icon:SetSize(26, 26)
 			SkinIcon(frame.Icon, frame.Icon.Icon)
 		end
@@ -266,20 +276,6 @@ local function LoadSkin()
 	HandleViewer(_G.BuffBarCooldownViewer)
 	HandleViewer(_G.BuffIconCooldownViewer)
 	HandleViewer(_G.EssentialCooldownViewer)
-
-	-- Reskin all frames when RefreshLayout is called
-	local function ReskinAllFrames(viewer)
-		return function()
-			for frame in viewer.itemFramePool:EnumerateActive() do
-				SkinItemFrame(frame)
-			end
-		end
-	end
-
-	hooksecurefunc(_G.EssentialCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.EssentialCooldownViewer))
-	hooksecurefunc(_G.UtilityCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.UtilityCooldownViewer))
-	hooksecurefunc(_G.BuffBarCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.BuffBarCooldownViewer))
-	hooksecurefunc(_G.BuffIconCooldownViewer, "RefreshLayout", ReskinAllFrames(_G.BuffIconCooldownViewer))
 end
 
 T.SkinFuncs["Blizzard_CooldownViewer"] = LoadSkin

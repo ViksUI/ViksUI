@@ -33,7 +33,7 @@ local function Shared(self, unit)
 
 	-- Register click
 	self:RegisterForClicks("AnyUp")
-	self:SetScript("OnEnter", UnitFrame_OnEnter)
+	self:SetScript("OnEnter", T.UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
 	-- Focus click handling (Ctrl+Alt+Shift) Leftmouse set, right mouse clears

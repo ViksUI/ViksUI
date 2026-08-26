@@ -1,5 +1,6 @@
 local T, C, L = unpack(ViksUI)
 if not IsVik then return end
+if not C.TalentNote or not C.TalentNote.enable then return end
 ----------------------------------------------------------------------------------------
 --	Talent Loadout Notes
 ----------------------------------------------------------------------------------------

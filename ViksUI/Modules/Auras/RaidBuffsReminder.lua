@@ -84,17 +84,20 @@ local function OnAuraChange(_, event, arg1)
 	wipe(playerBuff)
 	local isSecret
 	local i = 1
-	while true do
-		local name
-		local ok, auraData = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
-		if not ok then isSecret = true; break end
-		if auraData and not canaccessvalue(auraData.name) then isSecret = true end  -- BETA
-		if auraData and canaccessvalue(auraData.name) then
-			name = auraData.name
+	if not C_Secrets.ShouldAurasBeSecret() then
+		while true do
+			local name
+			local auraData = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
+			if auraData and not canaccessvalue(auraData.name) then isSecret = true end  -- BETA
+			if auraData and canaccessvalue(auraData.name) then
+				name = auraData.name
+			end
+			if not name then break end
+			playerBuff[name] = true
+			i = i + 1
 		end
-		if not name then break end
-		playerBuff[name] = true
-		i = i + 1
+	else
+		isSecret = true
 	end
 
 	-- Hide if found secret

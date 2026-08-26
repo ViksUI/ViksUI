@@ -96,19 +96,11 @@ local function OnEvent(self, event, arg1)
 			return
 		end
 
-		-- 12.1: Do not enumerate aura data by index.
-		-- GetAuraDataByIndex is forbidden while aura data is secret and
-		-- will Lua error when called from tainted addon code.
-		-- Query the configured spells directly instead.
 		if reversecheck then
-			if group.negate_reversecheck and group.negate_reversecheck == T.Spec then
-				self:Hide()
-				return
-			end
-
+			if group.negate_reversecheck and group.negate_reversecheck == T.Spec then self:Hide() return end
 			for i = 1, #group.spells do
-				local name = group.spells[i][1]
-				if name and C_UnitAuras.GetAuraDataBySpellName("player", name, "HELPFUL") then
+				local name = group.spells[i][3]
+				if name and C_UnitAuras.GetPlayerAuraBySpellID(name) then
 					self:Show()
 					if canplaysound == true then PlaySoundFile(C.media.warning_sound, "Master") end
 					return
@@ -116,8 +108,8 @@ local function OnEvent(self, event, arg1)
 			end
 		else
 			for i = 1, #group.spells do
-				local name = group.spells[i][1]
-				if name and C_UnitAuras.GetAuraDataBySpellName("player", name, "HELPFUL") then
+				local name = group.spells[i][3]
+				if name and C_UnitAuras.GetPlayerAuraBySpellID(name) then
 					self:Hide()
 					return
 				end
