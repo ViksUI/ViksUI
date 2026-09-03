@@ -182,7 +182,7 @@ local FilgerTable = {
 	L.filger_show_buff,
 	L.filger_show_proc,
 	L.filger_show_debuff,
-	-- L.filger_show_aura_bar,
+	L.filger_show_aura_bar,
 	-- L.filger_show_aura_bar_player,
 	-- L.filger_show_cd,
 	IGNORE
@@ -414,8 +414,8 @@ ns.HideSpellList = function()
 	InputSpell:SetText("")
 	InputSpell.value = ""
 	InputArg:SetText("")
-	-- UIDropDownMenu_SetText(ViksUIOptionsPanelfilgercategory_listDropDown, "")
-	-- ViksUIOptionsPanelfilgercategory_listDropDown.selectedValue = nil
+	UIDropDownMenu_SetText(ViksUIOptionsPanelfilgercategory_listDropDown, "")
+	ViksUIOptionsPanelfilgercategory_listDropDown.selectedValue = nil
 	AddSpellButton:Disable()
 	SpellList:Hide()
 end
@@ -2109,19 +2109,16 @@ do
 	local plugins_debuffs_filter = ns.CreateCheckBox(parent, "plugins_debuffs_filter")
 	plugins_debuffs_filter:SetPoint("TOPLEFT", plugins_debuffs_timer, "BOTTOMLEFT", 0, 0)
 
-	local plugins_private_auras = ns.CreateCheckBox(parent, "plugins_private_auras")
-	plugins_private_auras:SetPoint("TOPLEFT", plugins_debuffs_filter, "BOTTOMLEFT", 0, 0)
-
 	-- local plugins_debuffhighlight_icon = ns.CreateCheckBox(parent, "plugins_debuffhighlight_icon")
 	-- plugins_debuffhighlight_icon:SetPoint("TOPLEFT", plugins_debuffs_timer, "BOTTOMLEFT", 0, 0)
 
 	-- local plugins_pvp_debuffs = ns.CreateCheckBox(parent, "plugins_pvp_debuffs")
 	-- plugins_pvp_debuffs:SetPoint("TOPLEFT", plugins_debuffhighlight_icon, "BOTTOMLEFT", 0, 0)
 
-	plugins_debuffs.children = {plugins_debuffs_timer, plugins_private_auras, plugins_debuffhighlight_icon, plugins_pvp_debuffs}
+	plugins_debuffs.children = {plugins_debuffs_timer, plugins_debuffhighlight_icon, plugins_pvp_debuffs}
 
 	local plugins_buffs = ns.CreateCheckBox(parent, "plugins_buffs")
-	plugins_buffs:SetPoint("TOPLEFT", plugins_private_auras, "BOTTOMLEFT", -20, 0)
+	plugins_buffs:SetPoint("TOPLEFT", plugins_debuffs_filter, "BOTTOMLEFT", -20, 0)
 
 	local plugins_buffs_timer = ns.CreateCheckBox(parent, "plugins_buffs_timer")
 	plugins_buffs_timer:SetPoint("TOPLEFT", plugins_buffs, "BOTTOMLEFT", 20, 0)
@@ -3271,8 +3268,8 @@ do
 	local show_debuff = ns.CreateCheckBox(parent, "show_debuff")
 	show_debuff:SetPoint("TOPLEFT", show_buff, "BOTTOMLEFT", 0, 0)
 
-	-- local show_aura_bar = ns.CreateCheckBox(parent, "show_aura_bar")
-	-- show_aura_bar:SetPoint("LEFT", show_debuff, "RIGHT", 320, 0)
+	local show_aura_bar = ns.CreateCheckBox(parent, "show_aura_bar")
+	show_aura_bar:SetPoint("LEFT", show_debuff, "RIGHT", 320, 0)
 
 	local show_pvp_player = ns.CreateCheckBox(parent, "show_pvp_player")
 	show_pvp_player:SetPoint("TOPLEFT", show_debuff, "BOTTOMLEFT", 0, 0)

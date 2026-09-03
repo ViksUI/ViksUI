@@ -27,6 +27,7 @@ T.DebuffWhiteList = {
 	-- Druid
 	[33786] = true,		-- Cyclone
 	[339] = true,		-- Entangling Roots
+	[102359] = true,	-- Mass Entanglement
 	[164812] = true,	-- Moonfire
 	[164815] = true,	-- Sunfire
 	[58180] = true,		-- Infected Wounds
@@ -50,6 +51,7 @@ T.DebuffWhiteList = {
 	-- Paladin
 	[20066] = true,		-- Repentance
 	[853] = true,		-- Hammer of Justice
+	[105421] = true,	-- Blinding Light
 	[183218] = true,	-- Hand of Hindrance
 	-- Priest
 	[204213] = true,	-- Purge the Wicked
@@ -59,6 +61,7 @@ T.DebuffWhiteList = {
 	[15487] = true,		-- Silence
 	[589] = true,		-- Shadow Word: Pain
 	[34914] = true,		-- Vampiric Touch
+	[335467] = true,	-- Shadow Word: Madness
 	-- Rogue
 	[6770] = true,		-- Sap
 	[2094] = true,		-- Blind
@@ -86,6 +89,7 @@ T.DebuffWhiteList = {
 	[5246] = true,		-- Intimidating Shout
 	[132168] = true,	-- Shockwave
 	[262115] = true,	-- Deep Wounds
+	[388539] = true,	-- Rend
 	-- Racial
 	[20549] = true,		-- War Stomp (Tauren)
 	[107079] = true,	-- Quaking Palm (Pandaren)

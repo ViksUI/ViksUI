@@ -1,5 +1,6 @@
 local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true then return end
+if C_AddOns.IsAddOnLoaded("DandersFrames") or C_AddOns.IsAddOnLoaded("EllesmereUIRaidFrames") then return end
 
 ----------------------------------------------------------------------------------------
 --	UnitFrames based on oUF_Caellian(by Caellian)
@@ -260,7 +261,6 @@ local function Shared(self, unit)
 
 		self.Debuffs:AddGroup("HARMFUL", {
 			maxFrameCount = 7,
-			showDebuffBorder = true,
 		})
 	end
 

@@ -10,7 +10,7 @@ SpellBinder:Hide()
 SpellBinder.sbOpen = false
 SpellBinder.spellbuttons = {}
 
-	ClickCastFrames = _G.ClickCastFrames or {}
+ClickCastFrames = _G.ClickCastFrames or {}
 for _, v in pairs({
 	"PlayerFrame", "PetFrame",
 	-- Party members
@@ -351,7 +351,9 @@ local function Load()
 	hooksecurefunc(PlayerSpellsFrame, "Hide", function()
 		SpellBinder:Hide()
 		SpellBinder.sbOpen = false
-		SpellBinder:ToggleButtons()
+		if not InCombatLockdown() then
+			SpellBinder:ToggleButtons()
+		end
 	end)
 
 	local addSpell = function(self, button)

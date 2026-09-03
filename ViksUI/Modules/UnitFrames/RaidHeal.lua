@@ -1,5 +1,6 @@
 local T, C, L = unpack(ViksUI)
 if C.unitframe.enable ~= true then return end
+if C_AddOns.IsAddOnLoaded("DandersFrames") or C_AddOns.IsAddOnLoaded("EllesmereUIRaidFrames") then return end
 
 ----------------------------------------------------------------------------------------
 --	UnitFrames based on oUF_Caellian(by Caellian)
@@ -306,23 +307,6 @@ local function Shared(self, unit)
 				excludeSpellIDs = T.RaidDebuffsIgnore
 			  }
 			})
-		end
-
-		-- Blizzard private auras
-		if C.raidframe.plugins_private_auras then
-			self.PrivateAuras = CreateFrame("Frame", self:GetName().."_PrivateAuras", self)
-			self.PrivateAuras:SetPoint("CENTER", self, 0, 1)
-			self.PrivateAuras:SetSize(18 * C.raidframe.icon_multiplier, 18 * C.raidframe.icon_multiplier)
-			self.PrivateAuras.size = 18 * C.raidframe.icon_multiplier
-
-			self.PrivateAuras.borderScale = 1
-			self.PrivateAuras.disableCooldownText = true
-			self.PrivateAuras.disableCooldown = not C.aura.show_spiral
-
-			self.PrivateAuras.SetPosition = T.PrivateAurasSetPosition -- show always one aura in center
-			self.PrivateAuras.PostUpdate = T.PrivateAurasPostUpdate -- hide tooltip
-
-			self.Debuffs:SetFrameLevel(7)
 		end
 	end
 

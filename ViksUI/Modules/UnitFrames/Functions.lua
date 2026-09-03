@@ -17,7 +17,7 @@ CUSTOM_CASTBAR_COLOR_FRIENDLY           = {95/255, 182/255, 255/255, 1}         
 CUSTOM_CASTBAR_COLOR_BG                 = {0.3, 0.3, 0.3, 0.3}                  -- background
 
 T.UpdateAllElements = function(frame)
-	frame:UpdateAllElements('UpdateElement')
+	frame:UpdateAllElements("UpdateElement")
 end
 
 T.SetFontString = function(parent, fontName, fontHeight, fontStyle)
@@ -684,6 +684,27 @@ T.CustomCastDelayText = function(self, durationObject)
 	self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(self.channeling and duration or elapsed, self.channeling and "-" or "+", abs(self.delay)))
 end
 
+local castTimeFormatter = C_StringUtil.CreateSecondsFormatter()
+castTimeFormatter:SetDefaultAbbreviation(Enum.SecondsFormatterAbbreviation.OneLetter)
+castTimeFormatter:SetMinInterval(Enum.SecondsFormatterInterval.Seconds)
+castTimeFormatter:SetMillisecondsThreshold(60)
+
+T.CustomCastbarTimeBinding = function()
+	local binding = C_DurationUtil.CreateDurationTextBinding()
+	binding:SetTextFormat("{}/{}", {
+		{
+			property = Enum.DurationTextBindingProperty.ElapsedDuration,
+			formatter = castTimeFormatter,
+		},
+		{
+			property = Enum.DurationTextBindingProperty.TotalDuration,
+			formatter = castTimeFormatter,
+		},
+	})
+
+	return binding
+end
+
 local colorStages = {
 	[1] = {1, 0, 0},
 	[2] = {1, 0.4, 0},
@@ -730,22 +751,6 @@ T.PostUpdatePips = function(element)
 	end
 end
 
---BETA T.AuraTrackerTime = function(self, elapsed)
-	-- if self.active then
-		-- self.timeleft = self.timeleft - elapsed
-		-- if self.timeleft <= 5 then
-			-- self.text:SetTextColor(1, 0, 0)
-		-- else
-			-- self.text:SetTextColor(1, 1, 1)
-		-- end
-		-- if self.timeleft <= 0 then
-			-- self.icon:SetTexture("")
-			-- self.text:SetText("")
-		-- end
-		-- self.text:SetFormattedText("%.1f", self.timeleft)
-	-- end
--- end
-
 local dispelColor = {
 	None = CreateColor(1, 0, 0),
 	Magic = CreateColor(0.2, 0.6, 1),
@@ -773,32 +778,17 @@ T.PostCreateIcon = function(element, button, options)
 	if options.notPlayerDebuff then
 		button:SetBackdropBorderColor(unpack(C.media.border_color))
 		button.Icon:SetDesaturated(true)
+	elseif options.showStealable then
+		for _, border in pairs{T.CreateBorderTexture(button)} do
+			button:AddDispelTypeTexture(border, {
+				style = Enum.CustomAuraButtonDispelTypeTextureStyle.PreserveAsset,
+				showWhenHelpful = true,
+				showWithoutDispelType = true,
+				stealableFilter = Enum.CustomAuraButtonDispelTypeStealableFilter.Stealable
+			})
+		end
 	elseif C.aura.debuff_color_type then
-		local top = button:CreateTexture(nil, "BORDER", nil, 1)
-		top:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
-		top:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
-		top:SetHeight(1)
-		top:SetTexture(C.media.blank)
-
-		local bottom = button:CreateTexture(nil, "BORDER", nil, 1)
-		bottom:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT")
-		bottom:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT")
-		bottom:SetHeight(1)
-		bottom:SetTexture(C.media.blank)
-
-		local left = button:CreateTexture(nil, "BORDER", nil, 1)
-		left:SetPoint("TOPLEFT", button, "TOPLEFT")
-		left:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT")
-		left:SetWidth(1)
-		left:SetTexture(C.media.blank)
-
-		local right = button:CreateTexture(nil, "BORDER", nil, 1)
-		right:SetPoint("TOPRIGHT", button, "TOPRIGHT")
-		right:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT")
-		right:SetWidth(1)
-		right:SetTexture(C.media.blank)
-
-		for _, border in pairs{top, bottom, left, right} do
+		for _, border in pairs{T.CreateBorderTexture(button)} do
 			button:AddDispelTypeTexture(border, {
 			   style = Enum.CustomAuraButtonDispelTypeTextureStyle.PreserveAsset,
 			   showWithoutDispelType = true,
@@ -811,11 +801,6 @@ T.PostCreateIcon = function(element, button, options)
 		button.Cooldown:SetReverse(true)
 		button.Cooldown:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
 		button.Cooldown:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
-		-- button.parent = CreateFrame("Frame", nil, button)
-		-- button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
-		-- button.Count:SetParent(button.parent)
-	else
-		-- button.Cooldown:SetAlpha(0)
 	end
 
 	if element.isRaidDebuff then
@@ -888,11 +873,6 @@ T.CreateRaidBuffIcon = function(element, button)
 
 	if C.aura.show_spiral then
 		button.Cooldown:SetReverse(true)
-		-- button.parent = CreateFrame("Frame", nil, button)
-		-- button.parent:SetFrameLevel(button.Cooldown:GetFrameLevel() + 1)
-		-- button.Count:SetParent(button.parent)
-	else
-		-- button.Cooldown:SetAlpha(0)
 	end
 end
 
@@ -934,18 +914,6 @@ T.CreateAuraWatch = function(self)
 				maxFrameCount = 1,
 			})
 		end
-	end
-end
-
-T.PrivateAurasSetPosition = function(element, aura)
-	aura:ClearAllPoints()
-	aura:SetPoint("CENTER", element, "CENTER", 0, 0)
-end
-
-T.PrivateAurasPostUpdate = function(self)
-	for i = 1, #self do
-		local aura = self[i]
-		aura:SetSize(0.0001, 0.0001)
 	end
 end
 
@@ -1100,20 +1068,6 @@ T.CustomFilter = function(_, unit, data)
 	return true
 end
 
-T.CustomFilterBoss = function(_, unit, data)
-	if data.isHarmfulAura then
-		if data.isPlayerAura then
-		-- if data.isPlayerAura or T.unitIsUnit(unit, data.sourceUnit) then
-		-- if (data.isPlayerAura or data.sourceUnit == unit) then
-			-- if (T.DebuffBlackList and not T.DebuffBlackList[data.name]) or not T.DebuffBlackList then -- BETA secret value
-				return true
-			-- end
-		end
-		return false
-	end
-	return true
-end
-
 T.DispelColor = function(self)
 	local frame = self:CreateAuras()
 	frame:SetAllPoints(self.Health)
@@ -1187,7 +1141,7 @@ end
 T.PostCreateFilgerIcon = function(element, button, options)
 	button:SetTemplate("Default")
 
-	T.SkinCooldown(button.Cooldown, "actionbar")
+	T.SkinCooldown(button.Cooldown, options.isBar and "bar" or "actionbar")
 
 	button.Icon:SetPoint("TOPLEFT", 2, -2)
 	button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
@@ -1206,11 +1160,48 @@ T.PostCreateFilgerIcon = function(element, button, options)
 
 	SpellActivationOverlayFrame:SetFrameStrata("BACKGROUND")
 
-	-- local bar = CreateFrame("StatusBar", nil, button)
-	-- bar:SetMinMaxValues(0, 1)
-	-- bar:SetReverseFill(true)
+	if options.isBar then
+		local statusBar = CreateFrame("StatusBar", "nil", button)
+		statusBar:SetWidth(options.isFocus and 189 or 186)
+		statusBar:SetHeight(button:GetHeight() - 10)
+		statusBar:SetStatusBarTexture(C.media.texture)
+		statusBar:SetStatusBarColor(T.color.r, T.color.g, T.color.b, 1)
+		statusBar:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 5, 2)
+		statusBar:SetFillStyle(Enum.StatusBarFillStyle.StandardNoRangeFill)
 
-	-- button:SetDurationBar(bar, { interpolation = Enum.StatusBarInterpolation.Immediate, direction = Enum.StatusBarTimerDirection.ElapsedTime })
+		statusBar.bg = CreateFrame("Frame", "$parentBG", statusBar)
+		statusBar.bg:SetAllPoints()
+		statusBar.bg:CreateBackdrop("Default")
+
+		statusBar.background = statusBar:CreateTexture(nil, "BACKGROUND")
+		statusBar.background:SetAllPoints()
+		statusBar.background:SetTexture(C.media.texture)
+		statusBar.background:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.2)
+
+		button:SetDurationBar(statusBar, {
+			interpolation = Enum.StatusBarInterpolation.ExponentialEaseOut,
+			direction = Enum.StatusBarTimerDirection.RemainingTime
+		})
+
+		button.Count:SetFont(C.font.filger_font, C.font.filger_font_size, C.font.filger_font_style)
+		button.Count:SetShadowOffset(C.font.filger_font_shadow and 1 or 0, C.font.filger_font_shadow and -1 or 0)
+		button.Count:SetPoint("BOTTOMRIGHT", 1, 0)
+
+		button.Cooldown:SetSwipeColor(0, 0, 0, 0)
+
+		local text = button.Cooldown.text
+		text:ClearAllPoints()
+		text:SetPoint("RIGHT", statusBar, 0, 0)
+
+		statusBar.spellname = statusBar:CreateFontString("$parentSpellName", "OVERLAY")
+		statusBar.spellname:SetFont(C.font.filger_font, C.font.filger_font_size, C.font.filger_font_style)
+		statusBar.spellname:SetShadowOffset(C.font.filger_font_shadow and 1 or 0, C.font.filger_font_shadow and -1 or 0)
+		statusBar.spellname:SetPoint("LEFT", statusBar, 2, 0)
+		statusBar.spellname:SetPoint("RIGHT", text, "LEFT")
+		statusBar.spellname:SetJustifyH("LEFT")
+
+		button:SetSpellName(statusBar.spellname)
+	end
 end
 
 T.CreateFilgerAuras = function(self, unit)
@@ -1224,6 +1215,7 @@ T.CreateFilgerAuras = function(self, unit)
 				-- growthX = "LEFT",
 				-- growthY = "UP",
 				-- layoutLimit = C.filger.pvp_size + C.filger.pvp_space,
+				-- initialAnchor = "TOPRIGHT"
 			-- })
 			-- self.CCDebuffs.size = C.filger.pvp_size
 			-- self.CCDebuffs.showCount = true
@@ -1244,6 +1236,7 @@ T.CreateFilgerAuras = function(self, unit)
 			self.SBuffs = self:CreateAuras({
 				growthX = "LEFT",
 				growthY = "UP",
+				initialAnchor = "TOPRIGHT"
 			})
 			self.SBuffs.size = C.filger.buffs_size
 			self.SBuffs.showCount = true
@@ -1255,10 +1248,14 @@ T.CreateFilgerAuras = function(self, unit)
 			self.SBuffs.tooltipOffsetY = 3
 			self.SBuffs.disableMouse = not C.filger.show_tooltip
 
-			self.SBuffs:AddGroup("HELPFUL|BIG_DEFENSIVE|!EXTERNAL_DEFENSIVE", {
-				maxFrameCount = 1,
+			self.SBuffs:AddGroup("HELPFUL|!BIG_DEFENSIVE|!EXTERNAL_DEFENSIVE", {
+				maxFrameCount = 2,
+				candidateFilters = {includeSpellIDs = T.Filger_S_P_BUFF},
 			})
-			self.SBuffs:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE|!BIG_DEFENSIVE", {
+			self.SBuffs:AddGroup("HELPFUL|BIG_DEFENSIVE|!EXTERNAL_DEFENSIVE", {
+				maxFrameCount = 2,
+			})
+			self.SBuffs:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE", {
 				maxFrameCount = 1,
 			})
 		end
@@ -1267,6 +1264,7 @@ T.CreateFilgerAuras = function(self, unit)
 			self.PBuffs = self:CreateAuras({
 				growthX = "LEFT",
 				growthY = "UP",
+				initialAnchor = "TOPRIGHT"
 			})
 			self.PBuffs.size = C.filger.buffs_size
 			self.PBuffs.showCount = true
@@ -1278,7 +1276,7 @@ T.CreateFilgerAuras = function(self, unit)
 			self.PBuffs.tooltipOffsetY = 3
 			self.PBuffs.disableMouse = not C.filger.show_tooltip
 
-			self.PBuffs:AddGroup("HELPFUL|PLAYER", {
+			self.PBuffs:AddGroup("HELPFUL|PLAYER|!BIG_DEFENSIVE", {
 				candidateFilters = {includeSpellIDs = T.Filger_P_BUFF},
 			})
 		end
@@ -1344,7 +1342,7 @@ T.CreateFilgerAuras = function(self, unit)
 			self.TBuffs:AddGroup("HELPFUL|BIG_DEFENSIVE|!EXTERNAL_DEFENSIVE", {
 				maxFrameCount = 1,
 			})
-			self.TBuffs:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE|!BIG_DEFENSIVE", {
+			self.TBuffs:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE", {
 				maxFrameCount = 1,
 			})
 		end
@@ -1367,6 +1365,61 @@ T.CreateFilgerAuras = function(self, unit)
 			self.PDebuffs:AddGroup("HARMFUL|PLAYER|!CROWD_CONTROL", {
 				maxFrameCount = 6,
 				candidateFilters = {includeSpellIDs = T.Filger_T_DEBUFF},
+			})
+		end
+		if C.filger.show_aura_bar then
+			-- Player's Debuffs bar on target
+			self.BarDebuffs = self:CreateAuras({
+				growthX = "RIGHT",
+				growthY = "UP",
+				layoutLimit = 28,
+				initialAnchor = "BOTTOMLEFT"
+			})
+			self.BarDebuffs.size = 25
+			self.BarDebuffs.showCount = true
+			self.BarDebuffs.lineSpacing = C.filger.buffs_space
+			self.BarDebuffs.sortDirection = AuraContainerSortDirection.Reverse
+			self.BarDebuffs.PostCreateButton = T.PostCreateFilgerIcon
+			self.BarDebuffs:SetPoint("BOTTOMLEFT", T_DE_BUFF_BAR_Anchor)
+			self.BarDebuffs.tooltipAnchor = "ANCHOR_TOPLEFT"
+			self.BarDebuffs.tooltipOffsetY = 3
+			self.BarDebuffs.disableMouse = not C.filger.show_tooltip
+
+			self.BarDebuffs:AddGroup("HARMFUL|PLAYER", {
+				isBar = true,
+				maxFrameCount = 6,
+				candidateFilters = {includeSpellIDs = T.Filger_T_BAR},
+			})
+
+			self.BarDebuffs:AddGroup("HELPFUL|PLAYER", {
+				isBar = true,
+				maxFrameCount = 6,
+				candidateFilters = {includeSpellIDs = T.Filger_T_BAR},
+			})
+		end
+	elseif unit == "focus" then
+		if C.filger.show_aura_bar then
+			-- CC Debuffs bar on focus
+			self.CCBarDebuffs = self:CreateAuras({
+				growthX = "RIGHT",
+				growthY = "UP",
+				layoutLimit = 28,
+				initialAnchor = "BOTTOMLEFT"
+			})
+			self.CCBarDebuffs.size = 25
+			self.CCBarDebuffs.showCount = true
+			self.CCBarDebuffs.lineSpacing = C.filger.buffs_space
+			self.CCBarDebuffs.sortDirection = AuraContainerSortDirection.Reverse
+			self.CCBarDebuffs.PostCreateButton = T.PostCreateFilgerIcon
+			self.CCBarDebuffs:SetPoint("BOTTOMLEFT", FOCUS_CC_Anchor)
+			self.CCBarDebuffs.tooltipAnchor = "ANCHOR_TOPLEFT"
+			self.CCBarDebuffs.tooltipOffsetY = 3
+			self.CCBarDebuffs.disableMouse = not C.filger.show_tooltip
+
+			self.CCBarDebuffs:AddGroup("HARMFUL|CROWD_CONTROL", {
+				isBar = true,
+				isFocus = true,
+				maxFrameCount = 1,
 			})
 		end
 	end

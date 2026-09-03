@@ -4,18 +4,6 @@ if T.Midnight then return end
 ----------------------------------------------------------------------------------------
 --	Lightweight buff/debuff tracking (Filger by Nils Ruesch, editors Affli/SinaC/Ildyria)
 ----------------------------------------------------------------------------------------
-P_BUFF_ICON_Anchor = CreateFrame("Frame", "P_BUFF_ICON_Anchor", UIParent)
-P_PROC_ICON_Anchor = CreateFrame("Frame", "P_PROC_ICON_Anchor", UIParent)
-SPECIAL_P_BUFF_ICON_Anchor = CreateFrame("Frame", "SPECIAL_P_BUFF_ICON_Anchor", UIParent)
-T_DEBUFF_ICON_Anchor = CreateFrame("Frame", "T_DEBUFF_ICON_Anchor", UIParent)
-T_CC_Anchor = CreateFrame("Frame", "T_CC_Anchor", UIParent)
-T_BUFF_Anchor = CreateFrame("Frame", "T_BUFF_Anchor", UIParent)
-PVE_PVP_DEBUFF_Anchor = CreateFrame("Frame", "PVE_PVP_DEBUFF_Anchor", UIParent)
-FOCUS_CC_Anchor = CreateFrame("Frame", "FOCUS_CC_Anchor", UIParent)
-COOLDOWN_Anchor = CreateFrame("Frame", "COOLDOWN_Anchor", UIParent)
-T_DE_BUFF_BAR_Anchor = CreateFrame("Frame", "T_DE_BUFF_BAR_Anchor", UIParent)
-P_BUFF_BAR_Anchor = CreateFrame("Frame", "P_BUFF_BAR_Anchor", UIParent)
-
 P_BUFF_ICON_Anchor:SetPoint(unpack(C.position.filger.player_buff_icon))
 P_BUFF_ICON_Anchor:SetSize(C.filger.buffs_size, C.filger.buffs_size)
 
@@ -440,35 +428,52 @@ function Filger:DisplayActives()
 		end
 		bar.icon:SetTexture(value.icon)
 		if value.count then
-			bar.count:SetText(value.count or "")
+			bar.count:SetText(C_UnitAuras.GetAuraApplicationDisplayCount(value.unit, value.auraInstanceID, 2, 999))
 		else
 			bar.count:SetText()
 		end
-		-- 12.1: Do not query aura duration by auraInstanceID from tainted code.
-		-- Use duration data already returned by the direct spell query when accessible.
-		if self.Mode == "ICON" then
-			if value.duration and value.expirationTime then
-				local startTime = value.expirationTime - value.duration
-				bar.cooldown:SetCooldown(startTime, value.duration)
-				bar.cooldown:Show()
+		if value.duration then
+			if self.Mode == "ICON" then
+				if value.unit and value.auraInstanceID then
+					local duration = C_UnitAuras.GetAuraDuration(value.unit, value.auraInstanceID)
+					if duration then
+						bar.cooldown:SetCooldownFromDurationObject(duration)
+						bar.cooldown:Show()
+					else
+						bar.cooldown:Hide()
+					end
+				end
+
+				-- if value.start + value.duration - GetTime() > 0.3 then
+					-- bar.cooldown:SetCooldown(value.start, value.duration)
+				-- end
+				-- if value.data.filter == "CD" or value.data.filter == "ICD" then
+					-- bar.value = value
+					-- bar:SetScript("OnUpdate", Filger.UpdateCD)
+				-- else
+					-- bar:SetScript("OnUpdate", nil)
+				-- end
+				-- bar.cooldown:Show()
 			else
-				bar.cooldown:Hide()
+				local duration = C_UnitAuras.GetAuraDuration(value.unit, value.auraInstanceID)
+				if duration then
+					bar.statusbar:SetTimerDuration(duration, Enum.StatusBarInterpolation.Immediate, Enum.StatusBarTimerDirection.RemainingTime)
+					bar.duration = duration
+					bar:SetScript("OnUpdate", Filger.UpdateCD)
+				else
+					bar:SetScript("OnUpdate", nil)
+				end
 			end
 		else
-			if value.duration and value.expirationTime then
-				local startTime = value.expirationTime - value.duration
-				bar.statusbar:SetMinMaxValues(0, value.duration)
-				bar.statusbar:SetValue(GetTime() - startTime)
-				bar.duration = value.duration
-				bar:SetScript("OnUpdate", Filger.UpdateCD)
+			if self.Mode == "ICON" then
+				bar.cooldown:Hide()
 			else
 				bar.statusbar:SetMinMaxValues(0, 1)
 				bar.statusbar:SetValue(1)
 				bar.time:SetText("")
-				bar:SetScript("OnUpdate", nil)
 			end
+			bar:SetScript("OnUpdate", nil)
 		end
-
 		bar.spellID = value.auraInstanceID
 		if C.filger.show_tooltip then
 			bar.unit = self.Unit
@@ -516,57 +521,13 @@ local function FindAuras(self, unit)
 	end
 
 	if unit == self.Unit then
-		local spells = SpellGroups[self.Id].spells
-		local baseFilter = self.Filter or "HELPFUL"
-		local function GetAuraForSpell(spellName, filter)
-			if type(spellName) ~= "string" then
-				return nil
-			end
-			return C_UnitAuras.GetAuraDataBySpellName(unit, spellName, filter)
-		end
-
-		for spellName, data in pairs(spells) do
-			if type(spellName) == "string" and data and data.spellID and data.filter ~= "CD" and data.filter ~= "ICD" then
-				local auraData = GetAuraForSpell(spellName, baseFilter)
-				local allow = auraData ~= nil
-
-				if allow and self.FilterExclude then
-					for _, filter in ipairs(self.FilterExclude) do
-						if GetAuraForSpell(spellName, filter) then
-							allow = false
-							break
-						end
-					end
-				end
-
-				if not allow and self.FilterInclude then
-					for _, filter in ipairs(self.FilterInclude) do
-						if GetAuraForSpell(spellName, filter) then
-							auraData = GetAuraForSpell(spellName, filter)
-							allow = true
-							break
-						end
-					end
-				end
-
-				if auraData and allow then
-					local icon = canaccessvalue(auraData.icon) and auraData.icon or nil
-					local count = canaccessvalue(auraData.applications) and auraData.applications or nil
-					local duration = canaccessvalue(auraData.duration) and auraData.duration or nil
-					local expirationTime = canaccessvalue(auraData.expirationTime) and auraData.expirationTime or nil
-
-					self.actives[data.spellID] = {
-						data = data,
-						unit = unit,
-						auraData = auraData,
-						auraInstanceID = auraData.auraInstanceID,
-						name = spellName,
-						icon = icon,
-						count = count,
-						duration = duration,
-						expirationTime = expirationTime,
-						spid = data.spellID,
-					}
+		for i, auraData in ipairs(C_UnitAuras.GetUnitAuras(unit, self.Filter, 6, Enum.UnitAuraSortRule.Expiration)) do
+			if auraData and auraData.auraInstanceID then
+				local allow = checkFilters(self, unit, auraData.auraInstanceID)
+				local spell_name = GetSpellInfo(SPELL_HOLDER)
+				local data = SpellGroups[self.Id].spells[spell_name] or SpellGroups[self.Id].spells[SPELL_HOLDER]
+				if data and allow then
+					self.actives[i] = {data = data, unit = unit, auraData = auraData, auraInstanceID = auraData.auraInstanceID, name = auraData.name, icon = auraData.icon, count = auraData.applications, duration = auraData.duration, spid = auraData.spellId}
 				end
 			end
 		end

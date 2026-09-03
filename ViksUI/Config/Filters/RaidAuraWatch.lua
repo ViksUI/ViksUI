@@ -49,21 +49,21 @@ if C.raidframe.plugins_buffs then
 			-- {1022, "BOTTOMRIGHT", {0.2, 0.2, 1}, true},			-- Blessing of Protection
 			{1044, "BOTTOMRIGHT", {0.89, 0.45, 0}, true},		-- Blessing of Freedom
 			{6940, "BOTTOMRIGHT", {0.89, 0.1, 0.1}, true},		-- Blessing of Sacrifice
-			{204018, "BOTTOMRIGHT", {0.4, 0.6, 0.8}, true},		-- Blessing of Spellwarding
+			-- {204018, "BOTTOMRIGHT", {0.4, 0.6, 0.8}, true},		-- Blessing of Spellwarding
 			{156322, "BOTTOMLEFT", {0.9, 0.5, 0.1}},			-- Eternal Flame
 		},
 		PRIEST = {
 			{194384, "TOPRIGHT", {0.8, 0.4, 0.2}},				-- Atonement
-			{139, "TOP", {0.4, 0.7, 0.2}},						-- Renew
 			{41635, "BOTTOMRIGHT", {0.2, 0.7, 0.2}},			-- Prayer of Mending
 			{6788, "BOTTOMLEFT", {1, 0, 0}},					-- Weakened Soul
+			{139, "BOTTOMLEFT", {0.4, 0.7, 0.2}},				-- Renew
 			{17, "TOPLEFT", {0.81, 0.85, 0.1}},					-- Power Word: Shield
 			-- {33206, "LEFT", {0.89, 0.1, 0.1}, true},			-- Pain Suppression
 			-- {47788, "LEFT", {0.86, 0.52, 0}, true},				-- Guardian Spirit
 		},
 		SHAMAN = {
 			{61295, "TOPRIGHT", {0.7, 0.3, 0.7}},				-- Riptide
-			{974, "BOTTOMRIGHT", {0.91, 0.80, 0.44}},			-- Earth Shield
+			{383648, "BOTTOMRIGHT", {0.91, 0.80, 0.44}},		-- Earth Shield
 			{382024, "BOTTOMLEFT", {0.8, 0.9, 0.7}},			-- Earthliving Weapon
 		},
 		HUNTER = {

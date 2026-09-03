@@ -106,8 +106,6 @@ C["filger_spells"] = {
 			BarWidth = 186,
 			Position = {"LEFT", T_DE_BUFF_BAR_Anchor},
 
-			-- Festering Wound
-			--BETA {spellID = 194310, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Virulent Plague
 			{spellID = 191587, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Blood Plague
@@ -417,7 +415,8 @@ C["filger_spells"] = {
 			-- Bloodtalons
 			{spellID = 145152, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Clearcasting
-			{spellID = 16870, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 16870, unitID = "player", caster = "player", filter = "BUFF", absID = true},
+			{spellID = 135700, unitID = "player", caster = "player", filter = "BUFF", absID = true},
 			-- Soul of the Forest
 			{spellID = 114108, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Predatory Swiftness
@@ -823,7 +822,7 @@ C["filger_spells"] = {
 			-- Mok'Nathal Tactics
 			{spellID = 201081, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Mongoose Fury
-			--BETA {spellID = 190931, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 1252708, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Beast Cleave
 			{spellID = 118455, unitID = "pet", caster = "player", filter = "BUFF"},
 			-- Mend Pet
@@ -858,12 +857,14 @@ C["filger_spells"] = {
 			{spellID = 194599, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Serpent Sting
 			{spellID = 87935, unitID = "target", caster = "player", filter = "DEBUFF"},
+			-- Barbed Shot
+			{spellID = 217200, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Lacerate
 			{spellID = 185855, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- A Murder of Crows
 			{spellID = 131894, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hunter's Mark
-			-- {spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"}, Disable for now. Don't want to keep constant icon on screen. Better use reminder / wa
+			{spellID = 257284, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Warp Time (Warp Stalker)
 			{spellID = 35346, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Ankle Crack (Crocolisk)
@@ -1367,10 +1368,14 @@ C["filger_spells"] = {
 			{spellID = 105809, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Avenging Wrath
 			{spellID = 31884, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Sentinel
+			{spellID = 389539, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Ardent Defender
 			{spellID = 31850, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Divine Protection
 			{spellID = 498, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Sacred Weapon
+			{spellID = 432502, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Rule of Law
 			{spellID = 214202, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shield of the Righteous
@@ -1628,15 +1633,11 @@ C["filger_spells"] = {
 			{spellID = 139, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Prayer of Mending
 			{spellID = 41635, unitID = "target", caster = "player", filter = "BUFF"},
-			-- Guardian Spirit
-			{spellID = 47788, unitID = "target", caster = "player", filter = "BUFF"},
-			-- Pain Suppression
-			{spellID = 33206, unitID = "target", caster = "player", filter = "BUFF"},
 			-- Vampiric Touch
 			{spellID = 34914, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Shadow Word: Pain
 			{spellID = 589, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Devouring Plague
+			-- Shadow Word: Madness
 			{spellID = 335467, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Purge the Wicked
 			{spellID = 204197, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -1852,16 +1853,12 @@ C["filger_spells"] = {
 			{spellID = 79140, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Nightblade
 			{spellID = 195452, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Ghostly Strike
-			--BETA {spellID = 196937, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Deadly Poison
 			{spellID = 2818, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Crippling Poison
 			{spellID = 3409, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Wound Poison
 			{spellID = 8680, unitID = "target", caster = "player", filter = "DEBUFF"},
-			-- Crimson Tempest
-			-- {spellID = 121411, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Kingsbane
 			{spellID = 385627, unitID = "target", caster = "player", filter = "DEBUFF"},
 		},
@@ -1921,8 +1918,6 @@ C["filger_spells"] = {
 			{spellID = 13750, filter = "CD"},
 			-- Between the Eyes
 			{spellID = 315341, filter = "CD"},
-			-- Riposte
-			--BETA {spellID = 199754, filter = "CD"},
 			-- Cloak of Shadows
 			{spellID = 31224, filter = "CD"},
 			-- Grappling Hook
@@ -1931,8 +1926,6 @@ C["filger_spells"] = {
 			{spellID = 185311, filter = "CD"},
 			-- Garrote
 			{spellID = 703, filter = "CD"},
-			-- Exsanguinate
-			--BETA {spellID = 200806, filter = "CD"},
 			-- Shadowstep
 			{spellID = 36554, filter = "CD"},
 			-- Evasion
@@ -2075,8 +2068,6 @@ C["filger_spells"] = {
 			{spellID = 117014, filter = "CD"},
 			-- Feral Lunge
 			{spellID = 196884, filter = "CD"},
-			-- Cloudburst Totem
-			--BETA {spellID = 157153, filter = "CD"},
 			-- Earthbind Totem
 			{spellID = 2484, filter = "CD"},
 			-- Thunderstorm
@@ -2122,7 +2113,7 @@ C["filger_spells"] = {
 			-- Empowered Life Tap
 			{spellID = 235156, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Soul Swap
-			--BETA {spellID = 86211, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 399680, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Dark Regeneration
 			{spellID = 108359, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Burning Rush
@@ -2341,7 +2332,7 @@ C["filger_spells"] = {
 			-- Enraged Regeneration
 			{spellID = 184364, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Shield Block
-			{spellID = 2565, unitID = "player", caster = "player", filter = "BUFF"},
+			{spellID = 132404, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Spell Reflection
 			{spellID = 23920, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Die by the Sword
@@ -2378,6 +2369,8 @@ C["filger_spells"] = {
 			{spellID = 85739, unitID = "player", caster = "player", filter = "BUFF"},
 			-- Enrage
 			{spellID = 184362, unitID = "player", caster = "player", filter = "BUFF"},
+			-- Revenge!
+			{spellID = 5302, unitID = "player", caster = "player", filter = "BUFF"},
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -2391,7 +2384,7 @@ C["filger_spells"] = {
 			-- Siegebreaker
 			{spellID = 280773, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Rend
-			{spellID = 772, unitID = "target", caster = "player", filter = "DEBUFF"},
+			{spellID = 388539, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Colossus Smash
 			{spellID = 167105, unitID = "target", caster = "player", filter = "DEBUFF"},
 			-- Hamstring
@@ -2582,8 +2575,12 @@ C["filger_spells"] = {
 			{spellID = 121557, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Stampeding Roar
 			{spellID = 77764, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Wind Rush
+			{spellID = 192082, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Blessing of Freedom
 			{spellID = 1044, unitID = "player", caster = "all", filter = "BUFF"},
+			-- Divine Steed
+			{spellID = 254471, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Time Spiral
 			{spellID = 375226, unitID = "player", caster = "all", filter = "BUFF"},
 			-- Tricks of the Trade
@@ -3453,6 +3450,8 @@ local SpellGroups = {}
 T.Filger_P_BUFF = {}
 T.Filger_P_PROC = {}
 T.Filger_T_DEBUFF = {}
+T.Filger_T_BAR = {}
+T.Filger_S_P_BUFF = {}
 
 if C["filger_spells"] and C["filger_spells"]["ALL"] then
 	if not C["filger_spells"][T.class] then
@@ -3559,7 +3558,8 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 				else
 					if data.Name == "P_BUFF_ICON" and data[j].spellID then T.Filger_P_BUFF[data[j].spellID] = true end
 					if data.Name == "P_PROC_ICON" and data[j].spellID then T.Filger_P_PROC[data[j].spellID] = true end
-					if (data.Name == "T_DEBUFF_ICON" or data.Name == "T_DE/BUFF_BAR") and data[j].spellID then T.Filger_T_DEBUFF[data[j].spellID] = true end
+					if data.Name == "T_DEBUFF_ICON" and data[j].spellID then T.Filger_T_DEBUFF[data[j].spellID] = true end
+					if data.Name == "T_DE/BUFF_BAR" and data[j].spellID then T.Filger_T_BAR[data[j].spellID] = true end
 
 					local info = data[j].spellID and C_Spell.GetSpellInfo(data[j].spellID)
 					local id = data[j].absID and data[j].spellID or (info and info.name) or data[j].slotID
