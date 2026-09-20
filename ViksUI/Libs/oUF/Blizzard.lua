@@ -85,13 +85,6 @@ function oUF:DisableBlizzard(unit)
 		if(not isBossHooked) then
 			isBossHooked = true
 
-			-- it's needed because the layout manager can bring frames that are
-			-- controlled by containers back from the dead when a user chooses
-			-- to revert all changes
-			-- for now I'll just reparent it, but more might be needed in the
-			-- future, watch it
-			handleFrame(BossTargetFrameContainer)
-
 			for i = 1, MAX_BOSS_FRAMES do
 				handleFrame('Boss' .. i .. 'TargetFrame')
 			end

@@ -13,7 +13,7 @@ T.color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 T.TexCoords = {.1, .9, .1, .9}
 T.version = C_AddOns.GetAddOnMetadata("ViksUI", "Version")
 T.screenWidth, T.screenHeight = GetPhysicalScreenSize()
-T.newPatch = select(4, GetBuildInfo()) >= 120100
+T.newPatch = select(4, GetBuildInfo()) >= 120105
 T.Midnight = select(4, GetBuildInfo()) >= 120000
 
 -- NOTE: Restore old function
@@ -25,10 +25,12 @@ GetContainerItemInfo = function(bagIndex, slotIndex)
 end
 
 UnitAura = function(unit, auraIndex, filter)
+	if C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret() then return end
 	return AuraUtil.UnpackAuraData(C_UnitAuras.GetAuraDataByIndex(unit, auraIndex, filter))
 end
 
 UnitBuff = function(unit, auraIndex, filter)
+	if C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret() then return end
 	return AuraUtil.UnpackAuraData(C_UnitAuras.GetBuffDataByIndex(unit, auraIndex, filter))
 end
 

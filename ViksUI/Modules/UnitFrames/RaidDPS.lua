@@ -251,7 +251,7 @@ local function Shared(self, unit)
 			initialAnchor = "LEFT",
 			growthX = "RIGHT",
 			growthY = "DOWN",
-			layoutLimit = 144,
+			layoutLimit = 144
 		})
 		self.Debuffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -2, -5)
 		self.Debuffs.size = T.Scale(18)
@@ -260,7 +260,7 @@ local function Shared(self, unit)
 		self.Debuffs.PostCreateButton = T.PostCreateIcon
 
 		self.Debuffs:AddGroup("HARMFUL", {
-			maxFrameCount = 7,
+			maxFrameCount = 7
 		})
 	end
 

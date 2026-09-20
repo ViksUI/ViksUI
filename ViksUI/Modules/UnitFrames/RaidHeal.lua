@@ -267,7 +267,7 @@ local function Shared(self, unit)
 		-- Defensive buffs
 		self.Auras = self:CreateAuras({
 			initialAnchor = "TOPRIGHT",
-			growthX = "LEFT",
+			growthX = "LEFT"
 		})
 		self.Auras:SetPoint("LEFT", self, 0, 2)
 		self.Auras.showCount = true
@@ -278,7 +278,7 @@ local function Shared(self, unit)
 		self.Auras.PostCreateButton = T.CreateRaidBuffIcon
 
 		self.Auras:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE", {
-			maxFrameCount = 1,
+			maxFrameCount = 1
 		})
 	end
 
@@ -294,20 +294,13 @@ local function Shared(self, unit)
 		self.Debuffs.sortDirection = AuraContainerSortDirection.Reverse
 		self.Debuffs.PostCreateButton = T.PostCreateIcon
 
-		if C.raidframe.plugins_debuffs_filter then
-			self.Debuffs:AddGroup("HARMFUL|RAID_IN_COMBAT")
-			self.Debuffs:AddGroup("HARMFUL|RAID")
-			self.Debuffs:AddGroup("HARMFUL|CROWD_CONTROL")
-			self.Debuffs:AddGroup("HARMFUL|IMPORTANT")
-		else
-			self.Debuffs:AddGroup("HARMFUL|!PLAYER", {
-			  candidateFilters = {
-				isFromPlayerOrPlayerPet = false,
-				-- maxDuration = 60,
-				excludeSpellIDs = T.RaidDebuffsIgnore
-			  }
-			})
-		end
+		self.Debuffs:AddGroup("HARMFUL|!PLAYER", {
+		  candidateFilters = {
+			isFromPlayerOrPlayerPet = false,
+			-- maxDuration = 60,
+			excludeSpellIDs = T.RaidDebuffsIgnore
+		  }
+		})
 	end
 
 	-- Apply expert code

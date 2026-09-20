@@ -29,6 +29,14 @@ local shadows2 = {
 	edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1, 
 	insets = {left = -1, right = -1, top = -1, bottom = -1} 
 	}
+	
+-- Per-frame guard against secret number taint in SetupTextureCoordinates (fixes tooltip backdrop error)
+local function SafeSetupTextureCoordinates(self)
+	local width = self:GetWidth()
+	if issecretvalue(width) then return end
+	BackdropTemplateMixin.SetupTextureCoordinates(self)
+end
+
 function CreateShadow(f)
 	if f.shadow then return end
 	local shadow = CreateFrame("Frame", nil, f, "BackdropTemplate")
@@ -41,6 +49,7 @@ function CreateShadow(f)
 	})
 	shadow:SetBackdropColor(0, 0, 0, 0)
 	shadow:SetBackdropBorderColor(0,0,0, 0.8)
+	shadow.SetupTextureCoordinates = SafeSetupTextureCoordinates
 	f.shadow = shadow
 	return shadow
 end
@@ -154,6 +163,7 @@ local function CreateBorder(f, i, o)
 			insets = {left = Mult, right = Mult, top = Mult, bottom = Mult}
 		})
 		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
+		border.SetupTextureCoordinates = SafeSetupTextureCoordinates
 		f.iborder = border
 	end
 
@@ -168,6 +178,7 @@ local function CreateBorder(f, i, o)
 			insets = {left = Mult, right = Mult, top = Mult, bottom = Mult}
 		})
 		border:SetBackdropBorderColor(unpack(C.media.backdrop_color))
+		border.SetupTextureCoordinates = SafeSetupTextureCoordinates
 		f.oborder = border
 	end
 end
@@ -184,6 +195,7 @@ end
 
 local function SetTemplate(f, t)
 	Mixin(f, BackdropTemplateMixin) -- 9.0 to set backdrop
+	f.SetupTextureCoordinates = SafeSetupTextureCoordinates
 	GetTemplate(t)
 
 	-- Handle "1px" style specially
@@ -222,6 +234,7 @@ end
 
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	Mixin(f, BackdropTemplateMixin) -- 9.0 to set backdrop
+	f.SetupTextureCoordinates = SafeSetupTextureCoordinates
 	GetTemplate(t)
 
 	f:SetWidth(w)
@@ -284,6 +297,7 @@ local function CreateShadow(frame, size, pass)
 	shadow:SetBackdrop({edgeFile = [[Interface\AddOns\ViksUI\Media\Textures\Glow.tga]], edgeSize = size})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
 	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.9)
+	shadow.SetupTextureCoordinates = SafeSetupTextureCoordinates
 
 	if pass then
 		return shadow

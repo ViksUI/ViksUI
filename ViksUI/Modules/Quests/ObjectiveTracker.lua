@@ -16,10 +16,9 @@ anchor:SetSize(224, 150)
 ObjectiveTrackerFrame.IsUserPlaced = function() return true end
 ObjectiveTrackerFrame:SetClampedToScreen(false)
 
-hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(_, _, parent)
+hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self, _, parent)
 	if parent ~= anchor then
-		ObjectiveTrackerFrame:ClearAllPoints()
-		ObjectiveTrackerFrame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
+		self:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
 	end
 end)
 
@@ -33,13 +32,9 @@ hooksecurefunc(ObjectiveTrackerFrame, "SetHeight", function(_, h)
 end)
 
 local function ReanchorObjectiveTracker()
-    -- Always clear and re-set the ObjectiveTrackerFrame position to anchor
-    ObjectiveTrackerFrame:ClearAllPoints()
     ObjectiveTrackerFrame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
 
-    -- For scenarios/delves: make sure ScenarioObjectiveTracker is also rehooked
     if ScenarioObjectiveTracker then
-        ScenarioObjectiveTracker:ClearAllPoints()
         ScenarioObjectiveTracker:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
     end
 end
@@ -790,17 +785,9 @@ Maw:HookScript("OnClick", function(container)
 	end
 end)
 
-hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self, _, parent)
-    if parent ~= anchor then
-        self:ClearAllPoints()
-        self:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
-    end
-end)
-
 if ScenarioObjectiveTracker then
     hooksecurefunc(ScenarioObjectiveTracker, "SetPoint", function(self, _, parent)
         if parent ~= anchor then
-            self:ClearAllPoints()
             self:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
         end
     end)

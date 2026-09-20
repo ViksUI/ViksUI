@@ -440,5 +440,11 @@ local Cooldown_MT = getmetatable(_G.ActionButton1Cooldown).__index
 hooksecurefunc(Cooldown_MT, "SetCooldown", function(cooldown)
 	if cooldown:IsForbidden() then return end
 
+	local parent = cooldown:GetParent()
+	while parent do
+		if parent == ObjectiveTrackerFrame then return end
+		parent = parent:GetParent()
+	end
+
 	T.SkinCooldown(cooldown, "actionbar")
 end)

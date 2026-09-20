@@ -18,13 +18,22 @@ local function LoadFirstSkin()
 	local function SkinOptionSlot(frame, skip)
 		local option = frame.OptionsList
 		option:StripTextures()
-		option:SetTemplate("Transparent")
+		option:CreateBackdrop("Overlay")
+		option.backdrop:SetPoint("TOPLEFT", -5, 2)
+		option.backdrop:SetPoint("BOTTOMRIGHT", -2, -3)
+		option.backdrop:SetFrameLevel(option:GetFrameLevel() + 1)
+
 		if not skip then
 			hooksecurefunc(option.ScrollBox, "Update", function(self)
 				self:ForEachFrame(function(button)
 					if not button.styled then
 						if button.Border then button.Border:SetAlpha(0) end
-						if button.Icon then button.Icon:SkinIcon() end
+						if button.Icon then
+							button.Icon:SetSize(T.Scale(26), T.Scale(26))
+							button.Icon:SkinIcon()
+							button.Icon:SetMovePoint(6)
+						end
+
 						button.styled = true
 					end
 				end)
@@ -32,22 +41,31 @@ local function LoadFirstSkin()
 		end
 	end
 
-	if not T.newPatch then
-		SkinOptionSlot(frame.CompanionCombatRoleSlot, true)
-		SkinOptionSlot(frame.CompanionUtilityTrinketSlot)
-		SkinOptionSlot(frame.CompanionCombatTrinketSlot)
-	end
+	SkinOptionSlot(frame.CompanionSlots.CompanionCombatRoleSlot, true)
+	SkinOptionSlot(frame.CompanionSlots.CompanionFlavorSlot)
+	SkinOptionSlot(frame.CompanionSlots.CompanionUtilityTrinketSlot)
+	SkinOptionSlot(frame.CompanionSlots.CompanionCombatTrinketSlot)
 
-	local abilityFrame = _G.DelvesCompanionAbilityListFrame
-	T.SkinFrame(abilityFrame)
-	T.SkinDropDownBox(abilityFrame.DelvesCompanionRoleDropdown)
-	T.SkinNextPrevButton(abilityFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, true)
-	T.SkinNextPrevButton(abilityFrame.DelvesCompanionAbilityListPagingControls.NextPageButton)
+	local ablityFrame = _G.DelvesCompanionAbilityListFrame
+	T.SkinFrame(ablityFrame)
+	T.SkinDropDownBox(ablityFrame.DelvesCompanionRoleDropdown)
+	T.SkinNextPrevButton(ablityFrame.DelvesCompanionAbilityListPagingControls.PrevPageButton, true)
+	T.SkinNextPrevButton(ablityFrame.DelvesCompanionAbilityListPagingControls.NextPageButton)
 
-	hooksecurefunc(abilityFrame, "UpdatePaginatedButtonDisplay", function(self)
+	hooksecurefunc(ablityFrame, "UpdatePaginatedButtonDisplay", function(self)
 		for _, button in pairs(self.buttons) do
 			if not button.styled then
-				if button.Icon then button.Icon:SkinIcon() end
+				if button.Icon then
+					if T.newPatch then
+						button.Icon:SkinIcon()
+						T.PixelPerfect(button.Icon)
+						T.PixelPerfect(button)
+						button:SetScale(0.99)
+					else
+						button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9) -- bad pixel perfect
+					end
+				end
+
 				button.styled = true
 			end
 		end
@@ -72,6 +90,7 @@ local function LoadSecondSkin()
 			rewardFrame.NameFrame:SetAlpha(0)
 			rewardFrame.Icon:SkinIcon()
 			rewardFrame.IconBorder:SetAlpha(0)
+
 			rewardFrame.styled = true
 		end
 	end

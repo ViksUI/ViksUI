@@ -754,7 +754,7 @@ local function Shared(self, unit)
 	or unit == "focustarget" and C.aura.fot_debuffs or unit == "targettarget" and C.aura.tot_debuffs then
 		self.Debuffs = self:CreateAuras({
 			growthY = "DOWN",
-			layoutLimit = pet_width + 5,
+			layoutLimit = pet_width + 5
 		})
 		self.Debuffs.size = T.Scale(C.aura.debuff_size)
 		self.Debuffs.showCount = true
@@ -773,7 +773,7 @@ local function Shared(self, unit)
 		end
 
 		self.Debuffs:AddGroup("HARMFUL", {
-			maxFrameCount = 4,
+			maxFrameCount = 4
 		})
 
 		-- if unit == "pet" then
@@ -797,9 +797,6 @@ local function Shared(self, unit)
 				self.Portrait:SetPoint(unpack(C.position.unitframes.target_portrait))
 			end
 
-			self.Portrait.Icon = self.Portrait:CreateTexture(nil, "ARTWORK")
-			self.Portrait.Icon:SetAllPoints()
-
 			if C.unitframe.portrait_type == "ICONS" then
 				self.Portrait.classIcons = true
 			end
@@ -808,6 +805,9 @@ local function Shared(self, unit)
 			self.Portrait.backdrop:SetPoint("TOPLEFT", -2 - T.mult, 2 + T.mult)
 			self.Portrait.backdrop:SetPoint("BOTTOMRIGHT", 2 + T.mult, -2 - T.mult)
 
+			self.Portrait.Icon = self.Portrait:CreateTexture(nil, "ARTWORK")
+			self.Portrait.Icon:SetInside(self.Portrait.backdrop)
+
 			if C.unitframe.portrait_classcolor_border then
 				if unit == "player" then
 					self.Portrait.backdrop:SetBackdropBorderColor(T.color.r, T.color.g, T.color.b)
@@ -815,10 +815,7 @@ local function Shared(self, unit)
 					self.Portrait.backdrop:RegisterEvent("PLAYER_TARGET_CHANGED")
 					self.Portrait.backdrop:SetScript("OnEvent", function()
 						local _, class = UnitClass("target")
-						local color
-						if class and not issecretvalue(class) and canaccessvalue(class) then
-							color = C_ClassColor.GetClassColor(class)
-						end
+						local color = canaccessvalue(class) and T.oUF_colors.class[class]
 						if color then
 							self.Portrait.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 						else
@@ -829,10 +826,8 @@ local function Shared(self, unit)
 			end
 
 			if C.unitframe.portrait_type == "OVERLAY" then
-				local healthTex = self.Health:GetStatusBarTexture()
 				self.Portrait:ClearAllPoints()
-				self.Portrait:SetPoint("TOPLEFT", healthTex, "TOPLEFT", 0, 0)
-				self.Portrait:SetPoint("BOTTOMRIGHT", healthTex, "BOTTOMRIGHT", 0, 1)
+				self.Portrait:SetAllPoints(self.Health:GetStatusBarTexture())
 				self.Portrait:SetFrameLevel(self.Health:GetFrameLevel())
 				self.Portrait.backdrop:Hide()
 				self.Portrait:SetAlpha(0.5)
@@ -1217,7 +1212,7 @@ local function Shared(self, unit)
 		end
 
 		self.Debuffs:AddGroup("HARMFUL|CROWD_CONTROL", {
-			maxFrameCount = 1,
+			maxFrameCount = 1
 		})
 
 		-- self.Debuffs:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE", {
@@ -1320,7 +1315,7 @@ local function Shared(self, unit)
 
 	-- Dispel highlight
 	-- if C.raidframe.plugins_debuffhighlight and not unit:match("%wtarget$") then
-	if C.raidframe.plugins_debuffhighlight and (unit == "player" or unit == "pet") then -- Can't filter enemy now
+	if C.raidframe.plugins_debuffhighlight and (unit == "player" or unit == "pet") then
 		T.DispelColor(self)
 	end
 
@@ -1356,9 +1351,7 @@ local function Shared(self, unit)
 
 	-- Filger auras tracker
 	if C.filger.enable then
-		C_Timer.After(1, function()
-			T.CreateFilgerAuras(self, unit)
-		end)
+		T.CreateFilgerAuras(self, unit)
 	end
 
 	-- Apply expert code
@@ -1504,10 +1497,7 @@ if C.unitframe.show_arena then
 						end
 
 						if class and spec then
-							local color
-							if class and not issecretvalue(class) and canaccessvalue(class) then
-								color = C_ClassColor.GetClassColor(class)
-							end
+							local color = T.oUF_colors.class[class]
 							if C.unitframe.own_color then
 								f.Health:SetStatusBarColor(unpack(C.unitframe.uf_color))
 								f.Spec:SetText(spec)
@@ -1633,10 +1623,7 @@ if C.unitframe.lines then
 	HorizontalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
 	HorizontalTargetLine:SetScript("OnEvent", function(self)
 		local _, class = UnitClass("target")
-		local color
-		if class and not issecretvalue(class) and canaccessvalue(class) then
-			color = C_ClassColor.GetClassColor(class)
-		end
+		local color = canaccessvalue(class) and T.oUF_colors.class[class]
 		if color then
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
@@ -1649,10 +1636,7 @@ if C.unitframe.lines then
 	VerticalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
 	VerticalTargetLine:SetScript("OnEvent", function(self)
 		local _, class = UnitClass("target")
-		local color
-		if class and not issecretvalue(class) and canaccessvalue(class) then
-			color = C_ClassColor.GetClassColor(class)
-		end
+		local color = canaccessvalue(class) and T.oUF_colors.class[class]
 		if color then
 			self:SetBackdropBorderColor(color.r, color.g, color.b)
 		else

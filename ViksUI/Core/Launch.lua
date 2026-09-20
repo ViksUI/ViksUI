@@ -90,51 +90,84 @@ T.ChatSetup = function()
 end
 
 local function cvarsetup()
+
+	-- GENERAL / UI
 	SetCVar("statusTextDisplay", "BOTH")
 	SetCVar("screenshotQuality", 8)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 	SetCVar("showTutorials", 0)
-	SetCVar("gameTip", "0")
+	SetCVar("gameTip", 0)
 	SetCVar("UberTooltips", 1)
+	SetCVar("countdownForCooldowns", 1)
+	SetCVar("alwaysShowActionBars", 1)
+	SetCVar("buffDurations", 1)
+
+	-- CHAT
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("showVKeyCastbar", 1)
 	SetCVar("chatStyle", "classic")
-	SetCVar("WholeChatWindowClickable", 0)
-	SetCVar("WhisperMode", "inline")
+	SetCVar("wholeChatWindowClickable", 0)
+	SetCVar("whisperMode", "inline")
+	SetCVar("spamFilter", 0)
+	SetCVar("profanityFilter", 0)
+
+	-- LOOT / QUESTS
 	SetCVar("lootUnderMouse", 0)
 	SetCVar("autoLootDefault", 1)
-	SetCVar("RotateMinimap", 0)
 	SetCVar("autoQuestWatch", 1)
 	SetCVar("autoQuestProgress", 1)
+	SetCVar("instantQuestText", 1)
+	SetCVar("showQuestTrackingTooltips", 1)
+
+	-- DEBUG / ADDON DEVELOPMENT
 	SetCVar("scriptErrors", 1)
 	SetCVar("taintLog", 0)
-	SetCVar("countdownForCooldowns", 1)
-	SetCVar("alwaysShowActionBars", 1)
-	SetCVar("buffDurations", 1)
-	SetCVar("autoOpenLootHistory", 0)
+	SetCVar("fstack_preferParentKeys", 0)
+
+	-- COMBAT
 	SetCVar("violenceLevel", 5)
 	SetCVar("lossOfControl", 0)
 	SetCVar("threatWarning", 3)
-	SetCVar('SpamFilter', 0)
-	SetCVar("instantQuestText", 1)
+
+	-- NAMEPLATES
 	SetCVar("nameplateMotion", 0)
-	SetCVar("ShowClassColorInNameplate", 1)
-	SetCVar("autoSelfCast", 1)
 	SetCVar("nameplateShowAll", 1)
 	SetCVar("nameplateShowEnemies", 1)
 	SetCVar("nameplateShowEnemyMinions", 1)
 	SetCVar("nameplateShowEnemyMinus", 1)
+
+	-- Enemy class colors
+	SetCVar("nameplateShowClassColor", 1)
+
+	-- Friendly class colors
+	SetCVar("nameplateShowFriendlyClassColor", 1)
+
+	-- Do NOT show friendly nameplate information
 	SetCVar("nameplateShowFriends", 0)
 	SetCVar("nameplateShowFriendlyMinions", 0)
-	SetCVar("empowerTapControls", 1)
+
+	-- Nameplate distance / target resource
 	SetCVar("nameplateMaxDistance", 60)
 	SetCVar("nameplateResourceOnTarget", 0)
+
+	-- Do not show your own nameplate
 	SetCVar("nameplateShowSelf", 0)
+
+	-- Show cast bars
+	SetCVar("nameplateShowCastBars", 1)
+
+	-- Make non-target nameplates slightly transparent
+	SetCVar("nameplateNotSelectedAlpha", 0.8)
+
+	-- EVOKER
+	SetCVar("empowerTapControls", 1)
+
+	-- CAMERA
 	SetCVar("cameraSmoothStyle", 0)
-	SetCVar('showQuestTrackingTooltips', 1)
-	SetCVar("profanityFilter", 0)
-	SetCVar('fstack_preferParentKeys', 0) --Add back the frame names via fstack!
+
+	-- MINIMAP
+	SetCVar("RotateMinimap", 0)
 
 	-- Reset saved variables on char
 	ViksUISettingsPerChar = {}
@@ -146,8 +179,8 @@ local function cvarsetup()
 	ViksUISettingsPerChar.Archaeology = false
 	ViksUISettingsPerChar.BarsLocked = false
 	ViksUISettingsPerChar.SplitBars = true
-	ViksUISettingsPerChar.RightBars = C.actionbar.rightbars
-	ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars
+	-- ViksUISettingsPerChar.RightBars = C.actionbar.rightbars
+	-- ViksUISettingsPerChar.BottomBars = C.actionbar.bottombars
 
 	-- Set to default layout of Blizzard Edit Mode
 	C_EditMode.SetActiveLayout(1)

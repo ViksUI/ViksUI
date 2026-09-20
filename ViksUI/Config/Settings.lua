@@ -309,7 +309,6 @@ C["raidframe"] = {
 	["plugins_debuffhighlight"] = true,			-- Show texture for dispellable debuff
 	["plugins_debuffs"] = true,					-- Raid debuff icons (by Blizzard filter)
 	["plugins_debuffs_timer"] = false,			-- Timer on raid debuff icons
-	["plugins_debuffs_filter"] = false,			-- Enable blizzard filters for debuffs
 	["plugins_buffs"] = true,					-- Raid buff icons (by Blizzard filter)
 	["plugins_buffs_timer"] = false,			-- Timer on raid buffs icons
 	["plugins_debuffhighlight_icon"] = false,	-- Show dispellable debuff icon
@@ -664,13 +663,13 @@ C["filger"] = {
 	-- Icons size
 	["buffs_size"] = 37,						-- Buffs size
 	["buffs_space"] = 3,						-- Buffs space
-	["pvp_size"] = 60,							-- PvP auras size
+	["pvp_size"] = 57,							-- PvP auras size
 	["pvp_space"] = 3,							-- PvP auras space
 	["cooldown_size"] = 30,						-- Cooldowns size
 	["cooldown_space"] = 3,						-- Cooldowns space
 	-- Testing
 	["test_mode"] = false,						-- Test icon mode
-	["max_test_icon"] = 5,						-- Number of icons to the test
+	["max_test_icon"] = 5,						-- Number of icons in test mode
 }
 
 ----------------------------------------------------------------------------------------

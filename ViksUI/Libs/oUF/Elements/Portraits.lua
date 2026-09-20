@@ -1,41 +1,3 @@
---[[
-# Element: Portraits
-
-Handles the updating of the unit's portrait.
-
-## Widget
-
-Portrait - A `PlayerModel` or a `Texture` used to represent the unit's portrait.
-
-## Notes
-
-A question mark model will be used if the widget is a PlayerModel and the client doesn't have the model information for
-the unit.
-
-## Options
-
-.showClass - Displays the unit's class in the portrait (boolean)
-
-## Examples
-
-    -- 3D Portrait
-    -- Position and size
-    local Portrait = CreateFrame('PlayerModel', nil, self)
-    Portrait:SetSize(32, 32)
-    Portrait:SetPoint('RIGHT', self, 'LEFT')
-
-    -- Register it with oUF
-    self.Portrait = Portrait
-
-    -- 2D Portrait
-    local Portrait = self:CreateTexture(nil, 'OVERLAY')
-    Portrait:SetSize(32, 32)
-    Portrait:SetPoint('RIGHT', self, 'LEFT')
-
-    -- Register it with oUF
-    self.Portrait = Portrait
---]]
-
 local _, ns = ...
 local oUF = ns.oUF
 local Private = oUF.Private
@@ -85,15 +47,13 @@ local function Update(self, event, unit)
 				element:SetUnit(unit)
 			end
 		else
-			local class, _
-			if(element.showClass) then
-				_, class = UnitClass(unit)
-			end
-
-			if(class ~= nil) then
-				element:SetAtlas('classicon-' .. class)
+			-- ViksUI
+			if element.classIcons then
+				local _, class = UnitClass(unit)
+				element.Icon:SetAtlas("classicon-"..class)
 			else
-				SetPortraitTexture(element, unit)
+				SetPortraitTexture(element.Icon, unit)
+				element.Icon:SetTexCoord(0.15, 0.85, 0.15, 0.85)
 			end
 		end
 

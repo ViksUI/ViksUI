@@ -1022,6 +1022,15 @@ end
 --	Durability
 ----------------------------------------------------------------------------------------
 if durability.enabled then
+	local function updateDurability(self)
+		local dmin = 100
+		for id = 1, 18 do
+			local dur, dmax = GetInventoryItemDurability(id)
+			if dur ~= dmax then dmin = floor(min(dmin, dur / dmax * 100)) end
+		end
+		self.text:SetText(format(gsub(durability.fmt, "%[color%]", (gradient(dmin / 100))), dmin))
+	end
+
 	Inject("Durability", {
 		OnLoad = function(self)
 			-- if durability.man then DurabilityFrame.Show = DurabilityFrame.Hide end -- NOTE: This cause taint when open edit mode
@@ -1029,12 +1038,8 @@ if durability.enabled then
 		end,
 		OnEvent = function(self, event)
 			if event == "UPDATE_INVENTORY_DURABILITY" or event == "PLAYER_LOGIN" then
-				local dmin = 100
-				for id = 1, 18 do
-					local dur, dmax = GetInventoryItemDurability(id)
-					if dur ~= dmax then dmin = floor(min(dmin, dur / dmax * 100)) end
-				end
-				self.text:SetText(format(gsub(durability.fmt, "%[color%]", (gradient(dmin / 100))), dmin))
+				-- Use delay to solve 100% value
+				C_Timer.After(0.5, function() updateDurability(self) end)
 			elseif event == "MERCHANT_SHOW" and not (IsAltKeyDown() or IsShiftKeyDown()) then
 				if conf.AutoRepair and CanMerchantRepair() then
 					local cost, total = GetRepairAllCost(), 0
@@ -1702,6 +1707,9 @@ if ping.enabled then
 
 	Inject("Ping", {
 		OnLoad = function(self)
+			if not T.Midnight then -- 12.1.0 Can use only Blizzard
+				self:RegisterEventCallback("MINIMAP_PING", OnEvent)
+			end
 			self.animGroup = self.text:CreateAnimationGroup()
 			self.anim = self.animGroup:CreateAnimation("Alpha")
 			self.animGroup:SetScript("OnFinished", function() self.text:Hide() end)

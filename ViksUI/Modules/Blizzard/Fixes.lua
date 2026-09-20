@@ -10,12 +10,21 @@ end
 
 ----------------------------------------------------------------------------------------
 --	Fix ShouldShowMawBuffs taint
+--	Do NOT replace the global function — that taints the entire ScenarioObjectiveTracker
+--	update chain and causes "secret number" errors in CooldownFrame_Set during delves.
+--	Replace MawBuffsBlock.Update with a wrapper that checks secrets BEFORE calling
+--	the original, preventing GetAuraDataByIndex from being called when auras are secret.
 ----------------------------------------------------------------------------------------
-local orig = ShouldShowMawBuffs
-ShouldShowMawBuffs = function()
-    if C_Secrets.ShouldAurasBeSecret() then return false end
-
-    return orig()
+if ScenarioObjectiveTracker and ScenarioObjectiveTracker.MawBuffsBlock then
+	local MawBuffsBlock = ScenarioObjectiveTracker.MawBuffsBlock
+	local origUpdate = MawBuffsBlock.Update
+	MawBuffsBlock.Update = function(self, ...)
+		if C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret() then
+			self:Hide()
+			return
+		end
+		return origUpdate(self, ...)
+	end
 end
 
 ----------------------------------------------------------------------------------------
@@ -178,9 +187,8 @@ end
 ----------------------------------------------------------------------------------------
 --	Fix blizzard ui error (from NDui)
 ----------------------------------------------------------------------------------------
-local old_SetupTextureCoordinates = BackdropTemplateMixin.SetupTextureCoordinates
-function BackdropTemplateMixin:SetupTextureCoordinates()
-	local width = self:GetWidth()
-	if T.IsSecretValue(width) then return end
-	old_SetupTextureCoordinates(self)
-end
+--	SetupTextureCoordinates taint fix is now handled per-frame in Core/API.lua.
+--	SafeSetupTextureCoordinates is applied to each BackdropTemplate frame created
+--	by SetTemplate, CreatePanel, CreateBorder, and CreateShadow, avoiding the global
+--	mixin override that previously tainted all BackdropTemplate frames including
+--	ObjectiveTracker.

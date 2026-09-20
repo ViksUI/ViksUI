@@ -111,10 +111,13 @@ if C.nameplate.healer_icon then
 			wipe(healList)
 			local playerFaction = numFactions[UnitFactionGroup("player")]
 			for i = 1, GetNumBattlefieldScores() do
-				local name, _, _, _, _, faction, _, _, _, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(i)
-				if T.NotSecretValue(name) and name and healerSpecs[talentSpec] and faction == playerFaction then
-					name = name:match("(.+)%-.+") or name
-					healList[name] = talentSpec
+				local data = C_PvP.GetScoreInfo(i)
+				if data then
+					local name, faction, talentSpec = data.name, data.faction, data.talentSpec
+					if T.NotSecretValue(name) and name and healerSpecs[talentSpec] and faction == playerFaction then
+						name = name:match("(.+)%-.+") or name
+						healList[name] = talentSpec
+					end
 				end
 			end
 		end
@@ -1071,7 +1074,7 @@ local function style(self, unit)
 	-- Health Text
 	if C.nameplate.health_value then
 		self.Health.value = self.Health:CreateFontString(nil, "OVERLAY")
-		self.Health.value:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * 1, C.font.nameplates_font_style)
+		self.Health.value:SetFont(C.font.nameplates_font, C.font.nameplates_font_size, C.font.nameplates_font_style)
 		self.Health.value:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
 		self.Health.value:SetPoint("RIGHT", self.Health, "RIGHT", 0, 0)
 		self:Tag(self.Health.value, "[NameplateHealth]")
@@ -1158,7 +1161,7 @@ local function style(self, unit)
 	self.Castbar.Icon = self.Castbar.Border:CreateTexture(nil, "OVERLAY")
 	self.Castbar.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	self.Castbar.Icon:SetDrawLayer("ARTWORK")
-	self.Castbar.Icon:SetSize(castbarHeight, castbarHeight)
+	self.Castbar.Icon:SetSize((C.nameplate.height * 2) + 8, (C.nameplate.height * 2) + 8)
 	if C.nameplate.target_arrow == true then
 		self.Castbar.Icon:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -castbarGap)
 	else
@@ -1168,14 +1171,14 @@ local function style(self, unit)
 
 	-- Raid Icon
 	self.RaidTargetIndicator = self:CreateTexture(nil, "OVERLAY", nil, 7)
-	self.RaidTargetIndicator:SetSize((C.nameplate.height * 2 * 1) + 8, (C.nameplate.height * 2 * 1) + 8)
+	self.RaidTargetIndicator:SetSize((C.nameplate.height * 2) + 8, (C.nameplate.height * 2) + 8)
 	self.RaidTargetIndicator:SetPoint("BOTTOM", self.Health, "TOP", 0, C.nameplate.track_debuffs and 38 or 16)
 
 	-- Class Icon
 	if C.nameplate.class_icons then
 		self.Class = CreateFrame("Frame", nil, self)
 		self.Class.Icon = self.Class:CreateTexture(nil, "OVERLAY")
-		self.Class.Icon:SetSize((C.nameplate.height * 2 * 1) + 8, (C.nameplate.height * 2 * 1) + 8)
+		self.Class.Icon:SetSize((C.nameplate.height * 2) + 8, (C.nameplate.height * 2) + 8)
 		self.Class.Icon:SetPoint("TOPRIGHT", self.Health, "TOPLEFT", -8, 0)
 		self.Class.Icon:SetTexture("Interface\\WorldStateFrame\\Icons-Classes")
 		self.Class.Icon:SetTexCoord(0, 0, 0, 0)
@@ -1187,7 +1190,7 @@ local function style(self, unit)
 	if C.nameplate.totem_icons then
 		self.Totem = CreateFrame("Frame", nil, self)
 		self.Totem.Icon = self.Totem:CreateTexture(nil, "OVERLAY")
-		self.Totem.Icon:SetSize((C.nameplate.height * 2 * 1) + 8, (C.nameplate.height * 2 * 1) + 8)
+		self.Totem.Icon:SetSize((C.nameplate.height * 2) + 8, (C.nameplate.height * 2) + 8)
 		self.Totem.Icon:SetPoint("BOTTOM", self.Health, "TOP", 0, 16)
 		self.Totem.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		CreateBorderFrame(self.Totem, self.Totem.Icon)
@@ -1228,17 +1231,17 @@ local function style(self, unit)
 	-- Quest Icon
 	if C.nameplate.quests then
 		self.QuestIcon = self:CreateTexture(nil, "OVERLAY", nil, 7)
-		self.QuestIcon:SetSize((C.nameplate.height * 2 * 1), (C.nameplate.height * 2 * 1))
+		self.QuestIcon:SetSize((C.nameplate.height * 2), (C.nameplate.height * 2))
 		self.QuestIcon:SetPoint("RIGHT", self.Health, "LEFT", -5, 0)
 		self.QuestIcon:Hide()
 
 		self.QuestIcon.Text = self:CreateFontString(nil, "OVERLAY")
 		self.QuestIcon.Text:SetPoint("RIGHT", self.QuestIcon, "LEFT", -1, 0)
-		self.QuestIcon.Text:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * 1 * 2, C.font.nameplates_font_style)
+		self.QuestIcon.Text:SetFont(C.font.nameplates_font, C.font.nameplates_font_size * 2, C.font.nameplates_font_style)
 		self.QuestIcon.Text:SetShadowOffset(C.font.nameplates_font_shadow and 1 or 0, C.font.nameplates_font_shadow and -1 or 0)
 
 		self.QuestIcon.Item = self:CreateTexture(nil, "OVERLAY")
-		self.QuestIcon.Item:SetSize((C.nameplate.height * 2 * 1) - 2, (C.nameplate.height * 2 * 1) - 2)
+		self.QuestIcon.Item:SetSize((C.nameplate.height * 2) - 2, (C.nameplate.height * 2) - 2)
 		self.QuestIcon.Item:SetPoint("RIGHT", self.QuestIcon.Text, "LEFT", -2, 0)
 		self.QuestIcon.Item:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	end
@@ -1249,21 +1252,23 @@ local function style(self, unit)
 			initialAnchor = "BOTTOMRIGHT",
 			growthX = "LEFT",
 			growthY = "UP",
-			layoutLimit = 20 + C.nameplate.width,
+			layoutLimit = C.nameplate.width + 20
 		})
+
 		self.Auras:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, C.font.nameplates_font_size + 8)
 		self.Auras:SetSize(20 + C.nameplate.width, C.nameplate.auras_size)
 		self.Auras.elementSpacing = 5
+		self.Auras.lineSpacing = 5
+		self.Auras.groupLineSpacing = 5
 		self.Auras.size = C.nameplate.auras_size - 3
 		self.Auras.disableMouse = true
 		self.Auras.showCount = true
-
 		self.Auras.PostCreateButton = AurasPostCreateIcon
 
 		if C.nameplate.track_buffs then
 			self.Auras:AddGroup("HELPFUL|RAID_PLAYER_DISPELLABLE", {
 				maxFrameCount = 2,
-				showStealable = true,
+				showStealable = true
 			})
 		end
 
@@ -1271,7 +1276,7 @@ local function style(self, unit)
 			self.Auras:AddGroup("HARMFUL|PLAYER", {
 				candidateFilters = {includeSpellIDs = T.DebuffWhiteList, excludeSpellIDs = T.DebuffBlackList},
 				maxFrameCount = 6,
-				isDebuff = true,
+				isDebuff = true
 			})
 		end
 	end

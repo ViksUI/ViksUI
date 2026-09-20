@@ -13,11 +13,7 @@ T.SkinCloseButton(_G.ItemRefTooltip.CloseButton)
 local tooltips = {
 	GameTooltip,
 	ItemRefTooltip,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
 	FriendsTooltip,
-	ItemRefShoppingTooltip1,
-	ItemRefShoppingTooltip2,
 	StoryTooltip,
 	ReputationParagonTooltip,
 	CampaignTooltip,
@@ -52,14 +48,30 @@ for _, tt in pairs(tooltips) do
 		end
 		bg:SetTemplate("Transparent")
 
-		-- Do not modify CompareHeader.
-		-- Blizzard's TooltipComparisonManager uses CompareHeader.Label:GetWidth()
-		-- during secure item comparison. Styling this Blizzard-owned frame can
-		-- taint the width value and cause "arithmetic on a secret number".
+		tt.GetBackdrop = function() return backdrop end
+		tt.GetBackdropColor = function() return C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha end
+		tt.GetBackdropBorderColor = function() return unpack(C.media.border_color) end
+	end
+end
+
+-- Comparison/shopping tooltips: apply template directly to the frame
+-- instead of creating a child frame. Creating addon-owned child frames
+-- on these tooltips taints CompareHeader dimensions in the secure
+-- comparison code path (TooltipComparisonManager:SetItemTooltip).
+-- This matches the approach used by ElvUI (TT:SetStyle).
+if not C_AddOns.IsAddOnLoaded("Aurora") then
+	for _, tt in pairs({ShoppingTooltip1, ShoppingTooltip2, ItemRefShoppingTooltip1, ItemRefShoppingTooltip2}) do
+		tt.NineSlice:SetAlpha(0)
+		tt:SetTemplate("Transparent")
 
 		tt.GetBackdrop = function() return backdrop end
 		tt.GetBackdropColor = function() return C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha end
 		tt.GetBackdropBorderColor = function() return unpack(C.media.border_color) end
+
+		local CompareHeader = tt.CompareHeader
+		if CompareHeader and not CompareHeader.template then
+			CompareHeader:SetTemplate("Transparent")
+		end
 	end
 end
 
@@ -211,6 +223,11 @@ local function AddTargetedBy()
 			wipe(targetedList)
 		end
 	end
+end
+
+-- Add caster name line
+if T.newPatch then
+	C_CVar.SetCVar("tooltipShowAuraCasterNames", C.aura.cast_by and 1 or 0)
 end
 
 ----------------------------------------------------------------------------------------
@@ -554,27 +571,27 @@ hooksecurefunc(TooltipComparisonManager, "AnchorShoppingTooltips", function(self
 	local tooltip = self.tooltip
 	local shoppingTooltip1 = tooltip.shoppingTooltips[1]
 	local shoppingTooltip2 = tooltip.shoppingTooltips[2]
-	local point = shoppingTooltip1:GetPoint(2)
+	local point = shoppingTooltip1:GetPoint()
 	if not canaccessvalue(point) then return end
 	if secondaryItemShown then
 		if point == "TOP" then
 			shoppingTooltip1:ClearAllPoints()
 			shoppingTooltip2:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 3, -10)
-			shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 3, 0)
+			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 10, -20)
+			shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 10, 0)
 		elseif point == "RIGHT" then
 			shoppingTooltip1:ClearAllPoints()
 			shoppingTooltip2:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -3, -10)
-			shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -3, 0)
+			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -10, -20)
+			shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -10, 0)
 		end
 	else
 		if point == "LEFT" then
 			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 3, -10)
+			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 10, -20)
 		elseif point == "RIGHT" then
 			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -3, -10)
+			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -10, -20)
 		end
 	end
 end)
