@@ -56,6 +56,8 @@ L_MISC_GROCERY_DESC = "Automatically buy grocery bags"
 L_MISC_SCROLL = "Scroll"
 L_MISC_COLLAPSE = "The Collapse"
 L_MISC_HEADER_QUEST = "Auto quest button"
+L_MISC_DESTROY_ITEM = "Do you want to destroy this item?"
+BINDING_NAME_QUEST_BUTTON = AUCTION_HOUSE_HEADER_ITEM
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Disband Group"

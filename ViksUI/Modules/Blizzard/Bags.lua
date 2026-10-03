@@ -1037,20 +1037,7 @@ function Stuffing:CreateBagFrame(w)
 		goldText:SetFont(C.font.stats_font, C.font.stats_font_size, C.font.stats_font_style)
 		goldText:SetShadowOffset(C.font.stats_font_shadow and 1 or 0, C.font.stats_font_shadow and -1 or 0)
 		goldText:SetPoint("RIGHT", f, "TOPRIGHT", -25, -13)
-
-		local function comma_value(n) -- credit http://richard.warburton.it
-			local left, num, right = string.match(n,"^([^%d]*%d)(%d*)(.-)$")
-			return left..(num:reverse():gsub("(%d%d%d)","%1,"):reverse())..right
-		end
-		local function formatgold()
-			local amount = C_Bank.FetchDepositedMoney(Enum.BankType.Account) or 0
-			local gold, silver, copper = floor(amount * 0.0001), floor(mod(amount * 0.01, 100)), floor(mod(amount, 100))
-
-			return (gold > 0 and format("%s|cffffd700%s|r ", comma_value(gold), GOLD_AMOUNT_SYMBOL) or "")
-			.. (format("%.2d|cffc7c7cf%s|r ", silver, SILVER_AMOUNT_SYMBOL))
-			.. (format("%.2d|cffeda55f%s|r", copper, COPPER_AMOUNT_SYMBOL))
-		end
-		goldText:SetText(formatgold())
+		goldText:SetText(T.FormatGold(5, C_Bank.FetchDepositedMoney(Enum.BankType.Account) or 0))
 
 		local goldButton = CreateFrame("Button", nil, f)
 		goldButton:SetAlpha(0)
@@ -1076,7 +1063,7 @@ function Stuffing:CreateBagFrame(w)
 		goldButton:RegisterEvent("PLAYER_MONEY")
 		goldButton:RegisterEvent("ACCOUNT_MONEY")
 		goldButton:SetScript("OnEvent", function()
-			goldText:SetText(formatgold())
+			goldText:SetText(T.FormatGold(5, C_Bank.FetchDepositedMoney(Enum.BankType.Account) or 0))
 		end)
 	end
 
@@ -1099,6 +1086,12 @@ function Stuffing:CreateBagFrame(w)
 			end
 			Stuffing:SetBagsForSorting("d")
 			Stuffing:Restack()
+			return
+		elseif btn == "MiddleButton" and IsShiftKeyDown() then
+			if InCombatLockdown() then
+				print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
+			end
+			SlashCmdList.CHEAPDESTROY()
 			return
 		end
 		self:GetParent():Hide()
@@ -1866,6 +1859,18 @@ function Stuffing.Menu(self, level)
 		Stuffing:Restack()
 	end
 	UIDropDownMenu_AddButton(info, level)
+
+	-- TODO: need more testing
+	-- wipe(info)
+	-- info.text = HOUSING_DECOR_STORAGE_ITEM_DESTROY
+	-- info.notCheckable = 1
+	-- info.func = function()
+		-- if InCombatLockdown() then
+			-- print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return
+		-- end
+		-- SlashCmdList.CHEAPDESTROY()
+	-- end
+	-- UIDropDownMenu_AddButton(info, level)
 
 	wipe(info)
 	info.text = L_BAG_SHOW_BAGS

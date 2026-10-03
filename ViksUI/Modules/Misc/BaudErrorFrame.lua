@@ -106,7 +106,7 @@ end
 
 function BaudErrorFrameShowError(Error)
 	if (GetTime() > SoundTime) and EnableSound then
-		PlaySoundFile("Interface\\AddOns\\ViksUI\\Media\\sounds\\Whisper.mp3.ogg", "Master")
+		PlaySoundFile("Interface\\AddOns\\ViksUI\\Media\\sounds\\Whisper.ogg", "Master")
 		SoundTime = GetTime() + 1
 	end
 end

@@ -351,7 +351,7 @@ local function ApplySkin()
     local frame = currencyTransfer.Content
     T.SkinDropDownBox(frame.SourceSelector.Dropdown)
     frame.AmountSelector.MaxQuantityButton:SkinButton()
-    frame.AmountSelector.MaxQuantityButton:SetMovePoint(-4, 2)
+    frame.AmountSelector.MaxQuantityButton:SetNewPoint(-4, 2)
     T.SkinEditBox(frame.AmountSelector.InputBox)
     frame.AmountSelector.InputBox.backdrop:SetPoint("TOPLEFT", 2, -1)
     frame.AmountSelector.InputBox.backdrop:SetPoint("BOTTOMRIGHT", -4, 5)

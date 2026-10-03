@@ -10,13 +10,24 @@ end
 
 ----------------------------------------------------------------------------------------
 --	Fix ShouldShowMawBuffs taint
---	Do NOT replace the global function — that taints the entire ScenarioObjectiveTracker
---	update chain and causes "secret number" errors in CooldownFrame_Set during delves.
---	Replace MawBuffsBlock.Update with a wrapper that checks secrets BEFORE calling
---	the original, preventing GetAuraDataByIndex from being called when auras are secret.
+--	Wrap ShouldShowMawBuffs to prevent GetAuraDataByIndex from being called when
+--	auras are secret (M+ start/end, Delves), avoiding the tainted access error.
 ----------------------------------------------------------------------------------------
 if ScenarioObjectiveTracker and ScenarioObjectiveTracker.MawBuffsBlock then
 	local MawBuffsBlock = ScenarioObjectiveTracker.MawBuffsBlock
+
+	-- Wrap ShouldShowMawBuffs to return false when auras are secret
+	if ShouldShowMawBuffs and type(ShouldShowMawBuffs) == "function" then
+		local origShouldShow = ShouldShowMawBuffs
+		ShouldShowMawBuffs = function(...)
+			if C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret() then
+				return false
+			end
+			return origShouldShow(...)
+		end
+	end
+
+	-- Also wrap MawBuffsBlock.Update as a fallback
 	local origUpdate = MawBuffsBlock.Update
 	MawBuffsBlock.Update = function(self, ...)
 		if C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret() then
@@ -182,6 +193,37 @@ if not NoTaint2_Proc_CleanActionButtonFlyout then
 			end
 		end
 	end)
+end
+
+----------------------------------------------------------------------------------------
+--	Fix WorldMap SetPassThroughButtons taint during combat
+--	ViksUI skinning taints WorldMapFrame, and when combat starts while the map is
+--	open, AcquirePin -> CheckMouseButtonPassthrough tries to call the protected
+--	SetPassThroughButtons(). Replace with a wrapper that skips during combat.
+----------------------------------------------------------------------------------------
+if MapCanvas_DataProviderBase and MapCanvas_DataProviderBase.CheckMouseButtonPassthrough then
+	local origCheck = MapCanvas_DataProviderBase.CheckMouseButtonPassthrough
+	function MapCanvas_DataProviderBase:CheckMouseButtonPassthrough(...)
+		if InCombatLockdown() then return end
+		return origCheck(self, ...)
+	end
+end
+
+----------------------------------------------------------------------------------------
+--	Fix UIWidgetTemplateTextWithState taint from WorldMap skin
+--	ViksUI's WorldMap skin taints the frame hierarchy. When GameTooltip_AddWidgetSet
+--	runs for AreaPOI tooltips, UIWidgetTemplateTextWithState.Setup tries to do
+--	arithmetic on a tainted textHeight. Wrap to catch and suppress the error.
+----------------------------------------------------------------------------------------
+if UIWidgetTemplateTextWithState and UIWidgetTemplateTextWithState.Setup then
+	local origWidgetSetup = UIWidgetTemplateTextWithState.Setup
+	function UIWidgetTemplateTextWithState:Setup(widgetInfo, ...)
+		local ok = pcall(origWidgetSetup, self, widgetInfo, ...)
+		if not ok then
+			self:SetHeight(0)
+			self:Hide()
+		end
+	end
 end
 
 ----------------------------------------------------------------------------------------

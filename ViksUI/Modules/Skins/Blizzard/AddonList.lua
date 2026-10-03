@@ -54,6 +54,13 @@ local function LoadSkin()
 	T.SkinCheckBox(AddonList.ForceLoad)
 	AddonList.ForceLoad:SetSize(25, 25)
 	T.SkinEditBox(AddonList.SearchBox)
+
+	AddonList.Dropdown:SetMovePoint(-1)
+	AddonList.SearchBox:SetMovePoint(2)
+	AddonList.EnableAllButton:SetMovePoint(5)
+	AddonList.DisableAllButton:SetMovePoint(1)
+	AddonList.OkayButton:SetMovePoint(-1)
+	AddonList.CancelButton:SetMovePoint(-2)
 end
 
 tinsert(T.SkinFuncs["ViksUI"], LoadSkin)

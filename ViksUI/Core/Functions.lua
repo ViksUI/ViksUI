@@ -56,6 +56,15 @@ T.CheckUnitStatus = function(func, unit)
 	return T.NotSecretValue(status) and status
 end
 
+T.IsSecretAuras = function()
+	local secret = false
+	if GetCVarBool("addonCombatRestrictionsForced") or GetCVarBool("addonEncounterRestrictionsForced") or GetCVarBool("addonChallengeModeRestrictionsForced") or GetCVarBool("addonPvPMatchRestrictionsForced") then
+		secret = true
+	end
+
+	return secret
+end
+
 -- Safe check unit
 T.unitIsUnit = function(unit1, unit2)
 	-- TODO: use C_Secrets.CanCompareUnitTokens instead of pcall

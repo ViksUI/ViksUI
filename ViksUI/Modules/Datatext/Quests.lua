@@ -47,9 +47,9 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	
     local OnMouseDown = function()
 		if ObjectiveTrackerFrame:IsCollapsed() then
-		ObjectiveTrackerFrame:SetCollapsed(false);
+			C_Timer.After(0, function() ObjectiveTrackerFrame:SetCollapsed(false) end)
 		else
-		ObjectiveTrackerFrame:SetCollapsed(true);
+			C_Timer.After(0, function() ObjectiveTrackerFrame:SetCollapsed(true) end)
 		end
 	end 
 	
@@ -63,7 +63,7 @@ if C.datatext.Quests and C.datatext.Quests > 0 then
 	collapse:RegisterEvent("PLAYER_ENTERING_WORLD")
 	collapse:SetScript("OnEvent", function(self, event)
 		if C.automation.auto_collapse_login == true then
-			ObjectiveTrackerFrame:SetCollapsed(true)
+			C_Timer.After(0.1, function() ObjectiveTrackerFrame:SetCollapsed(true) end)
 		end
 	end)
 end

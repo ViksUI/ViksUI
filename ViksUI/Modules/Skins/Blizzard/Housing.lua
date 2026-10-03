@@ -382,7 +382,7 @@ local function LoadEditor()
 
 	T.SkinScrollBar(storagePanel.OptionsContainer.ScrollBar)
 
-	storagePanel.CollapseButton:SetMovePoint(1)
+	storagePanel.CollapseButton:SetNewPoint(1)
 end
 
 T.SkinFuncs["Blizzard_HouseEditor"] = LoadEditor

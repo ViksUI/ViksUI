@@ -56,8 +56,8 @@ L_MISC_BINDER_OPEN = "Назначения мыши"
 L_MISC_GROCERY_BUY = "Купить"
 L_MISC_GROCERY_DESC = "Автоматически купить пустые контейнеры"
 L_MISC_SCROLL = "Свиток"
-L_MISC_COLLAPSE = "Обрушение"
-L_MISC_HEADER_QUEST = "Кнопка для квестоввых предметов"
+L_MISC_HEADER_QUEST = "Кнопка для квестовых предметов"
+L_MISC_DESTROY_ITEM = "Хотите уничтожить предмет?"
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Распустить группу"

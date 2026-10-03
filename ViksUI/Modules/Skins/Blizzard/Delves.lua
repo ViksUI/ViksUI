@@ -31,7 +31,7 @@ local function LoadFirstSkin()
 						if button.Icon then
 							button.Icon:SetSize(T.Scale(26), T.Scale(26))
 							button.Icon:SkinIcon()
-							button.Icon:SetMovePoint(6)
+							button.Icon:SetNewPoint(6)
 						end
 
 						button.styled = true
@@ -106,7 +106,7 @@ local function LoadThirdSkin()
 	local frame = _G.DelvesDashboardFrame
 	frame.DashboardBackground:SetAlpha(0)
 	frame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton:SkinButton(nil, "Button")
-	frame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton:SetMovePoint(nil, 29)
+	frame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel.CompanionConfigButton:SetNewPoint(nil, 29)
 
 	for _, panel in pairs({frame.ButtonPanelLayoutFrame.CompanionConfigButtonPanel, frame.ButtonPanelLayoutFrame.GreatVaultButtonPanel}) do
 		panel.ButtonPanelBackground:SetAlpha(0)

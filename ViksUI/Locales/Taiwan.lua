@@ -46,18 +46,13 @@ L_TOOLTIP_INSPECT_OPEN = "檢查框體已開啟"
 -- Misc
 L_MISC_UNDRESS = "無裝備"
 L_MISC_DRINKING = " 進食中..."
-L_MISC_BUY_STACK = "Alt+右鍵點擊購買一疊"
-L_MISC_ONECLICK_BUYOUT = "Shift+右鍵,不彈出確認窗口直接購買"
-L_MISC_ONECLICK_BID = "Shift+右鍵,不彈出確認窗口直接競標"
-L_MISC_ONECLICK_CANCEL = "Shift+右鍵,不彈出確認窗口直接取消選擇的物品"
-L_MISC_UI_OUTDATED = "ViksUI 版本已過期，請至 http://goo.gl/QAj0J6 下載最新版"
-L_MISC_HEADER_MARK = "鼠標懸停顯示團隊圖標"
-L_MISC_BINDER_OPEN = "鼠標綁定"
-L_MISC_GROCERY_BUY = "購買"
-L_MISC_GROCERY_DESC = "雜貨商自動購買"
-L_MISC_SCROLL = "附魔卷軸"
-L_MISC_COLLAPSE = "The Collapse" -- Need review
-L_MISC_HEADER_QUEST = "Auto quest button" -- Needs review
+L_MISC_BUY_STACK = "Alt+右鍵批量購買"
+L_MISC_HEADER_MARK = "滑鼠懸停顯示團隊圖標"
+L_MISC_BINDER_OPEN = "滑鼠綁定"
+L_MISC_SCROLL = "附魔皮紙"
+L_MISC_HEADER_QUEST = "任務道具按鈕"
+L_MISC_DESTROY_ITEM = "你要銷毀此物品嗎？" -- Needs review
+
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "解散團隊"
 

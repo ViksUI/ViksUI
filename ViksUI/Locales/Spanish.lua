@@ -45,19 +45,13 @@ L_TOOLTIP_INSPECT_OPEN = "Inspect Frame is open" -- Needs review
 
 -- Misc
 L_MISC_UNDRESS = "Desvestir"
-L_MISC_DRINKING = " esta bebiendo."
+L_MISC_DRINKING = " está bebiendo."
 L_MISC_BUY_STACK = "Alt-Click para comprar un lote"
-L_MISC_ONECLICK_BUYOUT = "Shift-Right-Click para comprar el objeto seleccionado sin confirmacion" -- Needs review
-L_MISC_ONECLICK_BID = "Shift-Right-Click para pujar por el objeto seleccionado sin confirmacion" -- Needs review
-L_MISC_ONECLICK_CANCEL = "Shift-Right-Click to cancel on the selected item without confirmation" -- Needs review
-L_MISC_UI_OUTDATED = "Tu versión de ViksUI no está actualizada. Puedes descargar la última versión de http://goo.gl/QAj0J6"
-L_MISC_HEADER_MARK = "Mouseover Raid Icons" -- Needs review
-L_MISC_BINDER_OPEN = "Mouse Bindings" -- Needs review
-L_MISC_GROCERY_BUY = "Buy" -- Needs review
-L_MISC_GROCERY_DESC = "Automatically buy grocery bags" -- Needs review
+L_MISC_HEADER_MARK = "Iconos de raid al pasar el ratón"
+L_MISC_BINDER_OPEN = "Asignaciones de ratón"
 L_MISC_SCROLL = "Pergamino"
-L_MISC_COLLAPSE = "The Collapse" -- Need review
-L_MISC_HEADER_QUEST = "Auto quest button" -- Needs review
+L_MISC_HEADER_QUEST = "Botón de misión automática"
+L_MISC_DESTROY_ITEM = "¿Quieres destruir este objeto?"
 
 -- Raid Utility
 L_RAID_UTIL_DISBAND = "Disolver grupo"

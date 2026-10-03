@@ -130,13 +130,33 @@ local function SetInside(obj, anchor, xOffset, yOffset)
 	obj:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -xOffset, yOffset)
 end
 
-local function SetMovePoint(self, x, y, point, anchor, attachTo)
-	local old_point, old_anchor, old_attachTo, old_x, old_y = self:GetPoint()
+local function SetNewPoint(obj, x, y, point, anchor, attachTo)
+	local old_point, old_anchor, old_attachTo, old_x, old_y = obj:GetPoint()
 	if point or attachTo then
 		self:ClearAllPoints()
 	end
 
-	self:SetPoint(point or old_point, anchor or old_anchor, attachTo or old_attachTo, x or old_x, y or old_y)
+	obj:SetPoint(point or old_point, anchor or old_anchor, attachTo or old_attachTo, x or old_x, y or old_y)
+end
+
+local function SetMovePoint(obj, x, y, pointValue)
+	x = x or 0
+	y = y or 0
+
+	local old_point, old_anchor, old_attachTo, old_x, old_y = obj:GetPoint()
+	if pointValue then
+		for i = 1, obj:GetNumPoints() do
+			local point, relativeTo, relativePoint, xOfs, yOfs = obj:GetPoint(i)
+			if not point then
+				break
+			elseif point == pointValue then
+				old_point, old_anchor, old_attachTo, old_x, old_y = point, relativeTo, relativePoint, xOfs, yOfs
+				break
+			end
+		end
+	end
+
+	obj:SetPoint(old_point, old_anchor, old_attachTo, old_x + x, old_y + y)
 end
 
 ----------------------------------------------------------------------------------------
@@ -576,6 +596,7 @@ local function addAPI(object)
 	if not object.Point then mt.Point = Point end
 	if not object.SetOutside then mt.SetOutside = SetOutside end
 	if not object.SetInside then mt.SetInside = SetInside end
+	if not object.SetNewPoint then mt.SetNewPoint = SetNewPoint end
 	if not object.SetMovePoint then mt.SetMovePoint = SetMovePoint end
 	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
 	if not object.CreateBorder then mt.CreateBorder = CreateBorder end

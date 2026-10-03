@@ -54,24 +54,21 @@ for _, tt in pairs(tooltips) do
 	end
 end
 
--- Comparison/shopping tooltips: apply template directly to the frame
--- instead of creating a child frame. Creating addon-owned child frames
--- on these tooltips taints CompareHeader dimensions in the secure
--- comparison code path (TooltipComparisonManager:SetItemTooltip).
--- This matches the approach used by ElvUI (TT:SetStyle).
+-- Comparison/shopping tooltips: apply backdrop directly
 if not C_AddOns.IsAddOnLoaded("Aurora") then
 	for _, tt in pairs({ShoppingTooltip1, ShoppingTooltip2, ItemRefShoppingTooltip1, ItemRefShoppingTooltip2}) do
+		Mixin(tt, BackdropTemplateMixin)
+		tt:SetBackdrop({
+			bgFile = C.media.blank, edgeFile = C.media.blank, edgeSize = T.mult,
+			insets = {left = -T.mult, right = -T.mult, top = -T.mult, bottom = -T.mult}
+		})
 		tt.NineSlice:SetAlpha(0)
-		tt:SetTemplate("Transparent")
+		tt:SetBackdropColor(C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha)
+		tt:SetBackdropBorderColor(C.media.border_color[1], C.media.border_color[2], C.media.border_color[3], C.media.border_color[4] or 1)
 
 		tt.GetBackdrop = function() return backdrop end
 		tt.GetBackdropColor = function() return C.media.backdrop_color[1], C.media.backdrop_color[2], C.media.backdrop_color[3], C.media.backdrop_alpha end
-		tt.GetBackdropBorderColor = function() return unpack(C.media.border_color) end
-
-		local CompareHeader = tt.CompareHeader
-		if CompareHeader and not CompareHeader.template then
-			CompareHeader:SetTemplate("Transparent")
-		end
+		tt.GetBackdropBorderColor = function() return C.media.border_color[1], C.media.border_color[2], C.media.border_color[3], C.media.border_color[4] or 1 end
 	end
 end
 
@@ -225,9 +222,10 @@ local function AddTargetedBy()
 	end
 end
 
--- Add caster name line
+-- Add caster name and spell id line
 if T.newPatch then
 	C_CVar.SetCVar("tooltipShowAuraCasterNames", C.aura.cast_by and 1 or 0)
+	C_CVar.SetCVar("tooltipShowAuraSpellIDs", C.tooltip.spell_id and 1 or 0)
 end
 
 ----------------------------------------------------------------------------------------
@@ -261,7 +259,7 @@ local function GetColor(unit)
 end
 
 local function GameTooltipDefault(tooltip, parent)
-	if C.tooltip.cursor == true then
+	if C.tooltip.cursor then
 		tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", 20, 20)
 	else
 		tooltip:SetOwner(parent, "ANCHOR_NONE")
@@ -292,7 +290,7 @@ local function GameTooltipDefault(tooltip, parent)
 end
 hooksecurefunc("GameTooltip_SetDefaultAnchor", GameTooltipDefault)
 
-if C.tooltip.shift_modifer == true then
+if C.tooltip.shift_modifer then
 	GameTooltip:SetScript("OnShow", function(self)
 		if IsShiftKeyDown() then
 			self:Show()
@@ -304,7 +302,7 @@ if C.tooltip.shift_modifer == true then
 	end)
 end
 
-if C.tooltip.health_value == true then
+if C.tooltip.health_value then
 	GameTooltipStatusBar:SetScript("OnValueChanged", function(self, value)
 		if not value then return end
 		-- local min, max = self:GetMinMaxValues()
@@ -453,7 +451,7 @@ local OnTooltipSetUnit = function(self)
 		end
 	end
 
-	if C.tooltip.target == true and UnitExists(unit.."target") then
+	if C.tooltip.target and UnitExists(unit.."target") then
 		local r, g, b = GetColor(unit.."target")
 		local text = ""
 
@@ -475,7 +473,7 @@ local OnTooltipSetUnit = function(self)
 		self:AddLine(text, r, g, b)
 	end
 
-	if C.tooltip.raid_icon == true then
+	if C.tooltip.raid_icon then
 		local raidIndex = GetRaidTargetIndex(unit)
 		if raidIndex then
 			SetRaidTargetIconTexture(ricon, raidIndex)
@@ -552,7 +550,7 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetU
 ----------------------------------------------------------------------------------------
 --	Hide tooltips in combat for action bars, pet bar and stance bar
 ----------------------------------------------------------------------------------------
-if C.tooltip.hidebuttons == true then
+if C.tooltip.hidebuttons then
 	local function CombatHideActionButtonsTooltip(self)
 		if not IsShiftKeyDown() then
 			self:Hide()
@@ -571,27 +569,27 @@ hooksecurefunc(TooltipComparisonManager, "AnchorShoppingTooltips", function(self
 	local tooltip = self.tooltip
 	local shoppingTooltip1 = tooltip.shoppingTooltips[1]
 	local shoppingTooltip2 = tooltip.shoppingTooltips[2]
-	local point = shoppingTooltip1:GetPoint()
+	local point = shoppingTooltip1:GetPoint(2)
 	if not canaccessvalue(point) then return end
 	if secondaryItemShown then
 		if point == "TOP" then
 			shoppingTooltip1:ClearAllPoints()
 			shoppingTooltip2:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 10, -20)
-			shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 10, 0)
+			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 3, -10)
+			shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 3, 0)
 		elseif point == "RIGHT" then
 			shoppingTooltip1:ClearAllPoints()
 			shoppingTooltip2:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -10, -20)
-			shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -10, 0)
+			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -3, -10)
+			shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -3, 0)
 		end
 	else
 		if point == "LEFT" then
 			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 10, -20)
+			shoppingTooltip1:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 3, -10)
 		elseif point == "RIGHT" then
 			shoppingTooltip1:ClearAllPoints()
-			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -10, -20)
+			shoppingTooltip1:SetPoint("TOPRIGHT", self.anchorFrame, "TOPLEFT", -3, -10)
 		end
 	end
 end)

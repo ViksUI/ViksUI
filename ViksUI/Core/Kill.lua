@@ -70,8 +70,6 @@ frame:SetScript("OnEvent", function()
 			SetCVar("enableFloatingCombatText", 0)
 		end
 	end
-
-	SetCVar("timeMgrUseMilitaryTime", 1) -- TODO: delete afterwhile
 end)
 
 local function AcknowledgeTips()

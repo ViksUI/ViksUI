@@ -52,23 +52,27 @@ local function LoadSkin()
 
 	AchievementFrame.HeaderDetails.TopTileStreaks:SetAlpha(0)
 	AchievementFrame.HeaderDetails.Back:SkinButton()
+	AchievementFrame.HeaderDetails.Back:SetMovePoint(-2)
 
 	T.SkinFilter(AchievementFrame.HeaderDetails.Filters.FilterDropdown, true)
-	AchievementFrame.HeaderDetails.Filters.FilterDropdown:ClearAllPoints()
-	AchievementFrame.HeaderDetails.Filters.FilterDropdown:SetPoint("TOPLEFT", AchievementFrameAchievements, "TOPLEFT", 5, 21)
 
 	local frame = CreateFrame("Frame")
 	frame:RegisterEvent("ADDON_LOADED")
 	frame:SetScript("OnEvent", function()
 		if not C_AddOns.IsAddOnLoaded("Overachiever") then return end
-		AchievementFrame.HeaderDetails.Filters.FilterDropdown:ClearAllPoints()
-		AchievementFrame.HeaderDetails.Filters.FilterDropdown:SetPoint("TOPLEFT", AchievementFrameAchievements, "TOPLEFT", -19, 24)
+		-- AchievementFrame.HeaderDetails.Filters.FilterDropdown:ClearAllPoints()
+		-- AchievementFrame.HeaderDetails.Filters.FilterDropdown:SetPoint("TOPLEFT", AchievementFrameAchievements, "TOPLEFT", -19, 24)
 	end)
 
 	T.SkinEditBox(AchievementFrame.HeaderDetails.Filters.SearchBox)
-	AchievementFrame.HeaderDetails.Filters.SearchBox:SetHeight(15)
-	AchievementFrame.HeaderDetails.Filters.SearchBox:ClearAllPoints()
-	AchievementFrame.HeaderDetails.Filters.SearchBox:SetPoint("TOPRIGHT", AchievementFrame, "TOPRIGHT", -52, 0)
+	AchievementFrame.HeaderDetails.Filters.SearchBox.backdrop:SetPoint("TOPLEFT", -2, -4)
+	AchievementFrame.HeaderDetails.Filters.SearchBox.backdrop:SetPoint("BOTTOMRIGHT", 0, 4)
+
+	hooksecurefunc(AchievementFrame.HeaderDetails.Filters.SearchBox, "SetPoint", function(self, point, x, y)
+		if x == -119 then
+			self:SetMovePoint(nil, -2)
+		end
+	end)
 
 	local preview = AchievementFrame.HeaderDetails.Filters.SearchBox.SearchPreviewContainer
 	preview:StripTextures()

@@ -1,87 +1,3 @@
---[[
-# Element: Power Bar
-
-Handles the updating of a status bar that displays the unit's power.
-
-## Widget
-
-Power - A `StatusBar` used to represent the unit's power.
-
-## Sub-Widgets
-
-.CostPrediction - A `StatusBar` used to represent the power cost of spells on top of the Power element.
-
-## Notes
-
-A default texture will be applied if the widget is a StatusBar and doesn't have a texture or a color set.
-
-## Options
-
-.frequentUpdates                  - Indicates whether to use UNIT_POWER_FREQUENT instead UNIT_POWER_UPDATE to update the
-                                    bar (boolean)
-.displayAltPower                  - Use this to let the widget display alternative power, if the unit has one.
-                                    By default, it does so only for raid and party units. If none, the display will fall
-                                    back to the primary power (boolean)
-.considerSelectionInCombatHostile - Indicates whether selection should be considered hostile while the unit is in
-                                    combat with the player (boolean)
-.smoothing                        - Which status bar smoothing method to use, defaults to `Enum.StatusBarInterpolation.Immediate` (number)
-
-The following options are listed by priority. The first check that returns true decides the color of the bar.
-
-.colorDisconnected - Use `self.colors.disconnected` to color the bar if the unit is offline (boolean)
-.colorTapping      - Use `self.colors.tapping` to color the bar if the unit isn't tapped by the player (boolean)
-.colorThreat       - Use `self.colors.threat[threat]` to color the bar based on the unit's threat status. `threat` is
-                     defined by the first return of [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation) (boolean)
-.colorPower        - Use `self.colors.power[token]` to color the bar based on the unit's power type. This method will
-                     fall-back to the alternative power colors returned by [UnitPowerType](https://warcraft.wiki.gg/wiki/API_UnitPowerType)
-                     if it can't find a color matching the token. If these aren't defined, then it will attempt to color
-                     the bar based upon `self.colors.power[type]`. In case of failure it'll default to `self.colors.power.MANA` (boolean)
-.colorPowerAtlas   - Use atlas from `self.colors.power[token]` to replace the texture whenever it's available. The previously
-                     defined texture (if any) will be restored if the color changes to one that doesn't have an atlas.
-                     Requires `.colorPower` to be enabled (boolean)
-.colorPowerSmooth  - Use color curve from `self.colors.power[token]` to color the bar with a smooth gradient based on the unit's
-                     current power percentage. Requires `.colorPower` to be enabled (boolean)
-.colorClass        - Use `self.colors.class[class]` to color the bar based on unit class. `class` is defined by the
-                     second return of [UnitClass](https://warcraft.wiki.gg/wiki/API_UnitClass) (boolean)
-.colorClassNPC     - Use `self.colors.class[class]` to color the bar if the unit is a NPC (boolean)
-.colorClassPet     - Use `self.colors.class[class]` to color the bar if the unit is player controlled, but not a player
-                     (boolean)
-.colorSelection    - Use `self.colors.selection[selection]` to color the bar based on the unit's outline/highlight
-                     color. `selection` is defined by the return value of Private.unitSelectionType, a wrapper function
-                     for [UnitSelectionType](https://warcraft.wiki.gg/wiki/API_UnitSelectionType) (boolean)
-.colorReaction     - Use `self.colors.reaction[reaction]` to color the bar based on the player's reaction towards the
-                     unit. `reaction` is defined by the return value of
-                     [UnitReaction](https://warcraft.wiki.gg/wiki/API_UnitReaction) (boolean)
-
-## Examples
-
-    -- Position and size
-    local Power = CreateFrame('StatusBar', nil, self)
-    Power:SetHeight(20)
-    Power:SetPoint('BOTTOM')
-    Power:SetPoint('LEFT')
-    Power:SetPoint('RIGHT')
-
-    -- Optionally add CostPrediction sub-widget
-    local CostPrediction = CreateFrame('StatusBar', nil, Power)
-    CostPrediction:SetReverseFill(true)
-    CostPrediction:SetPoint('TOP')
-    CostPrediction:SetPoint('BOTTOM')
-    CostPrediction:SetPoint('RIGHT', Power:GetStatusBarTexture())
-    Power.CostPrediction = CostPrediction
-
-    -- Options
-    Power.frequentUpdates = true
-    Power.colorTapping = true
-    Power.colorDisconnected = true
-    Power.colorPower = true
-    Power.colorClass = true
-    Power.colorReaction = true
-
-    -- Register it with oUF
-    self.Power = Power
---]]
-
 local _, ns = ...
 local oUF = ns.oUF
 local Private = oUF.Private
@@ -129,14 +45,16 @@ local function UpdateColor(self, event, unit)
 			local pType, pToken, altR, altG, altB = UnitPowerType(unit)
 			color = self.colors.power[pToken]
 
-			if(not color and altR) then
-				r, g, b = altR, altG, altB
-				if(r > 1 or g > 1 or b > 1) then
-					-- BUG: As of 7.0.3, altR, altG, altB may be in 0-1 or 0-255 range.
-					r, g, b = r / 255, g / 255, b / 255
+			if(not color) then
+				if(altR) then
+					r, g, b = altR, altG, altB
+					if(r > 1 or g > 1 or b > 1) then
+						-- BUG: As of 7.0.3, altR, altG, altB may be in 0-1 or 0-255 range.
+						r, g, b = r / 255, g / 255, b / 255
+					end
+				else
+					color = self.colors.power[pType] or self.colors.power.MANA
 				end
-			else
-				color = self.colors.power[pType] or self.colors.power.MANA
 			end
 		end
 

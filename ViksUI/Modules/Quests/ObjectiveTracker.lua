@@ -33,10 +33,6 @@ end)
 
 local function ReanchorObjectiveTracker()
     ObjectiveTrackerFrame:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
-
-    if ScenarioObjectiveTracker then
-        ScenarioObjectiveTracker:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
-    end
 end
 
 local reanchorFrame = CreateFrame("Frame")
@@ -597,23 +593,27 @@ for i = 1, #headers do
 		hooksecurefunc(tracker, "GetTimerBar", SkinTimer)
 		tracker.Header:SetScript("OnMouseDown", function()
 			if IsAltKeyDown() or IsShiftKeyDown() then
-				QuestObjectiveTracker:SetCollapsed(true)
-				WorldQuestObjectiveTracker:SetCollapsed(true)
-				CampaignQuestObjectiveTracker:SetCollapsed(true)
-				WorldQuestObjectiveTracker:SetCollapsed(true)
-				AchievementObjectiveTracker:SetCollapsed(true)
+				C_Timer.After(0, function()
+					QuestObjectiveTracker:SetCollapsed(true)
+					WorldQuestObjectiveTracker:SetCollapsed(true)
+					CampaignQuestObjectiveTracker:SetCollapsed(true)
+					AchievementObjectiveTracker:SetCollapsed(true)
+				end)
 			elseif IsControlKeyDown() then
-				QuestObjectiveTracker:SetCollapsed(false)
-				WorldQuestObjectiveTracker:SetCollapsed(false)
-				CampaignQuestObjectiveTracker:SetCollapsed(false)
-				WorldQuestObjectiveTracker:SetCollapsed(false)
-				AchievementObjectiveTracker:SetCollapsed(false)
+				C_Timer.After(0, function()
+					QuestObjectiveTracker:SetCollapsed(false)
+					WorldQuestObjectiveTracker:SetCollapsed(false)
+					CampaignQuestObjectiveTracker:SetCollapsed(false)
+					AchievementObjectiveTracker:SetCollapsed(false)
+				end)
 			else
-				if tracker:IsCollapsed() then
-				tracker:SetCollapsed(false);
-				else
-				tracker:SetCollapsed(true);
-				end
+				C_Timer.After(0, function()
+					if tracker:IsCollapsed() then
+						tracker:SetCollapsed(false)
+					else
+						tracker:SetCollapsed(true)
+					end
+				end)
 			end
 		end)
 		hooksecurefunc(tracker, "OnBlockHeaderClick", function(_, block) onClick(block.id)
@@ -784,11 +784,3 @@ Maw:HookScript("OnClick", function(container)
 		container.List:SetPoint("TOPRIGHT", container, "TOPLEFT", -15, 1)
 	end
 end)
-
-if ScenarioObjectiveTracker then
-    hooksecurefunc(ScenarioObjectiveTracker, "SetPoint", function(self, _, parent)
-        if parent ~= anchor then
-            self:SetPoint("TOPLEFT", anchor, "TOPLEFT", 20, 5)
-        end
-    end)
-end

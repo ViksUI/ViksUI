@@ -393,3 +393,116 @@ ItemTextScrollFrame:HookScript("OnMouseWheel", function(_, delta)
 		ItemTextPrevPageButton:Click()
 	end
 end)
+
+----------------------------------------------------------------------------------------
+--	Find cheapest BoP item in bags and destroy it
+----------------------------------------------------------------------------------------
+local function FindCheapestItem()
+	local cheapest = nil
+
+	for bag = 0, 4 do
+		for slot = 1, C_Container.GetContainerNumSlots(bag) do
+			local info = C_Container.GetContainerItemInfo(bag, slot)
+			if info and info.itemID then
+				local itemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
+				local isBound = C_Item.IsBound(itemLocation)
+				if isBound then
+					local itemName, itemLink, _, _, _, _, _, _, _, _, sellPrice = C_Item.GetItemInfo(info.itemID)
+					if sellPrice and sellPrice > 0 then
+						local totalValue = sellPrice * (info.stackCount or 1)
+
+						if not cheapest or totalValue < cheapest.totalValue then
+							cheapest = {
+								bag = bag,
+								slot = slot,
+								itemID = info.itemID,
+								itemLink = itemLink,
+								itemName = itemName,
+								totalValue = totalValue
+							}
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return cheapest
+end
+
+StaticPopupDialogs["CHEAP_DESTROY_CONFIRM"] = {
+	text = L_MISC_DESTROY_ITEM.."\n\n\n\n",
+	button1 = YES,
+	button2 = CANCEL,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+
+	OnShow = function(self, data)
+		if not data or not data.itemLink then
+			return
+		end
+
+		if not self.itemLinkText then
+			local linkText = self:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+			linkText:SetPoint("TOP", self.Text, "BOTTOM", 0, 25)
+			linkText:SetJustifyH("CENTER")
+			linkText:EnableMouse(true)
+			self.itemLinkText = linkText
+		end
+
+		self.itemLinkText:SetText(data.itemLink.."\n"..T.FormatGold(1, data.totalValue))
+
+		self.itemLinkText:SetScript("OnEnter", function(self)
+			if not data.itemLink then
+				return
+			end
+
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetHyperlink(data.itemLink)
+			GameTooltip:Show()
+		end)
+
+		self.itemLinkText:SetScript("OnLeave", GameTooltip_Hide)
+	end,
+
+	OnHide = function(self)
+		GameTooltip:Hide()
+		if self.itemLinkText then
+			self.itemLinkText:SetText("")
+		end
+	end,
+
+	OnAccept = function(self, data)
+		if not data then
+			return
+		end
+
+		local info = C_Container.GetContainerItemInfo(data.bag, data.slot)
+		if not info or info.itemID ~= data.itemID then
+			print(CDMSND_WAR3_ERROR)	-- item was moved
+			return
+		end
+
+		C_Container.PickupContainerItem(data.bag, data.slot)
+
+		if CursorHasItem() then
+			DeleteCursorItem()
+		end
+	end,
+}
+
+SlashCmdList["CHEAPDESTROY"] = function()
+	local item = FindCheapestItem()
+
+	if not item or not item.itemLink then
+		print(CDMSND_WAR3_ERROR)
+		return
+	end
+
+	local popup = StaticPopup_Show("CHEAP_DESTROY_CONFIRM", nil, nil, item)
+end
+
+SLASH_CHEAPDESTROY1 = "/di"
+SLASH_CHEAPDESTROY2 = "/??"
