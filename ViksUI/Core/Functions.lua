@@ -975,65 +975,40 @@ T.After = function(delay, func, ...)
 	C_Timer.After(delay, function() func(unpack(args)) end)
 end
 
--- New BFA DropDown Template (Original Function Credits: Aurora) ~ was modified.
-function T:HandleDropDownFrame(frame, width)
-	if not width then width = 155 end
+----------------------------------------------------------------------------------------
+--	Event functions
+----------------------------------------------------------------------------------------
+local EventFrame = CreateFrame("Frame")
+local EventHandlers = {}
 
-	local left = frame.Left
-	local middle = frame.Middle
-	local right = frame.Right
-	if left then
-		left:SetAlpha(0)
-		left:SetSize(25, 64)
-		left:SetPoint("TOPLEFT", 0, 17)
-	end
-	if middle then
-		middle:SetAlpha(0)
-		middle:SetHeight(64)
-	end
-	if right then
-		right:SetAlpha(0)
-		right:SetSize(25, 64)
-	end
+function T:RegisterEvent(event, func)
+    if not EventHandlers[event] then
+        EventHandlers[event] = {}
+        EventFrame:RegisterEvent(event)
+    end
 
-	local button = frame.Button
-	if button then
-		button:SetSize(24, 24)
-		button:ClearAllPoints()
-		button:Point("RIGHT", right, "RIGHT", -20, 0)
-
-		button.NormalTexture:SetTexture("")
-		button.PushedTexture:SetTexture("")
-		button.HighlightTexture:SetTexture("")
-
-		hooksecurefunc(button, "SetPoint", function(btn, _, _, _, _, _, noReset)
-			if not noReset then
-				btn:ClearAllPoints()
-				btn:SetPoint("RIGHT", frame, "RIGHT", T:Scale(-20), T:Scale(0), true)
-			end
-		end)
-
-		self:HandleNextPrevButton(button, true)
-	end
-
-	local disabled = button and button.DisabledTexture
-	if disabled then
-		disabled:SetAllPoints(button)
-		disabled:SetColorTexture(0, 0, 0, .3)
-		disabled:SetDrawLayer("OVERLAY")
-	end
-
-	if middle and (not frame.noResize) then
-		frame:SetWidth(40)
-		middle:SetWidth(width)
-	end
-
-	if right and frame.Text then
-		frame.Text:SetSize(0, 10)
-		frame.Text:SetPoint("RIGHT", right, -43, 2)
-	end
-	
-	frame:CreateBackdrop("Default")
-	frame.backdrop:Point("TOPLEFT", 20, -2)
-	frame.backdrop:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+    EventHandlers[event][func] = true
 end
+
+function T:UnregisterEvent(event, func)
+    local handlers = EventHandlers[event]
+
+    if not handlers then return end
+
+    handlers[func] = nil
+
+    if not next(handlers) then
+        EventHandlers[event] = nil
+        EventFrame:UnregisterEvent(event)
+    end
+end
+
+EventFrame:SetScript("OnEvent", function(_, event, ...)
+    local handlers = EventHandlers[event]
+
+    if handlers then
+        for func in pairs(handlers) do
+            func(...)
+        end
+    end
+end)

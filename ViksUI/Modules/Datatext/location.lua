@@ -48,9 +48,10 @@ local function SetupStatFrame()
     return Stat, Text
 end
 
--- Function to determine zone coloring based on PVP type
+local GetZonePVPInfo = GetZonePVPInfo or C_PvP.GetZonePVPInfo
+
 local function GetZoneColor()
-    local pvpType = GetZonePVPInfo()
+    local pvpType = GetZonePVPInfo and GetZonePVPInfo()
     if pvpType == "arena" or pvpType == "combat" or pvpType == "hostile" then
         return 0.84, 0.03, 0.03 -- Red
     elseif pvpType == "friendly" then
@@ -123,7 +124,7 @@ local function InsertLocationInChat()
     if ChatFrame1EditBox:IsShown() then -- Check if the chat edit box is open
         local subZoneText = GetMinimapZoneText() or ""
         local zoneText = _G.GetRealZoneText() or _G.UNKNOWN
-        local pvpType = GetZonePVPInfo() or "unknown"
+        local pvpType = GetZonePVPInfo and GetZonePVPInfo() or "unknown"
         local _, instanceType = IsInInstance()
         local unitMap = C_Map.GetBestMapForUnit("player")
         local x, y = GetPlayerMapPosition(unitMap)
@@ -195,7 +196,7 @@ end)
 Text:SetScript("OnEnter", function(self)
     local subZoneText = GetMinimapZoneText() or ""
     local zoneText = _G.GetRealZoneText() or _G.UNKNOWN
-    local pvpType = GetZonePVPInfo() or "unknown"
+    local pvpType = (GetZonePVPInfo and GetZonePVPInfo()) or "unknown"
     local _, instanceType = IsInInstance()
     local r, g, b = GetZoneColor()
 
@@ -221,7 +222,7 @@ Text:SetScript("OnEnter", function(self)
     GameTooltip:AddDoubleLine("PVP Type:", pvpType, 1, 1, 0, unpack(pvpColor))
 
     -- Instance Type Information
-    if instanceType and (instanceType == "raid" or "party") then
+    if instanceType and (instanceType == "raid" or instanceType == "party") then
         GameTooltip:AddDoubleLine("Instance Type:", instanceType, 1, 1, 0, 0.3, 0.7, 1)
     else
         local unitMap = C_Map.GetBestMapForUnit("player")
@@ -242,9 +243,5 @@ end)
 Text:SetScript("OnLeave", function(self)
     GameTooltip:Hide()
 end)
--- Attach tooltip handlers to the Stat frame
-Stat:SetScript("OnEnter", OnEnter)
-Stat:SetScript("OnLeave", OnLeave)
-
 -- Set the OnUpdate script for the Stat frame
 Stat:SetScript("OnUpdate", Update)
